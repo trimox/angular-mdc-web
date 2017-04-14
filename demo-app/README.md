@@ -1,12 +1,14 @@
-﻿# Demonstrations - angular-mdc-web 
+# angular-mdc-web - Demo app
 
 This folder contains a fully functional example app.
 
-* MDC examples using Angular4
+Angular4 wrapper examples for the following MDC components
  * mdc-textfield
  * mdc-button
  * mdc-fab
  * mdc-ripple
+
+Webpack v2
 
 ## Setup
 

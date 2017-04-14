@@ -1,4 +1,4 @@
 # angular-mdc-web
-Material Design Components (MDC-Web) Framework for Angular4  - https://material.io/components
+Angular Framework for Material Design Components (MDC-Web) - https://material.io/components
 
 We're just getting started..

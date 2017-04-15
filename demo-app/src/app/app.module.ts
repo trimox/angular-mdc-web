@@ -9,6 +9,7 @@ import { appRoutes } from './app.routes';
 
 import { ButtonModule } from './components/button';
 import { TextfieldModule } from './components/textfield';
+import { FabModule } from './components/fab';
 
 import { Home } from './components/home';
 
@@ -19,7 +20,8 @@ import { Home } from './components/home';
 		HttpModule,
 		RouterModule.forRoot(appRoutes),
 		ButtonModule,
-		TextfieldModule
+		TextfieldModule,
+		FabModule
 	],
 	declarations: [
 		AppComponent,

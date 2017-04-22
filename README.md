@@ -8,5 +8,5 @@ Angular4 wrapper's for the following MDC components
 * mdc-button
 * mdc-fab
 * mdc-ripple
-
+* mdc-dialog (WIP)
 * More to follow

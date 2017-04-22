@@ -1,6 +1,5 @@
 ﻿import {
 	AfterViewInit,
-	ChangeDetectionStrategy,
 	Component,
 	ElementRef,
 	EventEmitter,
@@ -16,7 +15,7 @@
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
-const {MDCTextfieldFoundation} = require('@material/textfield');
+const { MDCTextfieldFoundation } = require('@material/textfield');
 const MDC_TEXTFIELD_STYLES = require('@material/textfield/mdc-textfield.scss');
 
 export const MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR: Provider = {
@@ -35,8 +34,8 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
 	providers: [MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR]
 })
 export class TextfieldComponent implements AfterViewInit, OnDestroy {
-	private value_: any;
 	@Input() type: string = 'text';
+	@Input() value: string;
 	@Input() disabled: 'disabled';
 	@Input() required: 'required';
 	@Input() id: string;
@@ -64,40 +63,29 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
 
 	// value accessor stuff
 	onTouched: () => any = () => { };
-	onChangeCallback: (_: any) => void = (_?: any) => { };
-
-	get value(): any { return this.value_; };
-	@Input() set value(v: any) {
-		this.value_ = this.type === 'number' ? (v === '' ? null : parseFloat(v)) : v;
-		this.onChangeCallback(this.value);
-	}
 
 	private _controlValueAccessorChangeFn: (value: any) => void = (value) => { };
 	private _unlisteners: Map<string, UnlistenerMap> = new Map<string, UnlistenerMap>();
 
 	private _mdcAdapter: MDCTextfieldAdapter = {
 		addClass: (className: string) => {
-			const {_renderer: renderer, _root: root} = this;
+			const { _renderer: renderer, _root: root } = this;
 			renderer.addClass(root.nativeElement, className);
 		},
 		removeClass: (className: string) => {
-			const {_renderer: renderer, _root: root} = this;
+			const { _renderer: renderer, _root: root } = this;
 			renderer.removeClass(root.nativeElement, className);
 		},
 		addClassToLabel: (className: string) => {
-			const {_renderer: renderer, _root: root} = this;
-			if (this.label) {
-				renderer.addClass(root.nativeElement.lastChild, className);
-			}
+			const { _renderer: renderer, _root: root } = this;
+			renderer.addClass(root.nativeElement.lastChild, className);
 		},
 		removeClassFromLabel: (className: string) => {
-			const {_renderer: renderer, _root: root} = this;
-			if (this.label) {
-				renderer.removeClass(root.nativeElement.lastChild, className);
-			}
+			const { _renderer: renderer, _root: root } = this;
+			renderer.removeClass(root.nativeElement.lastChild, className);
 		},
 		addClassToHelptext: (className: string) => {
-			const {_renderer: renderer, _root: root} = this;
+			const { _renderer: renderer, _root: root } = this;
 			if (root.nativeElement.attributes.getNamedItem('aria-controls')) {
 				if (root.nativeElement.nextElementSibling) {
 					renderer.addClass(root.nativeElement.nextElementSibling, className);
@@ -105,7 +93,7 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
 			}
 		},
 		removeClassFromHelptext: (className: string) => {
-			const {_renderer: renderer, _root: root} = this;
+			const { _renderer: renderer, _root: root } = this;
 			if (root.nativeElement.attributes.getNamedItem('aria-controls')) {
 				renderer.removeClass(root.nativeElement.nextElementSibling, className);
 			}
@@ -143,19 +131,19 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
 			this.unlisten_('keydown', handler);
 		},
 		setHelptextAttr: (name: string, value: string) => {
-			const {_renderer: renderer, _root: root} = this;
+			const { _renderer: renderer, _root: root } = this;
 			if (root.nativeElement.attributes.getNamedItem('aria-controls')) {
 				root.nativeElement.nextElementSibling ? renderer.setAttribute(root.nativeElement.nextElementSibling, name, value) : null;
 			}
 		},
 		removeHelptextAttr: (name: string) => {
-			const {_renderer: renderer, _root: root} = this;
+			const { _renderer: renderer, _root: root } = this;
 			if (root.nativeElement.attributes.getNamedItem('aria-controls')) {
 				return root.nativeElement.nextElementSibling ? renderer.removeAttribute(root.nativeElement.nextElementSibling, name) : null;
 			}
 		},
 		helptextHasClass: (className: string) => {
-			const {_renderer: renderer, _root: root} = this;
+			const { _renderer: renderer, _root: root } = this;
 			if (root.nativeElement.attributes.getNamedItem('aria-controls')) {
 				return root.nativeElement.nextElementSibling ? root.nativeElement.nextElementSibling.classList.contains(className) : false;
 			}
@@ -206,7 +194,10 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
 	// ControlValueAccessor for ngModel.
 
 	writeValue(value: string) {
-		this.value_ = value;
+		if (value) {
+			this.value = value;
+			this._mdcAdapter.addClassToLabel(MDCTextfieldFoundation.cssClasses.LABEL_FLOAT_ABOVE);
+		}
 	}
 
 	registerOnChange(fn: (value: any) => void) {

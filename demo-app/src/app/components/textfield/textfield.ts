@@ -34,11 +34,11 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
 	providers: [MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR]
 })
 export class TextfieldComponent implements AfterViewInit, OnDestroy {
+	@Input() id: string;
 	@Input() type: string = 'text';
 	@Input() value: string;
 	@Input() disabled: 'disabled';
 	@Input() required: 'required';
-	@Input() id: string;
 	@Input() labelId: string;
 	@Input() label: string;
 	@Input() placeholder: string;
@@ -78,11 +78,15 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
 		},
 		addClassToLabel: (className: string) => {
 			const { _renderer: renderer, _root: root } = this;
-			renderer.addClass(root.nativeElement.lastChild, className);
+			if (this.label) {
+				renderer.addClass(root.nativeElement.lastChild, className);
+			}
 		},
 		removeClassFromLabel: (className: string) => {
 			const { _renderer: renderer, _root: root } = this;
-			renderer.removeClass(root.nativeElement.lastChild, className);
+			if (this.label) {
+				renderer.removeClass(root.nativeElement.lastChild, className);
+			}
 		},
 		addClassToHelptext: (className: string) => {
 			const { _renderer: renderer, _root: root } = this;
@@ -196,7 +200,9 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
 	writeValue(value: string) {
 		if (value) {
 			this.value = value;
-			this._mdcAdapter.addClassToLabel(MDCTextfieldFoundation.cssClasses.LABEL_FLOAT_ABOVE);
+			if (!this.fullwidth) {
+				this._mdcAdapter.addClassToLabel(MDCTextfieldFoundation.cssClasses.LABEL_FLOAT_ABOVE);
+			}
 		}
 	}
 

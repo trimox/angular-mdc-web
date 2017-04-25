@@ -32,17 +32,17 @@ export class Ripple {
 				renderer.removeClass(root.nativeElement, className);
 			},
 			registerInteractionHandler: (evtType: string, handler: EventListener) => {
-        if (this._root) {
+				if(this._root) {
 					this._root.nativeElement.addEventListener(evtType, handler);
 				}
 			},
 			deregisterInteractionHandler: (evtType: string, handler: EventListener) => {
-        if (this._root) {
+				if(this._root) {
 					this._root.nativeElement.removeEventListener(evtType, handler);
-        }
+				}
 			},
 			updateCssVariable: (varName: string, value: string) => {
-        if (this._root) {
+				if(this._root) {
 					this._root.nativeElement.style.setProperty(varName, value);
 				}
 			},

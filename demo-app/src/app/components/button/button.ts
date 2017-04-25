@@ -20,7 +20,7 @@ const MDC_BUTTON_STYLES = require('@material/button/mdc-button.scss');
 	encapsulation: ViewEncapsulation.None
 })
 export class ButtonComponent implements AfterViewInit, OnDestroy {
-	@Input() raised: boolean = false;
+	@Input() raised: boolean = false; /* usage [raised]="true" */
 	@Input() primary: boolean = false;
 	@Input() dense: boolean = false;
 	@Input() compact: boolean = false;

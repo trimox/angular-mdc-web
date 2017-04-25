@@ -3,10 +3,10 @@ Angular Framework for Material Design Components (MDC-Web) - https://material.io
 
 We're just getting started..
 
-Angular4 wrapper's for the following MDC components
+### MDC wrappers
+* mdc-dialog (WIP)
+* mdc-snackbar (WIP)
 * mdc-textfield
 * mdc-button
 * mdc-fab
 * mdc-ripple
-
-* More to follow

@@ -5,8 +5,8 @@ We're just getting started..
 
 ### MDC wrappers
 * mdc-dialog (WIP)
-* mdc-snackbar (WIP)
-* mdc-textfield
-* mdc-button
-* mdc-fab
-* mdc-ripple
+* mdc-snackbar - completed
+* mdc-textfield - completed
+* mdc-button - completed
+* mdc-fab - completed
+* mdc-ripple - completed

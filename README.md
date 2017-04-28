@@ -1,9 +1,13 @@
 # angular-mdc-web
 Angular Framework for Material Design Components (MDC-Web) - https://material.io/components
 
-We're just getting started..
+We're just getting started.
 
-### MDC wrappers
+### Upcoming
+ * Redesigned demo app
+ * More MDC adapters
+
+### MDC adapters (WIP and Completed)
 * mdc-dialog (WIP)
 * mdc-snackbar - completed
 * mdc-textfield - completed

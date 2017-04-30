@@ -5,12 +5,29 @@ We're just getting started.
 
 ### Upcoming
  * Redesigned demo app
- * More MDC adapters
+ * New MDC adapters
 
-### MDC adapters (WIP and Completed)
-* mdc-dialog (WIP)
+### MDC adapters
 * mdc-snackbar - completed
 * mdc-textfield - completed
 * mdc-button - completed
 * mdc-fab - completed
 * mdc-ripple - completed
+* mdc-dialog (WIP)
+
+# Demo app
+
+The `demo-app` folder contains a fully functional example app.
+
+Angular examples for the following MDC components
+ * mdc-textfield
+ * mdc-button
+ * mdc-fab
+ * mdc-ripple
+ * mdc-snackbar (demo coming soon)
+
+## Setup
+
+1. Run `npm install` within this folder
+2. Run `npm start` to start the demo server
+3. Navigate to http://localhost:4000 to view the demo.

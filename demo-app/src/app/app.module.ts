@@ -7,9 +7,9 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { appRoutes } from './app.routes';
 
-import { ButtonModule } from './components/button';
-import { TextfieldModule } from './components/textfield';
-import { FabModule } from './components/fab';
+import { ButtonModule } from '../../../src/components/button';
+import { TextfieldModule } from '../../../src/components/textfield';
+import { FabModule } from '../../../src/components/fab';
 
 import { Home } from './components/home';
 

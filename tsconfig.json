@@ -1,21 +1,23 @@
 ﻿{
   "compilerOptions": {
-    "module": "commonjs",
     "target": "es6",
-    "outDir": "dist",
+    "module": "commonjs",
+    "outDir": "publish",
+    "declaration": false,
     "rootDir": ".",
+    "removeComments": true,
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "typeRoots": [ "node_modules/@types" ]
+    "typeRoots": [
+      "./node_modules/@types"
+    ]
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "publish"
   ],
   "compileOnSave": false,
-  "buildOnSave": false,
-  "atom": {
-    "rewriteTsconfig": false
-  }
+  "buildOnSave": false
 }

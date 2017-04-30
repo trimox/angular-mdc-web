@@ -28,6 +28,6 @@ Angular examples for the following MDC components
 
 ## Setup
 
-1. Run `npm install` within this folder
+1. Run `npm install` within the angular-mdc-web folder
 2. Run `npm start` to start the demo server
 3. Navigate to http://localhost:4000 to view the demo.

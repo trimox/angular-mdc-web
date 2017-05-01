@@ -10,6 +10,7 @@ import { appRoutes } from './app.routes';
 import { ButtonModule } from '../../../src/components/button';
 import { TextfieldModule } from '../../../src/components/textfield';
 import { FabModule } from '../../../src/components/fab';
+import { SnackbarModule } from '../../../src/components/snackbar';
 
 import { Home } from './components/home';
 
@@ -21,7 +22,8 @@ import { Home } from './components/home';
 		RouterModule.forRoot(appRoutes),
 		ButtonModule,
 		TextfieldModule,
-		FabModule
+		FabModule,
+		SnackbarModule
 	],
 	declarations: [
 		AppComponent,

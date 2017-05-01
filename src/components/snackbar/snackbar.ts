@@ -8,7 +8,7 @@ import {
 	ViewEncapsulation
 } from '@angular/core';
 
-const { MDCSnackbar, MDCSnackbarFoundation } = require('@material/snackbar');
+const { MDCSnackbarFoundation } = require('@material/snackbar');
 const { getCorrectEventName } = require('@material/animation');
 const MDC_SNACKBAR_STYLES = require('@material/snackbar/mdc-snackbar.scss');
 

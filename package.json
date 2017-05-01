@@ -30,6 +30,7 @@
     "@material/ripple": "0.5.1",
     "@material/fab": "0.3.5",
     "@material/theme": "0.1.4",
+    "@material/snackbar": "0.1.9",
     "core-js": "^2.4.1",
     "rxjs": "^5.3.0",
     "zone.js": "0.8.9"

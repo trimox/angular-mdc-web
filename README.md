@@ -13,7 +13,8 @@ We're just getting started.
 * mdc-button - completed
 * mdc-fab - completed
 * mdc-ripple - completed
-* mdc-dialog (WIP)
+* mdc-menu - WIP
+* mdc-dialog - WIP
 
 # Demo app
 

@@ -44,11 +44,11 @@ export class SnackbarComponent implements AfterViewInit, OnDestroy {
 		},
 		setAriaHidden: () => {
 			const { _renderer: renderer, _root: root } = this;
-			root.nativeElement.setAttribute('aria-hidden', 'true');
+			renderer.setAttribute(root.nativeElement, 'aria-hidden', 'true');
 		},
 		unsetAriaHidden: () => {
 			const { _renderer: renderer, _root: root } = this;
-			root.nativeElement.removeAttribute('aria-hidden');
+			renderer.removeAttribute(root.nativeElement, 'aria-hidden');
 		},
 		setMessageText: (message: string) => {
 			this.message = message;
@@ -86,13 +86,11 @@ export class SnackbarComponent implements AfterViewInit, OnDestroy {
 		}
 	};
 
-	// Instantiate foundation with adapter.
 	private _foundation: { init: Function, destroy: Function, show: Function } =
 	new MDCSnackbarFoundation(this._mdcAdapter);
 
 	constructor(private _renderer: Renderer2, private _root: ElementRef) { }
 
-	// Lifecycle methods to initialize and destroy the foundation.
 	ngAfterViewInit() {
 		this._foundation.init();
 	}

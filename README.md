@@ -13,7 +13,7 @@ We're just getting started.
 * mdc-button - completed
 * mdc-fab - completed
 * mdc-ripple - completed
-* mdc-menu - WIP
+* mdc-menu - completed
 * mdc-dialog - WIP
 
 # Demo app
@@ -26,6 +26,7 @@ Angular examples for the following MDC components
  * mdc-fab
  * mdc-ripple
  * mdc-snackbar
+ * mdc-menu
 
 ## Setup
 

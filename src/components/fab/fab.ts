@@ -21,8 +21,8 @@ const MDC_FAB_STYLES = require('@material/fab/mdc-fab.scss');
 	encapsulation: ViewEncapsulation.None
 })
 export class FabComponent implements AfterViewInit, OnDestroy {
-	@Input() mini: boolean = false;
-	@Input() plain: boolean = false;
+	@Input() mini: boolean;
+	@Input() plain: boolean;
 	@HostBinding('class') className: string = 'mdc-fab';
 	@HostBinding('class.material-icons') classMaterialIcons: string = 'material-icons';
 	@HostBinding('class.mdc-fab--mini') get classMini(): string {
@@ -31,6 +31,7 @@ export class FabComponent implements AfterViewInit, OnDestroy {
 	@HostBinding('class.mdc-fab--plain') get classPlain(): string {
 		return this.plain ? 'mdc-fab--plain' : '';
 	}
+	@HostBinding('tabindex') tabindex: number = 0;
 
 	private _ripple: any;
 

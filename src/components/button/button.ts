@@ -20,11 +20,11 @@ const MDC_BUTTON_STYLES = require('@material/button/mdc-button.scss');
 	encapsulation: ViewEncapsulation.None
 })
 export class ButtonComponent implements AfterViewInit, OnDestroy {
-	@Input() raised: boolean = false; /* usage [raised]="true" */
-	@Input() primary: boolean = false;
-	@Input() dense: boolean = false;
-	@Input() compact: boolean = false;
-	@Input() accent: boolean = false;
+	@Input() raised: boolean;
+	@Input() primary: boolean;
+	@Input() dense: boolean;
+	@Input() compact: boolean;
+	@Input() accent: boolean;
 	@HostBinding('class') className: string = 'mdc-button';
 	@HostBinding('class.mdc-button--raised') get classRaised(): string {
 		return this.raised ? 'mdc-button--raised' : '';
@@ -41,8 +41,9 @@ export class ButtonComponent implements AfterViewInit, OnDestroy {
 	@HostBinding('class.mdc-button--compact') get classCompact(): string {
 		return this.compact ? 'mdc-button--compact' : '';
 	}
+	@HostBinding('tabindex') tabindex: number = 0;
 
-	private _ripple: any;
+	private _ripple: Ripple;
 
 	constructor(private _renderer: Renderer2, private _root: ElementRef) { }
 

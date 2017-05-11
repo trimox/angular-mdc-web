@@ -33,7 +33,7 @@ export class FabComponent implements AfterViewInit, OnDestroy {
 	}
 	@HostBinding('tabindex') tabindex: number = 0;
 
-	private _ripple: any;
+	private _ripple: Ripple;
 
 	constructor(private _renderer: Renderer2, private _root: ElementRef) { }
 

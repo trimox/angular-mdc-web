@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
-    "outDir": "publish",
+    "outDir": "dist",
     "declaration": false,
     "rootDir": ".",
     "removeComments": true,
@@ -16,7 +16,7 @@
   },
   "exclude": [
     "node_modules",
-    "publish"
+    "dist"
   ],
   "compileOnSave": false,
   "buildOnSave": false

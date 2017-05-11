@@ -54,7 +54,6 @@ export class ButtonComponent implements AfterViewInit, OnDestroy {
 		this._root.nativeElement.addEventListener('keyup', evt => this.handleKeyboardUp_(evt));
 	}
 	ngOnDestroy() {
-		console.log('destroyed')
 		this._root.nativeElement.removeEventListener('keydown', evt => this.handleKeyboardDown_(evt));
 		this._root.nativeElement.removeEventListener('keyup', evt => this.handleKeyboardUp_(evt));
 	}

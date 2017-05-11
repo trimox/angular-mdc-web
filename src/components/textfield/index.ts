@@ -6,13 +6,13 @@ import { TextfieldComponent } from './textfield';
 import { TextfieldHelptextDirective } from './textfield-helptext';
 
 const TEXTFIELD_COMPONENTS = [
-	TextfieldComponent,
-	TextfieldHelptextDirective
+  TextfieldComponent,
+  TextfieldHelptextDirective
 ];
 
 @NgModule({
-	imports: [FormsModule, CommonModule],
-	exports: [TEXTFIELD_COMPONENTS],
-	declarations: [TEXTFIELD_COMPONENTS],
+  imports: [FormsModule, CommonModule],
+  exports: [TEXTFIELD_COMPONENTS],
+  declarations: [TEXTFIELD_COMPONENTS],
 })
 export class TextfieldModule { }

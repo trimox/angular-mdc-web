@@ -1,8 +1,8 @@
 ﻿import {
-	Directive,
-	ElementRef,
-	OnDestroy,
-	Renderer2
+  Directive,
+  ElementRef,
+  OnDestroy,
+  Renderer2
 } from '@angular/core';
 
 import '@material/ripple/mdc-ripple.scss';
@@ -13,97 +13,97 @@ const { MDCRippleFoundation } = require('@material/ripple');
 type UnlistenerMap = WeakMap<EventListener, Function>;
 
 @Directive({
-	selector: '[mdc-ripple]'
+  selector: '[mdc-ripple]'
 })
 export class Ripple implements OnDestroy {
-	unbounded: boolean;
-	active: boolean;
+  unbounded: boolean;
+  active: boolean;
 
-	private _unlisteners: Map<string, UnlistenerMap> = new Map<string, UnlistenerMap>();
+  private _unlisteners: Map<string, UnlistenerMap> = new Map<string, UnlistenerMap>();
 
-	private _mdcAdapter: MDCRippleAdapter = {
-		browserSupportsCssVars: () => supportsCssVariables(window),
-		isUnbounded: () => this.unbounded,
-		isSurfaceActive: () => this.active,
-		isSurfaceDisabled: () => {
-			const { _renderer: renderer, _root: root } = this;
-			return root.nativeElement.attributes.getNamedItem('disabled') ? true : false;
-		},
-		addClass: (className: string) => {
-			const { _renderer: renderer, _root: root } = this;
-			renderer.addClass(root.nativeElement, className);
-		},
-		removeClass: (className: string) => {
-			const { _renderer: renderer, _root: root } = this;
-			renderer.removeClass(root.nativeElement, className);
-		},
-		registerInteractionHandler: (evtType: string, handler: EventListener) => {
-			if (this._root) {
-				this.listen_(evtType, handler);
-			}
-		},
-		deregisterInteractionHandler: (evtType: string, handler: EventListener) => {
-			this.unlisten_(evtType, handler);
-		},
-		registerResizeHandler: (handler: EventListener) => {
-			if (this._root) {
-				this.listen_('resize', handler);
-			}
-		},
-		deregisterResizeHandler: (handler: EventListener) => {
-			this.unlisten_('resize', handler);
-		},
-		updateCssVariable: (varName: string, value: string) => {
-			if (this._root) {
-				this._root.nativeElement.style.setProperty(varName, value);
-			}
-		},
-		computeBoundingRect: () => {
-			const { left, top, height, width } = this._root.nativeElement.getBoundingClientRect();
-			return {
-				top,
-				left,
-				right: left,
-				bottom: top,
-				width: width,
-				height: height,
-			};
-		},
-		getWindowPageOffset: () => {
-			return {
-				x: window.pageXOffset,
-				y: window.pageYOffset
-			};
-		}
-	}
+  private _mdcAdapter: MDCRippleAdapter = {
+    browserSupportsCssVars: () => supportsCssVariables(window),
+    isUnbounded: () => this.unbounded,
+    isSurfaceActive: () => this.active,
+    isSurfaceDisabled: () => {
+      const { _renderer: renderer, _root: root } = this;
+      return root.nativeElement.attributes.getNamedItem('disabled') ? true : false;
+    },
+    addClass: (className: string) => {
+      const { _renderer: renderer, _root: root } = this;
+      renderer.addClass(root.nativeElement, className);
+    },
+    removeClass: (className: string) => {
+      const { _renderer: renderer, _root: root } = this;
+      renderer.removeClass(root.nativeElement, className);
+    },
+    registerInteractionHandler: (evtType: string, handler: EventListener) => {
+      if (this._root) {
+        this.listen_(evtType, handler);
+      }
+    },
+    deregisterInteractionHandler: (evtType: string, handler: EventListener) => {
+      this.unlisten_(evtType, handler);
+    },
+    registerResizeHandler: (handler: EventListener) => {
+      if (this._root) {
+        this.listen_('resize', handler);
+      }
+    },
+    deregisterResizeHandler: (handler: EventListener) => {
+      this.unlisten_('resize', handler);
+    },
+    updateCssVariable: (varName: string, value: string) => {
+      if (this._root) {
+        this._root.nativeElement.style.setProperty(varName, value);
+      }
+    },
+    computeBoundingRect: () => {
+      const { left, top, height, width } = this._root.nativeElement.getBoundingClientRect();
+      return {
+        top,
+        left,
+        right: left,
+        bottom: top,
+        width: width,
+        height: height,
+      };
+    },
+    getWindowPageOffset: () => {
+      return {
+        x: window.pageXOffset,
+        y: window.pageYOffset
+      };
+    }
+  }
 
-	private _foundation: { init: Function, destroy: Function } = new MDCRippleFoundation(this._mdcAdapter);
+  private _foundation: { init: Function, destroy: Function } = new MDCRippleFoundation(this._mdcAdapter);
 
-	constructor(private _renderer: Renderer2, private _root: ElementRef) {
-		this._foundation.init();
-	}
+  constructor(private _renderer: Renderer2, private _root: ElementRef) {
+    this._foundation.init();
+  }
 
-	ngOnDestroy() {
-		this._foundation.destroy();
-	}
+  ngOnDestroy() {
+    this._foundation.destroy();
+  }
 
-	listen_(type: string, listener: EventListener, ref: ElementRef = this._root) {
-		if (!this._unlisteners.has(type)) {
-			this._unlisteners.set(type, new WeakMap<EventListener, Function>());
-		}
-		const unlistener = this._renderer.listen(ref.nativeElement, type, listener);
-		this._unlisteners.get(type).set(listener, unlistener);
-	}
+  listen_(type: string, listener: EventListener, ref: ElementRef = this._root) {
+    if (!this._unlisteners.has(type)) {
+      this._unlisteners.set(type, new WeakMap<EventListener, Function>());
+    }
+    const unlistener = this._renderer.listen(ref.nativeElement, type, listener);
+    this._unlisteners.get(type).set(listener, unlistener);
+  }
 
-	unlisten_(type: string, listener: EventListener) {
-		if (!this._unlisteners.has(type)) {
-			return;
-		}
-		const unlisteners = this._unlisteners.get(type);
-		if (!unlisteners.has(listener)) {
-			return;
-		}
-		unlisteners.get(listener)();
-		unlisteners.delete(listener);
-	}
+  unlisten_(type: string, listener: EventListener) {
+    if (!this._unlisteners.has(type)) {
+      return;
+    }
+    const unlisteners = this._unlisteners.get(type);
+    if (!unlisteners.has(listener)) {
+      return;
+    }
+    unlisteners.get(listener)();
+    unlisteners.delete(listener);
+  }
 }

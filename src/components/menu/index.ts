@@ -5,13 +5,13 @@ import { MenuComponent } from './menu';
 import { MenuItemDirective } from './menu-item';
 
 const MENU_COMPONENTS = [
-	MenuComponent,
-	MenuItemDirective
+  MenuComponent,
+  MenuItemDirective
 ];
 
 @NgModule({
-	imports: [CommonModule],
-	exports: [MENU_COMPONENTS],
-	declarations: [MENU_COMPONENTS],
+  imports: [CommonModule],
+  exports: [MENU_COMPONENTS],
+  declarations: [MENU_COMPONENTS],
 })
 export class MenuModule { }

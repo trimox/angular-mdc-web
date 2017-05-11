@@ -17,22 +17,22 @@ import { RippleModule } from '../../../src/components/ripple';
 import { Home } from './components/home';
 
 @NgModule({
-	imports: [
-		BrowserModule,
-		FormsModule,
-		HttpModule,
-		RouterModule.forRoot(appRoutes),
-		RippleModule,
-		ButtonModule,
-		TextfieldModule,
-		FabModule,
-		SnackbarModule,
-		MenuModule
-	],
-	declarations: [
-		AppComponent,
-		Home
-	],
-	bootstrap: [AppComponent]
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    RouterModule.forRoot(appRoutes),
+    RippleModule,
+    ButtonModule,
+    TextfieldModule,
+    FabModule,
+    SnackbarModule,
+    MenuModule
+  ],
+  declarations: [
+    AppComponent,
+    Home
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

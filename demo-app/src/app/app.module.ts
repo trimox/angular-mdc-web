@@ -11,6 +11,7 @@ import { ButtonModule } from '../../../src/components/button';
 import { TextfieldModule } from '../../../src/components/textfield';
 import { FabModule } from '../../../src/components/fab';
 import { SnackbarModule } from '../../../src/components/snackbar';
+import { MenuModule } from '../../../src/components/menu';
 
 import { Home } from './components/home';
 
@@ -23,7 +24,8 @@ import { Home } from './components/home';
 		ButtonModule,
 		TextfieldModule,
 		FabModule,
-		SnackbarModule
+		SnackbarModule,
+		MenuModule
 	],
 	declarations: [
 		AppComponent,

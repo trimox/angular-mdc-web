@@ -50,21 +50,24 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
 			renderer.removeClass(root.nativeElement, className);
 		},
 		hasClass: (className: string) => {
-			const { _renderer: renderer, _root: root } = this;
+			const { _root: root } = this;
 			return root.nativeElement.classList.contains(className);
 		},
 		hasNecessaryDom: () => Boolean(this.itemsContainerEl),
 		getInnerDimensions: () => {
+			const { _root: root } = this;
 			return {
-				width: this._root.nativeElement.offsetWidth,
-				height: this._root.nativeElement.offsetHeight
+				width: root.nativeElement.offsetWidth,
+				height: root.nativeElement.offsetHeight
 			};
 		},
 		hasAnchor: () => {
-			return this._root.nativeElement.parentElement && this._root.nativeElement.parentElement.classList.contains('mdc-menu-anchor');
+			const { _renderer: renderer, _root: root } = this;
+			return renderer.parentNode(root.nativeElement) && renderer.parentNode(root.nativeElement).classList.contains('mdc-menu-anchor');
 		},
 		getAnchorDimensions: () => {
-			return this._root.nativeElement.parentElement.getBoundingClientRect();
+			const { _renderer: renderer, _root: root } = this;
+			return renderer.parentNode(root.nativeElement).getBoundingClientRect();
 		},
 		getWindowDimensions: () => {
 			return {
@@ -74,7 +77,7 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
 		},
 		setScale: (x: number, y: number) => {
 			const { _renderer: renderer, _root: root } = this;
-			renderer.setStyle(this._root.nativeElement, getTransformPropertyName(window), `scale(${x}, ${y})`);
+			renderer.setStyle(root.nativeElement, getTransformPropertyName(window), `scale(${x}, ${y})`);
 		},
 		setInnerScale: (x: number, y: number) => {
 			if (this.itemsContainerEl) {
@@ -124,24 +127,24 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
 		saveFocus: () => { }, /* TODO */
 		restoreFocus: () => { }, /* TODO */
 		isFocused: () => {
-			const { _renderer: renderer, _root: root } = this;
+			const { _root: root } = this;
 			return root.nativeElement.ownerDocument.activeElement === root.nativeElement;
 		},
 		focus: () => {
 			this._root.nativeElement.focus();
 		},
 		getFocusedItemIndex: () => {
-			const { _renderer: renderer, _root: root } = this;
+			const { _root: root } = this;
 			return this.menuItems.length ? this.menuItems.toArray().findIndex(_ =>
 				_.root.nativeElement === root.nativeElement.ownerDocument.activeElement) : -1;
 		},
 		focusItemAtIndex: (index: number) => {
-			const { _renderer: renderer, _root: root } = this;
+			const { _root: root } = this;
 			if (this.menuItems.toArray()[index] !== undefined) {
 				this.menuItems.toArray()[index].root.nativeElement.focus();
 			} else {
 				// set focus back to root element when index is undefined
-				this._root.nativeElement.focus();
+				root.nativeElement.focus();
 			}
 		},
 		isRtl: () => { /* TODO */
@@ -149,14 +152,14 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
 		},
 		setTransformOrigin: (origin: string) => {
 			const { _renderer: renderer, _root: root } = this;
-			renderer.setStyle(this._root.nativeElement, `${getTransformPropertyName(window)}-origin`, origin);
+			renderer.setStyle(root.nativeElement, `${getTransformPropertyName(window)}-origin`, origin);
 		},
 		setPosition: (position) => {
 			const { _renderer: renderer, _root: root } = this;
-			position.left ? renderer.setStyle(this._root.nativeElement, 'left', 0) : renderer.removeStyle(root.nativeElement, 'left');
-			position.right ? renderer.setStyle(this._root.nativeElement, 'right', 0) : renderer.removeStyle(root.nativeElement, 'right');
-			position.top ? renderer.setStyle(this._root.nativeElement, 'top', 0) : renderer.removeStyle(root.nativeElement, 'top');
-			position.bottom ? renderer.setStyle(this._root.nativeElement, 'bottom', 0) : renderer.removeStyle(root.nativeElement, 'bottom');
+			position.left ? renderer.setStyle(root.nativeElement, 'left', 0) : renderer.removeStyle(root.nativeElement, 'left');
+			position.right ? renderer.setStyle(root.nativeElement, 'right', 0) : renderer.removeStyle(root.nativeElement, 'right');
+			position.top ? renderer.setStyle(root.nativeElement, 'top', 0) : renderer.removeStyle(root.nativeElement, 'top');
+			position.bottom ? renderer.setStyle(root.nativeElement, 'bottom', 0) : renderer.removeStyle(root.nativeElement, 'bottom');
 		},
 		getAccurateTime: () => {
 			return window.performance.now();
@@ -164,8 +167,11 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
 	}
 
 	private _foundation: {
-		init: Function, destroy: Function,
-		open: Function, close: Function, isOpen: Function
+		init: Function,
+		destroy: Function,
+		open: Function,
+		close: Function,
+		isOpen: Function
 	} = new MDCSimpleMenuFoundation(this._mdcAdapter);
 
 	constructor(private _renderer: Renderer2, private _root: ElementRef) { }

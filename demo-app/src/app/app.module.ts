@@ -12,6 +12,7 @@ import { TextfieldModule } from '../../../src/components/textfield';
 import { FabModule } from '../../../src/components/fab';
 import { SnackbarModule } from '../../../src/components/snackbar';
 import { MenuModule } from '../../../src/components/menu';
+import { RippleModule } from '../../../src/components/ripple';
 
 import { Home } from './components/home';
 
@@ -21,6 +22,7 @@ import { Home } from './components/home';
 		FormsModule,
 		HttpModule,
 		RouterModule.forRoot(appRoutes),
+		RippleModule,
 		ButtonModule,
 		TextfieldModule,
 		FabModule,

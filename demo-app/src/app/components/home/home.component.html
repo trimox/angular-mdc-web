@@ -28,19 +28,28 @@
   <mdc-button [primary]="true" [raised]="true" (click)="showSnack(false);">Simple</mdc-button>
   <mdc-button [primary]="true" [raised]="true" (click)="showSnack(true);">Multiline</mdc-button>
   <mdc-button [primary]="true" [raised]="true" (click)="showSnack(true, true);">Multiline and Action on Bottom</mdc-button>
-  <mdc-snackbar #snackdemo id="snack-demo"></mdc-snackbar>
+  <mdc-snackbar #snack id="snack-demo"></mdc-snackbar>
+</fieldset>
+<fieldset>
+  <legend>MDC Menu</legend>
+  <div class="mdc-menu-anchor">
+    <mdc-fab aria-label="Profile" (click)="showMenu();">
+      <span mdc-fab-icon>person</span>
+    </mdc-fab>
+    <mdc-menu #menu (cancel)="handleMenuCancel();" (select)="handleMenuSelect($event);" [items]="menuItems"></mdc-menu>
+  </div>
+  <p>Selected index : {{selectedIndex}}</p>
+  <mdc-textfield [(ngModel)]="focusedItemIndex" label="Set focus to item index" type="number"></mdc-textfield>
 </fieldset>
 <fieldset>
   <legend>MDC Textfield</legend>
-  <mdc-textfield [(ngModel)]="username" id="username" label="Username" required aria-controls="help-username-val"
-                 (focus)="handleFocus($event);" (blur)="handleBlur($event);" (input)="handleInput($event);" (keydown)="handleKeyDown($event);">
+  <mdc-textfield [(ngModel)]="username" id="username" label="Username" required aria-controls="help-username-val" (focus)="handleFocus($event);" (blur)="handleBlur($event);" (input)="handleInput($event);" (keydown)="handleKeyDown($event);">
   </mdc-textfield>
   <p mdc-textfield-helptext id="help-username-val" [validation]="true" [persistent]="false">Username is required</p>
   <p>Username ngModel : {{username ? username : 'empty'}}</p>
   <p>Focused : {{inputHasFocus}}</p>
   <p>Keydown event count : {{inputKeysPressed}}</p>
   <p>Input event count : {{inputCount}}</p>
-
   <fieldset>
     <legend>Multi-line Example</legend>
     <mdc-textfield [(ngModel)]="comments" id="comments" label="Comments" rows="8" cols="40" [multiline]="true">

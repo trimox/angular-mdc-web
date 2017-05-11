@@ -5,6 +5,9 @@
 	templateUrl: './home.component.html'
 })
 export class Home {
+	@ViewChild('snack') snack;
+	@ViewChild('menu') menu;
+
 	username = null;
 	password = null;
 	comments = null;
@@ -14,7 +17,22 @@ export class Home {
 	inputHasFocus = false;
 	inputKeysPressed = 0;
 	inputCount = 0;
-	@ViewChild('snackdemo') snack;
+	selectedIndex = -1;
+	focusedItemIndex = null;
+	menuItems = [
+		{
+			id: 1,
+			label: 'Security settings'
+		},
+		{
+			id: 2,
+			label: 'Review account activity'
+		},
+		{
+			id: 3,
+			label: 'Logoff'
+		},
+	]
 
 	handleFocus($event) {
 		this.inputHasFocus = true;
@@ -40,5 +58,15 @@ export class Home {
 			actionHandler: () => { console.log('Action button pressed!') }
 		}
 		this.snack.show(data);
+	}
+	showMenu() {
+		this.menu.open(this.focusedItemIndex);
+	}
+	handleMenuCancel() {
+		console.log('Menu cancel event');
+	}
+	handleMenuSelect(event: number) {
+		this.selectedIndex = event;
+		console.log('Menu event: Selected item: ' + event);
 	}
 }

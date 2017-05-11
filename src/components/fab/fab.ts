@@ -10,7 +10,7 @@ import {
 	ViewEncapsulation
 } from '@angular/core';
 
-import { Ripple } from '../ripple';
+import { Ripple } from '.././ripple/ripple';
 
 const MDC_FAB_STYLES = require('@material/fab/mdc-fab.scss');
 
@@ -18,7 +18,8 @@ const MDC_FAB_STYLES = require('@material/fab/mdc-fab.scss');
 	selector: 'mdc-fab',
 	styles: [String(MDC_FAB_STYLES)],
 	template: '<ng-content></ng-content>',
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
+	providers: [Ripple]
 })
 export class FabComponent implements AfterViewInit, OnDestroy {
 	@Input() mini: boolean;
@@ -33,15 +34,34 @@ export class FabComponent implements AfterViewInit, OnDestroy {
 	}
 	@HostBinding('tabindex') tabindex: number = 0;
 
-	private _ripple: Ripple;
-
-	constructor(private _renderer: Renderer2, private _root: ElementRef) { }
+	constructor(private _renderer: Renderer2, private _root: ElementRef, private _ripple: Ripple) { }
 
 	ngAfterViewInit() {
-		this._ripple = new Ripple(this._renderer, this._root);
-		this._ripple.rippleFoundation.init();
+		this._root.nativeElement.addEventListener('keydown', evt => this.handleKeyboardDown_(evt));
+		this._root.nativeElement.addEventListener('keyup', evt => this.handleKeyboardUp_(evt));
 	}
 	ngOnDestroy() {
-		this._ripple.rippleFoundation.destroy();
+		this._root.nativeElement.removeEventListener('keydown', evt => this.handleKeyboardDown_(evt));
+		this._root.nativeElement.removeEventListener('keyup', evt => this.handleKeyboardUp_(evt));
+	}
+
+	handleKeyboardDown_(evt: KeyboardEvent) {
+		const { keyCode, key } = evt;
+		const isSpace = key === 'Space' || keyCode === 32;
+
+		if (isSpace) {
+			this._ripple.active = true;
+			evt.preventDefault();
+		}
+	}
+
+	handleKeyboardUp_(evt) {
+		const { keyCode, key } = evt;
+		const isSpace = key === 'Space' || keyCode === 32;
+
+		if (isSpace) {
+			this._ripple.active = false;
+			evt.preventDefault();
+		}
 	}
 }

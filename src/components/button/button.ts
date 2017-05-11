@@ -9,7 +9,7 @@
 	ViewEncapsulation
 } from '@angular/core';
 
-import { Ripple } from '../ripple/ripple';
+import { Ripple } from '.././ripple/ripple';
 
 const MDC_BUTTON_STYLES = require('@material/button/mdc-button.scss');
 
@@ -17,7 +17,8 @@ const MDC_BUTTON_STYLES = require('@material/button/mdc-button.scss');
 	selector: 'mdc-button',
 	styles: [String(MDC_BUTTON_STYLES)],
 	template: '<ng-content></ng-content>',
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
+	providers: [Ripple]
 })
 export class ButtonComponent implements AfterViewInit, OnDestroy {
 	@Input() raised: boolean;
@@ -43,15 +44,38 @@ export class ButtonComponent implements AfterViewInit, OnDestroy {
 	}
 	@HostBinding('tabindex') tabindex: number = 0;
 
-	private _ripple: Ripple;
-
-	constructor(private _renderer: Renderer2, private _root: ElementRef) { }
+	constructor(
+		private _renderer: Renderer2,
+		private _root: ElementRef, private _ripple: Ripple) {
+	}
 
 	ngAfterViewInit() {
-		this._ripple = new Ripple(this._renderer, this._root);
-		this._ripple.rippleFoundation.init();
+		this._root.nativeElement.addEventListener('keydown', evt => this.handleKeyboardDown_(evt));
+		this._root.nativeElement.addEventListener('keyup', evt => this.handleKeyboardUp_(evt));
 	}
 	ngOnDestroy() {
-		this._ripple.rippleFoundation.destroy();
+		console.log('destroyed')
+		this._root.nativeElement.removeEventListener('keydown', evt => this.handleKeyboardDown_(evt));
+		this._root.nativeElement.removeEventListener('keyup', evt => this.handleKeyboardUp_(evt));
+	}
+
+	handleKeyboardDown_(evt) {
+		const { keyCode, key } = evt;
+		const isSpace = key === 'Space' || keyCode === 32;
+
+		if (isSpace) {
+			this._ripple.active = true;
+			evt.preventDefault();
+		}
+	}
+
+	handleKeyboardUp_(evt) {
+		const { keyCode, key } = evt;
+		const isSpace = key === 'Space' || keyCode === 32;
+
+		if (isSpace) {
+			this._ripple.active = false;
+			evt.preventDefault();
+		}
 	}
 }

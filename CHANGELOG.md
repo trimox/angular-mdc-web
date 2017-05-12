@@ -1,6 +1,22 @@
 # Change Log
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. 
+
+<a name="0.1.0"></a>
+# [0.1.0](https://github.com/trimox/angular-mdc-web/compare/v0.0.2...v0.1.0) (2017-05-12)
+
+
+### Bug Fixes
+
+* **snackbar:** Remove check for root element on deRegister events ([40cdf83](https://github.com/trimox/angular-mdc-web/commit/40cdf83))
+
+
+### Features
+
+* **form-field:** Implement MDC Form Field using foundation API. ([7b7c750](https://github.com/trimox/angular-mdc-web/commit/7b7c750))
+* **switch:** Implement MDC Switch ([ee55286](https://github.com/trimox/angular-mdc-web/commit/ee55286))
+
+
 
 <a name="0.0.2"></a>
 ## 0.0.2 (2017-05-11)

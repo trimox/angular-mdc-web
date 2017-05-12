@@ -1,35 +1,37 @@
-## Angular Framework for Material Design Components (MDC-Web) https://material.io/components/web
+## Angular wrappers for Material Design Components (MDC-Web) https://material.io/components/web
 
 [![npm version](https://badge.fury.io/js/angular-mdc-web.svg)](https://badge.fury.io/js/angular-mdc-web)
 
 ### Project status
-* Upcoming rewrite of demo-app
-* Comprehensive documentation
-* Additional MDC integration w/Angular
+* Rewriting demo-app
+* Provide comprehensive API guidance for Angular integration
+* Additional MDC-Web wrappers
 
 ### Material Design Components
-* button :heavy_check_mark:
-* card
-* checkbox
-* dialog
-* drawer
-* elevation
-* fab :heavy_check_mark:
-* form-field :heavy_check_mark:
-* grid-list
-* icon-toggle
-* list
-* menu :heavy_check_mark:
-* radio
-* ripple :heavy_check_mark:
-* select
-* snackbar :heavy_check_mark:
-* switch :heavy_check_mark:
-* tabs
-* textfield :heavy_check_mark:
-* theme
-* toolbar
-* typography
+| MDC-Web wrapper | Status        |
+| ----------------- | --------------|
+| button | Available |
+| card |
+| checkbox |
+| dialog
+| drawer
+| elevation
+| fab | Available |
+| form-field | Available |
+| grid-list
+| icon-toggle
+| list
+| menu | Available |
+| radio
+| ripple | Available |
+| select
+| snackbar | Available |
+| switch | Available |
+| tabs
+| textfield | Available |
+| theme
+| toolbar
+| typography
 
 ## Demo app
 

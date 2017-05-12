@@ -1,0 +1,9 @@
+<input #nativeCb type="checkbox" 
+  [id]="id"
+  class="mdc-switch__native-control"
+  [(ngModel)]="ngModel"
+  [checked]="checked"
+  (change)="handleChange($event)"/>
+<div class="mdc-switch__background">
+  <div class="mdc-switch__knob"></div>
+</div>

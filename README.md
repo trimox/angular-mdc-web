@@ -15,7 +15,7 @@
 * drawer
 * elevation
 * fab :heavy_check_mark:
-* form-field
+* form-field :heavy_check_mark:
 * grid-list
 * icon-toggle
 * list
@@ -24,7 +24,7 @@
 * ripple :heavy_check_mark:
 * select
 * snackbar :heavy_check_mark:
-* switch
+* switch :heavy_check_mark:
 * tabs
 * textfield :heavy_check_mark:
 * theme

@@ -31,7 +31,7 @@
 * toolbar
 * typography
 
-# Demo app
+## Demo app
 
 The `demo-app` folder contains a fully functional example app.
 
@@ -43,7 +43,7 @@ Angular examples for the following MDC components
  * mdc-snackbar
  * mdc-menu
 
-## Setup
+### Setup
 
 1. Run `npm install` within the angular-mdc-web folder
 2. Run `npm run start` to start the demo server

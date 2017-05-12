@@ -1,4 +1,4 @@
-## Angular Framework for Material Design Components (MDC-Web) https://material.io/components/web/
+## Angular Framework for Material Design Components (MDC-Web) https://material.io/components/web
 
 [![npm version](https://badge.fury.io/js/angular-mdc-web.svg)](https://badge.fury.io/js/angular-mdc-web)
 

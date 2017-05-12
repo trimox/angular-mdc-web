@@ -1,11 +1,11 @@
-## Angular Framework for Material Design Components (MDC-Web) https://material.io/components
+## Angular Framework for Material Design Components (MDC-Web) https://material.io/components/web/
 
 [![npm version](https://badge.fury.io/js/angular-mdc-web.svg)](https://badge.fury.io/js/angular-mdc-web)
 
 ### Project status
- * Upcoming rewrite of demo-app
- * Comprehensive documentation
- * Additional MDC integration w/Angular
+* Upcoming rewrite of demo-app
+* Comprehensive documentation
+* Additional MDC integration w/Angular
 
 ### Material Design Components
 * button :heavy_check_mark:

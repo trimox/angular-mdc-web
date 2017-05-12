@@ -70,9 +70,7 @@ export class SnackbarComponent implements AfterViewInit, OnDestroy {
       }
     },
     deregisterActionClickHandler: (handler: EventListener) => {
-      if (this._root) {
-        this.unlisten_('click', handler);
-      }
+      this.unlisten_('click', handler);
     },
     registerTransitionEndHandler: (handler: EventListener) => {
       if (this._root) {
@@ -80,9 +78,7 @@ export class SnackbarComponent implements AfterViewInit, OnDestroy {
       }
     },
     deregisterTransitionEndHandler: (handler: EventListener) => {
-      if (this._root) {
-        this.unlisten_(getCorrectEventName(window, 'transitionend'), handler);
-      }
+      this.unlisten_(getCorrectEventName(window, 'transitionend'), handler);
     }
   };
 

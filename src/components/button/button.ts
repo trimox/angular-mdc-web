@@ -1,10 +1,9 @@
 ﻿import {
-  AfterViewInit,
   Component,
   ElementRef,
   Input,
-  OnDestroy,
   HostBinding,
+  HostListener,
   Renderer2,
   ViewEncapsulation
 } from '@angular/core';
@@ -20,12 +19,14 @@ const MDC_BUTTON_STYLES = require('@material/button/mdc-button.scss');
   encapsulation: ViewEncapsulation.None,
   providers: [Ripple]
 })
-export class ButtonComponent implements AfterViewInit, OnDestroy {
+export class ButtonComponent {
+  @Input() type: string = 'button';
   @Input() raised: boolean;
   @Input() primary: boolean;
   @Input() dense: boolean;
   @Input() compact: boolean;
   @Input() accent: boolean;
+  @HostBinding('tabindex') tabindex: number = 0;
   @HostBinding('class') className: string = 'mdc-button';
   @HostBinding('class.mdc-button--raised') get classRaised(): string {
     return this.raised ? 'mdc-button--raised' : '';
@@ -42,20 +43,16 @@ export class ButtonComponent implements AfterViewInit, OnDestroy {
   @HostBinding('class.mdc-button--compact') get classCompact(): string {
     return this.compact ? 'mdc-button--compact' : '';
   }
-  @HostBinding('tabindex') tabindex: number = 0;
+  @HostListener('keydown', ['$event']) onkeydown(evt) {
+    this.handleKeyboardDown_(evt);
+  };
+  @HostListener('keyup', ['$event']) onkeyup(evt) {
+    this.handleKeyboardUp_(evt);
+  };
 
   constructor(
     private _renderer: Renderer2,
     private _root: ElementRef, private _ripple: Ripple) {
-  }
-
-  ngAfterViewInit() {
-    this._root.nativeElement.addEventListener('keydown', evt => this.handleKeyboardDown_(evt));
-    this._root.nativeElement.addEventListener('keyup', evt => this.handleKeyboardUp_(evt));
-  }
-  ngOnDestroy() {
-    this._root.nativeElement.removeEventListener('keydown', evt => this.handleKeyboardDown_(evt));
-    this._root.nativeElement.removeEventListener('keyup', evt => this.handleKeyboardUp_(evt));
   }
 
   handleKeyboardDown_(evt) {

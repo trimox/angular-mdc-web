@@ -1,32 +1,40 @@
 ﻿import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   Input,
   HostBinding,
   HostListener,
+  Provider,
   Renderer2,
   ViewEncapsulation
 } from '@angular/core';
-
 import { Ripple } from '.././ripple/ripple';
 
 const MDC_BUTTON_STYLES = require('@material/button/mdc-button.scss');
 
 @Component({
-  selector: 'mdc-button',
+  selector: 'button[mdc-button]',
   styles: [String(MDC_BUTTON_STYLES)],
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [Ripple]
 })
 export class ButtonComponent {
-  @Input() type: string = 'button';
+  @Input() type: string;
+  @Input() disabled: string;
   @Input() raised: boolean;
   @Input() primary: boolean;
   @Input() dense: boolean;
   @Input() compact: boolean;
   @Input() accent: boolean;
-  @HostBinding('tabindex') tabindex: number = 0;
+  @HostBinding('tabindex') get tabindex(): number {
+    return this.disabled ? -1 : 0;
+  }
+  @HostBinding('attr.type') get attrType(): string {
+    return this.type ? this.type : 'button';
+  }
   @HostBinding('class') className: string = 'mdc-button';
   @HostBinding('class.mdc-button--raised') get classRaised(): string {
     return this.raised ? 'mdc-button--raised' : '';
@@ -55,21 +63,23 @@ export class ButtonComponent {
     private _root: ElementRef, private _ripple: Ripple) {
   }
 
-  handleKeyboardDown_(evt) {
+  handleKeyboardDown_(evt: KeyboardEvent) {
     const { keyCode, key } = evt;
     const isSpace = key === 'Space' || keyCode === 32;
+    const isEnter = key === 'Enter' || keyCode === 13;
 
-    if (isSpace) {
+    if (isSpace || isEnter) {
       this._ripple.active = true;
       evt.preventDefault();
     }
   }
 
-  handleKeyboardUp_(evt) {
+  handleKeyboardUp_(evt: KeyboardEvent) {
     const { keyCode, key } = evt;
     const isSpace = key === 'Space' || keyCode === 32;
+    const isEnter = key === 'Enter' || keyCode === 13;
 
-    if (isSpace) {
+    if (isSpace || isEnter) {
       this._ripple.active = false;
       evt.preventDefault();
     }

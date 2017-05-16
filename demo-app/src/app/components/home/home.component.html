@@ -1,41 +1,45 @@
 ﻿<fieldset>
   <legend>MDC Button</legend>
-  <mdc-button [accent]="true" (click)="submit('Default and Accent Clicked')">Default and Accent</mdc-button>
-  <mdc-button [raised]="true" (click)="submit('Raised Clicked')">Raised</mdc-button>
-  <mdc-button [dense]="true" [raised]="true" (click)="submit('Dense and Raised Clicked')">Dense and Raised</mdc-button>
-  <mdc-button [raised]="true" [compact]="true" (click)="submit('Raised and Compact Clicked')">Raised and Compact</mdc-button>
-  <mdc-button [primary]="true" [raised]="true" (click)="submit('Raised and Primary Clicked')">Raised and Primary</mdc-button>
-  <mdc-button [raised]="true" [accent]="true" (click)="submit('Raised and Accent Clicked')">Raised and Accent</mdc-button>
+  <button mdc-button [accent]="true" (click)="submit('Default and Accent Clicked')">Default and Accent</button>
+  <button mdc-button [raised]="true" (click)="submit('Raised Clicked')">Raised</button>
+  <button mdc-button [dense]="true" [raised]="true" (click)="submit('Dense and Raised Clicked')">Dense and Raised</button>
+  <button mdc-button [raised]="true" [compact]="true" (click)="submit('Raised and Compact Clicked')">Raised and Compact</button>
+  <button mdc-button [primary]="true" [raised]="true" (click)="submit('Raised and Primary Clicked')">Raised and Primary</button>
+  <button mdc-button [raised]="true" [accent]="true" (click)="submit('Raised and Accent Clicked')">Raised and Accent</button>
+  <button mdc-button [primary]="true" [raised]="true" disabled>Disabled</button>
   <p>Button Events : {{submitEventText ? submitEventText : 'empty'}}</p>
 </fieldset>
 <fieldset>
   <legend>MDC FAB</legend>
-  <mdc-fab aria-label="Search">
+  <button mdc-fab aria-label="Search">
     <span mdc-fab-icon>search</span>
-  </mdc-fab>
-  <mdc-fab [mini]="true" aria-label="search">
+  </button>
+  <button mdc-fab [mini]="true" aria-label="search">
     <span mdc-fab-icon>search</span>
-  </mdc-fab>
-  <mdc-fab [plain]="true" aria-label="Add">
+  </button>
+  <button mdc-fab [plain]="true" aria-label="Add">
     <span mdc-fab-icon>add</span>
-  </mdc-fab>
-  <mdc-fab [plain]="true" [mini]="true" aria-label="Add">
+  </button>
+  <button mdc-fab [plain]="true" [mini]="true" aria-label="Add">
     <span mdc-fab-icon>add</span>
-  </mdc-fab>
+  </button>
+  <button mdc-fab disabled aria-label="Add">
+    <span mdc-fab-icon>add</span>
+  </button>
 </fieldset>
 <fieldset>
   <legend>MDC Snackbar</legend>
-  <mdc-button [primary]="true" [raised]="true" (click)="showSnack(false);">Simple</mdc-button>
-  <mdc-button [primary]="true" [raised]="true" (click)="showSnack(true);">Multiline</mdc-button>
-  <mdc-button [primary]="true" [raised]="true" (click)="showSnack(true, true);">Multiline and Action on Bottom</mdc-button>
+  <button mdc-button [primary]="true" [raised]="true" (click)="showSnack(false);">Simple</button>
+  <button mdc-button [primary]="true" [raised]="true" (click)="showSnack(true);">Multiline</button>
+  <button mdc-button [primary]="true" [raised]="true" (click)="showSnack(true, true);">Multiline and Action on Bottom</button>
   <mdc-snackbar #snack id="snack-demo"></mdc-snackbar>
 </fieldset>
 <fieldset>
   <legend>MDC Menu</legend>
   <div class="mdc-menu-anchor">
-    <mdc-fab aria-label="Profile" (click)="showMenu();">
+    <button mdc-fab aria-label="Profile" (click)="showMenu();">
       <span mdc-fab-icon>person</span>
-    </mdc-fab>
+    </button>
     <mdc-menu #menu (cancel)="handleMenuCancel();" (select)="handleMenuSelect($event);" [items]="menuItems"></mdc-menu>
   </div>
   <p>Selected index : {{selectedIndex}}</p>

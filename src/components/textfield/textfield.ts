@@ -156,7 +156,7 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
         checkValidity: () => this.inputEl.nativeElement.checkValidity(),
         value: this.value,
         disabled: this.disabled,
-        // badInput: this.inputEl.nativeElement.validity.badInput
+        badInput: this.inputEl.nativeElement.validity.badInput
       };
     }
   };

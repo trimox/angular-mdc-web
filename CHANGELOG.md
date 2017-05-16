@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. 
 
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/trimox/angular-mdc-web/compare/v0.1.0...v0.2.0) (2017-05-16)
+
+
+### Features
+
+* **button:** Button selector changed from 'mdc-button' to 'button'. Disabled input added. ([c95dc01](https://github.com/trimox/angular-mdc-web/commit/c95dc01))
+* **fab:** FAB selector changed from 'mdc-fab' to 'button'. Disabled input added. ([ec21648](https://github.com/trimox/angular-mdc-web/commit/ec21648))
+* **textfield:** Add MDC Textfield's new property badInput; validity check in getNativeInput() ([08d1129](https://github.com/trimox/angular-mdc-web/commit/08d1129))
+
+
+
 <a name="0.1.0"></a>
 # [0.1.0](https://github.com/trimox/angular-mdc-web/compare/v0.0.2...v0.1.0) (2017-05-12)
 

@@ -1,10 +1,9 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   Input,
-  OnDestroy,
   HostBinding,
+  HostListener,
   Renderer2,
   ViewEncapsulation
 } from '@angular/core';
@@ -20,9 +19,10 @@ const MDC_FAB_STYLES = require('@material/fab/mdc-fab.scss');
   encapsulation: ViewEncapsulation.None,
   providers: [Ripple]
 })
-export class FabComponent implements AfterViewInit, OnDestroy {
+export class FabComponent {
   @Input() mini: boolean;
   @Input() plain: boolean;
+  @HostBinding('tabindex') tabindex: number = 0;
   @HostBinding('class') className: string = 'mdc-fab';
   @HostBinding('class.material-icons') classMaterialIcons: string = 'material-icons';
   @HostBinding('class.mdc-fab--mini') get classMini(): string {
@@ -31,18 +31,17 @@ export class FabComponent implements AfterViewInit, OnDestroy {
   @HostBinding('class.mdc-fab--plain') get classPlain(): string {
     return this.plain ? 'mdc-fab--plain' : '';
   }
-  @HostBinding('tabindex') tabindex: number = 0;
+  @HostListener('keydown', ['$event']) onkeydown(evt) {
+    this.handleKeyboardDown_(evt);
+  };
+  @HostListener('keyup', ['$event']) onkeyup(evt) {
+    this.handleKeyboardUp_(evt);
+  };
 
-  constructor(private _renderer: Renderer2, private _root: ElementRef, private _ripple: Ripple) { }
-
-  ngAfterViewInit() {
-    this._root.nativeElement.addEventListener('keydown', evt => this.handleKeyboardDown_(evt));
-    this._root.nativeElement.addEventListener('keyup', evt => this.handleKeyboardUp_(evt));
-  }
-  ngOnDestroy() {
-    this._root.nativeElement.removeEventListener('keydown', evt => this.handleKeyboardDown_(evt));
-    this._root.nativeElement.removeEventListener('keyup', evt => this.handleKeyboardUp_(evt));
-  }
+  constructor(
+    private _renderer: Renderer2,
+    private _root: ElementRef,
+    private _ripple: Ripple) { }
 
   handleKeyboardDown_(evt: KeyboardEvent) {
     const { keyCode, key } = evt;

@@ -31,20 +31,7 @@
 | toolbar
 | typography
 
-## Demo app
-
-The `demo-app` folder contains a fully functional example app.
-
-Angular examples for the following MDC components
- * mdc-textfield
- * mdc-button
- * mdc-fab
- * mdc-ripple
- * mdc-snackbar
- * mdc-menu
-
-### Setup
-
-1. Run `npm install` within the angular-mdc-web folder
-2. Run `npm run start` to start the demo server
-3. Navigate to http://localhost:4000 to view the demo.
+## Installation
+```
+npm install --save @angular-mdc/web
+```

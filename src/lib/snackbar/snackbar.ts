@@ -7,6 +7,7 @@ import {
   Renderer2,
   ViewEncapsulation
 } from '@angular/core';
+import { MDCSnackbarAdapter } from './snackbar-adapter';
 
 const { MDCSnackbarFoundation } = require('@material/snackbar');
 const { getCorrectEventName } = require('@material/animation');

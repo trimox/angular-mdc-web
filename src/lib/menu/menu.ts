@@ -13,6 +13,7 @@ import {
   ViewChildren,
   ViewEncapsulation
 } from '@angular/core';
+import { MDCMenuAdapter } from './menu-adapter';
 import { MenuItemDirective } from './menu-item';
 
 const { MDCSimpleMenuFoundation } = require('@material/menu');

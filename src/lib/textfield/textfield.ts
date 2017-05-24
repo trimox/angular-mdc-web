@@ -14,6 +14,7 @@
   forwardRef
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { MDCTextfieldAdapter } from './textfield-adapter';
 
 const { MDCTextfieldFoundation } = require('@material/textfield');
 const MDC_TEXTFIELD_STYLES = require('@material/textfield/mdc-textfield.scss');

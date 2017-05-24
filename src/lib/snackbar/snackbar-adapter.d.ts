@@ -1,4 +1,4 @@
-interface MDCSnackbarAdapter {
+export interface MDCSnackbarAdapter {
   addClass: (string) => void
   removeClass: (string) => void
   setAriaHidden: () => void

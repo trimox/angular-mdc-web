@@ -1,4 +1,4 @@
-interface MDCRippleAdapter {
+export interface MDCRippleAdapter {
   browserSupportsCssVars: () => boolean
   isUnbounded: () => boolean
   isSurfaceActive: () => boolean

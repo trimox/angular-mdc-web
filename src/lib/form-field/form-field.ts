@@ -8,6 +8,7 @@ import {
   Renderer2,
   ViewEncapsulation
 } from '@angular/core';
+import { MDCFormFieldAdapter } from './form-field-adapter';
 
 const { MDCFormFieldFoundation } = require('@material/form-field');
 const MDC_FORM_FIELD_STYLES = require('@material/form-field/mdc-form-field.scss');

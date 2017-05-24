@@ -1,4 +1,4 @@
-﻿interface MDCTextfieldAdapter {
+﻿export interface MDCTextfieldAdapter {
   addClass: (string) => void
   removeClass: (string) => void
   addClassToLabel: (string) => void

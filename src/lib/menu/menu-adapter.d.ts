@@ -1,4 +1,4 @@
-interface MDCMenuAdapter {
+export interface MDCMenuAdapter {
   addClass: (string) => void
   removeClass: (string) => void
   hasClass: (string) => void

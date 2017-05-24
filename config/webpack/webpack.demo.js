@@ -29,9 +29,9 @@ module.exports = [{
     filename: '[name].bundle.js'
   },
   entry: {
-    'polyfills': './demo-app/src/polyfills.ts',
-    'vendor': './demo-app/src/vendor.ts',
-    'app': './demo-app/src/root.module.ts'
+    'polyfills': './demo-app/polyfills.ts',
+    'vendor': './demo-app/vendor.ts',
+    'app': './demo-app/root.module.ts'
   },
   resolve: {
     extensions: ['.ts', '.js']

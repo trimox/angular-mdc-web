@@ -1,0 +1,32 @@
+{
+  "name": "@angular-mdc/web",
+  "description": "Angular for Material Design Components (MDC-Web)",
+  "homepage": "https://github.com/trimox/angular-mdc-web",
+  "bugs": "https://github.com/trimox/angular-mdc-web/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trimox/angular-mdc-web.git"
+  },
+  "version": "0.1.3",
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "angular2",
+    "angular4",
+    "mdc",
+    "material",
+    "material design",
+    "material design components",
+    "components",
+    "typescript"
+  ],
+  "main": "./bundle/core.js",
+  "module": "./lib/index.js",
+  "private": false,
+  "peerDependencies": {
+    "@angular/core": "^4.1.3",
+    "@angular/common": "^4.1.3",
+    "@angular/forms": "^4.1.3",
+    "material-components-web": "0.11.1"
+  }
+}

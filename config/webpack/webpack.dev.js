@@ -1,6 +1,6 @@
 ﻿const webpack = require('webpack');
 const path = require('path');
-const OUT_PATH = path.resolve('./demo-app/dist');
+const OUT_PATH = path.resolve('./publish');
 const MDC_DIR = path.resolve(__dirname, 'node_modules', '@material');
 
 const CSS_LOADER_CONFIG = [{
@@ -29,9 +29,9 @@ module.exports = [{
     filename: '[name].bundle.js'
   },
   entry: {
-    'polyfills': './demo-app/polyfills.ts',
-    'vendor': './demo-app/vendor.ts',
-    'app': './demo-app/root.module.ts'
+    'polyfills': './src/demo-app/polyfills.ts',
+    'vendor': './src/demo-app/vendor.ts',
+    'app': './src/demo-app/root.module.ts'
   },
   resolve: {
     extensions: ['.ts', '.js']
@@ -44,7 +44,7 @@ module.exports = [{
       }, {
         loader: 'awesome-typescript-loader',
         options: {
-          configFileName: 'tsconfig.json'
+          configFileName: './src/demo-app/tsconfig.json'
         }
       }, {
         loader: 'angular2-template-loader'

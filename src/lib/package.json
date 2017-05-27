@@ -11,13 +11,14 @@
   "license": "MIT",
   "keywords": [
     "angular",
+    "angular-mdc",
     "angular2",
     "angular4",
-    "mdc",
-    "material",
-    "material design",
-    "material design components",
     "components",
+    "material design components",
+    "material design",
+    "material",
+    "mdc",
     "typescript"
   ],
   "main": "./bundle/core.js",

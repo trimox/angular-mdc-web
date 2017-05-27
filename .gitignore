@@ -1,5 +1,5 @@
 /node_modules/
-/demo-app/dist/
+/publish/
 /dist/
 /npm-debug.log
 /typings/

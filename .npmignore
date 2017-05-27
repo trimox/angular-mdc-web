@@ -9,6 +9,7 @@
 # misc
 npm-debug.log
 /typings
+/publish
 
 # e2e
 /e2e/*.js

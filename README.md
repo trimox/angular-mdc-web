@@ -1,12 +1,15 @@
-## Angular for Material Design Components (MDC-Web) https://material.io/components/web
+## Angular for Material Design Components (MDC-Web)
 
 [![Build Status](https://travis-ci.org/trimox/angular-mdc-web.svg?branch=master)](https://travis-ci.org/trimox/angular-mdc-web)
 [![npm version](https://badge.fury.io/js/%40angular-mdc%2Fweb.svg)](https://badge.fury.io/js/%40angular-mdc%2Fweb)
 
+### Demo
+https://trimox.github.io/angular-mdc-web/
+
 ### Project status
 * We're just getting started..
-* Rewriting demo-app
-* Provide comprehensive API guidance for Angular integration
+* Currently writing a brand new demo site
+* Provide API guidance for Angular integrations
 * Additional MDC-Web wrappers
 
 ### Material Design Components
@@ -35,7 +38,10 @@
 | toolbar
 | typography
 
-## Installation
+### Installation
 ```
 npm install --save @angular-mdc/web
 ```
+
+### Getting started
+Coming soon!

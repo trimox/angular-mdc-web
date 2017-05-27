@@ -13,7 +13,7 @@
     "build:demo": "webpack --config config/webpack/webpack.dev.js --progress",
     "build:dist": "npm run build:umd && cpy src/lib/package.json dist && cpy README.md dist",
     "build:umd": "webpack --config config/webpack/webpack.config.umd.js --progress",
-    "deploy-gh-pages": "npm run build && ./scripts/deploy.sh --message \"Deploy gh-pages from commit $(git rev-parse HEAD)  [ci skip]\" -n",
+    "deploy-gh-pages": "npm run build:demo && ./scripts/deploy.sh --message \"Deploy gh-pages from commit $(git rev-parse HEAD)  [ci skip]\" -n",
     "server": "webpack-dev-server --config config/webpack/webpack.dev.js --content-base src/demo-app --inline --port 4000",
     "start": "npm run server"
   },

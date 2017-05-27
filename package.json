@@ -9,10 +9,12 @@
   },
   "version": "0.0.0",
   "scripts": {
-    "changelog": "standard-version",
+    "changelog": "standard-version lib/package.json",
+    "build:demo": "webpack --config config/webpack/webpack.dev.js --progress",
     "build:dist": "npm run build:umd && cpy src/lib/package.json dist && cpy README.md dist",
     "build:umd": "webpack --config config/webpack/webpack.config.umd.js --progress",
-    "server": "webpack-dev-server --inline --port 4000 --content-base demo-app",
+    "deploy-gh-pages": "npm run build && ./scripts/deploy.sh --message \"Deploy gh-pages from commit $(git rev-parse HEAD)  [ci skip]\" -n",
+    "server": "webpack-dev-server --config config/webpack/webpack.dev.js --content-base src/demo-app --inline --port 4000",
     "start": "npm run server"
   },
   "license": "MIT",
@@ -40,7 +42,7 @@
     "babel-preset-env": "1.5.1",
     "copy-webpack-plugin": "4.0.1",
     "cpy-cli": "^1.0.1",
-    "css-loader": "^0.28.2",
+    "css-loader": "^0.28.3",
     "cz-conventional-changelog": "2.0.0",
     "html-loader": "^0.4.5",
     "node-sass": "^4.5.3",
@@ -51,7 +53,7 @@
     "style-loader": "0.18.1",
     "typescript": "2.3.3",
     "typings": "2.1.1",
-    "webpack": "2.6.0",
+    "webpack": "2.6.1",
     "webpack-dev-server": "^2.4.2"
   },
   "babel": {

@@ -18,7 +18,6 @@ import { MenuItemDirective } from './menu-item';
 
 const { MDCSimpleMenuFoundation } = require('@material/menu');
 const { getTransformPropertyName } = require('@material/menu/util');
-const { cssClasses } = require('@material/menu/simple/constants');
 const MDC_MENU_STYLES = require('@material/menu/mdc-menu.scss');
 const MDC_LIST_STYLES = require('@material/list/mdc-list.scss');
 

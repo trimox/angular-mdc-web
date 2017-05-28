@@ -19,6 +19,7 @@ export class Home {
   inputCount = 0;
   selectedIndex = -1;
   focusedItemIndex = null;
+  isChecked = false;
   menuItems = [
     {
       id: 1,

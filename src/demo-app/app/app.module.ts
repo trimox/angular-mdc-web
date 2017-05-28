@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { appRoutes } from './app.routes';
 
 import { MaterialModule } from './../../lib';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { Home } from './components/home';
 
@@ -16,12 +17,13 @@ import { Home } from './components/home';
     BrowserModule,
     FormsModule,
     HttpModule,
+    FlexLayoutModule,
     MaterialModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
   ],
   declarations: [
     AppComponent,
-    Home
+    Home,
   ],
   bootstrap: [AppComponent]
 })

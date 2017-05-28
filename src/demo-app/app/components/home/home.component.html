@@ -10,6 +10,20 @@
   <p>Button Events : {{submitEventText ? submitEventText : 'empty'}}</p>
 </fieldset>
 <fieldset>
+  <legend>MDC Checkbox</legend>
+  <mdc-form-field>
+    <mdc-checkbox [(ngModel)]="isChecked"></mdc-checkbox>
+    <label mdc-checkbox-label [id]="labelId">The checkbox is {{isChecked}}</label>
+  </mdc-form-field>
+</fieldset>
+<fieldset>
+  <legend>MDC Switch</legend>
+  <mdc-form-field>
+    <mdc-switch [(ngModel)]="isSwitchChecked"></mdc-switch>
+    <label mdc-switch-label [id]="labelId">off/on</label>
+  </mdc-form-field>
+</fieldset>
+<fieldset>
   <legend>MDC FAB</legend>
   <button mdc-fab aria-label="Search">
     <span mdc-fab-icon>search</span>
@@ -32,7 +46,6 @@
   <button mdc-button [primary]="true" [raised]="true" (click)="showSnack(false);">Simple</button>
   <button mdc-button [primary]="true" [raised]="true" (click)="showSnack(true);">Multiline</button>
   <button mdc-button [primary]="true" [raised]="true" (click)="showSnack(true, true);">Multiline and Action on Bottom</button>
-  <mdc-snackbar #snack id="snack-demo"></mdc-snackbar>
 </fieldset>
 <fieldset>
   <legend>MDC Menu</legend>
@@ -70,3 +83,4 @@
     <p>Message ngModel : {{message ? message : 'empty'}}</p>
   </fieldset>
 </fieldset>
+<mdc-snackbar #snack id="snack-demo"></mdc-snackbar>

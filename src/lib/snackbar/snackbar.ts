@@ -13,9 +13,6 @@ const { MDCSnackbarFoundation } = require('@material/snackbar');
 const { getCorrectEventName } = require('@material/animation');
 const MDC_SNACKBAR_STYLES = require('@material/snackbar/mdc-snackbar.scss');
 
-const { ACTION_BUTTON_SELECTOR } = MDCSnackbarFoundation.strings;
-const { ROOT } = MDCSnackbarFoundation.cssClasses;
-
 type UnlistenerMap = WeakMap<EventListener, Function>;
 
 @Component({
@@ -59,11 +56,11 @@ export class SnackbarComponent implements AfterViewInit, OnDestroy {
     },
     setActionAriaHidden: () => {
       const { _renderer: renderer, _root: root } = this;
-      renderer.setAttribute(root.nativeElement.querySelector(ACTION_BUTTON_SELECTOR), 'aria-hidden', 'true');
+      renderer.setAttribute(root.nativeElement.querySelector(MDCSnackbarFoundation.strings.ACTION_BUTTON_SELECTOR), 'aria-hidden', 'true');
     },
     unsetActionAriaHidden: () => {
       const { _renderer: renderer, _root: root } = this;
-      renderer.removeAttribute(root.nativeElement.querySelector(ACTION_BUTTON_SELECTOR), 'aria-hidden');
+      renderer.removeAttribute(root.nativeElement.querySelector(MDCSnackbarFoundation.strings.ACTION_BUTTON_SELECTOR), 'aria-hidden');
     },
     registerActionClickHandler: (handler: EventListener) => {
       if (this._root) {

@@ -35,7 +35,7 @@ import { FabModule, MenuModule } from '@angular-mdc/web';
 | ----------------- | --------------|
 | button | Available |
 | card |
-| checkbox |
+| checkbox | Available |
 | dialog
 | drawer
 | elevation

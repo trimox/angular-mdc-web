@@ -1,9 +1,16 @@
-# Change Log
+<a name="0.1.4"></a>
+# [0.1.4](https://github.com/trimox/angular-mdc-web/compare/v0.1.3...v0.1.4) (2017-05-28)
 
-All notable changes to this project will be documented in this file. 
 
-<a name="0.1.2"></a>
-# [0.1.2](https://github.com/trimox/angular-mdc-web/compare/v0.1.0...v0.2.0) (2017-05-16)
+### Features
+
+* **checkbox:** Implement MDC checkbox wrapper ([#9](https://github.com/trimox/angular-mdc-web/issues/9)) ([14695c0](https://github.com/trimox/angular-mdc-web/commit/14695c0))
+* **demo-app:** Add demo-app source back into the repo ([#8](https://github.com/trimox/angular-mdc-web/issues/8)) ([d7e431a](https://github.com/trimox/angular-mdc-web/commit/d7e431a))
+
+
+
+<a name="0.1.3"></a>
+# [0.1.3](https://github.com/trimox/angular-mdc-web/compare/v0.1.0...v0.1.3) (2017-05-16)
 
 
 ### Features
@@ -31,7 +38,7 @@ All notable changes to this project will be documented in this file.
 
 
 <a name="0.0.2"></a>
-## 0.0.2 (2017-05-11)
+## [0.0.2](https://github.com/trimox/angular-mdc-web/compare/0cc205d...v0.0.2) (2017-05-11)
 
 
 ### Bug Fixes
@@ -55,3 +62,6 @@ All notable changes to this project will be documented in this file.
 * **ripple:** Adds /ripple/index.ts for simpler import of ripple class ([0ad6dea](https://github.com/trimox/angular-mdc-web/commit/0ad6dea))
 * **ripple:** Ripple redone using MDCRippleFoundation with adapter API ([939bd63](https://github.com/trimox/angular-mdc-web/commit/939bd63))
 * **snackbar:** Implemented MDC Snackbar wrapper ([ebbbc4f](https://github.com/trimox/angular-mdc-web/commit/ebbbc4f))
+
+
+

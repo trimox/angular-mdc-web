@@ -53,5 +53,5 @@ import { FabModule, MenuModule } from '@angular-mdc/web';
 | tabs
 | textfield | Available |
 | theme
-| toolbar
+| toolbar | Available |
 | typography

@@ -21,11 +21,5 @@
 	},
 	"files": [
 			"./index.ts"
-	],
-	"angularCompilerOptions": {
-		"strictMetadataEmit": true,
-		"genDir": "./../../dist",
-		"skipTemplateCodegen": true,
-		"debug": true
-	}
+	]
 }

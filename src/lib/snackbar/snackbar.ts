@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   HostBinding,
+  Input,
   OnDestroy,
   Renderer2,
   ViewEncapsulation
@@ -24,6 +25,10 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
 export class SnackbarComponent implements AfterViewInit, OnDestroy {
   private message: string;
   private actionText: string;
+  @Input('dismissOnAction')
+  set dismissOnAction(value) {
+    this._foundation.setDismissOnAction(value);
+  }
   @HostBinding('class') className: string = 'mdc-snackbar';
   @HostBinding('attr.aria-live') ariaLive: string = 'assertive';
   @HostBinding('attr.aria-atomic') ariaAtomic: string = 'true';
@@ -83,9 +88,10 @@ export class SnackbarComponent implements AfterViewInit, OnDestroy {
   private _foundation: {
     init: Function,
     destroy: Function,
-    show: Function
+    show: Function,
+    setDismissOnAction: Function
   } = new MDCSnackbarFoundation(this._mdcAdapter);
-  
+
   constructor(private _renderer: Renderer2, private _root: ElementRef) { }
 
   ngAfterViewInit() {

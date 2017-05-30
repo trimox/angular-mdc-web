@@ -4,7 +4,9 @@
   selector: 'home',
   templateUrl: './home.component.html'
 })
-export class Home {
+export class HomeComponent {
+  constructor() {}
+  
   @ViewChild('snack') snack;
   @ViewChild('menu') menu;
 

@@ -5,25 +5,27 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { appRoutes } from './app.routes';
+import { NavbarComponent } from './components/navigation/navbar.component';
 
 import { MaterialModule } from './../../lib';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { HomeComponent } from './components/home/home.component';
+//import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { Home } from './components/home';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    FlexLayoutModule,
+    // FlexLayoutModule,
     MaterialModule,
-    RouterModule.forRoot(appRoutes),
+    AppRoutingModule
   ],
   declarations: [
     AppComponent,
-    Home,
+    NavbarComponent,
+    HomeComponent
   ],
   bootstrap: [AppComponent]
 })

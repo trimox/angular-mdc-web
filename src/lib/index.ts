@@ -11,6 +11,7 @@ import { RippleModule } from './ripple';
 import { SnackbarModule } from './snackbar';
 import { SwitchModule } from './switch';
 import { TextfieldModule } from './textfield';
+import { ToolbarModule } from './toolbar';
 
 export * from './button';
 export * from './checkbox';
@@ -21,6 +22,7 @@ export * from './ripple';
 export * from './snackbar';
 export * from './switch';
 export * from './textfield';
+export * from './toolbar';
 
 const MATERIAL_MODULES = [
 	ButtonModule,
@@ -32,6 +34,7 @@ const MATERIAL_MODULES = [
 	SnackbarModule,
 	SwitchModule,
 	TextfieldModule,
+	ToolbarModule,
 ]
 
 @NgModule({

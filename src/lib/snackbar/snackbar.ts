@@ -80,9 +80,12 @@ export class SnackbarComponent implements AfterViewInit, OnDestroy {
     }
   };
 
-  private _foundation: { init: Function, destroy: Function, show: Function } =
-  new MDCSnackbarFoundation(this._mdcAdapter);
-
+  private _foundation: {
+    init: Function,
+    destroy: Function,
+    show: Function
+  } = new MDCSnackbarFoundation(this._mdcAdapter);
+  
   constructor(private _renderer: Renderer2, private _root: ElementRef) { }
 
   ngAfterViewInit() {

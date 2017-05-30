@@ -1,4 +1,14 @@
 <a name="0.0.0"></a>
+# [0.1.6](https://github.com/trimox/angular-mdc-web/compare/v0.1.5...v0.1.6) (2017-05-30)
+
+
+### Features
+
+* **snackbar:** Add `dismissOnAction` function made available in MDC 0.12.0 ([af1a5b2](https://github.com/trimox/angular-mdc-web/commit/af1a5b2))
+
+
+
+<a name="0.0.0"></a>
 # [0.1.5](https://github.com/trimox/angular-mdc-web/compare/v0.1.4...v0.1.5) (2017-05-30)
 
 

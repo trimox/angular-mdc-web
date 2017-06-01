@@ -26,7 +26,7 @@ export class SnackbarComponent implements AfterViewInit, OnDestroy {
   private message: string;
   private actionText: string;
   @Input('dismissOnAction')
-  set dismissOnAction(value) {
+  set dismissOnAction(value: boolean) {
     this._foundation.setDismissOnAction(value);
   }
   @HostBinding('class') className: string = 'mdc-snackbar';

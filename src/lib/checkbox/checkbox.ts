@@ -45,8 +45,17 @@ export class CheckboxComponent implements AfterViewInit, OnDestroy {
   @Input() checked: boolean = false;
   @Input() indeterminate: boolean = false;
   @Input() labelId: string;
+  @Input() disabled: boolean;
   @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
   @HostBinding('class') className: string = 'mdc-checkbox';
+  @HostBinding('class.mdc-checkbox--disabled') get classDisabled(): string {
+    if (this.disabled) {
+      this._renderer.setAttribute(this.nativeCb.nativeElement, 'disabled', '');
+    } else {
+      this._renderer.removeAttribute(this.nativeCb.nativeElement, 'disabled');
+    }
+    return this.disabled ? 'mdc-checkbox--disabled' : '';
+  }
   @ViewChild('nativeCb') nativeCb: ElementRef;
 
   onTouched: () => any = () => { };

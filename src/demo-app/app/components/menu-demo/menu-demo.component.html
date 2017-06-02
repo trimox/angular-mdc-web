@@ -1,4 +1,4 @@
-<div fxLayout="column" class="mdc-padding">
+<div fxLayout="column" fxFlex class="mdc-padding">
   <h1 class="mdc-typography--display1">Menu</h1>
   <p class="mdc-typography--subheading2">The MDC Menu component is a spec-aligned button component adhering to the Material Design button requirements.</p>
   <a href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-menu">Google's Material Components for the web documentation</a>
@@ -10,7 +10,7 @@
   <div style="width: 400px;">
     <pre class="prettyprint"><![CDATA[@Directive({selector: '[mdc-menu-item]'})]]></pre>
   </div>
-  <div fxLayout="row">
+  <div fxLayout="row" fxLayout.lt-md="column">
     <div fxLayout="column">
       <h1 class="mdc-typography--headline">API reference</h1>
       <table>
@@ -29,7 +29,7 @@
       </table>
     </div>
 
-    <div fxLayout="column" fxFlexOffset="5">
+    <div fxLayout="column" fxFlexOffset.gt-md="5">
       <h1 class="mdc-typography--headline">Events</h1>
       <table>
         <thead>

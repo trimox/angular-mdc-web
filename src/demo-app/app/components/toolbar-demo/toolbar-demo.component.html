@@ -1,0 +1,74 @@
+<div fxLayout="column" class="mdc-padding">
+  <h1 class="mdc-typography--display1">Toolbars</h1>
+  <p class="mdc-typography--subheading2">The MDC Toolbar component is a spec-aligned button component adhering to the Material Design button requirements.</p>
+  <a href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-toolbar">Google's Material Components for the web documentation</a>
+  <h1 class="mdc-typography--headline">Usage</h1>
+  <div style="width: 400px;">
+    <pre class="prettyprint"><![CDATA[import { ToolbarModule } from '@angular-mdc/web';]]></pre>
+  </div>
+  <h1 class="mdc-typography--headline">Components</h1>
+  <div style="width: 400px;">
+    <pre class="prettyprint"><![CDATA[@Component({selector: '[mdc-toolbar-section]'})]]></pre>
+  </div>
+  <h1 class="mdc-typography--headline">Directives</h1>
+  <div style="width: 400px;">
+    <pre class="prettyprint"><![CDATA[@Directive({selector: '[mdc-toolbar-title]'})]]></pre>
+  </div>
+  <div fxLayout="row">
+    <div fxLayout="column">
+      <h1 class="mdc-typography--headline">API reference</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><pre class="prettyprint">@Input() fixed: boolean</pre></td>
+            <td>Makes toolbar fixed on top and have persistent elavation.</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() waterfall: boolean</pre></td>
+            <td>Removes fixed toolbar persistent elavation; gaining elevation scrolling down the page.</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() flexible: boolean</pre></td>
+            <td>Makes toolbar first row has flexible space.</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() flexibleTitle: boolean</pre></td>
+            <td>Toolbar text has flexible movement.</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() fixedLastrow: boolean</pre></td>
+            <td>Makes only last row of fixed toolbar anchored on top.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div fxLayout="column" fxFlexOffset="2">
+      <h1 class="mdc-typography--headline">Events</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><pre class="prettyprint">@Output() change <![CDATA[{flexibleExpansionRatio: number})]]></pre>
+            <td>Emits the ratio of current flexible space to total flexible space height.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h1 class="mdc-typography--headline">Examples</h1>
+  <div fxLayout="column" fxLayoutAlign="start start">
+  </div>
+</div>

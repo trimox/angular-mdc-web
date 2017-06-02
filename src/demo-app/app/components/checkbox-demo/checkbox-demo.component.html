@@ -1,0 +1,80 @@
+<div fxLayout="column" class="mdc-padding">
+  <h1 class="mdc-typography--display1">Checkbox</h1>
+  <p class="mdc-typography--body1">The MDC Checkbox component is a spec-aligned checkbox component adhering to the Material Design checkbox requirements.</p>
+  <a href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-checkbox">Google's Material Components for the web documentation</a>
+  <h1 class="mdc-typography--headline">Usage</h1>
+  <div style="width: 400px;">
+    <pre class="prettyprint"><![CDATA[import { CheckboxModule } from '@angular-mdc/web';]]></pre>
+  </div>
+  <h1 class="mdc-typography--headline">Directives</h1>
+  <div style="width: 400px;">
+    <pre class="prettyprint"><![CDATA[@Directive({selector: '[mdc-checkbox-label]'})]]></pre>
+  </div>
+  <div fxLayout="row">
+    <div fxLayout="column">
+      <h1 class="mdc-typography--headline">API reference</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><pre class="prettyprint">@Input() checked: boolean</pre></td>
+            <td>Boolean for verifying the checked value.</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() indeterminate: boolean</pre></td>
+            <td>To represent a checkbox with three states (e.g. a nested list of checkable items).</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() labelId: string</pre></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() disabled: string</pre></td>
+            <td>Disables the component.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div fxLayout="column" fxFlexOffset="5">
+      <h1 class="mdc-typography--headline">Events</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><pre class="prettyprint">@Output() change</pre></td>
+            <td>Event dispatched on value change.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h1 class="mdc-typography--headline">Examples</h1>
+  <div fxLayout="column" fxLayoutAlign="start start">
+    <div fxLayout="column" class="mdc-padding">
+      <div fxFlexAlign="start">
+       <mdc-form-field>
+         <mdc-checkbox [(ngModel)]="isChecked"></mdc-checkbox>
+         <label mdc-checkbox-label [id]="labelId">The checkbox is {{isChecked}}</label>
+       </mdc-form-field>
+      </div>
+      <pre class="prettyprint">
+&lt;mdc-form-field&gt;
+  &lt;mdc-checkbox [(ngModel)]="isChecked"&gt;&lt;/mdc-checkbox&gt;
+  &lt;label mdc-checkbox-label [id]="labelId"&gt;Label text&lt;/label&gt;
+&lt;/mdc-form-field&gt;
+       </pre>
+    </div>
+  </div>
+</div>

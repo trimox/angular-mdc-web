@@ -1,0 +1,80 @@
+<div fxLayout="column" class="mdc-padding">
+  <h1 class="mdc-typography--display1">Menu</h1>
+  <p class="mdc-typography--subheading2">The MDC Menu component is a spec-aligned button component adhering to the Material Design button requirements.</p>
+  <a href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-menu">Google's Material Components for the web documentation</a>
+  <h1 class="mdc-typography--headline">Usage</h1>
+  <div style="width: 400px;">
+    <pre class="prettyprint"><![CDATA[import { MenuModule } from '@angular-mdc/web';]]></pre>
+  </div>
+  <h1 class="mdc-typography--headline">Directives</h1>
+  <div style="width: 400px;">
+    <pre class="prettyprint"><![CDATA[@Directive({selector: '[mdc-menu-item]'})]]></pre>
+  </div>
+  <div fxLayout="row">
+    <div fxLayout="column">
+      <h1 class="mdc-typography--headline">API reference</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><pre class="prettyprint">@Input() items: MenuItemDirective[]</pre></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div fxLayout="column" fxFlexOffset="5">
+      <h1 class="mdc-typography--headline">Events</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><pre class="prettyprint">cancel</pre></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">select</pre></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h1 class="mdc-typography--headline">Examples</h1>
+  <div fxLayout="column" fxLayoutAlign="start start">
+    <div fxLayout="column" class="mdc-padding">
+      <div fxFlexAlign="start">
+        <div class="mdc-menu-anchor">
+          <button mdc-fab aria-label="Profile" (click)="showMenu();">
+            <span mdc-fab-icon>person</span>
+          </button>
+          <mdc-menu #menu (cancel)="handleMenuCancel();" (select)="handleMenuSelect($event);" [items]="menuItems"></mdc-menu>
+        </div>
+      </div>
+      <pre class="prettyprint">
+&lt;div class="mdc-menu-anchor"&gt;
+  &lt;button mdc-fab aria-label="Profile" (click)="showMenu();"&gt;
+    &lt;span mdc-fab-icon>person&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;mdc-menu #menu (cancel)="handleMenuCancel();" (select)="handleMenuSelect($event);" [items]="menuItems"&gt;&lt;/mdc-menu&gt;
+&lt;/div&gt;
+      </pre>
+    </div>
+  </div>
+</div>
+<!--     
+    <p>Selected index : {{selectedIndex}}</p>
+    <mdc-textfield [(ngModel)]="focusedItemIndex" label="Set focus to item index" type="number"></mdc-textfield>
+ -->

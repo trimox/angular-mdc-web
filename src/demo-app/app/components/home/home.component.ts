@@ -1,75 +1,37 @@
-﻿import { Component, ViewChild } from '@angular/core';
+﻿import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'home',
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
-  constructor() {}
-  
-  @ViewChild('snack') snack;
-  @ViewChild('menu') menu;
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router) { }
 
-  username = null;
-  password = null;
-  comments = null;
-  subject = null;
-  message = null;
-  submitEventText = null;
-  inputHasFocus = false;
-  inputKeysPressed = 0;
-  inputCount = 0;
-  selectedIndex = -1;
-  focusedItemIndex = null;
-  isChecked = false;
-  menuItems = [
-    {
-      id: 1,
-      label: 'Security settings'
-    },
-    {
-      id: 2,
-      label: 'Review account activity'
-    },
-    {
-      id: 3,
-      label: 'Logoff'
-    },
-  ]
-
-  handleFocus($event) {
-    this.inputHasFocus = true;
+  buttonDemo() {
+    this.router.navigate(['button-demo']);
   }
-  handleBlur($event) {
-    this.inputHasFocus = false;
+  checkboxDemo() {
+    this.router.navigate(['checkbox-demo']);
   }
-  handleInput($event) {
-    this.inputCount++;
+  fabDemo() {
+    this.router.navigate(['fab-demo']);
   }
-  handleKeyDown($event) {
-    this.inputKeysPressed++;
+  switchDemo() {
+    this.router.navigate(['switch-demo']);
   }
-  submit(message) {
-    this.submitEventText = message;
+  snackDemo() {
+    this.router.navigate(['snackbar-demo']);
   }
-  showSnack(multiline: boolean, actionOnBottom: boolean) {
-    var data = {
-      message: 'Example of the MDC Snackbar',
-      actionText: 'Ok',
-      multiline: multiline,
-      actionOnBottom: actionOnBottom,
-      actionHandler: () => { console.log('Action button pressed!') }
-    }
-    this.snack.show(data);
+  menuDemo() {
+    this.router.navigate(['menu-demo']);
   }
-  showMenu() {
-    this.menu.open(this.focusedItemIndex);
+  textfieldDemo() {
+    this.router.navigate(['textfield-demo']);
   }
-  handleMenuCancel() {
-    console.log('Menu cancel event');
-  }
-  handleMenuSelect(event: number) {
-    this.selectedIndex = event;
-    console.log('Menu event: Selected item: ' + event);
+  toolbarDemo() {
+    this.router.navigate(['toolbar-demo']);
   }
 }

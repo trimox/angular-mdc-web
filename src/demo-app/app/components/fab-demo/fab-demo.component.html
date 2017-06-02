@@ -1,0 +1,130 @@
+<div fxLayout="column" class="mdc-padding">
+  <h1 class="mdc-typography--display1">Floating Action Buttons</h1>
+  <p class="mdc-typography--subheading2">The MDC FAB component is a spec-aligned button component adhering to the Material Design button requirements.</p>
+  <a href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-button">Google's Material Components for the web documentation</a>
+  <h1 class="mdc-typography--headline">Usage</h1>
+  <div style="width: 400px;">
+    <pre class="prettyprint"><![CDATA[import { FabModule } from '@angular-mdc/web';]]></pre>
+  </div>
+  <h1 class="mdc-typography--headline">Directives</h1>
+  <div style="width: 400px;">
+    <pre class="prettyprint"><![CDATA[@Directive({selector: '[mdc-fab-icon]'})]]></pre>
+  </div>
+  <div fxLayout="row">
+    <div fxLayout="column">
+      <h1 class="mdc-typography--headline">API reference</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><pre class="prettyprint">@Input() mini: boolean</pre></td>
+            <td>Makes the fab smaller (40 x 40 pixels).</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() plain: boolean</pre></td>
+            <td>Makes the FAB have a white background.</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() disabled: string</pre></td>
+            <td>Disables the component.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div fxLayout="column" fxFlexOffset="5">
+      <h1 class="mdc-typography--headline">Events</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><pre class="prettyprint">@HostListener() keydown</pre></td>
+            <td>Show ripple on keyboard down event.</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@HostListener() keyup</pre></td>
+            <td>Show ripple on keyboard up event.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h1 class="mdc-typography--headline">Examples</h1>
+  <div fxLayout="column" fxLayoutAlign="start start">
+    <div fxLayout="column" class="mdc-padding">
+      <div fxFlexAlign="start">
+        <button mdc-fab aria-label="Search">
+          <span mdc-fab-icon>search</span>
+        </button>
+      </div>
+      <p>Default</p>
+      <pre class="prettyprint">
+&lt;button mdc-fab aria-label="Search"&gt;
+  &lt;span mdc-fab-icon>search&lt;/span&gt;
+&lt;/button&gt;</pre>
+    </div>
+
+    <div fxLayout="column" class="mdc-padding">
+      <div fxFlexAlign="start">
+        <button mdc-fab [mini]="true" aria-label="Search">
+          <span mdc-fab-icon>search</span>
+        </button>
+      </div>
+      <p>Mini</p>
+      <pre class="prettyprint">
+&lt;button mdc-fab [mini]="true" aria-label="Search"&gt;
+  &lt;span mdc-fab-icon>search&lt;/span&gt;
+&lt;/button&gt;</pre>
+    </div>
+
+    <div fxLayout="column" class="mdc-padding">
+      <div fxFlexAlign="start">
+        <button mdc-fab [plain]="true" aria-label="Search">
+          <span mdc-fab-icon>search</span>
+        </button>
+      </div>
+      <p>Plain</p>
+      <pre class="prettyprint">
+&lt;button mdc-fab [plain]="true" aria-label="Search"&gt;
+  &lt;span mdc-fab-icon>search&lt;/span&gt;
+&lt;/button&gt;</pre>
+    </div>
+
+    <div fxLayout="column" class="mdc-padding">
+      <div fxFlexAlign="start">
+        <button mdc-fab [plain]="true" [mini]="true" aria-label="Search">
+          <span mdc-fab-icon>search</span>
+        </button>
+      </div>
+      <p>Plain and Mini</p>
+      <pre class="prettyprint">
+&lt;button mdc-fab [plain]="true" [mini]="true" aria-label="Search"&gt;
+  &lt;span mdc-fab-icon>search&lt;/span&gt;
+&lt;/button&gt;</pre>
+    </div>
+
+    <div fxLayout="column" class="mdc-padding">
+      <div fxFlexAlign="start">
+        <button mdc-fab disabled aria-label="Search">
+          <span mdc-fab-icon>search</span>
+        </button>
+      </div>
+      <p>Disabled</p>
+      <pre class="prettyprint">
+&lt;button mdc-fab disabled aria-label="Search"&gt;
+  &lt;span mdc-fab-icon>search&lt;/span&gt;
+&lt;/button&gt;</pre>
+    </div>
+  </div>
+</div>

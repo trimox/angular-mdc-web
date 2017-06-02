@@ -1,0 +1,127 @@
+<div fxLayout="column" class="mdc-padding">
+  <h1 class="mdc-typography--display1">Buttons</h1>
+  <p class="mdc-typography--body1">The MDC Button component is a spec-aligned button component adhering to the Material Design button requirements.</p>
+  <a href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-button">Google's Material Components for the web documentation</a>
+  <h1 class="mdc-typography--headline">Usage</h1>
+  <div style="width: 400px;">
+    <pre class="prettyprint"><![CDATA[import { ButtonModule } from '@angular-mdc/web';]]></pre>
+  </div>
+  <div fxLayout="row">
+    <div fxLayout="column">
+      <h1 class="mdc-typography--headline">API reference</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><pre class="prettyprint">@Input() type: string</pre></td>
+            <td>Input type of button (e.g. email, password, url).</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() dense: boolean</pre></td>
+            <td>Compresses the button text to make it slightly smaller.</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() raised: boolean</pre></td>
+            <td>Elevates the button and creates a colored background.</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() compact: boolean</pre></td>
+            <td>Reduces the amount of horizontal padding in the button.</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() primary: boolean</pre></td>
+            <td>Colors the button with the primary color.</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() accent: boolean</pre></td>
+            <td>Colors the button with the accent color.</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() disabled: string</pre></td>
+            <td>Disables the component.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div fxLayout="column" fxFlexOffset="5">
+      <h1 class="mdc-typography--headline">Events</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><pre class="prettyprint">@HostListener() keydown</pre></td>
+            <td>Show ripple on keyboard down event.</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@HostListener() keyup</pre></td>
+            <td>Show ripple on keyboard up event.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h1 class="mdc-typography--headline">Examples</h1>
+  <div fxLayout="column" fxLayoutAlign="start start">
+    <div fxLayout="column" class="mdc-padding">
+      <div fxFlexAlign="start">
+        <button mdc-button [accent]="true">Button</button>
+      </div>
+      <p>Accent</p>
+      <pre class="prettyprint">&lt;button mdc-button [accent]="true"&gt;Accent&lt;/button&gt;</pre>
+    </div>
+    <div fxLayout="column" class="mdc-padding">
+      <div fxFlexAlign="start">
+        <button mdc-button [raised]="true">Button</button>
+      </div>
+      <p>Raised</p>
+      <pre class="prettyprint">&lt;button mdc-button [raised]="true"&gt;Raised&lt;/button&gt;</pre>
+    </div>
+    <div fxLayout="column" class="mdc-padding">
+      <div fxFlexAlign="start">
+        <button mdc-button [dense]="true" [raised]="true">Button</button>
+      </div>
+      <p>Dense and Raised</p>
+      <pre class="prettyprint">&lt;button mdc-button [dense]="true" [raised]="true"&gt;Dense and Raised&lt;/button&gt;</pre>
+    </div>
+    <div fxLayout="column" class="mdc-padding">
+      <div fxFlexAlign="start">
+        <button mdc-button [compact]="true" [raised]="true">Button</button>
+      </div>
+      <p>Compact and Raised</p>
+      <pre class="prettyprint">&lt;button mdc-button [compact]="true" [raised]="true"&gt;Compact and Raised&lt;/button&gt;</pre>
+    </div>
+    <div fxLayout="column" class="mdc-padding">
+      <div fxFlexAlign="start">
+        <button mdc-button [accent]="true" [raised]="true">Button</button>
+      </div>
+      <p>Accent and Raised</p>
+      <pre class="prettyprint">&lt;button mdc-button [accent]="true" [raised]="true"&gt;Accent and Raised&lt;/button&gt;</pre>
+    </div>
+    <div fxLayout="column" class="mdc-padding">
+      <div fxFlexAlign="start">
+        <button mdc-button [primary]="true" [raised]="true">Button</button>
+      </div>
+      <p>Primary and Raised</p>
+      <pre class="prettyprint">&lt;button mdc-button [primary]="true" [raised]="true"&gt;Primary and Raised&lt;/button&gt;</pre>
+    </div>
+    <div fxLayout="column" class="mdc-padding">
+      <div fxFlexAlign="start">
+        <button mdc-button [primary]="true" [raised]="true" disabled>Button</button>
+      </div>
+      <p>Disabled</p>
+      <pre class="prettyprint">&lt;button mdc-button [primary]="true" [raised]="true" disabled&gt;Disabled&lt;/button&gt;</pre>
+    </div>
+  </div>
+</div>

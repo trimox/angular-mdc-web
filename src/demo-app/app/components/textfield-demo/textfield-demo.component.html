@@ -1,0 +1,190 @@
+<div fxLayout="column" class="mdc-padding">
+  <h1 class="mdc-typography--display1">Textfield</h1>
+  <p class="mdc-typography--subheading2">The MDC Textfield component is a spec-aligned button component adhering to the Material Design button requirements.</p>
+  <a href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-textfield">Google's Material Components for the web documentation</a>
+  <h1 class="mdc-typography--headline">Usage</h1>
+  <div style="width: 500px;">
+    <pre class="prettyprint"><![CDATA[import { TextfieldModule } from '@angular-mdc/web';]]></pre>
+  </div>
+  <h1 class="mdc-typography--headline">Directives</h1>
+  <div style="width: 500px;">
+    <pre class="prettyprint"><![CDATA[@Directive({selector: '[mdc-textfield-helptext]'})]]></pre>
+  </div>
+  <div fxLayout="row">
+    <div fxLayout="column">
+      <h1 class="mdc-typography--headline">API reference</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><pre class="prettyprint">@Input() id: string</pre></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() type: string = 'text'</pre></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() value: string</pre></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() disabled: string</pre></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() required: string</pre></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() labelId: string</pre></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() label: string</pre></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() placeholder: string</pre></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() tabindex: number</pre></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() rows: number</pre></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() cols: number</pre></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() maxlength: number</pre></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() fullwidth: boolean</pre></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() multiline: boolean</pre></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div fxLayout="column" fxFlexOffset="5">
+      <h1 class="mdc-typography--headline">Events</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><pre class="prettyprint">focus</pre></td>
+            <td>Native input element for a "focus" event.</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">blur</pre></td>
+            <td>Native input element for a "blur" event.</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">input</pre></td>
+            <td>Native input element for a "input" event.</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">keydown</pre></td>
+            <td>Native input element for a "keydown" event.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h1 class="mdc-typography--headline">Examples</h1>
+  <div fxLayout="column" fxLayoutAlign="start start">
+    <div fxLayout="column" class="mdc-padding">
+      <div fxFlexAlign="start">
+        <mdc-textfield [(ngModel)]="username" id="username" label="Username" required aria-controls="help-username-val" (focus)="handleFocus($event);" (blur)="handleBlur($event);" (input)="handleInput($event);" (keydown)="handleKeyDown($event);">
+        </mdc-textfield>
+        <p mdc-textfield-helptext id="help-username-val" [validation]="true" [persistent]="false">Username is required</p>
+      </div>
+      <pre class="prettyprint">
+&lt;mdc-textfield [(ngModel)]="username"
+  id="username"
+  label="Username"
+  required
+  aria-controls="help-username-val"
+  (focus)="handleFocus($event);"
+  (blur)="handleBlur($event);"
+  (input)="handleInput($event);"
+  (keydown)="handleKeyDown($event);"&gt;
+&lt;/mdc-textfield&gt;
+&lt;p mdc-textfield-helptext id="help-username-val" [validation]="true" [persistent]="false">Username is required&lt;/p&gt;
+      </pre>
+    </div>
+
+    <div fxLayout="column" class="mdc-padding">
+      <div fxFlexAlign="start">
+        <mdc-textfield [(ngModel)]="comments" id="comments" label="Comments" rows="8" cols="40" [multiline]="true"></mdc-textfield>
+      </div>
+      <p>Multi-line</p>
+      <pre class="prettyprint" style="width: 500px !important;">
+&lt;mdc-textfield [(ngModel)]="comments"
+  id="comments"
+  label="Comments"
+  rows="8"
+  cols="40"
+  [multiline]="true"&gt;
+&lt;/mdc-textfield&gt;
+      </pre>
+    </div>
+
+    <div fxLayout="column" class="mdc-padding">
+      <div>
+        <mdc-textfield [(ngModel)]="subject" id="subject" placeholder="Subject" [fullwidth]="true"></mdc-textfield>
+      </div>
+      <p>Full-width single line</p>
+      <pre class="prettyprint" style="width: 500px !important;">
+&lt;mdc-textfield [(ngModel)]="subject"
+  id="subject"
+  placeholder="Subject"
+  [fullwidth]="true"&gt;
+&lt;/mdc-textfield&gt;
+      </pre>
+    </div>
+
+    <div fxLayout="column" class="mdc-padding">
+      <div>
+        <mdc-textfield [(ngModel)]="message" id="message" placeholder="Type your message here" [fullwidth]="true" [multiline]="true" rows="8"></mdc-textfield>
+      </div>
+      <p>Full-width multi-line</p>
+      <pre class="prettyprint" style="width: 500px !important;">
+&lt;mdc-textfield [(ngModel)]="message"
+  id="message"
+  placeholder="Type your message here"
+  [fullwidth]="true"
+  [multiline]="true"
+  rows="8"&gt;
+&lt;/mdc-textfield&gt;
+      </pre>
+    </div>
+
+  </div>
+</div>
+<!--     <p>Username ngModel : {{username ? username : 'empty'}}</p>
+    <p>Focused : {{inputHasFocus}}</p>
+    <p>Keydown event count : {{inputKeysPressed}}</p>
+    <p>Input event count : {{inputCount}}</p>
+ -->

@@ -1,0 +1,75 @@
+<div fxLayout="column" class="mdc-padding">
+  <h1 class="mdc-typography--display1">Switch</h1>
+  <p class="mdc-typography--body1">The MDC Switch component is a spec-aligned checkbox component adhering to the Material Design checkbox requirements.</p>
+  <a href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-switch">Google's Material Components for the web documentation</a>
+  <h1 class="mdc-typography--headline">Usage</h1>
+  <div style="width: 400px;">
+    <pre class="prettyprint"><![CDATA[import { SwitchModule } from '@angular-mdc/web';]]></pre>
+  </div>
+  <h1 class="mdc-typography--headline">Directives</h1>
+  <div style="width: 400px;">
+    <pre class="prettyprint"><![CDATA[@Directive({selector: '[mdc-switch-label]'})]]></pre>
+  </div>
+  <div fxLayout="row">
+    <div fxLayout="column">
+      <h1 class="mdc-typography--headline">API reference</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><pre class="prettyprint">@Input() checked: boolean</pre></td>
+            <td>Boolean for verifying the checked value.</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() labelId: string</pre></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() disabled: string</pre></td>
+            <td>Disables the button element.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div fxLayout="column" fxFlexOffset="5">
+      <h1 class="mdc-typography--headline">Events</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><pre class="prettyprint">@Output() change</pre></td>
+            <td>Event dispatched on value change.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h1 class="mdc-typography--headline">Examples</h1>
+  <div fxLayout="column" fxLayoutAlign="start start">
+    <div fxLayout="column" class="mdc-padding">
+      <div fxFlexAlign="start">
+        <mdc-form-field>
+          <mdc-switch [(ngModel)]="isSwitchOn"></mdc-switch>
+          <label mdc-switch-label [id]="labelId">off/on</label>
+        </mdc-form-field>
+      <pre class="prettyprint">
+&lt;mdc-form-field&gt;
+  &lt;mdc-switch [(ngModel)]="isChecked"&gt;&lt;/mdc-switch&gt;
+  &lt;label mdc-switch-label [id]="labelId"&gt;Label text&lt;/label&gt;
+&lt;/mdc-form-field&gt;
+       </pre>
+    </div>
+  </div>
+</div>

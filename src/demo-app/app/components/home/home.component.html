@@ -1,88 +1,99 @@
-﻿<div style="padding-top: 20px;">
-  <fieldset>
-    <legend>MDC Button</legend>
-    <button mdc-button [accent]="true" (click)="submit('Default and Accent Clicked')">Default and Accent</button>
-    <button mdc-button [raised]="true" (click)="submit('Raised Clicked')">Raised</button>
-    <button mdc-button [dense]="true" [raised]="true" (click)="submit('Dense and Raised Clicked')">Dense and Raised</button>
-    <button mdc-button [raised]="true" [compact]="true" (click)="submit('Raised and Compact Clicked')">Raised and Compact</button>
-    <button mdc-button [primary]="true" [raised]="true" (click)="submit('Raised and Primary Clicked')">Raised and Primary</button>
-    <button mdc-button [raised]="true" [accent]="true" (click)="submit('Raised and Accent Clicked')">Raised and Accent</button>
-    <button mdc-button [primary]="true" [raised]="true" disabled>Disabled</button>
-    <p>Button Events : {{submitEventText ? submitEventText : 'empty'}}</p>
-  </fieldset>
-  <fieldset>
-    <legend>MDC Checkbox</legend>
-    <mdc-form-field>
-      <mdc-checkbox [(ngModel)]="isChecked"></mdc-checkbox>
-      <label mdc-checkbox-label [id]="labelId">The checkbox is {{isChecked}}</label>
-    </mdc-form-field>
-  </fieldset>
-  <fieldset>
-    <legend>MDC Switch</legend>
-    <mdc-form-field>
-      <mdc-switch [(ngModel)]="isSwitchChecked"></mdc-switch>
-      <label mdc-switch-label [id]="labelId">off/on</label>
-    </mdc-form-field>
-  </fieldset>
-  <fieldset>
-    <legend>MDC FAB</legend>
-    <button mdc-fab aria-label="Search">
-      <span mdc-fab-icon>search</span>
-    </button>
-    <button mdc-fab [mini]="true" aria-label="search">
-      <span mdc-fab-icon>search</span>
-    </button>
-    <button mdc-fab [plain]="true" aria-label="Add">
-      <span mdc-fab-icon>add</span>
-    </button>
-    <button mdc-fab [plain]="true" [mini]="true" aria-label="Add">
-      <span mdc-fab-icon>add</span>
-    </button>
-    <button mdc-fab disabled aria-label="Add">
-      <span mdc-fab-icon>add</span>
-    </button>
-  </fieldset>
-  <fieldset>
-    <legend>MDC Snackbar</legend>
-    <button mdc-button [primary]="true" [raised]="true" (click)="showSnack(false);">Simple</button>
-    <button mdc-button [primary]="true" [raised]="true" (click)="showSnack(true);">Multiline</button>
-    <button mdc-button [primary]="true" [raised]="true" (click)="showSnack(true, true);">Multiline and Action on Bottom</button>
-  </fieldset>
-  <fieldset>
-    <legend>MDC Menu</legend>
-    <div class="mdc-menu-anchor">
-      <button mdc-fab aria-label="Profile" (click)="showMenu();">
-        <span mdc-fab-icon>person</span>
-      </button>
-      <mdc-menu #menu (cancel)="handleMenuCancel();" (select)="handleMenuSelect($event);" [items]="menuItems"></mdc-menu>
-    </div>
-    <p>Selected index : {{selectedIndex}}</p>
-    <mdc-textfield [(ngModel)]="focusedItemIndex" label="Set focus to item index" type="number"></mdc-textfield>
-  </fieldset>
-  <fieldset>
-    <legend>MDC Textfield</legend>
-    <mdc-textfield [(ngModel)]="username" id="username" label="Username" required aria-controls="help-username-val" (focus)="handleFocus($event);" (blur)="handleBlur($event);" (input)="handleInput($event);" (keydown)="handleKeyDown($event);">
-    </mdc-textfield>
-    <p mdc-textfield-helptext id="help-username-val" [validation]="true" [persistent]="false">Username is required</p>
-    <p>Username ngModel : {{username ? username : 'empty'}}</p>
-    <p>Focused : {{inputHasFocus}}</p>
-    <p>Keydown event count : {{inputKeysPressed}}</p>
-    <p>Input event count : {{inputCount}}</p>
-    <fieldset>
-      <legend>Multi-line Example</legend>
-      <mdc-textfield [(ngModel)]="comments" id="comments" label="Comments" rows="8" cols="40" [multiline]="true">
-      </mdc-textfield>
-      <p>Comments ngModel : {{comments ? comments : 'empty'}}</p>
-    </fieldset>
-    <fieldset>
-      <legend>Full-Width Example</legend>
-      <mdc-textfield [(ngModel)]="subject" id="subject" placeholder="Subject" [fullwidth]="true">
-      </mdc-textfield>
-      <mdc-textfield [(ngModel)]="message" id="message" placeholder="Type your message here" [fullwidth]="true" rows="8" [multiline]="true">
-      </mdc-textfield>
-      <p>Subject ngModel : {{subject ? subject : 'empty'}}</p>
-      <p>Message ngModel : {{message ? message : 'empty'}}</p>
-    </fieldset>
-  </fieldset>
+﻿<div fxLayout="row" fxLayoutAlign="center" style="padding-top: 20px;">
+<div fxLayout="center" fxLayoutWrap fxFlex="70">
+  <div class="mdc-card home-card">
+    <section class="mdc-card__primary">
+      <h1 class="mdc-card__title mdc-card__title--large">Buttons</h1>
+      <h2 class="mdc-card__subtitle">Material Design Component</h2>
+    </section>
+    <section class="mdc-card__supporting-text">
+      Buttons communicate the action that will occur when the user touches them.
+    </section>
+    <section class="mdc-card__actions">
+      <button class="mdc-button mdc-button--compact mdc-card__action" (click)="buttonDemo();">View Demo</button>
+    </section>
+  </div>
+  <div class="mdc-card home-card">
+    <section class="mdc-card__primary">
+      <h1 class="mdc-card__title mdc-card__title--large">Checkbox</h1>
+      <h2 class="mdc-card__subtitle">Material Design Component</h2>
+    </section>
+    <section class="mdc-card__supporting-text">
+      Checkboxes allow the user to select multiple options from a set.
+    </section>
+    <section class="mdc-card__actions">
+      <button class="mdc-button mdc-button--compact mdc-card__action" (click)="checkboxDemo();">View Demo</button>
+    </section>
+  </div>
+  <div class="mdc-card home-card">
+    <section class="mdc-card__primary">
+      <h1 class="mdc-card__title mdc-card__title--large">Switch</h1>
+      <h2 class="mdc-card__subtitle">Material Design Component</h2>
+    </section>
+    <section class="mdc-card__supporting-text">
+      On/off switches toggle the state of a single settings option.
+    </section>
+    <section class="mdc-card__actions">
+      <button class="mdc-button mdc-button--compact mdc-card__action" (click)="switchDemo();">View Demo</button>
+    </section>
+  </div>
+  <div class="mdc-card home-card">
+    <section class="mdc-card__primary">
+      <h1 class="mdc-card__title mdc-card__title--large">Floating Action Button (FAB)</h1>
+      <h2 class="mdc-card__subtitle">Material Design Component</h2>
+    </section>
+    <section class="mdc-card__supporting-text">
+      A floating action button represents the primary action in an application.
+    </section>
+    <section class="mdc-card__actions">
+      <button class="mdc-button mdc-button--compact mdc-card__action" (click)="fabDemo();">View Demo</button>
+    </section>
+  </div>
+  <div class="mdc-card home-card">
+    <section class="mdc-card__primary">
+      <h1 class="mdc-card__title mdc-card__title--large">Snackbar</h1>
+      <h2 class="mdc-card__subtitle">Material Design Component</h2>
+    </section>
+    <section class="mdc-card__supporting-text">
+      Snackbars provide brief feedback about an operation through a message at the bottom of the screen.
+    </section>
+    <section class="mdc-card__actions">
+      <button class="mdc-button mdc-button--compact mdc-card__action" (click)="snackDemo();">View Demo</button>
+    </section>
+  </div>
+  <div class="mdc-card home-card">
+    <section class="mdc-card__primary">
+      <h1 class="mdc-card__title mdc-card__title--large">Menu</h1>
+      <h2 class="mdc-card__subtitle">Material Design Component</h2>
+    </section>
+    <section class="mdc-card__supporting-text">
+      Menus display a list of choices on a transient sheet of material.
+    </section>
+    <section class="mdc-card__actions">
+      <button class="mdc-button mdc-button--compact mdc-card__action" (click)="menuDemo();">View Demo</button>
+    </section>
+  </div>
+  <div class="mdc-card home-card">
+    <section class="mdc-card__primary">
+      <h1 class="mdc-card__title mdc-card__title--large">Textfield</h1>
+      <h2 class="mdc-card__subtitle">Material Design Component</h2>
+    </section>
+    <section class="mdc-card__supporting-text">
+      Text fields allow users to input, edit, and select text.
+    </section>
+    <section class="mdc-card__actions">
+      <button class="mdc-button mdc-button--compact mdc-card__action" (click)="textfieldDemo();">View Demo</button>
+    </section>
+  </div>
+  <div class="mdc-card home-card">
+    <section class="mdc-card__primary">
+      <h1 class="mdc-card__title mdc-card__title--large">Toolbar</h1>
+      <h2 class="mdc-card__subtitle">Material Design Component</h2>
+    </section>
+    <section class="mdc-card__supporting-text">
+      Toolbars appear a step above the sheet of material affected by their actions.
+    </section>
+    <section class="mdc-card__actions">
+      <button class="mdc-button mdc-button--compact mdc-card__action" (click)="toolbarDemo();">View Demo</button>
+    </section>
+  </div>
 </div>
-<mdc-snackbar #snack id="snack-demo"></mdc-snackbar>

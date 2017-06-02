@@ -3,11 +3,12 @@
   [fixed]="true"
   [waterfall]="false"
   [fixedLastrow]="false"
-  [flexibleTitle]="false">
+  [flexibleTitle]="true">
   <mdc-toolbar-row>
     <mdc-toolbar-section [alignStart]="true">
       <a href="#" class="material-icons">menu</a>
-      <span mdc-toolbar-title>Angular for Material Design Components</span>
+      <span mdc-toolbar-title fxShow fxHide.xs>Angular for Material Design Components</span>
+      <span mdc-toolbar-title fxHide fxShow.xs>angular-mdc-web</span>
     </mdc-toolbar-section>
     <mdc-toolbar-section [alignEnd]="true">
       <a href="https://github.com/trimox/angular-mdc-web" alt="angular-mdc-web GitHub" class="material-icons">

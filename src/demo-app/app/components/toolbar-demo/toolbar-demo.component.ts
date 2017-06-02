@@ -1,7 +1,6 @@
 import {
   Component,
-  OnInit,
-  ViewChild
+  OnInit
 } from '@angular/core';
 
 @Component({

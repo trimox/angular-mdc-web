@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/trimox/angular-mdc-web.svg?branch=master)](https://travis-ci.org/trimox/angular-mdc-web)
 [![npm version](https://badge.fury.io/js/%40angular-mdc%2Fweb.svg)](https://badge.fury.io/js/%40angular-mdc%2Fweb)
 
-#### Demo app
+#### Demo app with API, documentation and examples
 https://trimox.github.io/angular-mdc-web/
 
 #### Quick links
@@ -11,9 +11,8 @@ https://trimox.github.io/angular-mdc-web/
 
 ### Project status
 * We're just getting started..
-* Working on designing a new demo app
-* Writing API usage guides
-* Writing more MDC-Web wrappers
+* Continuing to expand component API docs
+* Writing more MDC-Web wrappers!
 
 ## Installation
 ```

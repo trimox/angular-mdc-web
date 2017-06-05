@@ -3,7 +3,7 @@
   <p class="mdc-typography--subheading2">The MDC Snackbar component is a spec-aligned button component adhering to the Material Design button requirements.</p>
   <a href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-snackbar">Google's Material Components for the web documentation</a>
   <h1 class="mdc-typography--headline">Usage</h1>
-  <div style="width: 400px;">
+  <div style="width: 500px;">
     <pre class="prettyprint"><![CDATA[import { SnackbarModule } from '@angular-mdc/web';]]></pre>
   </div>
   <div fxLayout="row" fxLayout.lt-md="column">
@@ -45,16 +45,12 @@
   </div>
 
   <h1 class="mdc-typography--headline">Examples</h1>
-  <div fxLayout="column" fxLayoutAlign="start start">
-    <div fxLayout="column" class="mdc-padding">
-      <div fxFlexAlign="start">
-        <button mdc-button [primary]="true" [raised]="true" (click)="showSimple();">Simple</button>
-        <button mdc-button [primary]="true" [raised]="true" (click)="showActionButton();">Show Action</button>
-        <button mdc-button [primary]="true" [raised]="true" (click)="showMultiline();">Show Multiline</button>
-        <button mdc-button [primary]="true" [raised]="true" (click)="showMultilineBottom();">Show Multiline - Bottom</button>
-      </div>
-      <!-- <pre class="prettyprint">&lt;button mdc-button [primary]="true" [raised]="true"&gt;Primary and Raised&lt;/button&gt;</pre> -->
+    <div class="mdc-padding">
+      <button mdc-button [primary]="true" [raised]="true" (click)="showSimple();">Simple</button>
+      <button mdc-button [primary]="true" [raised]="true" (click)="showActionButton();">Show Action</button>
+      <button mdc-button [primary]="true" [raised]="true" (click)="showMultiline();">Show Multiline</button>
+      <button mdc-button [primary]="true" [raised]="true" (click)="showMultilineBottom();">Show Multiline - Bottom</button>
     </div>
-  </div>
+    <!-- <pre class="prettyprint">&lt;button mdc-button [primary]="true" [raised]="true"&gt;Primary and Raised&lt;/button&gt;</pre> -->
 </div>
 <mdc-snackbar #snack></mdc-snackbar>

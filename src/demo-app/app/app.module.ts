@@ -15,14 +15,11 @@ import { MenuDemoComponent } from './components/menu-demo/menu-demo.component';
 import { TextfieldDemoComponent } from './components/textfield-demo/textfield-demo.component';
 import { ToolbarDemoComponent } from './components/toolbar-demo/toolbar-demo.component';
 
-import { MaterialModule } from './../../lib';
+import { MaterialModule } from './../../../dist';
 import { HomeComponent } from './components/home/home.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
-
-require('@material/typography/mdc-typography.scss');
-require('@material/card/mdc-card.scss');
 
 @NgModule({
   imports: [

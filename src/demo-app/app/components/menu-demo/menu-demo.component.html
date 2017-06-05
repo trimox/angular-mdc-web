@@ -3,11 +3,11 @@
   <p class="mdc-typography--subheading2">The MDC Menu component is a spec-aligned button component adhering to the Material Design button requirements.</p>
   <a href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-menu">Google's Material Components for the web documentation</a>
   <h1 class="mdc-typography--headline">Usage</h1>
-  <div style="width: 400px;">
+  <div style="width: 500px;">
     <pre class="prettyprint"><![CDATA[import { MenuModule } from '@angular-mdc/web';]]></pre>
   </div>
   <h1 class="mdc-typography--headline">Directives</h1>
-  <div style="width: 400px;">
+  <div style="width: 500px;">
     <pre class="prettyprint"><![CDATA[@Directive({selector: '[mdc-menu-item]'})]]></pre>
   </div>
   <div fxLayout="row" fxLayout.lt-md="column">
@@ -41,11 +41,11 @@
         <tbody>
           <tr>
             <td><pre class="prettyprint">cancel</pre></td>
-            <td></td>
+            <td>Dispatches an event that the menu closed with no selection made.</td>
           </tr>
           <tr>
             <td><pre class="prettyprint">select</pre></td>
-            <td></td>
+            <td>Dispatches an event that a menu item has been selected.</td>
           </tr>
         </tbody>
       </table>
@@ -63,7 +63,7 @@
           <mdc-menu #menu (cancel)="handleMenuCancel();" (select)="handleMenuSelect($event);" [items]="menuItems"></mdc-menu>
         </div>
       </div>
-      <pre class="prettyprint">
+      <pre class="prettyprint" style="width: 700px !important;">
 &lt;div class="mdc-menu-anchor"&gt;
   &lt;button mdc-fab aria-label="Profile" (click)="showMenu();"&gt;
     &lt;span mdc-fab-icon>person&lt;/span&gt;

@@ -4,15 +4,10 @@
 [![npm version](https://badge.fury.io/js/%40angular-mdc%2Fweb.svg)](https://badge.fury.io/js/%40angular-mdc%2Fweb)
 
 #### Demo app with API, documentation and examples
-https://trimox.github.io/angular-mdc-web/
+[Demo App](https://trimox.github.io/angular-mdc-web/)
 
 #### Quick links
 [Google Material Design Components](https://material.io/components/)
-
-### Project status
-* We're just getting started..
-* Continuing to expand component API docs
-* Writing more MDC-Web wrappers!
 
 ## Installation
 ```
@@ -42,6 +37,7 @@ import { FabModule, MenuModule } from '@angular-mdc/web';
 | form-field | Available |
 | grid-list
 | icon-toggle
+| linear-progress | Available |
 | list
 | menu | Available |
 | radio

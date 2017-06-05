@@ -6,6 +6,7 @@ import { ButtonModule } from './button';
 import { CheckboxModule } from './checkbox';
 import { FabModule } from './fab';
 import { FormFieldModule } from './form-field';
+import { LinearProgressModule } from './linear-progress';
 import { MenuModule } from './menu';
 import { RippleModule } from './ripple';
 import { SnackbarModule } from './snackbar';
@@ -17,6 +18,7 @@ export * from './button';
 export * from './checkbox';
 export * from './fab';
 export * from './form-field';
+export * from './linear-progress';
 export * from './menu';
 export * from './ripple';
 export * from './snackbar';
@@ -29,6 +31,7 @@ const MATERIAL_MODULES = [
 	CheckboxModule,
 	FabModule,
 	FormFieldModule,
+	LinearProgressModule,
 	MenuModule,
 	RippleModule,
 	SnackbarModule,

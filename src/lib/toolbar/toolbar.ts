@@ -48,9 +48,8 @@ export class ToolbarComponent implements AfterViewInit, OnDestroy {
   @HostBinding('class.mdc-toolbar--flexible-default-behavior') get classFlexibleTitle(): string {
     return this.flexible && this.flexibleTitle ? 'mdc-toolbar--flexible-default-behavior' : '';
   }
-  @ViewChild('mdc-toolbar-title') titleEl: ElementRef;
+  @ViewChild(ToolbarTitleDirective) titleEl: ElementRef;
 
-  private _controlValueAccessorChangeFn: (value: any) => void = (value) => { };
   private _unlisteners: Map<string, UnlistenerMap> = new Map<string, UnlistenerMap>();
 
   private _mdcAdapter: MDCToolbarAdapter = {

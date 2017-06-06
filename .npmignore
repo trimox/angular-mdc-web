@@ -1,24 +1,10 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
-
-# compiled output
 /tmp
-
-# dependencies
-/node_modules
-
-# misc
+node_modules
 npm-debug.log
 /typings
 /publish
 /dist
-
-# e2e
-/e2e/*.js
-/e2e/*.map
-
-#System Files
-.DS_Store
-Thumbs.db
+/src
 
 #ignore files added by travis ci script
 google-chrome-stable_current*

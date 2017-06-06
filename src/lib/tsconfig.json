@@ -1,25 +1,31 @@
 ﻿{
-	"compilerOptions": {
-		"target": "es6",
-		"module": "es6",
-		"moduleResolution": "node",
-		"outDir": "./../../dist",
-		"declaration": true,
-		"rootDir": ".",
-		"removeComments": true,
-		"sourceMap": true,
-		"emitDecoratorMetadata": true,
-		"experimentalDecorators": true,
-		"inlineSources": true,
-		"stripInternal": true,
-		"typeRoots": [
-			"./../../node_modules/@types"
-		]
-	},
-	"awesomeTypescriptLoaderOptions": {
-		"useWebpackText": true // Allows other loaders to be chained to awesome-typescript-loader.
-	},
-	"files": [
-			"./index.ts"
-	]
+ "compilerOptions": {
+  "target": "es6",
+  "module": "commonjs",
+  "moduleResolution": "node",
+  "outDir": "./../../dist",
+  "baseUrl": ".",
+  "rootDir": ".",
+  "allowSyntheticDefaultImports": true,
+  "declaration": true,
+  "removeComments": true,
+  "sourceMap": true,
+  "emitDecoratorMetadata": true,
+  "experimentalDecorators": true,
+  "inlineSources": true,
+  "noImplicitAny": false,
+  "suppressImplicitAnyIndexErrors": true,
+  "lib": ["es2015", "dom"],
+  "typeRoots": ["./../../node_modules/@types"]
+ },
+ "exclude": [
+  "node_modules",
+  "dist",
+  "src"
+ ],
+ "files": [
+  "./index.ts"
+ ],
+ "compileOnSave": false,
+ "buildOnSave": false
 }

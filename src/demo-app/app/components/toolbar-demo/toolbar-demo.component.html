@@ -1,7 +1,7 @@
-<div fxLayout="column" fxFlex class="mdc-padding">
+<div fxLayout="column" class="mdc-padding">
   <h1 class="mdc-typography--display1">Toolbars</h1>
   <p class="mdc-typography--subheading2">The MDC Toolbar component is a spec-aligned button component adhering to the Material Design button requirements.</p>
-  <a href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-toolbar">Google's Material Components for the web documentation</a>
+  <a href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-toolbar">Google Material Components documentation</a>
   <h1 class="mdc-typography--headline">Usage</h1>
   <div style="width: 500px;">
     <pre class="prettyprint"><![CDATA[import { ToolbarModule } from '@angular-mdc/web';]]></pre>
@@ -14,83 +14,70 @@
   <div style="width: 500px;">
     <pre class="prettyprint"><![CDATA[@Directive({selector: '[mdc-toolbar-title]'})]]></pre>
   </div>
-  <div fxLayout="row" fxLayout.lt-md="column">
-    <div fxLayout="column">
-      <h1 class="mdc-typography--headline">API reference</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Attribute</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><pre class="prettyprint">@Input() fixed: boolean</pre></td>
-            <td>Makes toolbar fixed on top and have persistent elavation.</td>
-          </tr>
-          <tr>
-            <td><pre class="prettyprint">@Input() waterfall: boolean</pre></td>
-            <td>Removes fixed toolbar persistent elavation; gaining elevation scrolling down the page.</td>
-          </tr>
-          <tr>
-            <td><pre class="prettyprint">@Input() flexible: boolean</pre></td>
-            <td>Makes toolbar first row has flexible space.</td>
-          </tr>
-          <tr>
-            <td><pre class="prettyprint">@Input() flexibleTitle: boolean</pre></td>
-            <td>Toolbar text has flexible movement.</td>
-          </tr>
-          <tr>
-            <td><pre class="prettyprint">@Input() fixedLastrow: boolean</pre></td>
-            <td>Makes only last row of fixed toolbar anchored on top.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div fxLayout="column" fxFlexOffset.gt-md="2">
-      <h1 class="mdc-typography--headline">Events</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Event</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><pre class="prettyprint">@Output() change <![CDATA[{flexibleExpansionRatio: number})]]></pre>
+  <div fxLayout="column">
+    <h1 class="mdc-typography--headline">API reference</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Attribute</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><pre class="prettyprint">@Input() fixed: boolean</pre></td>
+          <td>Makes toolbar fixed on top and have persistent elavation.</td>
+        </tr>
+        <tr>
+          <td><pre class="prettyprint">@Input() waterfall: boolean</pre></td>
+          <td>Removes fixed toolbar persistent elavation; gaining elevation scrolling down the page.</td>
+        </tr>
+        <tr>
+          <td><pre class="prettyprint">@Input() flexible: boolean</pre></td>
+          <td>Makes toolbar first row has flexible space.</td>
+        </tr>
+        <tr>
+          <td><pre class="prettyprint">@Input() flexibleTitle: boolean</pre></td>
+          <td>Toolbar text has flexible movement.</td>
+        </tr>
+        <tr>
+          <td><pre class="prettyprint">@Input() fixedLastrow: boolean</pre></td>
+          <td>Makes only last row of fixed toolbar anchored on top.</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><pre class="prettyprint">@Output() change <![CDATA[{flexibleExpansionRatio: number})]]></pre>
             <td>Emits the ratio of current flexible space to total flexible space height.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+        </tr>
+      </tbody>
+    </table>
   </div>
-
   <h1 class="mdc-typography--headline">Examples</h1>
   <div fxLayout="column" fxLayoutAlign="start start">
     <div fxLayout="column" class="mdc-padding">
       <div fxFlexAlign="start">
-        <mdc-toolbar 
-          [flexible]="false"
-          [fixed]="false"
-          [waterfall]="false"
-          [fixedLastrow]="false"
-          [flexibleTitle]="true">
+        <mdc-toolbar [flexible]="false" [fixed]="false" [waterfall]="false" [fixedLastrow]="false" [flexibleTitle]="true">
           <mdc-toolbar-row>
             <mdc-toolbar-section [alignStart]="true">
-              <i class="material-icons">menu</i>
+              <a class="material-icons">menu</a>
               <span mdc-toolbar-title>Title</span>
             </mdc-toolbar-section>
             <mdc-toolbar-section [alignEnd]="true">
-              <i href="#" class="material-icons" aria-label="Download">file_download</i>
-              <i href="#" class="material-icons" aria-label="Print this page">print</i>
-              <i href="#" class="material-icons" aria-label="Bookmark this page">bookmark</i>
+              <a href="#" class="material-icons" aria-label="Download">file_download</a>
+              <a href="#" class="material-icons" aria-label="Print this page">print</a>
+              <a href="#" class="material-icons" aria-label="Bookmark this page">bookmark</a>
             </mdc-toolbar-section>
           </mdc-toolbar-row>
         </mdc-toolbar>
-
         <pre class="prettyprint" style="width: 850px !important;">
 &lt;mdc-toolbar 
   [flexible]="false"
@@ -100,20 +87,20 @@
   [flexibleTitle]="true"&gt;
   &lt;mdc-toolbar-row&gt;
     &lt;mdc-toolbar-section [alignStart]="true"&gt;
-      &lt;i class="material-icons"&gt;menu&lt;/i&gt;
+      &lt;a class="material-icons"&gt;menu&lt;/a&gt;
       &lt;span mdc-toolbar-title&gt;Title&lt;/span&gt;
     &lt;/mdc-toolbar-section&gt;
     &lt;mdc-toolbar-section [alignEnd]="true"&gt;
-      &lt;i href="#" class="material-icons" aria-label="Download" alt="Download"&gt;file_download&lt;/i&gt;
-      &lt;i href="#" class="material-icons" aria-label="Print this page" alt="Print this page"&gt;print&lt;/i&gt;
-      &lt;i href="#" class="material-icons" aria-label="Bookmark this page" alt="Bookmark this page"&gt;bookmark&lt;/i&gt;
+      &lt;a href="#" class="material-icons" aria-label="Download" alt="Download"&gt;file_download&lt;/a&gt;
+      &lt;a href="#" class="material-icons" aria-label="Print page" alt="Print page"&gt;print&lt;/a&gt;
+      &lt;a href="#" class="material-icons" aria-label="Bookmark page" alt="Bookmark page"&gt;bookmark&lt;/a&gt;
     &lt;/mdc-toolbar-section&gt;
   &lt;/mdc-toolbar-row&gt;
 &lt;/mdc-toolbar>&gt;
         </pre>
       </div>
-</div>
-
-<!-- <iframe src="./toolbar-demo/waterfall.html"></iframe>
- -->  </div>
+    </div>
+    <!-- <iframe src="./toolbar-demo/waterfall.html"></iframe>
+ -->
+  </div>
 </div>

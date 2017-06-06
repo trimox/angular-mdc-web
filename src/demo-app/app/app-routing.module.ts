@@ -10,6 +10,7 @@ import { SnackbarDemoComponent } from './components/snackbar-demo/snackbar-demo.
 import { MenuDemoComponent } from './components/menu-demo/menu-demo.component';
 import { TextfieldDemoComponent } from './components/textfield-demo/textfield-demo.component';
 import { ToolbarDemoComponent } from './components/toolbar-demo/toolbar-demo.component';
+import { LinearProgressDemoComponent } from './components/linear-progress-demo/linear-progress-demo.component';
 
 export const appRoutes: Routes = [
   { path: 'button-demo', component: ButtonDemoComponent },
@@ -20,6 +21,7 @@ export const appRoutes: Routes = [
   { path: 'menu-demo', component: MenuDemoComponent },
   { path: 'textfield-demo', component: TextfieldDemoComponent },
   { path: 'toolbar-demo', component: ToolbarDemoComponent },
+  { path: 'linear-progress-demo', component: LinearProgressDemoComponent },
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: '**', redirectTo: '' }
 ];

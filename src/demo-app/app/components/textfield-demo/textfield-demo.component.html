@@ -1,7 +1,7 @@
-<div fxLayout="column" fxFlex class="mdc-padding">
+<div fxLayout="column" class="mdc-padding">
   <h1 class="mdc-typography--display1">Textfield</h1>
   <p class="mdc-typography--subheading2">The MDC Textfield component is a spec-aligned button component adhering to the Material Design button requirements.</p>
-  <a href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-textfield">Google's Material Components for the web documentation</a>
+  <a href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-textfield">Google Material Components documentation</a>
   <h1 class="mdc-typography--headline">Usage</h1>
   <div style="width: 500px;">
     <pre class="prettyprint"><![CDATA[import { TextfieldModule } from '@angular-mdc/web';]]></pre>
@@ -120,7 +120,7 @@
         </mdc-textfield>
         <p mdc-textfield-helptext id="help-username-val" [validation]="true" [persistent]="false">Username is required</p>
       </div>
-      <pre class="prettyprint" style="width: 900px !important;">
+      <pre class="prettyprint" style="width: 600px !important;">
 &lt;mdc-textfield [(ngModel)]="username"
   id="username"
   label="Username"
@@ -131,7 +131,9 @@
   (input)="handleInput($event);"
   (keydown)="handleKeyDown($event);"&gt;
 &lt;/mdc-textfield&gt;
-&lt;p mdc-textfield-helptext id="help-username-val" [validation]="true" [persistent]="false">Username is required&lt;/p&gt;
+&lt;p mdc-textfield-helptext id="help-username-val"
+ [validation]="true"
+ [persistent]="false">Username is required&lt;/p&gt;
       </pre>
     </div>
 

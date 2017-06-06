@@ -6,5 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './navbar.component.html'
 })
 export class NavbarComponent {
-  constructor() {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router) { }
 }

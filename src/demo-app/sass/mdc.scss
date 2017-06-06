@@ -7,18 +7,3 @@ $mdc-theme-primary: #1565c0;
 @import "@material/theme/mdc-theme";
 @import '@material/elevation/mdc-elevation';
 @import '@material/card/mdc-card';
-
-.mdc-textfield {
-  margin-top: 0 !important;
-  &__input {
-    width: 100%;
-  }
-}
-
-.mdc-card {
-  background-color: #fff;
-}
-
-.mdc-snackbar {
-  transform: translateY(100%);
-}

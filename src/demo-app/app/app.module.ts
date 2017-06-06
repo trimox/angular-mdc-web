@@ -14,6 +14,7 @@ import { SnackbarDemoComponent } from './components/snackbar-demo/snackbar-demo.
 import { MenuDemoComponent } from './components/menu-demo/menu-demo.component';
 import { TextfieldDemoComponent } from './components/textfield-demo/textfield-demo.component';
 import { ToolbarDemoComponent } from './components/toolbar-demo/toolbar-demo.component';
+import { LinearProgressDemoComponent } from './components/linear-progress-demo/linear-progress-demo.component';
 
 import { MaterialModule } from './../../../dist';
 import { HomeComponent } from './components/home/home.component';
@@ -41,7 +42,8 @@ import { AppRoutingModule } from './app-routing.module';
     SnackbarDemoComponent,
     MenuDemoComponent,
     TextfieldDemoComponent,
-    ToolbarDemoComponent
+    ToolbarDemoComponent,
+    LinearProgressDemoComponent,
   ],
   bootstrap: [AppComponent]
 })

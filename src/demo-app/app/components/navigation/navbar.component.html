@@ -1,7 +1,7 @@
 <mdc-toolbar [flexible]="false" [fixed]="true" [waterfall]="false" [fixedLastrow]="false" [flexibleTitle]="true">
   <mdc-toolbar-row>
     <mdc-toolbar-section [alignStart]="true">
-      <a href="#" class="material-icons">menu</a>
+      <a href="#" class="material-icons" alt="Home">{{router.url == '/' ? 'menu' : 'arrow_back'}}</a>
       <span mdc-toolbar-title fxShow fxHide.xs>Angular for Material Design Components</span>
       <span mdc-toolbar-title fxHide fxShow.xs>angular-mdc-web</span>
     </mdc-toolbar-section>

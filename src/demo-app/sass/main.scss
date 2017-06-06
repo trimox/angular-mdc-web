@@ -1,0 +1,36 @@
+@import './mdc.scss';
+
+// Remove clear button for IE inputs
+::-ms-clear {
+  display: none;
+}
+
+// Remove pseudo-element for password field from IE
+::-ms-reveal {
+  display: none;
+}
+
+.material-icons {
+  padding-right: 7px;
+  text-decoration: none;
+  color: white;
+}
+
+.mdc-padding {
+  padding: 7px;
+}
+
+.mdc-margin {
+  margin: 7px;
+}
+
+pre.prettyprint {
+  width: auto !important;
+  margin-right: 15px !important;
+}
+
+.home-card {
+  width: 400px;
+  margin-right: 15px;
+  margin-top: 15px;
+}

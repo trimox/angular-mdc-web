@@ -1,19 +1,16 @@
 ﻿{
- "compilerOptions": {
-  "target": "es6",
-  "module": "es6",
-  "moduleResolution": "node",
-  "outDir": "./../../publish",
-  "declaration": false,
-  "rootDir": "./../../",
-  "removeComments": true,
-  "sourceMap": true,
-  "emitDecoratorMetadata": true,
-  "experimentalDecorators": true,
-  "inlineSources": true,
-  "stripInternal": true,
-  "typeRoots": [
-   "./../../node_modules/@types"
-  ]
- }
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./publish",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "skipDefaultLibCheck": true,
+    "strictNullChecks": false,
+    "typeRoots": ["./../../node_modules/@types"]
+  },
+  "compileOnSave": false,
+  "buildOnSave": false
 }

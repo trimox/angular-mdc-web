@@ -1,5 +1,5 @@
 <a name="0.1.7"></a>
-## [0.1.7](https://github.com/trimox/angular-mdc-web/compare/v0.1.6...v0.1.7) (2017-06-06)
+# [0.1.7](https://github.com/trimox/angular-mdc-web/compare/v0.1.6...v0.1.7) (2017-06-06)
 
 
 ### Bug Fixes

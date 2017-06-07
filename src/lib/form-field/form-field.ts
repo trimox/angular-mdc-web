@@ -42,7 +42,10 @@ export class FormFieldComponent implements AfterViewInit, OnDestroy {
     deactivateInputRipple: () => { } /* TODO */
   }
 
-  private _foundation: { init: Function, destroy: Function } = new MDCFormFieldFoundation(this._mdcAdapter);
+  private _foundation: {
+    init: Function,
+    destroy: Function
+  } = new MDCFormFieldFoundation(this._mdcAdapter);
 
   constructor(private _renderer: Renderer2, private _root: ElementRef) { }
 

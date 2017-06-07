@@ -77,7 +77,10 @@ export class Ripple implements OnDestroy {
     }
   }
 
-  private _foundation: { init: Function, destroy: Function } = new MDCRippleFoundation(this._mdcAdapter);
+  private _foundation: {
+    init: Function,
+    destroy: Function
+  } = new MDCRippleFoundation(this._mdcAdapter);
 
   constructor(private _renderer: Renderer2, private _root: ElementRef) {
     this._foundation.init();

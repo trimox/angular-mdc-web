@@ -60,7 +60,8 @@ export class ButtonComponent {
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef, private _ripple: Ripple) {
+    private _root: ElementRef,
+    private _ripple: Ripple) {
   }
 
   handleKeyboardDown_(evt: KeyboardEvent) {

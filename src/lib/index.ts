@@ -1,6 +1,4 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 
 import { ButtonModule } from './button';
 import { CheckboxModule } from './checkbox';
@@ -13,6 +11,7 @@ import { SnackbarModule } from './snackbar';
 import { SwitchModule } from './switch';
 import { TextfieldModule } from './textfield';
 import { ToolbarModule } from './toolbar';
+import { TypographyModule } from './typography';
 
 export * from './button';
 export * from './checkbox';
@@ -25,6 +24,7 @@ export * from './snackbar';
 export * from './switch';
 export * from './textfield';
 export * from './toolbar';
+export * from './typography';
 
 const MATERIAL_MODULES = [
 	ButtonModule,
@@ -38,12 +38,11 @@ const MATERIAL_MODULES = [
 	SwitchModule,
 	TextfieldModule,
 	ToolbarModule,
+	TypographyModule,
 ]
 
 @NgModule({
 	imports: [
-		CommonModule,
-		FormsModule,
 		MATERIAL_MODULES
 	],
 	exports: [

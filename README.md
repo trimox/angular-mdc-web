@@ -49,4 +49,4 @@ import { FabModule, MenuModule } from '@angular-mdc/web';
 | textfield | Available |
 | theme
 | toolbar | Available |
-| typography
+| typography | Available |

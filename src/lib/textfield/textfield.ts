@@ -35,11 +35,22 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
   providers: [MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR]
 })
 export class TextfieldComponent implements AfterViewInit, OnDestroy {
+  private disabled_: boolean;
+
   @Input() id: string;
   @Input() type: string = 'text';
   @Input() value: string;
-  @Input() disabled: 'disabled';
-  @Input() required: 'required';
+  @Input()
+  get disabled(): boolean {
+    return this.disabled_;
+  }
+  set disabled(value: boolean) {
+    this.disabled_ = value;
+    if (this.inputEl) {
+      this._foundation.setDisabled(value);
+    }
+  }
+  @Input() required: boolean;
   @Input() labelId: string;
   @Input() label: string;
   @Input() placeholder: string;
@@ -156,7 +167,7 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
       return {
         checkValidity: () => this.inputEl.nativeElement.checkValidity(),
         value: this.value,
-        disabled: this.disabled,
+        disabled: (_) => this.disabled_ = _,
         badInput: this.inputEl.nativeElement.validity.badInput
       };
     }
@@ -164,7 +175,9 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
 
   private _foundation: {
     init: Function,
-    destroy: Function
+    destroy: Function,
+    isDisabled: Function,
+    setDisabled: Function
   } = new MDCTextfieldFoundation(this._mdcAdapter);
 
   constructor(private _renderer: Renderer2, private _root: ElementRef) { }

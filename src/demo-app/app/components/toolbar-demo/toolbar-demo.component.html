@@ -1,21 +1,21 @@
-<div fxLayout="column" class="mdc-padding">
-  <h1 class="mdc-typography--display1">Toolbars</h1>
-  <p class="mdc-typography--subheading2">The MDC Toolbar component is a spec-aligned button component adhering to the Material Design button requirements.</p>
+<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
+  <h1 mdc-typography-display1>Toolbars</h1>
+  <p mdc-typography-subheading2>MDC Toolbar acts as a container for multiple rows containing items such as application title, navigation menu, and tabs, among other things. Toolbars scroll with content by default, but supports fixed behavior as well.</p>
   <a href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-toolbar">Google Material Components documentation</a>
-  <h1 class="mdc-typography--headline">Usage</h1>
-  <div style="width: 500px;">
+  <h1 mdc-typography-headline>Usage</h1>
+  <div>
     <pre class="prettyprint"><![CDATA[import { ToolbarModule } from '@angular-mdc/web';]]></pre>
   </div>
-  <h1 class="mdc-typography--headline">Components</h1>
-  <div style="width: 500px;">
+  <h1 mdc-typography-headline>Components</h1>
+  <div>
     <pre class="prettyprint"><![CDATA[@Component({selector: '[mdc-toolbar-section]'})]]></pre>
   </div>
-  <h1 class="mdc-typography--headline">Directives</h1>
-  <div style="width: 500px;">
+  <h1 mdc-typography-headline>Directives</h1>
+  <div>
     <pre class="prettyprint"><![CDATA[@Directive({selector: '[mdc-toolbar-title]'})]]></pre>
   </div>
   <div fxLayout="column">
-    <h1 class="mdc-typography--headline">API reference</h1>
+    <h1 mdc-typography-headline>API reference</h1>
     <table>
       <thead>
         <tr>
@@ -61,24 +61,23 @@
       </tbody>
     </table>
   </div>
-  <h1 class="mdc-typography--headline">Examples</h1>
-  <div fxLayout="column" fxLayoutAlign="start start">
-    <div fxLayout="column" class="mdc-padding">
-      <div fxFlexAlign="start">
-        <mdc-toolbar [flexible]="false" [fixed]="false" [waterfall]="false" [fixedLastrow]="false" [flexibleTitle]="true">
-          <mdc-toolbar-row>
-            <mdc-toolbar-section [alignStart]="true">
-              <a class="material-icons">menu</a>
-              <span mdc-toolbar-title>Title</span>
-            </mdc-toolbar-section>
-            <mdc-toolbar-section [alignEnd]="true">
-              <a href="#" class="material-icons" aria-label="Download">file_download</a>
-              <a href="#" class="material-icons" aria-label="Print this page">print</a>
-              <a href="#" class="material-icons" aria-label="Bookmark this page">bookmark</a>
-            </mdc-toolbar-section>
-          </mdc-toolbar-row>
-        </mdc-toolbar>
-        <pre class="prettyprint" style="width: 850px !important;">
+  <h1 mdc-typography-headline>Examples</h1>
+  <div fxLayout="column" class="mdc-padding">
+    <div fxFlexAlign="start">
+      <mdc-toolbar [flexible]="false" [fixed]="false" [waterfall]="false" [fixedLastrow]="false" [flexibleTitle]="true">
+        <mdc-toolbar-row>
+          <mdc-toolbar-section [alignStart]="true">
+            <a class="material-icons">menu</a>
+            <span mdc-toolbar-title>Title</span>
+          </mdc-toolbar-section>
+          <mdc-toolbar-section [alignEnd]="true">
+            <a href="#" class="material-icons" aria-label="Download">file_download</a>
+            <a href="#" class="material-icons" aria-label="Print this page">print</a>
+            <a href="#" class="material-icons" aria-label="Bookmark this page">bookmark</a>
+          </mdc-toolbar-section>
+        </mdc-toolbar-row>
+      </mdc-toolbar>
+      <pre class="prettyprint">
 &lt;mdc-toolbar 
   [flexible]="false"
   [fixed]="false"
@@ -98,9 +97,6 @@
   &lt;/mdc-toolbar-row&gt;
 &lt;/mdc-toolbar>&gt;
         </pre>
-      </div>
     </div>
-    <!-- <iframe src="./toolbar-demo/waterfall.html"></iframe>
- -->
   </div>
 </div>

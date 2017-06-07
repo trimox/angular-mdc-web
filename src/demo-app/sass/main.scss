@@ -1,5 +1,4 @@
 @import './mdc.scss';
-
 // Remove clear button for IE inputs
 ::-ms-clear {
   display: none;
@@ -20,17 +19,16 @@
   padding: 7px;
 }
 
-.mdc-margin {
-  margin: 7px;
-}
-
-pre.prettyprint {
-  width: auto !important;
-  margin-right: 15px !important;
-}
-
 .home-card {
   width: 400px;
   margin-right: 15px;
   margin-top: 15px;
+}
+
+pre.prettyprint {
+  width: 97% !important;
+}
+
+td {
+  padding-right: 25px;
 }

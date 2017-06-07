@@ -1,14 +1,14 @@
-<div fxLayout="column" class="mdc-padding">
-  <h1 class="mdc-typography--display1">Snackbar</h1>
-  <p class="mdc-typography--subheading2">The MDC Snackbar component is a spec-aligned button component adhering to the Material Design button requirements.</p>
+<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
+  <h1 mdc-typography-display1>Snackbar</h1>
+  <p class="mdc-typography--subheading2">The MDC Snackbar component is a spec-aligned snackbar/toast component adhering to the Material Design snackbars & toasts requirements.</p>
   <a href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-snackbar">Google Material Components documentation</a>
-  <h1 class="mdc-typography--headline">Usage</h1>
-  <div style="width: 500px;">
+  <h1 mdc-typography-headline>Usage</h1>
+  <div>
     <pre class="prettyprint"><![CDATA[import { SnackbarModule } from '@angular-mdc/web';]]></pre>
   </div>
   <div fxLayout="row" fxLayout.lt-md="column">
     <div fxLayout="column">
-      <h1 class="mdc-typography--headline">API reference</h1>
+      <h1 mdc-typography-headline>API reference</h1>
       <table>
         <thead>
           <tr>
@@ -24,9 +24,8 @@
         </tbody>
       </table>
     </div>
-
     <div fxLayout="column" fxFlexOffset.gt-md="5">
-      <h1 class="mdc-typography--headline">Methods</h1>
+      <h1 mdc-typography-headline>Methods</h1>
       <table>
         <thead>
           <tr>
@@ -43,14 +42,12 @@
       </table>
     </div>
   </div>
-
-  <h1 class="mdc-typography--headline">Examples</h1>
-    <div class="mdc-padding">
-      <button mdc-button [primary]="true" [raised]="true" (click)="showSimple();">Simple</button>
-      <button mdc-button [primary]="true" [raised]="true" (click)="showActionButton();">Show Action</button>
-      <button mdc-button [primary]="true" [raised]="true" (click)="showMultiline();">Show Multiline</button>
-      <button mdc-button [primary]="true" [raised]="true" (click)="showMultilineBottom();">Show Multiline - Bottom</button>
-    </div>
-    <!-- <pre class="prettyprint">&lt;button mdc-button [primary]="true" [raised]="true"&gt;Primary and Raised&lt;/button&gt;</pre> -->
+  <h1 mdc-typography-headline>Examples</h1>
+  <div class="mdc-padding">
+    <button mdc-button [primary]="true" [raised]="true" (click)="showSimple();">Simple</button>
+    <button mdc-button [primary]="true" [raised]="true" (click)="showActionButton();">Show Action</button>
+    <button mdc-button [primary]="true" [raised]="true" (click)="showMultiline();">Show Multiline</button>
+    <button mdc-button [primary]="true" [raised]="true" (click)="showMultilineBottom();">Show Multiline - Bottom</button>
+  </div>
 </div>
 <mdc-snackbar #snack></mdc-snackbar>

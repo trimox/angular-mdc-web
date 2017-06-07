@@ -42,11 +42,11 @@
             <td>Use to allow multiple lines inside the textfield.</td>
           </tr>
           <tr>
-            <td><pre class="prettyprint">@Input() disabled: string</pre></td>
+            <td><pre class="prettyprint">@Input() disabled: boolean</pre></td>
             <td>Disables the component.</td>
           </tr>
           <tr>
-            <td><pre class="prettyprint">@Input() required: string</pre></td>
+            <td><pre class="prettyprint">@Input() required: boolean</pre></td>
             <td>Whether the element is required.</td>
           </tr>
           <tr>
@@ -80,7 +80,6 @@
         </tbody>
       </table>
     </div>
-
     <div fxLayout="column" fxFlexOffset.gt-md="5">
       <h1 mdc-typography-headline>Events</h1>
       <table>
@@ -111,37 +110,43 @@
       </table>
     </div>
   </div>
-
   <h1 mdc-typography-headline>Examples</h1>
-    <div fxLayout="column" class="mdc-padding">
-      <div fxFlexAlign="start">
-        <mdc-textfield [(ngModel)]="username" id="username" label="Username" required aria-controls="help-username-val" (focus)="handleFocus($event);" (blur)="handleBlur($event);" (input)="handleInput($event);" (keydown)="handleKeyDown($event);">
-        </mdc-textfield>
-        <p mdc-textfield-helptext id="help-username-val" [validation]="true" [persistent]="false">Username is required</p>
-      </div>
-      <pre class="prettyprint">
+  <div fxLayout="column" class="mdc-padding">
+    <div fxLayout="row">
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="isDisabled"></mdc-checkbox>
+        <label mdc-checkbox-label [id]="labelId">Disable</label>
+      </mdc-form-field>
+    </div>
+    <div fxFlexAlign="start">
+      <mdc-textfield #user [(ngModel)]="username" id="username" label="Username" required [disabled]="isDisabled" aria-controls="help-username-val" (focus)="handleFocus($event);" (blur)="handleBlur($event);" (input)="handleInput($event);" (keydown)="handleKeyDown($event);">
+      </mdc-textfield>
+      <p mdc-textfield-helptext id="help-username-val" [validation]="true" [persistent]="false">Username is required</p>
+    </div>
+    <pre class="prettyprint">
 &lt;mdc-textfield [(ngModel)]="username"
   id="username"
   label="Username"
   required
+  [disabled]="isDisabled"
   aria-controls="help-username-val"
   (focus)="handleFocus($event);"
   (blur)="handleBlur($event);"
   (input)="handleInput($event);"
   (keydown)="handleKeyDown($event);"&gt;
 &lt;/mdc-textfield&gt;
-&lt;p mdc-textfield-helptext id="help-username-val"
- [validation]="true"
- [persistent]="false">Username is required&lt;/p&gt;
+&lt;p mdc-textfield-helptext
+  id="help-username-val"
+  [validation]="true"
+  [persistent]="false">Username is required&lt;/p&gt;
       </pre>
+  </div>
+  <div fxLayout="column" class="mdc-padding">
+    <div fxFlexAlign="start">
+      <mdc-textfield [(ngModel)]="comments" id="comments" label="Comments" rows="8" cols="40" [multiline]="true"></mdc-textfield>
     </div>
-
-    <div fxLayout="column" class="mdc-padding">
-      <div fxFlexAlign="start">
-        <mdc-textfield [(ngModel)]="comments" id="comments" label="Comments" rows="8" cols="40" [multiline]="true"></mdc-textfield>
-      </div>
-      <p>Multi-line</p>
-      <pre class="prettyprint">
+    <p>Multi-line</p>
+    <pre class="prettyprint">
 &lt;mdc-textfield [(ngModel)]="comments"
   id="comments"
   label="Comments"
@@ -150,28 +155,26 @@
   [multiline]="true"&gt;
 &lt;/mdc-textfield&gt;
       </pre>
+  </div>
+  <div fxLayout="column" class="mdc-padding">
+    <div>
+      <mdc-textfield [(ngModel)]="subject" id="subject" placeholder="Subject" [fullwidth]="true"></mdc-textfield>
     </div>
-
-    <div fxLayout="column" class="mdc-padding">
-      <div>
-        <mdc-textfield [(ngModel)]="subject" id="subject" placeholder="Subject" [fullwidth]="true"></mdc-textfield>
-      </div>
-      <p>Full-width single line</p>
-      <pre class="prettyprint">
+    <p>Full-width single line</p>
+    <pre class="prettyprint">
 &lt;mdc-textfield [(ngModel)]="subject"
   id="subject"
   placeholder="Subject"
   [fullwidth]="true"&gt;
 &lt;/mdc-textfield&gt;
       </pre>
+  </div>
+  <div fxLayout="column" class="mdc-padding">
+    <div>
+      <mdc-textfield [(ngModel)]="message" id="message" placeholder="Type your message here" [fullwidth]="true" [multiline]="true" rows="8"></mdc-textfield>
     </div>
-
-    <div fxLayout="column" class="mdc-padding">
-      <div>
-        <mdc-textfield [(ngModel)]="message" id="message" placeholder="Type your message here" [fullwidth]="true" [multiline]="true" rows="8"></mdc-textfield>
-      </div>
-      <p>Full-width multi-line</p>
-      <pre class="prettyprint">
+    <p>Full-width multi-line</p>
+    <pre class="prettyprint">
 &lt;mdc-textfield [(ngModel)]="message"
   id="message"
   placeholder="Type your message here"
@@ -180,7 +183,7 @@
   rows="8"&gt;
 &lt;/mdc-textfield&gt;
       </pre>
-    </div>
+  </div>
 </div>
 <!--     <p>Username ngModel : {{username ? username : 'empty'}}</p>
     <p>Focused : {{inputHasFocus}}</p>

@@ -50,48 +50,42 @@
     </table>
   </div>
   <h1 mdc-typography-headline>Examples</h1>
-    <div fxLayout="column" class="mdc-padding">
-      <mdc-linear-progress [indeterminate]="true"></mdc-linear-progress>
-      <p>Indeterminate</p>
-      <pre class="prettyprint">
+  <div fxLayout="column" class="mdc-padding">
+    <mdc-linear-progress [indeterminate]="true"></mdc-linear-progress>
+    <p>Indeterminate</p>
+    <pre class="prettyprint">
 &lt;mdc-linear-progress [indeterminate]="true"&gt;&lt;/mdc-linear-progress&gt;
       </pre>
-    </div>
-
-    <div fxLayout="column" class="mdc-padding">
-      <mdc-linear-progress [indeterminate]="false"></mdc-linear-progress>
-      <p>Determinate</p>
-      <pre class="prettyprint">
+  </div>
+  <div fxLayout="column" class="mdc-padding">
+    <mdc-linear-progress [indeterminate]="false"></mdc-linear-progress>
+    <p>Determinate</p>
+    <pre class="prettyprint">
 &lt;mdc-linear-progress [indeterminate]="false"&gt;&lt;/mdc-linear-progress&gt;
       </pre>
-    </div>
-
-    <div fxLayout="column" class="mdc-padding">
-      <mdc-linear-progress [indeterminate]="true" [reversed]="true"></mdc-linear-progress>
-      <p>Reversed</p>
-      <pre class="prettyprint">
+  </div>
+  <div fxLayout="column" class="mdc-padding">
+    <mdc-linear-progress [indeterminate]="true" [reversed]="true"></mdc-linear-progress>
+    <p>Reversed</p>
+    <pre class="prettyprint">
 &lt;mdc-linear-progress [indeterminate]="true" [reversed]="true"&gt;&lt;/mdc-linear-progress&gt;
       </pre>
-    </div>
-
-    <div fxLayout="column" class="mdc-padding">
-      <mdc-linear-progress [indeterminate]="true" [accent]="true"></mdc-linear-progress>
-      <p>Accent</p>
-      <pre class="prettyprint">
+  </div>
+  <div fxLayout="column" class="mdc-padding">
+    <mdc-linear-progress [indeterminate]="true" [accent]="true"></mdc-linear-progress>
+    <p>Accent</p>
+    <pre class="prettyprint">
 &lt;mdc-linear-progress [indeterminate]="true" [accent]="true"&gt;&lt;/mdc-linear-progress&gt;
       </pre>
-    </div>
-
-    <div fxLayout="column" class="mdc-padding">
-      <mdc-linear-progress #demobar1 [indeterminate]="true"></mdc-linear-progress>
-      <p>Progress and Buffer methods</p>
-      
-      <pre class="prettyprint">
+  </div>
+  <div fxLayout="column" class="mdc-padding">
+    <mdc-linear-progress #demobar1 [indeterminate]="true"></mdc-linear-progress>
+    <p>Progress and Buffer methods</p>
+    <pre class="prettyprint">
 this.demobar1.progress = 0.5;
 this.demobar1.buffer = 0.65;
 
 &lt;mdc-linear-progress #demobar1 [indeterminate]="true"&gt;&lt;/mdc-linear-progress&gt;
       </pre>
-    </div>
-
+  </div>
 </div>

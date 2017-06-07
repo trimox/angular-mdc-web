@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
   <h1 mdc-typography-display1>Switch</h1>
-  <p class="mdc-typography--body1">The MDC Switch component is a spec-aligned switch component adhering to the Material Design switch requirements.</p>
+  <p mdc-typography-subheading2>The MDC Switch component is a spec-aligned switch component adhering to the Material Design switch requirements.</p>
   <a href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-switch">Google Material Components documentation</a>
   <h1 mdc-typography-headline>Usage</h1>
   <div>
@@ -36,7 +36,6 @@
         </tbody>
       </table>
     </div>
-
     <div fxLayout="column" fxFlexOffset.gt-md="5">
       <h1 mdc-typography-headline>Events</h1>
       <table>
@@ -55,14 +54,13 @@
       </table>
     </div>
   </div>
-
   <h1 mdc-typography-headline>Examples</h1>
-    <div fxLayout="column" class="mdc-padding">
-      <div fxFlexAlign="start">
-        <mdc-form-field>
-          <mdc-switch [(ngModel)]="isSwitchOn"></mdc-switch>
-          <label mdc-switch-label [id]="labelId">off/on</label>
-        </mdc-form-field>
+  <div fxLayout="column" class="mdc-padding">
+    <div fxFlexAlign="start">
+      <mdc-form-field>
+        <mdc-switch [(ngModel)]="isSwitchOn"></mdc-switch>
+        <label mdc-switch-label [id]="labelId">off/on</label>
+      </mdc-form-field>
       <pre class="prettyprint">
 &lt;mdc-form-field&gt;
   &lt;mdc-switch [(ngModel)]="isChecked"&gt;&lt;/mdc-switch&gt;
@@ -70,19 +68,20 @@
 &lt;/mdc-form-field&gt;
        </pre>
     </div>
-
     <div fxLayout="column" class="mdc-padding">
       <div fxFlexAlign="start">
         <mdc-form-field>
           <mdc-switch [(ngModel)]="isSwitchOn" [disabled]="true"></mdc-switch>
           <label mdc-switch-label [id]="labelId">off/on</label>
         </mdc-form-field>
-      <p>Disabled</p>
-      <pre class="prettyprint">
+        <p>Disabled</p>
+        <pre class="prettyprint">
 &lt;mdc-form-field&gt;
   &lt;mdc-switch [(ngModel)]="isChecked" [disabled]="true"&gt;&lt;/mdc-switch&gt;
   &lt;label mdc-switch-label [id]="labelId"&gt;Label text&lt;/label&gt;
 &lt;/mdc-form-field&gt;
        </pre>
+      </div>
     </div>
+  </div>
 </div>

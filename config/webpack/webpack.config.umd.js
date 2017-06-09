@@ -43,24 +43,6 @@ module.exports = {
       commonjs2: '@angular/platform-browser-dynamic',
       amd: '@angular/platform-browser-dynamic'
     },
-    'rxjs/Subject': {
-      root: ['rx', 'Subject'],
-      commonjs: 'rxjs/Subject',
-      commonjs2: 'rxjs/Subject',
-      amd: 'rxjs/Subject'
-    },
-    'rxjs/Observable': {
-      root: ['rx', 'Observable'],
-      commonjs: 'rxjs/Observable',
-      commonjs2: 'rxjs/Observable',
-      amd: 'rxjs/Observable'
-    },
-    'rxjs/BehaviorSubject': {
-      root: ['rx', 'BehaviorSubject'],
-      commonjs: 'rxjs/BehaviorSubject',
-      commonjs2: 'rxjs/BehaviorSubject',
-      amd: 'rxjs/BehaviorSubject'
-    },
     'material-components-web': {
       root: ['mdc', 'material-components-web'],
       commonjs: 'material-components-web',

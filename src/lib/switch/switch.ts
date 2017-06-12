@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
@@ -31,7 +30,6 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
   styles: [String(MDC_SWITCH_STYLES)],
   templateUrl: './switch.html',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     MD_SWITCH_CONTROL_VALUE_ACCESSOR,
     Ripple

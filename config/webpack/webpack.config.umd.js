@@ -10,7 +10,7 @@ module.exports = {
     library: 'angularMDCWeb'
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.js']
   },
   externals: {
     '@angular/core': {
@@ -54,7 +54,7 @@ module.exports = {
     rules: [{
       test: /\.ts$/,
       use: [{
-        loader: 'babel-loader?presets[]=es2015'
+        loader: 'babel-loader'
       }, {
         loader: 'awesome-typescript-loader',
         options: {
@@ -83,14 +83,5 @@ module.exports = {
     }]
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      minimize: true,
-      sourceMap: true,
-      include: /\.min\.js$/,
-    }),
-    new webpack.SourceMapDevToolPlugin({
-      filename: 'core.js.map',
-      test: /\.js($|\?)/i
-    })
   ]
 };

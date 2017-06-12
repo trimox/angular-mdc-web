@@ -42,10 +42,6 @@ module.exports = [{
   },
   plugins: [
     new webpack.LoaderOptionsPlugin({
-      minimize: true,
-      debug: false
-    }),
-    new webpack.LoaderOptionsPlugin({
       options: {
         postcss: function() {
           return [autoprefixer];
@@ -59,9 +55,6 @@ module.exports = [{
   output: {
     path: OUT_PATH,
     filename: '[name].bundle.js'
-      // filename: '[name].[chunkhash].bundle.js',
-      // sourceMapFilename: '[name].[chunkhash].bundle.js.map',
-      // chunkFilename: '[name].chunk.[chunkhash].js',
   },
   entry: {
     'polyfills': './src/demo-app/polyfills.ts',
@@ -76,7 +69,7 @@ module.exports = [{
     rules: [{
       test: /\.ts$/,
       use: [{
-        loader: 'babel-loader?presets[]=es2015',
+        loader: 'babel-loader?presets[]=env',
       }, {
         loader: 'awesome-typescript-loader',
         options: {
@@ -92,7 +85,7 @@ module.exports = [{
       "use": [{
         "loader": 'babel-loader',
         "options": {
-          "presets": ['es2015'],
+          "presets": ['env'],
         },
       }, ],
       "exclude": [
@@ -115,10 +108,6 @@ module.exports = [{
     }]
   },
   plugins: [
-    new webpack.LoaderOptionsPlugin({
-      //minimize: true, do not minimize for any loader - this will result in weird, unpredictable behavior
-      debug: false
-    }),
     // Workaround for angular/angular#1158
     new webpack.ContextReplacementPlugin(
       /angular(\\|\/)core(\\|\/)@angular/,

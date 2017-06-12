@@ -63,7 +63,7 @@
       </mdc-form-field>
       <pre class="prettyprint">
 &lt;mdc-form-field&gt;
-  &lt;mdc-switch [(ngModel)]="isChecked"&gt;&lt;/mdc-switch&gt;
+  &lt;mdc-switch [(ngModel)]="isSwitchOn"&gt;&lt;/mdc-switch&gt;
   &lt;label mdc-switch-label [id]="labelId"&gt;Label text&lt;/label&gt;
 &lt;/mdc-form-field&gt;
        </pre>
@@ -71,14 +71,14 @@
     <div fxLayout="column" class="mdc-padding">
       <div fxFlexAlign="start">
         <mdc-form-field>
-          <mdc-switch [(ngModel)]="isSwitchOn" [disabled]="true"></mdc-switch>
-          <label mdc-switch-label [id]="labelId">off/on</label>
+          <mdc-switch [disabled]="true"></mdc-switch>
+          <label mdc-switch-label>off/on</label>
         </mdc-form-field>
         <p>Disabled</p>
         <pre class="prettyprint">
 &lt;mdc-form-field&gt;
-  &lt;mdc-switch [(ngModel)]="isChecked" [disabled]="true"&gt;&lt;/mdc-switch&gt;
-  &lt;label mdc-switch-label [id]="labelId"&gt;Label text&lt;/label&gt;
+  &lt;mdc-switch [disabled]="true"&gt;&lt;/mdc-switch&gt;
+  &lt;label mdc-switch-label&gt;Label text&lt;/label&gt;
 &lt;/mdc-form-field&gt;
        </pre>
       </div>

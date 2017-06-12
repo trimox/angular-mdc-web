@@ -8,6 +8,7 @@ import {
 	templateUrl: './switch-demo.component.html'
 })
 export class SwitchDemoComponent implements OnInit {
+  isSwitchOn: boolean;
 
   ngOnInit() {
     let doc = <HTMLDivElement>document.body;

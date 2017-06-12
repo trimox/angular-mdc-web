@@ -1,6 +1,5 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
@@ -35,7 +34,6 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
   templateUrl: './checkbox.html',
   styles: [String(MDC_CHECKBOX_STYLES)],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     MD_CHECKBOX_CONTROL_VALUE_ACCESSOR,
     Ripple

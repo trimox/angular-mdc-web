@@ -9,6 +9,11 @@ import {
   templateUrl: './snackbar-demo.component.html'
 })
 export class SnackbarDemoComponent implements OnInit {
+  isActionOnBottom: boolean;
+  isMultiline: boolean;
+  isDismissOnAction: boolean = true;
+  messageText: string = "Sample text";
+  actionText: string = "Ok";
   @ViewChild('snack') snack;
 
   ngOnInit() {
@@ -21,37 +26,14 @@ export class SnackbarDemoComponent implements OnInit {
     doc.appendChild(script);
   }
 
-  showSimple() {
-    var data = {
-      message: 'Notification received',
-    }
-    this.snack.show(data);
-  }
-  showActionButton() {
-    var data = {
-      message: 'Notification received',
-      actionText: 'Ok',
-      actionHandler: () => { console.log('Action button pressed!') }
-    }
-    this.snack.show(data);
-  }
-  showMultiline() {
-    var data = {
-      message: 'Notification received',
-      actionText: 'Ok',
-      multiline: true,
-      actionHandler: () => { console.log('Action button pressed!') }
-    }
-    this.snack.show(data);
-  }
-  showMultilineBottom() {
-    var data = {
-      message: 'Notification received',
-      actionText: 'Ok',
-      multiline: true,
-      actionOnBottom: true,
-      actionHandler: () => { console.log('Action button pressed!') }
-    }
-    this.snack.show(data);
+  show() {
+    this.snack.show({
+      multiline: this.isMultiline,
+      actionOnBottom: this.isActionOnBottom,
+      dismissOnAction: this.isDismissOnAction,
+      message: this.messageText ? this.messageText : 'Sample text',
+      actionText: this.actionText,
+      actionHandler: this.actionText ? () => { console.log('Action button pressed!') } : null
+    });
   }
 }

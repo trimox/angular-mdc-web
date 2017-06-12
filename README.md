@@ -43,6 +43,7 @@ import { FabModule, MenuModule } from '@angular-mdc/web';
 | radio
 | ripple | Available |
 | select
+| slider
 | snackbar | Available |
 | switch | Available |
 | tabs

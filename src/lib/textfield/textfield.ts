@@ -72,6 +72,7 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
     return this.fullwidth ? 'mdc-textfield--fullwidth' : '';
   }
   @ViewChild('input') public inputEl: ElementRef;
+  @ViewChild('inputlabel') public inputLabel: ElementRef;
 
   onTouched: () => any = () => { };
 
@@ -89,28 +90,32 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
     },
     addClassToLabel: (className: string) => {
       const { _renderer: renderer, _root: root } = this;
-      if (this.label) {
-        renderer.addClass(root.nativeElement.lastChild, className);
+      if (this.inputLabel) {
+        if (this.label && !this.fullwidth) {
+          renderer.addClass(this.inputLabel.nativeElement, className);
+        }
       }
     },
     removeClassFromLabel: (className: string) => {
       const { _renderer: renderer, _root: root } = this;
-      if (this.label) {
-        renderer.removeClass(root.nativeElement.lastChild, className);
+      if (this.inputLabel) {
+        if (this.label && !this.fullwidth) {
+          renderer.removeClass(this.inputLabel.nativeElement, className);
+        }
       }
     },
     addClassToHelptext: (className: string) => {
       const { _renderer: renderer, _root: root } = this;
       if (root.nativeElement.attributes.getNamedItem('aria-controls')) {
         if (root.nativeElement.nextElementSibling) {
-          renderer.addClass(root.nativeElement.nextElementSibling, className);
+          renderer.addClass(renderer.nextSibling(root.nativeElement), className);
         }
       }
     },
     removeClassFromHelptext: (className: string) => {
       const { _renderer: renderer, _root: root } = this;
       if (root.nativeElement.attributes.getNamedItem('aria-controls')) {
-        renderer.removeClass(root.nativeElement.nextElementSibling, className);
+        renderer.removeClass(renderer.nextSibling(root.nativeElement), className);
       }
     },
     registerInputFocusHandler: (handler: EventListener) => {
@@ -212,6 +217,7 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
   writeValue(value: string) {
     if (value) {
       this.value = value;
+      this._mdcAdapter.addClass(MDCTextfieldFoundation.cssClasses.UPGRADED);
       if (!this.fullwidth) {
         this._mdcAdapter.addClassToLabel(MDCTextfieldFoundation.cssClasses.LABEL_FLOAT_ABOVE);
       }

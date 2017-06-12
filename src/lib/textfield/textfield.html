@@ -35,4 +35,4 @@
   (keydown)="handleKeyDown($event)"
   (blur)="handleBlur($event)"
   (input)="handleInput($event)" />
-<label [attr.for]="id" class="mdc-textfield__label" *ngIf="!placeholder">{{label}}</label>
+<label #inputlabel [attr.for]="id" class="mdc-textfield__label" *ngIf="!placeholder">{{label}}</label>

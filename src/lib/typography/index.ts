@@ -13,7 +13,7 @@ import {
 	Body1Directive,
 	Body2Directive,
 	CaptionDirective
-} from './typography';
+} from './typography.directive';
 
 const TYPOGRAPHY_DIRECTIVES = [
 	AdjustMarginDirective,

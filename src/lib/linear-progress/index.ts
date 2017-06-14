@@ -1,13 +1,9 @@
 import { NgModule } from '@angular/core';
 
-import { LinearProgressComponent } from './linear-progress';
-
-const PROGRESS_COMPONENTS = [
-	LinearProgressComponent,
-];
+import { LinearProgressComponent } from './linear-progress.component';
 
 @NgModule({
-	exports: [PROGRESS_COMPONENTS],
-	declarations: [PROGRESS_COMPONENTS],
+  exports: [LinearProgressComponent],
+  declarations: [LinearProgressComponent],
 })
 export class LinearProgressModule { }

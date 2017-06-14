@@ -16,7 +16,7 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
 
 @Component({
   selector: 'mdc-linear-progress',
-  templateUrl: './linear-progress.html',
+  templateUrl: './linear-progress.component.html',
   styles: [String(MDC_PROGRESS_STYLES)],
   encapsulation: ViewEncapsulation.None
 })

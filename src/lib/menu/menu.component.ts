@@ -1,22 +1,22 @@
 import {
   AfterViewInit,
   Component,
+  ContentChildren,
   ElementRef,
   EventEmitter,
   HostBinding,
   Input,
-  Output,
   OnDestroy,
+  Output,
   QueryList,
   Renderer2,
   ViewChild,
-  ViewChildren,
   ViewEncapsulation
 } from '@angular/core';
 import { MDCMenuAdapter } from './menu-adapter';
-import { MenuItemDirective } from './menu-item';
+import { MenuItemDirective } from './menu-item.directive';
 
-const { MDCSimpleMenuFoundation } = require('@material/menu');
+const { MDCSimpleMenuFoundation } = require('@material/menu/simple');
 const { getTransformPropertyName } = require('@material/menu/util');
 const MDC_MENU_STYLES = require('@material/menu/mdc-menu.scss');
 const MDC_LIST_STYLES = require('@material/list/mdc-list.scss');
@@ -25,18 +25,19 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
 
 @Component({
   selector: 'mdc-menu',
-  templateUrl: './menu.html',
-  styles: [String(MDC_MENU_STYLES)],
+  templateUrl: './menu.component.html',
+  styles: [String(MDC_MENU_STYLES), String(MDC_LIST_STYLES)],
   encapsulation: ViewEncapsulation.None
 })
 export class MenuComponent implements AfterViewInit, OnDestroy {
-  @Input() items: MenuItemDirective[];
+  private previousFocus_: any;
+
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
   @Output() select: EventEmitter<number> = new EventEmitter<number>();
   @HostBinding('class') className: string = 'mdc-simple-menu';
   @HostBinding('tabindex') tabindex: number = -1;
-  @ViewChild('itemsContainer') public itemsContainerEl: ElementRef;
-  @ViewChildren(MenuItemDirective) menuItems: QueryList<MenuItemDirective>;
+  @ViewChild('menuContainer') public menuContainerEl: ElementRef;
+  @ContentChildren(MenuItemDirective) menuItems: QueryList<MenuItemDirective>;
 
   private _unlisteners: Map<string, UnlistenerMap> = new Map<string, UnlistenerMap>();
 
@@ -49,11 +50,14 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
       const { _renderer: renderer, _root: root } = this;
       renderer.removeClass(root.nativeElement, className);
     },
+    getAttributeForEventTarget: (target: any, attributeName) => {
+      return target.getAttribute(attributeName);
+    },
     hasClass: (className: string) => {
       const { _root: root } = this;
       return root.nativeElement.classList.contains(className);
     },
-    hasNecessaryDom: () => Boolean(this.itemsContainerEl),
+    hasNecessaryDom: () => Boolean(this.menuContainerEl),
     getInnerDimensions: () => {
       const { _root: root } = this;
       return {
@@ -80,13 +84,11 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
       renderer.setStyle(root.nativeElement, getTransformPropertyName(window), `scale(${x}, ${y})`);
     },
     setInnerScale: (x: number, y: number) => {
-      if (this.itemsContainerEl) {
-        const { _renderer: renderer, _root: root } = this;
-        renderer.setStyle(this.itemsContainerEl.nativeElement, getTransformPropertyName(window), `scale(${x}, ${y})`);
-      }
+      const { _renderer: renderer, _root: root } = this;
+      renderer.setStyle(this.menuContainerEl.nativeElement, getTransformPropertyName(window), `scale(${x}, ${y})`);
     },
     getNumberOfItems: () => {
-      return this.items ? this.items.length : 0;
+      return this.menuItems ? this.menuItems.length : 0;
     },
     registerInteractionHandler: (type: string, handler: EventListener) => {
       if (this._root) {
@@ -96,27 +98,24 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
     deregisterInteractionHandler: (type: string, handler: EventListener) => {
       this.unlisten_(type, handler);
     },
-    registerDocumentClickHandler: (handler: EventListener) => {
+    registerBodyClickHandler: (handler: EventListener) => {
       if (this._root) {
         this.listen_('click', handler, this._root.nativeElement.ownerDocument);
       }
     },
-    deregisterDocumentClickHandler: (handler: EventListener) => {
+    deregisterBodyClickHandler: (handler: EventListener) => {
       this.unlisten_('click', handler);
     },
     getYParamsForItemAtIndex: (index: number) => {
-      const { offsetTop: top, offsetHeight: height } = this.menuItems.toArray()[index].root.nativeElement;
+      const { offsetTop: top, offsetHeight: height } = this.menuItems.toArray()[index].itemEl.nativeElement;
       return { top, height };
     },
     setTransitionDelayForItemAtIndex: (index: number, value: string) => {
       const { _renderer: renderer, _root: root } = this;
-      renderer.setStyle(this.menuItems.toArray()[index].root.nativeElement, 'transition-delay', value);
+      renderer.setStyle(this.menuItems.toArray()[index].itemEl.nativeElement, 'transition-delay', value);
     },
-    getIndexForEventTarget: (target: any) => {
-      if (!target.attributes.id) {
-        return -1;
-      }
-      return this.items.findIndex(_ => _.id == target.attributes.id.value);
+    getIndexForEventTarget: (target: EventTarget) => {
+      return this.menuItems.toArray().findIndex((_) => _.itemEl.nativeElement === target);
     },
     notifySelected: (evtData) => {
       this.select.emit(evtData.index);
@@ -124,8 +123,12 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
     notifyCancel: () => {
       this.cancel.emit();
     },
-    saveFocus: () => { }, /* TODO */
-    restoreFocus: () => { }, /* TODO */
+    saveFocus: () => this.previousFocus_ = document.activeElement,
+    restoreFocus: () => {
+      if (this.previousFocus_) {
+        this.previousFocus_.focus()
+      }
+    },
     isFocused: () => {
       const { _root: root } = this;
       return root.nativeElement.ownerDocument.activeElement === root.nativeElement;
@@ -136,12 +139,12 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
     getFocusedItemIndex: () => {
       const { _root: root } = this;
       return this.menuItems.length ? this.menuItems.toArray().findIndex(_ =>
-        _.root.nativeElement === root.nativeElement.ownerDocument.activeElement) : -1;
+        _.itemEl.nativeElement === root.nativeElement.ownerDocument.activeElement) : -1;
     },
     focusItemAtIndex: (index: number) => {
       const { _root: root } = this;
       if (this.menuItems.toArray()[index] !== undefined) {
-        this.menuItems.toArray()[index].root.nativeElement.focus();
+        this.menuItems.toArray()[index].itemEl.nativeElement.focus();
       } else {
         // set focus back to root element when index is undefined
         root.nativeElement.focus();

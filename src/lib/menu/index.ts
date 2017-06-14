@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MenuComponent } from './menu';
-import { MenuItemDirective } from './menu-item';
+import { MenuComponent } from './menu.component';
+import { MenuItemDirective } from './menu-item.directive';
+import { MenuAnchorDirective } from './menu-anchor.directive';
+import { MenuDividerComponent } from './menu-divider.component';
 
 const MENU_COMPONENTS = [
   MenuComponent,
-  MenuItemDirective
+  MenuItemDirective,
+  MenuAnchorDirective,
+  MenuDividerComponent
 ];
 
 @NgModule({

@@ -3,6 +3,7 @@ export interface MDCMenuAdapter {
   removeClass: (string) => void
   hasClass: (string) => void
   hasNecessaryDom: () => boolean
+  getAttributeForEventTarget: (target: EventTarget, attributeName: string) => string
   getInnerDimensions: () => { width: number, height: number }
   hasAnchor: () => boolean
   getAnchorDimensions: () => { width: number, height: number, top: number, right: number, bottom: number, left: number }
@@ -12,8 +13,8 @@ export interface MDCMenuAdapter {
   getNumberOfItems: () => number
   registerInteractionHandler: (type: string, handler: EventListener) => void
   deregisterInteractionHandler: (type: string, handler: EventListener) => void
-  registerDocumentClickHandler: (handler: EventListener) => void
-  deregisterDocumentClickHandler: (handler: EventListener) => void
+  registerBodyClickHandler: (handler: EventListener) => void
+  deregisterBodyClickHandler: (handler: EventListener) => void
   getYParamsForItemAtIndex: (index: number) => { top: number, height: number }
   setTransitionDelayForItemAtIndex: (index: number, value: string) => void
   getIndexForEventTarget: (target: EventTarget) => number

@@ -24,14 +24,6 @@ export class LinearProgressComponent implements AfterViewInit {
   @Input() indeterminate: boolean;
   @Input() reversed: boolean;
   @Input() accent: boolean;
-  @Input()
-  set buffer(value: number) {
-    this._foundation.setBuffer(value);
-  }
-  @Input()
-  set progress(value: number) {
-    this._foundation.setProgress(value);
-  }
   @HostBinding('attr.role') role: string = 'progressbar';
   @HostBinding('class') className: string = 'mdc-linear-progress';
   @HostBinding('class.mdc-linear-progress--indeterminate') get classIndeterminate(): string {
@@ -91,5 +83,13 @@ export class LinearProgressComponent implements AfterViewInit {
 
   close() {
     this._foundation.close();
+  }
+
+  setProgress(value: number) {
+    this._foundation.setProgress(value);
+  }
+
+  setBuffer(value: number) {
+    this._foundation.setBuffer(value);
   }
 }

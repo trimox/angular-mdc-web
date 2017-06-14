@@ -79,7 +79,9 @@ export class Ripple implements OnDestroy {
 
   private _foundation: {
     init: Function,
-    destroy: Function
+    destroy: Function,
+    activate: Function,
+    deactivate: Function
   } = new MDCRippleFoundation(this._mdcAdapter);
 
   constructor(private _renderer: Renderer2, private _root: ElementRef) {
@@ -88,6 +90,14 @@ export class Ripple implements OnDestroy {
 
   ngOnDestroy() {
     this._foundation.destroy();
+  }
+
+  activate() {
+    this._foundation.activate();
+  }
+
+  deactivate() {
+    this._foundation.deactivate();
   }
 
   listen_(type: string, listener: EventListener, ref: ElementRef = this._root) {

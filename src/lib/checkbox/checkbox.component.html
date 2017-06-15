@@ -1,10 +1,13 @@
-<input #nativeCb type="checkbox"
-       class="mdc-checkbox__native-control"
-       [attr.aria-labelledby]="labelId"
-       [(ngModel)]="ngModel"
-       [checked]="checked"
-       [indeterminate]="indeterminate"
-       (change)="handleChange($event)"/>
+<input type="checkbox"
+  #nativeCb    
+  class="mdc-checkbox__native-control"
+  [id]="inputId"
+  [tabindex]="tabindex"
+  [attr.aria-labelledby]="labelId"
+  [(ngModel)]="ngModel"
+  [checked]="checked"
+  [indeterminate]="indeterminate"
+  (change)="handleChange($event)"/>
 <div class="mdc-checkbox__background">
   <svg class="mdc-checkbox__checkmark"
     viewBox="0 0 24 24">

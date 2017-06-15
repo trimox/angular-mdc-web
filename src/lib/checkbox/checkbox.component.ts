@@ -15,11 +15,14 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { MDCCheckboxAdapter } from './checkbox-adapter';
+import { Ripple } from '.././ripple/ripple.directive';
 
-import { Ripple } from '.././ripple/ripple';
-
+const { MDCFormField } = require('@material/form-field');
 const { MDCCheckboxFoundation } = require('@material/checkbox');
 const MDC_CHECKBOX_STYLES = require('@material/checkbox/mdc-checkbox.scss');
+
+let _formField = null;
+let nextElId = 0;
 
 export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
@@ -31,30 +34,44 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
 
 @Component({
   selector: 'mdc-checkbox',
-  templateUrl: './checkbox.html',
+  templateUrl: './checkbox.component.html',
   styles: [String(MDC_CHECKBOX_STYLES)],
   encapsulation: ViewEncapsulation.None,
   providers: [
-    MD_CHECKBOX_CONTROL_VALUE_ACCESSOR,
-    Ripple
+    MD_CHECKBOX_CONTROL_VALUE_ACCESSOR
   ]
 })
+
 export class CheckboxComponent implements AfterViewInit, OnDestroy {
-  @Input() checked: boolean = false;
-  @Input() indeterminate: boolean = false;
-  @Input() labelId: string;
+  private disabled_: boolean = false;
+  ripple: Ripple;
+
+  @Input() id: string = `mdc-checkbox-${++nextElId}`;
+  get inputId(): string {
+    return `input-${this.id}`;
+  }
+  @Input() checked: boolean;
+  @Input() indeterminate: boolean;
   @Input() disabled: boolean;
+  @Input() tabindex: number = 0;
+  @Input('aria-labelledby') ariaLabelledby: string = null;
   @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
   @HostBinding('class') className: string = 'mdc-checkbox';
   @HostBinding('class.mdc-checkbox--disabled') get classDisabled(): string {
     if (this.disabled) {
-      this._renderer.setAttribute(this.nativeCb.nativeElement, 'disabled', '');
+      if (_formField) {
+        _formField.input = null;
+      }
+      this._renderer.setAttribute(this.inputEl.nativeElement, 'disabled', '');
     } else {
-      this._renderer.removeAttribute(this.nativeCb.nativeElement, 'disabled');
+      if (_formField) {
+        _formField.input = this;
+      }
+      this._renderer.removeAttribute(this.inputEl.nativeElement, 'disabled');
     }
     return this.disabled ? 'mdc-checkbox--disabled' : '';
   }
-  @ViewChild('nativeCb') nativeCb: ElementRef;
+  @ViewChild('nativeCb') inputEl: ElementRef;
 
   onTouched: () => any = () => { };
 
@@ -80,18 +97,14 @@ export class CheckboxComponent implements AfterViewInit, OnDestroy {
     },
     registerChangeHandler: (handler: EventListener) => {
       if (this._root) {
-        this.listen_('change', handler, this.nativeCb);
+        this.listen_('change', handler, this.inputEl);
       }
     },
     deregisterChangeHandler: (handler: EventListener) => {
       this.unlisten_('change', handler);
     },
     getNativeControl: () => {
-      const { nativeCb } = this;
-      if (!nativeCb) {
-        throw new Error('Invalid state');
-      }
-      return nativeCb.nativeElement;
+      return this.inputEl.nativeElement;
     },
     forceLayout: () => {
       if (this._root) {
@@ -108,12 +121,17 @@ export class CheckboxComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef,
-    private _ripple: Ripple) { }
+    private _root: ElementRef) {
+    this.ripple = new Ripple(this._renderer, this._root);
+  }
 
   ngAfterViewInit() {
     this._foundation.init();
-    this._ripple.unbounded = true;
+    this.ripple.unbounded = true;
+
+    _formField = new MDCFormField(this._root.nativeElement.parentElement)
+    _formField.input = this;
+    this._renderer.setAttribute(_formField.label_, 'for', this.inputId)
   }
   ngOnDestroy() {
     this._foundation.destroy();

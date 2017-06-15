@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: '[mdc-toolbar-title]'
+  selector: '[mdc-toolbar-title], mdc-toolbar-title'
 })
 export class ToolbarTitleDirective {
   @Input() id: string;

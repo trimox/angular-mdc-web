@@ -12,7 +12,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { MDCToolbarAdapter } from './toolbar-adapter';
-import { ToolbarTitleDirective } from './toolbar-title';
+import { ToolbarTitleDirective } from './toolbar-title.directive';
 
 const { MDCToolbarFoundation } = require('@material/toolbar');
 const MDC_TOOLBAR_STYLES = require('@material/toolbar/mdc-toolbar.scss');
@@ -89,9 +89,9 @@ export class ToolbarComponent implements AfterViewInit, OnDestroy {
       return window.pageYOffset;
     },
     getOffsetHeight: () => this._root.nativeElement.offsetHeight,
-    getFlexibleRowElementOffsetHeight: () => {
+    getFirstRowElementOffsetHeight: () => {
       const { _root: root } = this;
-      return root.nativeElement.querySelector(MDCToolbarFoundation.strings.FLEXIBLE_ROW_SELECTOR).offsetHeight;
+      return root.nativeElement.querySelector(MDCToolbarFoundation.strings.FIRST_ROW_SELECTOR).offsetHeight;
     },
     notifyChange: (evtData) => {
       this.change.emit(evtData.flexibleExpansionRatio);
@@ -106,7 +106,7 @@ export class ToolbarComponent implements AfterViewInit, OnDestroy {
     },
     setStyleForFlexibleRowElement: (property: string, value: string) => {
       const { _renderer: renderer, _root: root } = this;
-      renderer.setStyle(root.nativeElement.querySelector(MDCToolbarFoundation.strings.FLEXIBLE_ROW_SELECTOR), property, value);
+      renderer.setStyle(root.nativeElement.querySelector(MDCToolbarFoundation.strings.FIRST_ROW_SELECTOR), property, value);
     },
     setStyleForFixedAdjustElement: (property: string, value: string) => {
       const { _renderer: renderer, _root: root } = this;

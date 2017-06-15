@@ -1,16 +1,14 @@
 import {
-  Component,
+  Directive,
   HostBinding,
   Input,
   ViewEncapsulation
 } from '@angular/core';
 
-@Component({
-  selector: 'mdc-toolbar-section',
-  template: '<ng-content></ng-content>',
-  encapsulation: ViewEncapsulation.None
+@Directive({
+  selector: 'mdc-toolbar-section'
 })
-export class ToolbarSectionComponent {
+export class ToolbarSectionDirective {
   @Input() alignStart: boolean;
   @Input() alignEnd: boolean;
   @Input() shrinkToFit: boolean;

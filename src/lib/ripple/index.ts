@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { Ripple } from './ripple';
+import { Ripple } from './ripple.directive';
 
 @NgModule({
   exports: [Ripple],

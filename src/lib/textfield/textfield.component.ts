@@ -29,7 +29,7 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
 
 @Component({
   selector: 'mdc-textfield',
-  templateUrl: './textfield.html',
+  templateUrl: './textfield.component.html',
   styles: [String(MDC_TEXTFIELD_STYLES)],
   encapsulation: ViewEncapsulation.None,
   providers: [MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR]

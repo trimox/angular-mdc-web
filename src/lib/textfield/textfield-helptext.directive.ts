@@ -1,7 +1,11 @@
-﻿import { Directive, HostBinding, Input } from '@angular/core';
+﻿import {
+  Directive,
+  HostBinding,
+  Input
+} from '@angular/core';
 
 @Directive({
-  selector: '[mdc-textfield-helptext]'
+  selector: '[mdc-textfield-helptext], mdc-textfield-helptext'
 })
 export class TextfieldHelptextDirective {
   @Input() id: string;

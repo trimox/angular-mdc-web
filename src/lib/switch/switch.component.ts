@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
@@ -12,10 +13,10 @@ import {
   forwardRef
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-
-import { Ripple } from '.././ripple/ripple';
+import { Ripple } from '.././ripple/ripple.directive';
 
 const MDC_SWITCH_STYLES = require('@material/switch/mdc-switch.scss');
+const { MDCFormField } = require('@material/form-field');
 
 export const MD_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
@@ -23,29 +24,43 @@ export const MD_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
   multi: true
 };
 
+let _formField = null;
+let nextElId = 0;
+
 type UnlistenerMap = WeakMap<EventListener, Function>;
 
 @Component({
   selector: 'mdc-switch',
   styles: [String(MDC_SWITCH_STYLES)],
-  templateUrl: './switch.html',
+  templateUrl: './switch.component.html',
   encapsulation: ViewEncapsulation.None,
   providers: [
-    MD_SWITCH_CONTROL_VALUE_ACCESSOR,
-    Ripple
+    MD_SWITCH_CONTROL_VALUE_ACCESSOR
   ]
 })
-export class SwitchComponent {
-  @Input() id: string;
+export class SwitchComponent implements AfterViewInit {
+  ripple: Ripple;
+
+  @Input() id: string = `mdc-switch-${++nextElId}`;
+  get inputId(): string {
+    return `input-${this.id}`;
+  }
   @Input() checked: boolean;
   @Input() labelId: string;
   @Input() disabled: boolean;
+  @Input() tabindex: number = 0;
   @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
   @HostBinding('class') className: string = 'mdc-switch';
   @HostBinding('class.mdc-switch--disabled') get classDisabled(): string {
     if (this.disabled) {
+      if (_formField) {
+        _formField.input = null;
+      }
       this._renderer.setAttribute(this.nativeCb.nativeElement, 'disabled', '');
     } else {
+      if (_formField) {
+        _formField.input = this;
+      }
       this._renderer.removeAttribute(this.nativeCb.nativeElement, 'disabled');
     }
     return this.disabled ? 'mdc-switch--disabled' : '';
@@ -59,7 +74,14 @@ export class SwitchComponent {
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef, private _ripple: Ripple) {
+    private _root: ElementRef) {
+    this.ripple = new Ripple(this._renderer, this._root);
+  }
+
+  ngAfterViewInit() {
+    _formField = new MDCFormField(this._root.nativeElement.parentElement)
+    _formField.input = this;
+    this._renderer.setAttribute(_formField.label_, 'for', this.inputId)
   }
 
   handleChange(evt: Event) {

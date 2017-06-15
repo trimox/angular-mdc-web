@@ -1,6 +1,7 @@
 <input #nativeCb type="checkbox" 
-  [id]="id"
   class="mdc-switch__native-control"
+  [id]="inputId"
+  [tabindex]="tabindex"
   [(ngModel)]="ngModel"
   [checked]="checked"
   (change)="handleChange($event)"/>

@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   Input,
@@ -8,7 +7,6 @@ import {
   Renderer2,
   ViewEncapsulation
 } from '@angular/core';
-
 import { Ripple } from '.././ripple/ripple';
 
 const MDC_FAB_STYLES = require('@material/fab/mdc-fab.scss');
@@ -17,11 +15,11 @@ const MDC_FAB_STYLES = require('@material/fab/mdc-fab.scss');
   selector: 'button[mdc-fab]',
   styles: [String(MDC_FAB_STYLES)],
   template: '<ng-content></ng-content>',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [Ripple]
+  encapsulation: ViewEncapsulation.None
 })
 export class FabComponent {
+  ripple: Ripple;
+
   @Input() disabled: string;
   @Input() mini: boolean;
   @Input() plain: boolean;
@@ -45,8 +43,9 @@ export class FabComponent {
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef,
-    private _ripple: Ripple) { }
+    private _root: ElementRef) {
+    this.ripple = new Ripple(this._renderer, this._root);
+  }
 
   handleKeyboardDown_(evt: KeyboardEvent) {
     const { keyCode, key } = evt;
@@ -54,7 +53,7 @@ export class FabComponent {
     const isEnter = key === 'Enter' || keyCode === 13;
 
     if (isSpace || isEnter) {
-      this._ripple.active = true;
+      this.ripple.active = true;
       evt.preventDefault();
     }
   }
@@ -65,7 +64,7 @@ export class FabComponent {
     const isEnter = key === 'Enter' || keyCode === 13;
 
     if (isSpace || isEnter) {
-      this._ripple.active = false;
+      this.ripple.active = false;
       evt.preventDefault();
     }
   }

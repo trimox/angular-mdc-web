@@ -1,11 +1,9 @@
 ﻿import {
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   Input,
   HostBinding,
   HostListener,
-  Provider,
   Renderer2,
   ViewEncapsulation
 } from '@angular/core';
@@ -17,11 +15,11 @@ const MDC_BUTTON_STYLES = require('@material/button/mdc-button.scss');
   selector: 'button[mdc-button]',
   styles: [String(MDC_BUTTON_STYLES)],
   template: '<ng-content></ng-content>',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [Ripple]
+  encapsulation: ViewEncapsulation.None
 })
 export class ButtonComponent {
+  ripple: Ripple;
+
   @Input() type: string;
   @Input() disabled: string;
   @Input() raised: boolean;
@@ -60,8 +58,8 @@ export class ButtonComponent {
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef,
-    private _ripple: Ripple) {
+    private _root: ElementRef) {
+    this.ripple = new Ripple(this._renderer, this._root);
   }
 
   handleKeyboardDown_(evt: KeyboardEvent) {
@@ -70,7 +68,7 @@ export class ButtonComponent {
     const isEnter = key === 'Enter' || keyCode === 13;
 
     if (isSpace || isEnter) {
-      this._ripple.active = true;
+      this.ripple.active = true;
       evt.preventDefault();
     }
   }
@@ -81,7 +79,7 @@ export class ButtonComponent {
     const isEnter = key === 'Enter' || keyCode === 13;
 
     if (isSpace || isEnter) {
-      this._ripple.active = false;
+      this.ripple.active = false;
       evt.preventDefault();
     }
   }

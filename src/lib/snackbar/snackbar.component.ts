@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   HostBinding,
-  Input,
   OnDestroy,
   Renderer2,
   ViewEncapsulation
@@ -18,17 +17,13 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
 
 @Component({
   selector: 'mdc-snackbar',
-  templateUrl: './snackbar.html',
+  templateUrl: './snackbar.component.html',
   styles: [String(MDC_SNACKBAR_STYLES)],
   encapsulation: ViewEncapsulation.None
 })
 export class SnackbarComponent implements AfterViewInit, OnDestroy {
   private message: string;
   private actionText: string;
-  @Input('dismissOnAction')
-  set dismissOnAction(value: boolean) {
-    this._foundation.setDismissOnAction(value);
-  }
   @HostBinding('class') className: string = 'mdc-snackbar';
   @HostBinding('attr.aria-live') ariaLive: string = 'assertive';
   @HostBinding('attr.aria-atomic') ariaAtomic: string = 'true';
@@ -101,7 +96,8 @@ export class SnackbarComponent implements AfterViewInit, OnDestroy {
     this._foundation.destroy();
   }
 
-  show(data: any) {
+  show(data: any, dismissOnAction: boolean = true) {
+    this._foundation.setDismissOnAction(dismissOnAction);
     this._foundation.show(data);
   }
 

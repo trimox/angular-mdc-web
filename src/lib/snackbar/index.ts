@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { SnackbarComponent } from './snackbar';
+import { SnackbarComponent } from './snackbar.component';
 
 @NgModule({
   exports: [SnackbarComponent],

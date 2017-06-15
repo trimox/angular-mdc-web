@@ -1,18 +1,13 @@
 import {
 	Component,
-  AfterViewInit,
-  OnInit,
-  ViewChild
+  OnInit
 } from '@angular/core';
-import { LinearProgressComponent } from '../../../../../src/lib/linear-progress/linear-progress';
 
 @Component({
 	selector: 'linear-progress-demo',
 	templateUrl: './linear-progress-demo.component.html'
 })
-export class LinearProgressDemoComponent implements OnInit, AfterViewInit {
-  @ViewChild('demobar1') demobar1: LinearProgressComponent;
-
+export class LinearProgressDemoComponent implements OnInit {
   ngOnInit() {
     let doc = <HTMLDivElement>document.body;
     let script = document.createElement('script');
@@ -21,10 +16,5 @@ export class LinearProgressDemoComponent implements OnInit, AfterViewInit {
     script.async = true;
     script.defer = true;
     doc.appendChild(script);
-  }
-
-  ngAfterViewInit() {
-    this.demobar1.progress = 0.5;
-    this.demobar1.buffer = 0.65;
   }
 }

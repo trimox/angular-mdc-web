@@ -12,7 +12,7 @@
       <thead>
         <tr>
           <th>Attribute</th>
-          <th>Description</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -34,7 +34,7 @@
       <thead>
         <tr>
           <th>Function</th>
-          <th>Description</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -45,6 +45,14 @@
         <tr>
           <td><pre class="prettyprint">close()</pre></td>
           <td>Puts the component in the closed state.</td>
+        </tr>
+        <tr>
+          <td><pre class="prettyprint">setProgress(value: number)</pre></td>
+          <td>Sets the progress bar to this value. Value should be between [0, 1].</td>
+        </tr>
+        <tr>
+          <td><pre class="prettyprint">setBuffer(value: number)</pre></td>
+          <td>Sets the buffer bar to this value. Value should be between [0, 1].</td>
         </tr>
       </tbody>
     </table>
@@ -76,16 +84,6 @@
     <p>Accent</p>
     <pre class="prettyprint">
 &lt;mdc-linear-progress [indeterminate]="true" [accent]="true"&gt;&lt;/mdc-linear-progress&gt;
-      </pre>
-  </div>
-  <div fxLayout="column" class="mdc-padding">
-    <mdc-linear-progress #demobar1 [indeterminate]="true"></mdc-linear-progress>
-    <p>Progress and Buffer methods</p>
-    <pre class="prettyprint">
-this.demobar1.progress = 0.5;
-this.demobar1.buffer = 0.65;
-
-&lt;mdc-linear-progress #demobar1 [indeterminate]="true"&gt;&lt;/mdc-linear-progress&gt;
       </pre>
   </div>
 </div>

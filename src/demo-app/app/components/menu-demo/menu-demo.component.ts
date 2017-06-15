@@ -13,21 +13,6 @@ export class MenuDemoComponent implements OnInit {
   focusedItemIndex = null;
   @ViewChild('menu') menu;
 
-  menuItems = [
-    {
-      id: 1,
-      label: 'Security settings'
-    },
-    {
-      id: 2,
-      label: 'Review account activity'
-    },
-    {
-      id: 3,
-      label: 'Logoff'
-    },
-  ]
-
   ngOnInit() {
     let doc = <HTMLDivElement>document.body;
     let script = document.createElement('script');
@@ -41,11 +26,7 @@ export class MenuDemoComponent implements OnInit {
   showMenu() {
     this.menu.open(this.focusedItemIndex);
   }
-  handleMenuCancel() {
-    console.log('Menu cancel event');
-  }
   handleMenuSelect(event: number) {
     this.selectedIndex = event;
-    console.log('Menu event: Selected item: ' + event);
   }
 }

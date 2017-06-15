@@ -6,10 +6,6 @@
   <div>
     <pre class="prettyprint"><![CDATA[import { CheckboxModule } from '@angular-mdc/web';]]></pre>
   </div>
-  <h1 mdc-typography-headline>Directives</h1>
-  <div>
-    <pre class="prettyprint"><![CDATA[@Directive({selector: '[mdc-checkbox-label]'})]]></pre>
-  </div>
   <div fxLayout="row" fxLayout.lt-md="column">
     <div fxLayout="column">
       <h1 mdc-typography-headline>API reference</h1>
@@ -22,16 +18,8 @@
         </thead>
         <tbody>
           <tr>
-            <td><pre class="prettyprint">@Input() checked: boolean</pre></td>
-            <td>Boolean for verifying the checked value.</td>
-          </tr>
-          <tr>
             <td><pre class="prettyprint">@Input() indeterminate: boolean</pre></td>
             <td>To represent a checkbox with three states (e.g. a nested list of checkable items).</td>
-          </tr>
-          <tr>
-            <td><pre class="prettyprint">@Input() labelId: string</pre></td>
-            <td></td>
           </tr>
           <tr>
             <td><pre class="prettyprint">@Input() disabled: boolean</pre></td>
@@ -60,16 +48,29 @@
   </div>
   <h1 mdc-typography-headline>Examples</h1>
   <div fxLayout="column" class="mdc-padding">
-    <div fxFlexAlign="start">
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="isChecked"></mdc-checkbox>
-        <label mdc-checkbox-label [id]="labelId">Checkbox is {{isChecked}}</label>
-      </mdc-form-field>
-    </div>
+    <mdc-form-field>
+      <mdc-checkbox [(ngModel)]="isChecked" id="myCheckbox"></mdc-checkbox>
+      <label>Checkbox value is {{isChecked}}</label>
+    </mdc-form-field>
     <pre class="prettyprint">
 &lt;mdc-form-field&gt;
-  &lt;mdc-checkbox [(ngModel)]="isChecked"&gt;&lt;/mdc-checkbox&gt;
-  &lt;label mdc-checkbox-label [id]="labelId"&gt;Label text&lt;/label&gt;
+  &lt;mdc-checkbox [(ngModel)]="isChecked" id="myCheckbox"&gt;&lt;/mdc-checkbox&gt;
+  &lt;label&gt;Checkbox label&lt;/label&gt;
+&lt;/mdc-form-field&gt;
+       </pre>
+  </div>
+  <div fxLayout="column" class="mdc-padding">
+    <div fxFlexAlign="start">
+      <mdc-form-field>
+        <mdc-checkbox [indeterminate]="true"></mdc-checkbox>
+        <label>Indeterminate Checkbox</label>
+      </mdc-form-field>
+    </div>
+    <p>Indeterminate</p>
+    <pre class="prettyprint">
+&lt;mdc-form-field&gt;
+  &lt;mdc-checkbox [indeterminate]="true"&gt;&lt;/mdc-checkbox&gt;
+  &lt;label&gt;Label&lt;/label&gt;
 &lt;/mdc-form-field&gt;
        </pre>
   </div>
@@ -77,14 +78,14 @@
     <div fxFlexAlign="start">
       <mdc-form-field>
         <mdc-checkbox [disabled]="true"></mdc-checkbox>
-        <label mdc-checkbox-label>Checkbox is disabled</label>
+        <label>Checkbox is disabled</label>
       </mdc-form-field>
     </div>
     <p>Disabled</p>
     <pre class="prettyprint">
 &lt;mdc-form-field&gt;
   &lt;mdc-checkbox [disabled]="true"&gt;&lt;/mdc-checkbox&gt;
-  &lt;label mdc-checkbox-label&gt;Label text&lt;/label&gt;
+  &lt;label&gt;Label&lt;/label&gt;
 &lt;/mdc-form-field&gt;
        </pre>
   </div>

@@ -8,7 +8,7 @@ import {
 	templateUrl: './checkbox-demo.component.html'
 })
 export class CheckboxDemoComponent implements OnInit {
-  isChecked = false;
+  isChecked: boolean = true;
   
   ngOnInit() {
     let doc = <HTMLDivElement>document.body;

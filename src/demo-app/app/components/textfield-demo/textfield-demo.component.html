@@ -8,7 +8,7 @@
   </div>
   <h1 mdc-typography-headline>Directives</h1>
   <div>
-    <pre class="prettyprint"><![CDATA[@Directive({selector: '[mdc-textfield-helptext]'})]]></pre>
+    <pre class="prettyprint">mdc-textfield-helptext</pre>
   </div>
   <div fxLayout="row" fxLayout.lt-md="column">
     <div fxLayout="column">
@@ -112,17 +112,15 @@
   </div>
   <h1 mdc-typography-headline>Examples</h1>
   <div fxLayout="column" class="mdc-padding">
-    <div fxLayout="row">
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="isDisabled"></mdc-checkbox>
-        <label mdc-checkbox-label [id]="labelId">Disable</label>
-      </mdc-form-field>
-    </div>
     <div fxFlexAlign="start">
       <mdc-textfield #user [(ngModel)]="username" id="username" label="Username" required [disabled]="isDisabled" aria-controls="help-username-val" (focus)="handleFocus($event);" (blur)="handleBlur($event);" (input)="handleInput($event);" (keydown)="handleKeyDown($event);">
       </mdc-textfield>
       <p mdc-textfield-helptext id="help-username-val" [validation]="true" [persistent]="false">Username is required</p>
     </div>
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="isDisabled"></mdc-checkbox>
+        <label>Disable textfield</label>
+      </mdc-form-field>
     <pre class="prettyprint">
 &lt;mdc-textfield [(ngModel)]="username"
   id="username"

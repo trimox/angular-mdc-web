@@ -6,13 +6,11 @@
   <div>
     <pre class="prettyprint"><![CDATA[import { ToolbarModule } from '@angular-mdc/web';]]></pre>
   </div>
-  <h1 mdc-typography-headline>Components</h1>
-  <div>
-    <pre class="prettyprint"><![CDATA[@Component({selector: '[mdc-toolbar-section]'})]]></pre>
-  </div>
   <h1 mdc-typography-headline>Directives</h1>
   <div>
-    <pre class="prettyprint"><![CDATA[@Directive({selector: '[mdc-toolbar-title]'})]]></pre>
+    <pre class="prettyprint">mdc-toolbar-row</pre>
+    <pre class="prettyprint">mdc-toolbar-section</pre>
+    <pre class="prettyprint">mdc-toolbar-title</pre>
   </div>
   <div fxLayout="column">
     <h1 mdc-typography-headline>API reference</h1>
@@ -67,13 +65,13 @@
       <mdc-toolbar [flexible]="false" [fixed]="false" [waterfall]="false" [fixedLastrow]="false" [flexibleTitle]="true">
         <mdc-toolbar-row>
           <mdc-toolbar-section [alignStart]="true">
-            <a href="#" class="material-icons" aria-label="menu">menu</a>
-            <span mdc-toolbar-title>Title</span>
+            <a href="#" class="material-icons mdc-toolbar__icon--menu" aria-label="menu">menu</a>
+            <span mdc-toolbar-title>Toolbar Title</span>
           </mdc-toolbar-section>
           <mdc-toolbar-section [alignEnd]="true">
-            <a href="#" class="material-icons" aria-label="Download">file_download</a>
-            <a href="#" class="material-icons" aria-label="Print this page">print</a>
-            <a href="#" class="material-icons" aria-label="Bookmark this page">bookmark</a>
+            <a href="#" class="material-icons mdc-toolbar__icon" aria-label="Download">file_download</a>
+            <a href="#" class="material-icons mdc-toolbar__icon" aria-label="Print this page">print</a>
+            <a href="#" class="material-icons mdc-toolbar__icon" aria-label="Bookmark this page">bookmark</a>
           </mdc-toolbar-section>
         </mdc-toolbar-row>
       </mdc-toolbar>
@@ -86,13 +84,13 @@
   [flexibleTitle]="true"&gt;
   &lt;mdc-toolbar-row&gt;
     &lt;mdc-toolbar-section [alignStart]="true"&gt;
-      &lt;a href="#" class="material-icons" aria-label="menu"&gt;menu&lt;/a&gt;
-      &lt;span mdc-toolbar-title&gt;Title&lt;/span&gt;
+      &lt;a href="#" class="material-icons mdc-toolbar__icon--menu"&gt;menu&lt;/a&gt;
+      &lt;mdc-toolbar-title&gt;Title&lt;/mdc-toolbar-title&gt;
     &lt;/mdc-toolbar-section&gt;
     &lt;mdc-toolbar-section [alignEnd]="true"&gt;
-      &lt;a href="#" class="material-icons" aria-label="Download" alt="Download"&gt;file_download&lt;/a&gt;
-      &lt;a href="#" class="material-icons" aria-label="Print page" alt="Print page"&gt;print&lt;/a&gt;
-      &lt;a href="#" class="material-icons" aria-label="Bookmark page" alt="Bookmark page"&gt;bookmark&lt;/a&gt;
+      &lt;a href="#" class="material-icons mdc-toolbar__icon" alt="Download"&gt;file_download&lt;/a&gt;
+      &lt;a href="#" class="material-icons mdc-toolbar__icon" alt="Print page"&gt;print&lt;/a&gt;
+      &lt;a href="#" class="material-icons mdc-toolbar__icon" alt="Bookmark page"&gt;bookmark&lt;/a&gt;
     &lt;/mdc-toolbar-section&gt;
   &lt;/mdc-toolbar-row&gt;
 &lt;/mdc-toolbar>&gt;

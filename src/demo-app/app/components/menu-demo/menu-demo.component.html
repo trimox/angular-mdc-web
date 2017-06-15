@@ -8,7 +8,9 @@
   </div>
   <h1 mdc-typography-headline>Directives</h1>
   <div>
-    <pre class="prettyprint"><![CDATA[@Directive({selector: '[mdc-menu-item]'})]]></pre>
+    <pre class="prettyprint">mdc-menu-anchor</pre>
+    <pre class="prettyprint">mdc-menu-item</pre>
+    <pre class="prettyprint">mdc-menu-divider</pre>
   </div>
   <div fxLayout="row" fxLayout.lt-md="column">
     <div fxLayout="column">
@@ -16,25 +18,30 @@
       <table>
         <thead>
           <tr>
-            <th>Attribute</th>
-            <th>Description</th>
+            <th>Method</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><pre class="prettyprint">@Input() items: MenuItemDirective[]</pre></td>
-            <td></td>
+            <td><pre class="prettyprint">open(focusIndex: number)</pre></td>
+            <td>Opens the menu. Takes an focusIndex property that specifies the index of the menu item to be focused. If the focusIndex is omitted, no menu item will be focused.</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">isOpen()</pre></td>
+            <td>Returns whether or not the menu is open.</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">close()</pre></td>
+            <td>Closes the menu.</td>
           </tr>
         </tbody>
       </table>
-    </div>
-    <div fxLayout="column" fxFlexOffset.gt-md="20">
-      <h1 mdc-typography-headline>Events</h1>
       <table>
         <thead>
           <tr>
             <th>Event</th>
-            <th>Description</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -52,27 +59,38 @@
   </div>
   <h1 mdc-typography-headline>Examples</h1>
   <div fxLayout="column" class="mdc-padding">
-    <div fxFlexAlign="start">
-      <div class="mdc-menu-anchor">
-        <button mdc-fab aria-label="Profile" (click)="showMenu();">
+    <div fxLayout="row">
+      <div mdc-menu-anchor>
+        <button mdc-fab (click)="showMenu();">
           <span mdc-fab-icon>person</span>
         </button>
-        <mdc-menu #menu (cancel)="handleMenuCancel();" (select)="handleMenuSelect($event);" [items]="menuItems"></mdc-menu>
+        <mdc-menu #menu (select)="handleMenuSelect($event);">
+          <mdc-menu-item [id]="0">Item 1</mdc-menu-item>
+          <mdc-menu-item [id]="1" [disabled]="true">Item 2</mdc-menu-item>
+          <mdc-menu-item [id]=2>Item 3</mdc-menu-item>
+          <mdc-menu-divider></mdc-menu-divider>
+          <mdc-menu-item [id]=3>Item 4</mdc-menu-item>
+        </mdc-menu>
+      </div>
+      <div fxLayout="column" fxFlexOffset="5">
+        <p mdc-typography-body1>Selected index: {{selectedIndex}}</p>
       </div>
     </div>
     <pre class="prettyprint">
-&lt;div class="mdc-menu-anchor"&gt;
+&lt;div mdc-menu-anchor&gt;
   &lt;button mdc-fab aria-label="Profile" (click)="showMenu();"&gt;
     &lt;span mdc-fab-icon>person&lt;/span&gt;
   &lt;/button&gt;
-  &lt;mdc-menu #menu (cancel)="handleMenuCancel();"
-   (select)="handleMenuSelect($event);"
-   [items]="menuItems"&gt;&lt;/mdc-menu&gt;
+  &lt;mdc-menu #menu (select)="handleMenuSelect($event);"&gt;
+    &lt;mdc-menu-item [id]="0"&gt;Item 1&lt;/mdc-menu-item&gt;
+    &lt;mdc-menu-item
+      [id]="1"
+      [disabled]="true"&gt;Item 2&lt;/mdc-menu-item&gt;
+    &lt;mdc-menu-item [id]=2&gt;Item 3&lt;/mdc-menu-item&gt;
+    &lt;mdc-menu-divider&gt;&lt;/mdc-menu-divider&gt;
+    &lt;mdc-menu-item [id]=3&gt;Item 4&lt;/mdc-menu-item&gt;
+  &lt;/mdc-menu&gt;
 &lt;/div&gt;
       </pre>
   </div>
 </div>
-<!--     
-    <p>Selected index : {{selectedIndex}}</p>
-    <mdc-textfield [(ngModel)]="focusedItemIndex" label="Set focus to item index" type="number"></mdc-textfield>
- -->

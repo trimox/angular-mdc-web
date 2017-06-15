@@ -28,12 +28,11 @@ export class SnackbarDemoComponent implements OnInit {
 
   show() {
     this.snack.show({
-      multiline: this.isMultiline,
-      actionOnBottom: this.isActionOnBottom,
-      dismissOnAction: this.isDismissOnAction,
       message: this.messageText ? this.messageText : 'Sample text',
+      multiline: this.isMultiline || this.isActionOnBottom,
+      actionOnBottom: this.isActionOnBottom,
       actionText: this.actionText,
       actionHandler: this.actionText ? () => { console.log('Action button pressed!') } : null
-    });
+    }, this.isDismissOnAction);
   }
 }

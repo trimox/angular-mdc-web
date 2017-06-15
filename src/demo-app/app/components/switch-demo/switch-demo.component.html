@@ -6,10 +6,6 @@
   <div>
     <pre class="prettyprint"><![CDATA[import { SwitchModule } from '@angular-mdc/web';]]></pre>
   </div>
-  <h1 class="mdc-typography--headline">Directives</h1>
-  <div>
-    <pre class="prettyprint"><![CDATA[@Directive({selector: '[mdc-switch-label]'})]]></pre>
-  </div>
   <div fxLayout="row" fxLayout.lt-md="column">
     <div fxLayout="column">
       <h1 mdc-typography-headline>API reference</h1>
@@ -22,22 +18,11 @@
         </thead>
         <tbody>
           <tr>
-            <td><pre class="prettyprint">@Input() checked: boolean</pre></td>
-            <td>Boolean for verifying the checked value.</td>
-          </tr>
-          <tr>
-            <td><pre class="prettyprint">@Input() labelId: string</pre></td>
-            <td></td>
-          </tr>
-          <tr>
             <td><pre class="prettyprint">@Input() disabled: boolean</pre></td>
             <td>Disables the component.</td>
           </tr>
         </tbody>
       </table>
-    </div>
-    <div fxLayout="column" fxFlexOffset.gt-md="5">
-      <h1 mdc-typography-headline>Events</h1>
       <table>
         <thead>
           <tr>
@@ -58,13 +43,13 @@
   <div fxLayout="column" class="mdc-padding">
     <div fxFlexAlign="start">
       <mdc-form-field>
-        <mdc-switch [(ngModel)]="isSwitchOn"></mdc-switch>
-        <label mdc-switch-label [id]="labelId">off/on</label>
+        <mdc-switch [(ngModel)]="isSwitchOn" [checked]="true"></mdc-switch>
+        <label>off/on</label>
       </mdc-form-field>
       <pre class="prettyprint">
 &lt;mdc-form-field&gt;
-  &lt;mdc-switch [(ngModel)]="isSwitchOn"&gt;&lt;/mdc-switch&gt;
-  &lt;label mdc-switch-label [id]="labelId"&gt;Label text&lt;/label&gt;
+  &lt;mdc-switch [(ngModel)]="isSwitchOn" [checked]="isChecked"&gt;&lt;/mdc-switch&gt;
+  &lt;label&gt;Label text&lt;/label&gt;
 &lt;/mdc-form-field&gt;
        </pre>
     </div>
@@ -72,13 +57,13 @@
       <div fxFlexAlign="start">
         <mdc-form-field>
           <mdc-switch [disabled]="true"></mdc-switch>
-          <label mdc-switch-label>off/on</label>
+          <label>off/on</label>
         </mdc-form-field>
         <p>Disabled</p>
         <pre class="prettyprint">
 &lt;mdc-form-field&gt;
   &lt;mdc-switch [disabled]="true"&gt;&lt;/mdc-switch&gt;
-  &lt;label mdc-switch-label&gt;Label text&lt;/label&gt;
+  &lt;label&gt;Label text&lt;/label&gt;
 &lt;/mdc-form-field&gt;
        </pre>
       </div>

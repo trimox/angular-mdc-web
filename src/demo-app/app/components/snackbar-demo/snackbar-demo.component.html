@@ -12,31 +12,14 @@
       <table>
         <thead>
           <tr>
-            <th>Attribute</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><pre class="prettyprint">@Input() dismissOnAction: boolean</pre></td>
-            <td>Dismiss snackbar when the user presses the action button. Defaults to true</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div fxLayout="column" fxFlexOffset.gt-md="5">
-      <h1 mdc-typography-headline>Methods</h1>
-      <table>
-        <thead>
-          <tr>
             <th>Method</th>
             <th>Description</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><pre class="prettyprint">show(data)</pre></td>
-            <td>Show snackbar using argument properties.</td>
+            <td><pre class="prettyprint">show(data, dismissOnAction: boolean = true)</pre></td>
+            <td>Show snackbar using argument properties. Argument 'dismissOnAction' defaults to true and is optional.</td>
           </tr>
         </tbody>
       </table>
@@ -46,15 +29,15 @@
   <div fxLayout="column" class="mdc-padding">
     <mdc-form-field>
       <mdc-checkbox [(ngModel)]="isActionOnBottom"></mdc-checkbox>
-      <label mdc-checkbox-label>Action on Bottom</label>
+      <label>Action on Bottom</label>
     </mdc-form-field>
     <mdc-form-field>
       <mdc-checkbox [(ngModel)]="isMultiline"></mdc-checkbox>
-      <label mdc-checkbox-label>Multiline</label>
+      <label>Multiline</label>
     </mdc-form-field>
     <mdc-form-field>
       <mdc-checkbox [(ngModel)]="isDismissOnAction"></mdc-checkbox>
-      <label mdc-checkbox-label>Dismiss on Action</label>
+      <label>Dismiss on Action</label>
     </mdc-form-field>
   </div>
   <div fxLayout="column" fxFlexOffset="1">
@@ -63,6 +46,18 @@
   </div>
   <div class="mdc-padding" fxFlexOffset="2">
     <button mdc-button [primary]="true" [raised]="true" (click)="show();">Show</button>
+  </div>
+  <div fxFlexAlign="start">
+    <pre class="prettyprint">
+<![CDATA[
+  this.snack.show({
+    message: this.messageText ? this.messageText : 'Sample text',
+    multiline: this.isMultiline || this.isActionOnBottom,
+    actionOnBottom: this.isActionOnBottom,
+    actionText: this.actionText,
+    actionHandler: this.actionText ? () => { console.log('Action button pressed!') } : null
+}, this.isDismissOnAction);]]>
+  </pre>
   </div>
 </div>
 <mdc-snackbar #snack></mdc-snackbar>

@@ -1,11 +1,11 @@
 import {
-	Directive,
-	HostBinding,
+  Directive,
+  HostBinding,
 } from '@angular/core';
 
 @Directive({
-	selector: '[mdc-menu-anchor]'
+  selector: '[mdc-menu-anchor]'
 })
 export class MenuAnchorDirective {
-	@HostBinding('class') className: string = 'mdc-menu-anchor';
+  @HostBinding('class') className: string = 'mdc-menu-anchor';
 }

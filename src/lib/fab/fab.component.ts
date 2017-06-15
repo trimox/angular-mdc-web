@@ -7,7 +7,7 @@ import {
   Renderer2,
   ViewEncapsulation
 } from '@angular/core';
-import { Ripple } from '.././ripple/ripple';
+import { Ripple } from '.././ripple/ripple.directive';
 
 const MDC_FAB_STYLES = require('@material/fab/mdc-fab.scss');
 

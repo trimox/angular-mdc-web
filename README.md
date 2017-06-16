@@ -3,11 +3,9 @@
 [![Build Status](https://travis-ci.org/trimox/angular-mdc-web.svg?branch=master)](https://travis-ci.org/trimox/angular-mdc-web)
 [![npm version](https://badge.fury.io/js/%40angular-mdc%2Fweb.svg)](https://badge.fury.io/js/%40angular-mdc%2Fweb)
 
-#### Demo app with API, documentation and examples
-[Demo App](https://trimox.github.io/angular-mdc-web/)
+[Demo App](https://trimox.github.io/angular-mdc-web/) with API, documentation and examples
 
-#### Quick links
-[Google Material Design Components](https://material.io/components/)
+Our Angular library integrates with [Google's Material Design Components](https://material.io/components/), providing a faithful and accurate representation of Material Design as it is envisioned on the web platform by Google's Material Design team. Our goal is to allow developers to implement Material Design in their Angular apps quickly and efficiently. 
 
 ## Installation
 ```
@@ -25,10 +23,10 @@ import { FabModule, MenuModule } from '@angular-mdc/web';
 ```
 
 ### Material Design Components
-| MDC-Web component | Status        |
+| Component | Status        |
 | ----------------- | --------------|
 | button | Available |
-| card |
+| card | WIP |
 | checkbox | Available |
 | dialog
 | drawer

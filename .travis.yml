@@ -9,7 +9,7 @@ cache:
     #- node_modules
 
 node_js:
-  - '7.10.0'
+  - '8.1.2'
 
 before_install:
  - export CHROME_BIN=/usr/bin/google-chrome
@@ -21,7 +21,7 @@ before_install:
 
 after_success:
   # create a build - should test the tooling to create dist build
-  - npm run build:dist
+  #- npm run build:dist
   # create a build (demo site)
   # - npm run build:demo
 

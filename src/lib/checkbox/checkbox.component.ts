@@ -21,8 +21,8 @@ const { MDCFormField } = require('@material/form-field');
 const { MDCCheckboxFoundation } = require('@material/checkbox');
 const MDC_CHECKBOX_STYLES = require('@material/checkbox/mdc-checkbox.scss');
 
-let _formField = null;
-let nextElId = 0;
+let formField_ = null;
+let nextElId_ = 0;
 
 export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
@@ -46,7 +46,7 @@ export class CheckboxComponent implements AfterViewInit, OnDestroy {
   private disabled_: boolean = false;
   ripple: Ripple;
 
-  @Input() id: string = `mdc-checkbox-${++nextElId}`;
+  @Input() id: string = `mdc-checkbox-${++nextElId_}`;
   get inputId(): string {
     return `input-${this.id}`;
   }
@@ -59,13 +59,13 @@ export class CheckboxComponent implements AfterViewInit, OnDestroy {
   @HostBinding('class') className: string = 'mdc-checkbox';
   @HostBinding('class.mdc-checkbox--disabled') get classDisabled(): string {
     if (this.disabled) {
-      if (_formField) {
-        _formField.input = null;
+      if (formField_) {
+        formField_.input = null;
       }
       this._renderer.setAttribute(this.inputEl.nativeElement, 'disabled', '');
     } else {
-      if (_formField) {
-        _formField.input = this;
+      if (formField_) {
+        formField_.input = this;
       }
       this._renderer.removeAttribute(this.inputEl.nativeElement, 'disabled');
     }
@@ -129,9 +129,9 @@ export class CheckboxComponent implements AfterViewInit, OnDestroy {
     this._foundation.init();
     this.ripple.unbounded = true;
 
-    _formField = new MDCFormField(this._root.nativeElement.parentElement)
-    _formField.input = this;
-    this._renderer.setAttribute(_formField.label_, 'for', this.inputId)
+    formField_ = new MDCFormField(this._root.nativeElement.parentElement)
+    formField_.input = this;
+    this._renderer.setAttribute(formField_.label_, 'for', this.inputId)
   }
   ngOnDestroy() {
     this._foundation.destroy();

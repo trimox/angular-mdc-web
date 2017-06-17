@@ -24,8 +24,8 @@ export const MD_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
   multi: true
 };
 
-let _formField = null;
-let nextElId = 0;
+let formField_ = null;
+let nextElId_ = 0;
 
 type UnlistenerMap = WeakMap<EventListener, Function>;
 
@@ -41,7 +41,7 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
 export class SwitchComponent implements AfterViewInit {
   ripple: Ripple;
 
-  @Input() id: string = `mdc-switch-${++nextElId}`;
+  @Input() id: string = `mdc-switch-${++nextElId_}`;
   get inputId(): string {
     return `input-${this.id}`;
   }
@@ -53,13 +53,13 @@ export class SwitchComponent implements AfterViewInit {
   @HostBinding('class') className: string = 'mdc-switch';
   @HostBinding('class.mdc-switch--disabled') get classDisabled(): string {
     if (this.disabled) {
-      if (_formField) {
-        _formField.input = null;
+      if (formField_) {
+        formField_.input = null;
       }
       this._renderer.setAttribute(this.nativeCb.nativeElement, 'disabled', '');
     } else {
-      if (_formField) {
-        _formField.input = this;
+      if (formField_) {
+        formField_.input = this;
       }
       this._renderer.removeAttribute(this.nativeCb.nativeElement, 'disabled');
     }
@@ -79,9 +79,9 @@ export class SwitchComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    _formField = new MDCFormField(this._root.nativeElement.parentElement)
-    _formField.input = this;
-    this._renderer.setAttribute(_formField.label_, 'for', this.inputId)
+    formField_ = new MDCFormField(this._root.nativeElement.parentElement)
+    formField_.input = this;
+    this._renderer.setAttribute(formField_.label_, 'for', this.inputId)
   }
 
   handleChange(evt: Event) {

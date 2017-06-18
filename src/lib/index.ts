@@ -6,6 +6,7 @@ import { FabModule } from './fab';
 import { FormFieldModule } from './form-field';
 import { LinearProgressModule } from './linear-progress';
 import { MenuModule } from './menu';
+import { RadioModule } from './radio';
 import { RippleModule } from './ripple';
 import { SnackbarModule } from './snackbar';
 import { SwitchModule } from './switch';
@@ -19,6 +20,7 @@ export * from './fab';
 export * from './form-field';
 export * from './linear-progress';
 export * from './menu';
+export * from './radio';
 export * from './ripple';
 export * from './snackbar';
 export * from './switch';
@@ -33,6 +35,7 @@ const MATERIAL_MODULES = [
 	FormFieldModule,
 	LinearProgressModule,
 	MenuModule,
+	RadioModule,
 	RippleModule,
 	SnackbarModule,
 	SwitchModule,

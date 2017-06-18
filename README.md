@@ -38,7 +38,7 @@ import { FabModule, MenuModule } from '@angular-mdc/web';
 | linear-progress | Available |
 | list
 | menu | Available |
-| radio
+| radio | Available |
 | ripple | Available |
 | select
 | slider

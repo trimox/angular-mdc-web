@@ -3,8 +3,10 @@
   class="mdc-checkbox__native-control"
   [id]="inputId"
   [tabindex]="tabindex"
-  [attr.aria-labelledby]="labelId"
+  [attr.aria-label]="ariaLabel"
+  [attr.aria-labelledby]="ariaLabelledby"
   [(ngModel)]="ngModel"
+  [disabled]="disabled"
   [checked]="checked"
   [indeterminate]="indeterminate"
   (change)="handleChange($event)"/>

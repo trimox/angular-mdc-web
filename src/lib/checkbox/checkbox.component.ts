@@ -43,7 +43,6 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
 })
 
 export class CheckboxComponent implements AfterViewInit, OnDestroy {
-  private disabled_: boolean = false;
   ripple: Ripple;
 
   @Input() id: string = `mdc-checkbox-${++nextElId_}`;
@@ -54,7 +53,8 @@ export class CheckboxComponent implements AfterViewInit, OnDestroy {
   @Input() indeterminate: boolean;
   @Input() disabled: boolean;
   @Input() tabindex: number = 0;
-  @Input('aria-labelledby') ariaLabelledby: string = null;
+  @Input('aria-label') ariaLabel: string;
+  @Input('aria-labelledby') ariaLabelledby: string;
   @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
   @HostBinding('class') className: string = 'mdc-checkbox';
   @HostBinding('class.mdc-checkbox--disabled') get classDisabled(): string {
@@ -62,12 +62,10 @@ export class CheckboxComponent implements AfterViewInit, OnDestroy {
       if (formField_) {
         formField_.input = null;
       }
-      this._renderer.setAttribute(this.inputEl.nativeElement, 'disabled', '');
     } else {
       if (formField_) {
         formField_.input = this;
       }
-      this._renderer.removeAttribute(this.inputEl.nativeElement, 'disabled');
     }
     return this.disabled ? 'mdc-checkbox--disabled' : '';
   }

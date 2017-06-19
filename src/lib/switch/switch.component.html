@@ -1,8 +1,12 @@
-<input #nativeCb type="checkbox" 
+<input type="checkbox"
+  #inputEl
   class="mdc-switch__native-control"
   [id]="inputId"
   [tabindex]="tabindex"
+  [attr.aria-label]="ariaLabel"
+  [attr.aria-labelledby]="ariaLabelledby"
   [(ngModel)]="ngModel"
+  [disabled]="disabled"
   [checked]="checked"
   (change)="handleChange($event)"/>
 <div class="mdc-switch__background">

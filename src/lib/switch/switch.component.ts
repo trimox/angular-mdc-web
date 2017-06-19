@@ -46,9 +46,10 @@ export class SwitchComponent implements AfterViewInit {
     return `input-${this.id}`;
   }
   @Input() checked: boolean;
-  @Input() labelId: string;
   @Input() disabled: boolean;
   @Input() tabindex: number = 0;
+  @Input('aria-label') ariaLabel: string;
+  @Input('aria-labelledby') ariaLabelledby: string;
   @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
   @HostBinding('class') className: string = 'mdc-switch';
   @HostBinding('class.mdc-switch--disabled') get classDisabled(): string {
@@ -56,16 +57,14 @@ export class SwitchComponent implements AfterViewInit {
       if (formField_) {
         formField_.input = null;
       }
-      this._renderer.setAttribute(this.nativeCb.nativeElement, 'disabled', '');
     } else {
       if (formField_) {
         formField_.input = this;
       }
-      this._renderer.removeAttribute(this.nativeCb.nativeElement, 'disabled');
     }
     return this.disabled ? 'mdc-switch--disabled' : '';
   }
-  @ViewChild('nativeCb') nativeCb: ElementRef;
+  @ViewChild('inputEl') inputEl: ElementRef;
 
   onTouched: () => any = () => { };
 

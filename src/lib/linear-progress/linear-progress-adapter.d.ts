@@ -1,8 +1,8 @@
 export interface MDCLinearProgressAdapter {
-  addClass: (string) => void
-  getPrimaryBar: () => Element
-  getBuffer: () => Element
-  hasClass: (string) => void
-  removeClass: (string) => void
-  setStyle: (el: Element, styleProperty: string, value: number) => void
+  addClass: (className: string) => void;
+  getPrimaryBar: () => Element;
+  getBuffer: () => Element;
+  hasClass: (className: string) => void;
+  removeClass: (className: string) => void;
+  setStyle: (el: Element, styleProperty: string, value: number) => void;
 }

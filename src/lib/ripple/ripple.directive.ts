@@ -75,7 +75,7 @@ export class Ripple implements OnDestroy {
         y: window.pageYOffset
       };
     }
-  }
+  };
 
   private _foundation: {
     init: Function,

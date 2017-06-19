@@ -36,10 +36,10 @@ export class FabComponent {
   }
   @HostListener('keydown', ['$event']) onkeydown(evt) {
     this.handleKeyboardDown_(evt);
-  };
+  }
   @HostListener('keyup', ['$event']) onkeyup(evt) {
     this.handleKeyboardUp_(evt);
-  };
+  }
 
   constructor(
     private _renderer: Renderer2,

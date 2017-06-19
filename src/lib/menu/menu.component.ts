@@ -44,7 +44,7 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
   @Output() select: EventEmitter<number> = new EventEmitter<number>();
   @HostBinding('class') get className(): string {
     return `mdc-simple-menu${this.openFrom ? ` ${this.openFrom}` : ''}`;
-  };
+  }
   @HostBinding('tabindex') tabindex: number = -1;
   @ViewChild('menuContainer') public menuContainerEl: ElementRef;
   @ContentChildren(MenuItemDirective) menuItems: QueryList<MenuItemDirective>;
@@ -136,7 +136,7 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
     saveFocus: () => this.previousFocus_ = document.activeElement,
     restoreFocus: () => {
       if (this.previousFocus_) {
-        this.previousFocus_.focus()
+        this.previousFocus_.focus();
       }
     },
     isFocused: () => {
@@ -177,7 +177,7 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
     getAccurateTime: () => {
       return window.performance.now();
     }
-  }
+  };
 
   private _foundation: {
     init: Function,

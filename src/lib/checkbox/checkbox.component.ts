@@ -127,9 +127,9 @@ export class CheckboxComponent implements AfterViewInit, OnDestroy {
     this._foundation.init();
     this.ripple.unbounded = true;
 
-    formField_ = new MDCFormField(this._root.nativeElement.parentElement)
+    formField_ = new MDCFormField(this._root.nativeElement.parentElement);
     formField_.input = this;
-    this._renderer.setAttribute(formField_.label_, 'for', this.inputId)
+    this._renderer.setAttribute(formField_.label_, 'for', this.inputId);
   }
   ngOnDestroy() {
     this._foundation.destroy();

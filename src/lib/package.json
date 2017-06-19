@@ -7,12 +7,13 @@
     "type": "git",
     "url": "https://github.com/trimox/angular-mdc-web.git"
   },
-  "version": "0.1.11",
+  "version": "0.1.12",
   "license": "MIT",
   "keywords": [
     "angular",
     "angular-mdc",
     "components",
+    "material-components",
     "material design components",
     "material design",
     "material",
@@ -23,8 +24,8 @@
   "typings": "./lib/index.d.ts",
   "private": false,
   "peerDependencies": {
-    "@angular/core": "^4.1.3",
-    "@angular/common": "^4.1.3",
-    "material-components-web": "0.12.1"
+    "@angular/core": "^4.2.3",
+    "@angular/common": "^4.2.3",
+    "material-components-web": "0.13.0"
   }
 }

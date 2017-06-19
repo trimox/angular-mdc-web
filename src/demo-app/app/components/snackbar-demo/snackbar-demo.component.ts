@@ -32,7 +32,7 @@ export class SnackbarDemoComponent implements OnInit {
       multiline: this.isMultiline || this.isActionOnBottom,
       actionOnBottom: this.isActionOnBottom,
       actionText: this.actionText,
-      actionHandler: this.actionText ? () => { console.log('Action button pressed!') } : null
+      actionHandler: this.actionText ? () => { /*do something*/ } : null
     }, this.isDismissOnAction);
   }
 }

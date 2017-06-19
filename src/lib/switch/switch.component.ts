@@ -78,9 +78,9 @@ export class SwitchComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    formField_ = new MDCFormField(this._root.nativeElement.parentElement)
+    formField_ = new MDCFormField(this._root.nativeElement.parentElement);
     formField_.input = this;
-    this._renderer.setAttribute(formField_.label_, 'for', this.inputId)
+    this._renderer.setAttribute(formField_.label_, 'for', this.inputId);
   }
 
   handleChange(evt: Event) {

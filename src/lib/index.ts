@@ -42,7 +42,7 @@ const MATERIAL_MODULES = [
 	TextfieldModule,
 	ToolbarModule,
 	TypographyModule,
-]
+];
 
 @NgModule({
 	imports: [

@@ -1,4 +1,18 @@
 <a name="0.0.0"></a>
+# [0.1.15](https://github.com/trimox/angular-mdc-web/compare/v0.1.12...v0.1.15) (2017-06-20)
+
+
+### Features
+
+* **radio:** Add MDC Radio Button component ([840d35a](https://github.com/trimox/angular-mdc-web/commit/840d35a))
+* **checkbox:** Add aria-label and aria-labelledby properties. Refactored disabled property. ([229377e](https://github.com/trimox/angular-mdc-web/commit/229377e))
+* **codecov:** Add Codecov for code coverage reporting. ([#16](https://github.com/trimox/angular-mdc-web/issues/16)) ([4eefcde](https://github.com/trimox/angular-mdc-web/commit/4eefcde)), closes [#12](https://github.com/trimox/angular-mdc-web/issues/12)
+* **menu:** Add openFrom property for overriding opening point. ([24911c5](https://github.com/trimox/angular-mdc-web/commit/24911c5))
+* **switch:** Add aria-label and aria-labelledby properties. Refactored disabled property. ([f65fc5a](https://github.com/trimox/angular-mdc-web/commit/f65fc5a))
+
+
+
+<a name="0.0.0"></a>
 # [0.1.12](https://github.com/trimox/angular-mdc-web/compare/v0.1.11...v0.1.12) (2017-06-15)
 
 

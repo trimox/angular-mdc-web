@@ -42,6 +42,7 @@
     "babel-loader": "^7.0.0",
     "babel-preset-env": "1.5.2",
     "copy-webpack-plugin": "^4.0.1",
+    "codecov": "^2.2.0",
     "cpy-cli": "^1.0.1",
     "css-loader": "^0.28.4",
     "cz-conventional-changelog": "2.0.0",

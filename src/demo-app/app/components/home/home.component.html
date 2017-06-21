@@ -61,6 +61,17 @@
     </div>
     <div class="mdc-card home-card">
       <section class="mdc-card__primary">
+        <h1 class="mdc-card__title mdc-card__title--large">Radio Button</h1>
+      </section>
+      <section class="mdc-card__supporting-text">
+        Radio buttons allow the user to select one option from a set.
+      </section>
+      <section class="mdc-card__actions">
+        <button mdc-button [compact]="true" class="mdc-card__action" (click)="viewComponent('radio-demo');">View Demo</button>
+      </section>
+    </div>
+    <div class="mdc-card home-card">
+      <section class="mdc-card__primary">
         <h1 class="mdc-card__title mdc-card__title--large">Snackbar</h1>
       </section>
       <section class="mdc-card__supporting-text">
@@ -108,7 +119,7 @@
         <h1 class="mdc-card__title mdc-card__title--large">Typography</h1>
       </section>
       <section class="mdc-card__supporting-text">
-        Material Design typography uses the Roboto font.
+        <p>Material Design typography uses the Roboto font.</p>
       </section>
       <section class="mdc-card__actions">
         <button mdc-button [compact]="true" class="mdc-card__action" (click)="viewComponent('typography-demo');">View Demo</button>

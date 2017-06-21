@@ -13,10 +13,26 @@
         <thead>
           <tr>
             <th>Attribute</th>
-            <th>Description</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td><pre class="prettyprint">@Input() id: string</pre></td>
+            <td>Unique Id of the checkbox (auto generated if not supplied).</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() ariaLabel: string</pre></td>
+            <td>Used to set the 'aria-label' attribute on the underlying input element.</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() ariaLabelledby: string</pre></td>
+            <td>The 'aria-labelledby' attribute takes precedence as the element's text alternative.</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() checked: boolean</pre></td>
+            <td>Use to verify the checked value.</td>
+          </tr>
           <tr>
             <td><pre class="prettyprint">@Input() indeterminate: boolean</pre></td>
             <td>To represent a checkbox with three states (e.g. a nested list of checkable items).</td>
@@ -34,7 +50,7 @@
         <thead>
           <tr>
             <th>Event</th>
-            <th>Description</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>

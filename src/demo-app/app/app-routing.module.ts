@@ -12,6 +12,7 @@ import { TextfieldDemoComponent } from './components/textfield-demo/textfield-de
 import { ToolbarDemoComponent } from './components/toolbar-demo/toolbar-demo.component';
 import { LinearProgressDemoComponent } from './components/linear-progress-demo/linear-progress-demo.component';
 import { TypographyDemoComponent } from './components/typography-demo/typography-demo.component';
+import { RadioDemoComponent } from './components/radio-demo/radio-demo.component';
 
 export const appRoutes: Routes = [
   { path: 'button-demo', component: ButtonDemoComponent },
@@ -24,6 +25,7 @@ export const appRoutes: Routes = [
   { path: 'toolbar-demo', component: ToolbarDemoComponent },
   { path: 'linear-progress-demo', component: LinearProgressDemoComponent },
   { path: 'typography-demo', component: TypographyDemoComponent },
+  { path: 'radio-demo', component: RadioDemoComponent },
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: '**', redirectTo: '' }
 ];

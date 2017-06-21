@@ -4,6 +4,8 @@ import {
   ViewChild
 } from '@angular/core';
 
+import { MenuComponent, MDC_OPEN_FROM } from '../../../.././lib/menu/menu.component';
+
 @Component({
   selector: 'menu-demo',
   templateUrl: './menu-demo.component.html'
@@ -11,7 +13,7 @@ import {
 export class MenuDemoComponent implements OnInit {
   selectedIndex = -1;
   focusedItemIndex = null;
-  @ViewChild('menu') menu;
+  @ViewChild('menu') menu: MenuComponent;
 
   ngOnInit() {
     let doc = <HTMLDivElement>document.body;

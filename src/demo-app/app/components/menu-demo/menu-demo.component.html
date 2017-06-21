@@ -59,7 +59,26 @@
   </div>
   <h1 mdc-typography-headline>Examples</h1>
   <div fxLayout="column" class="mdc-padding">
+<!--     <p>Change opening point of the menu</p>
     <div fxLayout="row">
+      <mdc-form-field>
+        <mdc-radio value="TOP_LEFT" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
+        <label>Top Left</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-radio value="TOP_RIGHT" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
+        <label>Top Right</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-radio value="MDC_OPEN_FROM.BOTTOM_LEFT" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
+        <label>Bottom Left</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-radio value="MDC_OPEN_FROM.BOTTOM_RIGHT" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
+        <label>Bottom Right</label>
+      </mdc-form-field>
+    </div>
+ -->    <div fxLayout="row" class="mdc-padding">
       <div mdc-menu-anchor>
         <button mdc-fab (click)="showMenu();">
           <span mdc-fab-icon>person</span>
@@ -67,9 +86,9 @@
         <mdc-menu #menu (select)="handleMenuSelect($event);">
           <mdc-menu-item [id]="0">Item 1</mdc-menu-item>
           <mdc-menu-item [id]="1" [disabled]="true">Item 2</mdc-menu-item>
-          <mdc-menu-item [id]=2>Item 3</mdc-menu-item>
+          <mdc-menu-item [id]="2">Item 3</mdc-menu-item>
           <mdc-menu-divider></mdc-menu-divider>
-          <mdc-menu-item [id]=3>Item 4</mdc-menu-item>
+          <mdc-menu-item [id]="3">Item 4</mdc-menu-item>
         </mdc-menu>
       </div>
       <div fxLayout="column" fxFlexOffset="5">
@@ -78,7 +97,7 @@
     </div>
     <pre class="prettyprint">
 &lt;div mdc-menu-anchor&gt;
-  &lt;button mdc-fab aria-label="Profile" (click)="showMenu();"&gt;
+  &lt;button mdc-fab (click)="showMenu();"&gt;
     &lt;span mdc-fab-icon>person&lt;/span&gt;
   &lt;/button&gt;
   &lt;mdc-menu #menu (select)="handleMenuSelect($event);"&gt;
@@ -86,9 +105,9 @@
     &lt;mdc-menu-item
       [id]="1"
       [disabled]="true"&gt;Item 2&lt;/mdc-menu-item&gt;
-    &lt;mdc-menu-item [id]=2&gt;Item 3&lt;/mdc-menu-item&gt;
+    &lt;mdc-menu-item [id]="2"&gt;Item 3&lt;/mdc-menu-item&gt;
     &lt;mdc-menu-divider&gt;&lt;/mdc-menu-divider&gt;
-    &lt;mdc-menu-item [id]=3&gt;Item 4&lt;/mdc-menu-item&gt;
+    &lt;mdc-menu-item [id]="3"&gt;Item 4&lt;/mdc-menu-item&gt;
   &lt;/mdc-menu&gt;
 &lt;/div&gt;
       </pre>

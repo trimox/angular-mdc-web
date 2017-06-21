@@ -11,6 +11,7 @@ import { FabDemoComponent } from './components/fab-demo/fab-demo.component';
 import { LinearProgressDemoComponent } from './components/linear-progress-demo/linear-progress-demo.component';
 import { MenuDemoComponent } from './components/menu-demo/menu-demo.component';
 import { NavbarComponent } from './components/navigation/navbar.component';
+import { RadioDemoComponent } from './components/radio-demo/radio-demo.component';
 import { SnackbarDemoComponent } from './components/snackbar-demo/snackbar-demo.component';
 import { SwitchDemoComponent } from './components/switch-demo/switch-demo.component';
 import { TextfieldDemoComponent } from './components/textfield-demo/textfield-demo.component';
@@ -18,6 +19,7 @@ import { ToolbarDemoComponent } from './components/toolbar-demo/toolbar-demo.com
 import { TypographyDemoComponent } from './components/typography-demo/typography-demo.component';
 
 import { MaterialModule } from './../../../dist';
+// import { MaterialModule } from './../../../src/lib';
 import { HomeComponent } from './components/home/home.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -41,6 +43,7 @@ import { AppRoutingModule } from './app-routing.module';
     LinearProgressDemoComponent,
     MenuDemoComponent,
     NavbarComponent,
+    RadioDemoComponent,
     SnackbarDemoComponent,
     SwitchDemoComponent,
     TextfieldDemoComponent,

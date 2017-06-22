@@ -10,6 +10,8 @@ Our Angular library integrates with [Google's Material Design Components](https:
 
 Want to help? [Contributing](https://github.com/trimox/angular-mdc-web/blob/master/CONTRIBUTING.md)
 
+Want to view recent changes? [Changelog](https://github.com/trimox/angular-mdc-web/blob/master/CHANGELOG.md)
+
 ## Installation
 ```
 npm install --save @angular-mdc/web
@@ -60,3 +62,7 @@ import { FabModule, MenuModule } from '@angular-mdc/web';
 
 Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our
 guidelines for [Contributing](https://github.com/trimox/angular-mdc-web/blob/master/CONTRIBUTING.md) and then check out one of our issues in the [help wanted](https://github.com/trimox/angular-mdc-web/issues?q=is%3Aopen+is%3Aissue+label%3A"help+wanted").
+
+## Code of conduct
+
+Help us keep Angular MDC open and inclusive. Please read and follow our [Code of Conduct](https://github.com/trimox/angular-mdc-web/blob/master/CODE_OF_CONDUCT.md).

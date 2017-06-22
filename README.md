@@ -6,10 +6,9 @@
 
 [Demo App](https://trimox.github.io/angular-mdc-web/) with API, documentation and examples
 
-Our Angular library integrates with [Google's Material Design Components](https://material.io/components/), providing a faithful and accurate representation of Material Design as it is envisioned on the web platform by Google's Material Design team. Our goal is to equip Angular developers with modular, straightforward and easy to implement Material Design components in their apps.
+Our Angular library integrates with [Google's Material Design Components](https://material.io/components/), providing a faithful and accurate representation of Material Design as it is envisioned on the web platform by Google's Material Design team. Our goal is to equip Angular developers with modular, straightforward and production-ready Material Design components.
 
 Want to help? [Contributing](https://github.com/trimox/angular-mdc-web/blob/master/CONTRIBUTING.md)
-
 
 ## Installation
 ```
@@ -27,28 +26,31 @@ import { FabModule, MenuModule } from '@angular-mdc/web';
 ```
 
 ### Material Design Components
+* WIP = work in progress
+* TBI = to be implemented
+
 | Component | Status        |
 | ----------------- | --------------|
 | button | Available |
 | card | WIP |
 | checkbox | Available |
-| dialog
-| drawer
-| elevation
+| dialog | TBI |
+| drawer | TBI |
+| elevation | WIP |
 | fab | Available |
 | form-field | Available |
-| grid-list
-| icon-toggle
+| grid-list | TBI |
+| icon-toggle | TBI |
 | linear-progress | Available |
-| list
+| list | TBI |
 | menu | Available |
 | radio | Available |
 | ripple | Available |
-| select
-| slider
+| select | TBI |
+| slider | TBI |
 | snackbar | Available |
 | switch | Available |
-| tabs
+| tabs | TBI |
 | textfield | Available |
 | theme | WIP |
 | toolbar | Available |

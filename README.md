@@ -1,4 +1,4 @@
-## Angular for Material Design Components (MDC-Web)
+## Angular MDC
 
 [![Build Status](https://travis-ci.org/trimox/angular-mdc-web.svg?branch=master)](https://travis-ci.org/trimox/angular-mdc-web)
 [![codecov](https://codecov.io/gh/trimox/angular-mdc-web/branch/master/graph/badge.svg)](https://codecov.io/gh/trimox/angular-mdc-web)
@@ -7,6 +7,9 @@
 [Demo App](https://trimox.github.io/angular-mdc-web/) with API, documentation and examples
 
 Our Angular library integrates with [Google's Material Design Components](https://material.io/components/), providing a faithful and accurate representation of Material Design as it is envisioned on the web platform by Google's Material Design team. Our goal is to equip Angular developers with modular, straightforward and easy to implement Material Design components in their apps.
+
+Want to help? [Contributing](https://github.com/trimox/angular-mdc-web/blob/master/CONTRIBUTING.md)
+
 
 ## Installation
 ```
@@ -47,11 +50,11 @@ import { FabModule, MenuModule } from '@angular-mdc/web';
 | switch | Available |
 | tabs
 | textfield | Available |
-| theme
+| theme | WIP |
 | toolbar | Available |
 | typography | Available |
 
 ## Want to help?
 
 Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our
-guidelines for [contributing][contributing] and then check out one of our issues in the [help wanted](https://github.com/trimox/angular-mdc-web/issues?q=is%3Aopen+is%3Aissue+label%3A"help+wanted").
+guidelines for [Contributing](https://github.com/trimox/angular-mdc-web/blob/master/CONTRIBUTING.md) and then check out one of our issues in the [help wanted](https://github.com/trimox/angular-mdc-web/issues?q=is%3Aopen+is%3Aissue+label%3A"help+wanted").

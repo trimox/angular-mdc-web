@@ -41,14 +41,18 @@
             <td><pre class="prettyprint">@Input() vertical: boolean</pre></td>
             <td>Option to lay actions out vertically instead of horizontally.</td>
           </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() size: number</pre></td>
+            <td>Some predefined media item sizes. Valid values are [1, 1.5, 2, and 3]</td>
+          </tr>
         </tbody>
       </table>
     </div>
   </div>
   <h1 mdc-typography-headline>Examples</h1>
-  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap fxLayoutGap="40px" fxLayoutAlign="start start">
+  <div fxLayout="column" fxLayoutGap="40px" fxLayoutAlign="start start">
     <div fxLayout="column">
-      <mdc-card>
+      <mdc-card class="demo-card">
         <mdc-card-primary>
           <h1 mdc-card-title>Title</h1>
           <h2 mdc-card-subtitle>Subtitle</h2>
@@ -60,114 +64,144 @@
       </mdc-card>
       <pre class="prettyprint">
 <![CDATA[
-    <mdc-card>
-      <mdc-card-primary>
-        <h1 mdc-card-title>Title</h1>
-        <h2 mdc-card-subtitle>Subtitle</h2>
-      </mdc-card-primary>
-      <mdc-card-actions>
-        <button mdc-button [cardAction]="true">Action 1</button>
-        <button mdc-button [cardAction]="true">Action 2</button>
-      </mdc-card-actions>
-    </mdc-card>
+<mdc-card>
+  <mdc-card-primary>
+    <h1 mdc-card-title>Title</h1>
+    <h2 mdc-card-subtitle>Subtitle</h2>
+  </mdc-card-primary>
+  <mdc-card-actions>
+    <button mdc-button [cardAction]="true">Action 1</button>
+    <button mdc-button [cardAction]="true">Action 2</button>
+  </mdc-card-actions>
+</mdc-card>
 ]]></pre>
-      <div fxLayout="column">
-        <mdc-card class="demo-card">
-          <mdc-card-primary>
-            <h1 mdc-card-title>Title</h1>
-            <h2 mdc-card-subtitle>Subtitle</h2>
-          </mdc-card-primary>
-          <mdc-card-supporting-text>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</mdc-card-supporting-text>
-          <mdc-card-actions>
-            <button mdc-button [cardAction]="true">Action 1</button>
-            <button mdc-button [cardAction]="true">Action 2</button>
-          </mdc-card-actions>
-        </mdc-card>
-        <pre class="prettyprint">
+    </div>
+    <div fxLayout="column">
+      <mdc-card class="demo-card">
+        <mdc-card-primary>
+          <h1 mdc-card-title [titleLarge]="false">Small Title</h1>
+          <h2 mdc-card-subtitle>Subtitle</h2>
+        </mdc-card-primary>
+        <mdc-card-actions>
+          <button mdc-button [cardAction]="true">Action 1</button>
+          <button mdc-button [cardAction]="true">Action 2</button>
+        </mdc-card-actions>
+      </mdc-card>
+      <pre class="prettyprint">
 <![CDATA[
-    <mdc-card class="demo-card">
-      <mdc-card-primary>
-        <h1 mdc-card-title>Title</h1>
-        <h2 mdc-card-subtitle>Subtitle</h2>
-      </mdc-card-primary>
-      <mdc-card-supporting-text>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-       incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-       laboris nisi ut aliquip ex ea commodo consequat.</mdc-card-supporting-text>
-      <mdc-card-actions>
-        <button mdc-button [cardAction]="true">Action 1</button>
-        <button mdc-button [cardAction]="true">Action 2</button>
-      </mdc-card-actions>
-    </mdc-card>
+<mdc-card>
+  <mdc-card-primary>
+    <h1 mdc-card-title [titleLarge]="false">Title</h1>
+    <h2 mdc-card-subtitle>Subtitle</h2>
+  </mdc-card-primary>
+  <mdc-card-actions>
+    <button mdc-button [cardAction]="true">Action 1</button>
+    <button mdc-button [cardAction]="true">Action 2</button>
+  </mdc-card-actions>
+</mdc-card>
 ]]></pre>
-      </div>
-      <div fxLayout="column">
-        <mdc-card [darkTheme]="true" [ngClass]="{'mdc-theme--dark demo-card' : true}">
-          <mdc-card-primary>
-            <h1 mdc-card-title [titleLarge]="true">Title</h1>
-            <h2 mdc-card-subtitle>Subtitle</h2>
-          </mdc-card-primary>
-          <mdc-card-actions>
-            <button mdc-button [cardAction]="true">Action 1</button>
-            <button mdc-button [cardAction]="true">Action 2</button>
-          </mdc-card-actions>
-        </mdc-card>
-        <pre class="prettyprint">
-<![CDATA[
-    <mdc-card [darkTheme]="true" [ngClass]="{'mdc-theme--dark demo-card' : true}">
-      <mdc-card-primary>
-        <h1 mdc-card-title [titleLarge]="true">Title</h1>
-        <h2 mdc-card-subtitle>Subtitle</h2>
-      </mdc-card-primary>
-      <mdc-card-actions>
-        <button mdc-button [cardAction]="true">Action 1</button>
-        <button mdc-button [cardAction]="true">Action 2</button>
-      </mdc-card-actions>
-    </mdc-card>
-]]></pre>
-      </div>
-      <div fxLayout="column">
-        <mdc-card class="demo-card">
-          <mdc-card-horizontal>
-            <mdc-card-primary>
-              <h1 mdc-card-title>Title</h1>
-              <h2 mdc-card-subtitle>Subtitle</h2>
-            </mdc-card-primary>
-            <img mdc-card-media-item [size]="2" src="https://material-components-web.appspot.com/images/1-1.jpg" />
-          </mdc-card-horizontal>
-          <mdc-card-actions>
-            <button mdc-button [cardAction]="true">Action 1</button>
-            <button mdc-button [cardAction]="true">Action 2</button>
-          </mdc-card-actions>
-        </mdc-card>
-        <pre class="prettyprint">
-<![CDATA[
-    <mdc-card class="demo-card">
-      <mdc-card-horizontal>
+    </div>
+    <div fxLayout="column">
+      <mdc-card class="demo-card">
         <mdc-card-primary>
           <h1 mdc-card-title>Title</h1>
           <h2 mdc-card-subtitle>Subtitle</h2>
         </mdc-card-primary>
-        <img mdc-card-media-item [size]="2"
-         src="https://material-components-web.appspot.com/images/1-1.jpg" />
-      </mdc-card-horizontal>
-      <mdc-card-actions>
-        <button mdc-button [cardAction]="true">Action 1</button>
-        <button mdc-button [cardAction]="true">Action 2</button>
-      </mdc-card-actions>
-    </mdc-card>
+        <mdc-card-supporting-text>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </mdc-card-supporting-text>
+        <mdc-card-actions>
+          <button mdc-button [cardAction]="true">Action 1</button>
+          <button mdc-button [cardAction]="true">Action 2</button>
+        </mdc-card-actions>
+      </mdc-card>
+      <pre class="prettyprint">
+<![CDATA[
+<mdc-card class="demo-card">
+  <mdc-card-primary>
+    <h1 mdc-card-title>Title</h1>
+    <h2 mdc-card-subtitle>Subtitle</h2>
+  </mdc-card-primary>
+  <mdc-card-supporting-text>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+    veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  </mdc-card-supporting-text>
+  <mdc-card-actions>
+    <button mdc-button [cardAction]="true">Action 1</button>
+    <button mdc-button [cardAction]="true">Action 2</button>
+  </mdc-card-actions>
+</mdc-card>
 ]]></pre>
-      </div>
-      <div fxLayout="column">
-        <mdc-card>
-          <mdc-card-horizontal>
-            <img mdc-card-media-item [size]="3" src="https://material-components-web.appspot.com/images/1-1.jpg" />
-            <mdc-card-actions [vertical]="true">
-              <button mdc-button [cardAction]="true">Action 1</button>
-              <button mdc-button [cardAction]="true">Action 2</button>
-            </mdc-card-actions>
-          </mdc-card-horizontal>
-        </mdc-card>
-        <pre class="prettyprint">
+    </div>
+    <div fxLayout="column">
+      <mdc-card [darkTheme]="true" [ngClass]="{'mdc-theme--dark demo-card' : true}">
+        <mdc-card-primary>
+          <h1 mdc-card-title>Dark Theme</h1>
+          <h2 mdc-card-subtitle>Subtitle</h2>
+        </mdc-card-primary>
+        <mdc-card-actions>
+          <button mdc-button [cardAction]="true">Action 1</button>
+          <button mdc-button [cardAction]="true">Action 2</button>
+        </mdc-card-actions>
+      </mdc-card>
+      <pre class="prettyprint">
+<![CDATA[
+<mdc-card [darkTheme]="true">
+  <mdc-card-primary>
+    <h1 mdc-card-title>Title</h1>
+    <h2 mdc-card-subtitle>Subtitle</h2>
+  </mdc-card-primary>
+  <mdc-card-actions>
+    <button mdc-button [cardAction]="true">Action 1</button>
+    <button mdc-button [cardAction]="true">Action 2</button>
+  </mdc-card-actions>
+</mdc-card>
+]]></pre>
+    </div>
+    <div fxLayout="column">
+      <mdc-card class="demo-card">
+        <mdc-card-horizontal>
+          <mdc-card-primary>
+            <h1 mdc-card-title>Title</h1>
+            <h2 mdc-card-subtitle>Subtitle</h2>
+          </mdc-card-primary>
+          <img mdc-card-media-item [size]="2" src="https://material-components-web.appspot.com/images/1-1.jpg" />
+        </mdc-card-horizontal>
+        <mdc-card-actions>
+          <button mdc-button [cardAction]="true">Action 1</button>
+          <button mdc-button [cardAction]="true">Action 2</button>
+        </mdc-card-actions>
+      </mdc-card>
+      <pre class="prettyprint">
+<![CDATA[
+<mdc-card>
+  <mdc-card-horizontal>
+    <mdc-card-primary>
+      <h1 mdc-card-title>Title</h1>
+      <h2 mdc-card-subtitle>Subtitle</h2>
+    </mdc-card-primary>
+    <img mdc-card-media-item [size]="2"
+     src="https://material-components-web.appspot.com/images/1-1.jpg" />
+  </mdc-card-horizontal>
+  <mdc-card-actions>
+    <button mdc-button [cardAction]="true">Action 1</button>
+    <button mdc-button [cardAction]="true">Action 2</button>
+  </mdc-card-actions>
+</mdc-card>
+]]></pre>
+    </div>
+    <div fxLayout="column">
+      <mdc-card class="demo-card">
+        <mdc-card-horizontal>
+          <img mdc-card-media-item [size]="3" src="https://material-components-web.appspot.com/images/1-1.jpg" />
+          <mdc-card-actions [vertical]="true">
+            <button mdc-button [cardAction]="true">Action 1</button>
+            <button mdc-button [cardAction]="true">Action 2</button>
+          </mdc-card-actions>
+        </mdc-card-horizontal>
+      </mdc-card>
+      <pre class="prettyprint">
 <![CDATA[
 <mdc-card>
   <mdc-card-horizontal>
@@ -180,63 +214,82 @@
   </mdc-card-horizontal>
 </mdc-card>
 ]]></pre>
-      </div>
-      <div fxLayout="column">
-        <mdc-card class="demo-card">
-          <mdc-card-media [ngClass]="{'demo-card__16-9-media' : true}"></mdc-card-media>
-          <mdc-card-primary class="test">
-            <h1 mdc-card-title>Title</h1>
-            <h2 mdc-card-subtitle>Subtitle</h2>
-          </mdc-card-primary>
-          <mdc-card-actions>
-            <button mdc-button [cardAction]="true">Action 1</button>
-            <button mdc-button [cardAction]="true">Action 2</button>
-          </mdc-card-actions>
-        </mdc-card>
-        <pre class="prettyprint">
+    </div>
+    <div fxLayout="column">
+      <mdc-card class="demo-card">
+        <mdc-card-media [ngClass]="{'demo-card__16-9-media' : true}"></mdc-card-media>
+        <mdc-card-primary>
+          <h1 mdc-card-title>Title</h1>
+          <h2 mdc-card-subtitle>Subtitle</h2>
+        </mdc-card-primary>
+        <mdc-card-actions>
+          <button mdc-button [cardAction]="true">Action 1</button>
+          <button mdc-button [cardAction]="true">Action 2</button>
+        </mdc-card-actions>
+      </mdc-card>
+      <pre class="prettyprint">
 <![CDATA[
-<mdc-card class="demo-card">
-  <mdc-card-media [ngClass]="{'demo-card__16-9-media' : true}"></mdc-card-media>
-  <mdc-card-primary class="test">
-    <h1 mdc-card-title>Title</h1>
-    <h2 mdc-card-subtitle>Subtitle</h2>
-  </mdc-card-primary>
-  <mdc-card-actions>
-    <button mdc-button [cardAction]="true">Action 1</button>
-    <button mdc-button [cardAction]="true">Action 2</button>
-  </mdc-card-actions>
-</mdc-card>
-]]></pre>
-      </div>
-      <div fxLayout="column">
-        <mdc-card class="demo-card">
-          <mdc-card-primary>
-            <div class="demo-card__avatar"></div>
-            <h1 mdc-card-title>Title</h1>
-            <h2 mdc-card-subtitle>Subtitle</h2>
-          </mdc-card-primary>
-          <mdc-card-media [ngClass]="{'demo-card__16-9-media' : true}"></mdc-card-media>
-          <mdc-card-actions>
-            <button mdc-button [cardAction]="true">Action 1</button>
-            <button mdc-button [cardAction]="true">Action 2</button>
-          </mdc-card-actions>
-        </mdc-card>
-        <pre class="prettyprint">
-<![CDATA[
-<mdc-card class="demo-card">
+<!--Sample 16x9 media header style-->
+<style>
+  .demo-card__16-9-media {
+    height: 12.313rem;
+    background-image: 
+      url(https://material-components-web.appspot.com/images/16-9.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+</style>
+
+<mdc-card>
+  <mdc-card-media class="demo-card__16-9-media"></mdc-card-media>
   <mdc-card-primary>
-    <div class="demo-card__avatar"></div>
     <h1 mdc-card-title>Title</h1>
     <h2 mdc-card-subtitle>Subtitle</h2>
   </mdc-card-primary>
-  <mdc-card-media [ngClass]="{'demo-card__16-9-media' : true}"></mdc-card-media>
   <mdc-card-actions>
     <button mdc-button [cardAction]="true">Action 1</button>
     <button mdc-button [cardAction]="true">Action 2</button>
   </mdc-card-actions>
 </mdc-card>
 ]]></pre>
-      </div>
+    </div>
+    <div fxLayout="column">
+      <mdc-card class="demo-card">
+        <mdc-card-primary>
+          <h1 mdc-card-title>Title</h1>
+          <h2 mdc-card-subtitle>Subtitle</h2>
+        </mdc-card-primary>
+        <mdc-card-media [ngClass]="{'demo-card__16-9-media' : true}"></mdc-card-media>
+        <mdc-card-actions>
+          <button mdc-button [cardAction]="true">Action 1</button>
+          <button mdc-button [cardAction]="true">Action 2</button>
+        </mdc-card-actions>
+      </mdc-card>
+      <pre class="prettyprint">
+<![CDATA[
+<!--Sample 16x9 media header style-->
+<style>
+  .demo-card__16-9-media {
+    height: 12.313rem;
+    background-image: 
+      url(https://material-components-web.appspot.com/images/16-9.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+</style>
+
+<mdc-card>
+  <mdc-card-primary>
+    <h1 mdc-card-title>Title</h1>
+    <h2 mdc-card-subtitle>Subtitle</h2>
+  </mdc-card-primary>
+  <mdc-card-media class="demo-card__16-9-media"></mdc-card-media>
+  <mdc-card-actions>
+    <button mdc-button [cardAction]="true">Action 1</button>
+    <button mdc-button [cardAction]="true">Action 2</button>
+  </mdc-card-actions>
+</mdc-card>
+]]></pre>
     </div>
   </div>
 </div>

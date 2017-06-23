@@ -7,5 +7,5 @@ import {
   selector: '[mdc-menu-anchor]'
 })
 export class MenuAnchorDirective {
-  @HostBinding('class') className: string = 'mdc-menu-anchor';
+  @HostBinding('class.mdc-menu-anchor') className: string = 'mdc-menu-anchor';
 }

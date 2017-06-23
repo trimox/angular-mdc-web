@@ -64,7 +64,7 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
   @Output() blur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
   @Output() input: EventEmitter<Event> = new EventEmitter<Event>();
   @Output() keydown: EventEmitter<KeyboardEvent> = new EventEmitter<KeyboardEvent>();
-  @HostBinding('class') className: string = 'mdc-textfield';
+  @HostBinding('class.mdc-textfield') className: string = 'mdc-textfield';
   @HostBinding('class.mdc-textfield--multiline') get classMultiline(): string {
     return this.multiline ? 'mdc-textfield--multiline' : '';
   }

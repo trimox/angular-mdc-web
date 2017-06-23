@@ -9,5 +9,5 @@ import {
 })
 export class FabIconDirective {
   @Input() id: string;
-  @HostBinding('class') className: string = 'mdc-fab__icon';
+  @HostBinding('class.mdc-fab__icon') className: string = 'mdc-fab__icon';
 }

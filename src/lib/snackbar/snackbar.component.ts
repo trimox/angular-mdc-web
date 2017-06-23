@@ -24,7 +24,7 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
 export class SnackbarComponent implements AfterViewInit, OnDestroy {
   private message: string;
   private actionText: string;
-  @HostBinding('class') className: string = 'mdc-snackbar';
+  @HostBinding('class.mdc-snackbar') className: string = 'mdc-snackbar';
   @HostBinding('attr.aria-live') ariaLive: string = 'assertive';
   @HostBinding('attr.aria-atomic') ariaAtomic: string = 'true';
   @HostBinding('attr.aria-hidden') ariaHidden: string = 'true';

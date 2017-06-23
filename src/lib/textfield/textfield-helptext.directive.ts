@@ -11,7 +11,7 @@ export class TextfieldHelptextDirective {
   @Input() id: string;
   @Input() persistent: boolean;
   @Input() validation: boolean;
-  @HostBinding('class') className: string = 'mdc-textfield-helptext';
+  @HostBinding('class.mdc-textfield-helptext') className: string = 'mdc-textfield-helptext';
   @HostBinding('class.mdc-textfield-helptext--persistent') get classPersistent(): string {
     return this.persistent ? 'mdc-textfield-helptext--persistent' : '';
   }

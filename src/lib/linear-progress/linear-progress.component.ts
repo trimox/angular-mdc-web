@@ -25,7 +25,7 @@ export class LinearProgressComponent implements AfterViewInit {
   @Input() reversed: boolean;
   @Input() accent: boolean;
   @HostBinding('attr.role') role: string = 'progressbar';
-  @HostBinding('class') className: string = 'mdc-linear-progress';
+  @HostBinding('class.mdc-linear-progress') className: string = 'mdc-linear-progress';
   @HostBinding('class.mdc-linear-progress--indeterminate') get classIndeterminate(): string {
     return this.indeterminate ? 'mdc-linear-progress--indeterminate' : '';
   }

@@ -56,7 +56,7 @@ export class CheckboxComponent implements AfterViewInit, OnDestroy {
   @Input('aria-label') ariaLabel: string;
   @Input('aria-labelledby') ariaLabelledby: string;
   @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
-  @HostBinding('class') className: string = 'mdc-checkbox';
+  @HostBinding('class.mdc-checkbox') className: string = 'mdc-checkbox';
   @HostBinding('class.mdc-checkbox--disabled') get classDisabled(): string {
     if (this.disabled) {
       if (formField_) {

@@ -51,7 +51,7 @@ export class SwitchComponent implements AfterViewInit {
   @Input('aria-label') ariaLabel: string;
   @Input('aria-labelledby') ariaLabelledby: string;
   @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
-  @HostBinding('class') className: string = 'mdc-switch';
+  @HostBinding('class.mdc-switch') className: string = 'mdc-switch';
   @HostBinding('class.mdc-switch--disabled') get classDisabled(): string {
     if (this.disabled) {
       if (formField_) {

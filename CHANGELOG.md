@@ -1,4 +1,21 @@
 <a name="0.0.0"></a>
+# [0.1.16](https://github.com/trimox/angular-mdc-web/compare/v0.1.15...v0.1.16) (2017-06-23)
+
+
+### Bug Fixes
+
+* **toolbar:** Fix class overriding custom entries. ([#28](https://github.com/trimox/angular-mdc-web/issues/28)) ([a448f60](https://github.com/trimox/angular-mdc-web/commit/a448f60))
+
+
+### Features
+
+* **card:** Implement MDC Card component. ([#24](https://github.com/trimox/angular-mdc-web/issues/24)) ([301dbf](https://github.com/trimox/angular-mdc-web/commit/301dbf))
+* **infrastructure:** Add new test for style-lint during Travis-CI and local builds. ([#27](https://github.com/trimox/angular-mdc-web/issues/27)) ([ef7104a](https://github.com/trimox/angular-mdc-web/commit/ef7104a))
+* **toolbar:** Add ToolbarFixedAdjust directive. ([#18](https://github.com/trimox/angular-mdc-web/issues/18)) ([5ea4719](https://github.com/trimox/angular-mdc-web/commit/5ea4719))
+
+
+
+<a name="0.0.0"></a>
 # [0.1.15](https://github.com/trimox/angular-mdc-web/compare/v0.1.12...v0.1.15) (2017-06-20)
 
 

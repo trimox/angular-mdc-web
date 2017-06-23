@@ -7,5 +7,5 @@ import {
   selector: 'mdc-toolbar-row'
 })
 export class ToolbarRowDirective {
-  @HostBinding('class') className: string = 'mdc-toolbar__row';
+  @HostBinding('class.mdc-toolbar__row') className: string = 'mdc-toolbar__row';
 }

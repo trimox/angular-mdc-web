@@ -9,5 +9,5 @@ import {
 })
 export class ToolbarTitleDirective {
   @Input() id: string;
-  @HostBinding('class') className: string = 'mdc-toolbar__title';
+  @HostBinding('class.mdc-toolbar__title') className: string = 'mdc-toolbar__title';
 }

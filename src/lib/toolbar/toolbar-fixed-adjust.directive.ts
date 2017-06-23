@@ -9,5 +9,5 @@ import {
 })
 export class ToolbarFixedAdjustDirective {
   @Input() id: string;
-  @HostBinding('class') className: string = 'mdc-toolbar-fixed-adjust';
+  @HostBinding('class.mdc-toolbar-fixed-adjust') className: string = 'mdc-toolbar-fixed-adjust';
 }

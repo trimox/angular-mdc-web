@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { ButtonDemoComponent } from './components/button-demo/button-demo.component';
+import { CardDemoComponent } from './components/card-demo/card-demo.component';
 import { CheckboxDemoComponent } from './components/checkbox-demo/checkbox-demo.component';
 import { FabDemoComponent } from './components/fab-demo/fab-demo.component';
 import { LinearProgressDemoComponent } from './components/linear-progress-demo/linear-progress-demo.component';
@@ -37,6 +38,7 @@ import { AppRoutingModule } from './app-routing.module';
   declarations: [
     AppComponent,
     ButtonDemoComponent,
+    CardDemoComponent,
     CheckboxDemoComponent,
     FabDemoComponent,
     HomeComponent,

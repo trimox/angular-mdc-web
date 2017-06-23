@@ -1,4 +1,4 @@
-@import './mdc.scss';
+@import "./mdc.scss";
 // Remove clear button for IE inputs
 ::-ms-clear {
   display: none;
@@ -13,16 +13,26 @@
   padding: 7px !important;
 }
 
-.home-card {
-  width: 400px;
-  margin-right: 15px;
-  margin-top: 15px;
+.mdc-theme--dark {
+  background-color: #333;
 }
 
-pre.prettyprint {
+.prettyprint {
   width: 97% !important;
 }
 
 td {
   padding-right: 25px;
+}
+
+.demo-card__16-9-media {
+  height: 12.313rem;
+  background-image: url(https://material-components-web.appspot.com/images/16-9.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.demo-card {
+  width: 21.875rem;
+  margin-bottom: 20px;
 }

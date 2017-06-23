@@ -27,6 +27,7 @@ export class ButtonComponent {
   @Input() dense: boolean;
   @Input() compact: boolean;
   @Input() accent: boolean;
+  @Input() cardAction: boolean;
   @HostBinding('tabindex') get tabindex(): number {
     return this.disabled ? -1 : 0;
   }
@@ -48,6 +49,12 @@ export class ButtonComponent {
   }
   @HostBinding('class.mdc-button--compact') get classCompact(): string {
     return this.compact ? 'mdc-button--compact' : '';
+  }
+  @HostBinding('class.mdc-card__action') get classCardAction(): string {
+    if (this.cardAction) {
+      this.compact = true;
+    }
+    return this.cardAction ? 'mdc-card__action' : '';
   }
   @HostListener('keydown', ['$event']) onkeydown(evt) {
     this.handleKeyboardDown_(evt);

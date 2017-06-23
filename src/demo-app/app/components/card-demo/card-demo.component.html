@@ -1,0 +1,133 @@
+<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
+  <h1 mdc-typography-display1>Cards</h1>
+  <p mdc-typography-subheading2>The MDC Card component is a sheet of material that serves as an entry point to more detailed information.</p>
+  <a href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-card">Google Material Components documentation</a>
+  <h1 mdc-typography-headline>Usage</h1>
+  <div>
+    <pre class="prettyprint"><![CDATA[import { CardModule } from '@angular-mdc/web';]]></pre>
+  </div>
+  <h1 mdc-typography-headline>Selectors - More usage guide info to come.</h1>
+  <div>
+    <pre class="prettyprint">mdc-card</pre>
+    <pre class="prettyprint">mdc-card-horizontal</pre>
+    <pre class="prettyprint">mdc-card-primary</pre>
+    <pre class="prettyprint">mdc-card-supporting-text</pre>
+    <pre class="prettyprint">mdc-card-title</pre>
+    <pre class="prettyprint">mdc-card-subtitle</pre>
+    <pre class="prettyprint">mdc-card-media</pre>
+    <pre class="prettyprint">mdc-card-media-item</pre>
+    <pre class="prettyprint">mdc-card-actions</pre>
+  </div>
+  <div fxLayout="row" fxLayout.lt-md="column">
+    <div fxLayout="column">
+      <h1 mdc-typography-headline>API reference</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Attribute</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><pre class="prettyprint">@Input() darkTheme: boolean</pre></td>
+            <td>Apply dark theme directly to the card.</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() titleLarge: boolean</pre></td>
+            <td>An option to make the title larger. (default is true)</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() vertical: boolean</pre></td>
+            <td>Option to lay actions out vertically instead of horizontally.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <h1 mdc-typography-headline>Examples</h1>
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap fxLayoutGap="40px" fxLayoutAlign="start start">
+    <mdc-card>
+      <mdc-card-primary>
+        <h1 mdc-card-title>Title</h1>
+        <h2 mdc-card-subtitle>Subtitle</h2>
+      </mdc-card-primary>
+      <mdc-card-actions>
+        <button mdc-button [cardAction]="true">Action 1</button>
+        <button mdc-button [cardAction]="true">Action 2</button>
+      </mdc-card-actions>
+    </mdc-card>
+
+    <mdc-card class="demo-card">
+      <mdc-card-primary>
+        <h1 mdc-card-title>Title</h1>
+        <h2 mdc-card-subtitle>Subtitle</h2>
+      </mdc-card-primary>
+      <mdc-card-supporting-text>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</mdc-card-supporting-text>
+      <mdc-card-actions>
+        <button mdc-button [cardAction]="true">Action 1</button>
+        <button mdc-button [cardAction]="true">Action 2</button>
+      </mdc-card-actions>
+    </mdc-card>
+
+    <mdc-card [darkTheme]="true" [ngClass]="{'mdc-theme--dark demo-card' : true}">
+      <mdc-card-primary>
+        <h1 mdc-card-title [titleLarge]="true">Title</h1>
+        <h2 mdc-card-subtitle>Subtitle</h2>
+      </mdc-card-primary>
+      <mdc-card-actions>
+        <button mdc-button [cardAction]="true">Action 1</button>
+        <button mdc-button [cardAction]="true">Action 2</button>
+      </mdc-card-actions>
+    </mdc-card>
+
+    <mdc-card class="demo-card">
+      <mdc-card-horizontal>
+        <mdc-card-primary>
+          <h1 mdc-card-title>Title</h1>
+          <h2 mdc-card-subtitle>Subtitle</h2>
+        </mdc-card-primary>
+        <img mdc-card-media-item [size]="2" src="https://material-components-web.appspot.com/images/1-1.jpg"/>
+      </mdc-card-horizontal>
+      <mdc-card-actions>
+        <button mdc-button [cardAction]="true">Action 1</button>
+        <button mdc-button [cardAction]="true">Action 2</button>
+      </mdc-card-actions>
+    </mdc-card>
+
+    <mdc-card>
+      <mdc-card-horizontal>
+        <img mdc-card-media-item [size]="3" src="https://material-components-web.appspot.com/images/1-1.jpg" />
+        <mdc-card-actions [vertical]="true">
+          <button mdc-button [cardAction]="true">Action 1</button>
+          <button mdc-button [cardAction]="true">Action 2</button>
+        </mdc-card-actions>
+      </mdc-card-horizontal>
+    </mdc-card>
+
+    <mdc-card class="demo-card">
+      <mdc-card-media [ngClass]="{'demo-card__16-9-media' : true}"></mdc-card-media>
+      <mdc-card-primary class="test">
+        <h1 mdc-card-title>Title</h1>
+        <h2 mdc-card-subtitle>Subtitle</h2>
+      </mdc-card-primary>
+      <mdc-card-actions>
+        <button mdc-button [cardAction]="true">Action 1</button>
+        <button mdc-button [cardAction]="true">Action 2</button>
+      </mdc-card-actions>
+    </mdc-card>
+
+    <mdc-card class="demo-card">
+      <mdc-card-primary>
+        <div class="demo-card__avatar"></div>
+        <h1 mdc-card-title>Title</h1>
+        <h2 mdc-card-subtitle>Subtitle</h2>
+      </mdc-card-primary>
+      <mdc-card-media [ngClass]="{'demo-card__16-9-media' : true}"></mdc-card-media>
+      <mdc-card-actions>
+        <button mdc-button [cardAction]="true">Action 1</button>
+        <button mdc-button [cardAction]="true">Action 2</button>
+      </mdc-card-actions>
+    </mdc-card>
+  </div>
+</div>

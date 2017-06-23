@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { ButtonModule } from './button';
+import { CardModule } from './card';
 import { CheckboxModule } from './checkbox';
 import { FabModule } from './fab';
 import { FormFieldModule } from './form-field';
@@ -15,6 +16,7 @@ import { ToolbarModule } from './toolbar';
 import { TypographyModule } from './typography';
 
 export * from './button';
+export * from './card';
 export * from './checkbox';
 export * from './fab';
 export * from './form-field';
@@ -30,6 +32,7 @@ export * from './typography';
 
 const MATERIAL_MODULES = [
 	ButtonModule,
+	CardModule,
 	CheckboxModule,
 	FabModule,
 	FormFieldModule,

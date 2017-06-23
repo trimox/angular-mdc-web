@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
 import { ButtonDemoComponent } from './components/button-demo/button-demo.component';
+import { CardDemoComponent } from './components/card-demo/card-demo.component';
 import { CheckboxDemoComponent } from './components/checkbox-demo/checkbox-demo.component';
 import { FabDemoComponent } from './components/fab-demo/fab-demo.component';
 import { SwitchDemoComponent } from './components/switch-demo/switch-demo.component';
@@ -26,6 +27,7 @@ export const appRoutes: Routes = [
   { path: 'linear-progress-demo', component: LinearProgressDemoComponent },
   { path: 'typography-demo', component: TypographyDemoComponent },
   { path: 'radio-demo', component: RadioDemoComponent },
+  { path: 'card-demo', component: CardDemoComponent },
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: '**', redirectTo: '' }
 ];

@@ -1,4 +1,4 @@
-# Contributing to Angular for Material Design Components
+# Contributing to Angular MDC
 
 We would love for you to contribute to Angular MDC and help make it even better than it is
 today! As a contributor, here are the guidelines we would like you to follow:

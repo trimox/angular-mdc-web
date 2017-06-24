@@ -6,6 +6,13 @@ import {
 const MDC_TYPOGRAPHY_STYLES = require('@material/typography/mdc-typography.scss');
 
 @Directive({
+  selector: '[mdc-typography]'
+})
+export class Typography {
+  @HostBinding('class.mdc-typography') className: string = 'mdc-typography';
+}
+
+@Directive({
   selector: '[mdc-typography-adjust-margin]'
 })
 export class AdjustMarginDirective {

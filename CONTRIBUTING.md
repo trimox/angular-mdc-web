@@ -14,35 +14,10 @@ today! As a contributor, here are the guidelines we would like you to follow:
 ## <a name="coc"></a> Code of Conduct
 Help us keep Angular MDC open and inclusive. Please read and follow our [Code of Conduct][coc].
 
-## <a name="question"></a> Got a Question or Problem?
-
-Please, do not open issues for the general support questions as we want to keep GitHub issues for bug reports and feature requests. You've got much better chances of getting your question answered on [StackOverflow](https://stackoverflow.com/questions/tagged/material-components) where the questions should be tagged with tag `material-components`.
-
-StackOverflow is a much better place to ask questions since:
-
-- there are thousands of people willing to help on StackOverflow
-- questions and answers stay available for public viewing so your question / answer might help someone else
-- StackOverflow's voting system assures that the best answers are prominently visible.
-
-To save your and our time we will be systematically closing all the issues that are requests for general support and redirecting people to StackOverflow.
-
 ## <a name="issue"></a> Found a Bug?
 If you find a bug in the source code, you can help us by
 [submitting an issue](#submit-issue) to our [GitHub Repository][github]. Even better, you can
 [submit a Pull Request](#submit-pr) with a fix.
-
-## <a name="feature"></a> Missing a Feature?
-You can *request* a new feature by [submitting an issue](#submit-issue) to our GitHub
-Repository. If you would like to *implement* a new feature, please submit an issue with
-a proposal for your work first, to be sure that we can use it.
-Please consider what kind of change it is:
-
-* For a **Major Feature**, first open an issue and outline your proposal so that it can be
-discussed. This will also allow us to better coordinate our efforts, prevent duplication of work,
-and help you to craft the change so that it is successfully accepted into the project.
-* **Small Features** can be crafted and directly [submitted as a Pull Request](#submit-pr).
-
-## <a name="submit"></a> Submission Guidelines
 
 ### <a name="submit-issue"></a> Submitting an Issue
 
@@ -131,13 +106,6 @@ from the main (upstream) repository:
     git pull --ff upstream master
     ```
 
-## <a name="rules"></a> Coding Rules
-To ensure consistency throughout the source code, keep these rules in mind as you are working:
-
-* Our entire coding style is enforced automatically through the use of linters.
-* All features or bug fixes **must be tested** by one or more specs (unit-tests).
-* We follow [Google's JavaScript Style Guide][js-style-guide].
-
 ### Code review
 Regardless of language or platform, all code goes through code review before it can be merged into main branches.
 
@@ -215,4 +183,3 @@ reference GitHub issues that this commit **Closes**.
 [coc]: https://github.com/trimox/angular-mdc-web/blob/master/CODE_OF_CONDUCT.md
 [github]: https://github.com/trimox/angular-mdc-web
 [js-style-guide]: https://google.github.io/styleguide/jsguide.html
-[stackoverflow]: http://stackoverflow.com/questions/tagged/material-components

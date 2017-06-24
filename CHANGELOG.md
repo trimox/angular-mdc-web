@@ -1,4 +1,27 @@
 <a name="0.0.0"></a>
+# [0.1.17](https://github.com/trimox/angular-mdc-web/compare/v0.1.16...v0.1.17) (2017-06-24)
+
+
+### Bug Fixes
+
+* **card:** Rename ambiguous Input from titleLarge to large. ([dd96c06](https://github.com/trimox/angular-mdc-web/commit/dd96c06))
+* **components:** Fix class overriding for each component. ([#29](https://github.com/trimox/angular-mdc-web/issues/29)) ([41e38e0](https://github.com/trimox/angular-mdc-web/commit/41e38e0)), closes [#25](https://github.com/trimox/angular-mdc-web/issues/25)
+
+
+### Features
+
+* **docs:** Add/Update Getting Started guide, README and CONTRIBUTING ([#30](https://github.com/trimox/angular-mdc-web/issues/30)) ([89144b7](https://github.com/trimox/angular-mdc-web/commit/89144b7))
+* **typography:** Add mdc-typography directive to define basic properties on a site. ([d100bcc](https://github.com/trimox/angular-mdc-web/commit/d100bcc))
+
+
+### BREAKING CHANGES
+
+* **card:** Input `titleLarge` has been renamed to `large`. Please update your code
+accordingly.
+
+
+
+<a name="0.0.0"></a>
 # [0.1.16](https://github.com/trimox/angular-mdc-web/compare/v0.1.15...v0.1.16) (2017-06-23)
 
 

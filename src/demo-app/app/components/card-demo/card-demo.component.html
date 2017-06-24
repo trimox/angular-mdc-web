@@ -34,8 +34,8 @@
             <td>Apply dark theme directly to the card.</td>
           </tr>
           <tr>
-            <td><pre class="prettyprint">@Input() titleLarge: boolean</pre></td>
-            <td>An option to make the title larger. (default is true)</td>
+            <td><pre class="prettyprint">@Input() large: boolean</pre></td>
+            <td>An option to make the title text larger. (default is true)</td>
           </tr>
           <tr>
             <td><pre class="prettyprint">@Input() vertical: boolean</pre></td>
@@ -79,7 +79,7 @@
     <div fxLayout="column">
       <mdc-card class="demo-card">
         <mdc-card-primary>
-          <h1 mdc-card-title [titleLarge]="false">Small Title</h1>
+          <h1 mdc-card-title [large]="false">Small Title</h1>
           <h2 mdc-card-subtitle>Subtitle</h2>
         </mdc-card-primary>
         <mdc-card-actions>
@@ -91,7 +91,7 @@
 <![CDATA[
 <mdc-card>
   <mdc-card-primary>
-    <h1 mdc-card-title [titleLarge]="false">Title</h1>
+    <h1 mdc-card-title [large]="false">Title</h1>
     <h2 mdc-card-subtitle>Subtitle</h2>
   </mdc-card-primary>
   <mdc-card-actions>

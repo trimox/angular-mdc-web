@@ -1,16 +1,17 @@
 ## Angular MDC
 
+[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angular-mdc/Lobby)
 [![Build Status](https://travis-ci.org/trimox/angular-mdc-web.svg?branch=master)](https://travis-ci.org/trimox/angular-mdc-web)
-[![codecov](https://codecov.io/gh/trimox/angular-mdc-web/branch/master/graph/badge.svg)](https://codecov.io/gh/trimox/angular-mdc-web)
 [![npm version](https://badge.fury.io/js/%40angular-mdc%2Fweb.svg)](https://badge.fury.io/js/%40angular-mdc%2Fweb)
 
 [Demo App](https://trimox.github.io/angular-mdc-web/) with API, documentation and examples
 
 Our Angular library integrates with [Google's Material Design Components](https://material.io/components/), providing a faithful and accurate representation of Material Design as it is envisioned on the web platform by Google's Material Design team. Our goal is to equip Angular developers with modular, straightforward and production-ready Material Design components.
 
-Want to help? [Contributing](https://github.com/trimox/angular-mdc-web/blob/master/CONTRIBUTING.md)
-
-Want to view recent changes? [Changelog](https://github.com/trimox/angular-mdc-web/blob/master/CHANGELOG.md)
+### Quick Links
+*  [Contributing](https://github.com/trimox/angular-mdc-web/blob/master/CONTRIBUTING.md)
+*  [Changelog](https://github.com/trimox/angular-mdc-web/blob/master/CHANGELOG.md)
+*  [Gitter Room](https://gitter.im/angular-mdc/Lobby)
 
 ## Installation
 ```
@@ -18,14 +19,7 @@ npm install --save @angular-mdc/web
 ```
 
 ## Getting started
-### Include all components
-```ts
-import { MaterialModule } from '@angular-mdc/web';
-```
-### Include individual components
-```ts
-import { FabModule, MenuModule } from '@angular-mdc/web';
-```
+Check out our [Getting Started guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md) to begin adopting  Angular MDC in your project.
 
 ### Material Design Components
 * WIP = work in progress
@@ -58,11 +52,18 @@ import { FabModule, MenuModule } from '@angular-mdc/web';
 | toolbar | Available |
 | typography | Available |
 
-## Want to help?
+## Running the demo app
 
-Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our
-guidelines for [Contributing](https://github.com/trimox/angular-mdc-web/blob/master/CONTRIBUTING.md) and then check out one of our issues in the [help wanted](https://github.com/trimox/angular-mdc-web/issues?q=is%3Aopen+is%3Aissue+label%3A"help+wanted").
+Clone and install repo:
+```
+git clone https://github.com/trimox/angular-mdc-web.git && cd angular-mdc-web
+npm i
+```
 
-## Code of conduct
+Run the webpack development server (content served from `src/demo-app/`):
+```
+cd /path/to/angular-mdc-web
+npm run start
+open http://localhost:4000
+```
 
-Help us keep Angular MDC open and inclusive. Please read and follow our [Code of Conduct](https://github.com/trimox/angular-mdc-web/blob/master/CODE_OF_CONDUCT.md).

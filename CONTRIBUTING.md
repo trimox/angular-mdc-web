@@ -4,11 +4,8 @@ We would love for you to contribute to Angular MDC and help make it even better 
 today! As a contributor, here are the guidelines we would like you to follow:
 
  - [Code of Conduct](#coc)
- - [Question or Problem?](#question)
  - [Issues and Bugs](#issue)
- - [Feature Requests](#feature)
- - [Submission Guidelines](#submit)
- - [Coding Rules](#rules)
+ - [Linting and Testing](#lint)
  - [Commit Message Guidelines](#commit)
 
 ## <a name="coc"></a> Code of Conduct
@@ -30,8 +27,6 @@ We want to fix all the issues as soon as possible, but before fixing a bug we ne
 - 3rd-party libraries and their versions
 - and most importantly - a use-case that fails
 
-A minimal reproduce scenario using https://codepen.io/ allows us to quickly confirm a bug (or point out coding problem) as well as confirm that we are fixing the right problem. If plunker is not a suitable way to demonstrate the problem (for example for issues related to our npm packaging), please create a standalone git repository demonstrating the problem.
-
 You can file new issues by filling out our [new issue form](https://github.com/trimox/angular-mdc-web/issues/new).
 
 
@@ -47,7 +42,6 @@ Before you submit your Pull Request (PR) consider the following guidelines:
      ```
 
 * Create your patch, **including appropriate test cases**.
-* Follow our [Coding Rules](#rules).
 * Ensure that all tests pass.
 * Commit your changes using a descriptive commit message that follows our
   [commit message conventions](#commit). Adherence to these conventions
@@ -106,7 +100,14 @@ from the main (upstream) repository:
     git pull --ff upstream master
     ```
 
-### Code review
+## <a name="lint"></a> Linting / Testing / Coverage Enforcement
+```
+npm run lint:ts # Lints typescript using tslint
+npm run lint:css # Lints (S)CSS using stylelint
+npm run test # Runs both of the above commands in parallel
+```
+
+## Code review
 Regardless of language or platform, all code goes through code review before it can be merged into main branches.
 
 ## <a name="commit"></a> Commit Message Guidelines

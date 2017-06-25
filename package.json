@@ -1,6 +1,6 @@
 {
-  "name": "angular-mdc-web",
-  "description": "Angular for Material Design Components (MDC-Web)",
+  "name": "angular-mdc",
+  "description": "Angular Material Design Components",
   "homepage": "https://github.com/trimox/angular-mdc-web",
   "bugs": "https://github.com/trimox/angular-mdc-web/issues",
   "repository": {

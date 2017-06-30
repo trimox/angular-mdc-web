@@ -5,6 +5,7 @@ import { CardModule } from './card';
 import { CheckboxModule } from './checkbox';
 import { ElevationModule } from './elevation';
 import { FabModule } from './fab';
+import { PlatformModule } from './common';
 import { FormFieldModule } from './form-field';
 import { LinearProgressModule } from './linear-progress';
 import { MenuModule } from './menu';
@@ -21,6 +22,7 @@ export * from './card';
 export * from './checkbox';
 export * from './elevation';
 export * from './fab';
+export * from './common';
 export * from './form-field';
 export * from './linear-progress';
 export * from './menu';
@@ -38,6 +40,7 @@ const MATERIAL_MODULES = [
 	CheckboxModule,
 	ElevationModule,
 	FabModule,
+	PlatformModule,
 	FormFieldModule,
 	LinearProgressModule,
 	MenuModule,

@@ -15,6 +15,7 @@ import {
 } from '@angular/core';
 import { MDCMenuAdapter } from './menu-adapter';
 import { MenuItemDirective } from './menu-item.directive';
+import { Platform } from '../common/platform';
 
 const { MDCSimpleMenuFoundation } = require('@material/menu/simple');
 const { getTransformPropertyName } = require('@material/menu/util');
@@ -85,17 +86,21 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
     },
     getWindowDimensions: () => {
       return {
-        width: window.innerWidth,
-        height: window.innerHeight
+        width: this._platForm.isBrowser ? window.innerWidth : 0,
+        height: this._platForm.isBrowser ? window.innerHeight : 0
       };
     },
     setScale: (x: number, y: number) => {
-      const { _renderer: renderer, _root: root } = this;
-      renderer.setStyle(root.nativeElement, getTransformPropertyName(window), `scale(${x}, ${y})`);
+      if (this._platForm.isBrowser) {
+        const { _renderer: renderer, _root: root } = this;
+        renderer.setStyle(root.nativeElement, getTransformPropertyName(window), `scale(${x}, ${y})`);
+      }
     },
     setInnerScale: (x: number, y: number) => {
-      const { _renderer: renderer, _root: root } = this;
-      renderer.setStyle(this.menuContainerEl.nativeElement, getTransformPropertyName(window), `scale(${x}, ${y})`);
+      if (this._platForm.isBrowser) {
+        const { _renderer: renderer, _root: root } = this;
+        renderer.setStyle(this.menuContainerEl.nativeElement, getTransformPropertyName(window), `scale(${x}, ${y})`);
+      }
     },
     getNumberOfItems: () => {
       return this.menuItems ? this.menuItems.length : 0;
@@ -133,7 +138,11 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
     notifyCancel: () => {
       this.cancel.emit();
     },
-    saveFocus: () => this.previousFocus_ = document.activeElement,
+    saveFocus: () => {
+      if (this._platForm.isBrowser) {
+        this.previousFocus_ = document.activeElement;
+      }
+    },
     restoreFocus: () => {
       if (this.previousFocus_) {
         this.previousFocus_.focus();
@@ -164,8 +173,10 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
       return false;
     },
     setTransformOrigin: (origin: string) => {
-      const { _renderer: renderer, _root: root } = this;
-      renderer.setStyle(root.nativeElement, `${getTransformPropertyName(window)}-origin`, origin);
+      if (this._platForm.isBrowser) {
+        const { _renderer: renderer, _root: root } = this;
+        renderer.setStyle(root.nativeElement, `${getTransformPropertyName(window)}-origin`, origin);
+      }
     },
     setPosition: (position) => {
       const { _renderer: renderer, _root: root } = this;
@@ -175,7 +186,7 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
       position.bottom ? renderer.setStyle(root.nativeElement, 'bottom', 0) : renderer.removeStyle(root.nativeElement, 'bottom');
     },
     getAccurateTime: () => {
-      return window.performance.now();
+      return this._platForm.isBrowser ? window.performance.now() : Date.now();
     }
   };
 
@@ -187,7 +198,10 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
     isOpen: Function
   } = new MDCSimpleMenuFoundation(this._mdcAdapter);
 
-  constructor(private _renderer: Renderer2, private _root: ElementRef) { }
+  constructor(
+    private _renderer: Renderer2,
+    private _root: ElementRef,
+    private _platForm: Platform) { }
 
   ngAfterViewInit() {
     this._foundation.init();

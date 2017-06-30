@@ -22,7 +22,7 @@ export class Ripple implements OnDestroy {
   private _unlisteners: Map<string, UnlistenerMap> = new Map<string, UnlistenerMap>();
 
   private _mdcAdapter: MDCRippleAdapter = {
-    browserSupportsCssVars: () => supportsCssVariables(window),
+    browserSupportsCssVars: () => (typeof window !== 'undefined') ? supportsCssVariables(window) : false,
     isUnbounded: () => this.unbounded,
     isSurfaceActive: () => this.active,
     isSurfaceDisabled: () => {
@@ -84,7 +84,9 @@ export class Ripple implements OnDestroy {
     deactivate: Function
   } = new MDCRippleFoundation(this._mdcAdapter);
 
-  constructor(private _renderer: Renderer2, private _root: ElementRef) {
+  constructor(
+    private _renderer: Renderer2,
+    private _root: ElementRef) {
     this._foundation.init();
   }
 

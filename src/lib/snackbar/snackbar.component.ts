@@ -8,6 +8,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { MDCSnackbarAdapter } from './snackbar-adapter';
+import { Platform } from '../common/platform';
 
 const { MDCSnackbarFoundation } = require('@material/snackbar');
 const { getCorrectEventName } = require('@material/animation');
@@ -71,12 +72,14 @@ export class SnackbarComponent implements AfterViewInit, OnDestroy {
       this.unlisten_('click', handler);
     },
     registerTransitionEndHandler: (handler: EventListener) => {
-      if (this._root) {
+      if (this._root && this._platForm.isBrowser) {
         this.listen_(getCorrectEventName(window, 'transitionend'), handler);
       }
     },
     deregisterTransitionEndHandler: (handler: EventListener) => {
-      this.unlisten_(getCorrectEventName(window, 'transitionend'), handler);
+      if (this._platForm.isBrowser) {
+        this.unlisten_(getCorrectEventName(window, 'transitionend'), handler);
+      }
     }
   };
 
@@ -87,7 +90,10 @@ export class SnackbarComponent implements AfterViewInit, OnDestroy {
     setDismissOnAction: Function
   } = new MDCSnackbarFoundation(this._mdcAdapter);
 
-  constructor(private _renderer: Renderer2, private _root: ElementRef) { }
+  constructor(
+    private _renderer: Renderer2,
+    private _root: ElementRef,
+    private _platForm: Platform) { }
 
   ngAfterViewInit() {
     this._foundation.init();

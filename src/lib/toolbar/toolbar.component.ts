@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 import { MDCToolbarAdapter } from './toolbar-adapter';
 import { ToolbarTitleDirective } from './toolbar-title.directive';
+import { Platform } from '../common/platform';
 
 const { MDCToolbarFoundation } = require('@material/toolbar');
 const MDC_TOOLBAR_STYLES = require('@material/toolbar/mdc-toolbar.scss');
@@ -66,7 +67,7 @@ export class ToolbarComponent implements AfterViewInit, OnDestroy {
       renderer.removeClass(root.nativeElement, className);
     },
     registerScrollHandler: (handler: EventListener) => {
-      if (this._root) {
+      if (this._root && this._platForm.isBrowser) {
         this.listen_('scroll', handler, window);
       }
     },
@@ -83,10 +84,10 @@ export class ToolbarComponent implements AfterViewInit, OnDestroy {
       this.unlisten_('resize', handler);
     },
     getViewportWidth: () => {
-      return window.innerWidth;
+      return this._platForm.isBrowser ? window.innerWidth : 0;
     },
     getViewportScrollY: () => {
-      return window.pageYOffset;
+      return this._platForm.isBrowser ? window.pageYOffset : 0;
     },
     getOffsetHeight: () => this._root.nativeElement.offsetHeight,
     getFirstRowElementOffsetHeight: () => {
@@ -109,8 +110,10 @@ export class ToolbarComponent implements AfterViewInit, OnDestroy {
       renderer.setStyle(root.nativeElement.querySelector(MDCToolbarFoundation.strings.FIRST_ROW_SELECTOR), property, value);
     },
     setStyleForFixedAdjustElement: (property: string, value: string) => {
-      const { _renderer: renderer, _root: root } = this;
-      renderer.setStyle(document.querySelector('.mdc-toolbar-fixed-adjust'), property, value);
+      if (this._platForm.isBrowser) {
+        const { _renderer: renderer, _root: root } = this;
+        renderer.setStyle(document.querySelector('.mdc-toolbar-fixed-adjust'), property, value);
+      }
     }
   };
 
@@ -119,7 +122,10 @@ export class ToolbarComponent implements AfterViewInit, OnDestroy {
     destroy: Function
   } = new MDCToolbarFoundation(this._mdcAdapter);
 
-  constructor(private _renderer: Renderer2, private _root: ElementRef) { }
+  constructor(
+    private _renderer: Renderer2,
+    private _root: ElementRef,
+    private _platForm: Platform) { }
 
   ngAfterViewInit() {
     this._foundation.init();

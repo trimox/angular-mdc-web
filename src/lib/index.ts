@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ButtonModule } from './button';
 import { CardModule } from './card';
 import { CheckboxModule } from './checkbox';
+import { ElevationModule } from './elevation';
 import { FabModule } from './fab';
 import { FormFieldModule } from './form-field';
 import { LinearProgressModule } from './linear-progress';
@@ -18,6 +19,7 @@ import { TypographyModule } from './typography';
 export * from './button';
 export * from './card';
 export * from './checkbox';
+export * from './elevation';
 export * from './fab';
 export * from './form-field';
 export * from './linear-progress';
@@ -34,6 +36,7 @@ const MATERIAL_MODULES = [
 	ButtonModule,
 	CardModule,
 	CheckboxModule,
+	ElevationModule,
 	FabModule,
 	FormFieldModule,
 	LinearProgressModule,

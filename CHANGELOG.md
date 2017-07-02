@@ -1,4 +1,21 @@
 <a name="0.0.0"></a>
+# [0.1.18](https://github.com/trimox/angular-mdc-web/compare/v0.1.17...v0.1.18) (2017-07-02)
+
+
+### Bug Fixes
+
+* **menu:** Fix openFrom attribute & convert values to string enum. ([#37](https://github.com/trimox/angular-mdc-web/issues/37)) ([32e722d](https://github.com/trimox/angular-mdc-web/commit/32e722d))
+* **radio:** Fix ngModel binding. Major refactoring of foundation wrapper. ([#36](https://github.com/trimox/angular-mdc-web/issues/36)) ([584d3d2](https://github.com/trimox/angular-mdc-web/commit/584d3d2))
+
+
+### Features
+
+* **elevation:** Implement MDC Elevation and Transition ([#32](https://github.com/trimox/angular-mdc-web/issues/32)) ([7f676ae](https://github.com/trimox/angular-mdc-web/commit/7f676ae))
+* **infrastructure:** Add Angular Universal (server rendering) support. ([#34](https://github.com/trimox/angular-mdc-web/issues/34)) ([c865d8e](https://github.com/trimox/angular-mdc-web/commit/c865d8e)), closes [#33](https://github.com/trimox/angular-mdc-web/issues/33)
+
+
+
+<a name="0.0.0"></a>
 # [0.1.17](https://github.com/trimox/angular-mdc-web/compare/v0.1.16...v0.1.17) (2017-06-24)
 
 

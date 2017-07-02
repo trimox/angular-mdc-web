@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://github.com/trimox/angular-mdc-web.git"
   },
-  "version": "0.1.17",
+  "version": "0.1.18",
   "license": "MIT",
   "keywords": [
     "angular-mdc",
@@ -25,9 +25,5 @@
   "private": false,
   "dependencies": {
     "material-components-web": "0.13.0"   
-  },
-  "peerDependencies": {
-    "@angular/core": "^4.2.4",
-    "@angular/common": "^4.2.4"
   }
 }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+import { ThemeModule } from './theme';
 import { ButtonModule } from './button';
 import { CardModule } from './card';
 import { CheckboxModule } from './checkbox';
@@ -17,6 +18,7 @@ import { TextfieldModule } from './textfield';
 import { ToolbarModule } from './toolbar';
 import { TypographyModule } from './typography';
 
+export * from './theme';
 export * from './button';
 export * from './card';
 export * from './checkbox';
@@ -35,15 +37,16 @@ export * from './toolbar';
 export * from './typography';
 
 const MATERIAL_MODULES = [
+	ThemeModule,
 	ButtonModule,
 	CardModule,
 	CheckboxModule,
 	ElevationModule,
 	FabModule,
-	PlatformModule,
 	FormFieldModule,
 	LinearProgressModule,
 	MenuModule,
+	PlatformModule,
 	RadioModule,
 	RippleModule,
 	SnackbarModule,

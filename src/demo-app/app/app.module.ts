@@ -9,6 +9,7 @@ import { ButtonDemoComponent } from './components/button-demo/button-demo.compon
 import { CardDemoComponent } from './components/card-demo/card-demo.component';
 import { CheckboxDemoComponent } from './components/checkbox-demo/checkbox-demo.component';
 import { FabDemoComponent } from './components/fab-demo/fab-demo.component';
+import { ElevationDemoComponent } from './components/elevation-demo/elevation-demo.component';
 import { LinearProgressDemoComponent } from './components/linear-progress-demo/linear-progress-demo.component';
 import { MenuDemoComponent } from './components/menu-demo/menu-demo.component';
 import { NavbarComponent } from './components/navigation/navbar.component';
@@ -40,6 +41,7 @@ import { AppRoutingModule } from './app-routing.module';
     ButtonDemoComponent,
     CardDemoComponent,
     CheckboxDemoComponent,
+    ElevationDemoComponent,
     FabDemoComponent,
     HomeComponent,
     LinearProgressDemoComponent,

@@ -13,6 +13,7 @@ import { MenuComponent, MDC_OPEN_FROM } from '../../../.././lib/menu/menu.compon
 export class MenuDemoComponent implements OnInit {
   selectedIndex = -1;
   focusedItemIndex = null;
+  openingPoint = "TOP_LEFT";
   @ViewChild('menu') menu: MenuComponent;
 
   ngOnInit() {
@@ -23,6 +24,10 @@ export class MenuDemoComponent implements OnInit {
     script.async = true;
     script.defer = true;
     doc.appendChild(script);
+  }
+
+  handleChange() {
+    this.menu.openFrom = this.openingPoint;    
   }
 
   showMenu() {

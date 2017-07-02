@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
   <h1 mdc-typography-display1>Menu</h1>
   <p mdc-typography-subheading2>The MDC Menu component is a spec-aligned menu component adhering to the Material Design menu requirements.</p>
-  <a href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-menu">Google Material Components documentation</a>
+  <a href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-menu">Google's MDC Documentation</a>
   <h1 mdc-typography-headline>Usage</h1>
   <div>
     <pre class="prettyprint"><![CDATA[import { MenuModule } from '@angular-mdc/web';]]></pre>
@@ -15,6 +15,21 @@
   <div fxLayout="row" fxLayout.lt-md="column">
     <div fxLayout="column">
       <h1 mdc-typography-headline>API reference</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Attribute</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><pre class="prettyprint">@Input() openFrom: string
+// Valid values: TOP_LEFT (default), TOP_RIGHT, BOTTOM_LEFT and BOTTOM_RIGHT</pre></td>
+            <td>Override the opening point of the menu.</td>
+          </tr>
+        </tbody>
+      </table>
       <table>
         <thead>
           <tr>
@@ -59,26 +74,26 @@
   </div>
   <h1 mdc-typography-headline>Examples</h1>
   <div fxLayout="column" class="mdc-padding">
-<!--     <p>Change opening point of the menu</p>
+    <p>Change opening point of the menu</p>
     <div fxLayout="row">
       <mdc-form-field>
-        <mdc-radio value="TOP_LEFT" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
+        <mdc-radio value="TOP_LEFT" (change)="handleChange();" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
         <label>Top Left</label>
       </mdc-form-field>
       <mdc-form-field>
-        <mdc-radio value="TOP_RIGHT" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
+        <mdc-radio value="TOP_RIGHT" (change)="handleChange();" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
         <label>Top Right</label>
       </mdc-form-field>
       <mdc-form-field>
-        <mdc-radio value="MDC_OPEN_FROM.BOTTOM_LEFT" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
+        <mdc-radio value="BOTTOM_LEFT" (change)="handleChange();" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
         <label>Bottom Left</label>
       </mdc-form-field>
       <mdc-form-field>
-        <mdc-radio value="MDC_OPEN_FROM.BOTTOM_RIGHT" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
+        <mdc-radio value="BOTTOM_RIGHT" (change)="handleChange();" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
         <label>Bottom Right</label>
       </mdc-form-field>
     </div>
- -->    <div fxLayout="row" class="mdc-padding">
+    <div fxLayout="row" class="mdc-padding">
       <div mdc-menu-anchor>
         <button mdc-fab (click)="showMenu();">
           <span mdc-fab-icon>person</span>
@@ -96,20 +111,19 @@
       </div>
     </div>
     <pre class="prettyprint">
-&lt;div mdc-menu-anchor&gt;
-  &lt;button mdc-fab (click)="showMenu();"&gt;
-    &lt;span mdc-fab-icon>person&lt;/span&gt;
-  &lt;/button&gt;
-  &lt;mdc-menu #menu (select)="handleMenuSelect($event);"&gt;
-    &lt;mdc-menu-item [id]="0"&gt;Item 1&lt;/mdc-menu-item&gt;
-    &lt;mdc-menu-item
-      [id]="1"
-      [disabled]="true"&gt;Item 2&lt;/mdc-menu-item&gt;
-    &lt;mdc-menu-item [id]="2"&gt;Item 3&lt;/mdc-menu-item&gt;
-    &lt;mdc-menu-divider&gt;&lt;/mdc-menu-divider&gt;
-    &lt;mdc-menu-item [id]="3"&gt;Item 4&lt;/mdc-menu-item&gt;
-  &lt;/mdc-menu&gt;
-&lt;/div&gt;
-      </pre>
+<![CDATA[
+<div mdc-menu-anchor>
+  <button mdc-fab (click)="showMenu();">
+    <span mdc-fab-icon>person</span>
+  </button>
+  <mdc-menu #menu (select)="handleMenuSelect($event);">
+    <mdc-menu-item [id]="0">Item 1</mdc-menu-item>
+    <mdc-menu-item [id]="1" [disabled]="true">Item 2</mdc-menu-item>
+    <mdc-menu-item [id]="2">Item 3</mdc-menu-item>
+    <mdc-menu-divider></mdc-menu-divider>
+    <mdc-menu-item [id]="3">Item 4</mdc-menu-item>
+  </mdc-menu>
+</div>
+]]></pre>
   </div>
 </div>

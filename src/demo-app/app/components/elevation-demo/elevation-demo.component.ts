@@ -4,12 +4,10 @@ import {
 } from '@angular/core';
 
 @Component({
-	selector: 'radio-demo',
-	templateUrl: './radio-demo.component.html'
+	selector: 'elevation-demo',
+	templateUrl: './elevation-demo.component.html'
 })
-export class RadioDemoComponent implements OnInit {
-  radioOption: string = "apple";
-
+export class ElevationDemoComponent implements OnInit {
   ngOnInit() {
     let doc = <HTMLDivElement>document.body;
     let script = document.createElement('script');

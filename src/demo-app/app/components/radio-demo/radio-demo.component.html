@@ -1,67 +1,65 @@
 <div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
   <h1 mdc-typography-display1>Radio Button</h1>
   <p mdc-typography-subheading2>The MDC Radio Button component provides a radio button adhering to the Material Design Specification.</p>
-  <a href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-radio">Google Material Components documentation</a>
+  <a href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-radio">Google's MDC Documentation</a>
   <h1 mdc-typography-headline>Usage</h1>
   <div>
     <pre class="prettyprint"><![CDATA[import { RadioModule } from '@angular-mdc/web';]]></pre>
   </div>
-  <div fxLayout="row" fxLayout.lt-md="column">
-    <div fxLayout="column">
-      <h1 mdc-typography-headline>API reference</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Attribute</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><pre class="prettyprint">@Input() id: string</pre></td>
-            <td>Unique Id of the radio button (auto generated if not supplied).</td>
-          </tr>
-          <tr>
-            <td><pre class="prettyprint">@Input() name: string</pre></td>
-            <td>Name of the radio button group.</td>
-          </tr>
-          <tr>
-            <td><pre class="prettyprint">@Input() value: any</pre></td>
-            <td>Value of the radio button.</td>
-          </tr>
-          <tr>
-            <td><pre class="prettyprint">@Input() ariaLabel: string</pre></td>
-            <td>Used to set the 'aria-label' attribute on the underlying input element.</td>
-          </tr>
-          <tr>
-            <td><pre class="prettyprint">@Input() ariaLabelledby: string</pre></td>
-            <td>The 'aria-labelledby' attribute takes precedence as the element's text alternative.</td>
-          </tr>
-          <tr>
-            <td><pre class="prettyprint">@Input() checked: boolean</pre></td>
-            <td>Use to verify the checked value.</td>
-          </tr>
-          <tr>
-            <td><pre class="prettyprint">@Input() disabled: boolean</pre></td>
-            <td>Disables the component.</td>
-          </tr>
-        </tbody>
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th>Event</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><pre class="prettyprint">@Output() change</pre></td>
-            <td>Event dispatched on value change.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div fxLayout="column">
+    <h1 mdc-typography-headline>API reference</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Attribute</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><pre class="prettyprint">@Input() id: string</pre></td>
+          <td>Unique Id of the radio button (auto generated if not supplied).</td>
+        </tr>
+        <tr>
+          <td><pre class="prettyprint">@Input() name: string</pre></td>
+          <td>Name of the radio button group.</td>
+        </tr>
+        <tr>
+          <td><pre class="prettyprint">@Input() value: any</pre></td>
+          <td>Value of the radio button.</td>
+        </tr>
+        <tr>
+          <td><pre class="prettyprint">@Input() ariaLabel: string</pre></td>
+          <td>Used to set the 'aria-label' attribute on the underlying input element.</td>
+        </tr>
+        <tr>
+          <td><pre class="prettyprint">@Input() ariaLabelledby: string</pre></td>
+          <td>The 'aria-labelledby' attribute takes precedence as the element's text alternative.</td>
+        </tr>
+        <tr>
+          <td><pre class="prettyprint">@Input() checked: boolean</pre></td>
+          <td>Use to verify the checked value.</td>
+        </tr>
+        <tr>
+          <td><pre class="prettyprint">@Input() disabled: boolean</pre></td>
+          <td>Disables the component.</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><pre class="prettyprint">@Output() change</pre></td>
+          <td>Event dispatched on value change.</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
   <h1 mdc-typography-headline>Examples</h1>
   <div fxLayout="column" class="mdc-padding">
@@ -78,41 +76,38 @@
         <mdc-radio value="mango" name="radioGroup" [(ngModel)]="radioOption"></mdc-radio>
         <label>Mango</label>
       </mdc-form-field>
-      <p>Selected value: <label mdc-typography-body2>{{radioOption}}</label></p>
+      <p>Selected value:
+        <label mdc-typography-body2>{{radioOption}}</label>
+      </p>
       <pre class="prettyprint">
-&lt;mdc-form-field&gt;
-  &lt;mdc-radio name="radioGroup"
-    value="apple"
-    [(ngModel)]="radioOption"&gt;&lt;/mdc-radio&gt;
-  &lt;label&gt;Apple&lt;/label&gt;
-&lt;/mdc-form-field&gt;
-&lt;mdc-form-field&gt;
-  &lt;mdc-radio name="radioGroup"
-    value="banana"
-    [(ngModel)]="radioOption"&gt;&lt;/mdc-radio&gt;
-  &lt;label&gt;Banana&lt;/label&gt;
-&lt;/mdc-form-field&gt;
-&lt;mdc-form-field&gt;
-  &lt;mdc-radio name="radioGroup"
-    value="mango"
-    [(ngModel)]="radioOption"&gt;&lt;/mdc-radio&gt;
-  &lt;label&gt;Mango&lt;/label&gt;
-&lt;/mdc-form-field&gt;
-       </pre>
+<![CDATA[
+<mdc-form-field>
+  <mdc-radio value="apple" name="radioGroup" [(ngModel)]="radioOption"></mdc-radio>
+  <label>Apple</label>
+</mdc-form-field>
+<mdc-form-field>
+  <mdc-radio value="banana" name="radioGroup" [(ngModel)]="radioOption"></mdc-radio>
+  <label>Banana</label>
+</mdc-form-field>
+<mdc-form-field>
+  <mdc-radio value="mango" name="radioGroup" [(ngModel)]="radioOption"></mdc-radio>
+  <label>Mango</label>
+</mdc-form-field>
+]]></pre>
     </div>
     <div fxLayout="column" class="mdc-padding">
       <div fxFlexAlign="start">
         <mdc-form-field>
           <mdc-radio [disabled]="true"></mdc-radio>
-          <label>Radio Disabled</label>
+          <label>Radio disabled</label>
         </mdc-form-field>
-        <p>Disabled</p>
         <pre class="prettyprint">
-&lt;mdc-form-field&gt;
-  &lt;mdc-radio [disabled]="true"&gt;&lt;/mdc-radio&gt;
-  &lt;label&gt;Label text&lt;/label&gt;
-&lt;/mdc-form-field&gt;
-       </pre>
+<![CDATA[
+<mdc-form-field>
+  <mdc-radio [disabled]="true"></mdc-radio>
+  <label>Radio disabled</label>
+</mdc-form-field>
+]]></pre>
       </div>
     </div>
   </div>

@@ -9,7 +9,8 @@
     "experimentalDecorators": true,
     "skipDefaultLibCheck": true,
     "strictNullChecks": false,
-    "typeRoots": ["./../../node_modules/@types"]
+    "typeRoots": ["./../../node_modules/@types"],
+    "noStrictGenericChecks": true
   },
   "compileOnSave": false,
   "buildOnSave": false

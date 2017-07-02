@@ -12,8 +12,6 @@ import { MDCLinearProgressAdapter } from './linear-progress-adapter';
 const { MDCLinearProgressFoundation } = require('@material/linear-progress');
 const MDC_PROGRESS_STYLES = require('@material/linear-progress/mdc-linear-progress.scss');
 
-type UnlistenerMap = WeakMap<EventListener, Function>;
-
 @Component({
   selector: 'mdc-linear-progress',
   templateUrl: './linear-progress.component.html',
@@ -21,17 +19,24 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
   encapsulation: ViewEncapsulation.None
 })
 export class LinearProgressComponent implements AfterViewInit {
-  @Input() indeterminate: boolean;
-  @Input() reversed: boolean;
+  private _indeterminate: boolean = true;
+  private _reversed: boolean;
+
+  @Input()
+  get indeterminate() { return this._indeterminate; }
+  set indeterminate(value) {
+    this._foundation.setDeterminate(!value);
+    this._indeterminate = !value;
+  }
+  @Input()
+  get reversed() { return this._reversed; }
+  set reversed(value) {
+    this._foundation.setReverse(value);
+    this._reversed = value;
+  }
   @Input() accent: boolean;
   @HostBinding('attr.role') role: string = 'progressbar';
   @HostBinding('class.mdc-linear-progress') className: string = 'mdc-linear-progress';
-  @HostBinding('class.mdc-linear-progress--indeterminate') get classIndeterminate(): string {
-    return this.indeterminate ? 'mdc-linear-progress--indeterminate' : '';
-  }
-  @HostBinding('class.mdc-linear-progress--reversed') get classReversed(): string {
-    return this.reversed ? 'mdc-linear-progress--reversed' : '';
-  }
   @HostBinding('class.mdc-linear-progress--accent') get classAccent(): string {
     return this.accent ? 'mdc-linear-progress--accent' : '';
   }
@@ -67,6 +72,8 @@ export class LinearProgressComponent implements AfterViewInit {
     init: Function,
     setProgress: Function,
     setBuffer: Function,
+    setReverse: Function,
+    setDeterminate: Function,
     open: Function,
     close: Function
   } = new MDCLinearProgressFoundation(this._mdcAdapter);

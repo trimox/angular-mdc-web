@@ -10,10 +10,10 @@
   [tabindex]="tabindex"
   [maxlength]="maxlength"
   [attr.aria-label]="placeholder"
-  (focus)="handleFocus($event)"
-  (blur)="handleBlur($event)"
-  (input)="handleInput($event)"
-  (keydown)="handleKeyDown($event)"
+  (focus)="onFocus($event)"
+  (blur)="onBlur($event)"
+  (input)="onInput($event)"
+  (keydown)="onKeyDown($event)"
   [(ngModel)]="value"
   [disabled]="disabled"
   [required]="required"></textarea>
@@ -31,8 +31,8 @@
   [disabled]="disabled"
   [required]="required"
   [attr.tabindex]="tabindex"
-  (focus)="handleFocus($event)"
-  (keydown)="handleKeyDown($event)"
-  (blur)="handleBlur($event)"
-  (input)="handleInput($event)" />
+  (focus)="onFocus($event)"
+  (keydown)="onKeyDown($event)"
+  (blur)="onBlur($event)"
+  (input)="onInput($event)" />
 <label #inputlabel [attr.for]="id" class="mdc-textfield__label" *ngIf="!placeholder">{{label}}</label>

@@ -35,17 +35,13 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
   providers: [MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR]
 })
 export class TextfieldComponent implements AfterViewInit, OnDestroy {
-  private disabled_: boolean;
-
   @Input() id: string;
+  @Input() name: string;
   @Input() type: string = 'text';
   @Input() value: string;
   @Input()
-  get disabled(): boolean {
-    return this.disabled_;
-  }
-  set disabled(value: boolean) {
-    this.disabled_ = value;
+  get disabled() { return this._foundation.isDisabled(); }
+  set disabled(value) {
     if (this.inputEl) {
       this._foundation.setDisabled(value);
     }
@@ -169,12 +165,7 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
       }
     },
     getNativeInput: () => {
-      return {
-        checkValidity: () => this.inputEl.nativeElement.checkValidity(),
-        value: this.value,
-        disabled: (_) => this.disabled_ = _,
-        badInput: this.inputEl.nativeElement.validity.badInput
-      };
+      return this.inputEl ? this.inputEl.nativeElement : null;
     }
   };
 
@@ -194,22 +185,22 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
     this._foundation.destroy();
   }
 
-  handleFocus(evt: FocusEvent) {
+  onFocus(evt: FocusEvent) {
     this.focus.emit(evt);
   }
 
-  handleBlur(evt: FocusEvent) {
+  onBlur(evt: FocusEvent) {
     this._controlValueAccessorChangeFn((<any>evt.target).value);
     this.blur.emit(evt);
   }
 
-  handleInput(evt: Event) {
+  onInput(evt: Event) {
     evt.stopPropagation();
     this._controlValueAccessorChangeFn((<any>evt.target).value);
     this.input.emit(evt);
   }
 
-  handleKeyDown(evt: KeyboardEvent) {
+  onKeyDown(evt: KeyboardEvent) {
     evt.stopPropagation();
     this.keydown.emit(evt);
   }

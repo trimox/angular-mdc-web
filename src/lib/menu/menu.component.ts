@@ -22,12 +22,12 @@ const { getTransformPropertyName } = require('@material/menu/util');
 const MDC_MENU_STYLES = require('@material/menu/mdc-menu.scss');
 const MDC_LIST_STYLES = require('@material/list/mdc-list.scss');
 
-export const MDC_OPEN_FROM = {
-  TOP_LEFT: 'mdc-simple-menu--open-from-top-left',
-  TOP_RIGHT: 'mdc-simple-menu--open-from-top-right',
-  BOTTOM_LEFT: 'mdc-simple-menu--open-from-bottom-left',
-  BOTTOM_RIGHT: 'mdc-simple-menu--open-from-bottom-right',
-};
+export enum MDC_OPEN_FROM {
+  TOP_LEFT = 'mdc-simple-menu--open-from-top-left',
+  TOP_RIGHT = 'mdc-simple-menu--open-from-top-right',
+  BOTTOM_LEFT = 'mdc-simple-menu--open-from-bottom-left',
+  BOTTOM_RIGHT = 'mdc-simple-menu--open-from-bottom-right',
+}
 
 type UnlistenerMap = WeakMap<EventListener, Function>;
 
@@ -40,11 +40,11 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
 export class MenuComponent implements AfterViewInit, OnDestroy {
   private previousFocus_: any;
 
-  @Input() openFrom: string = MDC_OPEN_FROM.TOP_LEFT;
+  @Input() openFrom: any;
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
   @Output() select: EventEmitter<number> = new EventEmitter<number>();
   @HostBinding('class') get className(): string {
-    return `mdc-simple-menu${this.openFrom ? ` ${this.openFrom}` : ''}`;
+    return `mdc-simple-menu${MDC_OPEN_FROM[this.openFrom] ? ` ${MDC_OPEN_FROM[this.openFrom]}` : ''}`;
   }
   @HostBinding('tabindex') tabindex: number = -1;
   @ViewChild('menuContainer') public menuContainerEl: ElementRef;

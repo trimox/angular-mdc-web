@@ -15,7 +15,8 @@
   "inlineSources": true,
   "noImplicitAny": false,
   "suppressImplicitAnyIndexErrors": true,
-  "typeRoots": ["./../../node_modules/@types"]
+  "typeRoots": ["./../../node_modules/@types"],
+  "noStrictGenericChecks": true
  },
  "exclude": [
   "node_modules",

@@ -2,14 +2,15 @@
   #nativeCb    
   class="mdc-checkbox__native-control"
   [id]="inputId"
+  [name]="name"
   [tabindex]="tabindex"
   [attr.aria-label]="ariaLabel"
   [attr.aria-labelledby]="ariaLabelledby"
-  [(ngModel)]="ngModel"
   [disabled]="disabled"
   [checked]="checked"
+  [value]="value"
   [indeterminate]="indeterminate"
-  (change)="handleChange($event)"/>
+  (change)="onChange($event)"/>
 <div class="mdc-checkbox__background">
   <svg class="mdc-checkbox__checkmark"
     viewBox="0 0 24 24">

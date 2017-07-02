@@ -46,34 +46,43 @@ export class CheckboxComponent implements AfterViewInit, OnDestroy {
   ripple: Ripple;
 
   @Input() id: string = `mdc-checkbox-${++nextElId_}`;
+  @Input() name: string;
   get inputId(): string {
     return `input-${this.id}`;
   }
-  @Input() checked: boolean;
-  @Input() indeterminate: boolean;
-  @Input() disabled: boolean;
+  @Input()
+  get checked() { return this._foundation.isChecked(); }
+  set checked(value) {
+    this._foundation.setChecked(value);
+  }
+  @Input()
+  get value() { return this._foundation.getValue(); }
+  set value(value) {
+    this._foundation.setValue(value);
+  }
+  @Input()
+  get disabled() { return this._foundation.isDisabled(); }
+  set disabled(value) {
+    this._foundation.setDisabled(value);
+    if (this._renderer.parentNode(this._root.nativeElement).classList.contains('mdc-form-field')) {
+      formField_.input = value === true ? null : this;
+    }
+  }
+  @Input()
+  get indeterminate() { return this._foundation.isIndeterminate(); }
+  set indeterminate(value) {
+    this._foundation.setIndeterminate(value);
+  }
   @Input() tabindex: number = 0;
   @Input('aria-label') ariaLabel: string;
   @Input('aria-labelledby') ariaLabelledby: string;
   @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
   @HostBinding('class.mdc-checkbox') className: string = 'mdc-checkbox';
-  @HostBinding('class.mdc-checkbox--disabled') get classDisabled(): string {
-    if (this.disabled) {
-      if (formField_) {
-        formField_.input = null;
-      }
-    } else {
-      if (formField_) {
-        formField_.input = this;
-      }
-    }
-    return this.disabled ? 'mdc-checkbox--disabled' : '';
-  }
   @ViewChild('nativeCb') inputEl: ElementRef;
 
   onTouched: () => any = () => { };
 
-  private _controlValueAccessorChangeFn: (value: any) => void = (value) => { };
+  private _controlValueAccessorChangeFn: (value: any) => void = () => { };
   private _unlisteners: Map<string, UnlistenerMap> = new Map<string, UnlistenerMap>();
 
   private _mdcAdapter: MDCCheckboxAdapter = {
@@ -114,7 +123,15 @@ export class CheckboxComponent implements AfterViewInit, OnDestroy {
 
   private _foundation: {
     init: Function,
-    destroy: Function
+    destroy: Function,
+    isChecked: Function,
+    setChecked: Function,
+    setDisabled: Function,
+    isDisabled: Function,
+    getValue: Function,
+    setValue: Function,
+    isIndeterminate: Function,
+    setIndeterminate: Function
   } = new MDCCheckboxFoundation(this._mdcAdapter);
 
   constructor(
@@ -127,15 +144,18 @@ export class CheckboxComponent implements AfterViewInit, OnDestroy {
     this._foundation.init();
     this.ripple.unbounded = true;
 
-    formField_ = new MDCFormField(this._root.nativeElement.parentElement);
-    formField_.input = this;
-    this._renderer.setAttribute(formField_.label_, 'for', this.inputId);
+    if (this._renderer.parentNode(this._root.nativeElement).classList.contains('mdc-form-field')
+      && !this.disabled) {
+      formField_ = new MDCFormField(this._root.nativeElement.parentElement);
+      formField_.input = this;
+      this._renderer.setAttribute(formField_.label_, 'for', this.inputId);
+    }
   }
   ngOnDestroy() {
     this._foundation.destroy();
   }
 
-  handleChange(evt: Event) {
+  onChange(evt: Event) {
     evt.stopPropagation();
     this._controlValueAccessorChangeFn((<any>evt.target).checked);
     this.change.emit(evt);

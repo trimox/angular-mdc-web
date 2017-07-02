@@ -13,7 +13,7 @@ import {
   ViewEncapsulation,
   forwardRef
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, RadioControlValueAccessor } from '@angular/forms';
 import { MDCRadioAdapter } from './radio-adapter';
 import { Ripple } from '.././ripple/ripple.directive';
 
@@ -29,8 +29,6 @@ export const MD_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
   useExisting: forwardRef(() => RadioComponent),
   multi: true
 };
-
-type UnlistenerMap = WeakMap<EventListener, Function>;
 
 @Component({
   selector: 'mdc-radio',
@@ -49,33 +47,32 @@ export class RadioComponent implements AfterViewInit, OnDestroy {
   get inputId(): string {
     return `input-${this.id}`;
   }
-  @Input() checked: boolean;
+  @Input()
+  get checked() { return this._foundation.isChecked(); }
+  set checked(value) {
+    this._foundation.setChecked(value);
+  }
   @Input() name: string;
-  @Input() value: any;
-  @Input() disabled: boolean;
+  @Input()
+  get value() { return this._foundation.getValue(); }
+  set value(value) {
+    this._foundation.setValue(value);
+  }
+  @Input()
+  get disabled() { return this._foundation.isDisabled(); }
+  set disabled(value) {
+    this.setDisabledState(value);
+  }
   @Input() tabindex: number = 0;
   @Input('aria-label') ariaLabel: string;
   @Input('aria-labelledby') ariaLabelledby: string;
   @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
   @HostBinding('class.mdc-radio') className: string = 'mdc-radio';
-  @HostBinding('class.mdc-radio--disabled') get classDisabled(): string {
-    if (this.disabled) {
-      if (formField_) {
-        formField_.input = null;
-      }
-    } else {
-      if (formField_) {
-        formField_.input = this;
-      }
-    }
-    return this.disabled ? 'mdc-radio--disabled' : '';
-  }
   @ViewChild('inputEl') inputEl: ElementRef;
 
   onTouched: () => any = () => { };
 
-  private _controlValueAccessorChangeFn: (value: any) => void = (value) => { };
-  private _unlisteners: Map<string, UnlistenerMap> = new Map<string, UnlistenerMap>();
+  private _controlValueAccessorChangeFn: (value: any) => void = () => { };
 
   private _mdcAdapter: MDCRadioAdapter = {
     addClass: (className: string) => {
@@ -87,11 +84,7 @@ export class RadioComponent implements AfterViewInit, OnDestroy {
       renderer.removeClass(root.nativeElement, className);
     },
     getNativeControl: () => {
-      return {
-        checked: this.inputEl.nativeElement.checked,
-        disabled: this.inputEl.nativeElement.disabled,
-        value: this.inputEl.nativeElement.value
-      };
+      return this.inputEl.nativeElement;
     }
   };
 
@@ -101,6 +94,7 @@ export class RadioComponent implements AfterViewInit, OnDestroy {
     isChecked: Function,
     setChecked: Function,
     setDisabled: Function,
+    isDisabled: Function,
     getValue: Function,
     setValue: Function
   } = new MDCRadioFoundation(this._mdcAdapter);
@@ -115,22 +109,28 @@ export class RadioComponent implements AfterViewInit, OnDestroy {
     this._foundation.init();
     this.ripple.unbounded = true;
 
-    formField_ = new MDCFormField(this._root.nativeElement.parentElement);
-    formField_.input = this;
-    this._renderer.setAttribute(formField_.label_, 'for', this.inputId);
+    if (this._renderer.parentNode(this._root.nativeElement).classList.contains('mdc-form-field')
+      && !this.disabled) {
+      formField_ = new MDCFormField(this._root.nativeElement.parentElement);
+      formField_.input = this;
+      this._renderer.setAttribute(formField_.label_, 'for', this.inputId);
+    }
   }
+
   ngOnDestroy() {
     this._foundation.destroy();
   }
 
-  handleChange(evt: Event) {
+  onChange(evt: Event) {
     evt.stopPropagation();
-    this._controlValueAccessorChangeFn(this.value);
+    this._controlValueAccessorChangeFn((<any>evt.target).value);
     this.change.emit(evt);
   }
 
   writeValue(value: any) {
-    this._foundation.setValue(value);
+    if (this.value === value) {
+      this.checked = true;
+    }
   }
 
   registerOnChange(fn: (value: any) => void) {
@@ -141,23 +141,10 @@ export class RadioComponent implements AfterViewInit, OnDestroy {
     this.onTouched = fn;
   }
 
-  listen_(type: string, listener: EventListener, ref: ElementRef = this._root) {
-    if (!this._unlisteners.has(type)) {
-      this._unlisteners.set(type, new WeakMap<EventListener, Function>());
+  setDisabledState(isDisabled: boolean) {
+    this._foundation.setDisabled(isDisabled);
+    if (this._renderer.parentNode(this._root.nativeElement).classList.contains('mdc-form-field')) {
+      formField_.input = isDisabled === true ? null : this;
     }
-    const unlistener = this._renderer.listen(ref.nativeElement, type, listener);
-    this._unlisteners.get(type).set(listener, unlistener);
-  }
-
-  unlisten_(type: string, listener: EventListener) {
-    if (!this._unlisteners.has(type)) {
-      return;
-    }
-    const unlisteners = this._unlisteners.get(type);
-    if (!unlisteners.has(listener)) {
-      return;
-    }
-    unlisteners.get(listener)();
-    unlisteners.delete(listener);
   }
 }

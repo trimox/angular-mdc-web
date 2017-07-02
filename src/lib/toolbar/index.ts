@@ -6,13 +6,17 @@ import { ToolbarRowDirective } from './toolbar-row.directive';
 import { ToolbarSectionDirective } from './toolbar-section.directive';
 import { ToolbarTitleDirective } from './toolbar-title.directive';
 import { ToolbarFixedAdjustDirective } from './toolbar-fixed-adjust.directive';
+import { ToolbarIconDirective } from './toolbar-icon.directive';
+import { ToolbarIconMenuDirective } from './toolbar-icon-menu.directive';
 
 const TOOLBAR_COMPONENTS = [
   ToolbarComponent,
   ToolbarRowDirective,
   ToolbarSectionDirective,
   ToolbarTitleDirective,
-  ToolbarFixedAdjustDirective
+  ToolbarFixedAdjustDirective,
+  ToolbarIconDirective,
+  ToolbarIconMenuDirective
 ];
 
 @NgModule({

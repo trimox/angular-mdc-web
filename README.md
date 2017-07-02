@@ -11,7 +11,7 @@ Our Angular library integrates with [Google's Material Design Components](https:
 ### Quick Links
 *  [Contributing](https://github.com/trimox/angular-mdc-web/blob/master/CONTRIBUTING.md)
 *  [Changelog](https://github.com/trimox/angular-mdc-web/blob/master/CHANGELOG.md)
-*  [Gitter Room](https://gitter.im/angular-mdc/Lobby)
+*  [Gitter Chat](https://gitter.im/angular-mdc/Lobby)
 
 ## Installation
 ```
@@ -32,7 +32,7 @@ Check out our [Getting Started guide](https://github.com/trimox/angular-mdc-web/
 | checkbox | Available |
 | dialog | TBI |
 | drawer | TBI |
-| elevation | WIP |
+| elevation | Available |
 | fab | Available |
 | form-field | Available |
 | grid-list | TBI |

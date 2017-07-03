@@ -1,4 +1,33 @@
 <a name="0.0.0"></a>
+# [0.1.19](https://github.com/trimox/angular-mdc-web/compare/v0.1.18...v0.1.19) (2017-07-03)
+
+
+### Bug Fixes
+
+* **textfield:** Fix getNativeInput adapter method and use foundation isDisabled. ([f7600ed](https://github.com/trimox/angular-mdc-web/commit/f7600ed))
+
+
+### Features
+
+* **checkbox:** Add value, name binding and refactor foundation wrapper integration. ([#38](https://github.com/trimox/angular-mdc-web/issues/38)) ([68a2e47](https://github.com/trimox/angular-mdc-web/commit/68a2e47))
+* **elevation:** Add MDC Elevation using [mdc-elevation]="#" directive. ([257cb04](https://github.com/trimox/angular-mdc-web/commit/257cb04))
+* **theme:** Implement MDC Theme - mdc-theme-dark directive. ([0583bf7](https://github.com/trimox/angular-mdc-web/commit/0583bf7))
+* **toolbar:** Add mdc-toolbar-icon and mdc-toolbar-icon-menu directives. ([1965a3a](https://github.com/trimox/angular-mdc-web/commit/1965a3a))
+
+
+### Performance Improvements
+
+* **linear-progress:** Use foundation api for indeterminate and reverse property sets. ([8382aa8](https://github.com/trimox/angular-mdc-web/commit/8382aa8))
+
+
+### BREAKING CHANGES
+
+* **elevation:** Removed depreciated mdc-elevation-z# directives. Please update your code
+accordingly.
+
+
+
+<a name="0.0.0"></a>
 # [0.1.18](https://github.com/trimox/angular-mdc-web/compare/v0.1.17...v0.1.18) (2017-07-02)
 
 

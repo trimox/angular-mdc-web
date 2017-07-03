@@ -30,6 +30,10 @@
             <td>Input type of textfield (e.g. email, password, url).</td>
           </tr>
           <tr>
+            <td><pre class="prettyprint">@Input() name: string</pre></td>
+            <td>Name of the textfield.</td>
+          </tr>
+          <tr>
             <td><pre class="prettyprint">@Input() value: string</pre></td>
             <td>The input element's value.</td>
           </tr>
@@ -113,16 +117,17 @@
   <h1 mdc-typography-headline>Examples</h1>
   <div fxLayout="column" class="mdc-padding">
     <div fxFlexAlign="start">
-      <mdc-textfield #user [(ngModel)]="username" id="username" label="Username" required [disabled]="isDisabled" aria-controls="help-username-val" (focus)="handleFocus($event);" (blur)="handleBlur($event);" (input)="handleInput($event);" (keydown)="handleKeyDown($event);">
+      <mdc-textfield [(ngModel)]="username" id="username" label="Username" required [disabled]="isDisabled" aria-controls="help-username-val">
       </mdc-textfield>
       <p mdc-textfield-helptext id="help-username-val" [validation]="true" [persistent]="false">Username is required</p>
     </div>
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="isDisabled"></mdc-checkbox>
-        <label>Disable textfield</label>
-      </mdc-form-field>
+    <mdc-form-field>
+      <mdc-checkbox [(ngModel)]="isDisabled"></mdc-checkbox>
+      <label>Disable textfield</label>
+    </mdc-form-field>
     <pre class="prettyprint">
-&lt;mdc-textfield [(ngModel)]="username"
+<![CDATA[
+<mdc-textfield [(ngModel)]="username"
   id="username"
   label="Username"
   required
@@ -131,13 +136,22 @@
   (focus)="handleFocus($event);"
   (blur)="handleBlur($event);"
   (input)="handleInput($event);"
-  (keydown)="handleKeyDown($event);"&gt;
-&lt;/mdc-textfield&gt;
-&lt;p mdc-textfield-helptext
-  id="help-username-val"
+  (keydown)="handleKeyDown($event);"></mdc-textfield>
+<p mdc-textfield-helptext id="help-username-val"
   [validation]="true"
-  [persistent]="false">Username is required&lt;/p&gt;
-      </pre>
+  [persistent]="false">Username is required</p>
+]]></pre>
+  </div>
+  <div fxLayout="column" class="mdc-padding">
+    <div fxFlexAlign="start" class="mdc-padding" mdc-theme-dark>
+      <mdc-textfield label="Dark theme"></mdc-textfield>
+    </div>
+    <pre class="prettyprint">
+<![CDATA[
+<div mdc-theme-dark>
+  <mdc-textfield label="Dark theme"></mdc-textfield>
+</div>
+]]></pre>
   </div>
   <div fxLayout="column" class="mdc-padding">
     <div fxFlexAlign="start">

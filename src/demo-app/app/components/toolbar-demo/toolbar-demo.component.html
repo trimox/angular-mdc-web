@@ -12,6 +12,8 @@
     <pre class="prettyprint">mdc-toolbar-section</pre>
     <pre class="prettyprint">mdc-toolbar-title</pre>
     <pre class="prettyprint">mdc-toolbar-fixed-adjust</pre>
+    <pre class="prettyprint">mdc-toolbar-icon</pre>
+    <pre class="prettyprint">mdc-toolbar-icon-menu</pre>
   </div>
   <div fxLayout="column">
     <h1 mdc-typography-headline>API reference</h1>
@@ -66,41 +68,40 @@
       <mdc-toolbar [flexible]="false" [fixed]="false" [waterfall]="false" [fixedLastrow]="false" [flexibleTitle]="true">
         <mdc-toolbar-row>
           <mdc-toolbar-section [alignStart]="true">
-            <a href="#" class="material-icons mdc-toolbar__icon--menu" aria-label="menu">menu</a>
+            <a href="#/toolbar-demo" mdc-toolbar-icon-menu class="material-icons" aria-label="menu">menu</a>
             <span mdc-toolbar-title>Toolbar Title</span>
           </mdc-toolbar-section>
           <mdc-toolbar-section [alignEnd]="true">
-            <a href="#" class="material-icons mdc-toolbar__icon" aria-label="Download">file_download</a>
-            <a href="#" class="material-icons mdc-toolbar__icon" aria-label="Print this page">print</a>
-            <a href="#" class="material-icons mdc-toolbar__icon" aria-label="Bookmark this page">bookmark</a>
+            <a href="#/toolbar-demo" mdc-toolbar-icon class="material-icons" aria-label="Download">file_download</a>
+            <a href="#/toolbar-demo" mdc-toolbar-icon class="material-icons" aria-label="Print this page">print</a>
+            <a href="#/toolbar-demo" mdc-toolbar-icon class="material-icons" aria-label="Bookmark this page">bookmark</a>
           </mdc-toolbar-section>
         </mdc-toolbar-row>
       </mdc-toolbar>
       <pre class="prettyprint">
-&lt;mdc-toolbar 
+<![CDATA[
+<mdc-toolbar
   [flexible]="false"
   [fixed]="false"
   [waterfall]="false"
   [fixedLastrow]="false"
-  [flexibleTitle]="true"&gt;
-  &lt;mdc-toolbar-row&gt;
-    &lt;mdc-toolbar-section [alignStart]="true"&gt;
-      &lt;a href="#" class="material-icons mdc-toolbar__icon--menu"&gt;menu&lt;/a&gt;
-      &lt;mdc-toolbar-title&gt;Title&lt;/mdc-toolbar-title&gt;
-    &lt;/mdc-toolbar-section&gt;
-    &lt;mdc-toolbar-section [alignEnd]="true"&gt;
-      &lt;a href="#" class="material-icons mdc-toolbar__icon" alt="Download"&gt;file_download&lt;/a&gt;
-      &lt;a href="#" class="material-icons mdc-toolbar__icon" alt="Print page"&gt;print&lt;/a&gt;
-      &lt;a href="#" class="material-icons mdc-toolbar__icon" alt="Bookmark page"&gt;bookmark&lt;/a&gt;
-    &lt;/mdc-toolbar-section&gt;
-  &lt;/mdc-toolbar-row&gt;
-&lt;/mdc-toolbar&gt;
-&lt;main mdc-toolbar-fixed-adjust&gt;
-  &lt;p&gt;
-    All your page content here will have a default margin-top by using the mdc-toolbar-fixed-adjust directive.
-  &lt;/p&gt;
-&lt;/main&gt;
-        </pre>
+  [flexibleTitle]="true">
+  <mdc-toolbar-row>
+    <mdc-toolbar-section [alignStart]="true">
+      <a href="#/toolbar-demo" mdc-toolbar-icon-menu class="material-icons">menu</a>
+      <span mdc-toolbar-title>Toolbar Title</span>
+    </mdc-toolbar-section>
+    <mdc-toolbar-section [alignEnd]="true">
+      <a href="#/toolbar-demo" mdc-toolbar-icon class="material-icons">file_download</a>
+      <a href="#/toolbar-demo" mdc-toolbar-icon class="material-icons">print</a>
+      <a href="#/toolbar-demo" mdc-toolbar-icon class="material-icons">bookmark</a>
+    </mdc-toolbar-section>
+  </mdc-toolbar-row>
+</mdc-toolbar>
+<main mdc-toolbar-fixed-adjust>
+  Use mdc-toolbar-fixed-adjust directive to apply a default margin-top to page content.
+</main>
+]]></pre>
     </div>
   </div>
 </div>

@@ -33,6 +33,19 @@ td {
 }
 
 .demo-card {
-  width: 21.875rem;
+  width: 22.875rem;
   margin-bottom: 20px;
+}
+
+.demo-surface {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 100px;
+  margin: 0 60px 80px;
+  border-radius: 3px;
+  background: white;
+  color: #9e9e9e;
+  font-size: .8rem;
 }

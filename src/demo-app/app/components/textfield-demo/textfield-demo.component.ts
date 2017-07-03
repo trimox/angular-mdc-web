@@ -13,10 +13,6 @@ export class TextfieldDemoComponent implements OnInit {
   comments = null;
   subject = null;
   message = null;
-  submitEventText = null;
-  inputHasFocus = false;
-  inputKeysPressed = 0;
-  inputCount = 0;
 
   ngOnInit() {
     let doc = <HTMLDivElement>document.body;
@@ -26,21 +22,5 @@ export class TextfieldDemoComponent implements OnInit {
     script.async = true;
     script.defer = true;
     doc.appendChild(script);
-  }
-
-  handleFocus($event) {
-    this.inputHasFocus = true;
-  }
-  handleBlur($event) {
-    this.inputHasFocus = false;
-  }
-  handleInput($event) {
-    this.inputCount++;
-  }
-  handleKeyDown($event) {
-    this.inputKeysPressed++;
-  }
-  submit(message) {
-    // this.submitEventText = message;
   }
 }

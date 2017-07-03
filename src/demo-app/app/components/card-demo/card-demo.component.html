@@ -102,6 +102,31 @@
 ]]></pre>
     </div>
     <div fxLayout="column">
+      <mdc-card [darkTheme]="true" [ngClass]="{'mdc-theme--dark demo-card' : true}">
+        <mdc-card-primary>
+          <h1 mdc-card-title>Dark Theme</h1>
+          <h2 mdc-card-subtitle>Subtitle</h2>
+        </mdc-card-primary>
+        <mdc-card-actions>
+          <button mdc-button [cardAction]="true">Action 1</button>
+          <button mdc-button [cardAction]="true">Action 2</button>
+        </mdc-card-actions>
+      </mdc-card>
+      <pre class="prettyprint">
+<![CDATA[
+<mdc-card [darkTheme]="true">
+  <mdc-card-primary>
+    <h1 mdc-card-title>Title</h1>
+    <h2 mdc-card-subtitle>Subtitle</h2>
+  </mdc-card-primary>
+  <mdc-card-actions>
+    <button mdc-button [cardAction]="true">Action 1</button>
+    <button mdc-button [cardAction]="true">Action 2</button>
+  </mdc-card-actions>
+</mdc-card>
+]]></pre>
+    </div>
+    <div fxLayout="column">
       <mdc-card class="demo-card">
         <mdc-card-primary>
           <h1 mdc-card-title>Title</h1>
@@ -127,31 +152,6 @@
     sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
     veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
   </mdc-card-supporting-text>
-  <mdc-card-actions>
-    <button mdc-button [cardAction]="true">Action 1</button>
-    <button mdc-button [cardAction]="true">Action 2</button>
-  </mdc-card-actions>
-</mdc-card>
-]]></pre>
-    </div>
-    <div fxLayout="column">
-      <mdc-card [darkTheme]="true" [ngClass]="{'mdc-theme--dark demo-card' : true}">
-        <mdc-card-primary>
-          <h1 mdc-card-title>Dark Theme</h1>
-          <h2 mdc-card-subtitle>Subtitle</h2>
-        </mdc-card-primary>
-        <mdc-card-actions>
-          <button mdc-button [cardAction]="true">Action 1</button>
-          <button mdc-button [cardAction]="true">Action 2</button>
-        </mdc-card-actions>
-      </mdc-card>
-      <pre class="prettyprint">
-<![CDATA[
-<mdc-card [darkTheme]="true">
-  <mdc-card-primary>
-    <h1 mdc-card-title>Title</h1>
-    <h2 mdc-card-subtitle>Subtitle</h2>
-  </mdc-card-primary>
   <mdc-card-actions>
     <button mdc-button [cardAction]="true">Action 1</button>
     <button mdc-button [cardAction]="true">Action 2</button>

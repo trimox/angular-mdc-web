@@ -8,6 +8,8 @@ import {
 	templateUrl: './elevation-demo.component.html'
 })
 export class ElevationDemoComponent implements OnInit {
+  items = Array.from(Array(25), (x, i) => i);
+
   ngOnInit() {
     let doc = <HTMLDivElement>document.body;
     let script = document.createElement('script');

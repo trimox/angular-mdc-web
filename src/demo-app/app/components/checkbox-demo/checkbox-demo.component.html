@@ -22,6 +22,14 @@
             <td>Unique Id of the checkbox (auto generated if not supplied).</td>
           </tr>
           <tr>
+            <td><pre class="prettyprint">@Input() name: string</pre></td>
+            <td>Name of the checkbox.</td>
+          </tr>
+          <tr>
+            <td><pre class="prettyprint">@Input() value: any</pre></td>
+            <td>Value of the checkbox.</td>
+          </tr>
+          <tr>
             <td><pre class="prettyprint">@Input() ariaLabel: string</pre></td>
             <td>Used to set the 'aria-label' attribute on the underlying input element.</td>
           </tr>
@@ -65,15 +73,16 @@
   <h1 mdc-typography-headline>Examples</h1>
   <div fxLayout="column" class="mdc-padding">
     <mdc-form-field>
-      <mdc-checkbox [(ngModel)]="isChecked" id="myCheckbox"></mdc-checkbox>
+      <mdc-checkbox [(ngModel)]="isChecked" id="myCheckbox" name="myName"></mdc-checkbox>
       <label>Checkbox value is {{isChecked}}</label>
     </mdc-form-field>
     <pre class="prettyprint">
-&lt;mdc-form-field&gt;
-  &lt;mdc-checkbox [(ngModel)]="isChecked" id="myCheckbox"&gt;&lt;/mdc-checkbox&gt;
-  &lt;label&gt;Checkbox label&lt;/label&gt;
-&lt;/mdc-form-field&gt;
-       </pre>
+<![CDATA[
+<mdc-form-field>
+  <mdc-checkbox [(ngModel)]="isChecked" id="myCheckbox" name="myName"></mdc-checkbox>
+  <label>My label</label>
+</mdc-form-field>
+]]></pre>
   </div>
   <div fxLayout="column" class="mdc-padding">
     <div fxFlexAlign="start">
@@ -84,11 +93,12 @@
     </div>
     <p>Indeterminate</p>
     <pre class="prettyprint">
-&lt;mdc-form-field&gt;
-  &lt;mdc-checkbox [indeterminate]="true"&gt;&lt;/mdc-checkbox&gt;
-  &lt;label&gt;Label&lt;/label&gt;
-&lt;/mdc-form-field&gt;
-       </pre>
+<![CDATA[
+<mdc-form-field>
+  <mdc-checkbox [indeterminate]="true"></mdc-checkbox>
+  <label>Indeterminate Checkbox</label>
+</mdc-form-field>
+]]></pre>
   </div>
   <div fxLayout="column" class="mdc-padding">
     <div fxFlexAlign="start">
@@ -97,12 +107,12 @@
         <label>Checkbox is disabled</label>
       </mdc-form-field>
     </div>
-    <p>Disabled</p>
     <pre class="prettyprint">
-&lt;mdc-form-field&gt;
-  &lt;mdc-checkbox [disabled]="true"&gt;&lt;/mdc-checkbox&gt;
-  &lt;label&gt;Label&lt;/label&gt;
-&lt;/mdc-form-field&gt;
-       </pre>
+<![CDATA[
+<mdc-form-field>
+  <mdc-checkbox [disabled]="true"></mdc-checkbox>
+  <label>Checkbox is disabled</label>
+</mdc-form-field>
+]]></pre>
   </div>
 </div>

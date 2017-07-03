@@ -74,7 +74,7 @@
   </div>
   <h1 mdc-typography-headline>Examples</h1>
   <div fxLayout="column" class="mdc-padding">
-    <p>Change opening point of the menu</p>
+    <p>Change opening point of menu (openFrom)</p>
     <div fxLayout="row">
       <mdc-form-field>
         <mdc-radio value="TOP_LEFT" (change)="handleChange();" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
@@ -93,7 +93,7 @@
         <label>Bottom Right</label>
       </mdc-form-field>
     </div>
-    <div fxLayout="row" class="mdc-padding">
+    <div fxLayout="column" class="mdc-padding">
       <div mdc-menu-anchor>
         <button mdc-fab (click)="showMenu();">
           <span mdc-fab-icon>person</span>

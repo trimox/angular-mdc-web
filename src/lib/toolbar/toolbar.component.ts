@@ -112,7 +112,9 @@ export class ToolbarComponent implements AfterViewInit, OnDestroy {
     setStyleForFixedAdjustElement: (property: string, value: string) => {
       if (this._platForm.isBrowser) {
         const { _renderer: renderer, _root: root } = this;
-        renderer.setStyle(document.querySelector('.mdc-toolbar-fixed-adjust'), property, value);
+        if (renderer.parentNode(this._root.nativeElement).nextElementSibling) {
+          renderer.setStyle(renderer.parentNode(this._root.nativeElement).nextElementSibling, property, value);
+        }
       }
     }
   };

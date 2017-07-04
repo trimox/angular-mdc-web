@@ -119,7 +119,8 @@ export class ToolbarComponent implements AfterViewInit, OnDestroy {
 
   private _foundation: {
     init: Function,
-    destroy: Function
+    destroy: Function,
+    updateAdjustElementStyles: Function
   } = new MDCToolbarFoundation(this._mdcAdapter);
 
   constructor(
@@ -132,6 +133,10 @@ export class ToolbarComponent implements AfterViewInit, OnDestroy {
   }
   ngOnDestroy() {
     this._foundation.destroy();
+  }
+
+  adjustElementStyles() {
+    this._foundation.updateAdjustElementStyles();
   }
 
   listen_(type: string, listener: EventListener, ref: any) {

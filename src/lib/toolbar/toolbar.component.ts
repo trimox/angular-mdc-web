@@ -67,7 +67,7 @@ export class ToolbarComponent implements AfterViewInit, OnDestroy {
     },
     registerScrollHandler: (handler: EventListener) => {
       if (this._platForm.isBrowser) {
-        window.addEventListener('scroll', handler, util.applyPassive())
+        window.addEventListener('scroll', handler, util.applyPassive());
       }
     },
     deregisterScrollHandler: (handler: EventListener) => {

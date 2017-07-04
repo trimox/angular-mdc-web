@@ -1,5 +1,6 @@
 import {
   Directive,
+  ElementRef,
   HostBinding
 } from '@angular/core';
 
@@ -7,5 +8,7 @@ import {
   selector: 'a[mdc-toolbar-icon], span[mdc-toolbar-icon], button[mdc-toolbar-icon]'
 })
 export class ToolbarIconDirective {
-  @HostBinding('class.mdc-toolbar__icon') className: string = 'mdc-toolbar__icon';
+  @HostBinding('class.mdc-toolbar__icon') isHostClass = true;
+
+  constructor(public elementRef: ElementRef) { }
 }

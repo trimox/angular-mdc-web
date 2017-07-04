@@ -1,5 +1,6 @@
 import {
   Directive,
+  ElementRef,
   HostBinding
 } from '@angular/core';
 
@@ -7,5 +8,7 @@ import {
   selector: '[mdc-toolbar-title], mdc-toolbar-title'
 })
 export class ToolbarTitleDirective {
-  @HostBinding('class.mdc-toolbar__title') className: string = 'mdc-toolbar__title';
+  @HostBinding('class.mdc-toolbar__title') isHostClass = true;
+
+  constructor(public elementRef: ElementRef) { }
 }

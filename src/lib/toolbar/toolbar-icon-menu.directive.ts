@@ -1,5 +1,6 @@
 import {
   Directive,
+  ElementRef,
   HostBinding
 } from '@angular/core';
 
@@ -7,5 +8,7 @@ import {
   selector: 'a[mdc-toolbar-icon-menu], span[mdc-toolbar-icon-menu], button[mdc-toolbar-icon-menu]'
 })
 export class ToolbarIconMenuDirective {
-  @HostBinding('class.mdc-toolbar__icon--menu') className: string = 'mdc-toolbar__icon--menu';
+  @HostBinding('class.mdc-toolbar__icon--menu') isHostClass = true;
+
+  constructor(public elementRef: ElementRef) { }
 }

@@ -1,14 +1,14 @@
 import {
-	Directive,
-	ElementRef,
-	HostBinding
+  Directive,
+  ElementRef,
+  HostBinding
 } from '@angular/core';
 
 @Directive({
-	selector: '[mdc-toolbar-fixed-adjust], mdc-toolbar-fixed-adjust'
+  selector: '[mdc-toolbar-fixed-adjust], mdc-toolbar-fixed-adjust'
 })
 export class ToolbarFixedAdjustDirective {
-	@HostBinding('class.mdc-toolbar-fixed-adjust') isHostClass = true;
+  @HostBinding('class.mdc-toolbar-fixed-adjust') isHostClass = true;
 
-	constructor(public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef) { }
 }

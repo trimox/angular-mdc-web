@@ -1,3 +1,34 @@
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/trimox/angular-mdc-web/compare/v0.1.19...v0.2.0) (2017-07-06)
+
+
+### Code Refactoring
+
+* **toolbar:** Refactor foundation adapter and child directives. ([b3ba3b0](https://github.com/trimox/angular-mdc-web/commit/b3ba3b0))
+
+
+### Features
+
+* **toolbar:** Add foundation updateAdjustElementStyles() public method. ([d06d671](https://github.com/trimox/angular-mdc-web/commit/d06d671))
+* **toolbar:** Fixed toolbars will programmatically set `FixedAdjustElement` style on next node element ([2b7d221](https://github.com/trimox/angular-mdc-web/commit/2b7d221))
+* **docs:** Add getting started walkthrough + developer guide ([f6cdba1](https://github.com/trimox/angular-mdc-web/commit/f6cdba1))
+
+### Performance Improvements
+
+* **infrastructure:** Implement Rollup ES6 module bundling. *Breaking changes* ([ba521d6](https://github.com/trimox/angular-mdc-web/commit/ba521d6))
+
+
+### BREAKING CHANGES
+
+* **toolbar:** [flexibleDefaultBehavior] replaces [flexibleTitle]. Please update your code accordingly.
+* **infrastructure:** We no longer import the SCSS for each component. Please update your code to import the MDC Theme for your application.
+
+The reason we do not import our component SCSS anymore is we need to provide developers flexibility and creativity for theming their apps. For example, if using Angular CLI you can now import the MDC theme.
+```ts
+@import "material-components-web/material-components-web";
+```
+
+
 <a name="0.0.0"></a>
 # [0.1.19](https://github.com/trimox/angular-mdc-web/compare/v0.1.18...v0.1.19) (2017-07-03)
 

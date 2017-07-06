@@ -15,7 +15,6 @@ import {
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Ripple } from '.././ripple/ripple.directive';
 
-const MDC_SWITCH_STYLES = require('@material/switch/mdc-switch.scss');
 const { MDCFormField } = require('@material/form-field');
 
 export const MD_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
@@ -31,8 +30,23 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
 
 @Component({
   selector: 'mdc-switch',
-  styles: [String(MDC_SWITCH_STYLES)],
-  templateUrl: './switch.component.html',
+  template:
+  `
+  <input type="checkbox"
+    #inputEl
+    class="mdc-switch__native-control"
+    [id]="inputId"
+    [tabindex]="tabindex"
+    [attr.aria-label]="ariaLabel"
+    [attr.aria-labelledby]="ariaLabelledby"
+    [(ngModel)]="ngModel"
+    [disabled]="disabled"
+    [checked]="checked"
+    (change)="handleChange($event)"/>
+  <div class="mdc-switch__background">
+    <div class="mdc-switch__knob"></div>
+  </div>
+  `,
   encapsulation: ViewEncapsulation.None,
   providers: [
     MD_SWITCH_CONTROL_VALUE_ACCESSOR

@@ -14,17 +14,15 @@ import {
 import { MDCToolbarAdapter } from './toolbar-adapter';
 import { ToolbarTitleDirective } from './toolbar-title.directive';
 import { ToolbarRowDirective } from './toolbar-row.directive';
-import { Platform } from '../common/platform';
+import { isBrowser } from '../common/platform';
 
 const { MDCToolbarFoundation, util } = require('@material/toolbar');
-const MDC_TOOLBAR_STYLES = require('@material/toolbar/mdc-toolbar.scss');
 
 type UnlistenerMap = WeakMap<EventListener, Function>;
 
 @Component({
   selector: 'mdc-toolbar',
   template: '<ng-content></ng-content>',
-  styles: [String(MDC_TOOLBAR_STYLES)],
   encapsulation: ViewEncapsulation.None
 })
 export class ToolbarComponent implements AfterViewInit, OnDestroy {
@@ -66,30 +64,30 @@ export class ToolbarComponent implements AfterViewInit, OnDestroy {
       this._renderer.removeClass(this._root.nativeElement, className);
     },
     registerScrollHandler: (handler: EventListener) => {
-      if (this._platForm.isBrowser) {
+      if (isBrowser()) {
         window.addEventListener('scroll', handler, util.applyPassive());
       }
     },
     deregisterScrollHandler: (handler: EventListener) => {
-      if (this._platForm.isBrowser) {
+      if (isBrowser()) {
         window.removeEventListener('scroll', handler, util.applyPassive());
       }
     },
     registerResizeHandler: (handler: EventListener) => {
-      if (this._platForm.isBrowser) {
+      if (isBrowser()) {
         window.addEventListener('resize', handler, util.applyPassive());
       }
     },
     deregisterResizeHandler: (handler: EventListener) => {
-      if (this._platForm.isBrowser) {
+      if (isBrowser()) {
         window.removeEventListener('resize', handler, util.applyPassive());
       }
     },
     getViewportWidth: () => {
-      return this._platForm.isBrowser ? window.innerWidth : 0;
+      return isBrowser() ? window.innerWidth : 0;
     },
     getViewportScrollY: () => {
-      return this._platForm.isBrowser ? window.pageYOffset : 0;
+      return isBrowser() ? window.pageYOffset : 0;
     },
     getOffsetHeight: () => this._root.nativeElement.offsetHeight,
     getFirstRowElementOffsetHeight: () => {
@@ -112,7 +110,7 @@ export class ToolbarComponent implements AfterViewInit, OnDestroy {
       }
     },
     setStyleForFixedAdjustElement: (property: string, value: string) => {
-      if (this._platForm.isBrowser && this.fixed) {
+      if (isBrowser() && this.fixed) {
         this._renderer.setStyle(document.body, property, value);
       }
     }
@@ -126,8 +124,7 @@ export class ToolbarComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef,
-    private _platForm: Platform) { }
+    private _root: ElementRef) { }
 
   ngAfterViewInit() {
     this._foundation.init();

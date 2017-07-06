@@ -3,8 +3,6 @@ import {
   HostBinding,
 } from '@angular/core';
 
-const MDC_TYPOGRAPHY_STYLES = require('@material/typography/mdc-typography.scss');
-
 @Directive({
   selector: '[mdc-typography]'
 })

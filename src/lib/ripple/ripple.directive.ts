@@ -5,7 +5,6 @@
   Renderer2
 } from '@angular/core';
 import { MDCRippleAdapter } from './ripple-adapter';
-import '@material/ripple/mdc-ripple.scss';
 import { supportsCssVariables } from '@material/ripple/util';
 
 const { MDCRippleFoundation } = require('@material/ripple');

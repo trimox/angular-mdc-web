@@ -1,31 +1,36 @@
 ﻿{
  "compilerOptions": {
-  "target": "es6",
-  "module": "commonjs",
+  "target": "es2015",
+  "module": "es2015",
   "moduleResolution": "node",
-  "outDir": "./../../dist",
-  "baseUrl": ".",
-  "rootDir": ".",
-  "allowSyntheticDefaultImports": true,
+  "outDir": "./../../build",
   "declaration": true,
-  "removeComments": true,
+  "baseUrl": ".",
+  "noUnusedParameters": false,
   "sourceMap": true,
+  "importHelpers": true,
   "emitDecoratorMetadata": true,
-  "experimentalDecorators": true,
   "inlineSources": true,
-  "noImplicitAny": false,
-  "suppressImplicitAnyIndexErrors": true,
+  "experimentalDecorators": true,
+  "noEmitHelpers": true,
+  "skipLibCheck": true,
   "typeRoots": ["./../../node_modules/@types"],
-  "noStrictGenericChecks": true
+  "noStrictGenericChecks": true,
+  "lib": [
+    "es6",
+    "dom"
+  ]
  },
- "exclude": [
-  "node_modules",
-  "dist",
-  "src"
- ],
  "files": [
-  "./index.ts"
+  "index.ts"
  ],
  "compileOnSave": false,
- "buildOnSave": false
+ "buildOnSave": false,
+  "angularCompilerOptions": {
+    "skipMetadataEmit" : false,
+    "strictMetadataEmit": true,
+    "skipTemplateCodegen": true,
+    "flatModuleOutFile": "material.js",
+    "flatModuleId": "@angular-mdc/web"
+  }
 }

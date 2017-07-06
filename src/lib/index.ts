@@ -1,43 +1,40 @@
 import { NgModule } from '@angular/core';
 
-import { ThemeModule } from './theme';
-import { ButtonModule } from './button';
-import { CardModule } from './card';
-import { CheckboxModule } from './checkbox';
-import { ElevationModule } from './elevation';
-import { FabModule } from './fab';
-import { PlatformModule } from './common';
-import { FormFieldModule } from './form-field';
-import { LinearProgressModule } from './linear-progress';
-import { MenuModule } from './menu';
-import { RadioModule } from './radio';
-import { RippleModule } from './ripple';
-import { SnackbarModule } from './snackbar';
-import { SwitchModule } from './switch';
-import { TextfieldModule } from './textfield';
-import { ToolbarModule } from './toolbar';
-import { TypographyModule } from './typography';
+import { ButtonModule } from './button/index';
+import { CardModule } from './card/index';
+import { CheckboxModule } from './checkbox/index';
+import { ElevationModule } from './elevation/index';
+import { FabModule } from './fab/index';
+import { FormFieldModule } from './form-field/index';
+import { LinearProgressModule } from './linear-progress/index';
+import { MenuModule } from './menu/index';
+import { RadioModule } from './radio/index';
+import { RippleModule } from './ripple/index';
+import { SnackbarModule } from './snackbar/index';
+import { SwitchModule } from './switch/index';
+import { TextfieldModule } from './textfield/index';
+import { ThemeModule } from './theme/index';
+import { ToolbarModule } from './toolbar/index';
+import { TypographyModule } from './typography/index';
 
-export * from './theme';
-export * from './button';
-export * from './card';
-export * from './checkbox';
-export * from './elevation';
-export * from './fab';
-export * from './common';
-export * from './form-field';
-export * from './linear-progress';
-export * from './menu';
-export * from './radio';
-export * from './ripple';
-export * from './snackbar';
-export * from './switch';
-export * from './textfield';
-export * from './toolbar';
-export * from './typography';
+export * from './button/index';
+export * from './card/index';
+export * from './checkbox/index';
+export * from './elevation/index';
+export * from './fab/index';
+export * from './form-field/index';
+export * from './linear-progress/index';
+export * from './menu/index';
+export * from './radio/index';
+export * from './ripple/index';
+export * from './snackbar/index';
+export * from './switch/index';
+export * from './textfield/index';
+export * from './theme/index';
+export * from './toolbar/index';
+export * from './typography/index';
 
 const MATERIAL_MODULES = [
-	ThemeModule,
 	ButtonModule,
 	CardModule,
 	CheckboxModule,
@@ -46,12 +43,12 @@ const MATERIAL_MODULES = [
 	FormFieldModule,
 	LinearProgressModule,
 	MenuModule,
-	PlatformModule,
 	RadioModule,
 	RippleModule,
 	SnackbarModule,
 	SwitchModule,
 	TextfieldModule,
+	ThemeModule,
 	ToolbarModule,
 	TypographyModule,
 ];

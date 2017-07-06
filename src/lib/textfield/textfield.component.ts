@@ -17,7 +17,6 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { MDCTextfieldAdapter } from './textfield-adapter';
 
 const { MDCTextfieldFoundation } = require('@material/textfield');
-const MDC_TEXTFIELD_STYLES = require('@material/textfield/mdc-textfield.scss');
 
 export const MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
@@ -29,8 +28,47 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
 
 @Component({
   selector: 'mdc-textfield',
-  templateUrl: './textfield.component.html',
-  styles: [String(MDC_TEXTFIELD_STYLES)],
+  template:
+  `
+  <textarea *ngIf="multiline"
+    #input
+    [rows]="rows"
+    [cols]="cols"
+    class="mdc-textfield__input"
+    type="text"
+    [attr.name]="name"
+    [id]="id"
+    [placeholder]="placeholder ? placeholder : ''"
+    [tabindex]="tabindex"
+    [maxlength]="maxlength"
+    [attr.aria-label]="placeholder"
+    (focus)="onFocus($event)"
+    (blur)="onBlur($event)"
+    (input)="onInput($event)"
+    (keydown)="onKeyDown($event)"
+    [(ngModel)]="value"
+    [disabled]="disabled"
+    [required]="required"></textarea>
+  <input *ngIf="!multiline"
+    #input
+    class="mdc-textfield__input"
+    [type]="type"
+    [id]="id"
+    [attr.name]="name"
+    [attr.aria-controls]="labelId"
+    [(ngModel)]="value"
+    [placeholder]="placeholder ? placeholder : ''"
+    [tabindex]="tabindex"
+    [maxlength]="maxlength"
+    [disabled]="disabled"
+    [required]="required"
+    [attr.tabindex]="tabindex"
+    (focus)="onFocus($event)"
+    (keydown)="onKeyDown($event)"
+    (blur)="onBlur($event)"
+    (input)="onInput($event)" />
+  <label #inputlabel [attr.for]="id" class="mdc-textfield__label" *ngIf="!placeholder">{{label}}</label>
+`,
   encapsulation: ViewEncapsulation.None,
   providers: [MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR]
 })

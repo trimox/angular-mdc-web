@@ -23,7 +23,7 @@
     "commitmsg": "validate-commit-msg",
     "lint:ts": "tslint 'src/**/*.ts'",
     "lint:css": "stylelint src/**/*.scss --config .stylelint-config.yaml",
-    "test": "npm run lint:ts && npm run lint:css",
+    "lint": "npm run lint:ts && npm run lint:css",
     "server": "webpack-dev-server --config config/webpack/webpack.dev.js --content-base src/demo-app --inline --port 4000",
     "start": "npm run server"
   },

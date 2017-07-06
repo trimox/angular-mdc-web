@@ -7,5 +7,5 @@ import {
   selector: '[mdc-theme-dark]'
 })
 export class ThemeDark {
-  @HostBinding('class.mdc-theme--dark') classThemeDark: string = 'mdc-theme--dark';
+  @HostBinding('class.mdc-theme--dark') isHostClass = true;
 }

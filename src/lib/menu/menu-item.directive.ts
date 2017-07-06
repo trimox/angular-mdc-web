@@ -29,7 +29,7 @@ export class MenuItemDirective {
       this.tabindex = 0;
     }
   }
-  @HostBinding('class.mdc-list-item') className: string = 'mdc-list-item';
+  @HostBinding('class.mdc-list-item') isHostClass = true;
   @HostBinding('attr.role') role: string = 'menuitem';
   @HostBinding('tabindex') tabindex: number = 0;
   itemEl: ElementRef = this._root;

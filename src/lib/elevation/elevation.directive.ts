@@ -13,7 +13,7 @@ import { toNumber } from '../common/number-property';
   selector: '[mdc-elevation-transition]'
 })
 export class ElevationTransition {
-  @HostBinding('class.mdc-elevation-transition') className: string = 'mdc-elevation-transition';
+  @HostBinding('class.mdc-elevation-transition') isHostClass = true;
 }
 
 const MDC_ELEVATION_VALUES = Array.from(Array(25), (x, i) => i);

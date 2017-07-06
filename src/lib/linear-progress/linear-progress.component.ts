@@ -44,7 +44,7 @@ export class LinearProgressComponent implements AfterViewInit {
   }
   @Input() accent: boolean;
   @HostBinding('attr.role') role: string = 'progressbar';
-  @HostBinding('class.mdc-linear-progress') className: string = 'mdc-linear-progress';
+  @HostBinding('class.mdc-linear-progress') isHostClass = true;
   @HostBinding('class.mdc-linear-progress--accent') get classAccent(): string {
     return this.accent ? 'mdc-linear-progress--accent' : '';
   }

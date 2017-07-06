@@ -9,7 +9,7 @@ import {
 })
 export class CardMediaItemDirective {
   @Input() size: number;
-  @HostBinding('class.mdc-card__media-item') className: string = 'mdc-card__media-item';
+  @HostBinding('class.mdc-card__media-item') isHostClass = true;
   @HostBinding('class.mdc-card__media-item--1dot5x') get classMediaItemOne(): string {    
     return this.size === 1 ? 'mdc-card__media-item--1x' : '';
   }

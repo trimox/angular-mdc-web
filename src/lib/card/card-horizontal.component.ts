@@ -10,5 +10,5 @@ import {
   encapsulation: ViewEncapsulation.None
 })
 export class CardHorizontalComponent {
-  @HostBinding('class.mdc-card__horizontal-block') className: string = 'mdc-card__horizontal-block';
+  @HostBinding('class.mdc-card__horizontal-block') isHostClass = true;
 }

@@ -10,5 +10,5 @@ import {
   encapsulation: ViewEncapsulation.None
 })
 export class CardMediaComponent {
-  @HostBinding('class.mdc-card__media') className: string = 'mdc-card__media';
+  @HostBinding('class.mdc-card__media') isHostClass = true;
 }

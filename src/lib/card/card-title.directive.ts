@@ -9,7 +9,7 @@ import {
 })
 export class CardTitleDirective {
   @Input() large: boolean = true;
-  @HostBinding('class.mdc-card__title') className: string = 'mdc-card__title';
+  @HostBinding('class.mdc-card__title') isHostClass = true;
   @HostBinding('class.mdc-card__title--large') get classTitleLarge(): string {
      return this.large ? 'mdc-card__title--large' : '';
   }

@@ -9,7 +9,7 @@ import {
 })
 export class CardActionsDirective {
   @Input() vertical: boolean;
-  @HostBinding('class.mdc-card__actions') className: string = 'mdc-card__actions';
+  @HostBinding('class.mdc-card__actions') isHostClass = true;
   @HostBinding('class.mdc-card__actions--vertical') get classCardActionVertical(): string {
     return this.vertical ? 'mdc-card__actions--vertical' : '';
   }

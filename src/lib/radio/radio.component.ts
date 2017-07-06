@@ -83,7 +83,7 @@ export class RadioComponent implements AfterViewInit, OnDestroy {
   @Input('aria-label') ariaLabel: string;
   @Input('aria-labelledby') ariaLabelledby: string;
   @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
-  @HostBinding('class.mdc-radio') className: string = 'mdc-radio';
+  @HostBinding('class.mdc-radio') isHostClass = true;
   @ViewChild('inputEl') inputEl: ElementRef;
 
   onTouched: () => any = () => { };

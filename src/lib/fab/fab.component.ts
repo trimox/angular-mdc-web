@@ -23,7 +23,7 @@ export class FabComponent {
   @HostBinding('tabindex') get tabindex(): number {
     return this.disabled ? -1 : 0;
   }
-  @HostBinding('class.mdc-fab') className: string = 'mdc-fab';
+  @HostBinding('class.mdc-fab') isHostClass = true;
   @HostBinding('class.material-icons') classMaterialIcons: string = 'material-icons';
   @HostBinding('class.mdc-fab--mini') get classMini(): string {
     return this.mini ? 'mdc-fab--mini' : '';

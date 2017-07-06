@@ -7,5 +7,5 @@ import {
   selector: '[mdc-card-supporting-text], mdc-card-supporting-text'
 })
 export class CardSupportingTextDirective {
-  @HostBinding('class.mdc-card__supporting-text') className: string = 'mdc-card__supporting-text';
+  @HostBinding('class.mdc-card__supporting-text') isHostClass = true;
 }

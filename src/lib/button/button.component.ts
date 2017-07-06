@@ -31,7 +31,7 @@ export class ButtonComponent {
   @HostBinding('attr.type') get attrType(): string {
     return this.type ? this.type : 'button';
   }
-  @HostBinding('class.mdc-button') className: string = 'mdc-button';
+  @HostBinding('class.mdc-button') isHostClass = true;
   @HostBinding('class.mdc-button--raised') get classRaised(): string {
     return this.raised ? 'mdc-button--raised' : '';
   }

@@ -9,19 +9,28 @@
 Our Angular library integrates with [Google's Material Design Components](https://material.io/components/), providing a faithful and accurate representation of Material Design as it is envisioned on the web platform by Google's Material Design team. Our goal is to equip Angular developers with modular, straightforward and production-ready Material Design components.
 
 ### Quick Links
-*  [Contributing](https://github.com/trimox/angular-mdc-web/blob/master/CONTRIBUTING.md)
 *  [Changelog](https://github.com/trimox/angular-mdc-web/blob/master/CHANGELOG.md)
+*  [Contributing](https://github.com/trimox/angular-mdc-web/blob/master/CONTRIBUTING.md)
+*  [Developer guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/developer.md)
+*  [Demo App](https://trimox.github.io/angular-mdc-web/)
+*  [Getting Started guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md)
 *  [Gitter Chat](https://gitter.im/angular-mdc/Lobby)
+*  [StackOverflow](https://stackoverflow.com/questions/tagged/angular-mdc) `tag: angular-mdc`
 
-## Installation
+## Install Angular MDC
 ```
 npm install --save @angular-mdc/web
+```
+
+## Updating Angular MDC version
+```
+npm update
 ```
 
 ## Getting started
 Check out our [Getting Started guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md) to begin adopting  Angular MDC in your project.
 
-### Material Design Components
+## Material Design Components
 * WIP = work in progress
 * TBI = to be implemented
 
@@ -30,13 +39,13 @@ Check out our [Getting Started guide](https://github.com/trimox/angular-mdc-web/
 | button | Available |
 | card | Available |
 | checkbox | Available |
-| dialog | TBI |
-| drawer | TBI |
+| dialog | WIP |
+| drawer | WIP |
 | elevation | Available |
 | fab | Available |
 | form-field | Available |
 | grid-list | TBI |
-| icon-toggle | TBI |
+| icon-toggle | WIP |
 | linear-progress | Available |
 | list | TBI |
 | menu | Available |
@@ -52,18 +61,15 @@ Check out our [Getting Started guide](https://github.com/trimox/angular-mdc-web/
 | toolbar | Available |
 | typography | Available |
 
-## Running the demo app
+## Developing Angular MDC
+Want to develop your own components or change existing ones? Check out our [Developer guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/developer.md).
 
-Clone and install repo:
-```
-git clone https://github.com/trimox/angular-mdc-web.git && cd angular-mdc-web
-npm i
-```
-
-Run the webpack development server (content served from `src/demo-app/`):
-```
-cd /path/to/angular-mdc-web
-npm run start
-open http://localhost:4000
-```
-
+## Browser Support
+We officially support the last two versions of every major browser.
+* Chrome
+* Safari
+* Firefox
+* IE 11/Edge
+* Opera
+* Mobile Safari
+* Chrome on Android

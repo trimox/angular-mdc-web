@@ -1,4 +1,4 @@
 ﻿<navbar></navbar>
-<div mdc-toolbar-fixed-adjust>
-	<router-outlet></router-outlet>
+<div #scrollContainer>
+  <router-outlet (activate)="onActivate($event, scrollContainer)"></router-outlet>
 </div>

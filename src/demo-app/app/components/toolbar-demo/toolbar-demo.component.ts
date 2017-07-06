@@ -8,6 +8,12 @@ import {
   templateUrl: './toolbar-demo.component.html'
 })
 export class ToolbarDemoComponent implements OnInit {
+  isFixed = false;
+  isFlexible = false;
+  isWaterfall = false;
+  isFixedLastRow = false;
+  flexibleExpansionRatio: number;
+
   ngOnInit() {
     let doc = <HTMLDivElement>document.body;
     let script = document.createElement('script');
@@ -16,5 +22,9 @@ export class ToolbarDemoComponent implements OnInit {
     script.async = true;
     script.defer = true;
     doc.appendChild(script);
+  }
+
+  handleToolbarChange(evt) {
+    this.flexibleExpansionRatio = evt;
   }
 }

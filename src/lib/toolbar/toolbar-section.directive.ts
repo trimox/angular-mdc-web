@@ -12,7 +12,7 @@ export class ToolbarSectionDirective {
   @Input() alignStart: boolean;
   @Input() alignEnd: boolean;
   @Input() shrinkToFit: boolean;
-  @HostBinding('class.mdc-toolbar__section') className: string = 'mdc-toolbar__section';
+  @HostBinding('class.mdc-toolbar__section') isHostClass = true;
   @HostBinding('class.mdc-toolbar__section--align-start') get classAlignStart(): string {
     return this.alignStart ? 'mdc-toolbar__section--align-start' : '';
   }

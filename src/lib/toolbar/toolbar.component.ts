@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  ContentChild,
   ElementRef,
   EventEmitter,
   HostBinding,
@@ -8,14 +9,14 @@ import {
   OnDestroy,
   Output,
   Renderer2,
-  ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 import { MDCToolbarAdapter } from './toolbar-adapter';
 import { ToolbarTitleDirective } from './toolbar-title.directive';
+import { ToolbarRowDirective } from './toolbar-row.directive';
 import { Platform } from '../common/platform';
 
-const { MDCToolbarFoundation } = require('@material/toolbar');
+const { MDCToolbarFoundation, util } = require('@material/toolbar');
 const MDC_TOOLBAR_STYLES = require('@material/toolbar/mdc-toolbar.scss');
 
 type UnlistenerMap = WeakMap<EventListener, Function>;
@@ -28,12 +29,14 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
 })
 export class ToolbarComponent implements AfterViewInit, OnDestroy {
   @Input() flexible: boolean;
-  @Input() flexibleTitle: boolean = true;
+  @Input() flexibleDefaultBehavior: boolean = true;
   @Input() fixed: boolean;
   @Input() waterfall: boolean;
   @Input() fixedLastrow: boolean;
   @Output() change: EventEmitter<number> = new EventEmitter<number>();
-  @HostBinding('class.mdc-toolbar') className: string = 'mdc-toolbar';
+  @ContentChild(ToolbarRowDirective) mdcFirstRow;
+  @ContentChild(ToolbarTitleDirective) mdcTitle;
+  @HostBinding('class.mdc-toolbar') isHostClass = true;
   @HostBinding('class.mdc-toolbar--fixed') get classFixedToolbar(): string {
     return this.fixed ? 'mdc-toolbar--fixed' : '';
   }
@@ -46,42 +49,41 @@ export class ToolbarComponent implements AfterViewInit, OnDestroy {
   @HostBinding('class.mdc-toolbar--fixed-lastrow-only') get classFixedLastrow(): string {
     return this.fixedLastrow ? 'mdc-toolbar--fixed-lastrow-only' : '';
   }
-  @HostBinding('class.mdc-toolbar--flexible-default-behavior') get classFlexibleTitle(): string {
-    return this.flexible && this.flexibleTitle ? 'mdc-toolbar--flexible-default-behavior' : '';
+  @HostBinding('class.mdc-toolbar--flexible-default-behavior') get classFlexibleDefaultBehavior(): string {
+    return this.flexible && this.flexibleDefaultBehavior ? 'mdc-toolbar--flexible-default-behavior' : '';
   }
-  @ViewChild(ToolbarTitleDirective) titleEl: ElementRef;
 
   private _unlisteners: Map<string, UnlistenerMap> = new Map<string, UnlistenerMap>();
 
   private _mdcAdapter: MDCToolbarAdapter = {
     hasClass: (className: string) => {
-      const { _root: root } = this;
-      return root.nativeElement.classList.contains(className);
+      return this._root.nativeElement.classList.contains(className);
     },
     addClass: (className: string) => {
-      const { _renderer: renderer, _root: root } = this;
-      renderer.addClass(root.nativeElement, className);
+      this._renderer.addClass(this._root.nativeElement, className);
     },
     removeClass: (className: string) => {
-      const { _renderer: renderer, _root: root } = this;
-      renderer.removeClass(root.nativeElement, className);
+      this._renderer.removeClass(this._root.nativeElement, className);
     },
     registerScrollHandler: (handler: EventListener) => {
-      if (this._root && this._platForm.isBrowser) {
-        this.listen_('scroll', handler, window);
+      if (this._platForm.isBrowser) {
+        window.addEventListener('scroll', handler, util.applyPassive());
       }
     },
     deregisterScrollHandler: (handler: EventListener) => {
-      this.unlisten_('scroll', handler);
+      if (this._platForm.isBrowser) {
+        window.removeEventListener('scroll', handler, util.applyPassive());
+      }
     },
     registerResizeHandler: (handler: EventListener) => {
-      const { _renderer: renderer, _root: root } = this;
-      if (this._root) {
-        this.listen_('resize', handler, renderer.parentNode(root.nativeElement));
+      if (this._platForm.isBrowser) {
+        window.addEventListener('resize', handler, util.applyPassive());
       }
     },
     deregisterResizeHandler: (handler: EventListener) => {
-      this.unlisten_('resize', handler);
+      if (this._platForm.isBrowser) {
+        window.removeEventListener('resize', handler, util.applyPassive());
+      }
     },
     getViewportWidth: () => {
       return this._platForm.isBrowser ? window.innerWidth : 0;
@@ -91,35 +93,35 @@ export class ToolbarComponent implements AfterViewInit, OnDestroy {
     },
     getOffsetHeight: () => this._root.nativeElement.offsetHeight,
     getFirstRowElementOffsetHeight: () => {
-      const { _root: root } = this;
-      return root.nativeElement.querySelector(MDCToolbarFoundation.strings.FIRST_ROW_SELECTOR).offsetHeight;
+      return this.mdcFirstRow ? this.mdcFirstRow.elementRef.nativeElement.offsetHeight : 0;
     },
-    notifyChange: (evtData) => {
+    notifyChange: (evtData: { flexibleExpansionRatio: number }) => {
       this.change.emit(evtData.flexibleExpansionRatio);
     },
     setStyle: (property: string, value: string) => {
-      const { _renderer: renderer, _root: root } = this;
-      renderer.setStyle(root.nativeElement, property, value);
+      this._renderer.setStyle(this._root.nativeElement, property, value);
     },
     setStyleForTitleElement: (property: string, value: string) => {
-      const { _renderer: renderer, _root: root } = this;
-      renderer.setStyle(root.nativeElement.querySelector(MDCToolbarFoundation.strings.TITLE_SELECTOR), property, value);
+      if (this.mdcTitle) {
+        this._renderer.setStyle(this.mdcTitle.elementRef.nativeElement, property, value);
+      }
     },
     setStyleForFlexibleRowElement: (property: string, value: string) => {
-      const { _renderer: renderer, _root: root } = this;
-      renderer.setStyle(root.nativeElement.querySelector(MDCToolbarFoundation.strings.FIRST_ROW_SELECTOR), property, value);
+      if (this.mdcFirstRow) {
+        this._renderer.setStyle(this.mdcFirstRow.elementRef.nativeElement, property, value);
+      }
     },
     setStyleForFixedAdjustElement: (property: string, value: string) => {
-      if (this._platForm.isBrowser) {
-        const { _renderer: renderer, _root: root } = this;
-        renderer.setStyle(document.querySelector('.mdc-toolbar-fixed-adjust'), property, value);
+      if (this._platForm.isBrowser && this.fixed) {
+        this._renderer.setStyle(document.body, property, value);
       }
     }
   };
 
   private _foundation: {
     init: Function,
-    destroy: Function
+    destroy: Function,
+    updateAdjustElementStyles: Function
   } = new MDCToolbarFoundation(this._mdcAdapter);
 
   constructor(
@@ -132,6 +134,10 @@ export class ToolbarComponent implements AfterViewInit, OnDestroy {
   }
   ngOnDestroy() {
     this._foundation.destroy();
+  }
+
+  updateAdjustElementStyles() {
+    this._foundation.updateAdjustElementStyles();
   }
 
   listen_(type: string, listener: EventListener, ref: any) {

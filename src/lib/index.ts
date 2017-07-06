@@ -35,30 +35,30 @@ export * from './toolbar/index';
 export * from './typography/index';
 
 const MATERIAL_MODULES = [
-	ButtonModule,
-	CardModule,
-	CheckboxModule,
-	ElevationModule,
-	FabModule,
-	FormFieldModule,
-	LinearProgressModule,
-	MenuModule,
-	RadioModule,
-	RippleModule,
-	SnackbarModule,
-	SwitchModule,
-	TextfieldModule,
-	ThemeModule,
-	ToolbarModule,
-	TypographyModule,
+  ButtonModule,
+  CardModule,
+  CheckboxModule,
+  ElevationModule,
+  FabModule,
+  FormFieldModule,
+  LinearProgressModule,
+  MenuModule,
+  RadioModule,
+  RippleModule,
+  SnackbarModule,
+  SwitchModule,
+  TextfieldModule,
+  ThemeModule,
+  ToolbarModule,
+  TypographyModule,
 ];
 
 @NgModule({
-	imports: [
-		MATERIAL_MODULES
-	],
-	exports: [
-		MATERIAL_MODULES
-	]
+  imports: [
+    MATERIAL_MODULES
+  ],
+  exports: [
+    MATERIAL_MODULES
+  ]
 })
 export class MaterialModule { }

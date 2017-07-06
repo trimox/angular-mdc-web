@@ -15,12 +15,10 @@ import {
 } from '@angular/core';
 import { MDCMenuAdapter } from './menu-adapter';
 import { MenuItemDirective } from './menu-item.directive';
-import { Platform } from '../common/platform';
+import { isBrowser } from '../common/platform';
 
 const { MDCSimpleMenuFoundation } = require('@material/menu/simple');
 const { getTransformPropertyName } = require('@material/menu/util');
-const MDC_MENU_STYLES = require('@material/menu/mdc-menu.scss');
-const MDC_LIST_STYLES = require('@material/list/mdc-list.scss');
 
 export enum MDC_OPEN_FROM {
   TOP_LEFT = 'mdc-simple-menu--open-from-top-left',
@@ -33,8 +31,12 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
 
 @Component({
   selector: 'mdc-menu',
-  templateUrl: './menu.component.html',
-  styles: [String(MDC_MENU_STYLES), String(MDC_LIST_STYLES)],
+  template:
+  `
+  <ul #menuContainer class="mdc-simple-menu__items mdc-list" role="menu" aria-hidden="true">
+   <ng-content select="mdc-menu-item, mdc-menu-divider"></ng-content>
+  </ul>
+  `,
   encapsulation: ViewEncapsulation.None
 })
 export class MenuComponent implements AfterViewInit, OnDestroy {
@@ -54,52 +56,45 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
 
   private _mdcAdapter: MDCMenuAdapter = {
     addClass: (className: string) => {
-      const { _renderer: renderer, _root: root } = this;
-      renderer.addClass(root.nativeElement, className);
+      this._renderer.addClass(this._root.nativeElement, className);
     },
     removeClass: (className: string) => {
-      const { _renderer: renderer, _root: root } = this;
-      renderer.removeClass(root.nativeElement, className);
+      this._renderer.removeClass(this._root.nativeElement, className);
     },
     getAttributeForEventTarget: (target: any, attributeName) => {
       return target.getAttribute(attributeName);
     },
     hasClass: (className: string) => {
-      const { _root: root } = this;
-      return root.nativeElement.classList.contains(className);
+      return this._root.nativeElement.classList.contains(className);
     },
     hasNecessaryDom: () => Boolean(this.menuContainerEl),
     getInnerDimensions: () => {
-      const { _root: root } = this;
       return {
-        width: root.nativeElement.offsetWidth,
-        height: root.nativeElement.offsetHeight
+        width: this._root.nativeElement.offsetWidth,
+        height: this._root.nativeElement.offsetHeight
       };
     },
     hasAnchor: () => {
-      const { _renderer: renderer, _root: root } = this;
-      return renderer.parentNode(root.nativeElement) && renderer.parentNode(root.nativeElement).classList.contains('mdc-menu-anchor');
+      return this._renderer.parentNode(this._root.nativeElement) && this._renderer.parentNode(this._root.nativeElement).classList.contains('mdc-menu-anchor');
     },
     getAnchorDimensions: () => {
-      const { _renderer: renderer, _root: root } = this;
-      return renderer.parentNode(root.nativeElement).getBoundingClientRect();
+      return this._renderer.parentNode(this._root.nativeElement).getBoundingClientRect();
     },
     getWindowDimensions: () => {
       return {
-        width: this._platForm.isBrowser ? window.innerWidth : 0,
-        height: this._platForm.isBrowser ? window.innerHeight : 0
+        width: isBrowser() ? window.innerWidth : 0,
+        height: isBrowser() ? window.innerHeight : 0
       };
     },
     setScale: (x: number, y: number) => {
-      if (this._platForm.isBrowser) {
+      if (isBrowser()) {
         const { _renderer: renderer, _root: root } = this;
         renderer.setStyle(root.nativeElement, getTransformPropertyName(window), `scale(${x}, ${y})`);
       }
     },
     setInnerScale: (x: number, y: number) => {
-      if (this._platForm.isBrowser) {
-        const { _renderer: renderer, _root: root } = this;
-        renderer.setStyle(this.menuContainerEl.nativeElement, getTransformPropertyName(window), `scale(${x}, ${y})`);
+      if (isBrowser()) {
+        this._renderer.setStyle(this.menuContainerEl.nativeElement, getTransformPropertyName(window), `scale(${x}, ${y})`);
       }
     },
     getNumberOfItems: () => {
@@ -126,8 +121,7 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
       return { top, height };
     },
     setTransitionDelayForItemAtIndex: (index: number, value: string) => {
-      const { _renderer: renderer, _root: root } = this;
-      renderer.setStyle(this.menuItems.toArray()[index].itemEl.nativeElement, 'transition-delay', value);
+      this._renderer.setStyle(this.menuItems.toArray()[index].itemEl.nativeElement, 'transition-delay', value);
     },
     getIndexForEventTarget: (target: EventTarget) => {
       return this.menuItems.toArray().findIndex((_) => _.itemEl.nativeElement === target);
@@ -139,7 +133,7 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
       this.cancel.emit();
     },
     saveFocus: () => {
-      if (this._platForm.isBrowser) {
+      if (isBrowser()) {
         this.previousFocus_ = document.activeElement;
       }
     },
@@ -149,33 +143,29 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
       }
     },
     isFocused: () => {
-      const { _root: root } = this;
-      return root.nativeElement.ownerDocument.activeElement === root.nativeElement;
+      return this._root.nativeElement.ownerDocument.activeElement === this._root.nativeElement;
     },
     focus: () => {
       this._root.nativeElement.focus();
     },
     getFocusedItemIndex: () => {
-      const { _root: root } = this;
       return this.menuItems.length ? this.menuItems.toArray().findIndex(_ =>
-        _.itemEl.nativeElement === root.nativeElement.ownerDocument.activeElement) : -1;
+        _.itemEl.nativeElement === this._root.nativeElement.ownerDocument.activeElement) : -1;
     },
     focusItemAtIndex: (index: number) => {
-      const { _root: root } = this;
       if (this.menuItems.toArray()[index] !== undefined) {
         this.menuItems.toArray()[index].itemEl.nativeElement.focus();
       } else {
         // set focus back to root element when index is undefined
-        root.nativeElement.focus();
+        this._root.nativeElement.focus();
       }
     },
     isRtl: () => { /* TODO */
       return false;
     },
     setTransformOrigin: (origin: string) => {
-      if (this._platForm.isBrowser) {
-        const { _renderer: renderer, _root: root } = this;
-        renderer.setStyle(root.nativeElement, `${getTransformPropertyName(window)}-origin`, origin);
+      if (isBrowser()) {
+        this._renderer.setStyle(this._root.nativeElement, `${getTransformPropertyName(window)}-origin`, origin);
       }
     },
     setPosition: (position) => {
@@ -186,7 +176,7 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
       position.bottom ? renderer.setStyle(root.nativeElement, 'bottom', 0) : renderer.removeStyle(root.nativeElement, 'bottom');
     },
     getAccurateTime: () => {
-      return this._platForm.isBrowser ? window.performance.now() : Date.now();
+      return isBrowser() ? window.performance.now() : Date.now();
     }
   };
 
@@ -200,8 +190,7 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef,
-    private _platForm: Platform) { }
+    private _root: ElementRef) { }
 
   ngAfterViewInit() {
     this._foundation.init();

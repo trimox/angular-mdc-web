@@ -19,7 +19,6 @@ import { Ripple } from '.././ripple/ripple.directive';
 
 const { MDCFormField } = require('@material/form-field');
 const { MDCCheckboxFoundation } = require('@material/checkbox');
-const MDC_CHECKBOX_STYLES = require('@material/checkbox/mdc-checkbox.scss');
 
 let formField_ = null;
 let nextElId_ = 0;
@@ -34,8 +33,32 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
 
 @Component({
   selector: 'mdc-checkbox',
-  templateUrl: './checkbox.component.html',
-  styles: [String(MDC_CHECKBOX_STYLES)],
+  template:
+  `
+  <input type="checkbox"
+    #nativeCb    
+    class="mdc-checkbox__native-control"
+    [id]="inputId"
+    [name]="name"
+    [tabindex]="tabindex"
+    [attr.aria-label]="ariaLabel"
+    [attr.aria-labelledby]="ariaLabelledby"
+    [disabled]="disabled"
+    [checked]="checked"
+    [value]="value"
+    [indeterminate]="indeterminate"
+    (change)="onChange($event)"/>
+  <div class="mdc-checkbox__background">
+    <svg class="mdc-checkbox__checkmark"
+      viewBox="0 0 24 24">
+      <path class="mdc-checkbox__checkmark__path"
+            fill="none"
+            stroke="white"
+            d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+    </svg>
+    <div class="mdc-checkbox__mixedmark"></div>
+  </div>
+  `,
   encapsulation: ViewEncapsulation.None,
   providers: [
     MD_CHECKBOX_CONTROL_VALUE_ACCESSOR

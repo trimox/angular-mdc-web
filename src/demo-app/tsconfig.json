@@ -1,7 +1,7 @@
 ﻿{
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
+    "target": "es2015",
+    "module": "es2015",
     "moduleResolution": "node",
     "outDir": "./publish",
     "sourceMap": true,

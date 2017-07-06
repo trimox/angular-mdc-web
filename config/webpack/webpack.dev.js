@@ -8,7 +8,10 @@ const MDC_DIR = path.resolve(__dirname, 'node_modules', '@material');
 var util = require('./util');
 
 const CSS_LOADER_CONFIG = [{
-  loader: 'css-loader'
+  loader: 'css-loader',
+  options: {
+    minimize: true || { /* CSSNano Options */ }
+  }
 }, {
   loader: 'postcss-loader',
   options: {

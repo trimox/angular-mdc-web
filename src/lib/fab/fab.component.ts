@@ -9,11 +9,8 @@ import {
 } from '@angular/core';
 import { Ripple } from '.././ripple/ripple.directive';
 
-const MDC_FAB_STYLES = require('@material/fab/mdc-fab.scss');
-
 @Component({
   selector: 'button[mdc-fab]',
-  styles: [String(MDC_FAB_STYLES)],
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None
 })

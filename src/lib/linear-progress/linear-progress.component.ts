@@ -10,12 +10,20 @@ import {
 import { MDCLinearProgressAdapter } from './linear-progress-adapter';
 
 const { MDCLinearProgressFoundation } = require('@material/linear-progress');
-const MDC_PROGRESS_STYLES = require('@material/linear-progress/mdc-linear-progress.scss');
 
 @Component({
   selector: 'mdc-linear-progress',
-  templateUrl: './linear-progress.component.html',
-  styles: [String(MDC_PROGRESS_STYLES)],
+  template:
+  `
+  <div class="mdc-linear-progress__buffering-dots"></div>
+  <div class="mdc-linear-progress__buffer"></div>
+  <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+   <span class="mdc-linear-progress__bar-inner"></span>
+  </div>
+  <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+   <span class="mdc-linear-progress__bar-inner"></span>
+  </div>
+  `,
   encapsulation: ViewEncapsulation.None
 })
 export class LinearProgressComponent implements AfterViewInit {

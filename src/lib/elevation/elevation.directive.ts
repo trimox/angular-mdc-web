@@ -9,8 +9,6 @@ import {
 } from '@angular/core';
 import { toNumber } from '../common/number-property';
 
-const MDC_ELEVATION_STYLES = require('@material/elevation/mdc-elevation.scss');
-
 @Directive({
   selector: '[mdc-elevation-transition]'
 })

@@ -19,7 +19,6 @@ import { Ripple } from '.././ripple/ripple.directive';
 
 const { MDCFormField } = require('@material/form-field');
 const { MDCRadioFoundation } = require('@material/radio');
-const MDC_RADIO_STYLES = require('@material/radio/mdc-radio.scss');
 
 let formField_ = null;
 let nextElId_ = 0;
@@ -32,8 +31,25 @@ export const MD_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
 
 @Component({
   selector: 'mdc-radio',
-  templateUrl: './radio.component.html',
-  styles: [String(MDC_RADIO_STYLES)],
+  template:
+  `
+  <input type="radio"
+    #inputEl
+    class="mdc-radio__native-control"
+    [id]="inputId"
+    [name]="name"
+    [attr.aria-label]="ariaLabel"
+    [attr.aria-labelledby]="ariaLabelledby"
+    [disabled]="disabled"
+    [checked]="checked"
+    [value]="value"
+    (change)="onChange($event)"
+    (blur)="onTouched()" />
+    <div class="mdc-radio__background">
+      <div class="mdc-radio__outer-circle"></div>
+      <div class="mdc-radio__inner-circle"></div>
+    </div>
+  `,
   encapsulation: ViewEncapsulation.None,
   providers: [
     MD_RADIO_CONTROL_VALUE_ACCESSOR

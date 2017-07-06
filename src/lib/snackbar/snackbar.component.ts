@@ -8,18 +8,22 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { MDCSnackbarAdapter } from './snackbar-adapter';
-import { Platform } from '../common/platform';
+import { isBrowser } from '../common/platform';
 
 const { MDCSnackbarFoundation } = require('@material/snackbar');
 const { getCorrectEventName } = require('@material/animation');
-const MDC_SNACKBAR_STYLES = require('@material/snackbar/mdc-snackbar.scss');
 
 type UnlistenerMap = WeakMap<EventListener, Function>;
 
 @Component({
   selector: 'mdc-snackbar',
-  templateUrl: './snackbar.component.html',
-  styles: [String(MDC_SNACKBAR_STYLES)],
+  template:
+  `
+  <div class="mdc-snackbar__text">{{message}}</div>
+  <div class="mdc-snackbar__action-wrapper">
+    <button type="button" class="mdc-button mdc-snackbar__action-button" aria-hidden>{{actionText}}</button>
+  </div>
+  `,
   encapsulation: ViewEncapsulation.None
 })
 export class SnackbarComponent implements AfterViewInit, OnDestroy {
@@ -72,12 +76,12 @@ export class SnackbarComponent implements AfterViewInit, OnDestroy {
       this.unlisten_('click', handler);
     },
     registerTransitionEndHandler: (handler: EventListener) => {
-      if (this._root && this._platForm.isBrowser) {
+      if (this._root && isBrowser()) {
         this.listen_(getCorrectEventName(window, 'transitionend'), handler);
       }
     },
     deregisterTransitionEndHandler: (handler: EventListener) => {
-      if (this._platForm.isBrowser) {
+      if (isBrowser()) {
         this.unlisten_(getCorrectEventName(window, 'transitionend'), handler);
       }
     }
@@ -92,8 +96,7 @@ export class SnackbarComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef,
-    private _platForm: Platform) { }
+    private _root: ElementRef) { }
 
   ngAfterViewInit() {
     this._foundation.init();

@@ -12,12 +12,10 @@ import { MDCFormFieldAdapter } from './form-field-adapter';
 import { CheckboxComponent } from '.././checkbox/checkbox.component';
 
 const { MDCFormField, MDCFormFieldFoundation } = require('@material/form-field');
-const MDC_FORM_FIELD_STYLES = require('@material/form-field/mdc-form-field.scss');
 
 @Component({
   selector: 'mdc-form-field',
   template: '<ng-content></ng-content>',
-  styles: [String(MDC_FORM_FIELD_STYLES)],
 })
 export class FormFieldComponent implements AfterViewInit, OnDestroy {
   input: any;

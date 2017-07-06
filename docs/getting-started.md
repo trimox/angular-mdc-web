@@ -29,6 +29,12 @@ import { FabModule, MenuModule } from '@angular-mdc/web';
 export class ExampleModule { }
 ```
 
+### Include Material Design Components Theme (required)
+Apply the MDC theme to all core components.
+```ts
+@import "material-components-web/material-components-web";
+```
+
 ### Use Material Design Icons
 Add the [Material Design Icons](https://material.io/icons/) collection to your `index.html`.
 
@@ -41,9 +47,11 @@ Add the Roboto font with 300, 400 and 500 weights to your `index.html`.
 
 ```html
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-  ```
+ ```
+ 
 ### Apply MDC Typography
 Add the `mdc-typography` directive to your body element to define basic properties for text, such as the Roboto typeface and antialiasing settings.
+
 ```html
 <body mdc-typography>
 ```

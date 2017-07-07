@@ -10,7 +10,7 @@ import {
 import { Ripple } from '.././ripple/ripple.directive';
 
 @Component({
-  selector: 'button[mdc-fab]',
+  selector: 'button[mdc-fab], a[mdc-fab]',
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None
 })

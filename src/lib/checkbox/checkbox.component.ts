@@ -110,12 +110,10 @@ export class CheckboxComponent implements AfterViewInit, OnDestroy {
 
   private _mdcAdapter: MDCCheckboxAdapter = {
     addClass: (className: string) => {
-      const { _renderer: renderer, _root: root } = this;
-      renderer.addClass(root.nativeElement, className);
+      this._renderer.addClass(this._root.nativeElement, className);
     },
     removeClass: (className: string) => {
-      const { _renderer: renderer, _root: root } = this;
-      renderer.removeClass(root.nativeElement, className);
+      this._renderer.removeClass(this._root.nativeElement, className);
     },
     registerAnimationEndHandler: (handler: EventListener) => {
       if (this._root) {
@@ -141,7 +139,7 @@ export class CheckboxComponent implements AfterViewInit, OnDestroy {
         return this._root.nativeElement.offsetWidth;
       }
     },
-    isAttachedToDOM: () => Boolean(this._root)
+    isAttachedToDOM: () => !!this._root
   };
 
   private _foundation: {

@@ -8,6 +8,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { Ripple } from '.././ripple/ripple.directive';
+import { toBoolean } from '../common/boolean-property';
 
 @Component({
   selector: 'button[mdc-fab], a[mdc-fab]',
@@ -15,11 +16,21 @@ import { Ripple } from '.././ripple/ripple.directive';
   encapsulation: ViewEncapsulation.None
 })
 export class FabComponent {
+  private _disabled: boolean = false;
   ripple: Ripple;
 
-  @Input() disabled: string;
   @Input() mini: boolean;
   @Input() plain: boolean;
+  @Input()
+  get disabled() { return this._disabled; }
+  set disabled(value) {
+    this._disabled = toBoolean(value);
+    if (this._disabled) {
+      this._renderer.setAttribute(this._root.nativeElement, "disabled", 'true');
+    } else {
+      this._renderer.removeAttribute(this._root.nativeElement, "disabled");
+    }
+  }
   @HostBinding('tabindex') get tabindex(): number {
     return this.disabled ? -1 : 0;
   }

@@ -28,6 +28,11 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
 })
 export class SnackbarComponent implements AfterViewInit, OnDestroy {
   @Input() alignStart: boolean;
+  @Input()
+  get dismissOnAction() { return this._foundation.dismissesOnAction(); }
+  set dismissOnAction(value) {
+    this._foundation.setDismissOnAction(value);
+  }
   private message: string;
   private actionText: string;
   @HostBinding('class.mdc-snackbar') isHostClass = true;

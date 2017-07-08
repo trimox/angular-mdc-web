@@ -18,7 +18,7 @@ Development Server
 - [WebPack](https://webpack.js.org/)
   - Fast, modern development environment (incremental compilation, source maps, live reloading, etc.)
 
-## <a name="setup"></a> Setup up your development environment
+## <a name="setup"></a> Setup your development environment
 You'll need a recent version of nodejs.
 ```
 npm i npm@latest -g
@@ -36,7 +36,7 @@ Run a webpack-dev-server instance that should assist with initial development. (
 cd /path/to/angular-mdc-web
 npm run start
 ```
-Open your browser to http://localhost:4000
+After your development server is running, open a browser to url: http://localhost:4000
 
 ## <a name="lint"></a> Linting / Testing
 ```
@@ -51,7 +51,7 @@ npm run build # Builds Angular MDC inside of dist/
 ```
 
 ## <a name="code-style"></a> Code Style
-Our entire coding style is enforced automatically through the use of linters. We also follow [Google's JavaScript Style Guide](https://google.github.io/styleguide/jsguide.html).
+We follow [Google's JavaScript Style Guide](https://google.github.io/styleguide/jsguide.html) and our entire coding style is enforced automatically through the use of linters.
 * [tslint rules](https://github.com/trimox/angular-mdc-web/blob/master/tslint.json)
 * [stylelint config](https://github.com/trimox/angular-mdc-web/blob/master/.stylelint-config.yaml)
 

@@ -2,10 +2,10 @@ Follow these steps to begin begin adopting Angular MDC.
 
  - [Step 1 - Install Angular MDC](#step1)
  - [Step 2 - Import Components](#step2)
- - [Step 3 - MDC Theme](#step3)
- - [Step 4 - Material Design Icons](#step4)
- - [Step 5 - Roboto Font](#step5)
- - [Step 6 - Typography](#step6)
+ - [Step 3 - Apply MDC Theme](#step3)
+ - [Step 4 - Include Material Design Icons](#step4)
+ - [Step 5 - Include Roboto Font](#step5)
+ - [Step 6 - Apply MDC Typography](#step6)
  - [Appendix - Sample index.html](#sample-html)
  - [Appendix - Configuring SystemJS](#config-systemjs)
 
@@ -39,7 +39,7 @@ import { FabModule, MenuModule } from '@angular-mdc/web';
 export class ExampleModule { }
 ```
 
-## <a name="step3"></a> Step 3: MDC Theme
+## <a name="step3"></a> Step 3: Apply MDC Theme
 Including the MDC theme is required to apply all of the core and theme styles to your application.
 
 If you're using the Angular CLI, you can add this to your styles.css:
@@ -56,21 +56,21 @@ Or link directly to the node_modules file.
 <link href="node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
 ```
 
-## <a name="step4"></a> Step 4: Material Design Icons
+## <a name="step4"></a> Step 4: Include Material Design Icons
 Add the [Material Design Icons](https://material.io/icons/) collection to your `index.html`.
 
 ```html
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 ```
 
-## <a name="step5"></a> Step 5: Roboto Font
+## <a name="step5"></a> Step 5: Include Roboto Font
 Add the Roboto font with 300, 400 and 500 weights to your `index.html`.
 
 ```html
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
 ```
 
-## <a name="step6"></a> Step 6: Typography (optional)
+## <a name="step6"></a> Step 6: Apply MDC Typography
 Add the `mdc-typography` directive to your body element to define basic properties for text, such as the Roboto typeface and antialiasing settings throughout your app.
 
 ```html
@@ -83,9 +83,12 @@ Add the `mdc-typography` directive to your body element to define basic properti
 <html>
   <head>
     <title>Angular MDC</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://unpkg.com/material-components-web/dist/material-components-web.css" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link
+      href="https://unpkg.com/material-components-web/dist/material-components-web.css" rel="stylesheet">
   </head>
   <body mdc-typography>
     <!--page content-->

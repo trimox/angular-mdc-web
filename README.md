@@ -1,4 +1,4 @@
-## Angular MDC
+# Angular MDC
 
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angular-mdc/Lobby)
 [![Build Status](https://travis-ci.org/trimox/angular-mdc-web.svg?branch=master)](https://travis-ci.org/trimox/angular-mdc-web)
@@ -12,7 +12,7 @@ Our Angular library integrates with [Google's Material Design Components](https:
 *  [Changelog](https://github.com/trimox/angular-mdc-web/blob/master/CHANGELOG.md)
 *  [Contributing](https://github.com/trimox/angular-mdc-web/blob/master/CONTRIBUTING.md)
 *  [Developer guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/developer.md)
-*  [Demo App](https://trimox.github.io/angular-mdc-web/)
+*  [Demo app](https://trimox.github.io/angular-mdc-web/)
 *  [Getting Started guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md)
 *  [Gitter Chat](https://gitter.im/angular-mdc/Lobby)
 *  [StackOverflow](https://stackoverflow.com/questions/tagged/angular-mdc) `tag: angular-mdc`
@@ -22,9 +22,9 @@ Our Angular library integrates with [Google's Material Design Components](https:
 npm install --save @angular-mdc/web
 ```
 
-## Updating Angular MDC version
+### Update Angular MDC version
 ```
-npm update
+npm update @angular-mdc/web
 ```
 
 ## Getting started
@@ -34,32 +34,32 @@ Check out our [Getting Started guide](https://github.com/trimox/angular-mdc-web/
 * WIP = work in progress
 * TBI = to be implemented
 
-| Component | Status        |
-| ----------------- | --------------|
-| button | Available |
-| card | Available |
-| checkbox | Available |
-| dialog | WIP |
-| drawer | WIP |
-| elevation | Available |
-| fab | Available |
-| form-field | Available |
-| grid-list | TBI |
-| icon-toggle | WIP |
-| linear-progress | Available |
-| list | TBI |
-| menu | Available |
-| radio | Available |
-| ripple | Available |
-| select | TBI |
-| slider | TBI |
-| snackbar | Available |
-| switch | Available |
-| tabs | TBI |
-| textfield | Available |
-| theme | WIP |
-| toolbar | Available |
-| typography | Available |
+| Component  | Status  | Demo |
+| ---------- | ------- | :------: |
+| button | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/button-demo) |
+| card | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/card-demo) |
+| checkbox | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/checkbox-demo) |
+| dialog | WIP ||
+| drawer | WIP ||
+| elevation | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/elevation-demo) |
+| fab | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/fab-demo) |
+| form-field | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/form-field-demo) |
+| grid-list | TBI ||
+| icon-toggle | WIP ||
+| linear-progress | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/linear-progress-demo) |
+| list | TBI ||
+| menu | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/menu-demo) |
+| radio | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/radio-demo) |
+| ripple | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/ripple-demo) |
+| select | TBI ||
+| slider | TBI ||
+| snackbar | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/snackbar-demo) |
+| switch | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/switch-demo) |
+| tabs | TBI ||
+| textfield | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/textfield-demo) |
+| theme | WIP ||
+| toolbar | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/toolbar-demo) |
+| typography | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/typography-demo) |
 
 ## Developing Angular MDC
 Want to develop your own components or change existing ones? Check out our [Developer guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/developer.md).

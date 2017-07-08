@@ -27,12 +27,16 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
   encapsulation: ViewEncapsulation.None
 })
 export class SnackbarComponent implements AfterViewInit, OnDestroy {
+  @Input() alignStart: boolean;
   private message: string;
   private actionText: string;
   @HostBinding('class.mdc-snackbar') isHostClass = true;
   @HostBinding('attr.aria-live') ariaLive: string = 'assertive';
   @HostBinding('attr.aria-atomic') ariaAtomic: string = 'true';
   @HostBinding('attr.aria-hidden') ariaHidden: string = 'true';
+  @HostBinding('class.mdc-snackbar--align-start') get classAlignStart(): string {
+    return this.alignStart ? 'mdc-snackbar--align-start' : '';
+  }
 
   private _unlisteners: Map<string, UnlistenerMap> = new Map<string, UnlistenerMap>();
 

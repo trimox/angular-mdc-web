@@ -1,16 +1,13 @@
 const webpack = require('webpack');
 const path = require('path');
-const glob = require('glob');
-const CopyPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OUT_PATH = path.resolve('./publish');
-const MDC_DIR = path.resolve(__dirname, 'node_modules', '@material');
 var util = require('./util');
 
 const CSS_LOADER_CONFIG = [{
   loader: 'css-loader',
   options: {
-    minimize: true || { /* CSSNano Options */ }
+    minimize: true
   }
 }, {
   loader: 'postcss-loader',
@@ -32,7 +29,7 @@ module.exports = [{
   output: {
     path: OUT_PATH,
     // this output file is replaced below when ExtractTextPlugin generates final css.
-    filename: 'assets/style.min.css'
+    filename: 'assets/style.css'
   },
   module: {
     rules: [{
@@ -83,31 +80,8 @@ module.exports = [{
       }],
       exclude: [/\.(spec|e2e)\.ts$/]
     }, {
-      "enforce": "pre",
-      "test": /\.(js|jsx)$/,
-      "use": [{
-        "loader": 'babel-loader',
-        "options": {
-          "presets": ['env'],
-        },
-      }, ],
-      "exclude": [
-        /\/node_modules\//
-      ]
-    }, {
       test: /\.html$/,
-      loader: 'html-loader',
-    }, {
-      test: /\.(sass|scss)$/,
-      use: [
-        'style-loader',
-        'css-loader', {
-          loader: 'sass-loader',
-          options: {
-            includePaths: ['node_modules', "node_modules/@material/*"]
-          }
-        },
-      ]
+      loader: 'html-loader'
     }]
   },
   plugins: [

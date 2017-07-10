@@ -29,36 +29,33 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@angular/common": "^4.2.5",
-    "@angular/compiler": "^4.2.5",
-    "@angular/core": "^4.2.5",
-    "@angular/forms": "^4.2.5",
-    "@angular/http": "^4.2.5",
-    "@angular/platform-browser": "^4.2.5",
-    "@angular/platform-browser-dynamic": "^4.2.5",
-    "@angular/router": "^4.2.5",
+    "@angular/common": "^4.2.6",
+    "@angular/compiler": "^4.2.6",
+    "@angular/core": "^4.2.6",
+    "@angular/forms": "^4.2.6",
+    "@angular/http": "^4.2.6",
+    "@angular/platform-browser": "^4.2.6",
+    "@angular/platform-browser-dynamic": "^4.2.6",
+    "@angular/router": "^4.2.6",
     "core-js": "^2.4.1",
     "material-components-web": "^0.14.0",
     "rxjs": "^5.4.2",
     "zone.js": "^0.8.12"
   },
   "devDependencies": {
-    "@angular/compiler-cli": "^4.2.5",
+    "@angular/compiler-cli": "^4.2.6",
     "@angular/flex-layout": "2.0.0-beta.8",
-    "@types/node": "8.0.1",
+    "@types/node": "^8.0.1",
     "angular2-template-loader": "^0.6.2",
-    "autoprefixer": "^7.1.1",
+    "autoprefixer": "^7.1.2",
     "awesome-typescript-loader": "^3.2.1",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.0",
     "babel-preset-env": "1.6.0",
-    "codecov": "^2.2.0",
-    "copy-webpack-plugin": "^4.0.1",
     "cpy-cli": "^1.0.1",
     "css-loader": "^0.28.4",
     "cz-conventional-changelog": "2.0.0",
     "extract-text-webpack-plugin": "^2.1.2",
-    "glob": "^7.1.2",
     "html-loader": "^0.4.5",
     "html-minifier": "^3.5.2",
     "husky": "^0.14.3",
@@ -70,7 +67,6 @@
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-typescript": "^0.8.1",
     "sass-loader": "^6.0.6",
-    "source-map-loader": "^0.2.1",
     "style-loader": "^0.18.2",
     "stylelint": "^7.12.0",
     "stylelint-config-standard": "^16.0.0",
@@ -81,11 +77,11 @@
     "tslint-eslint-rules": "^4.1.1",
     "typescript": "^2.4.1",
     "typings": "^2.1.1",
-    "uglify-es": "^3.0.19",
+    "uglify-es": "^3.0.24",
     "validate-commit-msg": "^2.12.2",
     "vrsource-tslint-rules": "^5.1.0",
-    "webpack": "^3.0.0",
-    "webpack-dev-server": "^2.5.0"
+    "webpack": "^3.1.0",
+    "webpack-dev-server": "^2.5.1"
   },
   "babel": {
     "presets": [
@@ -128,6 +124,7 @@
           "layout-grid",
           "linear-progress",
           "list",
+          "material-icon",
           "menu",
           "radio",
           "ripple",
@@ -141,7 +138,7 @@
           "theme",
           "toolbar",
           "typography",
-          "demo-app",
+          "demo",
           "infrastructure",
           "package"
         ],
@@ -151,5 +148,6 @@
     "commitizen": {
       "path": "node_modules/cz-conventional-changelog"
     }
-  }
+  },
+  "private": true
 }

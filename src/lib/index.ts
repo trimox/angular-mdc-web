@@ -7,6 +7,7 @@ import { ElevationModule } from './elevation/index';
 import { FabModule } from './fab/index';
 import { FormFieldModule } from './form-field/index';
 import { LinearProgressModule } from './linear-progress/index';
+import { MaterialIconModule } from './material-icon/index';
 import { MenuModule } from './menu/index';
 import { RadioModule } from './radio/index';
 import { RippleModule } from './ripple/index';
@@ -24,6 +25,7 @@ export * from './elevation/index';
 export * from './fab/index';
 export * from './form-field/index';
 export * from './linear-progress/index';
+export * from './material-icon/index';
 export * from './menu/index';
 export * from './radio/index';
 export * from './ripple/index';
@@ -42,6 +44,7 @@ const MATERIAL_MODULES = [
   FabModule,
   FormFieldModule,
   LinearProgressModule,
+  MaterialIconModule,
   MenuModule,
   RadioModule,
   RippleModule,

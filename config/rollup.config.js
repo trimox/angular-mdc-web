@@ -3,27 +3,11 @@ import angular from 'rollup-plugin-angular';
 import { minify as minifyHtml } from 'html-minifier';
 import typescript from 'rollup-plugin-typescript';
 
-const globals = {
-  '@angular/common': 'ng.common',
+const ROLLUP_GLOBALS = {
   '@angular/core': 'ng.core',
+  '@angular/common': 'ng.common',
   '@angular/forms': 'ng.forms',
-  '@material/animation': 'material.animation',
-  '@material/button': 'material.button',
-  '@material/card': 'material.card',
-  '@material/checkbox': 'material.checkbox',
-  '@material/elevation': 'material.elevation',
-  '@material/fab': 'material.fab',
-  '@material/form-field': 'material.formfield',
-  '@material/linear-progress': 'material.linear-progress',
-  '@material/menu': 'material.menu',
-  '@material/radio': 'material.radio',
-  '@material/ripple': 'material.ripple',
-  '@material/snackbar': 'material.snackbar',
-  '@material/switch': 'material.switch',
-  '@material/textfield': 'material.textfield',
-  '@material/theme': 'material.theme',
-  '@material/toolbar': 'material.toolbar',
-  '@material/typography': 'material.typography',
+  '@angular/http': 'ng.http',
   '@angular-mdc/web': 'ng.material',
   'rxjs': 'Rx'
 };
@@ -35,7 +19,7 @@ const htmlminOpts = {
 };
 
 export default {
-  entry: 'build/material.js',
+  entry: 'build/index.js',
   format: 'iife',
   plugins: [
     angular({
@@ -54,9 +38,9 @@ export default {
   },
   sourceMap: true,
   targets: [
-    { dest: 'dist/bundles/material.umd.js', format: 'umd', moduleName: 'angularMDCWeb' },
+    { dest: 'dist/bundles/material.umd.js', format: 'umd', moduleName: 'ng.material' },
     { dest: 'dist/material.es5.js', format: 'es' }
   ],
-  external: Object.keys(globals),
-  globals: globals
+  external: Object.keys(ROLLUP_GLOBALS),
+  globals: ROLLUP_GLOBALS
 };

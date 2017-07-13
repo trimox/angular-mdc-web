@@ -1,36 +1,32 @@
 ﻿{
- "compilerOptions": {
-  "target": "es2015",
-  "module": "es2015",
-  "moduleResolution": "node",
-  "outDir": "./../../build",
-  "declaration": true,
-  "baseUrl": ".",
-  "noUnusedParameters": false,
-  "sourceMap": true,
-  "importHelpers": true,
-  "emitDecoratorMetadata": true,
-  "inlineSources": true,
-  "experimentalDecorators": true,
-  "noEmitHelpers": true,
-  "skipLibCheck": true,
-  "typeRoots": ["./../../node_modules/@types"],
-  "noStrictGenericChecks": true,
-  "lib": [
-    "es6",
-    "dom"
-  ]
- },
- "files": [
-  "index.ts"
- ],
- "compileOnSave": false,
- "buildOnSave": false,
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "lib": ["es2015", "dom"],
+    "outDir": "./../../build",
+    "declaration": true,
+    "baseUrl": ".",
+    "noUnusedParameters": false,
+    "sourceMap": true,
+    "importHelpers": true,
+    "emitDecoratorMetadata": true,
+    "inlineSources": true,
+    "experimentalDecorators": true,
+    "noEmitHelpers": true,
+    "skipLibCheck": true,
+    "typeRoots": ["./../../node_modules/@types"],
+    "noStrictGenericChecks": true
+  },
+  "files": [
+    "public_api.ts"
+  ],
+  "compileOnSave": false,
+  "buildOnSave": false,
   "angularCompilerOptions": {
-    "skipMetadataEmit" : false,
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
-    "flatModuleOutFile": "material.js",
+    "flatModuleOutFile": "index.js",
     "flatModuleId": "@angular-mdc/web"
   }
 }

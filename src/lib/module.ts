@@ -18,24 +18,6 @@ import { ThemeModule } from './theme/index';
 import { ToolbarModule } from './toolbar/index';
 import { TypographyModule } from './typography/index';
 
-export * from './button/index';
-export * from './card/index';
-export * from './checkbox/index';
-export * from './elevation/index';
-export * from './fab/index';
-export * from './form-field/index';
-export * from './linear-progress/index';
-export * from './material-icon/index';
-export * from './menu/index';
-export * from './radio/index';
-export * from './ripple/index';
-export * from './snackbar/index';
-export * from './switch/index';
-export * from './textfield/index';
-export * from './theme/index';
-export * from './toolbar/index';
-export * from './typography/index';
-
 const MATERIAL_MODULES = [
   ButtonModule,
   CardModule,
@@ -57,11 +39,7 @@ const MATERIAL_MODULES = [
 ];
 
 @NgModule({
-  imports: [
-    MATERIAL_MODULES
-  ],
-  exports: [
-    MATERIAL_MODULES
-  ]
+  imports: MATERIAL_MODULES,
+  exports: MATERIAL_MODULES
 })
 export class MaterialModule { }

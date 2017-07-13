@@ -2,7 +2,6 @@ extends: stylelint-config-standard
 ignoreFiles:
   - node_modules/**/*
 plugins:
-  - stylelint-selector-bem-pattern
   - stylelint-scss
   - stylelint-order
 rules:
@@ -223,17 +222,6 @@ rules:
     - severity: warning
   # Part of google's style guide
   number-leading-zero: never
-
-  # We use Harry Roberts' BEM dialect as our preferred way to format classes.
-  # See: http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/
-  # See: https://github.com/postcss/postcss-bem-linter/blob/c59db3f/lib/preset-patterns.js#L39
-  plugin/selector-bem-pattern:
-    componentName: ^[a-z]+(?:-[a-z]+)*$
-    # <namespace>-<block>__<element>*--<modifier>*[<attribute>]*
-    componentSelectors: ^\.mdc?-{componentName}(?:__[a-z]+(?:-[a-z]+)*)*(?:--[a-z]+(?:-[a-z]+)*)*(?:\[.+\])*$
-    ignoreSelectors:
-      - ^fieldset
-      - ^\[aria\-disabled=(?:.+)\]
 
   # SCSS naming patterns, just like our CSS conventions above.
   # (note for $-vars we use a leading underscore for "private" variables)

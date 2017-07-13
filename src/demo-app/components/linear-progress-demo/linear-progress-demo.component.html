@@ -1,0 +1,92 @@
+<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
+  <h1 mdc-typography-display1>Linear Progress</h1>
+  <div mdc-typography-subheading2>The MDC Linear Progress component is a spec-aligned linear progress indicator component adhering to the Material Design progress & activity requirements.</div>
+  <div class="info-banner" mdc-typography-subheading1>
+    <![CDATA[import { LinearProgressModule } from '@angular-mdc/web';]]>
+  </div>
+  <div class="docs-api">
+    <table>
+      <thead>
+        <tr>
+          <th>Selectors</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-linear-progress</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>@Input() indeterminate: boolean</td>
+          <td>Puts the linear progress indicator in an indeterminate state.</td>
+        </tr>
+        <tr>
+          <td>@Input() reversed: boolean</td>
+          <td>Reverses the direction of the linear progress indicator.</td>
+        </tr>
+        <tr>
+          <td>@Input() accent: boolean</td>
+          <td>Colors the button with the accent color.</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Methods</th>
+          <th>Parameters</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>open()</td>
+          <td>Puts the component in the open state.</td>
+        </tr>
+        <tr>
+          <td>close()</td>
+          <td>Puts the component in the closed state.</td>
+        </tr>
+        <tr>
+          <td>setProgress(value: number)</td>
+          <td>Sets the progress bar to this value. Value should be between [0, 1].</td>
+        </tr>
+        <tr>
+          <td>setBuffer(value: number)</td>
+          <td>Sets the buffer bar to this value. Value should be between [0, 1].</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h1 mdc-typography-headline>Try it out</h1>
+  <div fxLayout="column" class="mdc-padding">
+    <mdc-linear-progress [indeterminate]="true"></mdc-linear-progress>
+    <p>Indeterminate</p>
+    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-linear-progress</span> [<span style="color:#89bdff">indeterminate</span>]=<span style="color:#65b042">"true"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-linear-progress</span>></span>
+</pre>
+  </div>
+  <div fxLayout="column" class="mdc-padding">
+    <mdc-linear-progress [indeterminate]="false"></mdc-linear-progress>
+    <p>Determinate</p>
+    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-linear-progress</span> [<span style="color:#89bdff">indeterminate</span>]=<span style="color:#65b042">"false"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-linear-progress</span>></span>
+</pre> </div>
+  <div fxLayout="column" class="mdc-padding">
+    <mdc-linear-progress [indeterminate]="true" [reversed]="true"></mdc-linear-progress>
+    <p>Reversed</p>
+    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-linear-progress</span> [<span style="color:#89bdff">indeterminate</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#89bdff">reversed</span>]=<span style="color:#65b042">"true"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-linear-progress</span>></span>
+</pre>
+  </div>
+  <div fxLayout="column" class="mdc-padding">
+    <mdc-linear-progress [indeterminate]="true" [accent]="true"></mdc-linear-progress>
+    <p>Accent</p>
+    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-linear-progress</span> [<span style="color:#89bdff">indeterminate</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#89bdff">accent</span>]=<span style="color:#65b042">"true"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-linear-progress</span>></span>
+</pre> </div>
+</div>

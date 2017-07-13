@@ -1,6 +1,6 @@
 /node_modules/
-/publish/
 /dist/
 /npm-debug.log
-/typings/
 /build/
+/publish-demo/
+/src/demo-app/aot

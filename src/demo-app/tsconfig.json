@@ -1,17 +1,23 @@
 ﻿{
   "compilerOptions": {
-    "target": "es2015",
-    "module": "es2015",
+    "target": "es5",
+    "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "./publish",
-    "sourceMap": true,
+    "lib": ["es6", "es2015", "dom"],
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "skipDefaultLibCheck": true,
-    "strictNullChecks": false,
-    "typeRoots": ["./../../node_modules/@types"],
-    "noStrictGenericChecks": true
+    "noStrictGenericChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "sourceMap": true,
+    "typeRoots": ["../../node_modules/@types"]
   },
+  "files": [
+    "./app-module.ts",
+    "./main.ts"
+  ],
+  "exclude": [
+    "main-aot.ts"
+  ],
   "compileOnSave": false,
   "buildOnSave": false
 }

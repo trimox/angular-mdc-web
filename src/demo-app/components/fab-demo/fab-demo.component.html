@@ -1,0 +1,119 @@
+<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
+  <h1 mdc-typography-display1>Floating Action Buttons</h1>
+  <div mdc-typography-subheading2>The MDC FAB component is a spec-aligned button component adhering to the Material Design button requirements.</div>
+  <div class="info-banner" mdc-typography-subheading1>
+    <![CDATA[import { FabModule } from '@angular-mdc/web';]]>
+  </div>
+  <div class="docs-api">
+    <table>
+      <thead>
+        <tr>
+          <th>Selectors</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>button[mdc-fab]</td>
+        </tr>
+        <tr>
+          <td>a[mdc-fab]</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>@Input() mini: boolean</td>
+          <td>Makes the fab smaller (40 x 40 pixels).</td>
+        </tr>
+        <tr>
+          <td>@Input() plain: boolean</td>
+          <td>Makes the FAB have a white background.</td>
+        </tr>
+        <tr>
+          <td>@Input() disabled: string</td>
+          <td>Disables the component.</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>@HostListener() keydown</td>
+          <td>Show ripple on keyboard down event.</td>
+        </tr>
+        <tr>
+          <td>@HostListener() keyup</td>
+          <td>Show ripple on keyboard up event.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h1 mdc-typography-headline>Try it out</h1>
+  <div fxLayout="column" class="mdc-padding">
+    <div fxFlexAlign="start">
+      <button mdc-fab>
+        <mdc-fab-icon>person</mdc-fab-icon>
+      </button>
+    </div>
+    <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>
+<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+</pre> </div>
+  <div fxLayout="column" class="mdc-padding">
+    <div fxFlexAlign="start">
+      <button mdc-fab [mini]="true">
+        <mdc-fab-icon>search</mdc-fab-icon>
+      </button>
+    </div>
+    <p>Mini</p>
+    <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span> [<span style="color:#e0c589">mini</span>]=<span style="color:#65b042">"true"</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>search<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>
+<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+</pre> </div>
+  <div fxLayout="column" class="mdc-padding">
+    <div fxFlexAlign="start">
+      <button mdc-fab [plain]="true">
+        <mdc-fab-icon>person</mdc-fab-icon>
+      </button>
+    </div>
+    <p>Plain</p>
+    <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span> [<span style="color:#e0c589">plain</span>]=<span style="color:#65b042">"true"</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>
+<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+</pre> </div>
+  <div fxLayout="column" class="mdc-padding">
+    <div fxFlexAlign="start">
+      <button mdc-fab [plain]="true" [mini]="true">
+        <mdc-fab-icon>search</mdc-fab-icon>
+      </button>
+    </div>
+    <p>Plain and Mini</p>
+    <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span> [<span style="color:#e0c589">plain</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#e0c589">mini</span>]=<span style="color:#65b042">"true"</span>></span>
+<span style="color:#89bdff">  &lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>search<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>
+<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+</pre> </div>
+  <div fxLayout="column" class="mdc-padding">
+    <div fxFlexAlign="start">
+      <button mdc-fab [disabled]="true">
+        <mdc-fab-icon>person</mdc-fab-icon>
+      </button>
+    </div>
+    <p>Disabled</p>
+    <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span> [<span style="color:#e0c589">disabled</span>]=<span style="color:#65b042">"true"</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>
+<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+</pre> </div>
+</div>

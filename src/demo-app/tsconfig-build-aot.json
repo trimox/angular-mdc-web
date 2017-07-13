@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "lib": ["es2015", "dom"],
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "outDir": "../../publish-demo",
+    "typeRoots": ["../../node_modules/@types"]
+  },
+  "files": [
+    "app.module.ts",
+    "main-aot.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "polyfills.ts"
+  ],
+  "angularCompilerOptions": {
+    "genDir": "aot",
+    "skipTemplateCodegen": false,
+    "skipMetadataEmit": true
+  }
+}

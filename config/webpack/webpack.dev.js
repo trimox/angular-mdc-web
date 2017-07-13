@@ -59,7 +59,7 @@ module.exports = [{
   entry: {
     'polyfills': './src/demo-app/polyfills.ts',
     'vendor': './src/demo-app/vendor.ts',
-    'app': './src/demo-app/root.module.ts'
+    'app': './src/demo-app/main.ts'
   },
   resolve: {
     extensions: ['.js', '.ts'],

@@ -1,0 +1,118 @@
+<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
+  <h1 mdc-typography-display1>Radio Button</h1>
+  <div mdc-typography-subheading2>The MDC Radio Button component provides a radio button adhering to the Material Design Specification.</div>
+  <div class="info-banner" mdc-typography-subheading1><![CDATA[import { RadioModule } from '@angular-mdc/web';]]></div>
+  <div class="docs-api">
+    <table>
+      <thead>
+        <tr>
+          <th>Selectors</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-radio</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>@Input() id: string</td>
+          <td>Unique Id of the radio button (auto generated if not supplied).</td>
+        </tr>
+        <tr>
+          <td>@Input() name: string</td>
+          <td>Name of the radio button group.</td>
+        </tr>
+        <tr>
+          <td>@Input() value: any</td>
+          <td>Value of the radio button.</td>
+        </tr>
+        <tr>
+          <td>@Input() ariaLabel: string</td>
+          <td>Used to set the 'aria-label' attribute on the underlying input element.</td>
+        </tr>
+        <tr>
+          <td>@Input() ariaLabelledby: string</td>
+          <td>The 'aria-labelledby' attribute takes precedence as the element's text alternative.</td>
+        </tr>
+        <tr>
+          <td>@Input() checked: boolean</td>
+          <td>Use to verify the checked value.</td>
+        </tr>
+        <tr>
+          <td>@Input() disabled: boolean</td>
+          <td>Disables the component.</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>@Output() change</td>
+          <td>Event dispatched on value change.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h1 mdc-typography-headline>Try it out</h1>
+  <div fxLayout="column" class="mdc-padding">
+    <div fxFlexAlign="start">
+      <mdc-form-field>
+        <mdc-radio value="apple" name="radioGroup" [(ngModel)]="radioOption"></mdc-radio>
+        <label>Apple</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-radio value="banana" name="radioGroup" [(ngModel)]="radioOption"></mdc-radio>
+        <label>Banana</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-radio value="mango" name="radioGroup" [(ngModel)]="radioOption"></mdc-radio>
+        <label>Mango</label>
+      </mdc-form-field>
+      <p>Selected value:
+        <label mdc-typography-body2>{{radioOption}}</label>
+      </p>
+      
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-radio</span> <span style="color:#89bdff">value</span>=<span style="color:#65b042">"apple"</span> <span style="color:#89bdff">name</span>=<span style="color:#65b042">"radioGroup"</span> [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"radioOption"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-radio</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">label</span>></span>Apple<span style="color:#e0c589">&lt;/<span style="color:#e0c589">label</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span>></span>
+<span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-radio</span> <span style="color:#89bdff">value</span>=<span style="color:#65b042">"banana"</span> <span style="color:#89bdff">name</span>=<span style="color:#65b042">"radioGroup"</span> [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"radioOption"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-radio</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">label</span>></span>Banana<span style="color:#e0c589">&lt;/<span style="color:#e0c589">label</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span>></span>
+<span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-radio</span> <span style="color:#89bdff">value</span>=<span style="color:#65b042">"mango"</span> <span style="color:#89bdff">name</span>=<span style="color:#65b042">"radioGroup"</span> [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"radioOption"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-radio</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">label</span>></span>Mango<span style="color:#e0c589">&lt;/<span style="color:#e0c589">label</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span>></span>
+</pre>
+    </div>
+    <div fxLayout="column" class="mdc-padding">
+      <div fxFlexAlign="start">
+        <mdc-form-field>
+          <mdc-radio [disabled]="true"></mdc-radio>
+          <label>Radio disabled</label>
+        </mdc-form-field>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-radio</span> [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"true"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-radio</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">label</span>></span>Radio disabled<span style="color:#e0c589">&lt;/<span style="color:#e0c589">label</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span>></span>
+</pre>
+      </div>
+    </div>
+  </div>
+</div>

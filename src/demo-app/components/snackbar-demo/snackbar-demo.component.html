@@ -1,0 +1,88 @@
+<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
+  <h1 mdc-typography-display1>Snackbar</h1>
+  <div mdc-typography-subheading2>The MDC Snackbar component is a spec-aligned snackbar component adhering to the Material Design snackbars requirements.</div>
+  <div class="info-banner" mdc-typography-subheading1><![CDATA[import { SnackbarModule } from '@angular-mdc/web';]]></div>
+  <div class="docs-api">
+    <table>
+      <thead>
+        <tr>
+          <th>Selectors</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-snackbar</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>@Input() alignStart: boolean</td>
+          <td>Set snackbar message as start-aligned.</td>
+        </tr>
+        <tr>
+          <td>@Input() dismissOnAction: boolean</td>
+          <td>If you want the snackbar to remain visible until the timeout is reached (regardless of whether the user pressed the action button or not) you can set the dismissesOnAction property to false.</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Methods</th>
+          <th>Parameters</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>show(data: SnackbarMessage)</td>
+          <td>
+<pre><code><![CDATA[
+interface SnackbarMessage {
+  message: string;
+  timeout?: number;
+  actionHandler?: Function;
+  actionText?: string;
+  multiline?: boolean;
+  actionOnBottom?: boolean;
+}]]></code></pre>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h1 mdc-typography-headline>Try it out</h1>
+  <div fxLayout="column" class="mdc-padding">
+    <mdc-form-field>
+      <mdc-checkbox [(ngModel)]="snack.alignStart"></mdc-checkbox>
+      <label>Align Snackbar to the left (desktop only)</label>
+    </mdc-form-field>
+    <mdc-form-field>
+      <mdc-checkbox [(ngModel)]="message.multiline"></mdc-checkbox>
+      <label>Multiline</label>
+    </mdc-form-field>
+    <mdc-form-field *ngIf="message.multiline">
+      <mdc-checkbox [(ngModel)]="message.actionOnBottom"></mdc-checkbox>
+      <label>Action on Bottom</label>
+    </mdc-form-field>
+    <mdc-form-field>
+      <mdc-checkbox [(ngModel)]="snack.dismissOnAction"></mdc-checkbox>
+      <label>Dismiss on Action Click</label>
+    </mdc-form-field>
+  </div>
+  <div fxLayout="column" fxFlexOffset="1">
+    <mdc-textfield [(ngModel)]="message.message" label="Message text" [required]="true"></mdc-textfield>
+    <mdc-textfield [(ngModel)]="message.actionText" label="Action button text"></mdc-textfield>
+  </div>
+  <div class="mdc-padding" fxFlexOffset="2">
+    <button mdc-button [primary]="true" [raised]="true" (click)="show();">Show Snackbar</button>
+  </div>
+  <mdc-snackbar #snack></mdc-snackbar>
+</div>

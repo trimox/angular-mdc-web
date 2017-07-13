@@ -1,0 +1,158 @@
+<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
+  <h1 mdc-typography-display1>Toolbars</h1>
+  <div mdc-typography-subheading2>MDC Toolbar acts as a container for multiple rows containing items such as application title, navigation menu, and tabs, among other things. Toolbars scroll with content by default, but supports fixed behavior as well.</div>
+  <div class="info-banner" mdc-typography-subheading1>
+    <![CDATA[import { ToolbarModule } from '@angular-mdc/web';]]>
+  </div>
+  <div class="docs-api">
+    <table>
+      <thead>
+        <tr>
+          <th>Selectors</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-toolbar</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>@Input() fixed: boolean</td>
+          <td>Makes toolbar fixed on top and have persistent elevation.</td>
+        </tr>
+        <tr>
+          <td>@Input() waterfall: boolean</td>
+          <td>Removes fixed toolbar persistent elevation while gaining elevation scrolling down the page.</td>
+        </tr>
+        <tr>
+          <td>@Input() flexible: boolean</td>
+          <td>Apply flexible space to toolbar's first row.</td>
+        </tr>
+        <tr>
+          <td>@Input() flexibleDefaultBehavior: boolean</td>
+          <td>Toolbar text has flexible movement.</td>
+        </tr>
+        <tr>
+          <td>@Input() fixedLastrow: boolean</td>
+          <td>Makes only last row of fixed toolbar anchored on top.</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Directives</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-toolbar-row</td>
+        </tr>
+        <tr>
+          <td>mdc-toolbar-section</td>
+          <!--     <pre class="prettyprint" fxFlexOffset="5">Input alignStart: boolean</pre>
+    <pre class="prettyprint" fxFlexOffset="5">Input alignEnd: boolean</pre>
+    <pre class="prettyprint" fxFlexOffset="5">Input shrinkToFit: boolean</pre>
+ --></tr>
+        <tr>
+          <td>mdc-toolbar-title</td>
+        </tr>
+        <tr>
+          <td>mdc-toolbar-fixed-adjust</td>
+        </tr>
+        <tr>
+          <td>mdc-toolbar-icon</td>
+        </tr>
+        <tr>
+          <td>mdc-toolbar-icon-menu</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Data Structure</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>change</td>
+          <td>
+            <![CDATA[{flexibleExpansionRatio: number}]]>
+          </td>
+          <td>Emits the ratio of current flexible space to total flexible space height. So when it is minimized, ratio equals to 0 and when it is maximized, ratio equals to 1.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h1 mdc-typography-headline>Try it out</h1>
+  <div fxLayout="column">
+    <div fxLayout="row" class="mdc-padding">
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="isFixed"></mdc-checkbox>
+        <label>Fixed toolbar</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="isFlexible"></mdc-checkbox>
+        <label>Flexible toolbar</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="isWaterfall"></mdc-checkbox>
+        <label>Waterfall toolbar</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="isFixedLastRow"></mdc-checkbox>
+        <label>Fixed Lastrow</label>
+      </mdc-form-field>
+    </div>
+    <mdc-toolbar [flexible]="isFlexible" [fixed]="isFixed" [waterfall]="isWaterfall" [fixedLastrow]="isFixedLastRow" (change)="handleToolbarChange($event);">
+      <mdc-toolbar-row>
+        <mdc-toolbar-section [alignStart]="true">
+          <a href="#" mdc-toolbar-icon-menu material-icon>menu</a>
+          <span mdc-toolbar-title>Example Toolbar</span>
+        </mdc-toolbar-section>
+      </mdc-toolbar-row>
+      <mdc-toolbar-row>
+        <mdc-toolbar-section [alignEnd]="true">
+          <a href="#/toolbar-demo" mdc-toolbar-icon material-icon>file_download</a>
+          <a href="#/toolbar-demo" mdc-toolbar-icon material-icon>print</a>
+          <a href="#/toolbar-demo" mdc-toolbar-icon material-icon>bookmark</a>
+        </mdc-toolbar-section>
+      </mdc-toolbar-row>
+    </mdc-toolbar>
+    <p style="padding-right: 12px;">Flexible Expansion Ratio: {{flexibleExpansionRatio}}</p>
+    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar</span>
+  [<span style="color:#89bdff">flexible</span>]=<span style="color:#65b042">"isFlexible"</span>
+  [<span style="color:#89bdff">fixed</span>]=<span style="color:#65b042">"isFixed"</span>
+  [<span style="color:#89bdff">waterfall</span>]=<span style="color:#65b042">"isWaterfall"</span>
+  [<span style="color:#89bdff">fixedLastrow</span>]=<span style="color:#65b042">"isFixedLastRow"</span>
+  (<span style="color:#89bdff">change</span>)=<span style="color:#65b042">"handleToolbarChange($event);"</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-row</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-section</span> [<span style="color:#89bdff">alignStart</span>]=<span style="color:#65b042">"true"</span>></span>
+      <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#"</span> <span style="color:#e0c589">mdc-toolbar-icon-menu</span> <span style="color:#e0c589">material-icon</span>></span>menu<span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
+      <span style="color:#e0c589">&lt;<span style="color:#e0c589">span</span> <span style="color:#e0c589">mdc-toolbar-title</span>></span>Example Toolbar<span style="color:#e0c589">&lt;/<span style="color:#e0c589">span</span>></span>
+    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-section</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-row</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-row</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-section</span> [<span style="color:#89bdff">alignEnd</span>]=<span style="color:#65b042">"true"</span>></span>
+      <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/toolbar-demo"</span> <span style="color:#e0c589">mdc-toolbar-icon</span> <span style="color:#e0c589">material-icon</span>></span>file_download<span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
+      <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/toolbar-demo"</span> <span style="color:#e0c589">mdc-toolbar-icon</span> <span style="color:#e0c589">material-icon</span>></span>print<span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
+      <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/toolbar-demo"</span> <span style="color:#e0c589">mdc-toolbar-icon</span> <span style="color:#e0c589">material-icon</span>></span>bookmark<span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
+    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-section</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-row</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar</span>></span>
+</pre>
+  </div>
+</div>

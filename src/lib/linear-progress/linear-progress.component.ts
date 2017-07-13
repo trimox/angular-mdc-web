@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { MDCLinearProgressAdapter } from './linear-progress-adapter';
 
-const { MDCLinearProgressFoundation } = require('@material/linear-progress');
+import { MDCLinearProgressFoundation } from '@material/linear-progress';
 
 @Component({
   selector: 'mdc-linear-progress',

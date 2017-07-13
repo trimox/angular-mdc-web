@@ -16,7 +16,7 @@ import { ToolbarTitleDirective } from './toolbar-title.directive';
 import { ToolbarRowDirective } from './toolbar-row.directive';
 import { isBrowser } from '../common/platform';
 
-const { MDCToolbarFoundation, util } = require('@material/toolbar');
+import { MDCToolbarFoundation, util } from '@material/toolbar';
 
 type UnlistenerMap = WeakMap<EventListener, Function>;
 

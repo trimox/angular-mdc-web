@@ -17,8 +17,8 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { MDCCheckboxAdapter } from './checkbox-adapter';
 import { Ripple } from '.././ripple/ripple.directive';
 
-const { MDCFormField } = require('@material/form-field');
-const { MDCCheckboxFoundation } = require('@material/checkbox');
+import { MDCFormField } from '@material/form-field';
+import { MDCCheckboxFoundation } from '@material/checkbox';
 
 let formField_ = null;
 let nextElId_ = 0;

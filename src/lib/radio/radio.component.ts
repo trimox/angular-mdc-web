@@ -17,8 +17,8 @@ import { NG_VALUE_ACCESSOR, RadioControlValueAccessor } from '@angular/forms';
 import { MDCRadioAdapter } from './radio-adapter';
 import { Ripple } from '.././ripple/ripple.directive';
 
-const { MDCFormField } = require('@material/form-field');
-const { MDCRadioFoundation } = require('@material/radio');
+import { MDCFormField } from '@material/form-field';
+import { MDCRadioFoundation } from '@material/radio';
 
 let formField_ = null;
 let nextElId_ = 0;

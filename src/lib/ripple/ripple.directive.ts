@@ -5,9 +5,8 @@
   Renderer2
 } from '@angular/core';
 import { MDCRippleAdapter } from './ripple-adapter';
-import { supportsCssVariables } from '@material/ripple/util';
 
-const { MDCRippleFoundation } = require('@material/ripple');
+import { MDCRippleFoundation, util } from '@material/ripple';
 
 type UnlistenerMap = WeakMap<EventListener, Function>;
 
@@ -21,7 +20,7 @@ export class Ripple implements OnDestroy {
   private _unlisteners: Map<string, UnlistenerMap> = new Map<string, UnlistenerMap>();
 
   private _mdcAdapter: MDCRippleAdapter = {
-    browserSupportsCssVars: () => (typeof window !== 'undefined') ? supportsCssVariables(window) : false,
+    browserSupportsCssVars: () => (typeof window !== 'undefined') ? util.supportsCssVariables(window) : false,
     isUnbounded: () => this.unbounded,
     isSurfaceActive: () => this.active,
     isSurfaceDisabled: () => {

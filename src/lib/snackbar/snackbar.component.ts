@@ -16,8 +16,8 @@ import { SnackbarActionWrapperDirective } from './snackbar-action-wrapper.direct
 import { SnackbarActionButtonDirective } from './snackbar-action-button.directive';
 import { isBrowser } from '../common/platform';
 
-const { MDCSnackbarFoundation } = require('@material/snackbar');
-const { getCorrectEventName } = require('@material/animation');
+import { MDCSnackbarFoundation } from '@material/snackbar';
+import { getCorrectEventName } from '@material/animation';
 
 type UnlistenerMap = WeakMap<EventListener, Function>;
 

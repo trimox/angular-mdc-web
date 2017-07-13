@@ -17,8 +17,8 @@ import { MDCMenuAdapter } from './menu-adapter';
 import { MenuItemDirective } from './menu-item.directive';
 import { isBrowser } from '../common/platform';
 
-const { MDCSimpleMenuFoundation } = require('@material/menu/simple');
-const { getTransformPropertyName } = require('@material/menu/util');
+import { MDCSimpleMenuFoundation } from '@material/menu/simple';
+import { getTransformPropertyName } from '@material/menu/util';
 
 export enum MDC_OPEN_FROM {
   TOP_LEFT = 'mdc-simple-menu--open-from-top-left',

@@ -15,7 +15,7 @@ import {
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Ripple } from '.././ripple/ripple.directive';
 
-const { MDCFormField } = require('@material/form-field');
+import { MDCFormField } from '@material/form-field';
 
 export const MD_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,

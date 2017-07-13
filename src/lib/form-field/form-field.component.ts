@@ -11,7 +11,7 @@ import {
 import { MDCFormFieldAdapter } from './form-field-adapter';
 import { CheckboxComponent } from '.././checkbox/checkbox.component';
 
-const { MDCFormField, MDCFormFieldFoundation } = require('@material/form-field');
+import { MDCFormField, MDCFormFieldFoundation } from '@material/form-field';
 
 @Component({
   selector: 'mdc-form-field',

@@ -16,7 +16,7 @@
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { MDCTextfieldAdapter } from './textfield-adapter';
 
-const { MDCTextfieldFoundation } = require('@material/textfield');
+import { MDCTextfieldFoundation } from '@material/textfield';
 
 export const MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,

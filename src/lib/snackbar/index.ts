@@ -17,3 +17,6 @@ const SNACKBAR_COMPONENTS = [
   declarations: [SNACKBAR_COMPONENTS],
 })
 export class SnackbarModule { }
+
+export * from './snackbar.component';
+export * from './snackbar-message';

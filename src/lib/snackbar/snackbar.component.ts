@@ -10,10 +10,11 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { MDCSnackbarAdapter } from './snackbar-adapter';
-import { SnackbarMessage } from './snackbar-message';
 import { SnackbarTextDirective } from './snackbar-text.directive';
 import { SnackbarActionWrapperDirective } from './snackbar-action-wrapper.directive';
 import { SnackbarActionButtonDirective } from './snackbar-action-button.directive';
+import { SnackbarMessage } from './snackbar-message';
+
 import { isBrowser } from '../common/platform';
 
 import { MDCSnackbarFoundation } from '@material/snackbar';

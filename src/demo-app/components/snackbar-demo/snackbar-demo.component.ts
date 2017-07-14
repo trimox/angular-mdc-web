@@ -4,13 +4,15 @@ import {
   ViewChild
 } from '@angular/core';
 
+import { SnackbarMessage, SnackbarComponent } from '@angular-mdc/web';
+
 @Component({
   selector: 'snackbar-demo',
   templateUrl: './snackbar-demo.component.html'
 })
 export class SnackbarDemoComponent implements OnInit {
-  message: any;
-  @ViewChild('snack') snack: any;
+  message: SnackbarMessage;
+  @ViewChild('snack') snack: SnackbarComponent;
 
   ngOnInit() {
     this.message = {

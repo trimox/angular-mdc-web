@@ -1,3 +1,48 @@
+<a name="0.2.1"></a>
+# [0.2.1](https://github.com/trimox/angular-mdc-web/compare/v0.2.0...v0.2.1) (2017-07-14)
+
+### Bug Fixes
+
+* **switch:** Remove redundant [ngModel] bind from html template ([a594aa5](https://github.com/trimox/angular-mdc-web/commit/a594aa5))
+* **typography:** Fix missing module import of [typography] ([67517dd](https://github.com/trimox/angular-mdc-web/commit/67517dd))
+
+
+### Code Refactoring
+
+* **infrastructure:** refactor(infrastructure): Use ES2015 import for MDC Foundation API's. ([dd21a75](https://github.com/trimox/angular-mdc-web/commit/dd21a75))
+
+
+### Features
+
+* **package:** Update to Material Design Components v0.15.0 ([0985e5c](https://github.com/trimox/angular-mdc-web/commit/0985e5c))
+* **button:** Add [disabled] boolean input property. ([9a437c8](https://github.com/trimox/angular-mdc-web/commit/9a437c8))
+* **button:** Add native <a> element support with "href" attribute. ([1c6dabf](https://github.com/trimox/angular-mdc-web/commit/1c6dabf))
+* **fab:** Add [disabled] boolean input property. ([9315f41](https://github.com/trimox/angular-mdc-web/commit/9315f41))
+* **fab:** Add native <a> element support with "href" attribute. ([e8cb314](https://github.com/trimox/angular-mdc-web/commit/e8cb314))
+* **infrastructure:** Add toBoolean function to lib/common ([23ddbc6](https://github.com/trimox/angular-mdc-web/commit/23ddbc6))
+* **material-icon:** Add [material-icon] directive ([7ee67e5](https://github.com/trimox/angular-mdc-web/commit/7ee67e5))
+* **menu:** Add/Export MenuOpenFrom enum from Menu ([066294c](https://github.com/trimox/angular-mdc-web/commit/066294c))
+* **snackbar:** Add [alignStart] boolean input ([b51181b](https://github.com/trimox/angular-mdc-web/commit/b51181b))
+* **snackbar:** Add [dismissOnAction] boolean input ([563eb9b](https://github.com/trimox/angular-mdc-web/commit/563eb9b))
+* **snackbar:** Add directives for action-wrapper, action-button and text ([4ac2c76](https://github.com/trimox/angular-mdc-web/commit/4ac2c76))
+* **snackbar:** Add exported SnackbarMessage interface ([b654bb3](https://github.com/trimox/angular-mdc-web/commit/b654bb3))
+* **snackbar:** Add MDC's upcoming foundation adapter functions ([14ec2be](https://github.com/trimox/angular-mdc-web/commit/14ec2be))
+* **snackbar:** Export SnackbarMessage from Snackbar ([65538e1](https://github.com/trimox/angular-mdc-web/commit/65538e1))
+* **snackbar:** Improvements + added MDC v0.15 upcoming features. ([b2c4147](https://github.com/trimox/angular-mdc-web/commit/b2c4147))
+
+
+### Performance Improvements
+
+* **demo:** Ahead-of-Time compilation + Rollup bundling ([#49](https://github.com/trimox/angular-mdc-web/issues/49)) ([7c2293d](https://github.com/trimox/angular-mdc-web/commit/7c2293d))
+
+
+### BREAKING CHANGES
+
+* **menu:** MenuOpenFrom enum replaces MDC_OPEN_FROM and now can be imported. Please update
+your code accordingly.
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/trimox/angular-mdc-web/compare/v0.1.19...v0.2.0) (2017-07-06)
 

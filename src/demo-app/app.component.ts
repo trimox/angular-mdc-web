@@ -1,17 +1,23 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   template:
   `
   <navbar></navbar>
-  <div #scrollContainer mdc-typography>
-    <router-outlet (activate)="onActivate($event, scrollContainer)"></router-outlet>
+  <div mdc-typography>
+    <router-outlet></router-outlet>
   </div>  
   `
 })
-export class AppComponent {
-  onActivate(e, scrollContainer) {
-    scrollContainer.scrollTop = 0;
+export class AppComponent implements OnInit {
+  constructor(private _router: Router) { }
+  ngOnInit() {
+    this._router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        window.scrollTo(0, 0);
+      }
+    })
   }
 }

@@ -9,32 +9,48 @@
     <table>
       <thead>
         <tr>
-          <th>Selectors</th>
+          <th>Component</th>
+          <th>Description</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>mdc-menu</td>
         </tr>
+        <tr>
+          <td>@Input() openFrom: string</td>
+          <td>Override the opening point of the menu. (default: topLeft)
+            <pre><code><![CDATA[
+export enum MenuOpenFrom {
+  topLeft,
+  topRight,
+  bottomLeft,
+  bottomRight
+}
+]]></code></pre>
+          </td>
+        </tr>
       </tbody>
     </table>
     <table>
       <thead>
         <tr>
-          <th>Properties</th>
+          <th>Directives</th>
           <th>Description</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>@Input() openFrom: string</td>
-          <td>Override the opening point of the menu. (default is TOP_LEFT)
-            <pre>Valid values:
-TOP_LEFT - Open the menu from the top left.
-TOP_RIGHT - Open the menu from the top right.
-BOTTOM_LEFT - Open the menu from the bottom left.
-BOTTOM_RIGHT - Open the menu from the bottom right.</pre>
-          </td>
+          <td>mdc-menu-anchor</td>
+          <td>Use to anchor a menu to an element.</td>
+        </tr>
+        <tr>
+          <td>mdc-menu-item</td>
+          <td>Single list item inside of a menu.</td>
+        </tr>
+        <tr>
+          <td>mdc-menu-divider</td>
+          <td>Draws a line at the bottom of the menu item.</td>
         </tr>
       </tbody>
     </table>
@@ -78,30 +94,7 @@ BOTTOM_RIGHT - Open the menu from the bottom right.</pre>
         </tr>
       </tbody>
     </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Directives</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-menu-anchor</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>mdc-menu-item</td>
-          <td>Single list item inside of a menu.</td>
-        </tr>
-        <tr>
-          <td>mdc-menu-divider</td>
-          <td>Draws a line at the bottom of the menu item.</td>
-        </tr>
-      </tbody>
-    </table>
   </div>
-  <h1 mdc-typography-headline>Try it out</h1>
   <div fxLayout="row" class="mdc-padding" fxLayoutAlign="center center">
     <div fxLayout="column">
       <p>Open from:</p>

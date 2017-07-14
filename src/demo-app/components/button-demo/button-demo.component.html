@@ -8,7 +8,7 @@
     <table>
       <thead>
         <tr>
-          <th>Selectors</th>
+          <th>Component</th>
         </tr>
       </thead>
       <tbody>
@@ -62,28 +62,15 @@
         </tr>
       </tbody>
     </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Event</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>@HostListener() keydown</td>
-          <td>Show ripple on keyboard down event.</td>
-        </tr>
-        <tr>
-          <td>@HostListener() keyup</td>
-          <td>Show ripple on keyboard up event.</td>
-        </tr>
-      </tbody>
-    </table>
   </div>
-  <h1 mdc-typography-headline>Try it out</h1>
   <button mdc-button [accent]="true">Accent</button>
   <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">accent</span>]=<span style="color:#65b042">"true"</span>></span>Accent<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+</pre>
+  <a mdc-button [primary]="true" [raised]="true" href="/#/button-demo">Href Usage</a>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-button</span>
+ [<span style="color:#e0c589">primary</span>]=<span style="color:#65b042">"true"</span>
+ [<span style="color:#e0c589">raised</span>]=<span style="color:#65b042">"true"</span>
+ <span style="color:#e0c589">href</span>=<span style="color:#65b042">"/#/button-demo"</span>></span>Primary and Raised<span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
 </pre>
   <button mdc-button [raised]="true">Raised</button>
   <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">raised</span>]=<span style="color:#65b042">"true"</span>></span>Raised<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>

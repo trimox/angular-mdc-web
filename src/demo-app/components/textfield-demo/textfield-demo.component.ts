@@ -13,4 +13,5 @@ export class TextfieldDemoComponent {
   subject = null;
   message = null;
   isDisabled = false;
+  isRequired = true;
 }

@@ -2,7 +2,7 @@
   <div fxLayoutWrap fxFlex="80" fxLayoutAlign="start start" fxLayoutGap="10px" style="margin-top: 14px;">
     <div fxLayout="column" fxFlex="100" style="padding-bottom: 15px;">
       <span mdc-typography-headline>Angular Material Design Components</span>
-      <span mdc-typography-subheading1>angular-mdc-web - <a href="https://github.com/trimox/angular-mdc-web" alt="GitHub" mdc-typography-subheading1>GitHub</a></span>
+      <span mdc-typography-subheading1>View on - <a href="https://github.com/trimox/angular-mdc-web" alt="GitHub" mdc-typography-subheading1>GitHub</a></span>
     </div>
     <mdc-card class="home-card">
       <mdc-card-primary>
@@ -39,6 +39,28 @@
     </mdc-card>
     <mdc-card class="home-card">
       <mdc-card-primary>
+        <h1 mdc-card-title>Dialog</h1>
+      </mdc-card-primary>
+      <mdc-card-supporting-text>
+        Dialogs inform users about specific tasks, critical information, or require decisions.
+      </mdc-card-supporting-text>
+      <mdc-card-actions>
+        <button mdc-button [cardAction]="true" (click)="viewComponent('dialog-demo');">Coming Soon</button>
+      </mdc-card-actions>
+    </mdc-card>
+    <mdc-card class="home-card">
+      <mdc-card-primary>
+        <h1 mdc-card-title>Drawer</h1>
+      </mdc-card-primary>
+      <mdc-card-supporting-text>
+        Drawers slide in from the left and contains the navigation destinations for your app.
+      </mdc-card-supporting-text>
+      <mdc-card-actions>
+        <button mdc-button [cardAction]="true" (click)="viewComponent('drawer-demo');">Coming Soon</button>
+      </mdc-card-actions>
+    </mdc-card>
+    <mdc-card class="home-card">
+      <mdc-card-primary>
         <h1 mdc-card-title>Elevation</h1>
       </mdc-card-primary>
       <mdc-card-supporting-text>
@@ -57,6 +79,17 @@
       </mdc-card-supporting-text>
       <mdc-card-actions>
         <button mdc-button [cardAction]="true" (click)="viewComponent('fab-demo');">View Demo</button>
+      </mdc-card-actions>
+    </mdc-card>
+    <mdc-card class="home-card">
+      <mdc-card-primary>
+        <h1 mdc-card-title>Icon Toggle</h1>
+      </mdc-card-primary>
+      <mdc-card-supporting-text>
+        Toggle buttons may be used to group related options.
+      </mdc-card-supporting-text>
+      <mdc-card-actions>
+        <button mdc-button [cardAction]="true" (click)="viewComponent('icon-toggle-demo');">Coming Soon</button>
       </mdc-card-actions>
     </mdc-card>
     <mdc-card class="home-card">

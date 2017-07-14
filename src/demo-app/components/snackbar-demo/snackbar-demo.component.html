@@ -6,7 +6,7 @@
     <table>
       <thead>
         <tr>
-          <th>Selectors</th>
+          <th>Component</th>
         </tr>
       </thead>
       <tbody>
@@ -38,6 +38,7 @@
         <tr>
           <th>Methods</th>
           <th>Parameters</th>
+          <th>Description</th>
         </tr>
       </thead>
       <tbody>
@@ -54,15 +55,24 @@ interface SnackbarMessage {
   actionOnBottom?: boolean;
 }]]></code></pre>
           </td>
+          <td>
+<pre><code><![CDATA[
+  message - The text message to display.
+  timeout - Amount of time in milliseconds to show the snackbar (default 2750).
+  actionHandler - Function to execute when the action is clicked.
+  actionText - Text to display for the action button.
+  multiline - Whether to show the snackbar with space for multiple lines of text.
+  actionOnBottom - Whether to show the action below the multiple lines of text.
+]]></code></pre>          
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <h1 mdc-typography-headline>Try it out</h1>
   <div fxLayout="column" class="mdc-padding">
     <mdc-form-field>
       <mdc-checkbox [(ngModel)]="snack.alignStart"></mdc-checkbox>
-      <label>Align Left (desktop/table only)</label>
+      <label>Align Start (desktop/table only)</label>
     </mdc-form-field>
     <mdc-form-field>
       <mdc-checkbox [(ngModel)]="message.multiline"></mdc-checkbox>

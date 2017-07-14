@@ -8,7 +8,7 @@
     <table>
       <thead>
         <tr>
-          <th>Selectors</th>
+          <th>Component</th>
         </tr>
       </thead>
       <tbody>
@@ -90,6 +90,20 @@
     <table>
       <thead>
         <tr>
+          <th>Directives</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-textfield-helptext</td>
+          <td>Useful for providing supplemental information to users, as well for validation messages.</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
           <th>Event</th>
           <th>Description</th>
         </tr>
@@ -113,36 +127,26 @@
         </tr>
       </tbody>
     </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Directives</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-textfield-helptext</td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
   </div>
-  <h1 mdc-typography-headline>Try it out</h1>
   <div fxLayout="column" class="mdc-padding">
     <div fxFlexAlign="start">
-      <mdc-textfield [(ngModel)]="username" id="username" label="Username" required [disabled]="isDisabled" aria-controls="help-username-val">
+      <mdc-textfield [(ngModel)]="username" id="username" label="Username" [required]="isRequired" [disabled]="isDisabled" aria-controls="help-username-val">
       </mdc-textfield>
       <p mdc-textfield-helptext id="help-username-val" [validation]="true" [persistent]="false">Username is required</p>
     </div>
     <mdc-form-field>
       <mdc-checkbox [(ngModel)]="isDisabled"></mdc-checkbox>
-      <label>Disable textfield</label>
+      <label>Disable</label>
     </mdc-form-field>
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span> [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"username"</span>
+    <mdc-form-field>
+      <mdc-checkbox [(ngModel)]="isRequired"></mdc-checkbox>
+      <label>Required</label>
+    </mdc-form-field>
+    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>
+  [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"username"</span>
   <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Username"</span>
-  <span style="color:#89bdff">required</span>
-  [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"isDisabled"</span>
+  [<span style="color:#89bdff">required</span>]=<span style="color:#65b042">"true"</span>
+  [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"false"</span>
   <span style="color:#89bdff">aria-controls</span>=<span style="color:#65b042">"help-username-val"</span>
   (<span style="color:#89bdff">focus</span>)=<span style="color:#65b042">"handleFocus($event);"</span>
   (<span style="color:#89bdff">blur</span>)=<span style="color:#65b042">"handleBlur($event);"</span>

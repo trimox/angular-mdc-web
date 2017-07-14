@@ -7,5 +7,5 @@ import {
   templateUrl: './switch-demo.component.html'
 })
 export class SwitchDemoComponent {
-  isSwitchOn: boolean;
+  isSwitchOn: boolean = true;
 }

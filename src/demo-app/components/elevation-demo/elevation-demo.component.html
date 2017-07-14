@@ -8,16 +8,17 @@
     <table>
       <thead>
         <tr>
-          <th>Selectors</th>
+          <th>Directive</th>
+          <th>Description</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>mdc-elevation="0-24"</td>
+          <td>mdc-elevation="#"</td>
+          <td>The elevation values are mapped out in a "z-space" and range from 0 to 24.</td>
         </tr>
       </tbody>
     </table>
-    <h1 mdc-typography-headline>Examples</h1>
     <div fxLayout="row" fxLayoutWrap>
       <figure [mdc-elevation]="i" class="demo-surface" *ngFor="let i of items">
         <figcaption>mdc-elevation="{{i}}"</figcaption>

@@ -39,7 +39,6 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
     [tabindex]="tabindex"
     [attr.aria-label]="ariaLabel"
     [attr.aria-labelledby]="ariaLabelledby"
-    [(ngModel)]="ngModel"
     [disabled]="disabled"
     [checked]="checked"
     (change)="handleChange($event)"/>

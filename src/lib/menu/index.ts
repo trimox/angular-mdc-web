@@ -19,3 +19,6 @@ const MENU_COMPONENTS = [
   declarations: [MENU_COMPONENTS],
 })
 export class MenuModule { }
+
+export * from './menu.component';
+export * from './menu-open-from';

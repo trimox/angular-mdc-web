@@ -105,35 +105,35 @@ BOTTOM_RIGHT - Open the menu from the bottom right.</pre>
   <div fxLayout="row" class="mdc-padding" fxLayoutAlign="center center">
     <div fxLayout="column">
       <p>Open from:</p>
-        <mdc-form-field>
-          <mdc-radio value="TOP_LEFT" (change)="handleChange();" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
-          <label>Top Left</label>
-        </mdc-form-field>
-        <mdc-form-field>
-          <mdc-radio value="TOP_RIGHT" (change)="handleChange();" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
-          <label>Top Right</label>
-        </mdc-form-field>
-        <mdc-form-field>
-          <mdc-radio value="BOTTOM_LEFT" (change)="handleChange();" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
-          <label>Bottom Left</label>
-        </mdc-form-field>
-        <mdc-form-field>
-          <mdc-radio value="BOTTOM_RIGHT" (change)="handleChange();" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
-          <label>Bottom Right</label>
-        </mdc-form-field>
+      <mdc-form-field>
+        <mdc-radio value="topLeft" (change)="handleChange();" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
+        <label>Top Left</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-radio value="topRight" (change)="handleChange();" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
+        <label>Top Right</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-radio value="bottomLeft" (change)="handleChange();" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
+        <label>Bottom Left</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-radio value="bottomRight" (change)="handleChange();" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
+        <label>Bottom Right</label>
+      </mdc-form-field>
     </div>
-      <div mdc-menu-anchor style="margin-left: 25px;">
-        <button mdc-fab (click)="showMenu();">
-          <span mdc-fab-icon>person</span>
-        </button>
-        <mdc-menu #menu (select)="handleMenuSelect($event);">
-          <mdc-menu-item [id]="0">Item 1</mdc-menu-item>
-          <mdc-menu-item [id]="1" [disabled]="true">Item 2</mdc-menu-item>
-          <mdc-menu-item [id]="2">Item 3</mdc-menu-item>
-          <mdc-menu-divider></mdc-menu-divider>
-          <mdc-menu-item [id]="3">Item 4</mdc-menu-item>
-        </mdc-menu>
-      </div>
+    <div mdc-menu-anchor style="margin-left: 25px;">
+      <button mdc-fab (click)="showMenu();">
+        <mdc-fab-icon>person</mdc-fab-icon>
+      </button>
+      <mdc-menu #menu (select)="handleMenuSelect($event);">
+        <mdc-menu-item [id]="0">Item 1</mdc-menu-item>
+        <mdc-menu-item [id]="1" [disabled]="true">Item 2</mdc-menu-item>
+        <mdc-menu-item [id]="2">Item 3</mdc-menu-item>
+        <mdc-menu-divider></mdc-menu-divider>
+        <mdc-menu-item [id]="3">Item 4</mdc-menu-item>
+      </mdc-menu>
+    </div>
   </div>
   <p mdc-typography-body1>Selected index: {{selectedIndex}}</p>
   <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">mdc-menu-anchor</span>></span>

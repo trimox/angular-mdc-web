@@ -3,6 +3,8 @@ import {
   ViewChild
 } from '@angular/core';
 
+import { MenuComponent, MenuOpenFrom } from '@angular-mdc/web';
+
 @Component({
   selector: 'menu-demo',
   templateUrl: './menu-demo.component.html'
@@ -10,11 +12,11 @@ import {
 export class MenuDemoComponent {
   selectedIndex = -1;
   focusedItemIndex = null;
-  openingPoint = "TOP_LEFT";
-  @ViewChild('menu') menu: any;
+  openingPoint: any = "topLeft";
+  @ViewChild('menu') menu: MenuComponent;
 
   handleChange() {
-    this.menu.openFrom = this.openingPoint;    
+    this.menu.openFrom = this.openingPoint;
   }
 
   showMenu() {

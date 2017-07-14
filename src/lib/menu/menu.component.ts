@@ -15,17 +15,11 @@ import {
 } from '@angular/core';
 import { MDCMenuAdapter } from './menu-adapter';
 import { MenuItemDirective } from './menu-item.directive';
+import { MenuOpenFrom } from './menu-open-from';
 import { isBrowser } from '../common/platform';
 
 import { MDCSimpleMenuFoundation } from '@material/menu/simple';
 import { getTransformPropertyName } from '@material/menu/util';
-
-export enum MDC_OPEN_FROM {
-  TOP_LEFT = 'mdc-simple-menu--open-from-top-left',
-  TOP_RIGHT = 'mdc-simple-menu--open-from-top-right',
-  BOTTOM_LEFT = 'mdc-simple-menu--open-from-bottom-left',
-  BOTTOM_RIGHT = 'mdc-simple-menu--open-from-bottom-right',
-}
 
 type UnlistenerMap = WeakMap<EventListener, Function>;
 
@@ -42,11 +36,11 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
 export class MenuComponent implements AfterViewInit, OnDestroy {
   private previousFocus_: any;
 
-  @Input() openFrom: any;
+  @Input() openFrom: MenuOpenFrom = MenuOpenFrom.topLeft;
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
   @Output() select: EventEmitter<number> = new EventEmitter<number>();
   @HostBinding('class') get className(): string {
-    return `mdc-simple-menu${MDC_OPEN_FROM[this.openFrom] ? ` ${MDC_OPEN_FROM[this.openFrom]}` : ''}`;
+    return `mdc-simple-menu${MenuOpenFrom[this.openFrom] ? ` ${MenuOpenFrom[this.openFrom]}` : ''}`;
   }
   @HostBinding('tabindex') tabindex: number = -1;
   @ViewChild('menuContainer') public menuContainerEl: ElementRef;

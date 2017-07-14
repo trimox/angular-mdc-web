@@ -27,7 +27,7 @@ import { MDCLinearProgressFoundation } from '@material/linear-progress';
   encapsulation: ViewEncapsulation.None
 })
 export class LinearProgressComponent implements AfterViewInit {
-  private _indeterminate: boolean = true;
+  private _indeterminate: boolean;
   private _reversed: boolean;
 
   @Input()

@@ -168,6 +168,9 @@ export class SnackbarComponent implements AfterViewInit, OnDestroy {
       if (!data.actionHandler && data.actionText) {
         data.actionHandler = () => { };
       }
+      if (!data.actionText) {
+        data.actionHandler = null;
+      }
       this._foundation.show(data);
     }
   }

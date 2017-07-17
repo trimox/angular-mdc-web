@@ -7,6 +7,7 @@ import { ElevationModule } from './elevation/index';
 import { FabModule } from './fab/index';
 import { FormFieldModule } from './form-field/index';
 import { LinearProgressModule } from './linear-progress/index';
+import { ListModule } from './list/index';
 import { MaterialIconModule } from './material-icon/index';
 import { MenuModule } from './menu/index';
 import { RadioModule } from './radio/index';
@@ -26,6 +27,7 @@ const MATERIAL_MODULES = [
   FabModule,
   FormFieldModule,
   LinearProgressModule,
+  ListModule,
   MaterialIconModule,
   MenuModule,
   RadioModule,

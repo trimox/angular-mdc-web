@@ -1,3 +1,27 @@
+<a name="0.0.0"></a>
+# [0.2.2](https://github.com/trimox/angular-mdc-web/compare/v0.2.1...v0.2.2) (2017-07-17)
+
+
+### Bug Fixes
+
+* **snackbar:** Fix actionHandler was required if actionText is empty ([59de0a8](https://github.com/trimox/angular-mdc-web/commit/59de0a8))
+
+
+### Features
+
+* **list:** Implement MDC List ([#51](https://github.com/trimox/angular-mdc-web/issues/51)) ([8738b18](https://github.com/trimox/angular-mdc-web/commit/8738b18)), closes [#50](https://github.com/trimox/angular-mdc-web/issues/50)
+* **form-field:** Implement MDC Form Field ([f6a3c7a](https://github.com/trimox/angular-mdc-web/commit/f6a3c7a))
+* **ripple:** Improvements + add disabled property ([3eab913](https://github.com/trimox/angular-mdc-web/commit/3eab913))
+* **button:** Add [disableRipple] property + remove form-field import ([7ee954d](https://github.com/trimox/angular-mdc-web/commit/7ee954d))
+* **checkbox:** Add [disableRipple] + remove form-field import ([2805e20](https://github.com/trimox/angular-mdc-web/commit/2805e20))
+* **fab:** Add [disableRipple] + refactoring ([adfffa2](https://github.com/trimox/angular-mdc-web/commit/adfffa2))
+* **infrastructure:** Add EventRegistry for Listen/Unlisten management ([d02e7c3](https://github.com/trimox/angular-mdc-web/commit/d02e7c3))
+* **radio:** Add [disableRipple] + remove form-field import ([d13937c](https://github.com/trimox/angular-mdc-web/commit/d13937c))
+* **switch:** Add [disableRipple] + remove form-field import ([19ae3b3](https://github.com/trimox/angular-mdc-web/commit/19ae3b3))
+* **theme:** Add boolean property to [mdc-theme-dark] directive ([07ec20a](https://github.com/trimox/angular-mdc-web/commit/07ec20a))
+
+
+
 <a name="0.2.1"></a>
 # [0.2.1](https://github.com/trimox/angular-mdc-web/compare/v0.2.0...v0.2.1) (2017-07-14)
 

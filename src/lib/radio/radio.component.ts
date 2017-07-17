@@ -14,13 +14,12 @@ import {
   forwardRef
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, RadioControlValueAccessor } from '@angular/forms';
-import { MDCRadioAdapter } from './radio-adapter';
+import { toBoolean } from '../common/boolean-property';
 import { Ripple } from '.././ripple/ripple.directive';
 
-import { MDCFormField } from '@material/form-field';
+import { MDCRadioAdapter } from './radio-adapter';
 import { MDCRadioFoundation } from '@material/radio';
 
-let formField_ = null;
 let nextElId_ = 0;
 
 export const MD_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
@@ -52,13 +51,12 @@ export const MD_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
   `,
   encapsulation: ViewEncapsulation.None,
   providers: [
-    MD_RADIO_CONTROL_VALUE_ACCESSOR
+    MD_RADIO_CONTROL_VALUE_ACCESSOR,
+    Ripple
   ]
 })
 
 export class RadioComponent implements AfterViewInit, OnDestroy {
-  ripple: Ripple;
-
   @Input() id: string = `mdc-radio-${++nextElId_}`;
   get inputId(): string {
     return `input-${this.id}`;
@@ -79,6 +77,11 @@ export class RadioComponent implements AfterViewInit, OnDestroy {
   set disabled(value) {
     this.setDisabledState(value);
   }
+  @Input()
+  get disableRipple() { return this.ripple.disabled; }
+  set disableRipple(value) {
+    this.ripple.disabled = toBoolean(value);
+  }
   @Input() tabindex: number = 0;
   @Input('aria-label') ariaLabel: string;
   @Input('aria-labelledby') ariaLabelledby: string;
@@ -92,12 +95,10 @@ export class RadioComponent implements AfterViewInit, OnDestroy {
 
   private _mdcAdapter: MDCRadioAdapter = {
     addClass: (className: string) => {
-      const { _renderer: renderer, _root: root } = this;
-      renderer.addClass(root.nativeElement, className);
+      this._renderer.addClass(this.root.nativeElement, className);
     },
     removeClass: (className: string) => {
-      const { _renderer: renderer, _root: root } = this;
-      renderer.removeClass(root.nativeElement, className);
+      this._renderer.removeClass(this.root.nativeElement, className);
     },
     getNativeControl: () => {
       return this.inputEl.nativeElement;
@@ -117,20 +118,13 @@ export class RadioComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef) {
-    this.ripple = new Ripple(this._renderer, this._root);
+    public root: ElementRef,
+    public ripple: Ripple) {
+    this.ripple.init(true);
   }
 
   ngAfterViewInit() {
     this._foundation.init();
-    this.ripple.unbounded = true;
-
-    if (this._renderer.parentNode(this._root.nativeElement).classList.contains('mdc-form-field')
-      && !this.disabled) {
-      formField_ = new MDCFormField(this._root.nativeElement.parentElement);
-      formField_.input = this;
-      this._renderer.setAttribute(formField_.label_, 'for', this.inputId);
-    }
   }
 
   ngOnDestroy() {
@@ -159,8 +153,5 @@ export class RadioComponent implements AfterViewInit, OnDestroy {
 
   setDisabledState(isDisabled: boolean) {
     this._foundation.setDisabled(isDisabled);
-    if (this._renderer.parentNode(this._root.nativeElement).classList.contains('mdc-form-field')) {
-      formField_.input = isDisabled === true ? null : this;
-    }
   }
 }

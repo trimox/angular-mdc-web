@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
@@ -13,9 +12,8 @@ import {
   forwardRef
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { toBoolean } from '../common/boolean-property';
 import { Ripple } from '.././ripple/ripple.directive';
-
-import { MDCFormField } from '@material/form-field';
 
 export const MD_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
@@ -23,10 +21,7 @@ export const MD_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
   multi: true
 };
 
-let formField_ = null;
 let nextElId_ = 0;
-
-type UnlistenerMap = WeakMap<EventListener, Function>;
 
 @Component({
   selector: 'mdc-switch',
@@ -48,12 +43,11 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
   `,
   encapsulation: ViewEncapsulation.None,
   providers: [
-    MD_SWITCH_CONTROL_VALUE_ACCESSOR
+    MD_SWITCH_CONTROL_VALUE_ACCESSOR,
+    Ripple
   ]
 })
-export class SwitchComponent implements AfterViewInit {
-  ripple: Ripple;
-
+export class SwitchComponent {
   @Input() id: string = `mdc-switch-${++nextElId_}`;
   get inputId(): string {
     return `input-${this.id}`;
@@ -63,18 +57,14 @@ export class SwitchComponent implements AfterViewInit {
   @Input() tabindex: number = 0;
   @Input('aria-label') ariaLabel: string;
   @Input('aria-labelledby') ariaLabelledby: string;
+  @Input()
+  get disableRipple() { return this.ripple.disabled; }
+  set disableRipple(value) {
+    this.ripple.disabled = toBoolean(value);
+  }
   @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
   @HostBinding('class.mdc-switch') isHostClass = true;
   @HostBinding('class.mdc-switch--disabled') get classDisabled(): string {
-    if (this.disabled) {
-      if (formField_) {
-        formField_.input = null;
-      }
-    } else {
-      if (formField_) {
-        formField_.input = this;
-      }
-    }
     return this.disabled ? 'mdc-switch--disabled' : '';
   }
   @ViewChild('inputEl') inputEl: ElementRef;
@@ -82,18 +72,12 @@ export class SwitchComponent implements AfterViewInit {
   onTouched: () => any = () => { };
 
   private _controlValueAccessorChangeFn: (value: any) => void = (value) => { };
-  private _unlisteners: Map<string, UnlistenerMap> = new Map<string, UnlistenerMap>();
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef) {
-    this.ripple = new Ripple(this._renderer, this._root);
-  }
-
-  ngAfterViewInit() {
-    formField_ = new MDCFormField(this._root.nativeElement.parentElement);
-    formField_.input = this;
-    this._renderer.setAttribute(formField_.label_, 'for', this.inputId);
+    public root: ElementRef,
+    public ripple: Ripple) {
+    this.ripple.init(true);
   }
 
   handleChange(evt: Event) {
@@ -112,25 +96,5 @@ export class SwitchComponent implements AfterViewInit {
 
   registerOnTouched(fn: any) {
     this.onTouched = fn;
-  }
-
-  listen_(type: string, listener: EventListener, ref: ElementRef = this._root) {
-    if (!this._unlisteners.has(type)) {
-      this._unlisteners.set(type, new WeakMap<EventListener, Function>());
-    }
-    const unlistener = this._renderer.listen(ref.nativeElement, type, listener);
-    this._unlisteners.get(type).set(listener, unlistener);
-  }
-
-  unlisten_(type: string, listener: EventListener) {
-    if (!this._unlisteners.has(type)) {
-      return;
-    }
-    const unlisteners = this._unlisteners.get(type);
-    if (!unlisteners.has(listener)) {
-      return;
-    }
-    unlisteners.get(listener)();
-    unlisteners.delete(listener);
   }
 }

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 
-import { FormFieldComponent } from './form-field.component';
+import { FormFieldDirective } from './form-field.directive';
 
 @NgModule({
-  exports: [FormFieldComponent],
-  declarations: [FormFieldComponent]
+  exports: [FormFieldDirective],
+  declarations: [FormFieldDirective]
 })
-export class FormFieldModule {}
+export class FormFieldModule { }

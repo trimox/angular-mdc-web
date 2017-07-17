@@ -14,8 +14,6 @@
           <td>mdc-switch</td>
         </tr>
       </tbody>
-    </table>
-    <table>
       <thead>
         <tr>
           <th>Properties</th>
@@ -43,9 +41,13 @@
             <td>@Input() disabled: boolean</td>
             <td>Disables the component.</td>
           </tr>
+        <tr>
+          <td>@Input() disableRipple: boolean</td>
+          <td>
+<pre><code><![CDATA[Disable the ink ripple.
+Example: disableRipple="true" or disableRipple]]></code></pre></td>
+        </tr>
       </tbody>
-    </table>
-      <table>
         <thead>
           <tr>
             <th>Event</th>
@@ -65,8 +67,7 @@
       <mdc-form-field>
         <mdc-switch [(ngModel)]="isSwitchOn"></mdc-switch>
         <label>off/on</label>
-      </mdc-form-field>
-      
+      </mdc-form-field>      
 <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-switch</span> [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"isSwitchOn"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-switch</span>></span>
   <span style="color:#e0c589">&lt;<span style="color:#e0c589">label</span>></span>off/on<span style="color:#e0c589">&lt;/<span style="color:#e0c589">label</span>></span>

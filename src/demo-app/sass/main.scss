@@ -14,7 +14,8 @@
 }
 
 .mdc-theme--dark {
-  background-color: #333;
+  background-color: #333 !important;
+  color: white;
 }
 
 .demo-card__16-9-media {
@@ -64,36 +65,39 @@
 .docs-api table {
   margin: 0 0 32px;
   border-radius: 2px;
+  color: rgba(0, 0, 0, .87);
   border-collapse: collapse;
   border-spacing: 0;
   box-shadow: 0 2px 2px rgba(0, 0, 0, .24), 0 0 2px rgba(0, 0, 0, .12);
-}
 
-.docs-api th {
-  max-width: 100px;
-  padding: 13px 32px;
-  text-align: left;
-}
+  th {
+    max-width: 100px;
+    padding: 13px 32px;
+    background: #f5f5f5;
+    text-align: left;
+  }
 
-.docs-api td {
-  margin: 1em, 0;
-  padding: 8px 16px;
-  font-family: monospace;
-  font-size: 14px;
-}
-
-.docs-api table {
-  color: rgba(0, 0, 0, .87);
-}
-
-.docs-api th {
-  background: #f5f5f5;
-}
-
-.docs-api td {
-  border: 1px solid rgba(0, 0, 0, .03);
+  td {
+    margin: 1em, 0;
+    padding: 8px 16px;
+    border: 1px solid rgba(0, 0, 0, .03);
+    font-family: monospace;
+    font-size: 14px;
+  }
 }
 
 pre {
   padding: 6px;
+}
+
+.demo-wrapper {
+  border: 1px solid rgba(0, 0, 0, .1);
+}
+
+.grey-avatar {
+  background-color: #999;
+  color: #fff;
+  font-size: 24px;
+  line-height: 42px;
+  text-align: center;
 }

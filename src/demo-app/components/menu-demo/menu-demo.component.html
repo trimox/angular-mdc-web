@@ -10,33 +10,76 @@
       <thead>
         <tr>
           <th>Component</th>
-          <th>Description</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>mdc-menu</td>
         </tr>
+        </tbody>
+      <thead>
         <tr>
-          <td>@Input() openFrom: string</td>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>@Input() openFrom: MenuOpenFrom</td>
           <td>Override the opening point of the menu. (default: topLeft)
-            <pre><code><![CDATA[
-export enum MenuOpenFrom {
+<pre><code><![CDATA[enum MenuOpenFrom {
   topLeft,
   topRight,
   bottomLeft,
   bottomRight
-}
-]]></code></pre>
+}]]></code></pre>
           </td>
         </tr>
       </tbody>
+      <thead>
+        <tr>
+          <th>Methods</th>
+          <th>Parameters</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>open(focusIndex: number)</td>
+          <td><pre><![CDATA[Opens the menu.
+The focusIndex property specifies the index of the menu item to be focused.
+If the focusIndex is omitted, no menu item will be focused.]]></pre></td>
+        </tr>
+        <tr>
+          <td>isOpen(): boolean</td>
+          <td>Returns whether or not the menu is open.</td>
+        </tr>
+        <tr>
+          <td>close()</td>
+          <td>Closes the menu.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>@Output() cancel</td>
+          <td>Dispatches an event that the menu closed with no selection made.</td>
+        </tr>
+        <tr>
+          <td>@Output() select</td>
+          <td>Dispatches an event that a menu item has been selected.</td>
+        </tr>
+      </tbody>
     </table>
+
     <table>
       <thead>
         <tr>
           <th>Directives</th>
-          <th>Description</th>
         </tr>
       </thead>
       <tbody>
@@ -51,46 +94,6 @@ export enum MenuOpenFrom {
         <tr>
           <td>mdc-menu-divider</td>
           <td>Draws a line at the bottom of the menu item.</td>
-        </tr>
-      </tbody>
-    </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Methods</th>
-          <th>Parameters</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>open(focusIndex: number)</td>
-          <td>Opens the menu. Takes an focusIndex property that specifies the index of the menu item to be focused. If the focusIndex is omitted, no menu item will be focused.</td>
-        </tr>
-        <tr>
-          <td>isOpen(): boolean</td>
-          <td>Returns whether or not the menu is open.</td>
-        </tr>
-        <tr>
-          <td>close()</td>
-          <td>Closes the menu.</td>
-        </tr>
-      </tbody>
-    </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Event</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>cancel</td>
-          <td>Dispatches an event that the menu closed with no selection made.</td>
-        </tr>
-        <tr>
-          <td>select</td>
-          <td>Dispatches an event that a menu item has been selected.</td>
         </tr>
       </tbody>
     </table>
@@ -131,7 +134,7 @@ export enum MenuOpenFrom {
   <p mdc-typography-body1>Selected index: {{selectedIndex}}</p>
   <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">mdc-menu-anchor</span>></span>
   <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span> (<span style="color:#e0c589">click</span>)=<span style="color:#65b042">"showMenu();"</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">span</span> <span style="color:#e0c589">mdc-fab-icon</span>></span>person<span style="color:#e0c589">&lt;/<span style="color:#e0c589">span</span>></span>
+    <span style="color:#e0c589">&lt;<span style="color:#e0c589">mdc-fab-icon</span>></span>person<span style="color:#e0c589">&lt;/<span style="color:#e0c589">mdc-fab-icon</span>></span>
   <span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu</span> #<span style="color:#89bdff">menu</span> (<span style="color:#89bdff">select</span>)=<span style="color:#65b042">"handleMenuSelect($event);"</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span> [<span style="color:#89bdff">id</span>]=<span style="color:#65b042">"0"</span>></span>Item 1<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span>></span>

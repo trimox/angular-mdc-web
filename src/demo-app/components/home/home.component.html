@@ -1,184 +1,193 @@
-﻿<div fxLayout="row" fxLayoutAlign="center">
-  <div fxLayoutWrap fxFlex="80" fxLayoutAlign="start start" fxLayoutGap="10px" style="margin-top: 14px;">
-    <div fxLayout="column" fxFlex="100" style="padding-bottom: 15px;">
-      <span mdc-typography-headline>Angular Material Design Components</span>
-      <span mdc-typography-subheading1>View on - <a href="https://github.com/trimox/angular-mdc-web" alt="GitHub" mdc-typography-subheading1>GitHub</a></span>
-    </div>
-    <mdc-card class="home-card">
-      <mdc-card-primary>
-        <h1 mdc-card-title>Buttons</h1>
-      </mdc-card-primary>
-      <mdc-card-supporting-text>
-        Buttons communicate the action that will occur when the user touches them.
-      </mdc-card-supporting-text>
-      <mdc-card-actions>
-        <button mdc-button [cardAction]="true" (click)="viewComponent('button-demo');">View Demo</button>
-      </mdc-card-actions>
-    </mdc-card>
-    <mdc-card class="home-card">
-      <mdc-card-primary>
-        <h1 mdc-card-title>Card</h1>
-      </mdc-card-primary>
-      <mdc-card-supporting-text>
-        A card is a sheet of material that serves as an entry point to more detailed information.
-      </mdc-card-supporting-text>
-      <mdc-card-actions>
-        <button mdc-button [cardAction]="true" (click)="viewComponent('card-demo');">View Demo</button>
-      </mdc-card-actions>
-    </mdc-card>
-    <mdc-card class="home-card">
-      <mdc-card-primary>
-        <h1 mdc-card-title>Checkbox</h1>
-      </mdc-card-primary>
-      <mdc-card-supporting-text>
-        Checkboxes allow the user to select multiple options from a set.
-      </mdc-card-supporting-text>
-      <mdc-card-actions>
-        <button mdc-button [cardAction]="true" (click)="viewComponent('checkbox-demo');">View Demo</button>
-      </mdc-card-actions>
-    </mdc-card>
-    <mdc-card class="home-card">
-      <mdc-card-primary>
-        <h1 mdc-card-title>Dialog</h1>
-      </mdc-card-primary>
-      <mdc-card-supporting-text>
-        Dialogs inform users about specific tasks, critical information, or require decisions.
-      </mdc-card-supporting-text>
-      <mdc-card-actions>
-        <button mdc-button [cardAction]="true" (click)="viewComponent('dialog-demo');">Coming Soon</button>
-      </mdc-card-actions>
-    </mdc-card>
-    <mdc-card class="home-card">
-      <mdc-card-primary>
-        <h1 mdc-card-title>Drawer</h1>
-      </mdc-card-primary>
-      <mdc-card-supporting-text>
-        Drawers slide in from the left and contains the navigation destinations for your app.
-      </mdc-card-supporting-text>
-      <mdc-card-actions>
-        <button mdc-button [cardAction]="true" (click)="viewComponent('drawer-demo');">Coming Soon</button>
-      </mdc-card-actions>
-    </mdc-card>
-    <mdc-card class="home-card">
-      <mdc-card-primary>
-        <h1 mdc-card-title>Elevation</h1>
-      </mdc-card-primary>
-      <mdc-card-supporting-text>
-        Elevation is the relative depth, or distance, between two surfaces along the z-axis.
-      </mdc-card-supporting-text>
-      <mdc-card-actions>
-        <button mdc-button [cardAction]="true" (click)="viewComponent('elevation-demo');">View Demo</button>
-      </mdc-card-actions>
-    </mdc-card>
-    <mdc-card class="home-card">
-      <mdc-card-primary>
-        <h1 mdc-card-title>Floating Action Button (FAB)</h1>
-      </mdc-card-primary>
-      <mdc-card-supporting-text>
-        A floating action button represents the primary action in an application.
-      </mdc-card-supporting-text>
-      <mdc-card-actions>
-        <button mdc-button [cardAction]="true" (click)="viewComponent('fab-demo');">View Demo</button>
-      </mdc-card-actions>
-    </mdc-card>
-    <mdc-card class="home-card">
-      <mdc-card-primary>
-        <h1 mdc-card-title>Icon Toggle</h1>
-      </mdc-card-primary>
-      <mdc-card-supporting-text>
-        Toggle buttons may be used to group related options.
-      </mdc-card-supporting-text>
-      <mdc-card-actions>
-        <button mdc-button [cardAction]="true" (click)="viewComponent('icon-toggle-demo');">Coming Soon</button>
-      </mdc-card-actions>
-    </mdc-card>
-    <mdc-card class="home-card">
-      <mdc-card-primary>
-        <h1 mdc-card-title>Linear Progress</h1>
-      </mdc-card-primary>
-      <mdc-card-supporting-text>
-        Progress and activity indicators are visual indications of an app loading content.
-      </mdc-card-supporting-text>
-      <mdc-card-actions>
-        <button mdc-button [cardAction]="true" (click)="viewComponent('linear-progress-demo');">View Demo</button>
-      </mdc-card-actions>
-    </mdc-card>
-    <mdc-card class="home-card">
-      <mdc-card-primary>
-        <h1 mdc-card-title>Menu</h1>
-      </mdc-card-primary>
-      <mdc-card-supporting-text>
-        Menus display a list of choices on a transient sheet of material.
-      </mdc-card-supporting-text>
-      <mdc-card-actions>
-        <button mdc-button [cardAction]="true" (click)="viewComponent('menu-demo');">View Demo</button>
-      </mdc-card-actions>
-    </mdc-card>
-    <mdc-card class="home-card">
-      <mdc-card-primary>
-        <h1 mdc-card-title>Radio Button</h1>
-      </mdc-card-primary>
-      <mdc-card-supporting-text>
-        Radio buttons allow the user to select one option from a set.
-      </mdc-card-supporting-text>
-      <mdc-card-actions>
-        <button mdc-button [cardAction]="true" (click)="viewComponent('radio-demo');">View Demo</button>
-      </mdc-card-actions>
-    </mdc-card>
-    <mdc-card class="home-card">
-      <mdc-card-primary>
-        <h1 mdc-card-title>Snackbar</h1>
-      </mdc-card-primary>
-      <mdc-card-supporting-text>
-        Snackbars provide brief feedback through a message at the bottom of the screen.
-      </mdc-card-supporting-text>
-      <mdc-card-actions>
-        <button mdc-button [cardAction]="true" (click)="viewComponent('snackbar-demo');">View Demo</button>
-      </mdc-card-actions>
-    </mdc-card>
-    <mdc-card class="home-card">
-      <mdc-card-primary>
-        <h1 mdc-card-title>Switch</h1>
-      </mdc-card-primary>
-      <mdc-card-supporting-text>
-        On/off switches toggle the state of a single settings option.
-      </mdc-card-supporting-text>
-      <mdc-card-actions>
-        <button mdc-button [cardAction]="true" (click)="viewComponent('switch-demo');">View Demo</button>
-      </mdc-card-actions>
-    </mdc-card>
-    <mdc-card class="home-card">
-      <mdc-card-primary>
-        <h1 mdc-card-title>Textfield</h1>
-      </mdc-card-primary>
-      <mdc-card-supporting-text>
-        Text fields allow users to input, edit, and select text.
-      </mdc-card-supporting-text>
-      <mdc-card-actions>
-        <button mdc-button [cardAction]="true" (click)="viewComponent('textfield-demo');">View Demo</button>
-      </mdc-card-actions>
-    </mdc-card>
-    <mdc-card class="home-card">
-      <mdc-card-primary>
-        <h1 mdc-card-title>Toolbar</h1>
-      </mdc-card-primary>
-      <mdc-card-supporting-text>
-        Toolbars appear a step above the sheet of material affected by their actions.
-      </mdc-card-supporting-text>
-      <mdc-card-actions>
-        <button mdc-button [cardAction]="true" (click)="viewComponent('toolbar-demo');">View Demo</button>
-      </mdc-card-actions>
-    </mdc-card>
-    <mdc-card class="home-card">
-      <mdc-card-primary>
-        <h1 mdc-card-title>Typography</h1>
-      </mdc-card-primary>
-      <mdc-card-supporting-text>
-        Material Design typography uses the Roboto font.
-      </mdc-card-supporting-text>
-      <mdc-card-actions>
-        <button mdc-button [cardAction]="true" (click)="viewComponent('typography-demo');">View Demo</button>
-      </mdc-card-actions>
-    </mdc-card>
-  </div>
+﻿<div fxLayout="column" style="padding: 15px 0 15px; margin-left: 15px;">
+  <span mdc-typography-headline>Angular Material Design Components</span>
+  <span mdc-typography-subheading1>View on - <a href="https://github.com/trimox/angular-mdc-web" alt="GitHub" mdc-typography-subheading1>GitHub</a></span>
+</div>
+<div fxLayout="row" fxLayoutAlign="center start" fxLayoutWrap fxLayoutGap="10px">
+  <mdc-card class="home-card">
+    <mdc-card-primary>
+      <h1 mdc-card-title>Buttons</h1>
+    </mdc-card-primary>
+    <mdc-card-supporting-text>
+      Buttons communicate the action that will occur when the user touches them.
+    </mdc-card-supporting-text>
+    <mdc-card-actions>
+      <button mdc-button [cardAction]="true" (click)="viewComponent('button-demo');">View Demo</button>
+    </mdc-card-actions>
+  </mdc-card>
+  <mdc-card class="home-card">
+    <mdc-card-primary>
+      <h1 mdc-card-title>Card</h1>
+    </mdc-card-primary>
+    <mdc-card-supporting-text>
+      A card is a sheet of material that serves as an entry point to more detailed information.
+    </mdc-card-supporting-text>
+    <mdc-card-actions>
+      <button mdc-button [cardAction]="true" (click)="viewComponent('card-demo');">View Demo</button>
+    </mdc-card-actions>
+  </mdc-card>
+  <mdc-card class="home-card">
+    <mdc-card-primary>
+      <h1 mdc-card-title>Checkbox</h1>
+    </mdc-card-primary>
+    <mdc-card-supporting-text>
+      Checkboxes allow the user to select multiple options from a set.
+    </mdc-card-supporting-text>
+    <mdc-card-actions>
+      <button mdc-button [cardAction]="true" (click)="viewComponent('checkbox-demo');">View Demo</button>
+    </mdc-card-actions>
+  </mdc-card>
+<!--   <mdc-card class="home-card">
+    <mdc-card-primary>
+      <h1 mdc-card-title>Dialog</h1>
+    </mdc-card-primary>
+    <mdc-card-supporting-text>
+      Dialogs inform users about specific tasks, critical information, or require decisions.
+    </mdc-card-supporting-text>
+    <mdc-card-actions>
+      <button mdc-button [cardAction]="true" (click)="viewComponent('dialog-demo');">Coming Soon</button>
+    </mdc-card-actions>
+  </mdc-card>
+ -->  <mdc-card class="home-card">
+    <mdc-card-primary>
+      <h1 mdc-card-title>Drawer</h1>
+    </mdc-card-primary>
+    <mdc-card-supporting-text>
+      Drawers slide in from the left and contains the navigation destinations for your app.
+    </mdc-card-supporting-text>
+    <mdc-card-actions>
+      <button mdc-button [cardAction]="true" (click)="viewComponent('drawer-demo');">Coming Soon</button>
+    </mdc-card-actions>
+  </mdc-card>
+  <mdc-card class="home-card">
+    <mdc-card-primary>
+      <h1 mdc-card-title>Elevation</h1>
+    </mdc-card-primary>
+    <mdc-card-supporting-text>
+      Elevation is the relative depth, or distance, between two surfaces along the z-axis.
+    </mdc-card-supporting-text>
+    <mdc-card-actions>
+      <button mdc-button [cardAction]="true" (click)="viewComponent('elevation-demo');">View Demo</button>
+    </mdc-card-actions>
+  </mdc-card>
+  <mdc-card class="home-card">
+    <mdc-card-primary>
+      <h1 mdc-card-title>Floating Action Button (FAB)</h1>
+    </mdc-card-primary>
+    <mdc-card-supporting-text>
+      A floating action button represents the primary action in an application.
+    </mdc-card-supporting-text>
+    <mdc-card-actions>
+      <button mdc-button [cardAction]="true" (click)="viewComponent('fab-demo');">View Demo</button>
+    </mdc-card-actions>
+  </mdc-card>
+<!--   <mdc-card class="home-card">
+    <mdc-card-primary>
+      <h1 mdc-card-title>Icon Toggle</h1>
+    </mdc-card-primary>
+    <mdc-card-supporting-text>
+      Toggle buttons may be used to group related options.
+    </mdc-card-supporting-text>
+    <mdc-card-actions>
+      <button mdc-button [cardAction]="true" (click)="viewComponent('icon-toggle-demo');">Coming Soon</button>
+    </mdc-card-actions>
+  </mdc-card>
+ -->  <mdc-card class="home-card">
+    <mdc-card-primary>
+      <h1 mdc-card-title>Linear Progress</h1>
+    </mdc-card-primary>
+    <mdc-card-supporting-text>
+      Progress and activity indicators are visual indications of an app loading content.
+    </mdc-card-supporting-text>
+    <mdc-card-actions>
+      <button mdc-button [cardAction]="true" (click)="viewComponent('linear-progress-demo');">View Demo</button>
+    </mdc-card-actions>
+  </mdc-card>
+  <mdc-card class="home-card">
+    <mdc-card-primary>
+      <h1 mdc-card-title>List</h1>
+    </mdc-card-primary>
+    <mdc-card-supporting-text>
+      Lists present multiple line items vertically as a single continuous element.
+    </mdc-card-supporting-text>
+    <mdc-card-actions>
+      <button mdc-button [cardAction]="true" (click)="viewComponent('list-demo');">View Demo</button>
+    </mdc-card-actions>
+  </mdc-card>
+  <mdc-card class="home-card">
+    <mdc-card-primary>
+      <h1 mdc-card-title>Menu</h1>
+    </mdc-card-primary>
+    <mdc-card-supporting-text>
+      Menus display a list of choices on a transient sheet of material.
+    </mdc-card-supporting-text>
+    <mdc-card-actions>
+      <button mdc-button [cardAction]="true" (click)="viewComponent('menu-demo');">View Demo</button>
+    </mdc-card-actions>
+  </mdc-card>
+  <mdc-card class="home-card">
+    <mdc-card-primary>
+      <h1 mdc-card-title>Radio Button</h1>
+    </mdc-card-primary>
+    <mdc-card-supporting-text>
+      Radio buttons allow the user to select one option from a set.
+    </mdc-card-supporting-text>
+    <mdc-card-actions>
+      <button mdc-button [cardAction]="true" (click)="viewComponent('radio-demo');">View Demo</button>
+    </mdc-card-actions>
+  </mdc-card>
+  <mdc-card class="home-card">
+    <mdc-card-primary>
+      <h1 mdc-card-title>Snackbar</h1>
+    </mdc-card-primary>
+    <mdc-card-supporting-text>
+      Snackbars provide brief feedback through a message at the bottom of the screen.
+    </mdc-card-supporting-text>
+    <mdc-card-actions>
+      <button mdc-button [cardAction]="true" (click)="viewComponent('snackbar-demo');">View Demo</button>
+    </mdc-card-actions>
+  </mdc-card>
+  <mdc-card class="home-card">
+    <mdc-card-primary>
+      <h1 mdc-card-title>Switch</h1>
+    </mdc-card-primary>
+    <mdc-card-supporting-text>
+      On/off switches toggle the state of a single settings option.
+    </mdc-card-supporting-text>
+    <mdc-card-actions>
+      <button mdc-button [cardAction]="true" (click)="viewComponent('switch-demo');">View Demo</button>
+    </mdc-card-actions>
+  </mdc-card>
+  <mdc-card class="home-card">
+    <mdc-card-primary>
+      <h1 mdc-card-title>Textfield</h1>
+    </mdc-card-primary>
+    <mdc-card-supporting-text>
+      Text fields allow users to input, edit, and select text.
+    </mdc-card-supporting-text>
+    <mdc-card-actions>
+      <button mdc-button [cardAction]="true" (click)="viewComponent('textfield-demo');">View Demo</button>
+    </mdc-card-actions>
+  </mdc-card>
+  <mdc-card class="home-card">
+    <mdc-card-primary>
+      <h1 mdc-card-title>Toolbar</h1>
+    </mdc-card-primary>
+    <mdc-card-supporting-text>
+      Toolbars appear a step above the sheet of material affected by their actions.
+    </mdc-card-supporting-text>
+    <mdc-card-actions>
+      <button mdc-button [cardAction]="true" (click)="viewComponent('toolbar-demo');">View Demo</button>
+    </mdc-card-actions>
+  </mdc-card>
+  <mdc-card class="home-card">
+    <mdc-card-primary>
+      <h1 mdc-card-title>Typography</h1>
+    </mdc-card-primary>
+    <mdc-card-supporting-text>
+      Material Design typography uses the Roboto font.
+    </mdc-card-supporting-text>
+    <mdc-card-actions>
+      <button mdc-button [cardAction]="true" (click)="viewComponent('typography-demo');">View Demo</button>
+    </mdc-card-actions>
+  </mdc-card>
 </div>

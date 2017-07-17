@@ -6,7 +6,7 @@ import { Router, NavigationEnd } from '@angular/router';
   template:
   `
   <navbar></navbar>
-  <div mdc-typography>
+  <div>
     <router-outlet></router-outlet>
   </div>  
   `
@@ -15,8 +15,10 @@ export class AppComponent implements OnInit {
   constructor(private _router: Router) { }
   ngOnInit() {
     this._router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        window.scrollTo(0, 0);
+      if (this._router.url !== '/') {
+        if (event instanceof NavigationEnd) {
+          window.scrollTo(0, 0);
+        }
       }
     });
   }

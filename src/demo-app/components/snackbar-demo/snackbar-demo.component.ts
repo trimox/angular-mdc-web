@@ -16,7 +16,7 @@ export class SnackbarDemoComponent implements OnInit {
 
   ngOnInit() {
     this.message = {
-      message: 'Sample text',
+      message: 'Hello',
       actionText: 'Ok',
     };
   }

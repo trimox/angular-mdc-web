@@ -1,0 +1,322 @@
+<div fxLayout="column" class="mdc-padding">
+  <h1 mdc-typography-display1>Lists</h1>
+  <div mdc-typography-subheading2>MDC List provides styles which implement Material Design Lists - "A single continuous column of tessellated subdivisions of equal width." Both single-line and two-line lists are supported.</div>
+  <div class="info-banner" mdc-typography-subheading1>
+    <![CDATA[import { ListModule } from '@angular-mdc/web';]]>
+  </div>
+  <div class="docs-api">
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-list</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>@Input() dense: boolean</td>
+          <td>Shrinks the font size and height of each list item.</td>
+        </tr>
+        <tr>
+          <td>@Input() twoLine: boolean</td>
+          <td>Sets a class modifier for using two lines inside of list items.</td>
+        </tr>
+        <tr>
+          <td>@Input() avatar: boolean</td>
+          <td>Style the start detail elements as "avatars" - large, circular details that lend themselves well to contact images, profile pictures, etc.</td>
+        </tr>
+        <tr>
+          <td>@Input() disableRipple: boolean</td>
+          <td>Disables ink ripple. Applied at the parent mdc-list level; overrides mdc-list-item's [disableRipple].</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Directive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-list-item</td>
+        </tr>
+        <tr>
+          <td>a[mdc-list-item]</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>@Input() disableRipple: boolean</td>
+          <td>
+<pre><code><![CDATA[Disables ink ripple on an individual list item.
+Note: Overridden by mdc-list's [disableRipple]]]></code></pre></td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Child Directive</th>
+        </tr>
+      </thead>
+        <tr>
+          <td>mdc-list-item-start</td>
+          <td>Position element at the start of the row.</td>
+        </tr>
+        <tr>
+          <td>mdc-list-item-end</td>
+          <td>Position element at the end of the row.</td>
+        </tr>
+        <tr>
+          <td>mdc-list-item-text</td>
+        </tr>
+        <tr>
+          <td>mdc-list-item-secondary</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Directive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-list-divider</td>
+          <td>Use as full-width or inset subdivisions either within lists themselves, or event standalone.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>@Input() inset: boolean</td>
+          <td>Inset dividers are useful when working with lists which have start details.</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Directive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-list-group</td>
+          <td>Multiple related lists can be grouped together using the mdc-list-group.</td>
+        </tr>
+        <tr>
+          <td>mdc-list-group-subheader</td>
+          <td>Use to add a subheader to the top of your grouped list.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div fxLayout="column" class="mdc-padding">
+    <h3>Single-Line</h3>
+    <div fxLayout="row">
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="isSinglelineDense"></mdc-checkbox>
+        <label>Dense</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="isSingleDarkTheme"></mdc-checkbox>
+        <label>Dark Theme</label>
+      </mdc-form-field>
+    </div>
+    <mdc-list class="demo-wrapper" [dense]="isSinglelineDense" [mdc-theme-dark]="isSingleDarkTheme">
+      <mdc-list-item>Single-line item</mdc-list-item>
+      <mdc-list-item>Single-line item</mdc-list-item>
+      <mdc-list-item>Single-line item</mdc-list-item>
+    </mdc-list>
+  </div>
+  <div fxLayout="column" class="mdc-padding">
+    <h3>Two-line List</h3>
+    <div fxLayout="row">
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="isTwolineDense"></mdc-checkbox>
+        <label>Dense</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="isTwoDarkTheme"></mdc-checkbox>
+        <label>Dark Theme</label>
+      </mdc-form-field>
+    </div>
+    <mdc-list class="demo-wrapper" [twoLine]="true" [dense]="isTwolineDense" [mdc-theme-dark]="isTwoDarkTheme">
+      <mdc-list-item>
+        <span mdc-list-item-text>
+          Single-line item
+          <span mdc-list-item-secondary>Secondary text</span>
+        </span>
+      </mdc-list-item>
+      <mdc-list-item>
+        <span mdc-list-item-text>
+          Single-line item
+          <span mdc-list-item-secondary>Secondary text</span>
+        </span>
+      </mdc-list-item>
+      <mdc-list-item>
+        <span mdc-list-item-text>
+          Single-line item
+          <span mdc-list-item-secondary>Secondary text</span>
+        </span>
+      </mdc-list-item>
+    </mdc-list>
+  </div>
+
+  <div fxLayout="column" class="mdc-padding">
+    <h3>Start Detail</h3>
+    <div fxLayout="row">
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="isStartDetailDarkTheme"></mdc-checkbox>
+        <label>Dark Theme</label>
+      </mdc-form-field>
+    </div>
+    <mdc-list class="demo-wrapper" [mdc-theme-dark]="isStartDetailDarkTheme">
+      <mdc-list-item>
+        <i mdc-list-item-start material-icon>network_wifi</i>Wi-Fi
+      </mdc-list-item>
+      <mdc-list-item>
+        <i mdc-list-item-start material-icon>bluetooth</i>Bluetooth
+      </mdc-list-item>
+      <mdc-list-item>
+        <i mdc-list-item-start material-icon>data_usage</i>Data Usage
+      </mdc-list-item>
+    </mdc-list>
+  </div>
+  <div fxLayout="column" class="mdc-padding">
+    <h3>End Detail</h3>
+    <mdc-list class="demo-wrapper">
+      <mdc-list-item>
+        Wi-Fi<i mdc-list-item-end material-icon>info</i>
+      </mdc-list-item>
+      <mdc-list-item>
+        Bluetooth<i mdc-list-item-end material-icon>info</i>
+      </mdc-list-item>
+      <mdc-list-item>
+        Data Usage<i mdc-list-item-end material-icon>info</i>
+      </mdc-list-item>
+    </mdc-list>
+  </div>
+  <div fxLayout="column" class="mdc-padding">
+    <h3>Start + End Detail</h3>
+    <div fxLayout="row">
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="isStartEndDetailDarkTheme"></mdc-checkbox>
+        <label>Dark Theme</label>
+      </mdc-form-field>
+    </div>
+    <mdc-list class="demo-wrapper" [mdc-theme-dark]="isStartEndDetailDarkTheme">
+      <mdc-list-item>
+        <i mdc-list-item-start material-icon>network_wifi</i>Wi-Fi<i mdc-list-item-end material-icon>info</i>
+      </mdc-list-item>
+      <mdc-list-item>
+        <i mdc-list-item-start material-icon>bluetooth</i>Bluetooth<i mdc-list-item-end material-icon>info</i>
+      </mdc-list-item>
+      <mdc-list-item>
+        <i mdc-list-item-start material-icon>data_usage</i>Data Usage<i mdc-list-item-end material-icon>info</i>
+      </mdc-list-item>
+    </mdc-list>
+  </div>
+
+  <div fxLayout="column" class="mdc-padding">
+    <h3>Avatar List</h3>
+    <div fxLayout="row">
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="isAvatarDense"></mdc-checkbox>
+        <label>Dense</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="isAvatarDarkTheme"></mdc-checkbox>
+        <label>Dark Theme</label>
+      </mdc-form-field>
+    </div>
+    <mdc-list class="demo-wrapper" avatar="true" [dense]="isAvatarDense" [mdc-theme-dark]="isAvatarDarkTheme">
+      <mdc-list-item>
+        <i mdc-list-item-start material-icon class="grey-avatar">person</i>Single-line item
+      </mdc-list-item>
+      <mdc-list-item>
+        <i mdc-list-item-start material-icon class="grey-avatar">person</i>Single-line item
+      </mdc-list-item>
+      <mdc-list-item>
+        <i mdc-list-item-start material-icon class="grey-avatar">person</i>Single-line item
+      </mdc-list-item>
+    </mdc-list>
+  </div>
+  <div fxLayout="column" class="mdc-padding">
+    <h3>Avatar List + Checkbox</h3>
+    <mdc-list class="demo-wrapper" avatar="true" [dense]="isAvatarDense" [mdc-theme-dark]="isAvatarDarkTheme">
+      <mdc-list-item>
+        <i mdc-list-item-start material-icon class="grey-avatar">person</i>Single-line item
+          <mdc-checkbox mdc-list-item-end></mdc-checkbox>
+      </mdc-list-item>
+      <mdc-list-item>
+        <i mdc-list-item-start material-icon class="grey-avatar">person</i>Single-line item
+          <mdc-checkbox mdc-list-item-end></mdc-checkbox>
+      </mdc-list-item>
+      <mdc-list-item>
+        <i mdc-list-item-start material-icon class="grey-avatar">person</i>Single-line item
+          <mdc-checkbox mdc-list-item-end></mdc-checkbox>
+      </mdc-list-item>
+    </mdc-list>
+  </div>
+  <div fxLayout="column" class="mdc-padding">
+    <h3>Interactive Lists (using ink ripple)</h3>
+    <mdc-list class="demo-wrapper">
+      <a mdc-list-item href="#/list-demo">
+        <i mdc-list-item-start material-icon>network_wifi</i>Wi-Fi<i mdc-list-item-end material-icon>info</i>
+      </a>
+      <a mdc-list-item href="#/list-demo">
+        <i mdc-list-item-start material-icon>bluetooth</i>Bluetooth<i mdc-list-item-end material-icon>info</i>
+      </a>
+      <a mdc-list-item href="#/list-demo">
+        <i mdc-list-item-start material-icon>data_usage</i>Data Usage<i mdc-list-item-end material-icon>info</i>
+      </a>
+    </mdc-list>
+  </div>
+  <div fxLayout="column" class="mdc-padding">
+    <h3>Grouped Lists</h3>
+    <mdc-list-group class="demo-wrapper">
+      <mdc-list-group-subheader>Group Lists</mdc-list-group-subheader>
+      <mdc-list>
+        <a mdc-list-item href="#/list-demo">
+          <i mdc-list-item-start material-icon>network_wifi</i>Wi-Fi<i mdc-list-item-end material-icon>info</i>
+        </a>
+        <a mdc-list-item href="#/list-demo">
+          <i mdc-list-item-start material-icon>bluetooth</i>Bluetooth<i mdc-list-item-end material-icon>info</i>
+        </a>
+        <a mdc-list-item href="#/list-demo">
+          <i mdc-list-item-start material-icon>data_usage</i>Data Usage<i mdc-list-item-end material-icon>info</i>
+        </a>
+      </mdc-list>
+      <mdc-list-divider></mdc-list-divider>
+      <mdc-list-group-subheader>List 2</mdc-list-group-subheader>
+      <mdc-list>
+        <mdc-list-item>Single-line item</mdc-list-item>
+        <mdc-list-item>Single-line item</mdc-list-item>
+        <mdc-list-item>Single-line item</mdc-list-item>
+      </mdc-list>
+    </mdc-list-group>
+  </div>
+</div>

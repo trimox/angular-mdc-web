@@ -19,8 +19,6 @@
           <td>a[mdc-fab]</td>
         </tr>
       </tbody>
-    </table>
-    <table>
       <thead>
         <tr>
           <th>Properties</th>
@@ -37,8 +35,27 @@
           <td>Makes the FAB have a white background.</td>
         </tr>
         <tr>
-          <td>@Input() disabled: string</td>
-          <td>Disables the component.</td>
+          <td>@Input() disabled: boolean</td>
+          <td>Disables the button.</td>
+        </tr>
+        <tr>
+          <td>@Input() disableRipple: boolean</td>
+          <td>
+<pre><code><![CDATA[Disable the ink ripple.
+Example: disableRipple="true" or disableRipple]]></code></pre></td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Directive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-fab-icon</td>
+          <td>Use with an icon or svg to place an image in the center of the button.</td>
         </tr>
       </tbody>
     </table>

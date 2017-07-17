@@ -12,6 +12,7 @@ import { MenuDemoComponent } from './components/menu-demo/menu-demo.component';
 import { TextfieldDemoComponent } from './components/textfield-demo/textfield-demo.component';
 import { ToolbarDemoComponent } from './components/toolbar-demo/toolbar-demo.component';
 import { LinearProgressDemoComponent } from './components/linear-progress-demo/linear-progress-demo.component';
+import { ListDemoComponent } from './components/list-demo/list-demo.component';
 import { TypographyDemoComponent } from './components/typography-demo/typography-demo.component';
 import { RadioDemoComponent } from './components/radio-demo/radio-demo.component';
 
@@ -29,6 +30,7 @@ export const demoAppRoutes: Routes = [
   { path: 'radio-demo', component: RadioDemoComponent },
   { path: 'card-demo', component: CardDemoComponent },
   { path: 'elevation-demo', component: ElevationDemoComponent },
+  { path: 'list-demo', component: ListDemoComponent },
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: '**', redirectTo: '' }
 ];

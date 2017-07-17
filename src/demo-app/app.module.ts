@@ -11,8 +11,8 @@ import { CheckboxDemoComponent } from './components/checkbox-demo/checkbox-demo.
 import { FabDemoComponent } from './components/fab-demo/fab-demo.component';
 import { ElevationDemoComponent } from './components/elevation-demo/elevation-demo.component';
 import { LinearProgressDemoComponent } from './components/linear-progress-demo/linear-progress-demo.component';
+import { ListDemoComponent } from './components/list-demo/list-demo.component';
 import { MenuDemoComponent } from './components/menu-demo/menu-demo.component';
-import { NavbarComponent } from './components/navigation/navbar.component';
 import { RadioDemoComponent } from './components/radio-demo/radio-demo.component';
 import { SnackbarDemoComponent } from './components/snackbar-demo/snackbar-demo.component';
 import { SwitchDemoComponent } from './components/switch-demo/switch-demo.component';
@@ -23,6 +23,7 @@ import { TypographyDemoComponent } from './components/typography-demo/typography
 import { MaterialModule } from '@angular-mdc/web';
 
 import { HomeComponent } from './components/home/home.component';
+import { NavbarComponent } from './components/navigation/navbar.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { demoAppRoutes } from './routes';
@@ -45,6 +46,7 @@ import { demoAppRoutes } from './routes';
     FabDemoComponent,
     HomeComponent,
     LinearProgressDemoComponent,
+    ListDemoComponent,
     MenuDemoComponent,
     NavbarComponent,
     RadioDemoComponent,

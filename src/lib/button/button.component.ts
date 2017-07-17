@@ -13,11 +13,11 @@ import { toBoolean } from '../common/boolean-property';
 @Component({
   selector: 'button[mdc-button], a[mdc-button]',
   template: '<ng-content></ng-content>',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  providers: [Ripple]
 })
 export class ButtonComponent {
   private _disabled: boolean = false;
-  ripple: Ripple;
 
   @Input() type: string;
   @Input() raised: boolean;
@@ -35,6 +35,11 @@ export class ButtonComponent {
     } else {
       this._renderer.removeAttribute(this._root.nativeElement, "disabled");
     }
+  }
+  @Input()
+  get disableRipple() { return this._ripple.disabled; }
+  set disableRipple(value) {
+    this._ripple.disabled = toBoolean(value);
   }
   @HostBinding('tabindex') get tabindex(): number {
     return this.disabled ? -1 : 0;
@@ -73,8 +78,9 @@ export class ButtonComponent {
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef) {
-    this.ripple = new Ripple(this._renderer, this._root);
+    private _root: ElementRef,
+    private _ripple: Ripple) {
+    this._ripple.init();
   }
 
   handleKeyboardDown_(evt: KeyboardEvent) {
@@ -83,7 +89,7 @@ export class ButtonComponent {
     const isEnter = key === 'Enter' || keyCode === 13;
 
     if (isSpace || isEnter) {
-      this.ripple.active = true;
+      this._ripple.active = true;
       evt.preventDefault();
     }
   }
@@ -94,7 +100,7 @@ export class ButtonComponent {
     const isEnter = key === 'Enter' || keyCode === 13;
 
     if (isSpace || isEnter) {
-      this.ripple.active = false;
+      this._ripple.active = false;
       evt.preventDefault();
     }
   }

@@ -2,54 +2,61 @@
   Directive,
   ElementRef,
   OnDestroy,
-  Renderer2
+  Renderer2,
 } from '@angular/core';
 import { MDCRippleAdapter } from './ripple-adapter';
+import { EventRegistry } from '../common/event-registry';
+import { toBoolean } from '../common/boolean-property';
 
 import { MDCRippleFoundation, util } from '@material/ripple';
 
-type UnlistenerMap = WeakMap<EventListener, Function>;
-
 @Directive({
-  selector: '[mdc-ripple]'
+  selector: '[mdc-ripple]',
+  providers: [EventRegistry]
 })
 export class Ripple implements OnDestroy {
+  private _disabled: boolean;
+
   unbounded: boolean;
   active: boolean;
-
-  private _unlisteners: Map<string, UnlistenerMap> = new Map<string, UnlistenerMap>();
+  get disabled() { return this._disabled; }
+  set disabled(value) {
+    this._disabled = toBoolean(value);
+    if (this._disabled) {
+      this._foundation.destroy();
+    } else {
+      this._foundation.init();
+    }
+  }
 
   private _mdcAdapter: MDCRippleAdapter = {
     browserSupportsCssVars: () => (typeof window !== 'undefined') ? util.supportsCssVariables(window) : false,
     isUnbounded: () => this.unbounded,
     isSurfaceActive: () => this.active,
     isSurfaceDisabled: () => {
-      const { _renderer: renderer, _root: root } = this;
-      return root.nativeElement.attributes.getNamedItem('disabled') ? true : false;
+      return (this._root.nativeElement.attributes.getNamedItem('disabled') || this.disabled) ? true : false;
     },
     addClass: (className: string) => {
-      const { _renderer: renderer, _root: root } = this;
-      renderer.addClass(root.nativeElement, className);
+      this._renderer.addClass(this._root.nativeElement, className);
     },
     removeClass: (className: string) => {
-      const { _renderer: renderer, _root: root } = this;
-      renderer.removeClass(root.nativeElement, className);
+      this._renderer.removeClass(this._root.nativeElement, className);
     },
     registerInteractionHandler: (evtType: string, handler: EventListener) => {
       if (this._root) {
-        this.listen_(evtType, handler);
+        this._registry.listen_(this._renderer, evtType, handler, this._root);
       }
     },
     deregisterInteractionHandler: (evtType: string, handler: EventListener) => {
-      this.unlisten_(evtType, handler);
+      this._registry.unlisten_(evtType, handler);
     },
     registerResizeHandler: (handler: EventListener) => {
       if (this._root) {
-        this.listen_('resize', handler);
+        this._registry.listen_(this._renderer, 'resize', handler, this._root);
       }
     },
     deregisterResizeHandler: (handler: EventListener) => {
-      this.unlisten_('resize', handler);
+      this._registry.unlisten_('resize', handler);
     },
     updateCssVariable: (varName: string, value: string) => {
       if (this._root) {
@@ -69,8 +76,8 @@ export class Ripple implements OnDestroy {
     },
     getWindowPageOffset: () => {
       return {
-        x: window.pageXOffset,
-        y: window.pageYOffset
+        x: (typeof window !== 'undefined') ? window.pageXOffset : 0,
+        y: (typeof window !== 'undefined') ? window.pageYOffset : 0
       };
     }
   };
@@ -84,12 +91,16 @@ export class Ripple implements OnDestroy {
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef) {
-    this._foundation.init();
-  }
+    private _root: ElementRef,
+    private _registry: EventRegistry) { }
 
   ngOnDestroy() {
     this._foundation.destroy();
+  }
+
+  init(unbounded?: boolean) {
+    this._foundation.init();
+    this.unbounded = unbounded;
   }
 
   activate() {
@@ -98,25 +109,5 @@ export class Ripple implements OnDestroy {
 
   deactivate() {
     this._foundation.deactivate();
-  }
-
-  listen_(type: string, listener: EventListener, ref: ElementRef = this._root) {
-    if (!this._unlisteners.has(type)) {
-      this._unlisteners.set(type, new WeakMap<EventListener, Function>());
-    }
-    const unlistener = this._renderer.listen(ref.nativeElement, type, listener);
-    this._unlisteners.get(type).set(listener, unlistener);
-  }
-
-  unlisten_(type: string, listener: EventListener) {
-    if (!this._unlisteners.has(type)) {
-      return;
-    }
-    const unlisteners = this._unlisteners.get(type);
-    if (!unlisteners.has(listener)) {
-      return;
-    }
-    unlisteners.get(listener)();
-    unlisteners.delete(listener);
   }
 }

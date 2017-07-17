@@ -22,7 +22,7 @@ Our Angular library integrates with [Google's Material Design Components](https:
 npm install --save @angular-mdc/web
 ```
 
-### Update Angular MDC version
+### Update Angular MDC
 ```
 npm update @angular-mdc/web
 ```
@@ -47,7 +47,7 @@ Check out our [Getting Started guide](https://github.com/trimox/angular-mdc-web/
 | grid-list | TBI ||
 | icon-toggle | WIP ||
 | linear-progress | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/linear-progress-demo) |
-| list | TBI ||
+| list | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/list-demo) |
 | menu | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/menu-demo) |
 | radio | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/radio-demo) |
 | ripple | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/ripple-demo) |

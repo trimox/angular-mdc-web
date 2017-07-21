@@ -4,6 +4,7 @@ export * from './button/index';
 export * from './card/index';
 export * from './checkbox/index';
 export * from './elevation/index';
+export * from './drawer/index';
 export * from './fab/index';
 export * from './form-field/index';
 export * from './linear-progress/index';

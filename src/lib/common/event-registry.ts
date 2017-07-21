@@ -12,11 +12,11 @@ export class EventRegistry {
 
   constructor() { }
 
-  listen_(renderer: Renderer2, type: string, listener: EventListener, ref: ElementRef) {
+  listen_(renderer: Renderer2, type: string, listener: EventListener, target: any) {
     if (!this.unlisteners.has(type)) {
       this.unlisteners.set(type, new WeakMap<EventListener, Function>());
     }
-    const unlistener = renderer.listen(ref.nativeElement, type, listener);
+    const unlistener = renderer.listen(typeof target !== 'string' ? target.nativeElement : target, type, listener);
     this.unlisteners.get(type).set(listener, unlistener);
   }
 

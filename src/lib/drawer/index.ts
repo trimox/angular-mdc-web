@@ -43,8 +43,8 @@ const DRAWER_COMPONENTS = [
   PersistentDrawerNavigationDirective,
   PersistentDrawerHeaderContentDirective,
   PersistentDrawerContentDirective,
-  PermanentDrawerSelectedDirective,
   PersistentDrawerSpacerDirective,
+  PersistentDrawerSelectedDirective,
 ];
 
 @NgModule({

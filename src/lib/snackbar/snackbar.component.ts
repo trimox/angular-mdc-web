@@ -9,18 +9,17 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+import { isBrowser } from '../common/platform';
+import { EventRegistry } from '../common/event-registry';
+
 import { MDCSnackbarAdapter } from './snackbar-adapter';
 import { SnackbarTextDirective } from './snackbar-text.directive';
 import { SnackbarActionWrapperDirective } from './snackbar-action-wrapper.directive';
 import { SnackbarActionButtonDirective } from './snackbar-action-button.directive';
 import { SnackbarMessage } from './snackbar-message';
 
-import { isBrowser } from '../common/platform';
-
 import { MDCSnackbarFoundation } from '@material/snackbar';
 import { getCorrectEventName } from '@material/animation';
-
-type UnlistenerMap = WeakMap<EventListener, Function>;
 
 @Component({
   selector: 'mdc-snackbar',
@@ -50,8 +49,6 @@ export class SnackbarComponent implements AfterViewInit, OnDestroy {
   @ViewChild(SnackbarTextDirective) snackText: SnackbarTextDirective;
   @ViewChild(SnackbarActionWrapperDirective) actionWrapper: SnackbarActionWrapperDirective;
   @ViewChild(SnackbarActionButtonDirective) actionButton: SnackbarActionButtonDirective;
-
-  private _unlisteners: Map<string, UnlistenerMap> = new Map<string, UnlistenerMap>();
 
   private _mdcAdapter: MDCSnackbarAdapter = {
     addClass: (className: string) => {
@@ -96,50 +93,50 @@ export class SnackbarComponent implements AfterViewInit, OnDestroy {
     },
     registerCapturedBlurHandler: (handler: EventListener) => {
       if (this._root && this.actionButton) {
-        this.listen_('blur', handler, this.actionButton.elementRef);
+        this._registry.listen_(this._renderer, 'blur', handler, this.actionButton.elementRef);
       }
     },
     deregisterCapturedBlurHandler: (handler: EventListener) => {
       if (this._root) {
-        this.unlisten_('blur', handler);
+        this._registry.unlisten_('blur', handler);
       }
     },
     registerVisibilityChangeHandler: (handler: EventListener) => {
       if (this._root && isBrowser()) {
-        this.listen_('visibilitychange', handler, this._root);
+        this._registry.listen_(this._renderer, 'visibilitychange', handler, this._root);
       }
     },
     deregisterVisibilityChangeHandler: (handler: EventListener) => {
       if (this._root && isBrowser()) {
-        this.unlisten_('visibilitychange', handler);
+        this._registry.unlisten_('visibilitychange', handler);
       }
     },
     registerCapturedInteractionHandler: (evtType: string, handler: EventListener) => {
       if (isBrowser()) {
-        document.body.addEventListener(evtType, handler, true);
+        this._registry.listen_(this._renderer, evtType, handler, 'body');
       }
     },
     deregisterCapturedInteractionHandler: (evtType: string, handler: EventListener) => {
       if (isBrowser()) {
-        document.body.removeEventListener(evtType, handler, true);
+        this._registry.unlisten_(evtType, handler);
       }
     },
     registerActionClickHandler: (handler: EventListener) => {
       if (this._root && this.actionButton) {
-        this.listen_('click', handler, this.actionButton.elementRef);
+        this._registry.listen_(this._renderer, 'click', handler, this.actionButton.elementRef);
       }
     },
     deregisterActionClickHandler: (handler: EventListener) => {
-      this.unlisten_('click', handler);
+      this._registry.unlisten_('click', handler);
     },
     registerTransitionEndHandler: (handler: EventListener) => {
       if (this._root && isBrowser()) {
-        this.listen_(getCorrectEventName(window, 'transitionend'), handler, this._root);
+        this._registry.listen_(this._renderer, getCorrectEventName(window, 'transitionend'), handler, this._root);
       }
     },
     deregisterTransitionEndHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this.unlisten_(getCorrectEventName(window, 'transitionend'), handler);
+        this._registry.unlisten_(getCorrectEventName(window, 'transitionend'), handler);
       }
     }
   };
@@ -154,7 +151,8 @@ export class SnackbarComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef) { }
+    private _root: ElementRef,
+    private _registry: EventRegistry) { }
 
   ngAfterViewInit() {
     this._foundation.init();
@@ -173,25 +171,5 @@ export class SnackbarComponent implements AfterViewInit, OnDestroy {
       }
       this._foundation.show(data);
     }
-  }
-
-  listen_(type: string, listener: EventListener, ref: ElementRef) {
-    if (!this._unlisteners.has(type)) {
-      this._unlisteners.set(type, new WeakMap<EventListener, Function>());
-    }
-    const unlistener = this._renderer.listen(ref.nativeElement, type, listener);
-    this._unlisteners.get(type).set(listener, unlistener);
-  }
-
-  unlisten_(type: string, listener: EventListener) {
-    if (!this._unlisteners.has(type)) {
-      return;
-    }
-    const unlisteners = this._unlisteners.get(type);
-    if (!unlisteners.has(listener)) {
-      return;
-    }
-    unlisteners.get(listener)();
-    unlisteners.delete(listener);
   }
 }

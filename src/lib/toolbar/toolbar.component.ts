@@ -11,14 +11,14 @@ import {
   Renderer2,
   ViewEncapsulation
 } from '@angular/core';
-import { MDCToolbarAdapter } from './toolbar-adapter';
-import { ToolbarTitleDirective } from './toolbar-title.directive';
-import { ToolbarRowDirective } from './toolbar-row.directive';
+import { EventRegistry } from '../common/event-registry';
 import { isBrowser } from '../common/platform';
 
-import { MDCToolbarFoundation, util } from '@material/toolbar';
+import { ToolbarTitleDirective } from './toolbar-title.directive';
+import { ToolbarRowDirective } from './toolbar-row.directive';
 
-type UnlistenerMap = WeakMap<EventListener, Function>;
+import { MDCToolbarAdapter } from './toolbar-adapter';
+import { MDCToolbarFoundation } from '@material/toolbar';
 
 @Component({
   selector: 'mdc-toolbar',
@@ -51,8 +51,6 @@ export class ToolbarComponent implements AfterViewInit, OnDestroy {
     return this.flexible && this.flexibleDefaultBehavior ? 'mdc-toolbar--flexible-default-behavior' : '';
   }
 
-  private _unlisteners: Map<string, UnlistenerMap> = new Map<string, UnlistenerMap>();
-
   private _mdcAdapter: MDCToolbarAdapter = {
     hasClass: (className: string) => {
       return this._root.nativeElement.classList.contains(className);
@@ -65,22 +63,22 @@ export class ToolbarComponent implements AfterViewInit, OnDestroy {
     },
     registerScrollHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        window.addEventListener('scroll', handler, util.applyPassive());
+        this._registry.listen_(this._renderer, 'scroll', handler, 'window');
       }
     },
     deregisterScrollHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        window.removeEventListener('scroll', handler, util.applyPassive());
+        this._registry.unlisten_('scroll', handler);
       }
     },
     registerResizeHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        window.addEventListener('resize', handler, util.applyPassive());
+        this._registry.listen_(this._renderer, 'resize', handler, 'window');
       }
     },
     deregisterResizeHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        window.removeEventListener('resize', handler, util.applyPassive());
+        this._registry.unlisten_('resize', handler);
       }
     },
     getViewportWidth: () => {
@@ -124,7 +122,8 @@ export class ToolbarComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef) { }
+    private _root: ElementRef,
+    private _registry: EventRegistry) { }
 
   ngAfterViewInit() {
     this._foundation.init();
@@ -135,25 +134,5 @@ export class ToolbarComponent implements AfterViewInit, OnDestroy {
 
   updateAdjustElementStyles() {
     this._foundation.updateAdjustElementStyles();
-  }
-
-  listen_(type: string, listener: EventListener, ref: any) {
-    if (!this._unlisteners.has(type)) {
-      this._unlisteners.set(type, new WeakMap<EventListener, Function>());
-    }
-    const unlistener = this._renderer.listen(ref, type, listener);
-    this._unlisteners.get(type).set(listener, unlistener);
-  }
-
-  unlisten_(type: string, listener: EventListener) {
-    if (!this._unlisteners.has(type)) {
-      return;
-    }
-    const unlisteners = this._unlisteners.get(type);
-    if (!unlisteners.has(listener)) {
-      return;
-    }
-    unlisteners.get(listener)();
-    unlisteners.delete(listener);
   }
 }

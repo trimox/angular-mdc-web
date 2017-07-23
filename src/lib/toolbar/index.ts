@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { ToolbarComponent } from './toolbar.component';
 import { ToolbarRowDirective } from './toolbar-row.directive';
@@ -20,7 +19,6 @@ const TOOLBAR_COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [CommonModule],
   exports: [TOOLBAR_COMPONENTS],
   declarations: [TOOLBAR_COMPONENTS],
 })

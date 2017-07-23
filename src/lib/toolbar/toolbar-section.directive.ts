@@ -2,7 +2,6 @@ import {
   Directive,
   HostBinding,
   Input,
-  ViewEncapsulation
 } from '@angular/core';
 
 @Directive({

@@ -40,7 +40,7 @@ Check out our [Getting Started guide](https://github.com/trimox/angular-mdc-web/
 | card | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/card-demo) |
 | checkbox | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/checkbox-demo) |
 | dialog | WIP ||
-| drawer | WIP ||
+| drawer | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/drawer-demo) |
 | elevation | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/elevation-demo) |
 | fab | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/fab-demo) |
 | form-field | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/form-field-demo) |

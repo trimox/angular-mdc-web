@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   ViewChild
 } from '@angular/core';
 
@@ -10,18 +9,19 @@ import { SnackbarMessage, SnackbarComponent } from '@angular-mdc/web';
   selector: 'snackbar-demo',
   templateUrl: './snackbar-demo.component.html'
 })
-export class SnackbarDemoComponent implements OnInit {
-  message: SnackbarMessage;
+export class SnackbarDemoComponent {
+  message: SnackbarMessage = {
+    message: 'Hello',
+    actionText: 'Ok',
+  };
   @ViewChild('snack') snack: SnackbarComponent;
-
-  ngOnInit() {
-    this.message = {
-      message: 'Hello',
-      actionText: 'Ok',
-    };
-  }
+  @ViewChild('snackStart') snackStart: SnackbarComponent;
 
   show() {
     this.snack.show(this.message);
+  }
+
+  showStartAligned() {
+    this.snackStart.show(this.message);
   }
 }

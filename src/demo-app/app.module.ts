@@ -4,10 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { AppComponent } from './app.component';
 import { ButtonDemoComponent } from './components/button-demo/button-demo.component';
 import { CardDemoComponent } from './components/card-demo/card-demo.component';
 import { CheckboxDemoComponent } from './components/checkbox-demo/checkbox-demo.component';
+import { DrawerDemoComponent } from './components/drawer-demo/drawer-demo.component';
 import { FabDemoComponent } from './components/fab-demo/fab-demo.component';
 import { ElevationDemoComponent } from './components/elevation-demo/elevation-demo.component';
 import { LinearProgressDemoComponent } from './components/linear-progress-demo/linear-progress-demo.component';
@@ -21,10 +24,10 @@ import { ToolbarDemoComponent } from './components/toolbar-demo/toolbar-demo.com
 import { TypographyDemoComponent } from './components/typography-demo/typography-demo.component';
 
 import { MaterialModule } from '@angular-mdc/web';
+// import { MaterialModule } from '../lib/module';
 
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navigation/navbar.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { demoAppRoutes } from './routes';
 
@@ -42,6 +45,7 @@ import { demoAppRoutes } from './routes';
     ButtonDemoComponent,
     CardDemoComponent,
     CheckboxDemoComponent,
+    DrawerDemoComponent,
     ElevationDemoComponent,
     FabDemoComponent,
     HomeComponent,

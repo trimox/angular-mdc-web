@@ -1,0 +1,282 @@
+<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
+  <h1 mdc-typography-display1>Drawers</h1>
+  <div mdc-typography-subheading2>The MDC Drawer component is a spec-aligned drawer component adhering to the Material Design navigation drawer pattern. It implements permanent, persistent, and temporary drawers.</div>
+  <div class="info-banner" mdc-typography-subheading1>
+    <![CDATA[import { DrawerModule } from '@angular-mdc/web';]]>
+  </div>
+  <div class="docs-api">
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-permanent-drawer</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Child Directives</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-permanent-drawer-spacer</td>
+          <td>Optional. Add to node to provide the matching amount of space for toolbar.</td>
+        </tr>
+        <tr>
+          <td>mdc-permanent-drawer-content</td>
+          <td>Mandatory. Needs to be set on the container node for the drawer content.</td>
+        </tr>
+        <tr>
+          <td>mdc-permanent-drawer-selected</td>
+          <td>Optional. Highlights currently selected drawer item.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-persistent-drawer</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Child Directives</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-persistent-drawer-spacer</td>
+          <td>Optional. Add to provide the matching amount of space for toolbar.</td>
+        </tr>
+        <tr>
+          <td>mdc-persistent-drawer-header</td>
+          <td>Optional. Add to create a 16:9 drawer header.</td>
+        </tr>
+        <tr>
+          <td>mdc-persistent-drawer-header-content</td>
+          <td>Optional. Add content inside mdc-persistent-drawer-header.</td>
+        </tr>
+        <tr>
+          <td>mdc-persistent-drawer-content</td>
+          <td>Mandatory. Needs to be set as the container node for the drawer content.</td>
+        </tr>
+        <tr>
+          <td>mdc-persistent-drawer-selected</td>
+          <td>Optional. Highlights currently selected drawer item.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Events</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>@Output() opened</td>
+          <td>Event dispatched on drawer open.</td>
+        </tr>
+        <tr>
+          <td>@Output() closed</td>
+          <td>Event dispatched on drawer close.</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-temporary-drawer</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Child Directives</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-temporary-drawer-spacer</td>
+          <td>Optional. Add to provide the matching amount of space for toolbar.</td>
+        </tr>
+        <tr>
+          <td>mdc-temporary-drawer-header</td>
+          <td>Optional. Add to create a 16:9 drawer header.</td>
+        </tr>
+        <tr>
+          <td>mdc-temporary-drawer-header-content</td>
+          <td>Optional. Add content inside mdc-temporary-drawer-header.</td>
+        </tr>
+        <tr>
+          <td>mdc-temporary-drawer-content</td>
+          <td>Mandatory. Use for the drawer content.</td>
+        </tr>
+        <tr>
+          <td>mdc-temporary-drawer-selected</td>
+          <td>Optional. Highlights currently selected drawer item.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Events</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>@Output() opened</td>
+          <td>Event dispatched on drawer open.</td>
+        </tr>
+        <tr>
+          <td>@Output() closed</td>
+          <td>Event dispatched on drawer close.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+    <span mdc-typography-headline>Example - Permanent Drawer</span>
+    <mdc-permanent-drawer>
+      <mdc-permanent-drawer-content>
+          <mdc-list-group>
+            <mdc-list>
+              <a mdc-list-item mdc-permanent-drawer-selected href="#/drawer-demo">
+                  <i material-icon mdc-list-item-start>home</i>Home
+                </a>
+              <a mdc-list-item href="#/drawer-demo">
+                  <i material-icon mdc-list-item-start>star</i>Star
+                </a>
+              <a mdc-list-item href="#/drawer-demo">
+                  <i material-icon mdc-list-item-start>send</i>Sent Mail
+                </a>
+              <a mdc-list-item href="#/drawer-demo">
+                  <i material-icon mdc-list-item-start>drafts</i>Drafts
+                </a>
+            </mdc-list>
+            <mdc-list-divider></mdc-list-divider>
+            <mdc-list>
+              <a mdc-list-item href="#/drawer-demo">
+                <i material-icon mdc-list-item-start href="#/drawer-demo">email</i>All Mail
+              </a>
+              <a mdc-list-item href="#/drawer-demo">
+                <i material-icon mdc-list-item-start href="#/drawer-demo">delete</i>Trash
+              </a>
+              <a mdc-list-item href="#/drawer-demo">
+                <i material-icon mdc-list-item-start>report</i>Spam
+              </a>
+            </mdc-list>
+          </mdc-list-group>
+      </mdc-permanent-drawer-content>
+    </mdc-permanent-drawer>
+
+  <div fxLayout="column" class="mdc-padding" fxLayoutAlign="start start">
+    <span mdc-typography-headline style="margin-top: 20px;">Example - Temporary Drawer</span>
+    <button mdc-button [raised]="true" [primary]="true" (click)="handleTemporary();">Open Temporary Drawer</button>
+    <mdc-temporary-drawer #temporary>
+      <mdc-temporary-drawer-header class="mdc-theme--primary-bg mdc-theme--text-primary-on-primary">
+        <mdc-temporary-drawer-header-content>
+          Header goes here
+        </mdc-temporary-drawer-header-content>
+      </mdc-temporary-drawer-header>
+      <mdc-temporary-drawer-content>
+          <mdc-list-group>
+            <mdc-list>
+              <a mdc-list-item mdc-temporary-drawer-selected href="#/drawer-demo">
+                  <i material-icon mdc-list-item-start>home</i>Home
+                </a>
+              <a mdc-list-item href="#/drawer-demo">
+                  <i material-icon mdc-list-item-start>star</i>Star
+                </a>
+              <a mdc-list-item href="#/drawer-demo">
+                  <i material-icon mdc-list-item-start>send</i>Sent Mail
+                </a>
+              <a mdc-list-item href="#/drawer-demo">
+                  <i material-icon mdc-list-item-start>drafts</i>Drafts
+                </a>
+            </mdc-list>
+            <mdc-list-divider></mdc-list-divider>
+            <mdc-list>
+              <a mdc-list-item href="#/drawer-demo">
+                <i material-icon mdc-list-item-start href="#/drawer-demo">email</i>All Mail
+              </a>
+              <a mdc-list-item href="#/drawer-demo">
+                <i material-icon mdc-list-item-start href="#/drawer-demo">delete</i>Trash
+              </a>
+              <a mdc-list-item href="#/drawer-demo">
+                <i material-icon mdc-list-item-start>report</i>Spam
+              </a>
+            </mdc-list>
+          </mdc-list-group>
+      </mdc-temporary-drawer-content>
+    </mdc-temporary-drawer>
+  </div>
+
+  <div fxLayout="column" class="mdc-padding" fxLayoutAlign="start start">
+    <span mdc-typography-headline style="margin-top: 20px;">Example - Persistent Drawer</span>
+    <button mdc-button [raised]="true" [primary]="true" (click)="handlePersistent();">Open Persistent Drawer</button>
+    <div fxLayout="row" class="mdc-padding">
+      <mdc-persistent-drawer #persistent>
+        <mdc-persistent-drawer-spacer></mdc-persistent-drawer-spacer>
+          <mdc-list-group>
+            <mdc-list>
+              <a mdc-list-item mdc-persistent-drawer-selected href="#/drawer-demo">
+                  <i material-icon mdc-list-item-start>home</i>Home
+                </a>
+              <a mdc-list-item href="#/drawer-demo">
+                  <i material-icon mdc-list-item-start>star</i>Star
+                </a>
+              <a mdc-list-item href="#/drawer-demo">
+                  <i material-icon mdc-list-item-start>send</i>Sent Mail
+                </a>
+              <a mdc-list-item href="#/drawer-demo">
+                  <i material-icon mdc-list-item-start>drafts</i>Drafts
+                </a>
+            </mdc-list>
+            <mdc-list-divider></mdc-list-divider>
+            <mdc-list>
+              <a mdc-list-item href="#/drawer-demo">
+                <i material-icon mdc-list-item-start href="#/drawer-demo">email</i>All Mail
+              </a>
+              <a mdc-list-item href="#/drawer-demo">
+                <i material-icon mdc-list-item-start href="#/drawer-demo">delete</i>Trash
+              </a>
+              <a mdc-list-item href="#/drawer-demo">
+                <i material-icon mdc-list-item-start>report</i>Spam
+              </a>
+            </mdc-list>
+          </mdc-list-group>
+      </mdc-persistent-drawer>
+      <div style="width: 300px;">
+        <mdc-toolbar>
+            <mdc-toolbar-row>
+                <mdc-toolbar-section [alignStart]="true">
+                    <button mdc-toolbar-icon-menu material-icon (click)="handlePersistent();">menu</button>
+                    <span mdc-toolbar-title>App</span>
+                </mdc-toolbar-section>
+                <mdc-toolbar-section [alignEnd]="true">
+                    <a href="#/drawer-demo" mdc-toolbar-icon material-icon>file_download</a>
+                    <a href="#/drawer-demo" mdc-toolbar-icon material-icon>print</a>
+                    <a href="#/drawer-demo" mdc-toolbar-icon material-icon>bookmark</a>
+                </mdc-toolbar-section>
+            </mdc-toolbar-row>
+        </mdc-toolbar>
+      </div>
+    </div>
+</div>
+</div>

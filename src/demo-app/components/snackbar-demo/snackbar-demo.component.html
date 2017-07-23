@@ -55,16 +55,12 @@
   </div>
   <div fxLayout="column" class="mdc-padding">
     <mdc-form-field>
-      <mdc-checkbox [(ngModel)]="snack.alignStart"></mdc-checkbox>
-      <label>Align Start (desktop/table only)</label>
-    </mdc-form-field>
-    <mdc-form-field>
       <mdc-checkbox [(ngModel)]="message.multiline"></mdc-checkbox>
       <label>Multiline</label>
     </mdc-form-field>
-    <mdc-form-field *ngIf="message.multiline">
-      <mdc-checkbox [(ngModel)]="message.actionOnBottom"></mdc-checkbox>
-      <label>Action on Bottom</label>
+    <mdc-form-field>
+      <mdc-checkbox [(ngModel)]="message.actionOnBottom" [disabled]="!message.multiline"></mdc-checkbox>
+      <label>Action on Bottom (requires multiline)</label>
     </mdc-form-field>
     <mdc-form-field>
       <mdc-checkbox [(ngModel)]="snack.dismissOnAction"></mdc-checkbox>
@@ -75,8 +71,12 @@
     <mdc-textfield [(ngModel)]="message.message" label="Message text" [required]="true"></mdc-textfield>
     <mdc-textfield [(ngModel)]="message.actionText" label="Action button text"></mdc-textfield>
   </div>
-  <div class="mdc-padding" fxFlexOffset="2">
+  <div class="mdc-padding" fxLayout="column" fxFlexOffset="2">
     <button mdc-button [primary]="true" [raised]="true" (click)="show();">Show Snackbar</button>
   </div>
-  <mdc-snackbar #snack></mdc-snackbar>
+  <div class="mdc-padding" fxLayout="column" fxFlexOffset="2">
+    <button mdc-button [primary]="true" [raised]="true" (click)="showStartAligned();">Show Start Aligned</button>
+  </div>
 </div>
+  <mdc-snackbar #snack></mdc-snackbar>
+  <mdc-snackbar #snackStart [alignStart]="true"></mdc-snackbar>

@@ -5,10 +5,10 @@ import { Router, NavigationEnd } from '@angular/router';
   selector: 'app-root',
   template:
   `
-  <navbar></navbar>
-  <div>
+  <div mdc-typography>
+    <navbar></navbar>
     <router-outlet></router-outlet>
-  </div>  
+  </div>
   `
 })
 export class AppComponent implements OnInit {

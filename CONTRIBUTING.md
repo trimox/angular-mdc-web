@@ -7,10 +7,9 @@ today! As a contributor, here are the guidelines we would like you to follow:
  - [Found a Bug?](#found-bug)
  - [Submit an Issue](#submit-issue)
  - [Development Process](#dev)
- - [Submit a Pull Request](#pull-req)
 
 ## <a name="coc"></a> Code of Conduct
-Help us keep Angular MDC open and inclusive. Please read and follow our [Code of Conduct][coc].
+Help us keep Angular MDC open and inclusive. Please read and follow our [Code of Conduct](https://github.com/trimox/angular-mdc-web/blob/master/CODE_OF_CONDUCT.md).
 
 ## <a name="found-bug"></a> Found a Bug?
 If you find a bug in the source code, you can help us by [submitting an issue](#submit-issue). Even better, you can
@@ -30,18 +29,3 @@ You can file new issues by filling out our [new issue form](https://github.com/t
 
 ## <a name="dev"></a> Development Process
 Check out our [Developer guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/developer.md).
-
-## <a name="pull-req"></a> Submit a Pull Request
-When submitting PRs, make sure you're following our commit message conventions; our commit-msg hook should automatically enforce this. We also use [commitizen](https://www.npmjs.com/package/commitizen), which you can use to auto-format commit messages for you.
-
-Commit message type must be one of the following:
-* **feat**: A new feature
-* **fix**: A bug fix
-* **docs**: Documentation only changes
-* **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
-* **refactor**: A code change that neither fixes a bug nor adds a feature
-* **perf**: A code change that improves performance
-* **test**: Adding missing or correcting existing tests
-* **chore**: Changes to the build process or auxiliary tools and libraries such as documentation generation
-
-When submitting PRs for large changes, be sure to include an adequate background in the description so that reviewers of the PR know what the changes entail at a high-level, the motivations for making these changes, and what they affect.

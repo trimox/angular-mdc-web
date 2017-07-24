@@ -84,6 +84,7 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
       this._foundation.setDisabled(value);
     }
   }
+  @Input() dense: boolean;
   @Input() required: boolean;
   @Input() labelId: string;
   @Input() label: string;
@@ -104,6 +105,9 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
   }
   @HostBinding('class.mdc-textfield--fullwidth') get classFullwidth(): string {
     return this.fullwidth ? 'mdc-textfield--fullwidth' : '';
+  }
+  @HostBinding('class.mdc-textfield--dense') get classDense(): string {
+    return this.dense ? 'mdc-textfield--dense' : '';
   }
   @ViewChild('input') public inputEl: ElementRef;
   @ViewChild('inputlabel') public inputLabel: ElementRef;

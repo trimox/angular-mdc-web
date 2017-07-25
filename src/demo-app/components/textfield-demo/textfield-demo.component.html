@@ -15,6 +15,9 @@
         <tr>
           <td>mdc-textfield</td>
         </tr>
+        <tr>
+          <td>mdc-textfield-box</td>
+        </tr>
       </tbody>
       <thead>
         <tr>
@@ -40,12 +43,16 @@
           <td>The input element's value.</td>
         </tr>
         <tr>
+          <td>@Input() dense: boolean</td>
+          <td>Shrinks the font size and height of the input.</td>
+        </tr>
+        <tr>
           <td>@Input() fullwidth: boolean</td>
-          <td>Use to change element to fullwidth textfield.</td>
+          <td>Use to change element to fullwidth textfield. Not usable with mdc-textfield-box.</td>
         </tr>
         <tr>
           <td>@Input() multiline: boolean</td>
-          <td>Use to allow multiple lines inside the textfield.</td>
+          <td>Use to allow multiple lines inside the textfield. Not usable with mdc-textfield-box.</td>
         </tr>
         <tr>
           <td>@Input() disabled: boolean</td>
@@ -54,10 +61,6 @@
         <tr>
           <td>@Input() required: boolean</td>
           <td>Whether the element is required.</td>
-        </tr>
-        <tr>
-          <td>@Input() labelId: string</td>
-          <td></td>
         </tr>
         <tr>
           <td>@Input() label: string</td>
@@ -73,11 +76,11 @@
         </tr>
         <tr>
           <td>@Input() rows: number</td>
-          <td>Number of rows for this textarea.</td>
+          <td>Number of rows for this textarea. Not usable with mdc-textfield-box.</td>
         </tr>
         <tr>
           <td>@Input() cols: number</td>
-          <td>Number of columns for this textarea.</td>
+          <td>Number of columns for this textarea. Not usable with mdc-textfield-box.</td>
         </tr>
         <tr>
           <td>@Input() maxlength: number</td>
@@ -141,10 +144,9 @@
   </div>
   <div fxLayout="column" class="mdc-padding">
     <div fxFlexAlign="start">
-      <mdc-textfield [(ngModel)]="username" id="username" label="Username" [required]="isRequired" [disabled]="isDisabled" aria-controls="help-username-val">
+      <mdc-textfield [(ngModel)]="username" id="username" label="Username" [required]="isRequired" [disabled]="isDisabled" [dense]="isDense">
       </mdc-textfield>
-      <p mdc-textfield-helptext id="help-username-val" [validation]="true" [persistent]="false">Username is required</p>
-    </div>
+      <p mdc-textfield-helptext [validation]="true" [persistent]="false">Username is required</p>
     <mdc-form-field>
       <mdc-checkbox [(ngModel)]="isDisabled"></mdc-checkbox>
       <label>Disable</label>
@@ -153,21 +155,38 @@
       <mdc-checkbox [(ngModel)]="isRequired"></mdc-checkbox>
       <label>Required</label>
     </mdc-form-field>
+    <mdc-form-field>
+      <mdc-checkbox [(ngModel)]="isDense"></mdc-checkbox>
+      <label>Dense</label>
+    </mdc-form-field>
+    </div>
     <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>
   [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"username"</span>
   <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Username"</span>
   [<span style="color:#89bdff">required</span>]=<span style="color:#65b042">"true"</span>
   [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"false"</span>
-  <span style="color:#89bdff">aria-controls</span>=<span style="color:#65b042">"help-username-val"</span>
+  [<span style="color:#89bdff">dense</span>]=<span style="color:#65b042">"false"</span>
   (<span style="color:#89bdff">focus</span>)=<span style="color:#65b042">"handleFocus($event);"</span>
   (<span style="color:#89bdff">blur</span>)=<span style="color:#65b042">"handleBlur($event);"</span>
   (<span style="color:#89bdff">input</span>)=<span style="color:#65b042">"handleInput($event);"</span>
   (<span style="color:#89bdff">keydown</span>)=<span style="color:#65b042">"handleKeyDown($event);"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>></span>
 <span style="color:#89bdff">&lt;<span style="color:#89bdff">p</span> <span style="color:#89bdff">mdc-textfield-helptext</span>
-  <span style="color:#89bdff">id</span>=<span style="color:#65b042">"help-username-val"</span>
   [<span style="color:#89bdff">validation</span>]=<span style="color:#65b042">"true"</span>
   [<span style="color:#89bdff">persistent</span>]=<span style="color:#65b042">"false"</span>></span>Username is required<span style="color:#89bdff">&lt;/<span style="color:#89bdff">p</span>></span>
 </pre> </div>
+    <span mdc-typography-headline>Textfield box</span>
+    <div fxFlexAlign="start" class="mdc-padding">
+      <mdc-textfield-box
+        [required]="true"
+        label="Your name"></mdc-textfield-box>
+      <p mdc-textfield-helptext
+        [validation]="true">Name is required</p>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield-box</span>
+  [<span style="color:#89bdff">required</span>]=<span style="color:#65b042">"true"</span>
+  <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Your name"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield-box</span>></span>
+<span style="color:#89bdff">&lt;<span style="color:#89bdff">p</span> <span style="color:#89bdff">mdc-textfield-helptext</span>
+  [<span style="color:#89bdff">validation</span>]=<span style="color:#65b042">"true"</span>></span>Name is required<span style="color:#89bdff">&lt;/<span style="color:#89bdff">p</span>></span>
+</pre>    </div>
   <div fxLayout="column" class="mdc-padding">
     <div fxFlexAlign="start" class="mdc-padding" mdc-theme-dark>
       <mdc-textfield label="Dark theme"></mdc-textfield>
@@ -177,10 +196,10 @@
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">div</span>></span>
 </pre> </div>
   <div fxLayout="column" class="mdc-padding">
+    <span mdc-typography-headline>Multi-line</span>
     <div fxFlexAlign="start">
       <mdc-textfield [(ngModel)]="comments" id="comments" label="Comments" rows="8" cols="40" [multiline]="true"></mdc-textfield>
     </div>
-    <p>Multi-line</p>
     <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>
  [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"comments"</span>
  <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Comments"</span>
@@ -189,10 +208,10 @@
  [<span style="color:#89bdff">multiline</span>]=<span style="color:#65b042">"true"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>></span>
 </pre> </div>
   <div fxLayout="column" class="mdc-padding">
+    <span mdc-typography-headline>Full-width single line</span>
     <div>
       <mdc-textfield [(ngModel)]="subject" id="subject" placeholder="Subject" [fullwidth]="true"></mdc-textfield>
     </div>
-    <p>Full-width single line</p>
     <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span> [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"subject"</span>
   <span style="color:#89bdff">placeholder</span>=<span style="color:#65b042">"Subject"</span>
   [<span style="color:#89bdff">fullwidth</span>]=<span style="color:#65b042">"true"</span>></span>
@@ -200,10 +219,10 @@
 </pre>
   </div>
   <div fxLayout="column" class="mdc-padding">
+    <span mdc-typography-headline>Full-width multi-line</span>
     <div>
       <mdc-textfield [(ngModel)]="message" id="message" placeholder="Type your message here" [fullwidth]="true" [multiline]="true" rows="8"></mdc-textfield>
     </div>
-    <p>Full-width multi-line</p>
     <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span> [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"message"</span>
   <span style="color:#89bdff">placeholder</span>=<span style="color:#65b042">"Type your message here"</span>
   [<span style="color:#89bdff">fullwidth</span>]=<span style="color:#65b042">"true"</span>
@@ -213,8 +232,3 @@
 </pre>
   </div>
 </div>
-<!--     <p>Username ngModel : {{username ? username : 'empty'}}</p>
-    <p>Focused : {{inputHasFocus}}</p>
-    <p>Keydown event count : {{inputKeysPressed}}</p>
-    <p>Input event count : {{inputCount}}</p>
- -->

@@ -3,8 +3,3 @@
 $mdc-theme-primary: #1565c0;
 
 @import "material-components-web/material-components-web";
-
-// temporary fix : https://github.com/material-components/material-components-web/issues/942
-.mdc-button {
-  font-family: Roboto, sans-serif;
-}

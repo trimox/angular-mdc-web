@@ -1,6 +1,7 @@
 ﻿import {
   AfterViewInit,
   Component,
+  Directive,
   ElementRef,
   EventEmitter,
   HostBinding,
@@ -14,8 +15,11 @@
   forwardRef
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { MDCTextfieldAdapter } from './textfield-adapter';
+import { EventRegistry } from '../common/event-registry';
+import { toBoolean } from '../common/boolean-property';
+import { Ripple } from '.././ripple/ripple.directive';
 
+import { MDCTextfieldAdapter } from './textfield-adapter';
 import { MDCTextfieldFoundation } from '@material/textfield';
 
 export const MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR: Provider = {
@@ -24,7 +28,23 @@ export const MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR: Provider = {
   multi: true
 };
 
-type UnlistenerMap = WeakMap<EventListener, Function>;
+@Directive({
+  selector: '[mdc-textfield-helptext]'
+})
+export class TextfieldHelptextDirective {
+  @Input() id: string;
+  @Input() persistent: boolean;
+  @Input() validation: boolean;
+  @HostBinding('class.mdc-textfield-helptext') isHostClass = true;
+  @HostBinding('class.mdc-textfield-helptext--persistent') get classPersistent(): string {
+    return this.persistent ? 'mdc-textfield-helptext--persistent' : '';
+  }
+  @HostBinding('class.mdc-textfield-helptext--validation-msg') get classValidation(): string {
+    return this.validation ? 'mdc-textfield-helptext--validation-msg' : '';
+  }
+
+  constructor(public elementRef: ElementRef) { }
+}
 
 @Component({
   selector: 'mdc-textfield',
@@ -55,14 +75,12 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
     [type]="type"
     [id]="id"
     [attr.name]="name"
-    [attr.aria-controls]="labelId"
     [(ngModel)]="value"
     [placeholder]="placeholder ? placeholder : ''"
     [tabindex]="tabindex"
     [maxlength]="maxlength"
     [disabled]="disabled"
     [required]="required"
-    [attr.tabindex]="tabindex"
     (focus)="onFocus($event)"
     (keydown)="onKeyDown($event)"
     (blur)="onBlur($event)"
@@ -70,7 +88,10 @@ type UnlistenerMap = WeakMap<EventListener, Function>;
   <label #inputlabel [attr.for]="id" class="mdc-textfield__label" *ngIf="!placeholder">{{label}}</label>
 `,
   encapsulation: ViewEncapsulation.None,
-  providers: [MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR]
+  providers: [
+    MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR,
+  ],
+  viewProviders: [Ripple]
 })
 export class TextfieldComponent implements AfterViewInit, OnDestroy {
   @Input() id: string;
@@ -86,7 +107,6 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
   }
   @Input() dense: boolean;
   @Input() required: boolean;
-  @Input() labelId: string;
   @Input() label: string;
   @Input() placeholder: string;
   @Input() tabindex: number;
@@ -111,100 +131,87 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
   }
   @ViewChild('input') public inputEl: ElementRef;
   @ViewChild('inputlabel') public inputLabel: ElementRef;
+  @ViewChild(TextfieldHelptextDirective) helpText: TextfieldHelptextDirective;
 
   onTouched: () => any = () => { };
 
   private _controlValueAccessorChangeFn: (value: any) => void = (value) => { };
-  private _unlisteners: Map<string, UnlistenerMap> = new Map<string, UnlistenerMap>();
 
   private _mdcAdapter: MDCTextfieldAdapter = {
     addClass: (className: string) => {
-      const { _renderer: renderer, _root: root } = this;
-      renderer.addClass(root.nativeElement, className);
+      this._renderer.addClass(this._root.nativeElement, className);
     },
     removeClass: (className: string) => {
-      const { _renderer: renderer, _root: root } = this;
-      renderer.removeClass(root.nativeElement, className);
+      this._renderer.removeClass(this._root.nativeElement, className);
     },
     addClassToLabel: (className: string) => {
-      const { _renderer: renderer, _root: root } = this;
       if (this.inputLabel) {
         if (this.label && !this.fullwidth) {
-          renderer.addClass(this.inputLabel.nativeElement, className);
+          this._renderer.addClass(this.inputLabel.nativeElement, className);
         }
       }
     },
     removeClassFromLabel: (className: string) => {
-      const { _renderer: renderer, _root: root } = this;
       if (this.inputLabel) {
         if (this.label && !this.fullwidth) {
-          renderer.removeClass(this.inputLabel.nativeElement, className);
+          this._renderer.removeClass(this.inputLabel.nativeElement, className);
         }
       }
     },
     addClassToHelptext: (className: string) => {
-      const { _renderer: renderer, _root: root } = this;
-      if (root.nativeElement.attributes.getNamedItem('aria-controls')) {
-        if (root.nativeElement.nextElementSibling) {
-          renderer.addClass(renderer.nextSibling(root.nativeElement), className);
-        }
+      if (this.helpText) {
+        this._renderer.addClass(this.helpText, className);
       }
     },
     removeClassFromHelptext: (className: string) => {
-      const { _renderer: renderer, _root: root } = this;
-      if (root.nativeElement.attributes.getNamedItem('aria-controls')) {
-        renderer.removeClass(renderer.nextSibling(root.nativeElement), className);
+      if (this.helpText) {
+        this._renderer.removeClass(this.helpText, className);
       }
     },
     registerInputFocusHandler: (handler: EventListener) => {
-      if (this._root) {
-        this.listen_('focus', handler, this.inputEl);
+      if (this.inputEl) {
+        this._registry.listen_(this._renderer, 'focus', handler, this.inputEl);
       }
     },
     deregisterInputFocusHandler: (handler: EventListener) => {
-      this.unlisten_('focus', handler);
+      this._registry.unlisten_('focus', handler);
     },
     registerInputBlurHandler: (handler: EventListener) => {
-      if (this._root) {
-        this.listen_('blur', handler, this.inputEl);
+      if (this.inputEl) {
+        this._registry.listen_(this._renderer, 'blur', handler, this.inputEl);
       }
     },
     deregisterInputBlurHandler: (handler: EventListener) => {
-      this.unlisten_('blur', handler);
+      this._registry.unlisten_('blur', handler);
     },
     registerInputInputHandler: (handler: EventListener) => {
-      if (this._root) {
-        this.listen_('input', handler, this.inputEl);
+      if (this.inputEl) {
+        this._registry.listen_(this._renderer, 'input', handler, this.inputEl);
       }
     },
     deregisterInputInputHandler: (handler: EventListener) => {
-      this.unlisten_('input', handler);
+      this._registry.unlisten_('input', handler);
     },
     registerInputKeydownHandler: (handler: EventListener) => {
-      if (this._root) {
-        this.listen_('keydown', handler, this.inputEl);
+      if (this.inputEl) {
+        this._registry.listen_(this._renderer, 'keydown', handler, this.inputEl);
       }
     },
     deregisterInputKeydownHandler: (handler: EventListener) => {
-      this.unlisten_('keydown', handler);
+      this._registry.unlisten_('keydown', handler);
     },
     setHelptextAttr: (name: string, value: string) => {
-      const { _renderer: renderer, _root: root } = this;
-      if (root.nativeElement.attributes.getNamedItem('aria-controls')) {
-        root.nativeElement.nextElementSibling ? renderer.setAttribute(root.nativeElement.nextElementSibling, name, value) : null;
+      if (this.helpText) {
+        this._renderer.setAttribute(this.helpText.elementRef.nativeElement, name, value);
       }
     },
     removeHelptextAttr: (name: string) => {
-      const { _renderer: renderer, _root: root } = this;
-      if (root.nativeElement.attributes.getNamedItem('aria-controls')) {
-        return root.nativeElement.nextElementSibling ? renderer.removeAttribute(root.nativeElement.nextElementSibling, name) : null;
+      if (this.helpText) {
+        this._renderer.removeAttribute(this.helpText.elementRef.nativeElement, name);
       }
     },
     helptextHasClass: (className: string) => {
-      const { _renderer: renderer, _root: root } = this;
-      if (root.nativeElement.attributes.getNamedItem('aria-controls')) {
-        return root.nativeElement.nextElementSibling ? root.nativeElement.nextElementSibling.classList.contains(className) : false;
-      }
+      return this.helpText ? this.helpText.elementRef.nativeElement.classList.contains(className) : false;
     },
     getNativeInput: () => {
       return this.inputEl ? this.inputEl.nativeElement : null;
@@ -218,7 +225,11 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
     setDisabled: Function
   } = new MDCTextfieldFoundation(this._mdcAdapter);
 
-  constructor(private _renderer: Renderer2, private _root: ElementRef) { }
+  constructor(
+    private _renderer: Renderer2,
+    private _root: ElementRef,
+    private _registry: EventRegistry,
+    public ripple: Ripple) { }
 
   ngAfterViewInit() {
     this._foundation.init();
@@ -263,25 +274,5 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
 
   registerOnTouched(fn: any) {
     this.onTouched = fn;
-  }
-
-  listen_(type: string, listener: EventListener, ref: ElementRef = this._root) {
-    if (!this._unlisteners.has(type)) {
-      this._unlisteners.set(type, new WeakMap<EventListener, Function>());
-    }
-    const unlistener = this._renderer.listen(ref.nativeElement, type, listener);
-    this._unlisteners.get(type).set(listener, unlistener);
-  }
-
-  unlisten_(type: string, listener: EventListener) {
-    if (!this._unlisteners.has(type)) {
-      return;
-    }
-    const unlisteners = this._unlisteners.get(type);
-    if (!unlisteners.has(listener)) {
-      return;
-    }
-    unlisteners.get(listener)();
-    unlisteners.delete(listener);
   }
 }

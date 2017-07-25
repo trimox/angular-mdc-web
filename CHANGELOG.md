@@ -1,4 +1,17 @@
 <a name="0.0.0"></a>
+# [0.2.3](https://github.com/trimox/angular-mdc-web/compare/v0.2.2...v0.2.3) (2017-07-25)
+
+
+### Features
+
+* **drawer:** Implement MDC Drawer ([#54](https://github.com/trimox/angular-mdc-web/issues/54)) ([a4796b8](https://github.com/trimox/angular-mdc-web/commit/a4796b8))
+* **package:** Update to Material Design Components v0.16.0 ([e004529](https://github.com/trimox/angular-mdc-web/commit/e004529))
+* **textfield:** Add [dense] bool property to shrink font size/height. ([df4443d](https://github.com/trimox/angular-mdc-web/commit/df4443d))
+* **textfield:** Implement MDC Text field boxes ([e440d73](https://github.com/trimox/angular-mdc-web/commit/e440d73)), closes [#57](https://github.com/trimox/angular-mdc-web/issues/57)
+
+
+
+<a name="0.0.0"></a>
 # [0.2.2](https://github.com/trimox/angular-mdc-web/compare/v0.2.1...v0.2.2) (2017-07-17)
 
 

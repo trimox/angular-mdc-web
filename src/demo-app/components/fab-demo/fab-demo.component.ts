@@ -6,4 +6,8 @@ import {
   selector: 'fab-demo',
   templateUrl: './fab-demo.component.html'
 })
-export class FabDemoComponent { }
+export class FabDemoComponent {
+  isMini: boolean;
+  isPlain: boolean;
+  isDisabled: boolean;
+}

@@ -41,77 +41,51 @@
         <tr>
           <td>@Input() disableRipple: boolean</td>
           <td>
-<pre><code><![CDATA[Disable the ink ripple.
+            <pre><code><![CDATA[Disable the ink ripple.
 Example: disableRipple="true" or disableRipple]]></code></pre></td>
         </tr>
       </tbody>
-    </table>
-    <table>
       <thead>
         <tr>
-          <th>Directive</th>
+          <th>Child Directive</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>mdc-fab-icon</td>
-          <td>Use with an icon or svg to place an image in the center of the button.</td>
+          <td><pre><code><![CDATA[Add an icon or svg in the center of the button.
+Note - Add the [material-icon] directive to apply Material Icon styling.]]></code></pre></td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div fxLayout="column" class="mdc-padding">
-    <div fxFlexAlign="start">
-      <button mdc-fab>
-        <mdc-fab-icon>person</mdc-fab-icon>
-      </button>
+  <div fxLayout="row" class="mdc-padding" fxLayoutAlign="center center" fxLayoutGap="25px">
+    <div fxLayout="column">
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="isMini"></mdc-checkbox>
+        <label>Mini</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="isPlain"></mdc-checkbox>
+        <label>Plain</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="isDisabled"></mdc-checkbox>
+        <label>Disable</label>
+      </mdc-form-field>
     </div>
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>
+    <button mdc-fab
+      [mini]="isMini"
+      [plain]="isPlain"
+      [disabled]="isDisabled">
+      <mdc-fab-icon material-icon>edit</mdc-fab-icon>
+    </button>
+  </div>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span>
+   [<span style="color:#e0c589">mini</span>]=<span style="color:#65b042">"isMini"</span>
+   [<span style="color:#e0c589">plain</span>]=<span style="color:#65b042">"isPlain"</span>
+   [<span style="color:#e0c589">disabled</span>]=<span style="color:#65b042">"isDisabled"</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span> <span style="color:#89bdff">material-icon</span>></span>edit<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>
 <span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-</pre> </div>
-  <div fxLayout="column" class="mdc-padding">
-    <div fxFlexAlign="start">
-      <button mdc-fab [mini]="true">
-        <mdc-fab-icon>search</mdc-fab-icon>
-      </button>
-    </div>
-    <p>Mini</p>
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span> [<span style="color:#e0c589">mini</span>]=<span style="color:#65b042">"true"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>search<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>
-<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-</pre> </div>
-  <div fxLayout="column" class="mdc-padding">
-    <div fxFlexAlign="start">
-      <button mdc-fab [plain]="true">
-        <mdc-fab-icon>person</mdc-fab-icon>
-      </button>
-    </div>
-    <p>Plain</p>
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span> [<span style="color:#e0c589">plain</span>]=<span style="color:#65b042">"true"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>
-<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-</pre> </div>
-  <div fxLayout="column" class="mdc-padding">
-    <div fxFlexAlign="start">
-      <button mdc-fab [plain]="true" [mini]="true">
-        <mdc-fab-icon>search</mdc-fab-icon>
-      </button>
-    </div>
-    <p>Plain and Mini</p>
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span> [<span style="color:#e0c589">plain</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#e0c589">mini</span>]=<span style="color:#65b042">"true"</span>></span>
-<span style="color:#89bdff">  &lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>search<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>
-<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-</pre> </div>
-  <div fxLayout="column" class="mdc-padding">
-    <div fxFlexAlign="start">
-      <button mdc-fab [disabled]="true">
-        <mdc-fab-icon>person</mdc-fab-icon>
-      </button>
-    </div>
-    <p>Disabled</p>
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span> [<span style="color:#e0c589">disabled</span>]=<span style="color:#65b042">"true"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>
-<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-</pre> </div>
+</pre>
 </div>

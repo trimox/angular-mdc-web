@@ -16,7 +16,7 @@
         <tr>
           <td>mdc-menu</td>
         </tr>
-        </tbody>
+      </tbody>
       <thead>
         <tr>
           <th>Properties</th>
@@ -27,7 +27,7 @@
         <tr>
           <td>@Input() openFrom: MenuOpenFrom</td>
           <td>Override the opening point of the menu. (default: topLeft)
-<pre><code><![CDATA[enum MenuOpenFrom {
+            <pre><code><![CDATA[enum MenuOpenFrom {
   topLeft,
   topRight,
   bottomLeft,
@@ -75,7 +75,6 @@ If the focusIndex is omitted, no menu item will be focused.]]></pre></td>
         </tr>
       </tbody>
     </table>
-
     <table>
       <thead>
         <tr>
@@ -119,8 +118,8 @@ If the focusIndex is omitted, no menu item will be focused.]]></pre></td>
       </mdc-form-field>
     </div>
     <div mdc-menu-anchor style="margin-left: 25px;">
-      <button mdc-fab (click)="showMenu();">
-        <mdc-fab-icon>person</mdc-fab-icon>
+      <button mdc-button [primary]="true" [raised]="true" (click)="showMenu();">
+        Open Menu
       </button>
       <mdc-menu #menu (select)="handleMenuSelect($event);">
         <mdc-menu-item [id]="0">Item 1</mdc-menu-item>
@@ -132,10 +131,8 @@ If the focusIndex is omitted, no menu item will be focused.]]></pre></td>
     </div>
   </div>
   <p mdc-typography-body1>Selected index: {{selectedIndex}}</p>
-  <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">mdc-menu-anchor</span>></span>
-  <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span> (<span style="color:#e0c589">click</span>)=<span style="color:#65b042">"showMenu();"</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">mdc-fab-icon</span>></span>person<span style="color:#e0c589">&lt;/<span style="color:#e0c589">mdc-fab-icon</span>></span>
-  <span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">mdc-menu-anchor</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">primary</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#e0c589">raised</span>]=<span style="color:#65b042">"true"</span> (<span style="color:#e0c589">click</span>)=<span style="color:#65b042">"showMenu();"</span>></span>Open Menu<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu</span> #<span style="color:#89bdff">menu</span> (<span style="color:#89bdff">select</span>)=<span style="color:#65b042">"handleMenuSelect($event);"</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span> [<span style="color:#89bdff">id</span>]=<span style="color:#65b042">"0"</span>></span>Item 1<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span> [<span style="color:#89bdff">id</span>]=<span style="color:#65b042">"1"</span> [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"true"</span>></span>Item 2<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span>></span>

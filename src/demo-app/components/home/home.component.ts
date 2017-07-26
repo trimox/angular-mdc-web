@@ -1,11 +1,15 @@
 ﻿import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { navigationLinks } from '../../common/navigation-links';
+
 @Component({
   selector: 'home',
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
+  navLinks = navigationLinks.filter(_ => _.desc.length > 0);
+
   constructor(
     private route: ActivatedRoute,
     private router: Router) { }

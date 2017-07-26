@@ -18,7 +18,7 @@
   <mdc-temporary-drawer-content>
     <mdc-list-group>
       <mdc-list>
-        <a mdc-list-item *ngFor="let navItem of navItems" [routerLink]="[navItem.route]">
+        <a mdc-list-item *ngFor="let navItem of navLinks" [routerLink]="[navItem.route]">
             <i material-icon mdc-list-item-start>{{navItem.icon}}</i>{{navItem.name}}
         </a>
       </mdc-list>

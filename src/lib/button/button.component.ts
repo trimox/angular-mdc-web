@@ -1,14 +1,18 @@
-﻿import {
+import {
   Component,
   ElementRef,
-  Input,
   HostBinding,
   HostListener,
+  Input,
+  OnChanges,
   Renderer2,
+  SimpleChange,
   ViewEncapsulation
 } from '@angular/core';
 import { Ripple } from '.././ripple/ripple.directive';
 import { toBoolean } from '../common/boolean-property';
+import { KeyCodes } from '../common/keycodes';
+import { isSpaceKey } from '../common/events';
 
 @Component({
   selector: 'button[mdc-button], a[mdc-button]',
@@ -16,7 +20,7 @@ import { toBoolean } from '../common/boolean-property';
   encapsulation: ViewEncapsulation.None,
   providers: [Ripple]
 })
-export class ButtonComponent {
+export class ButtonComponent implements OnChanges {
   private _disabled: boolean = false;
 
   @Input() type: string;
@@ -64,16 +68,13 @@ export class ButtonComponent {
     return this.compact ? 'mdc-button--compact' : '';
   }
   @HostBinding('class.mdc-card__action') get classCardAction(): string {
-    if (this.cardAction) {
-      this.compact = true;
-    }
     return this.cardAction ? 'mdc-card__action' : '';
   }
-  @HostListener('keydown', ['$event']) onkeydown(evt) {
-    this.handleKeyboardDown_(evt);
+  @HostListener('keypress', ['$event']) onkeypress(evt) {
+    this.handleKeyPress(evt);
   }
-  @HostListener('keyup', ['$event']) onkeyup(evt) {
-    this.handleKeyboardUp_(evt);
+  @HostListener('blur', ['$event']) blur(evt) {
+    this.handleBlur(evt);
   }
 
   constructor(
@@ -83,25 +84,27 @@ export class ButtonComponent {
     this._ripple.init();
   }
 
-  handleKeyboardDown_(evt: KeyboardEvent) {
-    const { keyCode, key } = evt;
-    const isSpace = key === 'Space' || keyCode === 32;
-    const isEnter = key === 'Enter' || keyCode === 13;
+  ngOnChanges(changes: { [key: string]: SimpleChange }) {
+    let change = changes['cardAction'];
 
-    if (isSpace || isEnter) {
-      this._ripple.active = true;
-      evt.preventDefault();
+    if (change) {
+      if (!toBoolean(change.currentValue)) {
+        this.compact = false;
+      } else {
+        this.compact = true;
+      }
     }
   }
 
-  handleKeyboardUp_(evt: KeyboardEvent) {
-    const { keyCode, key } = evt;
-    const isSpace = key === 'Space' || keyCode === 32;
-    const isEnter = key === 'Enter' || keyCode === 13;
-
-    if (isSpace || isEnter) {
-      this._ripple.active = false;
-      evt.preventDefault();
+  private handleKeyPress(keyboardEvent: KeyboardEvent) {
+    let keyCode = keyboardEvent.keyCode;
+    if (isSpaceKey(keyboardEvent)) {
+      this._ripple.active = true;
+      keyboardEvent.preventDefault();
     }
+  }
+
+  private handleBlur(focusEvent: FocusEvent) {
+    this._ripple.active = false;
   }
 }

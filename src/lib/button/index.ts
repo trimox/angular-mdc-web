@@ -8,3 +8,4 @@ import { ButtonComponent } from './button.component';
 })
 export class ButtonModule { }
 
+export * from './button.component';

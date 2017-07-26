@@ -2,11 +2,13 @@ import {
   Component,
   Directive,
   ElementRef,
-  Input,
   HostBinding,
   HostListener,
+  Input,
+  OnChanges,
   Renderer2,
-  ViewEncapsulation
+  SimpleChange,
+  ViewEncapsulation,
 } from '@angular/core';
 import { Ripple } from '.././ripple/ripple.directive';
 import { toBoolean } from '../common/boolean-property';
@@ -26,7 +28,7 @@ export class FabIconDirective {
   encapsulation: ViewEncapsulation.None,
   providers: [Ripple]
 })
-export class FabComponent {
+export class FabComponent implements OnChanges {
   private _disabled: boolean = false;
 
   @Input() mini: boolean;
@@ -46,6 +48,7 @@ export class FabComponent {
   set disableRipple(value) {
     this._ripple.disabled = toBoolean(value);
   }
+  @HostBinding('class.mdc-fab') isHostClass = true;
   @HostBinding('tabindex') get tabindex(): number {
     return this.disabled ? -1 : 0;
   }
@@ -69,6 +72,14 @@ export class FabComponent {
     private _root: ElementRef,
     private _ripple: Ripple) {
     this._ripple.init();
+  }
+
+  ngOnChanges(changes: { [key: string]: SimpleChange }) {
+    let change = changes['disabled'];
+
+    if (change) {
+      this._ripple.disabled = toBoolean(change.currentValue);
+    }
   }
 
   private handleKeyPress(keyboardEvent: KeyboardEvent) {

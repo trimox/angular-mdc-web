@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 
-import { FabComponent } from './fab.component';
-import { FabIconDirective } from './fab-icon.directive';
+import {
+  FabComponent,
+  FabIconDirective,
+} from './fab.component';
 
 const FAB_COMPONENTS = [
   FabComponent,
-  FabIconDirective
+  FabIconDirective,
 ];
 
 @NgModule({
@@ -13,3 +15,5 @@ const FAB_COMPONENTS = [
   declarations: [FAB_COMPONENTS],
 })
 export class FabModule { }
+
+export * from './fab.component';

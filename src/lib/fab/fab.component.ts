@@ -1,5 +1,6 @@
 import {
   Component,
+  Directive,
   ElementRef,
   Input,
   HostBinding,
@@ -9,6 +10,15 @@ import {
 } from '@angular/core';
 import { Ripple } from '.././ripple/ripple.directive';
 import { toBoolean } from '../common/boolean-property';
+import { KeyCodes } from '../common/keycodes';
+import { isSpaceKey } from '../common/events';
+
+@Directive({
+  selector: ' mdc-fab-icon, [mdc-fab-icon]'
+})
+export class FabIconDirective {
+  @HostBinding('class.mdc-fab__icon') isHostClass = true;
+}
 
 @Component({
   selector: 'button[mdc-fab], a[mdc-fab]',
@@ -47,11 +57,11 @@ export class FabComponent {
   @HostBinding('class.mdc-fab--plain') get classPlain(): string {
     return this.plain ? 'mdc-fab--plain' : '';
   }
-  @HostListener('keydown', ['$event']) onkeydown(evt) {
-    this.handleKeyboardDown_(evt);
+  @HostListener('keypress', ['$event']) onkeypress(evt) {
+    this.handleKeyPress(evt);
   }
-  @HostListener('keyup', ['$event']) onkeyup(evt) {
-    this.handleKeyboardUp_(evt);
+  @HostListener('blur', ['$event']) blur(evt) {
+    this.handleBlur(evt);
   }
 
   constructor(
@@ -61,25 +71,17 @@ export class FabComponent {
     this._ripple.init();
   }
 
-  handleKeyboardDown_(evt: KeyboardEvent) {
-    const { keyCode, key } = evt;
-    const isSpace = key === 'Space' || keyCode === 32;
-    const isEnter = key === 'Enter' || keyCode === 13;
-
-    if (isSpace || isEnter) {
+  private handleKeyPress(keyboardEvent: KeyboardEvent) {
+    let keyCode = keyboardEvent.keyCode;
+    if (keyCode == KeyCodes.ENTER || isSpaceKey(keyboardEvent)) {
       this._ripple.active = true;
-      evt.preventDefault();
+      if (keyCode != KeyCodes.ENTER) {
+        keyboardEvent.preventDefault();
+      }
     }
   }
 
-  handleKeyboardUp_(evt: KeyboardEvent) {
-    const { keyCode, key } = evt;
-    const isSpace = key === 'Space' || keyCode === 32;
-    const isEnter = key === 'Enter' || keyCode === 13;
-
-    if (isSpace || isEnter) {
-      this._ripple.active = false;
-      evt.preventDefault();
-    }
+  private handleBlur(focusEvent: FocusEvent) {
+    this._ripple.active = false;
   }
 }

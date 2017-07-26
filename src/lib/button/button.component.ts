@@ -98,9 +98,11 @@ export class ButtonComponent implements OnChanges {
 
   private handleKeyPress(keyboardEvent: KeyboardEvent) {
     let keyCode = keyboardEvent.keyCode;
-    if (isSpaceKey(keyboardEvent)) {
+    if (keyCode == KeyCodes.ENTER || isSpaceKey(keyboardEvent)) {
       this._ripple.active = true;
-      keyboardEvent.preventDefault();
+      if (keyCode != KeyCodes.ENTER) {
+        keyboardEvent.preventDefault();
+      }
     }
   }
 

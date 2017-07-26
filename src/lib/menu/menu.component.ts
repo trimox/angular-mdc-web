@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   ContentChildren,
+  Directive,
   ElementRef,
   EventEmitter,
   HostBinding,
@@ -13,15 +14,34 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+import { isBrowser } from '../common/platform';
+import { EventRegistry } from '../common/event-registry';
+
 import { MDCMenuAdapter } from './menu-adapter';
 import { MenuItemDirective } from './menu-item.directive';
-import { MenuOpenFrom } from './menu-open-from';
-import { isBrowser } from '../common/platform';
-
-import { MDCSimpleMenuFoundation } from '@material/menu/simple';
 import { getTransformPropertyName } from '@material/menu/util';
+import { MDCSimpleMenuFoundation } from '@material/menu/simple';
 
-type UnlistenerMap = WeakMap<EventListener, Function>;
+export enum MenuOpenFrom {
+  topLeft = <any>"mdc-simple-menu--open-from-top-left",
+  topRight = <any>"mdc-simple-menu--open-from-top-right",
+  bottomLeft = <any>"mdc-simple-menu--open-from-bottom-left",
+  bottomRight = <any>"mdc-simple-menu--open-from-bottom-right"
+}
+
+@Directive({
+  selector: '[mdc-menu-anchor]'
+})
+export class MenuAnchorDirective {
+  @HostBinding('class.mdc-menu-anchor') isHostClass = true;
+}
+
+@Component({
+  selector: 'mdc-menu-divider',
+  template:
+  `<div #divider class="mdc-list-divider" role="seperator"></div>`,
+})
+export class MenuDividerComponent { }
 
 @Component({
   selector: 'mdc-menu',
@@ -46,8 +66,6 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
   @ViewChild('menuContainer') public menuContainerEl: ElementRef;
   @ContentChildren(MenuItemDirective) menuItems: QueryList<MenuItemDirective>;
 
-  private _unlisteners: Map<string, UnlistenerMap> = new Map<string, UnlistenerMap>();
-
   private _mdcAdapter: MDCMenuAdapter = {
     addClass: (className: string) => {
       this._renderer.addClass(this._root.nativeElement, className);
@@ -61,7 +79,7 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
     hasClass: (className: string) => {
       return this._root.nativeElement.classList.contains(className);
     },
-    hasNecessaryDom: () => Boolean(this.menuContainerEl),
+    hasNecessaryDom: () => !!this.menuContainerEl,
     getInnerDimensions: () => {
       return {
         width: this._root.nativeElement.offsetWidth,
@@ -96,19 +114,19 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
     },
     registerInteractionHandler: (type: string, handler: EventListener) => {
       if (this._root) {
-        this.listen_(type, handler, this._root.nativeElement);
+        this._registry.listen_(this._renderer, type, handler, this._root);
       }
     },
     deregisterInteractionHandler: (type: string, handler: EventListener) => {
-      this.unlisten_(type, handler);
+      this._registry.unlisten_(type, handler);
     },
     registerBodyClickHandler: (handler: EventListener) => {
       if (this._root) {
-        this.listen_('click', handler, this._root.nativeElement.ownerDocument);
+        this._registry.listen_(this._renderer, 'click', handler, 'body');
       }
     },
     deregisterBodyClickHandler: (handler: EventListener) => {
-      this.unlisten_('click', handler);
+      this._registry.unlisten_('click', handler);
     },
     getYParamsForItemAtIndex: (index: number) => {
       const { offsetTop: top, offsetHeight: height } = this.menuItems.toArray()[index].itemEl.nativeElement;
@@ -184,7 +202,8 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef) { }
+    private _root: ElementRef,
+    private _registry: EventRegistry) { }
 
   ngAfterViewInit() {
     this._foundation.init();
@@ -205,25 +224,5 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
 
   close() {
     this._foundation.close();
-  }
-
-  listen_(type: string, listener: EventListener, ref: any) {
-    if (!this._unlisteners.has(type)) {
-      this._unlisteners.set(type, new WeakMap<EventListener, Function>());
-    }
-    const unlistener = this._renderer.listen(ref, type, listener);
-    this._unlisteners.get(type).set(listener, unlistener);
-  }
-
-  unlisten_(type: string, listener: EventListener) {
-    if (!this._unlisteners.has(type)) {
-      return;
-    }
-    const unlisteners = this._unlisteners.get(type);
-    if (!unlisteners.has(listener)) {
-      return;
-    }
-    unlisteners.get(listener)();
-    unlisteners.delete(listener);
   }
 }

@@ -7,3 +7,5 @@ import { MaterialIcon } from './material-icon.directive';
   declarations: [MaterialIcon],
 })
 export class MaterialIconModule { }
+
+export * from './material-icon.directive';

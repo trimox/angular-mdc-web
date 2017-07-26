@@ -1,7 +1,7 @@
 export interface MDCMenuAdapter {
   addClass: (className: string) => void;
   removeClass: (className: string) => void;
-  hasClass: (className: string) => void;
+  hasClass: (className: string) => boolean;
   hasNecessaryDom: () => boolean;
   getAttributeForEventTarget: (target: EventTarget, attributeName: string) => string;
   getInnerDimensions: () => { width: number, height: number };

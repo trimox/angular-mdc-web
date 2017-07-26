@@ -11,10 +11,7 @@ import { toBoolean } from '../common/boolean-property';
 @Component({
   selector: '[mdc-list-divider], mdc-list-divider',
   template:
-  `<div #divider class="mdc-list-divider" role="seperator">
-    <ng-content></ng-content>
-   </div>
-  `,
+  `<div #divider class="mdc-list-divider" role="seperator"></div>`,
   encapsulation: ViewEncapsulation.None,
 })
 export class ListDividerComponent {

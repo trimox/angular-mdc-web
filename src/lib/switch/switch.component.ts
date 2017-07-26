@@ -2,14 +2,16 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Input,
-  Output,
+  forwardRef,
   HostBinding,
+  Input,
+  OnChanges,
+  Output,
   Provider,
   Renderer2,
-  ViewEncapsulation,
+  SimpleChange,
   ViewChild,
-  forwardRef
+  ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { toBoolean } from '../common/boolean-property';
@@ -47,7 +49,7 @@ let nextElId_ = 0;
     Ripple
   ]
 })
-export class SwitchComponent {
+export class SwitchComponent implements OnChanges {
   @Input() id: string = `mdc-switch-${++nextElId_}`;
   get inputId(): string {
     return `input-${this.id}`;
@@ -78,6 +80,14 @@ export class SwitchComponent {
     public root: ElementRef,
     public ripple: Ripple) {
     this.ripple.init(true);
+  }
+
+  ngOnChanges(changes: { [key: string]: SimpleChange }) {
+    let change = changes['disabled'];
+
+    if (change) {
+      this.ripple.disabled = toBoolean(change.currentValue);
+    }
   }
 
   handleChange(evt: Event) {

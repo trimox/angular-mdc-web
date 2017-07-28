@@ -27,3 +27,13 @@ const CARD_COMPONENTS = [
   declarations: [CARD_COMPONENTS],
 })
 export class CardModule { }
+
+export * from './card.component';
+export * from './card-primary.directive';
+export * from './card-supporting-text.directive';
+export * from './card-title.directive';
+export * from './card-subtitle.directive';
+export * from './card-actions.directive';
+export * from './card-media-item.directive';
+export * from './card-media.component';
+export * from './card-horizontal.component';

@@ -7,3 +7,5 @@ import { LinearProgressComponent } from './linear-progress.component';
   declarations: [LinearProgressComponent],
 })
 export class LinearProgressModule { }
+
+export * from './linear-progress.component';

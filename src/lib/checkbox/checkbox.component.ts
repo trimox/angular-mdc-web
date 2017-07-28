@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  forwardRef,
   HostBinding,
   Input,
   OnDestroy,
@@ -11,7 +12,6 @@ import {
   Renderer2,
   ViewChild,
   ViewEncapsulation,
-  forwardRef
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { toBoolean } from '../common/boolean-property';

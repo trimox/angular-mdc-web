@@ -1,7 +1,7 @@
 import {
   Directive,
   HostBinding,
-  Input
+  Input,
 } from '@angular/core';
 
 @Directive({

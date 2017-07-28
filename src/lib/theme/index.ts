@@ -11,3 +11,5 @@ const THEME_DIRECTIVES = [
   declarations: [THEME_DIRECTIVES],
 })
 export class ThemeModule { }
+
+export * from './theme-dark.directive';

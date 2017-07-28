@@ -23,3 +23,11 @@ const TOOLBAR_COMPONENTS = [
   declarations: [TOOLBAR_COMPONENTS],
 })
 export class ToolbarModule { }
+
+export * from './toolbar.component';
+export * from './toolbar-row.directive';
+export * from './toolbar-section.directive';
+export * from './toolbar-title.directive';
+export * from './toolbar-fixed-adjust.directive';
+export * from './toolbar-icon.directive';
+export * from './toolbar-icon-menu.directive';

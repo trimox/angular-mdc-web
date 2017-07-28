@@ -7,3 +7,5 @@ import { FormFieldDirective } from './form-field.directive';
   declarations: [FormFieldDirective]
 })
 export class FormFieldModule { }
+
+export * from './form-field.directive';

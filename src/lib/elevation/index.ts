@@ -15,3 +15,5 @@ const ELEVATION_DIRECTIVES = [
   declarations: [ELEVATION_DIRECTIVES],
 })
 export class ElevationModule { }
+
+export * from './elevation.directive';

@@ -1,6 +1,6 @@
 import {
   Directive,
-  HostBinding
+  HostBinding,
 } from '@angular/core';
 
 @Directive({

@@ -1,5 +1,5 @@
 export const navigationLinks = [
-  { name: 'Home', route: 'home-demo', icon: 'home', desc: '' },
+  { name: 'Home', route: '/', icon: 'home', desc: '' },
   { name: 'Button', route: 'button-demo', icon: 'code', desc: 'Buttons communicate the action that will occur when the user touches them.' },
   { name: 'Card', route: 'card-demo', icon: 'credit_card', desc: 'A card is a sheet of material that serves as an entry point to more detailed information.' },
   { name: 'Checkbox', route: 'checkbox-demo', icon: 'check_box', desc: 'Checkboxes allow the user to select multiple options from a set.' },
@@ -12,6 +12,7 @@ export const navigationLinks = [
   { name: 'Radio Button', route: 'radio-demo', icon: 'radio_button_checked', desc: 'Radio buttons allow the user to select one option from a set.' },
   { name: 'Snackbar', route: 'snackbar-demo', icon: 'info_outline', desc: 'Snackbars provide brief feedback through a message at the bottom of the screen.' },
   { name: 'Switch', route: 'switch-demo', icon: 'wb_incandescent', desc: 'On/off switches toggle the state of a single settings option.' },
+  { name: 'Tabs', route: 'tab-demo', icon: 'code', desc: 'Tabs make it easy to explore and switch between different views.' },
   { name: 'Textfield', route: 'textfield-demo', icon: 'input', desc: 'Text fields allow users to input, edit, and select text.' },
   { name: 'Toolbar', route: 'toolbar-demo', icon: 'code', desc: 'Toolbars appear a step above the sheet of material affected by their actions.' },
   { name: 'Typography', route: 'typography-demo', icon: 'text_fields', desc: 'Material Design typography uses the Roboto font.' }

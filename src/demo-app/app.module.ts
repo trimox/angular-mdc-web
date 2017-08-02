@@ -22,6 +22,7 @@ import { SwitchDemoComponent } from './components/switch-demo/switch-demo.compon
 import { TextfieldDemoComponent } from './components/textfield-demo/textfield-demo.component';
 import { ToolbarDemoComponent } from './components/toolbar-demo/toolbar-demo.component';
 import { TypographyDemoComponent } from './components/typography-demo/typography-demo.component';
+import { TabDemoComponent, ItemOneContent, ItemTwoContent, ItemThreeContent } from './components/tab-demo/tab-demo.component';
 
 import { MaterialModule } from '@angular-mdc/web';
 // import { MaterialModule } from '../lib/module';
@@ -56,9 +57,13 @@ import { demoAppRoutes } from './routes';
     RadioDemoComponent,
     SnackbarDemoComponent,
     SwitchDemoComponent,
+    TabDemoComponent,
     TextfieldDemoComponent,
     ToolbarDemoComponent,
     TypographyDemoComponent,
+    ItemOneContent,
+    ItemTwoContent,
+    ItemThreeContent,
   ],
   entryComponents: [
     AppComponent

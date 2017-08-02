@@ -51,11 +51,11 @@ Check out our [Getting Started guide](https://github.com/trimox/angular-mdc-web/
 | menu | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/menu-demo) |
 | radio | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/radio-demo) |
 | ripple | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/ripple-demo) |
-| select | TBI ||
+| select | WIP ||
 | slider | TBI ||
 | snackbar | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/snackbar-demo) |
 | switch | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/switch-demo) |
-| tabs | TBI ||
+| tabs | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/tab-demo) |
 | textfield | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/textfield-demo) |
 | theme | WIP ||
 | toolbar | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/toolbar-demo) |

@@ -1,9 +1,13 @@
 {
+  "extends": [
+    "tslint-eslint-rules"
+  ],
   "rulesDirectory": [
     "node_modules/tslint-eslint-rules/dist/rules",
     "node_modules/vrsource-tslint-rules/rules"
   ],
   "rules": {
+    "eofline": true,
     "no-console": [true, "log"],
     "no-duplicate-imports": true,
     "no-duplicate-variable": true,

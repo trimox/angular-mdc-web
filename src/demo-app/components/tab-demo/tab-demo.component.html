@@ -1,0 +1,267 @@
+<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
+  <h1 mdc-typography-display1>Tabs</h1>
+  <div mdc-typography-subheading2>Tabs enable content organization at a high level, such as switching between views, data sets, or functional aspects of an app.</div>
+  <div class="info-banner" mdc-typography-subheading1>
+    <![CDATA[import { TabModule } from '@angular-mdc/web';]]>
+  </div>
+  <div class="docs-api">
+    <table>
+      <thead>
+        <tr>
+          <th>Directive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-tab-bar</td>
+          <td>The main component which is composed of mdc-tab elements.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>@Input() primaryColor: boolean</td>
+          <td>Sets indicator bar line to use app primary color.</td>
+        </tr>
+        <tr>
+          <td>@Input() accentColor: boolean</td>
+          <td>Sets indicator bar line to use app accent color.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Events</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+<pre><code><![CDATA[@Output() change
+EventEmitter<{ activeTabIndex: number }]]></code></pre></td>
+          <td>Broadcast when a user actions on a tab, resulting in a change in the selected tab.</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Directive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-tab</td>
+          <td>The individual tab elements.</td>
+        </tr>
+        <tr>
+          <td>@Input() active: boolean</td>
+          <td>Whether or not the tab is active. Setting this makes the tab active.</td>
+        </tr>
+        <tr>
+          <td>@Input() preventsDefaultOnClick: boolean</td>
+          <td>Whether or not the tab will call preventDefault() on an event. Setting this makes the tab call preventDefault() on events.</td>
+        </tr>
+        <tr>
+          <td>@Input() disableRipple: boolean</td>
+          <td>
+<pre><code><![CDATA[Disable the ink ripple.
+Example: disableRipple="true" or disableRipple]]></code></pre></td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Events</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+<pre><code><![CDATA[@Output() select
+EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
+          <td>Broadcast when a user actions on the tab.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Child Directives</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-tab-icon</td>
+          <td>Add icon to the tab.</td>
+        </tr>
+        <tr>
+          <td>mdc-tab-icon-text</td>
+          <td>Text and icon are centered horizontally in the tab.</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Directive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-tab-bar-scroller</td>
+          <td>The component which controls the horizontal scrolling behavior of an mdc-tab-bar that overflows its container.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Child Directives</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-tab-bar-scroll-frame</td>
+          <td>The scroll frame is the parent element of the tab bar, and serves to mask the tabs in the tab bar when they overflow the available width.</td>
+        </tr>
+        <tr>
+          <td>mdc-tab-bar-scroll-back</td>
+          <td>Scrolls the tab bar such that the leftmost tab traverses the scroll frame.</td>
+        </tr>
+        <tr>
+          <td>mdc-tab-bar-scroll-forward</td>
+          <td>Scrolls the tab bar such that the rightmost tab traverses the scroll frame.</td>
+        </tr>
+        <tr>
+          <td>mdc-tab-bar-scroll-button</td>
+          <td>Use to add a button to either [mdc-tab-bar-scroll-back] or [mdc-tab-bar-scroll-forward] directives.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div fxLayout="column" fxLayoutGap="40px" fxLayoutAlign="start start" class="mdc-padding">
+    <div>
+      <span mdc-typography-headline>Tab Bar with text labels</span>
+      <mdc-tab-bar>
+        <a mdc-tab [active]="true" href="#/tab-demo">Home</a>
+        <a mdc-tab href="#/tab-demo">Merchandise</a>
+        <a mdc-tab href="#/tab-demo">About Us</a>
+      </mdc-tab-bar>
+    </div>
+
+    <div>
+      <span mdc-typography-headline>Tab Bar with icon labels</span>
+      <mdc-tab-bar>
+        <a mdc-tab [active]="true" href="#/tab-demo">
+          <i mdc-tab-icon material-icon aria-label="Recents">phone</i>
+        </a>
+        <a mdc-tab href="#/tab-demo">
+          <i material-icon mdc-tab-icon aria-label="Favorites">favorite</i>
+        </a>
+        <a mdc-tab href="#/tab-demo">
+          <i material-icon mdc-tab-icon aria-label="nearby">person_pin</i>
+        </a>
+      </mdc-tab-bar>
+    </div>
+
+    <div>
+      <span mdc-typography-headline>Tab Bar with icon and text labels</span>
+      <mdc-tab-bar>
+        <a mdc-tab mdc-tab-icon-text [active]="true" href="#/tab-demo">
+          <i material-icon mdc-tab-icon aria-hidden="true">phone</i>
+          <mdc-tab-icon-text>Recents</mdc-tab-icon-text>
+        </a>
+        <a mdc-tab mdc-tab-icon-text href="#/tab-demo">
+          <i material-icon mdc-tab-icon aria-hidden="true">favorite</i>
+          <mdc-tab-icon-text>Favorites</mdc-tab-icon-text>
+        </a>
+        <a mdc-tab mdc-tab-icon-text href="#/tab-demo">
+          <i material-icon mdc-tab-icon aria-hidden="true">person_pin</i>
+          <mdc-tab-icon-text>Nearby</mdc-tab-icon-text>
+        </a>
+      </mdc-tab-bar>
+    </div>
+
+    <div>
+      <span mdc-typography-headline>Accent Color Indicator</span>
+      <mdc-tab-bar [accentColor]="true">
+        <a mdc-tab mdc-tab-icon-text [active]="true" href="#/tab-demo">
+          <i material-icon mdc-tab-icon aria-hidden="true">phone</i>
+          <mdc-tab-icon-text>Recents</mdc-tab-icon-text>
+        </a>
+        <a mdc-tab mdc-tab-icon-text href="#/tab-demo">
+          <i material-icon mdc-tab-icon aria-hidden="true">favorite</i>
+          <mdc-tab-icon-text>Favorites</mdc-tab-icon-text>
+        </a>
+        <a mdc-tab mdc-tab-icon-text href="#/tab-demo">
+          <i material-icon mdc-tab-icon aria-hidden="true">person_pin</i>
+          <mdc-tab-icon-text>Nearby</mdc-tab-icon-text>
+        </a>
+      </mdc-tab-bar>
+    </div>
+
+    <div>
+      <span mdc-typography-headline>Dark Themed</span>
+      <mdc-tab-bar [accentColor]="true" [mdc-theme-dark]="true">
+        <a mdc-tab mdc-tab-icon-text [active]="true" href="#/tab-demo">
+          <i material-icon mdc-tab-icon aria-hidden="true">phone</i>
+          <mdc-tab-icon-text>Recents</mdc-tab-icon-text>
+        </a>
+        <a mdc-tab mdc-tab-icon-text href="#/tab-demo">
+          <i material-icon mdc-tab-icon aria-hidden="true">favorite</i>
+          <mdc-tab-icon-text>Favorites</mdc-tab-icon-text>
+        </a>
+        <a mdc-tab mdc-tab-icon-text href="#/tab-demo">
+          <i material-icon mdc-tab-icon aria-hidden="true">person_pin</i>
+          <mdc-tab-icon-text>Nearby</mdc-tab-icon-text>
+        </a>
+      </mdc-tab-bar>
+    </div>
+
+    <div>
+      <span mdc-typography-headline>Dynamic view switching</span>
+      <mdc-tab-bar>
+        <a mdc-tab *ngFor="let tabLink of tabLinks" routerLink="{{tabLink.link}}" [active]="tabLink.active">{{tabLink.label}}</a>
+      </mdc-tab-bar>
+      <section>
+        <div class="panels">
+          <router-outlet name="mytabcontent"></router-outlet>         
+        </div>
+      </section>
+    </div>
+
+    <div>
+      <span mdc-typography-headline>Tab Bar Scoller</span>
+      <mdc-tab-bar-scroller fxLayout="row" style="width: 30%;">
+        <mdc-tab-bar-scroll-back>
+          <mdc-tab-bar-scroll-button material-icon>
+            navigate_before
+          </mdc-tab-bar-scroll-button>
+        </mdc-tab-bar-scroll-back>
+        <mdc-tab-bar-scroll-frame>
+          <mdc-tab-bar [accentColor]="true">
+            <mdc-tab [active]="true">Item One</mdc-tab>
+            <mdc-tab>Item Two</mdc-tab>
+            <mdc-tab>Item Three</mdc-tab>
+            <mdc-tab>Item Four</mdc-tab>
+            <mdc-tab>Item Five</mdc-tab>
+            <mdc-tab>Item Six</mdc-tab>
+            <mdc-tab>Item Seven</mdc-tab>
+            <mdc-tab>Item Eight</mdc-tab>
+            <mdc-tab>Item Nine</mdc-tab>
+            <mdc-tab>Item Ten</mdc-tab>
+          </mdc-tab-bar>
+        </mdc-tab-bar-scroll-frame>
+        <mdc-tab-bar-scroll-forward>
+          <mdc-tab-bar-scroll-button material-icon>
+            navigate_next
+          </mdc-tab-bar-scroll-button>
+        </mdc-tab-bar-scroll-forward>
+      </mdc-tab-bar-scroller>
+    </div>
+  </div>
+</div>

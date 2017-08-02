@@ -15,7 +15,6 @@ import { RadioModule } from './radio/index';
 import { RippleModule } from './ripple/index';
 import { SnackbarModule } from './snackbar/index';
 import { SwitchModule } from './switch/index';
-import { TabModule } from './tabs/index';
 import { TextfieldModule } from './textfield/index';
 import { ThemeModule } from './theme/index';
 import { ToolbarModule } from './toolbar/index';
@@ -37,7 +36,6 @@ const MATERIAL_MODULES = [
   RippleModule,
   SnackbarModule,
   SwitchModule,
-  TabModule,
   TextfieldModule,
   ThemeModule,
   ToolbarModule,

@@ -1,5 +1,4 @@
 ﻿import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 
 import { navigationLinks } from '../../common/navigation-links';
 
@@ -9,12 +8,4 @@ import { navigationLinks } from '../../common/navigation-links';
 })
 export class HomeComponent {
   navLinks = navigationLinks.filter(_ => _.desc.length > 0);
-
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router) { }
-
-  viewComponent(value: string) {
-    this.router.navigate([value]);
-  }
 }

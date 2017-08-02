@@ -11,6 +11,8 @@ import { SwitchDemoComponent } from './components/switch-demo/switch-demo.compon
 import { SnackbarDemoComponent } from './components/snackbar-demo/snackbar-demo.component';
 import { MenuDemoComponent } from './components/menu-demo/menu-demo.component';
 import { TextfieldDemoComponent } from './components/textfield-demo/textfield-demo.component';
+import { TABS_DEMO_ROUTES } from './components/tab-demo/routes';
+import { TabDemoComponent } from './components/tab-demo/tab-demo.component';
 import { ToolbarDemoComponent } from './components/toolbar-demo/toolbar-demo.component';
 import { LinearProgressDemoComponent } from './components/linear-progress-demo/linear-progress-demo.component';
 import { ListDemoComponent } from './components/list-demo/list-demo.component';
@@ -33,6 +35,7 @@ export const demoAppRoutes: Routes = [
   { path: 'elevation-demo', component: ElevationDemoComponent },
   { path: 'list-demo', component: ListDemoComponent },
   { path: 'drawer-demo', component: DrawerDemoComponent },
+  { path: 'tab-demo', component: TabDemoComponent, children: TABS_DEMO_ROUTES },
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: '**', redirectTo: '' }
 ];

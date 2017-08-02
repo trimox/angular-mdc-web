@@ -3,7 +3,7 @@ import {
   HostBinding,
   OnInit,
 } from '@angular/core';
-import { Ripple } from '.././ripple/ripple.directive';
+import { Ripple } from '../ripple/ripple.directive';
 import { TextfieldComponent } from './textfield.component';
 
 @Component({

@@ -17,7 +17,7 @@
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { EventRegistry } from '../common/event-registry';
 import { toBoolean } from '../common/boolean-property';
-import { Ripple } from '.././ripple/ripple.directive';
+import { Ripple } from '../ripple/ripple.directive';
 
 import { MDCTextfieldAdapter } from './textfield-adapter';
 import { MDCTextfieldFoundation } from '@material/textfield';

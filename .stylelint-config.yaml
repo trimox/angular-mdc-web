@@ -214,19 +214,7 @@ rules:
     - severity: warning
   # Part of google's style guide
   number-leading-zero: never
-
-  # SCSS naming patterns, just like our CSS conventions above.
-  # (note for $-vars we use a leading underscore for "private" variables)
-  scss/dollar-variable-pattern:
-    - ^_?mdc-.+
-    -
-      ignore: local
-  scss/at-function-pattern: ^mdc-.+
-  scss/at-mixin-pattern: ^mdc-.+
   # Prevents unneeded nesting selectors
   scss/selector-no-redundant-nesting-selector: true
   # Since leading underscores are not needed, they can be omitted
   scss/at-import-no-partial-leading-underscore: true
-  # Since mixins are explicit (`@include`) and parens are unnecessary for argumentless mixins, they
-  # can be omitted.
-  scss/at-mixin-no-argumentless-call-parentheses: true

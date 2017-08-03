@@ -1,4 +1,24 @@
 <a name="0.0.0"></a>
+# [0.2.4](https://github.com/trimox/angular-mdc-web/compare/v0.2.3...v0.2.4) (2017-08-03)
+
+
+### Bug Fixes
+
+* **button:** Fix keyboard event propagation + refactor ([4b17028](https://github.com/trimox/angular-mdc-web/commit/4b17028)), closes [#60](https://github.com/trimox/angular-mdc-web/issues/60)
+* **fab:** Fix keyboard event propagation + refactor ([fc310fe](https://github.com/trimox/angular-mdc-web/commit/fc310fe)), closes [#60](https://github.com/trimox/angular-mdc-web/issues/60)
+* **fab:** Disabled FAB will now remove Ripple classes ([f1e7919](https://github.com/trimox/angular-mdc-web/commit/f1e7919))
+* **switch:** Disabled Switch will now remove Ripple classes ([94dd087](https://github.com/trimox/angular-mdc-web/commit/94dd087))
+* **textfield:** Use correct Ripple import path ([c4d23b6](https://github.com/trimox/angular-mdc-web/commit/c4d23b6))
+
+
+### Features
+
+* **tabs:** Implement MDC Tabs ([f713789](https://github.com/trimox/angular-mdc-web/commit/f713789))
+* **package:** Export individual component & directive classes ([#62](https://github.com/trimox/angular-mdc-web/issues/62)) ([75b6f21](https://github.com/trimox/angular-mdc-web/commit/75b6f21))
+
+
+
+<a name="0.0.0"></a>
 # [0.2.3](https://github.com/trimox/angular-mdc-web/compare/v0.2.2...v0.2.3) (2017-07-25)
 
 

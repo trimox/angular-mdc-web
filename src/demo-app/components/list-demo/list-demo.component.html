@@ -150,7 +150,14 @@ Note: Overridden by mdc-list's [disableRipple]]]></code></pre></td>
       <mdc-list-item>Single-line item</mdc-list-item>
       <mdc-list-item>Single-line item</mdc-list-item>
     </mdc-list>
-  </div>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>
+ [<span style="color:#89bdff">dense</span>]=<span style="color:#65b042">"isSinglelineDense"</span>
+ [<span style="color:#89bdff">mdc-theme-dark</span>]=<span style="color:#65b042">"false"</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Single-line item<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Single-line item<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Single-line item<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
+</pre>  </div>
   <div fxLayout="column" class="mdc-padding">
     <h3>Two-line List</h3>
     <div fxLayout="row">
@@ -165,25 +172,49 @@ Note: Overridden by mdc-list's [disableRipple]]]></code></pre></td>
     </div>
     <mdc-list class="demo-wrapper" [twoLine]="true" [dense]="isTwolineDense" [mdc-theme-dark]="isTwoDarkTheme">
       <mdc-list-item>
-        <span mdc-list-item-text>
+        <mdc-list-item-text>
           Single-line item
-          <span mdc-list-item-secondary>Secondary text</span>
-        </span>
+          <mdc-list-item-secondary>Secondary text</mdc-list-item-secondary>
+        </mdc-list-item-text>
       </mdc-list-item>
       <mdc-list-item>
-        <span mdc-list-item-text>
+        <mdc-list-item-text>
           Single-line item
-          <span mdc-list-item-secondary>Secondary text</span>
-        </span>
+          <mdc-list-item-secondary>Secondary text</mdc-list-item-secondary>
+        </mdc-list-item-text>
       </mdc-list-item>
       <mdc-list-item>
-        <span mdc-list-item-text>
+        <mdc-list-item-text>
           Single-line item
-          <span mdc-list-item-secondary>Secondary text</span>
-        </span>
+          <mdc-list-item-secondary>Secondary text</mdc-list-item-secondary>
+        </mdc-list-item-text>
       </mdc-list-item>
     </mdc-list>
-  </div>
+
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span> 
+  [<span style="color:#89bdff">twoLine</span>]=<span style="color:#65b042">"true"</span>
+  [<span style="color:#89bdff">dense</span>]=<span style="color:#65b042">"false"</span>
+  [<span style="color:#89bdff">mdc-theme-dark</span>]=<span style="color:#65b042">"false"</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-text</span>></span>
+      Single-line item
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-secondary</span>></span>Secondary text<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-secondary</span>></span>
+    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-text</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-text</span>></span>
+      Single-line item
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-secondary</span>></span>Secondary text<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-secondary</span>></span>
+    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-text</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-text</span>></span>
+      Single-line item
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-secondary</span>></span>Secondary text<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-secondary</span>></span>
+    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-text</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
+</pre></div>
 
   <div fxLayout="column" class="mdc-padding">
     <h3>Start Detail</h3>
@@ -238,7 +269,24 @@ Note: Overridden by mdc-list's [disableRipple]]]></code></pre></td>
         <i mdc-list-item-start material-icon>data_usage</i>Data Usage<i mdc-list-item-end material-icon>info</i>
       </mdc-list-item>
     </mdc-list>
-  </div>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span> [<span style="color:#89bdff">mdc-theme-dark</span>]=<span style="color:#65b042">"false"</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+    <span style="color:#e0c589">&lt;<span style="color:#e0c589">i</span> <span style="color:#e0c589">mdc-list-item-start</span> <span style="color:#e0c589">material-icon</span>></span>network_wifi<span style="color:#e0c589">&lt;/<span style="color:#e0c589">i</span>></span>
+    Wi-Fi
+    <span style="color:#e0c589">&lt;<span style="color:#e0c589">i</span> <span style="color:#e0c589">mdc-list-item-end</span> <span style="color:#e0c589">material-icon</span>></span>info<span style="color:#e0c589">&lt;/<span style="color:#e0c589">i</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+    <span style="color:#e0c589">&lt;<span style="color:#e0c589">i</span> <span style="color:#e0c589">mdc-list-item-start</span> <span style="color:#e0c589">material-icon</span>></span>bluetooth<span style="color:#e0c589">&lt;/<span style="color:#e0c589">i</span>></span>
+    Bluetooth
+    <span style="color:#e0c589">&lt;<span style="color:#e0c589">i</span> <span style="color:#e0c589">mdc-list-item-end</span> <span style="color:#e0c589">material-icon</span>></span>info<span style="color:#e0c589">&lt;/<span style="color:#e0c589">i</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+    <span style="color:#e0c589">&lt;<span style="color:#e0c589">i</span> <span style="color:#e0c589">mdc-list-item-start</span> <span style="color:#e0c589">material-icon</span>></span>data_usage<span style="color:#e0c589">&lt;/<span style="color:#e0c589">i</span>></span>
+    Data Usage
+    <span style="color:#e0c589">&lt;<span style="color:#e0c589">i</span> <span style="color:#e0c589">mdc-list-item-end</span> <span style="color:#e0c589">material-icon</span>></span>info<span style="color:#e0c589">&lt;/<span style="color:#e0c589">i</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
+</pre>  </div>
 
   <div fxLayout="column" class="mdc-padding">
     <h3>Avatar List</h3>

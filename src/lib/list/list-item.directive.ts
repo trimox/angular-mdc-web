@@ -66,7 +66,7 @@ export class ListItemEndDirective {
 }
 
 @Directive({
-  selector: '[mdc-list-item-text]'
+  selector: '[mdc-list-item-text], mdc-list-item-text'
 })
 export class ListItemTextDirective {
   @HostBinding('class.mdc-list-item__text') isHostClass = true;

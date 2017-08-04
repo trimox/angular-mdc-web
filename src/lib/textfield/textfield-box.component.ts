@@ -19,6 +19,14 @@ export const MD_TEXTFIELDBOX_CONTROL_VALUE_ACCESSOR: Provider = {
   multi: true
 };
 
+@Directive({
+  selector: '[mdc-textfield-bottom-line], mdc-textfield-bottom-line'
+})
+export class TextfieldBottomLineDirective {
+  @HostBinding('class.mdc-textfield__bottom-line') isHostClass = true;
+
+  constructor(public elementRef: ElementRef) { }
+}
 
 @Component({
   selector: 'mdc-textfield-box',
@@ -37,8 +45,8 @@ export const MD_TEXTFIELDBOX_CONTROL_VALUE_ACCESSOR: Provider = {
   (keydown)="onKeyDown($event)"
   (blur)="onBlur($event)"
   (input)="onInput($event)" />
-  <label #inputlabel [attr.for]="id" class="mdc-textfield__label">{{label}}</label>
-  <div class="mdc-textfield__bottom-line"></div>
+  <mdc-textfield-label [attr.for]="inputId">{{label}}</mdc-textfield-label>
+  <mdc-textfield-bottom-line></mdc-textfield-bottom-line>
   `,
   providers: [
     MD_TEXTFIELDBOX_CONTROL_VALUE_ACCESSOR,

@@ -17,7 +17,6 @@
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { EventRegistry } from '../common/event-registry';
 import { toBoolean } from '../common/boolean-property';
-import { Ripple } from '../ripple/ripple.directive';
 
 import { MDCTextfieldAdapter } from './textfield-adapter';
 import { MDCTextfieldFoundation } from '@material/textfield';
@@ -91,9 +90,8 @@ export class TextfieldHelptextDirective {
 `,
   encapsulation: ViewEncapsulation.None,
   providers: [
-    MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR,
+    MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR
   ],
-  viewProviders: [Ripple]
 })
 export class TextfieldComponent implements AfterViewInit, OnDestroy {
   @Input() id: string = `mdc-textfield-${++nextElId_}`;
@@ -227,18 +225,18 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
     init: Function,
     destroy: Function,
     isDisabled: Function,
-    setDisabled: Function
+    setDisabled: Function,
   } = new MDCTextfieldFoundation(this._mdcAdapter);
 
   constructor(
     private _renderer: Renderer2,
     private _root: ElementRef,
-    private _registry: EventRegistry,
-    public ripple: Ripple) { }
+    private _registry: EventRegistry) { }
 
   ngAfterViewInit() {
     this._foundation.init();
   }
+
   ngOnDestroy() {
     this._foundation.destroy();
   }

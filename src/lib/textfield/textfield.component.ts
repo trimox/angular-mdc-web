@@ -47,6 +47,15 @@ export class TextfieldHelptextDirective {
   constructor(public elementRef: ElementRef) { }
 }
 
+@Directive({
+  selector: '[mdc-textfield-label], mdc-textfield-label'
+})
+export class TextfieldLabelDirective {
+  @HostBinding('class.mdc-textfield__label') isHostClass = true;
+
+  constructor(public elementRef: ElementRef) { }
+}
+
 @Component({
   selector: 'mdc-textfield',
   template:
@@ -74,10 +83,10 @@ export class TextfieldHelptextDirective {
     #input
     class="mdc-textfield__input"
     [type]="type"
-    [id]="id"
+    [id]="inputId"
     [attr.name]="name"
     [(ngModel)]="value"
-    [placeholder]="placeholder ? placeholder : ''"
+    [placeholder]="placeholder"
     [tabindex]="tabindex"
     [maxlength]="maxlength"
     [disabled]="disabled"
@@ -86,8 +95,8 @@ export class TextfieldHelptextDirective {
     (keydown)="onKeyDown($event)"
     (blur)="onBlur($event)"
     (input)="onInput($event)" />
-  <label #inputlabel [attr.for]="id" class="mdc-textfield__label" *ngIf="!placeholder">{{label}}</label>
-`,
+    <mdc-textfield-label [attr.for]="inputId" *ngIf="!placeholder">{{label}}</mdc-textfield-label>
+  `,
   encapsulation: ViewEncapsulation.None,
   providers: [
     MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR
@@ -111,7 +120,7 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
   @Input() dense: boolean;
   @Input() required: boolean;
   @Input() label: string;
-  @Input() placeholder: string;
+  @Input() placeholder: string = '';
   @Input() tabindex: number;
   @Input() rows: number;
   @Input() cols: number;
@@ -133,8 +142,8 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
     return this.dense ? 'mdc-textfield--dense' : '';
   }
   @ViewChild('input') public inputEl: ElementRef;
-  @ViewChild('inputlabel') public inputLabel: ElementRef;
   @ViewChild(TextfieldHelptextDirective) helpText: TextfieldHelptextDirective;
+  @ViewChild(TextfieldLabelDirective) inputLabel: TextfieldLabelDirective;
 
   onTouched: () => any = () => { };
 
@@ -150,14 +159,14 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
     addClassToLabel: (className: string) => {
       if (this.inputLabel) {
         if (this.label && !this.fullwidth) {
-          this._renderer.addClass(this.inputLabel.nativeElement, className);
+          this._renderer.addClass(this.inputLabel.elementRef.nativeElement, className);
         }
       }
     },
     removeClassFromLabel: (className: string) => {
       if (this.inputLabel) {
         if (this.label && !this.fullwidth) {
-          this._renderer.removeClass(this.inputLabel.nativeElement, className);
+          this._renderer.removeClass(this.inputLabel.elementRef.nativeElement, className);
         }
       }
     },

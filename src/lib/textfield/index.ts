@@ -5,13 +5,19 @@ import { FormsModule } from '@angular/forms';
 import {
   TextfieldComponent,
   TextfieldHelptextDirective,
+  TextfieldLabelDirective,
 } from './textfield.component';
-import { TextfieldBoxComponent } from './textfield-box.component';
+import {
+  TextfieldBoxComponent,
+  TextfieldBottomLineDirective,
+} from './textfield-box.component';
 
 const TEXTFIELD_COMPONENTS = [
   TextfieldComponent,
   TextfieldHelptextDirective,
   TextfieldBoxComponent,
+  TextfieldBottomLineDirective,
+  TextfieldLabelDirective,
 ];
 
 @NgModule({

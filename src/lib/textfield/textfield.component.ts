@@ -266,9 +266,9 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
   writeValue(value: string) {
     if (value) {
       this.value = value;
-      this._mdcAdapter.addClass(MDCTextfieldFoundation.cssClasses.UPGRADED);
+      this._mdcAdapter.addClass('mdc-textfield--upgraded');
       if (!this.fullwidth) {
-        this._mdcAdapter.addClassToLabel(MDCTextfieldFoundation.cssClasses.LABEL_FLOAT_ABOVE);
+        this._mdcAdapter.addClassToLabel('mdc-textfield__label--float-above');
       }
     }
   }

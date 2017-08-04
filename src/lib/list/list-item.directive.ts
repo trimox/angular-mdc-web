@@ -75,7 +75,7 @@ export class ListItemTextDirective {
 }
 
 @Directive({
-  selector: '[mdc-list-item-secondary]'
+  selector: '[mdc-list-item-secondary], mdc-list-item-secondary'
 })
 export class ListItemTextSecondaryDirective {
   @HostBinding('class.mdc-list-item__text__secondary') isHostClass = true;

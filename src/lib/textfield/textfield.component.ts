@@ -37,6 +37,7 @@ export class TextfieldHelptextDirective {
   @Input() persistent: boolean;
   @Input() validation: boolean;
   @HostBinding('class.mdc-textfield-helptext') isHostClass = true;
+  @HostBinding('attr.aria-hidden') ariaHidden: string = 'true';
   @HostBinding('class.mdc-textfield-helptext--persistent') get classPersistent(): string {
     return this.persistent ? 'mdc-textfield-helptext--persistent' : '';
   }

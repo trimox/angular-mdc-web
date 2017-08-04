@@ -28,6 +28,8 @@ export const MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR: Provider = {
   multi: true
 };
 
+let nextElId_ = 0;
+
 @Directive({
   selector: '[mdc-textfield-helptext]'
 })
@@ -57,7 +59,7 @@ export class TextfieldHelptextDirective {
     class="mdc-textfield__input"
     type="text"
     [attr.name]="name"
-    [id]="id"
+    [id]="inputId"
     [placeholder]="placeholder ? placeholder : ''"
     [tabindex]="tabindex"
     [maxlength]="maxlength"
@@ -94,7 +96,10 @@ export class TextfieldHelptextDirective {
   viewProviders: [Ripple]
 })
 export class TextfieldComponent implements AfterViewInit, OnDestroy {
-  @Input() id: string;
+  @Input() id: string = `mdc-textfield-${++nextElId_}`;
+  get inputId(): string {
+    return `input-${this.id}`;
+  }
   @Input() name: string;
   @Input() type: string = 'text';
   @Input() value: string;

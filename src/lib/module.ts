@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ButtonModule } from './button/index';
 import { CardModule } from './card/index';
 import { CheckboxModule } from './checkbox/index';
+import { DialogModule } from './dialog/index';
 import { DrawerModule } from './drawer/index';
 import { ElevationModule } from './elevation/index';
 import { FabModule } from './fab/index';
@@ -26,6 +27,7 @@ const MATERIAL_MODULES = [
   CardModule,
   CheckboxModule,
   ElevationModule,
+  DialogModule,
   DrawerModule,
   FabModule,
   FormFieldModule,

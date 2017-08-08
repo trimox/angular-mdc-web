@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { ButtonDemoComponent } from './components/button-demo/button-demo.component';
 import { CardDemoComponent } from './components/card-demo/card-demo.component';
 import { CheckboxDemoComponent } from './components/checkbox-demo/checkbox-demo.component';
+import { DialogDemoComponent } from './components/dialog-demo/dialog-demo.component';
 import { DrawerDemoComponent } from './components/drawer-demo/drawer-demo.component';
 import { FabDemoComponent } from './components/fab-demo/fab-demo.component';
 import { ElevationDemoComponent } from './components/elevation-demo/elevation-demo.component';
@@ -46,6 +47,7 @@ import { demoAppRoutes } from './routes';
     ButtonDemoComponent,
     CardDemoComponent,
     CheckboxDemoComponent,
+    DialogDemoComponent,
     DrawerDemoComponent,
     ElevationDemoComponent,
     FabDemoComponent,

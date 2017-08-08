@@ -1,0 +1,149 @@
+<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
+  <h1 mdc-typography-display1>Dialog</h1>
+  <div mdc-typography-subheading2>Dialogs inform users about a specific task, require decisions, or involve multiple tasks.</div>
+  <div class="info-banner" mdc-typography-subheading1>
+    <![CDATA[import { DialogModule } from '@angular-mdc/web';]]>
+  </div>
+  <div class="docs-api">
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-dialog</td>
+          <td>The main component which is composed of mdc-dialog elements.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Methods</th>
+          <th>Parameters</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>open()</td>
+          <td>Opens the dialog, registers appropriate event listeners, sets aria attributes, focuses elements.</td>
+        </tr>
+        <tr>
+          <td>isOpen()</td>
+          <td>Returns true if the dialog is open, false otherwise.</td>
+        </tr>
+        <tr>
+          <td>close()</td>
+          <td>Closes the dialog, deregisters appropriate event listeners, resets aria attributes, focuses elements.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Events</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>accept</td>
+          <td>Broadcast when a user accepts the dialog.</td>
+        </tr>
+        <tr>
+          <td>cancel</td>
+          <td>Broadcast when a user cancels the dialog.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start start" class="mdc-padding">
+    <button mdc-button [primary]="true" [raised]="true" (click)="showDialog();">Show Dialog</button>
+    <button mdc-button [primary]="true" [raised]="true" (click)="showDialogScroll();">Show Scrolling Dialog</button>
+
+<span mdc-typography-headline>Sample - Dialog</span>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span> #<span style="color:#89bdff">dialog</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header-title</span>></span>
+      Use Google's location service?
+    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header-title</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-body</span>></span>
+    Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-body</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span>
+    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> <span style="color:#e0c589">mdc-dialog-button-cancel</span> (<span style="color:#e0c589">click</span>)=<span style="color:#65b042">"cancelDialog();"</span>></span>Decline<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> <span style="color:#e0c589">mdc-dialog-button-accept</span> (<span style="color:#e0c589">click</span>)=<span style="color:#65b042">"acceptDialog();"</span>></span>Accept<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span>></span>
+</pre>
+
+<span mdc-typography-headline>Sample - Scrolling Dialog</span>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span> #<span style="color:#89bdff">dialogscroll</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header-title</span>></span>
+      Choose a Ringtone
+    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header-title</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-body</span> [<span style="color:#89bdff">scrollable</span>]=<span style="color:#65b042">"true"</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>None<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Callisto<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Ganymede<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Luna<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Marimba<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Schwifty<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Callisto<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Ganymede<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Luna<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Marimba<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Schwifty<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
+    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-body</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span>
+    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> <span style="color:#e0c589">mdc-dialog-button-cancel</span> (<span style="color:#e0c589">click</span>)=<span style="color:#65b042">"cancelDialog();"</span>></span>Decline<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> <span style="color:#e0c589">mdc-dialog-button-accept</span> (<span style="color:#e0c589">click</span>)=<span style="color:#65b042">"acceptDialog();"</span>></span>Accept<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span> 
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span>></span>
+</pre>
+<mdc-dialog #dialog>
+  <mdc-dialog-header>
+    <mdc-dialog-header-title>
+      Use Google's location service?
+    </mdc-dialog-header-title>
+  </mdc-dialog-header>
+  <mdc-dialog-body>
+    Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
+  </mdc-dialog-body>
+  <mdc-dialog-footer>
+    <button mdc-button mdc-dialog-button-cancel (click)="cancelDialog();">Decline</button>
+    <button mdc-button mdc-dialog-button-accept (click)="acceptDialog();">Accept</button>
+  </mdc-dialog-footer>
+</mdc-dialog>
+
+<mdc-dialog #dialogscroll>
+  <mdc-dialog-header>
+    <mdc-dialog-header-title>
+      Choose a Ringtone
+    </mdc-dialog-header-title>
+  </mdc-dialog-header>
+  <mdc-dialog-body [scrollable]="true">
+    <mdc-list>
+      <mdc-list-item>None</mdc-list-item>
+      <mdc-list-item>Callisto</mdc-list-item>
+      <mdc-list-item>Ganymede</mdc-list-item>
+      <mdc-list-item>Luna</mdc-list-item>
+      <mdc-list-item>Marimba</mdc-list-item>
+      <mdc-list-item>Schwifty</mdc-list-item>
+      <mdc-list-item>Callisto</mdc-list-item>
+      <mdc-list-item>Ganymede</mdc-list-item>
+      <mdc-list-item>Luna</mdc-list-item>
+      <mdc-list-item>Marimba</mdc-list-item>
+      <mdc-list-item>Schwifty</mdc-list-item>
+    </mdc-list>
+  </mdc-dialog-body>
+  <mdc-dialog-footer>
+    <button mdc-button mdc-dialog-button-cancel (click)="cancelDialog();">Decline</button>
+    <button mdc-button mdc-dialog-button-accept (click)="acceptDialog();">Accept</button>
+  </mdc-dialog-footer> 
+</mdc-dialog>
+  </div>
+</div>

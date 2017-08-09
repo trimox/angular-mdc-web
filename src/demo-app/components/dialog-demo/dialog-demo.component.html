@@ -54,12 +54,37 @@
         </tr>
       </tbody>
     </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Directive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-dialog-header</td>
+          <td>Defines the header content block.</td>
+        </tr>
+        <tr>
+          <td>mdc-dialog-header-title</td>
+          <td>A header title block.</td>
+        </tr>
+        <tr>
+          <td>mdc-dialog-body</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>mdc-dialog-footer</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
   <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start start" class="mdc-padding">
     <button mdc-button [primary]="true" [raised]="true" (click)="showDialog();">Show Dialog</button>
     <button mdc-button [primary]="true" [raised]="true" (click)="showDialogScroll();">Show Scrolling Dialog</button>
 
-<span mdc-typography-headline>Sample - Dialog</span>
+<span mdc-typography-headline>Dialog</span>
 <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span> #<span style="color:#89bdff">dialog</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header-title</span>></span>
@@ -70,13 +95,13 @@
     Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-body</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> <span style="color:#e0c589">mdc-dialog-button-cancel</span> (<span style="color:#e0c589">click</span>)=<span style="color:#65b042">"cancelDialog();"</span>></span>Decline<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> <span style="color:#e0c589">mdc-dialog-button-accept</span> (<span style="color:#e0c589">click</span>)=<span style="color:#65b042">"acceptDialog();"</span>></span>Accept<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> <span style="color:#e0c589">mdc-dialog-button-cancel</span>></span>Decline<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> <span style="color:#e0c589">mdc-dialog-button-accept</span>></span>Accept<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span>></span>
 </pre>
 
-<span mdc-typography-headline>Sample - Scrolling Dialog</span>
+<span mdc-typography-headline>Scrolling Dialog</span>
 <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span> #<span style="color:#89bdff">dialogscroll</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header-title</span>></span>
@@ -99,8 +124,8 @@
     <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-body</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> <span style="color:#e0c589">mdc-dialog-button-cancel</span> (<span style="color:#e0c589">click</span>)=<span style="color:#65b042">"cancelDialog();"</span>></span>Decline<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> <span style="color:#e0c589">mdc-dialog-button-accept</span> (<span style="color:#e0c589">click</span>)=<span style="color:#65b042">"acceptDialog();"</span>></span>Accept<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> <span style="color:#e0c589">mdc-dialog-button-cancel</span>></span>Decline<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> <span style="color:#e0c589">mdc-dialog-button-accept</span>></span>Accept<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span> 
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span>></span>
 </pre>
@@ -114,8 +139,8 @@
     Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
   </mdc-dialog-body>
   <mdc-dialog-footer>
-    <button mdc-button mdc-dialog-button-cancel (click)="cancelDialog();">Decline</button>
-    <button mdc-button mdc-dialog-button-accept (click)="acceptDialog();">Accept</button>
+    <button mdc-button mdc-dialog-button-cancel>Decline</button>
+    <button mdc-button mdc-dialog-button-accept>Accept</button>
   </mdc-dialog-footer>
 </mdc-dialog>
 
@@ -141,8 +166,8 @@
     </mdc-list>
   </mdc-dialog-body>
   <mdc-dialog-footer>
-    <button mdc-button mdc-dialog-button-cancel (click)="cancelDialog();">Decline</button>
-    <button mdc-button mdc-dialog-button-accept (click)="acceptDialog();">Accept</button>
+    <button mdc-button mdc-dialog-button-cancel>Decline</button>
+    <button mdc-button mdc-dialog-button-accept>Accept</button>
   </mdc-dialog-footer> 
 </mdc-dialog>
   </div>

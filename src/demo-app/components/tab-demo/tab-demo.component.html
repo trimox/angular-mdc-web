@@ -145,8 +145,7 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
       </tbody>
     </table>
   </div>
-  <div fxLayout="column" fxLayoutGap="40px" fxLayoutAlign="start start" class="mdc-padding">
-    <div>
+  <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start start" class="mdc-padding">
       <span mdc-typography-headline>Simple Tab Bar with text labels</span>
       <mdc-tab-bar>
         <a mdc-tab [active]="true" href="#/tab-demo">Home</a>
@@ -158,9 +157,8 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
   <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-tab</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/tab-demo"</span>></span>Merchandise<span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
   <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-tab</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/tab-demo"</span>></span>About Us<span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
-</pre>    </div>
+</pre>
 
-    <div>
       <span mdc-typography-headline>Tab Bar with icon labels</span>
       <mdc-tab-bar [primaryColor]="true">
         <mdc-tab [active]="true">
@@ -184,9 +182,8 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span> <span style="color:#89bdff">material-icon</span>></span>person_pin<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
-</pre>    </div>
+</pre>
 
-    <div>
       <span mdc-typography-headline>Tab Bar with icon and text labels</span>
       <mdc-tab-bar>
         <mdc-tab [active]="true">
@@ -217,9 +214,7 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
 </pre>
-    </div>
 
-    <div>
       <span mdc-typography-headline>Accent Color Indicator</span>
       <mdc-tab-bar [accentColor]="true">
         <a mdc-tab [active]="true" href="#/tab-demo">
@@ -249,9 +244,8 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>Nearby<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>
   <span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
-</pre>    </div>
+</pre>
 
-    <div>
       <span mdc-typography-headline>Dark Themed</span>
       <mdc-tab-bar [accentColor]="true" [mdc-theme-dark]="true">
         <a mdc-tab [active]="true" href="#/tab-demo">
@@ -281,9 +275,9 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>Nearby<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>
   <span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
-</pre>    </div>
+</pre>
 
-    <div>
+      <div>
       <span mdc-typography-headline>Dynamic view switching</span>
       <mdc-tab-bar>
         <a mdc-tab *ngFor="let tabLink of tabLinks" [routerLink]="[{outlets: {taboutlet: tabLink.link}}]" [active]="tabLink.active">{{tabLink.label}}</a>
@@ -299,8 +293,7 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
    [<span style="color:#e0c589">routerLink</span>]=<span style="color:#65b042">"[<span style="color:#daefa3"><![CDATA[{outlets: {taboutlet: tabLink.link}}]]></span>]"</span>></span>tabLink.label<span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
 <span style="color:#89bdff">&lt;<span style="color:#89bdff">router</span><span style="color:#89bdff">-outlet</span> <span style="color:#89bdff">name</span>=<span style="color:#65b042">"taboutlet"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">router</span><span style="color:#89bdff">-outlet</span>></span>
-</pre>
-    </div>
+</pre></div>
 
     <div>
       <span mdc-typography-headline>Tab Bar Scoller</span>

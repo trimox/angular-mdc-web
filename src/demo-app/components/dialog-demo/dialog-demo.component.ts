@@ -17,12 +17,4 @@ export class DialogDemoComponent {
   showDialogScroll() {
     this.dialogScroll.show();
   }
-
-  acceptDialog() {
-    this.dialog.accept();
-  }
-
-  cancelDialog() {
-    this.dialog.cancel();
-  }
 }

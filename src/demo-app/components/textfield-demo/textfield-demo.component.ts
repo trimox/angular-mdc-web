@@ -8,6 +8,7 @@ import {
 })
 export class TextfieldDemoComponent {
   username = null;
+  prefill = 'John Doe';
   password = null;
   comments = null;
   subject = null;

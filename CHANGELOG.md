@@ -1,4 +1,28 @@
 <a name="0.0.0"></a>
+# [0.2.5](https://github.com/trimox/angular-mdc-web/compare/v0.2.4...v0.2.5) (2017-08-09)
+
+
+### Bug Fixes
+
+* **fab:** Remove duplicate HostBinding ([#74](https://github.com/trimox/angular-mdc-web/issues/74)) ([dd3637f](https://github.com/trimox/angular-mdc-web/commit/dd3637f))
+* **textfield:** Fix Text Field boxes NgModule value accessor ([36ce97a](https://github.com/trimox/angular-mdc-web/commit/36ce97a))
+* **textfield:** Pre-filled Text Field uses floating label correctly ([bda0f9f](https://github.com/trimox/angular-mdc-web/commit/bda0f9f))
+
+
+### Features
+
+* **dialog:** Implement MDC Dialog ([#70](https://github.com/trimox/angular-mdc-web/issues/70)) ([31a278a](https://github.com/trimox/angular-mdc-web/commit/31a278a))
+* **list:** Add component selector option to mdc-list-item-secondary ([4b3a5bf](https://github.com/trimox/angular-mdc-web/commit/4b3a5bf))
+* **list:** Add component selector option to mdc-list-item-text ([9df6a4d](https://github.com/trimox/angular-mdc-web/commit/9df6a4d))
+* **package:** Update MDC dependency to v0.17.0 ([f9bab7a](https://github.com/trimox/angular-mdc-web/commit/f9bab7a))
+* **textfield:** Add 'aria-hidden' HostBinding to Helptext directive ([6545321](https://github.com/trimox/angular-mdc-web/commit/6545321))
+* **textfield:** Add [mdc-textfield-bottom-line] directive for Text Field boxes ([5f76809](https://github.com/trimox/angular-mdc-web/commit/5f76809))
+* **textfield:** Add [mdc-textfield-label] directive ([483fd98](https://github.com/trimox/angular-mdc-web/commit/483fd98))
+* **textfield:** Auto generate [id] if none supplied ([3c70203](https://github.com/trimox/angular-mdc-web/commit/3c70203))
+
+
+
+<a name="0.0.0"></a>
 # [0.2.4](https://github.com/trimox/angular-mdc-web/compare/v0.2.3...v0.2.4) (2017-08-03)
 
 

@@ -144,16 +144,15 @@
   </div>
   <div fxLayout="column" class="mdc-padding">
     <div fxFlexAlign="start">
-      <mdc-textfield [(ngModel)]="username" id="username" label="Username" [required]="isRequired" [disabled]="isDisabled" [dense]="isDense">
-      </mdc-textfield>
+      <mdc-textfield [(ngModel)]="username" id="username" label="Username" [required]="isRequired" [disabled]="isDisabled" [dense]="isDense"></mdc-textfield>
       <p mdc-textfield-helptext [validation]="true" [persistent]="false">Username is required</p>
-    <mdc-form-field>
-      <mdc-checkbox [(ngModel)]="isDisabled"></mdc-checkbox>
-      <label>Disable</label>
-    </mdc-form-field>
     <mdc-form-field>
       <mdc-checkbox [(ngModel)]="isRequired"></mdc-checkbox>
       <label>Required</label>
+    </mdc-form-field>
+    <mdc-form-field>
+      <mdc-checkbox [(ngModel)]="isDisabled"></mdc-checkbox>
+      <label>Disable</label>
     </mdc-form-field>
     <mdc-form-field>
       <mdc-checkbox [(ngModel)]="isDense"></mdc-checkbox>
@@ -174,7 +173,24 @@
   [<span style="color:#89bdff">validation</span>]=<span style="color:#65b042">"true"</span>
   [<span style="color:#89bdff">persistent</span>]=<span style="color:#65b042">"false"</span>></span>Username is required<span style="color:#89bdff">&lt;/<span style="color:#89bdff">p</span>></span>
 </pre> </div>
-    <span mdc-typography-headline>Textfield box</span>
+
+    <div fxLayout="column" class="mdc-padding">
+<span mdc-typography-headline>Prefilled value</span>
+    <div fxFlexAlign="start">
+  <mdc-textfield [(ngModel)]="prefill" label="Username"></mdc-textfield>
+</div>
+</div>
+
+    <div fxLayout="column" class="mdc-padding">
+    <div fxFlexAlign="start">
+<mdc-textfield type="password" label="Password" [required]="true"></mdc-textfield>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span> <span style="color:#89bdff">type</span>=<span style="color:#65b042">"password"</span>
+  <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Password"</span>
+  [<span style="color:#89bdff">required</span>]=<span style="color:#65b042">"true"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>></span>
+</pre></div>
+</div>
+    <span mdc-typography-headline>Text Field box</span>
+    <span mdc-typography-caption>Use mdc-textfield-box</span>
     <div fxFlexAlign="start" class="mdc-padding">
       <mdc-textfield-box
         [required]="true"

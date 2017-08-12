@@ -9,3 +9,5 @@ import { EventRegistry } from '../common/event-registry';
   providers: [EventRegistry]
 })
 export class RippleModule { }
+
+export * from './ripple.directive';

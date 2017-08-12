@@ -1,11 +1,6 @@
 import nodeResolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 
-const ROLLUP_GLOBALS = {
-  '@angular-mdc/web': 'ng.material',
-  'rxjs': 'Rx'
-};
-
 export default {
   entry: 'publish-demo/main-aot.js',
   dest: 'publish-demo/dist/build.js',
@@ -15,7 +10,7 @@ export default {
   plugins: [
     nodeResolve({ jsnext: true, module: true }),
     commonjs({
-      include: 'node_modules/rxjs/**',
+      include: 'node_modules/**',
     })
   ],
   onwarn: function(warning) {

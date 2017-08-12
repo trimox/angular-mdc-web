@@ -1,9 +1,9 @@
 export const navigationLinks = [
   { name: 'Home', route: '/', icon: 'home', desc: '' },
-  { name: 'Button', route: 'button-demo', icon: 'send', desc: 'Buttons communicate the action that will occur when the user touches them.' },
+  { name: 'Button', route: 'button-demo', icon: 'code', desc: 'Buttons communicate the action that will occur when the user touches them.' },
   { name: 'Card', route: 'card-demo', icon: 'credit_card', desc: 'A card is a sheet of material that serves as an entry point to more detailed information.' },
   { name: 'Checkbox', route: 'checkbox-demo', icon: 'check_box', desc: 'Checkboxes allow the user to select multiple options from a set.' },
-  { name: 'Dialog', route: 'dialog-demo', icon: 'code', desc: 'Dialogs inform users about a specific task, require decisions, or involve multiple tasks.' },
+  { name: 'Dialog', route: 'dialog-demo', icon: 'question_answer', desc: 'Dialogs inform users about a specific task, require decisions, or involve multiple tasks.' },
   { name: 'Drawer', route: 'drawer-demo', icon: 'code', desc: 'Drawers slide in from the left and contains the navigation destinations for your app.' },
   { name: 'Elevation', route: 'elevation-demo', icon: 'filter', desc: 'Elevation is the relative depth, or distance, between two surfaces along the z-axis.' },
   { name: 'Floating Action Button (FAB)', route: 'fab-demo', icon: 'add_circle_outline', desc: 'A floating action button represents the primary action in an application.' },

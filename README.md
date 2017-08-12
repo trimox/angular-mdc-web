@@ -15,16 +15,15 @@ Our Angular library integrates with [Google's Material Design Components](https:
 *  [Demo app](https://trimox.github.io/angular-mdc-web/)
 *  [Getting Started guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md)
 *  [Gitter Chat](https://gitter.im/angular-mdc/Lobby)
-*  [StackOverflow](https://stackoverflow.com/questions/tagged/angular-mdc) `tag: angular-mdc`
 
 ## Install Angular MDC
 ```
-npm install --save @angular-mdc/web
+npm i @angular-mdc/web
 ```
 
 ### Update Angular MDC
 ```
-npm update @angular-mdc/web
+npm i @angular-mdc/web@latest
 ```
 
 ## Getting started
@@ -63,13 +62,3 @@ Check out our [Getting Started guide](https://github.com/trimox/angular-mdc-web/
 
 ## Developing Angular MDC
 Want to develop your own components or change existing ones? Check out our [Developer guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/developer.md).
-
-## Browser Support
-We officially support the last two versions of every major browser.
-* Chrome
-* Safari
-* Firefox
-* IE 11/Edge
-* Opera
-* Mobile Safari
-* Chrome on Android

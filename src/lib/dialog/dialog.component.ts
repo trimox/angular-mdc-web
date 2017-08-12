@@ -15,12 +15,9 @@ import {
 } from '@angular/core';
 import { isBrowser } from '../common/platform';
 import { EventRegistry } from '../common/event-registry';
-import { ButtonComponent } from '../button/button.component';
-
-import * as createFocusTrap from 'focus-trap';
 
 import { MDCDialogAdapter } from './dialog-adapter';
-import { MDCDialogFoundation } from '@material/dialog';
+import { MDCDialogFoundation, util } from '@material/dialog';
 
 @Directive({
   selector: '[mdc-dialog-surface], mdc-dialog-surface'
@@ -219,10 +216,8 @@ export class DialogComponent implements AfterViewInit, OnDestroy {
 
   show() {
     if (this.dialogSurface && this.dialogAcceptButton) {
-      this.focusTrap_ = createFocusTrap.focusTrap(this.dialogSurface.elementRef.nativeElement, {
-        initialFocus: this.dialogAcceptButton.elementRef.nativeElement,
-        clickOutsideDeactivates: true
-      });
+      this.focusTrap_ = util.createFocusTrapInstance(this.dialogSurface.elementRef.nativeElement,
+        this.dialogAcceptButton.elementRef.nativeElement);
     }
     this._foundation.open();
   }

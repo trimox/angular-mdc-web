@@ -24,3 +24,4 @@ const MENU_COMPONENTS = [
 export class MenuModule { }
 
 export * from './menu.component';
+export * from './menu-item.directive';

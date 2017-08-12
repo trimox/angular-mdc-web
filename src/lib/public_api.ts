@@ -2,6 +2,7 @@ export * from './module';
 
 export * from './button/index';
 export * from './card/index';
+export * from './common/event-registry';
 export * from './checkbox/index';
 export * from './elevation/index';
 export * from './dialog/index';

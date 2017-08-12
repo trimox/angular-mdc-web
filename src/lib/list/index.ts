@@ -34,3 +34,5 @@ export class ListModule { }
 
 export * from './list.component';
 export * from './list-item.directive';
+export * from './list-divider.component';
+export * from './list-group.directive';

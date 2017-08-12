@@ -1,13 +1,16 @@
 ﻿{
   "compilerOptions": {
+    "declaration": false,
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
-    "lib": ["es6", "es2015", "dom"],
+    "lib": ["es2015", "dom"],
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "noStrictGenericChecks": true,
     "suppressImplicitAnyIndexErrors": true,
+    "noEmitOnError": true,
+    "stripInternal": false,
     "sourceMap": true,
     "typeRoots": ["../../node_modules/@types"]
   },
@@ -17,7 +20,5 @@
   ],
   "exclude": [
     "main-aot.ts"
-  ],
-  "compileOnSave": false,
-  "buildOnSave": false
+  ]
 }

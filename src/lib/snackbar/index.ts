@@ -20,3 +20,6 @@ export class SnackbarModule { }
 
 export * from './snackbar.component';
 export * from './snackbar-message';
+export * from './snackbar-text.directive';
+export * from './snackbar-action-wrapper.directive';
+export * from './snackbar-action-button.directive';

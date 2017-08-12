@@ -37,3 +37,5 @@ const TYPOGRAPHY_DIRECTIVES = [
   declarations: [TYPOGRAPHY_DIRECTIVES],
 })
 export class TypographyModule { }
+
+export * from './typography.directive';

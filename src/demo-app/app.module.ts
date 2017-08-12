@@ -26,7 +26,7 @@ import { TypographyDemoComponent } from './components/typography-demo/typography
 import { TabDemoComponent, ItemOneContent, ItemTwoContent, ItemThreeContent } from './components/tab-demo/tab-demo.component';
 
 import { MaterialModule } from '@angular-mdc/web';
-// import { MaterialModule } from '../lib/module';
+// import { MaterialModule } from '../lib/public_api';
 
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navigation/navbar.component';

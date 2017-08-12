@@ -29,7 +29,7 @@ export default {
   },
   sourceMap: true,
   targets: [
-    { dest: 'dist/material.js', format: 'es' }
+    { dest: 'dist/bundles/material.umd.js', format: 'umd', moduleName: 'ng.material' },
   ],
   external: Object.keys(ROLLUP_GLOBALS),
   globals: ROLLUP_GLOBALS

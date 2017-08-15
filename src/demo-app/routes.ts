@@ -9,6 +9,7 @@ import { DrawerDemoComponent } from './components/drawer-demo/drawer-demo.compon
 import { ElevationDemoComponent } from './components/elevation-demo/elevation-demo.component';
 import { FabDemoComponent } from './components/fab-demo/fab-demo.component';
 import { SwitchDemoComponent } from './components/switch-demo/switch-demo.component';
+import { IconToggleDemoComponent } from './components/icon-toggle-demo/icon-toggle-demo.component';
 import { SnackbarDemoComponent } from './components/snackbar-demo/snackbar-demo.component';
 import { MenuDemoComponent } from './components/menu-demo/menu-demo.component';
 import { TextfieldDemoComponent } from './components/textfield-demo/textfield-demo.component';
@@ -37,6 +38,7 @@ export const demoAppRoutes: Routes = [
   { path: 'list-demo', component: ListDemoComponent },
   { path: 'drawer-demo', component: DrawerDemoComponent },
   { path: 'dialog-demo', component: DialogDemoComponent },
+  { path: 'icon-toggle-demo', component: IconToggleDemoComponent },
   { path: 'tab-demo', component: TabDemoComponent, children: TABS_DEMO_ROUTES },
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: '**', redirectTo: '' }

@@ -7,6 +7,7 @@ export const navigationLinks = [
   { name: 'Drawer', route: 'drawer-demo', icon: 'code', desc: 'Drawers slide in from the left and contains the navigation destinations for your app.' },
   { name: 'Elevation', route: 'elevation-demo', icon: 'filter', desc: 'Elevation is the relative depth, or distance, between two surfaces along the z-axis.' },
   { name: 'Floating Action Button (FAB)', route: 'fab-demo', icon: 'add_circle_outline', desc: 'A floating action button represents the primary action in an application.' },
+  { name: 'Icon Toggle', route: 'icon-toggle-demo', icon: 'star', desc: 'Icon toggle buttons allow a single choice to be selected or deselected.' },
   { name: 'Linear-Progress', route: 'linear-progress-demo', icon: 'linear_scale', desc: 'Progress and activity indicators are visual indications of an app loading content.' },
   { name: 'List', route: 'list-demo', icon: 'list', desc: 'Lists present multiple line items vertically as a single continuous element.' },
   { name: 'Menu', route: 'menu-demo', icon: 'menu', desc: 'Menus display a list of choices on a transient sheet of material.' },

@@ -13,6 +13,7 @@ export * from './linear-progress/index';
 export * from './list/index';
 export * from './material-icon/index';
 export * from './menu/index';
+export * from './icon-toggle/index';
 export * from './radio/index';
 export * from './ripple/index';
 export * from './snackbar/index';

@@ -148,17 +148,16 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
   <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start start" class="mdc-padding">
       <span mdc-typography-headline>Simple Tab Bar with text labels</span>
       <mdc-tab-bar>
-        <a mdc-tab [active]="true" href="#/tab-demo">Home</a>
-        <a mdc-tab href="#/tab-demo">Merchandise</a>
-        <a mdc-tab href="#/tab-demo">About Us</a>
+        <mdc-tab [active]="true">Home</mdc-tab>
+        <mdc-tab>Merchandise</mdc-tab>
+        <mdc-tab>About Us</mdc-tab>
       </mdc-tab-bar>
 <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
-  <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-tab</span> [<span style="color:#e0c589">active</span>]=<span style="color:#65b042">"true"</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/tab-demo"</span>></span>Home<span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
-  <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-tab</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/tab-demo"</span>></span>Merchandise<span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
-  <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-tab</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/tab-demo"</span>></span>About Us<span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span> [<span style="color:#89bdff">active</span>]=<span style="color:#65b042">"true"</span>></span>Home<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>Merchandise<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>About Us<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
 </pre>
-
       <span mdc-typography-headline>Tab Bar with icon labels</span>
       <mdc-tab-bar [primaryColor]="true">
         <mdc-tab [active]="true">
@@ -246,54 +245,53 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
 </pre>
 
-      <span mdc-typography-headline>Dark Themed</span>
-      <mdc-tab-bar [accentColor]="true" [mdc-theme-dark]="true">
-        <a mdc-tab [active]="true" href="#/tab-demo">
-          <mdc-tab-icon material-icon>phone</mdc-tab-icon>
-          <mdc-tab-icon-text>Recents</mdc-tab-icon-text>
-        </a>
-        <a mdc-tab href="#/tab-demo">
-          <mdc-tab-icon material-icon>favorite</mdc-tab-icon>
-          <mdc-tab-icon-text>Favorites</mdc-tab-icon-text>
-        </a>
-        <a mdc-tab href="#/tab-demo">
-          <mdc-tab-icon material-icon>person_pin</mdc-tab-icon>
-          <mdc-tab-icon-text>Nearby</mdc-tab-icon-text>
-        </a>
-      </mdc-tab-bar>
+      <span mdc-typography-headline>Dark Theme</span>
+<mdc-tab-bar [accentColor]="true" [mdc-theme-dark]="true">
+  <mdc-tab [active]="true">
+    <mdc-tab-icon material-icon>phone</mdc-tab-icon>
+    <mdc-tab-icon-text>Recents</mdc-tab-icon-text>
+  </mdc-tab>
+  <mdc-tab>
+    <mdc-tab-icon material-icon>favorite</mdc-tab-icon>
+    <mdc-tab-icon-text>Favorites</mdc-tab-icon-text>
+  </mdc-tab>
+  <mdc-tab>
+    <mdc-tab-icon material-icon>person_pin</mdc-tab-icon>
+    <mdc-tab-icon-text>Nearby</mdc-tab-icon-text>
+  </mdc-tab>
+</mdc-tab-bar>
 <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span> [<span style="color:#89bdff">accentColor</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#89bdff">mdc-theme-dark</span>]=<span style="color:#65b042">"true"</span>></span>
-  <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-tab</span> [<span style="color:#e0c589">active</span>]=<span style="color:#65b042">"true"</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/tab-demo"</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span> [<span style="color:#89bdff">active</span>]=<span style="color:#65b042">"true"</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span> <span style="color:#89bdff">material-icon</span>></span>phone<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>Recents<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>
-  <span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
-  <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-tab</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/tab-demo"</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span> <span style="color:#89bdff">material-icon</span>></span>favorite<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>Favorites<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>
-  <span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
-  <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-tab</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/tab-demo"</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span> <span style="color:#89bdff">material-icon</span>></span>person_pin<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>Nearby<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>
-  <span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
 </pre>
-
       <div>
       <span mdc-typography-headline>Dynamic view switching</span>
-      <mdc-tab-bar>
-        <a mdc-tab *ngFor="let tabLink of tabLinks" [routerLink]="[{outlets: {taboutlet: tabLink.link}}]" [active]="tabLink.active">{{tabLink.label}}</a>
-      </mdc-tab-bar>
+<mdc-tab-bar>
+  <mdc-tab *ngFor="let tabLink of tabLinks" [routerLink]="[{outlets: {taboutlet: tabLink.link}}]" [active]="tabLink.active">{{tabLink.label}}</mdc-tab>
+</mdc-tab-bar>
       <section>
         <div class="panels">
           <router-outlet name="taboutlet"></router-outlet>
         </div>
       </section>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
-  <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-tab</span> [<span style="color:#e0c589">active</span>]=<span style="color:#65b042">"tabLink.active"</span>
-   *<span style="color:#e0c589">ngFor</span>=<span style="color:#65b042">"let tabLink of tabLinks"</span>
-   [<span style="color:#e0c589">routerLink</span>]=<span style="color:#65b042">"[<span style="color:#daefa3"><![CDATA[{outlets: {taboutlet: tabLink.link}}]]></span>]"</span>></span>tabLink.label<span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
+      <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span> *<span style="color:#89bdff">ngFor</span>=<span style="color:#65b042">"let tabLink of tabLinks"</span>
+    [<span style="color:#89bdff">routerLink</span>]=<span style="color:#65b042">"[<span style="color:#daefa3"><![CDATA[{outlets: {taboutlet: tabLink.link}}]]></span>]"</span> 
+    [<span style="color:#89bdff">active</span>]=<span style="color:#65b042">"tabLink.active"</span>></span>tabLink.label<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
-<span style="color:#89bdff">&lt;<span style="color:#89bdff">router</span><span style="color:#89bdff">-outlet</span> <span style="color:#89bdff">name</span>=<span style="color:#65b042">"taboutlet"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">router</span><span style="color:#89bdff">-outlet</span>></span>
-</pre></div>
+</pre>
+</div>
 
     <div>
       <span mdc-typography-headline>Tab Bar Scoller</span>

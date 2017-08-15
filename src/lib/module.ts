@@ -12,6 +12,7 @@ import { LinearProgressModule } from './linear-progress/index';
 import { ListModule } from './list/index';
 import { MaterialIconModule } from './material-icon/index';
 import { MenuModule } from './menu/index';
+import { IconToggleModule } from './icon-toggle/index';
 import { RadioModule } from './radio/index';
 import { RippleModule } from './ripple/index';
 import { SnackbarModule } from './snackbar/index';
@@ -35,6 +36,7 @@ const MATERIAL_MODULES = [
   ListModule,
   MaterialIconModule,
   MenuModule,
+  IconToggleModule,
   RadioModule,
   RippleModule,
   SnackbarModule,

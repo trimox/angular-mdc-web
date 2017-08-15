@@ -4,10 +4,10 @@
   OnDestroy,
   Renderer2,
 } from '@angular/core';
-import { MDCRippleAdapter } from './ripple-adapter';
 import { EventRegistry } from '../common/event-registry';
 import { toBoolean } from '../common/boolean-property';
 
+import { MDCRippleAdapter } from './ripple-adapter';
 import { MDCRippleFoundation, util } from '@material/ripple';
 
 @Directive({

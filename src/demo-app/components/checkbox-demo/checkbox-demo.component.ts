@@ -8,4 +8,9 @@ import {
 })
 export class CheckboxDemoComponent {
   isChecked: boolean = true;
+  isIndeterminate: boolean;
+
+  setIndeterminate() {
+    this.isIndeterminate = !this.isIndeterminate;
+  }
 }

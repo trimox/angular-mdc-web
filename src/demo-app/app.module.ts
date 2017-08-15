@@ -14,6 +14,7 @@ import { DialogDemoComponent } from './components/dialog-demo/dialog-demo.compon
 import { DrawerDemoComponent } from './components/drawer-demo/drawer-demo.component';
 import { FabDemoComponent } from './components/fab-demo/fab-demo.component';
 import { ElevationDemoComponent } from './components/elevation-demo/elevation-demo.component';
+import { IconToggleDemoComponent } from './components/icon-toggle-demo/icon-toggle-demo.component';
 import { LinearProgressDemoComponent } from './components/linear-progress-demo/linear-progress-demo.component';
 import { ListDemoComponent } from './components/list-demo/list-demo.component';
 import { MenuDemoComponent } from './components/menu-demo/menu-demo.component';
@@ -51,6 +52,7 @@ import { demoAppRoutes } from './routes';
     DrawerDemoComponent,
     ElevationDemoComponent,
     FabDemoComponent,
+    IconToggleDemoComponent,
     HomeComponent,
     LinearProgressDemoComponent,
     ListDemoComponent,

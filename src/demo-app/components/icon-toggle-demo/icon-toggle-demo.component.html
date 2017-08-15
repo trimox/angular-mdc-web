@@ -1,0 +1,155 @@
+<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
+  <h1 mdc-typography-display1>Icon Toggle Buttons</h1>
+  <div mdc-typography-subheading2>MDC Icon Toggle provides a Material Design icon toggle button. It is fully accessible, and is designed to work with any icon set.</div>
+  <div class="info-banner" mdc-typography-subheading1>
+    <![CDATA[import { IconToggleModule } from '@angular-mdc/web';]]>
+  </div>
+  <div class="docs-api">
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-icon-toggle</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>iconClass: string</td>
+          <td>Set selector to other icon libraries such as Font Awesome. (default is 'material-icon')</td>
+        </tr>
+        <tr>
+          <td>iconOn: string</td>
+          <td>Set icon as content when toggled on. Use for Material Icons.</td>
+        </tr>
+        <tr>
+          <td>iconOff: string</td>
+          <td>Set icon as content when toggled off. Use for Material Icons.</td>
+        </tr>
+        <tr>
+          <td>labelOn: string</td>
+          <td>Set "aria-label" attribute when toggled on.</td>
+        </tr>
+        <tr>
+          <td>labelOff: string</td>
+          <td>Set "aria-label" attribute when toggled off.</td>
+        </tr>
+        <tr>
+          <td>cssClassOn: string</td>
+          <td>A css class to apply to the icon element when toggled on. Use for Font Awesome library.</td>
+        </tr>
+        <tr>
+          <td>cssClassOff: string</td>
+          <td>A css class to apply to the icon element when toggled off. Use for Font Awesome library.</td>
+        </tr>
+        <tr>
+          <td>primary: boolean</td>
+          <td>Colors the button with the primary color.</td>
+        </tr>
+        <tr>
+          <td>accent: boolean</td>
+          <td>Colors the button with the accent color.</td>
+        </tr>
+        <tr>
+          <td>disabled: boolean</td>
+          <td>Disables the toggle button.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Methods</th>
+          <th>Parameters</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>toggle(isOn?: boolean)</td>
+          <td>Toggles the button state. If an argument is given, will toggle on if true, off if false.</td>
+        </tr>
+        <tr>
+          <td>refreshToggleData()</td>
+          <td>Allow's developers to refresh toggle data if needed.</td>
+        </tr>
+        <tr>
+          <td>isOn()</td>
+          <td>Returns true if the button is toggled on, false otherwise.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Events</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+<pre><code><![CDATA[change(evtData {isOn: boolean})]]></code></pre>
+          </td>
+          <td>Broadcast when a user toggles the button.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div fxLayout="row" class="mdc-padding" fxLayoutAlign="center center">
+    <div fxLayout="column">
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="isPrimary"></mdc-checkbox>
+        <label>Primary Color</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="isAccent"></mdc-checkbox>
+        <label>Accent Color</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="isDisabled"></mdc-checkbox>
+        <label>Disable</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="isDarkTheme"></mdc-checkbox>
+        <label>Dark Theme</label>
+      </mdc-form-field>
+    </div>
+    <div fxLayout="column" class="demo-icon-toggle" [mdc-theme-dark]="isDarkTheme">
+<mdc-icon-toggle
+  [(ngModel)]="isOn"
+  [disabled]="isDisabled"
+  [primary]="isPrimary"
+  [accent]="isAccent"
+  iconOn="favorite" iconOff="favorite_border"
+  labelOn="Add to Favorites" labelOff="Remove from Favorites">
+</mdc-icon-toggle>
+      <p>NgModel: {{isOn}}</p>
+    </div>
+  </div>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon-toggle</span>
+  [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"mymodel"</span>
+  [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"false"</span>
+  [<span style="color:#89bdff">primary</span>]=<span style="color:#65b042">"false"</span>
+  [<span style="color:#89bdff">accent</span>]=<span style="color:#65b042">"false"</span>
+  <span style="color:#89bdff">iconOn</span>=<span style="color:#65b042">"favorite"</span> <span style="color:#89bdff">iconOff</span>=<span style="color:#65b042">"favorite_border"</span>
+  <span style="color:#89bdff">labelOn</span>=<span style="color:#65b042">"Add to Favorites"</span> <span style="color:#89bdff">labelOff</span>=<span style="color:#65b042">"Remove from Favorites"</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon-toggle</span>></span>
+</pre>
+    <span mdc-typography-headline>Using Font Awesome</span>
+    <div fxLayout="row" fxLayoutAlign="center center">
+    <mdc-icon-toggle iconClass="fa"
+      cssClassOn="fa-battery-full" cssClassOff="fa-battery-empty"        
+      labelOn="Star this item" labelOff="Unstar this item">
+    </mdc-icon-toggle>
+    </div>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon-toggle</span> <span style="color:#89bdff">iconClass</span>=<span style="color:#65b042">"fa"</span>
+  <span style="color:#89bdff">cssClassOn</span>=<span style="color:#65b042">"fa-battery-full"</span> <span style="color:#89bdff">cssClassOff</span>=<span style="color:#65b042">"fa-battery-empty"</span>        
+  <span style="color:#89bdff">labelOn</span>=<span style="color:#65b042">"Star this item"</span> <span style="color:#89bdff">labelOff</span>=<span style="color:#65b042">"Unstar this item"</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon-toggle</span>></span>
+</pre>
+</div>

@@ -8,7 +8,7 @@
 
 Our Angular library integrates with [Google's Material Design Components](https://material.io/components/), providing a faithful and accurate representation of Material Design as it is envisioned on the web platform by Google's Material Design team. Our goal is to equip Angular developers with modular, straightforward and production-ready Material Design components.
 
-### Quick Links
+#### Quick Links
 *  [Changelog](https://github.com/trimox/angular-mdc-web/blob/master/CHANGELOG.md)
 *  [Contributing](https://github.com/trimox/angular-mdc-web/blob/master/CONTRIBUTING.md)
 *  [Developer guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/developer.md)
@@ -30,9 +30,6 @@ npm i @angular-mdc/web@latest
 Check out our [Getting Started guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md) to begin adopting  Angular MDC in your project.
 
 ## Material Design Components
-* WIP = work in progress
-* TBI = to be implemented
-
 | Component  | Status  | Demo |
 | ---------- | ------- | :------: |
 | button | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/button-demo) |
@@ -44,7 +41,7 @@ Check out our [Getting Started guide](https://github.com/trimox/angular-mdc-web/
 | fab | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/fab-demo) |
 | form-field | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/form-field-demo) |
 | grid-list | TBI ||
-| icon-toggle | WIP ||
+| icon-toggle | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/icon-toggle-demo) |
 | linear-progress | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/linear-progress-demo) |
 | list | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/list-demo) |
 | menu | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/menu-demo) |
@@ -59,6 +56,8 @@ Check out our [Getting Started guide](https://github.com/trimox/angular-mdc-web/
 | theme | WIP ||
 | toolbar | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/toolbar-demo) |
 | typography | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/typography-demo) |
+* WIP = work in progress
+* TBI = to be implemented
 
 ## Developing Angular MDC
 Want to develop your own components or change existing ones? Check out our [Developer guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/developer.md).

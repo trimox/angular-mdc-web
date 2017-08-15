@@ -1,4 +1,19 @@
 <a name="0.0.0"></a>
+# [0.2.8](https://github.com/trimox/angular-mdc-web/compare/v0.2.5...v0.2.8) (2017-08-15)
+
+
+### Bug Fixes
+
+* **package:** Resolve problems using ES5, ES2015 and UMD npm package files ([#75](https://github.com/trimox/angular-mdc-web/issues/75)) ([7fe6063](https://github.com/trimox/angular-mdc-web/commit/7fe6063))
+
+
+### Features
+
+* **icon-toggle:** Implement MDC Icon Toggle ([#76](https://github.com/trimox/angular-mdc-web/issues/76)) ([41fd1bb](https://github.com/trimox/angular-mdc-web/commit/41fd1bb))
+
+
+
+<a name="0.0.0"></a>
 # [0.2.5](https://github.com/trimox/angular-mdc-web/compare/v0.2.4...v0.2.5) (2017-08-09)
 
 

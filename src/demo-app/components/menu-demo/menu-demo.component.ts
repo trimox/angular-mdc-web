@@ -22,7 +22,7 @@ export class MenuDemoComponent {
   showMenu() {
     this.menu.open(this.focusedItemIndex);
   }
-  handleMenuSelect(event: number) {
-    this.selectedIndex = event;
+  handleMenuSelect(event: { index: number, item: HTMLElement }) {
+    this.selectedIndex = event.index;
   }
 }

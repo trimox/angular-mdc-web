@@ -58,7 +58,7 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
 
   @Input() openFrom: MenuOpenFrom = MenuOpenFrom.topLeft;
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
-  @Output() select: EventEmitter<number> = new EventEmitter<number>();
+  @Output() select: EventEmitter<any> = new EventEmitter();
   @HostBinding('class') get className(): string {
     return `mdc-simple-menu${MenuOpenFrom[this.openFrom] ? ` ${MenuOpenFrom[this.openFrom]}` : ''}`;
   }
@@ -138,8 +138,11 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
     getIndexForEventTarget: (target: EventTarget) => {
       return this.menuItems.toArray().findIndex((_) => _.itemEl.nativeElement === target);
     },
-    notifySelected: (evtData) => {
-      this.select.emit(evtData.index);
+    notifySelected: (evtData: { index: number }) => {
+      this.select.emit({
+        index: evtData.index,
+        item: this.menuItems.toArray()[evtData.index].itemEl.nativeElement
+      });
     },
     notifyCancel: () => {
       this.cancel.emit();

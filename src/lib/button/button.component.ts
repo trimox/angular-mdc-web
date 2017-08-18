@@ -35,9 +35,9 @@ export class ButtonComponent implements OnChanges {
   set disabled(value) {
     this._disabled = toBoolean(value);
     if (this._disabled) {
-      this._renderer.setAttribute(this._root.nativeElement, "disabled", 'true');
+      this.renderer.setAttribute(this.elementRef.nativeElement, "disabled", 'true');
     } else {
-      this._renderer.removeAttribute(this._root.nativeElement, "disabled");
+      this.renderer.removeAttribute(this.elementRef.nativeElement, "disabled");
     }
   }
   @Input()
@@ -71,15 +71,15 @@ export class ButtonComponent implements OnChanges {
     return this.cardAction ? 'mdc-card__action' : '';
   }
   @HostListener('keypress', ['$event']) onkeypress(evt) {
-    this.handleKeyPress(evt);
+    this.handleKeyPress_(evt);
   }
   @HostListener('blur', ['$event']) blur(evt) {
-    this.handleBlur(evt);
+    this.handleBlur_(evt);
   }
 
   constructor(
-    private _renderer: Renderer2,
-    private _root: ElementRef,
+    public renderer: Renderer2,
+    public elementRef: ElementRef,
     private _ripple: Ripple) {
     this._ripple.init();
   }
@@ -96,7 +96,7 @@ export class ButtonComponent implements OnChanges {
     }
   }
 
-  private handleKeyPress(keyboardEvent: KeyboardEvent) {
+  private handleKeyPress_(keyboardEvent: KeyboardEvent) {
     let keyCode = keyboardEvent.keyCode;
     if (keyCode == KeyCodes.ENTER || isSpaceKey(keyboardEvent)) {
       this._ripple.active = true;
@@ -106,7 +106,7 @@ export class ButtonComponent implements OnChanges {
     }
   }
 
-  private handleBlur(focusEvent: FocusEvent) {
+  private handleBlur_(focusEvent: FocusEvent) {
     this._ripple.active = false;
   }
 }

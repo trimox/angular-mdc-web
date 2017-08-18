@@ -9,6 +9,8 @@ import { DialogComponent } from '@angular-mdc/web';
 export class DialogDemoComponent {
   @ViewChild('dialog') dialog: DialogComponent;
   @ViewChild('dialogscroll') dialogScroll: DialogComponent;
+  @ViewChild('dialogalert') dialogAlert: DialogComponent;
+  @ViewChild('dialoggmail') dialogGmail: DialogComponent;
 
   showDialog() {
     this.dialog.show();
@@ -16,5 +18,17 @@ export class DialogDemoComponent {
 
   showDialogScroll() {
     this.dialogScroll.show();
+  }
+
+  showDialogAlert() {
+    this.dialogAlert.show();
+  }
+
+  showDialogGmail() {
+    this.dialogGmail.show();
+  }
+
+  closeDialogGmail() {
+    this.dialogGmail.close();
   }
 }

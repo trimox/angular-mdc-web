@@ -2,22 +2,36 @@ import {
   AfterViewInit,
   Component,
   ContentChild,
+  ContentChildren,
   Directive,
   ElementRef,
   EventEmitter,
   HostBinding,
+  Inject,
   Input,
   OnDestroy,
   Output,
+  QueryList,
   Renderer2,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { isBrowser } from '../common/platform';
 import { EventRegistry } from '../common/event-registry';
+import * as createFocusTrap from 'focus-trap';
+
+import { Ripple } from '.././ripple/ripple.directive';
+import { ButtonComponent } from '../button/button.component';
 
 import { MDCDialogAdapter } from './dialog-adapter';
-import { MDCDialogFoundation, util } from '@material/dialog';
+import { MDCDialogFoundation } from '@material/dialog';
+
+export function createFocusTrapInstance(surfaceEl, acceptButtonEl, clickOutsideCloses, focusTrapFactory = createFocusTrap) {
+  return focusTrapFactory(surfaceEl, {
+    initialFocus: acceptButtonEl,
+    clickOutsideDeactivates: clickOutsideCloses,
+  });
+}
 
 @Directive({
   selector: '[mdc-dialog-surface], mdc-dialog-surface'
@@ -97,6 +111,36 @@ export class DialogButtonCancelDirective {
   constructor(public elementRef: ElementRef) { }
 }
 
+@Directive({
+  selector: 'button[mdc-dialog-button], a[mdc-dialog-button]',
+  providers: [Ripple]
+})
+export class DialogButtonDirective extends ButtonComponent {
+  @Input() accept: boolean;
+  @Input() cancel: boolean;
+  @Input() action: boolean;
+
+  @HostBinding('class.mdc-dialog__footer__button') get isFooterButton(): string {
+    return this.renderer.parentNode(this.elementRef) === DialogFooterDirective ? 'mdc-dialog__footer__button' : '';
+  }
+  @HostBinding('class.mdc-dialog__action') get classAction(): string {
+    return this.action ? 'mdc-dialog__action' : '';
+  }
+  @HostBinding('class.mdc-dialog__footer__button--accept') get classAccept(): string {
+    return this.accept ? 'mdc-dialog__footer__button--accept' : '';
+  }
+  @HostBinding('class.mdc-dialog__footer__button--cancel') get classCancel(): string {
+    return this.cancel ? 'mdc-dialog__footer__button--cancel' : '';
+  }
+
+  constructor(
+    @Inject(Renderer2) renderer: Renderer2,
+    @Inject(ElementRef) elementRef: ElementRef,
+    @Inject(Ripple) _ripple: Ripple) {
+    super(renderer, elementRef, _ripple);
+  }
+}
+
 @Component({
   selector: 'mdc-dialog',
   template:
@@ -111,6 +155,7 @@ export class DialogButtonCancelDirective {
 export class DialogComponent implements AfterViewInit, OnDestroy {
   private focusTrap_: any;
 
+  @Input() clickOutsideToClose: boolean = true;
   @Output('accept') accept_: EventEmitter<string> = new EventEmitter();
   @Output('cancel') cancel_: EventEmitter<string> = new EventEmitter();
   @HostBinding('class.mdc-dialog') isHostClass = true;
@@ -119,6 +164,7 @@ export class DialogComponent implements AfterViewInit, OnDestroy {
   @ViewChild(DialogSurfaceDirective) dialogSurface: DialogSurfaceDirective;
   @ContentChild(DialogButtonAcceptDirective) dialogAcceptButton: DialogButtonAcceptDirective;
   @ContentChild(DialogBodyDirective) dialogBody: DialogBodyDirective;
+  @ContentChildren(DialogButtonDirective, { descendants: true }) dialogButtons: QueryList<DialogButtonDirective>;
 
   private _mdcAdapter: MDCDialogAdapter = {
     addClass: (className: string) => {
@@ -215,10 +261,10 @@ export class DialogComponent implements AfterViewInit, OnDestroy {
   }
 
   show() {
-    if (this.dialogSurface && this.dialogAcceptButton) {
-      this.focusTrap_ = util.createFocusTrapInstance(this.dialogSurface.elementRef.nativeElement,
-        this.dialogAcceptButton.elementRef.nativeElement);
-    }
+    this.focusTrap_ = createFocusTrapInstance(this.dialogSurface.elementRef.nativeElement,
+      this.dialogAcceptButton ? this.dialogAcceptButton.elementRef.nativeElement :
+        this.dialogButtons.length > 0 ? this.dialogButtons.find((_) => _.accept).elementRef.nativeElement
+          : this.dialogSurface.elementRef.nativeElement, this.clickOutsideToClose);
     this._foundation.open();
   }
 

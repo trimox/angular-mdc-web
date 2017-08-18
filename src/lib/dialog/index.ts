@@ -10,6 +10,7 @@ import {
   DialogHeaderTitleDirective,
   DialogButtonAcceptDirective,
   DialogButtonCancelDirective,
+  DialogButtonDirective,
 } from './dialog.component';
 
 const DIALOG_COMPONENTS = [
@@ -22,6 +23,7 @@ const DIALOG_COMPONENTS = [
   DialogHeaderTitleDirective,
   DialogButtonAcceptDirective,
   DialogButtonCancelDirective,
+  DialogButtonDirective,
 ];
 
 @NgModule({

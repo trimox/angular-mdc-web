@@ -18,7 +18,7 @@ import {
 } from '@angular/core';
 import { isBrowser } from '../common/platform';
 import { EventRegistry } from '../common/event-registry';
-import * as createFocusTrap from 'focus-trap';
+import focusTrap from 'focus-trap';
 
 import { Ripple } from '.././ripple/ripple.directive';
 import { ButtonComponent } from '../button/button.component';
@@ -26,12 +26,7 @@ import { ButtonComponent } from '../button/button.component';
 import { MDCDialogAdapter } from './dialog-adapter';
 import { MDCDialogFoundation } from '@material/dialog';
 
-export function createFocusTrapInstance(surfaceEl, acceptButtonEl, clickOutsideCloses, focusTrapFactory = createFocusTrap) {
-  return focusTrapFactory(surfaceEl, {
-    initialFocus: acceptButtonEl,
-    clickOutsideDeactivates: clickOutsideCloses,
-  });
-}
+export { focusTrap };
 
 @Directive({
   selector: '[mdc-dialog-surface], mdc-dialog-surface'
@@ -261,10 +256,12 @@ export class DialogComponent implements AfterViewInit, OnDestroy {
   }
 
   show() {
-    this.focusTrap_ = createFocusTrapInstance(this.dialogSurface.elementRef.nativeElement,
-      this.dialogAcceptButton ? this.dialogAcceptButton.elementRef.nativeElement :
+    this.focusTrap_ = focusTrap(this.dialogSurface.elementRef.nativeElement, {
+      initialFocus: this.dialogAcceptButton ? this.dialogAcceptButton.elementRef.nativeElement :
         this.dialogButtons.length > 0 ? this.dialogButtons.find((_) => _.accept).elementRef.nativeElement
-          : this.dialogSurface.elementRef.nativeElement, this.clickOutsideToClose);
+          : this.dialogSurface.elementRef.nativeElement,
+      clickOutsideDeactivates: this.clickOutsideToClose,
+    });
     this._foundation.open();
   }
 

@@ -1,4 +1,30 @@
 <a name="0.0.0"></a>
+# [0.2.9](https://github.com/trimox/angular-mdc-web/compare/v0.2.8...v0.2.9) (2017-08-18)
+
+
+### Bug Fixes
+
+* **menu:** Fix select event to emit selected item's DOM element ([#80](https://github.com/trimox/angular-mdc-web/issues/80)) ([74fb5ec](https://github.com/trimox/angular-mdc-web/commit/74fb5ec)), closes [#79](https://github.com/trimox/angular-mdc-web/issues/79)
+* fix npm copy-types command ([#82](https://github.com/trimox/angular-mdc-web/issues/82)) ([28d2600](https://github.com/trimox/angular-mdc-web/commit/28d2600))
+
+
+### Features
+
+* **dialog:** Add clickOutsideToClose + mdc-dialog-button ([#84](https://github.com/trimox/angular-mdc-web/issues/84)) ([7d5f7a7](https://github.com/trimox/angular-mdc-web/commit/7d5f7a7))
+
+
+### BREAKING CHANGES
+
+* **dialog:** Depreciated `mdc-dialog-button-accept` and `mdc-dialog-button-cancel`.
+Use new [mdc-dialog-button] with [accept] and [cancel] properties instead.
+  <mdc-dialog-footer>
+    <button mdc-dialog-button [cancel]="true">Cancel</button>
+    <button mdc-dialog-button [accept]="true">Discard</button>
+  </mdc-dialog-footer>
+
+
+
+<a name="0.0.0"></a>
 # [0.2.8](https://github.com/trimox/angular-mdc-web/compare/v0.2.5...v0.2.8) (2017-08-15)
 
 

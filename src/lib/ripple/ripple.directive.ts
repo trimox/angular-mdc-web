@@ -87,7 +87,8 @@ export class Ripple implements OnDestroy {
     init: Function,
     destroy: Function,
     activate: Function,
-    deactivate: Function
+    deactivate: Function,
+    layout: Function,
   } = new MDCRippleFoundation(this._mdcAdapter);
 
   constructor(
@@ -110,5 +111,9 @@ export class Ripple implements OnDestroy {
 
   deactivate() {
     this._foundation.deactivate();
+  }
+
+  layout() {
+    this._foundation.layout();
   }
 }

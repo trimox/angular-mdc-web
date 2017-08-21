@@ -8,7 +8,8 @@ import { EventRegistry } from '../common/event-registry';
 import { toBoolean } from '../common/boolean-property';
 
 import { MDCRippleAdapter } from './ripple-adapter';
-import { MDCRippleFoundation, util } from '@material/ripple';
+import { supportsCssVariables } from '@material/ripple/util';
+import { MDCRippleFoundation } from '@material/ripple';
 
 @Directive({
   selector: '[mdc-ripple]',
@@ -30,7 +31,7 @@ export class Ripple implements OnDestroy {
   }
 
   private _mdcAdapter: MDCRippleAdapter = {
-    browserSupportsCssVars: () => (typeof window !== 'undefined') ? util.supportsCssVariables(window) : false,
+    browserSupportsCssVars: () => (typeof window !== 'undefined') ? supportsCssVariables(window) : false,
     isUnbounded: () => this.unbounded,
     isSurfaceActive: () => this.active,
     isSurfaceDisabled: () => {

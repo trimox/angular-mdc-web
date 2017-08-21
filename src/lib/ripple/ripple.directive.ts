@@ -16,14 +16,14 @@ import { MDCRippleFoundation } from '@material/ripple';
   providers: [EventRegistry]
 })
 export class Ripple implements OnDestroy {
-  private _disabled: boolean;
+  private disabled_: boolean;
 
   unbounded: boolean;
   active: boolean;
-  get disabled() { return this._disabled; }
+  get disabled() { return this.disabled_; }
   set disabled(value) {
-    this._disabled = toBoolean(value);
-    if (this._disabled) {
+    this.disabled_ = toBoolean(value);
+    if (this.disabled_) {
       this._foundation.destroy();
     } else {
       this._foundation.init();

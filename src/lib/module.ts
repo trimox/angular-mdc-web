@@ -8,11 +8,11 @@ import { DrawerModule } from './drawer/index';
 import { ElevationModule } from './elevation/index';
 import { FabModule } from './fab/index';
 import { FormFieldModule } from './form-field/index';
+import { IconToggleModule } from './icon-toggle/index';
 import { LinearProgressModule } from './linear-progress/index';
 import { ListModule } from './list/index';
 import { MaterialIconModule } from './material-icon/index';
 import { MenuModule } from './menu/index';
-import { IconToggleModule } from './icon-toggle/index';
 import { RadioModule } from './radio/index';
 import { RippleModule } from './ripple/index';
 import { SnackbarModule } from './snackbar/index';
@@ -27,16 +27,16 @@ const MATERIAL_MODULES = [
   ButtonModule,
   CardModule,
   CheckboxModule,
-  ElevationModule,
   DialogModule,
   DrawerModule,
+  ElevationModule,
   FabModule,
   FormFieldModule,
+  IconToggleModule,
   LinearProgressModule,
   ListModule,
   MaterialIconModule,
   MenuModule,
-  IconToggleModule,
   RadioModule,
   RippleModule,
   SnackbarModule,
@@ -48,6 +48,7 @@ const MATERIAL_MODULES = [
   TypographyModule,
 ];
 
+/** @deprecated Use public_api */
 @NgModule({
   imports: MATERIAL_MODULES,
   exports: MATERIAL_MODULES

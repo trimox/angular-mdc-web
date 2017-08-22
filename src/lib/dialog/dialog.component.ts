@@ -20,7 +20,7 @@ import { isBrowser } from '../common/platform';
 import { EventRegistry } from '../common/event-registry';
 import focusTrap from 'focus-trap';
 
-import { Ripple } from '.././ripple/ripple.directive';
+import { Ripple } from '../ripple/ripple.directive';
 import { ButtonComponent } from '../button/button.component';
 
 import { MDCDialogAdapter } from './dialog-adapter';
@@ -86,6 +86,7 @@ export class DialogBackdropDirective {
   constructor(public elementRef: ElementRef) { }
 }
 
+/** @deprecated Use mdc-dialog-button */
 @Directive({
   selector: '[mdc-dialog-button-accept], mdc-dialog-button-accept'
 })
@@ -96,6 +97,7 @@ export class DialogButtonAcceptDirective {
   constructor(public elementRef: ElementRef) { }
 }
 
+/** @deprecated Use mdc-dialog-button */
 @Directive({
   selector: '[mdc-dialog-button-cancel], mdc-dialog-button-cancel'
 })
@@ -131,8 +133,8 @@ export class DialogButtonDirective extends ButtonComponent {
   constructor(
     @Inject(Renderer2) renderer: Renderer2,
     @Inject(ElementRef) elementRef: ElementRef,
-    @Inject(Ripple) _ripple: Ripple) {
-    super(renderer, elementRef, _ripple);
+    @Inject(Ripple) ripple: Ripple) {
+    super(renderer, elementRef, ripple);
   }
 }
 
@@ -229,7 +231,10 @@ export class DialogComponent implements AfterViewInit, OnDestroy {
     },
     isDialog: (el: Element) => {
       return this.dialogSurface ? el === this.dialogSurface.elementRef.nativeElement : false;
-    }
+    },
+    layoutFooterRipples: () => {
+      this.dialogButtons.forEach((_) => _.ripple.layout());
+    },
   };
 
   private _foundation: {

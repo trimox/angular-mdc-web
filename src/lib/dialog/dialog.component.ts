@@ -86,28 +86,6 @@ export class DialogBackdropDirective {
   constructor(public elementRef: ElementRef) { }
 }
 
-/** @deprecated Use mdc-dialog-button */
-@Directive({
-  selector: '[mdc-dialog-button-accept], mdc-dialog-button-accept'
-})
-export class DialogButtonAcceptDirective {
-  @HostBinding('class.mdc-dialog__footer__button--accept') isHostClass = true;
-  @HostBinding('class.mdc-dialog__footer__button') isFooterButton = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-/** @deprecated Use mdc-dialog-button */
-@Directive({
-  selector: '[mdc-dialog-button-cancel], mdc-dialog-button-cancel'
-})
-export class DialogButtonCancelDirective {
-  @HostBinding('class.mdc-dialog__footer__button--cancel') isHostClass = true;
-  @HostBinding('class.mdc-dialog__footer__button') isFooterButton = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
 @Directive({
   selector: 'button[mdc-dialog-button], a[mdc-dialog-button]',
   providers: [Ripple]
@@ -158,8 +136,8 @@ export class DialogComponent implements AfterViewInit, OnDestroy {
   @HostBinding('class.mdc-dialog') isHostClass = true;
   @HostBinding('attr.role') role: string = 'alertdialog';
   @HostBinding('attr.aria-hidden') ariaHidden: string = 'true';
+  @HostBinding('tabindex') tabindex: number = -1;
   @ViewChild(DialogSurfaceDirective) dialogSurface: DialogSurfaceDirective;
-  @ContentChild(DialogButtonAcceptDirective) dialogAcceptButton: DialogButtonAcceptDirective;
   @ContentChild(DialogBodyDirective) dialogBody: DialogBodyDirective;
   @ContentChildren(DialogButtonDirective, { descendants: true }) dialogButtons: QueryList<DialogButtonDirective>;
 
@@ -261,10 +239,10 @@ export class DialogComponent implements AfterViewInit, OnDestroy {
   }
 
   show() {
+    const acceptBtn = this.dialogButtons.find((_) => _.accept);
+
     this.focusTrap_ = focusTrap(this.dialogSurface.elementRef.nativeElement, {
-      initialFocus: this.dialogAcceptButton ? this.dialogAcceptButton.elementRef.nativeElement :
-        this.dialogButtons.length > 0 ? this.dialogButtons.find((_) => _.accept).elementRef.nativeElement
-          : this.dialogSurface.elementRef.nativeElement,
+      initialFocus: acceptBtn ? acceptBtn.elementRef.nativeElement : this._root.nativeElement,
       clickOutsideDeactivates: this.clickOutsideToClose,
     });
     this._foundation.open();

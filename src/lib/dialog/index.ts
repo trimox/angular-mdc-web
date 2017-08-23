@@ -8,8 +8,6 @@ import {
   DialogHeaderDirective,
   DialogSurfaceDirective,
   DialogHeaderTitleDirective,
-  DialogButtonAcceptDirective,
-  DialogButtonCancelDirective,
   DialogButtonDirective,
 } from './dialog.component';
 
@@ -21,8 +19,6 @@ const DIALOG_COMPONENTS = [
   DialogHeaderDirective,
   DialogSurfaceDirective,
   DialogHeaderTitleDirective,
-  DialogButtonAcceptDirective,
-  DialogButtonCancelDirective,
   DialogButtonDirective,
 ];
 

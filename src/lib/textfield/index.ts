@@ -11,6 +11,8 @@ import {
   TextfieldBoxComponent,
   TextfieldBottomLineDirective,
 } from './textfield-box.component';
+import { TextareaComponent } from './textarea.component';
+import { TextfieldInputDirective } from './textfield-input.directive';
 
 const TEXTFIELD_COMPONENTS = [
   TextfieldComponent,
@@ -18,6 +20,8 @@ const TEXTFIELD_COMPONENTS = [
   TextfieldBoxComponent,
   TextfieldBottomLineDirective,
   TextfieldLabelDirective,
+  TextfieldInputDirective,
+  TextareaComponent,
 ];
 
 @NgModule({
@@ -29,3 +33,5 @@ export class TextfieldModule { }
 
 export * from './textfield.component';
 export * from './textfield-box.component';
+export * from './textarea.component';
+export * from './textfield-input.directive';

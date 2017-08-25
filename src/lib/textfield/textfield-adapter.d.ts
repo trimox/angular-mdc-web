@@ -16,5 +16,10 @@
   deregisterInputKeydownHandler: (handler: EventListener) => void;
   setHelptextAttr: (name: string, value: string) => void;
   removeHelptextAttr: (className: string) => void;
-  getNativeInput: () => HTMLInputElement;
+  getNativeInput: () => {
+    value: string,
+    disabled: boolean,
+    badInput: boolean,
+    checkValidity: () => boolean,
+  };
 }

@@ -94,6 +94,7 @@ export class DialogButtonDirective extends ButtonComponent {
   @Input() accept: boolean;
   @Input() cancel: boolean;
   @Input() action: boolean;
+  @Input() focused: boolean;
 
   @HostBinding('class.mdc-dialog__footer__button') get isFooterButton(): string {
     return this.renderer.parentNode(this.elementRef) === DialogFooterDirective ? 'mdc-dialog__footer__button' : '';
@@ -239,10 +240,10 @@ export class DialogComponent implements AfterViewInit, OnDestroy {
   }
 
   show() {
-    const acceptBtn = this.dialogButtons.find((_) => _.accept);
+    const focusedEl = this.dialogButtons.find((_) => _.focused || _.accept);
 
     this.focusTrap_ = focusTrap(this.dialogSurface.elementRef.nativeElement, {
-      initialFocus: acceptBtn ? acceptBtn.elementRef.nativeElement : this._root.nativeElement,
+      initialFocus: focusedEl ? focusedEl.elementRef.nativeElement : this._root.nativeElement,
       clickOutsideDeactivates: this.clickOutsideToClose,
     });
     this._foundation.open();

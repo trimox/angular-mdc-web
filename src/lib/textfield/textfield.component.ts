@@ -3,7 +3,7 @@
   Component,
   Directive,
   ElementRef,
-  EventEmitter,
+  forwardRef,
   HostBinding,
   Input,
   OnDestroy,
@@ -12,13 +12,13 @@
   Renderer2,
   ViewChild,
   ViewEncapsulation,
-  forwardRef
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { EventRegistry } from '../common/event-registry';
-import { toBoolean } from '../common/boolean-property';
+
+import { EventRegistry, isBrowser } from '../common';
 
 import { MDCTextfieldAdapter } from './textfield-adapter';
+import { TextfieldInputDirective } from './textfield-input.directive';
 import { MDCTextfieldFoundation } from '@material/textfield';
 
 export const MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR: Provider = {
@@ -27,7 +27,21 @@ export const MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR: Provider = {
   multi: true
 };
 
-let nextElId_ = 0;
+// Invalid input type. Using one of these will throw an error.
+const MD_INPUT_INVALID_TYPES = [
+  'button',
+  'checkbox',
+  'color',
+  'file',
+  'hidden',
+  'image',
+  'radio',
+  'range',
+  'reset',
+  'submit'
+];
+
+let nextUniqueId = 0;
 
 @Directive({
   selector: '[mdc-textfield-helptext]'
@@ -61,94 +75,84 @@ export class TextfieldLabelDirective {
   selector: 'mdc-textfield',
   template:
   `
-  <textarea *ngIf="multiline"
-    #input
-    [rows]="rows"
-    [cols]="cols"
-    class="mdc-textfield__input"
-    type="text"
-    [attr.name]="name"
-    [id]="inputId"
-    [placeholder]="placeholder ? placeholder : ''"
-    [tabindex]="tabindex"
-    [maxlength]="maxlength"
-    [attr.aria-label]="placeholder"
-    (focus)="onFocus($event)"
-    (blur)="onBlur($event)"
-    (input)="onInput($event)"
-    (keydown)="onKeyDown($event)"
-    [(ngModel)]="value"
-    [disabled]="disabled"
-    [required]="required"></textarea>
-  <input *ngIf="!multiline"
-    #input
-    class="mdc-textfield__input"
+  <input mdc-textfield-input
     [type]="type"
-    [id]="inputId"
-    [attr.name]="name"
-    [(ngModel)]="value"
+    [id]="id"
     [placeholder]="placeholder"
     [tabindex]="tabindex"
-    [maxlength]="maxlength"
     [disabled]="disabled"
+    [attr.maxlength]="maxlength"
     [required]="required"
-    (focus)="onFocus($event)"
-    (keydown)="onKeyDown($event)"
-    (blur)="onBlur($event)"
-    (input)="onInput($event)" />
-    <mdc-textfield-label [attr.for]="inputId" *ngIf="!placeholder">{{label}}</mdc-textfield-label>
+    (blur)="onBlur()"
+    (input)="onInput($event)"
+    (focus)="onFocus()" />
+    <mdc-textfield-label [attr.for]="id">{{label}}</mdc-textfield-label>
   `,
   encapsulation: ViewEncapsulation.None,
-  providers: [
-    MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR
-  ],
+  providers: [MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR],
 })
-export class TextfieldComponent implements AfterViewInit, OnDestroy {
-  @Input() id: string = `mdc-textfield-${++nextElId_}`;
-  get inputId(): string {
-    return `input-${this.id}`;
-  }
-  @Input() name: string;
-  @Input() type: string = 'text';
-  @Input() value: string;
+export class TextfieldComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
+  private id_: string;
+  private type_ = 'text';
+  private disabled_ = false;
+  private required_ = false;
+  private cachedId: string;
+  private controlValueAccessorChangeFn_: (value: any) => void = (value) => { };
+  onChange = (_: any) => { };
+  onTouched = () => { };
+
+  @Input() fullwidth: boolean;
+  @Input() dense: boolean;
+  @Input() label: string;
+  @Input() maxlength: number;
+  @Input() placeholder: string = '';
   @Input()
-  get disabled() { return this._foundation.isDisabled(); }
-  set disabled(value) {
-    if (this.inputEl) {
-      this._foundation.setDisabled(value);
+  get id() { return this.id_; }
+  set id(value: string) {
+    this.id_ = value || this.setUniqueId();
+  }
+  @Input() tabindex: number;
+  @Input()
+  get disabled() { return this.disabled_; }
+  set disabled(value: any) {
+    this.disabled_ = value != null && `${value}` !== 'false';
+    this._foundation.setDisabled(value);
+  }
+  @Input()
+  get required() { return this.required_; }
+  set required(value: any) {
+    this.required_ = value != null && `${value}` !== 'false';
+  }
+  @Input()
+  get type() { return this.type_; }
+  set type(value: string) {
+    this.type_ = value || 'text';
+    this.validateType_();
+
+    if (!this.isTextarea_()) {
+      this._renderer.setProperty(this.inputText.elementRef.nativeElement, 'type', this.type_);
     }
   }
-  @Input() dense: boolean;
-  @Input() required: boolean;
-  @Input() label: string;
-  @Input() placeholder: string = '';
-  @Input() tabindex: number;
-  @Input() rows: number;
-  @Input() cols: number;
-  @Input() maxlength: number;
-  @Input() fullwidth: boolean;
-  @Input() multiline: boolean;
-  @Output() focus: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
-  @Output() blur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
-  @Output() input: EventEmitter<Event> = new EventEmitter<Event>();
-  @Output() keydown: EventEmitter<KeyboardEvent> = new EventEmitter<KeyboardEvent>();
+  @Input()
+  get value() { return this.inputText.elementRef.nativeElement.value; }
+  set value(value: string) {
+    if (value !== this.value) {
+      this.inputText.elementRef.nativeElement.value = value;
+    }
+  }
+  get valid(): boolean {
+    return (this.inputText.elementRef.nativeElement as HTMLInputElement).validity.valid;
+  }
   @HostBinding('class.mdc-textfield') isHostClass = true;
-  @HostBinding('class.mdc-textfield--multiline') get classMultiline(): string {
-    return this.multiline ? 'mdc-textfield--multiline' : '';
+  @HostBinding('class.mdc-textfield--dense') get classDense(): string {
+    return this.dense ? 'mdc-textfield--dense' : '';
   }
   @HostBinding('class.mdc-textfield--fullwidth') get classFullwidth(): string {
     return this.fullwidth ? 'mdc-textfield--fullwidth' : '';
   }
-  @HostBinding('class.mdc-textfield--dense') get classDense(): string {
-    return this.dense ? 'mdc-textfield--dense' : '';
-  }
-  @ViewChild('input') public inputEl: ElementRef;
-  @ViewChild(TextfieldHelptextDirective) helpText: TextfieldHelptextDirective;
+  @ViewChild(TextfieldInputDirective) inputText: TextfieldInputDirective;
   @ViewChild(TextfieldLabelDirective) inputLabel: TextfieldLabelDirective;
-
-  onTouched: () => any = () => { };
-
-  private _controlValueAccessorChangeFn: (value: any) => void = (value) => { };
+  @ViewChild(TextfieldHelptextDirective) inputHelpText: TextfieldHelptextDirective;
 
   private _mdcAdapter: MDCTextfieldAdapter = {
     addClass: (className: string) => {
@@ -158,76 +162,73 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
       this._renderer.removeClass(this._root.nativeElement, className);
     },
     addClassToLabel: (className: string) => {
-      if (this.inputLabel) {
-        if (this.label && !this.fullwidth) {
-          this._renderer.addClass(this.inputLabel.elementRef.nativeElement, className);
-        }
+      if (this.isTextarea_()) { return; }
+
+      if (this.inputLabel && this.label) {
+        this._renderer.addClass(this.inputLabel.elementRef.nativeElement, className);
       }
     },
     removeClassFromLabel: (className: string) => {
-      if (this.inputLabel) {
-        if (this.label && !this.fullwidth) {
-          this._renderer.removeClass(this.inputLabel.elementRef.nativeElement, className);
-        }
+      if (this.isTextarea_()) { return; }
+
+      if (this.inputLabel && this.label) {
+        this._renderer.removeClass(this.inputLabel.elementRef.nativeElement, className);
       }
     },
     addClassToHelptext: (className: string) => {
-      if (this.helpText) {
-        this._renderer.addClass(this.helpText, className);
+      if (this.inputHelpText) {
+        this._renderer.addClass(this.inputHelpText, className);
       }
     },
     removeClassFromHelptext: (className: string) => {
-      if (this.helpText) {
-        this._renderer.removeClass(this.helpText, className);
+      if (this.inputHelpText) {
+        this._renderer.removeClass(this.inputHelpText, className);
       }
     },
     registerInputFocusHandler: (handler: EventListener) => {
-      if (this.inputEl) {
-        this._registry.listen_(this._renderer, 'focus', handler, this.inputEl);
-      }
+      this._registry.listen_(this._renderer, 'focus', handler, this.inputText.elementRef);
     },
     deregisterInputFocusHandler: (handler: EventListener) => {
       this._registry.unlisten_('focus', handler);
     },
     registerInputBlurHandler: (handler: EventListener) => {
-      if (this.inputEl) {
-        this._registry.listen_(this._renderer, 'blur', handler, this.inputEl);
-      }
+      this._registry.listen_(this._renderer, 'blur', handler, this.inputText.elementRef);
     },
     deregisterInputBlurHandler: (handler: EventListener) => {
       this._registry.unlisten_('blur', handler);
     },
     registerInputInputHandler: (handler: EventListener) => {
-      if (this.inputEl) {
-        this._registry.listen_(this._renderer, 'input', handler, this.inputEl);
-      }
+      this._registry.listen_(this._renderer, 'input', handler, this.inputText.elementRef);
     },
     deregisterInputInputHandler: (handler: EventListener) => {
       this._registry.unlisten_('input', handler);
     },
     registerInputKeydownHandler: (handler: EventListener) => {
-      if (this.inputEl) {
-        this._registry.listen_(this._renderer, 'keydown', handler, this.inputEl);
-      }
+      this._registry.listen_(this._renderer, 'keydown', handler, this.inputText.elementRef);
     },
     deregisterInputKeydownHandler: (handler: EventListener) => {
       this._registry.unlisten_('keydown', handler);
     },
     setHelptextAttr: (name: string, value: string) => {
-      if (this.helpText) {
-        this._renderer.setAttribute(this.helpText.elementRef.nativeElement, name, value);
+      if (this.inputHelpText) {
+        this._renderer.setAttribute(this.inputHelpText.elementRef.nativeElement, name, value);
       }
     },
     removeHelptextAttr: (name: string) => {
-      if (this.helpText) {
-        this._renderer.removeAttribute(this.helpText.elementRef.nativeElement, name);
+      if (this.inputHelpText) {
+        this._renderer.removeAttribute(this.inputHelpText.elementRef.nativeElement, name);
       }
     },
     helptextHasClass: (className: string) => {
-      return this.helpText ? this.helpText.elementRef.nativeElement.classList.contains(className) : false;
+      return this.inputHelpText ? this.inputHelpText.elementRef.nativeElement.classList.contains(className) : false;
     },
     getNativeInput: () => {
-      return this.inputEl ? this.inputEl.nativeElement : null;
+      return {
+        checkValidity: () => this.inputText.elementRef.nativeElement.validity.valid,
+        value: this.value,
+        disabled: this.disabled,
+        badInput: this.isBadInput(),
+      };
     }
   };
 
@@ -245,47 +246,82 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this._foundation.init();
+    this.id = this.id;
   }
 
   ngOnDestroy() {
     this._foundation.destroy();
   }
 
-  onFocus(evt: FocusEvent) {
-    this.focus.emit(evt);
+  writeValue(value: string) {
+    this.value = value;
+    if (value && value.length > 0) {
+      this._mdcAdapter.addClassToLabel('mdc-textfield__label--float-above');
+    } else {
+      this._mdcAdapter.removeClassFromLabel('mdc-textfield__label--float-above');
+    }
+    this.onChange(value);
   }
 
-  onBlur(evt: FocusEvent) {
-    this._controlValueAccessorChangeFn((<any>evt.target).value);
-    this.blur.emit(evt);
+  registerOnChange(fn: (value: any) => any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => any): void {
+    this.onTouched = fn;
+  }
+
+  onFocus() {
+    this.inputText.focused = true;
   }
 
   onInput(evt: Event) {
-    evt.stopPropagation();
-    this._controlValueAccessorChangeFn((<any>evt.target).value);
-    this.input.emit(evt);
+    this.onChange((<any>evt.target).value);
   }
 
-  onKeyDown(evt: KeyboardEvent) {
-    evt.stopPropagation();
-    this.keydown.emit(evt);
+  onBlur() {
+    this.inputText.focused = false;
+    this.onTouched();
   }
 
-  writeValue(value: string) {
-    if (value) {
-      this.value = value;
-      this._mdcAdapter.addClass('mdc-textfield--upgraded');
-      if (!this.fullwidth) {
-        this._mdcAdapter.addClassToLabel('mdc-textfield__label--float-above');
-      }
+  setUniqueId(): string {
+    this.cachedId = this.cachedId || `mdc-input-${nextUniqueId++}`;
+    return this.cachedId;
+  }
+
+  isDisabled() {
+    return this._foundation.isDisabled();
+  }
+
+  isBadInput() {
+    return (this.inputText.elementRef.nativeElement as HTMLInputElement).validity.badInput;
+  }
+
+  focus() {
+    this.inputText.focus();
+  }
+
+  updateErrorState(value?: boolean) {
+    if (value || this.valid) {
+      this._mdcAdapter.removeClass('mdc-textfield--invalid');
+    } else {
+      this._mdcAdapter.addClass('mdc-textfield--invalid');
     }
   }
 
-  registerOnChange(fn: (value: any) => void) {
-    this._controlValueAccessorChangeFn = fn;
+  private isTextarea_() {
+    let nativeElement = this._root.nativeElement;
+
+    // In Universal, we don't have access to `nodeName`, but the same can be achieved with `name`.
+    // Note that this shouldn't be necessary once Angular switches to an API that resembles the
+    // DOM closer.
+    let nodeName = isBrowser ? nativeElement.nodeName : nativeElement.name;
+    return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
   }
 
-  registerOnTouched(fn: any) {
-    this.onTouched = fn;
+  private validateType_() {
+    if (MD_INPUT_INVALID_TYPES.indexOf(this.type_) > -1) {
+      throw Error(`Input type "${this.type_}" is not supported.`);
+    }
   }
 }

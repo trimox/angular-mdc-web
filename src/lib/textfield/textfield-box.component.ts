@@ -11,9 +11,9 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EventRegistry } from '../common/event-registry';
 import { Ripple } from '../ripple/ripple.directive';
-import { TextfieldComponent, TextfieldLabelDirective } from './textfield.component';
+import { TextfieldComponent } from './textfield.component';
 
-export const MD_TEXTFIELDBOX_CONTROL_VALUE_ACCESSOR: Provider = {
+export const MD_TEXTFIELD_BOX_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => TextfieldBoxComponent),
   multi: true
@@ -32,24 +32,21 @@ export class TextfieldBottomLineDirective {
   selector: 'mdc-textfield-box',
   template:
   `
-  <input #input class="mdc-textfield__input"
-  [type]="type"
-  [id]="id"
-  [attr.name]="name"
-  [(ngModel)]="value"
-  [tabindex]="tabindex"
-  [maxlength]="maxlength"
-  [disabled]="disabled"
-  [required]="required"
-  (focus)="onFocus($event)"
-  (keydown)="onKeyDown($event)"
-  (blur)="onBlur($event)"
-  (input)="onInput($event)" />
-  <mdc-textfield-label [attr.for]="inputId">{{label}}</mdc-textfield-label>
+  <input mdc-textfield-input
+    [type]="type"
+    [id]="id"
+    [tabindex]="tabindex"
+    [attr.maxlength]="maxlength"
+    [disabled]="disabled"
+    [required]="required"
+    (blur)="onBlur()"
+    (input)="onInput($event)"
+    (focus)="onFocus()" />
+  <mdc-textfield-label [attr.for]="id">{{label}}</mdc-textfield-label>
   <mdc-textfield-bottom-line></mdc-textfield-bottom-line>
   `,
   providers: [
-    MD_TEXTFIELDBOX_CONTROL_VALUE_ACCESSOR,
+    MD_TEXTFIELD_BOX_CONTROL_VALUE_ACCESSOR,
     Ripple,
   ]
 })

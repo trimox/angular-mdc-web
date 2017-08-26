@@ -7,10 +7,12 @@ import {
   Renderer2,
   ViewEncapsulation
 } from '@angular/core';
-import { Ripple } from '.././ripple/ripple.directive';
-import { toBoolean } from '../common/boolean-property';
-import { KeyCodes } from '../common/keycodes';
-import { isSpaceKey } from '../common/events';
+import { Ripple } from '../ripple/ripple.directive';
+import {
+  toBoolean,
+  KeyCodes,
+  isSpaceKey
+} from '../common';
 
 @Component({
   selector: 'button[mdc-button], a[mdc-button]',
@@ -27,6 +29,7 @@ export class ButtonComponent {
   @Input() dense: boolean;
   @Input() compact: boolean;
   @Input() accent: boolean;
+  @Input() unelevated: boolean;
   @Input()
   get disabled() { return this.disabled_; }
   set disabled(value) {
@@ -63,6 +66,9 @@ export class ButtonComponent {
   }
   @HostBinding('class.mdc-button--compact') get classCompact(): string {
     return this.compact ? 'mdc-button--compact' : '';
+  }
+  @HostBinding('class.mdc-button--unelevated') get classUnelevated(): string {
+    return this.unelevated ? 'mdc-button--unelevated' : '';
   }
   @HostListener('keypress', ['$event']) onkeypress(evt) {
     this.handleKeyPress_(evt);

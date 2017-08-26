@@ -16,9 +16,9 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { toBoolean } from '../common/boolean-property';
+import { toBoolean } from '../common';
 import { EventRegistry } from '../common/event-registry';
-import { Ripple } from '.././ripple/ripple.directive';
+import { Ripple } from '../ripple/ripple.directive';
 
 import { MDCIconToggleAdapter } from './adapter';
 import { MDCIconToggleFoundation } from '@material/icon-toggle';

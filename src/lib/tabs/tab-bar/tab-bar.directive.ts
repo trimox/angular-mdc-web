@@ -9,7 +9,7 @@ import {
   QueryList,
   Renderer2,
 } from '@angular/core';
-import { isBrowser } from '../../common/platform';
+import { isBrowser } from '../../common';
 import { EventRegistry } from '../../common/event-registry';
 import { Subscription } from 'rxjs';
 

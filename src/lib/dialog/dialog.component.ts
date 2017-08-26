@@ -16,7 +16,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { isBrowser } from '../common/platform';
+import { isBrowser } from '../common';
 import { EventRegistry } from '../common/event-registry';
 import focusTrap from 'focus-trap';
 

@@ -7,7 +7,7 @@ import {
   Renderer2,
   SimpleChange,
 } from '@angular/core';
-import { toNumber } from '../common/number-property';
+import { toNumber } from '../common';
 
 @Directive({
   selector: '[mdc-elevation-transition]'

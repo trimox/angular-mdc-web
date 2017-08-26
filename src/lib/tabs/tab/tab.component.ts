@@ -12,8 +12,8 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
+import { toBoolean } from '../../common';
 import { EventRegistry } from '../../common/event-registry';
-import { toBoolean } from '../../common/boolean-property';
 import { Ripple } from '../../ripple/ripple.directive';
 
 import { MDCTabAdapter } from './tab-adapter';

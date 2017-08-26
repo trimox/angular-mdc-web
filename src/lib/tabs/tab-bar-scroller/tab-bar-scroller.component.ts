@@ -12,8 +12,7 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import { toBoolean } from '../../common/boolean-property';
-import { isBrowser } from '../../common/platform';
+import { toBoolean, isBrowser } from '../../common';
 import { EventRegistry } from '../../common/event-registry';
 
 import { getCorrectPropertyName } from '@material/animation';

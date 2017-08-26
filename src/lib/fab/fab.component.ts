@@ -10,10 +10,8 @@ import {
   SimpleChange,
   ViewEncapsulation,
 } from '@angular/core';
-import { Ripple } from '.././ripple/ripple.directive';
-import { toBoolean } from '../common/boolean-property';
-import { KeyCodes } from '../common/keycodes';
-import { isSpaceKey } from '../common/events';
+import { Ripple } from '../ripple/ripple.directive';
+import { toBoolean, KeyCodes, isSpaceKey } from '../common';
 
 @Directive({
   selector: ' mdc-fab-icon, [mdc-fab-icon]'

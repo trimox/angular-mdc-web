@@ -6,7 +6,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { toBoolean } from '../common/boolean-property';
+import { toBoolean } from '../common';
 
 @Component({
   selector: '[mdc-list-divider], mdc-list-divider',

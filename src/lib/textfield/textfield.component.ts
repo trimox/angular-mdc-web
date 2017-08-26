@@ -14,8 +14,8 @@
   ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-
-import { EventRegistry, isBrowser } from '../common';
+import { isBrowser } from '../common';
+import { EventRegistry } from '../common/event-registry';
 
 import { MDCTextfieldAdapter } from './textfield-adapter';
 import { TextfieldInputDirective } from './textfield-input.directive';

@@ -10,7 +10,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ListItemDirective } from './list-item.directive';
-import { toBoolean } from '../common/boolean-property';
+import { toBoolean } from '../common';
 
 @Component({
   selector: 'mdc-list',

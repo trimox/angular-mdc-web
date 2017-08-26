@@ -4,6 +4,7 @@ export * from './button/index';
 export * from './card/index';
 export * from './checkbox/index';
 export * from './common/index';
+export * from './common/event-registry';
 export * from './dialog/index';
 export * from './drawer/index';
 export * from './elevation/index';

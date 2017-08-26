@@ -6,7 +6,7 @@ import {
   Renderer2,
   SimpleChange,
 } from '@angular/core';
-import { toBoolean } from '../common/boolean-property';
+import { toBoolean } from '../common';
 
 @Directive({
   selector: '[mdc-theme-dark]'

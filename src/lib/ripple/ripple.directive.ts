@@ -1,11 +1,11 @@
-﻿import {
+import {
   Directive,
   ElementRef,
   OnDestroy,
   Renderer2,
 } from '@angular/core';
 import { EventRegistry } from '../common/event-registry';
-import { toBoolean } from '../common/boolean-property';
+import { toBoolean } from '../common';
 
 import { MDCRippleAdapter } from './ripple-adapter';
 import { supportsCssVariables } from '@material/ripple/util';

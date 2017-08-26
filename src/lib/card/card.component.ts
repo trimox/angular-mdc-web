@@ -11,7 +11,7 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import { toBoolean } from '../common/boolean-property';
+import { toBoolean } from '../common';
 
 import { Ripple } from '../ripple/ripple.directive';
 import { ButtonComponent } from '../button/button.component';

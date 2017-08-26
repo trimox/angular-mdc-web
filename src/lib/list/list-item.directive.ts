@@ -9,9 +9,9 @@ import {
   OnChanges,
   SimpleChange,
 } from '@angular/core';
-import { ListComponent } from './list.component';
+import { toBoolean } from '../common';
 import { Ripple } from '../ripple/ripple.directive';
-import { toBoolean } from '../common/boolean-property';
+import { ListComponent } from './list.component';
 
 @Directive({
   selector: 'mdc-list-item, a[mdc-list-item]',

@@ -11,8 +11,8 @@ import {
   Renderer2,
   ViewEncapsulation
 } from '@angular/core';
+import { isBrowser } from '../common';
 import { EventRegistry } from '../common/event-registry';
-import { isBrowser } from '../common/platform';
 
 import { ToolbarTitleDirective } from './toolbar-title.directive';
 import { ToolbarRowDirective } from './toolbar-row.directive';

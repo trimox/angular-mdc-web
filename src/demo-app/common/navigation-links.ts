@@ -15,7 +15,7 @@ export const navigationLinks = [
   { name: 'Snackbar', route: 'snackbar-demo', icon: 'info_outline', desc: 'Snackbars provide brief feedback through a message at the bottom of the screen.' },
   { name: 'Switch', route: 'switch-demo', icon: 'wb_incandescent', desc: 'On/off switches toggle the state of a single settings option.' },
   { name: 'Tabs', route: 'tab-demo', icon: 'tab', desc: 'Tabs make it easy to explore and switch between different views.' },
-  { name: 'Textfield', route: 'textfield-demo', icon: 'text_fields', desc: 'Text fields allow users to input, edit, and select text.' },
+  { name: 'Text Field', route: 'textfield-demo', icon: 'text_fields', desc: 'Text fields allow users to input, edit, and select text.' },
   { name: 'Toolbar', route: 'toolbar-demo', icon: 'code', desc: 'Toolbars appear a step above the sheet of material affected by their actions.' },
   { name: 'Typography', route: 'typography-demo', icon: 'text_format', desc: 'Material Design typography uses the Roboto font.' }
 ];

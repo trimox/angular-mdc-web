@@ -6,4 +6,7 @@ import {
   selector: 'card-demo',
   templateUrl: './card-demo.component.html'
 })
-export class CardDemoComponent { }
+export class CardDemoComponent {
+  isLargeTitle: boolean = true;
+  isThemeDark: boolean;
+}

@@ -2,7 +2,7 @@
   "compilerOptions": {
     "declaration": false,
     "target": "es5",
-    "module": "commonjs",
+    "module": "es2015",
     "moduleResolution": "node",
     "lib": ["es2015", "dom"],
     "emitDecoratorMetadata": true,
@@ -15,7 +15,7 @@
     "typeRoots": ["../../node_modules/@types"]
   },
   "files": [
-    "./app-module.ts",
+    "./app-module-dev.ts",
     "./main.ts"
   ],
   "exclude": [

@@ -123,6 +123,10 @@
           <td>action: boolean</td>
           <td>Apply contrasting secondary color to button.</td>
         </tr>
+        <tr>
+          <td>focused: boolean</td>
+          <td>Set initial focus to button after Dialog opened.</td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -131,6 +135,7 @@
     <button mdc-button [primary]="true" [raised]="true" (click)="showDialogAlert();">Alert</button>
     <button mdc-button [primary]="true" [raised]="true" (click)="showDialogScroll();">Scrolling Dialog</button>
     <button mdc-button [primary]="true" [raised]="true" (click)="showDialogGmail();">No footer</button>
+    <button mdc-button [primary]="true" [raised]="true" (click)="showDialogForm();">Dialog w/Form</button>
 
 <span mdc-typography-headline>Simple Dialog</span>
 <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span> #<span style="color:#89bdff">dialog</span>></span>
@@ -213,6 +218,25 @@
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span>></span>
 </pre>
 
+<span mdc-typography-headline>Dialog w/Form</span>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span> #<span style="color:#89bdff">dialogform</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header-title</span>></span>
+      Profile
+    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header-title</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-body</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">form</span> [<span style="color:#89bdff">formGroup</span>]=<span style="color:#65b042">"userForm"</span> <span style="color:#89bdff">id</span>=<span style="color:#65b042">"userForm"</span> (<span style="color:#89bdff">ngSubmit</span>)=<span style="color:#65b042">"updateForm();"</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span> #<span style="color:#89bdff">input</span> <span style="color:#89bdff">formControlName</span>=<span style="color:#65b042">"username"</span> <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Username"</span> [<span style="color:#89bdff">required</span>]=<span style="color:#65b042">"true"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">p</span> <span style="color:#89bdff">mdc-textfield-helptext</span> [<span style="color:#89bdff">validation</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#89bdff">persistent</span>]=<span style="color:#65b042">"false"</span>></span>Username is required<span style="color:#89bdff">&lt;/<span style="color:#89bdff">p</span>></span>
+    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">form</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-body</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span>
+    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-dialog-button</span> [<span style="color:#e0c589">cancel</span>]=<span style="color:#65b042">"true"</span>></span>Cancel<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-dialog-button</span> [<span style="color:#e0c589">action</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#e0c589">focused</span>]=<span style="color:#65b042">"true"</span> <span style="color:#e0c589">type</span>=<span style="color:#65b042">"submit"</span> <span style="color:#e0c589">form</span>=<span style="color:#65b042">"userForm"</span>></span>Update<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span>></span>
+</pre>
 <mdc-dialog #dialog>
   <mdc-dialog-header>
     <mdc-dialog-header-title>
@@ -284,6 +308,24 @@
       </mdc-list-item>
     </mdc-list>
   </mdc-dialog-body>
+</mdc-dialog>
+
+<mdc-dialog #dialogform>
+  <mdc-dialog-header>
+    <mdc-dialog-header-title>
+      Profile
+    </mdc-dialog-header-title>
+  </mdc-dialog-header>
+  <mdc-dialog-body>
+    <form [formGroup]="userForm" id="userForm" (ngSubmit)="updateForm();" autocomplete="off">
+      <mdc-textfield #input formControlName="username" label="Username" [required]="true"></mdc-textfield>
+      <p mdc-textfield-helptext [validation]="true" [persistent]="false">Username is required</p>
+    </form>
+  </mdc-dialog-body>
+  <mdc-dialog-footer>
+    <button mdc-dialog-button [cancel]="true">Cancel</button>
+    <button mdc-dialog-button [action]="true" [focused]="true" type="submit" form="userForm">Update</button>
+  </mdc-dialog-footer>
 </mdc-dialog>
   </div>
 </div>

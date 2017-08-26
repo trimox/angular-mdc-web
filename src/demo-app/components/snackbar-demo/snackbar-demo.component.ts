@@ -3,7 +3,7 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { SnackbarMessage, SnackbarComponent } from '@angular-mdc/web';
+import { SnackbarMessage, SnackbarComponent } from '../../../lib/public_api';
 
 @Component({
   selector: 'snackbar-demo',

@@ -69,7 +69,10 @@ module.exports = [{
     rules: [{
       test: /\.ts$/,
       use: [{
-        loader: 'babel-loader?presets[]=env',
+        loader: 'babel-loader',
+        options: {
+          presets: ['env']
+        }
       }, {
         loader: 'awesome-typescript-loader',
         options: {

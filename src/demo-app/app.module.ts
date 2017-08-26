@@ -1,8 +1,8 @@
 ﻿import { ApplicationRef, NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -27,7 +27,6 @@ import { TypographyDemoComponent } from './components/typography-demo/typography
 import { TabDemoComponent, ItemOneContent, ItemTwoContent, ItemThreeContent } from './components/tab-demo/tab-demo.component';
 
 import { MaterialModule } from '@angular-mdc/web';
-// import { MaterialModule } from '../lib/public_api';
 
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navigation/navbar.component';
@@ -39,6 +38,7 @@ import { demoAppRoutes } from './routes';
     BrowserModule,
     FormsModule,
     HttpModule,
+    ReactiveFormsModule,
     FlexLayoutModule,
     MaterialModule,
     RouterModule.forRoot(demoAppRoutes, { useHash: true })

@@ -18,6 +18,9 @@
         <tr>
           <td>mdc-textfield-box</td>
         </tr>
+        <tr>
+          <td>mdc-textarea</td>
+        </tr>
       </tbody>
       <thead>
         <tr>
@@ -79,37 +82,23 @@
           <td>Number of rows for this textarea. Not usable with mdc-textfield-box.</td>
         </tr>
         <tr>
-          <td>@Input() cols: number</td>
+          <td>cols: number</td>
           <td>Number of columns for this textarea. Not usable with mdc-textfield-box.</td>
         </tr>
         <tr>
-          <td>@Input() maxlength: number</td>
+          <td>maxlength: number</td>
           <td>Maxlength of characters allowed to be entered.</td>
         </tr>
       </tbody>
-      <thead>
+    </table>
+    <table>
+    <thead>
         <tr>
-          <th>Event</th>
+          <th>Methods</th>
           <th>Description</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>focus</td>
-          <td>Native input element for a "focus" event.</td>
-        </tr>
-        <tr>
-          <td>blur</td>
-          <td>Native input element for a "blur" event.</td>
-        </tr>
-        <tr>
-          <td>input</td>
-          <td>Native input element for a "input" event.</td>
-        </tr>
-        <tr>
-          <td>keydown</td>
-          <td>Native input element for a "keydown" event.</td>
-        </tr>
       </tbody>
     </table>
     <table>
@@ -132,11 +121,11 @@
       </thead>
       <tbody>
         <tr>
-          <td>@Input() validation: boolean</td>
+          <td>validation: boolean</td>
           <td>Help text can be used to provide additional validation messages.</td>
         </tr>
         <tr>
-          <td>@Input() persistent: boolean</td>
+          <td>persistent: boolean</td>
           <td>Help text will always be visible.</td>
         </tr>
       </tbody>
@@ -165,10 +154,7 @@
   [<span style="color:#89bdff">required</span>]=<span style="color:#65b042">"true"</span>
   [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"false"</span>
   [<span style="color:#89bdff">dense</span>]=<span style="color:#65b042">"false"</span>
-  (<span style="color:#89bdff">focus</span>)=<span style="color:#65b042">"handleFocus($event);"</span>
-  (<span style="color:#89bdff">blur</span>)=<span style="color:#65b042">"handleBlur($event);"</span>
-  (<span style="color:#89bdff">input</span>)=<span style="color:#65b042">"handleInput($event);"</span>
-  (<span style="color:#89bdff">keydown</span>)=<span style="color:#65b042">"handleKeyDown($event);"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>></span>
+</span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>></span>
 <span style="color:#89bdff">&lt;<span style="color:#89bdff">p</span> <span style="color:#89bdff">mdc-textfield-helptext</span>
   [<span style="color:#89bdff">validation</span>]=<span style="color:#65b042">"true"</span>
   [<span style="color:#89bdff">persistent</span>]=<span style="color:#65b042">"false"</span>></span>Username is required<span style="color:#89bdff">&lt;/<span style="color:#89bdff">p</span>></span>
@@ -189,7 +175,7 @@
   [<span style="color:#89bdff">required</span>]=<span style="color:#65b042">"true"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>></span>
 </pre></div>
 </div>
-    <span mdc-typography-headline>Text Field box</span>
+    <span mdc-typography-headline>Text field box</span>
     <span mdc-typography-caption>Use mdc-textfield-box</span>
     <div fxFlexAlign="start" class="mdc-padding">
       <mdc-textfield-box
@@ -214,21 +200,20 @@
   <div fxLayout="column" class="mdc-padding">
     <span mdc-typography-headline>Multi-line</span>
     <div fxFlexAlign="start">
-      <mdc-textfield [(ngModel)]="comments" id="comments" label="Comments" rows="8" cols="40" [multiline]="true"></mdc-textfield>
+      <mdc-textarea label="Comments" rows="8" cols="40" [multiline]="true"></mdc-textarea>
     </div>
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>
- [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"comments"</span>
+    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textarea</span>
  <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Comments"</span>
  <span style="color:#89bdff">rows</span>=<span style="color:#65b042">"8"</span>
  <span style="color:#89bdff">cols</span>=<span style="color:#65b042">"40"</span>
- [<span style="color:#89bdff">multiline</span>]=<span style="color:#65b042">"true"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>></span>
+ [<span style="color:#89bdff">multiline</span>]=<span style="color:#65b042">"true"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textarea</span>></span>
 </pre> </div>
   <div fxLayout="column" class="mdc-padding">
     <span mdc-typography-headline>Full-width single line</span>
     <div>
-      <mdc-textfield [(ngModel)]="subject" id="subject" placeholder="Subject" [fullwidth]="true"></mdc-textfield>
+      <mdc-textfield placeholder="Subject" [fullwidth]="true"></mdc-textfield>
     </div>
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span> [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"subject"</span>
+    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>
   <span style="color:#89bdff">placeholder</span>=<span style="color:#65b042">"Subject"</span>
   [<span style="color:#89bdff">fullwidth</span>]=<span style="color:#65b042">"true"</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>></span>
@@ -237,14 +222,14 @@
   <div fxLayout="column" class="mdc-padding">
     <span mdc-typography-headline>Full-width multi-line</span>
     <div>
-      <mdc-textfield [(ngModel)]="message" id="message" placeholder="Type your message here" [fullwidth]="true" [multiline]="true" rows="8"></mdc-textfield>
+      <mdc-textarea placeholder="Type your message here" [fullwidth]="true" [multiline]="true" rows="8"></mdc-textarea>
     </div>
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span> [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"message"</span>
+    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textarea</span>
   <span style="color:#89bdff">placeholder</span>=<span style="color:#65b042">"Type your message here"</span>
   [<span style="color:#89bdff">fullwidth</span>]=<span style="color:#65b042">"true"</span>
   [<span style="color:#89bdff">multiline</span>]=<span style="color:#65b042">"true"</span>
   <span style="color:#89bdff">rows</span>=<span style="color:#65b042">"8"</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textarea</span>></span>
 </pre>
   </div>
 </div>

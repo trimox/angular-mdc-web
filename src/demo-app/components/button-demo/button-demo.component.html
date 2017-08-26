@@ -51,8 +51,8 @@
           <td>Colors the button with the accent color.</td>
         </tr>
         <tr>
-          <td>@Input() cardAction: boolean</td>
-          <td>Correctly sets position of card action buttons. (Sets compact to true automatically)</td>
+          <td>@Input() unelevated: boolean</td>
+          <td>A contained button that is flush with the surface.</td>
         </tr>
         <tr>
           <td>@Input() disabled: boolean</td>
@@ -84,6 +84,9 @@ Example: disableRipple="true" or disableRipple]]></code></pre></td>
   [<span style="color:#e0c589">primary</span>]=<span style="color:#65b042">"true"</span>
   [<span style="color:#e0c589">raised</span>]=<span style="color:#65b042">"true"</span>
   [<span style="color:#e0c589">disableRipple</span>]=<span style="color:#65b042">"true"</span>></span>Ink ripple - Disabled<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+</pre>
+  <button mdc-button [unelevated]="true">Unelevated</button>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">unelevated</span>]=<span style="color:#65b042">"true"</span>></span>Unelevated<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
 </pre>
   <button mdc-button [accent]="true">Accent</button>
   <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">accent</span>]=<span style="color:#65b042">"true"</span>></span>Accent<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>

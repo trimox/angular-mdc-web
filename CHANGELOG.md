@@ -1,4 +1,37 @@
 <a name="0.0.0"></a>
+# [0.3.0](https://github.com/trimox/angular-mdc-web/compare/v0.2.9...v0.3.0) (2017-08-26)
+
+
+### Bug Fixes
+
+* **dialog:** Set initialFocus to Dialog node, if [accept] is false ([#92](https://github.com/trimox/angular-mdc-web/issues/92)) ([1086817](https://github.com/trimox/angular-mdc-web/commit/1086817))
+
+
+### Features
+
+* **button:** Add unelevated property to button ([#106](https://github.com/trimox/angular-mdc-web/issues/106)) ([22d74ab](https://github.com/trimox/angular-mdc-web/commit/22d74ab)), closes [#101](https://github.com/trimox/angular-mdc-web/issues/101)
+* **card:** Add [mdc-card-button] + refactoring ([#90](https://github.com/trimox/angular-mdc-web/issues/90)) ([3c6ccc1](https://github.com/trimox/angular-mdc-web/commit/3c6ccc1))
+* **dialog:** Add [focused] property to Dialog Button ([#100](https://github.com/trimox/angular-mdc-web/issues/100)) ([0ac5394](https://github.com/trimox/angular-mdc-web/commit/0ac5394)), closes [#96](https://github.com/trimox/angular-mdc-web/issues/96)
+* **dialog:** Add MDC v0.18's layoutFooterRipples() adapter method ([#91](https://github.com/trimox/angular-mdc-web/issues/91)) ([c3c024e](https://github.com/trimox/angular-mdc-web/commit/c3c024e))
+* **package:** Update MDC dependency to v0.19.0 ([#104](https://github.com/trimox/angular-mdc-web/issues/104)) ([d97fda4](https://github.com/trimox/angular-mdc-web/commit/d97fda4))
+* **ripple:** Expose foundation's layout() as public method ([0205483](https://github.com/trimox/angular-mdc-web/commit/0205483))
+* **textfield:** Implement MDC Textarea Component ([#98](https://github.com/trimox/angular-mdc-web/issues/98)) ([e3f1eff](https://github.com/trimox/angular-mdc-web/commit/e3f1eff)), closes [#95](https://github.com/trimox/angular-mdc-web/issues/95)
+* **textfield:** Improvements + new features! ([#99](https://github.com/trimox/angular-mdc-web/issues/99)) ([f01339c](https://github.com/trimox/angular-mdc-web/commit/f01339c)), closes [#97](https://github.com/trimox/angular-mdc-web/issues/97)
+
+
+### BREAKING CHANGES
+
+* **textfield:** Multiline textarea was refactored out as the new MDC Textarea component. Please update your code accordingly.
+Example: `<mdc-textarea label="Comments" rows="8" cols="40" [multiline]="true"></mdc-textarea>`
+* **dialog:** Removed [mdc-dialog-button-accept] and [mdc-dialog-button-cancel] directives.
+Please update your code to use [mdc-dialog-button].
+* **card:** Property [cardAction] of mdc-button was removed, you'll need to use
+mdc-card-button. Please update your code accordingly.
+* **card:** [darkTheme] property was removed from Card. Use [mdc-theme-dark] instead.
+
+
+
+<a name="0.0.0"></a>
 # [0.2.9](https://github.com/trimox/angular-mdc-web/compare/v0.2.8...v0.2.9) (2017-08-18)
 
 

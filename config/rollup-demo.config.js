@@ -2,7 +2,7 @@ import nodeResolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 
 export default {
-  entry: 'publish-demo/main-aot.js',
+  entry: 'publish-demo/demo-app/main-aot.js',
   dest: 'publish-demo/dist/build.js',
   format: 'iife',
   sourceMap: true,

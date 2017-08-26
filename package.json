@@ -47,7 +47,7 @@
     "@angular/platform-browser-dynamic": "^4.3.4",
     "@angular/router": "^4.3.4",
     "core-js": "^2.5.0",
-    "material-components-web": "^0.17.0",
+    "material-components-web": "^0.19.0",
     "rxjs": "^5.4.3",
     "zone.js": "^0.8.16"
   },

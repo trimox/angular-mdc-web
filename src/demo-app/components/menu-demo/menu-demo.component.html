@@ -25,7 +25,7 @@
       </thead>
       <tbody>
         <tr>
-          <td>openFrom: MenuOpenFrom</td>
+          <td>openFrom: string</td>
           <td>Override the opening point of the menu. (default: topLeft)
             <pre><code><![CDATA[enum MenuOpenFrom {
   topLeft,
@@ -103,39 +103,41 @@ If the focusIndex is omitted, no menu item will be focused.]]></pre></td>
     <div fxLayout="column">
       <p>Open from:</p>
       <mdc-form-field>
-        <mdc-radio value="topLeft" (change)="handleChange();" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
+        <mdc-radio value="topLeft" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
         <label>Top Left</label>
       </mdc-form-field>
       <mdc-form-field>
-        <mdc-radio value="topRight" (change)="handleChange();" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
+        <mdc-radio value="topRight" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
         <label>Top Right</label>
       </mdc-form-field>
       <mdc-form-field>
-        <mdc-radio value="bottomLeft" (change)="handleChange();" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
+        <mdc-radio value="bottomLeft" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
         <label>Bottom Left</label>
       </mdc-form-field>
       <mdc-form-field>
-        <mdc-radio value="bottomRight" (change)="handleChange();" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
+        <mdc-radio value="bottomRight" name="radioGroup" [(ngModel)]="openingPoint"></mdc-radio>
         <label>Bottom Right</label>
       </mdc-form-field>
     </div>
-    <div mdc-menu-anchor style="margin-left: 25px;">
-      <button mdc-button [primary]="true" [raised]="true" (click)="showMenu();">
-        Open Menu
-      </button>
-      <mdc-menu #menu (select)="handleMenuSelect($event);">
-        <mdc-menu-item [id]="0">Item 1</mdc-menu-item>
-        <mdc-menu-item [id]="1" [disabled]="true">Item 2</mdc-menu-item>
-        <mdc-menu-item [id]="2">Item 3</mdc-menu-item>
-        <mdc-menu-divider></mdc-menu-divider>
-        <mdc-menu-item [id]="3">Item 4</mdc-menu-item>
-      </mdc-menu>
-    </div>
+<div mdc-menu-anchor style="margin-left: 25px;">
+  <button mdc-button [primary]="true" [raised]="true" (click)="showMenu();">
+    Open Menu
+  </button>
+  <mdc-menu #menu (select)="handleMenuSelect($event);" [openFrom]="openingPoint">
+    <mdc-menu-item [id]="0">Item 1</mdc-menu-item>
+    <mdc-menu-item [id]="1" [disabled]="true">Item 2</mdc-menu-item>
+    <mdc-menu-item [id]="2">Item 3</mdc-menu-item>
+    <mdc-menu-divider></mdc-menu-divider>
+    <mdc-menu-item [id]="3">Item 4</mdc-menu-item>
+  </mdc-menu>
+</div>
   </div>
   <p mdc-typography-body1>Selected index: {{selectedIndex}}</p>
 <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">mdc-menu-anchor</span>></span>
-  <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">primary</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#e0c589">raised</span>]=<span style="color:#65b042">"true"</span> (<span style="color:#e0c589">click</span>)=<span style="color:#65b042">"showMenu();"</span>></span>Open Menu<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu</span> #<span style="color:#89bdff">menu</span> (<span style="color:#89bdff">select</span>)=<span style="color:#65b042">"handleMenuSelect($event);"</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">primary</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#e0c589">raised</span>]=<span style="color:#65b042">"true"</span> (<span style="color:#e0c589">click</span>)=<span style="color:#65b042">"showMenu();"</span>></span>
+    Open Menu
+  <span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu</span> #<span style="color:#89bdff">menu</span> (<span style="color:#89bdff">select</span>)=<span style="color:#65b042">"handleMenuSelect($event);"</span> [<span style="color:#89bdff">openFrom</span>]=<span style="color:#65b042">"topLeft"</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span> [<span style="color:#89bdff">id</span>]=<span style="color:#65b042">"0"</span>></span>Item 1<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span> [<span style="color:#89bdff">id</span>]=<span style="color:#65b042">"1"</span> [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"true"</span>></span>Item 2<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span> [<span style="color:#89bdff">id</span>]=<span style="color:#65b042">"2"</span>></span>Item 3<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span>></span>

@@ -7,10 +7,12 @@ import {
   EventEmitter,
   HostBinding,
   Input,
+  OnChanges,
   OnDestroy,
   Output,
   QueryList,
   Renderer2,
+  SimpleChange,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
@@ -53,15 +55,13 @@ export class MenuDividerComponent { }
   `,
   encapsulation: ViewEncapsulation.None
 })
-export class MenuComponent implements AfterViewInit, OnDestroy {
+export class MenuComponent implements AfterViewInit, OnChanges, OnDestroy {
   private previousFocus_: any;
 
-  @Input() openFrom: MenuOpenFrom = MenuOpenFrom.topLeft;
+  @Input() openFrom: string;
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
   @Output() select: EventEmitter<any> = new EventEmitter();
-  @HostBinding('class') get className(): string {
-    return `mdc-simple-menu${MenuOpenFrom[this.openFrom] ? ` ${MenuOpenFrom[this.openFrom]}` : ''}`;
-  }
+  @HostBinding('class.mdc-simple-menu') isHostClass = true;
   @HostBinding('tabindex') tabindex: number = -1;
   @ViewChild('menuContainer') public menuContainerEl: ElementRef;
   @ContentChildren(MenuItemDirective) menuItems: QueryList<MenuItemDirective>;
@@ -215,13 +215,26 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
     this._foundation.destroy();
   }
 
+  ngOnChanges(changes: { [key: string]: SimpleChange }) {
+    let change = changes['openFrom'];
+
+    if (change) {
+      if (change.previousValue) {
+        this._mdcAdapter.removeClass(`${MenuOpenFrom[change.previousValue]}`);
+      }
+      if (change.currentValue) {
+        this._mdcAdapter.addClass(`${MenuOpenFrom[change.currentValue]}`);
+      }
+    }
+  }
+
   isOpen() {
     return this._foundation.isOpen();
   }
 
   open(focusIndex?: number) {
     if (!this.isOpen()) {
-      this._foundation.open({ focusIndex: focusIndex });
+      this._foundation.open({ focusIndex: focusIndex ? focusIndex : -1 });
     }
   }
 

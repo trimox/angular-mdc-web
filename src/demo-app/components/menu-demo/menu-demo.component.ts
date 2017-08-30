@@ -3,7 +3,7 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { MenuComponent, MenuOpenFrom } from '../../../lib/public_api';
+import { MenuComponent } from '../../../lib/public_api';
 
 @Component({
   selector: 'menu-demo',
@@ -11,16 +11,11 @@ import { MenuComponent, MenuOpenFrom } from '../../../lib/public_api';
 })
 export class MenuDemoComponent {
   selectedIndex = -1;
-  focusedItemIndex = null;
-  openingPoint: any = "topLeft";
+  openingPoint: string = "topLeft";
   @ViewChild('menu') menu: MenuComponent;
 
-  handleChange() {
-    this.menu.openFrom = this.openingPoint;
-  }
-
   showMenu() {
-    this.menu.open(this.focusedItemIndex);
+    this.menu.open();
   }
   handleMenuSelect(event: { index: number, item: HTMLElement }) {
     this.selectedIndex = event.index;

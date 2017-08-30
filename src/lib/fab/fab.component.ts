@@ -5,16 +5,18 @@ import {
   HostBinding,
   HostListener,
   Input,
-  OnChanges,
   Renderer2,
-  SimpleChange,
   ViewEncapsulation,
 } from '@angular/core';
 import { Ripple } from '../ripple/ripple.directive';
-import { toBoolean, KeyCodes, isSpaceKey } from '../common';
+import {
+  toBoolean,
+  KeyCodes,
+  isSpaceKey
+} from '../common';
 
 @Directive({
-  selector: ' mdc-fab-icon, [mdc-fab-icon]'
+  selector: 'mdc-fab-icon, [mdc-fab-icon]'
 })
 export class FabIconDirective {
   @HostBinding('class.mdc-fab__icon') isHostClass = true;
@@ -26,30 +28,15 @@ export class FabIconDirective {
   encapsulation: ViewEncapsulation.None,
   providers: [Ripple]
 })
-export class FabComponent implements OnChanges {
-  private _disabled: boolean = false;
-
+export class FabComponent {
   @Input() mini: boolean;
   @Input() plain: boolean;
-  @Input()
-  get disabled() { return this._disabled; }
-  set disabled(value) {
-    this._disabled = toBoolean(value);
-    if (this._disabled) {
-      this._renderer.setAttribute(this._root.nativeElement, "disabled", 'true');
-    } else {
-      this._renderer.removeAttribute(this._root.nativeElement, "disabled");
-    }
-  }
   @Input()
   get disableRipple() { return this._ripple.disabled; }
   set disableRipple(value) {
     this._ripple.disabled = toBoolean(value);
   }
   @HostBinding('class.mdc-fab') isHostClass = true;
-  @HostBinding('tabindex') get tabindex(): number {
-    return this.disabled ? -1 : 0;
-  }
   @HostBinding('class.material-icons') classMaterialIcons: string = 'material-icons';
   @HostBinding('class.mdc-fab--mini') get classMini(): string {
     return this.mini ? 'mdc-fab--mini' : '';
@@ -69,14 +56,6 @@ export class FabComponent implements OnChanges {
     private _root: ElementRef,
     private _ripple: Ripple) {
     this._ripple.init();
-  }
-
-  ngOnChanges(changes: { [key: string]: SimpleChange }) {
-    let change = changes['disabled'];
-
-    if (change) {
-      this._ripple.disabled = toBoolean(change.currentValue);
-    }
   }
 
   private handleKeyPress(keyboardEvent: KeyboardEvent) {

@@ -9,5 +9,5 @@ import {
 export class FabDemoComponent {
   isMini: boolean;
   isPlain: boolean;
-  isDisabled: boolean;
+  isRippleDisabled: boolean;
 }

@@ -16,9 +16,11 @@
   },
   "files": [
     "./app-module-dev.ts",
-    "./main.ts"
+    "./main-dev.ts"
   ],
   "exclude": [
-    "main-aot.ts"
+    "./app.module.ts",
+    "./main-aot.ts",
+    "./main.ts"
   ]
 }

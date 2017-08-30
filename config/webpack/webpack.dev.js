@@ -1,13 +1,12 @@
 const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const OUT_PATH = path.resolve('./publish');
-var util = require('./util');
+const OUT_PATH = path.resolve('./publish-demo');
 
 const CSS_LOADER_CONFIG = [{
   loader: 'css-loader',
   options: {
-    minimize: true
+    minimize: false,
   }
 }, {
   loader: 'postcss-loader',
@@ -19,73 +18,29 @@ const CSS_LOADER_CONFIG = [{
 }, {
   loader: 'sass-loader',
   options: {
-    includePaths: ['node_modules', 'node_modules/@material/*', 'sass']
+    includePaths:  ['node_modules', 'node_modules/@material/*']
   }
 }];
 
 module.exports = [{
-  name: 'css',
-  entry: path.resolve('./src/demo-app/sass/main.scss'),
-  output: {
-    path: OUT_PATH,
-    // this output file is replaced below when ExtractTextPlugin generates final css.
-    filename: 'assets/style.css'
+  entry: {
+    'polyfills': './src/demo-app/polyfills.ts',
+    'vendor': './src/demo-app/vendor.ts',
+    'app': './src/demo-app/main-dev.ts',
+    'css': './src/demo-app/sass/main.scss',
   },
-  module: {
-    rules: [{
-      test: /\.scss$/,
-      use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: CSS_LOADER_CONFIG
-      })
-    }]
+  devtool: 'inline-source-map',
+  devServer: {
+    contentBase: 'src/demo-app',
+    port: 4000
   },
-  plugins: [
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        postcss: function() {
-          return [autoprefixer];
-        }
-      }
-    }),
-    new ExtractTextPlugin('assets/style.css')
-  ]
-}, {
-  devtool: false,
   output: {
     path: OUT_PATH,
     filename: '[name].bundle.js'
   },
-  entry: {
-    'polyfills': './src/demo-app/polyfills.ts',
-    'vendor': './src/demo-app/vendor.ts',
-    'app': './src/demo-app/main.ts'
-  },
   resolve: {
     extensions: ['.js', '.ts'],
-    modules: [util.root('src'), util.root('node_modules')],
-  },
-  module: {
-    rules: [{
-      test: /\.ts$/,
-      use: [{
-        loader: 'babel-loader',
-        options: {
-          presets: ['env']
-        }
-      }, {
-        loader: 'awesome-typescript-loader',
-        options: {
-          configFileName: './src/demo-app/tsconfig.json'
-        }
-      }, {
-        loader: 'angular2-template-loader'
-      }],
-      exclude: [/\.(spec|e2e)\.ts$/]
-    }, {
-      test: /\.html$/,
-      loader: 'html-loader'
-    }]
+    modules: ['src', 'node_modules'],
   },
   plugins: [
     // Workaround for angular/angular#1158
@@ -93,9 +48,47 @@ module.exports = [{
       /angular(\\|\/)core(\\|\/)@angular/,
       path.resolve(__dirname, './src')
     ),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        postcss: function() {
+          return [autoprefixer];
+        }
+      }
+    }),
+    new ExtractTextPlugin('assets/style.css'),
     new webpack.optimize.CommonsChunkPlugin({
       name: ['app', 'vendor', 'polyfills'],
       minChunks: Infinity
     }),
-  ]
-}];
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['env']
+            },
+          }, {
+            loader: 'awesome-typescript-loader',
+            options: {
+              configFileName: './src/demo-app/tsconfig.json'
+            }
+          }, {
+            loader: 'angular2-template-loader'
+          }],
+        exclude: [/\.(spec|e2e)\.ts$/]
+      }, {
+          test: /\.html$/,
+          loader: 'html-loader'
+      }, {
+          test: /\.scss$/,
+          use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: CSS_LOADER_CONFIG
+      })
+    }]
+  }
+}]

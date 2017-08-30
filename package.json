@@ -33,7 +33,7 @@
     "lint:css": "stylelint src/**/*.scss --config .stylelint-config.yaml",
     "lint": "npm run lint:ts && npm run lint:css",
     "test": "karma start karma.conf.js --single-run",
-    "server": "webpack-dev-server --config config/webpack/webpack.dev.js --content-base src/demo-app --inline --port 4000",
+    "server": "webpack-dev-server --open --config config/webpack/webpack.dev.js",
     "start": "npm run server"
   },
   "license": "MIT",

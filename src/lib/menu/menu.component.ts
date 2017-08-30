@@ -219,7 +219,7 @@ export class MenuComponent implements AfterViewInit, OnDestroy {
     return this._foundation.isOpen();
   }
 
-  open(focusIndex: number) {
+  open(focusIndex?: number) {
     if (!this.isOpen()) {
       this._foundation.open({ focusIndex: focusIndex });
     }

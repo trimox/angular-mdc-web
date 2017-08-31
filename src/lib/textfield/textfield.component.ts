@@ -92,25 +92,19 @@ export class TextfieldLabelDirective {
   providers: [MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR],
 })
 export class TextfieldComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
-  private id_: string;
   private type_ = 'text';
   private disabled_ = false;
   private required_ = false;
-  private cachedId: string;
   private controlValueAccessorChangeFn_: (value: any) => void = (value) => { };
   onChange = (_: any) => { };
   onTouched = () => { };
 
+  @Input() id: string = `mdc-input-${nextUniqueId++}`;
   @Input() fullwidth: boolean;
   @Input() dense: boolean;
   @Input() label: string;
   @Input() maxlength: number;
   @Input() placeholder: string = '';
-  @Input()
-  get id() { return this.id_; }
-  set id(value: string) {
-    this.id_ = value || this.setUniqueId();
-  }
   @Input() tabindex: number;
   @Input()
   get disabled() { return this.disabled_; }
@@ -246,7 +240,6 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy, ControlValu
 
   ngAfterViewInit() {
     this._foundation.init();
-    this.id = this.id;
   }
 
   ngOnDestroy() {
@@ -282,11 +275,6 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy, ControlValu
   onBlur() {
     this.inputText.focused = false;
     this.onTouched();
-  }
-
-  setUniqueId(): string {
-    this.cachedId = this.cachedId || `mdc-input-${nextUniqueId++}`;
-    return this.cachedId;
   }
 
   isDisabled() {

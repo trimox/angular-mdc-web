@@ -15,7 +15,7 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, RadioControlValueAccessor } from '@angular/forms';
 import { toBoolean } from '../common';
-import { Ripple } from '../ripple/ripple.directive';
+import { MdcRipple } from '../ripple/ripple.directive';
 
 import { MDCRadioAdapter } from './radio-adapter';
 import { MDCRadioFoundation } from '@material/radio';
@@ -24,7 +24,7 @@ let nextElId_ = 0;
 
 export const MD_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => RadioComponent),
+  useExisting: forwardRef(() => MdcRadioComponent),
   multi: true
 };
 
@@ -52,11 +52,11 @@ export const MD_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
   encapsulation: ViewEncapsulation.None,
   providers: [
     MD_RADIO_CONTROL_VALUE_ACCESSOR,
-    Ripple
+    MdcRipple
   ]
 })
 
-export class RadioComponent implements AfterViewInit, OnDestroy {
+export class MdcRadioComponent implements AfterViewInit, OnDestroy {
   @Input() id: string = `mdc-radio-${++nextElId_}`;
   get inputId(): string {
     return `input-${this.id}`;
@@ -119,7 +119,7 @@ export class RadioComponent implements AfterViewInit, OnDestroy {
   constructor(
     private _renderer: Renderer2,
     public root: ElementRef,
-    public ripple: Ripple) {
+    public ripple: MdcRipple) {
     this.ripple.init(true);
   }
 

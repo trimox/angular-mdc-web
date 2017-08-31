@@ -18,14 +18,14 @@ import {
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { toBoolean } from '../common';
 import { EventRegistry } from '../common/event-registry';
-import { Ripple } from '../ripple/ripple.directive';
+import { MdcRipple } from '../ripple/ripple.directive';
 
 import { MDCIconToggleAdapter } from './adapter';
 import { MDCIconToggleFoundation } from '@material/icon-toggle';
 
 export const MD_ICON_TOGGLE_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => IconToggleComponent),
+  useExisting: forwardRef(() => MdcIconToggleComponent),
   multi: true
 };
 
@@ -35,10 +35,10 @@ export const MD_ICON_TOGGLE_CONTROL_VALUE_ACCESSOR: Provider = {
   encapsulation: ViewEncapsulation.None,
   providers: [
     MD_ICON_TOGGLE_CONTROL_VALUE_ACCESSOR,
-    Ripple
+    MdcRipple
   ],
 })
-export class IconToggleComponent implements AfterViewInit, OnChanges, OnDestroy {
+export class MdcIconToggleComponent implements AfterViewInit, OnChanges, OnDestroy {
   private value_: boolean = false;
 
   @Input() iconOn: string;
@@ -134,7 +134,7 @@ export class IconToggleComponent implements AfterViewInit, OnChanges, OnDestroy 
   constructor(
     private _renderer: Renderer2,
     private _root: ElementRef,
-    private _ripple: Ripple,
+    private _ripple: MdcRipple,
     private _registry: EventRegistry) { }
 
   ngOnChanges(changes: { [key: string]: SimpleChange }) {

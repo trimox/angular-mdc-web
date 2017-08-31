@@ -1,40 +1,40 @@
 import { NgModule } from '@angular/core';
 
 import {
-  TabComponent,
-  TabIconDirective,
-  TabIconTextDirective,
+  MdcTabComponent,
+  MdcTabIconDirective,
+  MdcTabIconTextDirective,
 } from './tab/tab.component';
 
 import {
-  TabBarDirective,
+  MdcTabBarDirective,
 } from './tab-bar/tab-bar.directive';
 
 import {
-  TabBarScrollerDirective,
-  TabBarScrollBackDirective,
-  TabBarScrollForwardDirective,
-  TabBarScrollFrameDirective,
-  TabBarScrollIndicatorInnerDirective,
+  MdcTabBarScrollerDirective,
+  MdcTabBarScrollBackDirective,
+  MdcTabBarScrollForwardDirective,
+  MdcTabBarScrollFrameDirective,
+  MdcTabBarScrollIndicatorInnerDirective,
 } from './tab-bar-scroller/tab-bar-scroller.component';
 
 const TAB_COMPONENTS = [
-  TabComponent,
-  TabIconDirective,
-  TabIconTextDirective,
-  TabBarDirective,
-  TabBarScrollerDirective,
-  TabBarScrollBackDirective,
-  TabBarScrollForwardDirective,
-  TabBarScrollFrameDirective,
-  TabBarScrollIndicatorInnerDirective,
+  MdcTabComponent,
+  MdcTabIconDirective,
+  MdcTabIconTextDirective,
+  MdcTabBarDirective,
+  MdcTabBarScrollerDirective,
+  MdcTabBarScrollBackDirective,
+  MdcTabBarScrollForwardDirective,
+  MdcTabBarScrollFrameDirective,
+  MdcTabBarScrollIndicatorInnerDirective,
 ];
 
 @NgModule({
   exports: TAB_COMPONENTS,
   declarations: TAB_COMPONENTS
 })
-export class TabModule { }
+export class MdcTabModule { }
 
 export * from './tab/tab.component';
 export * from './tab-bar/tab-bar.directive';

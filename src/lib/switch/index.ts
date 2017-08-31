@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 
-import { SwitchComponent } from './switch.component';
+import { MdcSwitchComponent } from './switch.component';
 
 @NgModule({
-  exports: [SwitchComponent],
-  declarations: [SwitchComponent],
+  exports: [MdcSwitchComponent],
+  declarations: [MdcSwitchComponent],
 })
-export class SwitchModule { }
+export class MdcSwitchModule { }
 
 export * from './switch.component';

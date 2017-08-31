@@ -12,7 +12,7 @@ import { toNumber } from '../common';
 @Directive({
   selector: '[mdc-elevation-transition]'
 })
-export class ElevationTransition {
+export class MdcElevationTransition {
   @HostBinding('class.mdc-elevation-transition') isHostClass = true;
 }
 
@@ -21,7 +21,7 @@ const MDC_ELEVATION_VALUES = Array.from(Array(25), (x, i) => i);
 @Directive({
   selector: '[mdc-elevation]'
 })
-export class ElevationDirective implements OnChanges {
+export class MdcElevationDirective implements OnChanges {
   private nativeEl: ElementRef;
   private _mdcElevation: number = 0;
 

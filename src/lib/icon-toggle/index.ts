@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import {
-  IconToggleComponent,
-} from './icon-toggle.component';
+import { MdcIconToggleComponent } from './icon-toggle.component';
 
 const ICON_TOGGLE_COMPONENTS = [
-  IconToggleComponent,
+  MdcIconToggleComponent,
 ];
 
 @NgModule({
@@ -14,6 +12,6 @@ const ICON_TOGGLE_COMPONENTS = [
   exports: ICON_TOGGLE_COMPONENTS,
   declarations: ICON_TOGGLE_COMPONENTS
 })
-export class IconToggleModule { }
+export class MdcIconToggleModule { }
 
 export * from './icon-toggle.component';

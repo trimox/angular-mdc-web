@@ -8,7 +8,7 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import { Ripple } from '../ripple/ripple.directive';
+import { MdcRipple } from '../ripple/ripple.directive';
 import {
   toBoolean,
   KeyCodes,
@@ -18,7 +18,7 @@ import {
 @Directive({
   selector: 'mdc-fab-icon, [mdc-fab-icon]'
 })
-export class FabIconDirective {
+export class MdcFabIconDirective {
   @HostBinding('class.mdc-fab__icon') isHostClass = true;
 }
 
@@ -26,9 +26,9 @@ export class FabIconDirective {
   selector: 'button[mdc-fab], a[mdc-fab]',
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
-  providers: [Ripple]
+  providers: [MdcRipple]
 })
-export class FabComponent {
+export class MdcFabComponent {
   @Input() mini: boolean;
   @Input() plain: boolean;
   @Input()
@@ -54,7 +54,7 @@ export class FabComponent {
   constructor(
     private _renderer: Renderer2,
     private _root: ElementRef,
-    private _ripple: Ripple) {
+    private _ripple: MdcRipple) {
     this._ripple.init();
   }
 

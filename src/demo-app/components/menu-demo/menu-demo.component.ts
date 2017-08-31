@@ -3,7 +3,7 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { MenuComponent } from '../../../lib/public_api';
+import { MdcMenuComponent } from '../../../lib/public_api';
 
 @Component({
   selector: 'menu-demo',
@@ -12,7 +12,7 @@ import { MenuComponent } from '../../../lib/public_api';
 export class MenuDemoComponent {
   selectedIndex = -1;
   openingPoint: string = "topLeft";
-  @ViewChild('menu') menu: MenuComponent;
+  @ViewChild('menu') menu: MdcMenuComponent;
 
   showMenu() {
     this.menu.open();

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 
-import { MaterialIcon } from './material-icon.directive';
+import { MdcMaterialIcon } from './material-icon.directive';
 
 @NgModule({
-  exports: [MaterialIcon],
-  declarations: [MaterialIcon],
+  exports: [MdcMaterialIcon],
+  declarations: [MdcMaterialIcon],
 })
-export class MaterialIconModule { }
+export class MdcMaterialIconModule { }
 
 export * from './material-icon.directive';

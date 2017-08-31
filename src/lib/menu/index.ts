@@ -2,18 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
-  MenuComponent,
-  MenuDividerComponent,
-  MenuAnchorDirective,
+  MdcMenuComponent,
+  MdcMenuDividerComponent,
+  MdcMenuAnchorDirective,
   MenuOpenFrom,
 } from './menu.component';
-import { MenuItemDirective } from './menu-item.directive';
+import { MdcMenuItemDirective } from './menu-item.directive';
 
 const MENU_COMPONENTS = [
-  MenuComponent,
-  MenuItemDirective,
-  MenuAnchorDirective,
-  MenuDividerComponent,
+  MdcMenuComponent,
+  MdcMenuItemDirective,
+  MdcMenuAnchorDirective,
+  MdcMenuDividerComponent,
 ];
 
 @NgModule({
@@ -21,7 +21,7 @@ const MENU_COMPONENTS = [
   exports: [MENU_COMPONENTS],
   declarations: [MENU_COMPONENTS],
 })
-export class MenuModule { }
+export class MdcMenuModule { }
 
 export * from './menu.component';
 export * from './menu-item.directive';

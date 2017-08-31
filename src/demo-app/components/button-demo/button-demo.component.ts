@@ -3,7 +3,7 @@ import {
 	ViewChild
 } from '@angular/core';
 
-import { SnackbarMessage, SnackbarComponent } from '../../../lib/public_api';
+import { SnackbarMessage, MdcSnackbarComponent } from '../../../lib/public_api';
 
 @Component({
 	selector: 'button-demo',
@@ -11,7 +11,7 @@ import { SnackbarMessage, SnackbarComponent } from '../../../lib/public_api';
 })
 export class ButtonDemoComponent {
 	message: SnackbarMessage;
-	@ViewChild('snack') snack: SnackbarComponent;
+	@ViewChild('snack') snack: MdcSnackbarComponent;
 
 	handleClick() {
 		this.message = {

@@ -20,8 +20,8 @@ import { isBrowser } from '../common';
 import { EventRegistry } from '../common/event-registry';
 import focusTrap from 'focus-trap';
 
-import { Ripple } from '../ripple/ripple.directive';
-import { ButtonComponent } from '../button/button.component';
+import { MdcRipple } from '../ripple/ripple.directive';
+import { MdcButtonComponent } from '../button/button.component';
 
 import { MDCDialogAdapter } from './dialog-adapter';
 import { MDCDialogFoundation } from '@material/dialog';
@@ -31,7 +31,7 @@ export { focusTrap };
 @Directive({
   selector: '[mdc-dialog-surface], mdc-dialog-surface'
 })
-export class DialogSurfaceDirective {
+export class MdcDialogSurfaceDirective {
   @HostBinding('class.mdc-dialog__surface') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -40,7 +40,7 @@ export class DialogSurfaceDirective {
 @Directive({
   selector: '[mdc-dialog-header], mdc-dialog-header'
 })
-export class DialogHeaderDirective {
+export class MdcDialogHeaderDirective {
   @HostBinding('class.mdc-dialog__header') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -49,7 +49,7 @@ export class DialogHeaderDirective {
 @Directive({
   selector: '[mdc-dialog-header-title], mdc-dialog-header-title'
 })
-export class DialogHeaderTitleDirective {
+export class MdcDialogHeaderTitleDirective {
   @HostBinding('class.mdc-dialog__header__title') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -58,7 +58,7 @@ export class DialogHeaderTitleDirective {
 @Directive({
   selector: '[mdc-dialog-body], mdc-dialog-body'
 })
-export class DialogBodyDirective {
+export class MdcDialogBodyDirective {
   @Input() scrollable: boolean;
   @HostBinding('class.mdc-dialog__body') isHostClass = true;
   @HostBinding('class.mdc-dialog__body--scrollable') get classScrollable(): string {
@@ -71,7 +71,7 @@ export class DialogBodyDirective {
 @Directive({
   selector: '[mdc-dialog-footer], mdc-dialog-footer'
 })
-export class DialogFooterDirective {
+export class MdcDialogFooterDirective {
   @HostBinding('class.mdc-dialog__footer') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -80,7 +80,7 @@ export class DialogFooterDirective {
 @Directive({
   selector: '[mdc-dialog-backdrop], mdc-dialog-backdrop'
 })
-export class DialogBackdropDirective {
+export class MdcDialogBackdropDirective {
   @HostBinding('class.mdc-dialog__backdrop') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -88,16 +88,16 @@ export class DialogBackdropDirective {
 
 @Directive({
   selector: 'button[mdc-dialog-button], a[mdc-dialog-button]',
-  providers: [Ripple]
+  providers: [MdcRipple]
 })
-export class DialogButtonDirective extends ButtonComponent {
+export class MdcDialogButtonDirective extends MdcButtonComponent {
   @Input() accept: boolean;
   @Input() cancel: boolean;
   @Input() action: boolean;
   @Input() focused: boolean;
 
   @HostBinding('class.mdc-dialog__footer__button') get isFooterButton(): string {
-    return this.renderer.parentNode(this.elementRef) === DialogFooterDirective ? 'mdc-dialog__footer__button' : '';
+    return this.renderer.parentNode(this.elementRef) === MdcDialogFooterDirective ? 'mdc-dialog__footer__button' : '';
   }
   @HostBinding('class.mdc-dialog__action') get classAction(): string {
     return this.action ? 'mdc-dialog__action' : '';
@@ -112,7 +112,7 @@ export class DialogButtonDirective extends ButtonComponent {
   constructor(
     @Inject(Renderer2) renderer: Renderer2,
     @Inject(ElementRef) elementRef: ElementRef,
-    @Inject(Ripple) ripple: Ripple) {
+    @Inject(MdcRipple) ripple: MdcRipple) {
     super(renderer, elementRef, ripple);
   }
 }
@@ -128,7 +128,7 @@ export class DialogButtonDirective extends ButtonComponent {
   `,
   encapsulation: ViewEncapsulation.None
 })
-export class DialogComponent implements AfterViewInit, OnDestroy {
+export class MdcDialogComponent implements AfterViewInit, OnDestroy {
   private focusTrap_: any;
 
   @Input() clickOutsideToClose: boolean = true;
@@ -138,9 +138,9 @@ export class DialogComponent implements AfterViewInit, OnDestroy {
   @HostBinding('attr.role') role: string = 'alertdialog';
   @HostBinding('attr.aria-hidden') ariaHidden: string = 'true';
   @HostBinding('tabindex') tabindex: number = -1;
-  @ViewChild(DialogSurfaceDirective) dialogSurface: DialogSurfaceDirective;
-  @ContentChild(DialogBodyDirective) dialogBody: DialogBodyDirective;
-  @ContentChildren(DialogButtonDirective, { descendants: true }) dialogButtons: QueryList<DialogButtonDirective>;
+  @ViewChild(MdcDialogSurfaceDirective) dialogSurface: MdcDialogSurfaceDirective;
+  @ContentChild(MdcDialogBodyDirective) dialogBody: MdcDialogBodyDirective;
+  @ContentChildren(MdcDialogButtonDirective, { descendants: true }) dialogButtons: QueryList<MdcDialogButtonDirective>;
 
   private _mdcAdapter: MDCDialogAdapter = {
     addClass: (className: string) => {

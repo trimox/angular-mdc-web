@@ -15,12 +15,10 @@
     "typeRoots": ["../../node_modules/@types"]
   },
   "files": [
-    "./app-module-dev.ts",
-    "./main-dev.ts"
+    "./app-module.ts",
+    "./main.ts"
   ],
   "exclude": [
-    "./app.module.ts",
-    "./main-aot.ts",
-    "./main.ts"
+    "./main-aot.ts"
   ]
 }

@@ -9,7 +9,7 @@ import {
 @Directive({
   selector: 'mdc-menu-item'
 })
-export class MenuItemDirective {
+export class MdcMenuItemDirective {
   private disabled_: boolean = false;
   
   @Input() id: string;

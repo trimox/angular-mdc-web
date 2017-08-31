@@ -11,7 +11,7 @@ import { toBoolean } from '../common';
 @Directive({
   selector: '[mdc-theme-dark]'
 })
-export class ThemeDark implements OnChanges {
+export class MdcThemeDark implements OnChanges {
   private nativeEl: ElementRef;
   private _mdcThemeDark: boolean;
 

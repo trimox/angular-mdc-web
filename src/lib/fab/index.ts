@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 
 import {
-  FabComponent,
-  FabIconDirective,
+  MdcFabComponent,
+  MdcFabIconDirective,
 } from './fab.component';
 
 const FAB_COMPONENTS = [
-  FabComponent,
-  FabIconDirective,
+  MdcFabComponent,
+  MdcFabIconDirective,
 ];
 
 @NgModule({
   exports: [FAB_COMPONENTS],
   declarations: [FAB_COMPONENTS],
 })
-export class FabModule { }
+export class MdcFabModule { }
 
 export * from './fab.component';

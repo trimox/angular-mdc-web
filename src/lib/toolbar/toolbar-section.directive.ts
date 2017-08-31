@@ -7,7 +7,7 @@ import {
 @Directive({
   selector: 'mdc-toolbar-section'
 })
-export class ToolbarSectionDirective {
+export class MdcToolbarSectionDirective {
   @Input() alignStart: boolean;
   @Input() alignEnd: boolean;
   @Input() shrinkToFit: boolean;

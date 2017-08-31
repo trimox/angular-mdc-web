@@ -7,7 +7,7 @@ import {
 @Directive({
   selector: '[mdc-snackbar-text], mdc-snackbar-text'
 })
-export class SnackbarTextDirective {
+export class MdcSnackbarTextDirective {
   @HostBinding('class.mdc-snackbar__text') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }

@@ -1,57 +1,57 @@
 import { NgModule } from '@angular/core';
 
 import {
-  PermanentDrawerComponent,
-  PermanentDrawerSpacerDirective,
-  PermanentDrawerContentDirective,
-  PermanentDrawerSelectedDirective,
+  MdcPermanentDrawerComponent,
+  MdcPermanentDrawerSpacerDirective,
+  MdcPermanentDrawerContentDirective,
+  MdcPermanentDrawerSelectedDirective,
 } from './permanent/drawer-permanent.component';
 import {
-  TemporaryDrawerComponent,
-  TemporaryDrawerContentDirective,
-  TemporaryDrawerNavigationDirective,
-  TemporaryDrawerHeaderDirective,
-  TemporaryDrawerSpacerDirective,
-  TemporaryDrawerHeaderContentDirective,
-  TemporaryDrawerSelectedDirective,
+  MdcTemporaryDrawerComponent,
+  MdcTemporaryDrawerContentDirective,
+  MdcTemporaryDrawerNavigationDirective,
+  MdcTemporaryDrawerHeaderDirective,
+  MdcTemporaryDrawerSpacerDirective,
+  MdcTemporaryDrawerHeaderContentDirective,
+  MdcTemporaryDrawerSelectedDirective,
 } from './temporary/drawer-temporary.component';
 
 import {
-  PersistentDrawerComponent,
-  PersistentDrawerHeaderDirective,
-  PersistentDrawerNavigationDirective,
-  PersistentDrawerHeaderContentDirective,
-  PersistentDrawerContentDirective,
-  PersistentDrawerSelectedDirective,
-  PersistentDrawerSpacerDirective,
+  MdcPersistentDrawerComponent,
+  MdcPersistentDrawerHeaderDirective,
+  MdcPersistentDrawerNavigationDirective,
+  MdcPersistentDrawerHeaderContentDirective,
+  MdcPersistentDrawerContentDirective,
+  MdcPersistentDrawerSelectedDirective,
+  MdcPersistentDrawerSpacerDirective,
 } from './persistent/drawer-persistent.component';
 
 const DRAWER_COMPONENTS = [
-  PermanentDrawerComponent,
-  PermanentDrawerSpacerDirective,
-  PermanentDrawerContentDirective,
-  PermanentDrawerSelectedDirective,
-  TemporaryDrawerComponent,
-  TemporaryDrawerNavigationDirective,
-  TemporaryDrawerContentDirective,
-  TemporaryDrawerHeaderDirective,
-  TemporaryDrawerSpacerDirective,
-  TemporaryDrawerHeaderContentDirective,
-  TemporaryDrawerSelectedDirective,
-  PersistentDrawerComponent,
-  PersistentDrawerHeaderDirective,
-  PersistentDrawerNavigationDirective,
-  PersistentDrawerHeaderContentDirective,
-  PersistentDrawerContentDirective,
-  PersistentDrawerSpacerDirective,
-  PersistentDrawerSelectedDirective,
+  MdcPermanentDrawerComponent,
+  MdcPermanentDrawerSpacerDirective,
+  MdcPermanentDrawerContentDirective,
+  MdcPermanentDrawerSelectedDirective,
+  MdcTemporaryDrawerComponent,
+  MdcTemporaryDrawerNavigationDirective,
+  MdcTemporaryDrawerContentDirective,
+  MdcTemporaryDrawerHeaderDirective,
+  MdcTemporaryDrawerSpacerDirective,
+  MdcTemporaryDrawerHeaderContentDirective,
+  MdcTemporaryDrawerSelectedDirective,
+  MdcPersistentDrawerComponent,
+  MdcPersistentDrawerHeaderDirective,
+  MdcPersistentDrawerNavigationDirective,
+  MdcPersistentDrawerHeaderContentDirective,
+  MdcPersistentDrawerContentDirective,
+  MdcPersistentDrawerSpacerDirective,
+  MdcPersistentDrawerSelectedDirective,
 ];
 
 @NgModule({
   exports: DRAWER_COMPONENTS,
   declarations: DRAWER_COMPONENTS,
 })
-export class DrawerModule { }
+export class MdcDrawerModule { }
 
 export * from './permanent/drawer-permanent.component';
 export * from './temporary/drawer-temporary.component';

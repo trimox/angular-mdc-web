@@ -21,7 +21,7 @@ import { MDCTemporaryDrawerFoundation, util } from '@material/drawer';
 @Directive({
   selector: 'mdc-temporary-drawer-nav'
 })
-export class TemporaryDrawerNavigationDirective {
+export class MdcTemporaryDrawerNavigationDirective {
   @HostBinding('class.mdc-temporary-drawer__drawer') isHostClass = true;
   @HostBinding('attr.role') role: string = 'navigation';
 
@@ -31,7 +31,7 @@ export class TemporaryDrawerNavigationDirective {
 @Directive({
   selector: '[mdc-temporary-drawer-spacer], mdc-temporary-drawer-spacer'
 })
-export class TemporaryDrawerSpacerDirective {
+export class MdcTemporaryDrawerSpacerDirective {
   @HostBinding('class.mdc-temporary-drawer__toolbar-spacer') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -40,7 +40,7 @@ export class TemporaryDrawerSpacerDirective {
 @Directive({
   selector: '[mdc-temporary-drawer-content], mdc-temporary-drawer-content'
 })
-export class TemporaryDrawerContentDirective {
+export class MdcTemporaryDrawerContentDirective {
   @HostBinding('class.mdc-temporary-drawer__content') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -49,7 +49,7 @@ export class TemporaryDrawerContentDirective {
 @Directive({
   selector: '[mdc-temporary-drawer-header], mdc-temporary-drawer-header'
 })
-export class TemporaryDrawerHeaderDirective {
+export class MdcTemporaryDrawerHeaderDirective {
   @HostBinding('class.mdc-temporary-drawer__header') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -58,7 +58,7 @@ export class TemporaryDrawerHeaderDirective {
 @Directive({
   selector: '[mdc-temporary-drawer-header-content], mdc-temporary-drawer-header-content'
 })
-export class TemporaryDrawerHeaderContentDirective {
+export class MdcTemporaryDrawerHeaderContentDirective {
   @HostBinding('class.mdc-temporary-drawer__header-content') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -67,7 +67,7 @@ export class TemporaryDrawerHeaderContentDirective {
 @Directive({
   selector: '[mdc-temporary-drawer-selected]'
 })
-export class TemporaryDrawerSelectedDirective {
+export class MdcTemporaryDrawerSelectedDirective {
   @HostBinding('class.mdc-temporary-drawer--selected') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -83,11 +83,11 @@ export class TemporaryDrawerSelectedDirective {
   `,
   encapsulation: ViewEncapsulation.None
 })
-export class TemporaryDrawerComponent implements AfterViewInit, OnDestroy {
+export class MdcTemporaryDrawerComponent implements AfterViewInit, OnDestroy {
   @Output() opened: EventEmitter<void> = new EventEmitter<void>();
   @Output() closed: EventEmitter<void> = new EventEmitter<void>();
   @HostBinding('class.mdc-temporary-drawer') isHostClass = true;
-  @ViewChild(TemporaryDrawerNavigationDirective) drawerNav: TemporaryDrawerNavigationDirective;
+  @ViewChild(MdcTemporaryDrawerNavigationDirective) drawerNav: MdcTemporaryDrawerNavigationDirective;
 
   private _mdcAdapter: MDCDrawerTemporaryAdapter = {
     addClass: (className: string) => {

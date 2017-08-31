@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 
 import {
-  ElevationTransition,
-  ElevationDirective
+  MdcElevationTransition,
+  MdcElevationDirective
 } from './elevation.directive';
 
 const ELEVATION_DIRECTIVES = [
-  ElevationTransition,
-  ElevationDirective
+  MdcElevationTransition,
+  MdcElevationDirective
 ];
 
 @NgModule({
   exports: [ELEVATION_DIRECTIVES],
   declarations: [ELEVATION_DIRECTIVES],
 })
-export class ElevationModule { }
+export class MdcElevationModule { }
 
 export * from './elevation.directive';

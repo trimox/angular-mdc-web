@@ -15,7 +15,7 @@ import { MDCRippleFoundation } from '@material/ripple';
   selector: '[mdc-ripple]',
   providers: [EventRegistry]
 })
-export class Ripple implements OnDestroy {
+export class MdcRipple implements OnDestroy {
   private disabled_: boolean;
 
   unbounded: boolean;

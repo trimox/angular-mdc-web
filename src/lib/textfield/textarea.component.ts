@@ -10,11 +10,11 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EventRegistry } from '../common/event-registry';
-import { TextfieldComponent } from './textfield.component';
+import { MdcTextfieldComponent } from './textfield.component';
 
 export const MD_TEXTAREA_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => TextareaComponent),
+  useExisting: forwardRef(() => MdcTextareaComponent),
   multi: true
 };
 
@@ -39,7 +39,7 @@ export const MD_TEXTAREA_CONTROL_VALUE_ACCESSOR: Provider = {
   `,
   providers: [MD_TEXTAREA_CONTROL_VALUE_ACCESSOR]
 })
-export class TextareaComponent extends TextfieldComponent {
+export class MdcTextareaComponent extends MdcTextfieldComponent {
   @Input() multiline: boolean;
   @Input() rows: number;
   @Input() cols: number;

@@ -14,7 +14,7 @@ import { toBoolean } from '../common';
   `<div #divider class="mdc-list-divider" role="seperator"></div>`,
   encapsulation: ViewEncapsulation.None,
 })
-export class ListDividerComponent {
+export class MdcListDividerComponent {
   private _inset: boolean;
 
   @Input()

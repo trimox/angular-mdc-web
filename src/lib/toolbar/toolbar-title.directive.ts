@@ -7,7 +7,7 @@ import {
 @Directive({
   selector: '[mdc-toolbar-title], mdc-toolbar-title'
 })
-export class ToolbarTitleDirective {
+export class MdcToolbarTitleDirective {
   @HostBinding('class.mdc-toolbar__title') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }

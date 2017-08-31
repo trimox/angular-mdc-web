@@ -16,8 +16,8 @@ import { toBoolean, isBrowser } from '../../common';
 import { EventRegistry } from '../../common/event-registry';
 
 import { getCorrectPropertyName } from '@material/animation';
-import { TabComponent } from '../tab/tab.component';
-import { TabBarDirective } from '../tab-bar/tab-bar.directive';
+import { MdcTabComponent } from '../tab/tab.component';
+import { MdcTabBarDirective } from '../tab-bar/tab-bar.directive';
 
 import { MDCTabBarScrollerAdapter } from './tab-bar-scroller-adapter';
 import { MDCTabBarScrollerFoundation } from '@material/tabs';
@@ -25,7 +25,7 @@ import { MDCTabBarScrollerFoundation } from '@material/tabs';
 @Directive({
   selector: '[mdc-tab-bar-scroll-button], mdc-tab-bar-scroll-button'
 })
-export class TabBarScrollIndicatorInnerDirective {
+export class MdcTabBarScrollIndicatorInnerDirective {
   @HostBinding('class.mdc-tab-bar-scroller__indicator__inner') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -34,7 +34,7 @@ export class TabBarScrollIndicatorInnerDirective {
 @Directive({
   selector: '[mdc-tab-bar-scroll-back], mdc-tab-bar-scroll-back'
 })
-export class TabBarScrollBackDirective {
+export class MdcTabBarScrollBackDirective {
   @HostBinding('class.mdc-tab-bar-scroller__indicator') isHostClass = true;
   @HostBinding('class.mdc-tab-bar-scroller__indicator--back') isBackClass = true;
 
@@ -44,7 +44,7 @@ export class TabBarScrollBackDirective {
 @Directive({
   selector: '[mdc-tab-bar-scroll-forward], mdc-tab-bar-scroll-forward'
 })
-export class TabBarScrollForwardDirective {
+export class MdcTabBarScrollForwardDirective {
   @HostBinding('class.mdc-tab-bar-scroller__indicator') isHostClass = true;
   @HostBinding('class.mdc-tab-bar-scroller__indicator--forward') isFowardClass = true;
 
@@ -54,9 +54,9 @@ export class TabBarScrollForwardDirective {
 @Directive({
   selector: '[mdc-tab-bar-scroll-frame], mdc-tab-bar-scroll-frame'
 })
-export class TabBarScrollFrameDirective implements AfterContentInit {
+export class MdcTabBarScrollFrameDirective implements AfterContentInit {
   @HostBinding('class.mdc-tab-bar-scroller__scroll-frame') isHostClass = true;
-  @ContentChild(TabBarDirective) tabBar: TabBarDirective;
+  @ContentChild(MdcTabBarDirective) tabBar: MdcTabBarDirective;
 
   constructor(public elementRef: ElementRef) { }
 
@@ -80,12 +80,12 @@ export class TabBarScrollFrameDirective implements AfterContentInit {
 @Directive({
   selector: '[mdc-tab-bar-scroller], mdc-tab-bar-scroller'
 })
-export class TabBarScrollerDirective implements AfterViewInit, OnDestroy {
+export class MdcTabBarScrollerDirective implements AfterViewInit, OnDestroy {
   @Input() direction: 'ltr' | 'rtl' = 'ltr';
   @HostBinding('class.mdc-tab-bar-scoller') isHostClass = true;
-  @ContentChild(TabBarScrollFrameDirective) scrollFrame: TabBarScrollFrameDirective;
-  @ContentChild(TabBarScrollBackDirective) scrollBack: TabBarScrollBackDirective;
-  @ContentChild(TabBarScrollForwardDirective) scrollForward: TabBarScrollForwardDirective;
+  @ContentChild(MdcTabBarScrollFrameDirective) scrollFrame: MdcTabBarScrollFrameDirective;
+  @ContentChild(MdcTabBarScrollBackDirective) scrollBack: MdcTabBarScrollBackDirective;
+  @ContentChild(MdcTabBarScrollForwardDirective) scrollForward: MdcTabBarScrollForwardDirective;
 
   private _mdcAdapter: MDCTabBarScrollerAdapter = {
     addClass: (className: string) => {

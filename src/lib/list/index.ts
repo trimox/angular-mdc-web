@@ -1,36 +1,36 @@
 import { NgModule } from '@angular/core';
 
-import { ListComponent } from './list.component';
+import { MdcListComponent } from './list.component';
 import {
-  ListItemDirective,
-  ListItemStartDirective,
-  ListItemEndDirective,
-  ListItemTextDirective,
-  ListItemTextSecondaryDirective,
+  MdcListItemDirective,
+  MdcListItemStartDirective,
+  MdcListItemEndDirective,
+  MdcListItemTextDirective,
+  MdcListItemTextSecondaryDirective,
 } from './list-item.directive';
 import {
-  ListGroupDirective,
-  ListGroupSubheaderDirective,
+  MdcListGroupDirective,
+  MdcListGroupSubheaderDirective,
 } from './list-group.directive';
-import { ListDividerComponent } from './list-divider.component';
+import { MdcListDividerComponent } from './list-divider.component';
 
 const LIST_COMPONENTS = [
-  ListComponent,
-  ListItemDirective,
-  ListItemStartDirective,
-  ListItemEndDirective,
-  ListItemTextDirective,
-  ListItemTextSecondaryDirective,
-  ListGroupDirective,
-  ListGroupSubheaderDirective,
-  ListDividerComponent,
+  MdcListComponent,
+  MdcListItemDirective,
+  MdcListItemStartDirective,
+  MdcListItemEndDirective,
+  MdcListItemTextDirective,
+  MdcListItemTextSecondaryDirective,
+  MdcListGroupDirective,
+  MdcListGroupSubheaderDirective,
+  MdcListDividerComponent,
 ];
 
 @NgModule({
   exports: LIST_COMPONENTS,
   declarations: LIST_COMPONENTS,
 })
-export class ListModule { }
+export class MdcListModule { }
 
 export * from './list.component';
 export * from './list-item.directive';

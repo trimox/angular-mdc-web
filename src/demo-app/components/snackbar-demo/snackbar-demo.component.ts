@@ -3,7 +3,7 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { SnackbarMessage, SnackbarComponent } from '../../../lib/public_api';
+import { SnackbarMessage, MdcSnackbarComponent } from '../../../lib/public_api';
 
 @Component({
   selector: 'snackbar-demo',
@@ -14,8 +14,8 @@ export class SnackbarDemoComponent {
     message: 'Hello',
     actionText: 'Ok',
   };
-  @ViewChild('snack') snack: SnackbarComponent;
-  @ViewChild('snackStart') snackStart: SnackbarComponent;
+  @ViewChild('snack') snack: MdcSnackbarComponent;
+  @ViewChild('snackStart') snackStart: MdcSnackbarComponent;
 
   show() {
     this.snack.show(this.message);

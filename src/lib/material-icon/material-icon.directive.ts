@@ -6,6 +6,6 @@ import {
 @Directive({
   selector: '[material-icon]'
 })
-export class MaterialIcon {
+export class MdcMaterialIcon {
   @HostBinding('class.material-icons') isHostClass = true;
 }

@@ -14,8 +14,8 @@ import {
 import { isBrowser } from '../common';
 import { EventRegistry } from '../common/event-registry';
 
-import { ToolbarTitleDirective } from './toolbar-title.directive';
-import { ToolbarRowDirective } from './toolbar-row.directive';
+import { MdcToolbarTitleDirective } from './toolbar-title.directive';
+import { MdcToolbarRowDirective } from './toolbar-row.directive';
 
 import { MDCToolbarAdapter } from './toolbar-adapter';
 import { MDCToolbarFoundation } from '@material/toolbar';
@@ -25,15 +25,15 @@ import { MDCToolbarFoundation } from '@material/toolbar';
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None
 })
-export class ToolbarComponent implements AfterViewInit, OnDestroy {
+export class MdcToolbarComponent implements AfterViewInit, OnDestroy {
   @Input() flexible: boolean;
   @Input() flexibleDefaultBehavior: boolean = true;
   @Input() fixed: boolean;
   @Input() waterfall: boolean;
   @Input() fixedLastrow: boolean;
   @Output() change: EventEmitter<number> = new EventEmitter<number>();
-  @ContentChild(ToolbarRowDirective) mdcFirstRow;
-  @ContentChild(ToolbarTitleDirective) mdcTitle;
+  @ContentChild(MdcToolbarRowDirective) mdcFirstRow;
+  @ContentChild(MdcToolbarTitleDirective) mdcTitle;
   @HostBinding('class.mdc-toolbar') isHostClass = true;
   @HostBinding('class.mdc-toolbar--fixed') get classFixedToolbar(): string {
     return this.fixed ? 'mdc-toolbar--fixed' : '';

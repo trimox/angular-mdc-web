@@ -7,7 +7,7 @@ import {
 @Directive({
   selector: '[mdc-snackbar-action-button]'
 })
-export class SnackbarActionButtonDirective {
+export class MdcSnackbarActionButtonDirective {
   @HostBinding('class.mdc-snackbar__action-button') isHostClass = true;
   @HostBinding('class.mdc-button') isButtonClass = true;
 

@@ -9,7 +9,7 @@ import {
 @Directive({
   selector: '[mdc-permanent-drawer-spacer], mdc-permanent-drawer-spacer'
 })
-export class PermanentDrawerSpacerDirective {
+export class MdcPermanentDrawerSpacerDirective {
   @HostBinding('class.mdc-permanent-drawer__toolbar-spacer') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -18,7 +18,7 @@ export class PermanentDrawerSpacerDirective {
 @Directive({
   selector: '[mdc-permanent-drawer-content], mdc-permanent-drawer-content'
 })
-export class PermanentDrawerContentDirective {
+export class MdcPermanentDrawerContentDirective {
   @HostBinding('class.mdc-permanent-drawer__content') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -27,7 +27,7 @@ export class PermanentDrawerContentDirective {
 @Directive({
   selector: '[mdc-permanent-drawer-selected]'
 })
-export class PermanentDrawerSelectedDirective {
+export class MdcPermanentDrawerSelectedDirective {
   @HostBinding('class.mdc-permanent-drawer--selected') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -38,7 +38,7 @@ export class PermanentDrawerSelectedDirective {
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None
 })
-export class PermanentDrawerComponent {
+export class MdcPermanentDrawerComponent {
   @HostBinding('class.mdc-permanent-drawer') isHostClass = true;
   @HostBinding('attr.role') role: string = 'navigation';
 

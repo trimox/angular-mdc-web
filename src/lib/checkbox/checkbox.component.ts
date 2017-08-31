@@ -16,7 +16,7 @@ import {
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { toBoolean } from '../common';
 import { EventRegistry } from '../common/event-registry';
-import { Ripple } from '../ripple/ripple.directive';
+import { MdcRipple } from '../ripple/ripple.directive';
 
 import { MDCCheckboxAdapter } from './checkbox-adapter';
 import { MDCCheckboxFoundation } from '@material/checkbox';
@@ -25,7 +25,7 @@ let nextElId_ = 0;
 
 export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => CheckboxComponent),
+  useExisting: forwardRef(() => MdcCheckboxComponent),
   multi: true
 };
 
@@ -60,11 +60,11 @@ export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: Provider = {
   encapsulation: ViewEncapsulation.None,
   providers: [
     MD_CHECKBOX_CONTROL_VALUE_ACCESSOR,
-    Ripple
+    MdcRipple
   ]
 })
 
-export class CheckboxComponent implements AfterViewInit, OnDestroy {
+export class MdcCheckboxComponent implements AfterViewInit, OnDestroy {
   @Input() id: string = `mdc-checkbox-${++nextElId_}`;
   @Input() name: string;
   get inputId(): string {
@@ -156,7 +156,7 @@ export class CheckboxComponent implements AfterViewInit, OnDestroy {
   constructor(
     private _renderer: Renderer2,
     public root: ElementRef,
-    public ripple: Ripple,
+    public ripple: MdcRipple,
     private _registry: EventRegistry) { }
 
   ngAfterViewInit() {

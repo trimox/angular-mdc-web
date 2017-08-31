@@ -10,9 +10,9 @@ import {
 } from '@angular/core';
 import { EventRegistry } from '../common/event-registry';
 
-import { CheckboxComponent } from '../checkbox/checkbox.component';
-import { RadioComponent } from '../radio/radio.component';
-import { SwitchComponent } from '../switch/switch.component';
+import { MdcCheckboxComponent } from '../checkbox/checkbox.component';
+import { MdcRadioComponent } from '../radio/radio.component';
+import { MdcSwitchComponent } from '../switch/switch.component';
 
 import { MDCFormFieldAdapter } from './form-field-adapter';
 import { MDCFormFieldFoundation } from '@material/form-field';
@@ -20,14 +20,14 @@ import { MDCFormFieldFoundation } from '@material/form-field';
 @Directive({
   selector: 'mdc-form-field'
 })
-export class FormFieldDirective implements AfterContentInit, OnDestroy {
+export class MdcFormFieldDirective implements AfterContentInit, OnDestroy {
   @Input() alignEnd: boolean = false;
   @HostBinding('class') get className(): string {
     return `mdc-form-field${this.alignEnd ? ' mdc-form-field--align-end' : ''}`;
   }
-  @ContentChild(CheckboxComponent) inputCheckbox: CheckboxComponent;
-  @ContentChild(RadioComponent) inputRadio: RadioComponent;
-  @ContentChild(SwitchComponent) inputSwitch: SwitchComponent;
+  @ContentChild(MdcCheckboxComponent) inputCheckbox: MdcCheckboxComponent;
+  @ContentChild(MdcRadioComponent) inputRadio: MdcRadioComponent;
+  @ContentChild(MdcSwitchComponent) inputSwitch: MdcSwitchComponent;
 
   private _mdcAdapter: MDCFormFieldAdapter = {
     registerInteractionHandler: (type: string, handler: EventListener) => {

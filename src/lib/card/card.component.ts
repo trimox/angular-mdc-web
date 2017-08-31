@@ -13,13 +13,13 @@ import {
 } from '@angular/core';
 import { toBoolean } from '../common';
 
-import { Ripple } from '../ripple/ripple.directive';
-import { ButtonComponent } from '../button/button.component';
+import { MdcRipple } from '../ripple/ripple.directive';
+import { MdcButtonComponent } from '../button/button.component';
 
 @Directive({
   selector: 'mdc-card-primary'
 })
-export class CardPrimaryDirective {
+export class MdcCardPrimaryDirective {
   @HostBinding('class.mdc-card__primary') isHostClass = true;
 }
 
@@ -28,14 +28,14 @@ export class CardPrimaryDirective {
   template: '<ng-content select="mdc-card-primary, mdc-card-title, mdc-card-subtitle, [mdc-card-media-item], mdc-card-actions"></ng-content>',
   encapsulation: ViewEncapsulation.None
 })
-export class CardHorizontalComponent {
+export class MdcCardHorizontalComponent {
   @HostBinding('class.mdc-card__horizontal-block') isHostClass = true;
 }
 
 @Directive({
   selector: '[mdc-card-title], mdc-card-title'
 })
-export class CardTitleDirective {
+export class MdcCardTitleDirective {
   @Input() large: boolean = true;
   @HostBinding('class.mdc-card__title') isHostClass = true;
   @HostBinding('class.mdc-card__title--large') get classTitleLarge(): string {
@@ -46,21 +46,21 @@ export class CardTitleDirective {
 @Directive({
   selector: '[mdc-card-subtitle], mdc-card-subtitle'
 })
-export class CardSubtitleComponent {
+export class MdcCardSubtitleComponent {
   @HostBinding('class.mdc-card__subtitle') isHostClass = true;
 }
 
 @Directive({
   selector: '[mdc-card-supporting-text], mdc-card-supporting-text'
 })
-export class CardSupportingTextDirective {
+export class MdcCardSupportingTextDirective {
   @HostBinding('class.mdc-card__supporting-text') isHostClass = true;
 }
 
 @Directive({
   selector: '[mdc-card-media-item]'
 })
-export class CardMediaItemDirective {
+export class MdcCardMediaItemDirective {
   @Input() size: number;
   @HostBinding('class.mdc-card__media-item') isHostClass = true;
   @HostBinding('class.mdc-card__media-item--1dot5x') get classMediaItemOne(): string {
@@ -82,14 +82,14 @@ export class CardMediaItemDirective {
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None
 })
-export class CardMediaComponent {
+export class MdcCardMediaComponent {
   @HostBinding('class.mdc-card__media') isHostClass = true;
 }
 
 @Directive({
   selector: 'mdc-card-actions'
 })
-export class CardActionsDirective {
+export class MdcCardActionsDirective {
   @Input() vertical: boolean;
   @HostBinding('class.mdc-card__actions') isHostClass = true;
   @HostBinding('class.mdc-card__actions--vertical') get classCardActionVertical(): string {
@@ -99,13 +99,13 @@ export class CardActionsDirective {
 
 @Directive({
   selector: 'button[mdc-card-button], a[mdc-card-button]',
-  providers: [Ripple]
+  providers: [MdcRipple]
 })
-export class CardActionButtonDirective extends ButtonComponent {
+export class MdcCardActionButtonDirective extends MdcButtonComponent {
   constructor(
     @Inject(Renderer2) renderer: Renderer2,
     @Inject(ElementRef) elementRef: ElementRef,
-    @Inject(Ripple) ripple: Ripple) {
+    @Inject(MdcRipple) ripple: MdcRipple) {
     super(renderer, elementRef, ripple);
   }
 }
@@ -115,9 +115,9 @@ export class CardActionButtonDirective extends ButtonComponent {
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None
 })
-export class CardComponent implements AfterContentInit {
+export class MdcCardComponent implements AfterContentInit {
   @HostBinding('class.mdc-card') isHostClass = true;
-  @ContentChildren(CardActionButtonDirective, { descendants: true }) cardButtons: QueryList<CardActionButtonDirective>;
+  @ContentChildren(MdcCardActionButtonDirective, { descendants: true }) cardButtons: QueryList<MdcCardActionButtonDirective>;
 
   constructor(
     private _renderer: Renderer2,

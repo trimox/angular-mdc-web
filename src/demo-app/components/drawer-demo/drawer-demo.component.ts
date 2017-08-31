@@ -4,8 +4,8 @@ import {
 } from '@angular/core';
 
 import {
-  TemporaryDrawerComponent,
-  PersistentDrawerComponent
+  MdcTemporaryDrawerComponent,
+  MdcPersistentDrawerComponent
 } from '../../../lib/public_api';
 
 @Component({
@@ -13,8 +13,8 @@ import {
   templateUrl: './drawer-demo.component.html'
 })
 export class DrawerDemoComponent {
-  @ViewChild('temporary') temporaryDrawer: TemporaryDrawerComponent;
-  @ViewChild('persistent') persistentDrawer: PersistentDrawerComponent;
+  @ViewChild('temporary') temporaryDrawer: MdcTemporaryDrawerComponent;
+  @ViewChild('persistent') persistentDrawer: MdcPersistentDrawerComponent;
 
   handleTemporary() {
     this.temporaryDrawer.open();

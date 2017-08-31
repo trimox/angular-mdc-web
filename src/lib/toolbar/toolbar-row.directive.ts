@@ -7,7 +7,7 @@ import {
 @Directive({
   selector: 'mdc-toolbar-row'
 })
-export class ToolbarRowDirective {
+export class MdcToolbarRowDirective {
   @HostBinding('class.mdc-toolbar__row') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }

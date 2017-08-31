@@ -18,12 +18,12 @@ import { isBrowser } from '../common';
 import { EventRegistry } from '../common/event-registry';
 
 import { MDCTextfieldAdapter } from './textfield-adapter';
-import { TextfieldInputDirective } from './textfield-input.directive';
+import { MdcTextfieldInputDirective } from './textfield-input.directive';
 import { MDCTextfieldFoundation } from '@material/textfield';
 
 export const MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => TextfieldComponent),
+  useExisting: forwardRef(() => MdcTextfieldComponent),
   multi: true
 };
 
@@ -46,7 +46,7 @@ let nextUniqueId = 0;
 @Directive({
   selector: '[mdc-textfield-helptext]'
 })
-export class TextfieldHelptextDirective {
+export class MdcTextfieldHelptextDirective {
   @Input() id: string;
   @Input() persistent: boolean;
   @Input() validation: boolean;
@@ -65,7 +65,7 @@ export class TextfieldHelptextDirective {
 @Directive({
   selector: '[mdc-textfield-label], mdc-textfield-label'
 })
-export class TextfieldLabelDirective {
+export class MdcTextfieldLabelDirective {
   @HostBinding('class.mdc-textfield__label') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -91,7 +91,7 @@ export class TextfieldLabelDirective {
   encapsulation: ViewEncapsulation.None,
   providers: [MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR],
 })
-export class TextfieldComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
+export class MdcTextfieldComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
   private type_ = 'text';
   private disabled_ = false;
   private required_ = false;
@@ -144,9 +144,9 @@ export class TextfieldComponent implements AfterViewInit, OnDestroy, ControlValu
   @HostBinding('class.mdc-textfield--fullwidth') get classFullwidth(): string {
     return this.fullwidth ? 'mdc-textfield--fullwidth' : '';
   }
-  @ViewChild(TextfieldInputDirective) inputText: TextfieldInputDirective;
-  @ViewChild(TextfieldLabelDirective) inputLabel: TextfieldLabelDirective;
-  @ViewChild(TextfieldHelptextDirective) inputHelpText: TextfieldHelptextDirective;
+  @ViewChild(MdcTextfieldInputDirective) inputText: MdcTextfieldInputDirective;
+  @ViewChild(MdcTextfieldLabelDirective) inputLabel: MdcTextfieldLabelDirective;
+  @ViewChild(MdcTextfieldHelptextDirective) inputHelpText: MdcTextfieldHelptextDirective;
 
   private _mdcAdapter: MDCTextfieldAdapter = {
     addClass: (className: string) => {

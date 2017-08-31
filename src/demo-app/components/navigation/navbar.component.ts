@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { navigationLinks } from '../../common/navigation-links';
-import { TemporaryDrawerComponent } from '../../../lib/public_api';
+import { MdcTemporaryDrawerComponent } from '../../../lib/public_api';
 
 @Component({
   selector: 'navbar',
@@ -10,7 +10,7 @@ import { TemporaryDrawerComponent } from '../../../lib/public_api';
 })
 export class NavbarComponent {
   navLinks = navigationLinks;
-  @ViewChild('drawer') drawer: TemporaryDrawerComponent;
+  @ViewChild('drawer') drawer: MdcTemporaryDrawerComponent;
 
   constructor(public router: Router) { }
 

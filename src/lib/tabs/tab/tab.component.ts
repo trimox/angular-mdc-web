@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { toBoolean } from '../../common';
 import { EventRegistry } from '../../common/event-registry';
-import { Ripple } from '../../ripple/ripple.directive';
+import { MdcRipple } from '../../ripple/ripple.directive';
 
 import { MDCTabAdapter } from './tab-adapter';
 import { MDCTabFoundation } from '@material/tabs';
@@ -22,7 +22,7 @@ import { MDCTabFoundation } from '@material/tabs';
 @Directive({
   selector: '[mdc-tab-icon], mdc-tab-icon'
 })
-export class TabIconDirective {
+export class MdcTabIconDirective {
   @HostBinding('class.mdc-tab__icon') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -31,7 +31,7 @@ export class TabIconDirective {
 @Directive({
   selector: '[mdc-tab-icon-text], mdc-tab-icon-text'
 })
-export class TabIconTextDirective {
+export class MdcTabIconTextDirective {
   @HostBinding('class.mdc-tab__icon-text') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -40,10 +40,10 @@ export class TabIconTextDirective {
 @Component({
   selector: '[mdc-tab], mdc-tab',
   template: '<ng-content></ng-content>',
-  providers: [Ripple],
+  providers: [MdcRipple],
   encapsulation: ViewEncapsulation.None
 })
-export class TabComponent implements AfterViewInit, OnDestroy {
+export class MdcTabComponent implements AfterViewInit, OnDestroy {
   @Input()
   get active() { return this.foundation.isActive(); }
   set active(value) {
@@ -59,7 +59,7 @@ export class TabComponent implements AfterViewInit, OnDestroy {
   set disableRipple(value) {
     this._ripple.disabled = toBoolean(value);
   }
-  @Output() select: EventEmitter<{ tab: TabComponent }> = new EventEmitter();
+  @Output() select: EventEmitter<{ tab: MdcTabComponent }> = new EventEmitter();
   @HostBinding('class.mdc-tab') isHostClass = true;
   @HostBinding('attr.role') role: string = 'tab';
   @HostBinding('class.mdc-tab--with-icon-and-text') get classIconText() {
@@ -68,8 +68,8 @@ export class TabComponent implements AfterViewInit, OnDestroy {
   @HostBinding('class.mdc-tab--active') get classActive() {
     return this.foundation.isActive();
   }
-  @ContentChild(TabIconDirective) tabIcon: TabIconDirective;
-  @ContentChild(TabIconTextDirective) tabIconText: TabIconTextDirective;
+  @ContentChild(MdcTabIconDirective) tabIcon: MdcTabIconDirective;
+  @ContentChild(MdcTabIconTextDirective) tabIconText: MdcTabIconTextDirective;
 
   private _mdcAdapter: MDCTabAdapter = {
     addClass: (className: string) => {
@@ -105,7 +105,7 @@ export class TabComponent implements AfterViewInit, OnDestroy {
     private _renderer: Renderer2,
     private _root: ElementRef,
     private _registry: EventRegistry,
-    private _ripple: Ripple) {
+    private _ripple: MdcRipple) {
     this._ripple.init();
   }
 

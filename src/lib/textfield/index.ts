@@ -2,26 +2,26 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { TextfieldInputDirective } from './textfield-input.directive';
+import { MdcTextfieldInputDirective } from './textfield-input.directive';
 import {
-  TextfieldComponent,
-  TextfieldHelptextDirective,
-  TextfieldLabelDirective,
+  MdcTextfieldComponent,
+  MdcTextfieldHelptextDirective,
+  MdcTextfieldLabelDirective,
 } from './textfield.component';
 import {
-  TextfieldBoxComponent,
-  TextfieldBottomLineDirective,
+  MdcTextfieldBoxComponent,
+  MdcTextfieldBottomLineDirective,
 } from './textfield-box.component';
-import { TextareaComponent } from './textarea.component';
+import { MdcTextareaComponent } from './textarea.component';
 
 const TEXTFIELD_COMPONENTS = [
-  TextfieldInputDirective,
-  TextfieldHelptextDirective,
-  TextfieldLabelDirective,
-  TextfieldComponent,
-  TextfieldBottomLineDirective,
-  TextareaComponent,
-  TextfieldBoxComponent,
+  MdcTextfieldInputDirective,
+  MdcTextfieldHelptextDirective,
+  MdcTextfieldLabelDirective,
+  MdcTextfieldComponent,
+  MdcTextfieldBottomLineDirective,
+  MdcTextareaComponent,
+  MdcTextfieldBoxComponent,
 ];
 
 @NgModule({
@@ -29,7 +29,7 @@ const TEXTFIELD_COMPONENTS = [
   exports: [TEXTFIELD_COMPONENTS],
   declarations: [TEXTFIELD_COMPONENTS],
 })
-export class TextfieldModule { }
+export class MdcTextfieldModule { }
 
 export * from './textfield.component';
 export * from './textfield-input.directive';

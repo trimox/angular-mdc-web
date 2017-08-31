@@ -7,7 +7,7 @@ import {
   Renderer2,
   ViewEncapsulation
 } from '@angular/core';
-import { Ripple } from '../ripple/ripple.directive';
+import { MdcRipple } from '../ripple/ripple.directive';
 import {
   toBoolean,
   KeyCodes,
@@ -18,9 +18,9 @@ import {
   selector: 'button[mdc-button], a[mdc-button]',
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
-  providers: [Ripple]
+  providers: [MdcRipple]
 })
-export class ButtonComponent {
+export class MdcButtonComponent {
   private disabled_: boolean = false;
 
   @Input() type: string;
@@ -80,7 +80,7 @@ export class ButtonComponent {
   constructor(
     public renderer: Renderer2,
     public elementRef: ElementRef,
-    public ripple: Ripple) {
+    public ripple: MdcRipple) {
     this.ripple.init();
   }
 

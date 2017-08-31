@@ -1,31 +1,31 @@
 import { NgModule } from '@angular/core';
 
 import {
-  DialogBackdropDirective,
-  DialogBodyDirective,
-  DialogComponent,
-  DialogFooterDirective,
-  DialogHeaderDirective,
-  DialogSurfaceDirective,
-  DialogHeaderTitleDirective,
-  DialogButtonDirective,
+  MdcDialogBackdropDirective,
+  MdcDialogBodyDirective,
+  MdcDialogComponent,
+  MdcDialogFooterDirective,
+  MdcDialogHeaderDirective,
+  MdcDialogSurfaceDirective,
+  MdcDialogHeaderTitleDirective,
+  MdcDialogButtonDirective,
 } from './dialog.component';
 
 const DIALOG_COMPONENTS = [
-  DialogBackdropDirective,
-  DialogBodyDirective,
-  DialogComponent,
-  DialogFooterDirective,
-  DialogHeaderDirective,
-  DialogSurfaceDirective,
-  DialogHeaderTitleDirective,
-  DialogButtonDirective,
+  MdcDialogBackdropDirective,
+  MdcDialogBodyDirective,
+  MdcDialogComponent,
+  MdcDialogFooterDirective,
+  MdcDialogHeaderDirective,
+  MdcDialogSurfaceDirective,
+  MdcDialogHeaderTitleDirective,
+  MdcDialogButtonDirective,
 ];
 
 @NgModule({
   exports: DIALOG_COMPONENTS,
   declarations: DIALOG_COMPONENTS
 })
-export class DialogModule { }
+export class MdcDialogModule { }
 
 export * from './dialog.component';

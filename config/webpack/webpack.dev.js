@@ -26,7 +26,7 @@ module.exports = [{
   entry: {
     'polyfills': './src/demo-app/polyfills.ts',
     'vendor': './src/demo-app/vendor.ts',
-    'app': './src/demo-app/main-dev.ts',
+    'app': './src/demo-app/main.ts',
     'css': './src/demo-app/sass/main.scss',
   },
   devtool: 'inline-source-map',

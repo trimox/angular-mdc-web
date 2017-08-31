@@ -20,7 +20,7 @@ import { isBrowser } from '../common';
 import { EventRegistry } from '../common/event-registry';
 
 import { MDCMenuAdapter } from './menu-adapter';
-import { MenuItemDirective } from './menu-item.directive';
+import { MdcMenuItemDirective } from './menu-item.directive';
 import { getTransformPropertyName } from '@material/menu/util';
 import { MDCSimpleMenuFoundation } from '@material/menu/simple';
 
@@ -34,7 +34,7 @@ export enum MenuOpenFrom {
 @Directive({
   selector: '[mdc-menu-anchor]'
 })
-export class MenuAnchorDirective {
+export class MdcMenuAnchorDirective {
   @HostBinding('class.mdc-menu-anchor') isHostClass = true;
 }
 
@@ -43,7 +43,7 @@ export class MenuAnchorDirective {
   template:
   `<div #divider class="mdc-list-divider" role="seperator"></div>`,
 })
-export class MenuDividerComponent { }
+export class MdcMenuDividerComponent { }
 
 @Component({
   selector: 'mdc-menu',
@@ -55,7 +55,7 @@ export class MenuDividerComponent { }
   `,
   encapsulation: ViewEncapsulation.None
 })
-export class MenuComponent implements AfterViewInit, OnChanges, OnDestroy {
+export class MdcMenuComponent implements AfterViewInit, OnChanges, OnDestroy {
   private previousFocus_: any;
 
   @Input() openFrom: string;
@@ -64,7 +64,7 @@ export class MenuComponent implements AfterViewInit, OnChanges, OnDestroy {
   @HostBinding('class.mdc-simple-menu') isHostClass = true;
   @HostBinding('tabindex') tabindex: number = -1;
   @ViewChild('menuContainer') public menuContainerEl: ElementRef;
-  @ContentChildren(MenuItemDirective) menuItems: QueryList<MenuItemDirective>;
+  @ContentChildren(MdcMenuItemDirective) menuItems: QueryList<MdcMenuItemDirective>;
 
   private _mdcAdapter: MDCMenuAdapter = {
     addClass: (className: string) => {

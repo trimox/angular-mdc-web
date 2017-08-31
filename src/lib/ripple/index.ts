@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 
-import { Ripple } from './ripple.directive';
+import { MdcRipple } from './ripple.directive';
 import { EventRegistry } from '../common/event-registry';
 
 @NgModule({
-  exports: [Ripple],
-  declarations: [Ripple],
+  exports: [MdcRipple],
+  declarations: [MdcRipple],
   providers: [EventRegistry]
 })
-export class RippleModule { }
+export class MdcRippleModule { }
 
 export * from './ripple.directive';

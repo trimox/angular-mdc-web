@@ -10,14 +10,14 @@ import {
   SimpleChange,
 } from '@angular/core';
 import { toBoolean } from '../common';
-import { Ripple } from '../ripple/ripple.directive';
-import { ListComponent } from './list.component';
+import { MdcRipple } from '../ripple/ripple.directive';
+import { MdcListComponent } from './list.component';
 
 @Directive({
   selector: 'mdc-list-item, a[mdc-list-item]',
-  providers: [Ripple]
+  providers: [MdcRipple]
 })
-export class ListItemDirective implements AfterViewInit, OnChanges {
+export class MdcListItemDirective implements AfterViewInit, OnChanges {
   @Input()
   get disableRipple() { return this._ripple.disabled; }
   set disableRipple(value) {
@@ -28,8 +28,8 @@ export class ListItemDirective implements AfterViewInit, OnChanges {
 
   constructor(
     private elementRef: ElementRef,
-    private _ripple: Ripple,
-    @Inject(forwardRef(() => ListComponent)) private _parent: ListComponent) { }
+    private _ripple: MdcRipple,
+    @Inject(forwardRef(() => MdcListComponent)) private _parent: MdcListComponent) { }
 
   ngAfterViewInit() {
     if (this.elementRef.nativeElement.tagName === 'A') {
@@ -50,7 +50,7 @@ export class ListItemDirective implements AfterViewInit, OnChanges {
 @Directive({
   selector: '[mdc-list-item-start]'
 })
-export class ListItemStartDirective {
+export class MdcListItemStartDirective {
   @HostBinding('class.mdc-list-item__start-detail') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -59,7 +59,7 @@ export class ListItemStartDirective {
 @Directive({
   selector: '[mdc-list-item-end]'
 })
-export class ListItemEndDirective {
+export class MdcListItemEndDirective {
   @HostBinding('class.mdc-list-item__end-detail') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -68,7 +68,7 @@ export class ListItemEndDirective {
 @Directive({
   selector: '[mdc-list-item-text], mdc-list-item-text'
 })
-export class ListItemTextDirective {
+export class MdcListItemTextDirective {
   @HostBinding('class.mdc-list-item__text') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -77,7 +77,7 @@ export class ListItemTextDirective {
 @Directive({
   selector: '[mdc-list-item-secondary], mdc-list-item-secondary'
 })
-export class ListItemTextSecondaryDirective {
+export class MdcListItemTextSecondaryDirective {
   @HostBinding('class.mdc-list-item__text__secondary') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }

@@ -21,7 +21,7 @@ import { MDCPersistentDrawerFoundation, util } from '@material/drawer';
 @Directive({
   selector: 'mdc-persistent-drawer-nav'
 })
-export class PersistentDrawerNavigationDirective {
+export class MdcPersistentDrawerNavigationDirective {
   @HostBinding('class.mdc-persistent-drawer__drawer') isHostClass = true;
   @HostBinding('attr.role') role: string = 'navigation';
 
@@ -31,7 +31,7 @@ export class PersistentDrawerNavigationDirective {
 @Directive({
   selector: '[mdc-persistent-drawer-spacer], mdc-persistent-drawer-spacer'
 })
-export class PersistentDrawerSpacerDirective {
+export class MdcPersistentDrawerSpacerDirective {
   @HostBinding('class.mdc-persistent-drawer__toolbar-spacer') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -40,7 +40,7 @@ export class PersistentDrawerSpacerDirective {
 @Directive({
   selector: '[mdc-persistent-drawer-header], mdc-persistent-drawer-header'
 })
-export class PersistentDrawerHeaderDirective {
+export class MdcPersistentDrawerHeaderDirective {
   @HostBinding('class.mdc-persistent-drawer__header') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -49,7 +49,7 @@ export class PersistentDrawerHeaderDirective {
 @Directive({
   selector: '[mdc-persistent-drawer-header-content], mdc-persistent-drawer-header-content'
 })
-export class PersistentDrawerHeaderContentDirective {
+export class MdcPersistentDrawerHeaderContentDirective {
   @HostBinding('class.mdc-persistent-drawer__header-content') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -58,7 +58,7 @@ export class PersistentDrawerHeaderContentDirective {
 @Directive({
   selector: '[mdc-persistent-drawer-content], mdc-persistent-drawer-content'
 })
-export class PersistentDrawerContentDirective {
+export class MdcPersistentDrawerContentDirective {
   @HostBinding('class.mdc-persistent-drawer__content') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -67,7 +67,7 @@ export class PersistentDrawerContentDirective {
 @Directive({
   selector: '[mdc-persistent-drawer-selected]'
 })
-export class PersistentDrawerSelectedDirective {
+export class MdcPersistentDrawerSelectedDirective {
   @HostBinding('class.mdc-persistent-drawer--selected') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -83,11 +83,11 @@ export class PersistentDrawerSelectedDirective {
   `,
   encapsulation: ViewEncapsulation.None
 })
-export class PersistentDrawerComponent implements AfterViewInit, OnDestroy {
+export class MdcPersistentDrawerComponent implements AfterViewInit, OnDestroy {
   @Output() opened: EventEmitter<void> = new EventEmitter<void>();
   @Output() closed: EventEmitter<void> = new EventEmitter<void>();
   @HostBinding('class.mdc-persistent-drawer') isHostClass = true;
-  @ViewChild(PersistentDrawerNavigationDirective) drawerNav: PersistentDrawerNavigationDirective;
+  @ViewChild(MdcPersistentDrawerNavigationDirective) drawerNav: MdcPersistentDrawerNavigationDirective;
 
   private _mdcAdapter: MDCDrawerPersistentAdapter = {
     addClass: (className: string) => {

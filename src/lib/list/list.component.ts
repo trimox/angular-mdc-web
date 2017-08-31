@@ -9,7 +9,7 @@ import {
   SimpleChange,
   ViewEncapsulation,
 } from '@angular/core';
-import { ListItemDirective } from './list-item.directive';
+import { MdcListItemDirective } from './list-item.directive';
 import { toBoolean } from '../common';
 
 @Component({
@@ -17,7 +17,7 @@ import { toBoolean } from '../common';
   template: `<ng-content></ng-content>`,
   encapsulation: ViewEncapsulation.None
 })
-export class ListComponent implements OnChanges {
+export class MdcListComponent implements OnChanges {
   private _disableRipple: boolean = false;
 
   @Input() dense: boolean;
@@ -39,7 +39,7 @@ export class ListComponent implements OnChanges {
   @HostBinding('class.mdc-list--avatar-list') get classAvatarList(): string {
     return this.avatar ? 'mdc-list--avatar-list' : '';
   }
-  @ContentChildren(ListItemDirective) listItems: QueryList<ListItemDirective>;
+  @ContentChildren(MdcListItemDirective) listItems: QueryList<MdcListItemDirective>;
 
   constructor(private _root: ElementRef) { }
 

@@ -7,7 +7,7 @@ import {
 @Directive({
   selector: '[mdc-toolbar-fixed-adjust], mdc-toolbar-fixed-adjust'
 })
-export class ToolbarFixedAdjustDirective {
+export class MdcToolbarFixedAdjustDirective {
   @HostBinding('class.mdc-toolbar-fixed-adjust') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }

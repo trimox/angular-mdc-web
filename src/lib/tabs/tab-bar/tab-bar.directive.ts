@@ -13,7 +13,7 @@ import { isBrowser } from '../../common';
 import { EventRegistry } from '../../common/event-registry';
 import { Subscription } from 'rxjs';
 
-import { TabComponent } from '../tab/tab.component';
+import { MdcTabComponent } from '../tab/tab.component';
 
 import { MDCTabBarAdapter } from './tab-bar-adapter';
 import { MDCTabBarFoundation } from '@material/tabs';
@@ -21,14 +21,14 @@ import { MDCTabBarFoundation } from '@material/tabs';
 @Directive({
   selector: '[mdc-tab-bar], mdc-tab-bar'
 })
-export class TabBarDirective {
+export class MdcTabBarDirective {
   private tabBarIndicator: HTMLElement;
   private tabEvents: Subscription[];
 
   @Input() primaryColor: boolean;
   @Input() accentColor: boolean;
   @Output() change: EventEmitter<{ activeTabIndex: number }> = new EventEmitter();
-  @ContentChildren(TabComponent, { descendants: false }) tabs: QueryList<TabComponent>;
+  @ContentChildren(MdcTabComponent, { descendants: false }) tabs: QueryList<MdcTabComponent>;
   @HostBinding('class.mdc-tab-bar') isHostClass = true;
   @HostBinding('class.mdc-tab-bar-scroller__scroll-frame__tabs') scrollFrameContent = false;
   @HostBinding('attr.role') role: string = 'tablist';

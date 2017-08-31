@@ -13,9 +13,9 @@ import { isBrowser } from '../common';
 import { EventRegistry } from '../common/event-registry';
 
 import { MDCSnackbarAdapter } from './snackbar-adapter';
-import { SnackbarTextDirective } from './snackbar-text.directive';
-import { SnackbarActionWrapperDirective } from './snackbar-action-wrapper.directive';
-import { SnackbarActionButtonDirective } from './snackbar-action-button.directive';
+import { MdcSnackbarTextDirective } from './snackbar-text.directive';
+import { MdcSnackbarActionWrapperDirective } from './snackbar-action-wrapper.directive';
+import { MdcSnackbarActionButtonDirective } from './snackbar-action-button.directive';
 import { SnackbarMessage } from './snackbar-message';
 
 import { MDCSnackbarFoundation } from '@material/snackbar';
@@ -32,7 +32,7 @@ import { getCorrectEventName } from '@material/animation';
   `,
   encapsulation: ViewEncapsulation.None
 })
-export class SnackbarComponent implements AfterViewInit, OnDestroy {
+export class MdcSnackbarComponent implements AfterViewInit, OnDestroy {
   @Input() alignStart: boolean;
   @Input()
   get dismissOnAction() { return this._foundation.dismissesOnAction(); }
@@ -46,9 +46,9 @@ export class SnackbarComponent implements AfterViewInit, OnDestroy {
   @HostBinding('class.mdc-snackbar--align-start') get classAlignStart(): string {
     return this.alignStart ? 'mdc-snackbar--align-start' : '';
   }
-  @ViewChild(SnackbarTextDirective) snackText: SnackbarTextDirective;
-  @ViewChild(SnackbarActionWrapperDirective) actionWrapper: SnackbarActionWrapperDirective;
-  @ViewChild(SnackbarActionButtonDirective) actionButton: SnackbarActionButtonDirective;
+  @ViewChild(MdcSnackbarTextDirective) snackText: MdcSnackbarTextDirective;
+  @ViewChild(MdcSnackbarActionWrapperDirective) actionWrapper: MdcSnackbarActionWrapperDirective;
+  @ViewChild(MdcSnackbarActionButtonDirective) actionButton: MdcSnackbarActionButtonDirective;
 
   private _mdcAdapter: MDCSnackbarAdapter = {
     addClass: (className: string) => {

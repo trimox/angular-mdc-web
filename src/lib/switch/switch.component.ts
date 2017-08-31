@@ -15,11 +15,11 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { toBoolean } from '../common';
-import { Ripple } from '../ripple/ripple.directive';
+import { MdcRipple } from '../ripple/ripple.directive';
 
 export const MD_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => SwitchComponent),
+  useExisting: forwardRef(() => MdcSwitchComponent),
   multi: true
 };
 
@@ -46,10 +46,10 @@ let nextElId_ = 0;
   encapsulation: ViewEncapsulation.None,
   providers: [
     MD_SWITCH_CONTROL_VALUE_ACCESSOR,
-    Ripple
+    MdcRipple
   ]
 })
-export class SwitchComponent implements OnChanges {
+export class MdcSwitchComponent implements OnChanges {
   @Input() id: string = `mdc-switch-${++nextElId_}`;
   get inputId(): string {
     return `input-${this.id}`;
@@ -78,7 +78,7 @@ export class SwitchComponent implements OnChanges {
   constructor(
     private _renderer: Renderer2,
     public root: ElementRef,
-    public ripple: Ripple) {
+    public ripple: MdcRipple) {
     this.ripple.init(true);
   }
 

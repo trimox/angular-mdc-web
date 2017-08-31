@@ -1,28 +1,28 @@
 import { NgModule } from '@angular/core';
 
-import { ToolbarComponent } from './toolbar.component';
-import { ToolbarRowDirective } from './toolbar-row.directive';
-import { ToolbarSectionDirective } from './toolbar-section.directive';
-import { ToolbarTitleDirective } from './toolbar-title.directive';
-import { ToolbarFixedAdjustDirective } from './toolbar-fixed-adjust.directive';
-import { ToolbarIconDirective } from './toolbar-icon.directive';
-import { ToolbarIconMenuDirective } from './toolbar-icon-menu.directive';
+import { MdcToolbarComponent } from './toolbar.component';
+import { MdcToolbarRowDirective } from './toolbar-row.directive';
+import { MdcToolbarSectionDirective } from './toolbar-section.directive';
+import { MdcToolbarTitleDirective } from './toolbar-title.directive';
+import { MdcToolbarFixedAdjustDirective } from './toolbar-fixed-adjust.directive';
+import { MdcToolbarIconDirective } from './toolbar-icon.directive';
+import { MdcToolbarIconMenuDirective } from './toolbar-icon-menu.directive';
 
 const TOOLBAR_COMPONENTS = [
-  ToolbarComponent,
-  ToolbarRowDirective,
-  ToolbarSectionDirective,
-  ToolbarTitleDirective,
-  ToolbarFixedAdjustDirective,
-  ToolbarIconDirective,
-  ToolbarIconMenuDirective
+  MdcToolbarComponent,
+  MdcToolbarRowDirective,
+  MdcToolbarSectionDirective,
+  MdcToolbarTitleDirective,
+  MdcToolbarFixedAdjustDirective,
+  MdcToolbarIconDirective,
+  MdcToolbarIconMenuDirective
 ];
 
 @NgModule({
   exports: [TOOLBAR_COMPONENTS],
   declarations: [TOOLBAR_COMPONENTS],
 })
-export class ToolbarModule { }
+export class MdcToolbarModule { }
 
 export * from './toolbar.component';
 export * from './toolbar-row.directive';

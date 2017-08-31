@@ -7,7 +7,7 @@ import {
 @Directive({
   selector: 'input[mdc-textfield-input], textarea[mdc-textfield-input]',
 })
-export class TextfieldInputDirective {
+export class MdcTextfieldInputDirective {
   focused = false;
 
   @HostBinding('class.mdc-textfield__input') isHostClass = true;

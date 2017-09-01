@@ -1,4 +1,32 @@
 <a name="0.0.0"></a>
+# [0.4.0](https://github.com/trimox/angular-mdc-web/compare/v0.3.0...v0.4.0) (2017-09-01)
+
+
+### Bug Fixes
+
+* **menu:** Fix class binding of openFrom property ([#119](https://github.com/trimox/angular-mdc-web/issues/119)) ([12a1d12](https://github.com/trimox/angular-mdc-web/commit/12a1d12)), closes [#116](https://github.com/trimox/angular-mdc-web/issues/116)
+* **menu:** Open method required a focusIndex ([#117](https://github.com/trimox/angular-mdc-web/issues/117)) ([73956ca](https://github.com/trimox/angular-mdc-web/commit/73956ca))
+* **textfield:** Fix expression changed after check error ([#123](https://github.com/trimox/angular-mdc-web/issues/123)) ([b254ad9](https://github.com/trimox/angular-mdc-web/commit/b254ad9)), closes [#121](https://github.com/trimox/angular-mdc-web/issues/121)
+
+
+### Features
+
+* **fab:** Remove [disabled] property ([#115](https://github.com/trimox/angular-mdc-web/issues/115)) ([eacbbae](https://github.com/trimox/angular-mdc-web/commit/eacbbae)), closes [#113](https://github.com/trimox/angular-mdc-web/issues/113)
+* **fab:** Remove forced material-icon class binding ([#127](https://github.com/trimox/angular-mdc-web/issues/127)) ([919a2c7](https://github.com/trimox/angular-mdc-web/commit/919a2c7)), closes [#102](https://github.com/trimox/angular-mdc-web/issues/102)
+* **package:** Add Mdc prefix to class names ([#122](https://github.com/trimox/angular-mdc-web/issues/122)) ([5b8014c](https://github.com/trimox/angular-mdc-web/commit/5b8014c)), closes [#120](https://github.com/trimox/angular-mdc-web/issues/120)
+
+
+### BREAKING CHANGES
+
+* **package:** All component classes are now prefixed with `Mdc` to prevent name conflicts with other libraries. Please update your code accordingly.
+Example: `ButtonComponent` to `MdcButtonComponent`
+* **fab:** Add a `material-icon` directive to mdc-fab-icon if using Material Icons. If not,
+apply custom styling for Font Awesome or text. Please see examples on demo page.
+* **fab:** Remove [disabled] from any FAB component used in your code.
+
+
+
+<a name="0.0.0"></a>
 # [0.3.0](https://github.com/trimox/angular-mdc-web/compare/v0.2.9...v0.3.0) (2017-08-26)
 
 

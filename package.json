@@ -25,7 +25,7 @@
     "build:copy-files": "npm run copy-types && npm run copy-metadata && npm run copy-readme && npm run copy-package-json",
     "copy-readme": "cpx README.md dist",
     "copy-package-json": "cpx src/lib/package.json dist",
-    "copy-types": "cpx build/**/*.d.ts dist",
+    "copy-types": "cpx \"build/**/*.d.ts\" dist",
     "copy-metadata": "cpx build/index.metadata.json dist/",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "commitmsg": "validate-commit-msg",

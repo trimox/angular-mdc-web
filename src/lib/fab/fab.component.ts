@@ -37,7 +37,6 @@ export class MdcFabComponent {
     this._ripple.disabled = toBoolean(value);
   }
   @HostBinding('class.mdc-fab') isHostClass = true;
-  @HostBinding('class.material-icons') classMaterialIcons: string = 'material-icons';
   @HostBinding('class.mdc-fab--mini') get classMini(): string {
     return this.mini ? 'mdc-fab--mini' : '';
   }

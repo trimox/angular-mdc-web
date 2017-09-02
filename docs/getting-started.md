@@ -29,11 +29,11 @@ export class ExampleModule { }
 
 ### Or individual components
 ```ts
-import { FabModule, MenuModule } from '@angular-mdc/web';
+import { MdcFabModule, MdcMenuModule } from '@angular-mdc/web';
 
 @NgModule({
   ...
-  imports: [FabModule, MenuModule],
+  imports: [MdcFabModule, MdcMenuModule],
   ...
 })
 export class ExampleModule { }
@@ -50,10 +50,6 @@ If you're using the Angular CLI, you can add this to your styles.css:
 Alternatively, you can use a CDN.
 ```html
 <link href="https://unpkg.com/material-components-web/dist/material-components-web.css" rel="stylesheet">
-```
-Or link directly to the node_modules file.
-```html
-<link href="node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
 ```
 
 ## <a name="step4"></a> Step 4: Include Material Design Icons

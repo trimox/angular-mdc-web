@@ -3,10 +3,9 @@
  - [Infrastructure and Tooling](#tools)
  - [Setup your development environment](#setup)
  - [Running the Development Server](#dev-server)
- - [Linting / Testing](#lint)
+ - [Linting](#lint)
  - [Building](#build)
  - [Code Style](#code-style)
- - [Submit Pull Request](#pull-req)
 
 ## <a name="tools"></a> Infrastructure and Tooling
 
@@ -38,7 +37,7 @@ npm run start
 ```
 After your development server is running, open a browser to url: http://localhost:4000
 
-## <a name="lint"></a> Linting / Testing
+## <a name="lint"></a> Linting
 ```
 npm run lint:ts # Lints typescript using tslint
 npm run lint:css # Lints (S)CSS using stylelint
@@ -54,18 +53,3 @@ npm run build # Builds Angular MDC inside of dist/
 We follow [Google's JavaScript Style Guide](https://google.github.io/styleguide/jsguide.html) and our entire coding style is enforced automatically through the use of linters.
 * [tslint rules](https://github.com/trimox/angular-mdc-web/blob/master/tslint.json)
 * [stylelint config](https://github.com/trimox/angular-mdc-web/blob/master/.stylelint-config.yaml)
-
-## <a name="pull-req"></a> Submit a Pull Request
-When submitting PRs, make sure you're following our commit message conventions; our commit-msg hook should automatically enforce this. We also use [commitizen](https://www.npmjs.com/package/commitizen), which you can use to auto-format commit messages for you.
-
-Commit message type must be one of the following:
-* **feat**: A new feature
-* **fix**: A bug fix
-* **docs**: Documentation only changes
-* **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
-* **refactor**: A code change that neither fixes a bug nor adds a feature
-* **perf**: A code change that improves performance
-* **test**: Adding missing or correcting existing tests
-* **chore**: Changes to the build process or auxiliary tools and libraries such as documentation generation
-
-When submitting PRs for large changes, be sure to include an adequate background in the description so that reviewers of the PR know what the changes entail at a high-level, the motivations for making these changes, and what they affect.

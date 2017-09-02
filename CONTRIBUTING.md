@@ -6,6 +6,7 @@ today! As a contributor, here are the guidelines we would like you to follow:
  - [Code of Conduct](#coc)
  - [Found a Bug?](#found-bug)
  - [Submit an Issue](#submit-issue)
+ - [Submit an Pull Request](#pull-req)
  - [Development Process](#dev)
 
 ## <a name="coc"></a> Code of Conduct
@@ -26,6 +27,21 @@ We want to fix all the issues as soon as possible, but before fixing a bug we ne
 - and most importantly - a use-case that fails
 
 You can file new issues by filling out our [new issue form](https://github.com/trimox/angular-mdc-web/issues/new).
+
+## <a name="pull-req"></a> Submit a Pull Request
+When submitting PRs, make sure you're following our commit message conventions; our commit-msg hook should automatically enforce this. We also use [commitizen](https://www.npmjs.com/package/commitizen), which you can use to auto-format commit messages for you.
+
+Commit message type must be one of the following:
+* **feat**: A new feature
+* **fix**: A bug fix
+* **docs**: Documentation only changes
+* **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+* **refactor**: A code change that neither fixes a bug nor adds a feature
+* **perf**: A code change that improves performance
+* **test**: Adding missing or correcting existing tests
+* **chore**: Changes to the build process or auxiliary tools and libraries such as documentation generation
+
+When submitting PRs for large changes, be sure to include an adequate background in the description so that reviewers of the PR know what the changes entail at a high-level, the motivations for making these changes, and what they affect.
 
 ## <a name="dev"></a> Development Process
 Check out our [Developer guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/developer.md).

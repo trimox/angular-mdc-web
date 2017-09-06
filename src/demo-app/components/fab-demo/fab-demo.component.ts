@@ -1,6 +1,4 @@
-import {
-  Component,
-} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'fab-demo',
@@ -8,6 +6,5 @@ import {
 })
 export class FabDemoComponent {
   isMini: boolean;
-  isPlain: boolean;
   isRippleDisabled: boolean;
 }

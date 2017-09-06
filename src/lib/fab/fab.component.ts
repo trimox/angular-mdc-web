@@ -30,7 +30,6 @@ export class MdcFabIconDirective {
 })
 export class MdcFabComponent {
   @Input() mini: boolean;
-  @Input() plain: boolean;
   @Input()
   get disableRipple() { return this._ripple.disabled; }
   set disableRipple(value) {
@@ -39,9 +38,6 @@ export class MdcFabComponent {
   @HostBinding('class.mdc-fab') isHostClass = true;
   @HostBinding('class.mdc-fab--mini') get classMini(): string {
     return this.mini ? 'mdc-fab--mini' : '';
-  }
-  @HostBinding('class.mdc-fab--plain') get classPlain(): string {
-    return this.plain ? 'mdc-fab--plain' : '';
   }
   @HostListener('keypress', ['$event']) onkeypress(evt) {
     this.handleKeyPress(evt);

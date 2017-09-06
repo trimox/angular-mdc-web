@@ -25,12 +25,12 @@
       </thead>
       <tbody>
         <tr>
-          <td>@Input() primaryColor: boolean</td>
-          <td>Sets indicator bar line to use app primary color.</td>
+          <td>primary: boolean</td>
+          <td>Sets indicator bar line to use primary theme color.</td>
         </tr>
         <tr>
-          <td>@Input() accentColor: boolean</td>
-          <td>Sets indicator bar line to use app accent color.</td>
+          <td>secondary: boolean</td>
+          <td>Sets indicator bar line to use secondary theme color.</td>
         </tr>
       </tbody>
       <thead>
@@ -42,7 +42,7 @@
       <tbody>
         <tr>
           <td>
-<pre><code><![CDATA[@Output() change
+<pre><code><![CDATA[change
 EventEmitter<{ activeTabIndex: number }]]></code></pre></td>
           <td>Broadcast when a user actions on a tab, resulting in a change in the selected tab.</td>
         </tr>
@@ -62,15 +62,15 @@ a[mdc-tab]]]></code></pre></td>
           <td>The individual tab elements.</td>
         </tr>
         <tr>
-          <td>@Input() active: boolean</td>
+          <td>active: boolean</td>
           <td>Whether or not the tab is active. Setting this makes the tab active.</td>
         </tr>
         <tr>
-          <td>@Input() preventsDefaultOnClick: boolean</td>
+          <td>preventsDefaultOnClick: boolean</td>
           <td>Whether or not the tab will call preventDefault() on an event. Setting this makes the tab call preventDefault() on events.</td>
         </tr>
         <tr>
-          <td>@Input() disableRipple: boolean</td>
+          <td>disableRipple: boolean</td>
           <td>
 <pre><code><![CDATA[Disable the ink ripple.
 Example: disableRipple="true" or disableRipple]]></code></pre></td>
@@ -85,7 +85,7 @@ Example: disableRipple="true" or disableRipple]]></code></pre></td>
       <tbody>
         <tr>
           <td>
-<pre><code><![CDATA[@Output() select
+<pre><code><![CDATA[select
 EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
           <td>Broadcast when a user actions on the tab.</td>
         </tr>
@@ -159,7 +159,7 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
 </pre>
       <span mdc-typography-headline>Tab Bar with icon labels</span>
-      <mdc-tab-bar [primaryColor]="true">
+      <mdc-tab-bar [primary]="true">
         <mdc-tab [active]="true">
           <mdc-tab-icon material-icon>phone</mdc-tab-icon>
         </mdc-tab>
@@ -170,7 +170,7 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
           <mdc-tab-icon material-icon>person_pin</mdc-tab-icon>
         </mdc-tab>
       </mdc-tab-bar>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span> [<span style="color:#89bdff">primaryColor</span>]=<span style="color:#65b042">"true"</span>></span>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span> [<span style="color:#89bdff">primary</span>]=<span style="color:#65b042">"true"</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span> [<span style="color:#89bdff">active</span>]=<span style="color:#65b042">"true"</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span> <span style="color:#89bdff">material-icon</span>></span>phone<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
@@ -214,8 +214,8 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
 </pre>
 
-      <span mdc-typography-headline>Accent Color Indicator</span>
-      <mdc-tab-bar [accentColor]="true">
+      <span mdc-typography-headline>Secondary Color Indicator</span>
+      <mdc-tab-bar [secondary]="true">
         <a mdc-tab [active]="true" href="#/tab-demo">
           <mdc-tab-icon material-icon>phone</mdc-tab-icon>
           <mdc-tab-icon-text>Recents</mdc-tab-icon-text>
@@ -229,7 +229,7 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
           <mdc-tab-icon-text>Nearby</mdc-tab-icon-text>
         </a>
       </mdc-tab-bar>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span> [<span style="color:#89bdff">accentColor</span>]=<span style="color:#65b042">"true"</span>></span>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span> [<span style="color:#89bdff">secondary</span>]=<span style="color:#65b042">"true"</span>></span>
   <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-tab</span> [<span style="color:#e0c589">active</span>]=<span style="color:#65b042">"true"</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/tab-demo"</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span> <span style="color:#89bdff">material-icon</span>></span>phone<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>Recents<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>
@@ -246,7 +246,7 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
 </pre>
 
       <span mdc-typography-headline>Dark Theme</span>
-<mdc-tab-bar [accentColor]="true" [mdc-theme-dark]="true">
+<mdc-tab-bar [secondary]="true" [mdc-theme-dark]="true">
   <mdc-tab [active]="true">
     <mdc-tab-icon material-icon>phone</mdc-tab-icon>
     <mdc-tab-icon-text>Recents</mdc-tab-icon-text>
@@ -260,7 +260,7 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
     <mdc-tab-icon-text>Nearby</mdc-tab-icon-text>
   </mdc-tab>
 </mdc-tab-bar>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span> [<span style="color:#89bdff">accentColor</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#89bdff">mdc-theme-dark</span>]=<span style="color:#65b042">"true"</span>></span>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span> [<span style="color:#89bdff">secondary</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#89bdff">mdc-theme-dark</span>]=<span style="color:#65b042">"true"</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span> [<span style="color:#89bdff">active</span>]=<span style="color:#65b042">"true"</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span> <span style="color:#89bdff">material-icon</span>></span>phone<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>Recents<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>
@@ -302,7 +302,7 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
           </mdc-tab-bar-scroll-button>
         </mdc-tab-bar-scroll-back>
         <mdc-tab-bar-scroll-frame>
-          <mdc-tab-bar [accentColor]="true">
+          <mdc-tab-bar [secondary]="true">
             <mdc-tab [active]="true">Item One</mdc-tab>
             <mdc-tab>Item Two</mdc-tab>
             <mdc-tab>Item Three</mdc-tab>
@@ -332,7 +332,7 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
     <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar-scroll-button</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar-scroll-back</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar-scroll-frame</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span> [<span style="color:#89bdff">accentColor</span>]=<span style="color:#65b042">"true"</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span> [<span style="color:#89bdff">secondary</span>]=<span style="color:#65b042">"true"</span>></span>
       <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span> [<span style="color:#89bdff">active</span>]=<span style="color:#65b042">"true"</span>></span>Item One<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
       <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>Item Two<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
       <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>Item Three<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>

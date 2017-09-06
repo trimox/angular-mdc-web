@@ -25,18 +25,18 @@ export class MdcTabBarDirective {
   private tabBarIndicator: HTMLElement;
   private tabEvents: Subscription[];
 
-  @Input() primaryColor: boolean;
-  @Input() accentColor: boolean;
+  @Input() primary: boolean;
+  @Input() secondary: boolean;
   @Output() change: EventEmitter<{ activeTabIndex: number }> = new EventEmitter();
   @ContentChildren(MdcTabComponent, { descendants: false }) tabs: QueryList<MdcTabComponent>;
   @HostBinding('class.mdc-tab-bar') isHostClass = true;
   @HostBinding('class.mdc-tab-bar-scroller__scroll-frame__tabs') scrollFrameContent = false;
   @HostBinding('attr.role') role: string = 'tablist';
   @HostBinding('class.mdc-tab-bar--indicator-primary') get classIndicatorPrimary() {
-    return this.primaryColor ? 'mdc-tab-bar--indicator-primary' : '';
+    return this.primary ? 'mdc-tab-bar--indicator-primary' : '';
   }
-  @HostBinding('class.mdc-tab-bar--indicator-accent') get classIndicatorAccent() {
-    return this.accentColor ? 'mdc-tab-bar--indicator-accent' : '';
+  @HostBinding('class.mdc-tab-bar--indicator-accent') get classIndicatorSecondary() {
+    return this.secondary ? 'mdc-tab-bar--indicator-accent' : '';
   }
   @HostBinding('class.mdc-tab-bar--icon-tab-bar') get classTabIcon() {
     return this.tabs.length > 0

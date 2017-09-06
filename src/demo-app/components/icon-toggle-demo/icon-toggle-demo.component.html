@@ -53,11 +53,11 @@
         </tr>
         <tr>
           <td>primary: boolean</td>
-          <td>Colors the button with the primary color.</td>
+          <td>Colors the button with the primary theme color.</td>
         </tr>
         <tr>
-          <td>accent: boolean</td>
-          <td>Colors the button with the accent color.</td>
+          <td>secondary: boolean</td>
+          <td>Colors the button with the secondary theme color.</td>
         </tr>
         <tr>
           <td>disabled: boolean</td>
@@ -108,7 +108,7 @@
       </mdc-form-field>
       <mdc-form-field>
         <mdc-checkbox [(ngModel)]="isAccent"></mdc-checkbox>
-        <label>Accent Color</label>
+        <label>Secondary Color</label>
       </mdc-form-field>
       <mdc-form-field>
         <mdc-checkbox [(ngModel)]="isDisabled"></mdc-checkbox>
@@ -124,7 +124,7 @@
   [(ngModel)]="isOn"
   [disabled]="isDisabled"
   [primary]="isPrimary"
-  [accent]="isAccent"
+  [secondary]="isAccent"
   iconOn="favorite" iconOff="favorite_border"
   labelOn="Add to Favorites" labelOff="Remove from Favorites">
 </mdc-icon-toggle>
@@ -135,7 +135,7 @@
   [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"mymodel"</span>
   [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"false"</span>
   [<span style="color:#89bdff">primary</span>]=<span style="color:#65b042">"false"</span>
-  [<span style="color:#89bdff">accent</span>]=<span style="color:#65b042">"false"</span>
+  [<span style="color:#89bdff">secondary</span>]=<span style="color:#65b042">"false"</span>
   <span style="color:#89bdff">iconOn</span>=<span style="color:#65b042">"favorite"</span> <span style="color:#89bdff">iconOff</span>=<span style="color:#65b042">"favorite_border"</span>
   <span style="color:#89bdff">labelOn</span>=<span style="color:#65b042">"Add to Favorites"</span> <span style="color:#89bdff">labelOff</span>=<span style="color:#65b042">"Remove from Favorites"</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon-toggle</span>></span>

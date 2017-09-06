@@ -27,43 +27,43 @@
       </thead>
       <tbody>
         <tr>
-          <td>@Input() type: string</td>
+          <td>type: string</td>
           <td>Input type of button (e.g. button, submit).</td>
         </tr>
         <tr>
-          <td>@Input() dense: boolean</td>
+          <td>primary: boolean</td>
+          <td>Colors the button with the primary theme color.</td>
+        </tr>
+        <tr>
+          <td>secondary: boolean</td>
+          <td>Colors the button with the secondary theme color.</td>
+        </tr>
+        <tr>
+          <td>dense: boolean</td>
           <td>Compresses the button text to make it slightly smaller.</td>
         </tr>
         <tr>
-          <td>@Input() raised: boolean</td>
+          <td>raised: boolean</td>
           <td>Elevates the button and creates a colored background.</td>
         </tr>
         <tr>
-          <td>@Input() compact: boolean</td>
+          <td>compact: boolean</td>
           <td>Reduces the amount of horizontal padding in the button.</td>
         </tr>
         <tr>
-          <td>@Input() primary: boolean</td>
-          <td>Colors the button with the primary color.</td>
-        </tr>
-        <tr>
-          <td>@Input() accent: boolean</td>
-          <td>Colors the button with the accent color.</td>
-        </tr>
-        <tr>
-          <td>@Input() unelevated: boolean</td>
+          <td>unelevated: boolean</td>
           <td>A button that is flush with the surface.</td>
         </tr>
         <tr>
-          <td>@Input() stroked: boolean</td>
+          <td>stroked: boolean</td>
           <td>A button that is flush with the surface and has a visible border.</td>
         </tr>
         <tr>
-          <td>@Input() disabled: boolean</td>
+          <td>disabled: boolean</td>
           <td>Disables the button.</td>
         </tr>
         <tr>
-          <td>@Input() disableRipple: boolean</td>
+          <td>disableRipple: boolean</td>
           <td>
 <pre><code><![CDATA[Disable the ink ripple.
 Example: disableRipple="true" or disableRipple]]></code></pre></td>
@@ -95,8 +95,8 @@ Example: disableRipple="true" or disableRipple]]></code></pre></td>
   <button mdc-button [stroked]="true">Stroked</button>
 <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">stroked</span>]=<span style="color:#65b042">"true"</span>></span>Stroked<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
 </pre>
-  <button mdc-button [accent]="true">Accent</button>
-  <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">accent</span>]=<span style="color:#65b042">"true"</span>></span>Accent<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+  <button mdc-button [secondary]="true">Secondary Color</button>
+  <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">secondary</span>]=<span style="color:#65b042">"true"</span>></span>Secondary Color<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
 </pre>
   <a mdc-button [primary]="true" [raised]="true" href="#/button-demo">Href link</a>
 <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-button</span>
@@ -117,10 +117,10 @@ Example: disableRipple="true" or disableRipple]]></code></pre></td>
  [<span style="color:#e0c589">compact</span>]=<span style="color:#65b042">"true"</span>
  [<span style="color:#e0c589">raised</span>]=<span style="color:#65b042">"true"</span>></span>Compact and Raised<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
 </pre>
-  <button mdc-button [accent]="true" [raised]="true">Accent and Raised</button>
+  <button mdc-button [secondary]="true" [raised]="true">Secondary Color and Raised</button>
   <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span>
- [<span style="color:#e0c589">accent</span>]=<span style="color:#65b042">"true"</span>
- [<span style="color:#e0c589">raised</span>]=<span style="color:#65b042">"true"</span>></span>Accent and Raised<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+ [<span style="color:#e0c589">secondary</span>]=<span style="color:#65b042">"true"</span>
+ [<span style="color:#e0c589">raised</span>]=<span style="color:#65b042">"true"</span>></span>Secondary Color and Raised<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
 </pre>
   <button mdc-button [primary]="true" [raised]="true">Primary and Raised</button>
   <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span>
@@ -131,5 +131,5 @@ Example: disableRipple="true" or disableRipple]]></code></pre></td>
   <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span>
  [<span style="color:#e0c589">primary</span>]=<span style="color:#65b042">"true"</span>
  [<span style="color:#e0c589">disabled</span>]=<span style="color:#65b042">"true"</span>></span>Disabled<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-</pre> </div>
-<mdc-snackbar #snack></mdc-snackbar>
+</pre> 
+<mdc-snackbar #snack></mdc-snackbar></div>

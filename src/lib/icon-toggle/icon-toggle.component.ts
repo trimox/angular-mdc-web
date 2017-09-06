@@ -48,7 +48,7 @@ export class MdcIconToggleComponent implements AfterViewInit, OnChanges, OnDestr
   @Input() cssClassOn: string;
   @Input() cssClassOff: string;
   @Input() primary: boolean;
-  @Input() accent: boolean;
+  @Input() secondary: boolean;
   @Input() iconClass: string;
   get value(): boolean { return this.value_; }
   set value(v) {
@@ -69,11 +69,11 @@ export class MdcIconToggleComponent implements AfterViewInit, OnChanges, OnDestr
   @HostBinding('attr.role') role: string = 'button';
   @HostBinding('attr.aria-pressed') ariaPressed: string = 'false';
   @HostBinding('attr.tabIndex') tabindex: string = '0';
-  @HostBinding('class.mdc-icon-toggle--primary') get classPrimaryColor() {
+  @HostBinding('class.mdc-icon-toggle--primary') get classPrimary() {
     return this.primary ? 'mdc-icon-toggle--primary' : '';
   }
-  @HostBinding('class.mdc-icon-toggle--accent') get classAccentColor() {
-    return this.accent ? 'mdc-icon-toggle--accent' : '';
+  @HostBinding('class.mdc-icon-toggle--accent') get classSecondary() {
+    return this.secondary ? 'mdc-icon-toggle--accent' : '';
   }
   @HostBinding('attr.data-toggle-on') get dataToggleOn() {
     return JSON.stringify({

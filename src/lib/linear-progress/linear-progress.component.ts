@@ -42,11 +42,11 @@ export class MdcLinearProgressComponent implements AfterViewInit {
     this._foundation.setReverse(value);
     this.reversed_ = value;
   }
-  @Input() accent: boolean;
+  @Input() secondary: boolean;
   @HostBinding('attr.role') role: string = 'progressbar';
   @HostBinding('class.mdc-linear-progress') isHostClass = true;
-  @HostBinding('class.mdc-linear-progress--accent') get classAccent(): string {
-    return this.accent ? 'mdc-linear-progress--accent' : '';
+  @HostBinding('class.mdc-linear-progress--accent') get classSecondary(): string {
+    return this.secondary ? 'mdc-linear-progress--accent' : '';
   }
 
   private _mdcAdapter: MDCLinearProgressAdapter = {

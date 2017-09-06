@@ -28,7 +28,7 @@ export class MdcButtonComponent {
   @Input() primary: boolean;
   @Input() dense: boolean;
   @Input() compact: boolean;
-  @Input() accent: boolean;
+  @Input() secondary: boolean;
   @Input() unelevated: boolean;
   @Input() stroked: boolean;
   @Input()
@@ -59,8 +59,8 @@ export class MdcButtonComponent {
   @HostBinding('class.mdc-button--primary') get classPrimary(): string {
     return this.primary ? 'mdc-button--primary' : '';
   }
-  @HostBinding('class.mdc-button--accent') get classAccent(): string {
-    return this.accent ? 'mdc-button--accent' : '';
+  @HostBinding('class.mdc-button--accent') get classSecondary(): string {
+    return this.secondary ? 'mdc-button--accent' : '';
   }
   @HostBinding('class.mdc-button--dense') get classDense(): string {
     return this.dense ? 'mdc-button--dense' : '';

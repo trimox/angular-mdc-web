@@ -30,6 +30,7 @@ export class MdcButtonComponent {
   @Input() compact: boolean;
   @Input() accent: boolean;
   @Input() unelevated: boolean;
+  @Input() stroked: boolean;
   @Input()
   get disabled() { return this.disabled_; }
   set disabled(value) {
@@ -69,6 +70,9 @@ export class MdcButtonComponent {
   }
   @HostBinding('class.mdc-button--unelevated') get classUnelevated(): string {
     return this.unelevated ? 'mdc-button--unelevated' : '';
+  }
+  @HostBinding('class.mdc-button--stroked') get classStroked(): string {
+    return this.stroked ? 'mdc-button--stroked' : '';
   }
   @HostListener('keypress', ['$event']) onkeypress(evt) {
     this.handleKeyPress_(evt);

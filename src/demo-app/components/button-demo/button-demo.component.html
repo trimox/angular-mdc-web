@@ -52,7 +52,11 @@
         </tr>
         <tr>
           <td>@Input() unelevated: boolean</td>
-          <td>A contained button that is flush with the surface.</td>
+          <td>A button that is flush with the surface.</td>
+        </tr>
+        <tr>
+          <td>@Input() stroked: boolean</td>
+          <td>A button that is flush with the surface and has a visible border.</td>
         </tr>
         <tr>
           <td>@Input() disabled: boolean</td>
@@ -87,6 +91,9 @@ Example: disableRipple="true" or disableRipple]]></code></pre></td>
 </pre>
   <button mdc-button [unelevated]="true">Unelevated</button>
 <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">unelevated</span>]=<span style="color:#65b042">"true"</span>></span>Unelevated<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+</pre>
+  <button mdc-button [stroked]="true">Stroked</button>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">stroked</span>]=<span style="color:#65b042">"true"</span>></span>Stroked<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
 </pre>
   <button mdc-button [accent]="true">Accent</button>
   <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">accent</span>]=<span style="color:#65b042">"true"</span>></span>Accent<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>

@@ -9,6 +9,7 @@
     "baseUrl": ".",
     "noUnusedParameters": false,
     "sourceMap": true,
+    "noImplicitAny": true,
     "importHelpers": true,
     "emitDecoratorMetadata": true,
     "inlineSources": true,
@@ -19,7 +20,8 @@
     "noStrictGenericChecks": true
   },
   "files": [
-    "public_api.ts"
+    "public_api.ts",
+    "typings.d.ts"
   ],
   "compileOnSave": false,
   "buildOnSave": false,

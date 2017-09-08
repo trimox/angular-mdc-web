@@ -6,6 +6,7 @@
     "lib": ["es2015", "dom"],
     "declaration": false,
     "sourceMap": true,
+    "noImplicitAny": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "suppressImplicitAnyIndexErrors": true,
@@ -14,7 +15,8 @@
   },
   "files": [
     "app.module.ts",
-    "main-aot.ts"
+    "main-aot.ts",
+    "../lib/typings.d.ts"
   ],
   "exclude": [
     "node_modules",

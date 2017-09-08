@@ -9,5 +9,5 @@ export interface MDCIconToggleAdapter {
   getAttr: (name: string) => string;
   setAttr: (name: string, value: string) => void;
   rmAttr: (name: string) => void;
-  notifyChange: (evtData) => void;
+  notifyChange: (evtData: { isOn: boolean }) => void;
 }

@@ -64,7 +64,7 @@ export class MdcIconToggleComponent implements AfterViewInit, OnChanges, OnDestr
   set disableRipple(value) {
     this._ripple.disabled = toBoolean(value);
   }
-  @Output('change') change_: EventEmitter<Event> = new EventEmitter();
+  @Output('change') change_: EventEmitter<boolean> = new EventEmitter();
   @HostBinding('class.mdc-icon-toggle') isHostClass = true;
   @HostBinding('attr.role') role: string = 'button';
   @HostBinding('attr.aria-pressed') ariaPressed: string = 'false';
@@ -114,9 +114,9 @@ export class MdcIconToggleComponent implements AfterViewInit, OnChanges, OnDestr
     getAttr: (name) => this._root.nativeElement.getAttribute(name),
     setAttr: (name, value) => this._renderer.setAttribute(this._root.nativeElement, name, value),
     rmAttr: (name) => this._renderer.removeAttribute(this._root.nativeElement, name),
-    notifyChange: (evtData) => {
+    notifyChange: (evtData: { isOn: boolean }) => {
       this._controlValueAccessorChangeFn(evtData.isOn);
-      this.change_.emit(evtData);
+      this.change_.emit(evtData.isOn);
     }
   };
 

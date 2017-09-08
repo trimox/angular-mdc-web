@@ -1,6 +1,6 @@
 import {
-  Directive,
   ContentChildren,
+  Directive,
   ElementRef,
   EventEmitter,
   HostBinding,
@@ -121,17 +121,15 @@ export class MdcTabBarDirective {
       this.unlistenTabSelect();
     }
     this.tabEvents = new Array<Subscription>();
-    this.tabs.forEach(_ => {
-      this.tabEvents.push(_.select.subscribe(event => {
+    this.tabs.forEach(tab => {
+      this.tabEvents.push(tab.select.subscribe((event: any) => {
         this._foundation.switchToTabAtIndex(this.tabs.toArray().indexOf(event.tab), true);
       }));
     });
   }
 
   private unlistenTabSelect() {
-    this.tabEvents.forEach(_ =>
-      _.unsubscribe()
-    );
+    this.tabEvents.forEach(_ => _.unsubscribe());
     this.tabEvents = null;
   }
 }

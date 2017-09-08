@@ -39,10 +39,10 @@ export class MdcFabComponent {
   @HostBinding('class.mdc-fab--mini') get classMini(): string {
     return this.mini ? 'mdc-fab--mini' : '';
   }
-  @HostListener('keypress', ['$event']) onkeypress(evt) {
+  @HostListener('keypress', ['$event']) onkeypress(evt: KeyboardEvent) {
     this.handleKeyPress(evt);
   }
-  @HostListener('blur', ['$event']) blur(evt) {
+  @HostListener('blur', ['$event']) blur(evt: FocusEvent) {
     this.handleBlur(evt);
   }
 

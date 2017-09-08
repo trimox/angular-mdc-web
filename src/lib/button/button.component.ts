@@ -74,10 +74,10 @@ export class MdcButtonComponent {
   @HostBinding('class.mdc-button--stroked') get classStroked(): string {
     return this.stroked ? 'mdc-button--stroked' : '';
   }
-  @HostListener('keypress', ['$event']) onkeypress(evt) {
+  @HostListener('keypress', ['$event']) onkeypress(evt: KeyboardEvent) {
     this.handleKeyPress_(evt);
   }
-  @HostListener('blur', ['$event']) blur(evt) {
+  @HostListener('blur', ['$event']) blur(evt: FocusEvent) {
     this.handleBlur_(evt);
   }
 

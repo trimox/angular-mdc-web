@@ -32,8 +32,8 @@ export class MdcToolbarComponent implements AfterViewInit, OnDestroy {
   @Input() waterfall: boolean;
   @Input() fixedLastrow: boolean;
   @Output() change: EventEmitter<number> = new EventEmitter<number>();
-  @ContentChild(MdcToolbarRowDirective) mdcFirstRow;
-  @ContentChild(MdcToolbarTitleDirective) mdcTitle;
+  @ContentChild(MdcToolbarRowDirective) mdcFirstRow: MdcToolbarRowDirective;
+  @ContentChild(MdcToolbarTitleDirective) mdcTitle: MdcToolbarTitleDirective;
   @HostBinding('class.mdc-toolbar') isHostClass = true;
   @HostBinding('class.mdc-toolbar--fixed') get classFixedToolbar(): string {
     return this.fixed ? 'mdc-toolbar--fixed' : '';

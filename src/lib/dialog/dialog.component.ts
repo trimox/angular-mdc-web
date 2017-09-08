@@ -26,8 +26,6 @@ import { MdcButtonComponent } from '../button/button.component';
 import { MDCDialogAdapter } from './dialog-adapter';
 import { MDCDialogFoundation } from '@material/dialog';
 
-export { focusTrap };
-
 @Directive({
   selector: '[mdc-dialog-surface], mdc-dialog-surface'
 })
@@ -129,7 +127,12 @@ export class MdcDialogButtonDirective extends MdcButtonComponent {
   encapsulation: ViewEncapsulation.None
 })
 export class MdcDialogComponent implements AfterViewInit, OnDestroy {
-  private focusTrap_: any;
+  private focusTrap_: {
+    activate: Function;
+    deactivate: Function;
+    pause: Function;
+    unpause: Function;
+  };
 
   @Input() clickOutsideToClose: boolean = true;
   @Output('accept') accept_: EventEmitter<string> = new EventEmitter();

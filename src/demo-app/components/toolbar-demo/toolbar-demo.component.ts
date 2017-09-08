@@ -13,7 +13,7 @@ export class ToolbarDemoComponent {
   isFixedLastRow = false;
   flexibleExpansionRatio: number;
 
-  handleToolbarChange(evt) {
+  handleToolbarChange(evt: number) {
     this.flexibleExpansionRatio = evt;
   }
 }

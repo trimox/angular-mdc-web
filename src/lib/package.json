@@ -19,7 +19,7 @@
   "main": "./bundles/material.umd.js",
   "module": "./material.es5.js",
   "es2015": "./material.js",
-  "typings": "./index.d.ts",
+  "typings": "./typings.d.ts",
   "private": false,
   "dependencies": {
     "material-components-web": "0.20.0"

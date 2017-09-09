@@ -1,4 +1,31 @@
 <a name="0.0.0"></a>
+# [0.4.5](https://github.com/trimox/angular-mdc-web/compare/v0.4.0...v0.4.5) (2017-09-09)
+
+
+### Bug Fixes
+
+* Set correct type of ImplicitAny members ([#136](https://github.com/trimox/angular-mdc-web/issues/136)) ([adf20e4](https://github.com/trimox/angular-mdc-web/commit/adf20e4))
+
+
+### Features
+
+* **button:** Implement stroked button ([#132](https://github.com/trimox/angular-mdc-web/issues/132)) ([193140b](https://github.com/trimox/angular-mdc-web/commit/193140b)), closes [#131](https://github.com/trimox/angular-mdc-web/issues/131)
+* Rename all occurences of property `accent` to `secondary` ([#139](https://github.com/trimox/angular-mdc-web/issues/139)) ([4a710e4](https://github.com/trimox/angular-mdc-web/commit/4a710e4)), closes [#138](https://github.com/trimox/angular-mdc-web/issues/138)
+* **dialog:** Add `escapeToClose` property ([#146](https://github.com/trimox/angular-mdc-web/issues/146)) ([5c92a6d](https://github.com/trimox/angular-mdc-web/commit/5c92a6d)), closes [#145](https://github.com/trimox/angular-mdc-web/issues/145)
+* **fab:** Remove [plain] property ([#140](https://github.com/trimox/angular-mdc-web/issues/140)) ([b40c018](https://github.com/trimox/angular-mdc-web/commit/b40c018))
+* **package:** Update MDC dependency to v0.20.0 ([#137](https://github.com/trimox/angular-mdc-web/issues/137)) ([4857b88](https://github.com/trimox/angular-mdc-web/commit/4857b88))
+* **typography:** Implement `mdc-typography-button` directive ([#148](https://github.com/trimox/angular-mdc-web/issues/148)) ([0727217](https://github.com/trimox/angular-mdc-web/commit/0727217)), closes [#142](https://github.com/trimox/angular-mdc-web/issues/142)
+
+
+### BREAKING CHANGES
+
+* **fab:** Remove the [plain] property from any Floating Action Button in your code.
+* The `accent` property on Button, Icon-toggle, Linear-progress was renamed to `secondary`.
+The `accentColor` and `primaryColor` properties on Tabs was renamed to `accent` and `primary`.
+
+
+
+<a name="0.0.0"></a>
 # [0.4.0](https://github.com/trimox/angular-mdc-web/compare/v0.3.0...v0.4.0) (2017-09-01)
 
 

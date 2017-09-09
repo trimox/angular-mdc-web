@@ -25,7 +25,11 @@
       <tbody>
         <tr>
           <td>clickOutsideCloses: boolean</td>
-          <td>Close the dialog if user clicks on the backdrop.</td>
+          <td>Close the dialog if user clicks on the backdrop. (Default: true)</td>
+        </tr>
+        <tr>
+          <td>escapeToClose: boolean</td>
+          <td>Enable or disable close on escape key (Default: true).</td>
         </tr>
       </tbody>
       <thead>
@@ -184,7 +188,9 @@
 </pre>
 
 <span mdc-typography-headline>Alert</span>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span> #<span style="color:#89bdff">dialogalert</span> [<span style="color:#89bdff">clickOutsideToClose</span>]=<span style="color:#65b042">"false"</span>></span>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span>
+  [<span style="color:#89bdff">clickOutsideToClose</span>]=<span style="color:#65b042">"false"</span>
+  [<span style="color:#89bdff">escapeToClose</span>]=<span style="color:#65b042">"false"</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
       Discard draft?
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
@@ -279,7 +285,7 @@
   </mdc-dialog-footer>
 </mdc-dialog>
 
-<mdc-dialog #dialogalert [clickOutsideToClose]="false">
+<mdc-dialog #dialogalert [clickOutsideToClose]="false" [escapeToClose]="false">
   <mdc-dialog-header>
       Discard draft?
   </mdc-dialog-header>

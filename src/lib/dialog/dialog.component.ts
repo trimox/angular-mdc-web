@@ -16,9 +16,9 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { isBrowser } from '../common';
+import { isBrowser, KeyCodes } from '../common';
 import { EventRegistry } from '../common/event-registry';
-import focusTrap from 'focus-trap';
+import createFocusTrap from 'focus-trap';
 
 import { MdcRipple } from '../ripple/ripple.directive';
 import { MdcButtonComponent } from '../button/button.component';
@@ -135,6 +135,7 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
   };
 
   @Input() clickOutsideToClose: boolean = true;
+  @Input() escapeToClose: boolean = true;
   @Output('accept') accept_: EventEmitter<string> = new EventEmitter();
   @Output('cancel') cancel_: EventEmitter<string> = new EventEmitter();
   @HostBinding('class.mdc-dialog') isHostClass = true;
@@ -180,14 +181,16 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
       }
     },
     registerDocumentKeydownHandler: (handler: EventListener) => {
-      if (isBrowser()) {
-        this._registry.listen_(this._renderer, 'keydown', handler, 'document');
-      }
+      if (!isBrowser()) { return; }
+
+      handler = !this.escapeToClose ? this.handleKeyDown_ : handler;
+      this._registry.listen_(this._renderer, 'keydown', handler, 'document');
     },
     deregisterDocumentKeydownHandler: (handler: EventListener) => {
-      if (isBrowser()) {
-        this._registry.unlisten_('keydown', handler);
-      }
+      if (!isBrowser()) { return; }
+
+      handler = !this.escapeToClose ? this.handleKeyDown_ : handler;
+      this._registry.unlisten_('keydown', handler);
     },
     registerTransitionEndHandler: (handler: EventListener) => {
       if (this.dialogSurface) {
@@ -202,14 +205,10 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
     notifyAccept: () => this.accept_.emit('MDCDialog:accept'),
     notifyCancel: () => this.cancel_.emit('MDCDialog:cancel'),
     trapFocusOnSurface: () => {
-      if (this.focusTrap_) {
-        this.focusTrap_.activate();
-      }
+      this.focusTrap_.activate();
     },
     untrapFocusOnSurface: () => {
-      if (this.focusTrap_) {
-        this.focusTrap_.deactivate();
-      }
+      this.focusTrap_.deactivate();
     },
     isDialog: (el: Element) => {
       return this.dialogSurface ? el === this.dialogSurface.elementRef.nativeElement : false;
@@ -242,12 +241,21 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
     this._foundation.destroy();
   }
 
+  private handleKeyDown_(keyboardEvent: KeyboardEvent) {
+    let keyCode = keyboardEvent.keyCode;
+
+    if (keyCode === KeyCodes.ESCAPE) {
+      keyboardEvent.stopPropagation();
+    }
+  }
+
   show() {
     const focusedEl = this.dialogButtons.find((_) => _.focused || _.accept);
 
-    this.focusTrap_ = focusTrap(this.dialogSurface.elementRef.nativeElement, {
+    this.focusTrap_ = createFocusTrap(this.dialogSurface.elementRef.nativeElement, {
       initialFocus: focusedEl ? focusedEl.elementRef.nativeElement : this._root.nativeElement,
       clickOutsideDeactivates: this.clickOutsideToClose,
+      escapeDeactivates: this.escapeToClose,
     });
     this._foundation.open();
   }

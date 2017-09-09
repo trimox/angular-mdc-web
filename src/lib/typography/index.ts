@@ -1,35 +1,37 @@
 import { NgModule } from '@angular/core';
 
 import {
-  MdcTypography,
   MdcAdjustMarginDirective,
+  MdcBody1Directive,
+  MdcBody2Directive,
+  MdcButtonDirective,
+  MdcCaptionDirective,
   MdcDisplay1Directive,
   MdcDisplay2Directive,
   MdcDisplay3Directive,
   MdcDisplay4Directive,
   MdcHeadlineDirective,
-  MdcTitleDirective,
   MdcSubheading1Directive,
   MdcSubheading2Directive,
-  MdcBody1Directive,
-  MdcBody2Directive,
-  MdcCaptionDirective
+  MdcTitleDirective,
+  MdcTypography,
 } from './typography.directive';
 
 const TYPOGRAPHY_DIRECTIVES = [
-  MdcTypography,
   MdcAdjustMarginDirective,
+  MdcBody1Directive,
+  MdcBody2Directive,
+  MdcButtonDirective,
+  MdcCaptionDirective,
   MdcDisplay1Directive,
   MdcDisplay2Directive,
   MdcDisplay3Directive,
   MdcDisplay4Directive,
   MdcHeadlineDirective,
-  MdcTitleDirective,
   MdcSubheading1Directive,
   MdcSubheading2Directive,
-  MdcBody1Directive,
-  MdcBody2Directive,
-  MdcCaptionDirective
+  MdcTitleDirective,
+  MdcTypography,
 ];
 
 @NgModule({

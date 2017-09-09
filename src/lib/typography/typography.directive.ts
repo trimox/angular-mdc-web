@@ -93,3 +93,10 @@ export class MdcBody1Directive {
 export class MdcCaptionDirective {
   @HostBinding('class.mdc-typography--caption') isHostClass = true;
 }
+
+@Directive({
+  selector: '[mdc-typography-button]'
+})
+export class MdcButtonDirective {
+  @HostBinding('class.mdc-typography--button') isHostClass = true;
+}

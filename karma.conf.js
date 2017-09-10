@@ -21,12 +21,13 @@ module.exports = function (config) {
     preprocessors: {
       'test/unit/index.ts': ['webpack']
     },
-    remapIstanbulReporter: {
-      reports: {
-        html: 'coverage/remaped-html',
-        lcovonly: 'coverage/lcov.info',
-        'text-summary': null
-      }
+    coverageReporter: {
+      dir: 'coverage',
+      reporters: [
+        {type: 'lcovonly', subdir: '.'},
+        {type: 'json', subdir: '.', file: 'coverage.json'},
+        {type: 'html'},
+      ],
     },
     client: {
       mocha: {
@@ -47,7 +48,3 @@ module.exports = function (config) {
     browsers: ['Chrome'],
   });
 };
-
-// if (process.env['TRAVIS']) {
-//   configuration.browsers = ['Chrome_travis_ci'];
-// };

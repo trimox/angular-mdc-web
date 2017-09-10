@@ -48,6 +48,6 @@ module.exports = function (config) {
   });
 };
 
-if (process.env['TRAVIS']) {
-  // TODO(trimox): Create test steps for travis-ci
-};
+// if (process.env['TRAVIS']) {
+//   configuration.browsers = ['Chrome_travis_ci'];
+// };

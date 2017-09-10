@@ -4,3 +4,5 @@
 /build/
 /publish-demo/
 /src/demo-app/aot
+/coverage
+*.log

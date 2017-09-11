@@ -99,8 +99,8 @@ export class MdcCheckboxComponent implements AfterViewInit, OnDestroy {
     this.ripple.disabled = toBoolean(value);
   }
   @Input() tabIndex: number = 0;
-  @Input('aria-label') ariaLabel: string;
-  @Input('aria-labelledby') ariaLabelledby: string;
+  @Input('aria-label') ariaLabel: string = '';
+  @Input('aria-labelledby') ariaLabelledby: string | null = null;
   @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
   @HostBinding('class.mdc-checkbox') isHostClass = true;
   @ViewChild('nativeCb') inputEl: ElementRef;

@@ -38,7 +38,7 @@ export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: Provider = {
     class="mdc-checkbox__native-control"
     [id]="inputId"
     [name]="name"
-    [tabindex]="tabindex"
+    [tabIndex]="tabIndex"
     [attr.aria-label]="ariaLabel"
     [attr.aria-labelledby]="ariaLabelledby"
     [disabled]="disabled"
@@ -95,7 +95,7 @@ export class MdcCheckboxComponent implements AfterViewInit, OnDestroy {
   set disableRipple(value) {
     this.ripple.disabled = toBoolean(value);
   }
-  @Input() tabindex: number = 0;
+  @Input() tabIndex: number = 0;
   @Input('aria-label') ariaLabel: string;
   @Input('aria-labelledby') ariaLabelledby: string;
   @Output() change: EventEmitter<Event> = new EventEmitter<Event>();

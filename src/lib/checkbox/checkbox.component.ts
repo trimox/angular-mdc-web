@@ -184,4 +184,8 @@ export class MdcCheckboxComponent implements AfterViewInit, OnDestroy {
   registerOnTouched(fn: any) {
     this.onTouched = fn;
   }
+
+  focus(): void {
+    this.inputEl.nativeElement.focus();
+  }
 }

@@ -21,7 +21,7 @@ import { MdcRipple } from '../ripple/ripple.directive';
 import { MDCCheckboxAdapter } from './checkbox-adapter';
 import { MDCCheckboxFoundation } from '@material/checkbox';
 
-let nextElId_ = 0;
+let nextUniqueId = 0;
 
 export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
@@ -31,6 +31,9 @@ export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: Provider = {
 
 @Component({
   selector: 'mdc-checkbox',
+  host: {
+    '[id]': 'id',
+  },
   template:
   `
   <input type="checkbox"
@@ -65,11 +68,11 @@ export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: Provider = {
 })
 
 export class MdcCheckboxComponent implements AfterViewInit, OnDestroy {
-  @Input() id: string = `mdc-checkbox-${++nextElId_}`;
-  @Input() name: string;
-  get inputId(): string {
-    return `input-${this.id}`;
-  }
+  private _uniqueId: string = `mdc-checkbox-${++nextUniqueId}`;
+
+  @Input() id: string = this._uniqueId;
+  get inputId(): string { return `${this.id || this._uniqueId}-input`; }
+  @Input() name: string | null = null;
   @Input()
   get checked() { return this._foundation.isChecked(); }
   set checked(value) {

@@ -4,11 +4,8 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "lib": ["es6", "dom"],
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "removeComments": false,
-    "noImplicitAny": false,
-    "suppressImplicitAnyIndexErrors": true,
+    "emitDecoratorMetadata": true,
     "typeRoots": ["../../node_modules/@types"]
   }
 }

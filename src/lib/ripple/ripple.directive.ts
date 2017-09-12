@@ -24,9 +24,9 @@ export class MdcRipple implements OnDestroy {
   set disabled(value) {
     this.disabled_ = toBoolean(value);
     if (this.disabled_) {
-      this._foundation.destroy();
+      this._foundation.deactivate();
     } else {
-      this._foundation.init();
+      this._foundation.activate();
     }
   }
 

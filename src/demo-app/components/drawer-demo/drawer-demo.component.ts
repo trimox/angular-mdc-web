@@ -20,10 +20,6 @@ export class DrawerDemoComponent {
     this.temporaryDrawer.open();
   }
   handlePersistent() {
-    if (!this.persistentDrawer.isOpen()) {
-      this.persistentDrawer.open();
-    } else {
-      this.persistentDrawer.close();
-    }
+    !this.persistentDrawer.isOpen() ? this.persistentDrawer.open() : this.persistentDrawer.close();
   }
 }

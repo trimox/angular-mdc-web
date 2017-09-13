@@ -1,9 +1,9 @@
 # Angular MDC
 
-[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angular-mdc/Lobby)
-[![codecov](https://codecov.io/gh/trimox/angular-mdc-web/branch/master/graph/badge.svg)](https://codecov.io/gh/trimox/angular-mdc-web)
-[![Build Status](https://travis-ci.org/trimox/angular-mdc-web.svg?branch=master)](https://travis-ci.org/trimox/angular-mdc-web)
 [![npm version](https://badge.fury.io/js/%40angular-mdc%2Fweb.svg)](https://badge.fury.io/js/%40angular-mdc%2Fweb)
+[![Build Status](https://travis-ci.org/trimox/angular-mdc-web.svg?branch=master)](https://travis-ci.org/trimox/angular-mdc-web)
+[![codecov](https://codecov.io/gh/trimox/angular-mdc-web/branch/master/graph/badge.svg)](https://codecov.io/gh/trimox/angular-mdc-web)
+[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angular-mdc/Lobby)
 
 [Demo App](https://trimox.github.io/angular-mdc-web/) with API, documentation and examples
 
@@ -11,10 +11,10 @@ Our Angular library integrates with [Google's Material Design Components](https:
 
 #### Quick Links
 *  [Changelog](https://github.com/trimox/angular-mdc-web/blob/master/CHANGELOG.md)
+*  [Getting Started guides](#getstarted)
+*  [Demo, documentation and examples](https://trimox.github.io/angular-mdc-web/)
 *  [Contributing](https://github.com/trimox/angular-mdc-web/blob/master/CONTRIBUTING.md)
 *  [Developer guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/developer.md)
-*  [Demo app](https://trimox.github.io/angular-mdc-web/)
-*  [Getting Started guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md)
 *  [Gitter Chat](https://gitter.im/angular-mdc/Lobby)
 
 ## Install Angular MDC
@@ -27,8 +27,10 @@ npm i @angular-mdc/web
 npm i @angular-mdc/web@latest
 ```
 
-## Getting started
+## <a name="getstarted"></a> Getting started
 Check out our [Getting Started guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md) to begin adopting  Angular MDC in your project.
+
+Using Angular CLI? Try our [Angular CLI - step by step guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/guide-angular-cli.md).
 
 ## Material Design Components
 | Component  | Status  | Demo |
@@ -48,8 +50,8 @@ Check out our [Getting Started guide](https://github.com/trimox/angular-mdc-web/
 | menu | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/menu-demo) |
 | radio | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/radio-demo) |
 | ripple | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/ripple-demo) |
-| select | WIP ||
-| slider | TBI ||
+| select | TBI ||
+| slider | WIP ||
 | snackbar | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/snackbar-demo) |
 | switch | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/switch-demo) |
 | tabs | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/tab-demo) |

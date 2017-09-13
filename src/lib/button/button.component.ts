@@ -23,7 +23,6 @@ import {
 export class MdcButtonComponent {
   private disabled_: boolean = false;
 
-  @Input() type: string;
   @Input() raised: boolean;
   @Input() primary: boolean;
   @Input() dense: boolean;
@@ -48,9 +47,6 @@ export class MdcButtonComponent {
   }
   @HostBinding('tabindex') get tabindex(): number {
     return this.disabled ? -1 : 0;
-  }
-  @HostBinding('attr.type') get attrType(): string {
-    return this.type ? this.type : 'button';
   }
   @HostBinding('class.mdc-button') isHostClass = true;
   @HostBinding('class.mdc-button--raised') get classRaised(): string {

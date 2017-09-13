@@ -18,7 +18,7 @@ cd PROJECT-NAME
 
 #### On existing projects, you need to set default CSS preprocessor to `sass`:
 ```
-ng new my-mdc-project --style=sass
+ng set defaults.styleExt scss
 ```
 
 ## <a name="step2"></a> Step 2: Install Angular MDC

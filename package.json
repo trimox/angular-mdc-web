@@ -92,7 +92,7 @@
     "sass-loader": "^6.0.6",
     "sourcemap-istanbul-instrumenter-loader": "^0.2.0",
     "style-loader": "^0.18.2",
-    "stylelint": "~8.0.0",
+    "stylelint": "~8.1.1",
     "stylelint-config-standard": "^17.0.0",
     "stylelint-order": "^0.6.0",
     "stylelint-scss": "^2.0.1",

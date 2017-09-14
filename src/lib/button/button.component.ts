@@ -16,6 +16,9 @@ import {
 
 @Component({
   selector: 'button[mdc-button], a[mdc-button]',
+  host: {
+    '[attr.aria-disabled]': 'disabled.toString()',
+  },
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
   providers: [MdcRipple]

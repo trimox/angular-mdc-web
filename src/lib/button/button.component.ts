@@ -34,7 +34,7 @@ export class MdcButtonComponent {
   @Input() unelevated: boolean;
   @Input() stroked: boolean;
   @Input()
-  get disabled() { return this.disabled_; }
+  get disabled(): boolean { return this.disabled_; }
   set disabled(value) {
     this.disabled_ = toBoolean(value);
     if (this.disabled_) {
@@ -44,7 +44,7 @@ export class MdcButtonComponent {
     }
   }
   @Input()
-  get disableRipple() { return this.ripple.disabled; }
+  get disableRipple(): boolean { return this.ripple.disabled; }
   set disableRipple(value) {
     this.ripple.disabled = toBoolean(value);
   }

@@ -6,12 +6,6 @@ module.exports = function (config) {
     basePath: '',
     frameworks: ['jasmine', 'mocha'],
     reporters: ['dots', 'coverage'],
-    customLaunchers: {
-      Chrome_travis_ci: {
-        base: 'Chrome',
-        flags: ['--no-sandbox']
-      }
-    },
     mime: {
       'text/x-typescript': ['ts','tsx']
     },
@@ -45,6 +39,6 @@ module.exports = function (config) {
     captureTimeout: 240000,
     colors: true,
     logLevel: config.LOG_INFO,
-    browsers: ['Chrome'],
+    browsers: ['ChromeHeadless'],
   });
 };

@@ -3,8 +3,7 @@ import { async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed } from '@a
 import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { MdcCheckboxComponent, MdcCheckboxModule } from '../../../src/lib/checkbox';
-import { MdcRippleModule } from '../../../src/lib/ripple';
+import { MdcCheckboxComponent, MdcCheckboxModule, MdcRippleModule } from '../../../src/lib/public_api';
 
 describe('MdcCheckboxComponent', () => {
   let fixture: ComponentFixture<any>;

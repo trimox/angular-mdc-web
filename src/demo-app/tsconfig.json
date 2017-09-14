@@ -1,21 +1,17 @@
 ﻿{
+  "compileOnSave": false,
   "compilerOptions": {
     "declaration": false,
     "target": "es5",
     "module": "es2015",
     "moduleResolution": "node",
-    "lib": ["es2015", "dom"],
+    "lib": ["es2017", "dom"],
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "noStrictGenericChecks": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "noEmitOnError": true,
-    "stripInternal": false,
     "sourceMap": true,
     "typeRoots": ["../../node_modules/@types"]
   },
   "files": [
-    "./app-module.ts",
     "./main.ts"
   ],
   "exclude": [

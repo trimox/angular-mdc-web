@@ -25,11 +25,11 @@ import { TextfieldDemoComponent } from './components/textfield-demo/textfield-de
 import { ToolbarDemoComponent } from './components/toolbar-demo/toolbar-demo.component';
 import { TypographyDemoComponent } from './components/typography-demo/typography-demo.component';
 import { TabDemoComponent, ItemOneContent, ItemTwoContent, ItemThreeContent } from './components/tab-demo/tab-demo.component';
+import { NavbarComponent } from './components/navigation/navbar.component';
 
 import { MaterialModule } from '../lib/public_api';
 
 import { HomeComponent } from './components/home/home.component';
-import { NavbarComponent } from './components/navigation/navbar.component';
 
 import { demoAppRoutes } from './routes';
 

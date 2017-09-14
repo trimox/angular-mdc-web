@@ -79,7 +79,6 @@ module.exports = [{
           }, {
             loader: 'angular2-template-loader'
           }],
-        exclude: [/\.(spec|e2e)\.ts$/]
       }, {
           test: /\.html$/,
           loader: 'html-loader'

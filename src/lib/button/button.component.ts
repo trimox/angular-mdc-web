@@ -70,6 +70,9 @@ export class MdcButtonComponent {
   @HostBinding('class.mdc-button--stroked') get classStroked(): string {
     return this.stroked ? 'mdc-button--stroked' : '';
   }
+  @HostListener('click', ['$event']) onclick(evt: Event) {
+    this.handleClick_(evt);
+  }
   @HostListener('keypress', ['$event']) onkeypress(evt: KeyboardEvent) {
     this.handleKeyPress_(evt);
   }
@@ -82,6 +85,14 @@ export class MdcButtonComponent {
     public elementRef: ElementRef,
     public ripple: MdcRipple) {
     this.ripple.init();
+  }
+
+  private handleClick_(event: Event) {
+    // A disabled button shouldn't apply any actions
+    if (this.disabled) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
   }
 
   private handleKeyPress_(keyboardEvent: KeyboardEvent) {

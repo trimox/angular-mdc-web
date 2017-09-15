@@ -81,7 +81,8 @@ export class MdcPersistentDrawerSelectedDirective {
     <ng-content></ng-content>
   </mdc-persistent-drawer-nav>
   `,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  providers: [EventRegistry],
 })
 export class MdcPersistentDrawerComponent implements AfterViewInit, OnDestroy {
   @Output() opened: EventEmitter<void> = new EventEmitter<void>();

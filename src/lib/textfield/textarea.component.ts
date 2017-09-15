@@ -37,7 +37,10 @@ export const MD_TEXTAREA_CONTROL_VALUE_ACCESSOR: Provider = {
     (focus)="onFocus()"></textarea>
     <mdc-textfield-label [attr.for]="id" *ngIf="label">{{label}}</mdc-textfield-label>
   `,
-  providers: [MD_TEXTAREA_CONTROL_VALUE_ACCESSOR]
+  providers: [
+    MD_TEXTAREA_CONTROL_VALUE_ACCESSOR,
+    EventRegistry
+  ],
 })
 export class MdcTextareaComponent extends MdcTextfieldComponent {
   @Input() multiline: boolean;

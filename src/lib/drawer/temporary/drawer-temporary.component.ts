@@ -81,7 +81,8 @@ export class MdcTemporaryDrawerSelectedDirective {
     <ng-content></ng-content>
   </mdc-temporary-drawer-nav>
   `,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  providers: [EventRegistry],
 })
 export class MdcTemporaryDrawerComponent implements AfterViewInit, OnDestroy {
   @Output() opened: EventEmitter<void> = new EventEmitter<void>();

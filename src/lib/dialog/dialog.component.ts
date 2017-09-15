@@ -124,7 +124,8 @@ export class MdcDialogButtonDirective extends MdcButtonComponent {
   </mdc-dialog-surface>
   <mdc-dialog-backdrop></mdc-dialog-backdrop>
   `,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  providers: [EventRegistry],
 })
 export class MdcDialogComponent implements AfterViewInit, OnDestroy {
   private focusTrap_: {

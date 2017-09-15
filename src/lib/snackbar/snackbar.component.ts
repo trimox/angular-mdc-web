@@ -30,7 +30,8 @@ import { getCorrectEventName } from '@material/animation';
     <button mdc-snackbar-action-button></button>
   </mdc-snackbar-action-wrapper>
   `,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  providers: [EventRegistry]
 })
 export class MdcSnackbarComponent implements AfterViewInit, OnDestroy {
   @Input() alignStart: boolean;

@@ -19,7 +19,8 @@ import { MDCTabBarAdapter } from './tab-bar-adapter';
 import { MDCTabBarFoundation } from '@material/tabs';
 
 @Directive({
-  selector: '[mdc-tab-bar], mdc-tab-bar'
+  selector: '[mdc-tab-bar], mdc-tab-bar',
+  providers: [EventRegistry],
 })
 export class MdcTabBarDirective {
   private tabBarIndicator: HTMLElement;

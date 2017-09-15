@@ -89,7 +89,10 @@ export class MdcTextfieldLabelDirective {
     <mdc-textfield-label [attr.for]="id">{{label}}</mdc-textfield-label>
   `,
   encapsulation: ViewEncapsulation.None,
-  providers: [MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR],
+  providers: [
+    MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR,
+    EventRegistry,
+  ],
 })
 export class MdcTextfieldComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
   private type_ = 'text';

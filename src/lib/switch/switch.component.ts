@@ -46,7 +46,7 @@ let nextElId_ = 0;
   encapsulation: ViewEncapsulation.None,
   providers: [
     MD_SWITCH_CONTROL_VALUE_ACCESSOR,
-    MdcRipple
+    MdcRipple,
   ]
 })
 export class MdcSwitchComponent implements OnChanges {

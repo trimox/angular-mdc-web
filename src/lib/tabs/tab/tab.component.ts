@@ -40,7 +40,10 @@ export class MdcTabIconTextDirective {
 @Component({
   selector: '[mdc-tab], mdc-tab',
   template: '<ng-content></ng-content>',
-  providers: [MdcRipple],
+  providers: [
+    MdcRipple,
+    EventRegistry
+  ],
   encapsulation: ViewEncapsulation.None
 })
 export class MdcTabComponent implements AfterViewInit, OnDestroy {

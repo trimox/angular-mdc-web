@@ -63,10 +63,10 @@ export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: Provider = {
   encapsulation: ViewEncapsulation.None,
   providers: [
     MD_CHECKBOX_CONTROL_VALUE_ACCESSOR,
-    MdcRipple
+    MdcRipple,
+    EventRegistry,
   ]
 })
-
 export class MdcCheckboxComponent implements AfterViewInit, OnDestroy {
   private _uniqueId: string = `mdc-checkbox-${++nextUniqueId}`;
 

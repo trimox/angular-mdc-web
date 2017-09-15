@@ -52,10 +52,9 @@ export const MD_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
   encapsulation: ViewEncapsulation.None,
   providers: [
     MD_RADIO_CONTROL_VALUE_ACCESSOR,
-    MdcRipple
+    MdcRipple,
   ]
 })
-
 export class MdcRadioComponent implements AfterViewInit, OnDestroy {
   @Input() id: string = `mdc-radio-${++nextElId_}`;
   get inputId(): string {

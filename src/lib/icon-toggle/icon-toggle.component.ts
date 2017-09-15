@@ -35,7 +35,8 @@ export const MD_ICON_TOGGLE_CONTROL_VALUE_ACCESSOR: Provider = {
   encapsulation: ViewEncapsulation.None,
   providers: [
     MD_ICON_TOGGLE_CONTROL_VALUE_ACCESSOR,
-    MdcRipple
+    MdcRipple,
+    EventRegistry,
   ],
 })
 export class MdcIconToggleComponent implements AfterViewInit, OnChanges, OnDestroy {

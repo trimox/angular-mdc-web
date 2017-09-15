@@ -53,7 +53,8 @@ export class MdcMenuDividerComponent { }
    <ng-content select="mdc-menu-item, mdc-menu-divider"></ng-content>
   </ul>
   `,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  providers: [EventRegistry],
 })
 export class MdcMenuComponent implements AfterViewInit, OnChanges, OnDestroy {
   private previousFocus_: any;

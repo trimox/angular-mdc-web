@@ -1,21 +1,19 @@
 import {
-  Directive,
   ElementRef,
+  Injectable,
   OnDestroy,
   Renderer2,
 } from '@angular/core';
-import { EventRegistry } from '../common/event-registry';
-import { toBoolean } from '../common';
+import { toBoolean, isBrowser } from '../common';
 
 import { MDCRippleAdapter } from './ripple-adapter';
 import { supportsCssVariables } from '@material/ripple/util';
 import { MDCRippleFoundation } from '@material/ripple';
 
-@Directive({
-  selector: '[mdc-ripple]',
-  providers: [EventRegistry]
-})
+@Injectable()
 export class MdcRipple implements OnDestroy {
+  interactionListenerFn: () => void;
+  resizeListenerFn: () => void;
   private disabled_: boolean;
 
   unbounded: boolean;
@@ -44,20 +42,22 @@ export class MdcRipple implements OnDestroy {
       this._renderer.removeClass(this._root.nativeElement, className);
     },
     registerInteractionHandler: (evtType: string, handler: EventListener) => {
-      if (this._root) {
-        this._registry.listen_(this._renderer, evtType, handler, this._root);
-      }
+      this.resizeListenerFn = this._renderer.listen(this._root.nativeElement, evtType, handler);
     },
     deregisterInteractionHandler: (evtType: string, handler: EventListener) => {
-      this._registry.unlisten_(evtType, handler);
+      if (this.interactionListenerFn) {
+        this.interactionListenerFn();
+      }
     },
     registerResizeHandler: (handler: EventListener) => {
-      if (this._root) {
-        this._registry.listen_(this._renderer, 'resize', handler, this._root);
+      if (isBrowser()) {
+        this.resizeListenerFn = this._renderer.listen(window, 'resize', handler);
       }
     },
     deregisterResizeHandler: (handler: EventListener) => {
-      this._registry.unlisten_('resize', handler);
+      if (isBrowser() && this.resizeListenerFn) {
+        this.resizeListenerFn();
+      }
     },
     updateCssVariable: (varName: string, value: string) => {
       if (this._root) {
@@ -93,8 +93,8 @@ export class MdcRipple implements OnDestroy {
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef,
-    private _registry: EventRegistry) { }
+    private _root: ElementRef) {
+  }
 
   ngOnDestroy() {
     this._foundation.destroy();

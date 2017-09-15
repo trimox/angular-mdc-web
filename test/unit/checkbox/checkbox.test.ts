@@ -3,14 +3,14 @@ import { async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed } from '@a
 import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { MdcCheckboxComponent, MdcCheckboxModule, MdcRippleModule } from '../../../src/lib/public_api';
+import { MdcCheckboxComponent, MdcCheckboxModule } from '../../../src/lib/public_api';
 
 describe('MdcCheckboxComponent', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MdcCheckboxModule, MdcRippleModule, FormsModule, ReactiveFormsModule],
+      imports: [MdcCheckboxModule, FormsModule, ReactiveFormsModule],
       declarations: [
         SingleCheckbox,
         CheckboxWithAriaLabelledby,

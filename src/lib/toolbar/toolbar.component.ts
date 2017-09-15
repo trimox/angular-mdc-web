@@ -23,7 +23,8 @@ import { MDCToolbarFoundation } from '@material/toolbar';
 @Component({
   selector: 'mdc-toolbar',
   template: '<ng-content></ng-content>',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  providers: [EventRegistry],
 })
 export class MdcToolbarComponent implements AfterViewInit, OnDestroy {
   @Input() flexible: boolean;

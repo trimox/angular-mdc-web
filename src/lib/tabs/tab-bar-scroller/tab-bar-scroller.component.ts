@@ -78,7 +78,8 @@ export class MdcTabBarScrollFrameDirective implements AfterContentInit {
 }
 
 @Directive({
-  selector: '[mdc-tab-bar-scroller], mdc-tab-bar-scroller'
+  selector: '[mdc-tab-bar-scroller], mdc-tab-bar-scroller',
+  providers: [EventRegistry],
 })
 export class MdcTabBarScrollerDirective implements AfterViewInit, OnDestroy {
   @Input() direction: 'ltr' | 'rtl' = 'ltr';

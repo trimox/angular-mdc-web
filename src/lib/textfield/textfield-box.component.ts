@@ -48,6 +48,7 @@ export class MdcTextfieldBottomLineDirective {
   providers: [
     MD_TEXTFIELD_BOX_CONTROL_VALUE_ACCESSOR,
     MdcRipple,
+    EventRegistry,
   ]
 })
 export class MdcTextfieldBoxComponent extends MdcTextfieldComponent {

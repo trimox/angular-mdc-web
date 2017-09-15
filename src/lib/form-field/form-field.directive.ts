@@ -18,7 +18,8 @@ import { MDCFormFieldAdapter } from './form-field-adapter';
 import { MDCFormFieldFoundation } from '@material/form-field';
 
 @Directive({
-  selector: 'mdc-form-field'
+  selector: 'mdc-form-field',
+  providers: [EventRegistry],
 })
 export class MdcFormFieldDirective implements AfterContentInit, OnDestroy {
   @Input() alignEnd: boolean = false;

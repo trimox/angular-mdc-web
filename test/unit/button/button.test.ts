@@ -2,14 +2,14 @@ import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MdcButtonComponent, MdcButtonModule, MdcRippleModule } from '../../../src/lib/public_api';
+import { MdcButtonComponent, MdcButtonModule } from '../../../src/lib/public_api';
 
 describe('MdcButtonComponent', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MdcButtonModule, MdcRippleModule],
+      imports: [MdcButtonModule],
       declarations: [
         SimpleButton,
         HrefButton,
@@ -151,7 +151,6 @@ describe('MdcButtonComponent', () => {
       [unelevated]="isUnelevated"
       [stroked]="isStroked">
     </button>
-    <a href="http://www.google.com" mdc-button [disabled]="isDisabled">Link</a>
   `,
 })
 class SimpleButton {

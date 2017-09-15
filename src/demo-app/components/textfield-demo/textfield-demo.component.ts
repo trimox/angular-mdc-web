@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: './textfield-demo.component.html'
 })
 export class TextfieldDemoComponent {
-  username: string = '';
+  username: string;
   prefill:string = 'John Doe';
   comments:string;
   subject:string;

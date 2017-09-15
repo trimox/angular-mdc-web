@@ -250,8 +250,8 @@ export class MdcTextfieldComponent implements AfterViewInit, OnDestroy, ControlV
   }
 
   writeValue(value: string) {
-    this.value = value;
-    if (value && value.length > 0) {
+    this.value = value == null ? '' : value;
+    if (this.value.length > 0) {
       this._mdcAdapter.addClassToLabel('mdc-textfield__label--float-above');
     } else {
       this._mdcAdapter.removeClassFromLabel('mdc-textfield__label--float-above');

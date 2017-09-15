@@ -32,13 +32,13 @@ export class ExampleModule { }
 
 ### Or individual components
 ```ts
-import { MdcFabModule, MdcRippleModule } from '@angular-mdc/web';
+import { MdcFabModule, MdcMenuModule } from '@angular-mdc/web';
 
 @NgModule({
   ...
   imports: [
    MdcFabModule,
-   MdcRippleModule,
+   MdcMenuModule,
 ],
   ...
 })

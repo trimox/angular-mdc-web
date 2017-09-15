@@ -4,6 +4,7 @@
  - [Setup your development environment](#setup)
  - [Running the Development Server](#dev-server)
  - [Linting](#lint)
+ - [Testing / Coverage Enforcement](#test)
  - [Building](#build)
  - [Code Style](#code-style)
 
@@ -42,6 +43,12 @@ After your development server is running, open a browser to url: http://localhos
 npm run lint:ts # Lints typescript using tslint
 npm run lint:css # Lints (S)CSS using stylelint
 npm run lint # Runs both of the above commands in parallel
+```
+
+## <a name="test"></a> Testing / Coverage Enforcement
+```
+npm run test:watch # Runs karma on ChromeHeadless, re-running when source files change
+npm test # Runs karma, and then runs coverage enforcement checks a single time.
 ```
 
 ## <a name="build"></a> Building Angular MDC

@@ -93,6 +93,12 @@ describe('MdcCheckboxComponent', () => {
       expect(checkboxInstance.checked).toBe(false);
     });
 
+    it('#should disable ripple', () => {
+      testComponent.isRippleDisabled = true;
+      fixture.detectChanges();
+      expect(checkboxInstance.disableRipple).toBeTruthy('Expected checkbox ripple to be disabled');
+    });
+
     it('#should preserve the user-provided id', () => {
       expect(checkboxNativeElement.id).toBe('simple-check');
       expect(inputElement.id).toBe('simple-check-input');
@@ -254,7 +260,7 @@ describe('MdcCheckboxComponent', () => {
       [id]="checkboxId"
       [value]="checkboxValue"
       [(indeterminate)]="isIndeterminate"
-      [disableRipple]="disableRipple"
+      [disableRipple]="isRippleDisabled"
       [disabled]="isDisabled">
     </mdc-checkbox>
   `,
@@ -262,6 +268,7 @@ describe('MdcCheckboxComponent', () => {
 class SingleCheckbox {
   checkboxId: string | null = 'simple-check';
   isDisabled: boolean = false;
+  isRippleDisabled: boolean = false;
   checkboxValue: string = 'single_checkbox';
 }
 

@@ -23,22 +23,26 @@ export const MD_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
   multi: true
 };
 
-let nextElId_ = 0;
+let nextUniqueId = 0;
 
 @Component({
   selector: 'mdc-switch',
+  host: {
+    '[id]': 'id',
+  },
   template:
   `
   <input type="checkbox"
     #inputEl
     class="mdc-switch__native-control"
     [id]="inputId"
-    [tabindex]="tabindex"
+    [name]="name"
+    [tabIndex]="tabIndex"
     [attr.aria-label]="ariaLabel"
     [attr.aria-labelledby]="ariaLabelledby"
     [disabled]="disabled"
     [checked]="checked"
-    (change)="handleChange($event)"/>
+    (change)="onChange($event)"/>
   <div class="mdc-switch__background">
     <div class="mdc-switch__knob"></div>
   </div>
@@ -50,15 +54,16 @@ let nextElId_ = 0;
   ]
 })
 export class MdcSwitchComponent implements OnChanges {
-  @Input() id: string = `mdc-switch-${++nextElId_}`;
-  get inputId(): string {
-    return `input-${this.id}`;
-  }
-  @Input() checked: boolean;
+  private _uniqueId: string = `mdc-switch-${++nextUniqueId}`;
+
+  @Input() id: string = this._uniqueId;
+  get inputId(): string { return `${this.id || this._uniqueId}-input`; }
+  @Input() name: string | null = null;
+  @Input() checked: boolean = false;
   @Input() disabled: boolean;
-  @Input() tabindex: number = 0;
-  @Input('aria-label') ariaLabel: string;
-  @Input('aria-labelledby') ariaLabelledby: string;
+  @Input() tabIndex: number = 0;
+  @Input('aria-label') ariaLabel: string = '';
+  @Input('aria-labelledby') ariaLabelledby: string | null = null;
   @Input()
   get disableRipple() { return this.ripple.disabled; }
   set disableRipple(value) {
@@ -90,8 +95,9 @@ export class MdcSwitchComponent implements OnChanges {
     }
   }
 
-  handleChange(evt: Event) {
+  onChange(evt: Event) {
     evt.stopPropagation();
+    this.checked = this.inputEl.nativeElement.checked;
     this._controlValueAccessorChangeFn((<any>evt.target).checked);
     this.change.emit(evt);
   }
@@ -106,5 +112,9 @@ export class MdcSwitchComponent implements OnChanges {
 
   registerOnTouched(fn: any) {
     this.onTouched = fn;
+  }
+
+  focus(): void {
+    this.inputEl.nativeElement.focus();
   }
 }

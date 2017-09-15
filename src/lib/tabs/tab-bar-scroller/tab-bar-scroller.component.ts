@@ -66,7 +66,7 @@ export class MdcTabBarScrollFrameDirective implements AfterContentInit {
     }
   }
 
-  findTab(index: number) {
+  findTab(index: number) : MdcTabComponent | null {
     if (this.tabBar) {
       let tabs = this.tabBar.tabs.toArray();
       if (index >= 0 && index < tabs.length) {

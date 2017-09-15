@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  forwardRef,
   HostBinding,
   Input,
   OnDestroy,
@@ -11,7 +12,6 @@ import {
   Renderer2,
   ViewChild,
   ViewEncapsulation,
-  forwardRef
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, RadioControlValueAccessor } from '@angular/forms';
 import { toBoolean } from '../common';
@@ -20,7 +20,7 @@ import { MdcRipple } from '../ripple/ripple.directive';
 import { MDCRadioAdapter } from './radio-adapter';
 import { MDCRadioFoundation } from '@material/radio';
 
-let nextElId_ = 0;
+let nextUniqueId = 0;
 
 export const MD_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
@@ -30,6 +30,9 @@ export const MD_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
 
 @Component({
   selector: 'mdc-radio',
+  host: {
+    '[id]': 'id',
+  },
   template:
   `
   <input type="radio"
@@ -37,6 +40,7 @@ export const MD_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
     class="mdc-radio__native-control"
     [id]="inputId"
     [name]="name"
+    [tabIndex]="tabIndex"
     [attr.aria-label]="ariaLabel"
     [attr.aria-labelledby]="ariaLabelledby"
     [disabled]="disabled"
@@ -56,16 +60,16 @@ export const MD_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
   ]
 })
 export class MdcRadioComponent implements AfterViewInit, OnDestroy {
-  @Input() id: string = `mdc-radio-${++nextElId_}`;
-  get inputId(): string {
-    return `input-${this.id}`;
-  }
+  private _uniqueId: string = `mdc-radio-${++nextUniqueId}`;
+
+  @Input() id: string = this._uniqueId;
+  get inputId(): string { return `${this.id || this._uniqueId}-input`; }
+  @Input() name: string | null = null;
   @Input()
   get checked() { return this._foundation.isChecked(); }
   set checked(value) {
     this._foundation.setChecked(value);
   }
-  @Input() name: string;
   @Input()
   get value() { return this._foundation.getValue(); }
   set value(value) {
@@ -81,9 +85,9 @@ export class MdcRadioComponent implements AfterViewInit, OnDestroy {
   set disableRipple(value) {
     this.ripple.disabled = toBoolean(value);
   }
-  @Input() tabindex: number = 0;
-  @Input('aria-label') ariaLabel: string;
-  @Input('aria-labelledby') ariaLabelledby: string;
+  @Input() tabIndex: number = 0;
+  @Input('aria-label') ariaLabel: string = '';
+  @Input('aria-labelledby') ariaLabelledby: string | null = null;
   @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
   @HostBinding('class.mdc-radio') isHostClass = true;
   @ViewChild('inputEl') inputEl: ElementRef;
@@ -152,5 +156,9 @@ export class MdcRadioComponent implements AfterViewInit, OnDestroy {
 
   setDisabledState(isDisabled: boolean) {
     this._foundation.setDisabled(isDisabled);
+  }
+
+  focus(): void {
+    this.inputEl.nativeElement.focus();
   }
 }

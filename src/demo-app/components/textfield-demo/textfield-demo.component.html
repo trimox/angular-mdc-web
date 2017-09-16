@@ -30,55 +30,55 @@
       </thead>
       <tbody>
         <tr>
-          <td>@Input() id: string</td>
+          <td>id: string</td>
           <td>Unique id of the element.</td>
         </tr>
         <tr>
-          <td>@Input() type: string = 'text'</td>
+          <td>type: string = 'text'</td>
           <td>Input type of textfield (e.g. email, password, url).</td>
         </tr>
         <tr>
-          <td>@Input() name: string</td>
+          <td>name: string</td>
           <td>Name of the textfield.</td>
         </tr>
         <tr>
-          <td>@Input() value: string</td>
+          <td>value: string</td>
           <td>The input element's value.</td>
         </tr>
         <tr>
-          <td>@Input() dense: boolean</td>
+          <td>dense: boolean</td>
           <td>Shrinks the font size and height of the input.</td>
         </tr>
         <tr>
-          <td>@Input() fullwidth: boolean</td>
+          <td>fullwidth: boolean</td>
           <td>Use to change element to fullwidth textfield. Not usable with mdc-textfield-box.</td>
         </tr>
         <tr>
-          <td>@Input() multiline: boolean</td>
+          <td>multiline: boolean</td>
           <td>Use to allow multiple lines inside the textfield. Not usable with mdc-textfield-box.</td>
         </tr>
         <tr>
-          <td>@Input() disabled: boolean</td>
+          <td>disabled: boolean</td>
           <td>Disables the component.</td>
         </tr>
         <tr>
-          <td>@Input() required: boolean</td>
+          <td>required: boolean</td>
           <td>Whether the element is required.</td>
         </tr>
         <tr>
-          <td>@Input() label: string</td>
+          <td>label: string</td>
           <td>Shown to the user when there's no focus or values.</td>
         </tr>
         <tr>
-          <td>@Input() placeholder: string</td>
+          <td>placeholder: string</td>
           <td>Placeholder attribute of the element.</td>
         </tr>
         <tr>
-          <td>@Input() tabindex: number</td>
+          <td>tabindex: number</td>
           <td>Tab index of the text element.</td>
         </tr>
         <tr>
-          <td>@Input() rows: number</td>
+          <td>rows: number</td>
           <td>Number of rows for this textarea. Not usable with mdc-textfield-box.</td>
         </tr>
         <tr>
@@ -98,8 +98,8 @@
       </thead>
       <tbody>
         <tr>
-          <td>updateErrorState(value?: boolean)</td>
-          <td>Updates the error state either by value passed, or by checking the validity of the input.</td>
+          <td>setValid(value?: boolean)</td>
+          <td>Updates input validity using passed value, or if left empty checking the validity of the input.</td>
         </tr>
       </tbody>
     </table>

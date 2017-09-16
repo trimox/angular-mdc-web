@@ -96,8 +96,8 @@ export class MdcTextfieldLabelDirective {
 })
 export class MdcTextfieldComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
   private type_ = 'text';
-  private disabled_ = false;
-  private required_ = false;
+  private disabled_: boolean = false;
+  private required_: boolean = false;
   private controlValueAccessorChangeFn_: (value: any) => void = (value) => { };
   onChange = (_: any) => { };
   onTouched = () => { };
@@ -121,7 +121,7 @@ export class MdcTextfieldComponent implements AfterViewInit, OnDestroy, ControlV
     this.required_ = value != null && `${value}` !== 'false';
   }
   @Input()
-  get type() { return this.type_; }
+  get type(): string { return this.type_; }
   set type(value: string) {
     this.type_ = value || 'text';
     this.validateType_();
@@ -131,7 +131,7 @@ export class MdcTextfieldComponent implements AfterViewInit, OnDestroy, ControlV
     }
   }
   @Input()
-  get value() { return this.inputText.elementRef.nativeElement.value; }
+  get value(): string { return this.inputText.elementRef.nativeElement.value; }
   set value(value: string) {
     if (value !== this.value) {
       this.inputText.elementRef.nativeElement.value = value;
@@ -234,6 +234,7 @@ export class MdcTextfieldComponent implements AfterViewInit, OnDestroy, ControlV
     destroy: Function,
     isDisabled: Function,
     setDisabled: Function,
+    setValid: Function,
   } = new MDCTextfieldFoundation(this._mdcAdapter);
 
   constructor(
@@ -280,32 +281,24 @@ export class MdcTextfieldComponent implements AfterViewInit, OnDestroy, ControlV
     this.onTouched();
   }
 
-  isDisabled() {
+  isDisabled(): boolean {
     return this._foundation.isDisabled();
   }
 
-  isBadInput() {
+  isBadInput(): boolean {
     return (this.inputText.elementRef.nativeElement as HTMLInputElement).validity.badInput;
   }
 
-  focus() {
+  focus(): void {
     this.inputText.focus();
   }
 
-  updateErrorState(value?: boolean) {
-    if (value || this.valid) {
-      this._mdcAdapter.removeClass('mdc-textfield--invalid');
-    } else {
-      this._mdcAdapter.addClass('mdc-textfield--invalid');
-    }
+  setValid(value?: boolean): void {
+    this._foundation.setValid(value ? value : this.valid);
   }
 
   private isTextarea_() {
     let nativeElement = this._root.nativeElement;
-
-    // In Universal, we don't have access to `nodeName`, but the same can be achieved with `name`.
-    // Note that this shouldn't be necessary once Angular switches to an API that resembles the
-    // DOM closer.
     let nodeName = isBrowser ? nativeElement.nodeName : nativeElement.name;
     return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
   }

@@ -46,13 +46,13 @@ export class DialogDemoComponent {
 
   showDialogForm() {
     // reset error state
-    this.input.updateErrorState(true);
+    this.input.setValid(true);
     this.dialogForm.show();
   }
 
   updateForm() {
     // reset error state
-    this.input.updateErrorState(false);
+    this.input.setValid(false);
     if (!this.userForm.valid) {
       return;
     }

@@ -1,4 +1,37 @@
 <a name="0.0.0"></a>
+# [0.4.8](https://github.com/trimox/angular-mdc-web/compare/v0.4.5...v0.4.8) (2017-09-17)
+
+
+### Bug Fixes
+
+* **button:** Prevent `click()` event propagation if disabled ([2ef9d7b](https://github.com/trimox/angular-mdc-web/commit/2ef9d7b))
+* **button:** Remove type attribute ([#176](https://github.com/trimox/angular-mdc-web/issues/176)) ([15152f7](https://github.com/trimox/angular-mdc-web/commit/15152f7)), closes [#174](https://github.com/trimox/angular-mdc-web/issues/174)
+* **checkbox:** Correct camelcase property of `tabIndex` ([41af1ad](https://github.com/trimox/angular-mdc-web/commit/41af1ad))
+* **textfield:** Label overlap if value is undefined ([#188](https://github.com/trimox/angular-mdc-web/issues/188)) ([b2ee5c9](https://github.com/trimox/angular-mdc-web/commit/b2ee5c9)), closes [#187](https://github.com/trimox/angular-mdc-web/issues/187)
+
+
+### Features
+
+* Add `applyCssTransform` function ([#170](https://github.com/trimox/angular-mdc-web/issues/170)) ([4115006](https://github.com/trimox/angular-mdc-web/commit/4115006))
+* **button:** Set `aria-disabled` if disabled ([a6c1802](https://github.com/trimox/angular-mdc-web/commit/a6c1802))
+* **checkbox:** Add focus() as public method ([#161](https://github.com/trimox/angular-mdc-web/issues/161)) ([fe7d1a9](https://github.com/trimox/angular-mdc-web/commit/fe7d1a9))
+* **checkbox:** Provision host + input `id` if not user defined ([e686dac](https://github.com/trimox/angular-mdc-web/commit/e686dac))
+* **infrastructure:** Implement Test Infrastructure ([#150](https://github.com/trimox/angular-mdc-web/issues/150)) ([c079cd3](https://github.com/trimox/angular-mdc-web/commit/c079cd3)), closes [#114](https://github.com/trimox/angular-mdc-web/issues/114)
+* Injectable `MdcRipple` + EventRegistry provider ([#181](https://github.com/trimox/angular-mdc-web/issues/181)) ([99923e7](https://github.com/trimox/angular-mdc-web/commit/99923e7)), closes [#164](https://github.com/trimox/angular-mdc-web/issues/164)
+* **radio:** Improvements + test coverage ([#183](https://github.com/trimox/angular-mdc-web/issues/183)) ([bb45d77](https://github.com/trimox/angular-mdc-web/commit/bb45d77))
+* **switch:** Improvements + test coverage ([#182](https://github.com/trimox/angular-mdc-web/issues/182)) ([60653dc](https://github.com/trimox/angular-mdc-web/commit/60653dc))
+* **tabs:** Add test coverage ([#185](https://github.com/trimox/angular-mdc-web/issues/185)) ([0d01b48](https://github.com/trimox/angular-mdc-web/commit/0d01b48))
+* **textfield:** Add `setValid` method to set a custom validity ([#190](https://github.com/trimox/angular-mdc-web/issues/190)) ([8dee576](https://github.com/trimox/angular-mdc-web/commit/8dee576))
+
+
+### BREAKING CHANGES
+
+* **textfield:** `updateErrorState` method was renamed to `setValid` keeping with MDC foundation naming.
+* `MdcRippleModule` was removed, please update your code accordingly.
+
+
+
+<a name="0.0.0"></a>
 # [0.4.5](https://github.com/trimox/angular-mdc-web/compare/v0.4.0...v0.4.5) (2017-09-09)
 
 

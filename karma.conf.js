@@ -4,7 +4,7 @@ const webpackConfig = require('./config/webpack/webpack.test.js');
 module.exports = function (config) {
   config.set({
     basePath: '',
-    frameworks: ['jasmine', 'mocha'],
+    frameworks: ['jasmine'],
     reporters: ['dots', 'coverage'],
     mime: {
       'text/x-typescript': ['ts','tsx']
@@ -22,12 +22,6 @@ module.exports = function (config) {
         {type: 'json', subdir: '.', file: 'coverage.json'},
         {type: 'html'},
       ],
-    },
-    client: {
-      mocha: {
-        reporter: 'html',
-        ui: 'qunit',
-      },
     },
     webpack: webpackConfig,
     webpackMiddleware: {

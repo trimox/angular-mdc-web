@@ -6,23 +6,11 @@ const ROLLUP_GLOBALS = {
   '@angular/common': 'ng.common',
   '@angular/forms': 'ng.forms',
   '@angular/http': 'ng.http',
-  // '@material/drawer': 'material.drawer',
-  // '@material/checkbox': 'material.checkbox',
-  // '@material/form-field': 'material.formfield',
-  // '@material/ripple': 'material.ripple',
-  // '@material/radio': 'material.radio',
-  // '@material/snackbar': 'material.snackbar',
-  // '@material/textfield': 'material.textfield',
-  // '@material/toolbar': 'material.toolbar',
-  // '@material/tabs': 'material.tabs',
-  // '@material/menu': 'material.menu',
-  // '@material/linear-progress': 'material.linear-progress',
   'rxjs': 'Rx'
 };
 
 export default {
-  entry: 'build/index.js',
-  format: 'iife',
+  input: 'build/index.js',
   plugins: [
     nodeResolve({
       jsnext: true,
@@ -38,10 +26,11 @@ export default {
     if (warning.code !== 'THIS_IS_UNDEFINED')
       console.log("Rollup warning: ", warning.message);
   },
-  sourceMap: true,
-  targets: [
-    { dest: 'dist/material.es5.js', format: 'cjs' },
-  ],
+  sourcemap: true,
   external: Object.keys(ROLLUP_GLOBALS),
-  globals: ROLLUP_GLOBALS
+  globals: ROLLUP_GLOBALS,
+  output: {
+    file: 'dist/material.es5.js',
+    format: 'cjs',
+  },
 };

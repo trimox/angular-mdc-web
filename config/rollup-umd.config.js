@@ -10,8 +10,7 @@ const ROLLUP_GLOBALS = {
 };
 
 export default {
-  entry: 'build/index.js',
-  format: 'iife',
+  input: 'build/index.js',
   plugins: [
     nodeResolve({
       jsnext: true,
@@ -27,10 +26,12 @@ export default {
     if (warning.code !== 'THIS_IS_UNDEFINED')
       console.log("Rollup warning: ", warning.message);
   },
-  sourceMap: true,
-  targets: [
-    { dest: 'dist/bundles/material.umd.js', format: 'umd', moduleName: 'ng.material' },
-  ],
+  sourcemap: true,
   external: Object.keys(ROLLUP_GLOBALS),
-  globals: ROLLUP_GLOBALS
+  globals: ROLLUP_GLOBALS,
+  output: {
+    file: 'dist/bundles/material.umd.js',
+    format: 'iife',
+    name: 'ng.material',
+  },
 };

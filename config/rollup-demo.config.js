@@ -2,13 +2,9 @@ import nodeResolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 
 export default {
-  entry: 'publish-demo/demo-app/main-aot.js',
-  dest: 'publish-demo/dist/build.js',
-  format: 'iife',
-  sourceMap: true,
-  moduleName: 'app',
+  input: 'publish-demo/demo-app/main-aot.js',
   plugins: [
-    nodeResolve({ jsnext: true, module: true }),
+    nodeResolve(),
     commonjs({
       include: 'node_modules/**',
     })
@@ -18,5 +14,10 @@ export default {
     // https://github.com/rollup/rollup/wiki/Troubleshooting#this-is-undefined
     if (warning.code !== 'THIS_IS_UNDEFINED')
       console.log("Rollup warning: ", warning.message);
-  }
+  },
+  sourcemap: false,
+  output: {
+    file: 'publish-demo/dist/build.js',
+    format: 'iife',
+  },
 };

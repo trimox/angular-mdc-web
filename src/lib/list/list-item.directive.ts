@@ -33,7 +33,7 @@ export class MdcListItemDirective implements AfterViewInit, OnChanges {
 
   ngAfterViewInit() {
     if (this.elementRef.nativeElement.tagName === 'A') {
-      this._ripple.disabled = false;
+      this._ripple.init();
     }
   }
   ngOnChanges(changes: { [key: string]: SimpleChange }) {

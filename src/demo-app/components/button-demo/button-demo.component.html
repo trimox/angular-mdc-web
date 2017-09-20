@@ -66,7 +66,33 @@ Example: disableRipple="true" or disableRipple]]></code></pre></td>
         </tr>
       </tbody>
     </table>
+        <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-button-icon</td>
+          <td>Add to button container to use an icon element.</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+<button mdc-button><mdc-icon-button material-icon>favorite</mdc-icon-button>Icon</button>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon-button</span> <span style="color:#89bdff">material-icon</span>></span>favorite<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon-button</span>></span>
+  Icon
+<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+</pre>
+<button mdc-button [raised]="true"><mdc-icon-button material-icon>favorite</mdc-icon-button>Icon</button>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">raised</span>]=<span style="color:#65b042">"true"</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon-button</span> <span style="color:#89bdff">material-icon</span>></span>favorite<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon-button</span>></span>
+  Icon
+<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+</pre>
   <button mdc-button [primary]="true" [raised]="true" (click)="handleClick();">Click event</button>
 <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span>
  [<span style="color:#e0c589">primary</span>]=<span style="color:#65b042">"true"</span>
@@ -128,4 +154,6 @@ Example: disableRipple="true" or disableRipple]]></code></pre></td>
  [<span style="color:#e0c589">primary</span>]=<span style="color:#65b042">"true"</span>
  [<span style="color:#e0c589">disabled</span>]=<span style="color:#65b042">"true"</span>></span>Disabled<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
 </pre>
+
 <mdc-snackbar #snack></mdc-snackbar></div>
+

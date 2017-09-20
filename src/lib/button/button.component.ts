@@ -15,6 +15,16 @@ import {
 } from '../common';
 
 @Component({
+  selector: 'mdc-icon-button, [mdc-icon-button]',
+  template: '<ng-content></ng-content>',
+})
+export class MdcIconButton {
+  @HostBinding('class.mdc-button__icon') isHostClass = true;
+
+  constructor(public elementRef: ElementRef) { }
+}
+
+@Component({
   selector: 'button[mdc-button], a[mdc-button]',
   host: {
     '[attr.aria-disabled]': 'disabled.toString()',

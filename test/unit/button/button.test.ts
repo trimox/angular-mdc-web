@@ -2,7 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MdcButtonComponent, MdcButtonModule } from '../../../src/lib/public_api';
+import { MdcButtonComponent, MdcIconButton, MdcButtonModule } from '../../../src/lib/public_api';
 
 describe('MdcButtonComponent', () => {
   let fixture: ComponentFixture<any>;
@@ -13,6 +13,7 @@ describe('MdcButtonComponent', () => {
       declarations: [
         SimpleButton,
         HrefButton,
+        IconButton,
       ]
     });
     TestBed.compileComponents();
@@ -37,6 +38,12 @@ describe('MdcButtonComponent', () => {
     it('#should have mdc-button by default', () => {
       expect(buttonDebugElement.nativeElement.classList)
         .toContain('mdc-button', 'Expected buttons to have mdc-button');
+    });
+
+    it('#should disable ripple', () => {
+      testComponent.isRippleDisabled = true;
+      fixture.detectChanges();
+      expect(buttonInstance.disableRipple).toBeTruthy('Expected ripple to be disabled');
     });
 
     it('#should apply class based on property', () => {
@@ -137,6 +144,28 @@ describe('MdcButtonComponent', () => {
         .toBeNull('Expect no disabled');
     });
   });
+
+  // Icon button tests
+  describe('[mdc-icon-button]', () => {
+    let buttonDebugElement: DebugElement;
+    let buttonNativeElement: HTMLElement;
+    let buttonInstance: MdcIconButton;
+    let testComponent: IconButton;
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(IconButton);
+      fixture.detectChanges();
+
+      buttonDebugElement = fixture.debugElement.query(By.directive(MdcIconButton));
+      buttonNativeElement = buttonDebugElement.nativeElement;
+      buttonInstance = buttonDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+    });
+
+    it('#should have class mdc-button__icon by default', () => {
+      expect(buttonDebugElement.nativeElement.classList.contains('mdc-button__icon')).toBe(true);
+    });
+  });
 });
 
 /** Simple component for testing. */
@@ -145,11 +174,13 @@ describe('MdcButtonComponent', () => {
     <button mdc-button
       (click)="increment()"
       [disabled]="isDisabled"
+      [disableRipple]="isRippleDisabled"
       [raised]="isRaised"
       [dense]="isDense"
       [compact]="isCompact"
       [unelevated]="isUnelevated"
       [stroked]="isStroked">
+      My label
     </button>
   `,
 })
@@ -158,6 +189,7 @@ class SimpleButton {
   isRaised: boolean = false;
   isDense: boolean = false;
   isCompact: boolean = false;
+  isRippleDisabled: boolean = false;
   isUnelevated: boolean = false;
   isStroked: boolean = false;
   clickCount: number = 0;
@@ -176,3 +208,12 @@ class SimpleButton {
 class HrefButton {
   isDisabled: boolean = false;
 }
+
+/** icon button. */
+@Component({
+  template:
+  `
+    <mdc-icon-button material-icon>search</mdc-icon-button>
+  `,
+})
+class IconButton { }

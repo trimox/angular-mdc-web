@@ -1,10 +1,11 @@
 import {
-  AfterViewInit,
   Component,
+  Directive,
   ElementRef,
   HostBinding,
   Input,
   OnDestroy,
+  OnInit,
   Renderer2,
   ViewChild,
   ViewEncapsulation
@@ -13,13 +14,41 @@ import { isBrowser } from '../common';
 import { EventRegistry } from '../common/event-registry';
 
 import { MDCSnackbarAdapter } from './snackbar-adapter';
-import { MdcSnackbarTextDirective } from './snackbar-text.directive';
-import { MdcSnackbarActionWrapperDirective } from './snackbar-action-wrapper.directive';
-import { MdcSnackbarActionButtonDirective } from './snackbar-action-button.directive';
 import { SnackbarMessage } from './snackbar-message';
 
 import { MDCSnackbarFoundation } from '@material/snackbar';
 import { getCorrectEventName } from '@material/animation';
+
+@Component({
+  selector: 'mdc-snackbar-action-button',
+  template:
+  `
+    <button type="button"></button>
+  `
+})
+export class MdcSnackbarActionButton {
+  @HostBinding('class.mdc-snackbar__action-button') isHostClass = true;
+
+  constructor(public elementRef: ElementRef) { }
+}
+
+@Directive({
+  selector: '[mdc-snackbar-text], mdc-snackbar-text'
+})
+export class MdcSnackbarText {
+  @HostBinding('class.mdc-snackbar__text') isHostClass = true;
+
+  constructor(public elementRef: ElementRef) { }
+}
+
+@Directive({
+  selector: 'mdc-snackbar-action-wrapper'
+})
+export class MdcSnackbarActionWrapper {
+  @HostBinding('class.mdc-snackbar__action-wrapper') isHostClass = true;
+
+  constructor(public elementRef: ElementRef) { }
+}
 
 @Component({
   selector: 'mdc-snackbar',
@@ -27,14 +56,14 @@ import { getCorrectEventName } from '@material/animation';
   `
   <mdc-snackbar-text></mdc-snackbar-text>
   <mdc-snackbar-action-wrapper>
-    <button mdc-snackbar-action-button></button>
+    <mdc-snackbar-action-button></mdc-snackbar-action-button>
   </mdc-snackbar-action-wrapper>
   `,
   encapsulation: ViewEncapsulation.None,
   providers: [EventRegistry]
 })
-export class MdcSnackbarComponent implements AfterViewInit, OnDestroy {
-  @Input() alignStart: boolean;
+export class MdcSnackbarComponent implements OnInit, OnDestroy {
+  @Input() alignStart: boolean = false;
   @Input()
   get dismissOnAction() { return this._foundation.dismissesOnAction(); }
   set dismissOnAction(value) {
@@ -47,9 +76,9 @@ export class MdcSnackbarComponent implements AfterViewInit, OnDestroy {
   @HostBinding('class.mdc-snackbar--align-start') get classAlignStart(): string {
     return this.alignStart ? 'mdc-snackbar--align-start' : '';
   }
-  @ViewChild(MdcSnackbarTextDirective) snackText: MdcSnackbarTextDirective;
-  @ViewChild(MdcSnackbarActionWrapperDirective) actionWrapper: MdcSnackbarActionWrapperDirective;
-  @ViewChild(MdcSnackbarActionButtonDirective) actionButton: MdcSnackbarActionButtonDirective;
+  @ViewChild(MdcSnackbarText) snackText: MdcSnackbarText;
+  @ViewChild(MdcSnackbarActionWrapper) actionWrapper: MdcSnackbarActionWrapper;
+  @ViewChild(MdcSnackbarActionButton) actionButton: MdcSnackbarActionButton;
 
   private _mdcAdapter: MDCSnackbarAdapter = {
     addClass: (className: string) => {
@@ -90,7 +119,7 @@ export class MdcSnackbarComponent implements AfterViewInit, OnDestroy {
       }
     },
     visibilityIsHidden: () => {
-      return isBrowser ? document.hidden : false;
+      return isBrowser() ? document.hidden : false;
     },
     registerCapturedBlurHandler: (handler: EventListener) => {
       if (this._root && this.actionButton) {
@@ -103,12 +132,12 @@ export class MdcSnackbarComponent implements AfterViewInit, OnDestroy {
       }
     },
     registerVisibilityChangeHandler: (handler: EventListener) => {
-      if (this._root && isBrowser()) {
-        this._registry.listen_(this._renderer, 'visibilitychange', handler, this._root);
+      if (isBrowser()) {
+        this._registry.listen_(this._renderer, 'visibilitychange', handler, 'document');
       }
     },
     deregisterVisibilityChangeHandler: (handler: EventListener) => {
-      if (this._root && isBrowser()) {
+      if (isBrowser()) {
         this._registry.unlisten_('visibilitychange', handler);
       }
     },
@@ -155,14 +184,14 @@ export class MdcSnackbarComponent implements AfterViewInit, OnDestroy {
     private _root: ElementRef,
     private _registry: EventRegistry) { }
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this._foundation.init();
   }
   ngOnDestroy() {
     this._foundation.destroy();
   }
 
-  show(data: SnackbarMessage) {
+  show(data: SnackbarMessage): void {
     if (data) {
       if (!data.actionHandler && data.actionText) {
         data.actionHandler = () => { };

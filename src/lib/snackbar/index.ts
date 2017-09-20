@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 
-import { MdcSnackbarComponent } from './snackbar.component';
-import { MdcSnackbarTextDirective } from './snackbar-text.directive';
-import { MdcSnackbarActionWrapperDirective } from './snackbar-action-wrapper.directive';
-import { MdcSnackbarActionButtonDirective } from './snackbar-action-button.directive';
+import {
+  MdcSnackbarComponent,
+  MdcSnackbarText,
+  MdcSnackbarActionWrapper,
+  MdcSnackbarActionButton,
+} from './snackbar.component';
 
 const SNACKBAR_COMPONENTS = [
   MdcSnackbarComponent,
-  MdcSnackbarTextDirective,
-  MdcSnackbarActionWrapperDirective,
-  MdcSnackbarActionButtonDirective
+  MdcSnackbarText,
+  MdcSnackbarActionWrapper,
+  MdcSnackbarActionButton,
 ];
 
 @NgModule({
@@ -20,6 +22,3 @@ export class MdcSnackbarModule { }
 
 export * from './snackbar.component';
 export * from './snackbar-message';
-export * from './snackbar-text.directive';
-export * from './snackbar-action-wrapper.directive';
-export * from './snackbar-action-button.directive';

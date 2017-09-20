@@ -11,8 +11,8 @@ import { SnackbarMessage, MdcSnackbarComponent } from '../../../lib/public_api';
 })
 export class SnackbarDemoComponent {
   message: SnackbarMessage = {
-    message: 'Hello',
-    actionText: 'Ok',
+    message: 'Message deleted',
+    actionText: 'Undo',
   };
   @ViewChild('snack') snack: MdcSnackbarComponent;
   @ViewChild('snackStart') snackStart: MdcSnackbarComponent;

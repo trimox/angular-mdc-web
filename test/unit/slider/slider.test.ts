@@ -23,7 +23,6 @@ describe('MdcSliderComponent', () => {
     let sliderNativeElement: HTMLElement;
     let sliderInstance: MdcSlider;
     let testComponent: SingleSlider;
-    let inputElement: HTMLInputElement;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SingleSlider);

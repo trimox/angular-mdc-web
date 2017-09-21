@@ -1,7 +1,11 @@
 extends: stylelint-config-standard
 ignoreFiles:
   - node_modules/**/*
+  - dist/**/*
+  - build/**/*
+  - src/demo-app/**/*
 plugins:
+  - stylelint-selector-bem-pattern
   - stylelint-scss
   - stylelint-order
 rules:
@@ -15,6 +19,16 @@ rules:
   # Double-quotes are our convention throughout our codebase within (S)CSS. They also reflect how
   # attribute strings are normally quoted within the DOM.
   string-quotes: double
+  order/order:
+    -
+      -
+        type: at-rule
+        hasBlock: false
+      - custom-properties
+      - declarations
+    -
+      unspecified: ignore
+      disableFix: true
   # https://github.com/sasstools/sass-lint/blob/develop/lib/config/property-sort-orders/smacss.yml
   order/properties-order:
     - display
@@ -36,6 +50,8 @@ rules:
     - align-self
     - justify-content
     - order
+
+    - box-sizing
 
     - width
     - min-width
@@ -60,6 +76,8 @@ rules:
     - float
     - clear
 
+    - resize
+
     - columns
     - column-gap
     - column-fill
@@ -67,6 +85,13 @@ rules:
     - column-span
     - column-count
     - column-width
+
+    - grid-gap
+    - grid-template-columns
+
+    - animation
+    - animation-name
+    - animation-timing-function
 
     - transform
     - transform-box
@@ -127,6 +152,10 @@ rules:
     - background-position
     - background-size
 
+    - fill
+
+    - opacity
+
     # Text
 
     - color
@@ -155,22 +184,30 @@ rules:
     - white-space
     - word-spacing
 
+    # Cursor
+
+    - cursor
+    - pointer-events
+    - user-select
+
     # Other
 
+    - appearance
     - border-collapse
     - border-spacing
     - box-shadow
     - caption-side
     - content
-    - cursor
     - empty-cells
-    - opacity
     - overflow
+    - overflow-x
+    - overflow-y
     - quotes
     - speak
     - table-layout
     - vertical-align
     - visibility
+    - will-change
     - z-index
   declaration-property-unit-whitelist:
     font-size:
@@ -183,6 +220,28 @@ rules:
   value-no-vendor-prefix: true
   # Usually if you're nesting past 3 levels deep there's a problem
   max-nesting-depth: 3
+  # Because we adhere to BEM we can limit the amount of necessary compound selectors. Most should
+  # just be 1 level selector. However, modifiers can introduce an additional compound selector.
+  # Futhermore, generic qualifying selectors (e.g. `[dir="rtl"]`) can introduce yet another level.
+  selector-max-compound-selectors: 4
+  # For specificity: disallow IDs (0). Allow for complex combinations of classes, pseudo-classes,
+  # attribute modifiers based on selector-max-compound-selectors, plus an addition for
+  # pseudo-classes (4). Allow for pseudo-elements (1).
+  selector-max-specificity: 0,4,1
+  at-rule-no-unknown:
+    - true
+    - ignoreAtRules:
+      - at-root
+      - content
+      - each
+      - else
+      - error
+      - for
+      - function
+      - include
+      - if
+      - mixin
+      - return
   # Disallow "@extend" in scss.
   # http://csswizardry.com/2016/02/mixins-better-for-performance/
   # http://vanseodesign.com/css/sass-mixin-or-extend/
@@ -199,8 +258,22 @@ rules:
   selector-max-id: 0
   # Qualifying types are not needed when using a naming system like BEM
   selector-no-qualifying-type: true
+  # In general, we should not be modifying elements within our components, since we can't
+  # predict the use cases in which users would add a certain type of element into a component.
+  selector-max-type: 
+    - 0
+    - ignoreTypes:
+        - /fieldset/
   # Styles for components should never need the universal selector.
   selector-max-universal: 0
+  # Ensure any defined symbols are prefixed with "mdc-"
+  # TODO: Remove "md-" pattern.
+  custom-media-pattern: ^mdc?-.+
+  custom-property-pattern: ^mdc?-.+
+  selector-class-pattern:
+    - ^mdc?-.+
+    - resolveNestedSelectors: true
+  selector-id-pattern: ^mdc?-.+
   # Names are more semantic than numbers
   font-weight-notation: named-where-possible
   # http://www.paulirish.com/2010/the-protocol-relative-url/
@@ -214,7 +287,50 @@ rules:
     - severity: warning
   # Part of google's style guide
   number-leading-zero: never
+  at-rule-empty-line-before:
+    - always
+    -
+      except:
+        - blockless-after-blockless
+        - first-nested
+      ignore:
+        - after-comment
+      ignoreAtRules:
+        - else
+  block-closing-brace-newline-after:
+    - always
+    - ignoreAtRules:
+      - if
+      - else
+
+  # We use Harry Roberts' BEM dialect as our preferred way to format classes.
+  # See: http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/
+  # See: https://github.com/postcss/postcss-bem-linter/blob/c59db3f/lib/preset-patterns.js#L39
+  plugin/selector-bem-pattern:
+    componentName: ^[a-z]+(?:-[a-z]+)*$
+    # <namespace>-<block>__<element>*--<modifier>*[<attribute>]*
+    componentSelectors: ^\.mdc?-{componentName}(?:__[a-z]+(?:-[a-z]+)*)*(?:--[a-z]+(?:-[a-z]+)*)*(?:\[.+\])*$
+    ignoreSelectors:
+      - ^fieldset
+      - ^\[aria\-disabled=(?:.+)\]
+
+  # SCSS naming patterns, just like our CSS conventions above.
+  # (note for $-vars we use a leading underscore for "private" variables)
+  scss/dollar-variable-pattern:
+    - ^_?mdc-.+
+    -
+      ignore: local
+  scss/at-function-pattern: ^mdc-.+
+  scss/at-mixin-pattern: ^mdc-.+
   # Prevents unneeded nesting selectors
   scss/selector-no-redundant-nesting-selector: true
   # Since leading underscores are not needed, they can be omitted
   scss/at-import-no-partial-leading-underscore: true
+  # Since mixins are explicit (`@include`) and parens are unnecessary for argumentless mixins, they
+  # can be omitted.
+  scss/at-else-closing-brace-newline-after: always-last-in-chain
+  scss/at-else-closing-brace-space-after: always-intermediate
+  scss/at-else-empty-line-before: never
+  scss/at-if-closing-brace-newline-after: always-last-in-chain
+  scss/at-if-closing-brace-space-after: always-intermediate
+  

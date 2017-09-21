@@ -14,6 +14,7 @@ import { MdcListModule } from './list/index';
 import { MdcMaterialIconModule } from './material-icon/index';
 import { MdcMenuModule } from './menu/index';
 import { MdcRadioModule } from './radio/index';
+import { MdcSliderModule } from './slider/index';
 import { MdcSnackbarModule } from './snackbar/index';
 import { MdcSwitchModule } from './switch/index';
 import { MdcTabModule } from './tabs/index';
@@ -37,6 +38,7 @@ const MATERIAL_MODULES = [
   MdcMaterialIconModule,
   MdcMenuModule,
   MdcRadioModule,
+  MdcSliderModule,
   MdcSnackbarModule,
   MdcSwitchModule,
   MdcTabModule,

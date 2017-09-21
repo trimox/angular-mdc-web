@@ -17,6 +17,7 @@ export * from './material-icon/index';
 export * from './menu/index';
 export * from './radio/index';
 export * from './ripple/index';
+export * from './slider/index';
 export * from './snackbar/index';
 export * from './switch/index';
 export * from './tabs/index';

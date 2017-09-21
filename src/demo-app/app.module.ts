@@ -19,6 +19,7 @@ import { LinearProgressDemoComponent } from './components/linear-progress-demo/l
 import { ListDemoComponent } from './components/list-demo/list-demo.component';
 import { MenuDemoComponent } from './components/menu-demo/menu-demo.component';
 import { RadioDemoComponent } from './components/radio-demo/radio-demo.component';
+import { SliderDemoComponent } from './components/slider-demo/slider-demo.component';
 import { SnackbarDemoComponent } from './components/snackbar-demo/snackbar-demo.component';
 import { SwitchDemoComponent } from './components/switch-demo/switch-demo.component';
 import { TextfieldDemoComponent } from './components/textfield-demo/textfield-demo.component';
@@ -59,6 +60,7 @@ import { demoAppRoutes } from './routes';
     MenuDemoComponent,
     NavbarComponent,
     RadioDemoComponent,
+    SliderDemoComponent,
     SnackbarDemoComponent,
     SwitchDemoComponent,
     TabDemoComponent,

@@ -51,7 +51,7 @@ Using Angular CLI? Try our [Angular CLI - step by step guide](https://github.com
 | radio | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/radio-demo) |
 | ripple | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/ripple-demo) |
 | select | TBI ||
-| slider | WIP ||
+| slider | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/slider-demo) |
 | snackbar | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/snackbar-demo) |
 | switch | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/switch-demo) |
 | tabs | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/tab-demo) |

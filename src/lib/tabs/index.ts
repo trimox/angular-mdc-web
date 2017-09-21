@@ -11,7 +11,7 @@ import {
 } from './tab-bar/tab-bar.directive';
 
 import {
-  MdcTabBarScrollerDirective,
+  MdcTabBarScroller,
   MdcTabBarScrollBackDirective,
   MdcTabBarScrollForwardDirective,
   MdcTabBarScrollFrameDirective,
@@ -23,7 +23,7 @@ const TAB_COMPONENTS = [
   MdcTabIconDirective,
   MdcTabIconTextDirective,
   MdcTabBarDirective,
-  MdcTabBarScrollerDirective,
+  MdcTabBarScroller,
   MdcTabBarScrollBackDirective,
   MdcTabBarScrollForwardDirective,
   MdcTabBarScrollFrameDirective,

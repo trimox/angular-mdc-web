@@ -143,6 +143,22 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
           <td>Use to add a button to either [mdc-tab-bar-scroll-back] or [mdc-tab-bar-scroll-forward] directives.</td>
         </tr>
       </tbody>
+      <thead>
+        <tr>
+          <th>Methods</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>scrollToTabAtIndex(index: number)</td>
+          <td>Scrolls the tab bar such that the tab at the index provided traverses the scroll frame and becomes the leftmost tab.</td>
+        </tr>
+        <tr>
+          <td>findTab(index: number): MdcTabComponent</td>
+          <td>Search by tab index, returning tab component as an object.</td>
+        </tr>
+      </tbody>
     </table>
   </div>
   <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start start" class="mdc-padding">

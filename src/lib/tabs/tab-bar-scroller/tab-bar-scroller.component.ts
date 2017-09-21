@@ -1,6 +1,7 @@
 import {
   AfterContentInit,
   AfterViewInit,
+  Component,
   ContentChild,
   ContentChildren,
   Directive,
@@ -66,7 +67,7 @@ export class MdcTabBarScrollFrameDirective implements AfterContentInit {
     }
   }
 
-  findTab(index: number) : MdcTabComponent | null {
+  findTab(index: number): MdcTabComponent | null {
     if (this.tabBar) {
       let tabs = this.tabBar.tabs.toArray();
       if (index >= 0 && index < tabs.length) {
@@ -77,11 +78,12 @@ export class MdcTabBarScrollFrameDirective implements AfterContentInit {
   }
 }
 
-@Directive({
+@Component({
   selector: '[mdc-tab-bar-scroller], mdc-tab-bar-scroller',
+  template: '<ng-content></ng-content>',
   providers: [EventRegistry],
 })
-export class MdcTabBarScrollerDirective implements AfterViewInit, OnDestroy {
+export class MdcTabBarScroller implements AfterViewInit, OnDestroy {
   @Input() direction: 'ltr' | 'rtl' = 'ltr';
   @HostBinding('class.mdc-tab-bar-scoller') isHostClass = true;
   @ContentChild(MdcTabBarScrollFrameDirective) scrollFrame: MdcTabBarScrollFrameDirective;
@@ -187,6 +189,7 @@ export class MdcTabBarScrollerDirective implements AfterViewInit, OnDestroy {
     layout: Function,
     scrollForward: Function,
     scrollBack: Function,
+    scrollToTabAtIndex: Function,
   } = new MDCTabBarScrollerFoundation(this._mdcAdapter);
 
   constructor(
@@ -202,7 +205,11 @@ export class MdcTabBarScrollerDirective implements AfterViewInit, OnDestroy {
     this._foundation.destroy();
   }
 
-  private findTab(index: number) {
+  scrollToTabAtIndex(index: number): void {
+    this._foundation.scrollToTabAtIndex(index);
+  }
+
+  findTab(index: number): MdcTabComponent | null {
     return this.scrollFrame ? this.scrollFrame.findTab(index) : null;
   }
 }

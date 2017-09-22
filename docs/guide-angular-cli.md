@@ -5,6 +5,8 @@
 - [Step 3 - Configure Project](#step3)
 - [Step 4 - Import Angular MDC](#step4)
 
+> NOTE: This guide does not cover the usage of `yarn`.
+
 ## <a name="step1"></a> Step 1: Install Angular CLI
 ```
 npm i -g @angular/cli

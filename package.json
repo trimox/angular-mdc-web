@@ -105,7 +105,7 @@
     "tslint-eslint-rules": "^4.1.1",
     "typescript": "^2.5.2",
     "typings": "^2.1.1",
-    "uglify-es": "^3.1.1",
+    "uglify-es": "^3.1.2",
     "validate-commit-msg": "^2.14.0",
     "vrsource-tslint-rules": "^5.1.1",
     "webpack": "^3.6.0",

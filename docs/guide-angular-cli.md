@@ -2,7 +2,7 @@
 
 - [Step 1 - Install Angular CLI](#step1)
 - [Step 2 - Install Angular MDC](#step2)
-- [Step 3 - Configure Project](#step3)
+- [Step 3 - Import Angular MDC Sass](#step3)
 - [Step 4 - Import Angular MDC](#step4)
 
 > NOTE: This guide does not cover the usage of `yarn`.
@@ -28,32 +28,10 @@ ng set defaults.styleExt scss
 npm i @angular-mdc/web
 ```
 
-## <a name="step3"></a> Step 3: Configure Project
+## <a name="step3"></a> Step 3: Import Angular MDC Sass
 In `src/styles.sass` add the following:
 ```css
-@import "material-components-web/material-components-web";
-```
-
-In `angular-cli.json`, locate the following lines:
-```json
-"styles": [
-  "styles.sass"
-],
-```
-
-Add the following `stylePreprocessorOptions` directly after the `"styles"` block:
-```json
-"styles": [
-  "styles.sass"
-],
-"stylePreprocessorOptions": {
-	"includePaths": [
-		".",
-		"../node_modules",
-		"../node_modules/@material/*",
-		"styles"
-	]
-},
+@import "~@angular-mdc/theme/material";
 ```
 
 ## <a name="step4"></a> Step 4: Import Angular MDC
@@ -76,9 +54,9 @@ Import the `MaterialModule` into your app module:
 
 Open `app.component.html` and add the following markup:
 ```html
-<button mdc-button [primary]="true" [raised]="true">My Angular MDC Button</button>
+<button mdc-button [primary]="true" [raised]="true">My Button</button>
 ```
 
 Run `ng serve` to run your application in develop mode, and navigate to `http://localhost:4200`
 
-### Have fun designing!
+### Go forth and design!

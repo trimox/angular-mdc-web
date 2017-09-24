@@ -7,7 +7,7 @@
 
 [Demo App](https://trimox.github.io/angular-mdc-web/) with API, documentation and examples
 
-Our Angular library integrates with [Google's Material Design Components](https://material.io/components/), providing a faithful and accurate representation of Material Design as it is envisioned on the web platform by Google's Material Design team. Our goal is to equip Angular developers with modular, straightforward and production-ready Material Design components.
+Incorporating [Google Material Components](https://material.io/components/), our Angular library provides a faithful and accurate representation of Material Design as it is envisioned on the web platform by Google's Material Design team. Our goal is to equip Angular developers with modular, straightforward and production-ready Material Design components.
 
 #### Quick Links
 *  [Changelog](https://github.com/trimox/angular-mdc-web/blob/master/CHANGELOG.md)

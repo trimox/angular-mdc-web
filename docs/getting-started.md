@@ -2,7 +2,7 @@
 
  - [Step 1 - Install Angular MDC](#step1)
  - [Step 2 - Import Components](#step2)
- - [Step 3 - Import MDC Theme](#step3)
+ - [Step 3 - Import Theme](#step3)
  - [Step 4 - Include Material Design Icons](#step4)
  - [Step 5 - Include Roboto Font](#step5)
  - [Appendix - Configuring SystemJS](#config-systemjs)
@@ -54,7 +54,7 @@ export class ExampleModule { }
 ## <a name="step3"></a> Step 3: Import Angular MDC Theme
 Import the Angular MDC theme into your project Sass:
 ```sass
-@import "@angular-mdc/theme/material";
+@import "~@angular-mdc/theme/material";
 ```
 
 ## <a name="step4"></a> Step 4: Include Material Design Icons

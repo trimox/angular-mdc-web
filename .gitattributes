@@ -1,2 +1,3 @@
 src/demo-app/* linguist-documentation
 /package-lock.json linguist-generated
+src/theme/material-components-web/* linguist-documentation

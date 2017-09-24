@@ -43,6 +43,14 @@ describe('MdcSnackbarComponent', () => {
       fixture.detectChanges();
       expect(snackBarDebugElement.nativeElement.classList.contains('mdc-snackbar--align-start')).toBe(true);
     });
+
+    it('#should show snackbar', () => {
+      snackBarInstance.show({
+        message: 'Message deleted',
+        actionText: 'Undo',
+      });
+      fixture.detectChanges();
+    });
   });
 });
 

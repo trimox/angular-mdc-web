@@ -16,10 +16,7 @@ const CSS_LOADER_CONFIG = [{
     })]
   }
 }, {
-  loader: 'sass-loader',
-  options: {
-    includePaths:  ['node_modules', 'node_modules/@material/*']
-  }
+  loader: 'sass-loader'
 }];
 
 module.exports = [{
@@ -29,7 +26,6 @@ module.exports = [{
     'app': './src/demo-app/main.ts',
     'css': './src/demo-app/sass/main.scss',
   },
-  devtool: 'inline-source-map',
   devServer: {
     contentBase: 'src/demo-app',
     port: 4000

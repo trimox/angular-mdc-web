@@ -66,6 +66,14 @@ describe('MdcButtonComponent', () => {
       testComponent.isStroked = true;
       fixture.detectChanges();
       expect(buttonDebugElement.nativeElement.classList.contains('mdc-button--stroked')).toBe(true);
+
+      testComponent.isPrimary = true;
+      fixture.detectChanges();
+      expect(buttonDebugElement.nativeElement.classList.contains('mdc-button--primary')).toBe(true);
+
+      testComponent.isSecondary = true;
+      fixture.detectChanges();
+      expect(buttonDebugElement.nativeElement.classList.contains('mdc-button--secondary')).toBe(true);
     });
 
     it('#should handle a click on the button', () => {
@@ -176,6 +184,8 @@ describe('MdcButtonComponent', () => {
       [disabled]="isDisabled"
       [disableRipple]="isRippleDisabled"
       [raised]="isRaised"
+      [primary]="isPrimary"
+      [secondary]="isSecondary"
       [dense]="isDense"
       [compact]="isCompact"
       [unelevated]="isUnelevated"
@@ -189,6 +199,8 @@ class SimpleButton {
   isRaised: boolean = false;
   isDense: boolean = false;
   isCompact: boolean = false;
+  isPrimary: boolean = false;
+  isSecondary: boolean = false;
   isRippleDisabled: boolean = false;
   isUnelevated: boolean = false;
   isStroked: boolean = false;

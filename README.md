@@ -50,13 +50,13 @@ Using Angular CLI? Try our [Angular CLI - step by step guide](https://github.com
 | menu | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/menu-demo) |
 | radio | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/radio-demo) |
 | ripple | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/ripple-demo) |
-| select | TBI ||
+| select | WIP ||
 | slider | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/slider-demo) |
 | snackbar | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/snackbar-demo) |
 | switch | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/switch-demo) |
 | tabs | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/tab-demo) |
 | textfield | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/textfield-demo) |
-| theme | WIP ||
+| theme | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/theme-demo) |
 | toolbar | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/toolbar-demo) |
 | typography | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/typography-demo) |
 * WIP = work in progress

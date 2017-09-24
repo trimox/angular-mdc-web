@@ -22,7 +22,8 @@
   "typings": "./typings.d.ts",
   "private": false,
   "dependencies": {
-    "material-components-web": "0.20.0"
+    "@angular-mdc/theme": ">=0.0.1",
+    "material-components-web": "0.21.1"
   },
   "peerDependencies": {
     "@angular/core": ">=4.0.0",

@@ -30,7 +30,6 @@ export class MdcIconButton {
     '[attr.aria-disabled]': 'disabled.toString()',
   },
   template: '<ng-content></ng-content>',
-  encapsulation: ViewEncapsulation.None,
   providers: [MdcRipple]
 })
 export class MdcButtonComponent {
@@ -68,8 +67,8 @@ export class MdcButtonComponent {
   @HostBinding('class.mdc-button--primary') get classPrimary(): string {
     return this.primary ? 'mdc-button--primary' : '';
   }
-  @HostBinding('class.mdc-button--accent') get classSecondary(): string {
-    return this.secondary ? 'mdc-button--accent' : '';
+  @HostBinding('class.mdc-button--secondary') get classSecondary(): string {
+    return this.secondary ? 'mdc-button--secondary' : '';
   }
   @HostBinding('class.mdc-button--dense') get classDense(): string {
     return this.dense ? 'mdc-button--dense' : '';

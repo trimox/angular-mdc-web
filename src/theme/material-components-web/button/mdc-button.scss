@@ -1,0 +1,69 @@
+//
+// Copyright 2016 Google Inc. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+@import "../theme/mixins";
+@import "./mixins";
+
+// postcss-bem-linter: define button
+.mdc-button {
+  @include mdc-button-base_;
+  @include mdc-button-corner-radius(2px);
+  @include mdc-button-container-fill-color(transparent);
+  @include mdc-button-ink-color(text-primary-on-light);
+  @include mdc-button-ripple((base-color: black, opacity: .16));
+
+  @include mdc-theme-dark(".mdc-button") {
+    @include mdc-button-ink-color(text-primary-on-dark);
+    @include mdc-button-ripple((base-color: white, opacity: .16));
+  }
+}
+
+.mdc-button--raised,
+.mdc-button--unelevated {
+  @include mdc-button--filled_;
+  @include mdc-button-filled-accessible(black);
+
+  @include mdc-theme-dark(".mdc-button") {
+    @include mdc-button-filled-accessible(white);
+  }
+}
+
+.mdc-button--raised {
+  @include mdc-button--raised_;
+}
+
+.mdc-button--stroked {
+  @include mdc-button--stroked_;
+  @include mdc-button-stroke-width(2px);
+  @include mdc-button-stroke-color(text-primary-on-light);
+
+  @include mdc-theme-dark(".mdc-button") {
+    @include mdc-button-stroke-color(text-primary-on-dark);
+  }
+}
+
+.mdc-button--compact {
+  @include mdc-button--compact_;
+}
+
+.mdc-button--dense {
+  @include mdc-button--dense_;
+}
+
+.mdc-button__icon {
+  @include mdc-button__icon_;
+}
+// postcss-bem-linter: end

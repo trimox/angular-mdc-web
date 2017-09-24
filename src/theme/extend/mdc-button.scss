@@ -1,27 +1,4 @@
-/* Material Design Components - Web */
-
-$mdc-theme-primary: #1565c0;
-$mdc-theme-secondary: #388e3c;
-
-@import "material-components-web/material-components-web";
-
-.mdc-dialog {
-  @media (max-width: 599px) {
-    &__surface {
-      width: calc(100% - 30px);
-    }
-  }
-
-  @media (min-width: 600px) {
-    &__surface {
-      width: auto;
-    }
-  }
-}
-
-.mdc-textfield--short {
-  width: 5rem;
-}
+@import "../material-components-web/button/mdc-button";
 
 .mdc-button--primary {
   @include mdc-button-filled-accessible($mdc-theme-primary);

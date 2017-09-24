@@ -56,11 +56,23 @@ describe('MdcMenuComponent', () => {
       expect(testInstance.isOpen()).toBe(true);
     });
 
-    it('#should be open from bottom right', () => {
-      testComponent.myOpenFrom = 'bottom-right';
+    it('#should be open after opening prior', () => {
+      testInstance.open();
       testInstance.open();
       fixture.detectChanges();
       expect(testInstance.isOpen()).toBe(true);
+    });
+
+    it('#should be open from bottom right', () => {
+      testComponent.myOpenFrom = 'bottomRight';
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList).toContain('mdc-simple-menu--open-from-bottom-right');
+    });
+
+    it('#should still open from top-left', () => {
+      testComponent.myOpenFrom = 'topLeft';
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList).toContain('mdc-simple-menu--open-from-top-left');
     });
   });
 });
@@ -70,7 +82,8 @@ describe('MdcMenuComponent', () => {
   template:
   `
     <div mdc-menu-anchor>
-      <mdc-menu #menu [openFrom]="myOpenFrom">
+      <mdc-menu [openFrom]="myOpenFrom" (select)="handleSelect($event)"
+      (cancel)="handleCancel($event)">
         <mdc-menu-item [id]="0">Item 1</mdc-menu-item>
         <mdc-menu-item [id]="1" [disabled]="isDisabled">Item 2</mdc-menu-item>
         <mdc-menu-item [id]="2">Item 3</mdc-menu-item>
@@ -83,4 +96,12 @@ describe('MdcMenuComponent', () => {
 class SimpleTest {
   myOpenFrom: string = 'topLeft';
   isDisabled: boolean = true;
+  selectedIndex: number = -1;
+
+  handleSelect(event: { index: number, item: HTMLElement }) {
+    this.selectedIndex = event.index;
+  }
+
+  handleCancel(event) {
+  }
 }

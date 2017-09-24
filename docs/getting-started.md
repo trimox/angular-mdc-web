@@ -2,11 +2,9 @@
 
  - [Step 1 - Install Angular MDC](#step1)
  - [Step 2 - Import Components](#step2)
- - [Step 3 - Apply MDC Theme](#step3)
+ - [Step 3 - Import MDC Theme](#step3)
  - [Step 4 - Include Material Design Icons](#step4)
  - [Step 5 - Include Roboto Font](#step5)
- - [Step 6 - Apply MDC Typography](#step6)
- - [Appendix - Sample index.html](#sample-html)
  - [Appendix - Configuring SystemJS](#config-systemjs)
 
 ## Using Angular CLI?
@@ -53,15 +51,10 @@ import {
 export class ExampleModule { }
 ```
 
-## <a name="step3"></a> Step 3: Apply MDC Theme
-Add the following import of MDC theme into a project scss file:
-```css
-@import "material-components-web/material-components-web";
-```
-
-Alternatively, you can use a CDN.
-```html
-<link href="https://unpkg.com/material-components-web/dist/material-components-web.css" rel="stylesheet">
+## <a name="step3"></a> Step 3: Import Angular MDC Theme
+Import the Angular MDC theme into your project Sass:
+```sass
+@import "@angular-mdc/theme/material";
 ```
 
 ## <a name="step4"></a> Step 4: Include Material Design Icons
@@ -76,32 +69,6 @@ Add the Roboto font with 300, 400 and 500 weights to your `index.html`.
 
 ```html
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-```
-
-## <a name="step6"></a> Step 6: Apply MDC Typography
-Add the `mdc-typography` directive to your body element to define basic properties for text, such as the Roboto typeface and antialiasing settings throughout your app.
-
-```html
-<body mdc-typography>
-```
-
-## <a name="sample-html"></a> Appendix: Sample index.html
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Angular MDC</title>
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link
-      href="https://unpkg.com/material-components-web/dist/material-components-web.css" rel="stylesheet">
-  </head>
-  <body mdc-typography>
-    <!--page content-->
-  </body>
-</html>
 ```
 
 ## <a name="config-systemjs"></a> Appendix: Configuring SystemJS

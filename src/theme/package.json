@@ -1,0 +1,20 @@
+{
+  "name": "@angular-mdc/theme",
+  "description": "Angular MDC - Theme",
+  "homepage": "https://github.com/trimox/angular-mdc-web",
+  "bugs": "https://github.com/trimox/angular-mdc-web/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trimox/angular-mdc-web.git"
+  },
+  "version": "0.0.1",
+  "license": "MIT",
+  "keywords": [
+    "angular-mdc",
+    "material-components",
+    "material-components-web",
+    "material",
+    "mdc"
+  ],
+  "private": false
+}

@@ -4,6 +4,7 @@ ignoreFiles:
   - dist/**/*
   - build/**/*
   - src/demo-app/**/*
+  - src/theme/material-components-web/**/*
 plugins:
   - stylelint-selector-bem-pattern
   - stylelint-scss

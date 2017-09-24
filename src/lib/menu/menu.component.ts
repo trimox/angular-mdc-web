@@ -101,8 +101,7 @@ export class MdcMenuComponent implements AfterViewInit, OnChanges, OnDestroy {
     },
     setScale: (x: number, y: number) => {
       if (isBrowser()) {
-        const { _renderer: renderer, _root: root } = this;
-        renderer.setStyle(root.nativeElement, getTransformPropertyName(window), `scale(${x}, ${y})`);
+        this._renderer.setStyle(this._root.nativeElement, getTransformPropertyName(window), `scale(${x}, ${y})`);
       }
     },
     setInnerScale: (x: number, y: number) => {
@@ -229,17 +228,17 @@ export class MdcMenuComponent implements AfterViewInit, OnChanges, OnDestroy {
     }
   }
 
-  isOpen() {
+  isOpen(): boolean {
     return this._foundation.isOpen();
   }
 
-  open(focusIndex?: number) {
+  open(focusIndex?: number): void {
     if (!this.isOpen()) {
       this._foundation.open({ focusIndex: focusIndex ? focusIndex : -1 });
     }
   }
 
-  close() {
+  close(): void {
     this._foundation.close();
   }
 }

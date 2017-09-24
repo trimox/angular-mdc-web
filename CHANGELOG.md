@@ -1,4 +1,27 @@
 <a name="0.0.0"></a>
+# [0.5.0](https://github.com/trimox/angular-mdc-web/compare/v0.4.8...v0.5.0) (2017-09-24)
+
+
+### Bug Fixes
+
+* **list:** Use ripple init() for list item ([#196](https://github.com/trimox/angular-mdc-web/issues/196)) ([a1edcf7](https://github.com/trimox/angular-mdc-web/commit/a1edcf7))
+
+
+### Features
+
+* **theme:** Implement MDC Theme + Sass extensions ([#206](https://github.com/trimox/angular-mdc-web/issues/206)) ([c6bb89b](https://github.com/trimox/angular-mdc-web/commit/c6bb89b)), closes [#112](https://github.com/trimox/angular-mdc-web/issues/112)
+* **slider:** Implement MDC Slider ([#186](https://github.com/trimox/angular-mdc-web/issues/186)) ([b3f4996](https://github.com/trimox/angular-mdc-web/commit/b3f4996)), closes [#111](https://github.com/trimox/angular-mdc-web/issues/111)
+* **button:** Add `mdc-icon-button` directive ([#192](https://github.com/trimox/angular-mdc-web/issues/192)) ([3f0afbb](https://github.com/trimox/angular-mdc-web/commit/3f0afbb)), closes [#189](https://github.com/trimox/angular-mdc-web/issues/189)
+* **package:** Update material-components-web to v0.21.1 ([#202](https://github.com/trimox/angular-mdc-web/issues/202)) ([bfc5419](https://github.com/trimox/angular-mdc-web/commit/bfc5419))
+* **snackbar:** Improvements + test coverage ([#200](https://github.com/trimox/angular-mdc-web/issues/200)) ([b9f978f](https://github.com/trimox/angular-mdc-web/commit/b9f978f))
+* **tabs:** Add scrollToTabAtIndex + findTab as public methods ([#204](https://github.com/trimox/angular-mdc-web/issues/204)) ([d50599f](https://github.com/trimox/angular-mdc-web/commit/d50599f)), closes [#193](https://github.com/trimox/angular-mdc-web/issues/193)
+
+### BREAKING CHANGES
+
+* **angular-mdc/theme:** Replace your project's MDC Sass import with `@import "~@angular-mdc/theme/material";`
+> You can also remove `IncludePaths` for `node_modules/@material/*` from your `Webpack` or `angular-cli.json` config files since it was a requirement of the old `material-components-web` theme.
+
+<a name="0.0.0"></a>
 # [0.4.8](https://github.com/trimox/angular-mdc-web/compare/v0.4.5...v0.4.8) (2017-09-17)
 
 

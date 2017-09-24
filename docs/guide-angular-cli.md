@@ -30,7 +30,10 @@ npm i @angular-mdc/web
 
 ## <a name="step3"></a> Step 3: Import Angular MDC Sass
 In `src/styles.sass` add the following:
-```css
+```sass
+$mdc-theme-primary: #1565c0; // change primary color example
+$mdc-theme-secondary: #388e3c; // change secondary color example
+
 @import "~@angular-mdc/theme/material";
 ```
 

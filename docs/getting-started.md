@@ -12,7 +12,7 @@ If you intend to use Angular CLI, please reference [Angular CLI - Getting Starte
 
 ## <a name="step1"></a> Step 1: Install Angular MDC
 ```
-npm install --save @angular-mdc/web
+npm i @angular-mdc/web
 ```
 
 ## <a name="step2"></a> Step 2: Import Components
@@ -54,6 +54,9 @@ export class ExampleModule { }
 ## <a name="step3"></a> Step 3: Import Angular MDC Theme
 Import the Angular MDC theme into your project Sass:
 ```sass
+$mdc-theme-primary: #1565c0; // change primary color example
+$mdc-theme-secondary: #388e3c; // change secondary color example
+
 @import "~@angular-mdc/theme/material";
 ```
 

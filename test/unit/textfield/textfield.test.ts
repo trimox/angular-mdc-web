@@ -77,7 +77,7 @@ describe('MdcTextfieldComponent', () => {
 
     it('#should throw an error', () => {
       expect(() => {
-        testComponent.myType = 'button'; fixture.detectChanges()
+        testComponent.myType = 'button'; fixture.detectChanges();
       }).toThrowError('Input type "button" is not supported.');
     });
   });

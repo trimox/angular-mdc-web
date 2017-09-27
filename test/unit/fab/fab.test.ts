@@ -55,6 +55,10 @@ describe('MdcFabComponent', () => {
       buttonDebugElement.nativeElement.click();
       expect(testComponent.clickCount).toBe(1);
     });
+
+    it('#should preserve any given tabIndex', () => {
+      expect(buttonDebugElement.nativeElement.tabIndex).toBe(2);
+    });
   });
 });
 
@@ -63,6 +67,7 @@ describe('MdcFabComponent', () => {
   template: `
     <button mdc-fab
       (click)="increment()"
+      [tabIndex]="customTabIndex"
       [disableRipple]="isRippleDisabled"
       [mini]="isMini">
       <mdc-fab-icon>search</mdc-fab-icon>
@@ -73,6 +78,7 @@ class SimpleButton {
   isMini: boolean = false;
   isRippleDisabled: boolean = false;
   clickCount: number = 0;
+  customTabIndex: number = 2;
 
   increment() {
     this.clickCount++;

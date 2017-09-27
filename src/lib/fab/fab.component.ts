@@ -30,6 +30,7 @@ export class MdcFabIconDirective {
 })
 export class MdcFabComponent {
   @Input() mini: boolean;
+  @Input('attr.tabindex') tabIndex: number = 0;
   @Input()
   get disableRipple() { return this._ripple.disabled; }
   set disableRipple(value) {

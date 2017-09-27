@@ -5,6 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './fab-demo.component.html'
 })
 export class FabDemoComponent {
-  isMini: boolean;
-  isRippleDisabled: boolean;
+  isMini: boolean = false;
+  isRippleDisabled: boolean = false;
 }

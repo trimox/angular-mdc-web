@@ -38,6 +38,27 @@ describe('MdcIconToggleComponent', () => {
         .toContain('mdc-icon-toggle', 'Expected buttons to have mdc-icon-toggle');
       expect(buttonInstance.isHostClass).toBe(true);
     });
+    it('#should apply class based on property', () => {
+      testComponent.isPrimary = true;
+      fixture.detectChanges();
+      expect(buttonDebugElement.nativeElement.classList.contains('mdc-icon-toggle--primary')).toBe(true);
+
+      testComponent.isSecondary = true;
+      fixture.detectChanges();
+      expect(buttonDebugElement.nativeElement.classList.contains('mdc-icon-toggle--accent')).toBe(true);
+    });
+
+    it('#should set disabled to true', () => {
+      testComponent.isDisabled = true;
+      fixture.detectChanges();
+      expect(buttonInstance.disabled).toBe(true);
+    });
+
+    it('#should set disabled to true', () => {
+      buttonInstance.toggle(true);
+      fixture.detectChanges();
+      expect(buttonInstance.isOn()).toBe(true);
+    });
   });
 });
 
@@ -47,6 +68,8 @@ describe('MdcIconToggleComponent', () => {
   `
     <mdc-icon-toggle
       [disabled]="isDisabled"
+      [primary]="isPrimary"
+      [secondary]="isSecondary"
       iconOn="favorite" iconOff="favorite_border"
       labelOn="Add to Favorites" labelOff="Remove from Favorites">
     </mdc-icon-toggle>
@@ -54,4 +77,6 @@ describe('MdcIconToggleComponent', () => {
 })
 class SimpleButton {
   isDisabled: boolean = false;
+  isPrimary: boolean = false;
+  isSecondary: boolean = false;
 }

@@ -170,15 +170,15 @@ export class MdcIconToggleComponent implements AfterViewInit, OnChanges, OnDestr
     this.onTouched = fn;
   }
 
-  toggle(isOn?: boolean) {
+  toggle(isOn?: boolean): void {
     this._foundation.toggle(isOn);
   }
 
-  refreshToggleData() {
+  refreshToggleData(): void {
     this._foundation.refreshToggleData();
   }
 
-  isOn() {
-    this._foundation.isOn();
+  isOn(): boolean {
+    return this._foundation.isOn();
   }
 }

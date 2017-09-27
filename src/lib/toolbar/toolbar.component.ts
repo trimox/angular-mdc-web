@@ -133,7 +133,7 @@ export class MdcToolbarComponent implements AfterViewInit, OnDestroy {
     this._foundation.destroy();
   }
 
-  updateAdjustElementStyles() {
+  updateAdjustElementStyles(): void {
     this._foundation.updateAdjustElementStyles();
   }
 }

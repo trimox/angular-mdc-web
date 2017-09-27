@@ -75,6 +75,12 @@ describe('MdcSliderComponent', () => {
       fixture.detectChanges();
       expect(sliderInstance.getMax()).toBe(150);
     });
+
+    it('#should set disabled to true', () => {
+      testComponent.isDisabled = true;
+      fixture.detectChanges();
+      expect(sliderInstance.disabled).toBe(true);
+    });
   });
 });
 

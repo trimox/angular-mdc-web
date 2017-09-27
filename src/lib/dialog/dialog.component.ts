@@ -250,7 +250,7 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  show() {
+  show(): void {
     const focusedEl = this.dialogButtons.find((_) => _.focused || _.accept);
 
     this.focusTrap_ = createFocusTrap(this.dialogSurface.elementRef.nativeElement, {
@@ -261,19 +261,19 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
     this._foundation.open();
   }
 
-  close() {
+  close(): void {
     this._foundation.close();
   }
 
-  isOpen() {
+  isOpen(): boolean {
     return this._foundation.isOpen();
   }
 
-  accept() {
+  accept(): void {
     this._foundation.accept();
   }
 
-  cancel() {
+  cancel(): void {
     this._foundation.cancel();
   }
 }

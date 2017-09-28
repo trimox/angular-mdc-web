@@ -2,7 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MdcFabComponent, MdcFabIconDirective, MdcFabModule } from '../../../src/lib/public_api';
+import { MdcFabComponent, MdcFabModule } from '../../../src/lib/public_api';
 
 describe('MdcFabComponent', () => {
   let fixture: ComponentFixture<any>;
@@ -45,10 +45,24 @@ describe('MdcFabComponent', () => {
       expect(buttonDebugElement.nativeElement.classList.contains('mdc-fab--mini')).toBe(true);
     });
 
-    it('#should disable ripple', () => {
-      testComponent.isRippleDisabled = true;
+    it('#should apply class `exited`', () => {
+      testComponent.isExited = true;
       fixture.detectChanges();
-      expect(buttonInstance.disableRipple).toBeTruthy('Expected fab ripple to be disabled');
+      expect(buttonDebugElement.nativeElement.classList.contains('mdc-fab--exited')).toBe(true);
+    });
+
+    it('#should apply class `exited` after toggleExited(true)', () => {
+      buttonInstance.toggleExited(true);
+      fixture.detectChanges();
+      expect(buttonDebugElement.nativeElement.classList.contains('mdc-fab--exited')).toBe(true);
+      expect(buttonInstance.exited).toBe(true);
+    });
+
+    it('#should remove class `exited` after toggleExited(false)', () => {
+      buttonInstance.toggleExited();
+      buttonInstance.toggleExited();
+      fixture.detectChanges();
+      expect(buttonDebugElement.nativeElement.classList.contains('mdc-fab--exited')).toBe(false);
     });
 
     it('#should handle a click on the button', () => {
@@ -68,7 +82,7 @@ describe('MdcFabComponent', () => {
     <button mdc-fab
       (click)="increment()"
       [tabIndex]="customTabIndex"
-      [disableRipple]="isRippleDisabled"
+      [exited]="isExited"
       [mini]="isMini">
       <mdc-fab-icon>search</mdc-fab-icon>
     </button>
@@ -76,7 +90,7 @@ describe('MdcFabComponent', () => {
 })
 class SimpleButton {
   isMini: boolean = false;
-  isRippleDisabled: boolean = false;
+  isExited: boolean = false;
   clickCount: number = 0;
   customTabIndex: number = 2;
 

@@ -31,14 +31,24 @@
           <td>Make the fab smaller (40 x 40 pixels).</td>
         </tr>
         <tr>
+          <td>exited: boolean</td>
+          <td>Animates the FAB in or out of view.</td>
+        </tr>
+        <tr>
           <td>tabIndex: number</td>
           <td>Set the tabindex of the button. (Default: 0).</td>
         </tr>
+      </tbody>
+      <thead>
         <tr>
-          <td>disableRipple: boolean</td>
-          <td>
-            <pre><code><![CDATA[Disable the ink ripple.
-Example: disableRipple="true" or disableRipple]]></code></pre></td>
+          <th>Methods</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>toggleExited(exited?: boolean)</td>
+          <td>Toggle the fab animation in and out. Optional argument for specifying exited.</td>
         </tr>
       </tbody>
       <thead>
@@ -63,24 +73,33 @@ Example: disableRipple="true" or disableRipple]]></code></pre></td>
         <mdc-checkbox [(ngModel)]="isMini"></mdc-checkbox>
         <label>Mini</label>
       </mdc-form-field>
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="isRippleDisabled"></mdc-checkbox>
-        <label>Disable Ripple</label>
-      </mdc-form-field>
     </div>
-    <button mdc-fab
-      [mini]="isMini"
-      [disableRipple]="isRippleDisabled">
-      <mdc-fab-icon material-icon>edit</mdc-fab-icon>
-    </button>
+<button mdc-fab
+  [mini]="isMini">
+  <mdc-fab-icon material-icon>edit</mdc-fab-icon>
+</button>
     </div>
 <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span>
-   [<span style="color:#e0c589">mini</span>]=<span style="color:#65b042">"false"</span>
-   [<span style="color:#e0c589">disableRipple</span>]=<span style="color:#65b042">"false"</span>></span>
+  [<span style="color:#e0c589">mini</span>]=<span style="color:#65b042">"false"</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span> <span style="color:#89bdff">material-icon</span>></span>edit<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>
 <span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
 </pre>
+<span mdc-typography-headline>Exit/Entry Animation</span>
+  <div fxLayout="row" class="mdc-padding" fxLayoutAlign="start center" fxLayoutGap="25px">
+    <button mdc-fab #fab
+      (click)="handleFabExitedClick();">
+      <mdc-fab-icon material-icon>search</mdc-fab-icon>
+    </button>
+    <button mdc-button (click)="handleFabExitedClick();" *ngIf="isExited">Show FAB again</button>
+</div>
+<pre style="background:#000;color:#f8f8f8">handleFabExitedClick()
+  this.fab.toggleExited();
 
+<span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span> #<span style="color:#e0c589">fab</span>
+  (<span style="color:#e0c589">click</span>)=<span style="color:#65b042">"handleFabExitedClick();"</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span> <span style="color:#89bdff">material-icon</span>></span>search<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>
+<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+</pre>
 <span mdc-typography-headline>Using Font Awesome</span>
 <button mdc-fab class="fa-icon">
   <mdc-fab-icon class="fa fa-keyboard-o"></mdc-fab-icon>

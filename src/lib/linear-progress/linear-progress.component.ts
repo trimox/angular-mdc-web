@@ -88,19 +88,19 @@ export class MdcLinearProgressComponent implements AfterViewInit {
     this._foundation.init();
   }
 
-  open() {
+  open(): void {
     this._foundation.open();
   }
 
-  close() {
+  close(): void {
     this._foundation.close();
   }
 
-  setProgress(value: number) {
+  setProgress(value: number): void {
     this._foundation.setProgress(value);
   }
 
-  setBuffer(value: number) {
+  setBuffer(value: number): void {
     this._foundation.setBuffer(value);
   }
 }

@@ -20,6 +20,8 @@ import {
 })
 export class MdcFabIconDirective {
   @HostBinding('class.mdc-fab__icon') isHostClass = true;
+
+  constructor(public elementRef: ElementRef) { }
 }
 
 @Component({
@@ -55,7 +57,7 @@ export class MdcFabComponent {
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef,
+    public elementRef: ElementRef,
     private _ripple: MdcRipple) {
     this._ripple.init();
   }

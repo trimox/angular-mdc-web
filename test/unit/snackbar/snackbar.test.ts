@@ -1,67 +1,122 @@
-import { Component, DebugElement } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgModule, Component, Directive, DebugElement, ViewContainerRef, ViewChild, Inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { async, inject, tick, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
-  MdcSnackbarComponent,
   MdcSnackbarModule,
+  MdcSnackbar,
+  MdcSnackbarComponent,
+  MdcSnackbarConfig,
+  MdcSnackbarRef,
+  MdcSnackbarContainer,
 } from '../../../src/lib/public_api';
+import { OverlayContainer } from '../../../src/lib/cdk/overlay/overlay-container';
 
-describe('MdcSnackbarComponent', () => {
-  let fixture: ComponentFixture<any>;
+describe('MdcSnackbar', () => {
+  let snackbar: MdcSnackbar;
+  let overlayContainerElement: HTMLElement;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [MdcSnackbarModule],
-      declarations: [
-        SimpleSnack,
-      ]
-    });
-    TestBed.compileComponents();
-  }));
+  let testViewContainerRef: ViewContainerRef;
+  let viewContainerFixture: ComponentFixture<ComponentWithChildViewContainer>;
+
+  let simpleMessage = 'Simple message!';
+  let simpleActionLabel = 'Ok';
 
   describe('behaviors', () => {
-    let snackBarDebugElement: DebugElement;
-    let snackBarInstance: MdcSnackbarComponent;
-    let testComponent: SimpleSnack;
+    let testSnackbar: MdcSnackbar;
+    let overlayContainerElement: HTMLElement;
+    let fixture: ComponentFixture<SimpleSnack>;
+
+    beforeEach(async(() => {
+      TestBed.configureTestingModule({
+        imports: [MdcSnackbarModule, SnackBarTestModule],
+        declarations: [SimpleSnack],
+        providers: [
+          {
+            provide: OverlayContainer, useFactory: () => {
+              overlayContainerElement = document.createElement('div');
+              return { getContainerElement: () => overlayContainerElement };
+            }
+          }
+        ],
+      });
+
+      TestBed.compileComponents();
+    }));
+
+    beforeEach(inject([MdcSnackbar], (sb: MdcSnackbar) => {
+      snackbar = sb;
+
+      fixture = TestBed.createComponent(SimpleSnack);
+      snackbar = fixture.componentInstance.snackbar;
+      fixture.detectChanges();
+    }));
+
+    afterEach(() => {
+      overlayContainerElement.innerHTML = '';
+    });
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(SimpleSnack);
+      viewContainerFixture = TestBed.createComponent(ComponentWithChildViewContainer);
+
+      viewContainerFixture.detectChanges();
+      testViewContainerRef = viewContainerFixture.componentInstance.childViewContainer;
+    });
+
+    it('#should open a simple message', () => {
+      let snackBarRef = snackbar.show(simpleMessage);
       fixture.detectChanges();
-
-      snackBarDebugElement = fixture.debugElement.query(By.directive(MdcSnackbarComponent));
-      snackBarInstance = snackBarDebugElement.componentInstance;
-      testComponent = fixture.debugElement.componentInstance;
     });
 
-    it('#should have mdc-snackbar by default', () => {
-      expect(snackBarDebugElement.nativeElement.classList)
-        .toContain('mdc-snackbar', 'Expected to have mdc-snackbar');
-    });
-
-    it('#should apply class based on property', () => {
-      testComponent.isAlignStart = true;
+    it('#should open a simple message with a button', () => {
+      let snackBarRef = snackbar.show(simpleMessage, simpleActionLabel);
       fixture.detectChanges();
-      expect(snackBarDebugElement.nativeElement.classList.contains('mdc-snackbar--align-start')).toBe(true);
     });
 
-    it('#should show snackbar', () => {
-      snackBarInstance.show({
-        message: 'Message deleted',
-        actionText: 'Undo',
-      });
+    it('#should open a snackbar with config', () => {
+      let snackBarRef = snackbar.show(simpleMessage, simpleActionLabel, { timeout: 3000, align: 'start', focusAction: true });
       fixture.detectChanges();
     });
   });
 });
 
+@Directive({ selector: 'dir-with-view-container' })
+class DirectiveWithViewContainer {
+  constructor(public viewContainerRef: ViewContainerRef) { }
+}
+
 @Component({
-  template:
-  `
-    <mdc-snackbar
-      [alignStart]="isAlignStart">
-    </mdc-snackbar>
-  `
+  selector: 'arbitrary-component',
+  template: `<dir-with-view-container *ngIf="childComponentExists"></dir-with-view-container>`,
+})
+class ComponentWithChildViewContainer {
+  @ViewChild(DirectiveWithViewContainer) childWithViewContainer: DirectiveWithViewContainer;
+
+  childComponentExists: boolean = true;
+
+  get childViewContainer() {
+    return this.childWithViewContainer.viewContainerRef;
+  }
+}
+
+@Component({
+  template: '',
+  providers: [MdcSnackbar]
 })
 class SimpleSnack {
-  isAlignStart: boolean = false;
+  constructor(public snackbar: MdcSnackbar) { }
 }
+
+/** Simple component to open snackbars from.
+ * Create a real (non-test) NgModule as a workaround forRoot
+ * https://github.com/angular/angular/issues/10760
+ */
+const TEST_DIRECTIVES = [ComponentWithChildViewContainer, DirectiveWithViewContainer];
+
+@NgModule({
+  imports: [CommonModule, MdcSnackbarModule],
+  exports: TEST_DIRECTIVES,
+  declarations: TEST_DIRECTIVES,
+  entryComponents: [ComponentWithChildViewContainer],
+})
+class SnackBarTestModule { }

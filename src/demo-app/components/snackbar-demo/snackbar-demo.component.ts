@@ -1,27 +1,30 @@
-import {
-  Component,
-  ViewChild
-} from '@angular/core';
+import { Component } from '@angular/core';
 
-import { SnackbarMessage, MdcSnackbarComponent } from '../../../lib/public_api';
+import { MdcSnackbar } from '../../../lib/public_api';
 
 @Component({
   selector: 'snackbar-demo',
-  templateUrl: './snackbar-demo.component.html'
+  templateUrl: './snackbar-demo.component.html',
+  providers: [MdcSnackbar],
 })
 export class SnackbarDemoComponent {
-  message: SnackbarMessage = {
-    message: 'Message deleted',
-    actionText: 'Undo',
-  };
-  @ViewChild('snack') snack: MdcSnackbarComponent;
-  @ViewChild('snackStart') snackStart: MdcSnackbarComponent;
+  message = 'Message deleted';
+  action = 'Undo';
+  multiline = false;
+  dismissOnAction: boolean = true;
+  alignStart: boolean;
+  focusAction = false;
+  actionOnBottom = false;
+
+  constructor(public snackbar: MdcSnackbar) { }
 
   show() {
-    this.snack.show(this.message);
-  }
-
-  showStartAligned() {
-    this.snackStart.show(this.message);
+    let snackbarRef = this.snackbar.show(this.message, this.action, {
+      align: this.alignStart ? 'start' : '',
+      multiline: this.multiline,
+      dismissOnAction: this.dismissOnAction,
+      focusAction: this.focusAction,
+      actionOnBottom: this.actionOnBottom,
+    });
   }
 }

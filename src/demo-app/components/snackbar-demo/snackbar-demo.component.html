@@ -1,82 +1,150 @@
 <div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
   <h1 mdc-typography-display1>Snackbar</h1>
-  <div mdc-typography-subheading2>The MDC Snackbar component is a spec-aligned snackbar component adhering to the Material Design snackbars requirements.</div>
-  <div class="info-banner" mdc-typography-subheading1><![CDATA[import { MdcSnackbarModule } from '@angular-mdc/web';]]></div>
+  <div mdc-typography-subheading2>The MDC Snackbar is a spec-aligned snackbar component adhering to the Material Design snackbars requirements.</div>
+  <div class="info-banner" mdc-typography-subheading1><![CDATA[import { MdcSnackbar } from '@angular-mdc/web';]]></div>
   <div class="docs-api">
     <table>
       <thead>
         <tr>
-          <th>Component</th>
+          <th>Service</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>mdc-snackbar</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>@Input() alignStart: boolean</td>
-          <td>Set snackbar message as start-aligned.</td>
-        </tr>
-        <tr>
-          <td>@Input() dismissOnAction: boolean</td>
-          <td>If you want the snackbar to remain visible until the timeout is reached (regardless of whether the user pressed the action button or not) you can set the dismissesOnAction property to false.</td>
+          <td>MdcSnackbar</td>
         </tr>
       </tbody>
       <thead>
         <tr>
           <th>Methods</th>
-          <th>Parameters</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>show(data: SnackbarMessage)</td>
+          <td>show(message: string)</td>
+          <td>Show snackbar message.</td>
+        </tr>
+        <tr>
+          <td>show(message: string, action: string)</td>
+          <td>Show snackbar message and action.</td>
+        </tr>
+        <tr>
+          <td><pre><code><![CDATA[show(
+  message: string,
+  action: string,
+  {
+    config
+  })
+]]></code></pre></td>
           <td>
-<pre><code><![CDATA[interface SnackbarMessage {
-  message: string;
-  timeout?: number; - Amount of time in milliseconds to show the snackbar (default 2750).
-  actionHandler?: Function; - Function to execute when the action is clicked.
-  actionText?: string; - Text to display for the action button.
-  multiline?: boolean; - Whether to show the snackbar with space for multiple lines of text.
-  actionOnBottom?: boolean; - Whether to show the action below the multiple lines of text.
+<pre><code><![CDATA[config {
+  timeout?: number = 2750;
+  actionHandler?: Function;
+  multiline?: boolean = false;
+  actionOnBottom?: boolean = false;
+  align?: string = 'center';
+  dismissOnAction?: boolean = true;
+  focusAction?: boolean = false;
 }]]></code></pre>
           </td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Config</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>timeout: number (Default 2750)</td>
+          <td>The amount of time in milliseconds to show the snackbar.</td>
+        </tr>
+        <tr>
+          <td>actionHandler: Function</td>
+          <td>The function to execute when the action is clicked.</td>
+        </tr>
+        <tr>
+          <td>multiline: boolean</td>
+          <td>Whether to show the snackbar with space for multiple lines of text.</td>
+        </tr>
+        <tr>
+          <td>actionOnBottom: boolean</td>
+          <td>Whether to show the action below the multiple lines of text.</td>
+        </tr>
+        <tr>
+          <td>align: string (Default 'center')</td>
+          <td>Alignment of the snackbar on screen. Valid values - 'start' | 'center'</td>
+        </tr>
+        <tr>
+          <td>dismissOnAction: boolean</td>
+          <td>Dismisses snackbar when action button is clicked.</td>
+        </tr>
+        <tr>
+          <td>focusAction: boolean</td>
+          <td>Sets focus to the action button.</td>
         </tr>
       </tbody>
     </table>
   </div>
   <div fxLayout="column" class="mdc-padding">
     <mdc-form-field>
-      <mdc-checkbox [(ngModel)]="message.multiline"></mdc-checkbox>
+      <mdc-checkbox [(ngModel)]="multiline"></mdc-checkbox>
       <label>Multiline</label>
     </mdc-form-field>
     <mdc-form-field>
-      <mdc-checkbox [(ngModel)]="message.actionOnBottom" [disabled]="!message.multiline"></mdc-checkbox>
+      <mdc-checkbox [(ngModel)]="alignStart"></mdc-checkbox>
+      <label>Start align</label>
+    </mdc-form-field>
+    <mdc-form-field>
+      <mdc-checkbox [(ngModel)]="actionOnBottom" [disabled]="!multiline"></mdc-checkbox>
       <label>Action on Bottom (requires multiline)</label>
     </mdc-form-field>
     <mdc-form-field>
-      <mdc-checkbox [(ngModel)]="snack.dismissOnAction"></mdc-checkbox>
+      <mdc-checkbox [(ngModel)]="dismissOnAction"></mdc-checkbox>
       <label>Dismiss on Action Click</label>
     </mdc-form-field>
+    <mdc-form-field>
+      <mdc-checkbox [(ngModel)]="focusAction"></mdc-checkbox>
+      <label>Focus on Action button</label>
+    </mdc-form-field>
+
+    <div fxLayout="column">
+      <mdc-textfield [(ngModel)]="message" label="Message" [required]="true"></mdc-textfield>
+      <mdc-textfield [(ngModel)]="action" label="Action"></mdc-textfield>
+    </div>
+    <div class="mdc-padding" fxLayout="column" fxFlexOffset="2">
+      <button mdc-button [primary]="true" [raised]="true" (click)="show();">Show Snackbar</button>
+    </div>
   </div>
-  <div fxLayout="column" fxFlexOffset="1">
-    <mdc-textfield [(ngModel)]="message.message" label="Message text" [required]="true"></mdc-textfield>
-    <mdc-textfield [(ngModel)]="message.actionText" label="Action button text"></mdc-textfield>
-  </div>
-  <div class="mdc-padding" fxLayout="column" fxFlexOffset="2">
-    <button mdc-button [primary]="true" [raised]="true" (click)="show();">Show Snackbar</button>
-  </div>
-  <div class="mdc-padding" fxLayout="column" fxFlexOffset="2">
-    <button mdc-button [primary]="true" [raised]="true" (click)="showStartAligned();">Show Start Aligned</button>
-  </div>
+  <pre style="background:#000;color:#f8f8f8"><code><![CDATA[import { Component } from '@angular/core';
+
+import { MdcSnackbar } from '@angular-mdc/web';
+
+@Component({
+  selector: 'snackbar-demo',
+  templateUrl: './snackbar-demo.component.html',
+  providers: [MdcSnackbar],
+})
+export class SnackbarDemoComponent {
+  message = 'Message deleted';
+  action = 'Undo';
+  multiline = false;
+  dismissOnAction: boolean = true;
+  alignStart: boolean;
+  focusAction = false;
+  actionOnBottom = false;
+
+  constructor(public snackbar: MdcSnackbar) { }
+
+  show() {
+    let snackbarRef = this.snackbar.show(this.message, this.action, {
+      align: this.alignStart ? 'start' : '',
+      multiline: this.multiline,
+      dismissOnAction: this.dismissOnAction,
+      focusAction: this.focusAction,
+      actionOnBottom: this.actionOnBottom,
+    });
+  }
+}
+]]></code></pre>
 </div>
-  <mdc-snackbar #snack></mdc-snackbar>
-  <mdc-snackbar #snackStart [alignStart]="true"></mdc-snackbar>

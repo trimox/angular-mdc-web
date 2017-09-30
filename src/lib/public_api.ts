@@ -1,5 +1,7 @@
 export * from './module';
 
+export * from './cdk/overlay/index';
+
 export * from './button/index';
 export * from './card/index';
 export * from './checkbox/index';

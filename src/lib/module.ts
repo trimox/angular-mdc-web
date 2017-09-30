@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 
+import { OverlayModule } from './cdk/overlay/index';
+
 import { MdcButtonModule } from './button/index';
 import { MdcCardModule } from './card/index';
 import { MdcCheckboxModule } from './checkbox/index';
@@ -24,6 +26,7 @@ import { MdcToolbarModule } from './toolbar/index';
 import { MdcTypographyModule } from './typography/index';
 
 const MATERIAL_MODULES = [
+  OverlayModule,
   MdcButtonModule,
   MdcCardModule,
   MdcCheckboxModule,

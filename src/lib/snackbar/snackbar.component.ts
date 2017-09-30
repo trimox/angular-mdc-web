@@ -3,34 +3,23 @@ import {
   Directive,
   ElementRef,
   HostBinding,
+  Inject,
   Input,
   OnDestroy,
   OnInit,
   Renderer2,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { isBrowser } from '../common';
 import { EventRegistry } from '../common/event-registry';
 
+import { MDC_SNACK_BAR_DATA, MdcSnackbarConfig } from './snackbar-config';
+import { MdcSnackbarRef } from './snackbar-ref';
 import { MDCSnackbarAdapter } from './snackbar-adapter';
-import { SnackbarMessage } from './snackbar-message';
 
 import { MDCSnackbarFoundation } from '@material/snackbar';
 import { getCorrectEventName } from '@material/animation';
-
-@Component({
-  selector: 'mdc-snackbar-action-button',
-  template:
-  `
-    <button type="button"></button>
-  `
-})
-export class MdcSnackbarActionButton {
-  @HostBinding('class.mdc-snackbar__action-button') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
 
 @Directive({
   selector: '[mdc-snackbar-text], mdc-snackbar-text'
@@ -56,29 +45,25 @@ export class MdcSnackbarActionWrapper {
   `
   <mdc-snackbar-text></mdc-snackbar-text>
   <mdc-snackbar-action-wrapper>
-    <mdc-snackbar-action-button></mdc-snackbar-action-button>
+    <button #action type="submit" class="mdc-snackbar__action-button"></button>
   </mdc-snackbar-action-wrapper>
   `,
   encapsulation: ViewEncapsulation.None,
   providers: [EventRegistry]
 })
 export class MdcSnackbarComponent implements OnInit, OnDestroy {
-  @Input() alignStart: boolean = false;
-  @Input()
-  get dismissOnAction() { return this._foundation.dismissesOnAction(); }
-  set dismissOnAction(value) {
-    this._foundation.setDismissOnAction(value);
-  }
+  /** Data that was injected into the snack bar. */
+  data: { message: string, actionText: string };
+  /** The snack bar configuration. */
+  config: MdcSnackbarConfig;
+
   @HostBinding('class.mdc-snackbar') isHostClass = true;
   @HostBinding('attr.aria-live') ariaLive: string = 'assertive';
   @HostBinding('attr.aria-atomic') ariaAtomic: string = 'true';
   @HostBinding('attr.aria-hidden') ariaHidden: string = 'true';
-  @HostBinding('class.mdc-snackbar--align-start') get classAlignStart(): string {
-    return this.alignStart ? 'mdc-snackbar--align-start' : '';
-  }
   @ViewChild(MdcSnackbarText) snackText: MdcSnackbarText;
   @ViewChild(MdcSnackbarActionWrapper) actionWrapper: MdcSnackbarActionWrapper;
-  @ViewChild(MdcSnackbarActionButton) actionButton: MdcSnackbarActionButton;
+  @ViewChild('action') actionButton: ElementRef;
 
   private _mdcAdapter: MDCSnackbarAdapter = {
     addClass: (className: string) => {
@@ -95,12 +80,12 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
     },
     setActionAriaHidden: () => {
       if (this.actionButton) {
-        this._renderer.setAttribute(this.actionButton.elementRef.nativeElement, 'aria-hidden', 'true');
+        this._renderer.setAttribute(this.actionButton.nativeElement, 'aria-hidden', 'true');
       }
     },
     unsetActionAriaHidden: () => {
       if (this.actionButton) {
-        this._renderer.removeAttribute(this.actionButton.elementRef.nativeElement, 'aria-hidden');
+        this._renderer.removeAttribute(this.actionButton.nativeElement, 'aria-hidden');
       }
     },
     setMessageText: (message: string) => {
@@ -110,12 +95,12 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
     },
     setActionText: (actionText: string) => {
       if (this.actionButton) {
-        this.actionButton.elementRef.nativeElement.textContent = actionText;
+        this.actionButton.nativeElement.textContent = actionText;
       }
     },
     setFocus: () => {
       if (isBrowser()) {
-        this.actionButton.elementRef.nativeElement.focus();
+        this.actionButton.nativeElement.focus();
       }
     },
     visibilityIsHidden: () => {
@@ -123,7 +108,7 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
     },
     registerCapturedBlurHandler: (handler: EventListener) => {
       if (this._root && this.actionButton) {
-        this._registry.listen_(this._renderer, 'blur', handler, this.actionButton.elementRef);
+        this._registry.listen_(this._renderer, 'blur', handler, this.actionButton);
       }
     },
     deregisterCapturedBlurHandler: (handler: EventListener) => {
@@ -153,7 +138,7 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
     },
     registerActionClickHandler: (handler: EventListener) => {
       if (this._root && this.actionButton) {
-        this._registry.listen_(this._renderer, 'click', handler, this.actionButton.elementRef);
+        this._registry.listen_(this._renderer, 'click', handler, this.actionButton);
       }
     },
     deregisterActionClickHandler: (handler: EventListener) => {
@@ -167,6 +152,7 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
     deregisterTransitionEndHandler: (handler: EventListener) => {
       if (isBrowser()) {
         this._registry.unlisten_(getCorrectEventName(window, 'transitionend'), handler);
+        this.snackbarRef.dismiss(); // remove container from dom host
       }
     }
   };
@@ -174,32 +160,57 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
   private _foundation: {
     init: Function,
     destroy: Function,
+    active: Function,
     setDismissOnAction: Function,
     dismissesOnAction: Function,
     show: Function
   } = new MDCSnackbarFoundation(this._mdcAdapter);
 
   constructor(
+    public snackbarRef: MdcSnackbarRef<MdcSnackbarComponent>,
+    @Inject(MDC_SNACK_BAR_DATA) data: any,
+    @Inject(MdcSnackbarConfig) config: MdcSnackbarConfig,
     private _renderer: Renderer2,
     private _root: ElementRef,
-    private _registry: EventRegistry) { }
+    private _registry: EventRegistry) {
+    this.data = data;
+    this.config = config;
+  }
 
   ngOnInit() {
     this._foundation.init();
+    this.show();
   }
+
   ngOnDestroy() {
     this._foundation.destroy();
   }
 
-  show(data: SnackbarMessage): void {
-    if (data) {
-      if (!data.actionHandler && data.actionText) {
-        data.actionHandler = () => { };
+  show(): void {
+    const config_ = this.config;
+    const data_ = this.data;
+
+    if (config_) {
+      this._foundation.setDismissOnAction(config_.dismissOnAction);
+      if (config_.align == 'start') {
+        this._mdcAdapter.addClass('mdc-snackbar--align-start');
       }
-      if (!data.actionText) {
-        data.actionHandler = null;
+
+      if (!config_.actionHandler && data_.actionText) {
+        config_.actionHandler = () => { };
       }
-      this._foundation.show(data);
+      if (!data_.actionText) {
+        config_.actionHandler = null;
+      }
+
+      setTimeout(() => {
+        this._foundation.show({ ...data_, ...config_ });
+        if (config_.focusAction) {
+          this._mdcAdapter.setFocus();
+        }
+      }, 10);
+    } else {
+      this._foundation.show(data_);
     }
   }
 }

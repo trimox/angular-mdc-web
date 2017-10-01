@@ -13,9 +13,13 @@ import {
   TemplateRef
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PortalHostDirective, PortalModule } from '../../../../src/lib/cdk/portal/portal-directives';
-import { Portal, ComponentPortal } from '../../../../src/lib/cdk/portal';
-import { DomPortalHost } from '../../../../src/lib/cdk/portal/dom-portal-host';
+import {
+  PortalModule,
+  PortalHostDirective,
+  Portal,
+  ComponentPortal,
+  DomPortalHost,
+} from '../../../../src/lib/cdk/portal/index';
 
 describe('Portals', () => {
 

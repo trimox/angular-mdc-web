@@ -5,9 +5,8 @@ import {
   Optional,
   SkipSelf,
 } from '@angular/core';
-import { extendObject } from '../common';
-import { Overlay, OverlayRef } from '../cdk/overlay';
-import { Portal, ComponentType, ComponentPortal, HostInjector } from '../cdk/portal';
+import { Overlay, OverlayRef } from '../cdk/overlay/index';
+import { Portal, ComponentType, ComponentPortal, PortalInjector } from '../cdk/portal/index';
 
 import { MdcSnackbarRef } from './snackbar-ref';
 import { MdcSnackbarComponent } from './snackbar.component';
@@ -112,7 +111,7 @@ export class MdcSnackbar {
      */
   private _createInjector<T>(
     config: MdcSnackbarConfig,
-    snackBarRef: MdcSnackbarRef<T>): HostInjector {
+    snackBarRef: MdcSnackbarRef<T>): PortalInjector {
 
     const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
     const injectionTokens = new WeakMap();
@@ -121,7 +120,7 @@ export class MdcSnackbar {
     injectionTokens.set(MDC_SNACK_BAR_DATA, config.data);
     injectionTokens.set(MdcSnackbarConfig, config);
 
-    return new HostInjector(userInjector || this.injector_, injectionTokens);
+    return new PortalInjector(userInjector || this.injector_, injectionTokens);
   }
 }
 
@@ -131,5 +130,5 @@ export class MdcSnackbar {
  * @returns The new configuration object with defaults applied.
  */
 function _applyConfigDefaults(config?: MdcSnackbarConfig): MdcSnackbarConfig {
-  return extendObject(new MdcSnackbarConfig(), config);
+  return { ...new MdcSnackbarConfig(), ...config };
 }

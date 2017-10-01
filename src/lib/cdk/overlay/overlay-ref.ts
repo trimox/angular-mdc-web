@@ -7,7 +7,7 @@
  */
 
 import { NgZone } from '@angular/core';
-import { PortalHost, Portal } from '../portal';
+import { PortalHost, Portal } from '../portal/portal';
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';

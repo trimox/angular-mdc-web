@@ -1,8 +1,8 @@
 import { NgModule, Provider } from '@angular/core';
 
+import { PortalModule } from '../portal/portal-directives';
 import { Overlay } from './overlay';
 import { OVERLAY_CONTAINER_PROVIDER } from './overlay-container';
-import { PortalModule } from '../portal';
 
 export const OVERLAY_PROVIDERS: Provider[] = [
   Overlay,
@@ -17,4 +17,4 @@ export class OverlayModule { }
 
 export { Overlay } from './overlay';
 export { OverlayRef } from './overlay-ref';
-export { OverlayContainer } from './overlay-container';
+export * from './overlay-container';

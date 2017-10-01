@@ -10,7 +10,7 @@ import {
   ComponentPortal,
   BasePortalHost,
   PortalHostDirective
-} from '../cdk/portal';
+} from '../cdk/portal/index';
 
 @Component({
   selector: 'mdc-snackbar-container',

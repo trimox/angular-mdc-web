@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { OverlayModule } from '../cdk/overlay';
-import { PortalModule } from '../cdk/portal';
+import { OverlayModule } from '../cdk/overlay/index';
+import { PortalModule } from '../cdk/portal/portal-directives';
 
 import { MdcSnackbar } from './snackbar';
 import { MdcSnackbarContainer } from './snackbar-container.component';
@@ -29,8 +29,8 @@ const SNACKBAR_COMPONENTS = [
   declarations: [SNACKBAR_COMPONENTS],
   providers: [MdcSnackbar],
   entryComponents: [
+    MdcSnackbarContainer,
     MdcSnackbarComponent,
-    MdcSnackbarContainer
   ],
 })
 export class MdcSnackbarModule { }

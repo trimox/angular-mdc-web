@@ -1,7 +1,5 @@
 export * from './module';
 
-export * from './cdk/overlay/index';
-
 export * from './button/index';
 export * from './card/index';
 export * from './checkbox/index';
@@ -27,3 +25,6 @@ export * from './textfield/index';
 export * from './theme/index';
 export * from './toolbar/index';
 export * from './typography/index';
+
+export * from './cdk/overlay/index';
+export * from './cdk/portal/index';

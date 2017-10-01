@@ -13,7 +13,7 @@ import { Injector } from '@angular/core';
  * injection tokens to components inside a portal.
  * @docs-private
  */
-export class HostInjector implements Injector {
+export class PortalInjector implements Injector {
   constructor(
     private _parentInjector: Injector,
     private _customTokens: WeakMap<any, any>) { }

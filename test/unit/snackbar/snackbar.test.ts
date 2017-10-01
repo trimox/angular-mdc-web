@@ -10,7 +10,7 @@ import {
   MdcSnackbarRef,
   MdcSnackbarContainer,
 } from '../../../src/lib/public_api';
-import { OverlayContainer } from '../../../src/lib/cdk/overlay/overlay-container';
+import { OverlayContainer } from '../../../src/lib/cdk/overlay/index';
 
 describe('MdcSnackbar', () => {
   let snackbar: MdcSnackbar;

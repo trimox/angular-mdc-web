@@ -1,4 +1,24 @@
 <a name="0.0.0"></a>
+# [0.5.1](https://github.com/trimox/angular-mdc-web/compare/v0.5.0...v0.5.1) (2017-10-01)
+
+
+### Bug Fixes
+
+* **icon-toggle:** Return boolean from isOn() ([#220](https://github.com/trimox/angular-mdc-web/issues/220)) ([93778ae](https://github.com/trimox/angular-mdc-web/commit/93778ae))
+
+
+### Features
+
+* **snackbar:** Implement MDC Snackbar Service ([#226](https://github.com/trimox/angular-mdc-web/issues/226)) ([279fe07](https://github.com/trimox/angular-mdc-web/commit/279fe07)), closes [#225](https://github.com/trimox/angular-mdc-web/issues/225)
+* **fab:** Add `exited` animation property + toggleExited() method ([#222](https://github.com/trimox/angular-mdc-web/issues/222)) ([fae29fc](https://github.com/trimox/angular-mdc-web/commit/fae29fc)), closes [#217](https://github.com/trimox/angular-mdc-web/issues/217)
+* **fab:** Add `tabIndex` property ([#216](https://github.com/trimox/angular-mdc-web/issues/216)) ([f975d44](https://github.com/trimox/angular-mdc-web/commit/f975d44))
+* **fab:** Publicize `elementRef` for button + icon ([#227](https://github.com/trimox/angular-mdc-web/issues/227)) ([1c89641](https://github.com/trimox/angular-mdc-web/commit/1c89641)), closes [#224](https://github.com/trimox/angular-mdc-web/issues/224)
+
+### BREAKING CHANGES
+* **snackbar:** Snackbar was re-architected into an Angular service. View the documentation and example at https://trimox.github.io/angular-mdc-web/#/snackbar-demo to update your code accordingly.
+
+
+<a name="0.0.0"></a>
 # [0.5.0](https://github.com/trimox/angular-mdc-web/compare/v0.4.8...v0.5.0) (2017-09-24)
 
 

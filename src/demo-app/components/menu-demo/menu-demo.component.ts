@@ -3,7 +3,7 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { MdcMenuComponent } from '../../../lib/public_api';
+import { MdcMenuComponent } from '@angular-mdc/web';
 
 @Component({
   selector: 'menu-demo',

@@ -6,6 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
+import { DemoMaterialModule } from './demo-material.module';
+
 import { AppComponent } from './app.component';
 import { ButtonDemoComponent } from './components/button-demo/button-demo.component';
 import { CardDemoComponent } from './components/card-demo/card-demo.component';
@@ -28,8 +30,6 @@ import { TypographyDemoComponent } from './components/typography-demo/typography
 import { TabDemoComponent, ItemOneContent, ItemTwoContent, ItemThreeContent } from './components/tab-demo/tab-demo.component';
 import { NavbarComponent } from './components/navigation/navbar.component';
 
-import { MaterialModule } from '../lib/public_api';
-
 import { HomeComponent } from './components/home/home.component';
 
 import { demoAppRoutes } from './routes';
@@ -41,7 +41,7 @@ import { demoAppRoutes } from './routes';
     HttpModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    MaterialModule,
+    DemoMaterialModule,
     RouterModule.forRoot(demoAppRoutes, { useHash: true })
   ],
   declarations: [

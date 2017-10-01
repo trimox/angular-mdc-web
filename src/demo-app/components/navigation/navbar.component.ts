@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { navigationLinks } from '../../common/navigation-links';
-import { MdcTemporaryDrawerComponent } from '../../../lib/public_api';
+import { MdcTemporaryDrawerComponent } from '@angular-mdc/web';
 
 @Component({
   selector: 'navbar',

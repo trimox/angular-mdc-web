@@ -20,7 +20,7 @@ import { isBrowser, KeyCodes } from '../common';
 import { EventRegistry } from '../common/event-registry';
 import createFocusTrap from 'focus-trap';
 
-import { MdcRipple } from '../ripple/ripple.directive';
+import { MdcRipple } from '../ripple/ripple.service';
 import { MdcButtonComponent } from '../button/button.component';
 
 import { MDCDialogAdapter } from './dialog-adapter';

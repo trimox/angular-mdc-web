@@ -1,0 +1,52 @@
+<div fxLayout="column" class="mdc-padding">
+  <h1 mdc-typography-display1>Surface</h1>
+  <div mdc-typography-subheading2>Provides components (or any element) with a material mouseover effect.</div>
+  <div class="info-banner" mdc-typography-subheading1>
+    <![CDATA[import { MdcRippleModule } from '@angular-mdc/web';]]>
+  </div>
+  <div class="docs-api">
+    <table>
+      <thead>
+        <tr>
+          <th>Directive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-surface</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>active: boolean</td>
+          <td>Activate or de-activate mouseover effect. (Default is true)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
+  <span mdc-typography-headline>Using Surface</span>
+<mdc-card class="demo-card mdc-padding" [mdc-surface]="isSurfaceActive">
+  <mdc-card-primary>
+    <mdc-card-title>Card - Mouse over</mdc-card-title>
+  </mdc-card-primary>
+</mdc-card>
+<mdc-form-field>
+  <mdc-checkbox [(ngModel)]="isSurfaceActive"></mdc-checkbox>
+  <label>Active surface</label>
+</mdc-form-field>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card</span> [<span style="color:#89bdff">mdc-ripple</span>]=<span style="color:#65b042">"true"</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-primary</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-title</span>></span>My card - Click me<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-title</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">h2</span> <span style="color:#89bdff">mdc-card-subtitle</span>></span>Subtitle<span style="color:#89bdff">&lt;/<span style="color:#89bdff">h2</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-primary</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card</span>></span>
+</pre>
+</div>

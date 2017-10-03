@@ -8,7 +8,7 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import { MdcRipple } from '../ripple/ripple.directive';
+import { MdcRipple } from '../ripple/ripple.service';
 import {
   toBoolean,
   KeyCodes,

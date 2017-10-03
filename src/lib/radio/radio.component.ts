@@ -15,7 +15,7 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, RadioControlValueAccessor } from '@angular/forms';
 import { toBoolean } from '../common';
-import { MdcRipple } from '../ripple/ripple.directive';
+import { MdcRipple } from '../ripple/ripple.service';
 
 import { MDCRadioAdapter } from './radio-adapter';
 import { MDCRadioFoundation } from '@material/radio';

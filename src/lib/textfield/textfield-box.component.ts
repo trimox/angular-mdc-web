@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EventRegistry } from '../common/event-registry';
-import { MdcRipple } from '../ripple/ripple.directive';
+import { MdcRipple } from '../ripple/ripple.service';
 import { MdcTextfieldComponent } from './textfield.component';
 
 export const MD_TEXTFIELD_BOX_CONTROL_VALUE_ACCESSOR: Provider = {

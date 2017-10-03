@@ -18,7 +18,7 @@ import {
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { toBoolean } from '../common';
 import { EventRegistry } from '../common/event-registry';
-import { MdcRipple } from '../ripple/ripple.directive';
+import { MdcRipple } from '../ripple/ripple.service';
 
 import { MDCIconToggleAdapter } from './adapter';
 import { MDCIconToggleFoundation } from '@material/icon-toggle';

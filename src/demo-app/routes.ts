@@ -1,47 +1,52 @@
 ﻿import { Routes } from '@angular/router';
 
-import { HomeComponent } from './components/home/home.component';
-import { ButtonDemoComponent } from './components/button-demo/button-demo.component';
-import { CardDemoComponent } from './components/card-demo/card-demo.component';
-import { CheckboxDemoComponent } from './components/checkbox-demo/checkbox-demo.component';
-import { DialogDemoComponent } from './components/dialog-demo/dialog-demo.component';
-import { DrawerDemoComponent } from './components/drawer-demo/drawer-demo.component';
-import { ElevationDemoComponent } from './components/elevation-demo/elevation-demo.component';
-import { FabDemoComponent } from './components/fab-demo/fab-demo.component';
-import { SwitchDemoComponent } from './components/switch-demo/switch-demo.component';
-import { SliderDemoComponent } from './components/slider-demo/slider-demo.component';
-import { IconToggleDemoComponent } from './components/icon-toggle-demo/icon-toggle-demo.component';
-import { SnackbarDemoComponent } from './components/snackbar-demo/snackbar-demo.component';
-import { MenuDemoComponent } from './components/menu-demo/menu-demo.component';
-import { TextfieldDemoComponent } from './components/textfield-demo/textfield-demo.component';
+import { Home } from './components/home/home';
+import { ButtonDemo } from './components/button-demo/button-demo';
+import { CardDemo } from './components/card-demo/card-demo';
+import { CheckboxDemo } from './components/checkbox-demo/checkbox-demo';
+import { DialogDemo } from './components/dialog-demo/dialog-demo';
+import { DrawerDemo } from './components/drawer-demo/drawer-demo';
+import { FabDemo } from './components/fab-demo/fab-demo';
+import { ElevationDemo } from './components/core/elevation-demo/elevation-demo';
+import { IconToggleDemo } from './components/icon-toggle-demo/icon-toggle-demo';
+import { LinearProgressDemo } from './components/linear-progress-demo/linear-progress-demo';
+import { ListDemo } from './components/list-demo/list-demo';
+import { MenuDemo } from './components/menu-demo/menu-demo';
+import { RadioDemo } from './components/radio-demo/radio-demo';
+import { SliderDemo } from './components/slider-demo/slider-demo';
+import { SnackbarDemo } from './components/snackbar-demo/snackbar-demo';
+import { SwitchDemo } from './components/switch-demo/switch-demo';
+import { TextfieldDemo } from './components/textfield-demo/textfield-demo';
+import { ToolbarDemo } from './components/toolbar-demo/toolbar-demo';
+import { TypographyDemo } from './components/core/typography-demo/typography-demo';
+import { TabDemo, ItemOneContent, ItemTwoContent, ItemThreeContent } from './components/tab-demo/tab-demo';
+import { Navbar } from './components/navigation/navbar';
+import { RippleDemo } from './components/core/ripple-demo/ripple-demo';
+import { SurfaceDemo } from './components/core/surface-demo/surface-demo';
 import { TABS_DEMO_ROUTES } from './components/tab-demo/routes';
-import { TabDemoComponent } from './components/tab-demo/tab-demo.component';
-import { ToolbarDemoComponent } from './components/toolbar-demo/toolbar-demo.component';
-import { LinearProgressDemoComponent } from './components/linear-progress-demo/linear-progress-demo.component';
-import { ListDemoComponent } from './components/list-demo/list-demo.component';
-import { TypographyDemoComponent } from './components/typography-demo/typography-demo.component';
-import { RadioDemoComponent } from './components/radio-demo/radio-demo.component';
 
 export const demoAppRoutes: Routes = [
-  { path: 'button-demo', component: ButtonDemoComponent },
-  { path: 'checkbox-demo', component: CheckboxDemoComponent },
-  { path: 'fab-demo', component: FabDemoComponent },
-  { path: 'switch-demo', component: SwitchDemoComponent },
-  { path: 'snackbar-demo', component: SnackbarDemoComponent },
-  { path: 'menu-demo', component: MenuDemoComponent },
-  { path: 'textfield-demo', component: TextfieldDemoComponent },
-  { path: 'toolbar-demo', component: ToolbarDemoComponent },
-  { path: 'linear-progress-demo', component: LinearProgressDemoComponent },
-  { path: 'typography-demo', component: TypographyDemoComponent },
-  { path: 'slider-demo', component: SliderDemoComponent },
-  { path: 'radio-demo', component: RadioDemoComponent },
-  { path: 'card-demo', component: CardDemoComponent },
-  { path: 'elevation-demo', component: ElevationDemoComponent },
-  { path: 'list-demo', component: ListDemoComponent },
-  { path: 'drawer-demo', component: DrawerDemoComponent },
-  { path: 'dialog-demo', component: DialogDemoComponent },
-  { path: 'icon-toggle-demo', component: IconToggleDemoComponent },
-  { path: 'tab-demo', component: TabDemoComponent, children: TABS_DEMO_ROUTES },
-  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: 'button-demo', component: ButtonDemo },
+  { path: 'checkbox-demo', component: CheckboxDemo },
+  { path: 'fab-demo', component: FabDemo },
+  { path: 'switch-demo', component: SwitchDemo },
+  { path: 'snackbar-demo', component: SnackbarDemo },
+  { path: 'menu-demo', component: MenuDemo },
+  { path: 'textfield-demo', component: TextfieldDemo },
+  { path: 'toolbar-demo', component: ToolbarDemo },
+  { path: 'linear-progress-demo', component: LinearProgressDemo },
+  { path: 'typography-demo', component: TypographyDemo },
+  { path: 'slider-demo', component: SliderDemo },
+  { path: 'radio-demo', component: RadioDemo },
+  { path: 'card-demo', component: CardDemo },
+  { path: 'elevation-demo', component: ElevationDemo },
+  { path: 'list-demo', component: ListDemo },
+  { path: 'drawer-demo', component: DrawerDemo },
+  { path: 'ripple-demo', component: RippleDemo },
+  { path: 'surface-demo', component: SurfaceDemo },
+  { path: 'dialog-demo', component: DialogDemo },
+  { path: 'icon-toggle-demo', component: IconToggleDemo },
+  { path: 'tab-demo', component: TabDemo, children: TABS_DEMO_ROUTES },
+  { path: '', component: Home, pathMatch: 'full' },
   { path: '**', redirectTo: '' }
 ];

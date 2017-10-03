@@ -9,28 +9,30 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { DemoMaterialModule } from './demo-material.module';
 
 import { AppComponent } from './app.component';
-import { ButtonDemoComponent } from './components/button-demo/button-demo.component';
-import { CardDemoComponent } from './components/card-demo/card-demo.component';
-import { CheckboxDemoComponent } from './components/checkbox-demo/checkbox-demo.component';
-import { DialogDemoComponent } from './components/dialog-demo/dialog-demo.component';
-import { DrawerDemoComponent } from './components/drawer-demo/drawer-demo.component';
-import { FabDemoComponent } from './components/fab-demo/fab-demo.component';
-import { ElevationDemoComponent } from './components/elevation-demo/elevation-demo.component';
-import { IconToggleDemoComponent } from './components/icon-toggle-demo/icon-toggle-demo.component';
-import { LinearProgressDemoComponent } from './components/linear-progress-demo/linear-progress-demo.component';
-import { ListDemoComponent } from './components/list-demo/list-demo.component';
-import { MenuDemoComponent } from './components/menu-demo/menu-demo.component';
-import { RadioDemoComponent } from './components/radio-demo/radio-demo.component';
-import { SliderDemoComponent } from './components/slider-demo/slider-demo.component';
-import { SnackbarDemoComponent } from './components/snackbar-demo/snackbar-demo.component';
-import { SwitchDemoComponent } from './components/switch-demo/switch-demo.component';
-import { TextfieldDemoComponent } from './components/textfield-demo/textfield-demo.component';
-import { ToolbarDemoComponent } from './components/toolbar-demo/toolbar-demo.component';
-import { TypographyDemoComponent } from './components/typography-demo/typography-demo.component';
-import { TabDemoComponent, ItemOneContent, ItemTwoContent, ItemThreeContent } from './components/tab-demo/tab-demo.component';
-import { NavbarComponent } from './components/navigation/navbar.component';
+import { ButtonDemo } from './components/button-demo/button-demo';
+import { CardDemo } from './components/card-demo/card-demo';
+import { CheckboxDemo } from './components/checkbox-demo/checkbox-demo';
+import { DialogDemo } from './components/dialog-demo/dialog-demo';
+import { DrawerDemo } from './components/drawer-demo/drawer-demo';
+import { FabDemo } from './components/fab-demo/fab-demo';
+import { ElevationDemo } from './components/core/elevation-demo/elevation-demo';
+import { IconToggleDemo } from './components/icon-toggle-demo/icon-toggle-demo';
+import { LinearProgressDemo } from './components/linear-progress-demo/linear-progress-demo';
+import { ListDemo } from './components/list-demo/list-demo';
+import { MenuDemo } from './components/menu-demo/menu-demo';
+import { RadioDemo } from './components/radio-demo/radio-demo';
+import { SliderDemo } from './components/slider-demo/slider-demo';
+import { SnackbarDemo } from './components/snackbar-demo/snackbar-demo';
+import { SwitchDemo } from './components/switch-demo/switch-demo';
+import { TextfieldDemo } from './components/textfield-demo/textfield-demo';
+import { ToolbarDemo } from './components/toolbar-demo/toolbar-demo';
+import { TypographyDemo } from './components/core/typography-demo/typography-demo';
+import { TabDemo, ItemOneContent, ItemTwoContent, ItemThreeContent } from './components/tab-demo/tab-demo';
+import { Navbar } from './components/navigation/navbar';
+import { RippleDemo } from './components/core/ripple-demo/ripple-demo';
+import { SurfaceDemo } from './components/core/surface-demo/surface-demo';
 
-import { HomeComponent } from './components/home/home.component';
+import { Home } from './components/home/home';
 
 import { demoAppRoutes } from './routes';
 
@@ -45,28 +47,30 @@ import { demoAppRoutes } from './routes';
     RouterModule.forRoot(demoAppRoutes, { useHash: true })
   ],
   declarations: [
+    Home,
     AppComponent,
-    ButtonDemoComponent,
-    CardDemoComponent,
-    CheckboxDemoComponent,
-    DialogDemoComponent,
-    DrawerDemoComponent,
-    ElevationDemoComponent,
-    FabDemoComponent,
-    IconToggleDemoComponent,
-    HomeComponent,
-    LinearProgressDemoComponent,
-    ListDemoComponent,
-    MenuDemoComponent,
-    NavbarComponent,
-    RadioDemoComponent,
-    SliderDemoComponent,
-    SnackbarDemoComponent,
-    SwitchDemoComponent,
-    TabDemoComponent,
-    TextfieldDemoComponent,
-    ToolbarDemoComponent,
-    TypographyDemoComponent,
+    ButtonDemo,
+    CardDemo,
+    CheckboxDemo,
+    DialogDemo,
+    DrawerDemo,
+    ElevationDemo,
+    FabDemo,
+    IconToggleDemo,
+    LinearProgressDemo,
+    ListDemo,
+    MenuDemo,
+    Navbar,
+    RadioDemo,
+    SliderDemo,
+    SnackbarDemo,
+    SwitchDemo,
+    TabDemo,
+    TextfieldDemo,
+    ToolbarDemo,
+    TypographyDemo,
+    RippleDemo,
+    SurfaceDemo,
     ItemOneContent,
     ItemTwoContent,
     ItemThreeContent,

@@ -1,6 +1,13 @@
+$slate-grape: rgb(65, 64, 70);
+
 $mdc-theme-primary: #1565c0;
 $mdc-theme-secondary: #388e3c;
+$mdc-theme-background: #fff;
 
+
+.demo-toolbar--primary {
+  @include mdc-theme-prop(background-color, $slate-grape);
+}
 @import "../../theme/material";
 
 // .mdc-theme--dark {

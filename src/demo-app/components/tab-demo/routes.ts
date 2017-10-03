@@ -4,7 +4,7 @@ import {
   ItemOneContent,
   ItemTwoContent,
   ItemThreeContent,
-} from './tab-demo.component';
+} from './tab-demo';
 
 export const TABS_DEMO_ROUTES: Routes = [
   { path: '', component: ItemOneContent, outlet: 'taboutlet' },

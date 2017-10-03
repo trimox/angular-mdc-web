@@ -22,7 +22,9 @@ import {
   MdcThemeModule,
   MdcToolbarModule,
   MdcTypographyModule,
+  MdcRippleModule,
 } from '@angular-mdc/web';
+// } from '../lib/public_api';
 
 @NgModule({
   exports: [
@@ -48,6 +50,7 @@ import {
     MdcThemeModule,
     MdcToolbarModule,
     MdcTypographyModule,
+    MdcRippleModule,
   ]
 })
 export class DemoMaterialModule { }

@@ -79,6 +79,13 @@ module.exports = [{
           test: /\.html$/,
           loader: 'html-loader'
       }, {
+        test: /\.(png|jpg|svg)$/,
+        loader: "file-loader",
+        options: {
+          name: '[path][name].[ext]',
+          publicPath: 'assets/'
+        }
+      }, {
           test: /\.scss$/,
           use: ExtractTextPlugin.extract({
           fallback: 'style-loader',

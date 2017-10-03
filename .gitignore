@@ -5,4 +5,5 @@
 /publish-demo/
 /src/demo-app/aot
 /coverage
+*.bat
 *.log

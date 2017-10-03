@@ -4,11 +4,11 @@ $mdc-theme-primary: #1565c0;
 $mdc-theme-secondary: #388e3c;
 $mdc-theme-background: #fff;
 
+@import "../../theme/material.scss";
 
 .demo-toolbar--primary {
   @include mdc-theme-prop(background-color, $slate-grape);
 }
-@import "../../theme/material";
 
 // .mdc-theme--dark {
 //   background-color: #333;

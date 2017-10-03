@@ -40,7 +40,7 @@ Using Angular CLI? Try our [Angular CLI - step by step guide](https://github.com
 | checkbox | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/checkbox-demo) |
 | dialog | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/dialog-demo) |
 | drawer | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/drawer-demo) |
-| elevation | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/core/elevation-demo) |
+| elevation | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/elevation-demo) |
 | fab | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/fab-demo) |
 | form-field | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/form-field-demo) |
 | grid-list | TBI ||
@@ -49,7 +49,7 @@ Using Angular CLI? Try our [Angular CLI - step by step guide](https://github.com
 | list | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/list-demo) |
 | menu | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/menu-demo) |
 | radio | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/radio-demo) |
-| ripple | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/core/ripple-demo) |
+| ripple | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/ripple-demo) |
 | select | WIP ||
 | slider | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/slider-demo) |
 | snackbar | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/snackbar-demo) |
@@ -58,7 +58,7 @@ Using Angular CLI? Try our [Angular CLI - step by step guide](https://github.com
 | textfield | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/textfield-demo) |
 | theme | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/theme-demo) |
 | toolbar | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/toolbar-demo) |
-| typography | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/core/typography-demo) |
+| typography | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/typography-demo) |
 * WIP = work in progress
 * TBI = to be implemented
 

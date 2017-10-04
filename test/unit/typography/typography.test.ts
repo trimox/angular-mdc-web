@@ -74,6 +74,7 @@ describe('MdcTypography', () => {
   <h1 mdc-typography-body1></h1>
   <h1 mdc-typography-caption></h1>
   <h1 mdc-typography-button></h1>
+  <p mdc-typography-adjust-margin></p>
   </div>
   `,
 })

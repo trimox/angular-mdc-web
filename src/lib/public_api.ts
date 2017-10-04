@@ -1,5 +1,4 @@
-export * from './module';
-
+export * from './core/index';
 export * from './button/index';
 export * from './card/index';
 export * from './checkbox/index';
@@ -13,7 +12,6 @@ export * from './form-field/index';
 export * from './icon-toggle/index';
 export * from './linear-progress/index';
 export * from './list/index';
-export * from './material-icon/index';
 export * from './menu/index';
 export * from './radio/index';
 export * from './ripple/index';
@@ -24,7 +22,6 @@ export * from './tabs/index';
 export * from './textfield/index';
 export * from './theme/index';
 export * from './toolbar/index';
-export * from './typography/index';
 
 export * from './cdk/overlay/index';
 export * from './cdk/portal/index';

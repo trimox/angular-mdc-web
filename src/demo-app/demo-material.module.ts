@@ -11,7 +11,7 @@ import {
   MdcIconToggleModule,
   MdcLinearProgressModule,
   MdcListModule,
-  MdcMaterialIconModule,
+  MdcCoreModule,
   MdcMenuModule,
   MdcRadioModule,
   MdcSliderModule,
@@ -21,10 +21,9 @@ import {
   MdcTextfieldModule,
   MdcThemeModule,
   MdcToolbarModule,
-  MdcTypographyModule,
   MdcRippleModule,
-} from '@angular-mdc/web';
-// } from '../lib/public_api';
+// } from '@angular-mdc/web';
+} from '../lib/public_api';
 
 @NgModule({
   exports: [
@@ -39,7 +38,7 @@ import {
     MdcIconToggleModule,
     MdcLinearProgressModule,
     MdcListModule,
-    MdcMaterialIconModule,
+    MdcCoreModule,
     MdcMenuModule,
     MdcRadioModule,
     MdcSliderModule,
@@ -49,7 +48,6 @@ import {
     MdcTextfieldModule,
     MdcThemeModule,
     MdcToolbarModule,
-    MdcTypographyModule,
     MdcRippleModule,
   ]
 })

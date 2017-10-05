@@ -6,7 +6,7 @@ import {
 import {
   MdcTemporaryDrawerComponent,
   MdcPersistentDrawerComponent
-} from '@angular-mdc/web';
+} from '../../../lib/public_api';
 
 @Component({
   selector: 'drawer-demo',

@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { MdcDialogComponent, MdcTextfieldComponent } from '@angular-mdc/web';
+import { MdcDialogComponent, MdcTextfieldComponent } from '../../../lib/public_api';
 
 @Component({
   selector: 'dialog-demo',

@@ -6,7 +6,6 @@ export * from './common/index';
 export * from './common/event-registry';
 export * from './dialog/index';
 export * from './drawer/index';
-export * from './elevation/index';
 export * from './fab/index';
 export * from './form-field/index';
 export * from './icon-toggle/index';

@@ -6,7 +6,6 @@ import { MdcCardModule } from './card/index';
 import { MdcCheckboxModule } from './checkbox/index';
 import { MdcDialogModule } from './dialog/index';
 import { MdcDrawerModule } from './drawer/index';
-import { MdcElevationModule } from './elevation/index';
 import { MdcFabModule } from './fab/index';
 import { MdcFormFieldModule } from './form-field/index';
 import { MdcIconToggleModule } from './icon-toggle/index';
@@ -29,7 +28,6 @@ const MATERIAL_MODULES = [
   MdcCheckboxModule,
   MdcDialogModule,
   MdcDrawerModule,
-  MdcElevationModule,
   MdcFabModule,
   MdcFormFieldModule,
   MdcIconToggleModule,

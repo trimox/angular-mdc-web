@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { MdcSnackbar } from '@angular-mdc/web';
+import { MdcSnackbar } from '../../../lib/public_api';
 
 @Component({
   selector: 'snackbar-demo',

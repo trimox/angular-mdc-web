@@ -16,7 +16,7 @@ import {
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { toBoolean } from '../common';
 import { EventRegistry } from '../common/event-registry';
-import { MdcRipple } from '../ripple/ripple.service';
+import { MdcRipple } from '../core/ripple/ripple.service';
 
 import { MDCCheckboxAdapter } from './checkbox-adapter';
 import { MDCCheckboxFoundation } from '@material/checkbox';

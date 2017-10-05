@@ -3,7 +3,7 @@ import {
   HostBinding,
   Input,
 } from '@angular/core';
-import { toBoolean } from '../common';
+import { toBoolean } from '../../common';
 import { MdcRipple } from './ripple.service';
 
 @Directive({

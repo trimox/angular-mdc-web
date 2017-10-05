@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { toBoolean } from '../common';
 
-import { MdcRipple } from '../ripple/ripple.service';
+import { MdcRipple } from '../core/ripple/ripple.service';
 import { MdcButtonComponent } from '../button/button.component';
 
 @Directive({

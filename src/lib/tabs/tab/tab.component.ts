@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { toBoolean } from '../../common';
 import { EventRegistry } from '../../common/event-registry';
-import { MdcRipple } from '../../ripple/ripple.service';
+import { MdcRipple } from '../../core/ripple/ripple.service';
 
 import { MDCTabAdapter } from './tab-adapter';
 import { MDCTabFoundation } from '@material/tabs';

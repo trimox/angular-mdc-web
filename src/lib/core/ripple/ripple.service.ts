@@ -4,7 +4,7 @@ import {
   OnDestroy,
   Renderer2,
 } from '@angular/core';
-import { toBoolean, isBrowser } from '../common';
+import { toBoolean, isBrowser } from '../../common';
 
 import { MDCRippleAdapter } from './ripple-adapter';
 import { supportsCssVariables } from '@material/ripple/util';

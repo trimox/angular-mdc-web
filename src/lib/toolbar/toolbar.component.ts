@@ -27,11 +27,11 @@ import { MDCToolbarFoundation } from '@material/toolbar';
   providers: [EventRegistry],
 })
 export class MdcToolbarComponent implements AfterViewInit, OnDestroy {
-  @Input() flexible: boolean;
+  @Input() flexible: boolean = false;
   @Input() flexibleDefaultBehavior: boolean = true;
-  @Input() fixed: boolean;
-  @Input() waterfall: boolean;
-  @Input() fixedLastrow: boolean;
+  @Input() fixed: boolean = false;
+  @Input() waterfall: boolean = false;
+  @Input() fixedLastrow: boolean = false;
   @Output() change: EventEmitter<number> = new EventEmitter<number>();
   @ContentChild(MdcToolbarRowDirective) mdcFirstRow: MdcToolbarRowDirective;
   @ContentChild(MdcToolbarTitleDirective) mdcTitle: MdcToolbarTitleDirective;

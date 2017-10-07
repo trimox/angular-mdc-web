@@ -2,7 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MdcButtonComponent, MdcIconButton, MdcButtonModule } from '../../../src/lib/public_api';
+import { MdcButtonComponent, MdcIcon, MdcButtonModule } from '../../../src/lib/public_api';
 
 describe('MdcButtonComponent', () => {
   let fixture: ComponentFixture<any>;
@@ -89,6 +89,11 @@ describe('MdcButtonComponent', () => {
       expect(testComponent.clickCount).toBe(0);
     });
 
+    it('#should handle a blur event', () => {
+      buttonInstance.blur(null);
+      fixture.detectChanges();
+    });
+
     it('#should disable the native button element', () => {
       expect(buttonNativeElement.disabled).toBeFalsy('Expected button not to be disabled');
 
@@ -154,17 +159,17 @@ describe('MdcButtonComponent', () => {
   });
 
   // Icon button tests
-  describe('[mdc-icon-button]', () => {
+  describe('mdc-icon-button', () => {
     let buttonDebugElement: DebugElement;
     let buttonNativeElement: HTMLElement;
-    let buttonInstance: MdcIconButton;
+    let buttonInstance: MdcIcon;
     let testComponent: IconButton;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(IconButton);
       fixture.detectChanges();
 
-      buttonDebugElement = fixture.debugElement.query(By.directive(MdcIconButton));
+      buttonDebugElement = fixture.debugElement.query(By.directive(MdcIcon));
       buttonNativeElement = buttonDebugElement.nativeElement;
       buttonInstance = buttonDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
@@ -225,7 +230,10 @@ class HrefButton {
 @Component({
   template:
   `
-    <mdc-icon-button material-icon>search</mdc-icon-button>
+    <button mdc-button>
+      <mdc-icon>search</mdc-icon>
+      Search
+    </button>
   `,
 })
 class IconButton { }

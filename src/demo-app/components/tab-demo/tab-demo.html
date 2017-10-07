@@ -78,6 +78,18 @@ Example: disableRipple="true" or disableRipple]]></code></pre></td>
       </tbody>
       <thead>
         <tr>
+          <th>Child Directives</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-tab-icon-text</td>
+          <td>Text and icon are centered horizontally in the tab.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
           <th>Events</th>
           <th>Description</th>
         </tr>
@@ -88,22 +100,6 @@ Example: disableRipple="true" or disableRipple]]></code></pre></td>
 <pre><code><![CDATA[select
 EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
           <td>Broadcast when a user actions on the tab.</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Child Directives</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-tab-icon</td>
-          <td>Add icon to the tab.</td>
-        </tr>
-        <tr>
-          <td>mdc-tab-icon-text</td>
-          <td>Text and icon are centered horizontally in the tab.</td>
         </tr>
       </tbody>
     </table>
@@ -177,24 +173,24 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
       <span mdc-typography-headline>Tab Bar with icon labels</span>
       <mdc-tab-bar [primary]="true">
         <mdc-tab [active]="true">
-          <mdc-tab-icon material-icon>phone</mdc-tab-icon>
+          <mdc-icon>phone</mdc-icon>
         </mdc-tab>
         <mdc-tab>
-          <mdc-tab-icon material-icon>favorite</mdc-tab-icon>
+          <mdc-icon>favorite</mdc-icon>
         </mdc-tab>
         <mdc-tab>
-          <mdc-tab-icon material-icon>person_pin</mdc-tab-icon>
+          <mdc-icon>person_pin</mdc-icon>
         </mdc-tab>
       </mdc-tab-bar>
 <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span> [<span style="color:#89bdff">primary</span>]=<span style="color:#65b042">"true"</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span> [<span style="color:#89bdff">active</span>]=<span style="color:#65b042">"true"</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span> <span style="color:#89bdff">material-icon</span>></span>phone<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>phone<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span> <span style="color:#89bdff">material-icon</span>></span>favorite<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>favorite<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span> <span style="color:#89bdff">material-icon</span>></span>person_pin<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>person_pin<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
 </pre>
@@ -202,29 +198,29 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
       <span mdc-typography-headline>Tab Bar with icon and text labels</span>
       <mdc-tab-bar>
         <mdc-tab [active]="true">
-          <mdc-tab-icon material-icon>phone</mdc-tab-icon>
+          <mdc-icon>phone</mdc-icon>
           <mdc-tab-icon-text>Recents</mdc-tab-icon-text>
         </mdc-tab>
         <mdc-tab>
-          <mdc-tab-icon material-icon>favorite</mdc-tab-icon>
+          <mdc-icon>favorite</mdc-icon>
           <mdc-tab-icon-text>Favorites</mdc-tab-icon-text>
         </mdc-tab>
         <mdc-tab>
-          <mdc-tab-icon material-icon>person_pin</mdc-tab-icon>
+          <mdc-icon>person_pin</mdc-icon>
           <mdc-tab-icon-text>Nearby</mdc-tab-icon-text>
         </mdc-tab>
       </mdc-tab-bar>
 <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span> [<span style="color:#89bdff">active</span>]=<span style="color:#65b042">"true"</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span> <span style="color:#89bdff">material-icon</span>></span>phone<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>phone<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>Recents<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span> <span style="color:#89bdff">material-icon</span>></span>favorite<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>favorite<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>Favorites<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span> <span style="color:#89bdff">material-icon</span>></span>person_pin<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>person_pin<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>Nearby<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
@@ -233,29 +229,29 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
       <span mdc-typography-headline>Secondary Color Indicator</span>
       <mdc-tab-bar [secondary]="true">
         <a mdc-tab [active]="true" href="#/tab-demo">
-          <mdc-tab-icon material-icon>phone</mdc-tab-icon>
+          <mdc-icon>phone</mdc-icon>
           <mdc-tab-icon-text>Recents</mdc-tab-icon-text>
         </a>
         <a mdc-tab href="#/tab-demo">
-          <mdc-tab-icon material-icon>favorite</mdc-tab-icon>
+          <mdc-icon>favorite</mdc-icon>
           <mdc-tab-icon-text>Favorites</mdc-tab-icon-text>
         </a>
         <a mdc-tab href="#/tab-demo">
-          <mdc-tab-icon material-icon>person_pin</mdc-tab-icon>
+          <mdc-icon>person_pin</mdc-icon>
           <mdc-tab-icon-text>Nearby</mdc-tab-icon-text>
         </a>
       </mdc-tab-bar>
 <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span> [<span style="color:#89bdff">secondary</span>]=<span style="color:#65b042">"true"</span>></span>
   <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-tab</span> [<span style="color:#e0c589">active</span>]=<span style="color:#65b042">"true"</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/tab-demo"</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span> <span style="color:#89bdff">material-icon</span>></span>phone<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>phone<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>Recents<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>
   <span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
   <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-tab</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/tab-demo"</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span> <span style="color:#89bdff">material-icon</span>></span>favorite<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>favorite<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>Favorites<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>
   <span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
   <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-tab</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/tab-demo"</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span> <span style="color:#89bdff">material-icon</span>></span>person_pin<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>person_pin<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>Nearby<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>
   <span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
@@ -264,29 +260,29 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
       <span mdc-typography-headline>Dark Theme</span>
 <mdc-tab-bar [secondary]="true" [mdc-theme-dark]="true">
   <mdc-tab [active]="true">
-    <mdc-tab-icon material-icon>phone</mdc-tab-icon>
+    <mdc-icon>phone</mdc-icon>
     <mdc-tab-icon-text>Recents</mdc-tab-icon-text>
   </mdc-tab>
   <mdc-tab>
-    <mdc-tab-icon material-icon>favorite</mdc-tab-icon>
+    <mdc-icon>favorite</mdc-icon>
     <mdc-tab-icon-text>Favorites</mdc-tab-icon-text>
   </mdc-tab>
   <mdc-tab>
-    <mdc-tab-icon material-icon>person_pin</mdc-tab-icon>
+    <mdc-icon>person_pin</mdc-icon>
     <mdc-tab-icon-text>Nearby</mdc-tab-icon-text>
   </mdc-tab>
 </mdc-tab-bar>
 <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span> [<span style="color:#89bdff">secondary</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#89bdff">mdc-theme-dark</span>]=<span style="color:#65b042">"true"</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span> [<span style="color:#89bdff">active</span>]=<span style="color:#65b042">"true"</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span> <span style="color:#89bdff">material-icon</span>></span>phone<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>phone<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>Recents<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span> <span style="color:#89bdff">material-icon</span>></span>favorite<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>favorite<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>Favorites<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span> <span style="color:#89bdff">material-icon</span>></span>person_pin<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>person_pin<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>Nearby<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
@@ -343,7 +339,7 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
     </div>
 <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar-scroller</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar-scroll-back</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar-scroll-button</span> <span style="color:#89bdff">material-icon</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar-scroll-button</span>></span>
       navigate_before
     <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar-scroll-button</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar-scroll-back</span>></span>
@@ -362,7 +358,7 @@ EventEmitter<{ tab: TabComponent }>]]></code></pre></td>
     <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar-scroll-frame</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar-scroll-forward</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar-scroll-button</span> <span style="color:#89bdff">material-icon</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar-scroll-button</span>></span>
       navigate_next
     <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar-scroll-button</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar-scroll-forward</span>></span>

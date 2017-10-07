@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 
+import { MdcIconModule } from '../icon/index';
+
 import {
   MdcTabComponent,
-  MdcTabIconDirective,
   MdcTabIconTextDirective,
 } from './tab/tab.component';
 
@@ -20,7 +21,6 @@ import {
 
 const TAB_COMPONENTS = [
   MdcTabComponent,
-  MdcTabIconDirective,
   MdcTabIconTextDirective,
   MdcTabBarDirective,
   MdcTabBarScroller,
@@ -31,8 +31,14 @@ const TAB_COMPONENTS = [
 ];
 
 @NgModule({
-  exports: TAB_COMPONENTS,
-  declarations: TAB_COMPONENTS
+  imports: [
+    MdcIconModule,
+  ],
+  exports: [
+    MdcIconModule,
+    TAB_COMPONENTS
+  ],
+  declarations: [TAB_COMPONENTS]
 })
 export class MdcTabModule { }
 

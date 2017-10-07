@@ -1,18 +1,17 @@
 import { NgModule } from '@angular/core';
 
-import {
-  MdcButtonComponent,
-  MdcIconButton,
-} from './button.component';
-
-const BUTTON_COMPONENTS = [
-  MdcButtonComponent,
-  MdcIconButton
-];
+import { MdcIconModule } from '../icon/index';
+import { MdcButtonComponent } from './button.component';
 
 @NgModule({
-  exports: [BUTTON_COMPONENTS],
-  declarations: [BUTTON_COMPONENTS],
+  imports: [
+    MdcIconModule,
+  ],
+  exports: [
+    MdcIconModule,
+    MdcButtonComponent
+  ],
+  declarations: [MdcButtonComponent],
 })
 export class MdcButtonModule { }
 

@@ -22,6 +22,7 @@ import { ListDemo } from './components/list-demo/list-demo';
 import { MenuDemo } from './components/menu-demo/menu-demo';
 import { RadioDemo } from './components/radio-demo/radio-demo';
 import { SliderDemo } from './components/slider-demo/slider-demo';
+import { IconDemo } from './components/icon-demo/icon-demo';
 import { SnackbarDemo } from './components/snackbar-demo/snackbar-demo';
 import { SwitchDemo } from './components/switch-demo/switch-demo';
 import { TextfieldDemo } from './components/textfield-demo/textfield-demo';
@@ -56,6 +57,7 @@ import { demoAppRoutes } from './routes';
     DrawerDemo,
     ElevationDemo,
     FabDemo,
+    IconDemo,
     IconToggleDemo,
     LinearProgressDemo,
     ListDemo,

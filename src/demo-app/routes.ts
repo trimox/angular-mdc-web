@@ -23,6 +23,7 @@ import { TabDemo, ItemOneContent, ItemTwoContent, ItemThreeContent } from './com
 import { Navbar } from './components/navigation/navbar';
 import { RippleDemo } from './components/core/ripple-demo/ripple-demo';
 import { SurfaceDemo } from './components/core/surface-demo/surface-demo';
+import { IconDemo } from './components/icon-demo/icon-demo';
 import { TABS_DEMO_ROUTES } from './components/tab-demo/routes';
 
 export const demoAppRoutes: Routes = [
@@ -44,6 +45,7 @@ export const demoAppRoutes: Routes = [
   { path: 'drawer-demo', component: DrawerDemo },
   { path: 'ripple-demo', component: RippleDemo },
   { path: 'surface-demo', component: SurfaceDemo },
+  { path: 'icon-demo', component: IconDemo },
   { path: 'dialog-demo', component: DialogDemo },
   { path: 'icon-toggle-demo', component: IconToggleDemo },
   { path: 'tab-demo', component: TabDemo, children: TABS_DEMO_ROUTES },

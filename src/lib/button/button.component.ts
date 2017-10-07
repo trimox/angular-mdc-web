@@ -1,5 +1,7 @@
 import {
+  AfterViewInit,
   Component,
+  ContentChild,
   ElementRef,
   HostBinding,
   HostListener,
@@ -7,22 +9,13 @@ import {
   Renderer2,
   ViewEncapsulation
 } from '@angular/core';
+import { MdcIcon } from '../icon/icon.component';
 import { MdcRipple } from '../core/ripple/ripple.service';
 import {
   toBoolean,
   KeyCodes,
   isSpaceKey
 } from '../common';
-
-@Component({
-  selector: 'mdc-icon-button, [mdc-icon-button]',
-  template: '<ng-content></ng-content>',
-})
-export class MdcIconButton {
-  @HostBinding('class.mdc-button__icon') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
 
 @Component({
   selector: 'button[mdc-button], a[mdc-button]',
@@ -32,7 +25,7 @@ export class MdcIconButton {
   template: '<ng-content></ng-content>',
   providers: [MdcRipple]
 })
-export class MdcButtonComponent {
+export class MdcButtonComponent implements AfterViewInit {
   private disabled_: boolean = false;
 
   @Input() raised: boolean;
@@ -91,12 +84,19 @@ export class MdcButtonComponent {
   @HostListener('blur', ['$event']) blur(evt: FocusEvent) {
     this.handleBlur_(evt);
   }
+  @ContentChild(MdcIcon) buttonIcon: MdcIcon;
 
   constructor(
     public renderer: Renderer2,
     public elementRef: ElementRef,
     public ripple: MdcRipple) {
     this.ripple.init();
+  }
+
+  ngAfterViewInit() {
+    if (this.buttonIcon) {
+      this.renderer.addClass(this.buttonIcon.elementRef.nativeElement, 'mdc-button__icon');
+    }
   }
 
   private handleClick_(event: Event) {

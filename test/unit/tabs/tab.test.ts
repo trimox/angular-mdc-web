@@ -58,7 +58,10 @@ describe('MdcTab', () => {
   template:
   `
     <mdc-tab-bar>
-      <mdc-tab [active]="isActive" [disableRipple]="isRippleDisabled">Home</mdc-tab>
+      <mdc-tab [active]="isActive" [disableRipple]="isRippleDisabled">
+        <mdc-icon>phone</mdc-icon>
+        <mdc-tab-icon-text>Recents</mdc-tab-icon-text>
+      </mdc-tab>
       <mdc-tab>Merchandise</mdc-tab>
       <mdc-tab>About Us</mdc-tab>
     </mdc-tab-bar>

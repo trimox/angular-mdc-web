@@ -51,19 +51,6 @@
           <td>Toggle the fab animation in and out. Optional argument for specifying exited.</td>
         </tr>
       </tbody>
-      <thead>
-        <tr>
-          <th>Child Directive</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-fab-icon</td>
-          <td><pre><code><![CDATA[Add an icon or svg in the center of the button.
-- Use [material-icon] directive if using the Material Icon collection.
-- Use custom styling for other icon collections.]]></code></pre></td>
-        </tr>
-      </tbody>
     </table>
   </div>
   <div fxLayout="column" class="mdc-padding" fxLayoutGap="25px">
@@ -76,19 +63,19 @@
     </div>
 <button mdc-fab
   [mini]="isMini">
-  <mdc-fab-icon material-icon>edit</mdc-fab-icon>
+  <mdc-icon>edit</mdc-icon>
 </button>
     </div>
 <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span>
   [<span style="color:#e0c589">mini</span>]=<span style="color:#65b042">"false"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span> <span style="color:#89bdff">material-icon</span>></span>edit<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>edit<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
 <span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
 </pre>
 <span mdc-typography-headline>Exit/Entry Animation</span>
   <div fxLayout="row" class="mdc-padding" fxLayoutAlign="start center" fxLayoutGap="25px">
     <button mdc-fab #fab
       (click)="handleFabExitedClick();">
-      <mdc-fab-icon material-icon>search</mdc-fab-icon>
+      <mdc-icon>save</mdc-icon>
     </button>
     <button mdc-button (click)="handleFabExitedClick();" *ngIf="isExited">Show FAB again</button>
 </div>
@@ -97,34 +84,17 @@
 
 <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span> #<span style="color:#e0c589">fab</span>
   (<span style="color:#e0c589">click</span>)=<span style="color:#65b042">"handleFabExitedClick();"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span> <span style="color:#89bdff">material-icon</span>></span>search<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>search<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
 <span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
 </pre>
 <span mdc-typography-headline>Using Font Awesome</span>
-<button mdc-fab class="fa-icon">
-  <mdc-fab-icon class="fa fa-keyboard-o"></mdc-fab-icon>
-</button>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#aeaeae;font-style:italic">&lt;!--Sample styling--></span>
-.fa-icon
-  justify-content: center;
-  font-size: 24px;
-
-<span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span> <span style="color:#e0c589">class</span>=<span style="color:#65b042">"fa-icon"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"fa fa-keyboard-o"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>
-<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-</pre>
-
-<span mdc-typography-headline>Text only</span>
 <button mdc-fab>
-  <mdc-fab-icon class="fa-icon">T</mdc-fab-icon>
+  <mdc-icon fontSet="fa" fontIcon="fa-keyboard-o"></mdc-icon>
 </button>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#aeaeae;font-style:italic">&lt;!--Sample styling--></span>
-.fa-icon
-  justify-content: center;
-  font-size: 24px;
-
-<span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"fa-icon"</span>></span>T<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-fab-icon</span>></span>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>
+    <span style="color:#89bdff">fontSet</span>=<span style="color:#65b042">"fa"</span>
+    <span style="color:#89bdff">fontIcon</span>=<span style="color:#65b042">"fa-keyboard-o"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
 <span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
 </pre>
 </div>

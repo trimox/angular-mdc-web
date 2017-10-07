@@ -70,6 +70,11 @@ describe('MdcFabComponent', () => {
       expect(testComponent.clickCount).toBe(1);
     });
 
+    it('#should handle a blur event', () => {
+      buttonInstance.blur(null);
+      fixture.detectChanges();
+    });
+
     it('#should preserve any given tabIndex', () => {
       expect(buttonDebugElement.nativeElement.tabIndex).toBe(2);
     });
@@ -84,7 +89,7 @@ describe('MdcFabComponent', () => {
       [tabIndex]="customTabIndex"
       [exited]="isExited"
       [mini]="isMini">
-      <mdc-fab-icon>search</mdc-fab-icon>
+      <mdc-icon>search</mdc-icon>
     </button>
   `,
 })

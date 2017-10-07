@@ -1,18 +1,17 @@
 import { NgModule } from '@angular/core';
 
-import {
-  MdcFabComponent,
-  MdcFabIconDirective,
-} from './fab.component';
-
-const FAB_COMPONENTS = [
-  MdcFabComponent,
-  MdcFabIconDirective,
-];
+import { MdcIconModule } from '../icon/index';
+import { MdcFabComponent } from './fab.component';
 
 @NgModule({
-  exports: [FAB_COMPONENTS],
-  declarations: [FAB_COMPONENTS],
+  imports: [
+    MdcIconModule,
+  ],
+  exports: [
+    MdcIconModule,
+    MdcFabComponent
+  ],
+  declarations: [MdcFabComponent],
 })
 export class MdcFabModule { }
 

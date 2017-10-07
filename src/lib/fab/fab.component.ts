@@ -1,6 +1,7 @@
 import {
+  AfterViewInit,
   Component,
-  Directive,
+  ContentChild,
   ElementRef,
   HostBinding,
   HostListener,
@@ -8,6 +9,7 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
+import { MdcIcon } from '../icon/icon.component';
 import { MdcRipple } from '../core/ripple/ripple.service';
 import {
   toBoolean,
@@ -15,22 +17,13 @@ import {
   isSpaceKey
 } from '../common';
 
-@Directive({
-  selector: 'mdc-fab-icon, [mdc-fab-icon]'
-})
-export class MdcFabIconDirective {
-  @HostBinding('class.mdc-fab__icon') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
 @Component({
   selector: 'button[mdc-fab], a[mdc-fab]',
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
   providers: [MdcRipple]
 })
-export class MdcFabComponent {
+export class MdcFabComponent implements AfterViewInit {
   private exited_: boolean = false;
 
   @Input() mini: boolean = false;
@@ -54,12 +47,22 @@ export class MdcFabComponent {
   @HostListener('blur', ['$event']) blur(evt: FocusEvent) {
     this.handleBlur(evt);
   }
+  @ContentChild(MdcIcon) fabIcon: MdcIcon;
 
   constructor(
     private _renderer: Renderer2,
     public elementRef: ElementRef,
     private _ripple: MdcRipple) {
     this._ripple.init();
+  }
+
+  ngAfterViewInit() {
+    if (this.fabIcon) {
+      this._renderer.addClass(this.fabIcon.elementRef.nativeElement, 'mdc-fab__icon');
+      if (this.fabIcon.hasFontIcon()) {
+        this._renderer.addClass(this.elementRef.nativeElement, 'mdc-fab__icon--size');
+      }
+    }
   }
 
   toggleExited(exited?: boolean): void {

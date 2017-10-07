@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { MdcFabComponent } from '@angular-mdc/web';
+import { MdcFabComponent } from '../../../lib/public_api';
 
 @Component({
   selector: 'fab-demo',

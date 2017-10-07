@@ -8,6 +8,7 @@ export * from './dialog/index';
 export * from './drawer/index';
 export * from './fab/index';
 export * from './form-field/index';
+export * from './icon/index';
 export * from './icon-toggle/index';
 export * from './linear-progress/index';
 export * from './list/index';

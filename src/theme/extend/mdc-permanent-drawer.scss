@@ -1,0 +1,8 @@
+@import "../material-components-web/elevation/mixins";
+
+.mdc-permanent-drawer--fixed {
+  @include mdc-elevation(1);
+
+  position: fixed;
+  height: 100vh;
+}

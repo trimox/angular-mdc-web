@@ -3,6 +3,7 @@ import {
   Directive,
   ElementRef,
   HostBinding,
+  Input,
   ViewEncapsulation
 } from '@angular/core';
 
@@ -39,8 +40,12 @@ export class MdcPermanentDrawerSelectedDirective {
   encapsulation: ViewEncapsulation.None
 })
 export class MdcPermanentDrawerComponent {
+  @Input() fixed: boolean = false;
   @HostBinding('class.mdc-permanent-drawer') isHostClass = true;
   @HostBinding('attr.role') role: string = 'navigation';
+  @HostBinding('class.mdc-permanent-drawer--fixed') get classFixed(): string {
+    return this.fixed ? 'mdc-permanent-drawer--fixed' : '';
+  }
 
   constructor(private _root: ElementRef) { }
 }

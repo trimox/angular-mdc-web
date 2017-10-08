@@ -17,6 +17,8 @@ import {
   isSpaceKey
 } from '../common';
 
+export type FabPosition = 'bottom-left' | 'bottom-right' | null;
+
 @Component({
   selector: 'button[mdc-fab], a[mdc-fab]',
   template: '<ng-content></ng-content>',
@@ -25,12 +27,25 @@ import {
 })
 export class MdcFabComponent implements AfterViewInit {
   private exited_: boolean = false;
+  private position_: FabPosition = null;
 
   @Input() mini: boolean = false;
   @Input()
   get exited() { return this.exited_; }
   set exited(value) {
     this.exited_ = toBoolean(value);
+  }
+  @Input('position')
+  get position(): FabPosition { return this.position_; }
+  set position(value: FabPosition) {
+    if (value !== this.position_) {
+      if (value) {
+        this.renderer_.addClass(this.elementRef.nativeElement, `mdc-fab--${value}`);
+      } else {
+        this.renderer_.removeClass(this.elementRef.nativeElement, `mdc-fab--${this.position_}`);
+      }
+      this.position_ = value;
+    }
   }
   @Input('attr.tabindex') tabIndex: number = 0;
   @HostBinding('class.mdc-fab') isHostClass = true;
@@ -50,17 +65,17 @@ export class MdcFabComponent implements AfterViewInit {
   @ContentChild(MdcIcon) fabIcon: MdcIcon;
 
   constructor(
-    private _renderer: Renderer2,
+    private renderer_: Renderer2,
     public elementRef: ElementRef,
-    private _ripple: MdcRipple) {
-    this._ripple.init();
+    private ripple_: MdcRipple) {
+    this.ripple_.init();
   }
 
   ngAfterViewInit() {
     if (this.fabIcon) {
-      this._renderer.addClass(this.fabIcon.elementRef.nativeElement, 'mdc-fab__icon');
+      this.renderer_.addClass(this.fabIcon.elementRef.nativeElement, 'mdc-fab__icon');
       if (this.fabIcon.hasFontIcon()) {
-        this._renderer.addClass(this.elementRef.nativeElement, 'mdc-fab__icon--size');
+        this.renderer_.addClass(this.elementRef.nativeElement, 'mdc-fab__icon--size');
       }
     }
   }
@@ -72,7 +87,7 @@ export class MdcFabComponent implements AfterViewInit {
   private handleKeyPress(keyboardEvent: KeyboardEvent) {
     let keyCode = keyboardEvent.keyCode;
     if (keyCode == KeyCodes.ENTER || isSpaceKey(keyboardEvent)) {
-      this._ripple.active = true;
+      this.ripple_.active = true;
       if (keyCode != KeyCodes.ENTER) {
         keyboardEvent.preventDefault();
       }
@@ -80,6 +95,6 @@ export class MdcFabComponent implements AfterViewInit {
   }
 
   private handleBlur(focusEvent: FocusEvent) {
-    this._ripple.active = false;
+    this.ripple_.active = false;
   }
 }

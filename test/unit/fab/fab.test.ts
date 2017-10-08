@@ -78,6 +78,31 @@ describe('MdcFabComponent', () => {
     it('#should preserve any given tabIndex', () => {
       expect(buttonDebugElement.nativeElement.tabIndex).toBe(2);
     });
+
+    it('#should apply class `bottom-left`', () => {
+      testComponent.myPosition = 'bottom-left';
+      fixture.detectChanges();
+      expect(buttonDebugElement.nativeElement.classList.contains('mdc-fab--bottom-left')).toBe(true);
+    });
+
+    it('#should apply class `bottom-right`', () => {
+      testComponent.myPosition = 'bottom-right';
+      fixture.detectChanges();
+
+      expect(buttonInstance.position).toBe('bottom-right');
+      expect(buttonDebugElement.nativeElement.classList.contains('mdc-fab--bottom-right')).toBe(true);
+    });
+
+    it('#should remove class `bottom-right`', () => {
+      testComponent.myPosition = 'bottom-right';
+      fixture.detectChanges();
+
+      expect(buttonInstance.position).toBe('bottom-right');
+
+      testComponent.myPosition = '';
+      fixture.detectChanges();
+      expect(buttonDebugElement.nativeElement.classList.contains('mdc-fab--bottom-right')).toBe(false);
+    });
   });
 });
 
@@ -88,6 +113,7 @@ describe('MdcFabComponent', () => {
       (click)="increment()"
       [tabIndex]="customTabIndex"
       [exited]="isExited"
+      [position]="myPosition"
       [mini]="isMini">
       <mdc-icon>search</mdc-icon>
     </button>
@@ -98,6 +124,7 @@ class SimpleButton {
   isExited: boolean = false;
   clickCount: number = 0;
   customTabIndex: number = 2;
+  myPosition: string = 'bottom-left';
 
   increment() {
     this.clickCount++;

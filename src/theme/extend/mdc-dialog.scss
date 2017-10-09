@@ -10,4 +10,8 @@
       width: auto;
     }
   }
+
+  &__action.mdc-button:not(:disabled) {
+    @include mdc-theme-prop(color, secondary);
+  }
 }

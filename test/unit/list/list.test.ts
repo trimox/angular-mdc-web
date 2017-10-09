@@ -53,11 +53,14 @@ describe('MdcListItemDirective', () => {
 @Component({
   template:
   `
-    <mdc-list
-     [dense]="isDense">
-      <a mdc-list-item [disableRipple]="isRippleDisabled">Single-line item</a>
-      <mdc-list-divider [inset]="isInset"></mdc-list-divider>
-    </mdc-list>
+    <mdc-list-group>
+      <mdc-list-group-subheader>Grouped Lists</mdc-list-group-subheader>
+      <mdc-list
+       [dense]="isDense">
+        <a mdc-list-item [disableRipple]="isRippleDisabled">Single-line item</a>
+        <mdc-list-divider [inset]="isInset"></mdc-list-divider>
+      </mdc-list>
+    </mdc-list-group>
 `
 })
 class SimpleList {

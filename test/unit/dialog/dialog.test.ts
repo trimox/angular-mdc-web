@@ -2,7 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MdcDialogComponent, MdcDialogModule } from '../../../src/lib/public_api';
+import { MdcDialogComponent, MdcDialogBodyDirective, MdcDialogModule } from '../../../src/lib/public_api';
 
 describe('MdcDialogComponent', () => {
   let fixture: ComponentFixture<any>;
@@ -23,6 +23,9 @@ describe('MdcDialogComponent', () => {
     let dialogInstance: MdcDialogComponent;
     let testComponent: SimpleDialog;
 
+    let DialogBodyDebugElement: DebugElement;
+    let dialogBodyNativeElement: HTMLElement;
+
     beforeEach(() => {
       fixture = TestBed.createComponent(SimpleDialog);
       fixture.detectChanges();
@@ -31,11 +34,25 @@ describe('MdcDialogComponent', () => {
       dialogNativeElement = dialogDebugElement.nativeElement;
       dialogInstance = dialogDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
+
+      DialogBodyDebugElement = fixture.debugElement.query(By.directive(MdcDialogBodyDirective));
+      dialogBodyNativeElement = DialogBodyDebugElement.nativeElement;
     });
 
     it('#should have mdc-dialog by default', () => {
       expect(dialogDebugElement.nativeElement.classList)
         .toContain('mdc-dialog', 'Expected to have mdc-dialog');
+    });
+
+    it('#should check if mdc-dialog isOpen', () => {
+      dialogInstance.isOpen();
+      fixture.detectChanges();
+    });
+
+    it('#should check if mdc-dialog is scrollable', () => {
+      testComponent.isScrolling = true;
+      fixture.detectChanges();
+      expect(dialogBodyNativeElement.classList).toContain('mdc-dialog__body--scrollable');
     });
   });
 });
@@ -50,15 +67,19 @@ describe('MdcDialogComponent', () => {
           Use Google's location service?
         </mdc-dialog-header-title>
       </mdc-dialog-header>
-      <mdc-dialog-body>
+      <mdc-dialog-body [scrollable]="isScrolling">
         Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
       </mdc-dialog-body>
       <mdc-dialog-footer>
-        <button mdc-dialog-button [cancel]="true">Decline</button>
-        <button mdc-dialog-button [action]="true" [accept]="true">Accept</button>
+        <button mdc-dialog-button [cancel]="isCancel">Decline</button>
+        <button mdc-dialog-button [action]="isAction" [accept]="isAccept">Accept</button>
       </mdc-dialog-footer>
     </mdc-dialog>
   `,
 })
 class SimpleDialog {
+  isScrolling: boolean = false;
+  isCancel: boolean = true;
+  isAction: boolean = true;
+  isAccept: boolean = true;
 }

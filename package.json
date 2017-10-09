@@ -85,7 +85,7 @@
     "karma-coverage": "^1.1.1",
     "karma-jasmine": "^1.1.0",
     "karma-remap-istanbul": "^0.6.0",
-    "karma-webpack": "^2.0.4",
+    "karma-webpack": "^2.0.5",
     "node-sass": "^4.5.3",
     "postcss-loader": "^2.0.6",
     "rimraf": "^2.6.2",

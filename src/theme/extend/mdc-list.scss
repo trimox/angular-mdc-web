@@ -1,0 +1,11 @@
+@import "../material-components-web/checkbox/variables";
+
+.mdc-list-item {
+  &__start-detail.mdc-checkbox {
+    height: $mdc-checkbox-size;
+  }
+
+  &__end-detail.mdc-checkbox {
+    height: $mdc-checkbox-size;
+  }
+}

@@ -2,7 +2,7 @@ dist: trusty
 language: node_js
 sudo: false
 node_js:
-  - '8.4.0'
+  - '8.6.0'
 
 branches:
   only:
@@ -17,7 +17,6 @@ install:
   - npm install
 
 script:
-  # Use Chromium instead of Chrome.
   - export CHROME_BIN=chromium-browser
   - npm run lint && npm run test:unit
   - codecov

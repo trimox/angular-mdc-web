@@ -16,6 +16,7 @@ export class MdcSurfaceDirective {
   set mdcSurface(value: boolean) {
     this.ripple_.active = toBoolean(value);
   }
+  @HostBinding('style.cursor') cursor:string = 'pointer';
   @HostBinding('class.mdc-ripple-surface') get classSurface(): string {
     return this.mdcSurface ? 'mdc-ripple-surface' : '';
   }

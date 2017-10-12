@@ -1,0 +1,8 @@
+.mdc-icon--avatar {
+  @include mdc-theme-prop(background-color, rgba(0, 0, 0, .26));
+  @include mdc-theme-prop(color, #fff);
+
+  font-size: 1.5rem;
+  line-height: 42px;
+  text-align: center;
+}

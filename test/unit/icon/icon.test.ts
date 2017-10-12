@@ -25,7 +25,6 @@ describe('MdcIcon', () => {
 
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;
-    let testNativeElement: HTMLElement;
     let testInstance: MdcIcon;
     let testComponent: SimpleTest;
 
@@ -34,7 +33,6 @@ describe('MdcIcon', () => {
       fixture.detectChanges();
 
       testDebugElement = fixture.debugElement.query(By.directive(MdcIcon));
-      testNativeElement = testDebugElement.nativeElement;
       testInstance = testDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
     });
@@ -51,7 +49,6 @@ describe('MdcIcon', () => {
 
   describe('Font Awesome', () => {
     let testDebugElement: DebugElement;
-    let testNativeElement: HTMLElement;
     let testInstance: MdcIcon;
     let testComponent: FontAwesomeTest;
 
@@ -60,7 +57,6 @@ describe('MdcIcon', () => {
       fixture.detectChanges();
 
       testDebugElement = fixture.debugElement.query(By.directive(MdcIcon));
-      testNativeElement = testDebugElement.nativeElement;
       testInstance = testDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
     });

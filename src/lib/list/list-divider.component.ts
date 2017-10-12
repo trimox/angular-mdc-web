@@ -3,14 +3,13 @@ import {
   ElementRef,
   Input,
   Renderer2,
-  ViewChild,
 } from '@angular/core';
 import { toBoolean } from '../common';
 
 @Component({
   selector: '[mdc-list-divider], mdc-list-divider',
   template:
-  `<div #divider class="mdc-list-divider" role="seperator"></div>`,
+  `<div class="mdc-list-divider" role="seperator"></div>`,
 })
 export class MdcListDivider {
   private inset_: boolean;
@@ -20,12 +19,11 @@ export class MdcListDivider {
   set inset(value) {
     this.inset_ = toBoolean(value);
     if (this.inset_) {
-      this.renderer_.addClass(this.listItem.nativeElement, 'mdc-list-divider--inset');
+      this.renderer_.addClass(this.elementRef.nativeElement, 'mdc-list-divider--inset');
     } else {
-      this.renderer_.removeClass(this.listItem.nativeElement, 'mdc-list-divider--inset');
+      this.renderer_.removeClass(this.elementRef.nativeElement, 'mdc-list-divider--inset');
     }
   }
-  @ViewChild('divider') private listItem: ElementRef;
 
   constructor(
     public elementRef: ElementRef,

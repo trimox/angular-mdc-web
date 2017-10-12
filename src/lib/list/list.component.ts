@@ -18,9 +18,10 @@ import { toBoolean } from '../common';
 export class MdcList implements OnChanges {
   private disableRipple_: boolean = false;
 
-  @Input() dense: boolean;
-  @Input() twoLine: boolean;
-  @Input() avatar: boolean;
+  @Input() dense: boolean = false;
+  @Input() twoLine: boolean = false;
+  @Input() avatar: boolean = false;
+  @Input() border: boolean = false;
   @Input()
   get disableRipple() { return this.disableRipple_; }
   set disableRipple(value) {
@@ -36,6 +37,9 @@ export class MdcList implements OnChanges {
   }
   @HostBinding('class.mdc-list--avatar-list') get classAvatarList(): string {
     return this.avatar ? 'mdc-list--avatar-list' : '';
+  }
+  @HostBinding('class.mdc-list--border') get classBorder(): string {
+    return this.border ? 'mdc-list--border' : '';
   }
   @ContentChildren(MdcListItem) listItems: QueryList<MdcListItem>;
 

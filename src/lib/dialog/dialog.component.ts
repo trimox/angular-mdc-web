@@ -273,10 +273,10 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
   }
 
   accept(shouldNotify: boolean = true): void {
-    this._foundation.accept();
+    this._foundation.accept(shouldNotify);
   }
 
   cancel(shouldNotify: boolean = true): void {
-    this._foundation.cancel();
+    this._foundation.cancel(shouldNotify);
   }
 }

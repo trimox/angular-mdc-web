@@ -7,7 +7,7 @@ import {
 @Directive({
   selector: '[mdc-list-group], mdc-list-group'
 })
-export class MdcListGroupDirective {
+export class MdcListGroup {
   @HostBinding('class.mdc-list-group') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -16,7 +16,7 @@ export class MdcListGroupDirective {
 @Directive({
   selector: '[mdc-list-group-subheader], mdc-list-group-subheader'
 })
-export class MdcListGroupSubheaderDirective {
+export class MdcListGroupSubheader {
   @HostBinding('class.mdc-list-group__subheader') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }

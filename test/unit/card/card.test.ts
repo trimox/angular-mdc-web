@@ -54,6 +54,7 @@ describe('MdcCardComponent', () => {
           <mdc-card-title>Title</mdc-card-title>
           <h2 mdc-card-subtitle>Subtitle</h2>
         </mdc-card-primary>
+        <mdc-card-supporting-text>Test</mdc-card-supporting-text>
         <img mdc-card-media-item [size]="2" />
       </mdc-card-horizontal>
       <mdc-card-actions>

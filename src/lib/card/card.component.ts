@@ -9,7 +9,6 @@ import {
   Input,
   QueryList,
   Renderer2,
-  ViewEncapsulation,
 } from '@angular/core';
 import { toBoolean } from '../common';
 
@@ -23,10 +22,8 @@ export class MdcCardPrimaryDirective {
   @HostBinding('class.mdc-card__primary') isHostClass = true;
 }
 
-@Component({
+@Directive({
   selector: 'mdc-card-horizontal',
-  template: '<ng-content select="mdc-card-primary, mdc-card-title, mdc-card-subtitle, [mdc-card-media-item], mdc-card-actions"></ng-content>',
-  encapsulation: ViewEncapsulation.None
 })
 export class MdcCardHorizontalComponent {
   @HostBinding('class.mdc-card__horizontal-block') isHostClass = true;
@@ -80,7 +77,6 @@ export class MdcCardMediaItemDirective {
 @Component({
   selector: 'mdc-card-media',
   template: '<ng-content></ng-content>',
-  encapsulation: ViewEncapsulation.None
 })
 export class MdcCardMediaComponent {
   @HostBinding('class.mdc-card__media') isHostClass = true;
@@ -113,19 +109,18 @@ export class MdcCardActionButtonDirective extends MdcButtonComponent {
 @Component({
   selector: 'mdc-card',
   template: '<ng-content></ng-content>',
-  encapsulation: ViewEncapsulation.None
 })
 export class MdcCardComponent implements AfterContentInit {
   @HostBinding('class.mdc-card') isHostClass = true;
   @ContentChildren(MdcCardActionButtonDirective, { descendants: true }) cardButtons: QueryList<MdcCardActionButtonDirective>;
 
   constructor(
-    private _renderer: Renderer2,
+    private renderer_: Renderer2,
     public elementRef: ElementRef) { }
 
   ngAfterContentInit() {
     this.cardButtons.forEach((_) => {
-      this._renderer.addClass(_.elementRef.nativeElement, 'mdc-card__action');
+      this.renderer_.addClass(_.elementRef.nativeElement, 'mdc-card__action');
       _.compact = true;
     });
   }

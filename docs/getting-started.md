@@ -5,7 +5,6 @@
  - [Step 3 - Import Theme](#step3)
  - [Step 4 - Include Material Design Icons](#step4)
  - [Step 5 - Include Roboto Font](#step5)
- - [Appendix - Configuring SystemJS](#config-systemjs)
 
 ## Using Angular CLI?
 If you intend to use Angular CLI, please reference [Angular CLI - Getting Started guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/guide-angular-cli.md).
@@ -31,8 +30,7 @@ export class ExampleModule { }
 ### Or individual components
 ```ts
 import {
-  MdcTypographyModule,
-  MdcMaterialIconModule,
+  MdcCoreModule, // required
   MdcFabModule,
   MdcMenuModule
 } from '@angular-mdc/web';
@@ -40,8 +38,7 @@ import {
 @NgModule({
   ...
   imports: [
-   MdcTypographyModule, // required
-   MdcMaterialIconModule, // required for material icons
+   MdcCoreModule, // required
    MdcFabModule,
    MdcMenuModule,
    ...
@@ -74,18 +71,4 @@ Add the Roboto font with 300, 400 and 500 weights to your `index.html`.
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
 ```
 
-## <a name="config-systemjs"></a> Appendix: Configuring SystemJS
-
-If your project is using SystemJS for module loading, you will need to add `@angular-mdc/web`
-to the SystemJS configuration:
-
-```js
-System.config({
-  // existing configuration options
-  map: {
-    // ...
-    '@angular-mdc/web': 'npm:@angular-mdc/web/bundles/material.umd.js',
-    // ...
-  }
-});
-```
+### All done!

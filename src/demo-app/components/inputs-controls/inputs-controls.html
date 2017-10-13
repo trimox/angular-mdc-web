@@ -1,0 +1,10 @@
+<div fxLayout="column" fxFlex.gt-xs="50" fxLayoutGap="15px" class="mdc-padding">
+  <mdc-card *ngFor="let item of items" mdc-surface [routerLink]="[item.route]">
+    <mdc-card-primary>
+      <h1 mdc-card-title>{{item.name}}</h1>
+    </mdc-card-primary>
+    <mdc-card-supporting-text>
+      {{item.desc}}
+    </mdc-card-supporting-text>
+  </mdc-card>
+</div>

@@ -1,4 +1,4 @@
-$slate-grape: rgb(65, 64, 70);
+$potus-blue: #2980b9;
 
 $mdc-theme-primary: #1565c0;
 $mdc-theme-secondary: #388e3c;
@@ -6,13 +6,15 @@ $mdc-theme-background: #fff;
 
 @import "../../theme/material.scss";
 
-.demo-toolbar--primary {
-  @include mdc-theme-prop(background-color, $slate-grape);
+html {
+  height: 100%;
 }
 
-// .mdc-theme--dark {
-//   background-color: #333;
-// }
+body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+}
 
 // Remove clear button for IE inputs
 ::-ms-clear {
@@ -24,12 +26,54 @@ $mdc-theme-background: #fff;
   display: none;
 }
 
+.demo-toolbar--primary {
+  @include mdc-theme-prop(background-color, $potus-blue);
+}
+
 .mdc-textfield--short {
   width: 5rem;
 }
 
 .mdc-padding {
   padding: 7px !important;
+}
+
+.container {
+  position: relative;
+  box-sizing: border-box;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+}
+
+.demo-content {
+  margin-left: 240px;
+  margin-right: 0px;
+  overflow-x: auto;
+  width: -240px;
+  right: 0;
+  height: 100%;
+  display: block;
+  left: 0;
+
+  @media (max-width: 599px) {
+    width: 100%;
+    margin-left: 0px;
+  }
+}
+
+.demo-landing {
+  @include mdc-theme-prop(color, #fff);
+  @include mdc-theme-prop(background-color, $potus-blue);
+  height: 40vh;
+}
+
+.demo-landing-card {
+  @include mdc-theme-prop(background-color, #fff);
+  width: 35em;
+  min-height: 190px;
+  margin-top: -70px;
+  padding: 7px;
 }
 
 .demo-card__16-9-media {
@@ -39,9 +83,8 @@ $mdc-theme-background: #fff;
   background-size: cover;
 }
 
-.home-card {
-  width: 21.875rem;
-  margin-bottom: 20px;
+.demo-toolbar-logo {
+  line-height: 0.5rem;
 }
 
 .demo-card {
@@ -72,7 +115,6 @@ $mdc-theme-background: #fff;
 
 .info-banner {
   justify-content: center;
-  height: auto;
   margin: 16px 0;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
@@ -106,25 +148,14 @@ $mdc-theme-background: #fff;
     margin: 1em, 0;
     padding: 8px 16px;
     border: 1px solid rgba(0, 0, 0, .03);
-    font-family: monospace;
-    font-size: 14px;
+    font-size: 0.85em;
   }
 }
 
 pre {
   padding: 6px;
-}
-
-.demo-wrapper {
-  border: 1px solid rgba(0, 0, 0, .1);
-}
-
-.grey-avatar {
-  background-color: #999;
-  color: #fff;
-  font-size: 24px;
-  line-height: 42px;
-  text-align: center;
+  font-family: monospace, monospace;
+  font-size: 0.9em;
 }
 
 .panels {

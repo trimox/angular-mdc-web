@@ -23,10 +23,6 @@
       </thead>
       <tbody>
         <tr>
-          <td>svgIcon: string</td>
-          <td>Name of the icon in the SVG icon set.</td>
-        </tr>
-        <tr>
           <td>fontSet: string</td>
           <td>Font set that the icon is a part of.</td>
         </tr>
@@ -35,20 +31,17 @@
           <td>Name of an icon within a font set.</td>
         </tr>
       </tbody>
-      <thead>
-        <tr>
-          <th>Methods</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>hasFontIcon(): boolean</td>
-          <td>Returns true if no SVG vector image was used.</td>
-        </tr>
-      </tbody>
     </table>
   </div>
   <div fxLayout="column" class="mdc-padding" fxLayoutGap="25px">
+    <span mdc-typography-headline>Using Material Icons</span>
+<mdc-icon>home</mdc-icon>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span>-icon></span>home<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span>-icon></span>
+</pre>
+
+    <span mdc-typography-headline>Using Font Awesome</span>
+<mdc-icon fontSet="fa" fontIcon="fa-keyboard-o"></mdc-icon>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">fontSet</span>=<span style="color:#65b042">"fa"</span> <span style="color:#89bdff">fontIcon</span>=<span style="color:#65b042">"fa-keyboard-o"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
+</pre>
   </div>
 </div>

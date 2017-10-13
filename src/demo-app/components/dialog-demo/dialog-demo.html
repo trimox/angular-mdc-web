@@ -1,4 +1,4 @@
-<div fxLayout="column" class="mdc-padding">
+<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
   <h1 mdc-typography-display1>Dialog</h1>
   <div mdc-typography-subheading2>Dialogs inform users about a specific task, require decisions, or involve multiple tasks.</div>
   <div class="info-banner" mdc-typography-subheading1>
@@ -24,7 +24,7 @@
       </thead>
       <tbody>
         <tr>
-          <td>clickOutsideCloses: boolean</td>
+          <td>clickOutsideToClose: boolean</td>
           <td>Close the dialog if user clicks on the backdrop. (Default: true)</td>
         </tr>
         <tr>
@@ -182,7 +182,7 @@
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-body</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span>
     <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-dialog-button</span> [<span style="color:#e0c589">cancel</span>]=<span style="color:#65b042">"true"</span>></span>Decline<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-dialog-button</span> [<span style="color:#e0c589">action</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#e0c589">accept</span>]=<span style="color:#65b042">"true"</span>></span>Accept<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-dialog-button</span> [<span style="color:#e0c589">accept</span>]=<span style="color:#65b042">"true"</span>></span>Accept<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span>></span>
 </pre>
@@ -281,7 +281,7 @@
   </mdc-dialog-body>
   <mdc-dialog-footer>
     <button mdc-dialog-button [cancel]="true">Decline</button>
-    <button mdc-dialog-button [action]="true" [accept]="true">Accept</button>
+    <button mdc-dialog-button [accept]="true">Accept</button>
   </mdc-dialog-footer>
 </mdc-dialog>
 
@@ -303,14 +303,14 @@
   </mdc-dialog-header>
   <mdc-dialog-body>
     <mdc-list [avatar]="true">
-      <mdc-list-item (click)="closeDialogGmail();">
-        <i mdc-list-item-start material-icon class="grey-avatar">person</i>username@gmail.com
+      <mdc-list-item (click)="closeDialogGmail();" mdc-surface>
+        <mdc-icon mdc-list-item-start class="grey-avatar">person</mdc-icon>username@gmail.com
       </mdc-list-item>
-      <mdc-list-item (click)="closeDialogGmail();">
-        <i mdc-list-item-start material-icon class="grey-avatar">person</i>user02@gmail.com
+      <mdc-list-item (click)="closeDialogGmail();" mdc-surface>
+        <mdc-icon mdc-list-item-start class="grey-avatar">person</mdc-icon>user02@gmail.com
       </mdc-list-item>
-      <mdc-list-item (click)="closeDialogGmail();">
-        <i mdc-list-item-start material-icon class="grey-avatar">add</i>add account
+      <mdc-list-item (click)="closeDialogGmail();" mdc-surface>
+        <mdc-icon mdc-list-item-start class="grey-avatar">add</mdc-icon>add account
       </mdc-list-item>
     </mdc-list>
   </mdc-dialog-body>

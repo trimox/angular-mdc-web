@@ -38,6 +38,10 @@
           <td>tabIndex: number</td>
           <td>Set the tabindex of the button. (Default: 0).</td>
         </tr>
+        <tr>
+          <td>position: string</td>
+          <td>Set absolute position. Valid values: 'bottom-left' | 'bottom-right' | null</td>
+        </tr>
       </tbody>
       <thead>
         <tr>
@@ -95,6 +99,17 @@
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>
     <span style="color:#89bdff">fontSet</span>=<span style="color:#65b042">"fa"</span>
     <span style="color:#89bdff">fontIcon</span>=<span style="color:#65b042">"fa-keyboard-o"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
+<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+</pre>
+
+<span mdc-typography-headline>Absolute Positioning (bottom-right)</span>
+<button mdc-fab
+ [position]="'bottom-right'">
+  <mdc-icon>add</mdc-icon>
+</button>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span>
+ [<span style="color:#e0c589">position</span>]=<span style="color:#65b042">"'bottom-right'"</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>add<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
 <span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
 </pre>
 </div>

@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'typography-progress-demo',
+  selector: 'typography-demo',
   templateUrl: './typography-demo.html'
 })
 export class TypographyDemo { }

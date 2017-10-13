@@ -22,7 +22,6 @@ export type FabPosition = 'bottom-left' | 'bottom-right' | null;
 @Component({
   selector: 'button[mdc-fab], a[mdc-fab]',
   template: '<ng-content></ng-content>',
-  encapsulation: ViewEncapsulation.None,
   providers: [MdcRipple]
 })
 export class MdcFabComponent implements AfterViewInit {
@@ -31,11 +30,11 @@ export class MdcFabComponent implements AfterViewInit {
 
   @Input() mini: boolean = false;
   @Input()
-  get exited() { return this.exited_; }
-  set exited(value) {
+  get exited(): boolean { return this.exited_; }
+  set exited(value: boolean) {
     this.exited_ = toBoolean(value);
   }
-  @Input('position')
+  @Input()
   get position(): FabPosition { return this.position_; }
   set position(value: FabPosition) {
     if (value !== this.position_) {

@@ -8,6 +8,7 @@ import { MdcDialogModule } from './dialog/index';
 import { MdcDrawerModule } from './drawer/index';
 import { MdcFabModule } from './fab/index';
 import { MdcFormFieldModule } from './form-field/index';
+import { MdcIconModule } from './icon/index';
 import { MdcIconToggleModule } from './icon-toggle/index';
 import { MdcLinearProgressModule } from './linear-progress/index';
 import { MdcListModule } from './list/index';
@@ -18,7 +19,6 @@ import { MdcSnackbarModule } from './snackbar/index';
 import { MdcSwitchModule } from './switch/index';
 import { MdcTabModule } from './tabs/index';
 import { MdcTextfieldModule } from './textfield/index';
-import { MdcThemeModule } from './theme/index';
 import { MdcToolbarModule } from './toolbar/index';
 
 const MATERIAL_MODULES = [
@@ -30,6 +30,7 @@ const MATERIAL_MODULES = [
   MdcDrawerModule,
   MdcFabModule,
   MdcFormFieldModule,
+  MdcIconModule,
   MdcIconToggleModule,
   MdcLinearProgressModule,
   MdcListModule,
@@ -40,7 +41,6 @@ const MATERIAL_MODULES = [
   MdcSwitchModule,
   MdcTabModule,
   MdcTextfieldModule,
-  MdcThemeModule,
   MdcToolbarModule,
 ];
 

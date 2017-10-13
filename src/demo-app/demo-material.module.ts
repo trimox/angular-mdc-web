@@ -5,7 +5,6 @@ import {
   MdcCheckboxModule,
   MdcDialogModule,
   MdcDrawerModule,
-  MdcElevationModule,
   MdcFabModule,
   MdcFormFieldModule,
   MdcIconToggleModule,
@@ -19,9 +18,7 @@ import {
   MdcSwitchModule,
   MdcTabModule,
   MdcTextfieldModule,
-  MdcThemeModule,
   MdcToolbarModule,
-  MdcRippleModule,
 // } from '@angular-mdc/web';
 } from '../lib/public_api';
 
@@ -32,7 +29,6 @@ import {
     MdcCheckboxModule,
     MdcDialogModule,
     MdcDrawerModule,
-    MdcElevationModule,
     MdcFabModule,
     MdcFormFieldModule,
     MdcIconToggleModule,
@@ -46,9 +42,7 @@ import {
     MdcSwitchModule,
     MdcTabModule,
     MdcTextfieldModule,
-    MdcThemeModule,
     MdcToolbarModule,
-    MdcRippleModule,
   ]
 })
 export class DemoMaterialModule { }

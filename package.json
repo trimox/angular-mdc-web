@@ -61,7 +61,7 @@
     "@angular/compiler-cli": "^4.4.4",
     "@angular/flex-layout": "^2.0.0-beta.9",
     "@types/jasmine": "^2.6.0",
-    "@types/node": "^8.0.33",
+    "@types/node": "^8.0.34",
     "angular2-template-loader": "^0.6.2",
     "autoprefixer": "^7.1.5",
     "awesome-typescript-loader": "^3.2.3",
@@ -87,7 +87,7 @@
     "karma-remap-istanbul": "^0.6.0",
     "karma-webpack": "^2.0.5",
     "node-sass": "^4.5.3",
-    "postcss-loader": "^2.0.6",
+    "postcss-loader": "^2.0.7",
     "rimraf": "^2.6.2",
     "rollup": "^0.50.0",
     "rollup-plugin-commonjs": "^8.2.1",
@@ -108,7 +108,7 @@
     "uglify-es": "^3.1.3",
     "validate-commit-msg": "^2.14.0",
     "vrsource-tslint-rules": "^5.1.1",
-    "webpack": "^3.6.0",
+    "webpack": "^3.7.1",
     "webpack-dev-server": "^2.9.1"
   },
   "babel": {

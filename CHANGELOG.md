@@ -1,4 +1,46 @@
 <a name="0.0.0"></a>
+# [0.5.3](https://github.com/trimox/angular-mdc-web/compare/v0.5.1...v0.5.3) (2017-10-13)
+
+
+### Bug Fixes
+
+* **card:** Horizontal card does not show supporting text ([#274](https://github.com/trimox/angular-mdc-web/issues/274)) ([680edfc](https://github.com/trimox/angular-mdc-web/commit/680edfc)), closes [#266](https://github.com/trimox/angular-mdc-web/issues/266)
+* **dialog:** Issues with `clickOutsideToClose` and `escapeToClose` ([#263](https://github.com/trimox/angular-mdc-web/issues/263)) ([b5989da](https://github.com/trimox/angular-mdc-web/commit/b5989da))
+* **dialog:** Pass `shouldNotify` to MDC foundation methods ([#273](https://github.com/trimox/angular-mdc-web/issues/273)) ([22d5e42](https://github.com/trimox/angular-mdc-web/commit/22d5e42))
+* **dialog:** Set Dialog button `action` property to secondary color ([#262](https://github.com/trimox/angular-mdc-web/issues/262)) ([ef2e96c](https://github.com/trimox/angular-mdc-web/commit/ef2e96c))
+* **fab:** Set correct position in media query ([#260](https://github.com/trimox/angular-mdc-web/issues/260)) ([73eb62c](https://github.com/trimox/angular-mdc-web/commit/73eb62c))
+* **list:** Checkbox height inside list-item ([#261](https://github.com/trimox/angular-mdc-web/issues/261)) ([31d030d](https://github.com/trimox/angular-mdc-web/commit/31d030d)), closes [#172](https://github.com/trimox/angular-mdc-web/issues/172)
+
+
+### Features
+
+* **core:** Make cursor a pointer for `mdc-surface` ([#264](https://github.com/trimox/angular-mdc-web/issues/264)) ([43dc9f2](https://github.com/trimox/angular-mdc-web/commit/43dc9f2))
+* **demo:** Demo App Improvements ([#252](https://github.com/trimox/angular-mdc-web/issues/252)) ([2437511](https://github.com/trimox/angular-mdc-web/commit/2437511)), closes [#254](https://github.com/trimox/angular-mdc-web/issues/254)
+* **drawer:** Add `fixed` property to Permanent Drawer ([#256](https://github.com/trimox/angular-mdc-web/issues/256)) ([4b8a712](https://github.com/trimox/angular-mdc-web/commit/4b8a712)), closes [#255](https://github.com/trimox/angular-mdc-web/issues/255)
+* **elevation:** MdcElevation moved to MdcCoreModule ([#245](https://github.com/trimox/angular-mdc-web/issues/245)) ([9cf2647](https://github.com/trimox/angular-mdc-web/commit/9cf2647))
+* **fab:** Add `position` property for absolute positioning ([#259](https://github.com/trimox/angular-mdc-web/issues/259)) ([d80bb2f](https://github.com/trimox/angular-mdc-web/commit/d80bb2f)), closes [#258](https://github.com/trimox/angular-mdc-web/issues/258)
+* **icon:** Add `mdc-icon--avatar` CSS class ([#270](https://github.com/trimox/angular-mdc-web/issues/270)) ([fb9a66b](https://github.com/trimox/angular-mdc-web/commit/fb9a66b)), closes [#268](https://github.com/trimox/angular-mdc-web/issues/268)
+* **icon:** Implement `mdc-icon` component ([#246](https://github.com/trimox/angular-mdc-web/issues/246)) ([2127275](https://github.com/trimox/angular-mdc-web/commit/2127275)), closes [#241](https://github.com/trimox/angular-mdc-web/issues/241)
+* **list:** Add [border] property ([#276](https://github.com/trimox/angular-mdc-web/issues/276)) ([6e9c80b](https://github.com/trimox/angular-mdc-web/commit/6e9c80b)), closes [#269](https://github.com/trimox/angular-mdc-web/issues/269)
+* **list:** Avatar icons + Improvements ([#272](https://github.com/trimox/angular-mdc-web/issues/272)) ([1bad2e8](https://github.com/trimox/angular-mdc-web/commit/1bad2e8)), closes [#271](https://github.com/trimox/angular-mdc-web/issues/271)
+* **ripple:** Add `mdc-ripple` and `mdc-surface` directives ([#237](https://github.com/trimox/angular-mdc-web/issues/237)) ([68d22b5](https://github.com/trimox/angular-mdc-web/commit/68d22b5)), closes [#234](https://github.com/trimox/angular-mdc-web/issues/234)
+* **ripple:** MdcRipple moved to MdcCoreModule ([#247](https://github.com/trimox/angular-mdc-web/issues/247)) ([4035f58](https://github.com/trimox/angular-mdc-web/commit/4035f58)), closes [#243](https://github.com/trimox/angular-mdc-web/issues/243)
+* **typography:** MdcTypography moved to MdcCoreModule ([#244](https://github.com/trimox/angular-mdc-web/issues/244)) ([c19b9ab](https://github.com/trimox/angular-mdc-web/commit/c19b9ab))
+* **core:** MdcThemeModule moved into MdcCoreModule ([#277](https://github.com/trimox/angular-mdc-web/issues/277)) ([68bb43c](https://github.com/trimox/angular-mdc-web/commit/68bb43c)), closes [#243](https://github.com/trimox/angular-mdc-web/issues/243)
+
+
+### BREAKING CHANGES
+
+* **icon:** `mdc-icon-button` was removed in favor of `mdc-icon`. Please update your code accordingly.
+`mdc-fab-icon` was removed in favor of `mdc-icon`. Please update your code accordingly.
+`mdc-tab-icon` was removed in favor of `mdc-icon`. Please update your code accordingly.
+* **elevation:** Remove `MdcElevationModule` from your code. Replace with `MdcCoreModule` if not previously imported.
+* **typography:** Remove `MdcTypographyModule` from your code, and if necessary add an import of `MdcCoreModule`.
+* **core:** Remove `MdcThemeModule` import from your code, and replace it with `MdcCoreModule` if not already imported.
+
+
+
+<a name="0.0.0"></a>
 # [0.5.1](https://github.com/trimox/angular-mdc-web/compare/v0.5.0...v0.5.1) (2017-10-01)
 
 

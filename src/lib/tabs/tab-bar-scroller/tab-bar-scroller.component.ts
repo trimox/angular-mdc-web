@@ -85,7 +85,7 @@ export class MdcTabBarScrollFrameDirective implements AfterContentInit {
 })
 export class MdcTabBarScroller implements AfterViewInit, OnDestroy {
   @Input() direction: 'ltr' | 'rtl' = 'ltr';
-  @HostBinding('class.mdc-tab-bar-scoller') isHostClass = true;
+  @HostBinding('class.mdc-tab-bar-scroller') isHostClass = true;
   @ContentChild(MdcTabBarScrollFrameDirective) scrollFrame: MdcTabBarScrollFrameDirective;
   @ContentChild(MdcTabBarScrollBackDirective) scrollBack: MdcTabBarScrollBackDirective;
   @ContentChild(MdcTabBarScrollForwardDirective) scrollForward: MdcTabBarScrollForwardDirective;

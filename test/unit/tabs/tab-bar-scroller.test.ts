@@ -33,9 +33,9 @@ describe('MdcTabBarScroller', () => {
       testComponent = fixture.debugElement.componentInstance;
     });
 
-    it('#should have mdc-tab-bar-scoller by default', () => {
+    it('#should have mdc-tab-bar-scroller by default', () => {
       expect(tabScrollDebugElement.nativeElement.classList)
-        .toContain('mdc-tab-bar-scoller', 'Expected to have mdc-tab-bar-scoller');
+        .toContain('mdc-tab-bar-scroller', 'Expected to have mdc-tab-bar-scroller');
     });
 
     it('#should scrollToTabAtIndex', () => {

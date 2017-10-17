@@ -2,7 +2,7 @@ import nodeResolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 
 export default {
-  input: 'publish-demo/main-aot.js',
+  input: 'publish-demo/demo-app/main-aot.js',
   plugins: [
     nodeResolve(),
     commonjs({

@@ -1,8 +1,8 @@
 <mdc-toolbar class="demo-toolbar--primary" [fixed]="isFixed">
   <mdc-toolbar-row>
     <mdc-toolbar-section [alignStart]="true">
-      <button material-icon mdc-toolbar-icon-menu (click)="toggleDrawer();" fxShow fxHide.gt-xs="true">menu</button>
-      <a class="demo-toolbar-logo" button mdc-toolbar-icon-menu fxHide fxShow.gt-xs="true" [routerLink]="['home']" [mdc-ripple]="true">
+      <button material-icon mdc-toolbar-menu-icon (click)="toggleDrawer();" fxShow fxHide.gt-xs="true">menu</button>
+      <a class="demo-toolbar-logo" button mdc-toolbar-menu-icon fxHide fxShow.gt-xs="true" [routerLink]="['home']" [mdc-ripple]="true">
        <img src="https://trimox.github.io/angular-mdc-web/assets/hub-192x192.png" width="28" height="28" />
      </a>
       <mdc-toolbar-title>

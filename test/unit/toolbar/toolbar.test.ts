@@ -91,7 +91,7 @@ describe('MdcToolbarComponent', () => {
       (change)="handleToolbarChange($event);">
       <mdc-toolbar-row>
         <mdc-toolbar-section [alignStart]="true">
-          <a href="#" mdc-toolbar-icon-menu material-icon>menu</a>
+          <a href="#" mdc-toolbar-menu-icon material-icon>menu</a>
           <mdc-toolbar-title>App Title</mdc-toolbar-title>
         </mdc-toolbar-section>
       </mdc-toolbar-row>

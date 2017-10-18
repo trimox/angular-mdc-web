@@ -5,8 +5,8 @@ import { MdcToolbarRowDirective } from './toolbar-row.directive';
 import { MdcToolbarSectionDirective } from './toolbar-section.directive';
 import { MdcToolbarTitleDirective } from './toolbar-title.directive';
 import { MdcToolbarFixedAdjustDirective } from './toolbar-fixed-adjust.directive';
-import { MdcToolbarIconDirective } from './toolbar-icon.directive';
-import { MdcToolbarIconMenuDirective } from './toolbar-icon-menu.directive';
+import { MdcToolbarIcon } from './toolbar-icon.directive';
+import { MdcToolbarIconMenu } from './toolbar-icon-menu.directive';
 
 const TOOLBAR_COMPONENTS = [
   MdcToolbarComponent,
@@ -14,8 +14,8 @@ const TOOLBAR_COMPONENTS = [
   MdcToolbarSectionDirective,
   MdcToolbarTitleDirective,
   MdcToolbarFixedAdjustDirective,
-  MdcToolbarIconDirective,
-  MdcToolbarIconMenuDirective
+  MdcToolbarIcon,
+  MdcToolbarIconMenu
 ];
 
 @NgModule({

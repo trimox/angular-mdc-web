@@ -5,10 +5,10 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: 'a[mdc-toolbar-icon-menu], span[mdc-toolbar-icon-menu], button[mdc-toolbar-icon-menu]'
+  selector: '[mdc-toolbar-menu-icon]'
 })
-export class MdcToolbarIconMenuDirective {
-  @HostBinding('class.mdc-toolbar__icon--menu') isHostClass = true;
+export class MdcToolbarIconMenu {
+  @HostBinding('class.mdc-toolbar__menu-icon') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
 }

@@ -111,22 +111,12 @@ So when it is minimized, ratio equals to 0 and when it is maximized, ratio equal
                     <td>Optional directive to add a default margin-top to mdc-toolbar's adjacent sibling element.</td>
                 </tr>
                 <tr>
-                    <td>mdc-toolbar-icon-menu</td>
-                    <td>Left most icon of a mdc-toolbar.
-                        <pre><code><![CDATA[a[mdc-toolbar-icon-menu]
-button[mdc-toolbar-icon-menu]
-span[mdc-toolbar-icon-menu]
-]]></code></pre>
-                    </td>
+                    <td>mdc-toolbar-menu-icon</td>
+                    <td>Left most icon of a mdc-toolbar.</td>
                 </tr>
                 <tr>
                     <td>mdc-toolbar-icon</td>
-                    <td>Icons placed on the right side of a mdc-toolbar.
-                        <pre><code><![CDATA[a[mdc-toolbar-icon]
-button[mdc-toolbar-icon]
-span[mdc-toolbar-icon]
-]]></code></pre>
-                    </td>
+                    <td>Icons placed on the right side of a mdc-toolbar.</td>
                 </tr>
             </tbody>
         </table>
@@ -153,7 +143,7 @@ span[mdc-toolbar-icon]
         <mdc-toolbar [flexible]="isFlexible" [fixed]="isFixed" [waterfall]="isWaterfall" [fixedLastrow]="isFixedLastRow" (change)="handleToolbarChange($event);">
             <mdc-toolbar-row>
                 <mdc-toolbar-section [alignStart]="true">
-                    <a href="#/toolbar-demo" mdc-toolbar-icon-menu material-icon>menu</a>
+                    <a href="#/toolbar-demo" mdc-toolbar-menu-icon material-icon>menu</a>
                     <mdc-toolbar-title>App Title</mdc-toolbar-title>
                 </mdc-toolbar-section>
             </mdc-toolbar-row>
@@ -174,7 +164,7 @@ span[mdc-toolbar-icon]
   (<span style="color:#89bdff">change</span>)=<span style="color:#65b042">"handleToolbarChange($event);"</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-row</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-section</span> [<span style="color:#89bdff">alignStart</span>]=<span style="color:#65b042">"true"</span>></span>
-      <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#"</span> <span style="color:#e0c589">mdc-toolbar-icon-menu</span> <span style="color:#e0c589">material-icon</span>></span>menu<span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
+      <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#"</span> <span style="color:#e0c589">mdc-toolbar-menu-icon</span> <span style="color:#e0c589">material-icon</span>></span>menu<span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
       <span style="color:#e0c589">&lt;<span style="color:#e0c589">mdc-toolbar-title</span>></span>App Title<span style="color:#e0c589">&lt;/<span style="color:#e0c589">mdc-toolbar-title</span>></span>
     <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-section</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-row</span>></span>

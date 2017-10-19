@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { MdcIconModule } from '../icon/index';
-import { MdcButtonComponent } from './button.component';
+import { MdcButton } from './button';
 
 @NgModule({
   imports: [
@@ -9,10 +9,10 @@ import { MdcButtonComponent } from './button.component';
   ],
   exports: [
     MdcIconModule,
-    MdcButtonComponent
+    MdcButton
   ],
-  declarations: [MdcButtonComponent],
+  declarations: [MdcButton],
 })
 export class MdcButtonModule { }
 
-export * from './button.component';
+export * from './button';

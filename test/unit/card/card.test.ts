@@ -4,10 +4,10 @@ import { By } from '@angular/platform-browser';
 
 import {
   MdcCardModule,
-  MdcCardComponent,
+  MdcCard,
 } from '../../../src/lib/public_api';
 
-describe('MdcCardComponent', () => {
+describe('MdcCard', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
@@ -25,14 +25,14 @@ describe('MdcCardComponent', () => {
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;
     let testNativeElement: HTMLElement;
-    let testInstance: MdcCardComponent;
+    let testInstance: MdcCard;
     let testComponent: SimpleTest;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SimpleTest);
       fixture.detectChanges();
 
-      testDebugElement = fixture.debugElement.query(By.directive(MdcCardComponent));
+      testDebugElement = fixture.debugElement.query(By.directive(MdcCard));
       testNativeElement = testDebugElement.nativeElement;
       testInstance = testDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
@@ -64,5 +64,4 @@ describe('MdcCardComponent', () => {
     </mdc-card>
   `,
 })
-class SimpleTest {
-}
+class SimpleTest { }

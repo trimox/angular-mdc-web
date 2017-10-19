@@ -19,22 +19,22 @@ import {
 
 @Component({
   selector: 'button[mdc-button], a[mdc-button]',
+  template: '<ng-content></ng-content>',
   host: {
     '[attr.aria-disabled]': 'disabled.toString()',
   },
-  template: '<ng-content></ng-content>',
-  providers: [MdcRipple]
+  providers: [MdcRipple],
 })
-export class MdcButtonComponent implements AfterViewInit {
+export class MdcButton implements AfterViewInit {
   private disabled_: boolean = false;
 
-  @Input() raised: boolean;
-  @Input() primary: boolean;
-  @Input() dense: boolean;
-  @Input() compact: boolean;
-  @Input() secondary: boolean;
-  @Input() unelevated: boolean;
-  @Input() stroked: boolean;
+  @Input() raised: boolean = false;
+  @Input() primary: boolean = false;
+  @Input() dense: boolean = false;
+  @Input() compact: boolean = false;
+  @Input() secondary: boolean = false;
+  @Input() unelevated: boolean = false;
+  @Input() stroked: boolean = false;
   @Input()
   get disabled(): boolean { return this.disabled_; }
   set disabled(value) {

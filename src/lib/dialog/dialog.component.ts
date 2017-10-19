@@ -21,7 +21,7 @@ import { EventRegistry } from '../common/event-registry';
 import createFocusTrap from 'focus-trap';
 
 import { MdcRipple } from '../core/ripple/ripple.service';
-import { MdcButtonComponent } from '../button/button.component';
+import { MdcButton } from '../button/button';
 
 import { MDCDialogAdapter } from './dialog-adapter';
 import { MDCDialogFoundation } from '@material/dialog';
@@ -88,7 +88,7 @@ export class MdcDialogBackdropDirective {
   selector: 'button[mdc-dialog-button], a[mdc-dialog-button]',
   providers: [MdcRipple]
 })
-export class MdcDialogButtonDirective extends MdcButtonComponent {
+export class MdcDialogButtonDirective extends MdcButton {
   @Input() accept: boolean;
   @Input() cancel: boolean;
   @Input() action: boolean;

@@ -1,29 +1,29 @@
 import { NgModule } from '@angular/core';
 
 import {
-  MdcCardActionButtonDirective,
-  MdcCardActionsDirective,
-  MdcCardComponent,
-  MdcCardHorizontalComponent,
-  MdcCardMediaComponent,
-  MdcCardMediaItemDirective,
-  MdcCardPrimaryDirective,
-  MdcCardSubtitleComponent,
-  MdcCardSupportingTextDirective,
-  MdcCardTitleDirective,
-} from './card.component';
+  MdcCard,
+  MdcCardActionButton,
+  MdcCardActions,
+  MdcCardHorizontal,
+  MdcCardMedia,
+  MdcCardMediaItem,
+  MdcCardPrimary,
+  MdcCardSubtitle,
+  MdcCardSupportingText,
+  MdcCardTitle,
+} from './card';
 
 const CARD_COMPONENTS = [
-  MdcCardActionButtonDirective,
-  MdcCardActionsDirective,
-  MdcCardComponent,
-  MdcCardHorizontalComponent,
-  MdcCardMediaComponent,
-  MdcCardMediaItemDirective,
-  MdcCardPrimaryDirective,
-  MdcCardSubtitleComponent,
-  MdcCardSupportingTextDirective,
-  MdcCardTitleDirective,
+  MdcCard,
+  MdcCardActionButton,
+  MdcCardActions,
+  MdcCardHorizontal,
+  MdcCardMedia,
+  MdcCardMediaItem,
+  MdcCardPrimary,
+  MdcCardSubtitle,
+  MdcCardSupportingText,
+  MdcCardTitle,
 ];
 
 @NgModule({
@@ -32,4 +32,4 @@ const CARD_COMPONENTS = [
 })
 export class MdcCardModule { }
 
-export * from './card.component';
+export * from './card';

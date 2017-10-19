@@ -93,7 +93,9 @@ export class MdcIcon implements OnChanges, OnInit {
         this.renderer_.removeClass(elem, this.previousFontIconClass_);
       }
       if (this.fontIcon) {
-        this.renderer_.addClass(elem, this.fontIcon);
+        for (let iconClass of this.fontIcon.split(" ")) {
+          this.renderer_.addClass(elem, iconClass);
+        }
       }
       this.previousFontIconClass_ = this.fontIcon;
     }

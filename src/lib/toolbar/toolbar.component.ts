@@ -129,7 +129,11 @@ export class MdcToolbarComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this._foundation.init();
   }
+
   ngOnDestroy() {
+    if (isBrowser() && this.fixed) {
+      this._renderer.removeStyle(document.body, 'margin-top');
+    }
     this._foundation.destroy();
   }
 

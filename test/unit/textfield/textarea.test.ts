@@ -4,7 +4,7 @@ import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular
 import { By } from '@angular/platform-browser';
 
 import {
-  MdcTextareaComponent,
+  MdcTextarea,
   MdcTextfieldModule
 } from '../../../src/lib/public_api';
 
@@ -24,7 +24,7 @@ describe('MdcTextareaComponent', () => {
   describe('basic behaviors', () => {
     let textFieldDebugElement: DebugElement;
     let textFieldNativeElement: HTMLElement;
-    let textFieldInstance: MdcTextareaComponent;
+    let textFieldInstance: MdcTextarea;
     let testComponent: SimpleTextfield;
     let inputElement: HTMLInputElement;
 
@@ -32,16 +32,15 @@ describe('MdcTextareaComponent', () => {
       fixture = TestBed.createComponent(SimpleTextfield);
       fixture.detectChanges();
 
-      textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextareaComponent));
+      textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextarea));
       textFieldNativeElement = textFieldDebugElement.nativeElement;
       textFieldInstance = textFieldDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
     });
 
-    it('#should apply class multiline on property', () => {
-      testComponent.isMultiline = true;
-      fixture.detectChanges();
-      expect(textFieldDebugElement.nativeElement.classList.contains('mdc-textfield--multiline')).toBe(true);
+    it('#should have mdc-textfield--textarea by default', () => {
+      expect(textFieldDebugElement.nativeElement.classList)
+        .toContain('mdc-textfield--textarea', 'Expected to have mdc-textfield--textarea class');
     });
   });
 });
@@ -54,7 +53,6 @@ describe('MdcTextareaComponent', () => {
       [(ngModel)]="comments"
       label="Comments"
       [required]="isRequired"
-      [multiline]="isMultiline"
       [disabled]="isDisabled">
     </mdc-textarea>
     <p mdc-textfield-helptext
@@ -66,5 +64,4 @@ class SimpleTextfield {
   username: string = '';
   isDisabled: boolean = false;
   isRequired: boolean = false;
-  isMultiline: boolean = false;
 }

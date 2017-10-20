@@ -2,26 +2,31 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { MdcTextfieldInputDirective } from './textfield-input.directive';
+import { MdcTextfieldInput } from './textfield-input';
 import {
-  MdcTextfieldComponent,
-  MdcTextfieldHelptextDirective,
-  MdcTextfieldLabelDirective,
-} from './textfield.component';
+  MdcTextfield,
+  MdcTextfieldBottomLine,
+  MdcTextfieldHelptext,
+  MdcTextfieldLabel,
+  MdcTextfieldLeadingIcon,
+  MdcTextfieldTrailingIcon,
+} from './textfield';
 import {
-  MdcTextfieldBoxComponent,
-  MdcTextfieldBottomLineDirective,
-} from './textfield-box.component';
-import { MdcTextareaComponent } from './textarea.component';
+  MdcTextfieldBox,
+} from './textfield-box';
+import { MdcTextarea } from './textarea';
 
 const TEXTFIELD_COMPONENTS = [
-  MdcTextfieldInputDirective,
-  MdcTextfieldHelptextDirective,
-  MdcTextfieldLabelDirective,
-  MdcTextfieldComponent,
-  MdcTextfieldBottomLineDirective,
-  MdcTextareaComponent,
-  MdcTextfieldBoxComponent,
+  MdcTextarea,
+  MdcTextfield,
+  MdcTextfieldBottomLine,
+  MdcTextfieldBottomLine,
+  MdcTextfieldBox,
+  MdcTextfieldHelptext,
+  MdcTextfieldInput,
+  MdcTextfieldLabel,
+  MdcTextfieldLeadingIcon,
+  MdcTextfieldTrailingIcon,
 ];
 
 @NgModule({
@@ -31,7 +36,7 @@ const TEXTFIELD_COMPONENTS = [
 })
 export class MdcTextfieldModule { }
 
-export * from './textfield.component';
-export * from './textfield-input.directive';
-export * from './textfield-box.component';
-export * from './textarea.component';
+export * from './textfield';
+export * from './textfield-input';
+export * from './textfield-box';
+export * from './textarea';

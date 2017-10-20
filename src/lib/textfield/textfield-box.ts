@@ -1,6 +1,5 @@
 import {
   Component,
-  Directive,
   ElementRef,
   forwardRef,
   HostBinding,
@@ -11,22 +10,13 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EventRegistry } from '../common/event-registry';
 import { MdcRipple } from '../core/ripple/ripple.service';
-import { MdcTextfieldComponent } from './textfield.component';
+import { MdcTextfield } from './textfield';
 
 export const MD_TEXTFIELD_BOX_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => MdcTextfieldBoxComponent),
+  useExisting: forwardRef(() => MdcTextfieldBox),
   multi: true
 };
-
-@Directive({
-  selector: '[mdc-textfield-bottom-line], mdc-textfield-bottom-line'
-})
-export class MdcTextfieldBottomLineDirective {
-  @HostBinding('class.mdc-textfield__bottom-line') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
 
 @Component({
   selector: 'mdc-textfield-box',
@@ -44,6 +34,7 @@ export class MdcTextfieldBottomLineDirective {
     (focus)="onFocus()" />
   <mdc-textfield-label [attr.for]="id">{{label}}</mdc-textfield-label>
   <mdc-textfield-bottom-line></mdc-textfield-bottom-line>
+  <ng-content select="mdc-icon"></ng-content>
   `,
   providers: [
     MD_TEXTFIELD_BOX_CONTROL_VALUE_ACCESSOR,
@@ -51,15 +42,15 @@ export class MdcTextfieldBottomLineDirective {
     EventRegistry,
   ]
 })
-export class MdcTextfieldBoxComponent extends MdcTextfieldComponent {
+export class MdcTextfieldBox extends MdcTextfield {
   @HostBinding('class.mdc-textfield--box') isHostClass = true;
 
   constructor(
     @Inject(Renderer2) _renderer: Renderer2,
-    @Inject(ElementRef) _root: ElementRef,
+    @Inject(ElementRef) elementRef: ElementRef,
     @Inject(EventRegistry) _registry: EventRegistry,
     private _ripple: MdcRipple) {
-    super(_renderer, _root, _registry);
+    super(_renderer, elementRef, _registry);
     this._ripple.init();
   }
 }

@@ -13,4 +13,5 @@ export class TextfieldDemo {
   isDisabled = false;
   isRequired = true;
   isDense = false;
+  isTextareaRequired: boolean = false;
 }

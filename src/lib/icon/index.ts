@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { MdcIcon } from './icon.component';
+import { MdcIcon } from './icon';
 
 @NgModule({
   exports: [MdcIcon],
@@ -8,4 +8,4 @@ import { MdcIcon } from './icon.component';
 })
 export class MdcIconModule { }
 
-export * from './icon.component';
+export * from './icon';

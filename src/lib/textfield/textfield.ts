@@ -1,8 +1,10 @@
 ﻿import {
-  AfterViewInit,
+  AfterContentInit,
   Component,
+  ContentChild,
   Directive,
   ElementRef,
+  EventEmitter,
   forwardRef,
   HostBinding,
   Input,
@@ -17,13 +19,15 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { isBrowser } from '../common';
 import { EventRegistry } from '../common/event-registry';
 
-import { MDCTextfieldAdapter } from './textfield-adapter';
-import { MdcTextfieldInputDirective } from './textfield-input.directive';
+import { MdcIcon } from '../icon/icon';
+
+import { MDCTextfieldAdapter } from './adapter';
+import { MdcTextfieldInput } from './textfield-input';
 import { MDCTextfieldFoundation } from '@material/textfield';
 
 export const MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => MdcTextfieldComponent),
+  useExisting: forwardRef(() => MdcTextfield),
   multi: true
 };
 
@@ -46,7 +50,7 @@ let nextUniqueId = 0;
 @Directive({
   selector: '[mdc-textfield-helptext]'
 })
-export class MdcTextfieldHelptextDirective {
+export class MdcTextfieldHelptext {
   @Input() id: string;
   @Input() persistent: boolean;
   @Input() validation: boolean;
@@ -65,8 +69,37 @@ export class MdcTextfieldHelptextDirective {
 @Directive({
   selector: '[mdc-textfield-label], mdc-textfield-label'
 })
-export class MdcTextfieldLabelDirective {
+export class MdcTextfieldLabel {
   @HostBinding('class.mdc-textfield__label') isHostClass = true;
+
+  constructor(public elementRef: ElementRef) { }
+}
+
+@Directive({
+  selector: '[mdc-textfield-bottom-line], mdc-textfield-bottom-line'
+})
+export class MdcTextfieldBottomLine {
+  @HostBinding('class.mdc-textfield__bottom-line') isHostClass = true;
+
+  constructor(public elementRef: ElementRef) { }
+}
+
+@Directive({
+  selector: 'mdc-icon[leading]'
+})
+export class MdcTextfieldLeadingIcon {
+  @Input() tabIndex: number = 0;
+  @HostBinding('class.mdc-textfield__icon') isHostClass = true;
+
+  constructor(public elementRef: ElementRef) { }
+}
+
+@Directive({
+  selector: 'mdc-icon[trailing]'
+})
+export class MdcTextfieldTrailingIcon {
+  @Input() tabIndex: number = 0;
+  @HostBinding('class.mdc-textfield__icon') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
 }
@@ -78,56 +111,56 @@ export class MdcTextfieldLabelDirective {
   <input mdc-textfield-input
     [type]="type"
     [id]="id"
-    [placeholder]="placeholder"
-    [tabindex]="tabindex"
+    [tabindex]="tabIndex"
     [disabled]="disabled"
+    [placeholder]="placeholder"
     [attr.maxlength]="maxlength"
     [required]="required"
     (blur)="onBlur()"
     (input)="onInput($event)"
     (focus)="onFocus()" />
-    <mdc-textfield-label [attr.for]="id">{{label}}</mdc-textfield-label>
+    <mdc-textfield-label [attr.for]="id" *ngIf="!placeholder">{{label}}</mdc-textfield-label>
+    <mdc-textfield-bottom-line></mdc-textfield-bottom-line>
   `,
-  encapsulation: ViewEncapsulation.None,
   providers: [
     MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR,
     EventRegistry,
   ],
 })
-export class MdcTextfieldComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
-  private type_ = 'text';
-  private disabled_: boolean = false;
-  private required_: boolean = false;
+export class MdcTextfield implements AfterContentInit, OnDestroy, ControlValueAccessor {
+  private _type = 'text';
+  private _disabled: boolean = false;
+  private _required: boolean = false;
   private controlValueAccessorChangeFn_: (value: any) => void = (value) => { };
   onChange = (_: any) => { };
   onTouched = () => { };
 
   @Input() id: string = `mdc-input-${nextUniqueId++}`;
-  @Input() fullwidth: boolean;
-  @Input() dense: boolean;
+  @Input() fullwidth: boolean = false;
+  @Input() dense: boolean = false;
   @Input() label: string;
   @Input() maxlength: number;
   @Input() placeholder: string = '';
-  @Input() tabindex: number;
+  @Input() tabIndex: number = 0;
   @Input()
-  get disabled() { return this.disabled_; }
+  get disabled() { return this._disabled; }
   set disabled(value: any) {
-    this.disabled_ = value != null && `${value}` !== 'false';
+    this._disabled = value != null && `${value}` !== 'false';
     this._foundation.setDisabled(value);
   }
   @Input()
-  get required() { return this.required_; }
+  get required() { return this._required; }
   set required(value: any) {
-    this.required_ = value != null && `${value}` !== 'false';
+    this._required = value != null && `${value}` !== 'false';
   }
   @Input()
-  get type(): string { return this.type_; }
+  get type(): string { return this._type; }
   set type(value: string) {
-    this.type_ = value || 'text';
+    this._type = value || 'text';
     this.validateType_();
 
     if (!this.isTextarea_()) {
-      this._renderer.setProperty(this.inputText.elementRef.nativeElement, 'type', this.type_);
+      this._renderer.setProperty(this.inputText.elementRef.nativeElement, 'type', this._type);
     }
   }
   @Input()
@@ -140,23 +173,27 @@ export class MdcTextfieldComponent implements AfterViewInit, OnDestroy, ControlV
   get valid(): boolean {
     return (this.inputText.elementRef.nativeElement as HTMLInputElement).validity.valid;
   }
+  @Output() iconAction = new EventEmitter<any>();
   @HostBinding('class.mdc-textfield') isHostClass = true;
   @HostBinding('class.mdc-textfield--dense') get classDense(): string {
     return this.dense ? 'mdc-textfield--dense' : '';
   }
   @HostBinding('class.mdc-textfield--fullwidth') get classFullwidth(): string {
+    this.placeholder = this.fullwidth ? this.label : '';
     return this.fullwidth ? 'mdc-textfield--fullwidth' : '';
   }
-  @ViewChild(MdcTextfieldInputDirective) inputText: MdcTextfieldInputDirective;
-  @ViewChild(MdcTextfieldLabelDirective) inputLabel: MdcTextfieldLabelDirective;
-  @ViewChild(MdcTextfieldHelptextDirective) inputHelpText: MdcTextfieldHelptextDirective;
+  @ViewChild(MdcTextfieldInput) inputText: MdcTextfieldInput;
+  @ViewChild(MdcTextfieldLabel) inputLabel: MdcTextfieldLabel;
+  @ViewChild(MdcTextfieldHelptext) inputHelpText: MdcTextfieldHelptext;
+  @ViewChild(MdcTextfieldBottomLine) bottomLine: MdcTextfieldBottomLine;
+  @ContentChild(MdcIcon) inputIcon: MdcIcon;
 
   private _mdcAdapter: MDCTextfieldAdapter = {
     addClass: (className: string) => {
-      this._renderer.addClass(this._root.nativeElement, className);
+      this._renderer.addClass(this.elementRoot.nativeElement, className);
     },
     removeClass: (className: string) => {
-      this._renderer.removeClass(this._root.nativeElement, className);
+      this._renderer.removeClass(this.elementRoot.nativeElement, className);
     },
     addClassToLabel: (className: string) => {
       if (this.isTextarea_()) { return; }
@@ -172,39 +209,66 @@ export class MdcTextfieldComponent implements AfterViewInit, OnDestroy, ControlV
         this._renderer.removeClass(this.inputLabel.elementRef.nativeElement, className);
       }
     },
+    setIconAttr: (name: string, value: string) => {
+      if (this.inputIcon) {
+        this._renderer.setAttribute(this.inputIcon.elementRef.nativeElement, name, value);
+      }
+    },
+    eventTargetHasClass: (target: HTMLElement, className: string) => {
+      return target.classList.contains(className);
+    },
+    registerTextFieldInteractionHandler: (evtType: string, handler: EventListener) => {
+      this._registry.listen_(this._renderer, evtType, handler, this.elementRoot);
+    },
+    deregisterTextFieldInteractionHandler: (evtType: string, handler: EventListener) => {
+      this._registry.unlisten_(evtType, handler);
+    },
+    notifyIconAction: () => {
+      this.iconAction.emit({
+        source: this
+      });
+    },
+    addClassToBottomLine: (className: string) => {
+      if (this.bottomLine) {
+        this._renderer.addClass(this.bottomLine.elementRef.nativeElement, className);
+      }
+    },
+    removeClassFromBottomLine: (className: string) => {
+      if (this.bottomLine) {
+        this._renderer.removeClass(this.bottomLine.elementRef.nativeElement, className);
+      }
+    },
     addClassToHelptext: (className: string) => {
       if (this.inputHelpText) {
-        this._renderer.addClass(this.inputHelpText, className);
+        this._renderer.addClass(this.inputHelpText.elementRef.nativeElement, className);
       }
     },
     removeClassFromHelptext: (className: string) => {
       if (this.inputHelpText) {
-        this._renderer.removeClass(this.inputHelpText, className);
+        this._renderer.removeClass(this.inputHelpText.elementRef.nativeElement, className);
       }
     },
-    registerInputFocusHandler: (handler: EventListener) => {
-      this._registry.listen_(this._renderer, 'focus', handler, this.inputText.elementRef);
+    helptextHasClass: (className: string) => {
+      return this.inputHelpText ? this.inputHelpText.elementRef.nativeElement.classList.contains(className) : false;
     },
-    deregisterInputFocusHandler: (handler: EventListener) => {
-      this._registry.unlisten_('focus', handler);
+    registerInputInteractionHandler: (evtType: string, handler: EventListener) => {
+      this._registry.listen_(this._renderer, evtType, handler, this.inputText.elementRef);
     },
-    registerInputBlurHandler: (handler: EventListener) => {
-      this._registry.listen_(this._renderer, 'blur', handler, this.inputText.elementRef);
+    deregisterInputInteractionHandler: (evtType: string, handler: EventListener) => {
+      this._registry.unlisten_(evtType, handler);
     },
-    deregisterInputBlurHandler: (handler: EventListener) => {
-      this._registry.unlisten_('blur', handler);
+    registerTransitionEndHandler: (handler: EventListener) => {
+      if (this.bottomLine) {
+        this._registry.listen_(this._renderer, 'transitionend', handler, this.bottomLine.elementRef);
+      }
     },
-    registerInputInputHandler: (handler: EventListener) => {
-      this._registry.listen_(this._renderer, 'input', handler, this.inputText.elementRef);
+    deregisterTransitionEndHandler: (handler: EventListener) => {
+      this._registry.unlisten_('transitionend', handler);
     },
-    deregisterInputInputHandler: (handler: EventListener) => {
-      this._registry.unlisten_('input', handler);
-    },
-    registerInputKeydownHandler: (handler: EventListener) => {
-      this._registry.listen_(this._renderer, 'keydown', handler, this.inputText.elementRef);
-    },
-    deregisterInputKeydownHandler: (handler: EventListener) => {
-      this._registry.unlisten_('keydown', handler);
+    setBottomLineAttr: (attr: string, value: string) => {
+      if (this.bottomLine) {
+        this._renderer.setAttribute(this.bottomLine.elementRef.nativeElement, attr, value);
+      }
     },
     setHelptextAttr: (name: string, value: string) => {
       if (this.inputHelpText) {
@@ -215,9 +279,6 @@ export class MdcTextfieldComponent implements AfterViewInit, OnDestroy, ControlV
       if (this.inputHelpText) {
         this._renderer.removeAttribute(this.inputHelpText.elementRef.nativeElement, name);
       }
-    },
-    helptextHasClass: (className: string) => {
-      return this.inputHelpText ? this.inputHelpText.elementRef.nativeElement.classList.contains(className) : false;
     },
     getNativeInput: () => {
       return {
@@ -239,11 +300,12 @@ export class MdcTextfieldComponent implements AfterViewInit, OnDestroy, ControlV
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef,
+    public elementRoot: ElementRef,
     private _registry: EventRegistry) { }
 
-  ngAfterViewInit() {
+  ngAfterContentInit() {
     this._foundation.init();
+    this.updateIconState();
   }
 
   ngOnDestroy() {
@@ -297,15 +359,31 @@ export class MdcTextfieldComponent implements AfterViewInit, OnDestroy, ControlV
     this._foundation.setValid(value ? value : this.valid);
   }
 
+  hasLeadingIcon(): boolean {
+    return this.inputIcon ? this.inputIcon.elementRef.nativeElement.hasAttribute('leading') : false;
+  }
+
+  hasTrailingIcon(): boolean {
+    return this.inputIcon ? this.inputIcon.elementRef.nativeElement.hasAttribute('trailing') : false;
+  }
+
+  updateIconState(): void {
+    if (this.hasLeadingIcon()) {
+      this._mdcAdapter.addClass('mdc-textfield--with-leading-icon');
+    } else if (this.hasTrailingIcon()) {
+      this._mdcAdapter.addClass('mdc-textfield--with-trailing-icon');
+    }
+  }
+
   private isTextarea_() {
-    let nativeElement = this._root.nativeElement;
+    let nativeElement = this.elementRoot.nativeElement;
     let nodeName = isBrowser ? nativeElement.nodeName : nativeElement.name;
     return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
   }
 
   private validateType_() {
-    if (MD_INPUT_INVALID_TYPES.indexOf(this.type_) > -1) {
-      throw Error(`Input type "${this.type_}" is not supported.`);
+    if (MD_INPUT_INVALID_TYPES.indexOf(this._type) > -1) {
+      throw Error(`Input type "${this._type}" is not supported.`);
     }
   }
 }

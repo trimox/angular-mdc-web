@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
+<div fxLayout="column" class="mdc-padding">
   <h1 mdc-typography-display1>Text Field</h1>
   <div mdc-typography-subheading2>The MDC Text Field component provides a textual input field adhering the Material Design specification.</div>
   <div class="info-banner" mdc-typography-subheading1>
@@ -15,11 +15,70 @@
         <tr>
           <td>mdc-textfield</td>
         </tr>
+      </tbody>
+      <thead>
         <tr>
-          <td>mdc-textfield-box</td>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>id: string</td>
+          <td>Unique id of the element.</td>
         </tr>
         <tr>
-          <td>mdc-textarea</td>
+          <td>type: string = 'text'</td>
+          <td>Input type of textfield (e.g. email, password, url).</td>
+        </tr>
+        <tr>
+          <td>name: string</td>
+          <td>Name of the textfield.</td>
+        </tr>
+        <tr>
+          <td>label: string</td>
+          <td>Shown to the user when there's no focus or values.</td>
+        </tr>
+        <tr>
+          <td>value: string</td>
+          <td>The input element's value.</td>
+        </tr>
+        <tr>
+          <td>dense: boolean</td>
+          <td>Shrinks the font size and height of the input.</td>
+        </tr>
+        <tr>
+          <td>fullwidth: boolean</td>
+          <td>Use to change element to fullwidth textfield. Not usable with mdc-textfield-box.</td>
+        </tr>
+        <tr>
+          <td>disabled: boolean</td>
+          <td>Disables the component.</td>
+        </tr>
+        <tr>
+          <td>required: boolean</td>
+          <td>Whether the element is required.</td>
+        </tr>
+        <tr>
+          <td>tabIndex: number</td>
+          <td>Tab index of the text element.</td>
+        </tr>
+        <tr>
+          <td>maxlength: number</td>
+          <td>Maxlength of characters allowed to be entered.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-textfield-box</td>
         </tr>
       </tbody>
       <thead>
@@ -50,14 +109,6 @@
           <td>Shrinks the font size and height of the input.</td>
         </tr>
         <tr>
-          <td>fullwidth: boolean</td>
-          <td>Use to change element to fullwidth textfield. Not usable with mdc-textfield-box.</td>
-        </tr>
-        <tr>
-          <td>multiline: boolean</td>
-          <td>Use to allow multiple lines inside the textfield. Not usable with mdc-textfield-box.</td>
-        </tr>
-        <tr>
           <td>disabled: boolean</td>
           <td>Disables the component.</td>
         </tr>
@@ -70,13 +121,34 @@
           <td>Shown to the user when there's no focus or values.</td>
         </tr>
         <tr>
-          <td>placeholder: string</td>
-          <td>Placeholder attribute of the element.</td>
-        </tr>
-        <tr>
-          <td>tabindex: number</td>
+          <td>tabIndex: number</td>
           <td>Tab index of the text element.</td>
         </tr>
+        <tr>
+          <td>maxlength: number</td>
+          <td>Maxlength of characters allowed to be entered.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-textarea</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
         <tr>
           <td>rows: number</td>
           <td>Number of rows for this textarea. Not usable with mdc-textfield-box.</td>
@@ -85,24 +157,9 @@
           <td>cols: number</td>
           <td>Number of columns for this textarea. Not usable with mdc-textfield-box.</td>
         </tr>
-        <tr>
-          <td>maxlength: number</td>
-          <td>Maxlength of characters allowed to be entered.</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Methods</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>setValid(value?: boolean)</td>
-          <td>Updates input validity using passed value, or if left empty checking the validity of the input.</td>
-        </tr>
       </tbody>
     </table>
+
     <table>
       <thead>
         <tr>
@@ -132,9 +189,68 @@
         </tr>
       </tbody>
     </table>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Leading/Trailing icons</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>leading</td>
+          <td>Add a leading icon to the textfield.
+<pre> Example: <![CDATA[<mdc-icon leading>person</mdc-icon>]]></pre></td>
+        </tr>
+        <tr>
+          <td>trailing</td>
+          <td>Add a trailing icon to the textfield.
+<pre> Example: <![CDATA[<mdc-icon trailing>person</mdc-icon>]]></pre></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Methods</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>setValid(value?: boolean)</td>
+          <td>Updates input validity using passed value, or if left empty checking the validity of the input.</td>
+        </tr>
+        <tr>
+          <td>isBadInput(): boolean</td>
+          <td>Returns input bad input validity value.</td>
+        </tr>
+        <tr>
+          <td>isDisabled(): boolean</td>
+          <td>Returns whether or not the input is disabled.</td>
+        </tr>
+        <tr>
+          <td>focus()</td>
+          <td>Sets focus to the input.</td>
+        </tr>
+        <tr>
+          <td>hasLeadingIcon(): boolean</td>
+          <td>Returns whether or not the component has a leading icon.</td>
+        </tr>
+        <tr>
+          <td>hasTrailingIcon(): boolean</td>
+          <td>Returns whether or not the component has a trailing icon.</td>
+        </tr>
+        <tr>
+          <td>updateIconState()</td>
+          <td>Update the state of class modifiers that display an icon.</td>
+        </tr>
+      </tbody>
+    </table>    
   </div>
-  <div fxLayout="column" class="mdc-padding">
-    <div fxFlexAlign="start">
+  <div fxLayout="column" class="mdc-padding" fxFlexAlign="start">
+    <div>
       <mdc-textfield [(ngModel)]="username" id="username" label="Username" [required]="isRequired" [disabled]="isDisabled" [dense]="isDense"></mdc-textfield>
       <p mdc-textfield-helptext [validation]="true" [persistent]="false">Username is required</p>
     <mdc-form-field>
@@ -177,8 +293,16 @@
   [<span style="color:#89bdff">required</span>]=<span style="color:#65b042">"true"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>></span>
 </pre></div>
 </div>
-    <span mdc-typography-headline>Text field box</span>
-    <span mdc-typography-caption>Use mdc-textfield-box</span>
+
+  <div fxLayout="column" class="mdc-padding" fxFlexAlign="start">
+    <div mdc-theme-dark>
+      <mdc-textfield fxFlexOffset="2" label="Dark Theme"></mdc-textfield>
+    </div>
+    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">mdc-theme-dark</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span> <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Dark theme"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">div</span>></span>
+</pre> </div>
+    <span mdc-typography-headline>Text Field Boxes</span>
     <div fxFlexAlign="start" class="mdc-padding">
       <mdc-textfield-box
         [required]="true"
@@ -191,47 +315,63 @@
 <span style="color:#89bdff">&lt;<span style="color:#89bdff">p</span> <span style="color:#89bdff">mdc-textfield-helptext</span>
   [<span style="color:#89bdff">validation</span>]=<span style="color:#65b042">"true"</span>></span>Name is required<span style="color:#89bdff">&lt;/<span style="color:#89bdff">p</span>></span>
 </pre>    </div>
-  <div fxLayout="column" class="mdc-padding">
-    <div fxFlexAlign="start" class="mdc-padding" mdc-theme-dark>
-      <mdc-textfield label="Dark theme"></mdc-textfield>
-    </div>
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">mdc-theme-dark</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span> <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Dark theme"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">div</span>></span>
-</pre> </div>
-  <div fxLayout="column" class="mdc-padding">
-    <span mdc-typography-headline>Multi-line</span>
-    <div fxFlexAlign="start">
-      <mdc-textarea label="Comments" rows="8" cols="40" [multiline]="true"></mdc-textarea>
-    </div>
+
+<span mdc-typography-headline>Leading icon</span>
+  <div fxLayout="column" class="mdc-padding" fxFlexAlign="start">
+<mdc-textfield-box label="Your name">
+  <mdc-icon leading>person</mdc-icon>
+</mdc-textfield-box>
+
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield-box</span> <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Your name"</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">leading</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield-box</span>></span>
+</pre>
+</div>
+
+<span mdc-typography-headline>Trailing icon</span>
+  <div fxLayout="column" class="mdc-padding" fxFlexAlign="start">
+<mdc-textfield-box label="Your name">
+  <mdc-icon trailing>person</mdc-icon>
+</mdc-textfield-box>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield-box</span> <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Your name"</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">trailing</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield-box</span>></span>
+</pre></div>
+
+  <div fxLayout="column" class="mdc-padding" fxFlexAlign="start">
+    <span mdc-typography-headline>Textarea</span>
+    <mdc-textarea label="Comments" rows="8" cols="40" [required]="isTextareaRequired"></mdc-textarea>
+    <mdc-form-field>
+      <mdc-checkbox [(ngModel)]="isTextareaRequired"></mdc-checkbox>
+      <label>Required</label>
+    </mdc-form-field>
     <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textarea</span>
  <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Comments"</span>
  <span style="color:#89bdff">rows</span>=<span style="color:#65b042">"8"</span>
  <span style="color:#89bdff">cols</span>=<span style="color:#65b042">"40"</span>
- [<span style="color:#89bdff">multiline</span>]=<span style="color:#65b042">"true"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textarea</span>></span>
+</span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textarea</span>></span>
 </pre> </div>
   <div fxLayout="column" class="mdc-padding">
     <span mdc-typography-headline>Full-width single line</span>
     <div>
-      <mdc-textfield placeholder="Subject" [fullwidth]="true"></mdc-textfield>
+      <mdc-textfield label="Subject" [fullwidth]="true"></mdc-textfield>
     </div>
+    <div fxFlexAlign="start">
     <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>
-  <span style="color:#89bdff">placeholder</span>=<span style="color:#65b042">"Subject"</span>
+  <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Subject"</span>
   [<span style="color:#89bdff">fullwidth</span>]=<span style="color:#65b042">"true"</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>></span>
-</pre>
+</pre></div>
   </div>
   <div fxLayout="column" class="mdc-padding">
-    <span mdc-typography-headline>Full-width multi-line</span>
-    <div>
-      <mdc-textarea placeholder="Type your message here" [fullwidth]="true" [multiline]="true" rows="8"></mdc-textarea>
-    </div>
+    <span mdc-typography-headline>Full-Width Textarea</span>
+    <mdc-textarea label="Type your message here" [fullwidth]="true" rows="8"></mdc-textarea>
+    <div fxFlexAlign="start">
     <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textarea</span>
-  <span style="color:#89bdff">placeholder</span>=<span style="color:#65b042">"Type your message here"</span>
+  <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Type your message here"</span>
   [<span style="color:#89bdff">fullwidth</span>]=<span style="color:#65b042">"true"</span>
-  [<span style="color:#89bdff">multiline</span>]=<span style="color:#65b042">"true"</span>
   <span style="color:#89bdff">rows</span>=<span style="color:#65b042">"8"</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textarea</span>></span>
-</pre>
+</pre></div>
   </div>
 </div>

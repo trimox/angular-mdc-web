@@ -33,7 +33,7 @@ Check out our [Getting Started guide](https://github.com/trimox/angular-mdc-web/
 Using Angular CLI? Try our [Angular CLI - step by step guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/guide-angular-cli.md).
 
 ## Material Design Components
-Using `material-components-web v0.21.1`
+`material-components-web v0.23.0`
 
 | Component  | Status  | Demo |
 | ---------- | ------- | :------: |
@@ -52,7 +52,7 @@ Using `material-components-web v0.21.1`
 | menu | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/menu-demo) |
 | radio | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/radio-demo) |
 | ripple | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/ripple-demo) |
-| select | WIP ||
+| select | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/select-demo) |
 | slider | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/slider-demo) |
 | snackbar | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/snackbar-demo) |
 | switch | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/switch-demo) |

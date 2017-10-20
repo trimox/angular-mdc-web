@@ -10,11 +10,11 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EventRegistry } from '../common/event-registry';
-import { MdcTextfieldComponent } from './textfield.component';
+import { MdcTextfield } from './textfield';
 
 export const MD_TEXTAREA_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => MdcTextareaComponent),
+  useExisting: forwardRef(() => MdcTextarea),
   multi: true
 };
 
@@ -27,7 +27,6 @@ export const MD_TEXTAREA_CONTROL_VALUE_ACCESSOR: Provider = {
     [id]="id"
     [rows]="rows"
     [cols]="cols"
-    [placeholder]="placeholder"
     [tabindex]="tabindex"
     [attr.maxlength]="maxlength"
     [disabled]="disabled"
@@ -35,26 +34,22 @@ export const MD_TEXTAREA_CONTROL_VALUE_ACCESSOR: Provider = {
     (blur)="onBlur()"
     (input)="onInput($event)"
     (focus)="onFocus()"></textarea>
-    <mdc-textfield-label [attr.for]="id" *ngIf="label">{{label}}</mdc-textfield-label>
+    <mdc-textfield-label [attr.for]="id">{{label}}</mdc-textfield-label>
   `,
   providers: [
     MD_TEXTAREA_CONTROL_VALUE_ACCESSOR,
     EventRegistry
   ],
 })
-export class MdcTextareaComponent extends MdcTextfieldComponent {
-  @Input() multiline: boolean;
+export class MdcTextarea extends MdcTextfield {
   @Input() rows: number;
   @Input() cols: number;
-
-  @HostBinding('class.mdc-textfield--multiline') get classMultiline(): string {
-    return this.multiline ? 'mdc-textfield--multiline' : '';
-  }
+  @HostBinding('class.mdc-textfield--textarea') isHostClass = true;
 
   constructor(
     @Inject(Renderer2) _renderer: Renderer2,
-    @Inject(ElementRef) _root: ElementRef,
+    @Inject(ElementRef) elementRef: ElementRef,
     @Inject(EventRegistry) _registry: EventRegistry) {
-    super(_renderer, _root, _registry);
+    super(_renderer, elementRef, _registry);
   }
 }

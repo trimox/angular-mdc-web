@@ -9,7 +9,7 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import { MdcIcon } from '../icon/icon.component';
+import { MdcIcon } from '../icon/icon';
 import { MdcRipple } from '../core/ripple/ripple.service';
 import {
   toBoolean,

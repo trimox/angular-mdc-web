@@ -1,5 +1,5 @@
 import {
-  Component,
+  Directive,
   ElementRef,
   Input,
   OnChanges,
@@ -9,9 +9,8 @@ import {
   SimpleChanges,
 } from '@angular/core';
 
-@Component({
+@Directive({
   selector: 'mdc-icon',
-  template: '<ng-content></ng-content>',
 })
 export class MdcIcon implements OnChanges, OnInit {
   private previousFontSetClass_: string;

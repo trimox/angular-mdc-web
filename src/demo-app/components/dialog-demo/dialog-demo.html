@@ -153,7 +153,7 @@
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-body</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span>
     <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-dialog-button</span> [<span style="color:#e0c589">cancel</span>]=<span style="color:#65b042">"true"</span>></span>Decline<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-dialog-button</span> [<span style="color:#e0c589">action</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#e0c589">accept</span>]=<span style="color:#65b042">"true"</span>></span>Accept<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-dialog-button</span> [<span style="color:#e0c589">accept</span>]=<span style="color:#65b042">"true"</span>></span>Accept<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span>></span>
 </pre>
@@ -202,7 +202,7 @@
 </pre>
 
 <span mdc-typography-headline>No Footer</span>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span> #<span style="color:#89bdff">dialoggmail</span> [<span style="color:#89bdff">clickOutsideToClose</span>]=<span style="color:#65b042">"false"</span>></span>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span> [<span style="color:#89bdff">clickOutsideToClose</span>]=<span style="color:#65b042">"false"</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header-title</span>></span>
       Set backup account
@@ -210,14 +210,14 @@
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-body</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span> [<span style="color:#89bdff">avatar</span>]=<span style="color:#65b042">"true"</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span> (<span style="color:#89bdff">click</span>)=<span style="color:#65b042">"closeDialogGmail();"</span>></span>
-        <span style="color:#e0c589">&lt;<span style="color:#e0c589">i</span> <span style="color:#e0c589">mdc-list-item-start</span> <span style="color:#e0c589">material-icon</span> <span style="color:#e0c589">class</span>=<span style="color:#65b042">"grey-avatar"</span>></span>person<span style="color:#e0c589">&lt;/<span style="color:#e0c589">i</span>></span>username@gmail.com
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span> (<span style="color:#89bdff">click</span>)=<span style="color:#65b042">"closeDialogGmail();"</span> <span style="color:#89bdff">mdc-surface</span>></span>
+        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>username@gmail.com
       <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span> (<span style="color:#89bdff">click</span>)=<span style="color:#65b042">"closeDialogGmail();"</span>></span>
-        <span style="color:#e0c589">&lt;<span style="color:#e0c589">i</span> <span style="color:#e0c589">mdc-list-item-start</span> <span style="color:#e0c589">material-icon</span> <span style="color:#e0c589">class</span>=<span style="color:#65b042">"grey-avatar"</span>></span>person<span style="color:#e0c589">&lt;/<span style="color:#e0c589">i</span>></span>user02@gmail.com
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span> (<span style="color:#89bdff">click</span>)=<span style="color:#65b042">"closeDialogGmail();"</span> <span style="color:#89bdff">mdc-surface</span>></span>
+        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>user02@gmail.com
       <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span> (<span style="color:#89bdff">click</span>)=<span style="color:#65b042">"closeDialogGmail();"</span>></span>
-        <span style="color:#e0c589">&lt;<span style="color:#e0c589">i</span> <span style="color:#e0c589">mdc-list-item-start</span> <span style="color:#e0c589">material-icon</span> <span style="color:#e0c589">class</span>=<span style="color:#65b042">"grey-avatar"</span>></span>add<span style="color:#e0c589">&lt;/<span style="color:#e0c589">i</span>></span>add account
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span> (<span style="color:#89bdff">click</span>)=<span style="color:#65b042">"closeDialogGmail();"</span> <span style="color:#89bdff">mdc-surface</span>></span>
+        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>add<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>add account
       <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
     <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-body</span>></span>
@@ -254,7 +254,7 @@
   </mdc-dialog-body>
   <mdc-dialog-footer>
     <button mdc-dialog-button [cancel]="true">Decline</button>
-    <button mdc-dialog-button [action]="true" [accept]="true">Accept</button>
+    <button mdc-dialog-button [accept]="true">Accept</button>
   </mdc-dialog-footer>
 </mdc-dialog>
 
@@ -304,13 +304,13 @@
   <mdc-dialog-body>
     <mdc-list [avatar]="true">
       <mdc-list-item (click)="closeDialogGmail();" mdc-surface>
-        <mdc-icon mdc-list-item-start class="grey-avatar">person</mdc-icon>username@gmail.com
+        <mdc-icon mdc-list-item-start>person</mdc-icon>username@gmail.com
       </mdc-list-item>
       <mdc-list-item (click)="closeDialogGmail();" mdc-surface>
-        <mdc-icon mdc-list-item-start class="grey-avatar">person</mdc-icon>user02@gmail.com
+        <mdc-icon mdc-list-item-start>person</mdc-icon>user02@gmail.com
       </mdc-list-item>
       <mdc-list-item (click)="closeDialogGmail();" mdc-surface>
-        <mdc-icon mdc-list-item-start class="grey-avatar">add</mdc-icon>add account
+        <mdc-icon mdc-list-item-start>add</mdc-icon>add account
       </mdc-list-item>
     </mdc-list>
   </mdc-dialog-body>

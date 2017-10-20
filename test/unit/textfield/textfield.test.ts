@@ -4,7 +4,7 @@ import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular
 import { By } from '@angular/platform-browser';
 
 import {
-  MdcTextfieldComponent,
+  MdcTextfield,
   MdcTextfieldModule
 } from '../../../src/lib/public_api';
 
@@ -24,7 +24,7 @@ describe('MdcTextfieldComponent', () => {
   describe('basic behaviors', () => {
     let textFieldDebugElement: DebugElement;
     let textFieldNativeElement: HTMLElement;
-    let textFieldInstance: MdcTextfieldComponent;
+    let textFieldInstance: MdcTextfield;
     let testComponent: SimpleTextfield;
     let inputElement: HTMLInputElement;
 
@@ -32,7 +32,7 @@ describe('MdcTextfieldComponent', () => {
       fixture = TestBed.createComponent(SimpleTextfield);
       fixture.detectChanges();
 
-      textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextfieldComponent));
+      textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextfield));
       textFieldNativeElement = textFieldDebugElement.nativeElement;
       textFieldInstance = textFieldDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
@@ -53,6 +53,11 @@ describe('MdcTextfieldComponent', () => {
       testComponent.isFullwidth = true;
       fixture.detectChanges();
       expect(textFieldDebugElement.nativeElement.classList.contains('mdc-textfield--fullwidth')).toBe(true);
+    });
+
+    it('#should not be disabled', () => {
+      fixture.detectChanges();
+      expect(textFieldInstance.isDisabled()).toBe(false);
     });
 
     it('#should remove invalid styling', () => {
@@ -91,6 +96,7 @@ describe('MdcTextfieldComponent', () => {
       [(ngModel)]="username"
       label="Username"
       [type]="myType"
+      [tabIndex]="1"
       [dense]="isDense"
       [fullwidth]="isFullwidth"
       [required]="isRequired"
@@ -102,7 +108,7 @@ describe('MdcTextfieldComponent', () => {
   `,
 })
 class SimpleTextfield {
-  username: string = '';
+  username: string = 'Test';
   myType: string = 'text';
   isDisabled: boolean = false;
   isDense: boolean = false;

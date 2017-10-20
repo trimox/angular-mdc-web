@@ -4,8 +4,8 @@ import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular
 import { By } from '@angular/platform-browser';
 
 import {
-  MdcTextfieldBoxComponent,
-  MdcTextfieldInputDirective,
+  MdcTextfieldBox,
+  MdcTextfieldInput,
   MdcTextfieldModule
 } from '../../../src/lib/public_api';
 
@@ -25,7 +25,7 @@ describe('MdcTextfieldBoxComponent', () => {
   describe('basic behaviors', () => {
     let textFieldDebugElement: DebugElement;
     let textFieldNativeElement: HTMLElement;
-    let textFieldInstance: MdcTextfieldBoxComponent;
+    let textFieldInstance: MdcTextfieldBox;
     let testComponent: SimpleTextfield;
     let inputElement: HTMLInputElement;
 
@@ -33,7 +33,7 @@ describe('MdcTextfieldBoxComponent', () => {
       fixture = TestBed.createComponent(SimpleTextfield);
       fixture.detectChanges();
 
-      textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextfieldBoxComponent));
+      textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextfieldBox));
       textFieldNativeElement = textFieldDebugElement.nativeElement;
       textFieldInstance = textFieldDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
@@ -62,10 +62,12 @@ describe('MdcTextfieldBoxComponent', () => {
       label="Username"
       [required]="isRequired"
       [disabled]="isDisabled">
+      <mdc-icon leading>person</mdc-icon>
+      <mdc-icon trailing>person</mdc-icon>
     </mdc-textfield-box>
     <p mdc-textfield-helptext
       [validation]="true"
-      [persistent]="false">Username is required</p>
+      [persistent]="true">Username is required</p>
   `,
 })
 class SimpleTextfield {

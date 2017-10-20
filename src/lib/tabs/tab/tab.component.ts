@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { toBoolean } from '../../common';
 import { EventRegistry } from '../../common/event-registry';
-import { MdcIcon } from '../../icon/icon.component';
+import { MdcIcon } from '../../icon/icon';
 import { MdcRipple } from '../../core/ripple/ripple.service';
 
 import { MDCTabAdapter } from './tab-adapter';

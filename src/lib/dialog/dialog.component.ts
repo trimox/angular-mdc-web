@@ -89,10 +89,10 @@ export class MdcDialogBackdropDirective {
   providers: [MdcRipple]
 })
 export class MdcDialogButtonDirective extends MdcButton {
-  @Input() accept: boolean;
-  @Input() cancel: boolean;
-  @Input() action: boolean;
-  @Input() focused: boolean;
+  @Input() accept: boolean = false;
+  @Input() cancel: boolean = false;
+  @Input() action: boolean = false;
+  @Input() focused: boolean = false;
 
   @HostBinding('class.mdc-dialog__footer__button') get isFooterButton(): string {
     return this.renderer.parentNode(this.elementRef) === MdcDialogFooterDirective ? 'mdc-dialog__footer__button' : '';

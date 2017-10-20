@@ -1,12 +1,9 @@
 import {
-  AfterContentInit,
-  ContentChildren,
   Directive,
   ElementRef,
   HostBinding,
   Inject,
   Input,
-  QueryList,
   Renderer2,
 } from '@angular/core';
 import { toBoolean } from '../common';
@@ -101,26 +98,17 @@ export class MdcCardActionButton extends MdcButton {
     @Inject(ElementRef) elementRef: ElementRef,
     @Inject(MdcRipple) ripple: MdcRipple) {
     super(renderer, elementRef, ripple);
+    this.compact = true;
   }
 }
 
 @Directive({
   selector: 'mdc-card',
 })
-export class MdcCard implements AfterContentInit {
+export class MdcCard {
   @HostBinding('class.mdc-card') isHostClass = true;
-  @ContentChildren(MdcCardActionButton, { descendants: true }) cardButtons: QueryList<MdcCardActionButton>;
 
   constructor(
     private renderer_: Renderer2,
     public elementRef: ElementRef) { }
-
-  ngAfterContentInit() {
-    this.cardButtons.forEach((_) => {
-      Promise.resolve(_).then(() => {
-        this.renderer_.addClass(_.elementRef.nativeElement, 'mdc-card__action');
-        _.compact = true;
-      });
-    });
-  }
 }

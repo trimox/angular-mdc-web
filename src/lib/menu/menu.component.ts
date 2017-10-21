@@ -14,7 +14,6 @@ import {
   Renderer2,
   SimpleChange,
   ViewChild,
-  ViewEncapsulation
 } from '@angular/core';
 import { isBrowser } from '../common';
 import { EventRegistry } from '../common/event-registry';
@@ -41,7 +40,7 @@ export class MdcMenuAnchorDirective {
 @Component({
   selector: 'mdc-menu-divider',
   template:
-  `<div #divider class="mdc-list-divider" role="seperator"></div>`,
+  `<div class="mdc-list-divider" role="seperator"></div>`,
 })
 export class MdcMenuDividerComponent { }
 
@@ -53,11 +52,10 @@ export class MdcMenuDividerComponent { }
    <ng-content select="mdc-menu-item, mdc-menu-divider"></ng-content>
   </ul>
   `,
-  encapsulation: ViewEncapsulation.None,
   providers: [EventRegistry],
 })
 export class MdcMenuComponent implements AfterViewInit, OnChanges, OnDestroy {
-  private previousFocus_: any;
+  private _previousFocus: any;
 
   @Input() openFrom: string;
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
@@ -69,29 +67,30 @@ export class MdcMenuComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   private _mdcAdapter: MDCMenuAdapter = {
     addClass: (className: string) => {
-      this._renderer.addClass(this._root.nativeElement, className);
+      this._renderer.addClass(this.elementRef.nativeElement, className);
     },
     removeClass: (className: string) => {
-      this._renderer.removeClass(this._root.nativeElement, className);
+      this._renderer.removeClass(this.elementRef.nativeElement, className);
     },
     getAttributeForEventTarget: (target: any, attributeName) => {
       return target.getAttribute(attributeName);
     },
     hasClass: (className: string) => {
-      return this._root.nativeElement.classList.contains(className);
+      return this.elementRef.nativeElement.classList.contains(className);
     },
     hasNecessaryDom: () => !!this.menuContainerEl,
     getInnerDimensions: () => {
       return {
-        width: this._root.nativeElement.offsetWidth,
-        height: this._root.nativeElement.offsetHeight
+        width: this.elementRef.nativeElement.offsetWidth,
+        height: this.elementRef.nativeElement.offsetHeight
       };
     },
     hasAnchor: () => {
-      return this._renderer.parentNode(this._root.nativeElement) && this._renderer.parentNode(this._root.nativeElement).classList.contains('mdc-menu-anchor');
+      return this._renderer.parentNode(this.elementRef.nativeElement)
+        && this._renderer.parentNode(this.elementRef.nativeElement).classList.contains('mdc-menu-anchor');
     },
     getAnchorDimensions: () => {
-      return this._renderer.parentNode(this._root.nativeElement).getBoundingClientRect();
+      return this._renderer.parentNode(this.elementRef.nativeElement).getBoundingClientRect();
     },
     getWindowDimensions: () => {
       return {
@@ -101,7 +100,7 @@ export class MdcMenuComponent implements AfterViewInit, OnChanges, OnDestroy {
     },
     setScale: (x: number, y: number) => {
       if (isBrowser()) {
-        this._renderer.setStyle(this._root.nativeElement, getTransformPropertyName(window), `scale(${x}, ${y})`);
+        this._renderer.setStyle(this.elementRef.nativeElement, getTransformPropertyName(window), `scale(${x}, ${y})`);
       }
     },
     setInnerScale: (x: number, y: number) => {
@@ -113,17 +112,13 @@ export class MdcMenuComponent implements AfterViewInit, OnChanges, OnDestroy {
       return this.menuItems ? this.menuItems.length : 0;
     },
     registerInteractionHandler: (type: string, handler: EventListener) => {
-      if (this._root) {
-        this._registry.listen_(this._renderer, type, handler, this._root);
-      }
+      this._registry.listen_(this._renderer, type, handler, this.elementRef);
     },
     deregisterInteractionHandler: (type: string, handler: EventListener) => {
       this._registry.unlisten_(type, handler);
     },
     registerBodyClickHandler: (handler: EventListener) => {
-      if (this._root) {
-        this._registry.listen_(this._renderer, 'click', handler, 'body');
-      }
+      this._registry.listen_(this._renderer, 'click', handler, 'body');
     },
     deregisterBodyClickHandler: (handler: EventListener) => {
       this._registry.unlisten_('click', handler);
@@ -149,30 +144,30 @@ export class MdcMenuComponent implements AfterViewInit, OnChanges, OnDestroy {
     },
     saveFocus: () => {
       if (isBrowser()) {
-        this.previousFocus_ = document.activeElement;
+        this._previousFocus = document.activeElement;
       }
     },
     restoreFocus: () => {
-      if (this.previousFocus_) {
-        this.previousFocus_.focus();
+      if (this._previousFocus) {
+        this._previousFocus.focus();
       }
     },
     isFocused: () => {
-      return this._root.nativeElement.ownerDocument.activeElement === this._root.nativeElement;
+      return this.elementRef.nativeElement.ownerDocument.activeElement === this.elementRef.nativeElement;
     },
     focus: () => {
-      this._root.nativeElement.focus();
+      this.elementRef.nativeElement.focus();
     },
     getFocusedItemIndex: () => {
       return this.menuItems.length ? this.menuItems.toArray().findIndex(_ =>
-        _.itemEl.nativeElement === this._root.nativeElement.ownerDocument.activeElement) : -1;
+        _.itemEl.nativeElement === this.elementRef.nativeElement.ownerDocument.activeElement) : -1;
     },
     focusItemAtIndex: (index: number) => {
       if (this.menuItems.toArray()[index] !== undefined) {
         this.menuItems.toArray()[index].itemEl.nativeElement.focus();
       } else {
         // set focus back to root element when index is undefined
-        this._root.nativeElement.focus();
+        this.elementRef.nativeElement.focus();
       }
     },
     isRtl: () => { /* TODO */
@@ -180,11 +175,11 @@ export class MdcMenuComponent implements AfterViewInit, OnChanges, OnDestroy {
     },
     setTransformOrigin: (origin: string) => {
       if (isBrowser()) {
-        this._renderer.setStyle(this._root.nativeElement, `${getTransformPropertyName(window)}-origin`, origin);
+        this._renderer.setStyle(this.elementRef.nativeElement, `${getTransformPropertyName(window)}-origin`, origin);
       }
     },
     setPosition: (position) => {
-      const { _renderer: renderer, _root: root } = this;
+      const { _renderer: renderer, elementRef: root } = this;
       position.left ? renderer.setStyle(root.nativeElement, 'left', 0) : renderer.removeStyle(root.nativeElement, 'left');
       position.right ? renderer.setStyle(root.nativeElement, 'right', 0) : renderer.removeStyle(root.nativeElement, 'right');
       position.top ? renderer.setStyle(root.nativeElement, 'top', 0) : renderer.removeStyle(root.nativeElement, 'top');
@@ -205,7 +200,7 @@ export class MdcMenuComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef,
+    public elementRef: ElementRef,
     private _registry: EventRegistry) { }
 
   ngAfterViewInit() {

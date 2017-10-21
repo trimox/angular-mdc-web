@@ -102,6 +102,5 @@ class SimpleTest {
     this.selectedIndex = event.index;
   }
 
-  handleCancel(event) {
-  }
+  handleCancel(event) { }
 }

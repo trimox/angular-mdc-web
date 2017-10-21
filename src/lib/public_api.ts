@@ -14,6 +14,7 @@ export * from './linear-progress/index';
 export * from './list/index';
 export * from './menu/index';
 export * from './radio/index';
+export * from './select/index';
 export * from './slider/index';
 export * from './snackbar/index';
 export * from './switch/index';

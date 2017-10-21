@@ -92,12 +92,12 @@
       <label>Multiline</label>
     </mdc-form-field>
     <mdc-form-field>
-      <mdc-checkbox [(ngModel)]="alignStart"></mdc-checkbox>
-      <label>Start align (mobile only)</label>
-    </mdc-form-field>
-    <mdc-form-field>
       <mdc-checkbox [(ngModel)]="actionOnBottom" [disabled]="!multiline"></mdc-checkbox>
       <label>Action on Bottom (requires multiline)</label>
+    </mdc-form-field>
+    <mdc-form-field>
+      <mdc-checkbox [(ngModel)]="alignStart"></mdc-checkbox>
+      <label>Start align (desktop only)</label>
     </mdc-form-field>
     <mdc-form-field>
       <mdc-checkbox [(ngModel)]="dismissOnAction"></mdc-checkbox>

@@ -31,6 +31,7 @@ import { TypographyDemo } from './components/core/typography-demo/typography-dem
 import { TabDemo, ItemOneContent, ItemTwoContent, ItemThreeContent } from './components/tab-demo/tab-demo';
 import { RippleDemo } from './components/core/ripple-demo/ripple-demo';
 import { SurfaceDemo } from './components/core/surface-demo/surface-demo';
+import { SelectDemo } from './components/inputs-controls/select-demo/select-demo';
 
 import { Home } from './home/home';
 import { AppToolbar } from './navigation/app-toolbar';
@@ -68,6 +69,7 @@ import { demoAppRoutes } from './routes';
     FabDemo,
     IconDemo,
     IconToggleDemo,
+    SelectDemo,
     LinearProgressDemo,
     ListDemo,
     MenuDemo,

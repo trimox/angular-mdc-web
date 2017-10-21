@@ -1,14 +1,30 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import {
-  SelectComponent,
-  SelectedText,
+  MdcSelect,
+  MdcSelectedText,
+  MdcSelectItem,
+  MdcSelectItems,
+  MdcSelectLabel,
+  MdcSelectMenu,
 } from './select.component';
 
+export const SELECT_COMPONENTS = [
+  MdcSelect,
+  MdcSelectedText,
+  MdcSelectItem,
+  MdcSelectItems,
+  MdcSelectLabel,
+  MdcSelectMenu,
+];
+
 @NgModule({
-  exports: [SelectComponent],
-  declarations: [SelectComponent],
+  imports: [FormsModule, CommonModule],
+  exports: [SELECT_COMPONENTS],
+  declarations: [SELECT_COMPONENTS],
 })
-export class SelectModule { }
+export class MdcSelectModule { }
 
 export * from './select.component';

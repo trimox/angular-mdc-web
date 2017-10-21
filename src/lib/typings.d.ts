@@ -9,6 +9,7 @@ declare module '@material/checkbox';
 declare module '@material/linear-progress';
 declare module '@material/menu/util';
 declare module '@material/menu/simple';
+declare module '@material/select';
 declare module '@material/slider';
 declare module '@material/snackbar';
 declare module '@material/tabs';

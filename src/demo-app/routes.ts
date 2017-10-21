@@ -23,6 +23,7 @@ import { TabDemo, ItemOneContent, ItemTwoContent, ItemThreeContent } from './com
 import { RippleDemo } from './components/core/ripple-demo/ripple-demo';
 import { SurfaceDemo } from './components/core/surface-demo/surface-demo';
 import { IconDemo } from './components/icon-demo/icon-demo';
+import { SelectDemo } from './components/inputs-controls/select-demo/select-demo';
 import { TABS_DEMO_ROUTES } from './components/tab-demo/routes';
 
 import { Buttons } from './components/buttons/buttons';
@@ -46,6 +47,7 @@ export const demoAppRoutes: Routes = [
   { path: 'linear-progress-demo', component: LinearProgressDemo },
   { path: 'typography-demo', component: TypographyDemo },
   { path: 'slider-demo', component: SliderDemo },
+  { path: 'select-demo', component: SelectDemo },
   { path: 'radio-demo', component: RadioDemo },
   { path: 'card-demo', component: CardDemo },
   { path: 'elevation-demo', component: ElevationDemo },

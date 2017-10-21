@@ -20,6 +20,7 @@ import {
   MdcTabModule,
   MdcTextfieldModule,
   MdcToolbarModule,
+  MdcSelectModule,
 // } from '@angular-mdc/web';
 } from '../lib/public_api';
 
@@ -45,6 +46,7 @@ import {
     MdcTabModule,
     MdcTextfieldModule,
     MdcToolbarModule,
+    MdcSelectModule,
   ]
 })
 export class DemoMaterialModule { }

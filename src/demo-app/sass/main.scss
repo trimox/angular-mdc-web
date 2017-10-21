@@ -38,6 +38,15 @@ body {
   padding: 7px !important;
 }
 
+.demo-select-container {
+  .mdc-select {
+    width: 200px;
+  }
+  .mdc-simple-menu {
+    width: 224px;
+  }
+}
+
 .container {
   position: relative;
   box-sizing: border-box;

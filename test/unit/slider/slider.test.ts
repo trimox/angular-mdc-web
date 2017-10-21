@@ -62,6 +62,8 @@ describe('MdcSliderComponent', () => {
       sliderInstance.setStep(2);
       fixture.detectChanges();
       expect(sliderInstance.getStep()).toBe(2);
+      expect(sliderInstance.step).toBe(2);
+      expect(sliderInstance.value).toBe(10);
     });
 
     it('#should set min to 10', () => {

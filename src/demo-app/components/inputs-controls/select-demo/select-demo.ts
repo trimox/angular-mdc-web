@@ -8,6 +8,7 @@ export class SelectDemo {
   isDisabled: boolean = false;
   selectedValue: string;
   closeOnScroll: boolean = true;
+  isDarkTheme: boolean = false;
 
   foods = [
     { value: 'steak-0', description: 'Steak' },

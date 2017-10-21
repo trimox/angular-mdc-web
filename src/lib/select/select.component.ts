@@ -116,7 +116,7 @@ export class MdcSelectItem {
   template:
   `
   <mdc-select-label *ngIf="!value">{{label}}</mdc-select-label>
-  <mdc-selected-text>{{_selectedText}}</mdc-selected-text>
+  <mdc-selected-text>{{selectedText}}</mdc-selected-text>
   <mdc-select-menu>
     <mdc-select-items>
       <ng-content></ng-content>
@@ -132,11 +132,11 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnDestroy
   private _open: boolean = false;
   private _label: string = '';
   private _value: string = '';
-  private _selectedText: string = '';
   private _uniqueId: string = `mdc-select-${++nextUniqueId}`;
   private _menuFactory: any;
   private _controlValueAccessorChangeFn: (value: any) => void = () => { };
   onTouched: () => any = () => { };
+  selectedText: string = '';
 
   @Input() id: string = this._uniqueId;
   @Input() name: string | null = null;
@@ -217,7 +217,7 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnDestroy
     },
     isMenuOpen: () => this._menuFactory.open,
     setSelectedTextContent: (textContent: string) => {
-      this._selectedText = textContent;
+      this.selectedText = textContent;
     },
     getNumberOfOptions: () => {
       return this.options ? this.options.length : 0;

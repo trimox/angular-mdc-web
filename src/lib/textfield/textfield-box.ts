@@ -25,7 +25,7 @@ export const MD_TEXTFIELD_BOX_CONTROL_VALUE_ACCESSOR: Provider = {
   <input mdc-textfield-input
     [type]="type"
     [id]="id"
-    [tabindex]="tabindex"
+    [tabindex]="tabIndex"
     [attr.maxlength]="maxlength"
     [disabled]="disabled"
     [required]="required"

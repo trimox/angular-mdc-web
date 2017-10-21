@@ -9,7 +9,6 @@ import {
   OnDestroy,
   Output,
   Renderer2,
-  ViewEncapsulation
 } from '@angular/core';
 import { isBrowser } from '../common';
 import { EventRegistry } from '../common/event-registry';
@@ -23,7 +22,6 @@ import { MDCToolbarFoundation } from '@material/toolbar';
 @Component({
   selector: 'mdc-toolbar',
   template: '<ng-content></ng-content>',
-  encapsulation: ViewEncapsulation.None,
   providers: [EventRegistry],
 })
 export class MdcToolbarComponent implements AfterViewInit, OnDestroy {
@@ -32,6 +30,7 @@ export class MdcToolbarComponent implements AfterViewInit, OnDestroy {
   @Input() fixed: boolean = false;
   @Input() waterfall: boolean = false;
   @Input() fixedLastrow: boolean = false;
+  @Input() adjustBodyMargin: boolean = true;
   @Output() change: EventEmitter<number> = new EventEmitter<number>();
   @ContentChild(MdcToolbarRowDirective) mdcFirstRow: MdcToolbarRowDirective;
   @ContentChild(MdcToolbarTitleDirective) mdcTitle: MdcToolbarTitleDirective;
@@ -54,13 +53,13 @@ export class MdcToolbarComponent implements AfterViewInit, OnDestroy {
 
   private _mdcAdapter: MDCToolbarAdapter = {
     hasClass: (className: string) => {
-      return this._root.nativeElement.classList.contains(className);
+      return this.elementRef.nativeElement.classList.contains(className);
     },
     addClass: (className: string) => {
-      this._renderer.addClass(this._root.nativeElement, className);
+      this._renderer.addClass(this.elementRef.nativeElement, className);
     },
     removeClass: (className: string) => {
-      this._renderer.removeClass(this._root.nativeElement, className);
+      this._renderer.removeClass(this.elementRef.nativeElement, className);
     },
     registerScrollHandler: (handler: EventListener) => {
       if (isBrowser()) {
@@ -88,7 +87,7 @@ export class MdcToolbarComponent implements AfterViewInit, OnDestroy {
     getViewportScrollY: () => {
       return isBrowser() ? window.pageYOffset : 0;
     },
-    getOffsetHeight: () => this._root.nativeElement.offsetHeight,
+    getOffsetHeight: () => this.elementRef.nativeElement.offsetHeight,
     getFirstRowElementOffsetHeight: () => {
       return this.mdcFirstRow ? this.mdcFirstRow.elementRef.nativeElement.offsetHeight : 0;
     },
@@ -96,7 +95,7 @@ export class MdcToolbarComponent implements AfterViewInit, OnDestroy {
       this.change.emit(evtData.flexibleExpansionRatio);
     },
     setStyle: (property: string, value: string) => {
-      this._renderer.setStyle(this._root.nativeElement, property, value);
+      this._renderer.setStyle(this.elementRef.nativeElement, property, value);
     },
     setStyleForTitleElement: (property: string, value: string) => {
       if (this.mdcTitle) {
@@ -109,7 +108,8 @@ export class MdcToolbarComponent implements AfterViewInit, OnDestroy {
       }
     },
     setStyleForFixedAdjustElement: (property: string, value: string) => {
-      if (isBrowser() && this.fixed) {
+      if (!isBrowser()) { return; }
+      if (this.fixed && this.adjustBodyMargin) {
         this._renderer.setStyle(document.body, property, value);
       }
     }
@@ -123,7 +123,7 @@ export class MdcToolbarComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef,
+    public elementRef: ElementRef,
     private _registry: EventRegistry) { }
 
   ngAfterViewInit() {
@@ -131,7 +131,7 @@ export class MdcToolbarComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (isBrowser() && this.fixed) {
+    if (isBrowser() && this.fixed && this.adjustBodyMargin) {
       this._renderer.removeStyle(document.body, 'margin-top');
     }
     this._foundation.destroy();

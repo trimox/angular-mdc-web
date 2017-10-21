@@ -88,11 +88,12 @@ describe('MdcToolbarComponent', () => {
       [fixed]="isFixed"
       [waterfall]="isWaterfall"
       [fixedLastrow]="isFixedLastRow"
+      [adjustBodyMargin]="isAdjustBodyMargin"
       (change)="handleToolbarChange($event);">
       <mdc-toolbar-row>
         <mdc-toolbar-section [alignStart]="true">
           <a href="#" mdc-toolbar-menu-icon material-icon>menu</a>
-          <mdc-toolbar-title>App Title</mdc-toolbar-title>
+          <mdc-toolbar-title>Title</mdc-toolbar-title>
         </mdc-toolbar-section>
       </mdc-toolbar-row>
       <mdc-toolbar-row>
@@ -111,6 +112,7 @@ class SimpleTest {
   isFlexible = false;
   isWaterfall = false;
   isFixedLastRow = false;
+  isAdjustBodyMargin = true;
 
   handleToolbarChange(evt: number) {
     // change event

@@ -24,24 +24,28 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>@Input() fixed: boolean</td>
+                    <td>fixed: boolean</td>
                     <td>Makes toolbar fixed on top and have persistent elevation.</td>
                 </tr>
                 <tr>
-                    <td>@Input() waterfall: boolean</td>
+                    <td>waterfall: boolean</td>
                     <td>Removes fixed toolbar persistent elevation while gaining elevation scrolling down the page.</td>
                 </tr>
                 <tr>
-                    <td>@Input() flexible: boolean</td>
+                    <td>flexible: boolean</td>
                     <td>Apply flexible space to toolbar's first row.</td>
                 </tr>
                 <tr>
-                    <td>@Input() flexibleDefaultBehavior: boolean</td>
+                    <td>flexibleDefaultBehavior: boolean</td>
                     <td>Toolbar text has flexible movement.</td>
                 </tr>
                 <tr>
-                    <td>@Input() fixedLastrow: boolean</td>
+                    <td>fixedLastrow: boolean</td>
                     <td>Makes only last row of fixed toolbar anchored on top.</td>
+                </tr>
+                <tr>
+                  <td>adjustBodyMargin: boolean</td>
+                  <td>If true and using a fixed toolbar, a margin-top is set to prevent toolbar overlaying content. (Default is true)</td>
                 </tr>
             </tbody>
             <thead>
@@ -52,9 +56,8 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>@Output() change</td>
-                    <td><pre><![CDATA[{flexibleExpansionRatio: number}
-Emits the ratio of current flexible space to total flexible space height.
+                    <td>change(flexibleExpansionRatio: number)</td>
+                    <td><pre><![CDATA[Emits the ratio of current flexible space to total flexible space height.
 So when it is minimized, ratio equals to 0 and when it is maximized, ratio equals to 1.]]></pre></td>
                 </tr>
             </tbody>
@@ -78,15 +81,15 @@ So when it is minimized, ratio equals to 0 and when it is maximized, ratio equal
                 </tr>
             </thead>
             <tr>
-                <td>@Input() alignStart: boolean</td>
+                <td>alignStart: boolean</td>
                 <td>Makes section aligns to the start.</td>
             </tr>
             <tr>
-                <td>@Input() alignEnd: boolean</td>
+                <td>alignEnd: boolean</td>
                 <td>Makes section aligns to the end.</td>
             </tr>
             <tr>
-                <td>@Input() shrinkToFit: boolean</td>
+                <td>shrinkToFit: boolean</td>
                 <td>Makes section takes the width of its content.</td>
             </tr>
             </tbody>

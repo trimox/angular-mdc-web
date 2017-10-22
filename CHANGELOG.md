@@ -1,4 +1,32 @@
 <a name="0.0.0"></a>
+# [0.5.4](https://github.com/trimox/angular-mdc-web/compare/v0.5.3...v0.5.4) (2017-10-21)
+
+
+### Bug Fixes
+
+* **card:** Conditional card expression changed error ([#294](https://github.com/trimox/angular-mdc-web/issues/294)) ([576964c](https://github.com/trimox/angular-mdc-web/commit/576964c)), closes [#293](https://github.com/trimox/angular-mdc-web/issues/293)
+* **tabs:** Correct `mdc-tab-bar-scroller` class binding ([#283](https://github.com/trimox/angular-mdc-web/issues/283)) ([626d216](https://github.com/trimox/angular-mdc-web/commit/626d216))
+* **textfield:** Use tabIndex instead of tabindex ([#301](https://github.com/trimox/angular-mdc-web/issues/301)) ([a49c68f](https://github.com/trimox/angular-mdc-web/commit/a49c68f))
+* **toolbar:** Remove fixed toolbar's `margin-top` OnDestroy ([#292](https://github.com/trimox/angular-mdc-web/issues/292)) ([2e618fa](https://github.com/trimox/angular-mdc-web/commit/2e618fa)), closes [#267](https://github.com/trimox/angular-mdc-web/issues/267)
+
+
+### Features
+
+* **select:** Implement MDC Select ([#278](https://github.com/trimox/angular-mdc-web/issues/278)) ([ada36aa](https://github.com/trimox/angular-mdc-web/commit/ada36aa)), closes [#65](https://github.com/trimox/angular-mdc-web/issues/65)
+* **textfield:** Updated UX states for Text Field ([#285](https://github.com/trimox/angular-mdc-web/issues/285)) ([cbe1953](https://github.com/trimox/angular-mdc-web/commit/cbe1953)), closes [#236](https://github.com/trimox/angular-mdc-web/issues/236) [#297](https://github.com/trimox/angular-mdc-web/issues/297)
+* **toolbar:** Add `adjustBodyMargin` property ([#300](https://github.com/trimox/angular-mdc-web/issues/300)) ([04bcb77](https://github.com/trimox/angular-mdc-web/commit/04bcb77)), closes [#298](https://github.com/trimox/angular-mdc-web/issues/298)
+* **toolbar:** Rename Toolbar menu icon directive ([#289](https://github.com/trimox/angular-mdc-web/issues/289)) ([fa169be](https://github.com/trimox/angular-mdc-web/commit/fa169be)), closes [#288](https://github.com/trimox/angular-mdc-web/issues/288)
+* **icon:** Add array support to `fontIcon` property ([#290](https://github.com/trimox/angular-mdc-web/issues/290)) ([00588b7](https://github.com/trimox/angular-mdc-web/commit/00588b7)), closes [#280](https://github.com/trimox/angular-mdc-web/issues/280)
+
+
+### BREAKING CHANGES
+
+* **textfield:** Remove `multiline` property from `mdc-textarea`.
+* **toolbar:** Renamed `mdc-toolbar-icon-menu` to `mdc-toolbar-menu-icon` per MDC. Please update your code accordingly.
+
+
+
+<a name="0.0.0"></a>
 # [0.5.3](https://github.com/trimox/angular-mdc-web/compare/v0.5.1...v0.5.3) (2017-10-13)
 
 

@@ -37,22 +37,28 @@ $mdc-theme-secondary: #388e3c; // change secondary color example
 @import "~@angular-mdc/theme/material";
 ```
 
-## <a name="step4"></a> Step 4: Import Angular MDC
-In `src/app/app.module.ts` add the following:
+## <a name="step4"></a> Step 4: Import Components
+In `src/app/app.module.ts` add an import of `MdcCoreModule` to provide ripple, typography, and elevation functionality. Now just import the NgModule for each component you want to use.
 ```ts
-import { MaterialModule } from '@angular-mdc/web';
-```
+import {
+  MdcCoreModule, // required
+  MdcButtonModule,
+  MdcFabModule,
+  MdcMenuModule
+} from '@angular-mdc/web';
 
-Import the `MaterialModule` into your app module:
-```ts
 @NgModule({
   ...
   imports: [
-    ...
-    MaterialModule
-   ],
+   MdcCoreModule, // required
+   MdcButtonModule,
+   MdcFabModule,
+   MdcMenuModule,
+   ...
+],
   ...
 })
+export class ExampleModule { }
 ```
 
 Open `app.component.html` and add the following markup:

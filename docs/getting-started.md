@@ -15,19 +15,7 @@ npm i @angular-mdc/web
 ```
 
 ## <a name="step2"></a> Step 2: Import Components
-### All components
-```ts
-import { MaterialModule } from '@angular-mdc/web';
-
-@NgModule({
-  ...
-  imports: [MaterialModule],
-  ...
-})
-export class ExampleModule { }
-```
-
-### Or individual components
+Add an import of `MdcCoreModule` to provide ripple, typography, and elevation functionality. Now just import the NgModule for each component you want to use.
 ```ts
 import {
   MdcCoreModule, // required

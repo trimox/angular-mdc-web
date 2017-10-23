@@ -1,5 +1,3 @@
-@import "../material-components-web/button/mdc-button";
-
 .mdc-button--primary {
   @include mdc-button-filled-accessible($mdc-theme-primary);
 

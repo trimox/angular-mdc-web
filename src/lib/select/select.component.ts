@@ -285,7 +285,6 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnChanges
       }
     }
     this._foundation.destroy();
-    this._registry.unlisten_('scroll', () => { this._menuFactory.hide(); });
   }
 
   ngOnChanges(changes: { [key: string]: SimpleChange }) {

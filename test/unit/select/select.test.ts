@@ -93,7 +93,7 @@ class SimpleTest {
   myLabel: string = 'Favorite food';
   isDisabled: boolean = true;
   selectedValue: string;
-  closeOnScroll: boolean = false;
+  closeOnScroll: boolean = true;
 
   foods = [
     { value: 'steak-0', description: 'Steak' },

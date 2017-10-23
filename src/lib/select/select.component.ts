@@ -7,20 +7,23 @@ import {
   EventEmitter,
   forwardRef,
   HostBinding,
-  HostListener,
   Input,
+  OnChanges,
   OnDestroy,
   Output,
   Provider,
   QueryList,
   Renderer2,
+  SimpleChange,
   ViewChild,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { ISubscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent';
+
 import { toBoolean, isBrowser } from '../common';
 import { EventRegistry } from '../common/event-registry';
-import { Subscription } from 'rxjs';
-
 import { MDCSimpleMenu } from '@material/menu/simple';
 
 import { MDCSelectAdapter } from './adapter';
@@ -48,9 +51,8 @@ export class MdcSelectLabel {
   constructor(public elementRef: ElementRef) { }
 }
 
-@Component({
-  selector: 'mdc-selected-text',
-  template: '<ng-content></ng-content>'
+@Directive({
+  selector: 'mdc-selected-text'
 })
 export class MdcSelectedText {
   @HostBinding('class.mdc-select__selected-text') isHostClass = true;
@@ -128,7 +130,9 @@ export class MdcSelectItem {
     EventRegistry,
   ],
 })
-export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnDestroy {
+export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnChanges, OnDestroy {
+  private _itemsSubscription: ISubscription;
+  private _scrollStream: ISubscription;
   private _open: boolean = false;
   private _label: string = '';
   private _value: string = '';
@@ -159,12 +163,6 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnDestroy
   @ViewChild(MdcSelectMenu) selectMenu: MdcSelectMenu;
   @ViewChild(MdcSelectItems) selectItems: MdcSelectItems;
   @ContentChildren(MdcSelectItem) options: QueryList<MdcSelectItem>;
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll(event: Event) {
-    if (this._mdcAdapter.isMenuOpen() && this.closeOnScroll) {
-      this._menuFactory.hide();
-    }
-  }
 
   private _mdcAdapter: MDCSelectAdapter = {
     addClass: (className: string) => {
@@ -270,7 +268,7 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnDestroy
     private _registry: EventRegistry) { }
 
   ngAfterViewInit() {
-    this.options.changes.subscribe(_ => {
+    this._itemsSubscription = this.options.changes.subscribe(_ => {
       this._foundation.resize();
     });
     this._foundation.init();
@@ -278,7 +276,35 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnDestroy
   }
 
   ngOnDestroy() {
+    if (this._itemsSubscription) {
+      this._itemsSubscription.unsubscribe();
+    }
+    if (this._scrollStream) {
+      if (!this._scrollStream.closed) {
+        this._scrollStream.unsubscribe();
+      }
+    }
     this._foundation.destroy();
+    this._registry.unlisten_('scroll', () => { this._menuFactory.hide(); });
+  }
+
+  ngOnChanges(changes: { [key: string]: SimpleChange }) {
+    let closeOnScroll = changes['closeOnScroll'];
+
+    if (closeOnScroll && isBrowser()) {
+      if (closeOnScroll.currentValue && (!this._scrollStream || this._scrollStream.closed)) {
+        this._scrollStream = Observable.fromEvent(window, 'scroll')
+          .subscribe(res => {
+            if (this._mdcAdapter.isMenuOpen()) {
+              this.close();
+            }
+          });
+      } else {
+        if (this._scrollStream) {
+          this._scrollStream.unsubscribe();
+        }
+      }
+    }
   }
 
   writeValue(value: any) {

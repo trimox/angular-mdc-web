@@ -33,7 +33,7 @@ Check out our [Getting Started guide](https://github.com/trimox/angular-mdc-web/
 Using Angular CLI? Try our [Angular CLI - step by step guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/guide-angular-cli.md).
 
 ## Material Design Components
-`material-components-web v0.23.0`
+Adopting `material-components-web` via foundations and adapters.
 
 | Component  | Status  | Demo |
 | ---------- | ------- | :------: |

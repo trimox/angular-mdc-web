@@ -311,6 +311,7 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnDestroy
 
   close(): void {
     this._menuFactory.hide();
+    this._renderer.removeClass(this.elementRef.nativeElement, 'mdc-select--open');
   }
 
   isOpen(): boolean {

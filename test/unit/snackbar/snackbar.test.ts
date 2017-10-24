@@ -77,6 +77,12 @@ describe('MdcSnackbar', () => {
       let snackBarRef = snackbar.show(simpleMessage, simpleActionLabel, { timeout: 3000, align: 'start', focusAction: true });
       fixture.detectChanges();
     });
+
+    it('#should dismiss an open snackbar', () => {
+      let snackBarRef = snackbar.show(simpleMessage, simpleActionLabel);
+      snackbar.dismiss();
+      fixture.detectChanges();
+    });
   });
 });
 

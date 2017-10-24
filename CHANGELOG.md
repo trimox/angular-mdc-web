@@ -1,4 +1,20 @@
 <a name="0.0.0"></a>
+# [0.5.5](https://github.com/trimox/angular-mdc-web/compare/v0.5.4...v0.5.5) (2017-10-24)
+
+
+### Bug Fixes
+
+* **package:** Add export for MaterialModule ([#315](https://github.com/trimox/angular-mdc-web/issues/315)) ([6b2d22d](https://github.com/trimox/angular-mdc-web/commit/6b2d22d)), closes [#309](https://github.com/trimox/angular-mdc-web/issues/309)
+* **select:** Hidden label on scroll ([63c096c](https://github.com/trimox/angular-mdc-web/commit/63c096c)), closes [#306](https://github.com/trimox/angular-mdc-web/issues/306)
+
+
+### Performance Improvements
+
+* **select:** Use Observable subscription to detect scroll ([354659e](https://github.com/trimox/angular-mdc-web/commit/354659e))
+
+
+
+<a name="0.0.0"></a>
 # [0.5.4](https://github.com/trimox/angular-mdc-web/compare/v0.5.3...v0.5.4) (2017-10-21)
 
 

@@ -10,7 +10,7 @@ import {
   Output,
   Renderer2,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { isBrowser } from '../../common';
 import { EventRegistry } from '../../common/event-registry';
@@ -24,7 +24,6 @@ import { MDCTemporaryDrawerFoundation, util } from '@material/drawer';
 export class MdcTemporaryDrawerNavigationDirective {
   @HostBinding('class.mdc-temporary-drawer__drawer') isHostClass = true;
   @HostBinding('attr.role') role: string = 'navigation';
-
   constructor(public elementRef: ElementRef) { }
 }
 
@@ -89,6 +88,10 @@ export class MdcTemporaryDrawerComponent implements AfterViewInit, OnDestroy {
   @Output() closed: EventEmitter<void> = new EventEmitter<void>();
   @HostBinding('class.mdc-temporary-drawer') isHostClass = true;
   @ViewChild(MdcTemporaryDrawerNavigationDirective) drawerNav: MdcTemporaryDrawerNavigationDirective;
+  @Input() closeOnClick: boolean = true;
+  private get drawerElement() {
+    return this.drawerNav && this.drawerNav.elementRef;
+  }
 
   private _mdcAdapter: MDCDrawerTemporaryAdapter = {
     addClass: (className: string) => {
@@ -120,16 +123,16 @@ export class MdcTemporaryDrawerComponent implements AfterViewInit, OnDestroy {
       this._registry.unlisten_(evt, handler);
     },
     registerDrawerInteractionHandler: (evt: string, handler: EventListener) => {
-      if (this._root) {
-        this._registry.listen_(this._renderer, util.remapEvent(evt), handler, this._root);
+      if (this.drawerElement) {
+        this._registry.listen_(this._renderer, util.remapEvent(evt), handler, this.drawerElement);
       }
     },
     deregisterDrawerInteractionHandler: (evt: string, handler: EventListener) => {
       this._registry.unlisten_(evt, handler);
     },
     registerTransitionEndHandler: (handler: EventListener) => {
-      if (this._root) {
-        this._registry.listen_(this._renderer, 'transitionend', handler, this._root);
+      if (this.drawerElement) {
+        this._registry.listen_(this._renderer, 'transitionend', handler, this.drawerElement);
       }
     },
     deregisterTransitionEndHandler: (handler: EventListener) => {
@@ -194,6 +197,11 @@ export class MdcTemporaryDrawerComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this._foundation.init();
+    this._registry.listen_(this._renderer, "click", (evt) => {
+      if (this.closeOnClick) {
+        this._foundation.close()
+      }
+    }, this.drawerElement);
   }
   ngOnDestroy() {
     this._foundation.destroy();

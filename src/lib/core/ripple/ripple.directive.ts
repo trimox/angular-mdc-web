@@ -12,16 +12,16 @@ import { MdcRipple } from './ripple.service';
 })
 export class MdcSurfaceDirective {
   @Input('mdc-surface')
-  get mdcSurface() { return this.ripple_.active; }
+  get mdcSurface() { return this.ripple.active; }
   set mdcSurface(value: boolean) {
-    this.ripple_.active = toBoolean(value);
+    this.ripple.active = toBoolean(value);
   }
   @HostBinding('style.cursor') cursor:string = 'pointer';
   @HostBinding('class.mdc-ripple-surface') get classSurface(): string {
     return this.mdcSurface ? 'mdc-ripple-surface' : '';
   }
 
-  constructor(private ripple_: MdcRipple) { }
+  constructor(public ripple: MdcRipple) { }
 }
 
 @Directive({
@@ -30,15 +30,15 @@ export class MdcSurfaceDirective {
 })
 export class MdcRippleDirective {
   @Input('mdc-ripple')
-  get mdcRipple() { return this.ripple_.active; }
+  get mdcRipple() { return this.ripple.active; }
   set mdcRipple(value: boolean) {
-    this.ripple_.active = value;
+    this.ripple.active = value;
   }
   @HostBinding('class.mdc-ripple-surface') get classSurface(): string {
     return this.mdcRipple ? 'mdc-ripple-surface' : '';
   }
 
-  constructor(private ripple_: MdcRipple) {
-    this.ripple_.init();
+  constructor(public ripple: MdcRipple) {
+    this.ripple.init();
   }
 }

@@ -6,25 +6,25 @@ import {
 } from '@angular/core';
 import { toBoolean, isBrowser } from '../../common';
 
-import { MDCRippleAdapter } from './ripple-adapter';
+import { MDCRippleAdapter } from './adapter';
 import { supportsCssVariables } from '@material/ripple/util';
 import { MDCRippleFoundation } from '@material/ripple';
 
 @Injectable()
 export class MdcRipple implements OnDestroy {
-  interactionListenerFn: () => void;
-  resizeListenerFn: () => void;
-  private disabled_: boolean;
+  private _interactionListenerFn: () => void;
+  private _resizeListenerFn: () => void;
+  private _disabled: boolean = false;
 
   unbounded: boolean;
   active: boolean;
-  get disabled() { return this.disabled_; }
+  get disabled() { return this._disabled; }
   set disabled(value) {
-    this.disabled_ = toBoolean(value);
-    if (this.disabled_) {
-      this._foundation.deactivate();
+    this._disabled = toBoolean(value);
+    if (this._disabled) {
+      this._foundation.destroy();
     } else {
-      this._foundation.activate();
+      this._foundation.init();
     }
   }
 
@@ -33,39 +33,37 @@ export class MdcRipple implements OnDestroy {
     isUnbounded: () => this.unbounded,
     isSurfaceActive: () => this.active,
     isSurfaceDisabled: () => {
-      return (this._root.nativeElement.attributes.getNamedItem('disabled') || this.disabled) ? true : false;
+      return (this.elementRef.nativeElement.attributes.getNamedItem('disabled') || this.disabled) ? true : false;
     },
     addClass: (className: string) => {
-      this._renderer.addClass(this._root.nativeElement, className);
+      this._renderer.addClass(this.elementRef.nativeElement, className);
     },
     removeClass: (className: string) => {
-      this._renderer.removeClass(this._root.nativeElement, className);
+      this._renderer.removeClass(this.elementRef.nativeElement, className);
     },
     registerInteractionHandler: (evtType: string, handler: EventListener) => {
-      this.resizeListenerFn = this._renderer.listen(this._root.nativeElement, evtType, handler);
+      this._resizeListenerFn = this._renderer.listen(this.elementRef.nativeElement, evtType, handler);
     },
     deregisterInteractionHandler: (evtType: string, handler: EventListener) => {
-      if (this.interactionListenerFn) {
-        this.interactionListenerFn();
+      if (this._interactionListenerFn) {
+        this._interactionListenerFn();
       }
     },
     registerResizeHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this.resizeListenerFn = this._renderer.listen(window, 'resize', handler);
+        this._resizeListenerFn = this._renderer.listen(window, 'resize', handler);
       }
     },
     deregisterResizeHandler: (handler: EventListener) => {
-      if (isBrowser() && this.resizeListenerFn) {
-        this.resizeListenerFn();
+      if (isBrowser() && this._resizeListenerFn) {
+        this._resizeListenerFn();
       }
     },
     updateCssVariable: (varName: string, value: string) => {
-      if (this._root) {
-        this._root.nativeElement.style.setProperty(varName, value);
-      }
+      this.elementRef.nativeElement.style.setProperty(varName, value);
     },
     computeBoundingRect: () => {
-      const { left, top, height, width } = this._root.nativeElement.getBoundingClientRect();
+      const { left, top, height, width } = this.elementRef.nativeElement.getBoundingClientRect();
       return {
         top,
         left,
@@ -93,7 +91,7 @@ export class MdcRipple implements OnDestroy {
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef) {
+    public elementRef: ElementRef) {
   }
 
   ngOnDestroy() {
@@ -105,15 +103,23 @@ export class MdcRipple implements OnDestroy {
     this.unbounded = unbounded;
   }
 
-  activate(): void {
-    this._foundation.activate();
+  activate(event?: Event): void {
+    this._foundation.activate(event);
   }
 
-  deactivate(): void {
-    this._foundation.deactivate();
+  deactivate(event?: Event): void {
+    this._foundation.deactivate(event);
   }
 
   layout(): void {
     this._foundation.layout();
+  }
+
+  isSurfaceDisabled(): boolean {
+    return this._mdcAdapter.isSurfaceDisabled();
+  }
+
+  isSurfaceActive(): boolean {
+    return this._mdcAdapter.isSurfaceActive();
   }
 }

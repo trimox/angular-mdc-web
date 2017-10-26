@@ -18,14 +18,13 @@ describe('MdcRippleDirective', () => {
       ],
       declarations: [
         SimpleRipple,
-      ]
+      ],
     });
     TestBed.compileComponents();
   }));
 
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;
-    let testNativeElement: HTMLElement;
     let testInstance: MdcRippleDirective;
     let testComponent: SimpleRipple;
 
@@ -34,7 +33,6 @@ describe('MdcRippleDirective', () => {
       fixture.detectChanges();
 
       testDebugElement = fixture.debugElement.query(By.directive(MdcRippleDirective));
-      testNativeElement = testDebugElement.nativeElement;
       testInstance = testDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
     });
@@ -69,7 +67,6 @@ describe('MdcSurfaceDirective', () => {
 
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;
-    let testNativeElement: HTMLElement;
     let testInstance: MdcSurfaceDirective;
     let testComponent: SimpleSurface;
 
@@ -78,7 +75,6 @@ describe('MdcSurfaceDirective', () => {
       fixture.detectChanges();
 
       testDebugElement = fixture.debugElement.query(By.directive(MdcSurfaceDirective));
-      testNativeElement = testDebugElement.nativeElement;
       testInstance = testDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
     });

@@ -89,13 +89,14 @@ export class MdcButton implements AfterViewInit {
   constructor(
     public renderer: Renderer2,
     public elementRef: ElementRef,
-    public ripple: MdcRipple) {
-    this.ripple.init();
-  }
+    public ripple: MdcRipple) { }
 
   ngAfterViewInit() {
     if (this.buttonIcon) {
       this.renderer.addClass(this.buttonIcon.elementRef.nativeElement, 'mdc-button__icon');
+    }
+    if (!this.disableRipple) {
+      this.ripple.init();
     }
   }
 

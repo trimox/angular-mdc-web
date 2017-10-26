@@ -101,6 +101,29 @@ describe('MdcButton', () => {
       fixture.detectChanges();
       expect(buttonNativeElement.disabled).toBeTruthy('Expected button to be disabled');
     });
+
+    it('#ripple should be deactivated', () => {
+      buttonInstance.ripple.deactivate();
+      fixture.detectChanges();
+      expect(buttonDebugElement.nativeElement.classList.contains('mdc-ripple-surface')).toBe(false);
+    });
+
+    it('#ripple surface should be removed', () => {
+      buttonInstance.ripple.active = false;
+      fixture.detectChanges();
+      expect(buttonInstance.ripple.isSurfaceActive()).toBe(false);
+    });
+
+    it('#ripple should be disabled', () => {
+      buttonInstance.ripple.disabled = true;
+      fixture.detectChanges();
+      expect(buttonInstance.ripple.isSurfaceDisabled()).toBe(true);
+    });
+
+    it('#ripple should be updated', () => {
+      buttonInstance.ripple.layout();
+      fixture.detectChanges();
+    });
   });
 
   // Anchor button tests

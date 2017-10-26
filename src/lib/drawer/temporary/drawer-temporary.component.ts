@@ -199,7 +199,7 @@ export class MdcTemporaryDrawerComponent implements AfterViewInit, OnDestroy {
     this._foundation.init();
     this._registry.listen_(this._renderer, "click", (evt) => {
       if (this.closeOnClick) {
-        this._foundation.close()
+        this._foundation.close();
       }
     }, this.drawerElement);
   }

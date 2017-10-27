@@ -2,9 +2,9 @@ import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MdcMenuComponent, MdcMenuModule } from '../../../src/lib/public_api';
+import { MdcMenu, MdcMenuModule } from '../../../src/lib/public_api';
 
-describe('MdcMenuComponent', () => {
+describe('MdcMenu', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
@@ -19,16 +19,14 @@ describe('MdcMenuComponent', () => {
 
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;
-    let testNativeElement: HTMLElement;
-    let testInstance: MdcMenuComponent;
+    let testInstance: MdcMenu;
     let testComponent: SimpleTest;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SimpleTest);
       fixture.detectChanges();
 
-      testDebugElement = fixture.debugElement.query(By.directive(MdcMenuComponent));
-      testNativeElement = testDebugElement.nativeElement;
+      testDebugElement = fixture.debugElement.query(By.directive(MdcMenu));
       testInstance = testDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
     });
@@ -53,7 +51,7 @@ describe('MdcMenuComponent', () => {
     it('#should be open with focus to index 2', () => {
       testInstance.open(2);
       fixture.detectChanges();
-      expect(testInstance.isOpen()).toBe(true);
+      expect(testInstance.getFocusedItemIndex()).toBe(-1);
     });
 
     it('#should be open after opening prior', () => {
@@ -73,6 +71,22 @@ describe('MdcMenuComponent', () => {
       testComponent.myOpenFrom = 'topLeft';
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList).toContain('mdc-simple-menu--open-from-top-left');
+    });
+
+    it('#should have focus', () => {
+      expect(document.activeElement).not.toBe(testDebugElement.nativeElement);
+
+      testInstance.focus();
+      fixture.detectChanges();
+
+      expect(document.activeElement).toBe(testDebugElement.nativeElement);
+      expect(testInstance.isFocused()).toBe(true);
+    });
+
+    it('#menu item should be enabled', () => {
+      testComponent.isDisabled = false;
+      fixture.detectChanges();
+      expect(testInstance.options.toArray()[1].disabled).toBe(false);
     });
   });
 });

@@ -57,6 +57,14 @@ If the focusIndex is omitted, no menu item will be focused.]]></pre></td>
           <td>close()</td>
           <td>Closes the menu.</td>
         </tr>
+        <tr>
+          <td>isFocused(): boolean</td>
+          <td>Returns whether or not the menu has focus.</td>
+        </tr>
+        <tr>
+          <td>focus()</td>
+          <td>Set focus to the menu element.</td>
+        </tr>
       </tbody>
       <thead>
         <tr>
@@ -66,12 +74,12 @@ If the focusIndex is omitted, no menu item will be focused.]]></pre></td>
       </thead>
       <tbody>
         <tr>
-          <td>cancel</td>
+          <td>cancel()</td>
           <td>Dispatches an event that the menu closed with no selection made.</td>
         </tr>
         <tr>
           <td>
-<pre><code><![CDATA[select({item: HTMLElement, index: number})]]></code></pre>
+<pre><code>select(item: HTMLElement, index: number)</code></pre>
           </td>
           <td>Dispatches an event that a menu item has been selected.</td>
         </tr>

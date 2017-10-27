@@ -15,11 +15,10 @@ import {
   SimpleChange,
   ViewChild,
 } from '@angular/core';
-import { isBrowser } from '../common';
+import { isBrowser, toBoolean } from '../common';
 import { EventRegistry } from '../common/event-registry';
 
-import { MDCMenuAdapter } from './menu-adapter';
-import { MdcMenuItemDirective } from './menu-item.directive';
+import { MDCMenuAdapter } from './adapter';
 import { getTransformPropertyName } from '@material/menu/util';
 import { MDCSimpleMenuFoundation } from '@material/menu/simple';
 
@@ -33,28 +32,72 @@ export enum MenuOpenFrom {
 @Directive({
   selector: '[mdc-menu-anchor]'
 })
-export class MdcMenuAnchorDirective {
+export class MdcMenuAnchor {
   @HostBinding('class.mdc-menu-anchor') isHostClass = true;
 }
 
 @Component({
   selector: 'mdc-menu-divider',
-  template:
-  `<div class="mdc-list-divider" role="seperator"></div>`,
+  template: '<div class="mdc-list-divider" role="seperator"></div>',
 })
-export class MdcMenuDividerComponent { }
+export class MdcMenuDivider {
+  constructor(public elementRef: ElementRef) { }
+}
+
+@Directive({
+  selector: 'mdc-menu-items',
+})
+export class MdcMenuItems {
+  @HostBinding('class.mdc-list') isHostClass = true;
+  @HostBinding('class.mdc-simple-menu__items') isSelectClass = true;
+  @HostBinding('attr.role') role: string = 'menu';
+  @HostBinding('attr.aria-hidden') ariaHidden: string = 'true';
+
+  constructor(public elementRef: ElementRef) { }
+}
+
+@Directive({
+  selector: 'mdc-menu-item'
+})
+export class MdcMenuItem {
+  private _disabled: boolean = false;
+
+  @Input() id: string;
+  @Input() label: string;
+  @Input()
+  get disabled() {
+    return this._disabled;
+  }
+  set disabled(value: boolean) {
+    this._disabled = toBoolean(value);
+    if (value) {
+      this._renderer.setAttribute(this.elementRef.nativeElement, 'aria-disabled', 'true');
+      this.tabindex = -1;
+    } else {
+      this._renderer.removeAttribute(this.elementRef.nativeElement, 'aria-disabled');
+      this.tabindex = 0;
+    }
+  }
+  @HostBinding('class.mdc-list-item') isHostClass = true;
+  @HostBinding('attr.role') role: string = 'menuitem';
+  @HostBinding('tabindex') tabindex: number = 0;
+
+  constructor(
+    private _renderer: Renderer2,
+    public elementRef: ElementRef) { }
+}
 
 @Component({
   selector: 'mdc-menu',
   template:
   `
-  <ul #menuContainer class="mdc-simple-menu__items mdc-list" role="menu" aria-hidden="true">
-   <ng-content select="mdc-menu-item, mdc-menu-divider"></ng-content>
-  </ul>
+  <mdc-menu-items>
+    <ng-content></ng-content>
+  </mdc-menu-items>
   `,
   providers: [EventRegistry],
 })
-export class MdcMenuComponent implements AfterViewInit, OnChanges, OnDestroy {
+export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
   private _previousFocus: any;
 
   @Input() openFrom: string;
@@ -62,8 +105,8 @@ export class MdcMenuComponent implements AfterViewInit, OnChanges, OnDestroy {
   @Output() select: EventEmitter<any> = new EventEmitter();
   @HostBinding('class.mdc-simple-menu') isHostClass = true;
   @HostBinding('tabindex') tabindex: number = -1;
-  @ViewChild('menuContainer') public menuContainerEl: ElementRef;
-  @ContentChildren(MdcMenuItemDirective) menuItems: QueryList<MdcMenuItemDirective>;
+  @ViewChild(MdcMenuItems) menuContainer: MdcMenuItems;
+  @ContentChildren(MdcMenuItem) options: QueryList<MdcMenuItem>;
 
   private _mdcAdapter: MDCMenuAdapter = {
     addClass: (className: string) => {
@@ -78,7 +121,7 @@ export class MdcMenuComponent implements AfterViewInit, OnChanges, OnDestroy {
     hasClass: (className: string) => {
       return this.elementRef.nativeElement.classList.contains(className);
     },
-    hasNecessaryDom: () => !!this.menuContainerEl,
+    hasNecessaryDom: () => !!this.menuContainer,
     getInnerDimensions: () => {
       return {
         width: this.elementRef.nativeElement.offsetWidth,
@@ -105,11 +148,11 @@ export class MdcMenuComponent implements AfterViewInit, OnChanges, OnDestroy {
     },
     setInnerScale: (x: number, y: number) => {
       if (isBrowser()) {
-        this._renderer.setStyle(this.menuContainerEl.nativeElement, getTransformPropertyName(window), `scale(${x}, ${y})`);
+        this._renderer.setStyle(this.menuContainer.elementRef.nativeElement, getTransformPropertyName(window), `scale(${x}, ${y})`);
       }
     },
     getNumberOfItems: () => {
-      return this.menuItems ? this.menuItems.length : 0;
+      return this.options ? this.options.length : 0;
     },
     registerInteractionHandler: (type: string, handler: EventListener) => {
       this._registry.listen_(this._renderer, type, handler, this.elementRef);
@@ -124,19 +167,19 @@ export class MdcMenuComponent implements AfterViewInit, OnChanges, OnDestroy {
       this._registry.unlisten_('click', handler);
     },
     getYParamsForItemAtIndex: (index: number) => {
-      const { offsetTop: top, offsetHeight: height } = this.menuItems.toArray()[index].itemEl.nativeElement;
+      const { offsetTop: top, offsetHeight: height } = this.options.toArray()[index].elementRef.nativeElement;
       return { top, height };
     },
     setTransitionDelayForItemAtIndex: (index: number, value: string) => {
-      this._renderer.setStyle(this.menuItems.toArray()[index].itemEl.nativeElement, 'transition-delay', value);
+      this._renderer.setStyle(this.options.toArray()[index].elementRef.nativeElement, 'transition-delay', value);
     },
     getIndexForEventTarget: (target: EventTarget) => {
-      return this.menuItems.toArray().findIndex((_) => _.itemEl.nativeElement === target);
+      return this.options.toArray().findIndex((_) => _.elementRef.nativeElement === target);
     },
     notifySelected: (evtData: { index: number }) => {
       this.select.emit({
         index: evtData.index,
-        item: this.menuItems.toArray()[evtData.index].itemEl.nativeElement
+        item: this.options.toArray()[evtData.index].elementRef.nativeElement
       });
     },
     notifyCancel: () => {
@@ -159,16 +202,11 @@ export class MdcMenuComponent implements AfterViewInit, OnChanges, OnDestroy {
       this.elementRef.nativeElement.focus();
     },
     getFocusedItemIndex: () => {
-      return this.menuItems.length ? this.menuItems.toArray().findIndex(_ =>
-        _.itemEl.nativeElement === this.elementRef.nativeElement.ownerDocument.activeElement) : -1;
+      return this.options.length ? this.options.toArray().findIndex(_ =>
+        _.elementRef.nativeElement === this.elementRef.nativeElement.ownerDocument.activeElement) : -1;
     },
     focusItemAtIndex: (index: number) => {
-      if (this.menuItems.toArray()[index] !== undefined) {
-        this.menuItems.toArray()[index].itemEl.nativeElement.focus();
-      } else {
-        // set focus back to root element when index is undefined
-        this.elementRef.nativeElement.focus();
-      }
+      index ? this.options.toArray()[index].elementRef.nativeElement.focus() : this.elementRef.nativeElement.focus();
     },
     isRtl: () => { /* TODO */
       return false;
@@ -206,19 +244,20 @@ export class MdcMenuComponent implements AfterViewInit, OnChanges, OnDestroy {
   ngAfterViewInit() {
     this._foundation.init();
   }
+
   ngOnDestroy() {
     this._foundation.destroy();
   }
 
   ngOnChanges(changes: { [key: string]: SimpleChange }) {
-    let change = changes['openFrom'];
+    let _openFrom = changes['openFrom'];
 
-    if (change) {
-      if (change.previousValue) {
-        this._mdcAdapter.removeClass(`${MenuOpenFrom[change.previousValue]}`);
+    if (_openFrom) {
+      if (_openFrom.previousValue) {
+        this._mdcAdapter.removeClass(`${MenuOpenFrom[_openFrom.previousValue]}`);
       }
-      if (change.currentValue) {
-        this._mdcAdapter.addClass(`${MenuOpenFrom[change.currentValue]}`);
+      if (_openFrom.currentValue) {
+        this._mdcAdapter.addClass(`${MenuOpenFrom[_openFrom.currentValue]}`);
       }
     }
   }
@@ -229,11 +268,23 @@ export class MdcMenuComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   open(focusIndex?: number): void {
     if (!this.isOpen()) {
-      this._foundation.open({ focusIndex: focusIndex ? focusIndex : -1 });
+      this._foundation.open({ focusIndex: focusIndex });
     }
   }
 
   close(): void {
     this._foundation.close();
+  }
+
+  focus(): void {
+    this._mdcAdapter.focus();
+  }
+
+  isFocused(): boolean {
+    return this._mdcAdapter.isFocused();
+  }
+
+  getFocusedItemIndex(): number {
+    return this._mdcAdapter.getFocusedItemIndex();
   }
 }

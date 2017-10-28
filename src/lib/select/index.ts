@@ -4,16 +4,14 @@ import { FormsModule } from '@angular/forms';
 
 import {
   MdcSelect,
-  MdcSelectedText,
   MdcSelectItem,
   MdcSelectItems,
   MdcSelectLabel,
   MdcSelectMenu,
-} from './select.component';
+} from './select';
 
 export const SELECT_COMPONENTS = [
   MdcSelect,
-  MdcSelectedText,
   MdcSelectItem,
   MdcSelectItems,
   MdcSelectLabel,
@@ -27,4 +25,4 @@ export const SELECT_COMPONENTS = [
 })
 export class MdcSelectModule { }
 
-export * from './select.component';
+export * from './select';

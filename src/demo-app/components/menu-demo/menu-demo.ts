@@ -12,7 +12,7 @@ import { MdcMenuComponent } from '../../../lib/public_api';
 export class MenuDemo {
   selectedIndex = -1;
   openingPoint: string = "topLeft";
-  @ViewChild('menu') menu: MdcMenuComponent;
+  @ViewChild('menu') menu: MdcMenu;
 
   showMenu() {
     this.menu.open();

@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
   <h1 mdc-typography-display1>Select Menus</h1>
-  <div mdc-typography-subheading2>MDC Select provides Material Design single-option and multi-option select menus.</div>
+  <div mdc-typography-subheading2>MDC Select provides Material Design single-option select menus.</div>
   <div class="info-banner" mdc-typography-subheading1>
     <![CDATA[import { MdcSelectModule } from '@angular-mdc/web';]]>
   </div>
@@ -91,6 +91,22 @@
           <td>setDisabled(disabled: boolean)</td>
           <td>Enables/disables the select.</td>
         </tr>
+        <tr>
+          <td>setLabel(text: string)</td>
+          <td>Sets the label text.</td>
+        </tr>
+        <tr>
+          <td>clearSelection()</td>
+          <td>Clears the current selected item.</td>
+        </tr>
+        <tr>
+          <td>setSelectionByValue(value)</td>
+          <td>Sets the selected item by value.</td>
+        </tr>
+        <tr>
+          <td>resize()</td>
+          <td>Resizes the menu list if styling required.</td>
+        </tr>
       </tbody>
       <thead>
         <tr>
@@ -135,6 +151,37 @@
           <td>Disable selection of the select item.</td>
         </tr>
       </tbody>
+      <thead>
+        <tr>
+          <th>Methods</th>
+          <th>Parameters</th>
+        </tr>
+      </thead>
+        <tr>
+          <td>id(): string</td>
+          <td>The unique ID of the option.</td>
+        </tr>
+        <tr>
+          <td>selected(): boolean</td>
+          <td>Whether or not the option is currently selected.</td>
+        </tr>
+        <tr>
+          <td>label(): string</td>
+          <td>The displayed label of the option.</td>
+        </tr>
+        <tr>
+          <td>select()</td>
+          <td>Selects the option.</td>
+        </tr>
+        <tr>
+          <td>deselect()</td>
+          <td>Deselects the option.</td>
+        </tr>
+        <tr>
+          <td>focus()</td>
+          <td>Sets focus onto this option.</td>
+        </tr>
+      <tbody>
     </table>
   </div>
 </div>

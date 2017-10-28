@@ -41,20 +41,12 @@ export interface MdcSelectedData {
 }
 
 let nextUniqueId = 0;
+let uniqueIdCounter = 0;
 
 @Directive({
   selector: 'mdc-select-label'
 })
 export class MdcSelectLabel {
-  @HostBinding('class.mdc-select__selected-text') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: 'mdc-selected-text'
-})
-export class MdcSelectedText {
   @HostBinding('class.mdc-select__selected-text') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -81,29 +73,55 @@ export class MdcSelectItems {
 }
 
 @Directive({
-  selector: 'mdc-select-item'
+  selector: 'mdc-select-item',
+  host: {
+    '[id]': 'id',
+    'role': 'option',
+    '[attr.aria-selected]': 'selected',
+    '[attr.aria-disabled]': 'disabled',
+  }
 })
 export class MdcSelectItem {
+  private _selected = false;
   private _disabled: boolean = false;
+  private _id = `mdc-select-item-${uniqueIdCounter++}`;
 
-  @Input() value: string;
+  /** The unique ID of the option. */
+  get id(): string { return this._id; }
+
+  /** Whether or not the option is currently selected. */
+  get selected(): boolean { return this._selected; }
+
+  /** The displayed label of the option. */
+  get label(): string {
+    return (this.elementRef.nativeElement.textContent || '').trim();
+  }
+
+  @Input() value: any;
   @Input()
   get disabled(): boolean {
     return this._disabled;
   }
   set disabled(value: boolean) {
-    this._disabled = value;
-    if (value) {
-      this._renderer.setAttribute(this.elementRef.nativeElement, 'aria-disabled', 'true');
-      this.tabIndex = -1;
-    } else {
-      this._renderer.removeAttribute(this.elementRef.nativeElement, 'aria-disabled');
-      this.tabIndex = 0;
-    }
+    this._disabled = toBoolean(value);
+    value ? this.tabIndex = -1 : this.tabIndex = 0;
   }
   @HostBinding('class.mdc-list-item') isHostClass = true;
-  @HostBinding('attr.role') role: string = 'option';
   @HostBinding('tabindex') tabIndex: number = 0;
+
+  /** Selects the option. */
+  select(): void {
+    this._selected = true;
+  }
+
+  /** Deselects the option. */
+  deselect(): void {
+    this._selected = false;
+  }
+
+  focus(): void {
+    this.elementRef.nativeElement.focus();
+  }
 
   constructor(
     private _renderer: Renderer2,
@@ -117,8 +135,7 @@ export class MdcSelectItem {
   },
   template:
   `
-  <mdc-select-label *ngIf="!value">{{label}}</mdc-select-label>
-  <mdc-selected-text>{{selectedText}}</mdc-selected-text>
+  <mdc-select-label>{{label}}</mdc-select-label>
   <mdc-select-menu>
     <mdc-select-items>
       <ng-content></ng-content>
@@ -133,22 +150,28 @@ export class MdcSelectItem {
 export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnChanges, OnDestroy {
   private _itemsSubscription: ISubscription;
   private _scrollStream: ISubscription;
-  private _open: boolean = false;
   private _label: string = '';
-  private _value: string = '';
+  private _value: any;
   private _uniqueId: string = `mdc-select-${++nextUniqueId}`;
   private _menuFactory: any;
-  private _controlValueAccessorChangeFn: (value: any) => void = () => { };
-  onTouched: () => any = () => { };
-  selectedText: string = '';
+  private _controlValueAccessorChangeFn: (value: any) => void = (value) => { };
+  private _onChange: (value: any) => void = () => { };
+  private _onTouched = () => { };
 
   @Input() id: string = this._uniqueId;
   @Input() name: string | null = null;
-  @Input() label: string = '';
   @Input()
-  get value(): string { return this._foundation.getValue(); }
-  set value(v: string) {
-    this._value = v;
+  get label(): string { return this._label; }
+  set label(value: string) {
+    this._label = value;
+  }
+  @Input()
+  get value(): any { return this._value; }
+  set value(newValue: any) {
+    if (newValue !== this._value) {
+      this.writeValue(newValue);
+      this._value = newValue;
+    }
   }
   @Input()
   get disabled(): boolean { return this.isDisabled(); }
@@ -215,7 +238,7 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnChanges
     },
     isMenuOpen: () => this._menuFactory.open,
     setSelectedTextContent: (textContent: string) => {
-      this.selectedText = textContent;
+      this._label = textContent;
     },
     getNumberOfOptions: () => {
       return this.options ? this.options.length : 0;
@@ -247,6 +270,7 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnChanges
         value: this._foundation.getValue(),
       });
       this._controlValueAccessorChangeFn(this._foundation.getValue());
+      this.setSelectedIndex(this._foundation.getSelectedIndex());
     },
     getWindowInnerHeight: () => isBrowser() ? window.innerHeight : 0,
   };
@@ -271,8 +295,8 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnChanges
     this._itemsSubscription = this.options.changes.subscribe(_ => {
       this._foundation.resize();
     });
-    this._foundation.init();
     this._menuFactory = new MDCSimpleMenu(this.selectMenu.elementRef.nativeElement);
+    this._foundation.init();
   }
 
   ngOnDestroy() {
@@ -288,10 +312,10 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnChanges
   }
 
   ngOnChanges(changes: { [key: string]: SimpleChange }) {
-    let closeOnScroll = changes['closeOnScroll'];
+    let _closeOnScroll = changes['closeOnScroll'];
 
-    if (closeOnScroll && isBrowser()) {
-      if (closeOnScroll.currentValue && (!this._scrollStream || this._scrollStream.closed)) {
+    if (_closeOnScroll && isBrowser()) {
+      if (_closeOnScroll.currentValue && (!this._scrollStream || this._scrollStream.closed)) {
         this._scrollStream = Observable.fromEvent(window, 'scroll')
           .subscribe(res => {
             if (this._mdcAdapter.isMenuOpen()) {
@@ -306,28 +330,47 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnChanges
     }
   }
 
-  writeValue(value: any) {
-    this.value = value;
+  writeValue(value: any): void {
+    if (this.options) {
+      this.setSelectionByValue(value);
+    }
   }
 
-  registerOnChange(fn: (value: any) => void) {
+  registerOnChange(fn: (value: any) => void): void {
     this._controlValueAccessorChangeFn = fn;
   }
 
-  registerOnTouched(fn: any) {
-    this.onTouched = fn;
+  registerOnTouched(fn: () => {}): void {
+    this._onTouched = fn;
   }
 
   getValue(): string {
     return this._foundation.getValue();
   }
 
+  setLabel(text: string): void {
+    this._label = text;
+  }
+
   getSelectedIndex(): number {
     return this._foundation.getSelectedIndex();
   }
 
-  setSelectedIndex(selectedIndex: number): void {
-    this._foundation.setSelectedIndex(selectedIndex);
+  clearSelection(): void {
+    this.options.forEach((_) => _.deselect);
+  }
+
+  setSelectionByValue(value: any): void {
+    this.clearSelection();
+    if (value) {
+      this.setSelectedIndex(this.options.toArray().findIndex((_) => _.value == value));
+    }
+  }
+
+  setSelectedIndex(index: number): void {
+    this.clearSelection();
+    this._foundation.setSelectedIndex(index);
+    this.options.toArray()[this._foundation.getSelectedIndex()].select();
   }
 
   open(index: number = 0): void {

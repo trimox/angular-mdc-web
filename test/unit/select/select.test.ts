@@ -1,4 +1,5 @@
 import { Component, DebugElement } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -9,7 +10,7 @@ describe('MdcSelectModule', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MdcSelectModule],
+      imports: [FormsModule, MdcSelectModule],
       declarations: [
         SimpleTest,
       ]
@@ -75,13 +76,36 @@ describe('MdcSelectModule', () => {
       expect(testInstance.getValue()).toBe('tacos-2');
       expect(testInstance.getSelectedIndex()).toBe(2);
     });
+
+    it('#steak-1 should be selected', () => {
+      testInstance.setSelectionByValue('steak-0');
+      fixture.detectChanges();
+      expect(testInstance.getSelectedIndex()).toBe(0);
+    });
+
+    it('#should be Fruit', () => {
+      expect(testInstance.options.toArray()[3].label).toMatch('Fruit');
+    });
+
+    it('#should be MyLabel', () => {
+      testInstance.setLabel('MyLabel');
+      expect(testInstance.label).toMatch('MyLabel');
+    });
+
+    it('#should be focused item', () => {
+      expect(testInstance.options.first.focus());
+    });
+
+    it('#should be deselected item', () => {
+      expect(testInstance.options.first.deselect());
+    });
   });
 });
 
 @Component({
   template:
   `
-    <mdc-select label="myPlaceholder" name="food" [disabled]="isDisabled" [closeOnScroll]="closeOnScroll" (change)="handleChange($event)">
+    <mdc-select [label]="labelText" name="food" [(ngModel)]="selectedValue" [disabled]="isDisabled" [closeOnScroll]="closeOnScroll" (change)="handleChange($event)">
       <mdc-select-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
         {{food.description}}
       </mdc-select-item>
@@ -89,10 +113,9 @@ describe('MdcSelectModule', () => {
   `,
 })
 class SimpleTest {
-  myId: string;
-  myLabel: string = 'Favorite food';
+  labelText: string = 'Favorite food';
   isDisabled: boolean = true;
-  selectedValue: string;
+  selectedValue: string = 'pizza-1';
   closeOnScroll: boolean = true;
 
   foods = [
@@ -102,7 +125,5 @@ class SimpleTest {
     { value: 'fruit-3', description: 'Fruit', disabled: true },
   ];
 
-  handleChange(event: { index: number, value: string }) {
-    this.selectedValue = event.value;
-  }
+  handleChange(event: { index: number, value: string }) { }
 }

@@ -6,10 +6,10 @@ import { Component } from '@angular/core';
 })
 export class TextfieldDemo {
   username: string;
-  prefill:string = 'John Doe';
-  comments:string;
-  subject:string;
-  message:string;
+  prefill: string = 'John Doe';
+  comments: string;
+  subject: string;
+  message: string;
   isDisabled = false;
   isRequired = true;
   isDense = false;

@@ -10,7 +10,7 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        loaders: ['awesome-typescript-loader?configFileName=./test/unit/tsconfig.json']
+        loaders: ['ts-loader?configFile=test/unit/tsconfig.json']
       },
       {
         enforce: 'post',

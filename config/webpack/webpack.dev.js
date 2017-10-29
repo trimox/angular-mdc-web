@@ -68,9 +68,9 @@ module.exports = [{
               presets: ['env']
             },
           }, {
-            loader: 'awesome-typescript-loader',
+            loader: 'ts-loader',
             options: {
-              configFileName: './src/demo-app/tsconfig.json'
+              configFile: 'src/demo-app/tsconfig.json'
             }
           }, {
             loader: 'angular2-template-loader'

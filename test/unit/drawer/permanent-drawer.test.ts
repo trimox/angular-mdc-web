@@ -4,10 +4,10 @@ import { By } from '@angular/platform-browser';
 
 import {
   MdcDrawerModule,
-  MdcPermanentDrawerComponent,
+  MdcPermanentDrawer,
 } from '../../../src/lib/public_api';
 
-describe('MdcPermanentDrawerComponent', () => {
+describe('MdcPermanentDrawer', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
@@ -25,14 +25,14 @@ describe('MdcPermanentDrawerComponent', () => {
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;
     let testNativeElement: HTMLElement;
-    let testInstance: MdcPermanentDrawerComponent;
+    let testInstance: MdcPermanentDrawer;
     let testComponent: SimpleTest;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SimpleTest);
       fixture.detectChanges();
 
-      testDebugElement = fixture.debugElement.query(By.directive(MdcPermanentDrawerComponent));
+      testDebugElement = fixture.debugElement.query(By.directive(MdcPermanentDrawer));
       testNativeElement = testDebugElement.nativeElement;
       testInstance = testDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
@@ -55,5 +55,4 @@ describe('MdcPermanentDrawerComponent', () => {
   </mdc-permanent-drawer>
   `,
 })
-class SimpleTest {
-}
+class SimpleTest { }

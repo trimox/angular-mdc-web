@@ -1,16 +1,14 @@
 import {
-  Component,
   Directive,
   ElementRef,
   HostBinding,
   Input,
-  ViewEncapsulation
 } from '@angular/core';
 
 @Directive({
   selector: '[mdc-permanent-drawer-spacer], mdc-permanent-drawer-spacer'
 })
-export class MdcPermanentDrawerSpacerDirective {
+export class MdcPermanentDrawerSpacer {
   @HostBinding('class.mdc-permanent-drawer__toolbar-spacer') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -19,7 +17,7 @@ export class MdcPermanentDrawerSpacerDirective {
 @Directive({
   selector: '[mdc-permanent-drawer-content], mdc-permanent-drawer-content'
 })
-export class MdcPermanentDrawerContentDirective {
+export class MdcPermanentDrawerContent {
   @HostBinding('class.mdc-permanent-drawer__content') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -28,18 +26,16 @@ export class MdcPermanentDrawerContentDirective {
 @Directive({
   selector: '[mdc-permanent-drawer-selected]'
 })
-export class MdcPermanentDrawerSelectedDirective {
+export class MdcPermanentDrawerSelected {
   @HostBinding('class.mdc-permanent-drawer--selected') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
 }
 
-@Component({
+@Directive({
   selector: 'mdc-permanent-drawer',
-  template: '<ng-content></ng-content>',
-  encapsulation: ViewEncapsulation.None
 })
-export class MdcPermanentDrawerComponent {
+export class MdcPermanentDrawer {
   @Input() fixed: boolean = false;
   @HostBinding('class.mdc-permanent-drawer') isHostClass = true;
   @HostBinding('attr.role') role: string = 'navigation';
@@ -47,5 +43,5 @@ export class MdcPermanentDrawerComponent {
     return this.fixed ? 'mdc-permanent-drawer--fixed' : '';
   }
 
-  constructor(private _root: ElementRef) { }
+  constructor(public elementRef: ElementRef) { }
 }

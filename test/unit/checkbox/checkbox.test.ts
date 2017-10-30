@@ -3,9 +3,9 @@ import { async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed } from '@a
 import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { MdcCheckboxComponent, MdcCheckboxModule } from '../../../src/lib/public_api';
+import { MdcCheckbox, MdcCheckboxModule } from '../../../src/lib/public_api';
 
-describe('MdcCheckboxComponent', () => {
+describe('MdcCheckbox', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
@@ -25,7 +25,7 @@ describe('MdcCheckboxComponent', () => {
   describe('basic behaviors', () => {
     let checkboxDebugElement: DebugElement;
     let checkboxNativeElement: HTMLElement;
-    let checkboxInstance: MdcCheckboxComponent;
+    let checkboxInstance: MdcCheckbox;
     let testComponent: SingleCheckbox;
     let inputElement: HTMLInputElement;
 
@@ -33,7 +33,7 @@ describe('MdcCheckboxComponent', () => {
       fixture = TestBed.createComponent(SingleCheckbox);
       fixture.detectChanges();
 
-      checkboxDebugElement = fixture.debugElement.query(By.directive(MdcCheckboxComponent));
+      checkboxDebugElement = fixture.debugElement.query(By.directive(MdcCheckbox));
       checkboxNativeElement = checkboxDebugElement.nativeElement;
       checkboxInstance = checkboxDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
@@ -135,7 +135,7 @@ describe('MdcCheckboxComponent', () => {
 
       it('should use the provided aria-label', () => {
         fixture = TestBed.createComponent(CheckboxWithAriaLabel);
-        checkboxDebugElement = fixture.debugElement.query(By.directive(MdcCheckboxComponent));
+        checkboxDebugElement = fixture.debugElement.query(By.directive(MdcCheckbox));
         checkboxNativeElement = checkboxDebugElement.nativeElement;
         inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
 
@@ -151,7 +151,7 @@ describe('MdcCheckboxComponent', () => {
 
       it('#should use the provided aria-labelledby', () => {
         fixture = TestBed.createComponent(CheckboxWithAriaLabelledby);
-        checkboxDebugElement = fixture.debugElement.query(By.directive(MdcCheckboxComponent));
+        checkboxDebugElement = fixture.debugElement.query(By.directive(MdcCheckbox));
         checkboxNativeElement = checkboxDebugElement.nativeElement;
         inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
 
@@ -161,7 +161,7 @@ describe('MdcCheckboxComponent', () => {
 
       it('#should not assign aria-labelledby if none is provided', () => {
         fixture = TestBed.createComponent(SingleCheckbox);
-        checkboxDebugElement = fixture.debugElement.query(By.directive(MdcCheckboxComponent));
+        checkboxDebugElement = fixture.debugElement.query(By.directive(MdcCheckbox));
         checkboxNativeElement = checkboxDebugElement.nativeElement;
         inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
 
@@ -182,7 +182,7 @@ describe('MdcCheckboxComponent', () => {
         fixture.detectChanges();
 
         testComponent = fixture.debugElement.componentInstance;
-        checkboxDebugElement = fixture.debugElement.query(By.directive(MdcCheckboxComponent));
+        checkboxDebugElement = fixture.debugElement.query(By.directive(MdcCheckbox));
         checkboxNativeElement = checkboxDebugElement.nativeElement;
         inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
         labelElement = <HTMLLabelElement>checkboxNativeElement.querySelector('label');
@@ -209,14 +209,14 @@ describe('MdcCheckboxComponent', () => {
     describe('with ngModel', () => {
       let checkboxDebugElement: DebugElement;
       let checkboxNativeElement: HTMLElement;
-      let checkboxInstance: MdcCheckboxComponent;
+      let checkboxInstance: MdcCheckbox;
       let inputElement: HTMLInputElement;
 
       beforeEach(() => {
         fixture = TestBed.createComponent(CheckboxWithFormDirectives);
         fixture.detectChanges();
 
-        checkboxDebugElement = fixture.debugElement.query(By.directive(MdcCheckboxComponent));
+        checkboxDebugElement = fixture.debugElement.query(By.directive(MdcCheckbox));
         checkboxNativeElement = checkboxDebugElement.nativeElement;
         checkboxInstance = checkboxDebugElement.componentInstance;
         inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
@@ -225,7 +225,7 @@ describe('MdcCheckboxComponent', () => {
       it('#should be in pristine, untouched, and valid states initially', fakeAsync(() => {
         flushMicrotasks();
 
-        let checkboxElement = fixture.debugElement.query(By.directive(MdcCheckboxComponent));
+        let checkboxElement = fixture.debugElement.query(By.directive(MdcCheckbox));
         let ngModel = checkboxElement.injector.get<NgModel>(NgModel);
 
         expect(ngModel.valid).toBe(true);
@@ -253,7 +253,7 @@ describe('MdcCheckboxComponent', () => {
   });
 });
 
-/** Simple component for testing MdcCheckboxComponent. */
+/** Simple component for testing MdcCheckbox. */
 @Component({
   template: `
     <mdc-checkbox
@@ -297,7 +297,7 @@ class CheckboxWithTabIndex {
   isDisabled: boolean = false;
 }
 
-/** Simple component for testing an MdcCheckboxComponent with ngModel in a form. */
+/** Simple component for testing an MdcCheckbox with ngModel in a form. */
 @Component({
   template: `
     <form>

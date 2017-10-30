@@ -79,8 +79,8 @@ export class OverlayRef implements PortalHost {
      * Detaches an overlay from a portal.
      * @returns Resolves when the overlay has been detached.
      */
-  detach(): Promise<any> {
-    let detachmentResult = this._portalHost.detach();
+  detach(): any {
+    const detachmentResult = this._portalHost.detach();
 
     // Only emit after everything is detached.
     this._detachments.next();

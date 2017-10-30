@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
 
-import { MdcSwitchComponent } from './switch.component';
+import { MdcSwitch } from './switch';
+import { MdcRippleModule } from '../core/ripple/index';
 
 @NgModule({
-  exports: [MdcSwitchComponent],
-  declarations: [MdcSwitchComponent],
+  imports: [
+    MdcRippleModule,
+  ],
+  exports: [MdcSwitch],
+  declarations: [MdcSwitch],
 })
 export class MdcSwitchModule { }
 
-export * from './switch.component';
+export * from './switch';

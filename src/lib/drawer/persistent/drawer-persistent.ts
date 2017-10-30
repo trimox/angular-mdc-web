@@ -15,13 +15,14 @@ import {
 import { isBrowser } from '../../common';
 import { EventRegistry } from '../../common/event-registry';
 
-import { MDCDrawerPersistentAdapter } from '../drawer-adapter';
+import { FOCUSABLE_ELEMENTS } from '../constants';
+import { MDCDrawerPersistentAdapter } from '../adapter';
 import { MDCPersistentDrawerFoundation, util } from '@material/drawer';
 
 @Directive({
   selector: 'mdc-persistent-drawer-nav'
 })
-export class MdcPersistentDrawerNavigationDirective {
+export class MdcPersistentDrawerNavigation {
   @HostBinding('class.mdc-persistent-drawer__drawer') isHostClass = true;
   @HostBinding('attr.role') role: string = 'navigation';
 
@@ -31,7 +32,7 @@ export class MdcPersistentDrawerNavigationDirective {
 @Directive({
   selector: '[mdc-persistent-drawer-spacer], mdc-persistent-drawer-spacer'
 })
-export class MdcPersistentDrawerSpacerDirective {
+export class MdcPersistentDrawerSpacer {
   @HostBinding('class.mdc-persistent-drawer__toolbar-spacer') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -40,7 +41,7 @@ export class MdcPersistentDrawerSpacerDirective {
 @Directive({
   selector: '[mdc-persistent-drawer-header], mdc-persistent-drawer-header'
 })
-export class MdcPersistentDrawerHeaderDirective {
+export class MdcPersistentDrawerHeader {
   @HostBinding('class.mdc-persistent-drawer__header') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -49,7 +50,7 @@ export class MdcPersistentDrawerHeaderDirective {
 @Directive({
   selector: '[mdc-persistent-drawer-header-content], mdc-persistent-drawer-header-content'
 })
-export class MdcPersistentDrawerHeaderContentDirective {
+export class MdcPersistentDrawerHeaderContent {
   @HostBinding('class.mdc-persistent-drawer__header-content') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -58,7 +59,7 @@ export class MdcPersistentDrawerHeaderContentDirective {
 @Directive({
   selector: '[mdc-persistent-drawer-content], mdc-persistent-drawer-content'
 })
-export class MdcPersistentDrawerContentDirective {
+export class MdcPersistentDrawerContent {
   @HostBinding('class.mdc-persistent-drawer__content') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -67,7 +68,7 @@ export class MdcPersistentDrawerContentDirective {
 @Directive({
   selector: '[mdc-persistent-drawer-selected]'
 })
-export class MdcPersistentDrawerSelectedDirective {
+export class MdcPersistentDrawerSelected {
   @HostBinding('class.mdc-persistent-drawer--selected') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -84,66 +85,61 @@ export class MdcPersistentDrawerSelectedDirective {
   encapsulation: ViewEncapsulation.None,
   providers: [EventRegistry],
 })
-export class MdcPersistentDrawerComponent implements AfterViewInit, OnDestroy {
+export class MdcPersistentDrawer implements AfterViewInit, OnDestroy {
   @Output() opened: EventEmitter<void> = new EventEmitter<void>();
   @Output() closed: EventEmitter<void> = new EventEmitter<void>();
   @HostBinding('class.mdc-persistent-drawer') isHostClass = true;
-  @ViewChild(MdcPersistentDrawerNavigationDirective) drawerNav: MdcPersistentDrawerNavigationDirective;
+  @ViewChild(MdcPersistentDrawerNavigation) drawerNav: MdcPersistentDrawerNavigation;
 
   private _mdcAdapter: MDCDrawerPersistentAdapter = {
     addClass: (className: string) => {
-      this._renderer.addClass(this._root.nativeElement, className);
+      this._renderer.addClass(this.elementRef.nativeElement, className);
     },
     removeClass: (className: string) => {
-      this._renderer.removeClass(this._root.nativeElement, className);
+      this._renderer.removeClass(this.elementRef.nativeElement, className);
     },
     hasClass: (className: string) => {
-      return this._root.nativeElement.classList.contains(className);
+      return this.elementRef.nativeElement.classList.contains(className);
     },
     hasNecessaryDom: () => !!this.drawerNav,
     registerInteractionHandler: (evt: string, handler: EventListener) => {
-      if (this._root) {
-        this._registry.listen_(this._renderer, util.remapEvent(evt), handler, this._root);
-      }
+      this._registry.listen(this._renderer, util.remapEvent(evt), handler, this.elementRef.nativeElement);
     },
     deregisterInteractionHandler: (evt: string, handler: EventListener) => {
-      this._registry.unlisten_(evt, handler);
+      this._registry.unlisten(evt, handler);
     },
     registerDrawerInteractionHandler: (evt: string, handler: EventListener) => {
-      if (this._root) {
-        this._registry.listen_(this._renderer, util.remapEvent(evt), handler, this._root);
-      }
+      this._registry.listen(this._renderer, util.remapEvent(evt), handler, this.elementRef.nativeElement);
     },
     deregisterDrawerInteractionHandler: (evt: string, handler: EventListener) => {
-      this._registry.unlisten_(evt, handler);
+      this._registry.unlisten(evt, handler);
     },
     registerTransitionEndHandler: (handler: EventListener) => {
-      if (this._root) {
-        this._registry.listen_(this._renderer, 'transitionend', handler, this._root);
-      }
+      this._registry.listen(this._renderer, 'transitionend', handler, this.elementRef.nativeElement);
     },
     deregisterTransitionEndHandler: (handler: EventListener) => {
-      this._registry.unlisten_('transitionend', handler);
+      this._registry.unlisten('transitionend', handler);
     },
     registerDocumentKeydownHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.listen_(this._renderer, 'keydown', handler, 'document');
+        this._registry.listen(this._renderer, 'keydown', handler, document);
       }
     },
     deregisterDocumentKeydownHandler: (handler: EventListener) => {
-      this._registry.unlisten_('keydown', handler);
+      this._registry.unlisten('keydown', handler);
     },
     getDrawerWidth: () => {
       return this.drawerNav ? this.drawerNav.elementRef.nativeElement.offsetWidth : 0;
     },
     setTranslateX: (value) => {
       if (this.drawerNav) {
-        this._renderer.setProperty(this.drawerNav.elementRef, util.getTransformPropertyName(), value === null ? null : `translateX(${value}px)`);
+        this._renderer.setProperty(this.drawerNav.elementRef, util.getTransformPropertyName(),
+          value === null ? null : `translateX(${value}px)`);
       }
     },
     getFocusableElements: () => {
       return this.drawerNav ?
-        this.drawerNav.elementRef.nativeElement.querySelectorAll(MDCPersistentDrawerFoundation.strings.FOCUSABLE_ELEMENTS) : null;
+        this.drawerNav.elementRef.nativeElement.querySelectorAll(FOCUSABLE_ELEMENTS) : null;
     },
     saveElementTabState: (el: Element) => {
       util.saveElementTabState(el);
@@ -157,7 +153,7 @@ export class MdcPersistentDrawerComponent implements AfterViewInit, OnDestroy {
     notifyOpen: () => this.opened.emit(),
     notifyClose: () => this.closed.emit(),
     isRtl: () => {
-      return getComputedStyle(this._root.nativeElement).getPropertyValue('direction') === 'rtl';
+      return getComputedStyle(this.elementRef.nativeElement).getPropertyValue('direction') === 'rtl';
     },
     isDrawer: (el) => {
       return this.drawerNav ? el === this.drawerNav.elementRef.nativeElement : false;
@@ -174,24 +170,24 @@ export class MdcPersistentDrawerComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef,
+    public elementRef: ElementRef,
     private _registry: EventRegistry) { }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this._foundation.init();
   }
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this._foundation.destroy();
   }
 
-  isOpen() {
+  isOpen(): boolean {
     return this._foundation.isOpen();
   }
 
-  open() {
+  open(): void {
     this._foundation.open();
   }
-  close() {
+  close(): void {
     this._foundation.close();
   }
 }

@@ -16,6 +16,8 @@ import { MdcButton } from '../button/button';
 })
 export class MdcCardPrimary {
   @HostBinding('class.mdc-card__primary') isHostClass = true;
+
+  constructor(public elementRef: ElementRef) { }
 }
 
 @Directive({
@@ -23,6 +25,8 @@ export class MdcCardPrimary {
 })
 export class MdcCardHorizontal {
   @HostBinding('class.mdc-card__horizontal-block') isHostClass = true;
+
+  constructor(public elementRef: ElementRef) { }
 }
 
 @Directive({
@@ -34,6 +38,8 @@ export class MdcCardTitle {
   @HostBinding('class.mdc-card__title--large') get classTitleLarge(): string {
     return this.large ? 'mdc-card__title--large' : '';
   }
+
+  constructor(public elementRef: ElementRef) { }
 }
 
 @Directive({
@@ -41,6 +47,8 @@ export class MdcCardTitle {
 })
 export class MdcCardSubtitle {
   @HostBinding('class.mdc-card__subtitle') isHostClass = true;
+
+  constructor(public elementRef: ElementRef) { }
 }
 
 @Directive({
@@ -48,6 +56,8 @@ export class MdcCardSubtitle {
 })
 export class MdcCardSupportingText {
   @HostBinding('class.mdc-card__supporting-text') isHostClass = true;
+
+  constructor(public elementRef: ElementRef) { }
 }
 
 @Directive({
@@ -68,6 +78,8 @@ export class MdcCardMediaItem {
   @HostBinding('class.mdc-card__media-item--3x') get classMediaItemThree(): string {
     return this.size === 3 ? 'mdc-card__media-item--3x' : '';
   }
+
+  constructor(public elementRef: ElementRef) { }
 }
 
 @Directive({
@@ -75,17 +87,21 @@ export class MdcCardMediaItem {
 })
 export class MdcCardMedia {
   @HostBinding('class.mdc-card__media') isHostClass = true;
+
+  constructor(public elementRef: ElementRef) { }
 }
 
 @Directive({
   selector: 'mdc-card-actions'
 })
 export class MdcCardActions {
-  @Input() vertical: boolean;
+  @Input() vertical: boolean = false;
   @HostBinding('class.mdc-card__actions') isHostClass = true;
   @HostBinding('class.mdc-card__actions--vertical') get classCardActionVertical(): string {
     return this.vertical ? 'mdc-card__actions--vertical' : '';
   }
+
+  constructor(public elementRef: ElementRef) { }
 }
 
 @Directive({
@@ -108,7 +124,5 @@ export class MdcCardActionButton extends MdcButton {
 export class MdcCard {
   @HostBinding('class.mdc-card') isHostClass = true;
 
-  constructor(
-    private renderer_: Renderer2,
-    public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef) { }
 }

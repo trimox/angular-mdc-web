@@ -99,9 +99,7 @@ export class MdcSelectItem {
 
   @Input() value: any;
   @Input()
-  get disabled(): boolean {
-    return this._disabled;
-  }
+  get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this._disabled = toBoolean(value);
     value ? this.tabIndex = -1 : this.tabIndex = 0;
@@ -204,10 +202,10 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnChanges
       return this.elementRef.nativeElement.getBoundingClientRect();
     },
     registerInteractionHandler: (type: string, handler: EventListener) => {
-      this._registry.listen_(this._renderer, type, handler, this.elementRef);
+      this._registry.listen(this._renderer, type, handler, this.elementRef.nativeElement);
     },
     deregisterInteractionHandler: (type: string, handler: EventListener) => {
-      this._registry.unlisten_(type, handler);
+      this._registry.unlisten(type, handler);
     },
     focus: () => this.elementRef.nativeElement.focus(),
     makeTabbable: () => this.elementRef.nativeElement.tabIndex = 0,
@@ -259,10 +257,10 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnChanges
       return this._getItemByIndex(index).elementRef.nativeElement.offsetTop;
     },
     registerMenuInteractionHandler: (type: string, handler: EventListener) => {
-      this._registry.listen_(this._renderer, type, handler, this.selectMenu.elementRef);
+      this._registry.listen(this._renderer, type, handler, this.selectMenu.elementRef.nativeElement);
     },
     deregisterMenuInteractionHandler: (type: string, handler: EventListener) => {
-      this._registry.unlisten_(type, handler);
+      this._registry.unlisten(type, handler);
     },
     notifyChange: () => {
       this.change.emit({
@@ -291,7 +289,7 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnChanges
     public elementRef: ElementRef,
     private _registry: EventRegistry) { }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this._itemsSubscription = this.options.changes.subscribe(_ => {
       this._foundation.resize();
     });
@@ -299,7 +297,7 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnChanges
     this._foundation.init();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this._itemsSubscription) {
       this._itemsSubscription.unsubscribe();
     }
@@ -311,7 +309,7 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnChanges
     this._foundation.destroy();
   }
 
-  ngOnChanges(changes: { [key: string]: SimpleChange }) {
+  ngOnChanges(changes: { [key: string]: SimpleChange }): void {
     let _closeOnScroll = changes['closeOnScroll'];
 
     if (_closeOnScroll && isBrowser()) {

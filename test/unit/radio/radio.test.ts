@@ -3,9 +3,9 @@ import { async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed } from '@a
 import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { MdcRadioComponent, MdcRadioModule } from '../../../src/lib/public_api';
+import { MdcRadio, MdcRadioModule } from '../../../src/lib/public_api';
 
-describe('MdcRadioComponent', () => {
+describe('MdcRadio', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
@@ -25,7 +25,7 @@ describe('MdcRadioComponent', () => {
   describe('basic behaviors', () => {
     let radioDebugElement: DebugElement;
     let radioNativeElement: HTMLElement;
-    let radioInstance: MdcRadioComponent;
+    let radioInstance: MdcRadio;
     let testComponent: SingleRadio;
     let inputElement: HTMLInputElement;
 
@@ -33,7 +33,7 @@ describe('MdcRadioComponent', () => {
       fixture = TestBed.createComponent(SingleRadio);
       fixture.detectChanges();
 
-      radioDebugElement = fixture.debugElement.query(By.directive(MdcRadioComponent));
+      radioDebugElement = fixture.debugElement.query(By.directive(MdcRadio));
       radioNativeElement = radioDebugElement.nativeElement;
       radioInstance = radioDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
@@ -130,7 +130,7 @@ describe('MdcRadioComponent', () => {
 
       it('should use the provided aria-label', () => {
         fixture = TestBed.createComponent(RadioWithAriaLabel);
-        radioDebugElement = fixture.debugElement.query(By.directive(MdcRadioComponent));
+        radioDebugElement = fixture.debugElement.query(By.directive(MdcRadio));
         radioNativeElement = radioDebugElement.nativeElement;
         inputElement = <HTMLInputElement>radioNativeElement.querySelector('input');
 
@@ -146,7 +146,7 @@ describe('MdcRadioComponent', () => {
 
       it('#should use the provided aria-labelledby', () => {
         fixture = TestBed.createComponent(radioWithAriaLabelledby);
-        radioDebugElement = fixture.debugElement.query(By.directive(MdcRadioComponent));
+        radioDebugElement = fixture.debugElement.query(By.directive(MdcRadio));
         radioNativeElement = radioDebugElement.nativeElement;
         inputElement = <HTMLInputElement>radioNativeElement.querySelector('input');
 
@@ -156,7 +156,7 @@ describe('MdcRadioComponent', () => {
 
       it('#should not assign aria-labelledby if none is provided', () => {
         fixture = TestBed.createComponent(SingleRadio);
-        radioDebugElement = fixture.debugElement.query(By.directive(MdcRadioComponent));
+        radioDebugElement = fixture.debugElement.query(By.directive(MdcRadio));
         radioNativeElement = radioDebugElement.nativeElement;
         inputElement = <HTMLInputElement>radioNativeElement.querySelector('input');
 
@@ -177,7 +177,7 @@ describe('MdcRadioComponent', () => {
         fixture.detectChanges();
 
         testComponent = fixture.debugElement.componentInstance;
-        radioDebugElement = fixture.debugElement.query(By.directive(MdcRadioComponent));
+        radioDebugElement = fixture.debugElement.query(By.directive(MdcRadio));
         radioNativeElement = radioDebugElement.nativeElement;
         inputElement = <HTMLInputElement>radioNativeElement.querySelector('input');
         labelElement = <HTMLLabelElement>radioNativeElement.querySelector('label');
@@ -204,14 +204,14 @@ describe('MdcRadioComponent', () => {
     describe('with ngModel', () => {
       let radioDebugElement: DebugElement;
       let radioNativeElement: HTMLElement;
-      let radioInstance: MdcRadioComponent;
+      let radioInstance: MdcRadio;
       let inputElement: HTMLInputElement;
 
       beforeEach(() => {
         fixture = TestBed.createComponent(RadioWithFormDirectives);
         fixture.detectChanges();
 
-        radioDebugElement = fixture.debugElement.query(By.directive(MdcRadioComponent));
+        radioDebugElement = fixture.debugElement.query(By.directive(MdcRadio));
         radioNativeElement = radioDebugElement.nativeElement;
         radioInstance = radioDebugElement.componentInstance;
         inputElement = <HTMLInputElement>radioNativeElement.querySelector('input');
@@ -220,7 +220,7 @@ describe('MdcRadioComponent', () => {
       it('#should be in pristine, untouched, and valid states initially', fakeAsync(() => {
         flushMicrotasks();
 
-        let radioElement = fixture.debugElement.query(By.directive(MdcRadioComponent));
+        let radioElement = fixture.debugElement.query(By.directive(MdcRadio));
         let ngModel = radioElement.injector.get<NgModel>(NgModel);
 
         expect(ngModel.valid).toBe(true);

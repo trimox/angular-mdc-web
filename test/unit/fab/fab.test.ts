@@ -2,9 +2,9 @@ import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MdcFabComponent, MdcFabModule } from '../../../src/lib/public_api';
+import { MdcFab, MdcFabModule } from '../../../src/lib/public_api';
 
-describe('MdcFabComponent', () => {
+describe('MdcFab', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
@@ -20,14 +20,14 @@ describe('MdcFabComponent', () => {
   describe('button[mdc-fab]', () => {
     let buttonDebugElement: DebugElement;
     let buttonNativeElement: HTMLButtonElement;
-    let buttonInstance: MdcFabComponent;
+    let buttonInstance: MdcFab;
     let testComponent: SimpleButton;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SimpleButton);
       fixture.detectChanges();
 
-      buttonDebugElement = fixture.debugElement.query(By.directive(MdcFabComponent));
+      buttonDebugElement = fixture.debugElement.query(By.directive(MdcFab));
       buttonNativeElement = buttonDebugElement.nativeElement;
       buttonInstance = buttonDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;

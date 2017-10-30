@@ -4,19 +4,6 @@ import { By } from '@angular/platform-browser';
 
 import {
   MdcTypographyModule,
-  MdcAdjustMarginDirective,
-  MdcBody1Directive,
-  MdcBody2Directive,
-  MdcButtonDirective,
-  MdcCaptionDirective,
-  MdcDisplay1Directive,
-  MdcDisplay2Directive,
-  MdcDisplay3Directive,
-  MdcDisplay4Directive,
-  MdcHeadlineDirective,
-  MdcSubheading1Directive,
-  MdcSubheading2Directive,
-  MdcTitleDirective,
   MdcTypography,
 } from '../../../src/lib/public_api';
 

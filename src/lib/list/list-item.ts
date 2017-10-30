@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { toBoolean } from '../common';
 import { MdcRipple } from '../core/ripple/ripple.service';
-import { MdcList } from './list.component';
+import { MdcList } from './list';
 
 @Directive({
   selector: '[mdc-list-item-start]'
@@ -40,9 +40,9 @@ export class MdcListItemEnd {
 })
 export class MdcListItem implements AfterViewInit, OnChanges {
   @Input()
-  get disableRipple() { return this.ripple_.disabled; }
-  set disableRipple(value) {
-    this.ripple_.disabled = toBoolean(value);
+  get disableRipple(): boolean { return this._ripple.disabled; }
+  set disableRipple(value: boolean) {
+    this._ripple.disabled = toBoolean(value);
   }
   @HostBinding('class.mdc-list-item') isHostClass = true;
   @HostBinding('attr.role') role: string = 'listitem';
@@ -50,25 +50,25 @@ export class MdcListItem implements AfterViewInit, OnChanges {
 
   constructor(
     public elementRef: ElementRef,
-    private renderer_: Renderer2,
-    private ripple_: MdcRipple,
-    @Inject(forwardRef(() => MdcList)) private mdcList_: MdcList) { }
+    private _renderer: Renderer2,
+    private _ripple: MdcRipple,
+    @Inject(forwardRef(() => MdcList)) private _mdcList: MdcList) { }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (this.elementRef.nativeElement.tagName === 'A') {
-      this.ripple_.init();
+      this._ripple.init();
     }
-    if (this.listItemStart && this.mdcList_.avatar) {
-      this.renderer_.addClass(this.listItemStart.elementRef.nativeElement, 'mdc-icon--avatar');
+    if (this.listItemStart && this._mdcList.avatar) {
+      this._renderer.addClass(this.listItemStart.elementRef.nativeElement, 'mdc-icon--avatar');
     }
   }
-  ngOnChanges(changes: { [key: string]: SimpleChange }) {
+  ngOnChanges(changes: { [key: string]: SimpleChange }): void {
     let change = changes['disableRipple'];
 
     if (toBoolean(change.currentValue)) {
-      this.ripple_.disabled = true;
-    } else if (!this.mdcList_.disableRipple) {
-      this.ripple_.disabled = false;
+      this._ripple.disabled = true;
+    } else if (!this._mdcList.disableRipple) {
+      this._ripple.disabled = false;
     }
   }
 }

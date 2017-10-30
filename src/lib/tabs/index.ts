@@ -3,31 +3,29 @@ import { NgModule } from '@angular/core';
 import { MdcIconModule } from '../icon/index';
 
 import {
-  MdcTabComponent,
-  MdcTabIconTextDirective,
-} from './tab/tab.component';
+  MdcTab,
+  MdcTabIconText,
+} from './tab/tab';
 
-import {
-  MdcTabBarDirective,
-} from './tab-bar/tab-bar.directive';
+import { MdcTabBar } from './tab-bar/tab-bar';
 
 import {
   MdcTabBarScroller,
-  MdcTabBarScrollBackDirective,
-  MdcTabBarScrollForwardDirective,
-  MdcTabBarScrollFrameDirective,
-  MdcTabBarScrollIndicatorInnerDirective,
-} from './tab-bar-scroller/tab-bar-scroller.component';
+  MdcTabBarScrollBack,
+  MdcTabBarScrollForward,
+  MdcTabBarScrollFrame,
+  MdcTabBarScrollIndicatorInner,
+} from './tab-bar-scroller/tab-bar-scroller';
 
 const TAB_COMPONENTS = [
-  MdcTabComponent,
-  MdcTabIconTextDirective,
-  MdcTabBarDirective,
+  MdcTab,
+  MdcTabIconText,
+  MdcTabBar,
   MdcTabBarScroller,
-  MdcTabBarScrollBackDirective,
-  MdcTabBarScrollForwardDirective,
-  MdcTabBarScrollFrameDirective,
-  MdcTabBarScrollIndicatorInnerDirective,
+  MdcTabBarScrollBack,
+  MdcTabBarScrollForward,
+  MdcTabBarScrollFrame,
+  MdcTabBarScrollIndicatorInner,
 ];
 
 @NgModule({
@@ -42,6 +40,6 @@ const TAB_COMPONENTS = [
 })
 export class MdcTabModule { }
 
-export * from './tab/tab.component';
-export * from './tab-bar/tab-bar.directive';
-export * from './tab-bar-scroller/tab-bar-scroller.component';
+export * from './tab/tab';
+export * from './tab-bar/tab-bar';
+export * from './tab-bar-scroller/tab-bar-scroller';

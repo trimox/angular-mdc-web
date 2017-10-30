@@ -3,14 +3,14 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import {
-  MdcFormFieldDirective,
+  MdcFormField,
   MdcFormFieldModule,
   MdcCheckboxModule,
   MdcRadioModule,
   MdcSwitchModule
 } from '../../../src/lib/public_api';
 
-describe('MdcFormFieldDirective', () => {
+describe('MdcFormField', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
@@ -31,14 +31,14 @@ describe('MdcFormFieldDirective', () => {
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;
     let testNativeElement: HTMLElement;
-    let testInstance: MdcFormFieldDirective;
+    let testInstance: MdcFormField;
     let testComponent: SimpleTest;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SimpleTest);
       fixture.detectChanges();
 
-      testDebugElement = fixture.debugElement.query(By.directive(MdcFormFieldDirective));
+      testDebugElement = fixture.debugElement.query(By.directive(MdcFormField));
       testNativeElement = testDebugElement.nativeElement;
       testInstance = testDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;

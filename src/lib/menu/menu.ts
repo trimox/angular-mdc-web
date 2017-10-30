@@ -34,6 +34,8 @@ export enum MenuOpenFrom {
 })
 export class MdcMenuAnchor {
   @HostBinding('class.mdc-menu-anchor') isHostClass = true;
+
+  constructor(public elementRef: ElementRef) { }
 }
 
 @Component({
@@ -155,16 +157,16 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
       return this.options ? this.options.length : 0;
     },
     registerInteractionHandler: (type: string, handler: EventListener) => {
-      this._registry.listen_(this._renderer, type, handler, this.elementRef);
+      this._registry.listen(this._renderer, type, handler, this.elementRef.nativeElement);
     },
     deregisterInteractionHandler: (type: string, handler: EventListener) => {
-      this._registry.unlisten_(type, handler);
+      this._registry.unlisten(type, handler);
     },
     registerBodyClickHandler: (handler: EventListener) => {
-      this._registry.listen_(this._renderer, 'click', handler, 'body');
+      this._registry.listen(this._renderer, 'click', handler, document.body);
     },
     deregisterBodyClickHandler: (handler: EventListener) => {
-      this._registry.unlisten_('click', handler);
+      this._registry.unlisten('click', handler);
     },
     getYParamsForItemAtIndex: (index: number) => {
       const { offsetTop: top, offsetHeight: height } = this.options.toArray()[index].elementRef.nativeElement;
@@ -241,23 +243,23 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
     public elementRef: ElementRef,
     private _registry: EventRegistry) { }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this._foundation.init();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this._foundation.destroy();
   }
 
-  ngOnChanges(changes: { [key: string]: SimpleChange }) {
-    let _openFrom = changes['openFrom'];
+  ngOnChanges(changes: { [key: string]: SimpleChange }): void {
+    let change = changes['openFrom'];
 
-    if (_openFrom) {
-      if (_openFrom.previousValue) {
-        this._mdcAdapter.removeClass(`${MenuOpenFrom[_openFrom.previousValue]}`);
+    if (change) {
+      if (change.previousValue) {
+        this._mdcAdapter.removeClass(`${MenuOpenFrom[change.previousValue]}`);
       }
-      if (_openFrom.currentValue) {
-        this._mdcAdapter.addClass(`${MenuOpenFrom[_openFrom.currentValue]}`);
+      if (change.currentValue) {
+        this._mdcAdapter.addClass(`${MenuOpenFrom[change.currentValue]}`);
       }
     }
   }

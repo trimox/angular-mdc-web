@@ -18,14 +18,14 @@ import { toBoolean } from '../common';
 import { EventRegistry } from '../common/event-registry';
 import { MdcRipple } from '../core/ripple/ripple.service';
 
-import { MDCCheckboxAdapter } from './checkbox-adapter';
+import { MDCCheckboxAdapter } from './adapter';
 import { MDCCheckboxFoundation } from '@material/checkbox';
 
 let nextUniqueId = 0;
 
 export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => MdcCheckboxComponent),
+  useExisting: forwardRef(() => MdcCheckbox),
   multi: true
 };
 
@@ -60,42 +60,42 @@ export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: Provider = {
     <div class="mdc-checkbox__mixedmark"></div>
   </div>
   `,
-  encapsulation: ViewEncapsulation.None,
   providers: [
     MD_CHECKBOX_CONTROL_VALUE_ACCESSOR,
     MdcRipple,
     EventRegistry,
-  ]
+  ],
+  encapsulation: ViewEncapsulation.None,
 })
-export class MdcCheckboxComponent implements AfterViewInit, OnDestroy {
+export class MdcCheckbox implements AfterViewInit, OnDestroy {
   private _uniqueId: string = `mdc-checkbox-${++nextUniqueId}`;
 
   @Input() id: string = this._uniqueId;
   get inputId(): string { return `${this.id || this._uniqueId}-input`; }
   @Input() name: string | null = null;
   @Input()
-  get checked() { return this._foundation.isChecked(); }
-  set checked(value) {
+  get checked(): boolean { return this._foundation.isChecked(); }
+  set checked(value: boolean) {
     this._foundation.setChecked(value);
   }
   @Input()
-  get value() { return this._foundation.getValue(); }
-  set value(value) {
+  get value(): any { return this._foundation.getValue(); }
+  set value(value: any) {
     this._foundation.setValue(value);
   }
   @Input()
-  get disabled() { return this._foundation.isDisabled(); }
-  set disabled(value) {
+  get disabled(): boolean { return this._foundation.isDisabled(); }
+  set disabled(value: boolean) {
     this._foundation.setDisabled(value);
   }
   @Input()
-  get indeterminate() { return this._foundation.isIndeterminate(); }
-  set indeterminate(value) {
+  get indeterminate(): boolean { return this._foundation.isIndeterminate(); }
+  set indeterminate(value: boolean) {
     this._foundation.setIndeterminate(value);
   }
   @Input()
-  get disableRipple() { return this.ripple.disabled; }
-  set disableRipple(value) {
+  get disableRipple(): boolean { return this.ripple.disabled; }
+  set disableRipple(value: boolean) {
     this.ripple.disabled = toBoolean(value);
   }
   @Input() tabIndex: number = 0;
@@ -111,36 +111,30 @@ export class MdcCheckboxComponent implements AfterViewInit, OnDestroy {
 
   private _mdcAdapter: MDCCheckboxAdapter = {
     addClass: (className: string) => {
-      this._renderer.addClass(this.root.nativeElement, className);
+      this._renderer.addClass(this.elementRef.nativeElement, className);
     },
     removeClass: (className: string) => {
-      this._renderer.removeClass(this.root.nativeElement, className);
+      this._renderer.removeClass(this.elementRef.nativeElement, className);
     },
     registerAnimationEndHandler: (handler: EventListener) => {
-      if (this.root) {
-        this._registry.listen_(this._renderer, 'animationend', handler, this.root);
-      }
+      this._registry.listen(this._renderer, 'animationend', handler, this.elementRef.nativeElement);
     },
     deregisterAnimationEndHandler: (handler: EventListener) => {
-      this._registry.unlisten_('animationend', handler);
+      this._registry.unlisten('animationend', handler);
     },
     registerChangeHandler: (handler: EventListener) => {
-      if (this.root) {
-        this._registry.listen_(this._renderer, 'change', handler, this.inputEl);
-      }
+      this._registry.listen(this._renderer, 'change', handler, this.inputEl.nativeElement);
     },
     deregisterChangeHandler: (handler: EventListener) => {
-      this._registry.unlisten_('change', handler);
+      this._registry.unlisten('change', handler);
     },
     getNativeControl: () => {
       return this.inputEl.nativeElement;
     },
     forceLayout: () => {
-      if (this.root) {
-        return this.root.nativeElement.offsetWidth;
-      }
+      return this.elementRef.nativeElement.offsetWidth;
     },
-    isAttachedToDOM: () => !!this.root
+    isAttachedToDOM: () => !!this.elementRef
   };
 
   private _foundation: {
@@ -158,33 +152,33 @@ export class MdcCheckboxComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private _renderer: Renderer2,
-    public root: ElementRef,
+    public elementRef: ElementRef,
     public ripple: MdcRipple,
     private _registry: EventRegistry) { }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this._foundation.init();
     this.ripple.init(true);
   }
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this._foundation.destroy();
   }
 
-  onChange(evt: Event) {
+  onChange(evt: Event): void {
     evt.stopPropagation();
     this._controlValueAccessorChangeFn((<any>evt.target).checked);
     this.change.emit(evt);
   }
 
-  writeValue(value: any) {
+  writeValue(value: any): void {
     this.checked = !!value;
   }
 
-  registerOnChange(fn: (value: any) => void) {
+  registerOnChange(fn: (value: any) => void): void {
     this._controlValueAccessorChangeFn = fn;
   }
 
-  registerOnTouched(fn: any) {
+  registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
 

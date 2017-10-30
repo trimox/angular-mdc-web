@@ -36,6 +36,7 @@
     "lint": "npm run lint:ts && npm run lint:css",
     "lint:ts": "tslint 'src/**/*.ts test/**/*.ts'",
     "lint:css": "stylelint src/**/*.scss --config .stylelint-config.yaml",
+    "fix:css": "stylelint --fix src/**/*.scss --config .stylelint-config.yaml",
     "test": "npm run test:unit",
     "test:unit": "karma start --single-run",
     "test:watch": "karma start --auto-watch",

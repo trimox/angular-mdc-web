@@ -1,13 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { MdcFabComponent } from '../../../../lib/public_api';
+// import { MdcFab } from '@angular-mdc/web';
+import { MdcFab } from '../../../../lib/public_api';
 
 @Component({
   selector: 'fab-demo',
   templateUrl: './fab-demo.html'
 })
 export class FabDemo {
-  @ViewChild('fab') fab: MdcFabComponent;
+  @ViewChild('fab') fab: MdcFab;
   isMini: boolean = false;
   isExited: boolean = false;
   isRippleDisabled: boolean = false;

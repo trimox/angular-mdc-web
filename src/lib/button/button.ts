@@ -7,7 +7,7 @@ import {
   HostListener,
   Input,
   Renderer2,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { MdcIcon } from '../icon/icon';
 import { MdcRipple } from '../core/ripple/ripple.service';
@@ -21,12 +21,13 @@ import {
   selector: 'button[mdc-button], a[mdc-button]',
   template: '<ng-content></ng-content>',
   host: {
-    '[attr.aria-disabled]': 'disabled.toString()',
+    '[attr.aria-disabled]': 'disabled.toString()'
   },
   providers: [MdcRipple],
+  encapsulation: ViewEncapsulation.None,
 })
 export class MdcButton implements AfterViewInit {
-  private disabled_: boolean = false;
+  private _disabled: boolean = false;
 
   @Input() raised: boolean = false;
   @Input() primary: boolean = false;
@@ -36,10 +37,10 @@ export class MdcButton implements AfterViewInit {
   @Input() unelevated: boolean = false;
   @Input() stroked: boolean = false;
   @Input()
-  get disabled(): boolean { return this.disabled_; }
-  set disabled(value) {
-    this.disabled_ = toBoolean(value);
-    if (this.disabled_) {
+  get disabled(): boolean { return this._disabled; }
+  set disabled(value: boolean) {
+    this._disabled = toBoolean(value);
+    if (this._disabled) {
       this.renderer.setAttribute(this.elementRef.nativeElement, "disabled", 'true');
     } else {
       this.renderer.removeAttribute(this.elementRef.nativeElement, "disabled");
@@ -47,7 +48,7 @@ export class MdcButton implements AfterViewInit {
   }
   @Input()
   get disableRipple(): boolean { return this.ripple.disabled; }
-  set disableRipple(value) {
+  set disableRipple(value: boolean) {
     this.ripple.disabled = toBoolean(value);
   }
   @HostBinding('tabindex') get tabindex(): number {
@@ -76,13 +77,13 @@ export class MdcButton implements AfterViewInit {
     return this.stroked ? 'mdc-button--stroked' : '';
   }
   @HostListener('click', ['$event']) onclick(evt: Event) {
-    this.handleClick_(evt);
+    this._onClick(evt);
   }
   @HostListener('keypress', ['$event']) onkeypress(evt: KeyboardEvent) {
-    this.handleKeyPress_(evt);
+    this._onKeyPress(evt);
   }
   @HostListener('blur', ['$event']) blur(evt: FocusEvent) {
-    this.handleBlur_(evt);
+    this._onBlur(evt);
   }
   @ContentChild(MdcIcon) buttonIcon: MdcIcon;
 
@@ -91,7 +92,7 @@ export class MdcButton implements AfterViewInit {
     public elementRef: ElementRef,
     public ripple: MdcRipple) { }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (this.buttonIcon) {
       this.renderer.addClass(this.buttonIcon.elementRef.nativeElement, 'mdc-button__icon');
     }
@@ -100,7 +101,7 @@ export class MdcButton implements AfterViewInit {
     }
   }
 
-  private handleClick_(event: Event) {
+  private _onClick(event: Event): void {
     // A disabled button shouldn't apply any actions
     if (this.disabled) {
       event.preventDefault();
@@ -108,17 +109,17 @@ export class MdcButton implements AfterViewInit {
     }
   }
 
-  private handleKeyPress_(keyboardEvent: KeyboardEvent) {
-    let keyCode = keyboardEvent.keyCode;
-    if (keyCode == KeyCodes.ENTER || isSpaceKey(keyboardEvent)) {
+  private _onKeyPress(event: KeyboardEvent): void {
+    let keyCode = event.keyCode;
+    if (keyCode == KeyCodes.ENTER || isSpaceKey(event)) {
       this.ripple.active = true;
       if (keyCode != KeyCodes.ENTER) {
-        keyboardEvent.preventDefault();
+        event.preventDefault();
       }
     }
   }
 
-  private handleBlur_(focusEvent: FocusEvent) {
+  private _onBlur(event: FocusEvent): void {
     this.ripple.active = false;
   }
 }

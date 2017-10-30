@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 
-import { MdcLinearProgressComponent } from './linear-progress.component';
+import { MdcLinearProgress } from './linear-progress';
 
 @NgModule({
-  exports: [MdcLinearProgressComponent],
-  declarations: [MdcLinearProgressComponent],
+  exports: [MdcLinearProgress],
+  declarations: [MdcLinearProgress],
 })
 export class MdcLinearProgressModule { }
 
-export * from './linear-progress.component';
+export * from './linear-progress';

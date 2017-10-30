@@ -4,10 +4,10 @@ import { By } from '@angular/platform-browser';
 
 import {
   MdcDrawerModule,
-  MdcTemporaryDrawerComponent,
+  MdcTemporaryDrawer,
 } from '../../../src/lib/public_api';
 
-describe('MdcTemporaryDrawerComponent', () => {
+describe('MdcTemporaryDrawer', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
@@ -25,14 +25,14 @@ describe('MdcTemporaryDrawerComponent', () => {
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;
     let testNativeElement: HTMLElement;
-    let testInstance: MdcTemporaryDrawerComponent;
+    let testInstance: MdcTemporaryDrawer;
     let testComponent: SimpleTest;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SimpleTest);
       fixture.detectChanges();
 
-      testDebugElement = fixture.debugElement.query(By.directive(MdcTemporaryDrawerComponent));
+      testDebugElement = fixture.debugElement.query(By.directive(MdcTemporaryDrawer));
       testNativeElement = testDebugElement.nativeElement;
       testInstance = testDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;

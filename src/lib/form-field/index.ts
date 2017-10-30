@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 
-import { MdcFormFieldDirective } from './form-field.directive';
+import { MdcFormField } from './form-field';
 
 @NgModule({
-  exports: [MdcFormFieldDirective],
-  declarations: [MdcFormFieldDirective]
+  exports: [MdcFormField],
+  declarations: [MdcFormField]
 })
 export class MdcFormFieldModule { }
 
-export * from './form-field.directive';
+export * from './form-field';

@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 
+import { EventRegistry } from '../../common/event-registry';
+
 import {
   MdcRippleDirective,
   MdcSurfaceDirective,
@@ -13,6 +15,7 @@ const RIPPLE_DIRECTIVES = [
 @NgModule({
   exports: [RIPPLE_DIRECTIVES],
   declarations: [RIPPLE_DIRECTIVES],
+  providers: [EventRegistry],
 })
 export class MdcRippleModule { }
 

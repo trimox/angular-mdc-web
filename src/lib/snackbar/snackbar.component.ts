@@ -16,7 +16,7 @@ import { EventRegistry } from '../common/event-registry';
 
 import { MDC_SNACK_BAR_DATA, MdcSnackbarConfig } from './snackbar-config';
 import { MdcSnackbarRef } from './snackbar-ref';
-import { MDCSnackbarAdapter } from './snackbar-adapter';
+import { MDCSnackbarAdapter } from './adapter';
 
 import { MDCSnackbarFoundation } from '@material/snackbar';
 import { getCorrectEventName } from '@material/animation';
@@ -67,16 +67,16 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
 
   private _mdcAdapter: MDCSnackbarAdapter = {
     addClass: (className: string) => {
-      this._renderer.addClass(this._root.nativeElement, className);
+      this._renderer.addClass(this.elementRef.nativeElement, className);
     },
     removeClass: (className: string) => {
-      this._renderer.removeClass(this._root.nativeElement, className);
+      this._renderer.removeClass(this.elementRef.nativeElement, className);
     },
     setAriaHidden: () => {
-      this._renderer.setAttribute(this._root.nativeElement, 'aria-hidden', 'true');
+      this._renderer.setAttribute(this.elementRef.nativeElement, 'aria-hidden', 'true');
     },
     unsetAriaHidden: () => {
-      this._renderer.removeAttribute(this._root.nativeElement, 'aria-hidden');
+      this._renderer.removeAttribute(this.elementRef.nativeElement, 'aria-hidden');
     },
     setActionAriaHidden: () => {
       if (this.actionButton) {
@@ -107,51 +107,51 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
       return isBrowser() ? document.hidden : false;
     },
     registerCapturedBlurHandler: (handler: EventListener) => {
-      if (this._root && this.actionButton) {
-        this._registry.listen_(this._renderer, 'blur', handler, this.actionButton);
+      if (this.elementRef && this.actionButton) {
+        this._registry.listen(this._renderer, 'blur', handler, this.actionButton.nativeElement);
       }
     },
     deregisterCapturedBlurHandler: (handler: EventListener) => {
-      if (this._root) {
-        this._registry.unlisten_('blur', handler);
+      if (this.elementRef) {
+        this._registry.unlisten('blur', handler);
       }
     },
     registerVisibilityChangeHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.listen_(this._renderer, 'visibilitychange', handler, 'document');
+        this._registry.listen(this._renderer, 'visibilitychange', handler, document);
       }
     },
     deregisterVisibilityChangeHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.unlisten_('visibilitychange', handler);
+        this._registry.unlisten('visibilitychange', handler);
       }
     },
     registerCapturedInteractionHandler: (evtType: string, handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.listen_(this._renderer, evtType, handler, 'body');
+        this._registry.listen(this._renderer, evtType, handler, document.body);
       }
     },
     deregisterCapturedInteractionHandler: (evtType: string, handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.unlisten_(evtType, handler);
+        this._registry.unlisten(evtType, handler);
       }
     },
     registerActionClickHandler: (handler: EventListener) => {
-      if (this._root && this.actionButton) {
-        this._registry.listen_(this._renderer, 'click', handler, this.actionButton);
+      if (this.elementRef && this.actionButton) {
+        this._registry.listen(this._renderer, 'click', handler, this.actionButton.nativeElement);
       }
     },
     deregisterActionClickHandler: (handler: EventListener) => {
-      this._registry.unlisten_('click', handler);
+      this._registry.unlisten('click', handler);
     },
     registerTransitionEndHandler: (handler: EventListener) => {
-      if (this._root && isBrowser()) {
-        this._registry.listen_(this._renderer, getCorrectEventName(window, 'transitionend'), handler, this._root);
+      if (this.elementRef && isBrowser()) {
+        this._registry.listen(this._renderer, getCorrectEventName(window, 'transitionend'), handler, this.elementRef.nativeElement);
       }
     },
     deregisterTransitionEndHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.unlisten_(getCorrectEventName(window, 'transitionend'), handler);
+        this._registry.unlisten(getCorrectEventName(window, 'transitionend'), handler);
         this.snackbarRef.dismiss(); // remove container from dom host
       }
     }
@@ -171,18 +171,18 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
     @Inject(MDC_SNACK_BAR_DATA) data: any,
     @Inject(MdcSnackbarConfig) config: MdcSnackbarConfig,
     private _renderer: Renderer2,
-    private _root: ElementRef,
+    public elementRef: ElementRef,
     private _registry: EventRegistry) {
     this.data = data;
     this.config = config;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this._foundation.init();
     this.show();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this._foundation.destroy();
   }
 

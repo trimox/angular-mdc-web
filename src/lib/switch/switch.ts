@@ -19,7 +19,7 @@ import { MdcRipple } from '../core/ripple/ripple.service';
 
 export const MD_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => MdcSwitchComponent),
+  useExisting: forwardRef(() => MdcSwitch),
   multi: true
 };
 
@@ -53,8 +53,10 @@ let nextUniqueId = 0;
     MdcRipple,
   ]
 })
-export class MdcSwitchComponent implements OnChanges {
+export class MdcSwitch implements OnChanges {
   private _uniqueId: string = `mdc-switch-${++nextUniqueId}`;
+  private _controlValueAccessorChangeFn: (value: any) => void = (value) => { };
+  onTouched: () => any = () => { };
 
   @Input() id: string = this._uniqueId;
   get inputId(): string { return `${this.id || this._uniqueId}-input`; }
@@ -65,8 +67,8 @@ export class MdcSwitchComponent implements OnChanges {
   @Input('aria-label') ariaLabel: string = '';
   @Input('aria-labelledby') ariaLabelledby: string | null = null;
   @Input()
-  get disableRipple() { return this.ripple.disabled; }
-  set disableRipple(value) {
+  get disableRipple(): boolean { return this.ripple.disabled; }
+  set disableRipple(value: boolean) {
     this.ripple.disabled = toBoolean(value);
   }
   @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
@@ -76,18 +78,14 @@ export class MdcSwitchComponent implements OnChanges {
   }
   @ViewChild('inputEl') inputEl: ElementRef;
 
-  onTouched: () => any = () => { };
-
-  private _controlValueAccessorChangeFn: (value: any) => void = (value) => { };
-
   constructor(
     private _renderer: Renderer2,
-    public root: ElementRef,
+    public elementRef: ElementRef,
     public ripple: MdcRipple) {
     this.ripple.init(true);
   }
 
-  ngOnChanges(changes: { [key: string]: SimpleChange }) {
+  ngOnChanges(changes: { [key: string]: SimpleChange }): void {
     let change = changes['disabled'];
 
     if (change) {
@@ -95,22 +93,22 @@ export class MdcSwitchComponent implements OnChanges {
     }
   }
 
-  onChange(evt: Event) {
+  onChange(evt: Event): void {
     evt.stopPropagation();
     this.checked = this.inputEl.nativeElement.checked;
     this._controlValueAccessorChangeFn((<any>evt.target).checked);
     this.change.emit(evt);
   }
 
-  writeValue(value: string) {
+  writeValue(value: string): void {
     this.checked = !!value;
   }
 
-  registerOnChange(fn: (value: any) => void) {
+  registerOnChange(fn: (value: any) => void): void {
     this._controlValueAccessorChangeFn = fn;
   }
 
-  registerOnTouched(fn: any) {
+  registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
 

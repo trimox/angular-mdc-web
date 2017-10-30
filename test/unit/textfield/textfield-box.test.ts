@@ -9,7 +9,7 @@ import {
   MdcTextfieldModule
 } from '../../../src/lib/public_api';
 
-describe('MdcTextfieldBoxComponent', () => {
+describe('MdcTextfieldBox', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {

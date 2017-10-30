@@ -2,9 +2,9 @@ import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MdcIconToggleComponent, MdcIconToggleModule } from '../../../src/lib/public_api';
+import { MdcIconToggle, MdcIconToggleModule } from '../../../src/lib/public_api';
 
-describe('MdcIconToggleComponent', () => {
+describe('MdcIconToggle', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
@@ -20,14 +20,14 @@ describe('MdcIconToggleComponent', () => {
   describe('basic behaviors', () => {
     let buttonDebugElement: DebugElement;
     let buttonNativeElement: HTMLButtonElement;
-    let buttonInstance: MdcIconToggleComponent;
+    let buttonInstance: MdcIconToggle;
     let testComponent: SimpleButton;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SimpleButton);
       fixture.detectChanges();
 
-      buttonDebugElement = fixture.debugElement.query(By.directive(MdcIconToggleComponent));
+      buttonDebugElement = fixture.debugElement.query(By.directive(MdcIconToggle));
       buttonNativeElement = buttonDebugElement.nativeElement;
       buttonInstance = buttonDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;

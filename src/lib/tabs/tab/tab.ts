@@ -1,7 +1,7 @@
 import {
   AfterViewInit,
-  Component,
   ContentChild,
+  Component,
   Directive,
   ElementRef,
   EventEmitter,
@@ -17,13 +17,13 @@ import { EventRegistry } from '../../common/event-registry';
 import { MdcIcon } from '../../icon/icon';
 import { MdcRipple } from '../../core/ripple/ripple.service';
 
-import { MDCTabAdapter } from './tab-adapter';
+import { MDCTabAdapter } from './adapter';
 import { MDCTabFoundation } from '@material/tabs';
 
 @Directive({
   selector: '[mdc-tab-icon-text], mdc-tab-icon-text'
 })
-export class MdcTabIconTextDirective {
+export class MdcTabIconText {
   @HostBinding('class.mdc-tab__icon-text') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -36,25 +36,25 @@ export class MdcTabIconTextDirective {
     MdcRipple,
     EventRegistry
   ],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
-export class MdcTabComponent implements AfterViewInit, OnDestroy {
+export class MdcTab implements AfterViewInit, OnDestroy {
   @Input()
-  get active() { return this.foundation.isActive(); }
-  set active(value) {
+  get active(): boolean { return this.foundation.isActive(); }
+  set active(value: boolean) {
     this.foundation.setActive(value);
   }
   @Input()
-  get preventsDefaultOnClick() { return this.foundation.preventsDefaultOnClick(); }
+  get preventsDefaultOnClick(): boolean { return this.foundation.preventsDefaultOnClick(); }
   set preventsDefaultOnClick(value: boolean) {
     this.foundation.setPreventDefaultOnClick(value);
   }
   @Input()
-  get disableRipple() { return this.ripple_.disabled; }
-  set disableRipple(value) {
-    this.ripple_.disabled = toBoolean(value);
+  get disableRipple(): boolean { return this.ripple.disabled; }
+  set disableRipple(value: boolean) {
+    this.ripple.disabled = toBoolean(value);
   }
-  @Output() select: EventEmitter<{ tab: MdcTabComponent }> = new EventEmitter();
+  @Output() select: EventEmitter<{ tab: MdcTab }> = new EventEmitter();
   @HostBinding('class.mdc-tab') isHostClass = true;
   @HostBinding('attr.role') role: string = 'tab';
   @HostBinding('class.mdc-tab--with-icon-and-text') get classIconText() {
@@ -64,20 +64,20 @@ export class MdcTabComponent implements AfterViewInit, OnDestroy {
     return this.foundation.isActive();
   }
   @ContentChild(MdcIcon) tabIcon: MdcIcon;
-  @ContentChild(MdcTabIconTextDirective) tabIconText: MdcTabIconTextDirective;
+  @ContentChild(MdcTabIconText) tabIconText: MdcTabIconText;
 
   private _mdcAdapter: MDCTabAdapter = {
     addClass: (className: string) => {
-      this.renderer_.addClass(this.elementRef.nativeElement, className);
+      this._renderer.addClass(this.elementRef.nativeElement, className);
     },
     removeClass: (className: string) => {
-      this.renderer_.removeClass(this.elementRef.nativeElement, className);
+      this._renderer.removeClass(this.elementRef.nativeElement, className);
     },
     registerInteractionHandler: (type: string, handler: EventListener) => {
-      this.registry_.listen_(this.renderer_, type, handler, this.elementRef);
+      this._registry.listen(this._renderer, type, handler, this.elementRef.nativeElement);
     },
     deregisterInteractionHandler: (type: string, handler: EventListener) => {
-      this.registry_.unlisten_(type, handler);
+      this._registry.unlisten(type, handler);
     },
     getOffsetWidth: () => this.elementRef.nativeElement.offsetWidth,
     getOffsetLeft: () => this.elementRef.nativeElement.offsetLeft,
@@ -97,21 +97,21 @@ export class MdcTabComponent implements AfterViewInit, OnDestroy {
   } = new MDCTabFoundation(this._mdcAdapter);
 
   constructor(
-    private renderer_: Renderer2,
-    private elementRef: ElementRef,
-    private registry_: EventRegistry,
-    private ripple_: MdcRipple) {
-    this.ripple_.init();
+    private _renderer: Renderer2,
+    public elementRef: ElementRef,
+    private _registry: EventRegistry,
+    public ripple: MdcRipple) {
+    this.ripple.init();
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.foundation.init();
     if (this.tabIcon) {
-      this.renderer_.addClass(this.tabIcon.elementRef.nativeElement, 'mdc-tab__icon');
+      this._renderer.addClass(this.tabIcon.elementRef.nativeElement, 'mdc-tab__icon');
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.foundation.destroy();
   }
 }

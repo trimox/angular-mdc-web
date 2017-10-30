@@ -21,21 +21,20 @@ const MDC_ELEVATION_VALUES = Array.from(Array(25), (x, i) => i);
 @Directive({
   selector: '[mdc-elevation]'
 })
-export class MdcElevationDirective implements OnChanges {
-  private nativeEl: ElementRef;
+export class MdcElevation implements OnChanges {
   private _mdcElevation: number = 0;
 
   @Input('mdc-elevation')
-  get mdcElevation() { return this._mdcElevation; }
+  get mdcElevation(): number { return this._mdcElevation; }
   set mdcElevation(value: number) {
     this._mdcElevation = toNumber(value);
   }
 
-  constructor(private _renderer: Renderer2, private _root: ElementRef) {
-    this.nativeEl = this._root.nativeElement;
-  }
+  constructor(
+    private _renderer: Renderer2,
+    public elementRef: ElementRef) { }
 
-  public ngOnChanges(changes: { [key: string]: SimpleChange }) {
+  public ngOnChanges(changes: { [key: string]: SimpleChange }): void {
     let change = changes['mdcElevation'];
 
     if (MDC_ELEVATION_VALUES.indexOf(Number(this.mdcElevation)) === -1) {
@@ -43,8 +42,8 @@ export class MdcElevationDirective implements OnChanges {
     }
 
     if (!change.isFirstChange()) {
-      this._renderer.removeClass(this.nativeEl, `mdc-elevation--z${change.previousValue}`);
+      this._renderer.removeClass(this.elementRef.nativeElement, `mdc-elevation--z${change.previousValue}`);
     }
-    this._renderer.addClass(this.nativeEl, `mdc-elevation--z${change.currentValue}`);
+    this._renderer.addClass(this.elementRef.nativeElement, `mdc-elevation--z${change.currentValue}`);
   }
 }

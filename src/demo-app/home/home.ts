@@ -4,5 +4,4 @@
   selector: 'home',
   templateUrl: './home.html'
 })
-export class Home {
-}
+export class Home { }

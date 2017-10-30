@@ -13,23 +13,23 @@ import { isBrowser } from '../../common';
 import { EventRegistry } from '../../common/event-registry';
 import { Subscription } from 'rxjs';
 
-import { MdcTabComponent } from '../tab/tab.component';
+import { MdcTab } from '../tab/tab';
 
-import { MDCTabBarAdapter } from './tab-bar-adapter';
+import { MDCTabBarAdapter } from './adapter';
 import { MDCTabBarFoundation } from '@material/tabs';
 
 @Directive({
   selector: '[mdc-tab-bar], mdc-tab-bar',
   providers: [EventRegistry],
 })
-export class MdcTabBarDirective {
-  private tabBarIndicator: HTMLElement;
-  private tabEvents: Subscription[];
+export class MdcTabBar {
+  private _tabBarIndicator: HTMLElement;
+  private _tabEvents: Subscription[];
 
-  @Input() primary: boolean;
-  @Input() secondary: boolean;
+  @Input() primary: boolean = false;
+  @Input() secondary: boolean = false;
   @Output() change: EventEmitter<{ activeTabIndex: number }> = new EventEmitter();
-  @ContentChildren(MdcTabComponent, { descendants: false }) tabs: QueryList<MdcTabComponent>;
+  @ContentChildren(MdcTab, { descendants: false }) tabs: QueryList<MdcTab>;
   @HostBinding('class.mdc-tab-bar') isHostClass = true;
   @HostBinding('class.mdc-tab-bar-scroller__scroll-frame__tabs') scrollFrameContent = false;
   @HostBinding('attr.role') role: string = 'tablist';
@@ -52,26 +52,26 @@ export class MdcTabBarDirective {
 
   private _mdcAdapter: MDCTabBarAdapter = {
     addClass: (className: string) => {
-      this._renderer.addClass(this.root.nativeElement, className);
+      this._renderer.addClass(this.elementRef.nativeElement, className);
     },
     removeClass: (className: string) => {
-      this._renderer.removeClass(this.root.nativeElement, className);
+      this._renderer.removeClass(this.elementRef.nativeElement, className);
     },
-    bindOnMDCTabSelectedEvent: () => this.listenTabSelect(),
-    unbindOnMDCTabSelectedEvent: () => this.unlistenTabSelect(),
+    bindOnMDCTabSelectedEvent: () => this._listenTabSelect(),
+    unbindOnMDCTabSelectedEvent: () => this._unlistenTabSelect(),
     registerResizeHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.listen_(this._renderer, 'resize', handler, 'window');
+        this._registry.listen(this._renderer, 'resize', handler, window);
       }
     },
     deregisterResizeHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.unlisten_('resize', handler);
+        this._registry.unlisten('resize', handler);
       }
     },
-    getOffsetWidth: () => this.root.nativeElement.offsetWidth,
-    setStyleForIndicator: (propertyName: string, value: string) => this._renderer.setStyle(this.tabBarIndicator, propertyName, value),
-    getOffsetWidthForIndicator: () => this.tabBarIndicator.offsetWidth,
+    getOffsetWidth: () => this.elementRef.nativeElement.offsetWidth,
+    setStyleForIndicator: (propertyName: string, value: string) => this._renderer.setStyle(this._tabBarIndicator, propertyName, value),
+    getOffsetWidthForIndicator: () => this._tabBarIndicator.offsetWidth,
     notifyChange: (evtData: { activeTabIndex: number }) => this.change.emit(evtData),
     getNumberOfTabs: () => this.tabs.length,
     isTabActiveAtIndex: (index: number) => index >= 0 ? this.tabs.toArray()[index].active : false,
@@ -94,43 +94,43 @@ export class MdcTabBarDirective {
 
   constructor(
     private _renderer: Renderer2,
-    public root: ElementRef,
+    public elementRef: ElementRef,
     private _registry: EventRegistry) { }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.tabs.changes.subscribe(() => {
-      if (this.tabEvents) {
-        this.listenTabSelect();
+      if (this._tabEvents) {
+        this._listenTabSelect();
       }
     });
-    this.createTabBarIndicator();
+    this._createTabBarIndicator();
     this._foundation.init();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this._foundation.destroy();
   }
 
-  private createTabBarIndicator() {
-    this.tabBarIndicator = this._renderer.createElement('span');
-    this._renderer.addClass(this.tabBarIndicator, 'mdc-tab-bar__indicator');
-    this._renderer.appendChild(this.root.nativeElement, this.tabBarIndicator);
+  private _createTabBarIndicator(): void {
+    this._tabBarIndicator = this._renderer.createElement('span');
+    this._renderer.addClass(this._tabBarIndicator, 'mdc-tab-bar__indicator');
+    this._renderer.appendChild(this.elementRef.nativeElement, this._tabBarIndicator);
   }
 
-  private listenTabSelect() {
-    if (this.tabEvents) {
-      this.unlistenTabSelect();
+  private _listenTabSelect(): void {
+    if (this._tabEvents) {
+      this._unlistenTabSelect();
     }
-    this.tabEvents = new Array<Subscription>();
+    this._tabEvents = new Array<Subscription>();
     this.tabs.forEach(tab => {
-      this.tabEvents.push(tab.select.subscribe((event: any) => {
+      this._tabEvents.push(tab.select.subscribe((event: any) => {
         this._foundation.switchToTabAtIndex(this.tabs.toArray().indexOf(event.tab), true);
       }));
     });
   }
 
-  private unlistenTabSelect() {
-    this.tabEvents.forEach(_ => _.unsubscribe());
-    this.tabEvents = null;
+  private _unlistenTabSelect(): void {
+    this._tabEvents.forEach(_ => _.unsubscribe());
+    this._tabEvents = null;
   }
 }

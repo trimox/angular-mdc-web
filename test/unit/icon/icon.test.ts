@@ -40,11 +40,6 @@ describe('MdcIcon', () => {
     it('#should have material-icons', () => {
       expect(testDebugElement.nativeElement.classList).toContain('material-icons');
     });
-
-    it('#should set the SvgElement', () => {
-      testComponent.mySvg = 'test';
-      fixture.detectChanges();
-    });
   });
 
   describe('Font Awesome', () => {
@@ -71,12 +66,11 @@ describe('MdcIcon', () => {
 @Component({
   template:
   `
-    <mdc-icon [svgIcon]="mySvg">{{myIcon}}</mdc-icon>
+    <mdc-icon>{{myIcon}}</mdc-icon>
   `,
 })
 class SimpleTest {
   myIcon: string = 'home';
-  mySvg: string = 'test';
 }
 
 /** Simple component for testing. */

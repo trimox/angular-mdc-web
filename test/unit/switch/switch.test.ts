@@ -3,9 +3,9 @@ import { async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed } from '@a
 import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { MdcSwitchComponent, MdcSwitchModule } from '../../../src/lib/public_api';
+import { MdcSwitch, MdcSwitchModule } from '../../../src/lib/public_api';
 
-describe('MdcSwitchComponent', () => {
+describe('MdcSwitch', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
@@ -24,7 +24,7 @@ describe('MdcSwitchComponent', () => {
   describe('basic behaviors', () => {
     let switchDebugElement: DebugElement;
     let switchNativeElement: HTMLElement;
-    let switchInstance: MdcSwitchComponent;
+    let switchInstance: MdcSwitch;
     let testComponent: SingleSwitch;
     let inputElement: HTMLInputElement;
 
@@ -32,7 +32,7 @@ describe('MdcSwitchComponent', () => {
       fixture = TestBed.createComponent(SingleSwitch);
       fixture.detectChanges();
 
-      switchDebugElement = fixture.debugElement.query(By.directive(MdcSwitchComponent));
+      switchDebugElement = fixture.debugElement.query(By.directive(MdcSwitch));
       switchNativeElement = switchDebugElement.nativeElement;
       switchInstance = switchDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
@@ -133,7 +133,7 @@ describe('MdcSwitchComponent', () => {
 
       it('#should use the provided aria-label', () => {
         fixture = TestBed.createComponent(SwitchWithAriaLabel);
-        switchDebugElement = fixture.debugElement.query(By.directive(MdcSwitchComponent));
+        switchDebugElement = fixture.debugElement.query(By.directive(MdcSwitch));
         switchNativeElement = switchDebugElement.nativeElement;
         inputElement = <HTMLInputElement>switchNativeElement.querySelector('input');
 
@@ -149,7 +149,7 @@ describe('MdcSwitchComponent', () => {
 
       it('#should use the provided aria-labelledby', () => {
         fixture = TestBed.createComponent(SwitchWithAriaLabelledby);
-        switchDebugElement = fixture.debugElement.query(By.directive(MdcSwitchComponent));
+        switchDebugElement = fixture.debugElement.query(By.directive(MdcSwitch));
         switchNativeElement = switchDebugElement.nativeElement;
         inputElement = <HTMLInputElement>switchNativeElement.querySelector('input');
 
@@ -159,7 +159,7 @@ describe('MdcSwitchComponent', () => {
 
       it('#should not assign aria-labelledby if none is provided', () => {
         fixture = TestBed.createComponent(SingleSwitch);
-        switchDebugElement = fixture.debugElement.query(By.directive(MdcSwitchComponent));
+        switchDebugElement = fixture.debugElement.query(By.directive(MdcSwitch));
         switchNativeElement = switchDebugElement.nativeElement;
         inputElement = <HTMLInputElement>switchNativeElement.querySelector('input');
 
@@ -171,14 +171,14 @@ describe('MdcSwitchComponent', () => {
     describe('with ngModel', () => {
       let switchDebugElement: DebugElement;
       let switchNativeElement: HTMLElement;
-      let switchInstance: MdcSwitchComponent;
+      let switchInstance: MdcSwitch;
       let inputElement: HTMLInputElement;
 
       beforeEach(() => {
         fixture = TestBed.createComponent(SwitchWithFormDirectives);
         fixture.detectChanges();
 
-        switchDebugElement = fixture.debugElement.query(By.directive(MdcSwitchComponent));
+        switchDebugElement = fixture.debugElement.query(By.directive(MdcSwitch));
         switchNativeElement = switchDebugElement.nativeElement;
         switchInstance = switchDebugElement.componentInstance;
         inputElement = <HTMLInputElement>switchNativeElement.querySelector('input');
@@ -187,7 +187,7 @@ describe('MdcSwitchComponent', () => {
       it('#should be in pristine, untouched, and valid states initially', fakeAsync(() => {
         flushMicrotasks();
 
-        let switchElement = fixture.debugElement.query(By.directive(MdcSwitchComponent));
+        let switchElement = fixture.debugElement.query(By.directive(MdcSwitch));
         let ngModel = switchElement.injector.get<NgModel>(NgModel);
 
         expect(ngModel.valid).toBe(true);

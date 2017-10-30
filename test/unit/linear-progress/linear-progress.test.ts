@@ -2,9 +2,9 @@ import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MdcLinearProgressComponent, MdcLinearProgressModule } from '../../../src/lib/public_api';
+import { MdcLinearProgress, MdcLinearProgressModule } from '../../../src/lib/public_api';
 
-describe('MdcLinearProgressComponent', () => {
+describe('MdcLinearProgress', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
@@ -20,14 +20,14 @@ describe('MdcLinearProgressComponent', () => {
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;
     let testNativeElement: HTMLElement;
-    let testInstance: MdcLinearProgressComponent;
+    let testInstance: MdcLinearProgress;
     let testComponent: SimpleTest;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SimpleTest);
       fixture.detectChanges();
 
-      testDebugElement = fixture.debugElement.query(By.directive(MdcLinearProgressComponent));
+      testDebugElement = fixture.debugElement.query(By.directive(MdcLinearProgress));
       testNativeElement = testDebugElement.nativeElement;
       testInstance = testDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;

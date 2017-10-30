@@ -2,7 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MdcTabBarDirective, MdcTabComponent, MdcTabModule } from '../../../src/lib/public_api';
+import { MdcTabBar, MdcTabModule } from '../../../src/lib/public_api';
 
 describe('MdcTabBar', () => {
   let fixture: ComponentFixture<any>;
@@ -20,14 +20,14 @@ describe('MdcTabBar', () => {
     describe('behaviors', () => {
     let tabBarDebugElement: DebugElement;
     let tabBarNativeElement: HTMLButtonElement;
-    let tabBarInstance: MdcTabBarDirective;
+    let tabBarInstance: MdcTabBar;
     let testComponent: SimpleTabs;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SimpleTabs);
       fixture.detectChanges();
 
-      tabBarDebugElement = fixture.debugElement.query(By.directive(MdcTabBarDirective));
+      tabBarDebugElement = fixture.debugElement.query(By.directive(MdcTabBar));
       tabBarNativeElement = tabBarDebugElement.nativeElement;
       tabBarInstance = tabBarDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;

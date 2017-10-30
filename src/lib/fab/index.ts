@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core';
 
 import { MdcIconModule } from '../icon/index';
-import { MdcFabComponent } from './fab.component';
+import { MdcRippleModule } from '../core/ripple/index';
+import { MdcFab } from './fab';
 
 @NgModule({
   imports: [
     MdcIconModule,
+    MdcRippleModule,
   ],
   exports: [
     MdcIconModule,
-    MdcFabComponent
+    MdcFab
   ],
-  declarations: [MdcFabComponent],
+  declarations: [MdcFab],
 })
 export class MdcFabModule { }
 
-export * from './fab.component';
+export * from './fab';

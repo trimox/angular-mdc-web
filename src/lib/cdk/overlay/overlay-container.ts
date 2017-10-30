@@ -15,24 +15,24 @@ import {
 
 @Injectable()
 export class OverlayContainer implements OnDestroy {
-  protected containerElement_: HTMLElement;
+  protected _containerElement: HTMLElement;
 
   ngOnDestroy() {
-    if (this.containerElement_ && this.containerElement_.parentNode) {
-      this.containerElement_.parentNode.removeChild(this.containerElement_);
+    if (this._containerElement && this._containerElement.parentNode) {
+      this._containerElement.parentNode.removeChild(this._containerElement);
     }
   }
 
   getContainerElement(): HTMLElement {
-    if (!this.containerElement_) { this._createContainer(); }
-    return this.containerElement_;
+    if (!this._containerElement) { this._createContainer(); }
+    return this._containerElement;
   }
 
   protected _createContainer(): void {
     let container = document.createElement('div');
 
     document.body.appendChild(container);
-    this.containerElement_ = container;
+    this._containerElement = container;
   }
 }
 

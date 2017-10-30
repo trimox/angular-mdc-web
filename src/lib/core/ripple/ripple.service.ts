@@ -5,15 +5,14 @@ import {
   Renderer2,
 } from '@angular/core';
 import { toBoolean, isBrowser } from '../../common';
+import { EventRegistry } from '../../common/event-registry';
 
 import { MDCRippleAdapter } from './adapter';
-import { supportsCssVariables } from '@material/ripple/util';
+import { supportsCssVariables, applyPassive } from '@material/ripple/util';
 import { MDCRippleFoundation } from '@material/ripple';
 
 @Injectable()
 export class MdcRipple implements OnDestroy {
-  private _interactionListenerFn: () => void;
-  private _resizeListenerFn: () => void;
   private _disabled: boolean = false;
 
   unbounded: boolean;
@@ -42,36 +41,25 @@ export class MdcRipple implements OnDestroy {
       this._renderer.removeClass(this.elementRef.nativeElement, className);
     },
     registerInteractionHandler: (evtType: string, handler: EventListener) => {
-      this._resizeListenerFn = this._renderer.listen(this.elementRef.nativeElement, evtType, handler);
+      const target = (evtType === 'mouseup' || evtType === 'pointerup') ? window : this.elementRef.nativeElement;
+      this._registry.listen(this._renderer, evtType, handler, target, applyPassive());
     },
     deregisterInteractionHandler: (evtType: string, handler: EventListener) => {
-      if (this._interactionListenerFn) {
-        this._interactionListenerFn();
-      }
+      this._registry.unlisten(evtType, handler);
     },
     registerResizeHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._resizeListenerFn = this._renderer.listen(window, 'resize', handler);
+        this._registry.listen(this._renderer, 'resize', handler, window);
       }
     },
     deregisterResizeHandler: (handler: EventListener) => {
-      if (isBrowser() && this._resizeListenerFn) {
-        this._resizeListenerFn();
-      }
+      this._registry.unlisten('resize', handler);
     },
     updateCssVariable: (varName: string, value: string) => {
       this.elementRef.nativeElement.style.setProperty(varName, value);
     },
     computeBoundingRect: () => {
-      const { left, top, height, width } = this.elementRef.nativeElement.getBoundingClientRect();
-      return {
-        top,
-        left,
-        right: left,
-        bottom: top,
-        width: width,
-        height: height,
-      };
+      return this.elementRef.nativeElement.getBoundingClientRect();
     },
     getWindowPageOffset: () => {
       return {
@@ -91,8 +79,8 @@ export class MdcRipple implements OnDestroy {
 
   constructor(
     private _renderer: Renderer2,
-    public elementRef: ElementRef) {
-  }
+    private _registry: EventRegistry,
+    public elementRef: ElementRef) { }
 
   ngOnDestroy() {
     this._foundation.destroy();

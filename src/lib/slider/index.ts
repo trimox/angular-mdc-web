@@ -11,7 +11,7 @@ import {
   MdcSliderTrackContainer,
   MdcSliderTrackMarker,
   MdcSliderTrackMarkerContainer,
-} from './slider.component';
+} from './slider';
 
 const SLIDER_COMPONENTS = [
   MdcSlider,
@@ -31,4 +31,4 @@ const SLIDER_COMPONENTS = [
 })
 export class MdcSliderModule { }
 
-export * from './slider.component';
+export * from './slider';

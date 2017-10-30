@@ -178,59 +178,59 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
 
   private _mdcAdapter: MDCSliderAdapter = {
     hasClass: (className: string) => {
-      return this._root.nativeElement.classList.contains(className);
+      return this.elementRef.nativeElement.classList.contains(className);
     },
     addClass: (className: string) => {
-      this._renderer.addClass(this._root.nativeElement, className);
+      this._renderer.addClass(this.elementRef.nativeElement, className);
     },
     removeClass: (className: string) => {
-      this._renderer.removeClass(this._root.nativeElement, className);
+      this._renderer.removeClass(this.elementRef.nativeElement, className);
     },
     getAttribute: (name: string) => {
-      return this._root.nativeElement.getAttribute(name);
+      return this.elementRef.nativeElement.getAttribute(name);
     },
     setAttribute: (name: string, value: string) => {
-      this._renderer.setAttribute(this._root.nativeElement, name, value);
+      this._renderer.setAttribute(this.elementRef.nativeElement, name, value);
     },
     removeAttribute: (name: string) => {
-      this._renderer.removeAttribute(this._root.nativeElement, name);
+      this._renderer.removeAttribute(this.elementRef.nativeElement, name);
     },
     computeBoundingRect: () => {
-      return this._root.nativeElement.getBoundingClientRect();
+      return this.elementRef.nativeElement.getBoundingClientRect();
     },
-    getTabIndex: () => this._root.nativeElement.tabIndex,
+    getTabIndex: () => this.elementRef.nativeElement.tabIndex,
     registerInteractionHandler: (type: string, handler: EventListener) => {
-      this._registry.listen_(this._renderer, type, handler, this._root);
+      this._registry.listen(this._renderer, type, handler, this.elementRef.nativeElement);
     },
     deregisterInteractionHandler: (type: string, handler: EventListener) => {
-      this._registry.unlisten_(type, handler);
+      this._registry.unlisten(type, handler);
     },
     registerThumbContainerInteractionHandler: (type: string, handler: EventListener) => {
       if (this.thumbContainer) {
-        this._registry.listen_(this._renderer, type, handler, this.thumbContainer.elementRef);
+        this._registry.listen(this._renderer, type, handler, this.thumbContainer.elementRef.nativeElement);
       }
     },
     deregisterThumbContainerInteractionHandler: (type: string, handler: EventListener) => {
-      this._registry.unlisten_(type, handler);
+      this._registry.unlisten(type, handler);
     },
     registerBodyInteractionHandler: (type: string, handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.listen_(this._renderer, type, handler, 'body');
+        this._registry.listen(this._renderer, type, handler, document.body);
       }
     },
     deregisterBodyInteractionHandler: (type: string, handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.unlisten_(type, handler);
+        this._registry.unlisten(type, handler);
       }
     },
     registerResizeHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.listen_(this._renderer, 'resize', handler, 'window');
+        this._registry.listen(this._renderer, 'resize', handler, window);
       }
     },
     deregisterResizeHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.unlisten_('resize', handler);
+        this._registry.unlisten('resize', handler);
       }
     },
     notifyInput: () => {
@@ -295,29 +295,29 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef,
+    public elementRef: ElementRef,
     private _registry: EventRegistry) {
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     // these must be run AfterViewInit - do not change
     this._foundation.init();
     this._foundation.setupTrackMarker();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this._foundation.destroy();
   }
 
-  writeValue(value: any) {
+  writeValue(value: any): void {
     this.value = value;
   }
 
-  registerOnChange(fn: (value: any) => void) {
+  registerOnChange(fn: (value: any) => void): void {
     this._controlValueAccessorChangeFn = fn;
   }
 
-  registerOnTouched(fn: any) {
+  registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
 

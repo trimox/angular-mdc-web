@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
 
-import { MdcRadioComponent } from './radio.component';
+import { MdcRadio } from './radio';
+import { MdcRippleModule } from '../core/ripple/index';
 
 @NgModule({
-  exports: [MdcRadioComponent],
-  declarations: [MdcRadioComponent]
+  imports: [
+    MdcRippleModule,
+  ],
+  exports: [MdcRadio],
+  declarations: [MdcRadio]
 })
 export class MdcRadioModule { }
 
-export * from './radio.component';
+export * from './radio';

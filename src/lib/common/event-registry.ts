@@ -12,15 +12,15 @@ export class EventRegistry {
 
   constructor() { }
 
-  listen_(renderer: Renderer2, type: string, listener: EventListener, target: any) {
+  listen(renderer: Renderer2, type: string, listener: EventListener, target: Element | Window | Document, passive?: any) {
     if (!this.unlisteners.has(type)) {
       this.unlisteners.set(type, new WeakMap<EventListener, Function>());
     }
-    const unlistener = renderer.listen(typeof target !== 'string' ? target.nativeElement : target, type, listener);
-    this.unlisteners.get(type).set(listener, unlistener);
+    target.addEventListener(type, listener, passive);
+    this.unlisteners.get(type).set(listener, () => { target.removeEventListener(type, listener, passive); });
   }
 
-  unlisten_(type: string, listener: EventListener) {
+  unlisten(type: string, listener: EventListener) {
     if (!this.unlisteners.has(type)) {
       return;
     }

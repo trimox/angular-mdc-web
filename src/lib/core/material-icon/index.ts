@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { MdcMaterialIcon } from './material-icon.directive';
+import { MdcMaterialIcon } from './material-icon';
 
 @NgModule({
   exports: [MdcMaterialIcon],
@@ -8,4 +8,4 @@ import { MdcMaterialIcon } from './material-icon.directive';
 })
 export class MdcMaterialIconModule { }
 
-export * from './material-icon.directive';
+export * from './material-icon';

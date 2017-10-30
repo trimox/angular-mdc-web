@@ -7,7 +7,7 @@ import {
   Renderer2,
   ViewEncapsulation
 } from '@angular/core';
-import { MDCLinearProgressAdapter } from './linear-progress-adapter';
+import { MDCLinearProgressAdapter } from './adapter';
 
 import { MDCLinearProgressFoundation } from '@material/linear-progress';
 
@@ -26,23 +26,23 @@ import { MDCLinearProgressFoundation } from '@material/linear-progress';
   `,
   encapsulation: ViewEncapsulation.None
 })
-export class MdcLinearProgressComponent implements AfterViewInit {
-  private indeterminate_: boolean;
-  private reversed_: boolean;
+export class MdcLinearProgress implements AfterViewInit {
+  private _indeterminate: boolean = false;
+  private _reversed: boolean = false;
 
   @Input()
-  get indeterminate() { return this.indeterminate_; }
-  set indeterminate(value) {
+  get indeterminate(): boolean { return this._indeterminate; }
+  set indeterminate(value: boolean) {
     this._foundation.setDeterminate(!value);
-    this.indeterminate_ = !value;
+    this._indeterminate = !value;
   }
   @Input()
-  get reversed() { return this.reversed_; }
-  set reversed(value) {
+  get reversed(): boolean { return this._reversed; }
+  set reversed(value: boolean) {
     this._foundation.setReverse(value);
-    this.reversed_ = value;
+    this._reversed = value;
   }
-  @Input() secondary: boolean;
+  @Input() secondary: boolean = false;
   @HostBinding('attr.role') role: string = 'progressbar';
   @HostBinding('class.mdc-linear-progress') isHostClass = true;
   @HostBinding('class.mdc-linear-progress--accent') get classSecondary(): string {
@@ -51,19 +51,19 @@ export class MdcLinearProgressComponent implements AfterViewInit {
 
   private _mdcAdapter: MDCLinearProgressAdapter = {
     addClass: (className: string) => {
-      this._renderer.addClass(this._root.nativeElement, className);
+      this._renderer.addClass(this.elementRef.nativeElement, className);
     },
     getPrimaryBar: () => {
-      return this._root.nativeElement.querySelector('.mdc-linear-progress__primary-bar');
+      return this.elementRef.nativeElement.querySelector('.mdc-linear-progress__primary-bar');
     },
     getBuffer: () => {
-      return this._root.nativeElement.querySelector('.mdc-linear-progress__buffer');
+      return this.elementRef.nativeElement.querySelector('.mdc-linear-progress__buffer');
     },
     hasClass: (className: string) => {
-      return this._renderer.parentNode(this._root.nativeElement).classList.contains(className);
+      return this._renderer.parentNode(this.elementRef.nativeElement).classList.contains(className);
     },
     removeClass: (className: string) => {
-      this._renderer.removeClass(this._root.nativeElement, className);
+      this._renderer.removeClass(this.elementRef.nativeElement, className);
     },
     setStyle: (el: Element, styleProperty: string, value: number) => {
       this._renderer.setStyle(el, styleProperty, value);
@@ -82,9 +82,9 @@ export class MdcLinearProgressComponent implements AfterViewInit {
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef) { }
+    public elementRef: ElementRef) { }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this._foundation.init();
   }
 

@@ -6,8 +6,8 @@ import { Component } from '@angular/core';
 })
 export class IconToggleDemo {
   isOn: boolean = false;
-  isDisabled: boolean;
-  isPrimary: boolean;
-  isAccent: boolean;
-  isDarkTheme: boolean;
+  isDisabled: boolean = false;
+  isPrimary: boolean = false;
+  isAccent: boolean = false;
+  isDarkTheme: boolean = false;
 }

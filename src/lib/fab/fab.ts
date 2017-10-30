@@ -22,28 +22,26 @@ export type FabPosition = 'bottom-left' | 'bottom-right' | null;
 @Component({
   selector: 'button[mdc-fab], a[mdc-fab]',
   template: '<ng-content></ng-content>',
-  providers: [MdcRipple]
+  providers: [MdcRipple],
+  encapsulation: ViewEncapsulation.None,
 })
-export class MdcFabComponent implements AfterViewInit {
-  private exited_: boolean = false;
-  private position_: FabPosition = null;
+export class MdcFab implements AfterViewInit {
+  private _exited: boolean = false;
+  private _position: FabPosition = null;
 
   @Input() mini: boolean = false;
   @Input()
-  get exited(): boolean { return this.exited_; }
+  get exited(): boolean { return this._exited; }
   set exited(value: boolean) {
-    this.exited_ = toBoolean(value);
+    this._exited = toBoolean(value);
   }
   @Input()
-  get position(): FabPosition { return this.position_; }
+  get position(): FabPosition { return this._position; }
   set position(value: FabPosition) {
-    if (value !== this.position_) {
-      if (value) {
-        this.renderer_.addClass(this.elementRef.nativeElement, `mdc-fab--${value}`);
-      } else {
-        this.renderer_.removeClass(this.elementRef.nativeElement, `mdc-fab--${this.position_}`);
-      }
-      this.position_ = value;
+    if (value !== this._position) {
+      value ? this._renderer.addClass(this.elementRef.nativeElement, `mdc-fab--${value}`)
+        : this._renderer.removeClass(this.elementRef.nativeElement, `mdc-fab--${this._position}`);
+      this._position = value;
     }
   }
   @Input('attr.tabindex') tabIndex: number = 0;
@@ -52,48 +50,46 @@ export class MdcFabComponent implements AfterViewInit {
     return this.mini ? 'mdc-fab--mini' : '';
   }
   @HostBinding('class.mdc-fab--exited') get classExited(): string {
-    this.tabIndex = this.exited_ ? -1 : this.tabIndex;
-    return this.exited_ ? 'mdc-fab--exited' : '';
+    this.tabIndex = this._exited ? -1 : this.tabIndex;
+    return this._exited ? 'mdc-fab--exited' : '';
   }
   @HostListener('keypress', ['$event']) onkeypress(evt: KeyboardEvent) {
-    this.handleKeyPress(evt);
+    this._onKeyPress(evt);
   }
   @HostListener('blur', ['$event']) blur(evt: FocusEvent) {
-    this.handleBlur(evt);
+    this._onBlur(evt);
   }
   @ContentChild(MdcIcon) fabIcon: MdcIcon;
 
   constructor(
-    private renderer_: Renderer2,
+    private _renderer: Renderer2,
     public elementRef: ElementRef,
-    private ripple_: MdcRipple) {
-    this.ripple_.init();
+    private _ripple: MdcRipple) {
+    this._ripple.init();
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (this.fabIcon) {
-      this.renderer_.addClass(this.fabIcon.elementRef.nativeElement, 'mdc-fab__icon');
-      if (this.fabIcon.hasFontIcon()) {
-        this.renderer_.addClass(this.elementRef.nativeElement, 'mdc-fab__icon--size');
-      }
+      this._renderer.addClass(this.fabIcon.elementRef.nativeElement, 'mdc-fab__icon');
+      this._renderer.addClass(this.elementRef.nativeElement, 'mdc-fab__icon--size');
     }
   }
 
   toggleExited(exited?: boolean): void {
-    this.exited_ = exited != null ? exited : !this.exited_;
+    this._exited = exited != null ? exited : !this._exited;
   }
 
-  private handleKeyPress(keyboardEvent: KeyboardEvent) {
+  private _onKeyPress(keyboardEvent: KeyboardEvent): void {
     let keyCode = keyboardEvent.keyCode;
     if (keyCode == KeyCodes.ENTER || isSpaceKey(keyboardEvent)) {
-      this.ripple_.active = true;
+      this._ripple.active = true;
       if (keyCode != KeyCodes.ENTER) {
         keyboardEvent.preventDefault();
       }
     }
   }
 
-  private handleBlur(focusEvent: FocusEvent) {
-    this.ripple_.active = false;
+  private _onBlur(focusEvent: FocusEvent): void {
+    this._ripple.active = false;
   }
 }

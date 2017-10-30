@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 
 import { MdcSlider, MdcSliderModule } from '../../../src/lib/public_api';
 
-describe('MdcSliderComponent', () => {
+describe('MdcSlider', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {

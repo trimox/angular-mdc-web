@@ -22,7 +22,7 @@ export class MdcSnackbarContainer extends BasePortalHost {
   constructor(
     private _ngZone: NgZone,
     private _renderer: Renderer2,
-    private _elementRef: ElementRef) {
+    public elementRef: ElementRef) {
     super();
   }
 

@@ -52,8 +52,8 @@ let nextUniqueId = 0;
 })
 export class MdcTextfieldHelptext {
   @Input() id: string;
-  @Input() persistent: boolean;
-  @Input() validation: boolean;
+  @Input() persistent: boolean = false;
+  @Input() validation: boolean = false;
   @HostBinding('class.mdc-textfield-helptext') isHostClass = true;
   @HostBinding('attr.aria-hidden') ariaHidden: string = 'true';
   @HostBinding('class.mdc-textfield-helptext--persistent') get classPersistent(): string {
@@ -126,12 +126,13 @@ export class MdcTextfieldTrailingIcon {
     MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR,
     EventRegistry,
   ],
+  encapsulation: ViewEncapsulation.None,
 })
 export class MdcTextfield implements AfterContentInit, OnDestroy, ControlValueAccessor {
   private _type = 'text';
   private _disabled: boolean = false;
   private _required: boolean = false;
-  private controlValueAccessorChangeFn_: (value: any) => void = (value) => { };
+  private _controlValueAccessorChangeFn: (value: any) => void = (value) => { };
   onChange = (_: any) => { };
   onTouched = () => { };
 
@@ -143,23 +144,23 @@ export class MdcTextfield implements AfterContentInit, OnDestroy, ControlValueAc
   @Input() placeholder: string = '';
   @Input() tabIndex: number = 0;
   @Input()
-  get disabled() { return this._disabled; }
-  set disabled(value: any) {
+  get disabled(): boolean { return this._disabled; }
+  set disabled(value: boolean) {
     this._disabled = value != null && `${value}` !== 'false';
     this._foundation.setDisabled(value);
   }
   @Input()
-  get required() { return this._required; }
-  set required(value: any) {
+  get required(): boolean { return this._required; }
+  set required(value: boolean) {
     this._required = value != null && `${value}` !== 'false';
   }
   @Input()
   get type(): string { return this._type; }
   set type(value: string) {
     this._type = value || 'text';
-    this.validateType_();
+    this._validateType();
 
-    if (!this.isTextarea_()) {
+    if (!this.isTextarea()) {
       this._renderer.setProperty(this.inputText.elementRef.nativeElement, 'type', this._type);
     }
   }
@@ -196,14 +197,14 @@ export class MdcTextfield implements AfterContentInit, OnDestroy, ControlValueAc
       this._renderer.removeClass(this.elementRoot.nativeElement, className);
     },
     addClassToLabel: (className: string) => {
-      if (this.isTextarea_()) { return; }
+      if (this.isTextarea()) { return; }
 
       if (this.inputLabel && this.label) {
         this._renderer.addClass(this.inputLabel.elementRef.nativeElement, className);
       }
     },
     removeClassFromLabel: (className: string) => {
-      if (this.isTextarea_()) { return; }
+      if (this.isTextarea()) { return; }
 
       if (this.inputLabel && this.label) {
         this._renderer.removeClass(this.inputLabel.elementRef.nativeElement, className);
@@ -218,10 +219,10 @@ export class MdcTextfield implements AfterContentInit, OnDestroy, ControlValueAc
       return target.classList.contains(className);
     },
     registerTextFieldInteractionHandler: (evtType: string, handler: EventListener) => {
-      this._registry.listen_(this._renderer, evtType, handler, this.elementRoot);
+      this._registry.listen(this._renderer, evtType, handler, this.elementRoot.nativeElement);
     },
     deregisterTextFieldInteractionHandler: (evtType: string, handler: EventListener) => {
-      this._registry.unlisten_(evtType, handler);
+      this._registry.unlisten(evtType, handler);
     },
     notifyIconAction: () => {
       this.iconAction.emit({
@@ -252,18 +253,18 @@ export class MdcTextfield implements AfterContentInit, OnDestroy, ControlValueAc
       return this.inputHelpText ? this.inputHelpText.elementRef.nativeElement.classList.contains(className) : false;
     },
     registerInputInteractionHandler: (evtType: string, handler: EventListener) => {
-      this._registry.listen_(this._renderer, evtType, handler, this.inputText.elementRef);
+      this._registry.listen(this._renderer, evtType, handler, this.inputText.elementRef.nativeElement);
     },
     deregisterInputInteractionHandler: (evtType: string, handler: EventListener) => {
-      this._registry.unlisten_(evtType, handler);
+      this._registry.unlisten(evtType, handler);
     },
     registerTransitionEndHandler: (handler: EventListener) => {
       if (this.bottomLine) {
-        this._registry.listen_(this._renderer, 'transitionend', handler, this.bottomLine.elementRef);
+        this._registry.listen(this._renderer, 'transitionend', handler, this.bottomLine.elementRef.nativeElement);
       }
     },
     deregisterTransitionEndHandler: (handler: EventListener) => {
-      this._registry.unlisten_('transitionend', handler);
+      this._registry.unlisten('transitionend', handler);
     },
     setBottomLineAttr: (attr: string, value: string) => {
       if (this.bottomLine) {
@@ -303,16 +304,16 @@ export class MdcTextfield implements AfterContentInit, OnDestroy, ControlValueAc
     public elementRoot: ElementRef,
     private _registry: EventRegistry) { }
 
-  ngAfterContentInit() {
+  ngAfterContentInit(): void {
     this._foundation.init();
     this.updateIconState();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this._foundation.destroy();
   }
 
-  writeValue(value: string) {
+  writeValue(value: string): void {
     this.value = value == null ? '' : value;
     if (this.value.length > 0) {
       this._mdcAdapter.addClassToLabel('mdc-textfield__label--float-above');
@@ -330,15 +331,15 @@ export class MdcTextfield implements AfterContentInit, OnDestroy, ControlValueAc
     this.onTouched = fn;
   }
 
-  onFocus() {
+  onFocus(): void {
     this.inputText.focused = true;
   }
 
-  onInput(evt: Event) {
+  onInput(evt: Event): void {
     this.onChange((<any>evt.target).value);
   }
 
-  onBlur() {
+  onBlur(): void {
     this.inputText.focused = false;
     this.onTouched();
   }
@@ -375,13 +376,13 @@ export class MdcTextfield implements AfterContentInit, OnDestroy, ControlValueAc
     }
   }
 
-  private isTextarea_() {
+  isTextarea(): boolean {
     let nativeElement = this.elementRoot.nativeElement;
     let nodeName = isBrowser ? nativeElement.nodeName : nativeElement.name;
     return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
   }
 
-  private validateType_() {
+  private _validateType() {
     if (MD_INPUT_INVALID_TYPES.indexOf(this._type) > -1) {
       throw Error(`Input type "${this._type}" is not supported.`);
     }

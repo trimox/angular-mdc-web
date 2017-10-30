@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { MdcDialogComponent, MdcTextfield } from '../../../lib/public_api';
+// import { MdcDialog, MdcTextfield } from '@angular-mdc/web';
+import { MdcDialog, MdcTextfield } from '../../../lib/public_api';
 
 @Component({
   selector: 'dialog-demo',
@@ -11,11 +12,11 @@ export class DialogDemo {
   userForm: FormGroup;
 
   @ViewChild('input') input: MdcTextfield;
-  @ViewChild('dialog') dialog: MdcDialogComponent;
-  @ViewChild('dialogscroll') dialogScroll: MdcDialogComponent;
-  @ViewChild('dialogalert') dialogAlert: MdcDialogComponent;
-  @ViewChild('dialoggmail') dialogGmail: MdcDialogComponent;
-  @ViewChild('dialogform') dialogForm: MdcDialogComponent;
+  @ViewChild('dialog') dialog: MdcDialog;
+  @ViewChild('dialogscroll') dialogScroll: MdcDialog;
+  @ViewChild('dialogalert') dialogAlert: MdcDialog;
+  @ViewChild('dialoggmail') dialogGmail: MdcDialog;
+  @ViewChild('dialogform') dialogForm: MdcDialog;
 
   ngOnInit() {
     this.userForm = new FormGroup({

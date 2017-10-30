@@ -10,32 +10,32 @@ import {
 } from '@angular/core';
 import { EventRegistry } from '../common/event-registry';
 
-import { MdcCheckboxComponent } from '../checkbox/checkbox.component';
-import { MdcRadioComponent } from '../radio/radio.component';
-import { MdcSwitchComponent } from '../switch/switch.component';
+import { MdcCheckbox } from '../checkbox/checkbox';
+import { MdcRadio } from '../radio/radio';
+import { MdcSwitch } from '../switch/switch';
 
-import { MDCFormFieldAdapter } from './form-field-adapter';
+import { MDCFormFieldAdapter } from './adapter';
 import { MDCFormFieldFoundation } from '@material/form-field';
 
 @Directive({
   selector: 'mdc-form-field',
   providers: [EventRegistry],
 })
-export class MdcFormFieldDirective implements AfterContentInit, OnDestroy {
+export class MdcFormField implements AfterContentInit, OnDestroy {
   @Input() alignEnd: boolean = false;
   @HostBinding('class') get className(): string {
     return `mdc-form-field${this.alignEnd ? ' mdc-form-field--align-end' : ''}`;
   }
-  @ContentChild(MdcCheckboxComponent) inputCheckbox: MdcCheckboxComponent;
-  @ContentChild(MdcRadioComponent) inputRadio: MdcRadioComponent;
-  @ContentChild(MdcSwitchComponent) inputSwitch: MdcSwitchComponent;
+  @ContentChild(MdcCheckbox) inputCheckbox: MdcCheckbox;
+  @ContentChild(MdcRadio) inputRadio: MdcRadio;
+  @ContentChild(MdcSwitch) inputSwitch: MdcSwitch;
 
   private _mdcAdapter: MDCFormFieldAdapter = {
     registerInteractionHandler: (type: string, handler: EventListener) => {
-      this._registry.listen_(this._renderer, type, handler, this._root);
+      this._registry.listen(this._renderer, type, handler, this.elementRef.nativeElement);
     },
     deregisterInteractionHandler: (type: string, handler: EventListener) => {
-      this._registry.unlisten_(type, handler);
+      this._registry.unlisten(type, handler);
     },
     activateInputRipple: () => {
       if (this.inputCheckbox) {
@@ -70,28 +70,28 @@ export class MdcFormFieldDirective implements AfterContentInit, OnDestroy {
 
   constructor(
     private _renderer: Renderer2,
-    private _root: ElementRef,
+    public elementRef: ElementRef,
     private _registry: EventRegistry) { }
 
-  ngAfterContentInit() {
+  ngAfterContentInit(): void {
     this._foundation.init();
 
     if (this.inputCheckbox) {
-      let checkBoxLabel = this._renderer.nextSibling(this.inputCheckbox.root.nativeElement);
+      let checkBoxLabel = this._renderer.nextSibling(this.inputCheckbox.elementRef.nativeElement);
       if (checkBoxLabel && checkBoxLabel.nextSibling) {
         if (checkBoxLabel.nextSibling.tagName === 'LABEL') {
           this._renderer.setAttribute(checkBoxLabel.nextSibling, 'for', this.inputCheckbox.inputId);
         }
       }
     } else if (this.inputRadio) {
-      let radioLabel = this._renderer.nextSibling(this.inputRadio.root.nativeElement);
+      let radioLabel = this._renderer.nextSibling(this.inputRadio.elementRef.nativeElement);
       if (radioLabel && radioLabel.nextSibling) {
         if (radioLabel.nextSibling.tagName === 'LABEL') {
           this._renderer.setAttribute(radioLabel.nextSibling, 'for', this.inputRadio.inputId);
         }
       }
     } else if (this.inputSwitch) {
-      let switchLabel = this._renderer.nextSibling(this.inputSwitch.root.nativeElement);
+      let switchLabel = this._renderer.nextSibling(this.inputSwitch.elementRef.nativeElement);
       if (switchLabel && switchLabel.nextSibling) {
         if (switchLabel.nextSibling.tagName === 'LABEL') {
           this._renderer.setAttribute(switchLabel.nextSibling, 'for', this.inputSwitch.inputId);
@@ -100,7 +100,7 @@ export class MdcFormFieldDirective implements AfterContentInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this._foundation.destroy();
   }
 }

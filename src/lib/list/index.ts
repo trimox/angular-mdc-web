@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core';
 
-import { MdcList } from './list.component';
+import { MdcRippleModule } from '../core/ripple/index';
+
+import {
+  MdcList,
+  MdcListDivider,
+  MdcListGroup,
+  MdcListGroupSubheader,
+} from './list';
 import {
   MdcListItem,
   MdcListItemStart,
   MdcListItemEnd,
   MdcListItemText,
   MdcListItemTextSecondary,
-} from './list-item.directive';
-import {
-  MdcListGroup,
-  MdcListGroupSubheader,
-} from './list-group.directive';
-import { MdcListDivider } from './list-divider.component';
+} from './list-item';
 
 const LIST_COMPONENTS = [
   MdcList,
@@ -27,12 +29,11 @@ const LIST_COMPONENTS = [
 ];
 
 @NgModule({
+  imports: [MdcRippleModule],
   exports: LIST_COMPONENTS,
   declarations: LIST_COMPONENTS,
 })
 export class MdcListModule { }
 
-export * from './list.component';
-export * from './list-item.directive';
-export * from './list-divider.component';
-export * from './list-group.directive';
+export * from './list';
+export * from './list-item';

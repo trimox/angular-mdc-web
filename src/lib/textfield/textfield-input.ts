@@ -8,13 +8,13 @@ import {
   selector: 'input[mdc-textfield-input], textarea[mdc-textfield-input]',
 })
 export class MdcTextfieldInput {
-  focused = false;
+  focused: boolean = false;
 
   @HostBinding('class.mdc-textfield__input') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
 
-  focus() {
+  focus(): void {
     this.focused = true;
     this.elementRef.nativeElement.focus();
   }

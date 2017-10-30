@@ -2,7 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MdcDialogComponent, MdcDialogBodyDirective, MdcDialogModule } from '../../../src/lib/public_api';
+import { MdcDialog, MdcDialogBody, MdcDialogModule } from '../../../src/lib/public_api';
 
 describe('MdcDialogComponent', () => {
   let fixture: ComponentFixture<any>;
@@ -20,7 +20,7 @@ describe('MdcDialogComponent', () => {
   describe('basic behaviors', () => {
     let dialogDebugElement: DebugElement;
     let dialogNativeElement: HTMLElement;
-    let dialogInstance: MdcDialogComponent;
+    let dialogInstance: MdcDialog;
     let testComponent: SimpleDialog;
 
     let DialogBodyDebugElement: DebugElement;
@@ -30,12 +30,12 @@ describe('MdcDialogComponent', () => {
       fixture = TestBed.createComponent(SimpleDialog);
       fixture.detectChanges();
 
-      dialogDebugElement = fixture.debugElement.query(By.directive(MdcDialogComponent));
+      dialogDebugElement = fixture.debugElement.query(By.directive(MdcDialog));
       dialogNativeElement = dialogDebugElement.nativeElement;
       dialogInstance = dialogDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
 
-      DialogBodyDebugElement = fixture.debugElement.query(By.directive(MdcDialogBodyDirective));
+      DialogBodyDebugElement = fixture.debugElement.query(By.directive(MdcDialogBody));
       dialogBodyNativeElement = DialogBodyDebugElement.nativeElement;
     });
 

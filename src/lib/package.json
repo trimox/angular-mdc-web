@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://github.com/trimox/angular-mdc-web.git"
   },
-  "version": "0.5.5",
+  "version": "0.5.6",
   "license": "MIT",
   "keywords": [
     "angular-mdc",

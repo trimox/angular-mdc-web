@@ -1,4 +1,35 @@
 <a name="0.0.0"></a>
+# [0.5.6](https://github.com/trimox/angular-mdc-web/compare/v0.5.5...v0.5.6) (2017-10-30)
+
+
+### Library improvements ([#328](https://github.com/trimox/angular-mdc-web/issues/328)) ([27354e0](https://github.com/trimox/angular-mdc-web/commit/27354e0))
+
+  - Rename `_root` to `elementRef`
+  - Make directive and component `ElementRef` public accessible
+  - Remove `directive` and `component` from `src/lib` file names
+  - Make event registry `listen` and `unlisten` public accessible
+  - Add `passive` event handling to event registry
+  - Prefix private variables with leading underscore
+  - Functions must specify strongly-typed object(s)
+  - Add `pointerup` + `mouseup` types to ripple's interaction handler
+  - Set default property values
+  - Rename MDC adapter files to `adapter.d.ts`
+  - Refactor MdcFormField
+  - Prefix events with `on` instead of `handle` (e.g.: onKeyPress)
+  - Set `encapsulation` to `ViewEncapsulation.None`
+  - Refactor `mdc-icon-toggle` to use `mdc-icon`
+  - Change `MdcList` to Directive
+
+### Features
+
+* **drawer:** Add `closeOnClick` to temporary drawer close behavior ([02816bd](https://github.com/trimox/angular-mdc-web/commit/3497503963f76d5a1dc8afc7781bc2f0273ca166))
+* **menu:** Add focus/isFocused methods + refactoring ([#323](https://github.com/trimox/angular-mdc-web/issues/323)) ([02816bd](https://github.com/trimox/angular-mdc-web/commit/02816bd))
+* **ripple:** Add optional event parameter to activate/deactivate ([#321](https://github.com/trimox/angular-mdc-web/issues/321)) ([72ac60b](https://github.com/trimox/angular-mdc-web/commit/72ac60b))
+* **select:** Improvements + ngModel fix ([#326](https://github.com/trimox/angular-mdc-web/issues/326)) ([7dcb7ab](https://github.com/trimox/angular-mdc-web/commit/7dcb7ab)), closes [#319](https://github.com/trimox/angular-mdc-web/issues/319)
+
+
+
+<a name="0.0.0"></a>
 # [0.5.5](https://github.com/trimox/angular-mdc-web/compare/v0.5.4...v0.5.5) (2017-10-24)
 
 

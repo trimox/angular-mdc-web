@@ -5,7 +5,7 @@ import { OverlayModule } from '../cdk/overlay/index';
 import { PortalModule } from '../cdk/portal/portal-directives';
 
 import { MdcSnackbar } from './snackbar';
-import { MdcSnackbarContainer } from './snackbar-container.component';
+import { MdcSnackbarContainer } from './snackbar-container';
 import {
   MdcSnackbarComponent,
   MdcSnackbarText,
@@ -36,7 +36,7 @@ const SNACKBAR_COMPONENTS = [
 export class MdcSnackbarModule { }
 
 export * from './snackbar';
-export * from './snackbar-container.component';
+export * from './snackbar-container';
 export * from './snackbar-config';
 export * from './snackbar-ref';
 export * from './snackbar.component';

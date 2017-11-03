@@ -83,6 +83,12 @@ describe('MdcSnackbar', () => {
       snackbar.dismiss();
       fixture.detectChanges();
     });
+
+    it('#should dismiss an already opened snackbar', () => {
+      let snackBarRef = snackbar.show(simpleMessage, simpleActionLabel);
+      snackBarRef = snackbar.show(simpleMessage, simpleActionLabel);
+      fixture.detectChanges();
+    });
   });
 });
 

@@ -1,16 +1,17 @@
 import { OverlayRef } from '../cdk/overlay/overlay-ref';
-import { MdcSnackbarContainer } from './snackbar-container.component';
+import { MdcSnackbarContainer } from './snackbar-container';
 
 /**
- * Reference to a snack bar dispatched from the snack bar service.
+ * Reference to a snackbar dispatched from the snackbar service.
  */
 export class MdcSnackbarRef<T> {
   componentInstance: T;
   containerInstance: MdcSnackbarContainer;
 
-  constructor(containerInstance: MdcSnackbarContainer,
+  constructor(
+    private _containerInstance: MdcSnackbarContainer,
     private _overlayRef: OverlayRef) {
-    this.containerInstance = containerInstance;
+    this.containerInstance = _containerInstance;
   }
 
   /** Dismisses the snack bar. */

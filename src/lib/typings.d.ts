@@ -1,6 +1,7 @@
 declare module '@material/ripple/util';
 declare module '@material/ripple';
 declare module '@material/dialog';
+declare module '@material/dialog/util';
 declare module '@material/drawer';
 declare module '@material/form-field';
 declare module '@material/icon-toggle';

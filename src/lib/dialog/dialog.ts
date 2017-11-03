@@ -1,282 +1,150 @@
 import {
-  AfterViewInit,
-  Component,
-  ContentChild,
-  ContentChildren,
-  Directive,
-  ElementRef,
-  EventEmitter,
-  HostBinding,
-  Inject,
-  Input,
-  OnDestroy,
-  Output,
-  QueryList,
-  Renderer2,
-  ViewChild,
-  ViewEncapsulation,
+  ComponentRef,
+  Injectable,
+  InjectionToken,
+  Injector,
+  Optional,
+  SkipSelf,
+  TemplateRef,
 } from '@angular/core';
-import { isBrowser, KeyCodes } from '../common';
-import { EventRegistry } from '../common/event-registry';
-import createFocusTrap from 'focus-trap';
+import { Overlay, OverlayRef } from '../cdk/overlay/index';
+import { ComponentType, ComponentPortal, PortalInjector, TemplatePortal } from '../cdk/portal/index';
 
-import { MdcRipple } from '../core/ripple/ripple.service';
-import { MdcButton } from '../button/button';
+import { MdcDialogRef } from './dialog-ref';
+import { MdcDialogContainer } from './dialog-container';
+import { MDC_DIALOG_DATA, MdcDialogConfig } from './dialog-config';
 
-import { MDCDialogAdapter } from './adapter';
-import { MDCDialogFoundation } from '@material/dialog';
-
-@Directive({
-  selector: '[mdc-dialog-surface], mdc-dialog-surface'
-})
-export class MdcDialogSurface {
-  @HostBinding('class.mdc-dialog__surface') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: '[mdc-dialog-header], mdc-dialog-header'
-})
-export class MdcDialogHeader {
-  @HostBinding('class.mdc-dialog__header') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: '[mdc-dialog-header-title], mdc-dialog-header-title'
-})
-export class MdcDialogHeaderTitle {
-  @HostBinding('class.mdc-dialog__header__title') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: '[mdc-dialog-body], mdc-dialog-body'
-})
-export class MdcDialogBody {
-  @Input() scrollable: boolean = false;
-  @HostBinding('class.mdc-dialog__body') isHostClass = true;
-  @HostBinding('class.mdc-dialog__body--scrollable') get classScrollable(): string {
-    return this.scrollable ? 'mdc-dialog__body--scrollable' : '';
-  }
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: '[mdc-dialog-footer], mdc-dialog-footer'
-})
-export class MdcDialogFooter {
-  @HostBinding('class.mdc-dialog__footer') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: '[mdc-dialog-backdrop], mdc-dialog-backdrop'
-})
-export class MdcDialogBackdrop {
-  @HostBinding('class.mdc-dialog__backdrop') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: 'button[mdc-dialog-button], a[mdc-dialog-button]',
-  providers: [MdcRipple]
-})
-export class MdcDialogButton extends MdcButton {
-  @Input() accept: boolean = false;
-  @Input() cancel: boolean = false;
-  @Input() action: boolean = false;
-  @Input() focused: boolean = false;
-
-  @HostBinding('class.mdc-dialog__footer__button') get isFooterButton(): string {
-    return this.renderer.parentNode(this.elementRef) === MdcDialogFooter ? 'mdc-dialog__footer__button' : '';
-  }
-  @HostBinding('class.mdc-dialog__action') get classAction(): string {
-    return this.action ? 'mdc-dialog__action' : '';
-  }
-  @HostBinding('class.mdc-dialog__footer__button--accept') get classAccept(): string {
-    return this.accept ? 'mdc-dialog__footer__button--accept' : '';
-  }
-  @HostBinding('class.mdc-dialog__footer__button--cancel') get classCancel(): string {
-    return this.cancel ? 'mdc-dialog__footer__button--cancel' : '';
-  }
+@Injectable()
+export class MdcDialog {
+  private _openedDialogRef: MdcDialogRef<any> | null = null;
 
   constructor(
-    @Inject(Renderer2) renderer: Renderer2,
-    @Inject(ElementRef) elementRef: ElementRef,
-    @Inject(MdcRipple) ripple: MdcRipple) {
-    super(renderer, elementRef, ripple);
-  }
-}
-
-@Component({
-  selector: 'mdc-dialog',
-  template:
-  `
-  <mdc-dialog-surface>
-    <ng-content></ng-content>
-  </mdc-dialog-surface>
-  <mdc-dialog-backdrop></mdc-dialog-backdrop>
-  `,
-  encapsulation: ViewEncapsulation.None,
-  providers: [EventRegistry],
-})
-export class MdcDialog implements AfterViewInit, OnDestroy {
-  private _focusTrap: {
-    activate: Function;
-    deactivate: Function;
-    pause: Function;
-    unpause: Function;
-  };
-
-  @Input() clickOutsideToClose: boolean = true;
-  @Input() escapeToClose: boolean = true;
-  @Output('accept') _accept: EventEmitter<string> = new EventEmitter();
-  @Output('cancel') _cancel: EventEmitter<string> = new EventEmitter();
-  @HostBinding('class.mdc-dialog') isHostClass = true;
-  @HostBinding('attr.role') role: string = 'alertdialog';
-  @HostBinding('attr.aria-hidden') ariaHidden: string = 'true';
-  @HostBinding('tabindex') tabIndex: number = -1;
-  @ViewChild(MdcDialogSurface) dialogSurface: MdcDialogSurface;
-  @ContentChild(MdcDialogBody) dialogBody: MdcDialogBody;
-  @ContentChildren(MdcDialogButton, { descendants: true }) dialogButtons: QueryList<MdcDialogButton>;
-
-  private _mdcAdapter: MDCDialogAdapter = {
-    addClass: (className: string) => {
-      this._renderer.addClass(this.elementRef.nativeElement, className);
-    },
-    removeClass: (className: string) => {
-      this._renderer.removeClass(this.elementRef.nativeElement, className);
-    },
-    addBodyClass: (className: string) => {
-      if (isBrowser()) {
-        this._renderer.addClass(document.body, className);
-      }
-    },
-    removeBodyClass: (className: string) => {
-      if (isBrowser()) {
-        this._renderer.removeClass(document.body, className);
-      }
-    },
-    eventTargetHasClass: (target: HTMLElement, className: string) => target.classList.contains(className),
-    registerInteractionHandler: (evt: string, handler: EventListener) => {
-      handler = this.dialogSurface && this.clickOutsideToClose ? handler : () => {
-        if ((<any>event.target).classList.contains('mdc-dialog__footer__button--accept')) {
-          this.accept();
-        } else if ((<any>event.target).classList.contains('mdc-dialog__footer__button--cancel')) {
-          this.cancel();
-        }
-      };
-      this._registry.listen(this._renderer, evt, handler, this.elementRef.nativeElement);
-    },
-    deregisterInteractionHandler: (evt: string, handler: EventListener) => {
-      this._registry.unlisten(evt, handler);
-    },
-    registerSurfaceInteractionHandler: (evt: string, handler: EventListener) => {
-      this._registry.listen(this._renderer, evt, handler, this.dialogSurface.elementRef.nativeElement);
-    },
-    deregisterSurfaceInteractionHandler: (evt: string, handler: EventListener) => {
-      this._registry.unlisten(evt, handler);
-    },
-    registerDocumentKeydownHandler: (handler: EventListener) => {
-      if (!isBrowser()) { return; }
-
-      handler = this.escapeToClose ? handler : this._onKeyDown;
-      this._registry.listen(this._renderer, 'keydown', handler, document);
-    },
-    deregisterDocumentKeydownHandler: (handler: EventListener) => {
-      if (!isBrowser()) { return; }
-
-      handler = this.escapeToClose ? handler : this._onKeyDown;
-      this._registry.unlisten('keydown', handler);
-    },
-    registerTransitionEndHandler: (handler: EventListener) => {
-      if (this.dialogSurface) {
-        this._registry.listen(this._renderer, 'transitionend', handler, this.dialogSurface.elementRef.nativeElement);
-      }
-    },
-    deregisterTransitionEndHandler: (handler: EventListener) => {
-      if (this.dialogSurface) {
-        this._registry.unlisten('transitionend', handler);
-      }
-    },
-    notifyAccept: () => this._accept.emit('MDCDialog:accept'),
-    notifyCancel: () => this._cancel.emit('MDCDialog:cancel'),
-    trapFocusOnSurface: () => {
-      this._focusTrap.activate();
-    },
-    untrapFocusOnSurface: () => {
-      this._focusTrap.deactivate();
-    },
-    isDialog: (el: Element) => {
-      return this.dialogSurface ? el === this.dialogSurface.elementRef.nativeElement : false;
-    },
-    layoutFooterRipples: () => {
-      this.dialogButtons.forEach((_) => _.ripple.layout());
-    },
-  };
-
-  private _foundation: {
-    init: Function,
-    destroy: Function,
-    open: Function,
-    close: Function,
-    isOpen: Function,
-    accept: Function,
-    cancel: Function,
-  } = new MDCDialogFoundation(this._mdcAdapter);
-
-  constructor(
-    private _renderer: Renderer2,
-    public elementRef: ElementRef,
-    private _registry: EventRegistry) { }
-
-  ngAfterViewInit(): void {
-    this._foundation.init();
+    private _overlay: Overlay,
+    private _injector: Injector,
+    @Optional() @SkipSelf() private _parentDialog: MdcDialog) {
   }
 
-  ngOnDestroy(): void {
-    this._foundation.destroy();
+  /**
+     * Shows a dialog with a message and an optional action.
+     * @param componentOrTemplateRef Type of the component to load into the dialog,
+     *     or a TemplateRef to instantiate as the dialog content.
+     * @param config Additional configuration options for the dialog.
+     * @returns Reference to the newly-opened dialog.
+     */
+  open<T, D = any>(componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
+    config?: MdcDialogConfig<D>): MdcDialogRef<T> {
+    const _config = _applyConfigDefaults(config);
+
+    if (this._openedDialogRef) {
+      this._openedDialogRef.close();
+    }
+
+    config = _applyConfigDefaults(config);
+
+    const overlayRef = this._createOverlay(config);
+    const dialogContainer = this._attachDialogContainer(overlayRef, config);
+    const dialogRef =
+      this._attachDialogContent(componentOrTemplateRef, dialogContainer, overlayRef, config);
+    this._openedDialogRef = dialogRef;
+
+    return dialogRef;
   }
 
-  private _onKeyDown(keyboardEvent: KeyboardEvent): void {
-    let keyCode = keyboardEvent.keyCode;
-
-    if (keyCode === KeyCodes.ESCAPE) {
-      keyboardEvent.stopPropagation();
+  /**
+   * Close the currently-visible dialog.
+   */
+  close(): void {
+    if (this._openedDialogRef) {
+      this._openedDialogRef.close();
     }
   }
 
-  show(): void {
-    const focusedEl = this.dialogButtons.find((_) => _.focused || _.accept);
+  /**
+     * Attaches the dialog container component to the overlay.
+     */
+  private _attachDialogContainer(overlay: OverlayRef, config: MdcDialogConfig): MdcDialogContainer {
+    const containerPortal = new ComponentPortal(MdcDialogContainer, config.viewContainerRef);
+    const containerRef: ComponentRef<MdcDialogContainer> = overlay.attach(containerPortal);
+    containerRef.instance._config = config;
 
-    this._focusTrap = createFocusTrap(this.dialogSurface.elementRef.nativeElement, {
-      initialFocus: focusedEl ? focusedEl.elementRef.nativeElement : this.elementRef.nativeElement,
-      clickOutsideDeactivates: this.clickOutsideToClose,
-      escapeDeactivates: this.escapeToClose,
-    });
-    this._foundation.open();
+    return containerRef.instance;
   }
 
-  close(): void {
-    this._foundation.close();
+  /**
+     * Creates a new overlay and places it in the correct location.
+     * @param config The user-specified snack bar config.
+     */
+  private _createOverlay(config: MdcDialogConfig): OverlayRef {
+    return this._overlay.create();
   }
 
-  isOpen(): boolean {
-    return this._foundation.isOpen();
+  /**
+     * Attaches the user-provided component to the already-created MdcDialogContainer.
+     * @param componentOrTemplateRef The type of component being loaded into the dialog,
+     *     or a TemplateRef to instantiate as the content.
+     * @param dialogContainer Reference to the wrapping MdcDialogContainer.
+     * @param overlayRef Reference to the overlay in which the dialog resides.
+     * @param config The dialog configuration.
+     * @returns A promise resolving to the MdcDialogRef that should be returned to the user.
+     */
+  private _attachDialogContent<T>(
+    componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
+    dialogContainer: MdcDialogContainer,
+    overlayRef: OverlayRef,
+    config: MdcDialogConfig): MdcDialogRef<T> {
+
+    // Create a reference to the dialog we're creating in order to give the user a handle
+    // to modify and close it.
+    const dialogRef = new MdcDialogRef<T>(overlayRef, dialogContainer, config.id);
+
+    if (componentOrTemplateRef instanceof TemplateRef) {
+      dialogContainer.attachTemplatePortal(
+        new TemplatePortal<T>(componentOrTemplateRef, null!,
+          <any>{ $implicit: config.data, dialogRef }));
+    } else {
+      const injector = this._createInjector<T>(config, dialogRef, dialogContainer);
+      const contentRef = dialogContainer.attachComponentPortal(
+        new ComponentPortal(componentOrTemplateRef, undefined, injector));
+      dialogRef.componentInstance = contentRef.instance;
+    }
+
+    return dialogRef;
   }
 
-  accept(shouldNotify: boolean = true): void {
-    this._foundation.accept(shouldNotify);
-  }
+  /**
+   * Creates a custom injector to be used inside the dialog. This allows a component loaded inside
+   * of a dialog to close itself and, optionally, to return a value.
+   * @param config Config object that is used to construct the dialog.
+   * @param dialogRef Reference to the dialog.
+   * @param container Dialog container element that wraps all of the contents.
+   * @returns The custom injector that can be used inside the dialog.
+   */
+  private _createInjector<T>(
+    config: MdcDialogConfig,
+    dialogRef: MdcDialogRef<T>,
+    dialogContainer: MdcDialogContainer): PortalInjector {
 
-  cancel(shouldNotify: boolean = true): void {
-    this._foundation.cancel(shouldNotify);
+    const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+    const injectionTokens = new WeakMap();
+
+    injectionTokens.set(MdcDialogRef, dialogRef);
+    // The MdcDialogContainer is injected in the portal as the MdcDialogContainer and the dialog's
+    // content are created out of the same ViewContainerRef and as such, are siblings for injector
+    // purposes.  To allow the hierarchy that is expected, the MdcDialogContainer is explicitly
+    // added to the injection tokens.
+    injectionTokens.set(MdcDialogContainer, dialogContainer);
+    injectionTokens.set(MDC_DIALOG_DATA, config.data);
+    injectionTokens.set(MdcDialogConfig, config);
+
+    return new PortalInjector(userInjector || this._injector, injectionTokens);
   }
+}
+
+/**
+ * Applies default options to the dialog config.
+ * @param config The configuration to which the defaults will be applied.
+ * @returns The new configuration object with defaults applied.
+ */
+function _applyConfigDefaults(config?: MdcDialogConfig): MdcDialogConfig {
+  return { ...new MdcDialogConfig(), ...config };
 }

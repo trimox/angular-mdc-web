@@ -4,11 +4,12 @@
   <div class="info-banner" mdc-typography-subheading1>
     <![CDATA[import { MdcDialogModule } from '@angular-mdc/web';]]>
   </div>
+A dialog is opened by calling the open method with a component to be loaded and an optional config object. The open method will return an instance of MatDialogRef:
   <div class="docs-api">
     <table>
       <thead>
         <tr>
-          <th>Component</th>
+          <th>Service</th>
         </tr>
       </thead>
       <tbody>
@@ -18,7 +19,35 @@
       </tbody>
       <thead>
         <tr>
-          <th>Properties</th>
+          <th>Dialog Methods</th>
+          <th>Parameters</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>open(componentOrTemplateRef: any)</td>
+          <td>Opens a modal dialog containing the given component.</td>
+        </tr>
+        <tr>
+          <td><pre><code><![CDATA[open(componentOrTemplateRef: any, {
+    config
+  })
+]]></code></pre></td>
+          <td>Extra configuration options.
+<pre><code><![CDATA[config {
+  clickOutsideToClose?: boolean = true;
+  escapeToClose?: boolean = true;}
+]]></code></pre>
+          </td>
+        </tr>
+        <tr>
+          <td>close()</td>
+          <td>Closes the dialog.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Config</th>
           <th>Description</th>
         </tr>
       </thead>
@@ -32,24 +61,33 @@
           <td>Enable or disable close on escape key (Default: true).</td>
         </tr>
       </tbody>
+    </table>
+    <table>
       <thead>
         <tr>
-          <th>Methods</th>
-          <th>Parameters</th>
+          <th>Directives</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>show()</td>
-          <td>Opens the dialog, registers appropriate event listeners, sets aria attributes, focuses elements.</td>
+          <td>mdc-dialog</td>
+          <td>Defines the dialog content block.</td>
         </tr>
         <tr>
-          <td>isOpen()</td>
-          <td>Returns true if the dialog is open, false otherwise.</td>
+          <td>mdc-dialog-header</td>
+          <td>Defines the header content block.</td>
         </tr>
         <tr>
-          <td>close()</td>
-          <td>Closes the dialog, deregisters appropriate event listeners, resets aria attributes, focuses elements.</td>
+          <td>mdc-dialog-header-title</td>
+          <td>Briefly describes the type of choice being made.</td>
+        </tr>
+        <tr>
+          <td>mdc-dialog-body</td>
+          <td>Body content typically consists of text and/or UI control elements.</td>
+        </tr>
+        <tr>
+          <td>mdc-dialog-footer</td>
+          <td>Place mdc-dialog-button's inside the footer.</td>
         </tr>
       </tbody>
       <thead>
@@ -69,35 +107,11 @@
         </tr>
       </tbody>
     </table>
+
     <table>
       <thead>
         <tr>
-          <th>Directive</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-dialog-header</td>
-          <td>Defines the header content block.</td>
-        </tr>
-        <tr>
-          <td>mdc-dialog-header-title</td>
-          <td>Briefly describes the type of choice being made.</td>
-        </tr>
-        <tr>
-          <td>mdc-dialog-body</td>
-          <td>Body content typically consists of text and/or UI control elements.</td>
-        </tr>
-        <tr>
-          <td>mdc-dialog-footer</td>
-          <td>Place mdc-dialog-button's inside the footer.</td>
-        </tr>
-      </tbody>
-    </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Directive</th>
+          <th>Button Directives</th>
         </tr>
       </thead>
       <tbody>
@@ -134,204 +148,93 @@
       </tbody>
     </table>
   </div>
+
+    <mdc-form-field>
+      <mdc-checkbox [(ngModel)]="isEscapeToClose"></mdc-checkbox>
+      <label>Escape Key Closes</label>
+    </mdc-form-field>
+    <mdc-form-field>
+      <mdc-checkbox [(ngModel)]="isClickOutsideToClose"></mdc-checkbox>
+      <label>Click or Touch Outside Closes</label>
+    </mdc-form-field>
   <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start start" class="mdc-padding">
-    <button mdc-button [primary]="true" [raised]="true" (click)="showDialog();">Simple Dialog</button>
-    <button mdc-button [primary]="true" [raised]="true" (click)="showDialogAlert();">Alert</button>
-    <button mdc-button [primary]="true" [raised]="true" (click)="showDialogScroll();">Scrolling Dialog</button>
-    <button mdc-button [primary]="true" [raised]="true" (click)="showDialogGmail();">No footer</button>
-    <button mdc-button [primary]="true" [raised]="true" (click)="showDialogForm();">Dialog w/Form</button>
-
-<span mdc-typography-headline>Simple Dialog</span>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span> #<span style="color:#89bdff">dialog</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header-title</span>></span>
-      Use Google's location service?
-    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header-title</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-body</span>></span>
-    Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-body</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-dialog-button</span> [<span style="color:#e0c589">cancel</span>]=<span style="color:#65b042">"true"</span>></span>Decline<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-dialog-button</span> [<span style="color:#e0c589">accept</span>]=<span style="color:#65b042">"true"</span>></span>Accept<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span>></span>
-</pre>
-
-<span mdc-typography-headline>Scrolling Dialog</span>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span> #<span style="color:#89bdff">dialogscroll</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header-title</span>></span>
-      Choose a Ringtone
-    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header-title</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-body</span> [<span style="color:#89bdff">scrollable</span>]=<span style="color:#65b042">"true"</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>None<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Callisto<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Ganymede<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Luna<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Marimba<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Schwifty<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Callisto<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Ganymede<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Luna<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Marimba<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Schwifty<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-body</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-dialog-button</span> [<span style="color:#e0c589">cancel</span>]=<span style="color:#65b042">"true"</span>></span>Decline<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-dialog-button</span> [<span style="color:#e0c589">accept</span>]=<span style="color:#65b042">"true"</span>></span>Accept<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span>></span>
-</pre>
-
-<span mdc-typography-headline>Alert</span>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span>
-  [<span style="color:#89bdff">clickOutsideToClose</span>]=<span style="color:#65b042">"false"</span>
-  [<span style="color:#89bdff">escapeToClose</span>]=<span style="color:#65b042">"false"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
-      Discard draft?
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-dialog-button</span> [<span style="color:#e0c589">cancel</span>]=<span style="color:#65b042">"true"</span>></span>Cancel<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-dialog-button</span> [<span style="color:#e0c589">action</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#e0c589">accept</span>]=<span style="color:#65b042">"true"</span>></span>Discard<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span>></span>
-</pre>
-
-<span mdc-typography-headline>No Footer</span>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span> [<span style="color:#89bdff">clickOutsideToClose</span>]=<span style="color:#65b042">"false"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header-title</span>></span>
-      Set backup account
-    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header-title</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-body</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span> [<span style="color:#89bdff">avatar</span>]=<span style="color:#65b042">"true"</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span> (<span style="color:#89bdff">click</span>)=<span style="color:#65b042">"closeDialogGmail();"</span> <span style="color:#89bdff">mdc-surface</span>></span>
-        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>username@gmail.com
-      <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span> (<span style="color:#89bdff">click</span>)=<span style="color:#65b042">"closeDialogGmail();"</span> <span style="color:#89bdff">mdc-surface</span>></span>
-        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>user02@gmail.com
-      <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span> (<span style="color:#89bdff">click</span>)=<span style="color:#65b042">"closeDialogGmail();"</span> <span style="color:#89bdff">mdc-surface</span>></span>
-        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>add<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>add account
-      <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-body</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span>></span>
-</pre>
-
-<span mdc-typography-headline>Dialog w/Form</span>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span> #<span style="color:#89bdff">dialogform</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header-title</span>></span>
-      Profile
-    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header-title</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-body</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">form</span> [<span style="color:#89bdff">formGroup</span>]=<span style="color:#65b042">"userForm"</span> <span style="color:#89bdff">id</span>=<span style="color:#65b042">"userForm"</span> (<span style="color:#89bdff">ngSubmit</span>)=<span style="color:#65b042">"updateForm();"</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span> #<span style="color:#89bdff">input</span> <span style="color:#89bdff">formControlName</span>=<span style="color:#65b042">"username"</span> <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Username"</span> [<span style="color:#89bdff">required</span>]=<span style="color:#65b042">"true"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">p</span> <span style="color:#89bdff">mdc-textfield-helptext</span> [<span style="color:#89bdff">validation</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#89bdff">persistent</span>]=<span style="color:#65b042">"false"</span>></span>Username is required<span style="color:#89bdff">&lt;/<span style="color:#89bdff">p</span>></span>
-    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">form</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-body</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-dialog-button</span> [<span style="color:#e0c589">cancel</span>]=<span style="color:#65b042">"true"</span>></span>Cancel<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-dialog-button</span> [<span style="color:#e0c589">action</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#e0c589">focused</span>]=<span style="color:#65b042">"true"</span> <span style="color:#e0c589">type</span>=<span style="color:#65b042">"submit"</span> <span style="color:#e0c589">form</span>=<span style="color:#65b042">"userForm"</span>></span>Update<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span>></span>
-</pre>
-<mdc-dialog #dialog>
-  <mdc-dialog-header>
-    <mdc-dialog-header-title>
-      Use Google's location service?
-    </mdc-dialog-header-title>
-  </mdc-dialog-header>
-  <mdc-dialog-body>
-    Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
-  </mdc-dialog-body>
-  <mdc-dialog-footer>
-    <button mdc-dialog-button [cancel]="true">Decline</button>
-    <button mdc-dialog-button [accept]="true">Accept</button>
-  </mdc-dialog-footer>
-</mdc-dialog>
-
-<mdc-dialog #dialogscroll>
-  <mdc-dialog-header>
-    <mdc-dialog-header-title>
-      Choose a Ringtone
-    </mdc-dialog-header-title>
-  </mdc-dialog-header>
-  <mdc-dialog-body [scrollable]="true">
-    <mdc-list>
-      <mdc-list-item>None</mdc-list-item>
-      <mdc-list-item>Callisto</mdc-list-item>
-      <mdc-list-item>Ganymede</mdc-list-item>
-      <mdc-list-item>Luna</mdc-list-item>
-      <mdc-list-item>Marimba</mdc-list-item>
-      <mdc-list-item>Schwifty</mdc-list-item>
-      <mdc-list-item>Callisto</mdc-list-item>
-      <mdc-list-item>Ganymede</mdc-list-item>
-      <mdc-list-item>Luna</mdc-list-item>
-      <mdc-list-item>Marimba</mdc-list-item>
-      <mdc-list-item>Schwifty</mdc-list-item>
-    </mdc-list>
-  </mdc-dialog-body>
-  <mdc-dialog-footer>
-    <button mdc-dialog-button [cancel]="true">Decline</button>
-    <button mdc-dialog-button [accept]="true">Accept</button>
-  </mdc-dialog-footer>
-</mdc-dialog>
-
-<mdc-dialog #dialogalert [clickOutsideToClose]="false" [escapeToClose]="false">
-  <mdc-dialog-header>
-      Discard draft?
-  </mdc-dialog-header>
-  <mdc-dialog-footer>
-    <button mdc-dialog-button [cancel]="true">Cancel</button>
-    <button mdc-dialog-button [action]="true" [accept]="true">Discard</button>
-  </mdc-dialog-footer>
-</mdc-dialog>
-
-<mdc-dialog #dialoggmail [clickOutsideToClose]="false">
-  <mdc-dialog-header>
-    <mdc-dialog-header-title>
-      Set backup account
-    </mdc-dialog-header-title>
-  </mdc-dialog-header>
-  <mdc-dialog-body>
-    <mdc-list [avatar]="true">
-      <mdc-list-item (click)="closeDialogGmail();" mdc-surface>
-        <mdc-icon mdc-list-item-start>person</mdc-icon>username@gmail.com
-      </mdc-list-item>
-      <mdc-list-item (click)="closeDialogGmail();" mdc-surface>
-        <mdc-icon mdc-list-item-start>person</mdc-icon>user02@gmail.com
-      </mdc-list-item>
-      <mdc-list-item (click)="closeDialogGmail();" mdc-surface>
-        <mdc-icon mdc-list-item-start>add</mdc-icon>add account
-      </mdc-list-item>
-    </mdc-list>
-  </mdc-dialog-body>
-</mdc-dialog>
-
-<mdc-dialog #dialogform>
-  <mdc-dialog-header>
-    <mdc-dialog-header-title>
-      Profile
-    </mdc-dialog-header-title>
-  </mdc-dialog-header>
-  <mdc-dialog-body>
-    <form [formGroup]="userForm" id="userForm" (ngSubmit)="updateForm();" autocomplete="off">
-      <mdc-textfield #input formControlName="username" label="Username" [required]="true"></mdc-textfield>
-      <p mdc-textfield-helptext [validation]="true" [persistent]="false">Username is required</p>
-    </form>
-  </mdc-dialog-body>
-  <mdc-dialog-footer>
-    <button mdc-dialog-button [cancel]="true">Cancel</button>
-    <button mdc-dialog-button [action]="true" [focused]="true" type="submit" form="userForm">Update</button>
-  </mdc-dialog-footer>
-</mdc-dialog>
+    <button mdc-button [primary]="true" (click)="openSimple()">Simple Dialog</button>
+    <button mdc-button [primary]="true" (click)="openScrolling()">Scrolling Dialog</button>
+    <button mdc-button [primary]="true" (click)="openAlert()">Alert Dialog</button>
+    <button mdc-button [primary]="true" (click)="openNoFooter()">No Footer Dialog</button>
+    <button mdc-button [primary]="true" (click)="openForm()">Form Dialog</button>
   </div>
+
+<h1 mdc-typography-title>Configuring dialog content via entryComponents</h1>
+<div>Because MdcDialog instantiates components at run-time, the Angular compiler needs extra information to create the necessary ComponentFactory for your dialog content component.
+For any component loaded into a dialog, you must include your component class in the list of entryComponents in your NgModule definition so that the Angular compiler knows to create the ComponentFactory.</div>
+
+<pre style="background:#000;color:#f8f8f8"><span style="color:#e28964">import</span> <![CDATA[{ NgModule }]]> from <span style="color:#65b042">'@angular/core'</span>;
+<span style="color:#e28964">import</span> <![CDATA[{ FormsModule, ReactiveFormsModule }]]> from <span style="color:#65b042">'@angular/forms'</span>;
+
+<span style="color:#e28964">import</span> <![CDATA[{ DemoMaterialModule }]]> from <span style="color:#65b042">'../../demo-material.module'</span>;
+
+<span style="color:#e28964">import</span><![CDATA[{
+  DialogAlertExample,
+  DialogScrollingExample,
+  DialogSimpleExample,
+  DialogNoFooterExample,
+  DialogFormExample,
+}]]> from <span style="color:#65b042">'./dialog-demo'</span>;
+
+@NgModule(<![CDATA[{
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    DemoMaterialModule,
+  ],
+  declarations: [
+    DialogAlertExample,
+    DialogScrollingExample,
+    DialogSimpleExample,
+    DialogNoFooterExample,
+    DialogFormExample,
+  ],
+  entryComponents: [
+    DialogAlertExample,
+    DialogSimpleExample,
+    DialogScrollingExample,
+    DialogNoFooterExample,
+    DialogFormExample,
+  ]
+}]]>)
+<span style="color:#99cf50">export</span> <span style="color:#99cf50">class</span> DialogExampleModule <![CDATA[{ }]]>
+</pre>
+
+<h1 mdc-typography-title>Simple Dialog</h1>
+
+<pre style="background:#000;color:#f8f8f8">
+import <![CDATA[{ MdcDialog, MdcDialogRef, MDC_DIALOG_DATA }]]> from '@angular-mdc/web';
+
+@Component(<![CDATA[{
+  template:
+  `
+  <mdc-dialog>
+    <mdc-dialog-header>
+      <mdc-dialog-header-title>
+        Use Google's location service?
+      </mdc-dialog-header-title>
+    </mdc-dialog-header>
+    <mdc-dialog-body>
+      Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
+    </mdc-dialog-body>
+    <mdc-dialog-footer>
+      <button mdc-dialog-button [cancel]="true">Decline</button>
+      <button mdc-dialog-button [accept]="true">Accept</button>
+    </mdc-dialog-footer>
+  </mdc-dialog>
+  `,
+}]]>)
+export class DialogSimpleExample <![CDATA[{
+  constructor(
+    public dialogRef: MdcDialogRef<DialogSimpleExample>,
+    @Inject(MDC_DIALOG_DATA) public data: any) { }
+}]]>
+
+</pre>
 </div>

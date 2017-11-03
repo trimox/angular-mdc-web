@@ -1,6 +1,6 @@
 import { async, inject, TestBed } from '@angular/core/testing';
 import { Component, NgModule, ViewChild, ViewContainerRef } from '@angular/core';
-import { PortalModule, PortalHostDirective } from '../../../../src/lib/cdk/portal';
+import { PortalModule, CdkPortal } from '../../../../src/lib/cdk/portal';
 import { Overlay, OverlayContainer, OverlayModule } from '../../../../src/lib/cdk/overlay';
 
 describe('OverlayContainer', () => {
@@ -34,6 +34,7 @@ describe('OverlayContainer', () => {
     const fixture = TestBed.createComponent(TestComponentWithTemplatePortals);
 
     const overlayRef = overlay.create();
+    overlayRef.attach(fixture.componentInstance.templatePortal);
     fixture.detectChanges();
 
     expect(document.querySelectorAll('.cdk-overlay-container'))
@@ -54,7 +55,7 @@ describe('OverlayContainer', () => {
   providers: [Overlay],
 })
 class TestComponentWithTemplatePortals {
-  @ViewChild(PortalHostDirective) templatePortal: PortalHostDirective;
+  @ViewChild(CdkPortal) templatePortal: CdkPortal;
 
   constructor(public viewContainerRef: ViewContainerRef) { }
 }

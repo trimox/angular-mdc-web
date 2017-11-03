@@ -10,26 +10,12 @@ import { Portal, ComponentType, ComponentPortal, PortalInjector } from '../cdk/p
 
 import { MdcSnackbarRef } from './snackbar-ref';
 import { MdcSnackbarComponent } from './snackbar.component';
-import { MdcSnackbarContainer } from './snackbar-container.component';
+import { MdcSnackbarContainer } from './snackbar-container';
 import { MDC_SNACK_BAR_DATA, MdcSnackbarConfig } from './snackbar-config';
 
 @Injectable()
 export class MdcSnackbar {
-  private _snackBarRefAtThisLevel: MdcSnackbarRef<any> | null = null;
-
-  /** Reference to the currently opened snackbar at *any* level. */
-  get _openedSnackBarRef(): MdcSnackbarRef<any> | null {
-    const parent = this._parentSnackBar;
-    return parent ? parent._openedSnackBarRef : this._snackBarRefAtThisLevel;
-  }
-
-  set _openedSnackBarRef(value: MdcSnackbarRef<any> | null) {
-    if (this._parentSnackBar) {
-      this._parentSnackBar._openedSnackBarRef = value;
-    } else {
-      this._snackBarRefAtThisLevel = value;
-    }
-  }
+  private _openedSnackBarRef: MdcSnackbarRef<any> | null = null;
 
   constructor(
     private overlay_: Overlay,
@@ -72,15 +58,15 @@ export class MdcSnackbar {
   /**
      * Attaches the snack bar container component to the overlay.
      */
-  private _attachSnackBarContainer(overlayRef: OverlayRef,
-    config: MdcSnackbarConfig): MdcSnackbarContainer {
+  private _attachSnackBarContainer(overlay: OverlayRef, config: MdcSnackbarConfig): MdcSnackbarContainer {
     const containerPortal = new ComponentPortal(MdcSnackbarContainer, config.viewContainerRef);
-    const containerRef: ComponentRef<MdcSnackbarContainer> = overlayRef.attach(containerPortal);
+    const containerRef: ComponentRef<MdcSnackbarContainer> = overlay.attach(containerPortal);
+
     return containerRef.instance;
   }
 
   /**
-   * Places a new component as the content of the snack bar container.
+   * Places a new component as the content of the snackbar container.
    */
   private _attach<T>(component: ComponentType<T>, config: MdcSnackbarConfig): MdcSnackbarRef<T> {
     const overlayRef = this._createOverlay(config);
@@ -98,7 +84,7 @@ export class MdcSnackbar {
 
   /**
      * Creates a new overlay and places it in the correct location.
-     * @param config The user-specified snack bar config.
+     * @param config The user-specified snackbar config.
      */
   private _createOverlay(config: MdcSnackbarConfig): OverlayRef {
     return this.overlay_.create();

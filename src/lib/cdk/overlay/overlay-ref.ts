@@ -7,7 +7,7 @@
  */
 
 import { NgZone } from '@angular/core';
-import { PortalHost, Portal } from '../portal/portal';
+import { PortalOutlet, Portal } from '../portal/portal';
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -16,12 +16,12 @@ import { Subject } from 'rxjs/Subject';
  * Reference to an overlay that has been created with the Overlay service.
  * Used to manipulate or dispose of said overlay.
  */
-export class OverlayRef implements PortalHost {
+export class OverlayRef implements PortalOutlet {
   private _attachments = new Subject<void>();
   private _detachments = new Subject<void>();
 
   constructor(
-    private _portalHost: PortalHost,
+    private _portalOutlet: PortalOutlet,
     private _pane: HTMLElement,
     private _ngZone: NgZone) {
   }
@@ -37,7 +37,7 @@ export class OverlayRef implements PortalHost {
    * @returns The portal attachment result.
    */
   attach(portal: Portal<any>): any {
-    let attachResult = this._portalHost.attach(portal);
+    let attachResult = this._portalOutlet.attach(portal);
 
     // Update the pane element with the given state configuration.
     this._updateStackingOrder();
@@ -52,7 +52,7 @@ export class OverlayRef implements PortalHost {
    * Cleans up the overlay from the DOM.
    */
   dispose(): void {
-    this._portalHost.dispose();
+    this._portalOutlet.dispose();
     this._attachments.complete();
     this._detachments.next();
     this._detachments.complete();
@@ -62,7 +62,7 @@ export class OverlayRef implements PortalHost {
    * Checks whether the overlay has been attached.
    */
   hasAttached(): boolean {
-    return this._portalHost.hasAttached();
+    return this._portalOutlet.hasAttached();
   }
 
   /** Returns an observable that emits when the overlay has been attached. */
@@ -80,7 +80,7 @@ export class OverlayRef implements PortalHost {
      * @returns Resolves when the overlay has been detached.
      */
   detach(): any {
-    const detachmentResult = this._portalHost.detach();
+    const detachmentResult = this._portalOutlet.detach();
 
     // Only emit after everything is detached.
     this._detachments.next();

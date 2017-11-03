@@ -1,12 +1,14 @@
 ﻿import { ApplicationRef, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { DemoMaterialModule } from './demo-material.module';
+
+import { DialogExampleModule } from './components/dialog-demo/dialog-example.module';
 
 import { AppComponent } from './app.component';
 import { ButtonDemo } from './components/buttons/button-demo/button-demo';
@@ -46,10 +48,11 @@ import { demoAppRoutes } from './routes';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     ReactiveFormsModule,
     FlexLayoutModule,
     DemoMaterialModule,
+    DialogExampleModule,
     RouterModule.forRoot(demoAppRoutes, { useHash: true, enableTracing: false })
   ],
   declarations: [

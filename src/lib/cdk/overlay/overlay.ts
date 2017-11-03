@@ -13,7 +13,7 @@ import {
   Injector,
   NgZone,
 } from '@angular/core';
-import { DomPortalHost } from '../portal/dom-portal-host';
+import { DomPortalOutlet } from '../portal/dom-portal-outlet';
 import { OverlayRef } from './overlay-ref';
 import { OverlayContainer } from './overlay-container';
 
@@ -66,7 +66,7 @@ export class Overlay {
    * @param pane The DOM element to turn into a portal host.
    * @returns A portal host for the given DOM element.
    */
-  private _createPortalHost(pane: HTMLElement): DomPortalHost {
-    return new DomPortalHost(pane, this._componentFactoryResolver, this._appRef, this._injector);
+  private _createPortalHost(pane: HTMLElement): DomPortalOutlet {
+    return new DomPortalOutlet(pane, this._componentFactoryResolver, this._appRef, this._injector);
   }
 }

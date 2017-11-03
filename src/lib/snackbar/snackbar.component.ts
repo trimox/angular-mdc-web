@@ -52,9 +52,9 @@ export class MdcSnackbarActionWrapper {
   providers: [EventRegistry]
 })
 export class MdcSnackbarComponent implements OnInit, OnDestroy {
-  /** Data that was injected into the snack bar. */
+  /** Data that was injected into the snackbar. */
   data: { message: string, actionText: string };
-  /** The snack bar configuration. */
+  /** The snackbar configuration. */
   config: MdcSnackbarConfig;
 
   @HostBinding('class.mdc-snackbar') isHostClass = true;
@@ -187,30 +187,30 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
   }
 
   show(): void {
-    const config_ = this.config;
-    const data_ = this.data;
+    const config = this.config;
+    const data = this.data;
 
-    if (config_) {
-      this._foundation.setDismissOnAction(config_.dismissOnAction);
-      if (config_.align == 'start') {
+    if (config) {
+      this._foundation.setDismissOnAction(config.dismissOnAction);
+      if (config.align == 'start') {
         this._mdcAdapter.addClass('mdc-snackbar--align-start');
       }
 
-      if (!config_.actionHandler && data_.actionText) {
-        config_.actionHandler = () => { };
+      if (!config.actionHandler && data.actionText) {
+        config.actionHandler = () => { };
       }
-      if (!data_.actionText) {
-        config_.actionHandler = null;
+      if (!data.actionText) {
+        config.actionHandler = null;
       }
 
       setTimeout(() => {
-        this._foundation.show({ ...data_, ...config_ });
-        if (config_.focusAction) {
+        this._foundation.show({ ...data, ...config });
+        if (config.focusAction) {
           this._mdcAdapter.setFocus();
         }
       }, 10);
     } else {
-      this._foundation.show(data_);
+      this._foundation.show(data);
     }
   }
 }

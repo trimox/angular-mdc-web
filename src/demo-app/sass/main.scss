@@ -13,7 +13,6 @@ html {
 body {
   height: 100%;
   margin: 0;
-  font-family: Roboto, Helvetica, Arial, sans-serif;
 }
 
 // Remove clear button for IE inputs
@@ -44,30 +43,6 @@ body {
   }
   .mdc-simple-menu {
     width: 224px;
-  }
-}
-
-.container {
-  position: relative;
-  box-sizing: border-box;
-  display: block;
-  overflow: hidden;
-  width: 100%;
-}
-
-.demo-content {
-  margin-left: 240px;
-  margin-right: 0px;
-  overflow-x: auto;
-  width: -240px;
-  right: 0;
-  height: 100%;
-  display: block;
-  left: 0;
-
-  @media (max-width: 599px) {
-    width: 100%;
-    margin-left: 0px;
   }
 }
 
@@ -176,5 +151,21 @@ pre {
 
   .panel {
     display: block;
+  }
+}
+
+.demo-drawer-host {
+  border: 1px solid;
+  height: 400px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+
+  @media (max-width: 599px) {
+    width: 100%;
+  }
+
+  @media (min-width: 600px) {
+    width: 800px;
   }
 }

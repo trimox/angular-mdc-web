@@ -1,6 +1,7 @@
 .mdc-content {
   display: block;
   position: relative; // Prevent content from overlaying drawers in x, y, or z.
+  width: 100%;
   min-height: 100%; // Allow content to expand the page.
   overflow: auto;
   z-index: 0;

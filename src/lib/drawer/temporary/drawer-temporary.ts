@@ -6,9 +6,11 @@ import {
   EventEmitter,
   HostBinding,
   Input,
+  OnChanges,
   OnDestroy,
   Output,
   Renderer2,
+  SimpleChange,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -84,7 +86,9 @@ export class MdcTemporaryDrawerSelected {
   encapsulation: ViewEncapsulation.None,
   providers: [EventRegistry],
 })
-export class MdcTemporaryDrawer implements AfterViewInit, OnDestroy {
+export class MdcTemporaryDrawer implements AfterViewInit, OnChanges, OnDestroy {
+  @Input() absolute: boolean = false;
+
   @Output() opened: EventEmitter<void> = new EventEmitter<void>();
   @Output() closed: EventEmitter<void> = new EventEmitter<void>();
   @HostBinding('class.mdc-temporary-drawer') isHostClass = true;
@@ -193,6 +197,13 @@ export class MdcTemporaryDrawer implements AfterViewInit, OnDestroy {
     private _renderer: Renderer2,
     public elementRef: ElementRef,
     private _registry: EventRegistry) { }
+
+  ngOnChanges(changes: { [key: string]: SimpleChange }): void {
+    if (changes['absolute']) {
+      const absolute = 'mdc-temporary-drawer--absolute';
+      changes['absolute'].currentValue ? this._mdcAdapter.addClass(absolute) : this._mdcAdapter.removeClass(absolute);
+    }
+  }
 
   ngAfterViewInit(): void {
     this._foundation.init();

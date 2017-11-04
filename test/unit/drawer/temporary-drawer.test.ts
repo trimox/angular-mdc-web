@@ -53,6 +53,12 @@ describe('MdcTemporaryDrawer', () => {
       fixture.detectChanges();
       expect(testInstance.isOpen()).toBe(true);
     });
+
+    it('#should be absolute postioned', () => {
+      testComponent.isAbsolute = true;
+      fixture.detectChanges();
+      expect(testNativeElement.classList.contains('mdc-temporary-drawer--absolute')).toBe(true);
+    });
   });
 });
 
@@ -60,7 +66,7 @@ describe('MdcTemporaryDrawer', () => {
 @Component({
   template:
   `
-  <mdc-temporary-drawer>
+  <mdc-temporary-drawer [absolute]="isAbsolute" [closeOnClick]="isCloseOnClick">
     <mdc-temporary-drawer-spacer>Angular MDC</mdc-temporary-drawer-spacer>
     <mdc-temporary-drawer-header>
       <mdc-temporary-drawer-header-content>
@@ -73,4 +79,6 @@ describe('MdcTemporaryDrawer', () => {
   `,
 })
 class SimpleTest {
+  isAbsolute: boolean = false;
+  isCloseOnClick: boolean = true;
 }

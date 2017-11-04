@@ -1,25 +1,3 @@
-<mdc-toolbar class="demo-toolbar--primary" [fixed]="isFixed">
-  <mdc-toolbar-row>
-    <mdc-toolbar-section [alignStart]="true">
-      <button material-icon mdc-toolbar-menu-icon (click)="toggleDrawer();" fxShow fxHide.gt-xs="true">menu</button>
-      <a class="demo-toolbar-logo" button mdc-toolbar-menu-icon fxHide fxShow.gt-xs="true" [routerLink]="['home']" [mdc-ripple]="true">
-       <img src="https://trimox.github.io/angular-mdc-web/assets/hub-192x192.png" width="28" height="28" />
-     </a>
-      <mdc-toolbar-title>
-        <span fxHide fxShow.gt-sm="true">Angular - Material Design Components</span>
-        <span fxShow fxHide.gt-sm="true">Angular MDC</span>
-      </mdc-toolbar-title>
-    </mdc-toolbar-section>
-    <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
-      <a mdc-toolbar-icon href="https://github.com/trimox/angular-mdc-web" alt="GitHub">
-        <mdc-icon>
-          <img src="https://trimox.github.io/angular-mdc-web/assets/github-circle-white-transparent.svg" height="20" />
-        </mdc-icon>
-      </a>
-    </mdc-toolbar-section>
-  </mdc-toolbar-row>
-</mdc-toolbar>
-
 <mdc-temporary-drawer #drawer fxShow fxHide.gt-sm="true">
   <mdc-temporary-drawer-content>
     <mdc-list-group>
@@ -44,8 +22,30 @@
   </mdc-temporary-drawer-content>
 </mdc-temporary-drawer>
 
-<div class="container">
-  <mdc-permanent-drawer [fixed]="true" fxHide fxShow.gt-xs="true">
+<mdc-toolbar class="demo-toolbar--primary" [fixed]="isFixed">
+  <mdc-toolbar-row>
+    <mdc-toolbar-section [alignStart]="true">
+      <button material-icon mdc-toolbar-menu-icon (click)="toggleDrawer();" fxShow fxHide.gt-sm="true">menu</button>
+      <a class="demo-toolbar-logo" button mdc-toolbar-menu-icon fxHide fxShow.gt-sm="true" [routerLink]="['home']" [mdc-ripple]="true">
+       <img src="https://trimox.github.io/angular-mdc-web/assets/hub-192x192.png" width="28" height="28" />
+     </a>
+      <mdc-toolbar-title>
+        <span fxHide fxShow.gt-sm="true">Angular - Material Design Components</span>
+        <span fxShow fxHide.gt-sm="true">Angular MDC</span>
+      </mdc-toolbar-title>
+    </mdc-toolbar-section>
+    <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
+      <a mdc-toolbar-icon href="https://github.com/trimox/angular-mdc-web" alt="GitHub">
+        <mdc-icon>
+          <img src="https://trimox.github.io/angular-mdc-web/assets/github-circle-white-transparent.svg" height="20" />
+        </mdc-icon>
+      </a>
+    </mdc-toolbar-section>
+  </mdc-toolbar-row>
+</mdc-toolbar>
+
+<div fxLayout="row">
+  <mdc-permanent-drawer [fixed]="true" *ngIf="media.isActive('gt-sm')" fxHide fxShow.gt-sm="true">
    <mdc-permanent-drawer-content>
       <mdc-list-group>
         <mdc-list>
@@ -69,7 +69,7 @@
     </mdc-permanent-drawer-content>
   </mdc-permanent-drawer>
 
-  <div class="demo-content">
+  <div class="mdc-content">
     <router-outlet></router-outlet>
   </div>
 </div>

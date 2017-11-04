@@ -173,6 +173,10 @@
       </thead>
       <tbody>
         <tr>
+          <td>absolute: boolean</td>
+          <td>If true, drawer can open from container element (e.g.: mdc-content). (Default: false)</td>
+        </tr>
+        <tr>
           <td>closeOnClick: boolean</td>
           <td>If false, clicking on the drawer will not close it. (Default: true)</td>
         </tr>
@@ -215,77 +219,123 @@
       </tbody>
     </table>
   </div>
-    <span mdc-typography-headline>Example - Permanent Drawer</span>
-<mdc-permanent-drawer>
-  <mdc-permanent-drawer-content>
-      <mdc-list-group>
-        <mdc-list>
-          <mdc-list-item mdc-permanent-drawer-selected>
-            <mdc-icon mdc-list-item-start>home</mdc-icon>Home
-          </mdc-list-item>
-          <mdc-list-item>
-            <mdc-icon mdc-list-item-start>star</mdc-icon>Star
-          </mdc-list-item>
-          <mdc-list-item>
-            <mdc-icon mdc-list-item-start>send</mdc-icon>Sent Mail
-          </mdc-list-item>
-          <mdc-list-item>
-            <mdc-icon mdc-list-item-start>drafts</mdc-icon>Drafts
-          </mdc-list-item>
-        </mdc-list>
-        <mdc-list-divider></mdc-list-divider>
-        <mdc-list>
-          <mdc-list-item>
-            <mdc-icon mdc-list-item-start>email</mdc-icon>All Mail
-          </mdc-list-item>
-          <mdc-list-item>
-            <mdc-icon mdc-list-item-start>delete</mdc-icon>Trash
-          </mdc-list-item>
-          <mdc-list-item>
-            <mdc-icon mdc-list-item-start>report</mdc-icon>Spam
-          </mdc-list-item>
-        </mdc-list>
-      </mdc-list-group>
-  </mdc-permanent-drawer-content>
-</mdc-permanent-drawer>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-permanent-drawer</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-permanent-drawer-content</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-group</span>></span>
-        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
-          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span> <span style="color:#89bdff">mdc-permanent-drawer-selected</span>></span>
-            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>home<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Home
-          <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>star<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Star
-          <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>send<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Sent Mail
-          <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>drafts<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Drafts
-          <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-        <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
-        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-divider</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-divider</span>></span>
-        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
-          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>email<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>All Mail
-          <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>delete<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Trash
-          <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>report<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Spam
-          <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-        <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
-      <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-group</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-permanent-drawer-content</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-permanent-drawer</span>></span>
-</pre>
 
-  <div fxLayout="column" class="mdc-padding" fxLayoutAlign="start start">
-    <span mdc-typography-headline style="margin-top: 20px;">Example - Temporary Drawer</span>
-    <button mdc-button [raised]="true" [primary]="true" (click)="handleTemporary();">Open Temporary Drawer</button>
-<mdc-temporary-drawer #temporary>
+<span mdc-typography-headline>Permanent Drawer - Above Toolbar</span>
+<div class="demo-drawer-host">
+  <mdc-permanent-drawer>
+    <mdc-permanent-drawer-spacer></mdc-permanent-drawer-spacer>
+    <mdc-permanent-drawer-content>
+        <mdc-list-group>
+          <mdc-list>
+            <mdc-list-item mdc-permanent-drawer-selected>
+              <mdc-icon mdc-list-item-start>home</mdc-icon>Home
+            </mdc-list-item>
+            <mdc-list-item>
+              <mdc-icon mdc-list-item-start>star</mdc-icon>Star
+            </mdc-list-item>
+            <mdc-list-item>
+              <mdc-icon mdc-list-item-start>send</mdc-icon>Sent Mail
+            </mdc-list-item>
+            <mdc-list-item>
+              <mdc-icon mdc-list-item-start>drafts</mdc-icon>Drafts
+            </mdc-list-item>
+          </mdc-list>
+          <mdc-list-divider></mdc-list-divider>
+          <mdc-list>
+            <mdc-list-item>
+              <mdc-icon mdc-list-item-start>email</mdc-icon>All Mail
+            </mdc-list-item>
+            <mdc-list-item>
+              <mdc-icon mdc-list-item-start>delete</mdc-icon>Trash
+            </mdc-list-item>
+            <mdc-list-item>
+              <mdc-icon mdc-list-item-start>report</mdc-icon>Spam
+            </mdc-list-item>
+          </mdc-list>
+        </mdc-list-group>
+    </mdc-permanent-drawer-content>
+  </mdc-permanent-drawer>
+  <mdc-content>
+    <mdc-toolbar>
+        <mdc-toolbar-row>
+            <mdc-toolbar-section [alignStart]="true">
+              <span mdc-toolbar-title>App Layout</span>
+            </mdc-toolbar-section>
+            <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
+              <a href="#/drawer-demo" mdc-toolbar-icon material-icon>file_download</a>
+              <a href="#/drawer-demo" mdc-toolbar-icon material-icon>print</a>
+              <a href="#/drawer-demo" mdc-toolbar-icon material-icon>more_vert</a>
+            </mdc-toolbar-section>
+        </mdc-toolbar-row>
+    </mdc-toolbar>
+    <div class="mdc-padding">
+      Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo
+      et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc
+      veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an
+      legere iriure blandit. Veri iisque accusamus an pri.
+    </div>
+  </mdc-content>
+</div>
+
+<span style="margin-top: 20px;" mdc-typography-headline>Permanent Drawer - Below Toolbar</span>
+<div class="demo-drawer-host" fxLayout="column">
+  <mdc-toolbar style="flex-shrink: 0" mdc-elevation=3>
+      <mdc-toolbar-row>
+          <mdc-toolbar-section [alignStart]="true">
+            <span mdc-toolbar-title>App Layout</span>
+          </mdc-toolbar-section>
+          <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
+            <a href="#/drawer-demo" mdc-toolbar-icon material-icon>file_download</a>
+            <a href="#/drawer-demo" mdc-toolbar-icon material-icon>print</a>
+            <a href="#/drawer-demo" mdc-toolbar-icon material-icon>more_vert</a>
+          </mdc-toolbar-section>
+      </mdc-toolbar-row>
+  </mdc-toolbar>
+  <mdc-content>
+    <mdc-permanent-drawer mdc-elevation=1>
+      <mdc-permanent-drawer-content>
+          <mdc-list-group>
+            <mdc-list>
+              <mdc-list-item mdc-permanent-drawer-selected>
+                <mdc-icon mdc-list-item-start>home</mdc-icon>Home
+              </mdc-list-item>
+              <mdc-list-item>
+                <mdc-icon mdc-list-item-start>star</mdc-icon>Star
+              </mdc-list-item>
+              <mdc-list-item>
+                <mdc-icon mdc-list-item-start>send</mdc-icon>Sent Mail
+              </mdc-list-item>
+              <mdc-list-item>
+                <mdc-icon mdc-list-item-start>drafts</mdc-icon>Drafts
+              </mdc-list-item>
+            </mdc-list>
+            <mdc-list-divider></mdc-list-divider>
+            <mdc-list>
+              <mdc-list-item>
+                <mdc-icon mdc-list-item-start>email</mdc-icon>All Mail
+              </mdc-list-item>
+              <mdc-list-item>
+                <mdc-icon mdc-list-item-start>delete</mdc-icon>Trash
+              </mdc-list-item>
+              <mdc-list-item>
+                <mdc-icon mdc-list-item-start>report</mdc-icon>Spam
+              </mdc-list-item>
+            </mdc-list>
+          </mdc-list-group>
+      </mdc-permanent-drawer-content>
+    </mdc-permanent-drawer>
+    <div>
+      Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo
+      et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc
+      veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an
+      legere iriure blandit. Veri iisque accusamus an pri.
+    </div>
+  </mdc-content>
+</div>
+
+<span mdc-typography-headline style="margin-top: 20px;">Temporary Drawer</span>
+<div class="demo-drawer-host">
+<mdc-temporary-drawer #temporary [absolute]="true">
   <mdc-temporary-drawer-header class="mdc-theme--primary-bg mdc-theme--text-primary-on-primary">
     <mdc-temporary-drawer-header-content>
       Header goes here
@@ -322,132 +372,83 @@
       </mdc-list-group>
   </mdc-temporary-drawer-content>
 </mdc-temporary-drawer>
-
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-temporary-drawer</span> #<span style="color:#89bdff">temporary</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-temporary-drawer-header</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"mdc-theme--primary-bg mdc-theme--text-primary-on-primary"</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-temporary-drawer-header-content</span>></span>
-      Header goes here
-    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-temporary-drawer-header-content</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-temporary-drawer-header</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-temporary-drawer-content</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-group</span>></span>
-        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
-          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span> <span style="color:#89bdff">mdc-temporary-drawer-selected</span>></span>
-            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>home<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Home
-          <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>star<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Star
-          <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>send<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Sent Mail
-          <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>drafts<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Drafts
-          <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-        <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
-        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-divider</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-divider</span>></span>
-        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
-          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>email<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>All Mail
-          <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>delete<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Trash
-          <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>report<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Spam
-          <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-        <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
-      <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-group</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-temporary-drawer-content</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-temporary-drawer</span>></span>
-</pre>
-
-</div>
-
-  <div fxLayout="column" class="mdc-padding" fxLayoutAlign="start start">
-    <span mdc-typography-headline style="margin-top: 20px;">Example - Persistent Drawer</span>
-    <button mdc-button [raised]="true" [primary]="true" (click)="handlePersistent();">Open Persistent Drawer</button>
-    <div fxLayout="row" class="mdc-padding">
-<mdc-persistent-drawer #persistent>
-  <mdc-persistent-drawer-spacer></mdc-persistent-drawer-spacer>
-    <mdc-list-group>
-      <mdc-list>
-        <mdc-list-item mdc-persistent-drawer-selected>
-          <mdc-icon mdc-list-item-start>home</mdc-icon>Home
-        </mdc-list-item>
-        <mdc-list-item>
-          <mdc-icon mdc-list-item-start>star</mdc-icon>Star
-        </mdc-list-item>
-        <mdc-list-item>
-          <mdc-icon mdc-list-item-start>send</mdc-icon>Sent Mail
-        </mdc-list-item>
-        <mdc-list-item>
-          <mdc-icon mdc-list-item-start>drafts</mdc-icon>Drafts
-        </mdc-list-item>
-      </mdc-list>
-      <mdc-list-divider></mdc-list-divider>
-      <mdc-list>
-        <mdc-list-item>
-          <mdc-icon mdc-list-item-start>email</mdc-icon>All Mail
-        </mdc-list-item>
-        <mdc-list-item>
-          <mdc-icon mdc-list-item-start>delete</mdc-icon>Trash
-        </mdc-list-item>
-        <mdc-list-item>
-          <mdc-icon mdc-list-item-start>report</mdc-icon>Spam
-        </mdc-list-item>
-      </mdc-list>
-  </mdc-list-group>
-</mdc-persistent-drawer>
-      <div style="width: 300px;">
-        <mdc-toolbar>
-            <mdc-toolbar-row>
-                <mdc-toolbar-section [alignStart]="true">
-                    <button mdc-toolbar-menu-icon material-icon (click)="handlePersistent();">menu</button>
-                    <span mdc-toolbar-title>App</span>
-                </mdc-toolbar-section>
-                <mdc-toolbar-section [alignEnd]="true">
-                    <a href="#/drawer-demo" mdc-toolbar-icon material-icon>file_download</a>
-                    <a href="#/drawer-demo" mdc-toolbar-icon material-icon>print</a>
-                    <a href="#/drawer-demo" mdc-toolbar-icon material-icon>bookmark</a>
-                </mdc-toolbar-section>
-            </mdc-toolbar-row>
-        </mdc-toolbar>
-      </div>
+  <mdc-content>
+    <mdc-toolbar>
+        <mdc-toolbar-row>
+            <mdc-toolbar-section [alignStart]="true">
+              <button mdc-toolbar-menu-icon material-icon (click)="handleTemporary();">menu</button>
+              <span mdc-toolbar-title>Mobile Layout</span>
+            </mdc-toolbar-section>
+            <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
+              <a href="#/drawer-demo" mdc-toolbar-icon material-icon>file_download</a>
+              <a href="#/drawer-demo" mdc-toolbar-icon material-icon>print</a>
+              <a href="#/drawer-demo" mdc-toolbar-icon material-icon>more_vert</a>
+            </mdc-toolbar-section>
+        </mdc-toolbar-row>
+    </mdc-toolbar>
+    <div>
+      Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo
+      et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc
+      veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an
+      legere iriure blandit. Veri iisque accusamus an pri.
     </div>
-
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-persistent-drawer</span> #<span style="color:#89bdff">persistent</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-persistent-drawer-spacer</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-persistent-drawer-spacer</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-group</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
-        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span> <span style="color:#89bdff">mdc-persistent-drawer-selected</span>></span>
-          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>home<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Home
-        <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>star<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Star
-        <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>send<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Sent Mail
-        <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>drafts<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Drafts
-        <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-      <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-divider</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-divider</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
-        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>email<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>All Mail
-        <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>delete<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Trash
-        <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>report<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Spam
-        <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-      <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-group</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-persistent-drawer</span>></span>
-</pre>
-
+  </mdc-content>
 </div>
+
+<span mdc-typography-headline style="margin-top: 20px;">Persistent Drawer</span>
+<div class="demo-drawer-host">
+  <mdc-persistent-drawer #persistent>
+    <mdc-persistent-drawer-spacer></mdc-persistent-drawer-spacer>
+      <mdc-list-group>
+        <mdc-list>
+          <mdc-list-item mdc-persistent-drawer-selected>
+            <mdc-icon mdc-list-item-start>home</mdc-icon>Home
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdc-list-item-start>star</mdc-icon>Star
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdc-list-item-start>send</mdc-icon>Sent Mail
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdc-list-item-start>drafts</mdc-icon>Drafts
+          </mdc-list-item>
+        </mdc-list>
+        <mdc-list-divider></mdc-list-divider>
+        <mdc-list>
+          <mdc-list-item>
+            <mdc-icon mdc-list-item-start>email</mdc-icon>All Mail
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdc-list-item-start>delete</mdc-icon>Trash
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdc-list-item-start>report</mdc-icon>Spam
+          </mdc-list-item>
+        </mdc-list>
+    </mdc-list-group>
+  </mdc-persistent-drawer>
+  <mdc-content>
+    <mdc-toolbar>
+        <mdc-toolbar-row>
+            <mdc-toolbar-section [alignStart]="true">
+              <button mdc-toolbar-menu-icon material-icon (click)="handlePersistent();">menu</button>
+              <span mdc-toolbar-title>Simple Layout</span>
+            </mdc-toolbar-section>
+            <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
+              <a href="#/drawer-demo" mdc-toolbar-icon material-icon>file_download</a>
+              <a href="#/drawer-demo" mdc-toolbar-icon material-icon>print</a>
+              <a href="#/drawer-demo" mdc-toolbar-icon material-icon>more_vert</a>
+            </mdc-toolbar-section>
+        </mdc-toolbar-row>
+    </mdc-toolbar>
+    <div>
+      Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo
+      et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc
+      veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an
+      legere iriure blandit. Veri iisque accusamus an pri.
+    </div>
+  </mdc-content>
+</div>
+
 </div>

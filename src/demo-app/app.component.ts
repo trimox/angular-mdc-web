@@ -1,9 +1,10 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  template: '<app-toolbar></app-toolbar>'
+  template: '<app-toolbar></app-toolbar>',
+  encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent implements OnInit {
   constructor(private _router: Router) { }

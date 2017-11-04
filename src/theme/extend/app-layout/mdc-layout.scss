@@ -1,0 +1,17 @@
+.mdc-content {
+  display: block;
+  position: relative; // Prevent content from overlaying drawers in x, y, or z.
+  min-height: 100%; // Allow content to expand the page.
+  overflow: auto;
+  z-index: 0;
+
+  .mdc-permanent-drawer--fixed + & {
+    margin-left: $mdc-permanent-drawer-width;
+  }
+
+  // If the drawer is collapsed, which needs to be the element directly before
+  // the content, set the content to the left edge.
+  .mdc-persistent-drawer:not(.mdc-persistent-drawer--open) + & {
+    margin-left: 0;
+  }
+}

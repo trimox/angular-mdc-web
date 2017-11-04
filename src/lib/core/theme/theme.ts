@@ -1,12 +1,20 @@
 import {
   Directive,
   ElementRef,
+  HostBinding,
   Input,
   OnChanges,
   Renderer2,
   SimpleChange,
 } from '@angular/core';
 import { toBoolean } from '../../common';
+
+@Directive({
+  selector: 'mdc-content, [mdc-content]'
+})
+export class MdcContent {
+  @HostBinding('class.mdc-content') isHostClass = true;
+}
 
 @Directive({
   selector: '[mdc-theme-dark]'

@@ -5,9 +5,10 @@ import { By } from '@angular/platform-browser';
 import {
   MdcThemeModule,
   MdcThemeDark,
+  MdcContent,
 } from '../../../src/lib/public_api';
 
-describe('MdcThemeDark', () => {
+describe('MdcTheme', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
@@ -54,7 +55,7 @@ describe('MdcThemeDark', () => {
 @Component({
   template:
   `
-  <div [mdc-theme-dark]="isDark"></div>
+  <div [mdc-theme-dark]="isDark" mdc-content></div>
   `,
 })
 class SimpleTest {

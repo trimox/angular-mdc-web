@@ -8,8 +8,7 @@ import { toBoolean, isBrowser } from '../../common';
 import { EventRegistry } from '../../common/event-registry';
 
 import { MDCRippleAdapter } from './adapter';
-import { supportsCssVariables, applyPassive } from '@material/ripple/util';
-import { MDCRippleFoundation } from '@material/ripple';
+import { MDCRippleFoundation, util } from '@material/ripple';
 
 @Injectable()
 export class MdcRipple implements OnDestroy {
@@ -28,7 +27,7 @@ export class MdcRipple implements OnDestroy {
   }
 
   private _mdcAdapter: MDCRippleAdapter = {
-    browserSupportsCssVars: () => (typeof window !== 'undefined') ? supportsCssVariables(window) : false,
+    browserSupportsCssVars: () => (typeof window !== 'undefined') ? util.supportsCssVariables(window) : false,
     isUnbounded: () => this.unbounded,
     isSurfaceActive: () => this.active,
     isSurfaceDisabled: () => {
@@ -42,7 +41,7 @@ export class MdcRipple implements OnDestroy {
     },
     registerInteractionHandler: (evtType: string, handler: EventListener) => {
       const target = (evtType === 'mouseup' || evtType === 'pointerup') ? window : this.elementRef.nativeElement;
-      this._registry.listen(this._renderer, evtType, handler, target, applyPassive());
+      this._registry.listen(this._renderer, evtType, handler, target, util.applyPassive());
     },
     deregisterInteractionHandler: (evtType: string, handler: EventListener) => {
       this._registry.unlisten(evtType, handler);

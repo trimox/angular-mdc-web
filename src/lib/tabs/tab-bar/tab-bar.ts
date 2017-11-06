@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { isBrowser } from '../../common';
 import { EventRegistry } from '../../common/event-registry';
-import { Subscription } from 'rxjs';
+import { ISubscription } from 'rxjs/Subscription';
 
 import { MdcTab } from '../tab/tab';
 
@@ -24,7 +24,7 @@ import { MDCTabBarFoundation } from '@material/tabs';
 })
 export class MdcTabBar {
   private _tabBarIndicator: HTMLElement;
-  private _tabEvents: Subscription[];
+  private _tabEvents: ISubscription[];
 
   @Input() primary: boolean = false;
   @Input() secondary: boolean = false;
@@ -121,7 +121,7 @@ export class MdcTabBar {
     if (this._tabEvents) {
       this._unlistenTabSelect();
     }
-    this._tabEvents = new Array<Subscription>();
+    this._tabEvents = new Array<ISubscription>();
     this.tabs.forEach(tab => {
       this._tabEvents.push(tab.select.subscribe((event: any) => {
         this._foundation.switchToTabAtIndex(this.tabs.toArray().indexOf(event.tab), true);

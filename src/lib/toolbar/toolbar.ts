@@ -96,8 +96,8 @@ export class MdcToolbar implements AfterViewInit, OnDestroy {
   @Input() fixedLastrow: boolean = false;
   @Input() adjustBodyMargin: boolean = true;
   @Output() change: EventEmitter<number> = new EventEmitter<number>();
-  @ContentChild(MdcToolbarRow) mdcFirstRow: MdcToolbarRow;
-  @ContentChild(MdcToolbarTitle) mdcTitle: MdcToolbarTitle;
+  @ContentChild(MdcToolbarRow) firstRow: MdcToolbarRow;
+  @ContentChild(MdcToolbarTitle) title: MdcToolbarTitle;
   @HostBinding('class.mdc-toolbar') isHostClass = true;
   @HostBinding('class.mdc-toolbar--fixed') get classFixedToolbar(): string {
     return this.fixed ? 'mdc-toolbar--fixed' : '';
@@ -153,7 +153,7 @@ export class MdcToolbar implements AfterViewInit, OnDestroy {
     },
     getOffsetHeight: () => this.elementRef.nativeElement.offsetHeight,
     getFirstRowElementOffsetHeight: () => {
-      return this.mdcFirstRow ? this.mdcFirstRow.elementRef.nativeElement.offsetHeight : 0;
+      return this.firstRow ? this.firstRow.elementRef.nativeElement.offsetHeight : 0;
     },
     notifyChange: (evtData: { flexibleExpansionRatio: number }) => {
       this.change.emit(evtData.flexibleExpansionRatio);
@@ -162,13 +162,13 @@ export class MdcToolbar implements AfterViewInit, OnDestroy {
       this._renderer.setStyle(this.elementRef.nativeElement, property, value);
     },
     setStyleForTitleElement: (property: string, value: string) => {
-      if (this.mdcTitle) {
-        this._renderer.setStyle(this.mdcTitle.elementRef.nativeElement, property, value);
+      if (this.title) {
+        this._renderer.setStyle(this.title.elementRef.nativeElement, property, value);
       }
     },
     setStyleForFlexibleRowElement: (property: string, value: string) => {
-      if (this.mdcFirstRow) {
-        this._renderer.setStyle(this.mdcFirstRow.elementRef.nativeElement, property, value);
+      if (this.firstRow) {
+        this._renderer.setStyle(this.firstRow.elementRef.nativeElement, property, value);
       }
     },
     setStyleForFixedAdjustElement: (property: string, value: string) => {

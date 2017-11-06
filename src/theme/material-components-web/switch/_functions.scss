@@ -14,33 +14,8 @@
 // limitations under the License.
 //
 
-@import "../animation/functions";
-@import "../theme/mixins";
-@import "./mixins";
-@import "./variables";
+@import "../animation/variables";
 
-// postcss-bem-linter: define ripple-surface
-
-.mdc-ripple-surface {
-  @include mdc-ripple-surface;
-  @include mdc-ripple-color;
-  @include mdc-ripple-radius;
-
-  position: relative;
-  outline: none;
-  overflow: hidden;
-
-  &[data-mdc-ripple-is-unbounded] {
-    overflow: visible;
-  }
-
-  &--primary {
-    @include mdc-ripple-color(primary, $mdc-ripple-pressed-dark-ink-opacity);
-  }
-
-  &--accent {
-    @include mdc-ripple-color(secondary, $mdc-ripple-pressed-dark-ink-opacity);
-  }
+@function mdc-switch-transition($property) {
+  @return $property 90ms $mdc-animation-standard-curve-timing-function;
 }
-
-// postcss-bem-linter: end

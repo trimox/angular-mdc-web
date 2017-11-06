@@ -21,6 +21,7 @@ import { ToolbarDemo } from './components/toolbar-demo/toolbar-demo';
 import { TypographyDemo } from './components/core/typography-demo/typography-demo';
 import { TabDemo, ItemOneContent, ItemTwoContent, ItemThreeContent } from './components/tab-demo/tab-demo';
 import { RippleDemo } from './components/core/ripple-demo/ripple-demo';
+import { ThemeDemo } from './components/core/theme-demo/theme-demo';
 import { SurfaceDemo } from './components/core/surface-demo/surface-demo';
 import { IconDemo } from './components/icon-demo/icon-demo';
 import { SelectDemo } from './components/inputs-controls/select-demo/select-demo';
@@ -55,10 +56,11 @@ export const demoAppRoutes: Routes = [
   { path: 'drawer-demo', component: DrawerDemo },
   { path: 'ripple-demo', component: RippleDemo },
   { path: 'surface-demo', component: SurfaceDemo },
+  { path: 'theme-demo', component: ThemeDemo },
   { path: 'icon-demo', component: IconDemo },
   { path: 'dialog-demo', component: DialogDemo },
   { path: 'icon-toggle-demo', component: IconToggleDemo },
   { path: 'tab-demo', component: TabDemo, children: TABS_DEMO_ROUTES },
-  { path: '', component: Home, pathMatch: 'full' },
-  { path: '**', redirectTo: '' }
+  { path: 'home', component: Home, pathMatch: 'full' },
+  { path: '**', redirectTo: 'home' }
 ];

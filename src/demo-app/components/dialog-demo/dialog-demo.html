@@ -148,6 +148,14 @@
     </table>
   </div>
 
+<h1 mdc-typography-title>Configuring dialog content via entryComponents</h1>
+<div>Because MdcDialog instantiates components at run-time, the Angular compiler needs extra information to create the necessary ComponentFactory for your dialog content component.
+For any component loaded into a dialog, you must include your component class in the list of entryComponents in your NgModule definition so that the Angular compiler knows to create the ComponentFactory.</div>
+
+<div class="mdc-padding">
+ <a mdc-button href="https://github.com/trimox/angular-mdc-web/tree/master/src/demo-app/components/dialog-demo" target="_blank" rel="noopener noreferrer">View Example Source</a>
+</div>
+
     <mdc-form-field>
       <mdc-checkbox [(ngModel)]="isEscapeToClose"></mdc-checkbox>
       <label>Escape Key Closes</label>
@@ -164,76 +172,4 @@
     <button mdc-button [primary]="true" (click)="openForm()">Form Dialog</button>
   </div>
 
-<h1 mdc-typography-title>Configuring dialog content via entryComponents</h1>
-<div>Because MdcDialog instantiates components at run-time, the Angular compiler needs extra information to create the necessary ComponentFactory for your dialog content component.
-For any component loaded into a dialog, you must include your component class in the list of entryComponents in your NgModule definition so that the Angular compiler knows to create the ComponentFactory.</div>
-
-<pre style="background:#000;color:#f8f8f8"><span style="color:#e28964">import</span> <![CDATA[{ NgModule }]]> from <span style="color:#65b042">'@angular/core'</span>;
-<span style="color:#e28964">import</span> <![CDATA[{ FormsModule, ReactiveFormsModule }]]> from <span style="color:#65b042">'@angular/forms'</span>;
-
-<span style="color:#e28964">import</span> <![CDATA[{ DemoMaterialModule }]]> from <span style="color:#65b042">'../../demo-material.module'</span>;
-
-<span style="color:#e28964">import</span><![CDATA[{
-  DialogAlertExample,
-  DialogScrollingExample,
-  DialogSimpleExample,
-  DialogNoFooterExample,
-  DialogFormExample,
-}]]> from <span style="color:#65b042">'./dialog-demo'</span>;
-
-@NgModule(<![CDATA[{
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    DemoMaterialModule,
-  ],
-  declarations: [
-    DialogAlertExample,
-    DialogScrollingExample,
-    DialogSimpleExample,
-    DialogNoFooterExample,
-    DialogFormExample,
-  ],
-  entryComponents: [
-    DialogAlertExample,
-    DialogSimpleExample,
-    DialogScrollingExample,
-    DialogNoFooterExample,
-    DialogFormExample,
-  ]
-}]]>)
-<span style="color:#99cf50">export</span> <span style="color:#99cf50">class</span> DialogExampleModule <![CDATA[{ }]]>
-</pre>
-
-<h1 mdc-typography-title>Simple Dialog</h1>
-
-<pre style="background:#000;color:#f8f8f8">
-import <![CDATA[{ MdcDialog, MdcDialogRef, MDC_DIALOG_DATA }]]> from '@angular-mdc/web';
-
-@Component(<![CDATA[{
-  template:
-  `
-  <mdc-dialog>
-    <mdc-dialog-header>
-      <mdc-dialog-header-title>
-        Use Google's location service?
-      </mdc-dialog-header-title>
-    </mdc-dialog-header>
-    <mdc-dialog-body>
-      Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
-    </mdc-dialog-body>
-    <mdc-dialog-footer>
-      <button mdc-dialog-button [cancel]="true">Decline</button>
-      <button mdc-dialog-button [accept]="true">Accept</button>
-    </mdc-dialog-footer>
-  </mdc-dialog>
-  `,
-}]]>)
-export class DialogSimpleExample <![CDATA[{
-  constructor(
-    public dialogRef: MdcDialogRef<DialogSimpleExample>,
-    @Inject(MDC_DIALOG_DATA) public data: any) { }
-}]]>
-
-</pre>
 </div>

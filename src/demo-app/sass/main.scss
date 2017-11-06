@@ -6,10 +6,6 @@ $mdc-theme-background: #fff;
 
 @import "../../theme/material.scss";
 
-html {
-  height: 100%;
-}
-
 body {
   height: 100%;
   margin: 0;
@@ -49,7 +45,7 @@ body {
 .demo-landing {
   @include mdc-theme-prop(color, #fff);
   @include mdc-theme-prop(background-color, $potus-blue);
-  height: 40vh;
+  height: 35vh;
 }
 
 .demo-landing-card {
@@ -160,12 +156,5 @@ pre {
   display: flex;
   overflow: hidden;
   position: relative;
-
-  @media (max-width: 599px) {
-    width: 100%;
-  }
-
-  @media (min-width: 600px) {
-    width: 800px;
-  }
+  width: 800px;
 }

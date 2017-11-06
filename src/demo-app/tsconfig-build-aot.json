@@ -14,8 +14,8 @@
     "typeRoots": ["../../node_modules/@types"]
   },
   "files": [
-    "app.module.ts",
-    "main-aot.ts",
+    "./app.module.ts",
+    "./main-aot.ts",
     "../lib/typings.d.ts"
   ],
   "exclude": [

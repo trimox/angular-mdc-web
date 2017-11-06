@@ -86,6 +86,9 @@
       </tbody>
     </table>
   </div>
+<div class="mdc-padding">
+ <a mdc-button href="https://github.com/trimox/angular-mdc-web/tree/master/src/demo-app/components/snackbar-demo" target="_blank" rel="noopener noreferrer">View Example Source</a>
+</div>
   <div fxLayout="column" class="mdc-padding">
     <mdc-form-field>
       <mdc-checkbox [(ngModel)]="multiline"></mdc-checkbox>
@@ -116,34 +119,4 @@
       <button mdc-button [primary]="true" [raised]="true" (click)="show();">Show Snackbar</button>
     </div>
   </div>
-  <pre style="background:#000;color:#f8f8f8"><code><![CDATA[import { Component } from '@angular/core';
-
-import { MdcSnackbar } from '@angular-mdc/web';
-
-@Component({
-  selector: 'snackbar-demo',
-  templateUrl: './snackbar-demo.component.html',
-})
-export class SnackbarDemoComponent {
-  message = 'Message deleted';
-  action = 'Undo';
-  multiline = false;
-  dismissOnAction: boolean = true;
-  alignStart: boolean;
-  focusAction = false;
-  actionOnBottom = false;
-
-  constructor(public snackbar: MdcSnackbar) { }
-
-  show() {
-    let snackbarRef = this.snackbar.show(this.message, this.action, {
-      align: this.alignStart ? 'start' : '',
-      multiline: this.multiline,
-      dismissOnAction: this.dismissOnAction,
-      focusAction: this.focusAction,
-      actionOnBottom: this.actionOnBottom,
-    });
-  }
-}
-]]></code></pre>
 </div>

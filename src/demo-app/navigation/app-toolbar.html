@@ -37,7 +37,7 @@
     <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
       <a mdc-toolbar-icon href="https://github.com/trimox/angular-mdc-web" alt="GitHub">
         <mdc-icon>
-          <img src="https://trimox.github.io/angular-mdc-web/assets/github-circle-white-transparent.svg" height="20" />
+          <img src="https://trimox.github.io/angular-mdc-web/assets/github-circle-white-transparent.svg" height="24" />
         </mdc-icon>
       </a>
     </mdc-toolbar-section>
@@ -49,19 +49,19 @@
    <mdc-permanent-drawer-content>
       <mdc-list-group>
         <mdc-list>
-          <a mdc-list-item [routerLink]="['home']">
+          <a mdc-list-item [routerLink]="['home']" routerLinkActive #rlaHome="routerLinkActive" [mdc-permanent-drawer-selected]="rlaHome.isActive">
             <mdc-icon mdc-list-item-start>home</mdc-icon>Home
           </a>
           <mdc-list-divider></mdc-list-divider>
-        <a mdc-list-item [routerLink]="['getting-started']">
+        <a mdc-list-item [routerLink]="['getting-started']" routerLinkActive #rlaStarted="routerLinkActive" [mdc-permanent-drawer-selected]="rlaStarted.isActive">
           <mdc-icon mdc-list-item-start>touch_app</mdc-icon>Getting Started
         </a>
         <mdc-list-divider></mdc-list-divider>
-          <a mdc-list-item [routerLink]="['core']">
+          <a mdc-list-item [routerLink]="['core']" routerLinkActive #rlaCore="routerLinkActive" [mdc-permanent-drawer-selected]="rlaCore.isActive">
             <mdc-icon mdc-list-item-start>keyboard_arrow_right</mdc-icon>Core Modules
           </a>
           <mdc-list-divider></mdc-list-divider>
-          <a mdc-list-item *ngFor="let navItem of navLinks" [routerLink]="[navItem.route]">
+          <a mdc-list-item *ngFor="let navItem of navLinks" [routerLink]="[navItem.route]" routerLinkActive #rla="routerLinkActive" [mdc-permanent-drawer-selected]="rla.isActive">
             <mdc-icon mdc-list-item-start>{{navItem.icon}}</mdc-icon>{{navItem.name}}
           </a>
         </mdc-list>

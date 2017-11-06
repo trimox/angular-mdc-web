@@ -1,7 +1,4 @@
-import {
-  Component,
-  ViewChild
-} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 // import { MdcTemporaryDrawer, MdcPersistentDrawer } from '@angular-mdc/web';
 import { MdcTemporaryDrawer, MdcPersistentDrawer } from '../../../lib/public_api';

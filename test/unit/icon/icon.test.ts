@@ -40,6 +40,21 @@ describe('MdcIcon', () => {
     it('#should have material-icons', () => {
       expect(testDebugElement.nativeElement.classList).toContain('material-icons');
     });
+    it('#should have font size of 50', () => {
+      testComponent.mySize = 50;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.style.fontSize).toBe('50px');
+
+      testComponent.mySize = 30;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.style.fontSize).toBe('30px');
+    });
+
+    it('#should have font size of 24', () => {
+      testComponent.mySize = null;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.style.fontSize).toBe('24px');
+    });
   });
 
   describe('Font Awesome', () => {
@@ -65,18 +80,18 @@ describe('MdcIcon', () => {
 /** Simple component for testing. */
 @Component({
   template:
-  `
-    <mdc-icon>{{myIcon}}</mdc-icon>
+    `
+    <mdc-icon [fontSize]="mySize">{{myIcon}}</mdc-icon>
   `,
 })
 class SimpleTest {
   myIcon: string = 'home';
+  mySize: number = 24;
 }
 
-/** Simple component for testing. */
 @Component({
   template:
-  `
+    `
     <button mdc-fab>
       <mdc-icon 
        fontSet="myFontSet"

@@ -1,5 +1,6 @@
 <div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
   <h1 mdc-typography-display1>Icon</h1>
+  <span mdc-typography-subheading2>A material style icon.</span>
   <div class="info-banner" mdc-typography-subheading1>
     <![CDATA[import { MdcIconModule } from '@angular-mdc/web';]]>
   </div>
@@ -30,6 +31,11 @@
           <td>fontIcon: string</td>
           <td>Name of an icon within a font set.</td>
         </tr>
+        <tr>
+          <td>fontSize: number</td>
+          <td><pre>The size of the icon.
+If no size is specified, the default of 24px is used.</pre></td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -39,14 +45,18 @@
 <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span>-icon></span>home<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span>-icon></span>
 </pre>
 
+<mdc-icon [fontSize]="48">home</mdc-icon>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> [<span style="color:#89bdff">fontSize</span>]=<span style="color:#65b042">"48"</span>></span>home<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
+</pre>
+
     <span mdc-typography-headline>Using Font Awesome</span>
 <mdc-icon fontSet="fa" fontIcon="fa-camera"></mdc-icon>
 <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">fontSet</span>=<span style="color:#65b042">"fa"</span> <span style="color:#89bdff">fontIcon</span>=<span style="color:#65b042">"fa-camera"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
 </pre>
 
-    <span mdc-typography-headline>Using Font Awesome + Size Modifier</span>
-<mdc-icon fontSet="fa" fontIcon="fa-map fa-2x"></mdc-icon>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">fontSet</span>=<span style="color:#65b042">"fa"</span> <span style="color:#89bdff">fontIcon</span>=<span style="color:#65b042">"fa-map fa-2x"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
+    <span mdc-typography-headline>Using Font Awesome + Font Awesome Size Modifier</span>
+<mdc-icon fontSet="fa" fontIcon="fa-map fa-4x"></mdc-icon>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">fontSet</span>=<span style="color:#65b042">"fa"</span> <span style="color:#89bdff">fontIcon</span>=<span style="color:#65b042">"fa-map fa-4x"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
 </pre>
   </div>
 </div>

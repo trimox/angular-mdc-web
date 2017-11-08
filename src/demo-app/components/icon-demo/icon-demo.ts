@@ -4,5 +4,4 @@ import { Component } from '@angular/core';
   selector: 'icon-demo',
   templateUrl: './icon-demo.html'
 })
-export class IconDemo {
-}
+export class IconDemo { }

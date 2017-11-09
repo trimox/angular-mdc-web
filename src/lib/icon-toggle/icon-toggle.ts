@@ -41,55 +41,6 @@ export const MD_ICON_TOGGLE_CONTROL_VALUE_ACCESSOR: Provider = {
   encapsulation: ViewEncapsulation.None,
 })
 export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
-  private _value: boolean = false;
-  private _onTouched: () => any = () => { };
-  private _controlValueAccessorChangeFn: (value: any) => void = (value) => { };
-
-  @Input() iconOn: string;
-  @Input() iconOff: string;
-  @Input() labelOn: string;
-  @Input() labelOff: string;
-  @Input() cssClassOn: string;
-  @Input() cssClassOff: string;
-  @Input() primary: boolean = false;
-  @Input() secondary: boolean = false;
-  @Input() iconClass: string;
-  get value(): boolean { return this._value; }
-  set value(v: boolean) {
-    this._value = toBoolean(v);
-  }
-  @Input()
-  get disabled(): boolean { return this._foundation.isDisabled(); }
-  set disabled(value: boolean) {
-    this._foundation.setDisabled(toBoolean(value));
-  }
-  @Output('change') _change: EventEmitter<boolean> = new EventEmitter();
-  @HostBinding('class.mdc-icon-toggle') isHostClass = true;
-  @HostBinding('attr.role') role: string = 'button';
-  @HostBinding('attr.aria-pressed') ariaPressed: string = 'false';
-  @HostBinding('attr.tabIndex') tabindex: string = '0';
-  @HostBinding('class.mdc-icon-toggle--primary') get classPrimary() {
-    return this.primary ? 'mdc-icon-toggle--primary' : '';
-  }
-  @HostBinding('class.mdc-icon-toggle--accent') get classSecondary() {
-    return this.secondary ? 'mdc-icon-toggle--accent' : '';
-  }
-  @HostBinding('attr.data-toggle-on') get dataToggleOn() {
-    return JSON.stringify({
-      content: this.iconOn,
-      label: this.labelOn,
-      cssClass: this.cssClassOn
-    });
-  }
-  @HostBinding('attr.data-toggle-off') get dataToggleOff() {
-    return JSON.stringify({
-      content: this.iconOff,
-      label: this.labelOff,
-      cssClass: this.cssClassOff
-    });
-  }
-  @ViewChild(MdcIcon) iconInner: MdcIcon;
-
   private _mdcAdapter: MDCIconToggleAdapter = {
     addClass: (className: string) => {
       this._renderer.addClass(this.iconClass ? this.iconInner.elementRef.nativeElement : this.elementRef.nativeElement, className);
@@ -111,7 +62,7 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
     rmAttr: (name: string) => this._renderer.removeAttribute(this.elementRef.nativeElement, name),
     notifyChange: (evtData: { isOn: boolean }) => {
       this._controlValueAccessorChangeFn(evtData.isOn);
-      this._change.emit(evtData.isOn);
+      this.change.emit(evtData.isOn);
     }
   };
 
@@ -126,6 +77,56 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
     isOn: Function,
   } = new MDCIconToggleFoundation(this._mdcAdapter);
 
+  @Input() iconOn: string;
+  @Input() iconOff: string;
+  @Input() labelOn: string;
+  @Input() labelOff: string;
+  @Input() cssClassOn: string;
+  @Input() cssClassOff: string;
+  @Input() primary: boolean = false;
+  @Input() secondary: boolean = false;
+  @Input() iconClass: string;
+  @Output() change: EventEmitter<boolean> = new EventEmitter();
+  @HostBinding('class.mdc-icon-toggle') isHostClass = true;
+  @HostBinding('attr.role') role: string = 'button';
+  @HostBinding('attr.aria-pressed') ariaPressed: string = 'false';
+  @HostBinding('attr.tabIndex') tabindex: string = '0';
+  @ViewChild(MdcIcon) iconInner: MdcIcon;
+
+  private _value: boolean = false;
+  private _onTouched: () => any = () => { };
+  private _controlValueAccessorChangeFn: (value: any) => void = (value) => { };
+
+  get value(): boolean { return this._value; }
+  set value(v: boolean) {
+    this._value = toBoolean(v);
+  }
+  @Input()
+  get disabled(): boolean { return this._foundation.isDisabled(); }
+  set disabled(value: boolean) {
+    this._foundation.setDisabled(toBoolean(value));
+  }
+  @HostBinding('class.mdc-icon-toggle--primary') get classPrimary() {
+    return this.primary ? 'mdc-icon-toggle--primary' : '';
+  }
+  @HostBinding('class.mdc-icon-toggle--accent') get classSecondary() {
+    return this.secondary ? 'mdc-icon-toggle--accent' : '';
+  }
+  @HostBinding('attr.data-toggle-on') get dataToggleOn() {
+    return JSON.stringify({
+      content: this.iconOn,
+      label: this.labelOn,
+      cssClass: this.cssClassOn
+    });
+  }
+  @HostBinding('attr.data-toggle-off') get dataToggleOff() {
+    return JSON.stringify({
+      content: this.iconOff,
+      label: this.labelOff,
+      cssClass: this.cssClassOff
+    });
+  }
+
   constructor(
     private _renderer: Renderer2,
     public elementRef: ElementRef,
@@ -133,7 +134,7 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
     private _registry: EventRegistry) { }
 
   ngOnChanges(changes: { [key: string]: SimpleChange }): void {
-    let change = changes['iconClass'];
+    const change = changes['iconClass'];
 
     if (change) {
       this._renderer.addClass(this.iconInner.elementRef.nativeElement, this.iconClass);

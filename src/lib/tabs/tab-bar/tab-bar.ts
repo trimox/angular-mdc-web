@@ -1,10 +1,12 @@
 import {
+  AfterViewInit,
   ContentChildren,
   Directive,
   ElementRef,
   EventEmitter,
   HostBinding,
   Input,
+  OnDestroy,
   Output,
   QueryList,
   Renderer2,
@@ -22,7 +24,7 @@ import { MDCTabBarFoundation } from '@material/tabs';
   selector: '[mdc-tab-bar], mdc-tab-bar',
   providers: [EventRegistry],
 })
-export class MdcTabBar {
+export class MdcTabBar implements AfterViewInit, OnDestroy {
   private _tabBarIndicator: HTMLElement;
   private _tabEvents: ISubscription[];
 

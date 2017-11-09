@@ -22,7 +22,7 @@ module.exports = {
   plugins: [
     // Workaround for angular/angular#1158
     new webpack.ContextReplacementPlugin(
-      /angular(\\|\/)core(\\|\/)@angular/,
+      /(.+)?angular(\\|\/)core(.+)?/,
       path.resolve(__dirname, './test')
     )
   ]

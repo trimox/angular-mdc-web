@@ -28,7 +28,7 @@ export class MdcThemeDark implements OnChanges {
   }
 
   ngOnChanges(changes: { [key: string]: SimpleChange }): void {
-    let change = changes['mdcThemeDark'];
+    const change = changes['mdcThemeDark'];
 
     if (change) {
       !toBoolean(change.currentValue) ?

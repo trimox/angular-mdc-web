@@ -192,7 +192,7 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
 
     if (config) {
       this._foundation.setDismissOnAction(config.dismissOnAction);
-      if (config.align == 'start') {
+      if (config.align === 'start') {
         this._mdcAdapter.addClass('mdc-snackbar--align-start');
       }
 

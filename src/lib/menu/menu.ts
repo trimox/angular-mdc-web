@@ -23,10 +23,10 @@ import { getTransformPropertyName } from '@material/menu/util';
 import { MDCSimpleMenuFoundation } from '@material/menu/simple';
 
 export enum MenuOpenFrom {
-  topLeft = <any>"mdc-simple-menu--open-from-top-left",
-  topRight = <any>"mdc-simple-menu--open-from-top-right",
-  bottomLeft = <any>"mdc-simple-menu--open-from-bottom-left",
-  bottomRight = <any>"mdc-simple-menu--open-from-bottom-right"
+  topLeft = <any>'mdc-simple-menu--open-from-top-left',
+  topRight = <any>'mdc-simple-menu--open-from-top-right',
+  bottomLeft = <any>'mdc-simple-menu--open-from-bottom-left',
+  bottomRight = <any>'mdc-simple-menu--open-from-bottom-right'
 }
 
 @Directive({
@@ -252,7 +252,7 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: { [key: string]: SimpleChange }): void {
-    let change = changes['openFrom'];
+    const change = changes['openFrom'];
 
     if (change) {
       if (change.previousValue) {

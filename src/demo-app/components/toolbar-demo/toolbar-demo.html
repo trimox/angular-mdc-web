@@ -126,11 +126,11 @@ So when it is minimized, ratio equals to 0 and when it is maximized, ratio equal
     </div>
     <div fxLayout="column">
         <div fxLayout="row" class="mdc-padding">
-            <mdc-form-field>
+<!--             <mdc-form-field>
                 <mdc-checkbox [(ngModel)]="isFixed"></mdc-checkbox>
                 <label>Fixed toolbar</label>
             </mdc-form-field>
-            <mdc-form-field>
+ -->            <mdc-form-field>
                 <mdc-checkbox [(ngModel)]="isFlexible"></mdc-checkbox>
                 <label>Flexible toolbar</label>
             </mdc-form-field>
@@ -143,7 +143,10 @@ So when it is minimized, ratio equals to 0 and when it is maximized, ratio equal
                 <label>Fixed Lastrow</label>
             </mdc-form-field>
         </div>
-        <mdc-toolbar [flexible]="isFlexible" [fixed]="isFixed" [waterfall]="isWaterfall" [fixedLastrow]="isFixedLastRow" (change)="handleToolbarChange($event);">
+
+<div class="demo-drawer-host" fxLayout="column">
+        <mdc-toolbar [flexible]="isFlexible" [fixed]="false" [waterfall]="isWaterfall" [fixedLastrow]="isFixedLastRow" (change)="handleToolbarChange($event)"
+          style="flex-shrink: 0" mdc-elevation=3>
             <mdc-toolbar-row>
                 <mdc-toolbar-section [alignStart]="true">
                     <a href="#/toolbar-demo" mdc-toolbar-menu-icon material-icon>menu</a>
@@ -158,13 +161,16 @@ So when it is minimized, ratio equals to 0 and when it is maximized, ratio equal
                 </mdc-toolbar-section>
             </mdc-toolbar-row>
         </mdc-toolbar>
+        <mdc-content>
+        </mdc-content>
+      </div>
         <p style="padding-right: 12px;">Flexible Expansion Ratio: {{flexibleExpansionRatio}}</p>
         <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar</span>
   [<span style="color:#89bdff">flexible</span>]=<span style="color:#65b042">"isFlexible"</span>
   [<span style="color:#89bdff">fixed</span>]=<span style="color:#65b042">"isFixed"</span>
   [<span style="color:#89bdff">waterfall</span>]=<span style="color:#65b042">"isWaterfall"</span>
   [<span style="color:#89bdff">fixedLastrow</span>]=<span style="color:#65b042">"isFixedLastRow"</span>
-  (<span style="color:#89bdff">change</span>)=<span style="color:#65b042">"handleToolbarChange($event);"</span>></span>
+  (<span style="color:#89bdff">change</span>)=<span style="color:#65b042">"handleToolbarChange($event)"</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-row</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-section</span> [<span style="color:#89bdff">alignStart</span>]=<span style="color:#65b042">"true"</span>></span>
       <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#"</span> <span style="color:#e0c589">mdc-toolbar-menu-icon</span> <span style="color:#e0c589">material-icon</span>></span>menu<span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>

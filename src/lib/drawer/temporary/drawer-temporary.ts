@@ -78,7 +78,7 @@ export class MdcTemporaryDrawerSelected {
 @Component({
   selector: 'mdc-temporary-drawer',
   template:
-  `
+    `
   <mdc-temporary-drawer-nav>
     <ng-content></ng-content>
   </mdc-temporary-drawer-nav>
@@ -154,7 +154,8 @@ export class MdcTemporaryDrawer implements AfterViewInit, OnChanges, OnDestroy {
     },
     setTranslateX: (value) => {
       if (this.drawerNav) {
-        this._renderer.setProperty(this.drawerNav.elementRef, util.getTransformPropertyName(), value === null ? null : `translateX(${value}px)`);
+        this._renderer.setProperty(this.drawerNav.elementRef, util.getTransformPropertyName(),
+          value === null ? null : `translateX(${value}px)`);
       }
     },
     updateCssVariable: (value: string) => {
@@ -207,7 +208,7 @@ export class MdcTemporaryDrawer implements AfterViewInit, OnChanges, OnDestroy {
 
   ngAfterViewInit(): void {
     this._foundation.init();
-    this._registry.listen(this._renderer, "click", (evt) => {
+    this._registry.listen(this._renderer, 'click', (evt) => {
       if (this.closeOnClick) {
         this._foundation.close();
       }

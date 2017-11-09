@@ -13,8 +13,6 @@ describe('MdcSwitch', () => {
       imports: [MdcSwitchModule, FormsModule, ReactiveFormsModule],
       declarations: [
         SingleSwitch,
-        SwitchWithAriaLabelledby,
-        SwitchWithAriaLabel,
         SwitchWithFormDirectives,
       ]
     });
@@ -126,48 +124,6 @@ describe('MdcSwitch', () => {
       expect(inputElement.tabIndex).toBe(4);
     });
 
-    describe('with provided aria-label', () => {
-      let switchDebugElement: DebugElement;
-      let switchNativeElement: HTMLElement;
-      let inputElement: HTMLInputElement;
-
-      it('#should use the provided aria-label', () => {
-        fixture = TestBed.createComponent(SwitchWithAriaLabel);
-        switchDebugElement = fixture.debugElement.query(By.directive(MdcSwitch));
-        switchNativeElement = switchDebugElement.nativeElement;
-        inputElement = <HTMLInputElement>switchNativeElement.querySelector('input');
-
-        fixture.detectChanges();
-        expect(inputElement.getAttribute('aria-label')).toBe('Super effective');
-      });
-    });
-
-    describe('with provided aria-labelledby', () => {
-      let switchDebugElement: DebugElement;
-      let switchNativeElement: HTMLElement;
-      let inputElement: HTMLInputElement;
-
-      it('#should use the provided aria-labelledby', () => {
-        fixture = TestBed.createComponent(SwitchWithAriaLabelledby);
-        switchDebugElement = fixture.debugElement.query(By.directive(MdcSwitch));
-        switchNativeElement = switchDebugElement.nativeElement;
-        inputElement = <HTMLInputElement>switchNativeElement.querySelector('input');
-
-        fixture.detectChanges();
-        expect(inputElement.getAttribute('aria-labelledby')).toBe('some-id');
-      });
-
-      it('#should not assign aria-labelledby if none is provided', () => {
-        fixture = TestBed.createComponent(SingleSwitch);
-        switchDebugElement = fixture.debugElement.query(By.directive(MdcSwitch));
-        switchNativeElement = switchDebugElement.nativeElement;
-        inputElement = <HTMLInputElement>switchNativeElement.querySelector('input');
-
-        fixture.detectChanges();
-        expect(inputElement.getAttribute('aria-labelledby')).toBe(null);
-      });
-    });
-
     describe('with ngModel', () => {
       let switchDebugElement: DebugElement;
       let switchNativeElement: HTMLElement;
@@ -238,18 +194,6 @@ class SingleSwitch {
 
   onSlideClick: (event?: Event) => void = () => { };
 }
-
-/** Simple test component with an aria-label set. */
-@Component({
-  template: `<mdc-switch aria-labelledby="some-id"></mdc-switch>`
-})
-class SwitchWithAriaLabelledby { }
-
-/** Simple test component with an aria-label set. */
-@Component({
-  template: `<mdc-switch aria-label="Super effective"></mdc-switch>`
-})
-class SwitchWithAriaLabel { }
 
 /** Simple component for testing with ngModel in a form. */
 @Component({

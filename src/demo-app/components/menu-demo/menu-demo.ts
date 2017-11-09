@@ -11,7 +11,7 @@ import { MdcMenu } from '../../../lib/public_api';
 })
 export class MenuDemo {
   selectedIndex = -1;
-  openingPoint: string = "topLeft";
+  openingPoint: string = 'topLeft';
   @ViewChild('menu') menu: MdcMenu;
 
   showMenu() {

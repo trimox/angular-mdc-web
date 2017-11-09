@@ -29,7 +29,7 @@ export class OverlayContainer implements OnDestroy {
   }
 
   protected _createContainer(): void {
-    let container = document.createElement('div');
+    const container = document.createElement('div');
 
     document.body.appendChild(container);
     this._containerElement = container;

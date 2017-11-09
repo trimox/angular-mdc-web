@@ -100,13 +100,13 @@ export class CdkPortalOutlet extends BasePortalOutlet implements OnDestroy {
 
     // If the portal specifies an origin, use that as the logical location of the component
     // in the application tree. Otherwise use the location of this PortalOutlet.
-    let viewContainerRef = portal.viewContainerRef != null ?
+    const viewContainerRef = portal.viewContainerRef != null ?
       portal.viewContainerRef :
       this._viewContainerRef;
 
-    let componentFactory =
+    const componentFactory =
       this._componentFactoryResolver.resolveComponentFactory(portal.component);
-    let ref = viewContainerRef.createComponent(
+    const ref = viewContainerRef.createComponent(
       componentFactory, viewContainerRef.length,
       portal.injector || viewContainerRef.parentInjector);
 

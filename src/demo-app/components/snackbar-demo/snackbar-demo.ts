@@ -19,7 +19,7 @@ export class SnackbarDemo {
   constructor(public snackbar: MdcSnackbar) { }
 
   show() {
-    let snackbarRef = this.snackbar.show(this.message, this.action, {
+    const snackbarRef = this.snackbar.show(this.message, this.action, {
       align: this.alignStart ? 'start' : '',
       multiline: this.multiline,
       dismissOnAction: this.dismissOnAction,

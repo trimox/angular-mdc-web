@@ -35,7 +35,7 @@ export class MdcElevation implements OnChanges {
     public elementRef: ElementRef) { }
 
   public ngOnChanges(changes: { [key: string]: SimpleChange }): void {
-    let change = changes['mdcElevation'];
+    const change = changes['mdcElevation'];
 
     if (MDC_ELEVATION_VALUES.indexOf(Number(this.mdcElevation)) === -1) {
       throw new Error(`Valid mdc-elevation values are 0 through 24`);

@@ -85,7 +85,7 @@ export class MdcList implements OnChanges {
   constructor(public elementRef: ElementRef) { }
 
   ngOnChanges(changes: { [key: string]: SimpleChange }): void {
-    let change = changes['disableRipple'];
+    const change = changes['disableRipple'];
 
     if (change) {
       this.disableRipples(toBoolean(change.currentValue));

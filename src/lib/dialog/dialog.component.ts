@@ -188,7 +188,7 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
   }
 
   private _onKeyDown(keyboardEvent: KeyboardEvent): void {
-    let keyCode = keyboardEvent.keyCode;
+    const keyCode = keyboardEvent.keyCode;
 
     if (keyCode === KeyCodes.ESCAPE) {
       keyboardEvent.stopPropagation();

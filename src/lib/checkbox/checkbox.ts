@@ -37,7 +37,7 @@ export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: Provider = {
   template:
   `
   <input type="checkbox"
-    #nativeCb    
+    #nativeCb
     class="mdc-checkbox__native-control"
     [id]="inputId"
     [name]="name"
@@ -68,47 +68,6 @@ export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: Provider = {
   encapsulation: ViewEncapsulation.None,
 })
 export class MdcCheckbox implements AfterViewInit, OnDestroy {
-  private _uniqueId: string = `mdc-checkbox-${++nextUniqueId}`;
-
-  @Input() id: string = this._uniqueId;
-  get inputId(): string { return `${this.id || this._uniqueId}-input`; }
-  @Input() name: string | null = null;
-  @Input()
-  get checked(): boolean { return this._foundation.isChecked(); }
-  set checked(value: boolean) {
-    this._foundation.setChecked(value);
-  }
-  @Input()
-  get value(): any { return this._foundation.getValue(); }
-  set value(value: any) {
-    this._foundation.setValue(value);
-  }
-  @Input()
-  get disabled(): boolean { return this._foundation.isDisabled(); }
-  set disabled(value: boolean) {
-    this._foundation.setDisabled(value);
-  }
-  @Input()
-  get indeterminate(): boolean { return this._foundation.isIndeterminate(); }
-  set indeterminate(value: boolean) {
-    this._foundation.setIndeterminate(value);
-  }
-  @Input()
-  get disableRipple(): boolean { return this.ripple.disabled; }
-  set disableRipple(value: boolean) {
-    this.ripple.disabled = toBoolean(value);
-  }
-  @Input() tabIndex: number = 0;
-  @Input('aria-label') ariaLabel: string = '';
-  @Input('aria-labelledby') ariaLabelledby: string | null = null;
-  @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
-  @HostBinding('class.mdc-checkbox') isHostClass = true;
-  @ViewChild('nativeCb') inputEl: ElementRef;
-
-  onTouched: () => any = () => { };
-
-  private _controlValueAccessorChangeFn: (value: any) => void = () => { };
-
   private _mdcAdapter: MDCCheckboxAdapter = {
     addClass: (className: string) => {
       this._renderer.addClass(this.elementRef.nativeElement, className);
@@ -149,6 +108,47 @@ export class MdcCheckbox implements AfterViewInit, OnDestroy {
     isIndeterminate: Function,
     setIndeterminate: Function
   } = new MDCCheckboxFoundation(this._mdcAdapter);
+
+  private _uniqueId: string = `mdc-checkbox-${++nextUniqueId}`;
+
+  @Input() id: string = this._uniqueId;
+  get inputId(): string { return `${this.id || this._uniqueId}-input`; }
+  @Input() name: string | null = null;
+  @Input()
+  get checked(): boolean { return this._foundation.isChecked(); }
+  set checked(value: boolean) {
+    this._foundation.setChecked(value);
+  }
+  @Input()
+  get value(): any { return this._foundation.getValue(); }
+  set value(value: any) {
+    this._foundation.setValue(value);
+  }
+  @Input()
+  get disabled(): boolean { return this._foundation.isDisabled(); }
+  set disabled(value: boolean) {
+    this._foundation.setDisabled(value);
+  }
+  @Input()
+  get indeterminate(): boolean { return this._foundation.isIndeterminate(); }
+  set indeterminate(value: boolean) {
+    this._foundation.setIndeterminate(value);
+  }
+  @Input()
+  get disableRipple(): boolean { return this.ripple.disabled; }
+  set disableRipple(value: boolean) {
+    this.ripple.disabled = toBoolean(value);
+  }
+  @Input() tabIndex: number = 0;
+  @Input('aria-label') ariaLabel: string = '';
+  @Input('aria-labelledby') ariaLabelledby: string | null = null;
+  @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
+  @HostBinding('class.mdc-checkbox') isHostClass = true;
+  @ViewChild('nativeCb') inputEl: ElementRef;
+
+  onTouched: () => any = () => { };
+
+  private _controlValueAccessorChangeFn: (value: any) => void = () => { };
 
   constructor(
     private _renderer: Renderer2,

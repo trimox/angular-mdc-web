@@ -24,7 +24,7 @@
     "polyfills.ts"
   ],
   "angularCompilerOptions": {
-    "genDir": "aot",
+    "preserveWhitespaces": false,
     "skipTemplateCodegen": false,
     "skipMetadataEmit": true
   }

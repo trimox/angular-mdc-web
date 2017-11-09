@@ -20,13 +20,11 @@ import {
 @Component({
   selector: 'button[mdc-button], a[mdc-button]',
   template: '<ng-content></ng-content>',
-  host: {
-    '[attr.aria-disabled]': 'disabled.toString()'
-  },
   providers: [MdcRipple],
   encapsulation: ViewEncapsulation.None,
 })
 export class MdcButton implements AfterViewInit {
+  @ContentChild(MdcIcon) buttonIcon: MdcIcon;
   private _disabled: boolean = false;
 
   @Input() raised: boolean = false;
@@ -41,9 +39,11 @@ export class MdcButton implements AfterViewInit {
   set disabled(value: boolean) {
     this._disabled = toBoolean(value);
     if (this._disabled) {
-      this.renderer.setAttribute(this.elementRef.nativeElement, "disabled", 'true');
+      this.renderer.setAttribute(this.elementRef.nativeElement, 'disabled', 'true');
+      this.renderer.setAttribute(this.elementRef.nativeElement, 'aria-disabled', 'true');
     } else {
-      this.renderer.removeAttribute(this.elementRef.nativeElement, "disabled");
+      this.renderer.removeAttribute(this.elementRef.nativeElement, 'disabled');
+      this.renderer.removeAttribute(this.elementRef.nativeElement, 'aria-disabled');
     }
   }
   @Input()
@@ -85,7 +85,6 @@ export class MdcButton implements AfterViewInit {
   @HostListener('blur', ['$event']) blur(evt: FocusEvent) {
     this._onBlur(evt);
   }
-  @ContentChild(MdcIcon) buttonIcon: MdcIcon;
 
   constructor(
     public renderer: Renderer2,
@@ -110,10 +109,10 @@ export class MdcButton implements AfterViewInit {
   }
 
   private _onKeyPress(event: KeyboardEvent): void {
-    let keyCode = event.keyCode;
-    if (keyCode == KeyCodes.ENTER || isSpaceKey(event)) {
+    const keyCode = event.keyCode;
+    if (keyCode === KeyCodes.ENTER || isSpaceKey(event)) {
       this.ripple.active = true;
-      if (keyCode != KeyCodes.ENTER) {
+      if (keyCode !== KeyCodes.ENTER) {
         event.preventDefault();
       }
     }

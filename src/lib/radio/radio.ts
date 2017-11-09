@@ -60,40 +60,6 @@ export const MD_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
   ]
 })
 export class MdcRadio implements AfterViewInit, OnDestroy {
-  private _uniqueId: string = `mdc-radio-${++nextUniqueId}`;
-  private _controlValueAccessorChangeFn: (value: any) => void = () => { };
-  onTouched: () => any = () => { };
-
-  @Input() id: string = this._uniqueId;
-  get inputId(): string { return `${this.id || this._uniqueId}-input`; }
-  @Input() name: string | null = null;
-  @Input()
-  get checked(): boolean { return this._foundation.isChecked(); }
-  set checked(value: boolean) {
-    this._foundation.setChecked(toBoolean(value));
-  }
-  @Input()
-  get value(): any { return this._foundation.getValue(); }
-  set value(value: any) {
-    this._foundation.setValue(value);
-  }
-  @Input()
-  get disabled(): boolean { return this._foundation.isDisabled(); }
-  set disabled(value: boolean) {
-    this.setDisabledState(toBoolean(value));
-  }
-  @Input()
-  get disableRipple(): boolean { return this.ripple.disabled; }
-  set disableRipple(value: boolean) {
-    this.ripple.disabled = toBoolean(value);
-  }
-  @Input() tabIndex: number = 0;
-  @Input('aria-label') ariaLabel: string = '';
-  @Input('aria-labelledby') ariaLabelledby: string | null = null;
-  @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
-  @HostBinding('class.mdc-radio') isHostClass = true;
-  @ViewChild('inputEl') inputEl: ElementRef;
-
   private _mdcAdapter: MDCRadioAdapter = {
     addClass: (className: string) => {
       this._renderer.addClass(this.elementRef.nativeElement, className);
@@ -116,6 +82,41 @@ export class MdcRadio implements AfterViewInit, OnDestroy {
     getValue: Function,
     setValue: Function
   } = new MDCRadioFoundation(this._mdcAdapter);
+  private _uniqueId: string = `mdc-radio-${++nextUniqueId}`;
+
+  @Input() id: string = this._uniqueId;
+  @Input() name: string | null = null;
+  @Input() tabIndex: number = 0;
+  @Input('aria-label') ariaLabel: string = '';
+  @Input('aria-labelledby') ariaLabelledby: string | null = null;
+  @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
+  @HostBinding('class.mdc-radio') isHostClass = true;
+  @ViewChild('inputEl') inputEl: ElementRef;
+
+  private _controlValueAccessorChangeFn: (value: any) => void = () => { };
+  onTouched: () => any = () => { };
+
+  get inputId(): string { return `${this.id || this._uniqueId}-input`; }
+  @Input()
+  get checked(): boolean { return this._foundation.isChecked(); }
+  set checked(value: boolean) {
+    this._foundation.setChecked(toBoolean(value));
+  }
+  @Input()
+  get value(): any { return this._foundation.getValue(); }
+  set value(value: any) {
+    this._foundation.setValue(value);
+  }
+  @Input()
+  get disabled(): boolean { return this._foundation.isDisabled(); }
+  set disabled(value: boolean) {
+    this.setDisabledState(toBoolean(value));
+  }
+  @Input()
+  get disableRipple(): boolean { return this.ripple.disabled; }
+  set disableRipple(value: boolean) {
+    this.ripple.disabled = toBoolean(value);
+  }
 
   constructor(
     private _renderer: Renderer2,

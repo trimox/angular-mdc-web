@@ -1,5 +1,5 @@
 import {
-  Component, Inject, ViewChild
+  Component, OnInit, Inject, ViewChild
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -16,35 +16,35 @@ export class DialogDemo {
   constructor(public dialog: MdcDialog) { }
 
   openSimple() {
-    let dialogRef = this.dialog.open(DialogSimpleExample, {
+    const dialogRef = this.dialog.open(DialogSimpleExample, {
       escapeToClose: this.isEscapeToClose,
       clickOutsideToClose: this.isClickOutsideToClose,
     });
   }
 
   openScrolling() {
-    let dialogRef = this.dialog.open(DialogScrollingExample, {
+    const dialogRef = this.dialog.open(DialogScrollingExample, {
       escapeToClose: this.isEscapeToClose,
       clickOutsideToClose: this.isClickOutsideToClose,
     });
   }
 
   openAlert() {
-    let dialogRef = this.dialog.open(DialogAlertExample, {
+    const dialogRef = this.dialog.open(DialogAlertExample, {
       escapeToClose: false,
       clickOutsideToClose: false,
     });
   }
 
   openNoFooter() {
-    let dialogRef = this.dialog.open(DialogNoFooterExample, {
+    const dialogRef = this.dialog.open(DialogNoFooterExample, {
       escapeToClose: this.isEscapeToClose,
       clickOutsideToClose: this.isClickOutsideToClose,
     });
   }
 
   openForm() {
-    let dialogRef = this.dialog.open(DialogFormExample, {
+    const dialogRef = this.dialog.open(DialogFormExample, {
       escapeToClose: this.isEscapeToClose,
       clickOutsideToClose: this.isClickOutsideToClose,
     });
@@ -89,7 +89,9 @@ export class DialogScrollingExample {
     `
   <mdc-dialog>
     <mdc-dialog-header>
+      <mdc-dialog-header-title>
         Discard draft?
+      </mdc-dialog-header-title>
     </mdc-dialog-header>
     <mdc-dialog-footer>
       <button mdc-dialog-button [cancel]="true">Cancel</button>
@@ -159,7 +161,7 @@ export class DialogNoFooterExample {
   </mdc-dialog>
   `,
 })
-export class DialogFormExample {
+export class DialogFormExample implements OnInit {
   userForm: FormGroup;
   @ViewChild('input') input: MdcTextfield;
 

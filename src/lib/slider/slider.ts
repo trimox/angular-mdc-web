@@ -118,64 +118,6 @@ export class MdcSliderThumbContainer {
   ],
 })
 export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor {
-  @Input() direction: 'ltr' | 'rtl' = 'ltr';
-  @Input() tabIndex: number = 0;
-  @Input() name: string | null = null;
-  @Input() discrete: boolean = false;
-  @Input() markers: boolean = false;
-  @Input('min')
-  get min_(): number { return this._foundation.getMin(); }
-  set min_(value: number) {
-    this.layout(); // required to calculate slider dimensions
-    if (value < this.max_) {
-      this._foundation.setMin(toNumber(value, 0));
-    }
-  }
-  @Input('max')
-  get max_(): number { return this._foundation.getMax(); }
-  set max_(value: number) {
-    this.layout(); // required to calculate slider dimensions
-    if (this.min_ < value) {
-      this._foundation.setMax(toNumber(value, 100));
-    }
-  }
-  @Input()
-  get value() { return this._foundation.getValue(); }
-  set value(v: number | null) {
-    this.layout(); // required to calculate slider dimensions
-    this._foundation.setValue(v);
-  }
-  @Input()
-  get step(): number { return this._foundation.getStep(); }
-  set step(value: number) {
-    this.layout(); // required to calculate slider dimensions
-    this._foundation.setStep(value);
-  }
-  @Input()
-  get disabled(): boolean { return this._foundation.isDisabled(); }
-  set disabled(value: boolean) {
-    this._foundation.setDisabled(value);
-  }
-  @Output('change') change_ = new EventEmitter<MdcSliderChange>();
-  @Output('input') input_ = new EventEmitter<MdcSliderChange>();
-  @HostBinding('class.mdc-slider') isHostClass = true;
-  @HostBinding('attr.role') role: string = 'slider';
-  @HostBinding('class.mdc-slider--discrete') get classDiscrete(): string {
-    return this.discrete ? 'mdc-slider--discrete' : '';
-  }
-  @HostBinding('class.mdc-slider--display-markers') get classDisplayMarkers(): string {
-    return this.markers && this.discrete ? 'mdc-slider--display-markers' : '';
-  }
-  @ViewChild(MdcSliderTrackContainer) trackContainer: MdcSliderTrackContainer;
-  @ViewChild(MdcSliderThumbContainer) thumbContainer: MdcSliderThumbContainer;
-  @ViewChild(MdcSliderTrack) track: MdcSliderTrack;
-  @ViewChild(MdcSliderPinValueMarker) pinValueMarker: MdcSliderPinValueMarker;
-  @ViewChild(MdcSliderTrackMarkerContainer) trackMarkerContainer: MdcSliderTrackMarkerContainer;
-
-  onTouched: () => any = () => { };
-
-  private _controlValueAccessorChangeFn: (value: any) => void = () => { };
-
   private _mdcAdapter: MDCSliderAdapter = {
     hasClass: (className: string) => {
       return this.elementRef.nativeElement.classList.contains(className);
@@ -234,14 +176,14 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
       }
     },
     notifyInput: () => {
-      this.input_.emit({
+      this.input.emit({
         source: this,
         value: this.value
       });
       this._controlValueAccessorChangeFn(this.value);
     },
     notifyChange: () => {
-      this.change_.emit({
+      this.change.emit({
         source: this,
         value: this.value
       });
@@ -292,6 +234,64 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
     setStep: Function,
     setupTrackMarker: Function,
   } = new MDCSliderFoundation(this._mdcAdapter);
+
+  @Input() direction: 'ltr' | 'rtl' = 'ltr';
+  @Input() tabIndex: number = 0;
+  @Input() name: string | null = null;
+  @Input() discrete: boolean = false;
+  @Input() markers: boolean = false;
+  @Input('min')
+  get min_(): number { return this._foundation.getMin(); }
+  set min_(value: number) {
+    this.layout(); // required to calculate slider dimensions
+    if (value < this.max_) {
+      this._foundation.setMin(toNumber(value, 0));
+    }
+  }
+  @Input('max')
+  get max_(): number { return this._foundation.getMax(); }
+  set max_(value: number) {
+    this.layout(); // required to calculate slider dimensions
+    if (this.min_ < value) {
+      this._foundation.setMax(toNumber(value, 100));
+    }
+  }
+  @Input()
+  get value() { return this._foundation.getValue(); }
+  set value(v: number | null) {
+    this.layout(); // required to calculate slider dimensions
+    this._foundation.setValue(v);
+  }
+  @Input()
+  get step(): number { return this._foundation.getStep(); }
+  set step(value: number) {
+    this.layout(); // required to calculate slider dimensions
+    this._foundation.setStep(value);
+  }
+  @Input()
+  get disabled(): boolean { return this._foundation.isDisabled(); }
+  set disabled(value: boolean) {
+    this._foundation.setDisabled(value);
+  }
+  @Output() change = new EventEmitter<MdcSliderChange>();
+  @Output() input = new EventEmitter<MdcSliderChange>();
+  @HostBinding('class.mdc-slider') isHostClass = true;
+  @HostBinding('attr.role') role: string = 'slider';
+  @HostBinding('class.mdc-slider--discrete') get classDiscrete(): string {
+    return this.discrete ? 'mdc-slider--discrete' : '';
+  }
+  @HostBinding('class.mdc-slider--display-markers') get classDisplayMarkers(): string {
+    return this.markers && this.discrete ? 'mdc-slider--display-markers' : '';
+  }
+  @ViewChild(MdcSliderTrackContainer) trackContainer: MdcSliderTrackContainer;
+  @ViewChild(MdcSliderThumbContainer) thumbContainer: MdcSliderThumbContainer;
+  @ViewChild(MdcSliderTrack) track: MdcSliderTrack;
+  @ViewChild(MdcSliderPinValueMarker) pinValueMarker: MdcSliderPinValueMarker;
+  @ViewChild(MdcSliderTrackMarkerContainer) trackMarkerContainer: MdcSliderTrackMarkerContainer;
+
+  onTouched: () => any = () => { };
+
+  private _controlValueAccessorChangeFn: (value: any) => void = () => { };
 
   constructor(
     private _renderer: Renderer2,

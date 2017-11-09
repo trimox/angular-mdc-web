@@ -1,5 +1,5 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { MediaChange, ObservableMedia } from "@angular/flex-layout";
+import { MediaChange, ObservableMedia } from '@angular/flex-layout';
 
 import { navigationLinks } from './index';
 

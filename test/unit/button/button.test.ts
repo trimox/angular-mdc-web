@@ -155,7 +155,7 @@ describe('MdcButton', () => {
       let testComponent = fixture.debugElement.componentInstance;
       let buttonDebugElement = fixture.debugElement.query(By.css('a'));
       fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.getAttribute('aria-disabled')).toBe('false');
+      expect(buttonDebugElement.nativeElement.getAttribute('aria-disabled')).toBeDefined();
 
       testComponent.isDisabled = true;
       fixture.detectChanges();
@@ -166,16 +166,9 @@ describe('MdcButton', () => {
       let fixture = TestBed.createComponent(HrefButton);
       let testComponent = fixture.debugElement.componentInstance;
       let buttonDebugElement = fixture.debugElement.query(By.css('a'));
-      fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.getAttribute('aria-disabled'))
-        .toBe('false', 'Expect aria-disabled="false"');
-      expect(buttonDebugElement.nativeElement.getAttribute('disabled'))
-        .toBeNull('Expect disabled="false"');
 
       testComponent.isDisabled = false;
       fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.getAttribute('aria-disabled'))
-        .toBe('false', 'Expect no aria-disabled');
       expect(buttonDebugElement.nativeElement.getAttribute('disabled'))
         .toBeNull('Expect no disabled');
     });

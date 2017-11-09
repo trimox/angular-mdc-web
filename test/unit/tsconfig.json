@@ -3,7 +3,10 @@
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
-    "lib": ["es6", "dom"],
+    "lib":[
+      "es2017",
+      "dom"
+    ],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "typeRoots": ["../../node_modules/@types"]

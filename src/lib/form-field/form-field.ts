@@ -77,21 +77,21 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
     this._foundation.init();
 
     if (this.inputCheckbox) {
-      let checkBoxLabel = this._renderer.nextSibling(this.inputCheckbox.elementRef.nativeElement);
+      const checkBoxLabel = this._renderer.nextSibling(this.inputCheckbox.elementRef.nativeElement);
       if (checkBoxLabel && checkBoxLabel.nextSibling) {
         if (checkBoxLabel.nextSibling.tagName === 'LABEL') {
           this._renderer.setAttribute(checkBoxLabel.nextSibling, 'for', this.inputCheckbox.inputId);
         }
       }
     } else if (this.inputRadio) {
-      let radioLabel = this._renderer.nextSibling(this.inputRadio.elementRef.nativeElement);
+      const radioLabel = this._renderer.nextSibling(this.inputRadio.elementRef.nativeElement);
       if (radioLabel && radioLabel.nextSibling) {
         if (radioLabel.nextSibling.tagName === 'LABEL') {
           this._renderer.setAttribute(radioLabel.nextSibling, 'for', this.inputRadio.inputId);
         }
       }
     } else if (this.inputSwitch) {
-      let switchLabel = this._renderer.nextSibling(this.inputSwitch.elementRef.nativeElement);
+      const switchLabel = this._renderer.nextSibling(this.inputSwitch.elementRef.nativeElement);
       if (switchLabel && switchLabel.nextSibling) {
         if (switchLabel.nextSibling.tagName === 'LABEL') {
           this._renderer.setAttribute(switchLabel.nextSibling, 'for', this.inputSwitch.inputId);

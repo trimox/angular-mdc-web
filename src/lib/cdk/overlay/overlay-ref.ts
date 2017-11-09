@@ -17,9 +17,6 @@ import { Subject } from 'rxjs/Subject';
  * Used to manipulate or dispose of said overlay.
  */
 export class OverlayRef implements PortalOutlet {
-  private _attachments = new Subject<void>();
-  private _detachments = new Subject<void>();
-
   constructor(
     private _portalOutlet: PortalOutlet,
     private _pane: HTMLElement,
@@ -37,13 +34,10 @@ export class OverlayRef implements PortalOutlet {
    * @returns The portal attachment result.
    */
   attach(portal: Portal<any>): any {
-    let attachResult = this._portalOutlet.attach(portal);
+    const attachResult = this._portalOutlet.attach(portal);
 
     // Update the pane element with the given state configuration.
     this._updateStackingOrder();
-
-    // Only emit the `attachments` event once all other setup is done.
-    this._attachments.next();
 
     return attachResult;
   }
@@ -53,9 +47,6 @@ export class OverlayRef implements PortalOutlet {
    */
   dispose(): void {
     this._portalOutlet.dispose();
-    this._attachments.complete();
-    this._detachments.next();
-    this._detachments.complete();
   }
 
   /**
@@ -65,25 +56,12 @@ export class OverlayRef implements PortalOutlet {
     return this._portalOutlet.hasAttached();
   }
 
-  /** Returns an observable that emits when the overlay has been attached. */
-  attachments(): Observable<void> {
-    return this._attachments.asObservable();
-  }
-
-  /** Returns an observable that emits when the overlay has been detached. */
-  detachments(): Observable<void> {
-    return this._detachments.asObservable();
-  }
-
   /**
      * Detaches an overlay from a portal.
      * @returns Resolves when the overlay has been detached.
      */
   detach(): any {
     const detachmentResult = this._portalOutlet.detach();
-
-    // Only emit after everything is detached.
-    this._detachments.next();
 
     return detachmentResult;
   }

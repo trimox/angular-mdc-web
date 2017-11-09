@@ -63,7 +63,7 @@ export class MdcListItem implements AfterViewInit, OnChanges {
     }
   }
   ngOnChanges(changes: { [key: string]: SimpleChange }): void {
-    let change = changes['disableRipple'];
+    const change = changes['disableRipple'];
 
     if (toBoolean(change.currentValue)) {
       this._ripple.disabled = true;

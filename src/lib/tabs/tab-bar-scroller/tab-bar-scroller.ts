@@ -9,7 +9,6 @@ import {
   HostBinding,
   Input,
   OnDestroy,
-  QueryList,
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
@@ -69,7 +68,7 @@ export class MdcTabBarScrollFrame implements AfterContentInit {
 
   findTab(index: number): MdcTab | null {
     if (this.tabBar) {
-      let tabs = this.tabBar.tabs.toArray();
+      const tabs = this.tabBar.tabs.toArray();
       if (index >= 0 && index < tabs.length) {
         return tabs[index];
       }

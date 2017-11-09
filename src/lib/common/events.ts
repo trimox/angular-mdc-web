@@ -4,5 +4,5 @@
 /// work for space) and `key` is not yet implemented in Chrome.
 export function isSpaceKey(event: KeyboardEvent): boolean {
   // NB: keyCode does not work on Firefox, returning `0` for the space key.
-  return event.keyCode != 0 ? event.keyCode == 32 : event.key == ' ';
+  return event.keyCode !== 0 ? event.keyCode === 32 : event.key === ' ';
 }

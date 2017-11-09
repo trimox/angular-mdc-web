@@ -45,6 +45,7 @@ export class MdcFab implements AfterViewInit {
     }
   }
   @Input('attr.tabindex') tabIndex: number = 0;
+  @ContentChild(MdcIcon) fabIcon: MdcIcon;
   @HostBinding('class.mdc-fab') isHostClass = true;
   @HostBinding('class.mdc-fab--mini') get classMini(): string {
     return this.mini ? 'mdc-fab--mini' : '';
@@ -59,7 +60,6 @@ export class MdcFab implements AfterViewInit {
   @HostListener('blur', ['$event']) blur(evt: FocusEvent) {
     this._onBlur(evt);
   }
-  @ContentChild(MdcIcon) fabIcon: MdcIcon;
 
   constructor(
     private _renderer: Renderer2,
@@ -80,10 +80,10 @@ export class MdcFab implements AfterViewInit {
   }
 
   private _onKeyPress(keyboardEvent: KeyboardEvent): void {
-    let keyCode = keyboardEvent.keyCode;
-    if (keyCode == KeyCodes.ENTER || isSpaceKey(keyboardEvent)) {
+    const keyCode = keyboardEvent.keyCode;
+    if (keyCode === KeyCodes.ENTER || isSpaceKey(keyboardEvent)) {
       this._ripple.active = true;
-      if (keyCode != KeyCodes.ENTER) {
+      if (keyCode !== KeyCodes.ENTER) {
         keyboardEvent.preventDefault();
       }
     }

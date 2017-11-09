@@ -146,45 +146,6 @@ export class MdcSelectItem {
   ],
 })
 export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnChanges, OnDestroy {
-  private _itemsSubscription: ISubscription;
-  private _scrollStream: ISubscription;
-  private _label: string = '';
-  private _value: any;
-  private _uniqueId: string = `mdc-select-${++nextUniqueId}`;
-  private _menuFactory: any;
-  private _controlValueAccessorChangeFn: (value: any) => void = (value) => { };
-  private _onChange: (value: any) => void = () => { };
-  private _onTouched = () => { };
-
-  @Input() id: string = this._uniqueId;
-  @Input() name: string | null = null;
-  @Input()
-  get label(): string { return this._label; }
-  set label(value: string) {
-    this._label = value;
-  }
-  @Input()
-  get value(): any { return this._value; }
-  set value(newValue: any) {
-    if (newValue !== this._value) {
-      this.writeValue(newValue);
-      this._value = newValue;
-    }
-  }
-  @Input()
-  get disabled(): boolean { return this.isDisabled(); }
-  set disabled(value: boolean) {
-    this.setDisabled(value);
-  }
-  @Input() closeOnScroll: boolean = true;
-  @Output() change = new EventEmitter<MdcSelectedData>();
-  @HostBinding('class.mdc-select') isHostClass = true;
-  @HostBinding('attr.role') role: string = 'listbox';
-  @HostBinding('tabindex') tabIndex: number = 0;
-  @ViewChild(MdcSelectMenu) selectMenu: MdcSelectMenu;
-  @ViewChild(MdcSelectItems) selectItems: MdcSelectItems;
-  @ContentChildren(MdcSelectItem) options: QueryList<MdcSelectItem>;
-
   private _mdcAdapter: MDCSelectAdapter = {
     addClass: (className: string) => {
       this._renderer.addClass(this.elementRef.nativeElement, className);
@@ -284,6 +245,47 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnChanges
     resize: Function,
   } = new MDCSelectFoundation(this._mdcAdapter);
 
+  private _uniqueId: string = `mdc-select-${++nextUniqueId}`;
+
+  @Input() id: string = this._uniqueId;
+  @Input() name: string | null = null;
+  @Input() closeOnScroll: boolean = true;
+  @Output() change = new EventEmitter<MdcSelectedData>();
+  @HostBinding('class.mdc-select') isHostClass = true;
+  @HostBinding('attr.role') role: string = 'listbox';
+  @HostBinding('tabindex') tabIndex: number = 0;
+  @ViewChild(MdcSelectMenu) selectMenu: MdcSelectMenu;
+  @ViewChild(MdcSelectItems) selectItems: MdcSelectItems;
+  @ContentChildren(MdcSelectItem) options: QueryList<MdcSelectItem>;
+
+  private _itemsSubscription: ISubscription;
+  private _scrollStream: ISubscription;
+  private _label: string = '';
+  private _value: any;
+  private _menuFactory: any;
+  private _controlValueAccessorChangeFn: (value: any) => void = (value) => { };
+  private _onChange: (value: any) => void = () => { };
+  private _onTouched = () => { };
+
+  @Input()
+  get label(): string { return this._label; }
+  set label(value: string) {
+    this._label = value;
+  }
+  @Input()
+  get value(): any { return this._value; }
+  set value(newValue: any) {
+    if (newValue !== this._value) {
+      this.writeValue(newValue);
+      this._value = newValue;
+    }
+  }
+  @Input()
+  get disabled(): boolean { return this.isDisabled(); }
+  set disabled(value: boolean) {
+    this.setDisabled(value);
+  }
+
   constructor(
     private _renderer: Renderer2,
     public elementRef: ElementRef,
@@ -310,7 +312,7 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnChanges
   }
 
   ngOnChanges(changes: { [key: string]: SimpleChange }): void {
-    let _closeOnScroll = changes['closeOnScroll'];
+    const _closeOnScroll = changes['closeOnScroll'];
 
     if (_closeOnScroll && isBrowser()) {
       if (_closeOnScroll.currentValue && (!this._scrollStream || this._scrollStream.closed)) {
@@ -361,7 +363,7 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnChanges
   setSelectionByValue(value: any): void {
     this.clearSelection();
     if (value) {
-      this.setSelectedIndex(this.options.toArray().findIndex((_) => _.value == value));
+      this.setSelectedIndex(this.options.toArray().findIndex((_) => _.value === value));
     }
   }
 

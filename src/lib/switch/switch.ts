@@ -38,8 +38,6 @@ let nextUniqueId = 0;
     [id]="inputId"
     [name]="name"
     [tabIndex]="tabIndex"
-    [attr.aria-label]="ariaLabel"
-    [attr.aria-labelledby]="ariaLabelledby"
     [disabled]="disabled"
     [checked]="checked"
     (change)="onChange($event)"/>
@@ -55,28 +53,28 @@ let nextUniqueId = 0;
 })
 export class MdcSwitch implements OnChanges {
   private _uniqueId: string = `mdc-switch-${++nextUniqueId}`;
-  private _controlValueAccessorChangeFn: (value: any) => void = (value) => { };
-  onTouched: () => any = () => { };
 
   @Input() id: string = this._uniqueId;
-  get inputId(): string { return `${this.id || this._uniqueId}-input`; }
   @Input() name: string | null = null;
   @Input() checked: boolean = false;
   @Input() disabled: boolean;
   @Input() tabIndex: number = 0;
-  @Input('aria-label') ariaLabel: string = '';
-  @Input('aria-labelledby') ariaLabelledby: string | null = null;
+  @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
+  @HostBinding('class.mdc-switch') isHostClass = true;
+  @ViewChild('inputEl') inputEl: ElementRef;
+
+  private _controlValueAccessorChangeFn: (value: any) => void = (value) => { };
+  onTouched: () => any = () => { };
+
+  get inputId(): string { return `${this.id || this._uniqueId}-input`; }
   @Input()
   get disableRipple(): boolean { return this.ripple.disabled; }
   set disableRipple(value: boolean) {
     this.ripple.disabled = toBoolean(value);
   }
-  @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
-  @HostBinding('class.mdc-switch') isHostClass = true;
   @HostBinding('class.mdc-switch--disabled') get classDisabled(): string {
     return this.disabled ? 'mdc-switch--disabled' : '';
   }
-  @ViewChild('inputEl') inputEl: ElementRef;
 
   constructor(
     private _renderer: Renderer2,
@@ -86,7 +84,7 @@ export class MdcSwitch implements OnChanges {
   }
 
   ngOnChanges(changes: { [key: string]: SimpleChange }): void {
-    let change = changes['disabled'];
+    const change = changes['disabled'];
 
     if (change) {
       this.ripple.disabled = toBoolean(change.currentValue);

@@ -107,7 +107,7 @@ export class MdcTextfieldTrailingIcon {
 @Component({
   selector: 'mdc-textfield',
   template:
-  `
+    `
   <input mdc-textfield-input
     [type]="type"
     [id]="id"
@@ -129,66 +129,6 @@ export class MdcTextfieldTrailingIcon {
   encapsulation: ViewEncapsulation.None,
 })
 export class MdcTextfield implements AfterContentInit, OnDestroy, ControlValueAccessor {
-  private _type = 'text';
-  private _disabled: boolean = false;
-  private _required: boolean = false;
-  private _controlValueAccessorChangeFn: (value: any) => void = (value) => { };
-  onChange = (_: any) => { };
-  onTouched = () => { };
-
-  @Input() id: string = `mdc-input-${nextUniqueId++}`;
-  @Input() fullwidth: boolean = false;
-  @Input() dense: boolean = false;
-  @Input() label: string;
-  @Input() maxlength: number;
-  @Input() placeholder: string = '';
-  @Input() tabIndex: number = 0;
-  @Input()
-  get disabled(): boolean { return this._disabled; }
-  set disabled(value: boolean) {
-    this._disabled = value != null && `${value}` !== 'false';
-    this._foundation.setDisabled(value);
-  }
-  @Input()
-  get required(): boolean { return this._required; }
-  set required(value: boolean) {
-    this._required = value != null && `${value}` !== 'false';
-  }
-  @Input()
-  get type(): string { return this._type; }
-  set type(value: string) {
-    this._type = value || 'text';
-    this._validateType();
-
-    if (!this.isTextarea()) {
-      this._renderer.setProperty(this.inputText.elementRef.nativeElement, 'type', this._type);
-    }
-  }
-  @Input()
-  get value(): string { return this.inputText.elementRef.nativeElement.value; }
-  set value(value: string) {
-    if (value !== this.value) {
-      this.inputText.elementRef.nativeElement.value = value;
-    }
-  }
-  get valid(): boolean {
-    return (this.inputText.elementRef.nativeElement as HTMLInputElement).validity.valid;
-  }
-  @Output() iconAction = new EventEmitter<any>();
-  @HostBinding('class.mdc-textfield') isHostClass = true;
-  @HostBinding('class.mdc-textfield--dense') get classDense(): string {
-    return this.dense ? 'mdc-textfield--dense' : '';
-  }
-  @HostBinding('class.mdc-textfield--fullwidth') get classFullwidth(): string {
-    this.placeholder = this.fullwidth ? this.label : '';
-    return this.fullwidth ? 'mdc-textfield--fullwidth' : '';
-  }
-  @ViewChild(MdcTextfieldInput) inputText: MdcTextfieldInput;
-  @ViewChild(MdcTextfieldLabel) inputLabel: MdcTextfieldLabel;
-  @ViewChild(MdcTextfieldHelptext) inputHelpText: MdcTextfieldHelptext;
-  @ViewChild(MdcTextfieldBottomLine) bottomLine: MdcTextfieldBottomLine;
-  @ContentChild(MdcIcon) inputIcon: MdcIcon;
-
   private _mdcAdapter: MDCTextfieldAdapter = {
     addClass: (className: string) => {
       this._renderer.addClass(this.elementRoot.nativeElement, className);
@@ -299,6 +239,67 @@ export class MdcTextfield implements AfterContentInit, OnDestroy, ControlValueAc
     setValid: Function,
   } = new MDCTextfieldFoundation(this._mdcAdapter);
 
+  @Input() id: string = `mdc-input-${nextUniqueId++}`;
+  @Input() fullwidth: boolean = false;
+  @Input() dense: boolean = false;
+  @Input() label: string;
+  @Input() maxlength: number;
+  @Input() placeholder: string = '';
+  @Input() tabIndex: number = 0;
+  @Output() iconAction = new EventEmitter<any>();
+  @HostBinding('class.mdc-textfield') isHostClass = true;
+  @ViewChild(MdcTextfieldInput) inputText: MdcTextfieldInput;
+  @ViewChild(MdcTextfieldLabel) inputLabel: MdcTextfieldLabel;
+  @ViewChild(MdcTextfieldHelptext) inputHelpText: MdcTextfieldHelptext;
+  @ViewChild(MdcTextfieldBottomLine) bottomLine: MdcTextfieldBottomLine;
+  @ContentChild(MdcIcon) inputIcon: MdcIcon;
+
+  private _type = 'text';
+  private _disabled: boolean = false;
+  private _required: boolean = false;
+  private _controlValueAccessorChangeFn: (value: any) => void = (value) => { };
+  onChange = (_: any) => { };
+  onTouched = () => { };
+
+  @Input()
+  get disabled(): boolean { return this._disabled; }
+  set disabled(value: boolean) {
+    this._disabled = value != null && `${value}` !== 'false';
+    this._foundation.setDisabled(value);
+  }
+  @Input()
+  get required(): boolean { return this._required; }
+  set required(value: boolean) {
+    this._required = value != null && `${value}` !== 'false';
+  }
+  @Input()
+  get type(): string { return this._type; }
+  set type(value: string) {
+    this._type = value || 'text';
+    this._validateType();
+
+    if (!this.isTextarea()) {
+      this._renderer.setProperty(this.inputText.elementRef.nativeElement, 'type', this._type);
+    }
+  }
+  @Input()
+  get value(): string { return this.inputText.elementRef.nativeElement.value; }
+  set value(value: string) {
+    if (value !== this.value) {
+      this.inputText.elementRef.nativeElement.value = value;
+    }
+  }
+  get valid(): boolean {
+    return (this.inputText.elementRef.nativeElement as HTMLInputElement).validity.valid;
+  }
+  @HostBinding('class.mdc-textfield--dense') get classDense(): string {
+    return this.dense ? 'mdc-textfield--dense' : '';
+  }
+  @HostBinding('class.mdc-textfield--fullwidth') get classFullwidth(): string {
+    this.placeholder = this.fullwidth ? this.label : '';
+    return this.fullwidth ? 'mdc-textfield--fullwidth' : '';
+  }
+
   constructor(
     private _renderer: Renderer2,
     public elementRoot: ElementRef,
@@ -377,8 +378,8 @@ export class MdcTextfield implements AfterContentInit, OnDestroy, ControlValueAc
   }
 
   isTextarea(): boolean {
-    let nativeElement = this.elementRoot.nativeElement;
-    let nodeName = isBrowser ? nativeElement.nodeName : nativeElement.name;
+    const nativeElement = this.elementRoot.nativeElement;
+    const nodeName = isBrowser ? nativeElement.nodeName : nativeElement.name;
     return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
   }
 

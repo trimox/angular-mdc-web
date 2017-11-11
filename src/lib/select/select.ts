@@ -131,9 +131,8 @@ export class MdcSelectItem {
   host: {
     '[id]': 'id',
   },
-  template:
-  `
-  <mdc-select-label>{{label}}</mdc-select-label>
+  template: `
+  <mdc-select-label>{{label ? label : placeholder}}</mdc-select-label>
   <mdc-select-menu>
     <mdc-select-items>
       <ng-content></ng-content>
@@ -228,8 +227,7 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnChanges
         index: this._foundation.getSelectedIndex(),
         value: this._foundation.getValue(),
       });
-      this._controlValueAccessorChangeFn(this._foundation.getValue());
-      this.setSelectedIndex(this._foundation.getSelectedIndex());
+      this.onChange(this._foundation.getValue());
     },
     getWindowInnerHeight: () => isBrowser() ? window.innerHeight : 0,
   };
@@ -261,25 +259,20 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnChanges
   private _itemsSubscription: ISubscription;
   private _scrollStream: ISubscription;
   private _label: string = '';
-  private _value: any;
+  private _placeholder: string;
   private _menuFactory: any;
-  private _controlValueAccessorChangeFn: (value: any) => void = (value) => { };
-  private _onChange: (value: any) => void = () => { };
-  private _onTouched = () => { };
+  onChange = (value: any) => { };
+  onTouched = () => { };
 
+  /** Placeholder to be shown if no value has been selected. */
   @Input()
-  get label(): string { return this._label; }
-  set label(value: string) {
-    this._label = value;
+  get placeholder() { return this._placeholder; }
+  set placeholder(value: string) {
+    this._placeholder = value;
   }
-  @Input()
-  get value(): any { return this._value; }
-  set value(newValue: any) {
-    if (newValue !== this._value) {
-      this.writeValue(newValue);
-      this._value = newValue;
-    }
-  }
+  get value(): any { return this._foundation.getValue(); }
+  get label(): any { return this._label; }
+
   @Input()
   get disabled(): boolean { return this.isDisabled(); }
   set disabled(value: boolean) {
@@ -333,23 +326,25 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnChanges
   writeValue(value: any): void {
     if (this.options) {
       this.setSelectionByValue(value);
+      this.onChange(value);
+      this._mdcAdapter.notifyChange();
     }
   }
 
   registerOnChange(fn: (value: any) => void): void {
-    this._controlValueAccessorChangeFn = fn;
+    this.onChange = fn;
   }
 
-  registerOnTouched(fn: () => {}): void {
-    this._onTouched = fn;
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
   }
 
   getValue(): string {
     return this._foundation.getValue();
   }
 
-  setLabel(text: string): void {
-    this._label = text;
+  setPlaceholder(text: string): void {
+    this._placeholder = text;
   }
 
   getSelectedIndex(): number {
@@ -357,20 +352,27 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnChanges
   }
 
   clearSelection(): void {
-    this.options.forEach((_) => _.deselect);
+    this._clearSelectedOptions();
+    this.setSelectedIndex(-1);
+    this._mdcAdapter.notifyChange();
+  }
+
+  private _clearSelectedOptions(): void {
+    this.options.forEach((_) => _.deselect());
   }
 
   setSelectionByValue(value: any): void {
-    this.clearSelection();
+    this._clearSelectedOptions();
     if (value) {
       this.setSelectedIndex(this.options.toArray().findIndex((_) => _.value === value));
     }
   }
 
   setSelectedIndex(index: number): void {
-    this.clearSelection();
     this._foundation.setSelectedIndex(index);
-    this.options.toArray()[this._foundation.getSelectedIndex()].select();
+    if (index >= 0) {
+      this.options.toArray()[this._foundation.getSelectedIndex()].select();
+    }
   }
 
   open(index: number = 0): void {

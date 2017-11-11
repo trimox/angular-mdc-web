@@ -87,9 +87,9 @@ describe('MdcSelectModule', () => {
       expect(testInstance.options.toArray()[3].label).toMatch('Fruit');
     });
 
-    it('#should be MyLabel', () => {
-      testInstance.setLabel('MyLabel');
-      expect(testInstance.label).toMatch('MyLabel');
+    it('#should have `Please select` as placeholder text', () => {
+      testInstance.setPlaceholder('Please select');
+      expect(testInstance.placeholder).toMatch('Please select');
     });
 
     it('#should be focused item', () => {
@@ -99,13 +99,31 @@ describe('MdcSelectModule', () => {
     it('#should be deselected item', () => {
       expect(testInstance.options.first.deselect());
     });
+
+    it('#should be call `resize` on item removal', () => {
+      testComponent.foods.splice(2, 1);
+      fixture.detectChanges();
+      expect(testInstance.options.toArray().length).toBe(3);
+    });
+
+    it('#should set value', () => {
+      testInstance.setSelectionByValue('tacos-2');
+      fixture.detectChanges();
+      expect(testInstance.getValue()).toBe('tacos-2');
+    });
+
+    it('#should have no selected options', () => {
+      testInstance.clearSelection();
+      fixture.detectChanges();
+      expect(testComponent.selectedValue).toBe('');
+    });
   });
 });
 
 @Component({
-  template:
-  `
-    <mdc-select [label]="labelText" name="food" [(ngModel)]="selectedValue" [disabled]="isDisabled" [closeOnScroll]="closeOnScroll" (change)="handleChange($event)">
+  template: `
+    <mdc-select [placeholder]="myPlaceholder" name="food" [(ngModel)]="selectedValue" [disabled]="isDisabled"
+      [closeOnScroll]="closeOnScroll" (change)="handleChange($event)">
       <mdc-select-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
         {{food.description}}
       </mdc-select-item>
@@ -113,7 +131,7 @@ describe('MdcSelectModule', () => {
   `,
 })
 class SimpleTest {
-  labelText: string = 'Favorite food';
+  myPlaceholder: string = 'Favorite food';
   isDisabled: boolean = true;
   selectedValue: string = 'pizza-1';
   closeOnScroll: boolean = true;

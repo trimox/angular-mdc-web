@@ -1,15 +1,19 @@
 import {
-  AfterViewInit,
-  ContentChild,
+  ChangeDetectionStrategy,
   Component,
+  ContentChild,
   Directive,
   ElementRef,
   EventEmitter,
   HostBinding,
   Input,
+  OnChanges,
   OnDestroy,
+  OnInit,
   Output,
   Renderer2,
+  SimpleChange,
+  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { toBoolean } from '../../common';
@@ -19,6 +23,11 @@ import { MdcRipple } from '../../core/ripple/ripple.service';
 
 import { MDCTabAdapter } from './adapter';
 import { MDCTabFoundation } from '@material/tabs';
+
+export interface MdcTabChange {
+  index: number;
+  tab: MdcTab;
+}
 
 @Directive({
   selector: '[mdc-tab-icon-text], mdc-tab-icon-text'
@@ -37,31 +46,46 @@ export class MdcTabIconText {
     EventRegistry
   ],
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  preserveWhitespaces: false,
 })
-export class MdcTab implements AfterViewInit, OnDestroy {
+export class MdcTab implements OnInit, OnChanges, OnDestroy {
+  private _active: boolean = false;
+  private _disabled: boolean = false;
+
   @Input()
-  get active(): boolean { return this.foundation.isActive(); }
-  set active(value: boolean) {
-    this.foundation.setActive(value);
+  get disabled(): boolean { return this._disabled; }
+  set disabled(value: boolean) {
+    this._disabled = value;
   }
   @Input()
-  get preventsDefaultOnClick(): boolean { return this.foundation.preventsDefaultOnClick(); }
+  get active(): boolean { return this._active; }
+  set active(value: boolean) {
+    if (this._active !== value) {
+      this._active = value;
+    }
+  }
+  @Input()
+  get preventsDefaultOnClick(): boolean { return this._foundation.preventsDefaultOnClick(); }
   set preventsDefaultOnClick(value: boolean) {
-    this.foundation.setPreventDefaultOnClick(value);
+    this._foundation.setPreventDefaultOnClick(value);
   }
   @Input()
   get disableRipple(): boolean { return this.ripple.disabled; }
   set disableRipple(value: boolean) {
     this.ripple.disabled = toBoolean(value);
   }
-  @Output() select: EventEmitter<{ tab: MdcTab }> = new EventEmitter();
+  @Output() select: EventEmitter<MdcTabChange> = new EventEmitter();
   @HostBinding('class.mdc-tab') isHostClass = true;
   @HostBinding('attr.role') role: string = 'tab';
   @HostBinding('class.mdc-tab--with-icon-and-text') get classIconText() {
     return this.tabIcon != null && this.tabIconText != null;
   }
   @HostBinding('class.mdc-tab--active') get classActive() {
-    return this.foundation.isActive();
+    return this._active ? 'mdc-tab--active' : '';
+  }
+  @HostBinding('class.mdc-tab--disabled') get classDisabled() {
+    return this._disabled ? 'mdc-tab--disabled' : '';
   }
   @ContentChild(MdcIcon) tabIcon: MdcIcon;
   @ContentChild(MdcTabIconText) tabIconText: MdcTabIconText;
@@ -81,10 +105,10 @@ export class MdcTab implements AfterViewInit, OnDestroy {
     },
     getOffsetWidth: () => this.elementRef.nativeElement.offsetWidth,
     getOffsetLeft: () => this.elementRef.nativeElement.offsetLeft,
-    notifySelected: () => this.select.emit({ tab: this })
+    notifySelected: () => this.select.emit({ index: null, tab: this })
   };
 
-  public foundation: {
+  private _foundation: {
     init: Function,
     destroy: Function,
     isActive: Function,
@@ -104,14 +128,61 @@ export class MdcTab implements AfterViewInit, OnDestroy {
     this.ripple.init();
   }
 
-  ngAfterViewInit(): void {
-    this.foundation.init();
-    if (this.tabIcon) {
+  ngOnChanges(changes: { [key: string]: SimpleChange }): void {
+    const disabled = changes['disabled'];
+    const tabIcon = changes['tabIcon'];
+    const active = changes['active'];
+
+    if (disabled) {
+      this.disableRipple = disabled.currentValue;
+      disabled.currentValue ? this._renderer.setStyle(this.elementRef.nativeElement, 'color', '#bcbcbc')
+        : this._renderer.removeStyle(this.elementRef.nativeElement, 'color');
+    }
+    if (tabIcon) {
       this._renderer.addClass(this.tabIcon.elementRef.nativeElement, 'mdc-tab__icon');
+    }
+    if (active) {
+      this._foundation.setActive(active.currentValue);
+      if (active.currentValue) {
+        this._mdcAdapter.notifySelected();
+      }
     }
   }
 
+  ngOnInit(): void {
+    this._foundation.init();
+    this.setPreventDefaultOnClick(true);
+  }
+
   ngOnDestroy(): void {
-    this.foundation.destroy();
+    this._foundation.destroy();
+  }
+
+  isActive(): boolean {
+    return this._active;
+  }
+
+  setActive(value: boolean): void {
+    this._active = value;
+  }
+
+  getComputedWidth(): number {
+    return this._foundation.getComputedWidth();
+  }
+
+  getComputedLeft(): number {
+    return this._mdcAdapter.getOffsetLeft();
+  }
+
+  getPreventDefaultOnClick(): boolean {
+    return this._foundation.preventsDefaultOnClick();
+  }
+
+  setPreventDefaultOnClick(value: boolean): void {
+    this._foundation.setPreventDefaultOnClick(value);
+  }
+
+  measureSelf(): void {
+    this._foundation.measureSelf();
   }
 }

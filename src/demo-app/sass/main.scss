@@ -128,15 +128,14 @@ body {
     margin: 1em, 0;
     padding: 8px 16px;
     border: 1px solid rgba(0, 0, 0, .03);
+    font-size: 0.8em;
+    font-family: monospace, monospace;
+  }
+
+  pre {
     font-size: 0.9em;
     font-family: monospace, monospace;
   }
-}
-
-pre {
-  padding: 6px;
-  font-family: monospace, monospace;
-  font-size: 0.9em;
 }
 
 .panels {
@@ -154,6 +153,16 @@ pre {
   border: 1px solid;
   height: 400px;
   display: flex;
+  overflow: hidden;
+  position: relative;
+  width: 800px;
+}
+
+.demo-tabs-host {
+  border: 1px solid;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   position: relative;
   width: 800px;

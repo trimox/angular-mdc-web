@@ -7,25 +7,24 @@ import {
   MdcTabIconText,
 } from './tab/tab';
 
-import { MdcTabBar } from './tab-bar/tab-bar';
+import { MdcTabBar, MdcTabBarIndicator } from './tab-bar/tab-bar';
 
 import {
   MdcTabBarScroller,
   MdcTabBarScrollBack,
   MdcTabBarScrollForward,
   MdcTabBarScrollFrame,
-  MdcTabBarScrollIndicatorInner,
 } from './tab-bar-scroller/tab-bar-scroller';
 
 const TAB_COMPONENTS = [
   MdcTab,
   MdcTabIconText,
   MdcTabBar,
+  MdcTabBarIndicator,
   MdcTabBarScroller,
   MdcTabBarScrollBack,
   MdcTabBarScrollForward,
   MdcTabBarScrollFrame,
-  MdcTabBarScrollIndicatorInner,
 ];
 
 @NgModule({

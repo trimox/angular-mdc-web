@@ -18,44 +18,55 @@ describe('MdcTabBarScroller', () => {
   }));
 
   describe('behaviors', () => {
-    let tabScrollDebugElement: DebugElement;
-    let tabScrollNativeElement: HTMLElement;
-    let tabScrollInstance: MdcTabBarScroller;
+    let testDebugElement: DebugElement;
+    let testNativeElement: HTMLElement;
+    let testInstance: MdcTabBarScroller;
     let testComponent: ScrollingTabs;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(ScrollingTabs);
       fixture.detectChanges();
 
-      tabScrollDebugElement = fixture.debugElement.query(By.directive(MdcTabBarScroller));
-      tabScrollNativeElement = tabScrollDebugElement.nativeElement;
-      tabScrollInstance = tabScrollDebugElement.componentInstance;
+      testDebugElement = fixture.debugElement.query(By.directive(MdcTabBarScroller));
+      testNativeElement = testDebugElement.nativeElement;
+      testInstance = testDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
     });
 
     it('#should have mdc-tab-bar-scroller by default', () => {
-      expect(tabScrollDebugElement.nativeElement.classList)
+      expect(testDebugElement.nativeElement.classList)
         .toContain('mdc-tab-bar-scroller', 'Expected to have mdc-tab-bar-scroller');
     });
 
     it('#should scrollToTabAtIndex', () => {
-      expect(tabScrollInstance.scrollToTabAtIndex(2));
+      expect(testInstance.scrollToTabAtIndex(2));
     });
 
     it('#should findTab should return null', () => {
-      expect(tabScrollInstance.findTab(-1)).toBe(null);
+      expect(testInstance.findTab(-1)).toBe(null);
+    });
+
+    it('#should scroll forward', () => {
+      expect(testInstance.scrollForward());
+    });
+
+    it('#should scroll back', () => {
+      expect(testInstance.scrollBack());
+    });
+
+    it('#should refresh layout', () => {
+      expect(testInstance.layout());
     });
   });
 });
 
 @Component({
-  template:
-  `
+  template: `
     <mdc-tab-bar-scroller>
       <mdc-tab-bar-scroll-back>
-        <mdc-tab-bar-scroll-button material-icon>
+        <mdc-icon>
           navigate_before
-        </mdc-tab-bar-scroll-button>
+        </mdc-icon>
       </mdc-tab-bar-scroll-back>
       <mdc-tab-bar-scroll-frame>
         <mdc-tab-bar>
@@ -68,12 +79,11 @@ describe('MdcTabBarScroller', () => {
         </mdc-tab-bar>
       </mdc-tab-bar-scroll-frame>
       <mdc-tab-bar-scroll-forward>
-        <mdc-tab-bar-scroll-button material-icon>
+        <mdc-icon>
           navigate_next
-        </mdc-tab-bar-scroll-button>
+        </mdc-icon>
       </mdc-tab-bar-scroll-forward>
   </mdc-tab-bar-scroller>
 `
 })
-class ScrollingTabs {
-}
+class ScrollingTabs { }

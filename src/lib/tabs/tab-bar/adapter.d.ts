@@ -11,7 +11,7 @@ export interface MDCTabBarAdapter {
   notifyChange: (evtData: { activeTabIndex: number }) => void;
   getNumberOfTabs: () => number;
   isTabActiveAtIndex: (index: number) => boolean;
-  setTabActiveAtIndex: (index: number, isActive: true) => void;
+  setTabActiveAtIndex: (index: number, isActive: boolean) => void;
   isDefaultPreventedOnClickForTabAtIndex: (index: number) => boolean;
   setPreventDefaultOnClickForTabAtIndex: (index: number, preventDefaultOnClick: boolean) => void;
   measureTabAtIndex: (index: number) => void;

@@ -1,9 +1,10 @@
 import {
   AfterContentInit,
   AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
   ContentChild,
   ContentChildren,
-  Component,
   Directive,
   ElementRef,
   HostBinding,
@@ -12,43 +13,53 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import { toBoolean, isBrowser } from '../../common';
+import { isBrowser } from '../../common';
 import { EventRegistry } from '../../common/event-registry';
+import { MdcIcon } from '../../icon/icon';
 
-import { getCorrectPropertyName } from '@material/animation';
 import { MdcTab } from '../tab/tab';
 import { MdcTabBar } from '../tab-bar/tab-bar';
 
+import { getCorrectPropertyName } from '@material/animation';
 import { MDCTabBarScrollerAdapter } from './adapter';
 import { MDCTabBarScrollerFoundation } from '@material/tabs';
 
 @Directive({
-  selector: '[mdc-tab-bar-scroll-button], mdc-tab-bar-scroll-button'
-})
-export class MdcTabBarScrollIndicatorInner {
-  @HostBinding('class.mdc-tab-bar-scroller__indicator__inner') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
   selector: '[mdc-tab-bar-scroll-back], mdc-tab-bar-scroll-back'
 })
-export class MdcTabBarScrollBack {
+export class MdcTabBarScrollBack implements AfterContentInit {
   @HostBinding('class.mdc-tab-bar-scroller__indicator') isHostClass = true;
   @HostBinding('class.mdc-tab-bar-scroller__indicator--back') isBackClass = true;
+  @ContentChild(MdcIcon) icon: MdcIcon;
 
-  constructor(public elementRef: ElementRef) { }
+  constructor(
+    private _renderer: Renderer2,
+    public elementRef: ElementRef) { }
+
+  ngAfterContentInit() {
+    if (this.icon) {
+      this._renderer.addClass(this.icon.elementRef.nativeElement, 'mdc-tab-bar-scroller__indicator__inner');
+    }
+  }
 }
 
 @Directive({
   selector: '[mdc-tab-bar-scroll-forward], mdc-tab-bar-scroll-forward'
 })
-export class MdcTabBarScrollForward {
+export class MdcTabBarScrollForward implements AfterContentInit {
   @HostBinding('class.mdc-tab-bar-scroller__indicator') isHostClass = true;
-  @HostBinding('class.mdc-tab-bar-scroller__indicator--forward') isFowardClass = true;
+  @HostBinding('class.mdc-tab-bar-scroller__indicator--forward') isForwardClass = true;
+  @ContentChild(MdcIcon) icon: MdcIcon;
 
-  constructor(public elementRef: ElementRef) { }
+  constructor(
+    private _renderer: Renderer2,
+    public elementRef: ElementRef) { }
+
+  ngAfterContentInit() {
+    if (this.icon) {
+      this._renderer.addClass(this.icon.elementRef.nativeElement, 'mdc-tab-bar-scroller__indicator__inner');
+    }
+  }
 }
 
 @Directive({
@@ -68,7 +79,7 @@ export class MdcTabBarScrollFrame implements AfterContentInit {
 
   findTab(index: number): MdcTab | null {
     if (this.tabBar) {
-      const tabs = this.tabBar.tabs.toArray();
+      const tabs = this.tabBar._tabs.toArray();
       if (index >= 0 && index < tabs.length) {
         return tabs[index];
       }
@@ -82,13 +93,15 @@ export class MdcTabBarScrollFrame implements AfterContentInit {
   template: '<ng-content></ng-content>',
   providers: [EventRegistry],
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  preserveWhitespaces: false,
 })
 export class MdcTabBarScroller implements AfterViewInit, OnDestroy {
   @Input() direction: 'ltr' | 'rtl' = 'ltr';
   @HostBinding('class.mdc-tab-bar-scroller') isHostClass = true;
   @ContentChild(MdcTabBarScrollFrame) scrollFrame: MdcTabBarScrollFrame;
-  @ContentChild(MdcTabBarScrollBack) scrollBack: MdcTabBarScrollBack;
-  @ContentChild(MdcTabBarScrollForward) scrollForward: MdcTabBarScrollForward;
+  @ContentChild(MdcTabBarScrollBack) back: MdcTabBarScrollBack;
+  @ContentChild(MdcTabBarScrollForward) forward: MdcTabBarScrollForward;
 
   private _mdcAdapter: MDCTabBarScrollerAdapter = {
     addClass: (className: string) => {
@@ -100,28 +113,28 @@ export class MdcTabBarScroller implements AfterViewInit, OnDestroy {
     eventTargetHasClass: (target: HTMLElement, className: string) => target.classList.contains(className),
     addClassToForwardIndicator: (className: string) => {
       if (this.scrollForward) {
-        this._renderer.addClass(this.scrollForward.elementRef.nativeElement, className);
+        this._renderer.addClass(this.forward.elementRef.nativeElement, className);
       }
     },
     removeClassFromForwardIndicator: (className: string) => {
       if (this.scrollForward) {
-        this._renderer.removeClass(this.scrollForward.elementRef.nativeElement, className);
+        this._renderer.removeClass(this.forward.elementRef.nativeElement, className);
       }
     },
     addClassToBackIndicator: (className: string) => {
       if (this.scrollBack) {
-        this._renderer.addClass(this.scrollBack.elementRef.nativeElement, className);
+        this._renderer.addClass(this.back.elementRef.nativeElement, className);
       }
     },
     removeClassFromBackIndicator: (className: string) => {
       if (this.scrollBack) {
-        this._renderer.removeClass(this.scrollBack.elementRef.nativeElement, className);
+        this._renderer.removeClass(this.back.elementRef.nativeElement, className);
       }
     },
     isRTL: () => this.direction === 'rtl',
     registerBackIndicatorClickHandler: (handler: EventListener) => {
       if (this.scrollBack) {
-        this._registry.listen(this._renderer, 'click', handler, this.scrollBack.elementRef.nativeElement);
+        this._registry.listen(this._renderer, 'click', handler, this.back.elementRef.nativeElement);
       }
     },
     deregisterBackIndicatorClickHandler: (handler: EventListener) => {
@@ -131,7 +144,7 @@ export class MdcTabBarScroller implements AfterViewInit, OnDestroy {
     },
     registerForwardIndicatorClickHandler: (handler: EventListener) => {
       if (this.scrollForward) {
-        this._registry.listen(this._renderer, 'click', handler, this.scrollForward.elementRef.nativeElement);
+        this._registry.listen(this._renderer, 'click', handler, this.forward.elementRef.nativeElement);
       }
     },
     deregisterForwardIndicatorClickHandler: (handler: EventListener) => {
@@ -156,10 +169,10 @@ export class MdcTabBarScroller implements AfterViewInit, OnDestroy {
       }
     },
     getNumberOfTabs: () => {
-      return (this.scrollFrame && this.scrollFrame.tabBar) ? this.scrollFrame.tabBar.tabs.length : 0;
+      return (this.scrollFrame && this.scrollFrame.tabBar) ? this.scrollFrame.tabBar._tabs.length : 0;
     },
-    getComputedWidthForTabAtIndex: (index: number) => this.findTab(index).foundation.getComputedWidth(),
-    getComputedLeftForTabAtIndex: (index: number) => this.findTab(index).foundation.getComputedLeft(),
+    getComputedWidthForTabAtIndex: (index: number) => this.findTab(index).getComputedWidth(),
+    getComputedLeftForTabAtIndex: (index: number) => this.findTab(index).getComputedLeft(),
     getOffsetWidthForScrollFrame: () => {
       return this.scrollFrame ? this.scrollFrame.elementRef.nativeElement.offsetWidth : 0;
     },
@@ -211,5 +224,17 @@ export class MdcTabBarScroller implements AfterViewInit, OnDestroy {
 
   findTab(index: number): MdcTab | null {
     return this.scrollFrame ? this.scrollFrame.findTab(index) : null;
+  }
+
+  layout(): void {
+    this._foundation.layout();
+  }
+
+  scrollBack(event?: Event): void {
+    this._foundation.scrollBack(event);
+  }
+
+  scrollForward(event?: Event): void {
+    this._foundation.scrollForward(event);
   }
 }

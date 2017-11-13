@@ -54,26 +54,26 @@ export class MdcIcon implements OnChanges, OnInit {
       this._previousFontSetClass = fontSet;
     }
 
-    if (this.fontIcon !== this._previousFontIconClass) {
+    if (fontIcon !== this._previousFontIconClass) {
       if (this._previousFontIconClass) {
         this._renderer.removeClass(el, this._previousFontIconClass);
       }
-      if (this.fontIcon) {
-        for (const iconClass of this.fontIcon.split(' ')) {
+      if (fontIcon) {
+        for (const iconClass of fontIcon.split(' ')) {
           this._renderer.addClass(el, iconClass);
         }
       }
-      this._previousFontIconClass = this.fontIcon;
+      this._previousFontIconClass = fontIcon;
     }
 
-    if (this.fontSize !== this._previousFontSize) {
+    if (fontSize !== this._previousFontSize) {
       if (this._previousFontSize) {
         this._renderer.removeStyle(el, `font-size: ${fontSize}px`);
       }
-      if (this.fontSize) {
+      if (fontSize) {
         this._renderer.setStyle(el, 'font-size', `${fontSize}px`);
       }
-      this._previousFontSize = this.fontSize;
+      this._previousFontSize = fontSize;
     }
   }
 }

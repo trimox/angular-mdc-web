@@ -1,4 +1,33 @@
 <a name="0.0.0"></a>
+# [0.6.0](https://github.com/trimox/angular-mdc-web/compare/v0.5.6...v0.6.0) (2017-11-13)
+
+
+### Features
+
+* Update material-components-web to v0.24.0 ([#346](https://github.com/trimox/angular-mdc-web/issues/346)) ([c8ef513](https://github.com/trimox/angular-mdc-web/commit/c8ef513)), closes [#347](https://github.com/trimox/angular-mdc-web/issues/347)
+* **dialog:** Implement MDC Dialog Service ([#334](https://github.com/trimox/angular-mdc-web/issues/334)) ([ba19c51](https://github.com/trimox/angular-mdc-web/commit/ba19c51)), closes [#141](https://github.com/trimox/angular-mdc-web/issues/141)
+* **drawer:** Add `absolute` property ([#351](https://github.com/trimox/angular-mdc-web/issues/351)) ([4c5760c](https://github.com/trimox/angular-mdc-web/commit/4c5760c)), closes [#350](https://github.com/trimox/angular-mdc-web/issues/350)
+* **icon:** Add `fontSize` property ([#357](https://github.com/trimox/angular-mdc-web/issues/357)) ([7050f7d](https://github.com/trimox/angular-mdc-web/commit/7050f7d))
+* **package:** Update to Angular v5.0.1 ([#368](https://github.com/trimox/angular-mdc-web/issues/368)) ([7ba346a](https://github.com/trimox/angular-mdc-web/commit/7ba346a))
+* **select:** Add placeholder property + fix clearSelection() ([#372](https://github.com/trimox/angular-mdc-web/issues/372)) ([563d287](https://github.com/trimox/angular-mdc-web/commit/563d287)), closes [#371](https://github.com/trimox/angular-mdc-web/issues/371)
+* **tabs:** Add disabled tab + improvements ([#369](https://github.com/trimox/angular-mdc-web/issues/369)) ([f073c92](https://github.com/trimox/angular-mdc-web/commit/f073c92)), closes [#349](https://github.com/trimox/angular-mdc-web/issues/349) [#281](https://github.com/trimox/angular-mdc-web/issues/281) [#349](https://github.com/trimox/angular-mdc-web/issues/349) [#147](https://github.com/trimox/angular-mdc-web/issues/147) [#281](https://github.com/trimox/angular-mdc-web/issues/281)
+* **theme:** Add [mdc-content] modifier + directive ([#352](https://github.com/trimox/angular-mdc-web/issues/352)) ([a1d40f6](https://github.com/trimox/angular-mdc-web/commit/a1d40f6)), closes [#156](https://github.com/trimox/angular-mdc-web/issues/156)
+
+
+### BREAKING CHANGES
+
+* **tabs:** Removed `mdc-tab-bar-scroll-button` directive. Use `mdc-icon` instead. Please update your code accordingly.
+Example:
+```html
+<mdc-tab-bar-scroll-back>
+  <mdc-icon>navigate_before</mdc-icon>
+</mdc-tab-bar-scroll-back>
+```
+* **select:** Removed `label` setter and `setLabel()` function. Use `placeholder` and `setPlaceholder` instead.
+
+
+
+<a name="0.0.0"></a>
 # [0.5.6](https://github.com/trimox/angular-mdc-web/compare/v0.5.5...v0.5.6) (2017-10-30)
 
 

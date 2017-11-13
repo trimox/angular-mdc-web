@@ -34,8 +34,7 @@ export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: Provider = {
   host: {
     '[id]': 'id',
   },
-  template:
-  `
+  template: `
   <input type="checkbox"
     #nativeCb
     class="mdc-checkbox__native-control"
@@ -55,7 +54,7 @@ export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: Provider = {
       <path class="mdc-checkbox__checkmark__path"
             fill="none"
             stroke="white"
-            d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+            d="M1.73,12.91 8.1,19.28 22.79,4.59"></path>
     </svg>
     <div class="mdc-checkbox__mixedmark"></div>
   </div>

@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://github.com/trimox/angular-mdc-web.git"
   },
-  "version": "0.0.5",
+  "version": "0.0.7",
   "license": "MIT",
   "keywords": [
     "angular-mdc",
@@ -16,5 +16,6 @@
     "material",
     "mdc"
   ],
-  "private": false
+  "private": false,
+  "main": "./material.scss"
 }

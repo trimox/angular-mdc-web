@@ -7,10 +7,10 @@ import {
   MDC_DIALOG_DATA,
   MdcDialog,
   MdcDialogComponent,
+  MdcDialogBody,
   MdcDialogModule,
   MdcDialogRef,
 } from '../../../src/lib/public_api';
-import { MdcDialogContainer } from '../../../src/lib/dialog/dialog-container';
 import { OverlayContainer } from '../../../src/lib/cdk/overlay/index';
 
 describe('MdcDialog', () => {
@@ -23,6 +23,8 @@ describe('MdcDialog', () => {
   let testViewContainerRef: ViewContainerRef;
   let viewContainerFixture: ComponentFixture<ComponentWithChildViewContainer>;
   let mockLocation: SpyLocation;
+
+  let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -122,6 +124,59 @@ describe('MdcDialog', () => {
   });
 });
 
+describe('MdcDialogComponent', () => {
+  let fixture: ComponentFixture<any>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [MdcDialogModule],
+      declarations: [
+        SimpleDeclarativeDialog,
+      ]
+    });
+    TestBed.compileComponents();
+  }));
+
+  describe('basic behaviors', () => {
+    let dialogDebugElement: DebugElement;
+    let dialogNativeElement: HTMLElement;
+    let dialogInstance: MdcDialogComponent;
+    let testComponent: SimpleDeclarativeDialog;
+
+    let DialogBodyDebugElement: DebugElement;
+    let dialogBodyNativeElement: HTMLElement;
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(SimpleDeclarativeDialog);
+      fixture.detectChanges();
+
+      dialogDebugElement = fixture.debugElement.query(By.directive(MdcDialogComponent));
+      dialogNativeElement = dialogDebugElement.nativeElement;
+      dialogInstance = dialogDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+
+      DialogBodyDebugElement = fixture.debugElement.query(By.directive(MdcDialogBody));
+      dialogBodyNativeElement = DialogBodyDebugElement.nativeElement;
+    });
+
+    it('#should have mdc-dialog by default', () => {
+      expect(dialogDebugElement.nativeElement.classList)
+        .toContain('mdc-dialog', 'Expected to have mdc-dialog');
+    });
+
+    it('#should check if mdc-dialog isOpen', () => {
+      dialogInstance.isOpen();
+      fixture.detectChanges();
+    });
+
+    it('#should check if mdc-dialog is scrollable', () => {
+      testComponent.isScrolling = true;
+      fixture.detectChanges();
+      expect(dialogBodyNativeElement.classList).toContain('mdc-dialog__body--scrollable');
+    });
+  });
+});
+
 @Directive({ selector: 'dir-with-view-container' })
 class DirectiveWithViewContainer {
   constructor(public viewContainerRef: ViewContainerRef) { }
@@ -142,8 +197,7 @@ class ComponentWithChildViewContainer {
 }
 
 @Component({
-  template:
-    `
+  template: `
   <mdc-dialog #mydialog>
     <mdc-dialog-surface>
       <mdc-dialog-header>
@@ -173,8 +227,7 @@ class SimpleDialog {
 }
 
 @Component({
-  template:
-    `
+  template: `
   <mdc-dialog>
     <mdc-dialog-surface>
       <mdc-dialog-header>
@@ -191,6 +244,32 @@ class SimpleDialog {
 })
 class DialogNoFooter {
   constructor(public dialogRef: MdcDialogRef<SimpleDialog>) { }
+}
+
+/** Simple component for testing. */
+@Component({
+  template: `
+    <mdc-dialog [clickOutsideToClose]="true" [escapeToClose]="true">
+      <mdc-dialog-header>
+        <mdc-dialog-header-title>
+          Use Google's location service?
+        </mdc-dialog-header-title>
+      </mdc-dialog-header>
+      <mdc-dialog-body [scrollable]="isScrolling">
+        Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
+      </mdc-dialog-body>
+      <mdc-dialog-footer>
+        <button mdc-dialog-button [cancel]="isCancel">Decline</button>
+        <button mdc-dialog-button [action]="isAction" [accept]="isAccept">Accept</button>
+      </mdc-dialog-footer>
+    </mdc-dialog>
+  `,
+})
+class SimpleDeclarativeDialog {
+  isScrolling: boolean = false;
+  isCancel: boolean = true;
+  isAction: boolean = true;
+  isAccept: boolean = true;
 }
 
 const TEST_DIRECTIVES = [

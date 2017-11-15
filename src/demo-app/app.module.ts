@@ -14,7 +14,7 @@ import { AppComponent } from './app.component';
 import { ButtonDemo } from './components/buttons/button-demo/button-demo';
 import { CardDemo } from './components/card-demo/card-demo';
 import { CheckboxDemo } from './components/inputs-controls/checkbox-demo/checkbox-demo';
-import { DialogDemo } from './components/dialog-demo/dialog-demo';
+import { DialogDemo, DialogServiceTab, DialogTab } from './components/dialog-demo/dialog-demo';
 import { DrawerDemo } from './components/drawer-demo/drawer-demo';
 import { FabDemo } from './components/buttons/fab-demo/fab-demo';
 import { ElevationDemo } from './components/core/elevation-demo/elevation-demo';
@@ -91,6 +91,8 @@ import { demoAppRoutes } from './routes';
     ItemOneContent,
     ItemTwoContent,
     ItemThreeContent,
+    DialogServiceTab,
+    DialogTab,
   ],
   entryComponents: [
     AppComponent

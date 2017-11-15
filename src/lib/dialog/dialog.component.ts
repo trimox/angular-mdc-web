@@ -7,10 +7,13 @@ import {
   EventEmitter,
   HostBinding,
   Inject,
+  Input,
   OnDestroy,
+  Optional,
   Output,
   QueryList,
   Renderer2,
+  SkipSelf,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -36,8 +39,7 @@ import { MDCDialogFoundation } from '@material/dialog';
 
 @Component({
   selector: 'mdc-dialog',
-  template:
-  `
+  template: `
   <mdc-dialog-surface>
     <ng-content></ng-content>
   </mdc-dialog-surface>
@@ -65,6 +67,8 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
   /** ID of the element that should be considered as the dialog's label. */
   _ariaLabelledBy: string | null = null;
 
+  @Input() clickOutsideToClose: boolean = true;
+  @Input() escapeToClose: boolean = true;
   @HostBinding('class.mdc-dialog') isHostClass = true;
   @HostBinding('attr.aria-hidden') ariaHidden: string = 'true';
   @HostBinding('tabindex') tabIndex: number = -1;
@@ -93,7 +97,8 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
     },
     eventTargetHasClass: (target: HTMLElement, className: string) => target.classList.contains(className),
     registerInteractionHandler: (evt: string, handler: EventListener) => {
-      handler = this.dialogSurface && this._config.clickOutsideToClose ? handler : () => {
+      const clickOutsideToClose = this._config ? this._config.clickOutsideToClose : this.clickOutsideToClose;
+      handler = this.dialogSurface && clickOutsideToClose ? handler : () => {
         if ((<any>event.target).classList.contains('mdc-dialog__footer__button--accept')) {
           this.accept();
         } else if ((<any>event.target).classList.contains('mdc-dialog__footer__button--cancel')) {
@@ -114,13 +119,16 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
     registerDocumentKeydownHandler: (handler: EventListener) => {
       if (!isBrowser()) { return; }
 
-      handler = this._config.escapeToClose ? handler : this._onKeyDown;
+      const escapeToClose = this._config ? this._config.escapeToClose : this.escapeToClose;
+
+      handler = escapeToClose ? handler : this._onKeyDown;
       this._registry.listen(this._renderer, 'keydown', handler, document);
     },
     deregisterDocumentKeydownHandler: (handler: EventListener) => {
       if (!isBrowser()) { return; }
 
-      handler = this._config.escapeToClose ? handler : this._onKeyDown;
+      const escapeToClose = this._config ? this._config.escapeToClose : this.escapeToClose;
+      handler = escapeToClose ? handler : this._onKeyDown;
       this._registry.unlisten('keydown', handler);
     },
     registerTransitionEndHandler: (handler: EventListener) => {
@@ -135,11 +143,15 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
     },
     notifyAccept: () => {
       this._accept.emit('MDCDialog:accept');
-      this.dialogRef.close();
+      if (this.dialogRef) {
+        this.dialogRef.close();
+      }
     },
     notifyCancel: () => {
       this._cancel.emit('MDCDialog:cancel');
-      this.dialogRef.close();
+      if (this.dialogRef) {
+        this.dialogRef.close();
+      }
     },
     trapFocusOnSurface: () => {
       if (this._focusTrap) {
@@ -170,17 +182,21 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
   } = new MDCDialogFoundation(this._mdcAdapter);
 
   constructor(
-    public dialogRef: MdcDialogRef<any>,
     private _renderer: Renderer2,
     public elementRef: ElementRef,
-    private _registry: EventRegistry) {
+    private _registry: EventRegistry,
+    @Optional() @SkipSelf() public dialogRef: MdcDialogRef<any>) {
 
-    this._config = this.dialogRef._containerInstance._config;
+    if (this.dialogRef) {
+      this._config = this.dialogRef._containerInstance._config;
+    }
   }
 
   ngAfterViewInit(): void {
     this._foundation.init();
-    this.show();
+    if (this._config) {
+      this.show();
+    }
   }
 
   ngOnDestroy(): void {
@@ -201,8 +217,8 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
     if (isBrowser()) {
       this._focusTrap = createFocusTrapInstance(this.dialogSurface.elementRef.nativeElement, {
         initialFocus: focusedEl ? focusedEl.elementRef.nativeElement : this.elementRef.nativeElement,
-        clickOutsideDeactivates: this._config.clickOutsideToClose,
-        escapeDeactivates: this._config.escapeToClose,
+        clickOutsideDeactivates: this._config ? this._config.clickOutsideToClose : this.clickOutsideToClose,
+        escapeDeactivates: this._config ? this._config.escapeToClose : this.escapeToClose,
       });
     }
     setTimeout(() => {

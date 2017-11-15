@@ -19,7 +19,7 @@ import { MdcSliderModule } from './slider/index';
 import { MdcSnackbarModule } from './snackbar/index';
 import { MdcSwitchModule } from './switch/index';
 import { MdcTabModule } from './tabs/index';
-import { MdcTextfieldModule } from './textfield/index';
+import { MdcTextFieldModule } from './textfield/index';
 import { MdcToolbarModule } from './toolbar/index';
 
 const MATERIAL_MODULES = [
@@ -42,7 +42,7 @@ const MATERIAL_MODULES = [
   MdcSnackbarModule,
   MdcSwitchModule,
   MdcTabModule,
-  MdcTextfieldModule,
+  MdcTextFieldModule,
   MdcToolbarModule,
 ];
 

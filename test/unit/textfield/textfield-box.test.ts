@@ -4,17 +4,17 @@ import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular
 import { By } from '@angular/platform-browser';
 
 import {
-  MdcTextfieldBox,
-  MdcTextfieldInput,
-  MdcTextfieldModule
+  MdcTextFieldBox,
+  MdcTextFieldInput,
+  MdcTextFieldModule
 } from '../../../src/lib/public_api';
 
-describe('MdcTextfieldBox', () => {
+describe('MdcTextFieldBox', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MdcTextfieldModule, FormsModule, ReactiveFormsModule],
+      imports: [MdcTextFieldModule, FormsModule, ReactiveFormsModule],
       declarations: [
         SimpleTextfield,
       ]
@@ -25,7 +25,7 @@ describe('MdcTextfieldBox', () => {
   describe('basic behaviors', () => {
     let textFieldDebugElement: DebugElement;
     let textFieldNativeElement: HTMLElement;
-    let textFieldInstance: MdcTextfieldBox;
+    let textFieldInstance: MdcTextFieldBox;
     let testComponent: SimpleTextfield;
     let inputElement: HTMLInputElement;
 
@@ -33,16 +33,16 @@ describe('MdcTextfieldBox', () => {
       fixture = TestBed.createComponent(SimpleTextfield);
       fixture.detectChanges();
 
-      textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextfieldBox));
+      textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextFieldBox));
       textFieldNativeElement = textFieldDebugElement.nativeElement;
       textFieldInstance = textFieldDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
       inputElement = textFieldInstance.inputText.elementRef.nativeElement;
     });
 
-    it('#should have mdc-textfield--box by default', () => {
+    it('#should have mdc-text-field--box by default', () => {
       expect(textFieldDebugElement.nativeElement.classList)
-        .toContain('mdc-textfield--box', 'Expected to have mdc-textfield--box class');
+        .toContain('mdc-text-field--box', 'Expected to have mdc-text-field--box class');
     });
 
     it('#should preserve the user-provided id', () => {
@@ -56,7 +56,7 @@ describe('MdcTextfieldBox', () => {
 @Component({
   template:
   `
-    <mdc-textfield-box
+    <mdc-text-field-box
       [id]="boxId"
       [(ngModel)]="username"
       label="Username"
@@ -64,8 +64,8 @@ describe('MdcTextfieldBox', () => {
       [disabled]="isDisabled">
       <mdc-icon leading>person</mdc-icon>
       <mdc-icon trailing>person</mdc-icon>
-    </mdc-textfield-box>
-    <p mdc-textfield-helptext
+    </mdc-text-field-box>
+    <p mdc-text-field-helptext
       [validation]="true"
       [persistent]="true">Username is required</p>
   `,

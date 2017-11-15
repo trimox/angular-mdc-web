@@ -112,8 +112,8 @@
     </mdc-form-field>
 
     <div fxLayout="column">
-      <mdc-textfield [(ngModel)]="message" label="Message" [required]="true"></mdc-textfield>
-      <mdc-textfield [(ngModel)]="action" label="Action"></mdc-textfield>
+      <mdc-text-field [(ngModel)]="message" label="Message" [required]="true"></mdc-text-field>
+      <mdc-text-field [(ngModel)]="action" label="Action"></mdc-text-field>
     </div>
     <div class="mdc-padding" fxLayout="column" fxFlexOffset="2">
       <button mdc-button [primary]="true" [raised]="true" (click)="show();">Show Snackbar</button>

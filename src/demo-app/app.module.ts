@@ -27,7 +27,7 @@ import { SliderDemo } from './components/inputs-controls/slider-demo/slider-demo
 import { IconDemo } from './components/icon-demo/icon-demo';
 import { SnackbarDemo } from './components/snackbar-demo/snackbar-demo';
 import { SwitchDemo } from './components/inputs-controls/switch-demo/switch-demo';
-import { TextfieldDemo } from './components/inputs-controls/textfield-demo/textfield-demo';
+import { TextFieldDemo } from './components/inputs-controls/textfield-demo/textfield-demo';
 import { ThemeDemo } from './components/core/theme-demo/theme-demo';
 import { ToolbarDemo } from './components/toolbar-demo/toolbar-demo';
 import { TypographyDemo } from './components/core/typography-demo/typography-demo';
@@ -83,7 +83,7 @@ import { demoAppRoutes } from './routes';
     ThemeDemo,
     SwitchDemo,
     TabDemo,
-    TextfieldDemo,
+    TextFieldDemo,
     ToolbarDemo,
     TypographyDemo,
     RippleDemo,

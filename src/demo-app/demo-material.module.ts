@@ -18,7 +18,7 @@ import {
   MdcSnackbarModule,
   MdcSwitchModule,
   MdcTabModule,
-  MdcTextfieldModule,
+  MdcTextFieldModule,
   MdcToolbarModule,
   MdcSelectModule,
 // } from '@angular-mdc/web';
@@ -44,7 +44,7 @@ import {
     MdcSnackbarModule,
     MdcSwitchModule,
     MdcTabModule,
-    MdcTextfieldModule,
+    MdcTextFieldModule,
     MdcToolbarModule,
     MdcSelectModule,
   ]

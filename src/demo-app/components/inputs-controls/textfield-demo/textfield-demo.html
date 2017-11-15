@@ -2,7 +2,7 @@
   <h1 mdc-typography-display1>Text Field</h1>
   <div mdc-typography-subheading2>The MDC Text Field component provides a textual input field adhering the Material Design specification.</div>
   <div class="info-banner" mdc-typography-subheading1>
-    <![CDATA[import { MdcTextfieldModule } from '@angular-mdc/web';]]>
+    <![CDATA[import { MdcTextFieldModule } from '@angular-mdc/web';]]>
   </div>
   <div class="docs-api">
     <table>
@@ -13,7 +13,7 @@
       </thead>
       <tbody>
         <tr>
-          <td>mdc-textfield</td>
+          <td>mdc-text-field</td>
         </tr>
       </tbody>
       <thead>
@@ -78,7 +78,7 @@
       </thead>
       <tbody>
         <tr>
-          <td>mdc-textfield-box</td>
+          <td>mdc-text-field-box</td>
         </tr>
       </tbody>
       <thead>
@@ -168,7 +168,7 @@
       </thead>
       <tbody>
         <tr>
-          <td>mdc-textfield-helptext</td>
+          <td>mdc-text-field-helptext</td>
           <td>Useful for providing supplemental information to users, as well for validation messages.</td>
         </tr>
       </tbody>
@@ -251,8 +251,8 @@
   </div>
   <div fxLayout="column" class="mdc-padding" fxFlexAlign="start">
     <div>
-      <mdc-textfield [(ngModel)]="username" id="username" label="Username" [required]="isRequired" [disabled]="isDisabled" [dense]="isDense"></mdc-textfield>
-      <p mdc-textfield-helptext [validation]="true" [persistent]="false">Username is required</p>
+      <mdc-text-field [(ngModel)]="username" id="username" label="Username" [required]="isRequired" [disabled]="isDisabled" [dense]="isDense"></mdc-text-field>
+      <p mdc-text-field-helptext [validation]="true" [persistent]="false">Username is required</p>
     <mdc-form-field>
       <mdc-checkbox [(ngModel)]="isRequired"></mdc-checkbox>
       <label>Required</label>
@@ -266,14 +266,14 @@
       <label>Dense</label>
     </mdc-form-field>
     </div>
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>
+    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field</span>
   [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"username"</span>
   <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Username"</span>
   [<span style="color:#89bdff">required</span>]=<span style="color:#65b042">"true"</span>
   [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"false"</span>
   [<span style="color:#89bdff">dense</span>]=<span style="color:#65b042">"false"</span>
-</span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>></span>
-<span style="color:#89bdff">&lt;<span style="color:#89bdff">p</span> <span style="color:#89bdff">mdc-textfield-helptext</span>
+</span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field</span>></span>
+<span style="color:#89bdff">&lt;<span style="color:#89bdff">p</span> <span style="color:#89bdff">mdc-text-field-helptext</span>
   [<span style="color:#89bdff">validation</span>]=<span style="color:#65b042">"true"</span>
   [<span style="color:#89bdff">persistent</span>]=<span style="color:#65b042">"false"</span>></span>Username is required<span style="color:#89bdff">&lt;/<span style="color:#89bdff">p</span>></span>
 </pre> </div>
@@ -281,61 +281,61 @@
     <div fxLayout="column" class="mdc-padding">
 <span mdc-typography-headline>Prefilled value</span>
     <div fxFlexAlign="start">
-  <mdc-textfield [(ngModel)]="prefill" label="Username"></mdc-textfield>
+  <mdc-text-field [(ngModel)]="prefill" label="Username"></mdc-text-field>
 </div>
 </div>
 
     <div fxLayout="column" class="mdc-padding">
     <div fxFlexAlign="start">
-<mdc-textfield type="password" label="Password" [required]="true"></mdc-textfield>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span> <span style="color:#89bdff">type</span>=<span style="color:#65b042">"password"</span>
+<mdc-text-field type="password" label="Password" [required]="true"></mdc-text-field>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field</span> <span style="color:#89bdff">type</span>=<span style="color:#65b042">"password"</span>
   <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Password"</span>
-  [<span style="color:#89bdff">required</span>]=<span style="color:#65b042">"true"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>></span>
+  [<span style="color:#89bdff">required</span>]=<span style="color:#65b042">"true"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field</span>></span>
 </pre></div>
 </div>
 
   <div fxLayout="column" class="mdc-padding" fxFlexAlign="start">
     <div mdc-theme-dark>
-      <mdc-textfield fxFlexOffset="2" label="Dark Theme"></mdc-textfield>
+      <mdc-text-field fxFlexOffset="2" label="Dark Theme"></mdc-text-field>
     </div>
     <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">mdc-theme-dark</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span> <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Dark theme"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field</span> <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Dark theme"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">div</span>></span>
 </pre> </div>
     <span mdc-typography-headline>Text Field Boxes</span>
     <div fxFlexAlign="start" class="mdc-padding">
-      <mdc-textfield-box
+      <mdc-text-field-box
         [required]="true"
-        label="Your name"></mdc-textfield-box>
-      <p mdc-textfield-helptext
+        label="Your name"></mdc-text-field-box>
+      <p mdc-text-field-helptext
         [validation]="true">Name is required</p>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield-box</span>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field-box</span>
   [<span style="color:#89bdff">required</span>]=<span style="color:#65b042">"true"</span>
-  <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Your name"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield-box</span>></span>
-<span style="color:#89bdff">&lt;<span style="color:#89bdff">p</span> <span style="color:#89bdff">mdc-textfield-helptext</span>
+  <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Your name"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field-box</span>></span>
+<span style="color:#89bdff">&lt;<span style="color:#89bdff">p</span> <span style="color:#89bdff">mdc-text-field-helptext</span>
   [<span style="color:#89bdff">validation</span>]=<span style="color:#65b042">"true"</span>></span>Name is required<span style="color:#89bdff">&lt;/<span style="color:#89bdff">p</span>></span>
 </pre>    </div>
 
 <span mdc-typography-headline>Leading icon</span>
   <div fxLayout="column" class="mdc-padding" fxFlexAlign="start">
-<mdc-textfield-box label="Your name">
+<mdc-text-field-box label="Your name">
   <mdc-icon leading>person</mdc-icon>
-</mdc-textfield-box>
+</mdc-text-field-box>
 
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield-box</span> <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Your name"</span>></span>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field-box</span> <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Your name"</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">leading</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield-box</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field-box</span>></span>
 </pre>
 </div>
 
 <span mdc-typography-headline>Trailing icon</span>
   <div fxLayout="column" class="mdc-padding" fxFlexAlign="start">
-<mdc-textfield-box label="Your name">
+<mdc-text-field-box label="Your name">
   <mdc-icon trailing>person</mdc-icon>
-</mdc-textfield-box>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield-box</span> <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Your name"</span>></span>
+</mdc-text-field-box>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field-box</span> <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Your name"</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">trailing</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield-box</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field-box</span>></span>
 </pre></div>
 
   <div fxLayout="column" class="mdc-padding" fxFlexAlign="start">
@@ -354,13 +354,13 @@
   <div fxLayout="column" class="mdc-padding">
     <span mdc-typography-headline>Full-width single line</span>
     <div>
-      <mdc-textfield label="Subject" [fullwidth]="true"></mdc-textfield>
+      <mdc-text-field label="Subject" [fullwidth]="true"></mdc-text-field>
     </div>
     <div fxFlexAlign="start">
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>
+    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field</span>
   <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Subject"</span>
   [<span style="color:#89bdff">fullwidth</span>]=<span style="color:#65b042">"true"</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textfield</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field</span>></span>
 </pre></div>
   </div>
   <div fxLayout="column" class="mdc-padding">

@@ -21,13 +21,13 @@ import { EventRegistry } from '../common/event-registry';
 
 import { MdcIcon } from '../icon/icon';
 
-import { MDCTextfieldAdapter } from './adapter';
-import { MdcTextfieldInput } from './textfield-input';
-import { MDCTextfieldFoundation } from '@material/textfield';
+import { MDCTextFieldAdapter } from './adapter';
+import { MdcTextFieldInput } from './text-field-input';
+import { MDCTextFieldFoundation } from '@material/textfield';
 
 export const MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => MdcTextfield),
+  useExisting: forwardRef(() => MdcTextField),
   multi: true
 };
 
@@ -48,38 +48,38 @@ const MD_INPUT_INVALID_TYPES = [
 let nextUniqueId = 0;
 
 @Directive({
-  selector: '[mdc-textfield-helptext]'
+  selector: '[mdc-text-field-helptext]'
 })
-export class MdcTextfieldHelptext {
+export class MdcTextFieldHelptext {
   @Input() id: string;
   @Input() persistent: boolean = false;
   @Input() validation: boolean = false;
-  @HostBinding('class.mdc-textfield-helptext') isHostClass = true;
+  @HostBinding('class.mdc-text-field-helper-text') isHostClass = true;
   @HostBinding('attr.aria-hidden') ariaHidden: string = 'true';
-  @HostBinding('class.mdc-textfield-helptext--persistent') get classPersistent(): string {
-    return this.persistent ? 'mdc-textfield-helptext--persistent' : '';
+  @HostBinding('class.mdc-text-field-helper-text--persistent') get classPersistent(): string {
+    return this.persistent ? 'mdc-text-field-helper-text--persistent' : '';
   }
-  @HostBinding('class.mdc-textfield-helptext--validation-msg') get classValidation(): string {
-    return this.validation ? 'mdc-textfield-helptext--validation-msg' : '';
+  @HostBinding('class.mdc-text-field-helper-text--validation-msg') get classValidation(): string {
+    return this.validation ? 'mdc-text-field-helper-text--validation-msg' : '';
   }
 
   constructor(public elementRef: ElementRef) { }
 }
 
 @Directive({
-  selector: '[mdc-textfield-label], mdc-textfield-label'
+  selector: '[mdc-text-field-label], mdc-text-field-label'
 })
-export class MdcTextfieldLabel {
-  @HostBinding('class.mdc-textfield__label') isHostClass = true;
+export class MdcTextFieldLabel {
+  @HostBinding('class.mdc-text-field__label') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
 }
 
 @Directive({
-  selector: '[mdc-textfield-bottom-line], mdc-textfield-bottom-line'
+  selector: '[mdc-text-field-bottom-line], mdc-text-field-bottom-line'
 })
-export class MdcTextfieldBottomLine {
-  @HostBinding('class.mdc-textfield__bottom-line') isHostClass = true;
+export class MdcTextFieldBottomLine {
+  @HostBinding('class.mdc-text-field__bottom-line') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
 }
@@ -87,9 +87,9 @@ export class MdcTextfieldBottomLine {
 @Directive({
   selector: 'mdc-icon[leading]'
 })
-export class MdcTextfieldLeadingIcon {
+export class MdcTextFieldLeadingIcon {
   @Input() tabIndex: number = 0;
-  @HostBinding('class.mdc-textfield__icon') isHostClass = true;
+  @HostBinding('class.mdc-text-field__icon') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
 }
@@ -97,18 +97,18 @@ export class MdcTextfieldLeadingIcon {
 @Directive({
   selector: 'mdc-icon[trailing]'
 })
-export class MdcTextfieldTrailingIcon {
+export class MdcTextFieldTrailingIcon {
   @Input() tabIndex: number = 0;
-  @HostBinding('class.mdc-textfield__icon') isHostClass = true;
+  @HostBinding('class.mdc-text-field__icon') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
 }
 
 @Component({
-  selector: 'mdc-textfield',
+  selector: 'mdc-text-field',
   template:
     `
-  <input mdc-textfield-input
+  <input mdc-text-field-input
     [type]="type"
     [id]="id"
     [tabindex]="tabIndex"
@@ -119,8 +119,8 @@ export class MdcTextfieldTrailingIcon {
     (blur)="onBlur()"
     (input)="onInput($event)"
     (focus)="onFocus()" />
-    <mdc-textfield-label [attr.for]="id" *ngIf="!placeholder">{{label}}</mdc-textfield-label>
-    <mdc-textfield-bottom-line></mdc-textfield-bottom-line>
+    <mdc-text-field-label [attr.for]="id" *ngIf="!placeholder">{{label}}</mdc-text-field-label>
+    <mdc-text-field-bottom-line></mdc-text-field-bottom-line>
   `,
   providers: [
     MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR,
@@ -128,8 +128,8 @@ export class MdcTextfieldTrailingIcon {
   ],
   encapsulation: ViewEncapsulation.None,
 })
-export class MdcTextfield implements AfterContentInit, OnDestroy, ControlValueAccessor {
-  private _mdcAdapter: MDCTextfieldAdapter = {
+export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAccessor {
+  private _mdcAdapter: MDCTextFieldAdapter = {
     addClass: (className: string) => {
       this._renderer.addClass(this.elementRoot.nativeElement, className);
     },
@@ -237,7 +237,7 @@ export class MdcTextfield implements AfterContentInit, OnDestroy, ControlValueAc
     isDisabled: Function,
     setDisabled: Function,
     setValid: Function,
-  } = new MDCTextfieldFoundation(this._mdcAdapter);
+  } = new MDCTextFieldFoundation(this._mdcAdapter);
 
   @Input() id: string = `mdc-input-${nextUniqueId++}`;
   @Input() fullwidth: boolean = false;
@@ -247,11 +247,11 @@ export class MdcTextfield implements AfterContentInit, OnDestroy, ControlValueAc
   @Input() placeholder: string = '';
   @Input() tabIndex: number = 0;
   @Output() iconAction = new EventEmitter<any>();
-  @HostBinding('class.mdc-textfield') isHostClass = true;
-  @ViewChild(MdcTextfieldInput) inputText: MdcTextfieldInput;
-  @ViewChild(MdcTextfieldLabel) inputLabel: MdcTextfieldLabel;
-  @ViewChild(MdcTextfieldHelptext) inputHelpText: MdcTextfieldHelptext;
-  @ViewChild(MdcTextfieldBottomLine) bottomLine: MdcTextfieldBottomLine;
+  @HostBinding('class.mdc-text-field') isHostClass = true;
+  @ViewChild(MdcTextFieldInput) inputText: MdcTextFieldInput;
+  @ViewChild(MdcTextFieldLabel) inputLabel: MdcTextFieldLabel;
+  @ViewChild(MdcTextFieldHelptext) inputHelpText: MdcTextFieldHelptext;
+  @ViewChild(MdcTextFieldBottomLine) bottomLine: MdcTextFieldBottomLine;
   @ContentChild(MdcIcon) inputIcon: MdcIcon;
 
   private _type = 'text';
@@ -292,12 +292,12 @@ export class MdcTextfield implements AfterContentInit, OnDestroy, ControlValueAc
   get valid(): boolean {
     return (this.inputText.elementRef.nativeElement as HTMLInputElement).validity.valid;
   }
-  @HostBinding('class.mdc-textfield--dense') get classDense(): string {
-    return this.dense ? 'mdc-textfield--dense' : '';
+  @HostBinding('class.mdc-text-field--dense') get classDense(): string {
+    return this.dense ? 'mdc-text-field--dense' : '';
   }
-  @HostBinding('class.mdc-textfield--fullwidth') get classFullwidth(): string {
+  @HostBinding('class.mdc-text-field--fullwidth') get classFullwidth(): string {
     this.placeholder = this.fullwidth ? this.label : '';
-    return this.fullwidth ? 'mdc-textfield--fullwidth' : '';
+    return this.fullwidth ? 'mdc-text-field--fullwidth' : '';
   }
 
   constructor(
@@ -317,9 +317,9 @@ export class MdcTextfield implements AfterContentInit, OnDestroy, ControlValueAc
   writeValue(value: string): void {
     this.value = value == null ? '' : value;
     if (this.value.length > 0) {
-      this._mdcAdapter.addClassToLabel('mdc-textfield__label--float-above');
+      this._mdcAdapter.addClassToLabel('mdc-text-field__label--float-above');
     } else {
-      this._mdcAdapter.removeClassFromLabel('mdc-textfield__label--float-above');
+      this._mdcAdapter.removeClassFromLabel('mdc-text-field__label--float-above');
     }
     this.onChange(value);
   }
@@ -371,9 +371,9 @@ export class MdcTextfield implements AfterContentInit, OnDestroy, ControlValueAc
 
   updateIconState(): void {
     if (this.hasLeadingIcon()) {
-      this._mdcAdapter.addClass('mdc-textfield--with-leading-icon');
+      this._mdcAdapter.addClass('mdc-text-field--with-leading-icon');
     } else if (this.hasTrailingIcon()) {
-      this._mdcAdapter.addClass('mdc-textfield--with-trailing-icon');
+      this._mdcAdapter.addClass('mdc-text-field--with-trailing-icon');
     }
   }
 

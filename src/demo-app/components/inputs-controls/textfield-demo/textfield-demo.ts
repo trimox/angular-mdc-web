@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'textfield-demo',
   templateUrl: './textfield-demo.html'
 })
-export class TextfieldDemo {
+export class TextFieldDemo {
   username: string;
   prefill: string = 'John Doe';
   comments: string;

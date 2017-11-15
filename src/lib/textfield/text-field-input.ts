@@ -5,12 +5,12 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: 'input[mdc-textfield-input], textarea[mdc-textfield-input]',
+  selector: 'input[mdc-text-field-input], textarea[mdc-text-field-input]',
 })
-export class MdcTextfieldInput {
+export class MdcTextFieldInput {
   focused: boolean = false;
 
-  @HostBinding('class.mdc-textfield__input') isHostClass = true;
+  @HostBinding('class.mdc-text-field__input') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
 

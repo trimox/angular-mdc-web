@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 
 import {
   MdcTextarea,
-  MdcTextfieldModule
+  MdcTextFieldModule
 } from '../../../src/lib/public_api';
 
 describe('MdcTextarea', () => {
@@ -13,7 +13,7 @@ describe('MdcTextarea', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MdcTextfieldModule, FormsModule, ReactiveFormsModule],
+      imports: [MdcTextFieldModule, FormsModule, ReactiveFormsModule],
       declarations: [
         SimpleTextfield,
       ]
@@ -38,9 +38,9 @@ describe('MdcTextarea', () => {
       testComponent = fixture.debugElement.componentInstance;
     });
 
-    it('#should have mdc-textfield--textarea by default', () => {
+    it('#should have mdc-text-field--textarea by default', () => {
       expect(textFieldDebugElement.nativeElement.classList)
-        .toContain('mdc-textfield--textarea', 'Expected to have mdc-textfield--textarea class');
+        .toContain('mdc-text-field--textarea', 'Expected to have mdc-text-field--textarea class');
     });
   });
 });
@@ -55,7 +55,7 @@ describe('MdcTextarea', () => {
       [required]="isRequired"
       [disabled]="isDisabled">
     </mdc-textarea>
-    <p mdc-textfield-helptext
+    <p mdc-text-field-helptext
       [validation]="true"
       [persistent]="false">Comments are required</p>
   `,

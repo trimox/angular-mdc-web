@@ -10,19 +10,19 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EventRegistry } from '../common/event-registry';
 import { MdcRipple } from '../core/ripple/ripple.service';
-import { MdcTextfield } from './textfield';
+import { MdcTextField } from './text-field';
 
 export const MD_TEXTFIELD_BOX_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => MdcTextfieldBox),
+  useExisting: forwardRef(() => MdcTextFieldBox),
   multi: true
 };
 
 @Component({
-  selector: 'mdc-textfield-box',
+  selector: 'mdc-text-field-box',
   template:
   `
-  <input mdc-textfield-input
+  <input mdc-text-field-input
     [type]="type"
     [id]="id"
     [tabindex]="tabIndex"
@@ -32,8 +32,8 @@ export const MD_TEXTFIELD_BOX_CONTROL_VALUE_ACCESSOR: Provider = {
     (blur)="onBlur()"
     (input)="onInput($event)"
     (focus)="onFocus()" />
-  <mdc-textfield-label [attr.for]="id">{{label}}</mdc-textfield-label>
-  <mdc-textfield-bottom-line></mdc-textfield-bottom-line>
+  <mdc-text-field-label [attr.for]="id">{{label}}</mdc-text-field-label>
+  <mdc-text-field-bottom-line></mdc-text-field-bottom-line>
   <ng-content select="mdc-icon"></ng-content>
   `,
   providers: [
@@ -42,8 +42,8 @@ export const MD_TEXTFIELD_BOX_CONTROL_VALUE_ACCESSOR: Provider = {
     EventRegistry,
   ]
 })
-export class MdcTextfieldBox extends MdcTextfield {
-  @HostBinding('class.mdc-textfield--box') isHostClass = true;
+export class MdcTextFieldBox extends MdcTextField {
+  @HostBinding('class.mdc-text-field--box') isHostClass = true;
 
   constructor(
     @Inject(Renderer2) _renderer: Renderer2,

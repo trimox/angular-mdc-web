@@ -2,31 +2,31 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { MdcTextfieldInput } from './textfield-input';
+import { MdcTextFieldInput } from './text-field-input';
 import {
-  MdcTextfield,
-  MdcTextfieldBottomLine,
-  MdcTextfieldHelptext,
-  MdcTextfieldLabel,
-  MdcTextfieldLeadingIcon,
-  MdcTextfieldTrailingIcon,
-} from './textfield';
+  MdcTextField,
+  MdcTextFieldBottomLine,
+  MdcTextFieldHelptext,
+  MdcTextFieldLabel,
+  MdcTextFieldLeadingIcon,
+  MdcTextFieldTrailingIcon,
+} from './text-field';
 import {
-  MdcTextfieldBox,
-} from './textfield-box';
+  MdcTextFieldBox,
+} from './text-field-box';
 import { MdcTextarea } from './textarea';
 
 const TEXTFIELD_COMPONENTS = [
   MdcTextarea,
-  MdcTextfield,
-  MdcTextfieldBottomLine,
-  MdcTextfieldBottomLine,
-  MdcTextfieldBox,
-  MdcTextfieldHelptext,
-  MdcTextfieldInput,
-  MdcTextfieldLabel,
-  MdcTextfieldLeadingIcon,
-  MdcTextfieldTrailingIcon,
+  MdcTextField,
+  MdcTextFieldBottomLine,
+  MdcTextFieldBottomLine,
+  MdcTextFieldBox,
+  MdcTextFieldHelptext,
+  MdcTextFieldInput,
+  MdcTextFieldLabel,
+  MdcTextFieldLeadingIcon,
+  MdcTextFieldTrailingIcon,
 ];
 
 @NgModule({
@@ -34,9 +34,9 @@ const TEXTFIELD_COMPONENTS = [
   exports: [TEXTFIELD_COMPONENTS],
   declarations: [TEXTFIELD_COMPONENTS],
 })
-export class MdcTextfieldModule { }
+export class MdcTextFieldModule { }
 
-export * from './textfield';
-export * from './textfield-input';
-export * from './textfield-box';
+export * from './text-field';
+export * from './text-field-input';
+export * from './text-field-box';
 export * from './textarea';

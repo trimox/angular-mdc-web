@@ -16,7 +16,7 @@ import { RadioDemo } from './components/inputs-controls/radio-demo/radio-demo';
 import { SliderDemo } from './components/inputs-controls/slider-demo/slider-demo';
 import { SnackbarDemo } from './components/snackbar-demo/snackbar-demo';
 import { SwitchDemo } from './components/inputs-controls/switch-demo/switch-demo';
-import { TextfieldDemo } from './components/inputs-controls/textfield-demo/textfield-demo';
+import { TextFieldDemo } from './components/inputs-controls/textfield-demo/textfield-demo';
 import { ToolbarDemo } from './components/toolbar-demo/toolbar-demo';
 import { TypographyDemo } from './components/core/typography-demo/typography-demo';
 import { TabDemo, ItemOneContent, ItemTwoContent, ItemThreeContent } from './components/tab-demo/tab-demo';
@@ -43,7 +43,7 @@ export const demoAppRoutes: Routes = [
   { path: 'switch-demo', component: SwitchDemo },
   { path: 'snackbar-demo', component: SnackbarDemo },
   { path: 'menu-demo', component: MenuDemo },
-  { path: 'textfield-demo', component: TextfieldDemo },
+  { path: 'textfield-demo', component: TextFieldDemo },
   { path: 'toolbar-demo', component: ToolbarDemo },
   { path: 'linear-progress-demo', component: LinearProgressDemo },
   { path: 'typography-demo', component: TypographyDemo },

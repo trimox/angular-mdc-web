@@ -4,16 +4,16 @@ import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular
 import { By } from '@angular/platform-browser';
 
 import {
-  MdcTextfield,
-  MdcTextfieldModule
+  MdcTextField,
+  MdcTextFieldModule
 } from '../../../src/lib/public_api';
 
-describe('MdcTextfield', () => {
+describe('MdcTextField', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MdcTextfieldModule, FormsModule, ReactiveFormsModule],
+      imports: [MdcTextFieldModule, FormsModule, ReactiveFormsModule],
       declarations: [
         SimpleTextfield,
       ]
@@ -24,7 +24,7 @@ describe('MdcTextfield', () => {
   describe('basic behaviors', () => {
     let textFieldDebugElement: DebugElement;
     let textFieldNativeElement: HTMLElement;
-    let textFieldInstance: MdcTextfield;
+    let textFieldInstance: MdcTextField;
     let testComponent: SimpleTextfield;
     let inputElement: HTMLInputElement;
 
@@ -32,27 +32,27 @@ describe('MdcTextfield', () => {
       fixture = TestBed.createComponent(SimpleTextfield);
       fixture.detectChanges();
 
-      textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextfield));
+      textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextField));
       textFieldNativeElement = textFieldDebugElement.nativeElement;
       textFieldInstance = textFieldDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
     });
 
-    it('#should have mdc-textfield by default', () => {
+    it('#should have mdc-text-field by default', () => {
       expect(textFieldDebugElement.nativeElement.classList)
-        .toContain('mdc-textfield', 'Expected to have mdc-textfield class');
+        .toContain('mdc-text-field', 'Expected to have mdc-text-field class');
     });
 
     it('#should apply class dense on property', () => {
       testComponent.isDense = true;
       fixture.detectChanges();
-      expect(textFieldDebugElement.nativeElement.classList.contains('mdc-textfield--dense')).toBe(true);
+      expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--dense')).toBe(true);
     });
 
     it('#should apply class fullwidth on property', () => {
       testComponent.isFullwidth = true;
       fixture.detectChanges();
-      expect(textFieldDebugElement.nativeElement.classList.contains('mdc-textfield--fullwidth')).toBe(true);
+      expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--fullwidth')).toBe(true);
     });
 
     it('#should not be disabled', () => {
@@ -63,13 +63,13 @@ describe('MdcTextfield', () => {
     it('#should remove invalid styling', () => {
       fixture.detectChanges();
       textFieldInstance.setValid(false);
-      expect(textFieldDebugElement.nativeElement.classList.contains('mdc-textfield--invalid')).toBe(false);
+      expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--invalid')).toBe(false);
     });
 
     it('#should set validity based on input element validity', () => {
       textFieldInstance.setValid();
       fixture.detectChanges();
-      expect(textFieldDebugElement.nativeElement.classList.contains('mdc-textfield--invalid')).toBe(false);
+      expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--invalid')).toBe(false);
     });
 
     it('#should focus on underlying input element when focus() is called', () => {
@@ -92,7 +92,7 @@ describe('MdcTextfield', () => {
 @Component({
   template:
   `
-    <mdc-textfield
+    <mdc-text-field
       [(ngModel)]="username"
       label="Username"
       [type]="myType"
@@ -101,8 +101,8 @@ describe('MdcTextfield', () => {
       [fullwidth]="isFullwidth"
       [required]="isRequired"
       [disabled]="isDisabled">
-    </mdc-textfield>
-    <p mdc-textfield-helptext
+    </mdc-text-field>
+    <p mdc-text-field-helptext
       [validation]="true"
       [persistent]="false">Username is required</p>
   `,

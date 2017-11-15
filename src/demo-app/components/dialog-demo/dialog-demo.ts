@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { MdcDialog, MDC_DIALOG_DATA, MdcDialogRef, MdcTextfield } from '../../../lib/public_api';
+import { MdcDialog, MDC_DIALOG_DATA, MdcDialogRef, MdcTextField } from '../../../lib/public_api';
 
 @Component({
   selector: 'dialog-demo',
@@ -150,8 +150,8 @@ export class DialogNoFooterExample {
   </mdc-dialog-header>
   <mdc-dialog-body>
     <form [formGroup]="userForm" id="userForm" (ngSubmit)="updateForm();">
-      <mdc-textfield #input formControlName="username" label="Username" [required]="true"></mdc-textfield>
-      <p mdc-textfield-helptext [validation]="true" [persistent]="false">Username is required</p>
+      <mdc-text-field #input formControlName="username" label="Username" [required]="true"></mdc-text-field>
+      <p mdc-text-field-helptext [validation]="true" [persistent]="false">Username is required</p>
     </form>
   </mdc-dialog-body>
   <mdc-dialog-footer>

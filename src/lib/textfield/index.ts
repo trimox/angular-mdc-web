@@ -6,7 +6,7 @@ import { MdcTextFieldInput } from './text-field-input';
 import {
   MdcTextField,
   MdcTextFieldBottomLine,
-  MdcTextFieldHelptext,
+  MdcTextFieldHelperText,
   MdcTextFieldLabel,
   MdcTextFieldLeadingIcon,
   MdcTextFieldTrailingIcon,
@@ -22,7 +22,7 @@ const TEXTFIELD_COMPONENTS = [
   MdcTextFieldBottomLine,
   MdcTextFieldBottomLine,
   MdcTextFieldBox,
-  MdcTextFieldHelptext,
+  MdcTextFieldHelperText,
   MdcTextFieldInput,
   MdcTextFieldLabel,
   MdcTextFieldLeadingIcon,

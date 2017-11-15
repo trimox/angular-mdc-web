@@ -112,7 +112,7 @@ export class DialogNoFooterExample {
     <mdc-dialog-body>
       <form [formGroup]="userForm" id="userForm" (ngSubmit)="updateForm();">
         <mdc-text-field #input formControlName="username" label="Username" [required]="true"></mdc-text-field>
-        <p mdc-text-field-helptext [validation]="true" [persistent]="false">Username is required</p>
+        <p mdc-text-field-helper-text [validation]="true" [persistent]="false">Username is required</p>
       </form>
     </mdc-dialog-body>
     <mdc-dialog-footer>

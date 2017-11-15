@@ -5,7 +5,6 @@ import { By } from '@angular/platform-browser';
 
 import {
   MdcTextFieldBox,
-  MdcTextFieldInput,
   MdcTextFieldModule
 } from '../../../src/lib/public_api';
 
@@ -54,8 +53,7 @@ describe('MdcTextFieldBox', () => {
 
 /** Simple component for testing. */
 @Component({
-  template:
-  `
+  template: `
     <mdc-text-field-box
       [id]="boxId"
       [(ngModel)]="username"
@@ -65,7 +63,7 @@ describe('MdcTextFieldBox', () => {
       <mdc-icon leading>person</mdc-icon>
       <mdc-icon trailing>person</mdc-icon>
     </mdc-text-field-box>
-    <p mdc-text-field-helptext
+    <p mdc-text-field-helper-text
       [validation]="true"
       [persistent]="true">Username is required</p>
   `,

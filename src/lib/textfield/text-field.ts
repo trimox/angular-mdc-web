@@ -48,19 +48,19 @@ const MD_INPUT_INVALID_TYPES = [
 let nextUniqueId = 0;
 
 @Directive({
-  selector: '[mdc-text-field-helptext]'
+  selector: '[mdc-text-field-helper-text]'
 })
-export class MdcTextFieldHelptext {
+export class MdcTextFieldHelperText {
   @Input() id: string;
   @Input() persistent: boolean = false;
   @Input() validation: boolean = false;
-  @HostBinding('class.mdc-text-field-helper-text') isHostClass = true;
+  @HostBinding('class.mdc-text-field-helptext') isHostClass = true;
   @HostBinding('attr.aria-hidden') ariaHidden: string = 'true';
-  @HostBinding('class.mdc-text-field-helper-text--persistent') get classPersistent(): string {
-    return this.persistent ? 'mdc-text-field-helper-text--persistent' : '';
+  @HostBinding('class.mdc-text-field-helptext--persistent') get classPersistent(): string {
+    return this.persistent ? 'mdc-text-field-helptext--persistent' : '';
   }
-  @HostBinding('class.mdc-text-field-helper-text--validation-msg') get classValidation(): string {
-    return this.validation ? 'mdc-text-field-helper-text--validation-msg' : '';
+  @HostBinding('class.mdc-text-field-helptext--validation-msg') get classValidation(): string {
+    return this.validation ? 'mdc-text-field-helptext--validation-msg' : '';
   }
 
   constructor(public elementRef: ElementRef) { }
@@ -250,7 +250,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   @HostBinding('class.mdc-text-field') isHostClass = true;
   @ViewChild(MdcTextFieldInput) inputText: MdcTextFieldInput;
   @ViewChild(MdcTextFieldLabel) inputLabel: MdcTextFieldLabel;
-  @ViewChild(MdcTextFieldHelptext) inputHelpText: MdcTextFieldHelptext;
+  @ViewChild(MdcTextFieldHelperText) inputHelpText: MdcTextFieldHelperText;
   @ViewChild(MdcTextFieldBottomLine) bottomLine: MdcTextFieldBottomLine;
   @ContentChild(MdcIcon) inputIcon: MdcIcon;
 

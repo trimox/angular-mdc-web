@@ -90,8 +90,7 @@ describe('MdcTextField', () => {
 
 /** Simple component for testing. */
 @Component({
-  template:
-  `
+  template: `
     <mdc-text-field
       [(ngModel)]="username"
       label="Username"
@@ -102,7 +101,7 @@ describe('MdcTextField', () => {
       [required]="isRequired"
       [disabled]="isDisabled">
     </mdc-text-field>
-    <p mdc-text-field-helptext
+    <p mdc-text-field-helper-text
       [validation]="true"
       [persistent]="false">Username is required</p>
   `,

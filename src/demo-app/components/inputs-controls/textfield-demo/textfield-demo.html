@@ -168,7 +168,7 @@
       </thead>
       <tbody>
         <tr>
-          <td>mdc-text-field-helptext</td>
+          <td>mdc-text-field-helper-text</td>
           <td>Useful for providing supplemental information to users, as well for validation messages.</td>
         </tr>
       </tbody>
@@ -252,7 +252,7 @@
   <div fxLayout="column" class="mdc-padding" fxFlexAlign="start">
     <div>
       <mdc-text-field [(ngModel)]="username" id="username" label="Username" [required]="isRequired" [disabled]="isDisabled" [dense]="isDense"></mdc-text-field>
-      <p mdc-text-field-helptext [validation]="true" [persistent]="false">Username is required</p>
+      <p mdc-text-field-helper-text [validation]="true" [persistent]="false">Username is required</p>
     <mdc-form-field>
       <mdc-checkbox [(ngModel)]="isRequired"></mdc-checkbox>
       <label>Required</label>
@@ -273,7 +273,7 @@
   [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"false"</span>
   [<span style="color:#89bdff">dense</span>]=<span style="color:#65b042">"false"</span>
 </span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field</span>></span>
-<span style="color:#89bdff">&lt;<span style="color:#89bdff">p</span> <span style="color:#89bdff">mdc-text-field-helptext</span>
+<span style="color:#89bdff">&lt;<span style="color:#89bdff">p</span> <span style="color:#89bdff">mdc-text-field-helper-text</span>
   [<span style="color:#89bdff">validation</span>]=<span style="color:#65b042">"true"</span>
   [<span style="color:#89bdff">persistent</span>]=<span style="color:#65b042">"false"</span>></span>Username is required<span style="color:#89bdff">&lt;/<span style="color:#89bdff">p</span>></span>
 </pre> </div>
@@ -307,12 +307,12 @@
       <mdc-text-field-box
         [required]="true"
         label="Your name"></mdc-text-field-box>
-      <p mdc-text-field-helptext
+      <p mdc-text-field-helper-text
         [validation]="true">Name is required</p>
 <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field-box</span>
   [<span style="color:#89bdff">required</span>]=<span style="color:#65b042">"true"</span>
   <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Your name"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field-box</span>></span>
-<span style="color:#89bdff">&lt;<span style="color:#89bdff">p</span> <span style="color:#89bdff">mdc-text-field-helptext</span>
+<span style="color:#89bdff">&lt;<span style="color:#89bdff">p</span> <span style="color:#89bdff">mdc-text-field-helper-text</span>
   [<span style="color:#89bdff">validation</span>]=<span style="color:#65b042">"true"</span>></span>Name is required<span style="color:#89bdff">&lt;/<span style="color:#89bdff">p</span>></span>
 </pre>    </div>
 

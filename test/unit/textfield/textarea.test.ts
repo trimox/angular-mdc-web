@@ -47,17 +47,13 @@ describe('MdcTextarea', () => {
 
 /** Simple component for testing. */
 @Component({
-  template:
-  `
+  template: `
     <mdc-textarea
       [(ngModel)]="comments"
       label="Comments"
       [required]="isRequired"
       [disabled]="isDisabled">
     </mdc-textarea>
-    <p mdc-text-field-helptext
-      [validation]="true"
-      [persistent]="false">Comments are required</p>
   `,
 })
 class SimpleTextfield {

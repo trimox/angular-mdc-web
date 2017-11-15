@@ -24,7 +24,6 @@
     "polyfills.ts"
   ],
   "angularCompilerOptions": {
-    "preserveWhitespaces": false,
     "skipTemplateCodegen": false,
     "skipMetadataEmit": true
   }

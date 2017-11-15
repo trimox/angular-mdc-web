@@ -14,10 +14,17 @@
 // limitations under the License.
 //
 
-$mdc-button-height: 36px;
-$mdc-button-horizontal-padding: 16px;
-$mdc-dense-button-height: 32px;
-$mdc-compact-button-horizontal-padding: 8px;
+@keyframes mdc-slider-emphasize {
+  0% {
+    animation-timing-function: ease-out;
+  }
 
-$mdc-unfilled-button-ripple-opacity: .16;
-$mdc-filled-button-ripple-opacity: .32;
+  50% {
+    animation-timing-function: ease-in;
+    transform: scale(.85);
+  }
+
+  100% {
+    transform: scale(.571);
+  }
+}

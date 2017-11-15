@@ -45,8 +45,8 @@ export class MdcLinearProgress implements AfterViewInit {
   @Input() secondary: boolean = false;
   @HostBinding('attr.role') role: string = 'progressbar';
   @HostBinding('class.mdc-linear-progress') isHostClass = true;
-  @HostBinding('class.mdc-linear-progress--accent') get classSecondary(): string {
-    return this.secondary ? 'mdc-linear-progress--accent' : '';
+  @HostBinding('class.mdc-linear-progress--secondary') get classSecondary(): string {
+    return this.secondary ? 'mdc-linear-progress--secondary' : '';
   }
 
   private _mdcAdapter: MDCLinearProgressAdapter = {

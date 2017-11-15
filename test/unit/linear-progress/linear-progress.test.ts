@@ -48,7 +48,7 @@ describe('MdcLinearProgress', () => {
     it('#should apply secondary class based on property', () => {
       testComponent.isSecondary = true;
       fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList.contains('mdc-linear-progress--accent')).toBe(true);
+      expect(testDebugElement.nativeElement.classList.contains('mdc-linear-progress--secondary')).toBe(true);
     });
 
     it('#should apply indeterminate class based on property', () => {

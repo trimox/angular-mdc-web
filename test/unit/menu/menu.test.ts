@@ -2,7 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MdcMenu, MdcMenuModule } from '../../../src/lib/public_api';
+import { MdcMenu, MdcMenuOpenFrom, MdcMenuModule } from '../../../src/lib/public_api';
 
 describe('MdcMenu', () => {
   let fixture: ComponentFixture<any>;
@@ -88,6 +88,14 @@ describe('MdcMenu', () => {
       fixture.detectChanges();
       expect(testInstance.options.toArray()[1].disabled).toBe(false);
     });
+
+    it('#menu should have anchor', () => {
+      expect(testInstance.hasAnchor()).toBe(true);
+    });
+
+    it('#menu should have direction', () => {
+      expect(testInstance.isRtl()).toBe(false);
+    });
   });
 });
 
@@ -97,20 +105,21 @@ describe('MdcMenu', () => {
   `
     <div mdc-menu-anchor>
       <mdc-menu [openFrom]="myOpenFrom" (select)="handleSelect($event)"
-      (cancel)="handleCancel($event)">
-        <mdc-menu-item [id]="0">Item 1</mdc-menu-item>
-        <mdc-menu-item [id]="1" [disabled]="isDisabled">Item 2</mdc-menu-item>
-        <mdc-menu-item [id]="2">Item 3</mdc-menu-item>
+      (cancel)="handleCancel($event)" direction='ltr'>
+        <mdc-menu-item id="0">Item 1</mdc-menu-item>
+        <mdc-menu-item id="1" [disabled]="isDisabled">Item 2</mdc-menu-item>
+        <mdc-menu-item id="2">Item 3</mdc-menu-item>
         <mdc-menu-divider></mdc-menu-divider>
-        <mdc-menu-item [id]="3">Item 4</mdc-menu-item>
+        <mdc-menu-item id="3">Item 4</mdc-menu-item>
       </mdc-menu>
     </div>
   `,
 })
 class SimpleTest {
-  myOpenFrom: string = 'topLeft';
+  myOpenFrom: MdcMenuOpenFrom = 'topLeft';
   isDisabled: boolean = true;
   selectedIndex: number = -1;
+  isRtl = 'ltr';
 
   handleSelect(event: { index: number, item: HTMLElement }) {
     this.selectedIndex = event.index;

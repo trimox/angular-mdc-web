@@ -22,12 +22,15 @@ import { MDCMenuAdapter } from './adapter';
 import { getTransformPropertyName } from '@material/menu/util';
 import { MDCSimpleMenuFoundation } from '@material/menu/simple';
 
-export enum MenuOpenFrom {
-  topLeft = <any>'mdc-simple-menu--open-from-top-left',
-  topRight = <any>'mdc-simple-menu--open-from-top-right',
-  bottomLeft = <any>'mdc-simple-menu--open-from-bottom-left',
-  bottomRight = <any>'mdc-simple-menu--open-from-bottom-right'
-}
+const topLeft = 'mdc-simple-menu--open-from-top-left';
+const topRight = 'mdc-simple-menu--open-from-top-right';
+const bottomLeft = 'mdc-simple-menu--open-from-bottom-left';
+const bottomRight = 'mdc-simple-menu--open-from-bottom-right';
+
+export type MdcMenuOpenFrom = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
+
+let nextUniqueId = 0;
+let uniqueIdCounter = 0;
 
 @Directive({
   selector: '[mdc-menu-anchor]'
@@ -39,7 +42,7 @@ export class MdcMenuAnchor {
 }
 
 @Component({
-  selector: 'mdc-menu-divider',
+  selector: '[mdc-menu-divider], mdc-menu-divider',
   template: '<div class="mdc-list-divider" role="seperator"></div>',
 })
 export class MdcMenuDivider {
@@ -59,12 +62,15 @@ export class MdcMenuItems {
 }
 
 @Directive({
-  selector: 'mdc-menu-item'
+  selector: 'mdc-menu-item',
+  host: {
+    '[id]': 'id',
+  },
 })
 export class MdcMenuItem {
   private _disabled: boolean = false;
 
-  @Input() id: string;
+  @Input() id: string = `mdc-menu-item-${uniqueIdCounter++}`;
   @Input() label: string;
   @Input()
   get disabled() {
@@ -91,8 +97,10 @@ export class MdcMenuItem {
 
 @Component({
   selector: 'mdc-menu',
-  template:
-  `
+  host: {
+    '[id]': 'id',
+  },
+  template: `
   <mdc-menu-items>
     <ng-content></ng-content>
   </mdc-menu-items>
@@ -100,9 +108,12 @@ export class MdcMenuItem {
   providers: [EventRegistry],
 })
 export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
+  private _uniqueId: string = `mdc-menu-${++nextUniqueId}`;
   private _previousFocus: any;
 
-  @Input() openFrom: string;
+  @Input() id: string = this._uniqueId;
+  @Input() openFrom: string | MdcMenuOpenFrom = 'topLeft';
+  @Input() direction: 'ltr' | 'rtl' = 'ltr';
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
   @Output() select: EventEmitter<any> = new EventEmitter();
   @HostBinding('class.mdc-simple-menu') isHostClass = true;
@@ -163,7 +174,9 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
       this._registry.unlisten(type, handler);
     },
     registerBodyClickHandler: (handler: EventListener) => {
-      this._registry.listen(this._renderer, 'click', handler, document.body);
+      if (isBrowser()) {
+        this._registry.listen(this._renderer, 'click', handler, document.body);
+      }
     },
     deregisterBodyClickHandler: (handler: EventListener) => {
       this._registry.unlisten('click', handler);
@@ -210,9 +223,7 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
     focusItemAtIndex: (index: number) => {
       index ? this.options.toArray()[index].elementRef.nativeElement.focus() : this.elementRef.nativeElement.focus();
     },
-    isRtl: () => { /* TODO */
-      return false;
-    },
+    isRtl: () => this.direction === 'rtl',
     setTransformOrigin: (origin: string) => {
       if (isBrowser()) {
         this._renderer.setStyle(this.elementRef.nativeElement, `${getTransformPropertyName(window)}-origin`, origin);
@@ -256,10 +267,27 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
 
     if (change) {
       if (change.previousValue) {
-        this._mdcAdapter.removeClass(`${MenuOpenFrom[change.previousValue]}`);
+        this._mdcAdapter.removeClass(`${this._determineOpenFrom(change.previousValue)}`);
       }
       if (change.currentValue) {
-        this._mdcAdapter.addClass(`${MenuOpenFrom[change.currentValue]}`);
+        this._mdcAdapter.addClass(`${this._determineOpenFrom(change.currentValue)}`);
+      }
+    }
+  }
+
+  private _determineOpenFrom(value: string): string {
+    switch (value) {
+      case 'topRight': {
+        return topRight;
+      }
+      case 'bottomLeft': {
+        return bottomLeft;
+      }
+      case 'bottomRight': {
+        return bottomRight;
+      }
+      default: {
+        return topLeft;
       }
     }
   }
@@ -288,5 +316,13 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
 
   getFocusedItemIndex(): number {
     return this._mdcAdapter.getFocusedItemIndex();
+  }
+
+  hasAnchor(): boolean {
+    return this._mdcAdapter.hasAnchor();
+  }
+
+  isRtl(): boolean {
+    return this._mdcAdapter.isRtl();
   }
 }

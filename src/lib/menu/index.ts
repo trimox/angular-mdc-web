@@ -7,7 +7,6 @@ import {
   MdcMenuDivider,
   MdcMenuItem,
   MdcMenuItems,
-  MenuOpenFrom,
 } from './menu';
 
 const MENU_COMPONENTS = [

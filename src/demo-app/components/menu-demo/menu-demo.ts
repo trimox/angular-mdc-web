@@ -1,9 +1,6 @@
-import {
-  Component,
-  ViewChild
-} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
-import { MdcMenu } from '../../../lib/public_api';
+import { MdcMenu, MdcMenuOpenFrom } from '../../../lib/menu';
 
 @Component({
   selector: 'menu-demo',
@@ -11,12 +8,13 @@ import { MdcMenu } from '../../../lib/public_api';
 })
 export class MenuDemo {
   selectedIndex = -1;
-  openingPoint: string = 'topLeft';
+  openFrom: MdcMenuOpenFrom = 'topLeft';
   @ViewChild('menu') menu: MdcMenu;
 
-  showMenu() {
+  openMenu() {
     this.menu.open();
   }
+
   handleMenuSelect(event: { index: number, item: HTMLElement }) {
     this.selectedIndex = event.index;
   }

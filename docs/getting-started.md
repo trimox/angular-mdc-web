@@ -9,6 +9,9 @@
 ## Using Angular CLI?
 If you intend to use Angular CLI, please reference [Angular CLI - Getting Started guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/guide-angular-cli.md).
 
+## Requirements
+Angular MDC requires Angular 5, which itself requires TypeScript 2.4+ and RxJS 5.5.2+.
+
 ## <a name="step1"></a> Step 1: Install Angular MDC
 ```
 npm i @angular-mdc/web
@@ -59,4 +62,4 @@ Add the Roboto font with 300, 400 and 500 weights to your `index.html`.
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
 ```
 
-### All done!
+### All set!

@@ -5,7 +5,10 @@
 - [Step 3 - Import Angular MDC Sass](#step3)
 - [Step 4 - Import Angular MDC](#step4)
 
-> NOTE: This guide does not cover the usage of `yarn`.
+> NOTE: This guide does not cover the using `yarn`.
+
+## Requirements
+Angular MDC requires Angular 5, which itself requires TypeScript 2.4+ and RxJS 5.5.2+.
 
 ## <a name="step1"></a> Step 1: Install Angular CLI
 ```
@@ -68,4 +71,4 @@ Open `app.component.html` and add the following markup:
 
 Run `ng serve` to run your application in develop mode, and navigate to `http://localhost:4200`
 
-### Go forth and design!
+### All set!

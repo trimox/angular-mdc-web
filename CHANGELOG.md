@@ -1,4 +1,40 @@
 <a name="0.0.0"></a>
+# [0.6.1](https://github.com/trimox/angular-mdc-web/compare/v0.6.0...v0.6.1) (2017-11-20)
+
+
+### Bug Fixes
+
+* **checkbox:** Close path tag to remove IE console warnings ([#377](https://github.com/trimox/angular-mdc-web/issues/377)) ([0ec464c](https://github.com/trimox/angular-mdc-web/commit/0ec464c))
+
+
+### Features
+
+* Update material-components-web to v0.25.0 ([#381](https://github.com/trimox/angular-mdc-web/issues/381)) ([e6b9a56](https://github.com/trimox/angular-mdc-web/commit/e6b9a56))
+* **dialog:** Add declarative dialog ([#383](https://github.com/trimox/angular-mdc-web/issues/383)) ([97372d6](https://github.com/trimox/angular-mdc-web/commit/97372d6)), closes [#370](https://github.com/trimox/angular-mdc-web/issues/370)
+* **drawer:** Add selection state to Drawer lists ([#389](https://github.com/trimox/angular-mdc-web/issues/389)) ([7584deb](https://github.com/trimox/angular-mdc-web/commit/7584deb)), closes [#143](https://github.com/trimox/angular-mdc-web/issues/143)
+* **linear-progress:** Add Sass color mixin for `--secondary` ([#384](https://github.com/trimox/angular-mdc-web/issues/384)) ([c4770e9](https://github.com/trimox/angular-mdc-web/commit/c4770e9))
+* **menu:** Improvements and new properties ([#386](https://github.com/trimox/angular-mdc-web/issues/386)) ([e679e32](https://github.com/trimox/angular-mdc-web/commit/e679e32)), closes [#385](https://github.com/trimox/angular-mdc-web/issues/385)
+* **textfield:** Rename mdc-text-field-helptext to mdc-text-field-helper-text ([#388](https://github.com/trimox/angular-mdc-web/issues/388)) ([7ddb8f5](https://github.com/trimox/angular-mdc-web/commit/7ddb8f5)), closes [#387](https://github.com/trimox/angular-mdc-web/issues/387)
+* **textfield:** Rename mdc-textfield to mdc-text-field ([#382](https://github.com/trimox/angular-mdc-web/issues/382)) ([b27f6f0](https://github.com/trimox/angular-mdc-web/commit/b27f6f0)), closes [#379](https://github.com/trimox/angular-mdc-web/issues/379)
+
+
+### BREAKING CHANGES
+
+* **drawer:** List property `disableRipples` was renamed to `disableRipple`.
+* **menu:** Removed `MenuOpenFrom`. Update your code to use `MdcMenuOpenFrom` with accepted values of 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight'
+### Text Field renamed due to MDC upstream change
+* **textfield:** Rename `mdc-text-field-helptext` to `mdc-text-field-helper-text` and update your code accordingly.
+* **textfield:** Rename the following in your code.
+* `MdcTextfieldModule` to `MdcTextFieldModule`.
+* `MdcTextfield` to `MdcTextField`
+* `MdcTextfieldBox` to `MdcTextFieldBox`
+* `mdc-textfield` to `mdc-text-field`
+* `mdc-textfield-box` to `mdc-text-field-box`
+* `mdc-textfield-helptext` to `mdc-text-field-helptext`
+
+
+
+<a name="0.0.0"></a>
 # [0.6.0](https://github.com/trimox/angular-mdc-web/compare/v0.5.6...v0.6.0) (2017-11-13)
 
 

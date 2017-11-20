@@ -107,12 +107,6 @@ describe('MdcSwitch', () => {
       expect(document.activeElement).toBe(inputElement);
     });
 
-    it('#should disable ripple', () => {
-      testComponent.isRippleDisabled = true;
-      fixture.detectChanges();
-      expect(switchInstance.disableRipple).toBeTruthy('Expected switch ripple to be disabled');
-    });
-
     it('#should forward the tabIndex to the underlying input', () => {
       fixture.detectChanges();
 
@@ -178,7 +172,6 @@ describe('MdcSwitch', () => {
       [id]="switchId"
       (click)="onSlideClick($event)"
       [checked]="slideChecked"
-      [disableRipple]="isRippleDisabled"
       [tabIndex]="slideTabindex"
       [disabled]="isDisabled">
     </mdc-switch>
@@ -188,7 +181,6 @@ class SingleSwitch {
   switchId: string | null = 'simple-switch';
   isDisabled: boolean = false;
   slideChecked: boolean = false;
-  isRippleDisabled: boolean = false;
   slideTabindex: number;
   switchValue: string = 'single_switch';
 

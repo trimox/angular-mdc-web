@@ -1,19 +1,25 @@
 import {
-  AfterViewInit,
+  Component,
   ContentChild,
   Directive,
   ElementRef,
-  forwardRef,
+  EventEmitter,
   HostBinding,
-  Inject,
+  HostListener,
   Input,
-  OnChanges,
+  Output,
   Renderer2,
-  SimpleChange,
+  ViewEncapsulation,
 } from '@angular/core';
-import { toBoolean } from '../common';
+import { EventRegistry } from '../common/event-registry';
 import { MdcRipple } from '../core/ripple/ripple.service';
+
 import { MdcList } from './list';
+
+export interface MdcListItemActivate {
+  event: MouseEvent | KeyboardEvent;
+  item: MdcListItem;
+}
 
 @Directive({
   selector: '[mdc-list-item-start]'
@@ -34,42 +40,63 @@ export class MdcListItemEnd {
   constructor(public elementRef: ElementRef) { }
 }
 
-@Directive({
+@Component({
   selector: 'mdc-list-item, a[mdc-list-item]',
-  providers: [MdcRipple]
+  template: '<ng-content></ng-content>',
+  providers: [
+    MdcRipple,
+    EventRegistry
+  ],
+  preserveWhitespaces: false,
+  encapsulation: ViewEncapsulation.None,
 })
-export class MdcListItem implements AfterViewInit, OnChanges {
+export class MdcListItem {
+  private _selected: boolean = false;
+  private _active: boolean = false;
+
   @Input()
-  get disableRipple(): boolean { return this._ripple.disabled; }
-  set disableRipple(value: boolean) {
-    this._ripple.disabled = toBoolean(value);
+  get active(): boolean { return this._active; }
+  set active(value: boolean) {
+    if (this._active !== value) {
+      this._active = value;
+    }
   }
   @HostBinding('class.mdc-list-item') isHostClass = true;
   @HostBinding('attr.role') role: string = 'listitem';
+  @HostBinding('class.mdc-drawer--selected') get classSelected() {
+    return this._active ? 'mdc-drawer--selected' : '';
+  }
+  @Output() activate = new EventEmitter<MdcListItemActivate>();
   @ContentChild(MdcListItemStart) listItemStart: MdcListItemStart;
 
-  constructor(
-    public elementRef: ElementRef,
-    private _renderer: Renderer2,
-    private _ripple: MdcRipple,
-    @Inject(forwardRef(() => MdcList)) private _mdcList: MdcList) { }
+  /** Whether or not the option is currently selected. */
+  get selected(): boolean { return this._selected; }
 
-  ngAfterViewInit(): void {
-    if (this.elementRef.nativeElement.tagName === 'A') {
-      this._ripple.init();
-    }
-    if (this.listItemStart && this._mdcList.avatar) {
-      this._renderer.addClass(this.listItemStart.elementRef.nativeElement, 'mdc-icon--avatar');
-    }
+  /** Selects the option. */
+  select(): void {
+    this._selected = true;
   }
-  ngOnChanges(changes: { [key: string]: SimpleChange }): void {
-    const change = changes['disableRipple'];
 
-    if (toBoolean(change.currentValue)) {
-      this._ripple.disabled = true;
-    } else if (!this._mdcList.disableRipple) {
-      this._ripple.disabled = false;
-    }
+  /** Deselects the option. */
+  deselect(): void {
+    this._selected = false;
+  }
+
+  @HostListener('click', ['$event']) onclick(evt: MouseEvent) {
+    this.activate.emit({ event: evt, item: this });
+  }
+
+  constructor(
+    private _renderer: Renderer2,
+    public elementRef: ElementRef,
+    public ripple: MdcRipple) { }
+
+  hasClass(className: string): boolean {
+    return this._renderer.parentNode(this.elementRef.nativeElement).classList.contains(className);
+  }
+
+  isActive(): boolean {
+    return this._active;
   }
 }
 

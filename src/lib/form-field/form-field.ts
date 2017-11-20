@@ -32,7 +32,7 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
 
   private _mdcAdapter: MDCFormFieldAdapter = {
     registerInteractionHandler: (type: string, handler: EventListener) => {
-      this._registry.listen(this._renderer, type, handler, this.elementRef.nativeElement);
+      this._registry.listen(type, handler, this.elementRef.nativeElement);
     },
     deregisterInteractionHandler: (type: string, handler: EventListener) => {
       this._registry.unlisten(type, handler);
@@ -46,10 +46,6 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
         if (!this.inputRadio.disabled) {
           this.inputRadio.ripple.activate();
         }
-      } else if (this.inputSwitch) {
-        if (!this.inputSwitch.disabled) {
-          this.inputSwitch.ripple.activate();
-        }
       }
     },
     deactivateInputRipple: () => {
@@ -57,8 +53,6 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
         this.inputCheckbox.ripple.deactivate();
       } else if (this.inputRadio) {
         this.inputRadio.ripple.deactivate();
-      } else if (this.inputSwitch) {
-        this.inputSwitch.ripple.deactivate();
       }
     }
   };

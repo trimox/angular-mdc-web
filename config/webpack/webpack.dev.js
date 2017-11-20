@@ -6,7 +6,7 @@ const OUT_PATH = path.resolve('./publish-demo');
 const CSS_LOADER_CONFIG = [{
   loader: 'css-loader',
   options: {
-    minimize: false,
+    minimize: true,
   }
 }, {
   loader: 'postcss-loader',

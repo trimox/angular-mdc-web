@@ -1,44 +1,57 @@
 import {
   Directive,
+  ElementRef,
   HostBinding,
   Input,
+  Renderer2,
 } from '@angular/core';
 import { toBoolean } from '../../common';
-import { MdcRipple } from './ripple.service';
+import { EventRegistry } from '../../common/event-registry';
+
+import { MdcRippleOrchestration } from './ripple.orchestration';
 
 @Directive({
   selector: '[mdc-surface]',
-  providers: [MdcRipple],
+  providers: [EventRegistry]
 })
-export class MdcSurfaceDirective {
+export class MdcSurfaceDirective extends MdcRippleOrchestration {
   @Input('mdc-surface')
-  get mdcSurface() { return this.ripple.active; }
+  get mdcSurface() { return this.activeSurface; }
   set mdcSurface(value: boolean) {
-    this.ripple.active = toBoolean(value);
+    this.activeSurface = toBoolean(value);
   }
   @HostBinding('style.cursor') cursor: string = 'pointer';
   @HostBinding('class.mdc-ripple-surface') get classSurface(): string {
     return this.mdcSurface ? 'mdc-ripple-surface' : '';
   }
 
-  constructor(public ripple: MdcRipple) { }
+  constructor(
+    private renderer: Renderer2,
+    private registry: EventRegistry,
+    public elementRef: ElementRef) {
+    super(renderer, registry, elementRef);
+  }
 }
 
 @Directive({
   selector: '[mdc-ripple]',
-  providers: [MdcRipple],
+  providers: [EventRegistry]
 })
-export class MdcRippleDirective {
+export class MdcRippleDirective extends MdcRippleOrchestration {
   @Input('mdc-ripple')
-  get mdcRipple() { return this.ripple.active; }
+  get mdcRipple() { return this.activeSurface; }
   set mdcRipple(value: boolean) {
-    this.ripple.active = value;
+    this.activeSurface = toBoolean(value);
+    value ? this.init() : this.destroy();
   }
   @HostBinding('class.mdc-ripple-surface') get classSurface(): string {
     return this.mdcRipple ? 'mdc-ripple-surface' : '';
   }
 
-  constructor(public ripple: MdcRipple) {
-    this.ripple.init();
+  constructor(
+    private renderer: Renderer2,
+    private registry: EventRegistry,
+    public elementRef: ElementRef) {
+    super(renderer, registry, elementRef);
   }
 }

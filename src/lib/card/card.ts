@@ -6,6 +6,7 @@ import {
   Input,
   Renderer2,
 } from '@angular/core';
+import { EventRegistry } from '../common/event-registry';
 import { toBoolean } from '../common';
 
 import { MdcRipple } from '../core/ripple/ripple.service';
@@ -106,7 +107,10 @@ export class MdcCardActions {
 
 @Directive({
   selector: 'button[mdc-card-button], a[mdc-card-button]',
-  providers: [MdcRipple]
+  providers: [
+    MdcRipple,
+    EventRegistry,
+  ]
 })
 export class MdcCardActionButton extends MdcButton {
   constructor(

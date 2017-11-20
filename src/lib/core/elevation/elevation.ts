@@ -9,13 +9,6 @@ import {
 } from '@angular/core';
 import { toNumber } from '../../common';
 
-@Directive({
-  selector: '[mdc-elevation-transition]'
-})
-export class MdcElevationTransition {
-  @HostBinding('class.mdc-elevation-transition') isHostClass = true;
-}
-
 const MDC_ELEVATION_VALUES = Array.from(Array(25), (x, i) => i);
 
 @Directive({

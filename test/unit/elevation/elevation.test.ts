@@ -24,7 +24,6 @@ describe('MdcElevation', () => {
 
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;
-    let testNativeElement: HTMLElement;
     let testInstance: MdcElevation;
     let testComponent: SimpleTest;
 
@@ -33,13 +32,18 @@ describe('MdcElevation', () => {
       fixture.detectChanges();
 
       testDebugElement = fixture.debugElement.query(By.directive(MdcElevation));
-      testNativeElement = testDebugElement.nativeElement;
       testInstance = testDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
     });
 
     it('#should have mdc-elevation--z2 by default', () => {
       expect(testDebugElement.nativeElement.classList).toContain('mdc-elevation--z2');
+    });
+
+    it('#should have mdc-elevation--z3 by default', () => {
+      testComponent.elevation = 3;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList).toContain('mdc-elevation--z3');
     });
 
     it('#should throw an error', () => {
@@ -52,8 +56,7 @@ describe('MdcElevation', () => {
 
 /** Simple component for testing. */
 @Component({
-  template:
-  `
+  template: `
   <div [mdc-elevation]="elevation"></div>
   `,
 })

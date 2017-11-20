@@ -17,6 +17,7 @@ import {
 import { isBrowser } from '../../common';
 import { EventRegistry } from '../../common/event-registry';
 
+import { MdcDrawer } from '../drawer';
 import { FOCUSABLE_ELEMENTS } from '../constants';
 import { MDCDrawerTemporaryAdapter } from '../adapter';
 import { MDCTemporaryDrawerFoundation, util } from '@material/drawer';
@@ -66,27 +67,18 @@ export class MdcTemporaryDrawerHeaderContent {
   constructor(public elementRef: ElementRef) { }
 }
 
-@Directive({
-  selector: '[mdc-temporary-drawer-selected]'
-})
-export class MdcTemporaryDrawerSelected {
-  @HostBinding('class.mdc-temporary-drawer--selected') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
 @Component({
   selector: 'mdc-temporary-drawer',
-  template:
-    `
+  template: `
   <mdc-temporary-drawer-nav>
     <ng-content></ng-content>
   </mdc-temporary-drawer-nav>
   `,
   encapsulation: ViewEncapsulation.None,
   providers: [EventRegistry],
+  preserveWhitespaces: false,
 })
-export class MdcTemporaryDrawer implements AfterViewInit, OnChanges, OnDestroy {
+export class MdcTemporaryDrawer extends MdcDrawer implements AfterViewInit, OnChanges, OnDestroy {
   @Input() absolute: boolean = false;
 
   @Output() opened: EventEmitter<void> = new EventEmitter<void>();
@@ -100,34 +92,34 @@ export class MdcTemporaryDrawer implements AfterViewInit, OnChanges, OnDestroy {
 
   private _mdcAdapter: MDCDrawerTemporaryAdapter = {
     addClass: (className: string) => {
-      this._renderer.addClass(this.elementRef.nativeElement, className);
+      this.renderer.addClass(this.elementRef.nativeElement, className);
     },
     removeClass: (className: string) => {
-      this._renderer.removeClass(this.elementRef.nativeElement, className);
+      this.renderer.removeClass(this.elementRef.nativeElement, className);
     },
     hasClass: (className: string) => {
       return this.elementRef.nativeElement.classList.contains(className);
     },
     addBodyClass: (className: string) => {
       if (isBrowser()) {
-        this._renderer.addClass(document.body, className);
+        this.renderer.addClass(document.body, className);
       }
     },
     removeBodyClass: (className: string) => {
       if (isBrowser()) {
-        this._renderer.removeClass(document.body, className);
+        this.renderer.removeClass(document.body, className);
       }
     },
     hasNecessaryDom: () => !!this.drawerNav,
     registerInteractionHandler: (evt: string, handler: EventListener) => {
-      this._registry.listen(this._renderer, util.remapEvent(evt), handler, this.elementRef.nativeElement);
+      this._registry.listen(util.remapEvent(evt), handler, this.elementRef.nativeElement);
     },
     deregisterInteractionHandler: (evt: string, handler: EventListener) => {
       this._registry.unlisten(evt, handler);
     },
     registerDrawerInteractionHandler: (evt: string, handler: EventListener) => {
       if (this.drawerElement) {
-        this._registry.listen(this._renderer, util.remapEvent(evt), handler, this.drawerElement.nativeElement);
+        this._registry.listen(util.remapEvent(evt), handler, this.drawerElement.nativeElement);
       }
     },
     deregisterDrawerInteractionHandler: (evt: string, handler: EventListener) => {
@@ -135,7 +127,7 @@ export class MdcTemporaryDrawer implements AfterViewInit, OnChanges, OnDestroy {
     },
     registerTransitionEndHandler: (handler: EventListener) => {
       if (this.drawerElement) {
-        this._registry.listen(this._renderer, 'transitionend', handler, this.drawerElement.nativeElement);
+        this._registry.listen('transitionend', handler, this.drawerElement.nativeElement);
       }
     },
     deregisterTransitionEndHandler: (handler: EventListener) => {
@@ -143,7 +135,7 @@ export class MdcTemporaryDrawer implements AfterViewInit, OnChanges, OnDestroy {
     },
     registerDocumentKeydownHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.listen(this._renderer, 'keydown', handler, document);
+        this._registry.listen('keydown', handler, document);
       }
     },
     deregisterDocumentKeydownHandler: (handler: EventListener) => {
@@ -154,13 +146,13 @@ export class MdcTemporaryDrawer implements AfterViewInit, OnChanges, OnDestroy {
     },
     setTranslateX: (value) => {
       if (this.drawerNav) {
-        this._renderer.setProperty(this.drawerNav.elementRef, util.getTransformPropertyName(),
+        this.renderer.setProperty(this.drawerNav.elementRef, util.getTransformPropertyName(),
           value === null ? null : `translateX(${value}px)`);
       }
     },
     updateCssVariable: (value: string) => {
       if (util.supportsCssCustomProperties()) {
-        this._renderer.setStyle(this.elementRef.nativeElement, '--mdc-temporary-drawer-opacity', value);
+        this.renderer.setStyle(this.elementRef.nativeElement, '--mdc-temporary-drawer-opacity', value);
       }
     },
     getFocusableElements: () => {
@@ -174,7 +166,7 @@ export class MdcTemporaryDrawer implements AfterViewInit, OnChanges, OnDestroy {
       util.restoreElementTabState(el);
     },
     makeElementUntabbable: (el: Element) => {
-      this._renderer.setAttribute(el, 'tabindex', '-1');
+      this.renderer.setAttribute(el, 'tabindex', '-1');
     },
     notifyOpen: () => this.opened.emit(),
     notifyClose: () => this.closed.emit(),
@@ -195,9 +187,11 @@ export class MdcTemporaryDrawer implements AfterViewInit, OnChanges, OnDestroy {
   } = new MDCTemporaryDrawerFoundation(this._mdcAdapter);
 
   constructor(
-    private _renderer: Renderer2,
+    public renderer: Renderer2,
     public elementRef: ElementRef,
-    private _registry: EventRegistry) { }
+    private _registry: EventRegistry) {
+    super(renderer, elementRef);
+  }
 
   ngOnChanges(changes: { [key: string]: SimpleChange }): void {
     if (changes['absolute']) {
@@ -208,7 +202,7 @@ export class MdcTemporaryDrawer implements AfterViewInit, OnChanges, OnDestroy {
 
   ngAfterViewInit(): void {
     this._foundation.init();
-    this._registry.listen(this._renderer, 'click', (evt) => {
+    this._registry.listen('click', (evt) => {
       if (this.closeOnClick) {
         this._foundation.close();
       }
@@ -229,5 +223,13 @@ export class MdcTemporaryDrawer implements AfterViewInit, OnChanges, OnDestroy {
 
   isOpen(): boolean {
     return this._foundation.isOpen();
+  }
+
+  getDrawerWidth(): number {
+    return this._mdcAdapter.getDrawerWidth();
+  }
+
+  isRtl(): boolean {
+    return this._mdcAdapter.isRtl();
   }
 }

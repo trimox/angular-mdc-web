@@ -1,17 +1,20 @@
 import {
+  AfterContentInit,
   Component,
-  Directive,
   ContentChildren,
+  Directive,
   ElementRef,
   HostBinding,
   Input,
   OnChanges,
   QueryList,
-  SimpleChange,
   Renderer2,
+  SimpleChange,
+  ViewEncapsulation,
 } from '@angular/core';
-import { MdcListItem } from './list-item';
 import { toBoolean } from '../common';
+
+import { MdcListItem } from './list-item';
 
 @Directive({
   selector: '[mdc-list-group], mdc-list-group'
@@ -51,16 +54,24 @@ export class MdcListDivider {
     private _renderer: Renderer2) { }
 }
 
-@Directive({
+@Component({
   selector: 'mdc-list',
+  template: '<ng-content></ng-content>',
+  encapsulation: ViewEncapsulation.None,
+  preserveWhitespaces: false,
 })
-export class MdcList implements OnChanges {
+export class MdcList implements AfterContentInit, OnChanges {
   private _disableRipple: boolean = false;
+  private _avatar: boolean = false;
 
   @Input() dense: boolean = false;
   @Input() twoLine: boolean = false;
-  @Input() avatar: boolean = false;
   @Input() border: boolean = false;
+  @Input()
+  get avatar(): boolean { return this._avatar; }
+  set avatar(value: boolean) {
+    this._avatar = toBoolean(value);
+  }
   @Input()
   get disableRipple(): boolean { return this._disableRipple; }
   set disableRipple(value: boolean) {
@@ -82,19 +93,53 @@ export class MdcList implements OnChanges {
   }
   @ContentChildren(MdcListItem) listItems: QueryList<MdcListItem>;
 
-  constructor(public elementRef: ElementRef) { }
+  constructor(
+    private _renderer: Renderer2,
+    public elementRef: ElementRef) { }
 
   ngOnChanges(changes: { [key: string]: SimpleChange }): void {
-    const change = changes['disableRipple'];
+    const disableRipple = changes['disableRipple'];
+    const avatar = changes['avatar'];
 
-    if (change) {
-      this.disableRipples(toBoolean(change.currentValue));
+    if (disableRipple) {
+      this._configureRipples(disableRipple.currentValue);
+    }
+
+    if (avatar) {
+      this._configureAvatars(avatar.currentValue);
     }
   }
 
-  disableRipples(value: boolean): void {
+  ngAfterContentInit(): void {
+    if (!this._disableRipple) {
+      this._configureRipples(false);
+    }
+
+    if (this._avatar) {
+      this._configureAvatars(true);
+    }
+  }
+
+  isRippleDisabled(): boolean {
+    return this._disableRipple;
+  }
+
+  private _configureRipples(value: boolean): void {
     if (this.listItems) {
-      this.listItems.forEach(_ => _.disableRipple = value);
+      this.listItems.forEach(_ => {
+        value ? _.ripple.destroy() : _.ripple.init();
+      });
+    }
+  }
+
+  private _configureAvatars(value: boolean): void {
+    if (this.listItems) {
+      this.listItems.forEach(_ => {
+        if (_.listItemStart) {
+          value ? this._renderer.addClass(_.listItemStart.elementRef.nativeElement, 'mdc-icon--avatar')
+            : this._renderer.removeClass(_.listItemStart.elementRef.nativeElement, 'mdc-icon--avatar');
+        }
+      });
     }
   }
 }

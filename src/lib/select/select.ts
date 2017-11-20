@@ -162,7 +162,7 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnChanges
       return this.elementRef.nativeElement.getBoundingClientRect();
     },
     registerInteractionHandler: (type: string, handler: EventListener) => {
-      this._registry.listen(this._renderer, type, handler, this.elementRef.nativeElement);
+      this._registry.listen(type, handler, this.elementRef.nativeElement);
     },
     deregisterInteractionHandler: (type: string, handler: EventListener) => {
       this._registry.unlisten(type, handler);
@@ -217,7 +217,7 @@ export class MdcSelect implements AfterViewInit, ControlValueAccessor, OnChanges
       return this._getItemByIndex(index).elementRef.nativeElement.offsetTop;
     },
     registerMenuInteractionHandler: (type: string, handler: EventListener) => {
-      this._registry.listen(this._renderer, type, handler, this.selectMenu.elementRef.nativeElement);
+      this._registry.listen(type, handler, this.selectMenu.elementRef.nativeElement);
     },
     deregisterMenuInteractionHandler: (type: string, handler: EventListener) => {
       this._registry.unlisten(type, handler);

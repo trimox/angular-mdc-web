@@ -168,14 +168,14 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
       return this.options ? this.options.length : 0;
     },
     registerInteractionHandler: (type: string, handler: EventListener) => {
-      this._registry.listen(this._renderer, type, handler, this.elementRef.nativeElement);
+      this._registry.listen(type, handler, this.elementRef.nativeElement);
     },
     deregisterInteractionHandler: (type: string, handler: EventListener) => {
       this._registry.unlisten(type, handler);
     },
     registerBodyClickHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.listen(this._renderer, 'click', handler, document.body);
+        this._registry.listen('click', handler, document.body);
       }
     },
     deregisterBodyClickHandler: (handler: EventListener) => {

@@ -1,4 +1,5 @@
 import { Component, DebugElement } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -9,7 +10,7 @@ describe('MdcIconToggle', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MdcIconToggleModule],
+      imports: [FormsModule, MdcIconToggleModule],
       declarations: [
         SimpleButton,
       ]
@@ -59,6 +60,13 @@ describe('MdcIconToggle', () => {
       fixture.detectChanges();
       expect(buttonInstance.isOn()).toBe(true);
     });
+
+    it('#should set value', () => {
+      testComponent.myModel = false;
+      buttonInstance.refreshToggleData();
+      fixture.detectChanges();
+      expect(buttonInstance.isOn()).toBe(false);
+    });
   });
 });
 
@@ -66,7 +74,7 @@ describe('MdcIconToggle', () => {
 @Component({
   template:
   `
-    <mdc-icon-toggle
+    <mdc-icon-toggle [(ngModel)]="myModel"
       [disabled]="isDisabled"
       [primary]="isPrimary"
       [secondary]="isSecondary"
@@ -76,6 +84,7 @@ describe('MdcIconToggle', () => {
   `,
 })
 class SimpleButton {
+  myModel: boolean = true;
   isDisabled: boolean = false;
   isPrimary: boolean = false;
   isSecondary: boolean = false;

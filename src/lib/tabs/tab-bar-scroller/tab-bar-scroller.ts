@@ -134,7 +134,7 @@ export class MdcTabBarScroller implements AfterViewInit, OnDestroy {
     isRTL: () => this.direction === 'rtl',
     registerBackIndicatorClickHandler: (handler: EventListener) => {
       if (this.scrollBack) {
-        this._registry.listen(this._renderer, 'click', handler, this.back.elementRef.nativeElement);
+        this._registry.listen('click', handler, this.back.elementRef.nativeElement);
       }
     },
     deregisterBackIndicatorClickHandler: (handler: EventListener) => {
@@ -144,7 +144,7 @@ export class MdcTabBarScroller implements AfterViewInit, OnDestroy {
     },
     registerForwardIndicatorClickHandler: (handler: EventListener) => {
       if (this.scrollForward) {
-        this._registry.listen(this._renderer, 'click', handler, this.forward.elementRef.nativeElement);
+        this._registry.listen('click', handler, this.forward.elementRef.nativeElement);
       }
     },
     deregisterForwardIndicatorClickHandler: (handler: EventListener) => {
@@ -153,14 +153,14 @@ export class MdcTabBarScroller implements AfterViewInit, OnDestroy {
       }
     },
     registerCapturedInteractionHandler: (evt: string, handler: EventListener) => {
-      this._registry.listen(this._renderer, evt, handler, this.elementRef.nativeElement);
+      this._registry.listen(evt, handler, this.elementRef.nativeElement);
     },
     deregisterCapturedInteractionHandler: (evt: string, handler: EventListener) => {
       this._registry.unlisten(evt, handler);
     },
     registerWindowResizeHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.listen(this._renderer, 'resize', handler, window);
+        this._registry.listen('resize', handler, window);
       }
     },
     deregisterWindowResizeHandler: (handler: EventListener) => {

@@ -9,21 +9,27 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import { MdcIcon } from '../icon/icon';
-import { MdcRipple } from '../core/ripple/ripple.service';
 import {
   toBoolean,
   KeyCodes,
   isSpaceKey
 } from '../common';
+import { EventRegistry } from '../common/event-registry';
+
+import { MdcIcon } from '../icon/icon';
+import { MdcRipple } from '../core/ripple/ripple.service';
 
 export type FabPosition = 'bottom-left' | 'bottom-right' | null;
 
 @Component({
   selector: 'button[mdc-fab], a[mdc-fab]',
   template: '<ng-content></ng-content>',
-  providers: [MdcRipple],
+  providers: [
+    MdcRipple,
+    EventRegistry,
+  ],
   encapsulation: ViewEncapsulation.None,
+  preserveWhitespaces: false,
 })
 export class MdcFab implements AfterViewInit {
   private _exited: boolean = false;
@@ -64,32 +70,31 @@ export class MdcFab implements AfterViewInit {
   constructor(
     private _renderer: Renderer2,
     public elementRef: ElementRef,
-    private _ripple: MdcRipple) {
-    this._ripple.init();
-  }
+    private _ripple: MdcRipple) { }
 
   ngAfterViewInit(): void {
     if (this.fabIcon) {
       this._renderer.addClass(this.fabIcon.elementRef.nativeElement, 'mdc-fab__icon');
       this._renderer.addClass(this.elementRef.nativeElement, 'mdc-fab__icon--size');
     }
+    this._ripple.init();
   }
 
   toggleExited(exited?: boolean): void {
     this._exited = exited != null ? exited : !this._exited;
   }
 
-  private _onKeyPress(keyboardEvent: KeyboardEvent): void {
-    const keyCode = keyboardEvent.keyCode;
-    if (keyCode === KeyCodes.ENTER || isSpaceKey(keyboardEvent)) {
-      this._ripple.active = true;
+  private _onKeyPress(event: KeyboardEvent): void {
+    const keyCode = event.keyCode;
+    if (keyCode === KeyCodes.ENTER || isSpaceKey(event)) {
+      this._ripple.activate(event);
       if (keyCode !== KeyCodes.ENTER) {
-        keyboardEvent.preventDefault();
+        event.preventDefault();
       }
     }
   }
 
-  private _onBlur(focusEvent: FocusEvent): void {
-    this._ripple.active = false;
+  private _onBlur(event: FocusEvent): void {
+    this._ripple.deactivate(event);
   }
 }

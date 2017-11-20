@@ -5,6 +5,7 @@ import {
   EventEmitter,
   forwardRef,
   HostBinding,
+  HostListener,
   Input,
   OnChanges,
   OnDestroy,
@@ -16,7 +17,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { toBoolean } from '../common';
+import { toBoolean, isSpaceKey, KeyCodes } from '../common';
 import { EventRegistry } from '../common/event-registry';
 import { MdcRipple } from '../core/ripple/ripple.service';
 import { MdcIcon } from '../icon/icon';
@@ -39,6 +40,7 @@ export const MD_ICON_TOGGLE_CONTROL_VALUE_ACCESSOR: Provider = {
     EventRegistry,
   ],
   encapsulation: ViewEncapsulation.None,
+  preserveWhitespaces: false,
 })
 export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
   private _mdcAdapter: MDCIconToggleAdapter = {
@@ -49,7 +51,7 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
       this._renderer.removeClass(this.iconClass ? this.iconInner.elementRef.nativeElement : this.elementRef.nativeElement, className);
     },
     registerInteractionHandler: (type: string, handler: EventListener) => {
-      this._registry.listen(this._renderer, type, handler, this.elementRef.nativeElement);
+      this._registry.listen(type, handler, this.elementRef.nativeElement);
     },
     deregisterInteractionHandler: (type: string, handler: EventListener) => {
       this._registry.unlisten(type, handler);
@@ -61,8 +63,8 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
     setAttr: (name: string, value: string) => this._renderer.setAttribute(this.elementRef.nativeElement, name, value),
     rmAttr: (name: string) => this._renderer.removeAttribute(this.elementRef.nativeElement, name),
     notifyChange: (evtData: { isOn: boolean }) => {
-      this._controlValueAccessorChangeFn(evtData.isOn);
       this.change.emit(evtData.isOn);
+      this.onChange(this._foundation.isOn());
     }
   };
 
@@ -93,14 +95,10 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
   @HostBinding('attr.tabIndex') tabindex: string = '0';
   @ViewChild(MdcIcon) iconInner: MdcIcon;
 
-  private _value: boolean = false;
-  private _onTouched: () => any = () => { };
-  private _controlValueAccessorChangeFn: (value: any) => void = (value) => { };
+  onChange = (value: any) => { };
+  onTouched = () => { };
 
-  get value(): boolean { return this._value; }
-  set value(v: boolean) {
-    this._value = toBoolean(v);
-  }
+  get value(): any { return this._foundation.isOn(); }
   @Input()
   get disabled(): boolean { return this._foundation.isDisabled(); }
   set disabled(value: boolean) {
@@ -126,6 +124,15 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
       cssClass: this.cssClassOff
     });
   }
+  @HostListener('click', ['$event']) onclick(evt: Event) {
+    this._onClick(evt);
+  }
+  @HostListener('keypress', ['$event']) onkeypress(evt: KeyboardEvent) {
+    this._onKeyPress(evt);
+  }
+  @HostListener('blur', ['$event']) blur(evt: FocusEvent) {
+    this._onBlur(evt);
+  }
 
   constructor(
     private _renderer: Renderer2,
@@ -134,19 +141,20 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
     private _registry: EventRegistry) { }
 
   ngOnChanges(changes: { [key: string]: SimpleChange }): void {
-    const change = changes['iconClass'];
+    const iconClass = changes['iconClass'];
 
-    if (change) {
+    if (iconClass) {
       this._renderer.addClass(this.iconInner.elementRef.nativeElement, this.iconClass);
     }
   }
 
   ngAfterViewInit(): void {
     this._foundation.init();
-    this.ripple.init(true);
-    this.ripple.active = !this._foundation.isKeyboardActivated();
     this._foundation.toggle(this._foundation.isOn());
     this._foundation.refreshToggleData();
+
+    this.ripple.init(true);
+    this.ripple.activeSurface = !this._foundation.isKeyboardActivated();
   }
 
   ngOnDestroy(): void {
@@ -154,15 +162,15 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
   }
 
   writeValue(value: boolean): void {
-    this._value = value;
+    this.onChange(value);
   }
 
   registerOnChange(fn: (value: any) => void): void {
-    this._controlValueAccessorChangeFn = fn;
+    this.onChange = fn;
   }
 
   registerOnTouched(fn: any): void {
-    this._onTouched = fn;
+    this.onTouched = fn;
   }
 
   toggle(isOn?: boolean): void {
@@ -175,5 +183,27 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
 
   isOn(): boolean {
     return this._foundation.isOn();
+  }
+
+  private _onClick(event: Event): void {
+    // A disabled button shouldn't apply any actions
+    if (this.disabled) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
+  }
+
+  private _onKeyPress(event: KeyboardEvent): void {
+    const keyCode = event.keyCode;
+    if (keyCode === KeyCodes.ENTER || isSpaceKey(event)) {
+      this.ripple.activate(event);
+      if (keyCode !== KeyCodes.ENTER) {
+        event.preventDefault();
+      }
+    }
+  }
+
+  private _onBlur(event: FocusEvent): void {
+    this.ripple.deactivate(event);
   }
 }

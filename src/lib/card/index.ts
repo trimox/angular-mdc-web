@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 
-import { MdcRippleModule } from '../core/ripple/index';
-
 import {
   MdcCard,
   MdcCardActionButton,
@@ -29,7 +27,6 @@ const CARD_COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [MdcRippleModule],
   exports: [CARD_COMPONENTS],
   declarations: [CARD_COMPONENTS],
 })

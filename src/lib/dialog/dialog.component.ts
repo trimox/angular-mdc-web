@@ -105,13 +105,13 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
           this.cancel();
         }
       };
-      this._registry.listen(this._renderer, evt, handler, this.elementRef.nativeElement);
+      this._registry.listen(evt, handler, this.elementRef.nativeElement);
     },
     deregisterInteractionHandler: (evt: string, handler: EventListener) => {
       this._registry.unlisten(evt, handler);
     },
     registerSurfaceInteractionHandler: (evt: string, handler: EventListener) => {
-      this._registry.listen(this._renderer, evt, handler, this.dialogSurface.elementRef.nativeElement);
+      this._registry.listen(evt, handler, this.dialogSurface.elementRef.nativeElement);
     },
     deregisterSurfaceInteractionHandler: (evt: string, handler: EventListener) => {
       this._registry.unlisten(evt, handler);
@@ -122,7 +122,7 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
       const escapeToClose = this._config ? this._config.escapeToClose : this.escapeToClose;
 
       handler = escapeToClose ? handler : this._onKeyDown;
-      this._registry.listen(this._renderer, 'keydown', handler, document);
+      this._registry.listen('keydown', handler, document);
     },
     deregisterDocumentKeydownHandler: (handler: EventListener) => {
       if (!isBrowser()) { return; }
@@ -133,7 +133,7 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
     },
     registerTransitionEndHandler: (handler: EventListener) => {
       if (this.dialogSurface) {
-        this._registry.listen(this._renderer, 'transitionend', handler, this.dialogSurface.elementRef.nativeElement);
+        this._registry.listen('transitionend', handler, this.dialogSurface.elementRef.nativeElement);
       }
     },
     deregisterTransitionEndHandler: (handler: EventListener) => {

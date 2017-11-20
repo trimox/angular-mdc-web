@@ -159,7 +159,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
       return target.classList.contains(className);
     },
     registerTextFieldInteractionHandler: (evtType: string, handler: EventListener) => {
-      this._registry.listen(this._renderer, evtType, handler, this.elementRoot.nativeElement);
+      this._registry.listen(evtType, handler, this.elementRoot.nativeElement);
     },
     deregisterTextFieldInteractionHandler: (evtType: string, handler: EventListener) => {
       this._registry.unlisten(evtType, handler);
@@ -193,14 +193,14 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
       return this.inputHelpText ? this.inputHelpText.elementRef.nativeElement.classList.contains(className) : false;
     },
     registerInputInteractionHandler: (evtType: string, handler: EventListener) => {
-      this._registry.listen(this._renderer, evtType, handler, this.inputText.elementRef.nativeElement);
+      this._registry.listen(evtType, handler, this.inputText.elementRef.nativeElement);
     },
     deregisterInputInteractionHandler: (evtType: string, handler: EventListener) => {
       this._registry.unlisten(evtType, handler);
     },
     registerTransitionEndHandler: (handler: EventListener) => {
       if (this.bottomLine) {
-        this._registry.listen(this._renderer, 'transitionend', handler, this.bottomLine.elementRef.nativeElement);
+        this._registry.listen('transitionend', handler, this.bottomLine.elementRef.nativeElement);
       }
     },
     deregisterTransitionEndHandler: (handler: EventListener) => {

@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ViewChild } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
@@ -19,7 +19,6 @@ describe('MdcListModule', () => {
       imports: [MdcListModule, MdcIconModule],
       declarations: [
         SimpleList,
-        TestDivider,
       ]
     });
     TestBed.compileComponents();
@@ -67,82 +66,46 @@ describe('MdcListModule', () => {
       expect(testDebugElement.nativeElement.classList.contains('mdc-list--avatar-list')).toBe(true);
     });
 
-    it('#should apply disableRipple', () => {
-      testInstance.disableRipple = true;
+    it('#should apply disableRipples', () => {
+      testComponent.isRippleDisabled = false;
       fixture.detectChanges();
+      expect(testInstance.disableRipple).toBe(false);
+      expect(testInstance.isRippleDisabled()).toBe(false);
     });
 
-    describe('MdcListDivider', () => {
-      let testDebugElement: DebugElement;
-      let testInstance: MdcListDivider;
-      let testComponent: TestDivider;
+    it('#should have mdc-list-divider--inset class', () => {
+      testComponent.isInset = true;
+      fixture.detectChanges();
+      expect(testComponent.dividier.inset).toBe(true);
+    });
 
-      beforeEach(() => {
-        fixture = TestBed.createComponent(TestDivider);
-        fixture.detectChanges();
-
-        testDebugElement = fixture.debugElement.query(By.directive(MdcListDivider));
-        testInstance = testDebugElement.componentInstance;
-        testComponent = fixture.debugElement.componentInstance;
-      });
-
-      it('#should have mdc-list-divider--inset class', () => {
-        testComponent.isInset = true;
-        fixture.detectChanges();
-        expect(testInstance.inset).toBe(true);
-
-        expect(testDebugElement.nativeElement.classList).toContain('mdc-list-divider--inset');
-      });
-
-      describe('MdcListItem', () => {
-        let testDebugElement: DebugElement;
-        let testInstance: MdcListItem;
-        let testComponent: SimpleList;
-
-        beforeEach(() => {
-          fixture = TestBed.createComponent(SimpleList);
-          fixture.detectChanges();
-
-          testDebugElement = fixture.debugElement.query(By.directive(MdcListItem));
-          testInstance = testDebugElement.componentInstance;
-          testComponent = fixture.debugElement.componentInstance;
-
-          it('#should have mdc-list-item class', () => {
-            expect(testDebugElement.nativeElement.classList).toContain('mdc-list-item');
-          });
-        });
-      });
-
-      describe('MdcListGroup', () => {
-        let testDebugElement: DebugElement;
-        let testInstance: MdcListGroup;
-        let testComponent: SimpleList;
-
-        beforeEach(() => {
-          fixture = TestBed.createComponent(SimpleList);
-          fixture.detectChanges();
-
-          testDebugElement = fixture.debugElement.query(By.directive(MdcListGroup));
-          testInstance = testDebugElement.componentInstance;
-          testComponent = fixture.debugElement.componentInstance;
-
-          it('#should have mdc-list-group class', () => {
-            expect(testDebugElement.nativeElement.classList).toContain('mdc-list-group');
-          });
-        });
-      });
+    it('#should not be active', () => {
+      testComponent.isItemActive = false;
+      fixture.detectChanges();
+      expect(testComponent.listitem.active).toBe(false);
+      expect(testComponent.listitem.isActive()).toBe(false);
+      expect(testComponent.listitem.select());
+      expect(testComponent.listitem.hasClass('testing')).toBe(false);
     });
   });
 });
 
 @Component({
-  template:
-  `
-    <mdc-list-group>
+  template: `
+    <mdc-list-group #group>
       <mdc-list-group-subheader>Grouped Lists</mdc-list-group-subheader>
-      <mdc-list [dense]="isDense" [border]="isBordered" [twoLine]="isTwoline" [avatar]="isAvatar">
-        <mdc-list-item mdc-list-item-start [disableRipple]="isRippleDisabled">Test</mdc-list-item>
-        <mdc-icon mdc-list-item-end>home</mdc-icon>
+      <mdc-list [dense]="isDense" [border]="isBordered" [twoLine]="isTwoline"
+       [avatar]="isAvatar" [disableRipple]="isRippleDisabled">
+        <mdc-list-item #listitem mdc-list-item-start [active]="isItemActive">Test
+          <mdc-icon mdc-list-item-end>home</mdc-icon>
+        </mdc-list-item>
+        <mdc-list-divider #divider [inset]="isInset"></mdc-list-divider>
+        <mdc-list-item>
+          <mdc-list-item-text>
+          Single-line item
+          <mdc-list-item-secondary>Secondary text</mdc-list-item-secondary>
+        </mdc-list-item-text>
+        </mdc-list-item>
       </mdc-list>
     </mdc-list-group>
   `
@@ -152,14 +115,11 @@ class SimpleList {
   isBordered: boolean = false;
   isTwoline: boolean = false;
   isAvatar: boolean = false;
-}
-
-@Component({
-  template:
-  `
-  <mdc-list-divider [inset]="isInset"></mdc-list-divider>
-  `
-})
-class TestDivider {
+  isRippleDisabled: boolean = true;
+  isItemActive: boolean = true;
   isInset: boolean = false;
+
+  @ViewChild('divider') dividier: MdcListDivider;
+  @ViewChild('listitem') listitem: MdcListItem;
+  @ViewChild('group') group: MdcListGroup;
 }

@@ -1,7 +1,6 @@
 import {
   ElementRef,
   Injectable,
-  Renderer2
 } from '@angular/core';
 
 type UnlistenerMap = WeakMap<EventListener, Function>;
@@ -12,7 +11,7 @@ export class EventRegistry {
 
   constructor() { }
 
-  listen(renderer: Renderer2, type: string, listener: EventListener, target: Element | Window | Document, passive?: any) {
+  listen(type: string, listener: EventListener, target: Element | Window | Document, passive?: any) {
     if (!this.unlisteners.has(type)) {
       this.unlisteners.set(type, new WeakMap<EventListener, Function>());
     }

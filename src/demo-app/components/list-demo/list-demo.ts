@@ -1,6 +1,4 @@
-import {
-  Component,
-} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'list-demo',
@@ -9,8 +7,10 @@ import {
 export class ListDemo {
   isSinglelineDense: boolean;
   isSingleDarkTheme: boolean;
+  isSingleRippleDisabled: boolean = true;
   isTwolineDense: boolean;
   isTwoDarkTheme: boolean;
+  isTwoRippleDisabled: boolean;
   isStartDetailDarkTheme: boolean;
   isStartEndDetailDarkTheme: boolean;
   isAvatarDense: boolean;

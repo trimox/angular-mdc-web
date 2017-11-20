@@ -18,7 +18,6 @@ import {
 import { isBrowser, toNumber } from '../../common';
 import { EventRegistry } from '../../common/event-registry';
 import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
 import { merge } from 'rxjs/observable/merge';
 
 import { MdcTab, MdcTabChange } from '../tab/tab';
@@ -109,7 +108,7 @@ export class MdcTabBar implements AfterViewInit, AfterContentChecked, OnDestroy 
     },
     registerResizeHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.listen(this._renderer, 'resize', handler, window);
+        this._registry.listen('resize', handler, window);
       }
     },
     deregisterResizeHandler: (handler: EventListener) => {

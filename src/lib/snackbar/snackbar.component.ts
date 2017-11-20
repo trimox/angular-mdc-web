@@ -108,7 +108,7 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
     },
     registerCapturedBlurHandler: (handler: EventListener) => {
       if (this.elementRef && this.actionButton) {
-        this._registry.listen(this._renderer, 'blur', handler, this.actionButton.nativeElement);
+        this._registry.listen('blur', handler, this.actionButton.nativeElement);
       }
     },
     deregisterCapturedBlurHandler: (handler: EventListener) => {
@@ -118,7 +118,7 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
     },
     registerVisibilityChangeHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.listen(this._renderer, 'visibilitychange', handler, document);
+        this._registry.listen('visibilitychange', handler, document);
       }
     },
     deregisterVisibilityChangeHandler: (handler: EventListener) => {
@@ -128,7 +128,7 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
     },
     registerCapturedInteractionHandler: (evtType: string, handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.listen(this._renderer, evtType, handler, document.body);
+        this._registry.listen(evtType, handler, document.body);
       }
     },
     deregisterCapturedInteractionHandler: (evtType: string, handler: EventListener) => {
@@ -138,7 +138,7 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
     },
     registerActionClickHandler: (handler: EventListener) => {
       if (this.elementRef && this.actionButton) {
-        this._registry.listen(this._renderer, 'click', handler, this.actionButton.nativeElement);
+        this._registry.listen('click', handler, this.actionButton.nativeElement);
       }
     },
     deregisterActionClickHandler: (handler: EventListener) => {
@@ -146,7 +146,7 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
     },
     registerTransitionEndHandler: (handler: EventListener) => {
       if (this.elementRef && isBrowser()) {
-        this._registry.listen(this._renderer, getCorrectEventName(window, 'transitionend'), handler, this.elementRef.nativeElement);
+        this._registry.listen(getCorrectEventName(window, 'transitionend'), handler, this.elementRef.nativeElement);
       }
     },
     deregisterTransitionEndHandler: (handler: EventListener) => {

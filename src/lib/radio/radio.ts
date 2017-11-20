@@ -6,15 +6,18 @@ import {
   forwardRef,
   HostBinding,
   Input,
+  OnChanges,
   OnDestroy,
   Output,
   Provider,
   Renderer2,
+  SimpleChange,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, RadioControlValueAccessor } from '@angular/forms';
 import { toBoolean } from '../common';
+import { EventRegistry } from '../common/event-registry';
 import { MdcRipple } from '../core/ripple/ripple.service';
 
 import { MDCRadioAdapter } from './adapter';
@@ -34,7 +37,7 @@ export const MD_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
     '[id]': 'id',
   },
   template:
-  `
+    `
   <input type="radio"
     #inputEl
     class="mdc-radio__native-control"
@@ -57,9 +60,10 @@ export const MD_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
   providers: [
     MD_RADIO_CONTROL_VALUE_ACCESSOR,
     MdcRipple,
+    EventRegistry,
   ]
 })
-export class MdcRadio implements AfterViewInit, OnDestroy {
+export class MdcRadio implements AfterViewInit, OnChanges, OnDestroy {
   private _mdcAdapter: MDCRadioAdapter = {
     addClass: (className: string) => {
       this._renderer.addClass(this.elementRef.nativeElement, className);
@@ -82,7 +86,9 @@ export class MdcRadio implements AfterViewInit, OnDestroy {
     getValue: Function,
     setValue: Function
   } = new MDCRadioFoundation(this._mdcAdapter);
+
   private _uniqueId: string = `mdc-radio-${++nextUniqueId}`;
+  private _disableRipple: boolean = false;
 
   @Input() id: string = this._uniqueId;
   @Input() name: string | null = null;
@@ -113,20 +119,30 @@ export class MdcRadio implements AfterViewInit, OnDestroy {
     this.setDisabledState(toBoolean(value));
   }
   @Input()
-  get disableRipple(): boolean { return this.ripple.disabled; }
+  get disableRipple(): boolean { return this._disableRipple; }
   set disableRipple(value: boolean) {
-    this.ripple.disabled = toBoolean(value);
+    this._disableRipple = toBoolean(value);
   }
 
   constructor(
     private _renderer: Renderer2,
     public elementRef: ElementRef,
-    public ripple: MdcRipple) {
-    this.ripple.init(true);
+    public ripple: MdcRipple) { }
+
+  ngOnChanges(changes: { [key: string]: SimpleChange }): void {
+    const disableRipple = changes['disableRipple'];
+
+    if (disableRipple) {
+      disableRipple.currentValue ? this.ripple.destroy() : this.ripple.init(true);
+    }
   }
 
   ngAfterViewInit(): void {
     this._foundation.init();
+
+    if (!this._disableRipple) {
+      this.ripple.init(true);
+    }
   }
 
   ngOnDestroy(): void {

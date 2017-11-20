@@ -127,7 +127,7 @@ export class MdcToolbar implements AfterViewInit, OnDestroy {
     },
     registerScrollHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.listen(this._renderer, 'scroll', handler, window);
+        this._registry.listen('scroll', handler, window);
       }
     },
     deregisterScrollHandler: (handler: EventListener) => {
@@ -137,7 +137,7 @@ export class MdcToolbar implements AfterViewInit, OnDestroy {
     },
     registerResizeHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.listen(this._renderer, 'resize', handler, window);
+        this._registry.listen('resize', handler, window);
       }
     },
     deregisterResizeHandler: (handler: EventListener) => {

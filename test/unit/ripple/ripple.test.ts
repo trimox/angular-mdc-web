@@ -42,6 +42,7 @@ describe('MdcRippleDirective', () => {
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-ripple-surface')).toBe(true);
     });
+
     it('#should have mdc-ripple-surface if false', () => {
       testComponent.isRippleActive = false;
       fixture.detectChanges();
@@ -95,8 +96,7 @@ describe('MdcSurfaceDirective', () => {
 
 /** Simple component for testing. */
 @Component({
-  template:
-  `
+  template: `
   <div [mdc-ripple]="isRippleActive"></div>
   `,
 })
@@ -105,8 +105,7 @@ class SimpleRipple {
 }
 
 @Component({
-  template:
-  `
+  template: `
   <div [mdc-surface]="isSurfaceActive"></div>
   `,
 })

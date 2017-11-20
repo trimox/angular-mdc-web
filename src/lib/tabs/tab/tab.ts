@@ -52,6 +52,7 @@ export class MdcTabIconText {
 export class MdcTab implements OnInit, OnChanges, OnDestroy {
   private _active: boolean = false;
   private _disabled: boolean = false;
+  private _disableRipple: boolean = false;
 
   @Input()
   get disabled(): boolean { return this._disabled; }
@@ -71,9 +72,9 @@ export class MdcTab implements OnInit, OnChanges, OnDestroy {
     this._foundation.setPreventDefaultOnClick(value);
   }
   @Input()
-  get disableRipple(): boolean { return this.ripple.disabled; }
+  get disableRipple(): boolean { return this._disableRipple; }
   set disableRipple(value: boolean) {
-    this.ripple.disabled = toBoolean(value);
+    this._disableRipple = toBoolean(value);
   }
   @Output() select: EventEmitter<MdcTabChange> = new EventEmitter();
   @HostBinding('class.mdc-tab') isHostClass = true;
@@ -98,7 +99,7 @@ export class MdcTab implements OnInit, OnChanges, OnDestroy {
       this._renderer.removeClass(this.elementRef.nativeElement, className);
     },
     registerInteractionHandler: (type: string, handler: EventListener) => {
-      this._registry.listen(this._renderer, type, handler, this.elementRef.nativeElement);
+      this._registry.listen(type, handler, this.elementRef.nativeElement);
     },
     deregisterInteractionHandler: (type: string, handler: EventListener) => {
       this._registry.unlisten(type, handler);
@@ -124,17 +125,15 @@ export class MdcTab implements OnInit, OnChanges, OnDestroy {
     private _renderer: Renderer2,
     public elementRef: ElementRef,
     private _registry: EventRegistry,
-    public ripple: MdcRipple) {
-    this.ripple.init();
-  }
+    public ripple: MdcRipple) { }
 
   ngOnChanges(changes: { [key: string]: SimpleChange }): void {
     const disabled = changes['disabled'];
     const tabIcon = changes['tabIcon'];
     const active = changes['active'];
+    const disableRipple = changes['disableRipple'];
 
     if (disabled) {
-      this.disableRipple = disabled.currentValue;
       disabled.currentValue ? this._renderer.setStyle(this.elementRef.nativeElement, 'color', '#bcbcbc')
         : this._renderer.removeStyle(this.elementRef.nativeElement, 'color');
     }
@@ -147,11 +146,18 @@ export class MdcTab implements OnInit, OnChanges, OnDestroy {
         this._mdcAdapter.notifySelected();
       }
     }
+    if (disableRipple) {
+      disableRipple.currentValue ? this.ripple.destroy() : this.ripple.init();
+    }
   }
 
   ngOnInit(): void {
     this._foundation.init();
     this.setPreventDefaultOnClick(true);
+
+    if (!this._disableRipple) {
+      this.ripple.init();
+    }
   }
 
   ngOnDestroy(): void {

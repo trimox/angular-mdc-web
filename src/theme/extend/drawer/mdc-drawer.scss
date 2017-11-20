@@ -1,2 +1,6 @@
 @import "./mdc-permanent-drawer";
 @import "./mdc-temporary-drawer";
+
+.mdc-drawer {
+  @include mdc-drawer-base_;
+}

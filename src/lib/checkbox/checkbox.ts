@@ -6,10 +6,12 @@ import {
   forwardRef,
   HostBinding,
   Input,
+  OnChanges,
   OnDestroy,
   Output,
   Provider,
   Renderer2,
+  SimpleChange,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -66,7 +68,7 @@ export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: Provider = {
   ],
   encapsulation: ViewEncapsulation.None,
 })
-export class MdcCheckbox implements AfterViewInit, OnDestroy {
+export class MdcCheckbox implements AfterViewInit, OnChanges, OnDestroy {
   private _mdcAdapter: MDCCheckboxAdapter = {
     addClass: (className: string) => {
       this._renderer.addClass(this.elementRef.nativeElement, className);
@@ -75,13 +77,13 @@ export class MdcCheckbox implements AfterViewInit, OnDestroy {
       this._renderer.removeClass(this.elementRef.nativeElement, className);
     },
     registerAnimationEndHandler: (handler: EventListener) => {
-      this._registry.listen(this._renderer, 'animationend', handler, this.elementRef.nativeElement);
+      this._registry.listen('animationend', handler, this.elementRef.nativeElement);
     },
     deregisterAnimationEndHandler: (handler: EventListener) => {
       this._registry.unlisten('animationend', handler);
     },
     registerChangeHandler: (handler: EventListener) => {
-      this._registry.listen(this._renderer, 'change', handler, this.inputEl.nativeElement);
+      this._registry.listen('change', handler, this.inputEl.nativeElement);
     },
     deregisterChangeHandler: (handler: EventListener) => {
       this._registry.unlisten('change', handler);
@@ -109,6 +111,7 @@ export class MdcCheckbox implements AfterViewInit, OnDestroy {
   } = new MDCCheckboxFoundation(this._mdcAdapter);
 
   private _uniqueId: string = `mdc-checkbox-${++nextUniqueId}`;
+  private _disableRipple: boolean = false;
 
   @Input() id: string = this._uniqueId;
   get inputId(): string { return `${this.id || this._uniqueId}-input`; }
@@ -134,9 +137,9 @@ export class MdcCheckbox implements AfterViewInit, OnDestroy {
     this._foundation.setIndeterminate(value);
   }
   @Input()
-  get disableRipple(): boolean { return this.ripple.disabled; }
+  get disableRipple(): boolean { return this._disableRipple; }
   set disableRipple(value: boolean) {
-    this.ripple.disabled = toBoolean(value);
+    this._disableRipple = toBoolean(value);
   }
   @Input() tabIndex: number = 0;
   @Input('aria-label') ariaLabel: string = '';
@@ -155,10 +158,22 @@ export class MdcCheckbox implements AfterViewInit, OnDestroy {
     public ripple: MdcRipple,
     private _registry: EventRegistry) { }
 
+  ngOnChanges(changes: { [key: string]: SimpleChange }): void {
+    const disableRipple = changes['disableRipple'];
+
+    if (disableRipple) {
+      disableRipple.currentValue ? this.ripple.destroy() : this.ripple.init(true);
+    }
+  }
+
   ngAfterViewInit(): void {
     this._foundation.init();
-    this.ripple.init(true);
+
+    if (!this._disableRipple) {
+      this.ripple.init(true);
+    }
   }
+
   ngOnDestroy(): void {
     this._foundation.destroy();
   }

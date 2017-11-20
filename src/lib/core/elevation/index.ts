@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 
 import {
-  MdcElevationTransition,
   MdcElevation
 } from './elevation';
 
 const ELEVATION_DIRECTIVES = [
-  MdcElevationTransition,
   MdcElevation
 ];
 

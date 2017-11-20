@@ -24,7 +24,6 @@ describe('MdcPermanentDrawer', () => {
 
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;
-    let testNativeElement: HTMLElement;
     let testInstance: MdcPermanentDrawer;
     let testComponent: SimpleTest;
 
@@ -33,7 +32,6 @@ describe('MdcPermanentDrawer', () => {
       fixture.detectChanges();
 
       testDebugElement = fixture.debugElement.query(By.directive(MdcPermanentDrawer));
-      testNativeElement = testDebugElement.nativeElement;
       testInstance = testDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
     });
@@ -41,18 +39,25 @@ describe('MdcPermanentDrawer', () => {
     it('#should have mdc-permanent-drawer by default', () => {
       expect(testDebugElement.nativeElement.classList).toContain('mdc-permanent-drawer');
     });
+
+    it('#should not have fixed class modifier', () => {
+      testComponent.isFixed = false;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList).not.toContain('mdc-permanent-drawer--fixed');
+    });
   });
 });
 
 /** Simple component for testing. */
 @Component({
-  template:
-  `
-  <mdc-permanent-drawer>
+  template: `
+  <mdc-permanent-drawer [fixed]="isFixed">
     <mdc-permanent-drawer-spacer>Angular MDC</mdc-permanent-drawer-spacer>
     <mdc-permanent-drawer-content>
     </mdc-permanent-drawer-content>
   </mdc-permanent-drawer>
   `,
 })
-class SimpleTest { }
+class SimpleTest {
+  isFixed: boolean = true;
+}

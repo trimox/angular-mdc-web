@@ -5,17 +5,14 @@ import {
   forwardRef,
   HostBinding,
   Input,
-  OnChanges,
   Output,
   Provider,
   Renderer2,
-  SimpleChange,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { toBoolean } from '../common';
-import { MdcRipple } from '../core/ripple/ripple.service';
 
 export const MD_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
@@ -31,7 +28,7 @@ let nextUniqueId = 0;
     '[id]': 'id',
   },
   template:
-  `
+    `
   <input type="checkbox"
     #inputEl
     class="mdc-switch__native-control"
@@ -48,11 +45,12 @@ let nextUniqueId = 0;
   encapsulation: ViewEncapsulation.None,
   providers: [
     MD_SWITCH_CONTROL_VALUE_ACCESSOR,
-    MdcRipple,
-  ]
+  ],
+  preserveWhitespaces: false,
 })
-export class MdcSwitch implements OnChanges {
+export class MdcSwitch {
   private _uniqueId: string = `mdc-switch-${++nextUniqueId}`;
+  private _disableRipple: boolean = false;
 
   @Input() id: string = this._uniqueId;
   @Input() name: string | null = null;
@@ -67,29 +65,13 @@ export class MdcSwitch implements OnChanges {
   onTouched: () => any = () => { };
 
   get inputId(): string { return `${this.id || this._uniqueId}-input`; }
-  @Input()
-  get disableRipple(): boolean { return this.ripple.disabled; }
-  set disableRipple(value: boolean) {
-    this.ripple.disabled = toBoolean(value);
-  }
   @HostBinding('class.mdc-switch--disabled') get classDisabled(): string {
     return this.disabled ? 'mdc-switch--disabled' : '';
   }
 
   constructor(
     private _renderer: Renderer2,
-    public elementRef: ElementRef,
-    public ripple: MdcRipple) {
-    this.ripple.init(true);
-  }
-
-  ngOnChanges(changes: { [key: string]: SimpleChange }): void {
-    const change = changes['disabled'];
-
-    if (change) {
-      this.ripple.disabled = toBoolean(change.currentValue);
-    }
-  }
+    public elementRef: ElementRef) { }
 
   onChange(evt: Event): void {
     evt.stopPropagation();

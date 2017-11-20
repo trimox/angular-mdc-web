@@ -142,14 +142,14 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
     },
     getTabIndex: () => this.elementRef.nativeElement.tabIndex,
     registerInteractionHandler: (type: string, handler: EventListener) => {
-      this._registry.listen(this._renderer, type, handler, this.elementRef.nativeElement);
+      this._registry.listen(type, handler, this.elementRef.nativeElement);
     },
     deregisterInteractionHandler: (type: string, handler: EventListener) => {
       this._registry.unlisten(type, handler);
     },
     registerThumbContainerInteractionHandler: (type: string, handler: EventListener) => {
       if (this.thumbContainer) {
-        this._registry.listen(this._renderer, type, handler, this.thumbContainer.elementRef.nativeElement);
+        this._registry.listen(type, handler, this.thumbContainer.elementRef.nativeElement);
       }
     },
     deregisterThumbContainerInteractionHandler: (type: string, handler: EventListener) => {
@@ -157,7 +157,7 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
     },
     registerBodyInteractionHandler: (type: string, handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.listen(this._renderer, type, handler, document.body);
+        this._registry.listen(type, handler, document.body);
       }
     },
     deregisterBodyInteractionHandler: (type: string, handler: EventListener) => {
@@ -167,7 +167,7 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
     },
     registerResizeHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.listen(this._renderer, 'resize', handler, window);
+        this._registry.listen('resize', handler, window);
       }
     },
     deregisterResizeHandler: (handler: EventListener) => {

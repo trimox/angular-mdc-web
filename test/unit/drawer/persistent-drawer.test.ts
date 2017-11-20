@@ -13,7 +13,7 @@ describe('MdcPersistentDrawer', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        MdcDrawerModule,
+        MdcDrawerModule
       ],
       declarations: [
         SimpleTest,
@@ -24,7 +24,6 @@ describe('MdcPersistentDrawer', () => {
 
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;
-    let testNativeElement: HTMLElement;
     let testInstance: MdcPersistentDrawer;
     let testComponent: SimpleTest;
 
@@ -33,7 +32,6 @@ describe('MdcPersistentDrawer', () => {
       fixture.detectChanges();
 
       testDebugElement = fixture.debugElement.query(By.directive(MdcPersistentDrawer));
-      testNativeElement = testDebugElement.nativeElement;
       testInstance = testDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
     });
@@ -53,13 +51,20 @@ describe('MdcPersistentDrawer', () => {
       fixture.detectChanges();
       expect(testInstance.isOpen()).toBe(true);
     });
+
+    it('#should provide drawer width', () => {
+      expect(testInstance.getDrawerWidth()).toBeGreaterThanOrEqual(0);
+    });
+
+    it('#should be rtl direction', () => {
+      expect(testInstance.isRtl()).toBe(false);
+    });
   });
 });
 
 /** Simple component for testing. */
 @Component({
-  template:
-  `
+  template: `
   <mdc-persistent-drawer>
     <mdc-persistent-drawer-spacer>Angular MDC</mdc-persistent-drawer-spacer>
     <mdc-persistent-drawer-header>
@@ -72,5 +77,4 @@ describe('MdcPersistentDrawer', () => {
   </mdc-persistent-drawer>
   `,
 })
-class SimpleTest {
-}
+class SimpleTest { }

@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 
-import { MdcRippleModule } from '../core/ripple/index';
-
 import {
   MdcList,
   MdcListDivider,
@@ -29,7 +27,6 @@ const LIST_COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [MdcRippleModule],
   exports: LIST_COMPONENTS,
   declarations: LIST_COMPONENTS,
 })

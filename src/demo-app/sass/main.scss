@@ -85,12 +85,13 @@ body {
   font-size: .8rem;
 }
 
-.demo-icon-toggle {
+.demo-small-container {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 200px;
-  height: 190px;
+  height: 170px;
+  padding: 5px;
 }
 
 .info-banner {

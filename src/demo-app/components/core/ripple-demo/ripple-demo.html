@@ -24,27 +24,63 @@
       </thead>
       <tbody>
         <tr>
-          <td>boolean</td>
+          <td>active: boolean</td>
           <td>Activate or de-activate ripple ink effect. (Default is true)</td>
+        </tr>
+        <tr>
+          <td>primary: boolean</td>
+          <td>Colors the ripple with the primary theme color.</td>
+        </tr>
+        <tr>
+          <td>secondary: boolean</td>
+          <td>Colors the ripple with the secondary theme color.</td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
-  <mdc-card class="demo-card mdc-padding" [mdc-ripple]="isRippleActive">
-    <mdc-card-primary>
-      <mdc-card-title>Card - Click me</mdc-card-title>
-    </mdc-card-primary>
-  </mdc-card>
+  <div fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutWrap>
+<div fxLayout="column" fxFlexOffset="5">
+<div class="demo-small-container" mdc-ripple>
+  Click me
+</div>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">mdc-ripple</span>></span>
+  Click me
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">div</span>></span>
+</pre>
+</div>
+
+<div fxLayout="column" fxFlexOffset="5">
+<mdc-ripple class="demo-small-container" [mdc-elevation]="7" [active]="isRippleActive">
+  Click me
+</mdc-ripple>
   <mdc-form-field>
     <mdc-checkbox [(ngModel)]="isRippleActive"></mdc-checkbox>
-    <label>Active ripple</label>
+    <label>Ripple Active</label>
   </mdc-form-field>
-  <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card</span> [<span style="color:#89bdff">mdc-ripple</span>]=<span style="color:#65b042">"true"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-primary</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-title</span>></span>My card - Click me<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-title</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">h2</span> <span style="color:#89bdff">mdc-card-subtitle</span>></span>Subtitle<span style="color:#89bdff">&lt;/<span style="color:#89bdff">h2</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-primary</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card</span>></span></pre>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-ripple</span> [<span style="color:#89bdff">active</span>]=<span style="color:#65b042">"true"</span>></span>
+  Click me
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-ripple</span>></span>
+</pre>
+</div>
+
+<div fxLayout="column" fxFlexOffset="5">
+  <mdc-ripple [primary]="true" class="demo-small-container" [mdc-elevation]="7">
+   Ripple w/Primary Color
+  </mdc-ripple>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-ripple</span> [<span style="color:#89bdff">primary</span>]=<span style="color:#65b042">"true"</span>></span>
+ Ripple w/Primary Color
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-ripple</span>></span>
+</pre>
+</div>
+
+<div fxLayout="column" fxFlexOffset="5">
+  <mdc-ripple [secondary]="true" class="demo-small-container" [mdc-elevation]="7">
+   Ripple w/Secondary Color
+  </mdc-ripple>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-ripple</span> [<span style="color:#89bdff">secondary</span>]=<span style="color:#65b042">"true"</span>></span>
+ Ripple w/Secondary Color
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-ripple</span>></span>
+</pre>
+</div>
   </div>
 </div>

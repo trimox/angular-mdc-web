@@ -48,6 +48,18 @@ describe('MdcRippleDirective', () => {
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-ripple-surface')).toBe(false);
     });
+
+    it('#should have mdc-ripple-surface--primary if true', () => {
+      testComponent.isPrimary = true;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList.contains('mdc-ripple-surface--primary')).toBe(true);
+    });
+
+    it('#should have mdc-ripple-surface--accent if true', () => {
+      testComponent.isSecondary = true;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList.contains('mdc-ripple-surface--accent')).toBe(true);
+    });
   });
 });
 
@@ -97,11 +109,13 @@ describe('MdcSurfaceDirective', () => {
 /** Simple component for testing. */
 @Component({
   template: `
-  <div [mdc-ripple]="isRippleActive"></div>
+  <mdc-ripple [active]="isRippleActive" [primary]="isPrimary" [secondary]="isSecondary">Test</mdc-ripple>
   `,
 })
 class SimpleRipple {
   isRippleActive: boolean = true;
+  isPrimary: boolean = false;
+  isSecondary: boolean = false;
 }
 
 @Component({

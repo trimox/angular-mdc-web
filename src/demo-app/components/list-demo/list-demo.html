@@ -161,7 +161,8 @@
   </div>
   <div fxLayout="column" class="mdc-padding">
     <h3>Single-Line</h3>
-    <div fxLayout="row">
+        <div fxLayout="row">
+    <div fxLayout="column">
       <mdc-form-field>
         <mdc-checkbox [(ngModel)]="isSinglelineDense"></mdc-checkbox>
         <label>Dense</label>
@@ -170,6 +171,8 @@
         <mdc-checkbox [(ngModel)]="isSingleDarkTheme"></mdc-checkbox>
         <label>Dark Theme</label>
       </mdc-form-field>
+    </div>
+    <div fxLayout="column">
       <mdc-form-field>
         <mdc-checkbox [(ngModel)]="isBordered"></mdc-checkbox>
         <label>Bordered</label>
@@ -179,6 +182,7 @@
         <label>Ripple Disabled</label>
       </mdc-form-field>
     </div>
+  </div>
 <mdc-list [dense]="isSinglelineDense" [mdc-theme-dark]="isSingleDarkTheme" [border]="isBordered" [disableRipple]="isSingleRippleDisabled">
   <mdc-list-item>Single-line item</mdc-list-item>
   <mdc-list-item>Single-line item</mdc-list-item>

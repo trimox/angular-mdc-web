@@ -9,7 +9,6 @@ import { EventRegistry } from '../../common/event-registry';
 import { MDCRippleAdapter } from './adapter';
 import { MDCRippleFoundation, util } from '@material/ripple';
 
-@Injectable()
 export abstract class MdcRippleOrchestration {
   private _mdcAdapter: MDCRippleAdapter = {
     browserSupportsCssVars: () => (typeof window !== 'undefined') ? util.supportsCssVariables(window) : false,

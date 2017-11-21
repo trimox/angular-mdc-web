@@ -93,6 +93,7 @@ describe('MdcDialog', () => {
     viewContainerFixture.detectChanges();
 
     expect(dialogRef.componentInstance.myDialog.close());
+    expect(dialogRef.componentInstance.myDialog.layoutFooterRipples());
   });
 
   it('#should signal an accept on a simple dialog', () => {
@@ -112,7 +113,7 @@ describe('MdcDialog', () => {
   });
 
   it('#should have click outside to close', () => {
-    let dialogRef = dialog.open(SimpleDialog, { clickOutsideToClose: true });
+    let dialogRef = dialog.open(SimpleDialog, { ariaLabel: 'test', ariaDescribedBy: 'testing', clickOutsideToClose: true });
     viewContainerFixture.detectChanges();
     dialogRef.close();
   });

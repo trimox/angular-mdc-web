@@ -47,7 +47,8 @@ import { MDCDialogFoundation } from '@material/dialog';
   `,
   host: {
     '[attr.role]': '_config?.role',
-    '[attr.aria-labelledby]': '_ariaLabelledBy',
+    '[attr.aria-labelledby]': '_config?.ariaLabel ? null : _ariaLabelledBy',
+    '[attr.aria-label]': '_config?.ariaLabel',
     '[attr.aria-describedby]': '_config?.ariaDescribedBy || null',
   },
   providers: [EventRegistry],
@@ -244,5 +245,9 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
 
   cancel(shouldNotify: boolean = true): void {
     this._foundation.cancel(shouldNotify);
+  }
+
+  layoutFooterRipples(): void {
+    this._mdcAdapter.layoutFooterRipples();
   }
 }

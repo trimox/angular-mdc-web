@@ -15,6 +15,9 @@ export class MdcDialogConfig<D = any> {
   /** ID of the element that describes the dialog.  */
   ariaDescribedBy?: string | null = null;
 
+  /** Aria label to assign to the dialog element */
+  ariaLabel?: string | null = null;
+
   /** Whether the user can use escape key to close the dialog */
   escapeToClose?: boolean = true;
 

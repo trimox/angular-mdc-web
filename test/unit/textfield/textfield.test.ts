@@ -72,6 +72,10 @@ describe('MdcTextField', () => {
       expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--invalid')).toBe(false);
     });
 
+    it('#should select all content', () => {
+      expect(textFieldInstance.selectAll());
+    });
+
     it('#should focus on underlying input element when focus() is called', () => {
       expect(document.activeElement).not.toBe(inputElement);
       textFieldInstance.focus();

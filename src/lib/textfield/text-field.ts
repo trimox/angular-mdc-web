@@ -383,6 +383,10 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
   }
 
+  selectAll(): void {
+    this.inputText.elementRef.nativeElement.select();
+  }
+
   private _validateType() {
     if (MD_INPUT_INVALID_TYPES.indexOf(this._type) > -1) {
       throw Error(`Input type "${this._type}" is not supported.`);

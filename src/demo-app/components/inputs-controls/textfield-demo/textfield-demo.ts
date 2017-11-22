@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'textfield-demo',
@@ -14,4 +14,10 @@ export class TextFieldDemo {
   isRequired = true;
   isDense = false;
   isTextareaRequired: boolean = false;
+
+  @ViewChild('prefilled') prefilled: any;
+
+  selectAll() {
+    this.prefilled.selectAll();
+  }
 }

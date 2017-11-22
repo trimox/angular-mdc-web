@@ -246,6 +246,10 @@
           <td>updateIconState()</td>
           <td>Update the state of class modifiers that display an icon.</td>
         </tr>
+        <tr>
+          <td>selectAll()</td>
+          <td>Selects all of the input's content.</td>
+        </tr>
       </tbody>
     </table>    
   </div>
@@ -281,7 +285,8 @@
     <div fxLayout="column" class="mdc-padding">
 <span mdc-typography-headline>Prefilled value</span>
     <div fxFlexAlign="start">
-  <mdc-text-field [(ngModel)]="prefill" label="Username"></mdc-text-field>
+  <mdc-text-field #prefilled [(ngModel)]="prefill" label="Username"></mdc-text-field>
+  <button mdc-button (click)="selectAll()">Select All</button>
 </div>
 </div>
 

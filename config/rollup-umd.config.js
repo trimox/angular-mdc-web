@@ -31,7 +31,7 @@ export default {
   globals: ROLLUP_GLOBALS,
   output: {
     file: 'dist/bundles/material.umd.js',
-    format: 'iife',
+    format: 'umd',
     name: 'ng.material',
   },
 };

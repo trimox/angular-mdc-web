@@ -59,6 +59,7 @@ Example:
   <mdc-icon>navigate_before</mdc-icon>
 </mdc-tab-bar-scroll-back>
 ```
+* **tabs:** Changed format of change event data from `{activeTabIndex: number}` to `{index: number, tab: MdcTab}`.
 * **select:** Removed `label` setter and `setLabel()` function. Use `placeholder` and `setPlaceholder` instead.
 
 

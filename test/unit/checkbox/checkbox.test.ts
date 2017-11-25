@@ -122,10 +122,51 @@ describe('MdcCheckbox', () => {
     });
 
     it('#should forward the value to input element', () => {
-      testComponent.checkboxValue = 'basic_checkbox';
+      checkboxInstance.checked = true;
       fixture.detectChanges();
 
-      expect(inputElement.value).toBe('basic_checkbox');
+      expect(inputElement.checked).toBe(true);
+    });
+
+    it('#should forward the value to input element', () => {
+      testComponent.checkboxValue = true;
+      fixture.detectChanges();
+
+      expect(inputElement.checked).toBe(true);
+    });
+
+    it('#should toggle checked to false', () => {
+      testComponent.isDisabled = true;
+      fixture.detectChanges();
+      expect(checkboxInstance.toggle());
+      fixture.detectChanges();
+
+      expect(inputElement.checked).toBe(false);
+    });
+
+    it('#should not set indeterminate to true', () => {
+      testComponent.isDisabled = true;
+      fixture.detectChanges();
+      expect(checkboxInstance.setIndeterminate(true));
+      fixture.detectChanges();
+
+      expect(checkboxInstance.indeterminate).toBe(false);
+    });
+
+    it('#should set checked to false', () => {
+      testComponent.isIndeterminate = true;
+      fixture.detectChanges();
+      expect(checkboxInstance.toggle());
+      fixture.detectChanges();
+
+      expect(inputElement.checked).toBe(false);
+    });
+
+    it('#should set indeterminate to true', () => {
+      checkboxInstance.setIndeterminate(true);
+      fixture.detectChanges();
+
+      expect(checkboxInstance.indeterminate).toBe(true);
     });
 
     describe('with provided aria-label', () => {
@@ -258,8 +299,9 @@ describe('MdcCheckbox', () => {
   template: `
     <mdc-checkbox
       [id]="checkboxId"
-      [value]="checkboxValue"
-      [(indeterminate)]="isIndeterminate"
+      [(ngModel)]="checkboxValue"
+      [checked]="checkboxValue"
+      [indeterminate]="isIndeterminate"
       [disableRipple]="isRippleDisabled"
       [disabled]="isDisabled">
     </mdc-checkbox>
@@ -269,7 +311,8 @@ class SingleCheckbox {
   checkboxId: string | null = 'simple-check';
   isDisabled: boolean = false;
   isRippleDisabled: boolean = false;
-  checkboxValue: string = 'single_checkbox';
+  isIndeterminate: boolean = false;
+  checkboxValue: boolean = false;
 }
 
 /** Simple test component with an aria-label set. */

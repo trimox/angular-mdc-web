@@ -65,6 +65,10 @@
 <pre>Disable the ink ripple.
 Example: disableRipple="true" or disableRipple</pre></td>
         </tr>
+        <tr>
+          <td>indeterminateToChecked: boolean</td>
+          <td>Whether the checkbox should go to checked state or unchecked when toggled from indeterminate state.</td>
+        </tr>
       </tbody>
       <thead>
         <tr>
@@ -77,6 +81,10 @@ Example: disableRipple="true" or disableRipple</pre></td>
           <td>focus()</td>
           <td>Use to set focus to the checkbox.</td>
         </tr>
+        <tr>
+          <td>toggle()</td>
+          <td>Toggles checkbox via user action. When it is indeterminate, toggle can go to checked or unchecked, depending on state.</td>
+        </tr>
       </tbody>
       <thead>
         <tr>
@@ -86,40 +94,38 @@ Example: disableRipple="true" or disableRipple</pre></td>
       </thead>
       <tbody>
         <tr>
-          <td>change</td>
+          <td>change(MdcCheckBox)</td>
           <td>Event dispatched on value change.</td>
+        </tr>
+        <tr>
+          <td>indeterminateChange(<![CDATA[{ source: MdcCheckbox, indeterminate: boolean }]]>)</td>
+          <td>Emit when checkbox goes in and out of indeterminate state, but not when set to checked.</td>
         </tr>
       </tbody>
     </table>
   </div>
   <div fxLayout="column" class="mdc-padding" fxLayoutAlign="start start">
-<mdc-form-field>
-  <mdc-checkbox [(ngModel)]="isChecked" [indeterminate]="isIndeterminate"></mdc-checkbox>
+<mdc-form-field [alignEnd]="isAlignEnd">
+  <mdc-checkbox #checkbox [(ngModel)]="isChecked" [indeterminate]="isIndeterminate" [disabled]="isDisabled"
+  [indeterminateToChecked]="false" [disableRipple]="isRippleDisabled"
+  (change)="handleChange($event)" (indeterminateChange)="handleIndeterminateChange($event)"></mdc-checkbox>
   <label>Checkbox value : {{isChecked}}</label>
 </mdc-form-field>
-    <button mdc-button [primary]="true" (click)="setIndeterminate();">Make Indeterminate</button>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span> [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"myModel"</span>
-    [<span style="color:#89bdff">indeterminate</span>]=<span style="color:#65b042">"false"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span>></span>
+
+<button mdc-button (click)="setIndeterminate();">Set Indeterminate</button>
+<button mdc-button (click)="toggleRTL();">Toggle RTL</button>
+<button mdc-button (click)="toggleChecked();">Toggle Checked</button>
+<button mdc-button (click)="toggleRippleDisabled();">Ripple Disabled: {{isRippleDisabled}}</button>
+<button mdc-button (click)="toggleDisabled();">Disabled: {{isDisabled}}</button>
+
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span> [<span style="color:#89bdff">alignEnd</span>]=<span style="color:#65b042">"false"</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span> #<span style="color:#89bdff">checkbox</span> [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"myModel"</span> [<span style="color:#89bdff">indeterminate</span>]=<span style="color:#65b042">"false"</span>
+  [<span style="color:#89bdff">indeterminateToChecked</span>]=<span style="color:#65b042">"false"</span>
+  [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"false"</span> [<span style="color:#89bdff">disableRipple</span>]=<span style="color:#65b042">"false"</span>
+  (<span style="color:#89bdff">change</span>)=<span style="color:#65b042">"handleChange($event)"</span>
+  (<span style="color:#89bdff">indeterminateChange</span>)=<span style="color:#65b042">"handleIndeterminateChange($event)"</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span>></span>
   <span style="color:#e0c589">&lt;<span style="color:#e0c589">label</span>></span>My label<span style="color:#e0c589">&lt;/<span style="color:#e0c589">label</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span>></span>
-</pre>
-    <mdc-form-field>
-      <mdc-checkbox [disabled]="true"></mdc-checkbox>
-      <label>Checkbox disabled</label>
-    </mdc-form-field>
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span> [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"true"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span>></span>
-  <span style="color:#e0c589">&lt;<span style="color:#e0c589">label</span>></span>Checkbox is disabled<span style="color:#e0c589">&lt;/<span style="color:#e0c589">label</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span>></span>
-</pre>
-<mdc-form-field>
-  <mdc-checkbox [disableRipple]="true"></mdc-checkbox>
-  <label>Ripple disabled</label>
-</mdc-form-field>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span> [<span style="color:#89bdff">disableRipple</span>]=<span style="color:#65b042">"true"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span>></span>
-  <span style="color:#e0c589">&lt;<span style="color:#e0c589">label</span>></span>Ripple disabled<span style="color:#e0c589">&lt;/<span style="color:#e0c589">label</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span>></span>
 </pre>
 </div>

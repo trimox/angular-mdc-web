@@ -5,14 +5,13 @@ import {
   HostBinding,
   Inject,
   Input,
-  Provider,
   Renderer2,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EventRegistry } from '../common/event-registry';
 import { MdcTextField } from './text-field';
 
-export const MD_TEXTAREA_CONTROL_VALUE_ACCESSOR: Provider = {
+export const MD_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => MdcTextarea),
   multi: true
@@ -20,8 +19,7 @@ export const MD_TEXTAREA_CONTROL_VALUE_ACCESSOR: Provider = {
 
 @Component({
   selector: 'mdc-textarea',
-  template:
-  `
+  template: `
   <textarea mdc-text-field-input
     type="text"
     [id]="id"

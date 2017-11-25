@@ -4,7 +4,6 @@ import {
   forwardRef,
   HostBinding,
   Inject,
-  Provider,
   Renderer2,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -12,7 +11,7 @@ import { EventRegistry } from '../common/event-registry';
 import { MdcRipple } from '../core/ripple/ripple.service';
 import { MdcTextField } from './text-field';
 
-export const MD_TEXTFIELD_BOX_CONTROL_VALUE_ACCESSOR: Provider = {
+export const MD_TEXTFIELD_BOX_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => MdcTextFieldBox),
   multi: true
@@ -20,8 +19,7 @@ export const MD_TEXTFIELD_BOX_CONTROL_VALUE_ACCESSOR: Provider = {
 
 @Component({
   selector: 'mdc-text-field-box',
-  template:
-  `
+  template: `
   <input mdc-text-field-input
     [type]="type"
     [id]="id"

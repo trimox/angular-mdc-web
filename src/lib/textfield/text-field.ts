@@ -1,5 +1,6 @@
 ﻿import {
-  AfterContentInit,
+  AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ContentChild,
   Directive,
@@ -10,7 +11,6 @@
   Input,
   OnDestroy,
   Output,
-  Provider,
   Renderer2,
   ViewChild,
   ViewEncapsulation,
@@ -25,7 +25,7 @@ import { MDCTextFieldAdapter } from './adapter';
 import { MdcTextFieldInput } from './text-field-input';
 import { MDCTextFieldFoundation } from '@material/textfield';
 
-export const MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR: Provider = {
+export const MD_TEXTFIELD_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => MdcTextField),
   multi: true
@@ -106,8 +106,7 @@ export class MdcTextFieldTrailingIcon {
 
 @Component({
   selector: 'mdc-text-field',
-  template:
-    `
+  template: `
   <input mdc-text-field-input
     [type]="type"
     [id]="id"
@@ -127,8 +126,10 @@ export class MdcTextFieldTrailingIcon {
     EventRegistry,
   ],
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  preserveWhitespaces: false,
 })
-export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAccessor {
+export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAccessor {
   private _mdcAdapter: MDCTextFieldAdapter = {
     addClass: (className: string) => {
       this._renderer.addClass(this.elementRoot.nativeElement, className);
@@ -257,9 +258,8 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   private _type = 'text';
   private _disabled: boolean = false;
   private _required: boolean = false;
-  private _controlValueAccessorChangeFn: (value: any) => void = (value) => { };
-  onChange = (_: any) => { };
-  onTouched = () => { };
+  private _controlValueAccessorChangeFn: (value: any) => void = () => { };
+  onTouched: () => any = () => { };
 
   @Input()
   get disabled(): boolean { return this._disabled; }
@@ -305,7 +305,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     public elementRoot: ElementRef,
     private _registry: EventRegistry) { }
 
-  ngAfterContentInit(): void {
+  ngAfterViewInit(): void {
     this._foundation.init();
     this.updateIconState();
   }
@@ -321,11 +321,10 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     } else {
       this._mdcAdapter.removeClassFromLabel('mdc-text-field__label--float-above');
     }
-    this.onChange(value);
   }
 
   registerOnChange(fn: (value: any) => any): void {
-    this.onChange = fn;
+    this._controlValueAccessorChangeFn = fn;
   }
 
   registerOnTouched(fn: () => any): void {
@@ -337,7 +336,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   }
 
   onInput(evt: Event): void {
-    this.onChange((<any>evt.target).value);
+    this._controlValueAccessorChangeFn = (<any>evt.target).value;
   }
 
   onBlur(): void {

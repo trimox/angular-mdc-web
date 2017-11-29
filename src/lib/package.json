@@ -23,7 +23,7 @@
   "private": false,
   "dependencies": {
     "@angular-mdc/theme": "0.0.8",
-    "material-components-web": "0.25.0"
+    "material-components-web": "0.26.0"
   },
   "peerDependencies": {
     "@angular/core": ">=5.0.0",

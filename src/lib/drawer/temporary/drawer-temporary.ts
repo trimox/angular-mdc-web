@@ -14,8 +14,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { isBrowser } from '../../common';
-import { EventRegistry } from '../../common/event-registry';
+import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
 
 import { MdcDrawer } from '../drawer';
 import { FOCUSABLE_ELEMENTS } from '../constants';
@@ -68,6 +67,7 @@ export class MdcTemporaryDrawerHeaderContent {
 }
 
 @Component({
+  moduleId: module.id,
   selector: 'mdc-temporary-drawer',
   template: `
   <mdc-temporary-drawer-nav>

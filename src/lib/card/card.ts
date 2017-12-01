@@ -6,11 +6,9 @@ import {
   Input,
   Renderer2,
 } from '@angular/core';
-import { EventRegistry } from '../common/event-registry';
-import { toBoolean } from '../common';
-
-import { MdcRipple } from '../core/ripple/ripple.service';
-import { MdcButton } from '../button/button';
+import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
+import { MdcRipple } from '@angular-mdc/web/core';
+import { MdcButton } from '@angular-mdc/web/button';
 
 @Directive({
   selector: 'mdc-card-primary'

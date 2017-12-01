@@ -18,10 +18,9 @@ npm i @angular-mdc/web
 ```
 
 ## <a name="step2"></a> Step 2: Import Components
-Add an import of `MdcCoreModule` to provide ripple, typography, and elevation functionality. Now just import the NgModule for each component you want to use.
+Now just import the NgModule for each component you want to use.
 ```ts
 import {
-  MdcCoreModule, // required
   MdcFabModule,
   MdcMenuModule
 } from '@angular-mdc/web';
@@ -29,7 +28,6 @@ import {
 @NgModule({
   ...
   imports: [
-   MdcCoreModule, // required
    MdcFabModule,
    MdcMenuModule,
    ...

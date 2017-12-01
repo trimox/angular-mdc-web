@@ -11,16 +11,17 @@ import {
   SimpleChange,
   ViewEncapsulation,
 } from '@angular/core';
-import { EventRegistry } from '../common/event-registry';
 import {
+  EventRegistry,
   toBoolean,
   KeyCodes,
-  isSpaceKey
-} from '../common';
-import { MdcIcon } from '../icon/icon';
-import { MdcRipple } from '../core/ripple/ripple.service';
+  isSpaceKey,
+} from '@angular-mdc/web/common';
+import { MdcRipple } from '@angular-mdc/web/core';
+import { MdcIcon } from '@angular-mdc/web/icon';
 
 @Component({
+  moduleId: module.id,
   selector: 'button[mdc-button], a[mdc-button]',
   template: '<ng-content></ng-content>',
   providers: [

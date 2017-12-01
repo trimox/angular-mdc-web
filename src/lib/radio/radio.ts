@@ -16,9 +16,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, RadioControlValueAccessor } from '@angular/forms';
-import { toBoolean } from '../common';
-import { EventRegistry } from '../common/event-registry';
-import { MdcRipple } from '../core/ripple/ripple.service';
+import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
+import { MdcRipple } from '@angular-mdc/web/core';
 
 import { MDCRadioAdapter } from './adapter';
 import { MDCRadioFoundation } from '@material/radio';
@@ -32,6 +31,7 @@ export const MD_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
 };
 
 @Component({
+  moduleId: module.id,
   selector: 'mdc-radio',
   host: {
     '[id]': 'id',

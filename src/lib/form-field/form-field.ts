@@ -8,11 +8,11 @@ import {
   OnDestroy,
   Renderer2
 } from '@angular/core';
-import { EventRegistry } from '../common/event-registry';
+import { EventRegistry } from '@angular-mdc/web/common';
 
-import { MdcCheckbox } from '../checkbox/checkbox';
-import { MdcRadio } from '../radio/radio';
-import { MdcSwitch } from '../switch/switch';
+import { MdcCheckbox } from '@angular-mdc/web/checkbox';
+import { MdcRadio } from '@angular-mdc/web/radio';
+import { MdcSwitch } from '@angular-mdc/web/switch';
 
 import { MDCFormFieldAdapter } from './adapter';
 import { MDCFormFieldFoundation } from '@material/form-field';

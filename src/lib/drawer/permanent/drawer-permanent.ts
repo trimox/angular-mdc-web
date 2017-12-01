@@ -28,6 +28,7 @@ export class MdcPermanentDrawerContent {
 }
 
 @Component({
+  moduleId: module.id,
   selector: 'mdc-permanent-drawer',
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,

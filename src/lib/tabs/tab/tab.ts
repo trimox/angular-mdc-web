@@ -16,10 +16,9 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { toBoolean } from '../../common';
-import { EventRegistry } from '../../common/event-registry';
-import { MdcIcon } from '../../icon/icon';
-import { MdcRipple } from '../../core/ripple/ripple.service';
+import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
+import { MdcRipple } from '@angular-mdc/web/core';
+import { MdcIcon } from '@angular-mdc/web/icon';
 
 import { MDCTabAdapter } from './adapter';
 import { MDCTabFoundation } from '@material/tabs';
@@ -39,6 +38,7 @@ export class MdcTabIconText {
 }
 
 @Component({
+  moduleId: module.id,
   selector: '[mdc-tab], mdc-tab',
   template: '<ng-content></ng-content>',
   providers: [

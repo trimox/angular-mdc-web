@@ -15,8 +15,7 @@ import {
   Renderer2,
   ViewChild,
 } from '@angular/core';
-import { isBrowser, toNumber } from '../../common';
-import { EventRegistry } from '../../common/event-registry';
+import { isBrowser, toNumber, EventRegistry } from '@angular-mdc/web/common';
 import { Subscription } from 'rxjs/Subscription';
 import { merge } from 'rxjs/observable/merge';
 
@@ -35,6 +34,7 @@ export class MdcTabBarIndicator {
 }
 
 @Component({
+  moduleId: module.id,
   selector: '[mdc-tab-bar], mdc-tab-bar',
   template: `
   <ng-content></ng-content>

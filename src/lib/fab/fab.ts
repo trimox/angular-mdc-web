@@ -12,16 +12,16 @@ import {
 import {
   toBoolean,
   KeyCodes,
-  isSpaceKey
-} from '../common';
-import { EventRegistry } from '../common/event-registry';
-
-import { MdcIcon } from '../icon/icon';
-import { MdcRipple } from '../core/ripple/ripple.service';
+  isSpaceKey,
+  EventRegistry,
+} from '@angular-mdc/web/common';
+import { MdcRipple } from '@angular-mdc/web/core';
+import { MdcIcon } from '@angular-mdc/web/icon';
 
 export type FabPosition = 'bottom-left' | 'bottom-right' | null;
 
 @Component({
+  moduleId: module.id,
   selector: 'button[mdc-fab], a[mdc-fab]',
   template: '<ng-content></ng-content>',
   providers: [

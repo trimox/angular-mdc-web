@@ -3,8 +3,7 @@ import {
   Renderer2,
   Injectable,
 } from '@angular/core';
-import { toBoolean, isBrowser } from '../../common';
-import { EventRegistry } from '../../common/event-registry';
+import { toBoolean, isBrowser, EventRegistry } from '@angular-mdc/web/common';
 
 import { MDCRippleAdapter } from './adapter';
 import { MDCRippleFoundation, util } from '@material/ripple';

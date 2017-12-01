@@ -11,9 +11,9 @@ import {
 } from '@angular/core';
 import { ISubscription } from 'rxjs/Subscription';
 import { merge } from 'rxjs/observable/merge';
-import { toBoolean } from '../common';
+import { toBoolean } from '@angular-mdc/web/common';
 
-import { MdcListItem, MdcListItemActivate } from '../list/list-item';
+import { MdcListItem, MdcListItemActivate } from '@angular-mdc/web/list';
 
 const DRAWER_SELECTED = 'mdc-drawer--selected';
 

@@ -7,7 +7,7 @@ import {
   Renderer2,
   SimpleChange,
 } from '@angular/core';
-import { toNumber } from '../../common';
+import { toNumber } from '@angular-mdc/web/common';
 
 const MDC_ELEVATION_VALUES = Array.from(Array(25), (x, i) => i);
 

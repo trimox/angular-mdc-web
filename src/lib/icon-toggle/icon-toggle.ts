@@ -17,10 +17,9 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { toBoolean, isSpaceKey, KeyCodes } from '../common';
-import { EventRegistry } from '../common/event-registry';
-import { MdcRipple } from '../core/ripple/ripple.service';
-import { MdcIcon } from '../icon/icon';
+import { toBoolean, isSpaceKey, KeyCodes, EventRegistry } from '@angular-mdc/web/common';
+import { MdcRipple } from '@angular-mdc/web/core';
+import { MdcIcon } from '@angular-mdc/web/icon';
 
 import { MDCIconToggleAdapter } from './adapter';
 import { MDCIconToggleFoundation } from '@material/icon-toggle';
@@ -32,6 +31,7 @@ export const MD_ICON_TOGGLE_CONTROL_VALUE_ACCESSOR: Provider = {
 };
 
 @Component({
+  moduleId: module.id,
   selector: 'mdc-icon-toggle',
   template: '<mdc-icon></mdc-icon>',
   providers: [

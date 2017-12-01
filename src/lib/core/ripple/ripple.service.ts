@@ -4,7 +4,7 @@ import {
   OnDestroy,
   Renderer2,
 } from '@angular/core';
-import { EventRegistry } from '../../common/event-registry';
+import { EventRegistry } from '@angular-mdc/web/common';
 import { MdcRippleOrchestration } from './ripple.orchestration';
 
 @Injectable()

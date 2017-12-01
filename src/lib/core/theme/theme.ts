@@ -7,7 +7,7 @@ import {
   Renderer2,
   SimpleChange,
 } from '@angular/core';
-import { toBoolean } from '../../common';
+import { toBoolean } from '@angular-mdc/web/common';
 
 @Directive({
   selector: 'mdc-content, [mdc-content]'

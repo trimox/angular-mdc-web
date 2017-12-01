@@ -11,9 +11,10 @@ import {
   BasePortalOutlet,
   CdkPortalOutlet,
   ComponentPortal,
-} from '../cdk/portal/index';
+} from '@angular-mdc/web/cdk';
 
 @Component({
+  moduleId: module.id,
   selector: 'mdc-snackbar-container',
   template: `<ng-template cdkPortalHost></ng-template>`,
 })

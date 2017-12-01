@@ -15,8 +15,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { toNumber, isBrowser } from '../common';
-import { EventRegistry } from '../common/event-registry';
+import { toNumber, isBrowser, EventRegistry } from '@angular-mdc/web/common';
 
 import { MDCSliderAdapter } from './adapter';
 import { MDCSliderFoundation } from '@material/slider';
@@ -94,6 +93,7 @@ export class MdcSliderThumbContainer {
 }
 
 @Component({
+  moduleId: module.id,
   selector: 'mdc-slider',
   template:
   `

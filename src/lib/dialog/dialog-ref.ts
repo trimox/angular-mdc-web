@@ -1,4 +1,4 @@
-import { OverlayRef } from '../cdk/overlay/overlay-ref';
+import { OverlayRef } from '@angular-mdc/web/cdk';
 import { MdcDialogContainer } from './dialog-container';
 
 let uniqueId = 0;

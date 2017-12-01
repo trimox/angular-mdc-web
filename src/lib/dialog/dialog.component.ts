@@ -17,9 +17,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { isBrowser, KeyCodes } from '../common';
-import { EventRegistry } from '../common/event-registry';
-
+import { isBrowser, KeyCodes, EventRegistry } from '@angular-mdc/web/common';
 import {
   MdcDialogBackdrop,
   MdcDialogBody,
@@ -29,7 +27,6 @@ import {
   MdcDialogHeaderTitle,
   MdcDialogSurface,
 } from './dialog-directives';
-
 import { MdcDialogConfig } from './dialog-config';
 import { MdcDialogRef } from './dialog-ref';
 
@@ -38,6 +35,7 @@ import { createFocusTrapInstance } from '@material/dialog/util';
 import { MDCDialogFoundation } from '@material/dialog';
 
 @Component({
+  moduleId: module.id,
   selector: 'mdc-dialog',
   template: `
   <mdc-dialog-surface>

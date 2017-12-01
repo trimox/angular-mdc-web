@@ -5,8 +5,14 @@ import {
   Optional,
   SkipSelf,
 } from '@angular/core';
-import { Overlay, OverlayRef } from '../cdk/overlay/index';
-import { Portal, ComponentType, ComponentPortal, PortalInjector } from '../cdk/portal/index';
+import {
+  ComponentPortal,
+  ComponentType,
+  Overlay,
+  OverlayRef,
+  Portal,
+  PortalInjector,
+} from '@angular-mdc/web/cdk';
 
 import { MdcSnackbarRef } from './snackbar-ref';
 import { MdcSnackbarComponent } from './snackbar.component';

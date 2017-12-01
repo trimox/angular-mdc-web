@@ -6,8 +6,8 @@ import {
   Input,
   Renderer2,
 } from '@angular/core';
-import { MdcRipple } from '../core/ripple/ripple.service';
-import { MdcButton } from '../button/button';
+import { MdcRipple } from '@angular-mdc/web/core';
+import { MdcButton } from '@angular-mdc/web/button';
 
 @Directive({
   selector: '[mdc-dialog-surface], mdc-dialog-surface'

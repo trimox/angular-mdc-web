@@ -11,8 +11,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { isBrowser } from '../common';
-import { EventRegistry } from '../common/event-registry';
+import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
 
 import { MDC_SNACK_BAR_DATA, MdcSnackbarConfig } from './snackbar-config';
 import { MdcSnackbarRef } from './snackbar-ref';
@@ -40,6 +39,7 @@ export class MdcSnackbarActionWrapper {
 }
 
 @Component({
+  moduleId: module.id,
   selector: 'mdc-snackbar',
   template:
   `

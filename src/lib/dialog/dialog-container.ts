@@ -17,9 +17,10 @@ import {
   CdkPortalOutlet,
   ComponentPortal,
   TemplatePortal,
-} from '../cdk/portal/index';
+} from '@angular-mdc/web/cdk';
 
 @Component({
+  moduleId: module.id,
   selector: 'mdc-dialog-container',
   template: `<ng-template cdkPortalHost></ng-template>`,
   encapsulation: ViewEncapsulation.None,

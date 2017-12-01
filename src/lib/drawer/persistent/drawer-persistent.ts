@@ -12,8 +12,7 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { isBrowser } from '../../common';
-import { EventRegistry } from '../../common/event-registry';
+import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
 
 import { MdcDrawer } from '../drawer';
 import { FOCUSABLE_ELEMENTS } from '../constants';
@@ -67,6 +66,7 @@ export class MdcPersistentDrawerContent {
 }
 
 @Component({
+  moduleId: module.id,
   selector: 'mdc-persistent-drawer',
   template: `
   <mdc-persistent-drawer-nav>

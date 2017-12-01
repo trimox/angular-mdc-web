@@ -12,6 +12,7 @@ import { MDCLinearProgressAdapter } from './adapter';
 import { MDCLinearProgressFoundation } from '@material/linear-progress';
 
 @Component({
+  moduleId: module.id,
   selector: 'mdc-linear-progress',
   template:
   `

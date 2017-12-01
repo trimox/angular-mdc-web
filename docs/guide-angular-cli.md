@@ -41,10 +41,9 @@ $mdc-theme-secondary: #388e3c; // change secondary color example
 ```
 
 ## <a name="step4"></a> Step 4: Import Components
-In `src/app/app.module.ts` add an import of `MdcCoreModule` to provide ripple, typography, and elevation functionality. Now just import the NgModule for each component you want to use.
+Now just import the NgModule for each component you want to use.
 ```ts
 import {
-  MdcCoreModule, // required
   MdcButtonModule,
   MdcFabModule,
   MdcMenuModule
@@ -53,7 +52,6 @@ import {
 @NgModule({
   ...
   imports: [
-   MdcCoreModule, // required
    MdcButtonModule,
    MdcFabModule,
    MdcMenuModule,

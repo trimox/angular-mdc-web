@@ -13,9 +13,8 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import { isBrowser } from '../../common';
-import { EventRegistry } from '../../common/event-registry';
-import { MdcIcon } from '../../icon/icon';
+import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
+import { MdcIcon } from '@angular-mdc/web/icon';
 
 import { MdcTab } from '../tab/tab';
 import { MdcTabBar } from '../tab-bar/tab-bar';
@@ -89,6 +88,7 @@ export class MdcTabBarScrollFrame implements AfterContentInit {
 }
 
 @Component({
+  moduleId: module.id,
   selector: '[mdc-tab-bar-scroller], mdc-tab-bar-scroller',
   template: '<ng-content></ng-content>',
   providers: [EventRegistry],

@@ -16,10 +16,9 @@
   ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { isBrowser } from '../common';
-import { EventRegistry } from '../common/event-registry';
+import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
 
-import { MdcIcon } from '../icon/icon';
+import { MdcIcon } from '@angular-mdc/web/icon';
 
 import { MDCTextFieldAdapter } from './adapter';
 import { MdcTextFieldInput } from './text-field-input';
@@ -105,6 +104,7 @@ export class MdcTextFieldTrailingIcon {
 }
 
 @Component({
+  moduleId: module.id,
   selector: 'mdc-text-field',
   template: `
   <input mdc-text-field-input

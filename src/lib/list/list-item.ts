@@ -11,8 +11,8 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import { EventRegistry } from '../common/event-registry';
-import { MdcRipple } from '../core/ripple/ripple.service';
+import { EventRegistry } from '@angular-mdc/web/common';
+import { MdcRipple } from '@angular-mdc/web/core';
 
 import { MdcList } from './list';
 
@@ -41,6 +41,7 @@ export class MdcListItemEnd {
 }
 
 @Component({
+  moduleId: module.id,
   selector: 'mdc-list-item, a[mdc-list-item]',
   template: '<ng-content></ng-content>',
   providers: [

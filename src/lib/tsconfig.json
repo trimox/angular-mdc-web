@@ -1,39 +1,12 @@
-﻿{
+﻿// Configuration for IDEs only.
+{
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "es5",
-    "module": "es2015",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
-    "moduleResolution": "node",
-    "outDir": "../../build",
-    "declaration": true,
+    "rootDir": "..",
     "baseUrl": ".",
-    "noUnusedParameters": false,
-    "sourceMap": true,
-    "noImplicitAny": true,
-    "importHelpers": true,
-    "stripInternal": false,
-    "emitDecoratorMetadata": true,
-    "inlineSources": true,
-    "experimentalDecorators": true,
-    "noEmitHelpers": true,
-    "skipLibCheck": true,
-    "typeRoots": ["./../../node_modules/@types"],
-    "noStrictGenericChecks": true
+    "paths": {
+      "@angular-mdc/web/*": ["./*"]
+    }
   },
-  "files": [
-    "public_api.ts",
-    "typings.d.ts"
-  ],
-  "compileOnSave": false,
-  "buildOnSave": false,
-  "angularCompilerOptions": {
-    "strictMetadataEmit": true,
-    "skipTemplateCodegen": true,
-    "skipMetadataEmit": false,
-    "flatModuleOutFile": "index.js",
-    "flatModuleId": "@angular-mdc/web"
-  }
+  "include": ["./**/*.ts"]
 }

@@ -12,8 +12,7 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import { isBrowser } from '../common';
-import { EventRegistry } from '../common/event-registry';
+import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
 
 import { MDCToolbarAdapter } from './adapter';
 import { MDCToolbarFoundation } from '@material/toolbar';
@@ -83,6 +82,7 @@ export class MdcToolbarMenuIcon {
 }
 
 @Component({
+  moduleId: module.id,
   selector: 'mdc-toolbar',
   template: '<ng-content></ng-content>',
   providers: [EventRegistry],

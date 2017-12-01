@@ -15,8 +15,7 @@ import {
   SimpleChange,
   ViewChild,
 } from '@angular/core';
-import { isBrowser, toBoolean } from '../common';
-import { EventRegistry } from '../common/event-registry';
+import { isBrowser, toBoolean, EventRegistry } from '@angular-mdc/web/common';
 
 import { MDCMenuAdapter } from './adapter';
 import { getTransformPropertyName } from '@material/menu/util';
@@ -42,6 +41,7 @@ export class MdcMenuAnchor {
 }
 
 @Component({
+  moduleId: module.id,
   selector: '[mdc-menu-divider], mdc-menu-divider',
   template: '<div class="mdc-list-divider" role="seperator"></div>',
 })
@@ -96,6 +96,7 @@ export class MdcMenuItem {
 }
 
 @Component({
+  moduleId: module.id,
   selector: 'mdc-menu',
   host: {
     '[id]': 'id',

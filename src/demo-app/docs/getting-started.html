@@ -10,9 +10,8 @@
 <pre>npm i @angular-mdc/web</pre>
 
 <h2 id="anamestep2astep2importcomponents"><a name="step2"></a> Step 2: Import Components</h2>
-Add an import of MdcCoreModule to provide ripple, typography, and elevation functionality. Now just import the NgModule for each component you want to use.
+Now just import the NgModule for each component you want to use.
 <pre><![CDATA[import {
-  MdcCoreModule, // required
   MdcFabModule,
   MdcMenuModule
 } from '@angular-mdc/web';
@@ -20,7 +19,6 @@ Add an import of MdcCoreModule to provide ripple, typography, and elevation func
 @NgModule({
   ...
   imports: [
-   MdcCoreModule, // required
    MdcFabModule,
    MdcMenuModule,
    ...
@@ -37,7 +35,7 @@ export class ExampleModule { }
 <pre>$mdc-theme-primary: #1565c0; // change primary color example
 $mdc-theme-secondary: #388e3c; // change secondary color example
 
-@import "~@angular-mdc/theme/material";
+@import "~@angular-mdc/theme";
 </pre>
 
 <h2 id="anamestep4astep4includematerialdesignicons"><a name="step4"></a> Step 4: Include Material Design Icons</h2>

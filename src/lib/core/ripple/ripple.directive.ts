@@ -6,8 +6,7 @@ import {
   Input,
   Renderer2,
 } from '@angular/core';
-import { toBoolean } from '../../common';
-import { EventRegistry } from '../../common/event-registry';
+import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
 
 import { MdcRippleOrchestration } from './ripple.orchestration';
 

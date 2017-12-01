@@ -8,7 +8,7 @@ import {
   Renderer2,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { EventRegistry } from '../common/event-registry';
+import { EventRegistry } from '@angular-mdc/web/common';
 import { MdcTextField } from './text-field';
 
 export const MD_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
@@ -18,6 +18,7 @@ export const MD_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
 };
 
 @Component({
+  moduleId: module.id,
   selector: 'mdc-textarea',
   template: `
   <textarea mdc-text-field-input

@@ -7,8 +7,14 @@ import {
   SkipSelf,
   TemplateRef,
 } from '@angular/core';
-import { Overlay, OverlayRef } from '../cdk/overlay/index';
-import { ComponentType, ComponentPortal, PortalInjector, TemplatePortal } from '../cdk/portal/index';
+import {
+  ComponentPortal,
+  ComponentType,
+  Overlay,
+  OverlayRef,
+  PortalInjector,
+  TemplatePortal,
+} from '@angular-mdc/web/cdk';
 
 import { MdcDialogRef } from './dialog-ref';
 import { MdcDialogContainer } from './dialog-container';

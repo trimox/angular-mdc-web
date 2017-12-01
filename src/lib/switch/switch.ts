@@ -12,7 +12,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { toBoolean } from '../common';
+import { toBoolean } from '@angular-mdc/web/common';
 
 export const MD_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
@@ -23,6 +23,7 @@ export const MD_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
 let nextUniqueId = 0;
 
 @Component({
+  moduleId: module.id,
   selector: 'mdc-switch',
   host: {
     '[id]': 'id',

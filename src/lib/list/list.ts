@@ -12,7 +12,7 @@ import {
   SimpleChange,
   ViewEncapsulation,
 } from '@angular/core';
-import { toBoolean } from '../common';
+import { toBoolean } from '@angular-mdc/web/common';
 
 import { MdcListItem } from './list-item';
 
@@ -35,6 +35,7 @@ export class MdcListGroupSubheader {
 }
 
 @Component({
+  moduleId: module.id,
   selector: '[mdc-list-divider], mdc-list-divider',
   template: '<div class="mdc-list-divider" role="seperator"></div>',
 })
@@ -55,6 +56,7 @@ export class MdcListDivider {
 }
 
 @Component({
+  moduleId: module.id,
   selector: 'mdc-list',
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,

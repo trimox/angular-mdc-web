@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import {
-  MdcElevation
-} from './elevation';
+import { MdcElevation } from './elevation';
 
 const ELEVATION_DIRECTIVES = [
   MdcElevation

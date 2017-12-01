@@ -17,9 +17,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { toBoolean } from '../common';
-import { EventRegistry } from '../common/event-registry';
-import { MdcRipple } from '../core/ripple/ripple.service';
+import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
+import { MdcRipple } from '@angular-mdc/web/core';
 
 import { MDCCheckboxAdapter } from './adapter';
 import { MDCCheckboxFoundation } from '@material/checkbox';
@@ -38,6 +37,7 @@ export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
 };
 
 @Component({
+  moduleId: module.id,
   selector: 'mdc-checkbox',
   host: {
     '[id]': 'id',

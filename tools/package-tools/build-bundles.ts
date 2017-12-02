@@ -117,7 +117,7 @@ export class PackageBundler {
     const writeOptions = {
       // Keep the moduleId empty because we don't want to force developers to a specific moduleId.
       moduleId: '',
-      moduleName: config.moduleName || 'ng.material',
+      moduleName: config.moduleName || 'ng.mdc',
       banner: buildConfig.licenseBanner,
       format: config.format,
       dest: config.dest,

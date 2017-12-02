@@ -10,11 +10,11 @@
     "newLine": "lf",
     "module": "es2015",
     "moduleResolution": "node",
-    "outDir": "../../dist/packages/material",
+    "outDir": "../../dist/packages/mdc",
     "rootDir": ".",
     "rootDirs": [
       ".",
-      "../../dist/packages/material"
+      "../../dist/packages/mdc"
     ],
     "sourceMap": true,
     "inlineSources": true,
@@ -24,7 +24,7 @@
     "types": [],
     "baseUrl": ".",
     "paths": {
-      "@angular-mdc/web/*": ["../../dist/packages/material/*"]
+      "@angular-mdc/web/*": ["../../dist/packages/mdc/*"]
     }
   },
   "files": [

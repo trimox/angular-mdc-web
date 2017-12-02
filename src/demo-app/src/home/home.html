@@ -1,0 +1,19 @@
+﻿<div fxLayout="column">
+  <div fxLayout="column" fxLayoutAlign="center center" class="demo-landing" [mdc-elevation]="2">
+    <h1 mdc-typography-display3 style="margin: 0.5em;">Angular</h1>
+    <h2 mdc-typography-display2 mdc-typography-adjust-margin fxShow fxHide.xs="true">Material Components</h2>
+    <span mdc-typography-display1 mdc-typography-adjust-margin fxHide fxShow.xs="true">Material Components</span>
+  </div>
+  <div fxLayout="column" fxLayoutAlign="center center" class="mdc-padding">
+    <mdc-card class="demo-landing-card" fxLayout="column" fxLayoutAlign="center center">
+      <mdc-card-supporting-text mdc-typography-subheading2>
+        A faithful and accurate representation of Material Design as it is envisioned on the web platform by Google's Material Design team.
+      </mdc-card-supporting-text>
+      <button fxFlexOffset="25px" [raised]="true" [secondary]="true" mdc-button [routerLink]="['/getting-started']">Get Started</button>
+    </mdc-card>
+  </div>
+  <div mdc-typography-caption fxFlexOffset="40px" fxLayout="column" fxLayoutAlign="center center">
+    <span>angular-mdc-web v0.6.2</span>
+    <span>material-components-web v0.26.0</span>
+  </div>
+</div>

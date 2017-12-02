@@ -11,7 +11,7 @@ const matSecondaryEntryPoints = getSubdirectoryNames(join(buildConfig.packagesDi
 
 /** Object with all Angular MDC entry points in the format of Rollup globals. */
 const rollupMdcEntryPoints = matSecondaryEntryPoints.reduce((globals: any, entryPoint: string) => {
-  globals[`@angular-mdc/web/${entryPoint}`] = `ng.material.${dashCaseToCamelCase(entryPoint)}`;
+  globals[`@angular-mdc/web/${entryPoint}`] = `ng.mdc.${dashCaseToCamelCase(entryPoint)}`;
   return globals;
 }, {});
 
@@ -29,7 +29,7 @@ export const rollupGlobals = {
   '@angular/platform-browser-dynamic': 'ng.platformBrowserDynamic',
 
   // Some packages are not really needed for the UMD bundles, but for the missingRollupGlobals rule.
-  '@angular-mdc/web': 'ng.material',
+  '@angular-mdc/web': 'ng.mdc',
   '@material/animation': 'mdc.animation',
   '@material/linear-progress': 'mdc.linear-progress',
   '@material/button': 'mdc.button',

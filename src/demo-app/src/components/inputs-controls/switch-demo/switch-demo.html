@@ -1,0 +1,126 @@
+<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
+  <h1 mdc-typography-display1>Switch</h1>
+  <div mdc-typography-subheading2>The MDC Switch component is a spec-aligned switch component adhering to the Material Design switch requirements.</div>
+  <div class="info-banner" mdc-typography-subheading1>
+    <![CDATA[import { MdcSwitchModule, MdcFormFieldModule } from '@angular-mdc/web';]]>
+  </div>
+  <div class="docs-api">
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-switch</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>id: string</td>
+          <td>Unique Id of the switch button (auto generated if not supplied).</td>
+        </tr>
+        <tr>
+          <td>name: string</td>
+          <td>Name of the switch.</td>
+        </tr>
+        <tr>
+          <td>ariaLabel: string</td>
+          <td>Used to set the 'aria-label' attribute on the underlying input element.</td>
+        </tr>
+        <tr>
+          <td>ariaLabelledby: string</td>
+          <td>The 'aria-labelledby' attribute takes precedence as the element's text alternative.</td>
+        </tr>
+        <tr>
+          <td>tabIndex: number</td>
+          <td>Set the underlying tab index of the switch. (Default: 0)</td>
+        </tr>
+        <tr>
+          <td>checked: boolean</td>
+          <td>Use to verify the checked value.</td>
+        </tr>
+        <tr>
+          <td>disabled: boolean</td>
+          <td>Disables the component.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Methods</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>focus()</td>
+          <td>Set focus to the switch.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>change</td>
+          <td>Event dispatched on value change.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
+<span mdc-typography-headline>Basic Switch</span>
+    <div fxFlexAlign="start" class="mdc-padding">
+      <mdc-switch></mdc-switch>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-switch</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-switch</span>></span>
+</pre>
+    </div>
+    <span mdc-typography-headline>Switch w/Label</span>
+    <div fxFlexAlign="start" class="mdc-padding">
+      <mdc-form-field>
+        <mdc-switch [(ngModel)]="isSwitchOn"></mdc-switch>
+        <label>off/on</label>
+      </mdc-form-field>
+      <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-switch</span> [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"isSwitchOn"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-switch</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">label</span>></span>off/on<span style="color:#e0c589">&lt;/<span style="color:#e0c589">label</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span>></span>
+</pre>
+    </div>
+    <span mdc-typography-headline>Disabled</span>
+    <div fxLayout="column" class="mdc-padding">
+      <div fxFlexAlign="start">
+        <mdc-form-field>
+          <mdc-switch [disabled]="true"></mdc-switch>
+          <label>off/on</label>
+        </mdc-form-field>
+        <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-switch</span> [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"true"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-switch</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">label</span>></span>off/on<span style="color:#e0c589">&lt;/<span style="color:#e0c589">label</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span>></span>
+</pre>
+      </div>
+    </div>
+
+<span mdc-typography-headline>Right to Left (RTL)</span>
+<mdc-form-field [alignEnd]="true">
+  <mdc-switch></mdc-switch>
+  <label>Right to Left</label>
+</mdc-form-field>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span> [<span style="color:#89bdff">alignEnd</span>]=<span style="color:#65b042">"true"</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-switch</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-switch</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">label</span>></span>Right to Left<span style="color:#e0c589">&lt;/<span style="color:#e0c589">label</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span>></span>
+</pre>
+  </div>
+</div>

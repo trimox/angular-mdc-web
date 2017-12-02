@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 
-import { MdcRippleModule } from './ripple/index';
-import { MdcMaterialIconModule } from './material-icon/index';
-import { MdcTypographyModule } from './typography/index';
-import { MdcElevationModule } from './elevation/index';
-import { MdcThemeModule } from './theme/index';
+import { MdcRippleModule } from './ripple';
+import { MdcMaterialIconModule } from './material-icon';
+import { MdcTypographyModule } from './typography';
+import { MdcElevationModule } from './elevation';
+import { MdcThemeModule } from './theme';
 
 const CORE_DIRECTIVES = [
   MdcElevationModule,

@@ -1,0 +1,508 @@
+<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
+  <h1 mdc-typography-display1>Tabs</h1>
+  <div mdc-typography-subheading2>Tabs enable content organization at a high level, such as switching between views, data sets, or functional aspects of an app.</div>
+  <div class="info-banner" mdc-typography-subheading1>
+    <![CDATA[import { MdcTabModule } from '@angular-mdc/web';]]>
+  </div>
+  <div class="docs-api">
+    <table>
+      <thead>
+        <tr>
+          <th>Directive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-tab-bar</td>
+          <td>The main component which is composed of mdc-tab elements.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>primary: boolean</td>
+          <td>Sets indicator bar line to use primary theme color.</td>
+        </tr>
+        <tr>
+          <td>secondary: boolean</td>
+          <td>Sets indicator bar line to use secondary theme color.</td>
+        </tr>
+        <tr>
+          <td>selectedIndex: number</td>
+          <td>Set the index of the active tab.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Methods</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>getNumberOfTabs(): number</td>
+          <td>Returns the number of tabs.</td>
+        </tr>
+        <tr>
+          <td>getComputedWidth(): number</td>
+          <td>Returns the width of the element containing the tabs.</td>
+        </tr>
+        <tr>
+          <td>layout()</td>
+          <td>Set or refresh layout for the Tab Bar component.</td>
+        </tr>
+        <tr>
+          <td>getActiveTabIndex(): number</td>
+          <td>Returns index of currently active tab.</td>
+        </tr>
+        <tr>
+          <td>switchToTabAtIndex(index: number, shouldNotify: boolean = true)</td>
+          <td>Updates the active tab to be the tab at the given index, emits change event if shouldNotify is true.</td>
+        </tr>
+        <tr>
+          <td>setPreventDefaultOnClickForTabAtIndex(index: number, preventDefaultOnClick: boolean)</td>
+          <td>Sets preventDefault to true or false on a passed tab index.</td>
+        </tr>
+        <tr>
+          <td>isDefaultPreventedOnClickForTabAtIndex(index: number): boolean</td>
+          <td>Returns whether or not preventDefault is set on a tab.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Events</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><pre>change(<![CDATA[{index: number, tab: MdcTab}]]>)</pre></td>
+          <td>Broadcast when a user actions on a tab, resulting in a change in the selected tab.</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Directive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><pre>mdc-tab
+a[mdc-tab]</pre></td>
+          <td>The individual tab elements.</td>
+        </tr>
+        <tr>
+          <td>active: boolean</td>
+          <td>Whether or not the tab is active. Setting this makes the tab active.</td>
+        </tr>
+        <tr>
+          <td>disabled: boolean</td>
+          <td>Whether or not the tab is disabled. Setting this makes the tab disabled.</td>
+        </tr>
+        <tr>
+          <td>preventsDefaultOnClick: boolean</td>
+          <td>Whether or not the tab will call preventDefault() on an event. Setting this makes the tab call preventDefault() on events.</td>
+        </tr>
+        <tr>
+          <td>disableRipple: boolean</td>
+          <td>
+<pre>Disable the ink ripple.
+Example: disableRipple="true" or disableRipple</pre></td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Child Directives</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-tab-icon-text</td>
+          <td>Text and icon are centered horizontally in the tab.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Methods</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>getComputedWidth(): number</td>
+          <td>Return the computed width for tab.</td>
+        </tr>
+        <tr>
+          <td>getComputedLeft(): number</td>
+          <td>Return the computed left offset for tab.</td>
+        </tr>
+        <tr>
+          <td>isActive()</td>
+          <td>Return true if tab is active.</td>
+        </tr>
+        <tr>
+          <td>setActive(boolean)</td>
+          <td>Set tab to active. If isActive is true, adds the active modifier class, otherwise removes it.</td>
+        </tr>
+        <tr>
+          <td>getPreventDefaultOnClick(): boolean</td>
+          <td>Return true if the tab prevents the default click action.</td>
+        </tr>
+        <tr>
+          <td>setPreventDefaultOnClick(boolean)</td>
+          <td>Sets tabs preventDefaultOnClick property to the value of the preventDefaultOnClick argument passed.</td>
+        </tr>
+        <tr>
+          <td>measureSelf()</td>
+          <td>Sets computedWidth and computedLeft for a tab.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Events</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>select(tab: TabComponent)</td>
+          <td>Broadcast when a user actions on the tab.</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Directive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-tab-bar-scroller</td>
+          <td>The component which controls the horizontal scrolling behavior of an mdc-tab-bar that overflows its container.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Child Directives</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-tab-bar-scroll-frame</td>
+          <td>The scroll frame is the parent element of the tab bar, and serves to mask the tabs in the tab bar when they overflow the available width.</td>
+        </tr>
+        <tr>
+          <td>mdc-tab-bar-scroll-back</td>
+          <td>Scrolls the tab bar such that the leftmost tab traverses the scroll frame.</td>
+        </tr>
+        <tr>
+          <td>mdc-tab-bar-scroll-forward</td>
+          <td>Scrolls the tab bar such that the rightmost tab traverses the scroll frame.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Methods</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>scrollToTabAtIndex(index: number)</td>
+          <td>Scrolls the tab bar such that the tab at the index provided traverses the scroll frame and becomes the leftmost tab.</td>
+        </tr>
+        <tr>
+          <td>findTab(index: number): MdcTabComponent</td>
+          <td>Search by tab index, returning tab component as an object.</td>
+        </tr>
+        <tr>
+          <td>layout()</td>
+          <td>If the tab bar is overflowing its available width, this method will reset the back and forward indicators to the correct states (visible/hidden) based on the new width.</td>
+        </tr>
+        <tr>
+          <td>scrollBack(event?: Event)</td>
+          <td>Scrolls the tab bar such that the leftmost tab traverses the scroll frame and becomes the rightmost tab, potentially being partially, but not fully, occluded.</td>
+        </tr>
+        <tr>
+          <td>scrollForward(event?: Event)</td>
+          <td>Scrolls the tab bar such that the rightmost tab traverses the scroll frame and becomes the leftmost tab. This tabs left offset will line up with the left edge of the scroll frame, and never be partially or fully occluded</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start start" class="mdc-padding">
+
+<span mdc-typography-headline>Tab Bar with text labels</span>
+<mdc-tab-bar>
+  <mdc-tab>Home</mdc-tab>
+  <mdc-tab>Merchandise</mdc-tab>
+  <mdc-tab>About Us</mdc-tab>
+</mdc-tab-bar>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>Home<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>Merchandise<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>About Us<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
+</pre>
+
+<span mdc-typography-headline>Tab Bar with icon labels</span>
+<mdc-tab-bar>
+  <mdc-tab>
+    <mdc-icon>phone</mdc-icon>
+  </mdc-tab>
+  <mdc-tab>
+    <mdc-icon>favorite</mdc-icon>
+  </mdc-tab>
+  <mdc-tab>
+    <mdc-icon>person_pin</mdc-icon>
+  </mdc-tab>
+</mdc-tab-bar>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>phone<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>favorite<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>person_pin<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
+</pre>
+
+<span mdc-typography-headline>Tab Bar with icon and text labels</span>
+<div fxLayout="row">
+<div fxLayout="column">
+  <mdc-form-field>
+    <mdc-checkbox [(ngModel)]="isPrimaryColor"></mdc-checkbox>
+    <label>Primary Color</label>
+  </mdc-form-field>
+  <mdc-form-field>
+    <mdc-checkbox [(ngModel)]="isSecondaryColor"></mdc-checkbox>
+    <label>Secondary Color</label>
+  </mdc-form-field>
+  <mdc-form-field>
+    <mdc-checkbox [(ngModel)]="isDarkTheme"></mdc-checkbox>
+    <label>Dark Theme</label>
+  </mdc-form-field>
+</div>
+<mdc-tab-bar fxFlex="40" fxFlexOffset="5" [primary]="isPrimaryColor" [secondary]="isSecondaryColor" [mdc-theme-dark]="isDarkTheme">
+  <mdc-tab>
+    <mdc-icon>phone</mdc-icon>
+    <mdc-tab-icon-text>Recents</mdc-tab-icon-text>
+  </mdc-tab>
+  <mdc-tab>
+    <mdc-icon>favorite</mdc-icon>
+    <mdc-tab-icon-text>Favorites</mdc-tab-icon-text>
+  </mdc-tab>
+  <mdc-tab>
+    <mdc-icon>person_pin</mdc-icon>
+    <mdc-tab-icon-text>Nearby</mdc-tab-icon-text>
+  </mdc-tab>
+</mdc-tab-bar>
+</div>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span> [<span style="color:#89bdff">primary</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#89bdff">secondary</span>]=<span style="color:#65b042">"false"</span> [<span style="color:#89bdff">mdc-theme-dark</span>]=<span style="color:#65b042">"false"</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>phone<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>Recents<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>favorite<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>Favorites<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>person_pin<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>Nearby<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
+</pre>
+
+<span mdc-typography-headline>Toolbar with Tabs</span>
+<div class="demo-tabs-host">
+<mdc-toolbar>
+  <mdc-toolbar-row>
+    <mdc-toolbar-section [alignStart]="true">
+      <mdc-toolbar-title>App Title</mdc-toolbar-title>
+    </mdc-toolbar-section>
+    <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="false">
+      <mdc-tab-bar #myTabBar (change)="handleTabChange($event)">
+        <mdc-tab>
+          <mdc-icon>phone</mdc-icon>
+          <mdc-tab-icon-text>Recents</mdc-tab-icon-text>
+        </mdc-tab>
+        <mdc-tab>
+          <mdc-icon>favorite</mdc-icon>
+          <mdc-tab-icon-text>Favorites</mdc-tab-icon-text>
+        </mdc-tab>
+        <mdc-tab [disabled]="isDisabled">
+          <mdc-icon>person_pin</mdc-icon>
+          <mdc-tab-icon-text>Disabled Tab</mdc-tab-icon-text>
+        </mdc-tab>
+      </mdc-tab-bar>
+    </mdc-toolbar-section>
+  </mdc-toolbar-row>
+</mdc-toolbar>
+
+<pre mdc-typography-caption>
+Tab Change event:
+  index: {{eventTabIndex}}
+</pre>
+
+  <div fxLayout="row">
+    <button mdc-button (click)="toggleDisabled()">Toggle Disabled Tab (3)</button>
+    <button mdc-button (click)="switchToTab()">Make Tab (2) Active</button>
+  </div>
+</div>
+  <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-row</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-section</span> [<span style="color:#89bdff">alignStart</span>]=<span style="color:#65b042">"true"</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-title</span>></span>App Title<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-title</span>></span>
+    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-section</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-section</span> [<span style="color:#89bdff">alignEnd</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#89bdff">shrinkToFit</span>]=<span style="color:#65b042">"false"</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span> #<span style="color:#89bdff">myTabBar</span> (<span style="color:#89bdff">change</span>)=<span style="color:#65b042">"handleTabChange($event)"</span>></span>
+        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>phone<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
+          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>Recents<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>
+        <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>favorite<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
+          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>Favorites<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>
+        <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span> [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"true"</span>></span>
+          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>person_pin<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
+          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>Disabled Tab<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-icon-text</span>></span>
+        <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+      <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
+    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-section</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-row</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar</span>></span>
+</pre>
+
+<div class="demo-tabs-host">
+<mdc-toolbar>
+  <mdc-toolbar-row>
+    <mdc-toolbar-section [alignStart]="true">
+      <mdc-toolbar-title>Tab Scroller</mdc-toolbar-title>
+    </mdc-toolbar-section>
+    <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="false">
+      <mdc-tab-bar-scroller #myScrollFrame>
+        <mdc-tab-bar-scroll-back>
+          <mdc-icon>navigate_before</mdc-icon>
+        </mdc-tab-bar-scroll-back>
+        <mdc-tab-bar-scroll-frame>
+          <mdc-tab-bar>
+            <mdc-tab [active]="true">Item One</mdc-tab>
+            <mdc-tab>Item Two</mdc-tab>
+            <mdc-tab>Item Three</mdc-tab>
+            <mdc-tab>Item Four</mdc-tab>
+            <mdc-tab>Item Five</mdc-tab>
+            <mdc-tab>Item Six</mdc-tab>
+            <mdc-tab>Item Seven</mdc-tab>
+            <mdc-tab>Item Eight</mdc-tab>
+            <mdc-tab>Item Nine</mdc-tab>
+            <mdc-tab>Item Ten</mdc-tab>
+            <mdc-tab>Item Eleven</mdc-tab>
+            <mdc-tab>Item Tweleve</mdc-tab>
+            <mdc-tab>Item Thirteen</mdc-tab>
+          </mdc-tab-bar>
+        </mdc-tab-bar-scroll-frame>
+        <mdc-tab-bar-scroll-forward>
+          <mdc-icon>navigate_next</mdc-icon>
+        </mdc-tab-bar-scroll-forward>
+      </mdc-tab-bar-scroller>
+    </mdc-toolbar-section>
+  </mdc-toolbar-row>
+</mdc-toolbar>
+
+  <div fxLayout="row" fxFlexOffset="5">
+    <button mdc-button (click)="scrollBack()">Scroll Back</button>
+    <button mdc-button (click)="scrollForward()">Scroll Forward</button>
+  </div>
+</div>
+
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-row</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-section</span> [<span style="color:#89bdff">alignStart</span>]=<span style="color:#65b042">"true"</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-title</span>></span>Tab Scroller<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-title</span>></span>
+    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-section</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-section</span> [<span style="color:#89bdff">alignEnd</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#89bdff">shrinkToFit</span>]=<span style="color:#65b042">"false"</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar-scroller</span> #<span style="color:#89bdff">myScrollFrame</span>></span>
+        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar-scroll-back</span>></span>
+          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>navigate_before<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
+        <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar-scroll-back</span>></span>
+        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar-scroll-frame</span>></span>
+          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
+            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span> [<span style="color:#89bdff">active</span>]=<span style="color:#65b042">"true"</span>></span>Item One<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>Item Two<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>Item Three<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>Item Four<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>Item Five<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>Item Six<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>Item Seven<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>Item Eight<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>Item Nine<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>Item Ten<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>Item Eleven<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>Item Tweleve<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+            <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>Item Thirteen<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+          <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
+        <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar-scroll-frame</span>></span>
+        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar-scroll-forward</span>></span>
+          <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>navigate_next<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
+        <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar-scroll-forward</span>></span>
+      <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar-scroller</span>></span>
+    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-section</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-row</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar</span>></span>
+</pre>
+
+<span mdc-typography-headline>Dynamic views</span>
+<div class="demo-tabs-host">
+<mdc-toolbar>
+  <mdc-toolbar-row>
+    <mdc-toolbar-section [alignStart]="true">
+      <mdc-toolbar-title>Dynamic Views</mdc-toolbar-title>
+    </mdc-toolbar-section>
+    <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="false" class="mdc-padding">
+      <mdc-tab-bar #myTabBar (change)="handleTabChange($event)">
+        <mdc-tab *ngFor="let child of directory" [routerLink]="[{outlets: {taboutlet: child.route}}]"
+          routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">{{child.label}}</mdc-tab>
+      </mdc-tab-bar>
+    </mdc-toolbar-section>
+  </mdc-toolbar-row>
+</mdc-toolbar>
+
+<router-outlet name="taboutlet"></router-outlet>
+</div>
+<div class="mdc-padding">
+ <a mdc-button href="https://github.com/trimox/angular-mdc-web/tree/master/src/demo-app/components/tab-demo" target="_blank" rel="noopener noreferrer">View Example Source</a>
+</div>
+
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-row</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-section</span> [<span style="color:#89bdff">alignStart</span>]=<span style="color:#65b042">"true"</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-title</span>></span>Dynamic Views<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-title</span>></span>
+    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-section</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-section</span> [<span style="color:#89bdff">alignEnd</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#89bdff">shrinkToFit</span>]=<span style="color:#65b042">"false"</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"mdc-padding"</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
+        <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span> *<span style="color:#89bdff">ngFor</span>=<span style="color:#65b042">"let child of directory"</span> [<span style="color:#89bdff">routerLink</span>]=<span style="color:#65b042">"[<span style="color:#daefa3"><![CDATA[{]]>outlets: <![CDATA[{taboutlet: child.route}]]><![CDATA[}]]></span>]"</span>
+          <span style="color:#89bdff">routerLinkActive</span> #<span style="color:#89bdff">rla</span>=<span style="color:#65b042">"routerLinkActive"</span> [<span style="color:#89bdff">active</span>]=<span style="color:#65b042">"rla.isActive"</span>></span><![CDATA[{{]]>child.label<![CDATA[}}]]><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab</span>></span>
+      <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-tab-bar</span>></span>
+    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-section</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-row</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar</span>></span>
+
+<span style="color:#89bdff">&lt;<span style="color:#89bdff">router</span><span style="color:#89bdff">-outlet</span> <span style="color:#89bdff">name</span>=<span style="color:#65b042">"taboutlet"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">router</span><span style="color:#89bdff">-outlet</span>></span>
+</pre>
+    </div>
+</div>

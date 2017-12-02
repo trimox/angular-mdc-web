@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 
+import { MdcButtonModule } from '@angular-mdc/web/button';
+
 import {
   MdcCard,
   MdcCardActionButton,
@@ -27,7 +29,12 @@ const CARD_COMPONENTS = [
 ];
 
 @NgModule({
-  exports: [CARD_COMPONENTS],
+  imports: [
+    MdcButtonModule,
+  ],
+  exports: [
+    CARD_COMPONENTS,
+  ],
   declarations: [CARD_COMPONENTS],
 })
 export class MdcCardModule { }

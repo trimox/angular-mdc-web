@@ -6,10 +6,10 @@ import { MdcFab } from './fab';
 
 @NgModule({
   imports: [
-    MdcIconModule
+    MdcIconModule,
   ],
   exports: [
-    MdcFab
+    MdcFab,
   ],
   declarations: [MdcFab],
 })

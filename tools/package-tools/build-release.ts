@@ -24,7 +24,7 @@ export function composeRelease(buildPackage: BuildPackage) {
   const { name, sourceDir } = buildPackage;
   const packageOut = buildPackage.outputDir;
   const releasePath = join(outputDir, 'releases', name);
-  const importAsName = `@angular-mdc/${name}`;
+  const importAsName = `@angular-mdc/web/${name}`;
 
   inlinePackageMetadataFiles(packageOut);
 
@@ -87,7 +87,7 @@ function createFilesForSecondaryEntryPoint(buildPackage: BuildPackage, releasePa
     // * An index.d.ts file that re-exports the index.d.ts from the typings/ directory
     // * A metadata.json re-export for this entry-point's metadata.
     const entryPointDir = join(releasePath, entryPointName);
-    const importAsName = `@angular-mdc/${name}/${entryPointName}`;
+    const importAsName = `@angular-mdc/web/${name}/${entryPointName}`;
 
     mkdirpSync(entryPointDir);
     createEntryPointPackageJson(entryPointDir, name, entryPointName);

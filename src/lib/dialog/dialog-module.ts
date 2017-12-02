@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { OverlayModule, PortalModule } from '@angular-mdc/web/cdk';
+import { MdcButtonModule } from '@angular-mdc/web/button';
 
 import {
   MdcDialogBackdrop,
@@ -33,8 +34,11 @@ const DIALOG_COMPONENTS = [
     OverlayModule,
     PortalModule,
     CommonModule,
+    MdcButtonModule,
   ],
-  exports: DIALOG_COMPONENTS,
+  exports: [
+    DIALOG_COMPONENTS
+  ],
   declarations: DIALOG_COMPONENTS,
   providers: [MdcDialog],
   entryComponents: [

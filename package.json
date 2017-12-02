@@ -13,7 +13,7 @@
   },
   "scripts": {
     "postinstall": "ngc -p angular.tsconfig.json",
-    "build:release": "gulp :material:build-release",
+    "build:release": "gulp :mdc:build-release",
     "migrate-mdc-sass": "rimraf src/theme/material-components-web && node scripts/migrate-mdc-scss.js",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "lint": "npm run lint:ts && npm run lint:css",

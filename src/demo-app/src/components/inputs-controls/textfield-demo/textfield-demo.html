@@ -1,0 +1,15 @@
+<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
+  <h1 mdc-typography-display1>Text Field</h1>
+  <div mdc-typography-subheading2>The MDC Text Field component provides a textual input field adhering the Material Design specification.</div>
+  <div class="info-banner" mdc-typography-subheading1>
+    <![CDATA[import { MdcTextFieldModule } from '@angular-mdc/web';]]>
+  </div>
+
+  <div>
+    <mdc-tab-bar [primary]="true">
+      <mdc-tab *ngFor="let child of textfieldTabs" [routerLink]="[{outlets: {taboutlet: child.route}}]"
+        routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">{{child.label}}</mdc-tab>
+    </mdc-tab-bar>
+  </div>
+  <router-outlet name="taboutlet" class="mdc-padding"></router-outlet>
+</div>

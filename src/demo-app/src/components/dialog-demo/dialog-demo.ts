@@ -133,7 +133,7 @@ export class DialogFormExample implements OnInit {
     this.userForm = new FormGroup({
       username: new FormControl('', Validators.required)
     });
-    this.userForm.controls['username'].setValue('test');
+    // this.userForm.controls['username'].setValue('Sample name');
   }
 
   closeDialog() {
@@ -141,9 +141,10 @@ export class DialogFormExample implements OnInit {
   }
 
   updateForm() {
-    this.input.setValid(false);
-
     if (!this.userForm.valid) {
+      if (!this.input.valid) {
+        this.input.setValid(false);
+      }
       return;
     }
     this.closeDialog();

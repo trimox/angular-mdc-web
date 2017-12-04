@@ -52,6 +52,8 @@ export const rollupGlobals = {
   '@material/switch': 'mdc.switch',
   '@material/tabs': 'mdc.tabs',
   '@material/textfield': 'mdc.textfield',
+  '@material/textfield/bottom-line': 'mdc.textfield.bottomline',
+  '@material/textfield/helper-text': 'mdc.textfield.helpertext',
   '@material/toolbar': 'mdc.toolbar',
   '@material/elevation': 'mdc.elevation',
   '@material/dialog/util': 'mdc.dialog.util',

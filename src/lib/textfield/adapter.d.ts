@@ -8,22 +8,34 @@
   registerTextFieldInteractionHandler: (evtType: string, handler: EventListener) => void;
   deregisterTextFieldInteractionHandler: (evtType: string, handler: EventListener) => void;
   notifyIconAction: () => void;
-  addClassToBottomLine: (className: string) => void;
-  removeClassFromBottomLine: (className: string) => void;
-  addClassToHelptext: (className: string) => void;
-  removeClassFromHelptext: (className: string) => void;
-  helptextHasClass: (className: string) => boolean;
   registerInputInteractionHandler: (evtType: string, handler: EventListener) => void;
   deregisterInputInteractionHandler: (evtType: string, handler: EventListener) => void;
-  registerTransitionEndHandler: (handler: EventListener) => void;
-  deregisterTransitionEndHandler: (handler: EventListener) => void;
-  setBottomLineAttr: (attr: string, value: string) => void;
-  setHelptextAttr: (name: string, value: string) => void;
-  removeHelptextAttr: (className: string) => void;
+  registerBottomLineEventHandler: (evtType: string, handler: EventListener) => void;
+  deregisterBottomLineEventHandler: (evtType: string, handler: EventListener) => void;
   getNativeInput: () => {
     value: string,
     disabled: boolean,
     badInput: boolean,
     checkValidity: () => boolean,
   };
+  getBottomLineFoundation: () => any;
+  getHelperTextFoundation: () => any;
+}
+
+export interface MDCTextFieldBottomLineAdapter {
+  addClass: (className: string) => void;
+  removeClass: (className: string) => void;
+  setAttr: (attr: string, value: string) => void;
+  registerEventHandler: (evtType: string, handler: EventListener) => void;
+  deregisterEventHandler: (evtType: string, handler: EventListener) => void;
+  notifyAnimationEnd: () => void;
+}
+
+export interface MDCTextFieldHelperTextAdapter {
+  addClass: (className: string) => void;
+  removeClass: (className: string) => void;
+  hasClass:  (className: string) => boolean;
+  setAttr: (attr: string, value: string) => void;
+  removeAttr: (attr: string) => void;
+  setContent: (attr: string) => void;
 }

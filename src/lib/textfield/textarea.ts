@@ -1,4 +1,6 @@
 import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   forwardRef,
@@ -11,7 +13,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EventRegistry } from '@angular-mdc/web/common';
 import { MdcTextField } from './text-field';
 
-export const MD_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
+export const MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => MdcTextarea),
   multi: true
@@ -21,7 +23,7 @@ export const MD_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
   moduleId: module.id,
   selector: 'mdc-textarea',
   template: `
-  <textarea mdc-text-field-input
+  <textarea #input class="mdc-text-field__input"
     type="text"
     [id]="id"
     [rows]="rows"
@@ -31,24 +33,18 @@ export const MD_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
     [disabled]="disabled"
     [required]="required"
     (blur)="onBlur()"
-    (input)="onInput($event)"
-    (focus)="onFocus()"></textarea>
+    (input)="onInput($event.target.value)"></textarea>
     <mdc-text-field-label [attr.for]="id">{{label}}</mdc-text-field-label>
   `,
   providers: [
-    MD_TEXTAREA_CONTROL_VALUE_ACCESSOR,
+    MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR,
     EventRegistry
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  preserveWhitespaces: false,
 })
 export class MdcTextarea extends MdcTextField {
   @Input() rows: number;
   @Input() cols: number;
   @HostBinding('class.mdc-text-field--textarea') isHostClass = true;
-
-  constructor(
-    @Inject(Renderer2) _renderer: Renderer2,
-    @Inject(ElementRef) elementRef: ElementRef,
-    @Inject(EventRegistry) _registry: EventRegistry) {
-    super(_renderer, elementRef, _registry);
-  }
 }

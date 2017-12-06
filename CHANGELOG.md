@@ -1,3 +1,48 @@
+<a name="0.6.2"></a>
+## [0.6.2](https://github.com/trimox/angular-mdc-web/compare/v0.6.1...v0.6.2) (2017-12-06)
+
+
+### Bug Fixes
+
+* **select:** Propagate value in formControl ([#427](https://github.com/trimox/angular-mdc-web/issues/427)) ([4254035](https://github.com/trimox/angular-mdc-web/commit/4254035)), closes [#411](https://github.com/trimox/angular-mdc-web/issues/411)
+* **textfield:** Prefilled value not floating label ([#413](https://github.com/trimox/angular-mdc-web/issues/413)) ([2166588](https://github.com/trimox/angular-mdc-web/commit/2166588)), closes [#410](https://github.com/trimox/angular-mdc-web/issues/410)
+
+
+### Features
+
+* Update to material-components-web v0.26.0 ([#422](https://github.com/trimox/angular-mdc-web/issues/422)) ([34852a9](https://github.com/trimox/angular-mdc-web/commit/34852a9))
+* **build:** Implement modular component packaging ([#419](https://github.com/trimox/angular-mdc-web/issues/419)) ([5cb2897](https://github.com/trimox/angular-mdc-web/commit/5cb2897)), closes [#416](https://github.com/trimox/angular-mdc-web/issues/416)
+* **checkbox:** New features + refactoring ([#409](https://github.com/trimox/angular-mdc-web/issues/409)) ([2624b7c](https://github.com/trimox/angular-mdc-web/commit/2624b7c)), closes [#408](https://github.com/trimox/angular-mdc-web/issues/408) [#407](https://github.com/trimox/angular-mdc-web/issues/407) [#406](https://github.com/trimox/angular-mdc-web/issues/406) [#405](https://github.com/trimox/angular-mdc-web/issues/405)
+* **dialog:** Add `ariaLabel` to config options ([#398](https://github.com/trimox/angular-mdc-web/issues/398)) ([c2f2176](https://github.com/trimox/angular-mdc-web/commit/c2f2176))
+* **ripple:** Add primary and secondary theme color properties ([#400](https://github.com/trimox/angular-mdc-web/issues/400)) ([c66a0d9](https://github.com/trimox/angular-mdc-web/commit/c66a0d9)), closes [#322](https://github.com/trimox/angular-mdc-web/issues/322)
+* **textfield:** Add selectAll() function ([#401](https://github.com/trimox/angular-mdc-web/issues/401)) ([ed8cb29](https://github.com/trimox/angular-mdc-web/commit/ed8cb29))
+* **textfield:** Implement HelperText + BottomLine foundations ([#424](https://github.com/trimox/angular-mdc-web/issues/424)) ([27372cc](https://github.com/trimox/angular-mdc-web/commit/27372cc)), closes [#423](https://github.com/trimox/angular-mdc-web/issues/423)
+
+
+### BREAKING CHANGES
+
+* **select:** 
+  * Removed `clearSelection()`. Just reset an NgModel by setting it to null.
+  * Removed `CloseOnScroll` as upstream MDC PR fixed the scrolling of open menus.
+* **checkbox:** `change(Event)` was changed to `change(MdcCheckBox)`. Please update your code accordingly.
+
+### IMPORTANT INFO REGARDING PACKAGING
+* **build:** * `MaterialModule` has been removed.
+
+We've found that, with the current state of tree-shaking in the world, that using an aggregate NgModule like MaterialModule leads to tools not being able to eliminate code for components that aren't used.
+
+In order to ensure that users end up with the smallest code size possible.
+
+To replace MaterialModule, users can create their own "Material" module within their application (e.g., AppMaterialModule) that imports only the set of components actually used in the application.
+
+* `MdcCoreModule` has been removed. It's modules have been broken out as shown below.
+  * Use `MdcElevationModule` for MDC Elevation directives
+  * Use `MdcThemeModule` for MDC Theme directives
+  * Use `MdcTypographyModule` for MDC Typography directives
+  * Use `MdcMaterialIconModule` for MDC Material Icon directive
+
+
+
 <a name="0.0.0"></a>
 # [0.6.1](https://github.com/trimox/angular-mdc-web/compare/v0.6.0...v0.6.1) (2017-11-20)
 

@@ -10,6 +10,7 @@ import {
   EventEmitter,
   forwardRef,
   HostBinding,
+  HostListener,
   Input,
   OnDestroy,
   Optional,
@@ -33,8 +34,16 @@ import { Observable } from 'rxjs/Observable';
 import { filter } from 'rxjs/operators/filter';
 import { take } from 'rxjs/operators/take';
 import { map } from 'rxjs/operators/map';
+import { Subscription } from 'rxjs/Subscription';
+import { merge } from 'rxjs/observable/merge';
 
-import { toBoolean, isBrowser, EventRegistry } from '@angular-mdc/web/common';
+import {
+  EventRegistry,
+  isBrowser,
+  toBoolean,
+  KeyCodes,
+  isSpaceKey,
+} from '@angular-mdc/web/common';
 import { MDCSimpleMenu } from '@material/menu/simple';
 
 import { MDCSelectAdapter } from './adapter';
@@ -129,6 +138,9 @@ export class MdcSelectItem {
 
   @HostBinding('class.mdc-list-item') isHostClass = true;
   @HostBinding('tabindex') tabIndex: number = 0;
+  @HostListener('keydown', ['$event']) keydown($event) {
+    this._onKeydown($event);
+  }
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
@@ -168,6 +180,16 @@ export class MdcSelectItem {
   /** Returns the correct tabindex for the option depending on disabled state. */
   _getTabIndex(): string {
     return this.disabled ? '-1' : '0';
+  }
+
+  _onKeydown(event: KeyboardEvent): void {
+    const keyCode = event.keyCode;
+    if (keyCode === KeyCodes.ENTER || isSpaceKey(event)) {
+      this._selectViaInteraction();
+
+      // Prevent the page from scrolling down and form submits.
+      event.preventDefault();
+    }
   }
 
   /** Emits the selection change event. */
@@ -245,7 +267,7 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
       return this.selectMenu.elementRef.nativeElement.offsetHeight;
     },
     openMenu: (focusIndex: number) => {
-      this.open();
+      this.open(focusIndex);
     },
     isMenuOpen: () => this._menuFactory.open,
     setSelectedTextContent: (textContent: string) => {
@@ -255,19 +277,28 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
       return this.options ? this.options.length : 0;
     },
     getTextForOptionAtIndex: (index: number) => {
-      return this._getItemByIndex(index).elementRef.nativeElement.textContent;
+      const item = this._getItemByIndex(index);
+      return item ? item.elementRef.nativeElement.textContent : null;
     },
     getValueForOptionAtIndex: (index: number) => {
-      return this._getItemByIndex(index).value || this._getItemByIndex(index).elementRef.nativeElement.textContent;
+      const item = this._getItemByIndex(index);
+      return item ? item.value || item.elementRef.nativeElement.textContent : null;
     },
     setAttrForOptionAtIndex: (index: number, attr: string, value: string) => {
-      this._renderer.setAttribute(this._getItemByIndex(index).elementRef.nativeElement, attr, value);
+      const item = this._getItemByIndex(index);
+      if (item) {
+        this._renderer.setAttribute(item.elementRef.nativeElement, attr, value);
+      }
     },
     rmAttrForOptionAtIndex: (index: number, attr: string) => {
-      this._renderer.removeAttribute(this._getItemByIndex(index).elementRef.nativeElement, attr);
+      const item = this._getItemByIndex(index);
+      if (item) {
+        this._renderer.removeAttribute(item.elementRef.nativeElement, attr);
+      }
     },
     getOffsetTopForOptionAtIndex: (index: number) => {
-      return this._getItemByIndex(index).elementRef.nativeElement.offsetTop;
+      const item = this._getItemByIndex(index);
+      return item ? item.elementRef.nativeElement.offsetTop : 0;
     },
     registerMenuInteractionHandler: (type: string, handler: EventListener) => {
       this._registry.listen(type, handler, this.selectMenu.elementRef.nativeElement);
@@ -280,10 +311,16 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
         index: this._foundation.getSelectedIndex(),
         value: this._foundation.getValue(),
       });
-      this._propagateChanges();
-      // TODO fix: console.log(this._foundation.getValue())
     },
     getWindowInnerHeight: () => isBrowser() ? window.innerHeight : 0,
+    addBodyClass: (className: string) => {
+      if (isBrowser()) {
+        this._renderer.addClass(document.body, className);
+      }
+    },
+    removeBodyClass: (className: string) => {
+      this._renderer.removeClass(document.body, className);
+    }
   };
 
   private _foundation: {
@@ -298,37 +335,6 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
   } = new MDCSelectFoundation(this._mdcAdapter);
 
   private _uniqueId: string = `mdc-select-${++nextUniqueId}`;
-
-  @Input() id: string = this._uniqueId;
-  @Input() name: string | null = null;
-  @Input() closeOnScroll: boolean = true;
-  @Output() change = new EventEmitter<MdcSelectedData>();
-
-  /** Event emitted when the select has been opened. */
-  @Output() openedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  /** Event emitted when the select has been opened. */
-  @Output('opened')
-  get _openedStream(): Observable<void> {
-    return this.openedChange.pipe(filter(o => o), map(() => { }));
-  }
-
-  /** Event emitted when the select has been closed. */
-  @Output('closed')
-  get _closedStream(): Observable<void> {
-    return this.openedChange.pipe(filter(o => !o), map(() => { }));
-  }
-
-  /**
-    * Event that emits whenever the raw value of the select changes. This is here primarily
-    * to facilitate the two-way binding for the `value` input.
-    * @docs-private
-    */
-  @Output() valueChange = new EventEmitter<any>();
-
-  @HostBinding('class.mdc-select') isHostClass = true;
-  @HostBinding('attr.role') role: string = 'listbox';
-  @HostBinding('tabindex') tabIndex: number = 0;
   @ViewChild(MdcSelectMenu) selectMenu: MdcSelectMenu;
   @ViewChild(MdcSelectItems) selectItems: MdcSelectItems;
   @ContentChildren(MdcSelectItem, { descendants: true }) options: QueryList<MdcSelectItem>;
@@ -338,6 +344,17 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
   private _placeholder: string;
   private _menuFactory: any;
   private _value: any;
+
+  @Input() id: string = this._uniqueId;
+  @Input() name: string | null = null;
+  @Output() change = new EventEmitter<MdcSelectedData>();
+
+  @HostBinding('class.mdc-select') isHostClass = true;
+  @HostBinding('attr.role') role: string = 'listbox';
+  @HostBinding('tabindex') tabIndex: number = 0;
+  @HostListener('blur', ['$event']) blur() {
+    this._onBlur();
+  }
 
   /** Comparison function to specify which option is displayed. Defaults to object equality. */
   private _compareWith = (o1: any, o2: any) => o1 === o2;
@@ -408,7 +425,6 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
 
   ngAfterViewInit(): void {
     this._menuFactory = new MDCSimpleMenu(this.selectMenu.elementRef.nativeElement);
-    this._foundation.init();
     this._changeDetectorRef.detectChanges();
   }
 
@@ -417,6 +433,21 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
       this._foundation.resize();
       this._initializeSelection();
     });
+
+    this._itemsSubscription = merge(
+      ...this.options.map(item => item.onSelectionChange)).subscribe((_: MdcSelectedItem) => {
+        if (_.source.selected) {
+          const index = this.options.toArray().indexOf(_.source);
+
+          this._foundation.setSelectedIndex(index);
+          this._value = _.source.value;
+
+          this._onChange(this._value);
+          this._mdcAdapter.notifyChange();
+          this._changeDetectorRef.markForCheck();
+        }
+      });
+    this._foundation.init();
   }
 
   ngOnDestroy(): void {
@@ -427,11 +458,12 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
   }
 
   writeValue(value: any): void {
-    if (this.disabled || !this.options || !this.options.length) {
+    if (this.disabled || !this.options) {
       return;
     }
 
     this._setSelectionByValue(value);
+    this._mdcAdapter.notifyChange();
   }
 
   registerOnChange(fn: (value: any) => void): void {
@@ -454,37 +486,26 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
     });
   }
 
-  /** The currently selected option. */
-  get selected(): MdcSelectItem {
-    return this.options.find(_ => _.selected);
-  }
-
-  setPlaceholder(text: string): void {
-    this._placeholder = text;
-  }
-
-  getSelectedIndex(): number {
-    return this._foundation.getSelectedIndex();
-  }
-
-  clearSelection(): void {
-    if (this.disabled || !this.options || !this.options.length) {
+  private _clearSelection(skip?: MdcSelectItem): void {
+    if (this.disabled || !this.options) {
       return;
     }
 
-    this.options.forEach((_) => _.deselect());
-    this._foundation.setSelectedIndex(-1);
-    this._mdcAdapter.notifyChange();
+    this.options.forEach(option => {
+      if (option !== skip) {
+        option.deselect();
+      }
+    });
   }
 
   private _setSelectionByValue(value: any, isUserInput = false): void {
-    if (this.disabled) {
-      return;
-    }
-
-    this.clearSelection();
+    this._clearSelection();
 
     const correspondingOption = this._selectValue(value, isUserInput);
+
+    if (!correspondingOption) {
+      this._foundation.setSelectedIndex(-1);
+    }
     this._changeDetectorRef.markForCheck();
   }
 
@@ -500,23 +521,22 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
 
     if (correspondingOption) {
       isUserInput ? correspondingOption._selectViaInteraction() : correspondingOption.select();
-      this._mdcAdapter.notifyChange();
     }
 
     return correspondingOption;
   }
 
-  /** Emits change event to set the model value. */
-  private _propagateChanges(fallbackValue?: any): void {
-    let valueToEmit: any = null;
+  /** The currently selected option. */
+  get selected(): MdcSelectItem {
+    return this.options.find(_ => _.selected);
+  }
 
-    valueToEmit = this.selected ? (this.selected as MdcSelectItem).value : fallbackValue;
+  setPlaceholder(text: string): void {
+    this._placeholder = text;
+  }
 
-    this._value = valueToEmit;
-    // this._foundation.setSelectedIndex(this.options.toArray().findIndex((_) => _.value === valueToEmit));
-    this._onChange(valueToEmit);
-    this.valueChange.emit(valueToEmit);
-    this._changeDetectorRef.markForCheck();
+  getSelectedIndex(): number {
+    return this._foundation.getSelectedIndex();
   }
 
   open(index: number = 0): void {
@@ -524,25 +544,15 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
       return;
     }
 
-    if (this.closeOnScroll && isBrowser()) {
-      this._renderer.setStyle(document.body, 'overflow', 'hidden');
-    }
-
     this._changeDetectorRef.markForCheck();
-    this.openedChange.emit(true);
     this._menuFactory.show({ index });
   }
 
   close(): void {
     if (this.isOpen()) {
-      if (this.closeOnScroll && isBrowser()) {
-        this._renderer.removeStyle(document.body, 'overflow');
-      }
-
       this._menuFactory.hide();
       this._renderer.removeClass(this.elementRef.nativeElement, 'mdc-select--open');
       this._changeDetectorRef.markForCheck();
-      this.openedChange.emit(false);
       this.focus();
     }
   }
@@ -566,6 +576,13 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
   focus(): void {
     if (!this.disabled) {
       this.elementRef.nativeElement.focus();
+    }
+  }
+
+  private _onBlur(): void {
+    if (!this.disabled) {
+      this._onTouched();
+      this._changeDetectorRef.markForCheck();
     }
   }
 

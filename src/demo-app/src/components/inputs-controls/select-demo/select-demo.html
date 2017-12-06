@@ -43,10 +43,6 @@
           <td>tabIndex: number</td>
           <td>Set the underlying tab index of the select. (Default is 0)</td>
         </tr>
-        <tr>
-          <td>closeOnScroll: boolean</td>
-          <td>Closes the menu on window scroll. (Default is true)</td>
-        </tr>
       </tbody>
       <thead>
         <tr>
@@ -90,10 +86,6 @@
         <tr>
           <td>setPlaceholder(text: string)</td>
           <td>Sets the placeholder text.</td>
-        </tr>
-        <tr>
-          <td>clearSelection()</td>
-          <td>Clears the current selected item.</td>
         </tr>
         <tr>
           <td>setSelectionByValue(value)</td>
@@ -182,10 +174,10 @@
   </div>
 </div>
 <div fxLayout="column" class="mdc-padding" fxLayoutAlign="start start">
-  <span mdc-typography-headline>Select with ngModel</span>
+  <span mdc-typography-title>Select with ngModel</span>
   <div [mdc-theme-dark]="isDarkTheme" class="mdc-padding demo-select-container">
 <mdc-select #select placeholder="Favorite food" [(ngModel)]="selectedValue" name="food"
- [disabled]="isDisabled" [closeOnScroll]="closeOnScroll" (change)="handleChange($event)">
+ [disabled]="isDisabled" (change)="handleChange($event)">
   <mdc-select-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
     {{food.description}}
   </mdc-select-item>
@@ -200,10 +192,6 @@
     <mdc-checkbox [(ngModel)]="isDarkTheme"></mdc-checkbox>
     <label>Dark Theme</label>
   </mdc-form-field>
-  <mdc-form-field>
-    <mdc-checkbox [(ngModel)]="closeOnScroll"></mdc-checkbox>
-    <label>Close on Window Scroll</label>
-  </mdc-form-field>
   <pre mdc-typography-body1>Selected value: {{selectedValue}}
 Change event: index: {{eventIndex}}, value: {{eventValue}}</pre>
   <button mdc-button (click)="clearSelection()">Clear Selection</button>
@@ -217,20 +205,25 @@ Change event: index: {{eventIndex}}, value: {{eventValue}}</pre>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-select</span>></span>
 </pre>
 
-<span mdc-typography-headline>Select with FormControl</span>
+<span mdc-typography-title>Select with FormControl</span>
 
 <div class="mdc-padding demo-select-container">
-<mdc-select placeholder="Favorite animal" [formControl]="animalControl">
-  <mdc-select-item *ngFor="let animal of animals" [value]="animal">
-    {{animal.name}}
+<mdc-select placeholder="Favorite food" [formControl]="foodControl">
+  <mdc-select-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
+    {{food.description}}
   </mdc-select-item>
 </mdc-select>
 </div>
+<p mdc-typography-body1>Value: {{ foodControl.value }}</p>
+<p mdc-typography-body1>Touched: {{ foodControl.touched }}</p>
+<p mdc-typography-body1>Dirty: {{ foodControl.dirty }}</p>
+<p mdc-typography-body1>Status: {{ foodControl.status }}</p>
+<button mdc-button (click)="foodControl.setValue('pizza-1')">SET VALUE (pizza)</button>
+<button mdc-button (click)="foodControl.reset()">Reset Value</button>
 
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-select</span> <span style="color:#89bdff">placeholder</span>=<span style="color:#65b042">"Favorite animal"</span> [<span style="color:#89bdff">formControl</span>]=<span style="color:#65b042">"animalControl"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-select-item</span> *<span style="color:#89bdff">ngFor</span>=<span style="color:#65b042">"let animal of animals"</span> [<span style="color:#89bdff">value</span>]=<span style="color:#65b042">"animal"</span>></span>
-    <![CDATA[{{]]>animal.name<![CDATA[}}]]>
+<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-select</span> <span style="color:#89bdff">placeholder</span>=<span style="color:#65b042">"Favorite food"</span> [<span style="color:#89bdff">formControl</span>]=<span style="color:#65b042">"foodControl"</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-select-item</span> *<span style="color:#89bdff">ngFor</span>=<span style="color:#65b042">"let food of foods"</span> [<span style="color:#89bdff">value</span>]=<span style="color:#65b042">"food.value"</span>></span>
+    <![CDATA[{{]]>food.description<![CDATA[}}]]>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-select-item</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-select</span>></span>
-</pre>
-</div>
+</pre></div>

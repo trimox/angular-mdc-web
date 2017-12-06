@@ -1,19 +1,21 @@
-import { AfterViewInit, OnInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+
+import { MdcSelect } from '@angular-mdc/web';
 
 @Component({
   selector: 'select-demo',
   templateUrl: './select-demo.html'
 })
-export class SelectDemo implements AfterViewInit, OnInit {
+export class SelectDemo implements AfterViewInit {
   isDisabled: boolean = false;
   selectedValue: string;
-  closeOnScroll: boolean = true;
   isDarkTheme: boolean = false;
   eventIndex: number;
   eventValue: any;
 
-  animalControl = new FormControl('', [Validators.required]);
+  // foodControl = new FormControl('pizza-1');
+  foodControl = new FormControl();
 
   foods = [
     { value: 'steak-0', description: 'Steak' },
@@ -22,26 +24,17 @@ export class SelectDemo implements AfterViewInit, OnInit {
     { value: 'fruit-3', description: 'Fruit' },
   ];
 
-  animals = [
-    { name: 'Dog', sound: 'Woof!' },
-    { name: 'Cat', sound: 'Meow!' },
-    { name: 'Cow', sound: 'Moo!' },
-    { name: 'Fox', sound: 'Wa-pa-pa-pa-pa-pa-pow!' },
-  ];
-
-  @ViewChild('select') select: any;
+  @ViewChild('select') select: MdcSelect;
 
   constructor() { }
 
-  ngOnInit() {
-    this.animalControl.setValue('fruit-3');
-  }
-
   ngAfterViewInit() {
+    setTimeout(() => this.foodControl.setValue('pizza-1'), 10);
   }
 
   clearSelection() {
-    this.select.clearSelection();
+    // this.select.clearSelection();
+    this.selectedValue = null;
   }
 
   setSelection() {

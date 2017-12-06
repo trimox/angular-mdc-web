@@ -29,4 +29,6 @@ export interface MDCSelectAdapter {
   deregisterMenuInteractionHandler: (type: string, handler: EventListener) => void;
   notifyChange: () => void;
   getWindowInnerHeight: () => number;
+  addBodyClass: (className: string) => void;
+  removeBodyClass: (className: string) => void;
 }

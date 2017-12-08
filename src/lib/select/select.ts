@@ -34,7 +34,6 @@ import { Observable } from 'rxjs/Observable';
 import { filter } from 'rxjs/operators/filter';
 import { take } from 'rxjs/operators/take';
 import { map } from 'rxjs/operators/map';
-import { Subscription } from 'rxjs/Subscription';
 import { merge } from 'rxjs/observable/merge';
 
 import {

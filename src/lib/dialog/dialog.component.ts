@@ -97,6 +97,7 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
     eventTargetHasClass: (target: HTMLElement, className: string) => target.classList.contains(className),
     registerInteractionHandler: (evt: string, handler: EventListener) => {
       const clickOutsideToClose = this._config ? this._config.clickOutsideToClose : this.clickOutsideToClose;
+
       handler = this.dialogSurface && clickOutsideToClose ? handler : () => {
         if ((<any>event.target).classList.contains('mdc-dialog__footer__button--accept')) {
           this.accept();
@@ -142,15 +143,9 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
     },
     notifyAccept: () => {
       this._accept.emit('MDCDialog:accept');
-      if (this.dialogRef) {
-        this.dialogRef.close();
-      }
     },
     notifyCancel: () => {
       this._cancel.emit('MDCDialog:cancel');
-      if (this.dialogRef) {
-        this.dialogRef.close();
-      }
     },
     trapFocusOnSurface: () => {
       if (this._focusTrap) {

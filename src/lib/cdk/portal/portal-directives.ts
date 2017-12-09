@@ -34,7 +34,6 @@ export class CdkPortal extends TemplatePortal<any> {
   }
 }
 
-
 /**
  * Directive version of a PortalOutlet. Because the directive *is* a PortalOutlet, portals can be
  * directly attached to it, enabling declarative use.
@@ -43,8 +42,7 @@ export class CdkPortal extends TemplatePortal<any> {
  * <ng-template [cdkPortalOutlet]="greeting"></ng-template>
  */
 @Directive({
-  selector: '[cdkPortalOutlet], [cdkPortalHost], [portalHost]',
-  exportAs: 'cdkPortalOutlet, cdkPortalHost',
+  selector: '[cdkPortalOutlet]',
   inputs: ['portal: cdkPortalOutlet']
 })
 export class CdkPortalOutlet extends BasePortalOutlet implements OnDestroy {
@@ -56,16 +54,6 @@ export class CdkPortalOutlet extends BasePortalOutlet implements OnDestroy {
     private _viewContainerRef: ViewContainerRef) {
     super();
   }
-
-  /** @deprecated */
-  @Input('portalHost')
-  get _deprecatedPortal() { return this.portal; }
-  set _deprecatedPortal(v) { this.portal = v; }
-
-  /** @deprecated */
-  @Input('cdkPortalHost')
-  get _deprecatedPortalHost() { return this.portal; }
-  set _deprecatedPortalHost(v) { this.portal = v; }
 
   /** Portal associated with the Portal outlet. */
   get portal(): Portal<any> | null {

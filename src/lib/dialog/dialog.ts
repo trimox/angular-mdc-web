@@ -7,6 +7,11 @@ import {
   SkipSelf,
   TemplateRef,
 } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import { defer } from 'rxjs/observable/defer';
+import { startWith } from 'rxjs/operators/startWith';
+
 import {
   ComponentPortal,
   ComponentType,
@@ -22,13 +27,37 @@ import { MDC_DIALOG_DATA, MdcDialogConfig } from './dialog-config';
 
 @Injectable()
 export class MdcDialog {
-  private _openedDialogRef: MdcDialogRef<any> | null = null;
+  private _openDialogsAtThisLevel: MdcDialogRef<any>[] = [];
+  private _afterAllClosedAtThisLevel = new Subject<void>();
+  private _afterOpenAtThisLevel = new Subject<MdcDialogRef<any>>();
+
+  /** Keeps track of the currently-open dialogs. */
+  get openDialogs(): MdcDialogRef<any>[] {
+    return this._parentDialog ? this._parentDialog.openDialogs : this._openDialogsAtThisLevel;
+  }
+
+  /** Stream that emits when a dialog has been opened. */
+  get afterOpen(): Subject<MdcDialogRef<any>> {
+    return this._parentDialog ? this._parentDialog.afterOpen : this._afterOpenAtThisLevel;
+  }
+
+  get _afterAllClosed(): any {
+    const parent = this._parentDialog;
+    return parent ? parent._afterAllClosed : this._afterAllClosedAtThisLevel;
+  }
+
+  /**
+   * Stream that emits when all open dialog have finished closing.
+   * Will emit on subscribe if there are no open dialogs to begin with.
+   */
+  afterAllClosed: Observable<void> = defer<void>(() => this.openDialogs.length ?
+    this._afterAllClosed :
+    this._afterAllClosed.pipe(startWith(undefined)));
 
   constructor(
     private _overlay: Overlay,
     private _injector: Injector,
-    @Optional() @SkipSelf() private _parentDialog: MdcDialog) {
-  }
+    @Optional() @SkipSelf() private _parentDialog: MdcDialog) { }
 
   /**
      * Shows a dialog with a message and an optional action.
@@ -41,28 +70,39 @@ export class MdcDialog {
     config?: MdcDialogConfig<D>): MdcDialogRef<T> {
     const _config = _applyConfigDefaults(config);
 
-    if (this._openedDialogRef) {
-      this._openedDialogRef.close();
-    }
-
     config = _applyConfigDefaults(config);
 
-    const overlayRef = this._createOverlay(config);
+    if (config.id && this.getDialogById(config.id)) {
+      throw Error(`Dialog with id "${config.id}" exists already. The dialog id must be unique.`);
+    }
+
+    const overlayRef = this._createOverlay();
     const dialogContainer = this._attachDialogContainer(overlayRef, config);
     const dialogRef =
-      this._attachDialogContent(componentOrTemplateRef, dialogContainer, overlayRef, config);
-    this._openedDialogRef = dialogRef;
+      this._attachDialogContent<T>(componentOrTemplateRef, dialogContainer, overlayRef, config);
+
+    this.openDialogs.push(dialogRef);
+    dialogRef.afterClosed().subscribe(() => this._removeOpenDialog(dialogRef));
+    this.afterOpen.next(dialogRef);
 
     return dialogRef;
   }
 
-  /**
-   * Close the currently-visible dialog.
-   */
+  /** Closes all currently-open dialogs. */
   close(): void {
-    if (this._openedDialogRef) {
-      this._openedDialogRef.close();
+    let i = this.openDialogs.length;
+
+    while (i--) {
+      this.openDialogs[i].close();
     }
+  }
+
+  /**
+     * Finds an open dialog by its id.
+     * @param id ID to use when looking up the dialog.
+     */
+  getDialogById(id: string): MdcDialogRef<any> | undefined {
+    return this.openDialogs.find(dialog => dialog.id === id);
   }
 
   /**
@@ -76,11 +116,8 @@ export class MdcDialog {
     return containerRef.instance;
   }
 
-  /**
-     * Creates a new overlay and places it in the correct location.
-     * @param config The user-specified snack bar config.
-     */
-  private _createOverlay(config: MdcDialogConfig): OverlayRef {
+  /** Creates a new overlay. */
+  private _createOverlay(): OverlayRef {
     return this._overlay.create();
   }
 
@@ -134,15 +171,28 @@ export class MdcDialog {
     const injectionTokens = new WeakMap();
 
     injectionTokens.set(MdcDialogRef, dialogRef);
-    // The MdcDialogContainer is injected in the portal as the MdcDialogContainer and the dialog's
-    // content are created out of the same ViewContainerRef and as such, are siblings for injector
-    // purposes.  To allow the hierarchy that is expected, the MdcDialogContainer is explicitly
-    // added to the injection tokens.
     injectionTokens.set(MdcDialogContainer, dialogContainer);
     injectionTokens.set(MDC_DIALOG_DATA, config.data);
     injectionTokens.set(MdcDialogConfig, config);
 
     return new PortalInjector(userInjector || this._injector, injectionTokens);
+  }
+
+  /**
+     * Removes a dialog from the array of open dialogs.
+     * @param dialogRef Dialog to be removed.
+     */
+  private _removeOpenDialog(dialogRef: MdcDialogRef<any>) {
+    const index = this.openDialogs.indexOf(dialogRef);
+
+    if (index > -1) {
+      this.openDialogs.splice(index, 1);
+
+      // no open dialogs are left, call next on afterAllClosed Subject
+      if (!this.openDialogs.length) {
+        this._afterAllClosed.next();
+      }
+    }
   }
 }
 

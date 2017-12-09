@@ -3,7 +3,6 @@
 /npm-debug.log
 /build/
 /publish-demo/
-/src/demo-app/aot
+/src/demo-app/dist
 /coverage
-*.bat
 *.log

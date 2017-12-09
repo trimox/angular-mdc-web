@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { AppMaterialModule } from './app-material.module';
+import { DemoMaterialModule } from './material.module';
 
 import { DialogExampleModule } from './components/dialog-demo/dialog-example.module';
 
@@ -52,7 +52,7 @@ import { demoAppRoutes } from './routes';
     HttpClientModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    AppMaterialModule,
+    DemoMaterialModule,
     DialogExampleModule,
     RouterModule.forRoot(demoAppRoutes, { useHash: true, enableTracing: false })
   ],

@@ -43,8 +43,8 @@ export function composeRelease(buildPackage: BuildPackage) {
   copyFiles(join(bundlesDir, name), `!(*.es5|*.umd).js?(.map)`, join(releasePath, 'esm2015'));
 
   // Copy any additional files that belong in the package.
-  copyFiles(projectDir, 'LICENSE', releasePath);
-  copyFiles(packagesDir, 'README.md', releasePath);
+  copyFiles(sourceDir, 'LICENSE', releasePath);
+  copyFiles(sourceDir, 'README.md', releasePath);
   copyFiles(sourceDir, 'package.json', releasePath);
 
   replaceVersionPlaceholders(releasePath);
@@ -53,10 +53,6 @@ export function composeRelease(buildPackage: BuildPackage) {
 
   if (buildPackage.secondaryEntryPoints.length) {
     createFilesForSecondaryEntryPoint(buildPackage, releasePath);
-  }
-
-  if (buildPackage.copySecondaryEntryPointStylesToRoot) {
-    copySecondaryEntryPointStylesheets(buildPackage, releasePath);
   }
 
   if (buildPackage.exportsSecondaryEntryPointsAtRoot) {
@@ -108,15 +104,5 @@ function createFilesForSecondaryEntryPoint(buildPackage: BuildPackage, releasePa
     createTypingsReexportFile(releasePath, `./${entryPointName}/index`, entryPointName);
     createMetadataReexportFile(releasePath, `./${entryPointName}/index`, entryPointName,
       importAsName);
-  });
-}
-
-/** Copies the stylesheets for secondary entry-points that generate one to the release output. */
-function copySecondaryEntryPointStylesheets(buildPackage: BuildPackage, releasePath: string) {
-  buildPackage.secondaryEntryPoints.forEach(entryPointName => {
-    const entryPointDir = join(buildPackage.outputDir, entryPointName);
-
-    copyFiles(entryPointDir, `_${entryPointName}.scss`, releasePath);
-    copyFiles(entryPointDir, `${entryPointName}-prebuilt.css`, releasePath);
   });
 }

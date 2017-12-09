@@ -56,4 +56,4 @@ import {
     MdcTypographyModule,
   ]
 })
-export class AppMaterialModule { }
+export class DemoMaterialModule { }

@@ -2,7 +2,6 @@ import { join, resolve as resolvePath } from 'path';
 import { spawn } from 'child_process';
 import { writeFileSync, readFileSync } from 'fs';
 import { sync as glob } from 'glob';
-import { red } from 'chalk';
 import { BuildPackage } from './build-package';
 
 /** Incrementing ID counter. */
@@ -26,12 +25,12 @@ export async function compileEntryPoint(buildPackage: BuildPackage, tsconfigName
 
     // Pipe stdout and stderr from the child process.
     childProcess.stdout.on('data', (data: any) => console.log(`${data}`));
-    childProcess.stderr.on('data', (data: any) => console.error(red(`${data}`)));
+    childProcess.stderr.on('data', (data: any) => console.error(`${data}`));
 
     childProcess.on('exit', (exitCode: number) => exitCode === 0 ? resolve() : reject());
   })
     .catch(() => {
-      const error = red(`Failed to compile ${secondaryEntryPoint} using ${entryPointTsconfigPath}`);
+      const error = `Failed to compile ${secondaryEntryPoint} using ${entryPointTsconfigPath}`;
       console.error(error);
     });
 }

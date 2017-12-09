@@ -1,19 +1,22 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
     "declaration": false,
+    "target": "es5",
+    "module": "es2015",
     "moduleResolution": "node",
+    "lib": ["es2017", "dom"],
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ]
-  }
+    "sourceMap": true,
+    "typeRoots": ["../../node_modules/@types"],
+    "rootDir": "..",
+    "baseUrl": ".",
+    "paths": {
+      "@angular-mdc/web/*": ["../../src/lib/*"],
+      "@angular-mdc/web": ["../../src/lib/public-api.ts"]
+    }
+  },
+  "files": [
+    "./main.ts"
+  ]
 }

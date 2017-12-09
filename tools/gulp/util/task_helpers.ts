@@ -9,7 +9,6 @@ const gulpClean = require('gulp-clean');
 
 // There are no type definitions available for these imports.
 const resolveBin = require('resolve-bin');
-const httpRewrite = require('http-rewrite-middleware');
 
 const { projectDir } = buildConfig;
 
@@ -104,7 +103,6 @@ export function execNodeTask(packageName: string, executable: string | string[],
     });
   };
 }
-
 
 /** Copy files from a glob to a destination. */
 export function copyTask(srcGlobOrDir: string | string[], outRoot: string) {

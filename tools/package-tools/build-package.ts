@@ -1,6 +1,5 @@
 import { join, resolve as resolvePath } from 'path';
 import { spawn } from 'child_process';
-import { red } from 'chalk';
 import { PackageBundler } from './build-bundles';
 import { buildConfig } from './build-config';
 import { getSecondaryEntryPointsForPackage } from './secondary-entry-points';
@@ -23,9 +22,6 @@ export class BuildPackage {
 
   /** Whether this package will re-export its secondary-entry points at the root module. */
   exportsSecondaryEntryPointsAtRoot = false;
-
-  /** Whether the secondary entry-point styles should be copied to the release output. */
-  copySecondaryEntryPointStylesToRoot = false;
 
   /** Path to the entry file of the package in the output directory. */
   readonly entryFilePath: string;

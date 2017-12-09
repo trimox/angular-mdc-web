@@ -7,5 +7,4 @@ export * from './copy-files';
 
 // Expose gulp utilities.
 export * from './gulp/build-tasks-gulp';
-export * from './gulp/build-scss-task';
 export * from './gulp/sequence-task';

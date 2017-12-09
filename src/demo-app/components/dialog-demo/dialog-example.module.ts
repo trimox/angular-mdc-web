@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AppMaterialModule } from '../../app-material.module';
+import { DemoMaterialModule } from '../../material.module';
 
 import {
   DialogAlertExample,
@@ -15,7 +15,7 @@ import {
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    AppMaterialModule,
+    DemoMaterialModule,
   ],
   declarations: [
     DialogAlertExample,

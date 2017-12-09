@@ -14,7 +14,6 @@ export function inlineResources(filePath: string) {
   let fileContent = readFileSync(filePath, 'utf-8');
 
   fileContent = inlineTemplate(fileContent, filePath);
-  fileContent = inlineStyles(fileContent, filePath);
   fileContent = removeModuleId(fileContent);
 
   writeFileSync(filePath, fileContent, 'utf-8');
@@ -26,21 +25,6 @@ function inlineTemplate(fileContent: string, filePath: string) {
     const templatePath = join(dirname(filePath), templateUrl);
     const templateContent = loadResourceFile(templatePath);
     return `template: "${templateContent}"`;
-  });
-}
-
-/** Inlines the external styles of Angular components for a specified source file. */
-function inlineStyles(fileContent: string, filePath: string) {
-  return fileContent.replace(/styleUrls:\s*(\[[\s\S]*?])/gm, (_match, styleUrlsValue) => {
-    // The RegExp matches the array of external style files. This is a string right now and
-    // can to be parsed using the `eval` method. The value looks like "['AAA.css', 'BBB.css']"
-    const styleUrls = eval(styleUrlsValue) as string[];
-
-    const styleContents = styleUrls
-      .map(url => join(dirname(filePath), url))
-      .map(path => loadResourceFile(path));
-
-    return `styles: ["${styleContents.join(' ')}"]`;
   });
 }
 

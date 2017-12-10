@@ -10,6 +10,7 @@ import { MdcFab } from './fab';
   ],
   exports: [
     MdcFab,
+    MdcIconModule,
   ],
   declarations: [MdcFab],
 })

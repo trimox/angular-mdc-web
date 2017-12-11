@@ -6,7 +6,7 @@ import {
   MdcThemeModule,
   MdcThemeDark,
   MdcContent,
-} from '../../../src/lib/public_api';
+} from '@angular-mdc/web';
 
 describe('MdcTheme', () => {
   let fixture: ComponentFixture<any>;

@@ -2,14 +2,14 @@ import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MdcTab, MdcTabModule } from '../../../src/lib/public_api';
+import { MdcTab, MdcTabModule, MdcIconModule } from '@angular-mdc/web';
 
 describe('MdcTab', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MdcTabModule],
+      imports: [MdcTabModule, MdcIconModule],
       declarations: [
         SimpleTabs,
       ]

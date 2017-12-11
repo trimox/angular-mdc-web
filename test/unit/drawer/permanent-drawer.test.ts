@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 import {
   MdcDrawerModule,
   MdcPermanentDrawer,
-} from '../../../src/lib/public_api';
+} from '@angular-mdc/web';
 
 describe('MdcPermanentDrawer', () => {
   let fixture: ComponentFixture<any>;

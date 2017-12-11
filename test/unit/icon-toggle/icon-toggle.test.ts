@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MdcIconToggle, MdcIconToggleModule } from '../../../src/lib/public_api';
+import { MdcIconToggle, MdcIconToggleModule } from '@angular-mdc/web';
 
 describe('MdcIconToggle', () => {
   let fixture: ComponentFixture<any>;

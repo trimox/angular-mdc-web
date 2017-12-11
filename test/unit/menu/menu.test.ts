@@ -2,7 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MdcMenu, MdcMenuOpenFrom, MdcMenuModule } from '../../../src/lib/public_api';
+import { MdcMenu, MdcMenuOpenFrom, MdcMenuModule } from '@angular-mdc/web';
 
 describe('MdcMenu', () => {
   let fixture: ComponentFixture<any>;

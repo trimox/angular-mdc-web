@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 import {
   MdcToolbarModule,
   MdcToolbar,
-} from '../../../src/lib/public_api';
+} from '@angular-mdc/web';
 
 describe('MdcToolbar', () => {
   let fixture: ComponentFixture<any>;

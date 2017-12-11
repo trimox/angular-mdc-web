@@ -10,8 +10,8 @@ import {
   MdcDialogBody,
   MdcDialogModule,
   MdcDialogRef,
-} from '../../../src/lib/public_api';
-import { OverlayContainer } from '../../../src/lib/cdk/overlay/index';
+  OverlayContainer,
+} from '@angular-mdc/web';
 
 describe('MdcDialog', () => {
   let dialog: MdcDialog;

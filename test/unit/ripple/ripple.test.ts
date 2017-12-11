@@ -6,7 +6,7 @@ import {
   MdcRippleModule,
   MdcRippleDirective,
   MdcSurfaceDirective,
-} from '../../../src/lib/public_api';
+} from '@angular-mdc/web';
 
 describe('MdcRippleDirective', () => {
   let fixture: ComponentFixture<any>;

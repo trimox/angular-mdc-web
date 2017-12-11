@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 import {
   MdcTypographyModule,
   MdcTypography,
-} from '../../../src/lib/public_api';
+} from '@angular-mdc/web';
 
 describe('MdcTypography', () => {
   let fixture: ComponentFixture<any>;

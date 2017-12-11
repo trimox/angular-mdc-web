@@ -1,9 +1,8 @@
-const path = require('path');
 const webpackConfig = require('./config/webpack/webpack.test.js');
 
-module.exports = function (config) {
+module.exports = function(config) {
   config.set({
-    basePath: '',
+    webpack: webpackConfig,
     frameworks: ['jasmine'],
     reporters: ['dots', 'coverage'],
     mime: {
@@ -23,7 +22,6 @@ module.exports = function (config) {
         {type: 'html'},
       ],
     },
-    webpack: webpackConfig,
     webpackMiddleware: {
       noInfo: true,
     },

@@ -8,7 +8,7 @@ import {
   MdcCheckboxModule,
   MdcRadioModule,
   MdcSwitchModule
-} from '../../../src/lib/public_api';
+} from '@angular-mdc/web';
 
 describe('MdcFormField', () => {
   let fixture: ComponentFixture<any>;

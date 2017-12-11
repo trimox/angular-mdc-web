@@ -2,14 +2,14 @@ import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MdcButton, MdcIcon, MdcButtonModule } from '../../../src/lib/public_api';
+import { MdcButton, MdcIcon, MdcIconModule, MdcButtonModule } from '@angular-mdc/web';
 
 describe('MdcButton', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MdcButtonModule],
+      imports: [MdcButtonModule, MdcIconModule],
       declarations: [
         SimpleButton,
         HrefButton,

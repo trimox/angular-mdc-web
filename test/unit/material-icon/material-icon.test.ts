@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 import {
   MdcMaterialIcon,
   MdcMaterialIconModule,
-} from '../../../src/lib/public_api';
+} from '@angular-mdc/web';
 
 describe('MdcMaterialIcon', () => {
   let fixture: ComponentFixture<any>;

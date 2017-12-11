@@ -3,15 +3,16 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
   MdcTabBarScroller,
-  MdcTabModule
-} from '../../../src/lib/public_api';
+  MdcTabModule,
+  MdcIconModule,
+} from '@angular-mdc/web';
 
 describe('MdcTabBarScroller', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MdcTabModule],
+      imports: [MdcTabModule, MdcIconModule],
       declarations: [ScrollingTabs]
     });
     TestBed.compileComponents();

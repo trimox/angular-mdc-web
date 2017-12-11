@@ -7,7 +7,7 @@ import {
   MdcListModule,
   MdcIconModule,
   MdcTemporaryDrawer,
-} from '../../../src/lib/public_api';
+} from '@angular-mdc/web';
 
 describe('MdcTemporaryDrawer', () => {
   let fixture: ComponentFixture<any>;

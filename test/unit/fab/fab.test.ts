@@ -2,7 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MdcFab, MdcFabModule } from '../../../src/lib/public_api';
+import { MdcFab, MdcFabModule } from '@angular-mdc/web';
 
 describe('MdcFab', () => {
   let fixture: ComponentFixture<any>;

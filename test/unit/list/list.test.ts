@@ -9,7 +9,7 @@ import {
   MdcListDivider,
   MdcListModule,
   MdcIconModule,
-} from '../../../src/lib/public_api';
+} from '@angular-mdc/web';
 
 describe('MdcListModule', () => {
   let fixture: ComponentFixture<any>;

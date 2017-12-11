@@ -6,7 +6,7 @@ import { By } from '@angular/platform-browser';
 import {
   MdcTextField,
   MdcTextFieldModule
-} from '../../../src/lib/public_api';
+} from '@angular-mdc/web';
 
 describe('MdcTextField', () => {
   let fixture: ComponentFixture<any>;
@@ -81,7 +81,7 @@ describe('MdcTextField', () => {
       textFieldInstance.focus();
       fixture.detectChanges();
 
-      expect(document.activeElement).toBe(textFieldInstance.inputText.elementRef.nativeElement);
+      expect(document.activeElement).toBe(textFieldInstance.inputText.nativeElement);
     });
 
     it('#should throw an error', () => {

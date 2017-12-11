@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MdcSelectModule, MdcSelect, MdcSelectItem } from '../../../src/lib/public_api';
+import { MdcSelectModule, MdcSelect, MdcSelectItem } from '@angular-mdc/web';
 
 describe('MdcSelectModule', () => {
   let fixture: ComponentFixture<any>;
@@ -48,40 +48,20 @@ describe('MdcSelectModule', () => {
       expect(testInstance.id).toMatch(/mdc-select-\d+/);
     });
 
-    it('#should focus on underlying input element when focus() is called', () => {
-      expect(document.activeElement).not.toBe(testNativeElement);
-
-      testInstance.focus();
-      fixture.detectChanges();
-
-      expect(document.activeElement).toBe(testNativeElement);
-    });
-
-    it('#should be open', () => {
-      testInstance.open();
-      fixture.detectChanges();
-      expect(testInstance.isOpen()).toBe(true);
-    });
-
     it('#should be closed', () => {
+      testInstance.open(1);
       testInstance.close();
       fixture.detectChanges();
       expect(testInstance.isOpen()).toBe(false);
     });
 
-    it('#should set value to 2', () => {
-      testInstance.setSelectedIndex(2);
-      testInstance.resize();
-      fixture.detectChanges();
-      expect(testInstance.getValue()).toBe('tacos-2');
-      expect(testInstance.getSelectedIndex()).toBe(2);
-    });
-
-    it('#steak-1 should be selected', () => {
-      testInstance.setSelectionByValue('steak-0');
-      fixture.detectChanges();
-      expect(testInstance.getSelectedIndex()).toBe(0);
-    });
+    // it('#should set value to tacos-2', () => {
+    //   testInstance.value = 'tacos-2';
+    //   // testComponent.selectedValue = 'tacos-2';
+    //   fixture.detectChanges();
+    //   expect(testInstance.getSelectedIndex()).toBe(2);
+    //   expect(testInstance.getValue()).toBe('tacos-2');
+    // });
 
     it('#should be Fruit', () => {
       expect(testInstance.options.toArray()[3].label).toMatch('Fruit');
@@ -106,24 +86,18 @@ describe('MdcSelectModule', () => {
       expect(testInstance.options.toArray().length).toBe(3);
     });
 
-    it('#should set value', () => {
-      testInstance.setSelectionByValue('tacos-2');
-      fixture.detectChanges();
-      expect(testInstance.getValue()).toBe('tacos-2');
-    });
-
     it('#should have no selected options', () => {
-      testInstance.clearSelection();
+      testComponent.selectedValue = null;
       fixture.detectChanges();
-      expect(testComponent.selectedValue).toBe('');
+      expect(testInstance.getSelectedIndex()).toBe(-1);
     });
   });
 });
 
 @Component({
   template: `
-    <mdc-select [placeholder]="myPlaceholder" name="food" [(ngModel)]="selectedValue" [disabled]="isDisabled"
-      [closeOnScroll]="closeOnScroll" (change)="handleChange($event)">
+    <mdc-select [placeholder]="myPlaceholder" name="food"
+     [(ngModel)]="selectedValue" [disabled]="isDisabled" (change)="handleChange($event)">
       <mdc-select-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
         {{food.description}}
       </mdc-select-item>
@@ -133,8 +107,7 @@ describe('MdcSelectModule', () => {
 class SimpleTest {
   myPlaceholder: string = 'Favorite food';
   isDisabled: boolean = true;
-  selectedValue: string = 'pizza-1';
-  closeOnScroll: boolean = true;
+  selectedValue: string = '';
 
   foods = [
     { value: 'steak-0', description: 'Steak' },

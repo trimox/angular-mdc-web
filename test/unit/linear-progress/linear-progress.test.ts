@@ -2,7 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MdcLinearProgress, MdcLinearProgressModule } from '../../../src/lib/public_api';
+import { MdcLinearProgress, MdcLinearProgressModule } from '@angular-mdc/web';
 
 describe('MdcLinearProgress', () => {
   let fixture: ComponentFixture<any>;

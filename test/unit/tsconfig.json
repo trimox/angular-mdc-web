@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "declaration": false,
+    "sourceMap": true,
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -9,6 +11,15 @@
     ],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "typeRoots": ["../../node_modules/@types"]
+    "typeRoots": ["../../node_modules/@types"],
+    "rootDirs": [
+      "./src",
+      "./test"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@angular-mdc/web/*": ["../../src/lib/*"],
+      "@angular-mdc/web": ["../../src/lib/public-api.ts"]
+    }
   }
 }

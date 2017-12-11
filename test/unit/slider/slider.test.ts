@@ -3,7 +3,7 @@ import { async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed } from '@a
 import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { MdcSlider, MdcSliderModule } from '../../../src/lib/public_api';
+import { MdcSlider, MdcSliderModule } from '@angular-mdc/web';
 
 describe('MdcSlider', () => {
   let fixture: ComponentFixture<any>;

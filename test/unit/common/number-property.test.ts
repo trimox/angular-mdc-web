@@ -1,4 +1,4 @@
-import { toNumber } from '../../../src/lib/common';
+import { toNumber } from '@angular-mdc/web';
 
 describe('toNumber', () => {
   it('should coerce undefined to 0 or default', () => {

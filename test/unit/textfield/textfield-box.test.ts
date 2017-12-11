@@ -6,7 +6,7 @@ import { By } from '@angular/platform-browser';
 import {
   MdcTextFieldBox,
   MdcTextFieldModule
-} from '../../../src/lib/public_api';
+} from '@angular-mdc/web';
 
 describe('MdcTextFieldBox', () => {
   let fixture: ComponentFixture<any>;
@@ -36,7 +36,7 @@ describe('MdcTextFieldBox', () => {
       textFieldNativeElement = textFieldDebugElement.nativeElement;
       textFieldInstance = textFieldDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
-      inputElement = textFieldInstance.inputText.elementRef.nativeElement;
+      inputElement = textFieldInstance.inputText.nativeElement;
     });
 
     it('#should have mdc-text-field--box by default', () => {

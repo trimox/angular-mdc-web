@@ -3,7 +3,7 @@ import { async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed } from '@a
 import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { MdcRadio, MdcRadioModule } from '../../../src/lib/public_api';
+import { MdcRadio, MdcRadioModule } from '@angular-mdc/web';
 
 describe('MdcRadio', () => {
   let fixture: ComponentFixture<any>;

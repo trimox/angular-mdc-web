@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 import {
   MdcElevationModule,
   MdcElevation,
-} from '../../../src/lib/public_api';
+} from '@angular-mdc/web';
 
 describe('MdcElevation', () => {
   let fixture: ComponentFixture<any>;

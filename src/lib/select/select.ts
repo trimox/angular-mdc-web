@@ -457,12 +457,10 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
   }
 
   writeValue(value: any): void {
-    if (this.disabled || !this.options) {
-      return;
+    if (this.options) {
+      this._setSelectionByValue(value);
+      this._mdcAdapter.notifyChange();
     }
-
-    this._setSelectionByValue(value);
-    this._mdcAdapter.notifyChange();
   }
 
   registerOnChange(fn: (value: any) => void): void {

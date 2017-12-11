@@ -6,7 +6,7 @@ import { By } from '@angular/platform-browser';
 import {
   MdcTextarea,
   MdcTextFieldModule
-} from '../../../src/lib/public_api';
+} from '@angular-mdc/web';
 
 describe('MdcTextarea', () => {
   let fixture: ComponentFixture<any>;

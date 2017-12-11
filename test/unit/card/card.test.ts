@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 import {
   MdcCardModule,
   MdcCard,
-} from '../../../src/lib/public_api';
+} from '@angular-mdc/web';
 
 describe('MdcCard', () => {
   let fixture: ComponentFixture<any>;

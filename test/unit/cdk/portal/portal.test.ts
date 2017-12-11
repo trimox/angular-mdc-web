@@ -13,9 +13,10 @@ import {
   TemplateRef
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CdkPortal, CdkPortalOutlet, PortalModule } from '../../../../src/lib/cdk/portal/portal-directives';
-import { Portal, ComponentPortal, TemplatePortal } from '../../../../src/lib/cdk/portal';
-import { DomPortalOutlet } from '../../../../src/lib/cdk/portal/dom-portal-outlet';
+import {
+  CdkPortal, CdkPortalOutlet, PortalModule, Portal,
+  ComponentPortal, TemplatePortal, DomPortalOutlet
+} from '@angular-mdc/web';
 
 describe('Portals', () => {
   beforeEach(async(() => {

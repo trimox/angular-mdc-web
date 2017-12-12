@@ -1,3 +1,21 @@
+<a name="0.6.3"></a>
+## [0.6.3](https://github.com/trimox/angular-mdc-web/compare/v0.6.2...v0.6.3) (2017-12-12)
+
+
+### Bug Fixes
+
+* **select:** Handle selection changes accessed early ([#450](https://github.com/trimox/angular-mdc-web/issues/450)) ([eaf2c17](https://github.com/trimox/angular-mdc-web/commit/eaf2c17))
+* **select:** Remove duplicate Subscription import ([#439](https://github.com/trimox/angular-mdc-web/issues/439)) ([60a7196](https://github.com/trimox/angular-mdc-web/commit/60a7196))
+
+
+### Features
+
+* **build:** Export `MdcIconModule` from `MdcFabModule` ([#442](https://github.com/trimox/angular-mdc-web/issues/442)) ([c4c5d52](https://github.com/trimox/angular-mdc-web/commit/c4c5d52))
+* **dialog:** Add observable subjects + improvements ([#399](https://github.com/trimox/angular-mdc-web/issues/399)) ([784d87d](https://github.com/trimox/angular-mdc-web/commit/784d87d)), closes [#397](https://github.com/trimox/angular-mdc-web/issues/397)
+* **infrastructure:** Redesign development environment ([#436](https://github.com/trimox/angular-mdc-web/issues/436)) ([9710d38](https://github.com/trimox/angular-mdc-web/commit/9710d38)), closes [#431](https://github.com/trimox/angular-mdc-web/issues/431)
+
+
+
 <a name="0.6.2"></a>
 ## [0.6.2](https://github.com/trimox/angular-mdc-web/compare/v0.6.1...v0.6.2) (2017-12-06)
 

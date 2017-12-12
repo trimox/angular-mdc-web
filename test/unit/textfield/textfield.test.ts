@@ -60,6 +60,11 @@ describe('MdcTextField', () => {
       expect(textFieldInstance.isDisabled()).toBe(false);
     });
 
+    it('#should not be empty', () => {
+      fixture.detectChanges();
+      expect(textFieldInstance.empty).toBe(true);
+    });
+
     it('#should remove invalid styling', () => {
       fixture.detectChanges();
       textFieldInstance.setValid(false);

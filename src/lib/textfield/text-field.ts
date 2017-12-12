@@ -224,6 +224,12 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   get valid(): boolean {
     return this.inputText.nativeElement.validity.valid;
   }
+
+  /** Whether the control is empty. */
+  get empty(): boolean {
+    return !this.elementRef.nativeElement.value && !this.isBadInput();
+  }
+
   @HostBinding('class.mdc-text-field--dense') get classDense(): string {
     return this.dense ? 'mdc-text-field--dense' : '';
   }
@@ -294,7 +300,8 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   }
 
   isBadInput(): boolean {
-    return this.inputText.nativeElement.validity.badInput;
+    const validity = (this.elementRef.nativeElement as HTMLInputElement).validity;
+    return validity && validity.badInput;
   }
 
   focus(): void {

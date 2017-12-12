@@ -1,6 +1,7 @@
 import { dest, src, task } from 'gulp';
 import { join } from 'path';
 import { composeRelease } from '../build-release';
+import { inlineResourcesForDirectory } from '../inline-resources';
 import { sequenceTask } from './sequence-task';
 import { BuildPackage } from '../build-package';
 
@@ -26,6 +27,8 @@ export function createPackageBuildTasks(buildPackage: BuildPackage) {
     ...dependencyNames.map(pkgName => `${pkgName}:build`),
     // Build ESM output.
     `${taskName}:build:esm`,
+    // Inline assets into ESM output.
+    `${taskName}:assets:inline`,
     // Build bundles on top of inlined ESM output.
     `${taskName}:build:bundles`,
   ));
@@ -41,4 +44,6 @@ export function createPackageBuildTasks(buildPackage: BuildPackage) {
   task(`${taskName}:build:esm`, () => buildPackage.compile());
 
   task(`${taskName}:build:bundles`, () => buildPackage.createBundles());
+
+  task(`${taskName}:assets:inline`, () => inlineResourcesForDirectory(buildPackage.outputDir));
 }

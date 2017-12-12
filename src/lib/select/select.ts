@@ -12,6 +12,7 @@ import {
   HostBinding,
   HostListener,
   Input,
+  NgZone,
   OnDestroy,
   Optional,
   Output,
@@ -27,21 +28,24 @@ import {
   FormGroupDirective,
   NG_VALUE_ACCESSOR,
   NgControl,
-  NgForm
+  NgForm,
 } from '@angular/forms';
-import { ISubscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
+import { defer } from 'rxjs/observable/defer';
 import { filter } from 'rxjs/operators/filter';
-import { take } from 'rxjs/operators/take';
-import { map } from 'rxjs/operators/map';
 import { merge } from 'rxjs/observable/merge';
+import { Observable } from 'rxjs/Observable';
+import { startWith } from 'rxjs/operators/startWith';
+import { Subject } from 'rxjs/Subject';
+import { switchMap } from 'rxjs/operators/switchMap';
+import { take } from 'rxjs/operators/take';
+import { takeUntil } from 'rxjs/operators/takeUntil';
 
 import {
   EventRegistry,
   isBrowser,
-  toBoolean,
-  KeyCodes,
   isSpaceKey,
+  KeyCodes,
+  toBoolean,
 } from '@angular-mdc/web/common';
 import { MDCSimpleMenu } from '@material/menu/simple';
 
@@ -98,8 +102,6 @@ export class MdcSelectItems {
     '[id]': 'id',
     'role': 'option',
     '[attr.tabindex]': '_getTabIndex()',
-    '[attr.aria-selected]': 'selected',
-    '[attr.aria-disabled]': 'disabled',
     '(click)': '_selectViaInteraction()',
   },
   encapsulation: ViewEncapsulation.None,
@@ -214,9 +216,9 @@ export class MdcSelectItem {
   providers: [
     EventRegistry,
   ],
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
-  encapsulation: ViewEncapsulation.None,
 })
 export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueAccessor, OnDestroy {
   private _mdcAdapter: MDCSelectAdapter = {
@@ -266,7 +268,7 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
       return this.selectMenu.elementRef.nativeElement.offsetHeight;
     },
     openMenu: (focusIndex: number) => {
-      this.open(focusIndex);
+      this._menuFactory.show(focusIndex);
     },
     isMenuOpen: () => this._menuFactory.open,
     setSelectedTextContent: (textContent: string) => {
@@ -338,7 +340,12 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
   @ViewChild(MdcSelectItems) selectItems: MdcSelectItems;
   @ContentChildren(MdcSelectItem, { descendants: true }) options: QueryList<MdcSelectItem>;
 
-  private _itemsSubscription: ISubscription;
+  /** Emits whenever the component is destroyed. */
+  private _destroy = new Subject<void>();
+
+  /** Comparison function to specify which option is displayed. Defaults to object equality. */
+  private _compareWith = (o1: any, o2: any) => o1 === o2;
+
   private _label: string = '';
   private _placeholder: string;
   private _menuFactory: any;
@@ -354,9 +361,6 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
   @HostListener('blur', ['$event']) blur() {
     this._onBlur();
   }
-
-  /** Comparison function to specify which option is displayed. Defaults to object equality. */
-  private _compareWith = (o1: any, o2: any) => o1 === o2;
 
   /** View -> model callback called when value changes */
   _onChange: (value: any) => void = () => { };
@@ -392,30 +396,27 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
     this.setDisabled(value);
   }
 
-  /**
-     * A function to compare the option values with the selected values. The first argument
-     * is a value from an option. The second is a value from the selection. A boolean
-     * should be returned.
-     */
-  @Input()
-  get compareWith() { return this._compareWith; }
-  set compareWith(fn: (o1: any, o2: any) => boolean) {
-    this._compareWith = fn;
+  /** Combined stream of all of the child options' change events. */
+  optionSelectionChanges: Observable<MdcSelectedItem> = defer(() => {
     if (this.options) {
-      // A different comparator means the selection could change.
-      this._initializeSelection();
+      return merge(...this.options.map(option => option.onSelectionChange));
     }
-  }
+
+    return this._ngZone.onStable
+      .asObservable()
+      .pipe(take(1), switchMap(() => this.optionSelectionChanges));
+  });
 
   constructor(
-    @Self() @Optional() public ngControl: NgControl,
+    private _ngControl: NgControl,
     private _changeDetectorRef: ChangeDetectorRef,
+    private _ngZone: NgZone,
     private _renderer: Renderer2,
     public elementRef: ElementRef,
     private _registry: EventRegistry) {
 
-    if (this.ngControl) {
-      this.ngControl.valueAccessor = this;
+    if (this._ngControl) {
+      this._ngControl.valueAccessor = this;
     }
 
     // Force setter to be called in case id was not specified.
@@ -424,43 +425,113 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
 
   ngAfterViewInit(): void {
     this._menuFactory = new MDCSimpleMenu(this.selectMenu.elementRef.nativeElement);
-    this._changeDetectorRef.detectChanges();
-  }
-
-  ngAfterContentInit() {
-    this._itemsSubscription = this.options.changes.subscribe(_ => {
-      this._foundation.resize();
-      this._initializeSelection();
-    });
-
-    this._itemsSubscription = merge(
-      ...this.options.map(item => item.onSelectionChange)).subscribe((_: MdcSelectedItem) => {
-        if (_.source.selected) {
-          const index = this.options.toArray().indexOf(_.source);
-
-          this._foundation.setSelectedIndex(index);
-          this._value = _.source.value;
-
-          this._onChange(this._value);
-          this._mdcAdapter.notifyChange();
-          this._changeDetectorRef.markForCheck();
-        }
-      });
     this._foundation.init();
   }
 
+  ngAfterContentInit() {
+    this.options.changes.subscribe(_ => {
+      this._foundation.resize();
+    });
+
+    this.options.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
+      this._resetOptions();
+      this._initializeSelection();
+    });
+
+    this.optionSelectionChanges.pipe(
+      takeUntil(merge(this._destroy, this.options.changes)),
+      filter(event => event.isUserInput)
+    ).subscribe(event => {
+      this._propagateChanges(event.source.value);
+      this.close();
+    });
+  }
+
   ngOnDestroy(): void {
-    if (this._itemsSubscription) {
-      this._itemsSubscription.unsubscribe();
-    }
+    this._destroy.next();
+    this._destroy.complete();
     this._foundation.destroy();
   }
 
   writeValue(value: any): void {
-    if (this.options) {
-      this._setSelectionByValue(value);
-      this._mdcAdapter.notifyChange();
+    if (this.disabled || !this.options) {
+      return;
     }
+
+    if (value !== this._value) {
+      this._propagateChanges(value);
+    }
+  }
+
+  /** Drops current option subscriptions and IDs and resets from scratch. */
+  private _resetOptions(): void {
+    this.optionSelectionChanges.pipe(
+      takeUntil(merge(this._destroy, this.options.changes)),
+      filter(event => event.isUserInput)
+    ).subscribe(event => {
+      this._onChange(event.source.value);
+      this._propagateChanges(event.source);
+
+      this.close();
+    });
+  }
+
+  /** Invoked when an option is clicked. */
+  private _onSelect(option: MdcSelectItem): void {
+    this._clearSelection(option.value == null ? undefined : option);
+
+
+    this._propagateChanges(option.value);
+  }
+
+  private _propagateChanges(newValue: any): void {
+    if (this.disabled || !this.options) {
+      return;
+    }
+
+    this._value = newValue;
+    this._foundation.setSelectedIndex(this.options.toArray().findIndex(_ => _.value === newValue));
+    this._ngControl.valueAccessor.writeValue(newValue);
+
+    this._changeDetectorRef.markForCheck();
+    this._mdcAdapter.notifyChange();
+  }
+
+  private _initializeSelection(): void {
+    // Defer setting the value in order to avoid the "Expression
+    // has changed after it was checked" errors from Angular.
+    Promise.resolve().then(() => {
+      this._setSelectionByValue(this._ngControl ? this._ngControl.value : this._value);
+    });
+  }
+
+  /**
+     * Sets the selected option based on a value. If no option can be
+     * found with the designated value, the select trigger is cleared.
+     */
+  private _setSelectionByValue(value: any, isUserInput = false): void {
+    this._clearSelection();
+
+    this._selectValue(value, isUserInput);
+    if (value) {
+      this._onChange(value);
+    }
+    this._ngControl.valueAccessor.writeValue(value);
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /** Finds and selects and option based on its value. */
+  private _selectValue(value: any, isUserInput = false): MdcSelectItem | undefined {
+    const correspondingOption = this.options.find((option: MdcSelectItem) => {
+      // Treat null as a special reset value.
+      return option.value != null && this._compareWith(option.value, value);
+    });
+
+    if (correspondingOption) {
+      isUserInput ? correspondingOption._selectViaInteraction() : correspondingOption.select();
+    }
+
+    return correspondingOption;
   }
 
   registerOnChange(fn: (value: any) => void): void {
@@ -475,14 +546,6 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
     return this._foundation.getValue();
   }
 
-  private _initializeSelection(): void {
-    // Defer setting the value in order to avoid the "Expression
-    // has changed after it was checked" errors from Angular.
-    Promise.resolve().then(() => {
-      this._setSelectionByValue(this.ngControl ? this.ngControl.value : this._value);
-    });
-  }
-
   private _clearSelection(skip?: MdcSelectItem): void {
     if (this.disabled || !this.options) {
       return;
@@ -495,34 +558,6 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
     });
   }
 
-  private _setSelectionByValue(value: any, isUserInput = false): void {
-    this._clearSelection();
-
-    const correspondingOption = this._selectValue(value, isUserInput);
-
-    if (!correspondingOption) {
-      this._foundation.setSelectedIndex(-1);
-    }
-    this._changeDetectorRef.markForCheck();
-  }
-
-  /**
-     * Finds and selects and option based on its value.
-     * @returns Option that has the corresponding value.
-     */
-  private _selectValue(value: any, isUserInput = false): MdcSelectItem | undefined {
-    const correspondingOption = this.options.find((option: MdcSelectItem) => {
-      // Treat null as a special reset value.
-      return option.value != null && this._compareWith(option.value, value);
-    });
-
-    if (correspondingOption) {
-      isUserInput ? correspondingOption._selectViaInteraction() : correspondingOption.select();
-    }
-
-    return correspondingOption;
-  }
-
   /** The currently selected option. */
   get selected(): MdcSelectItem {
     return this.options.find(_ => _.selected);
@@ -533,16 +568,15 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
   }
 
   getSelectedIndex(): number {
-    return this._foundation.getSelectedIndex();
+    return this.options.toArray().findIndex(_ => _.selected);
   }
 
-  open(index: number = 0): void {
+  open(index?: number): void {
     if (this.disabled) {
       return;
     }
 
-    this._changeDetectorRef.markForCheck();
-    this._menuFactory.show({ index });
+    this._mdcAdapter.openMenu(index ? index : this._foundation.getSelectedIndex());
   }
 
   close(): void {

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 
 import { MdcSelect } from '@angular-mdc/web';
@@ -7,7 +7,7 @@ import { MdcSelect } from '@angular-mdc/web';
   selector: 'select-demo',
   templateUrl: './select-demo.html'
 })
-export class SelectDemo implements AfterViewInit {
+export class SelectDemo {
   isDisabled: boolean = false;
   selectedValue: string;
   isDarkTheme: boolean = false;
@@ -26,14 +26,12 @@ export class SelectDemo implements AfterViewInit {
 
   @ViewChild('select') select: MdcSelect;
 
-  constructor() { }
-
-  ngAfterViewInit() {
-    setTimeout(() => this.foodControl.setValue('pizza-1'), 10);
+  constructor() {
+    // this.foodControl.setValue('steak-0');
+    // this.selectedValue = 'pizza-1';
   }
 
   clearSelection() {
-    // this.select.clearSelection();
     this.selectedValue = null;
   }
 

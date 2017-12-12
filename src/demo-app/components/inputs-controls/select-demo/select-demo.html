@@ -198,7 +198,7 @@ Change event: index: {{eventIndex}}, value: {{eventValue}}</pre>
   <button mdc-button (click)="setSelection()">Set Selection to Fruit</button>
 
 <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-select</span> #<span style="color:#89bdff">select</span> <span style="color:#89bdff">placeholder</span>=<span style="color:#65b042">"Favorite food"</span> [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"selectedValue"</span> <span style="color:#89bdff">name</span>=<span style="color:#65b042">"food"</span>
- [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"false"</span> [<span style="color:#89bdff">closeOnScroll</span>]=<span style="color:#65b042">"true"</span> (<span style="color:#89bdff">change</span>)=<span style="color:#65b042">"handleChange($event)"</span>></span>
+ [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"false"</span> (<span style="color:#89bdff">change</span>)=<span style="color:#65b042">"handleChange($event)"</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-select-item</span> *<span style="color:#89bdff">ngFor</span>=<span style="color:#65b042">"let food of foods"</span> [<span style="color:#89bdff">value</span>]=<span style="color:#65b042">"food.value"</span> [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"food.disabled"</span>></span>
     <![CDATA[{{]]>food.description<![CDATA[}}]]>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-select-item</span>></span>

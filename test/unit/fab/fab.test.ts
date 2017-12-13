@@ -70,11 +70,6 @@ describe('MdcFab', () => {
       expect(testComponent.clickCount).toBe(1);
     });
 
-    it('#should handle a blur event', () => {
-      buttonInstance.blur();
-      fixture.detectChanges();
-    });
-
     it('#should preserve any given tabIndex', () => {
       expect(buttonDebugElement.nativeElement.tabIndex).toBe(2);
     });

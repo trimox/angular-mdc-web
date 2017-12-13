@@ -1,5 +1,6 @@
 import {
-  AfterViewInit,
+  AfterContentInit,
+  ChangeDetectionStrategy,
   Component,
   ContentChild,
   ElementRef,
@@ -29,10 +30,10 @@ import { MdcIcon } from '@angular-mdc/web/icon';
     EventRegistry,
   ],
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
 })
-export class MdcButton implements AfterViewInit, OnChanges {
-  @ContentChild(MdcIcon) buttonIcon: MdcIcon;
+export class MdcButton implements AfterContentInit, OnChanges {
   private _disabled: boolean = false;
   private _disableRipple: boolean = false;
 
@@ -81,12 +82,7 @@ export class MdcButton implements AfterViewInit, OnChanges {
   @HostListener('click', ['$event']) onclick(evt: Event) {
     this._onClick(evt);
   }
-  @HostListener('keypress', ['$event']) onkeypress(evt: KeyboardEvent) {
-    this._onKeyPress(evt);
-  }
-  @HostListener('blur', ['$event']) blur(evt: FocusEvent) {
-    this._onBlur(evt);
-  }
+  @ContentChild(MdcIcon) buttonIcon: MdcIcon;
 
   constructor(
     public renderer: Renderer2,
@@ -99,11 +95,11 @@ export class MdcButton implements AfterViewInit, OnChanges {
 
     if (disabled) {
       if (disabled.currentValue) {
-        this.renderer.setAttribute(this.elementRef.nativeElement, 'disabled', 'true');
-        this.renderer.setAttribute(this.elementRef.nativeElement, 'aria-disabled', 'true');
+        this.renderer.setAttribute(this._getHostElement(), 'disabled', 'true');
+        this.renderer.setAttribute(this._getHostElement(), 'aria-disabled', 'true');
       } else {
-        this.renderer.removeAttribute(this.elementRef.nativeElement, 'disabled');
-        this.renderer.removeAttribute(this.elementRef.nativeElement, 'aria-disabled');
+        this.renderer.removeAttribute(this._getHostElement(), 'disabled');
+        this.renderer.removeAttribute(this._getHostElement(), 'aria-disabled');
       }
     }
 
@@ -112,7 +108,7 @@ export class MdcButton implements AfterViewInit, OnChanges {
     }
   }
 
-  ngAfterViewInit(): void {
+  ngAfterContentInit(): void {
     if (this.buttonIcon) {
       this.renderer.addClass(this.buttonIcon.elementRef.nativeElement, 'mdc-button__icon');
     }
@@ -122,25 +118,20 @@ export class MdcButton implements AfterViewInit, OnChanges {
     }
   }
 
+  /** Focuses the button. */
+  focus(): void {
+    this._getHostElement().focus();
+  }
+
+  _getHostElement() {
+    return this.elementRef.nativeElement;
+  }
+
   private _onClick(event: Event): void {
     // A disabled button shouldn't apply any actions
     if (this.disabled) {
       event.preventDefault();
       event.stopImmediatePropagation();
     }
-  }
-
-  private _onKeyPress(event: KeyboardEvent): void {
-    const keyCode = event.keyCode;
-    if (keyCode === KeyCodes.ENTER || isSpaceKey(event)) {
-      this.ripple.activate(event);
-      if (keyCode !== KeyCodes.ENTER) {
-        event.preventDefault();
-      }
-    }
-  }
-
-  private _onBlur(event: FocusEvent): void {
-    this.ripple.deactivate(event);
   }
 }

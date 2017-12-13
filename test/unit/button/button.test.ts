@@ -44,7 +44,12 @@ describe('MdcButton', () => {
       testComponent.isRippleDisabled = true;
       fixture.detectChanges();
       expect(buttonInstance.ripple.isAttached()).toBe(false);
-      expect(buttonInstance.ripple.isSurfaceActive()).toBe(true);
+
+      buttonInstance.focus();
+      fixture.detectChanges();
+
+      buttonNativeElement.blur();
+      fixture.detectChanges();
       expect(buttonInstance.ripple.isSurfaceDisabled()).toBe(false);
       expect(buttonInstance.disableRipple).toBeTruthy('Expected ripple to be disabled');
     });
@@ -92,9 +97,20 @@ describe('MdcButton', () => {
       expect(testComponent.clickCount).toBe(0);
     });
 
-    it('#should handle a blur event', () => {
-      buttonInstance.blur(null);
+    it('#should focus on button when focus() is called', () => {
+      buttonInstance.focus();
       fixture.detectChanges();
+
+      expect(document.activeElement).toBe(buttonNativeElement);
+    });
+
+    it('#should handle a click on the button', () => {
+      let fixture = TestBed.createComponent(SimpleButton);
+      let testComponent = fixture.debugElement.componentInstance;
+      let buttonDebugElement = fixture.debugElement.query(By.css('button'));
+
+      buttonDebugElement.nativeElement.click();
+      expect(testComponent.clickCount).toBe(1);
     });
 
     it('#should disable the native button element', () => {

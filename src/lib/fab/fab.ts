@@ -5,7 +5,6 @@ import {
   ContentChild,
   ElementRef,
   HostBinding,
-  HostListener,
   Input,
   OnDestroy,
   Renderer2,
@@ -61,9 +60,6 @@ export class MdcFab implements AfterContentInit, OnDestroy {
     this.tabIndex = this._exited ? -1 : this.tabIndex;
     return this._exited ? 'mdc-fab--exited' : '';
   }
-  @HostListener('blur', ['$event']) blur() {
-    this._onBlur();
-  }
 
   constructor(
     private _renderer: Renderer2,
@@ -93,9 +89,5 @@ export class MdcFab implements AfterContentInit, OnDestroy {
 
   toggleExited(exited?: boolean): void {
     this._exited = exited != null ? exited : !this._exited;
-  }
-
-  private _onBlur(): void {
-    this._ripple.activeSurface = false;
   }
 }

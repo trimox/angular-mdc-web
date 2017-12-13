@@ -101,7 +101,7 @@ export abstract class MdcRippleOrchestration {
   }
 
   isSurfaceActive(): boolean {
-    return this.activeSurface || this.elementRef.nativeElement[util.getMatchesProperty(HTMLElement.prototype)](':active');
+    return this.elementRef.nativeElement[util.getMatchesProperty(HTMLElement.prototype)](':active');
   }
 
   isUnbounded(): boolean {

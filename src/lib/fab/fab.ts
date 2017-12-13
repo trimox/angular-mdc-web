@@ -1,18 +1,18 @@
 import {
-  AfterViewInit,
+  AfterContentInit,
+  ChangeDetectionStrategy,
   Component,
   ContentChild,
   ElementRef,
   HostBinding,
   HostListener,
   Input,
+  OnDestroy,
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
 import {
   toBoolean,
-  KeyCodes,
-  isSpaceKey,
   EventRegistry,
 } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/core';
@@ -29,9 +29,10 @@ export type FabPosition = 'bottom-left' | 'bottom-right' | null;
     EventRegistry,
   ],
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
 })
-export class MdcFab implements AfterViewInit {
+export class MdcFab implements AfterContentInit, OnDestroy {
   private _exited: boolean = false;
   private _position: FabPosition = null;
 
@@ -45,8 +46,8 @@ export class MdcFab implements AfterViewInit {
   get position(): FabPosition { return this._position; }
   set position(value: FabPosition) {
     if (value !== this._position) {
-      value ? this._renderer.addClass(this.elementRef.nativeElement, `mdc-fab--${value}`)
-        : this._renderer.removeClass(this.elementRef.nativeElement, `mdc-fab--${this._position}`);
+      value ? this._renderer.addClass(this._getHostElement(), `mdc-fab--${value}`)
+        : this._renderer.removeClass(this._getHostElement(), `mdc-fab--${this._position}`);
       this._position = value;
     }
   }
@@ -60,11 +61,8 @@ export class MdcFab implements AfterViewInit {
     this.tabIndex = this._exited ? -1 : this.tabIndex;
     return this._exited ? 'mdc-fab--exited' : '';
   }
-  @HostListener('keypress', ['$event']) onkeypress(evt: KeyboardEvent) {
-    this._onKeyPress(evt);
-  }
-  @HostListener('blur', ['$event']) blur(evt: FocusEvent) {
-    this._onBlur(evt);
+  @HostListener('blur', ['$event']) blur() {
+    this._onBlur();
   }
 
   constructor(
@@ -72,29 +70,32 @@ export class MdcFab implements AfterViewInit {
     public elementRef: ElementRef,
     private _ripple: MdcRipple) { }
 
-  ngAfterViewInit(): void {
+  ngAfterContentInit(): void {
     if (this.fabIcon) {
       this._renderer.addClass(this.fabIcon.elementRef.nativeElement, 'mdc-fab__icon');
-      this._renderer.addClass(this.elementRef.nativeElement, 'mdc-fab__icon--size');
+      this._renderer.addClass(this._getHostElement(), 'mdc-fab__icon--size');
     }
     this._ripple.init();
+  }
+
+  ngOnDestroy(): void {
+    this._ripple.destroy();
+  }
+
+  /** Focuses the button. */
+  focus(): void {
+    this._getHostElement().focus();
+  }
+
+  _getHostElement() {
+    return this.elementRef.nativeElement;
   }
 
   toggleExited(exited?: boolean): void {
     this._exited = exited != null ? exited : !this._exited;
   }
 
-  private _onKeyPress(event: KeyboardEvent): void {
-    const keyCode = event.keyCode;
-    if (keyCode === KeyCodes.ENTER || isSpaceKey(event)) {
-      this._ripple.activate(event);
-      if (keyCode !== KeyCodes.ENTER) {
-        event.preventDefault();
-      }
-    }
-  }
-
-  private _onBlur(event: FocusEvent): void {
-    this._ripple.deactivate(event);
+  private _onBlur(): void {
+    this._ripple.activeSurface = false;
   }
 }

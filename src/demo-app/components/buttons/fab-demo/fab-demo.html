@@ -54,6 +54,10 @@
           <td>toggleExited(exited?: boolean)</td>
           <td>Toggle the fab animation in and out. Optional argument for specifying exited.</td>
         </tr>
+        <tr>
+          <td>focus()</td>
+          <td>Focuses the button.</td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -78,16 +82,14 @@
 <span mdc-typography-headline>Exit/Entry Animation</span>
   <div fxLayout="row" class="mdc-padding" fxLayoutAlign="start center" fxLayoutGap="25px">
     <button mdc-fab #fab
-      (click)="handleFabExitedClick();">
+      (click)="fab.toggleExited();">
       <mdc-icon>save</mdc-icon>
     </button>
-    <button mdc-button (click)="handleFabExitedClick();" *ngIf="isExited">Show FAB again</button>
+    <button mdc-button (click)="fab.toggleExited()" *ngIf="fab.exited">Show FAB again</button>
 </div>
-<pre style="background:#000;color:#f8f8f8">handleFabExitedClick()
-  this.fab.toggleExited();
-
+<pre style="background:#000;color:#f8f8f8">
 <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span> #<span style="color:#e0c589">fab</span>
-  (<span style="color:#e0c589">click</span>)=<span style="color:#65b042">"handleFabExitedClick();"</span>></span>
+  (<span style="color:#e0c589">click</span>)=<span style="color:#65b042">"fab.toggleExited()"</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>search<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
 <span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
 </pre>
@@ -104,11 +106,11 @@
 
 <span mdc-typography-headline>Absolute Positioning (bottom-right)</span>
 <button mdc-fab
- [position]="'bottom-right'">
+ position="bottom-right">
   <mdc-icon>add</mdc-icon>
 </button>
 <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span>
- [<span style="color:#e0c589">position</span>]=<span style="color:#65b042">"'bottom-right'"</span>></span>
+  <span style="color:#e0c589">position</span>=<span style="color:#65b042">"bottom-right"</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>add<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
 <span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
 </pre>

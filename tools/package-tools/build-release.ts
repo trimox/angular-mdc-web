@@ -43,8 +43,8 @@ export function composeRelease(buildPackage: BuildPackage) {
   copyFiles(join(bundlesDir, name), `!(*.es5|*.umd).js?(.map)`, join(releasePath, 'esm2015'));
 
   // Copy any additional files that belong in the package.
-  copyFiles(sourceDir, 'LICENSE', releasePath);
-  copyFiles(sourceDir, 'README.md', releasePath);
+  copyFiles('./', 'LICENSE', releasePath);
+  copyFiles('./', 'README.md', releasePath);
   copyFiles(sourceDir, 'package.json', releasePath);
 
   replaceVersionPlaceholders(releasePath);

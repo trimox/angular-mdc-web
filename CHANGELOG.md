@@ -1,3 +1,17 @@
+<a name="0.6.5"></a>
+## [0.6.5](https://github.com/trimox/angular-mdc-web/compare/v0.6.4...v0.6.5) (2017-12-14)
+
+
+### Bug Fixes
+
+* **checkbox:** Allow keyboard event to trigger ripple ([#459](https://github.com/trimox/angular-mdc-web/issues/459)) ([a885ffb](https://github.com/trimox/angular-mdc-web/commit/a885ffb))
+* **ripple:** Fix ripple active surface detection ([#457](https://github.com/trimox/angular-mdc-web/issues/457)) ([afd5151](https://github.com/trimox/angular-mdc-web/commit/afd5151)), closes [#440](https://github.com/trimox/angular-mdc-web/issues/440)
+
+### Performance
+* **perf(button):** Set ChangeDetection to OnPush + add focus method ([#458](https://github.com/trimox/angular-mdc-web/pull/458))
+* **fab:** Set ChangeDetection OnPush + add focus method ([#456](https://github.com/trimox/angular-mdc-web/pull/456))
+
+
 <a name="0.6.3"></a>
 ## [0.6.3](https://github.com/trimox/angular-mdc-web/compare/v0.6.2...v0.6.3) (2017-12-12)
 
@@ -13,7 +27,7 @@
 * **build:** Export `MdcIconModule` from `MdcFabModule` ([#442](https://github.com/trimox/angular-mdc-web/issues/442)) ([c4c5d52](https://github.com/trimox/angular-mdc-web/commit/c4c5d52))
 * **dialog:** Add observable subjects + improvements ([#399](https://github.com/trimox/angular-mdc-web/issues/399)) ([784d87d](https://github.com/trimox/angular-mdc-web/commit/784d87d)), closes [#397](https://github.com/trimox/angular-mdc-web/issues/397)
 * **infrastructure:** Redesign development environment ([#436](https://github.com/trimox/angular-mdc-web/issues/436)) ([9710d38](https://github.com/trimox/angular-mdc-web/commit/9710d38)), closes [#431](https://github.com/trimox/angular-mdc-web/issues/431)
-
+* **feat(textfield):** Add `empty` getter ([#451](https://github.com/trimox/angular-mdc-web/pull/451))
 
 
 <a name="0.6.2"></a>

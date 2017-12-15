@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   HostBinding,
@@ -14,8 +15,7 @@ import { MDCLinearProgressFoundation } from '@material/linear-progress';
 @Component({
   moduleId: module.id,
   selector: 'mdc-linear-progress',
-  template:
-  `
+  template: `
   <div class="mdc-linear-progress__buffering-dots"></div>
   <div class="mdc-linear-progress__buffer"></div>
   <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
@@ -25,7 +25,9 @@ import { MDCLinearProgressFoundation } from '@material/linear-progress';
    <span class="mdc-linear-progress__bar-inner"></span>
   </div>
   `,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  preserveWhitespaces: false
 })
 export class MdcLinearProgress implements AfterViewInit {
   private _indeterminate: boolean = false;

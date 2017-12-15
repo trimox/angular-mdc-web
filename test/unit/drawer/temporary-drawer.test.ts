@@ -85,10 +85,15 @@ describe('MdcTemporaryDrawer', () => {
       fixture.detectChanges();
       expect(testInstance.getDisableItemSelect()).toBe(true);
     });
+
+    it('#should be closed after click', () => {
+      testDebugElement.nativeElement.click();
+      fixture.detectChanges();
+      expect(testInstance.isOpen()).toBe(false);
+    });
   });
 });
 
-/** Simple component for testing. */
 @Component({
   template: `
   <mdc-temporary-drawer [disableItemSelect]="isDisableItemSelect" [absolute]="isAbsolute" [closeOnClick]="isCloseOnClick">

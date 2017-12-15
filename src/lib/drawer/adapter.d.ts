@@ -31,4 +31,5 @@ export interface MDCDrawerTemporaryAdapter extends MDCDrawerAdapter {
   removeBodyClass: (className: string) => void;
   isDrawer: (el: Element) => boolean;
   updateCssVariable: (value: string) => void;
+  eventTargetHasClass: (target: HTMLElement, className: string) => boolean;
 }

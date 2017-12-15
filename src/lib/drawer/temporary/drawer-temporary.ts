@@ -110,6 +110,9 @@ export class MdcTemporaryDrawer extends MdcDrawer implements AfterViewInit, OnCh
         this.renderer.removeClass(document.body, className);
       }
     },
+    eventTargetHasClass: (target: HTMLElement, className: string) => {
+      return target.classList.contains(className);
+    },
     hasNecessaryDom: () => !!this.drawerNav,
     registerInteractionHandler: (evt: string, handler: EventListener) => {
       this._registry.listen(util.remapEvent(evt), handler, this.elementRef.nativeElement);

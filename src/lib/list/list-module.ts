@@ -11,7 +11,7 @@ import {
   MdcListItemStart,
   MdcListItemEnd,
   MdcListItemText,
-  MdcListItemTextSecondary,
+  MdcListItemSecondaryText,
 } from './list-item';
 
 const LIST_COMPONENTS = [
@@ -20,7 +20,7 @@ const LIST_COMPONENTS = [
   MdcListItemStart,
   MdcListItemEnd,
   MdcListItemText,
-  MdcListItemTextSecondary,
+  MdcListItemSecondaryText,
   MdcListGroup,
   MdcListGroupSubheader,
   MdcListDivider,

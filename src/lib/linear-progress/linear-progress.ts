@@ -72,7 +72,7 @@ export class MdcLinearProgress implements AfterViewInit {
     removeClass: (className: string) => {
       this._renderer.removeClass(this.elementRef.nativeElement, className);
     },
-    setStyle: (el: Element, styleProperty: string, value: number) => {
+    setStyle: (el: Element, styleProperty: string, value: string) => {
       this._renderer.setStyle(el, styleProperty, value);
     }
   };
@@ -109,5 +109,15 @@ export class MdcLinearProgress implements AfterViewInit {
 
   setBuffer(value: number): void {
     this._foundation.setBuffer(value);
+  }
+
+  setReverse(value: boolean): void {
+    this._reversed = value;
+    this._foundation.setReverse(value);
+  }
+
+  setDeterminate(value: boolean): void {
+    this._indeterminate = !value;
+    this._foundation.setDeterminate(value);
   }
 }

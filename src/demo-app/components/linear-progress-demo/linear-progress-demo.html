@@ -35,6 +35,10 @@
           <td>secondary: boolean</td>
           <td>Colors the button with the secondary theme color.</td>
         </tr>
+        <tr>
+          <td>closed: boolean</td>
+          <td>Hides the linear progress indicator.</td>
+        </tr>
       </tbody>
       <thead>
         <tr>
@@ -59,32 +63,35 @@
           <td>setBuffer(value: number)</td>
           <td>Sets the buffer bar to this value. Value should be between [0, 1].</td>
         </tr>
+        <tr>
+          <td>setReverse(value: boolean)</td>
+          <td>Reverses the direction of the linear progress indicator.</td>
+        </tr>
+        <tr>
+          <td>setDeterminate(value: boolean)</td>
+          <td>Toggles the component between the determinate and indeterminate state.</td>
+        </tr>
       </tbody>
     </table>
   </div>
-  <div fxLayout="column" class="mdc-padding">
-    <mdc-linear-progress [indeterminate]="true"></mdc-linear-progress>
-    <p>Indeterminate</p>
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-linear-progress</span> [<span style="color:#89bdff">indeterminate</span>]=<span style="color:#65b042">"true"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-linear-progress</span>></span>
-</pre>
+  <span mdc-typography-title>Indeterminate Progress</span>
+  <div fxLayout="column" fxLayoutAlign="start" fxFlexOffset="2" fxFlex="50">
+    <mdc-linear-progress #lp [indeterminate]="true"></mdc-linear-progress>
+    <div fxLayout="row" fxFlexOffset="5">
+      <button mdc-button (click)="lp.setReverse(!lp.reversed)">Reverse</button>
+      <button mdc-button (click)="lp.closed = !lp.closed">Open/Close</button>
+      <button mdc-button (click)="lp.secondary = !lp.secondary">{{lp.secondary ? 'Primary' : 'Secondary'}} Color</button>
+    </div>
   </div>
-  <div fxLayout="column" class="mdc-padding">
-    <mdc-linear-progress [indeterminate]="false"></mdc-linear-progress>
-    <p>Determinate</p>
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-linear-progress</span> [<span style="color:#89bdff">indeterminate</span>]=<span style="color:#65b042">"false"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-linear-progress</span>></span>
-</pre> </div>
-  <div fxLayout="column" class="mdc-padding">
-    <mdc-linear-progress [reversed]="true" [indeterminate]="true"></mdc-linear-progress>
-    <p>Reversed</p>
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-linear-progress</span>
-  [<span style="color:#89bdff">reversed</span>]=<span style="color:#65b042">"true"</span>
-  [<span style="color:#89bdff">indeterminate</span>]=<span style="color:#65b042">"true"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-linear-progress</span>></span>
-</pre> </div>
-  <div fxLayout="column" class="mdc-padding">
-    <mdc-linear-progress [indeterminate]="true" [secondary]="true"></mdc-linear-progress>
-    <p>Secondary Color</p>
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-linear-progress</span>
-  [<span style="color:#89bdff">indeterminate</span>]=<span style="color:#65b042">"true"</span>
-  [<span style="color:#89bdff">secondary</span>]=<span style="color:#65b042">"true"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-linear-progress</span>></span>
-</pre> </div>
+
+  <span mdc-typography-title>Determinate Progress</span>
+  <div fxLayout="column" fxLayoutAlign="start" fxFlexOffset="2" fxFlex="50">
+    <mdc-linear-progress #lp [indeterminate]="false"></mdc-linear-progress>
+    <div fxLayout="row" fxFlexOffset="5">
+      <button mdc-button (click)="lp.setBuffer(0.75)">Buffer</button>
+      <button mdc-button (click)="lp.setReverse(!lp.reversed)">Reverse</button>
+      <button mdc-button (click)="lp.closed = !lp.closed">Open/Close</button>
+      <button mdc-button (click)="lp.secondary = !lp.secondary">{{lp.secondary ? 'Primary' : 'Secondary'}} Color</button>
+    </div>
+  </div>
 </div>

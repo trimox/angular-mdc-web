@@ -4,5 +4,5 @@ export interface MDCLinearProgressAdapter {
   getBuffer: () => Element;
   hasClass: (className: string) => void;
   removeClass: (className: string) => void;
-  setStyle: (el: Element, styleProperty: string, value: number) => void;
+  setStyle: (el: Element, styleProperty: string, value: string) => void;
 }

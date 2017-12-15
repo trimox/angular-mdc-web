@@ -75,6 +75,20 @@ describe('MdcLinearProgress', () => {
       fixture.detectChanges();
     });
 
+    it('#should not apply indeterminate class', () => {
+      testInstance.setDeterminate(true);
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList.contains('mdc-linear-progress--indeterminate')).toBe(false);
+      expect(testInstance.indeterminate).toBe(false);
+    });
+
+    it('#should not apply reverse class', () => {
+      testInstance.setReverse(true);
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList.contains('mdc-linear-progress--reversed')).toBe(true);
+      expect(testInstance.reversed).toBe(true);
+    });
+
     it('#should be closed', () => {
       testInstance.close();
       fixture.detectChanges();

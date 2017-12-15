@@ -73,6 +73,18 @@ describe('MdcMenu', () => {
       expect(testDebugElement.nativeElement.classList).toContain('mdc-simple-menu--open-from-top-left');
     });
 
+    it('#should be open from top right', () => {
+      testComponent.myOpenFrom = 'topRight';
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList).toContain('mdc-simple-menu--open-from-top-right');
+    });
+
+    it('#should be open from bottom left', () => {
+      testComponent.myOpenFrom = 'bottomLeft';
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList).toContain('mdc-simple-menu--open-from-bottom-left');
+    });
+
     it('#should have focus', () => {
       expect(document.activeElement).not.toBe(testDebugElement.nativeElement);
 

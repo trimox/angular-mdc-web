@@ -58,6 +58,13 @@ describe('MdcLinearProgress', () => {
       expect(testInstance.indeterminate).toBe(false);
     });
 
+    it('#should apply closed class based on property', () => {
+      testComponent.isClosed = true;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList.contains('mdc-linear-progress--closed')).toBe(true);
+      expect(testInstance.closed).toBe(true);
+    });
+
     it('#should set buffer to value', () => {
       testInstance.setBuffer(50);
       fixture.detectChanges();
@@ -87,6 +94,7 @@ describe('MdcLinearProgress', () => {
     <mdc-linear-progress
       [reversed]="isReversed"
       [secondary]="isSecondary"
+      [closed]="isClosed"
       [indeterminate]="isIndeterminate">
     </mdc-linear-progress>
   `,
@@ -95,4 +103,5 @@ class SimpleTest {
   isReversed: boolean = false;
   isSecondary: boolean = false;
   isIndeterminate: boolean = false;
+  isClosed: boolean = false;
 }

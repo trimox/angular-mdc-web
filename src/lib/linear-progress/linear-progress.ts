@@ -46,10 +46,14 @@ export class MdcLinearProgress implements AfterViewInit {
     this._reversed = value;
   }
   @Input() secondary: boolean = false;
+  @Input() closed: boolean = false;
   @HostBinding('attr.role') role: string = 'progressbar';
   @HostBinding('class.mdc-linear-progress') isHostClass = true;
   @HostBinding('class.mdc-linear-progress--secondary') get classSecondary(): string {
     return this.secondary ? 'mdc-linear-progress--secondary' : '';
+  }
+  @HostBinding('class.mdc-linear-progress--closed') get classClosed(): string {
+    return this.closed ? 'mdc-linear-progress--closed' : '';
   }
 
   private _mdcAdapter: MDCLinearProgressAdapter = {

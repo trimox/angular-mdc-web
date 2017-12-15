@@ -12,29 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@import "../ripple/mixins";
-@import "../ripple/variables";
-@import "./mixins";
+$mdc-list-divider-color-light: rgba(0, 0, 0, .12) !default;
+$mdc-list-divider-color-dark: rgba(255, 255, 255, .2) !default;
 
-// postcss-bem-linter: define fab
-
-.mdc-fab {
-  @include mdc-fab-base_;
-  @include mdc-fab-container-color(secondary);
-  @include mdc-fab-ink-color(text-primary-on-secondary);
-  @include mdc-states(text-primary-on-secondary);
-}
-
-.mdc-fab--mini {
-  @include mdc-fab--mini_;
-}
-
-.mdc-fab__icon {
-  @include mdc-fab__icon_;
-}
-
-.mdc-fab--exited {
-  @include mdc-fab--exited_;
-}
-
-// postcss-bem-linter: end
+$mdc-list-side-padding: 16px;

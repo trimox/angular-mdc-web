@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 
 import {
   MdcTextField,
-  MdcTextFieldModule
+  MdcTextFieldModule,
 } from '@angular-mdc/web';
 
 describe('MdcTextField', () => {
@@ -79,6 +79,14 @@ describe('MdcTextField', () => {
 
     it('#should select all content', () => {
       expect(textFieldInstance.selectAll());
+    });
+
+    it('#should activate bottomline', () => {
+      expect(textFieldInstance.bottomLine.activate());
+    });
+
+    it('#should deactivate bottomline', () => {
+      expect(textFieldInstance.bottomLine.deactivate());
     });
 
     it('#should focus on underlying input element when focus() is called', () => {

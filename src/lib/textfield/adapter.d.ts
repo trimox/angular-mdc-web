@@ -18,8 +18,6 @@
     badInput: boolean,
     checkValidity: () => boolean,
   };
-  getBottomLineFoundation: () => any;
-  getHelperTextFoundation: () => any;
 }
 
 export interface MDCTextFieldBottomLineAdapter {

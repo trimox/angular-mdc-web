@@ -192,9 +192,9 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
-    this._disabled = value != null && `${value}` !== 'false';
     if (value !== this._disabled) {
       this._foundation.setDisabled(value);
+      this._disabled = value;
     }
   }
   @Input()

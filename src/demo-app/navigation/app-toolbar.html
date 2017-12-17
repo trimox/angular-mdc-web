@@ -3,19 +3,19 @@
     <mdc-list-group>
       <mdc-list>
         <a mdc-list-item [routerLink]="['home']">
-          <mdc-icon mdc-list-item-start>home</mdc-icon>Home
+          <mdc-icon mdc-list-item-graphic>home</mdc-icon>Home
         </a>
         <mdc-list-divider></mdc-list-divider>
         <a mdc-list-item [routerLink]="['getting-started']">
-          <mdc-icon mdc-list-item-start>touch_app</mdc-icon>Getting Started
+          <mdc-icon mdc-list-item-graphic>touch_app</mdc-icon>Getting Started
         </a>
         <mdc-list-divider></mdc-list-divider>
         <a mdc-list-item [routerLink]="['core']">
-          <mdc-icon mdc-list-item-start>keyboard_arrow_right</mdc-icon>Core Modules
+          <mdc-icon mdc-list-item-graphic>keyboard_arrow_right</mdc-icon>Core Modules
         </a>
         <mdc-list-divider></mdc-list-divider>
         <a mdc-list-item *ngFor="let navItem of navLinks" [routerLink]="[navItem.route]">
-          <mdc-icon mdc-list-item-start>{{navItem.icon}}</mdc-icon>{{navItem.name}}
+          <mdc-icon mdc-list-item-graphic>{{navItem.icon}}</mdc-icon>{{navItem.name}}
         </a>
       </mdc-list>
     </mdc-list-group>
@@ -49,20 +49,20 @@
    <mdc-permanent-drawer-content>
       <mdc-list-group>
         <mdc-list>
-          <mdc-list-item [routerLink]="['home']" routerLinkActive #rlaHome="routerLinkActive" [active]="rlaHome.isActive">
-            <mdc-icon mdc-list-item-start>home</mdc-icon>Home
+          <mdc-list-item [routerLink]="['home']" routerLinkActive #rlaHome="routerLinkActive">
+            <mdc-icon mdc-list-item-graphic>home</mdc-icon>Home
           </mdc-list-item>
           <mdc-list-divider></mdc-list-divider>
-          <mdc-list-item [routerLink]="['getting-started']" routerLinkActive #rlaStarted="routerLinkActive" [active]="rlaStarted.isActive">
-            <mdc-icon mdc-list-item-start>touch_app</mdc-icon>Getting Started
+          <mdc-list-item [routerLink]="['getting-started']" routerLinkActive #rlaStarted="routerLinkActive">
+            <mdc-icon mdc-list-item-graphic>touch_app</mdc-icon>Getting Started
           </mdc-list-item>
           <mdc-list-divider></mdc-list-divider>
-          <mdc-list-item [routerLink]="['core']" routerLinkActive #rlaCore="routerLinkActive" [active]="rlaCore.isActive">
-            <mdc-icon mdc-list-item-start>keyboard_arrow_right</mdc-icon>Core Modules
+          <mdc-list-item [routerLink]="['core']" routerLinkActive #rlaCore="routerLinkActive">
+            <mdc-icon mdc-list-item-graphic>keyboard_arrow_right</mdc-icon>Core Modules
           </mdc-list-item>
           <mdc-list-divider></mdc-list-divider>
-          <mdc-list-item *ngFor="let navItem of navLinks" [routerLink]="[navItem.route]" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
-            <mdc-icon mdc-list-item-start>{{navItem.icon}}</mdc-icon>{{navItem.name}}
+          <mdc-list-item *ngFor="let navItem of navLinks" [routerLink]="[navItem.route]" routerLinkActive #rla="routerLinkActive">
+            <mdc-icon mdc-list-item-graphic>{{navItem.icon}}</mdc-icon>{{navItem.name}}
           </mdc-list-item>
         </mdc-list>
       </mdc-list-group>

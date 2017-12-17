@@ -1,20 +1,33 @@
 import {
   AfterContentInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChildren,
   Directive,
   ElementRef,
   HostBinding,
   Input,
+  NgZone,
   OnChanges,
+  OnDestroy,
   QueryList,
   Renderer2,
   SimpleChange,
   ViewEncapsulation,
 } from '@angular/core';
+import { defer } from 'rxjs/observable/defer';
+import { filter } from 'rxjs/operators/filter';
+import { merge } from 'rxjs/observable/merge';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { switchMap } from 'rxjs/operators/switchMap';
+import { take } from 'rxjs/operators/take';
+import { takeUntil } from 'rxjs/operators/takeUntil';
+
 import { toBoolean } from '@angular-mdc/web/common';
 
-import { MdcListItem } from './list-item';
+import { MdcListItem, MdcListSelectionChange } from './list-item';
 
 @Directive({
   selector: '[mdc-list-group], mdc-list-group'
@@ -38,6 +51,8 @@ export class MdcListGroupSubheader {
   moduleId: module.id,
   selector: '[mdc-list-divider], mdc-list-divider',
   template: '<div class="mdc-list-divider" role="seperator"></div>',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  preserveWhitespaces: false,
 })
 export class MdcListDivider {
   private _inset: boolean = false;
@@ -60,11 +75,16 @@ export class MdcListDivider {
   selector: 'mdc-list',
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
 })
-export class MdcList implements AfterContentInit, OnChanges {
+export class MdcList implements AfterContentInit, OnChanges, OnDestroy {
   private _disableRipple: boolean = false;
   private _avatar: boolean = false;
+  private _multiple: boolean = false;
+
+  /** Emits whenever the component is destroyed. */
+  private _destroy = new Subject<void>();
 
   @Input() dense: boolean = false;
   @Input() twoLine: boolean = false;
@@ -93,55 +113,53 @@ export class MdcList implements AfterContentInit, OnChanges {
   @HostBinding('class.mdc-list--border') get classBorder(): string {
     return this.border ? 'mdc-list--border' : '';
   }
-  @ContentChildren(MdcListItem) listItems: QueryList<MdcListItem>;
+  @ContentChildren(MdcListItem) options: QueryList<MdcListItem>;
 
   constructor(
+    private _ngZone: NgZone,
     private _renderer: Renderer2,
     public elementRef: ElementRef) { }
 
+  /** Combined stream of all of the child options' change events. */
+  optionSelectionChanges: Observable<MdcListSelectionChange> = defer(() => {
+    if (this.options) {
+      return merge(...this.options.map(option => option.onSelectionChange));
+    }
+
+    return this._ngZone.onStable
+      .asObservable()
+      .pipe(take(1), switchMap(() => this.optionSelectionChanges));
+  });
+
   ngOnChanges(changes: { [key: string]: SimpleChange }): void {
     const disableRipple = changes['disableRipple'];
-    const avatar = changes['avatar'];
-
-    if (disableRipple) {
-      this._configureRipples(disableRipple.currentValue);
-    }
-
-    if (avatar) {
-      this._configureAvatars(avatar.currentValue);
-    }
   }
 
   ngAfterContentInit(): void {
-    if (!this._disableRipple) {
-      this._configureRipples(false);
-    }
-
-    if (this._avatar) {
-      this._configureAvatars(true);
-    }
+    this.optionSelectionChanges.pipe(
+      takeUntil(merge(this._destroy, this.options.changes)),
+      filter(item => item.source.selected)
+    ).subscribe(item => {
+      if (!this._multiple) {
+        this._clearSelection(item.source);
+      }
+    });
   }
 
-  isRippleDisabled(): boolean {
-    return this._disableRipple;
+  ngOnDestroy(): void {
+    this._destroy.next();
+    this._destroy.complete();
   }
 
-  private _configureRipples(value: boolean): void {
-    if (this.listItems) {
-      this.listItems.forEach(_ => {
-        value ? _.ripple.destroy() : _.ripple.init();
-      });
+  private _clearSelection(skip?: MdcListItem): void {
+    if (!this.options) {
+      return;
     }
-  }
 
-  private _configureAvatars(value: boolean): void {
-    if (this.listItems) {
-      this.listItems.forEach(_ => {
-        if (_.listItemStart) {
-          value ? this._renderer.addClass(_.listItemStart.elementRef.nativeElement, 'mdc-icon--avatar')
-            : this._renderer.removeClass(_.listItemStart.elementRef.nativeElement, 'mdc-icon--avatar');
-        }
-      });
-    }
+    this.options.forEach(option => {
+      if (option !== skip) {
+        option.deselect();
+      }
+    });
   }
 }

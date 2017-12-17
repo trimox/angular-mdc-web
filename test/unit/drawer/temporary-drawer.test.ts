@@ -68,24 +68,6 @@ describe('MdcTemporaryDrawer', () => {
       expect(testInstance.isRtl()).toBe(false);
     });
 
-    it('#should be disabled item selection', () => {
-      testInstance.disableItemSelect = true;
-      fixture.detectChanges();
-      expect(testInstance.getDisableItemSelect()).toBe(true);
-    });
-
-    it('#should be disabled item selection', () => {
-      testInstance.setDisableItemSelect(false);
-      fixture.detectChanges();
-      expect(testInstance.disableItemSelect).toBe(false);
-    });
-
-    it('#should be disabled item selection', () => {
-      testInstance.setDisableItemSelect(true);
-      fixture.detectChanges();
-      expect(testInstance.getDisableItemSelect()).toBe(true);
-    });
-
     it('#should be closed after click', () => {
       testDebugElement.nativeElement.click();
       fixture.detectChanges();
@@ -96,7 +78,7 @@ describe('MdcTemporaryDrawer', () => {
 
 @Component({
   template: `
-  <mdc-temporary-drawer [disableItemSelect]="isDisableItemSelect" [absolute]="isAbsolute" [closeOnClick]="isCloseOnClick">
+  <mdc-temporary-drawer [absolute]="isAbsolute" [closeOnClick]="isCloseOnClick">
     <mdc-temporary-drawer-spacer>Angular MDC</mdc-temporary-drawer-spacer>
     <mdc-temporary-drawer-header>
       <mdc-temporary-drawer-header-content>
@@ -137,7 +119,6 @@ describe('MdcTemporaryDrawer', () => {
   `,
 })
 class SimpleTest {
-  isDisableItemSelect: boolean = false;
   isAbsolute: boolean = false;
   isCloseOnClick: boolean = true;
 }

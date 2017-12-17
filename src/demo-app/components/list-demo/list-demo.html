@@ -37,23 +37,19 @@
         </tr>
         <tr>
           <td>border: boolean</td>
-          <td>Sets a border around the list.</td>
-        </tr>
-        <tr>
-          <td>disableRipple: boolean</td>
-          <td>Disables ink ripple.</td>
+          <td>Sets a border around each list item.</td>
         </tr>
       </tbody>
       <thead>
         <tr>
-          <th>Methods</th>
-          <th>Parameters</th>
+          <th>Event</th>
+          <th>Description</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>isRippleDisabled(): boolean</td>
-          <td>Whether or not the ripple is disabled on list-items.</td>
+          <td>MdcListSelectionChange(source: MdcListItem)</td>
+          <td>Change event that is being fired whenever the selected state of an option changes.</td>
         </tr>
       </tbody>
     </table>
@@ -79,8 +75,8 @@
       </thead>
       <tbody>
         <tr>
-          <td>active: boolean</td>
-          <td>Whether or not the item is active. Setting this makes the item active.</td>
+          <td>selected: boolean</td>
+          <td>Whether or not the item is selected. Setting this sets the selected item.</td>
         </tr>
       </tbody>
       <thead>
@@ -91,8 +87,8 @@
       </thead>
       <tbody>
         <tr>
-          <td>isActive(): boolean</td>
-          <td>Whether or not the list item is active.</td>
+          <td>toggle()</td>
+          <td>Toggles the selection state of the option.</td>
         </tr>
       </tbody>
       <thead>
@@ -101,12 +97,12 @@
         </tr>
       </thead>
         <tr>
-          <td>mdc-list-item-start</td>
-          <td>Position element at the start of the row.</td>
+          <td>mdc-list-item-graphic</td>
+          <td>The first tile in the row (in LTR languages, the left-most).</td>
         </tr>
         <tr>
-          <td>mdc-list-item-end</td>
-          <td>Position element at the end of the row.</td>
+          <td>mdc-list-item-meta</td>
+          <td>The last tile in the row (in LTR languages, the right-most)</td>
         </tr>
         <tr>
           <td>mdc-list-item-text</td>
@@ -273,13 +269,13 @@
     </div>
     <mdc-list [mdc-theme-dark]="isStartDetailDarkTheme" [border]="true">
       <mdc-list-item>
-        <mdc-icon mdc-list-item-start>network_wifi</mdc-icon>Wi-Fi
+        <mdc-icon mdc-list-item-graphic>network_wifi</mdc-icon>Wi-Fi
       </mdc-list-item>
       <mdc-list-item>
-        <mdc-icon mdc-list-item-start>bluetooth</mdc-icon>Bluetooth
+        <mdc-icon mdc-list-item-graphic>bluetooth</mdc-icon>Bluetooth
       </mdc-list-item>
       <mdc-list-item>
-        <mdc-icon mdc-list-item-start>data_usage</mdc-icon>Data Usage
+        <mdc-icon mdc-list-item-graphic>data_usage</mdc-icon>Data Usage
       </mdc-list-item>
     </mdc-list>
   </div>
@@ -287,13 +283,13 @@
     <h3>End Detail</h3>
     <mdc-list [border]="true">
       <mdc-list-item>
-        Wi-Fi<mdc-icon mdc-list-item-end>info</mdc-icon>
+        Wi-Fi<mdc-icon mdc-list-item-meta>info</mdc-icon>
       </mdc-list-item>
       <mdc-list-item>
-        Bluetooth<mdc-icon mdc-list-item-end>info</mdc-icon>
+        Bluetooth<mdc-icon mdc-list-item-meta>info</mdc-icon>
       </mdc-list-item>
       <mdc-list-item>
-        Data Usage<mdc-icon mdc-list-item-end>info</mdc-icon>
+        Data Usage<mdc-icon mdc-list-item-meta>info</mdc-icon>
       </mdc-list-item>
     </mdc-list>
   </div>
@@ -307,13 +303,13 @@
     </div>
 <mdc-list [mdc-theme-dark]="isStartEndDetailDarkTheme" [border]="true">
   <mdc-list-item>
-    <mdc-icon mdc-list-item-start>network_wifi</mdc-icon>Wi-Fi<mdc-icon mdc-list-item-end>info</mdc-icon>
+    <mdc-icon mdc-list-item-graphic>network_wifi</mdc-icon>Wi-Fi<mdc-icon mdc-list-item-meta>info</mdc-icon>
   </mdc-list-item>
   <mdc-list-item>
-    <mdc-icon mdc-list-item-start>bluetooth</mdc-icon>Bluetooth<mdc-icon mdc-list-item-end>info</mdc-icon>
+    <mdc-icon mdc-list-item-graphic>bluetooth</mdc-icon>Bluetooth<mdc-icon mdc-list-item-meta>info</mdc-icon>
   </mdc-list-item>
   <mdc-list-item>
-    <mdc-icon mdc-list-item-start>data_usage</mdc-icon>Data Usage<mdc-icon mdc-list-item-end>info</mdc-icon>
+    <mdc-icon mdc-list-item-graphic>data_usage</mdc-icon>Data Usage<mdc-icon mdc-list-item-meta>info</mdc-icon>
   </mdc-list-item>
 </mdc-list>
         <div fxLayout="column" fxLayoutAlign="start start">
@@ -321,16 +317,16 @@
  [<span style="color:#89bdff">mdc-theme-dark</span>]=<span style="color:#65b042">"false"</span>
  [<span style="color:#89bdff">border</span>]=<span style="color:#65b042">"true"</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>network_wifi<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Wi-Fi
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-end</span>></span>info<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>network_wifi<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Wi-Fi
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-meta</span>></span>info<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>bluetooth<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Bluetooth
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-end</span>></span>info<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>bluetooth<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Bluetooth
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-meta</span>></span>info<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>data_usage<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Data Usage
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-end</span>></span>info<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>data_usage<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Data Usage
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-meta</span>></span>info<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
 </pre>
@@ -350,13 +346,13 @@
     </div>
     <mdc-list avatar="true" [dense]="isAvatarDense" [mdc-theme-dark]="isAvatarDarkTheme" [border]="true">
       <mdc-list-item>
-        <mdc-icon mdc-list-item-start>person</mdc-icon>Single-line item
+        <mdc-icon mdc-list-item-graphic>person</mdc-icon>Single-line item
       </mdc-list-item>
       <mdc-list-item>
-        <mdc-icon mdc-list-item-start>person</mdc-icon>Single-line item
+        <mdc-icon mdc-list-item-graphic>person</mdc-icon>Single-line item
       </mdc-list-item>
       <mdc-list-item>
-        <mdc-icon mdc-list-item-start>person</mdc-icon>Single-line item
+        <mdc-icon mdc-list-item-graphic>person</mdc-icon>Single-line item
       </mdc-list-item>
     </mdc-list>
   </div>
@@ -364,32 +360,32 @@
     <h3>Avatar List + Checkbox</h3>
 <mdc-list [avatar]="true" [dense]="isAvatarDense" [mdc-theme-dark]="isAvatarDarkTheme" [border]="true" [disableRipple]="true">
   <mdc-list-item>
-    <mdc-icon mdc-list-item-start>person</mdc-icon>Single-line item
-    <mdc-checkbox mdc-list-item-end></mdc-checkbox>
+    <mdc-icon mdc-list-item-graphic>person</mdc-icon>Single-line item
+    <mdc-checkbox mdc-list-item-meta></mdc-checkbox>
   </mdc-list-item>
   <mdc-list-item>
-    <mdc-icon mdc-list-item-start>person</mdc-icon>Single-line item
-    <mdc-checkbox mdc-list-item-end></mdc-checkbox>
+    <mdc-icon mdc-list-item-graphic>person</mdc-icon>Single-line item
+    <mdc-checkbox mdc-list-item-meta></mdc-checkbox>
   </mdc-list-item>
   <mdc-list-item>
-    <mdc-icon mdc-list-item-start>person</mdc-icon>Single-line item
-    <mdc-checkbox mdc-list-item-end></mdc-checkbox>
+    <mdc-icon mdc-list-item-graphic>person</mdc-icon>Single-line item
+    <mdc-checkbox mdc-list-item-meta></mdc-checkbox>
   </mdc-list-item>
 </mdc-list>
         <div fxLayout="column" fxLayoutAlign="start start">
 <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span> [<span style="color:#89bdff">avatar</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#89bdff">dense</span>]=<span style="color:#65b042">"false"</span>
   [<span style="color:#89bdff">mdc-theme-dark</span>]=<span style="color:#65b042">"false"</span> [<span style="color:#89bdff">border</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#89bdff">disableRipple</span>]=<span style="color:#65b042">"true"</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Single-line item
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span> <span style="color:#89bdff">mdc-list-item-end</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Single-line item
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span> <span style="color:#89bdff">mdc-list-item-meta</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Single-line item
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span> <span style="color:#89bdff">mdc-list-item-end</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Single-line item
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span> <span style="color:#89bdff">mdc-list-item-meta</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Single-line item
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span> <span style="color:#89bdff">mdc-list-item-end</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Single-line item
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span> <span style="color:#89bdff">mdc-list-item-meta</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
 </pre>
@@ -401,29 +397,29 @@
   <mdc-list-group-subheader>Grouped Lists</mdc-list-group-subheader>
   <mdc-list>
     <a mdc-list-item href="#/list-demo">
-      <mdc-icon mdc-list-item-start>network_wifi</mdc-icon>Wi-Fi
-      <mdc-icon mdc-list-item-end>info</mdc-icon>
+      <mdc-icon mdc-list-item-graphic>network_wifi</mdc-icon>Wi-Fi
+      <mdc-icon mdc-list-item-meta>info</mdc-icon>
     </a>
     <a mdc-list-item href="#/list-demo">
-      <mdc-icon mdc-list-item-start>bluetooth</mdc-icon>Bluetooth
-      <mdc-icon mdc-list-item-end>info</mdc-icon>
+      <mdc-icon mdc-list-item-graphic>bluetooth</mdc-icon>Bluetooth
+      <mdc-icon mdc-list-item-meta>info</mdc-icon>
     </a>
     <a mdc-list-item href="#/list-demo">
-      <mdc-icon mdc-list-item-start>data_usage</mdc-icon>Data Usage
-      <mdc-icon mdc-list-item-end>info</mdc-icon>
+      <mdc-icon mdc-list-item-graphic>data_usage</mdc-icon>Data Usage
+      <mdc-icon mdc-list-item-meta>info</mdc-icon>
     </a>
   </mdc-list>
   <mdc-list-divider></mdc-list-divider>
   <mdc-list-group-subheader>2nd Group</mdc-list-group-subheader>
   <mdc-list [avatar]="true">
     <a mdc-list-item href="#/list-demo">
-      <mdc-icon mdc-list-item-start>person</mdc-icon>Single-line item
+      <mdc-icon mdc-list-item-graphic>person</mdc-icon>Single-line item
     </a>
     <a mdc-list-item href="#/list-demo">
-      <mdc-icon mdc-list-item-start>person</mdc-icon>Single-line item
+      <mdc-icon mdc-list-item-graphic>person</mdc-icon>Single-line item
     </a>
     <a mdc-list-item href="#/list-demo">
-      <mdc-icon mdc-list-item-start>person</mdc-icon>Single-line item
+      <mdc-icon mdc-list-item-graphic>person</mdc-icon>Single-line item
     </a>
   </mdc-list>
 </mdc-list-group>
@@ -433,29 +429,29 @@
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-group-subheader</span>></span>Grouped Lists<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-group-subheader</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
     <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-list-item</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/list-demo"</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>network_wifi<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Wi-Fi
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-end</span>></span>info<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>network_wifi<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Wi-Fi
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-meta</span>></span>info<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
     <span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
     <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-list-item</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/list-demo"</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>bluetooth<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Bluetooth
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-end</span>></span>info<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>bluetooth<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Bluetooth
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-meta</span>></span>info<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
     <span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
     <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-list-item</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/list-demo"</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>data_usage<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Data Usage
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-end</span>></span>info<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>data_usage<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Data Usage
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-meta</span>></span>info<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
     <span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-divider</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-divider</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-group-subheader</span>></span>2nd Group<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-group-subheader</span>></span>
   <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span> <span style="color:#89bdff">avatar</span>=<span style="color:#65b042">"true"</span>></span>
     <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-list-item</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/list-demo"</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Single-line item
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Single-line item
     <span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
     <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-list-item</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/list-demo"</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Single-line item
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Single-line item
     <span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
     <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-list-item</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/list-demo"</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-start</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Single-line item
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Single-line item
     <span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-group</span>></span>

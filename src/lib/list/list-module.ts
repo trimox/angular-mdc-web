@@ -8,22 +8,22 @@ import {
 } from './list';
 import {
   MdcListItem,
-  MdcListItemStart,
-  MdcListItemEnd,
-  MdcListItemText,
+  MdcListItemGraphic,
+  MdcListItemMeta,
   MdcListItemSecondaryText,
+  MdcListItemText,
 } from './list-item';
 
 const LIST_COMPONENTS = [
   MdcList,
-  MdcListItem,
-  MdcListItemStart,
-  MdcListItemEnd,
-  MdcListItemText,
-  MdcListItemSecondaryText,
+  MdcListDivider,
   MdcListGroup,
   MdcListGroupSubheader,
-  MdcListDivider,
+  MdcListItem,
+  MdcListItemGraphic,
+  MdcListItemMeta,
+  MdcListItemSecondaryText,
+  MdcListItemText,
 ];
 
 @NgModule({

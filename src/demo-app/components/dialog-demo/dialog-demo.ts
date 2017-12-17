@@ -79,13 +79,13 @@ export class DialogAlertExample {
     <mdc-dialog-body>
       <mdc-list [avatar]="true">
         <mdc-list-item (click)="closeDialog()" mdc-surface>
-          <mdc-icon mdc-list-item-start>person</mdc-icon>username@gmail.com
+          <mdc-icon mdc-list-item-graphic>person</mdc-icon>username@gmail.com
         </mdc-list-item>
         <mdc-list-item (click)="closeDialog()" mdc-surface>
-          <mdc-icon mdc-list-item-start>person</mdc-icon>user02@gmail.com
+          <mdc-icon mdc-list-item-graphic>person</mdc-icon>user02@gmail.com
         </mdc-list-item>
         <mdc-list-item (click)="closeDialog()" mdc-surface>
-          <mdc-icon mdc-list-item-start>add</mdc-icon>add account
+          <mdc-icon mdc-list-item-graphic>add</mdc-icon>add account
         </mdc-list-item>
       </mdc-list>
     </mdc-dialog-body>

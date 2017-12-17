@@ -58,6 +58,7 @@ export class MdcListGroupSubheader {
 })
 export class MdcListDivider {
   private _inset: boolean = false;
+  private _padded: boolean = false;
 
   @ViewChild('nativeEl') nativeEl: ElementRef;
   @Input()
@@ -68,6 +69,13 @@ export class MdcListDivider {
       : this._renderer.removeClass(this.nativeEl.nativeElement, 'mdc-list-divider--inset');
   }
 
+  @Input()
+  get padded(): boolean { return this._padded; }
+  set padded(value: boolean) {
+    this._padded = toBoolean(value);
+    this._padded ? this._renderer.addClass(this.nativeEl.nativeElement, 'mdc-list-divider--padded')
+      : this._renderer.removeClass(this.nativeEl.nativeElement, 'mdc-list-divider--padded');
+  }
 
   constructor(private _renderer: Renderer2) { }
 }

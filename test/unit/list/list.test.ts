@@ -91,6 +91,12 @@ describe('MdcListModule', () => {
       fixture.detectChanges();
       expect(testComponent.listitem.selected).toBe(true);
     });
+
+    it('#should have divider padding', () => {
+      testComponent.isPadded = true;
+      fixture.detectChanges();
+      expect(testComponent.divider.padded).toBe(true);
+    });
   });
 });
 
@@ -103,7 +109,7 @@ describe('MdcListModule', () => {
         <mdc-list-item #listitem mdc-list-item-graphic [selected]="isItemSelected">Test
           <mdc-icon mdc-list-item-meta>home</mdc-icon>
         </mdc-list-item>
-        <mdc-list-divider #divider [inset]="isInset"></mdc-list-divider>
+        <mdc-list-divider #divider [padded]="isPadded" [inset]="isInset"></mdc-list-divider>
         <mdc-list-item>
           <mdc-list-item-text>
           Single-line item
@@ -122,6 +128,7 @@ class SimpleList {
   isRippleDisabled: boolean = true;
   isItemSelected: boolean = true;
   isInset: boolean = false;
+  isPadded: boolean = false;
 
   @ViewChild('divider') divider: MdcListDivider;
   @ViewChild('listitem') listitem: MdcListItem;

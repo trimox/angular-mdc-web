@@ -25,15 +25,15 @@
       <tbody>
         <tr>
           <td>dense: boolean</td>
-          <td>Shrinks the font size and height of each list item.</td>
+          <td>Increases the density of the list, making it appear more compact.</td>
         </tr>
         <tr>
           <td>twoLine: boolean</td>
-          <td>Sets a class modifier for using two lines inside of list items.</td>
+          <td>Increases the height of the row to give it greater visual separation from adjacent rows.</td>
         </tr>
         <tr>
           <td>avatar: boolean</td>
-          <td>Style the start detail elements as "avatars" - large, circular details that lend themselves well to contact images, profile pictures, etc.</td>
+          <td>Configures the leading tiles of each row to display images instead of icons.</td>
         </tr>
         <tr>
           <td>border: boolean</td>
@@ -123,7 +123,7 @@
       <tbody>
         <tr>
           <td>mdc-list-divider</td>
-          <td>Use as full-width or inset subdivisions either within lists themselves, or event standalone.</td>
+          <td>Separates two rows or two lists using a horizontal bar.</td>
         </tr>
       </tbody>
       <thead>
@@ -135,7 +135,11 @@
       <tbody>
         <tr>
           <td>inset: boolean</td>
-          <td>Inset dividers are useful when working with lists which have start details.</td>
+          <td>Increases the leading margin of the divider so that it does not intersect the avatar column.</td>
+        </tr>
+        <tr>
+          <td>padded: boolean</td>
+          <td>To make a divider match the padding of list items.</td>
         </tr>
       </tbody>
     </table>
@@ -148,16 +152,26 @@
       <tbody>
         <tr>
           <td>mdc-list-group</td>
-          <td>Multiple related lists can be grouped together using the mdc-list-group.</td>
+          <td>Wraps one or more mdc-list and/or mdc-list-divider elements.</td>
         </tr>
         <tr>
           <td>mdc-list-group-subheader</td>
-          <td>Use to add a subheader to the top of your grouped list.</td>
+          <td>Heading text displayed above each list in a group.</td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div fxLayout="column" class="mdc-padding">
+  <div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
+    <h3>Divider</h3>
+    <button mdc-button (click)="divider.padded = !divider.padded">{{divider.padded ? 'Remove' : 'Add'}} Divider Padding</button>
+    <button mdc-button (click)="divider.inset = !divider.inset">{{divider.inset ? 'Set' : 'Unset'}} Divider Inset</button>
+<mdc-list>
+  <mdc-list-item>Single-line item</mdc-list-item>
+  <mdc-list-item>Single-line item</mdc-list-item>
+  <mdc-list-divider #divider></mdc-list-divider>
+  <mdc-list-item>Single-line item</mdc-list-item>
+</mdc-list>
+
     <h3>Single-Line</h3>
         <div fxLayout="row">
     <div fxLayout="column">

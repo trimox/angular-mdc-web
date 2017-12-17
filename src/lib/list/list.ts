@@ -14,6 +14,7 @@ import {
   QueryList,
   Renderer2,
   SimpleChange,
+  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { defer } from 'rxjs/observable/defer';
@@ -50,24 +51,25 @@ export class MdcListGroupSubheader {
 @Component({
   moduleId: module.id,
   selector: '[mdc-list-divider], mdc-list-divider',
-  template: '<div class="mdc-list-divider" role="seperator"></div>',
+  template: '<div #nativeEl class="mdc-list-divider" role="seperator"></div>',
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
 })
 export class MdcListDivider {
   private _inset: boolean = false;
 
+  @ViewChild('nativeEl') nativeEl: ElementRef;
   @Input()
   get inset(): boolean { return this._inset; }
   set inset(value: boolean) {
     this._inset = toBoolean(value);
-    this._inset ? this._renderer.addClass(this.elementRef.nativeElement, 'mdc-list-divider--inset')
-      : this._renderer.removeClass(this.elementRef.nativeElement, 'mdc-list-divider--inset');
+    this._inset ? this._renderer.addClass(this.nativeEl.nativeElement, 'mdc-list-divider--inset')
+      : this._renderer.removeClass(this.nativeEl.nativeElement, 'mdc-list-divider--inset');
   }
 
-  constructor(
-    public elementRef: ElementRef,
-    private _renderer: Renderer2) { }
+
+  constructor(private _renderer: Renderer2) { }
 }
 
 @Component({

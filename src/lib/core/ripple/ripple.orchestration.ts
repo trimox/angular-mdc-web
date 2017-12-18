@@ -32,7 +32,7 @@ export abstract class MdcRippleOrchestration {
       this._registry.unlisten('resize', handler);
     },
     updateCssVariable: (varName: string, value: string) => {
-      this.elementRef.nativeElement.style.setProperty(varName, value);
+      this._renderer.setStyle(this.elementRef.nativeElement, varName, value, 2);
     },
     computeBoundingRect: () => this.getBoundingClientRect(),
     getWindowPageOffset: () => {
@@ -62,15 +62,12 @@ export abstract class MdcRippleOrchestration {
   destroy(): void {
     if (this._foundation) {
       this._foundation.destroy();
-      this._foundation = null;
     }
   }
 
   init(unbounded: boolean = false): void {
-    if (!this._foundation) {
-      this._foundation = new MDCRippleFoundation(this._mdcAdapter);
-      this._foundation.init();
-    }
+    this._foundation = new MDCRippleFoundation(this._mdcAdapter);
+    this._foundation.init();
     this._unbounded = unbounded;
   }
 

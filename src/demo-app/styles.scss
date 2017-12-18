@@ -150,7 +150,7 @@ body {
   }
 }
 
-.demo-drawer-host {
+.demo-host {
   border: 1px solid;
   height: 400px;
   display: flex;
@@ -167,4 +167,14 @@ body {
   overflow: hidden;
   position: relative;
   width: 800px;
+}
+
+.demo-list-host {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  margin-bottom: 10px;
+  padding: 5px;
+  flex-direction: column;
+  position: relative;
+  max-width: 600px;
 }

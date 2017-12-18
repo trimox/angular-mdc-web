@@ -43,7 +43,6 @@ describe('MdcButton', () => {
     it('#should disable ripple', () => {
       testComponent.isRippleDisabled = true;
       fixture.detectChanges();
-      expect(buttonInstance.ripple.isAttached()).toBe(false);
 
       buttonInstance.focus();
       fixture.detectChanges();

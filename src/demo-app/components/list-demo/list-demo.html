@@ -28,8 +28,8 @@
           <td>Increases the density of the list, making it appear more compact.</td>
         </tr>
         <tr>
-          <td>twoLine: boolean</td>
-          <td>Increases the height of the row to give it greater visual separation from adjacent rows.</td>
+          <td>lines: number</td>
+          <td>Increases the height of the row to give it greater visual separation from adjacent rows. Default is 1.</td>
         </tr>
         <tr>
           <td>avatar: boolean</td>
@@ -38,6 +38,10 @@
         <tr>
           <td>border: boolean</td>
           <td>Sets a border around each list item.</td>
+        </tr>
+        <tr>
+          <td>interactive: boolean</td>
+          <td>List items receive styles for hover, focus, and press states (including the ripple). Default is true.</td>
         </tr>
       </tbody>
       <thead>
@@ -161,71 +165,31 @@
       </tbody>
     </table>
   </div>
-  <div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
-    <h3>Divider</h3>
-    <button mdc-button (click)="divider.padded = !divider.padded">{{divider.padded ? 'Remove' : 'Add'}} Divider Padding</button>
-    <button mdc-button (click)="divider.inset = !divider.inset">{{divider.inset ? 'Set' : 'Unset'}} Divider Inset</button>
-<mdc-list>
-  <mdc-list-item>Single-line item</mdc-list-item>
-  <mdc-list-item>Single-line item</mdc-list-item>
-  <mdc-list-divider #divider></mdc-list-divider>
-  <mdc-list-item>Single-line item</mdc-list-item>
-</mdc-list>
-
+  <div class="demo-list-host">
     <h3>Single-Line</h3>
-        <div fxLayout="row">
-    <div fxLayout="column">
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="isSinglelineDense"></mdc-checkbox>
-        <label>Dense</label>
-      </mdc-form-field>
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="isSingleDarkTheme"></mdc-checkbox>
-        <label>Dark Theme</label>
-      </mdc-form-field>
+    <div fxLayout="row" fxLayoutWrap>
+      <button mdc-button (click)="singleline.border = !singleline.border">Border: {{singleline.border ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="singleline.dense = !singleline.dense">Dense: {{singleline.dense ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="divider.inset = !divider.inset">Divider Inset: {{divider.inset ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="divider.padded = !divider.padded">Divider Padded: {{divider.padded ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="singleline.interactive = !singleline.interactive">Interactive w/Ripple: {{singleline.interactive ? 'On' : 'Off'}}</button>
     </div>
-    <div fxLayout="column">
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="isBordered"></mdc-checkbox>
-        <label>Bordered</label>
-      </mdc-form-field>
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="isSingleRippleDisabled"></mdc-checkbox>
-        <label>Ripple Disabled</label>
-      </mdc-form-field>
-    </div>
+    <mdc-list #singleline>
+      <mdc-list-item>Single-line item</mdc-list-item>
+      <mdc-list-item>Single-line item</mdc-list-item>
+      <mdc-list-divider #divider></mdc-list-divider>
+      <mdc-list-item>Single-line item</mdc-list-item>
+    </mdc-list>
   </div>
-<mdc-list [dense]="isSinglelineDense" [mdc-theme-dark]="isSingleDarkTheme" [border]="isBordered" [disableRipple]="isSingleRippleDisabled">
-  <mdc-list-item>Single-line item</mdc-list-item>
-  <mdc-list-item>Single-line item</mdc-list-item>
-  <mdc-list-item>Single-line item</mdc-list-item>
-</mdc-list>
-    <div fxLayout="column" fxLayoutAlign="start start">
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span> [<span style="color:#89bdff">dense</span>]=<span style="color:#65b042">"false"</span> [<span style="color:#89bdff">mdc-theme-dark</span>]=<span style="color:#65b042">"false"</span> [<span style="color:#89bdff">border</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#89bdff">disableRipple</span>]=<span style="color:#65b042">"true"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Single-line item<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Single-line item<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>Single-line item<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
-</pre>
-</div>
- </div>
-  <div fxLayout="column" class="mdc-padding">
+
+  <div class="demo-list-host">
     <h3>Two-line List</h3>
-    <div fxLayout="row">
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="isTwolineDense"></mdc-checkbox>
-        <label>Dense</label>
-      </mdc-form-field>
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="isTwoDarkTheme"></mdc-checkbox>
-        <label>Dark Theme</label>
-      </mdc-form-field>
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="isTwoRippleDisabled"></mdc-checkbox>
-        <label>Ripple Disabled</label>
-      </mdc-form-field>
+    <div fxLayout="row" fxLayoutWrap>
+      <button mdc-button (click)="twoline.border = !twoline.border">Border: {{twoline.border ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="twoline.dense = !twoline.dense">Dense: {{twoline.dense ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="twoline.interactive = !twoline.interactive">Interactive w/Ripple: {{twoline.interactive ? 'On' : 'Off'}}</button>
     </div>
-    <mdc-list [twoLine]="true" [dense]="isTwolineDense" [mdc-theme-dark]="isTwoDarkTheme" [border]="true" [disableRipple]="isTwoRippleDisabled">
+    <mdc-list #twoline [lines]="2">
       <mdc-list-item>
         <mdc-list-item-text>
           Single-line item
@@ -245,43 +209,16 @@
         </mdc-list-item-text>
       </mdc-list-item>
     </mdc-list>
+  </div>
 
-   <div fxLayout="column" fxLayoutAlign="start start">
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span> 
-  [<span style="color:#89bdff">twoLine</span>]=<span style="color:#65b042">"true"</span>
-  [<span style="color:#89bdff">dense</span>]=<span style="color:#65b042">"false"</span>
-  [<span style="color:#89bdff">border</span>]=<span style="color:#65b042">"true"</span>
-  [<span style="color:#89bdff">mdc-theme-dark</span>]=<span style="color:#65b042">"false"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-text</span>></span>
-      Single-line item
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-secondary</span>></span>Secondary text<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-secondary</span>></span>
-    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-text</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-text</span>></span>
-      Single-line item
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-secondary</span>></span>Secondary text<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-secondary</span>></span>
-    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-text</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-text</span>></span>
-      Single-line item
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-secondary</span>></span>Secondary text<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-secondary</span>></span>
-    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item-text</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
-</pre></div></div>
-
-  <div fxLayout="column" class="mdc-padding">
-    <h3>Start Detail</h3>
-    <div fxLayout="row">
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="isStartDetailDarkTheme"></mdc-checkbox>
-        <label>Dark Theme</label>
-      </mdc-form-field>
+  <div class="demo-list-host">
+    <h3>Start Graphic</h3>
+    <div fxLayout="row" fxLayoutWrap>
+      <button mdc-button (click)="startgraphic.border = !startgraphic.border">Border: {{startgraphic.border ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="startgraphic.dense = !startgraphic.dense">Dense: {{startgraphic.dense ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="startgraphic.interactive = !startgraphic.interactive">Interactive w/Ripple: {{startgraphic.interactive ? 'On' : 'Off'}}</button>
     </div>
-    <mdc-list [mdc-theme-dark]="isStartDetailDarkTheme" [border]="true">
+    <mdc-list #startgraphic>
       <mdc-list-item>
         <mdc-icon mdc-list-item-graphic>network_wifi</mdc-icon>Wi-Fi
       </mdc-list-item>
@@ -293,9 +230,15 @@
       </mdc-list-item>
     </mdc-list>
   </div>
-  <div fxLayout="column" class="mdc-padding">
-    <h3>End Detail</h3>
-    <mdc-list [border]="true">
+
+  <div class="demo-list-host">
+    <h3>End Meta</h3>
+    <div fxLayout="row" fxLayoutWrap>
+      <button mdc-button (click)="endmeta.border = !endmeta.border">Border: {{endmeta.border ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="endmeta.dense = !endmeta.dense">Dense: {{endmeta.dense ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="endmeta.interactive = !endmeta.interactive">Interactive w/Ripple: {{endmeta.interactive ? 'On' : 'Off'}}</button>
+    </div>
+    <mdc-list #endmeta>
       <mdc-list-item>
         Wi-Fi<mdc-icon mdc-list-item-meta>info</mdc-icon>
       </mdc-list-item>
@@ -307,58 +250,58 @@
       </mdc-list-item>
     </mdc-list>
   </div>
-  <div fxLayout="column" class="mdc-padding">
-    <h3>Start + End Detail</h3>
-    <div fxLayout="row">
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="isStartEndDetailDarkTheme"></mdc-checkbox>
-        <label>Dark Theme</label>
-      </mdc-form-field>
-    </div>
-<mdc-list [mdc-theme-dark]="isStartEndDetailDarkTheme" [border]="true">
-  <mdc-list-item>
-    <mdc-icon mdc-list-item-graphic>network_wifi</mdc-icon>Wi-Fi<mdc-icon mdc-list-item-meta>info</mdc-icon>
-  </mdc-list-item>
-  <mdc-list-item>
-    <mdc-icon mdc-list-item-graphic>bluetooth</mdc-icon>Bluetooth<mdc-icon mdc-list-item-meta>info</mdc-icon>
-  </mdc-list-item>
-  <mdc-list-item>
-    <mdc-icon mdc-list-item-graphic>data_usage</mdc-icon>Data Usage<mdc-icon mdc-list-item-meta>info</mdc-icon>
-  </mdc-list-item>
-</mdc-list>
-        <div fxLayout="column" fxLayoutAlign="start start">
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>
- [<span style="color:#89bdff">mdc-theme-dark</span>]=<span style="color:#65b042">"false"</span>
- [<span style="color:#89bdff">border</span>]=<span style="color:#65b042">"true"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>network_wifi<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Wi-Fi
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-meta</span>></span>info<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>bluetooth<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Bluetooth
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-meta</span>></span>info<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>data_usage<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Data Usage
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-meta</span>></span>info<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
-</pre>
-</div>  </div>
 
-  <div fxLayout="column" class="mdc-padding">
-    <h3>Avatar List</h3>
-    <div fxLayout="row">
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="isAvatarDense"></mdc-checkbox>
-        <label>Dense</label>
-      </mdc-form-field>
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="isAvatarDarkTheme"></mdc-checkbox>
-        <label>Dark Theme</label>
-      </mdc-form-field>
+  <div class="demo-list-host">
+    <h3>Start and End Detail</h3>
+    <div fxLayout="row" fxLayoutWrap>
+      <button mdc-button (click)="startend.border = !startend.border">Border: {{startend.border ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="startend.dense = !startend.dense">Dense: {{startend.dense ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="startend.interactive = !startend.interactive">Interactive w/Ripple: {{startend.interactive ? 'On' : 'Off'}}</button>
     </div>
-    <mdc-list avatar="true" [dense]="isAvatarDense" [mdc-theme-dark]="isAvatarDarkTheme" [border]="true">
+    <mdc-list #startend>
+      <mdc-list-item>
+        <mdc-icon mdc-list-item-graphic>network_wifi</mdc-icon>Wi-Fi<mdc-icon mdc-list-item-meta>info</mdc-icon>
+      </mdc-list-item>
+      <mdc-list-item>
+        <mdc-icon mdc-list-item-graphic>bluetooth</mdc-icon>Bluetooth<mdc-icon mdc-list-item-meta>info</mdc-icon>
+      </mdc-list-item>
+      <mdc-list-item>
+        <mdc-icon mdc-list-item-graphic>data_usage</mdc-icon>Data Usage<mdc-icon mdc-list-item-meta>info</mdc-icon>
+      </mdc-list-item>
+    </mdc-list>
+  </div>
+
+  <div class="demo-list-host">
+    <h3>Checkbox List</h3>
+    <div fxLayout="row" fxLayoutWrap>
+      <button mdc-button (click)="checkboxes.border = !checkboxes.border">Border: {{checkboxes.border ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="checkboxes.dense = !checkboxes.dense">Dense: {{checkboxes.dense ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="checkboxes.interactive = !checkboxes.interactive">Interactive w/Ripple: {{checkboxes.interactive ? 'On' : 'Off'}}</button>
+    </div>
+    <mdc-list #checkboxes>
+      <mdc-list-item>
+        Single-line item
+        <mdc-checkbox mdc-list-item-meta></mdc-checkbox>
+      </mdc-list-item>
+      <mdc-list-item>
+        Single-line item
+        <mdc-checkbox mdc-list-item-meta></mdc-checkbox>
+      </mdc-list-item>
+      <mdc-list-item>
+        Single-line item
+        <mdc-checkbox mdc-list-item-meta></mdc-checkbox>
+      </mdc-list-item>
+    </mdc-list>
+  </div>
+
+  <div class="demo-list-host">
+    <h3>Avatars</h3>
+    <div fxLayout="row" fxLayoutWrap>
+      <button mdc-button (click)="avatar.border = !avatar.border">Border: {{avatar.border ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="avatar.dense = !avatar.dense">Dense: {{avatar.dense ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="avatar.interactive = !avatar.interactive">Interactive w/Ripple: {{avatar.interactive ? 'On' : 'Off'}}</button>
+    </div>
+    <mdc-list #avatar>
       <mdc-list-item>
         <mdc-icon mdc-list-item-graphic>person</mdc-icon>Single-line item
       </mdc-list-item>
@@ -370,103 +313,37 @@
       </mdc-list-item>
     </mdc-list>
   </div>
-  <div fxLayout="column" class="mdc-padding">
-    <h3>Avatar List + Checkbox</h3>
-<mdc-list [avatar]="true" [dense]="isAvatarDense" [mdc-theme-dark]="isAvatarDarkTheme" [border]="true" [disableRipple]="true">
-  <mdc-list-item>
-    <mdc-icon mdc-list-item-graphic>person</mdc-icon>Single-line item
-    <mdc-checkbox mdc-list-item-meta></mdc-checkbox>
-  </mdc-list-item>
-  <mdc-list-item>
-    <mdc-icon mdc-list-item-graphic>person</mdc-icon>Single-line item
-    <mdc-checkbox mdc-list-item-meta></mdc-checkbox>
-  </mdc-list-item>
-  <mdc-list-item>
-    <mdc-icon mdc-list-item-graphic>person</mdc-icon>Single-line item
-    <mdc-checkbox mdc-list-item-meta></mdc-checkbox>
-  </mdc-list-item>
-</mdc-list>
-        <div fxLayout="column" fxLayoutAlign="start start">
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span> [<span style="color:#89bdff">avatar</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#89bdff">dense</span>]=<span style="color:#65b042">"false"</span>
-  [<span style="color:#89bdff">mdc-theme-dark</span>]=<span style="color:#65b042">"false"</span> [<span style="color:#89bdff">border</span>]=<span style="color:#65b042">"true"</span> [<span style="color:#89bdff">disableRipple</span>]=<span style="color:#65b042">"true"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Single-line item
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span> <span style="color:#89bdff">mdc-list-item-meta</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Single-line item
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span> <span style="color:#89bdff">mdc-list-item-meta</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Single-line item
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span> <span style="color:#89bdff">mdc-list-item-meta</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-item</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
-</pre>
-</div>
+
+  <div class="demo-list-host">
+    <h3>Group Lists</h3>
+    <mdc-list-group>
+      <mdc-list-group-subheader>First Group</mdc-list-group-subheader>
+      <mdc-list>
+        <a mdc-list-item href="#/list-demo">
+          <mdc-icon mdc-list-item-graphic>network_wifi</mdc-icon>Wi-Fi
+          <mdc-icon mdc-list-item-meta>info</mdc-icon>
+        </a>
+        <a mdc-list-item href="#/list-demo">
+          <mdc-icon mdc-list-item-graphic>bluetooth</mdc-icon>Bluetooth
+          <mdc-icon mdc-list-item-meta>info</mdc-icon>
+        </a>
+        <a mdc-list-item href="#/list-demo">
+          <mdc-icon mdc-list-item-graphic>data_usage</mdc-icon>Data Usage
+          <mdc-icon mdc-list-item-meta>info</mdc-icon>
+        </a>
+      </mdc-list>
+      <mdc-list-divider></mdc-list-divider>
+      <mdc-list-group-subheader>Second Group</mdc-list-group-subheader>
+      <mdc-list [avatar]="true">
+        <a mdc-list-item href="#/list-demo">
+          <mdc-icon mdc-list-item-graphic>person</mdc-icon>Single-line item
+        </a>
+        <a mdc-list-item href="#/list-demo">
+          <mdc-icon mdc-list-item-graphic>person</mdc-icon>Single-line item
+        </a>
+        <a mdc-list-item href="#/list-demo">
+          <mdc-icon mdc-list-item-graphic>person</mdc-icon>Single-line item
+        </a>
+      </mdc-list>
+    </mdc-list-group>
   </div>
-  <div fxLayout="column" class="mdc-padding">
-    <h3>Grouped Lists</h3>
-<mdc-list-group>
-  <mdc-list-group-subheader>Grouped Lists</mdc-list-group-subheader>
-  <mdc-list>
-    <a mdc-list-item href="#/list-demo">
-      <mdc-icon mdc-list-item-graphic>network_wifi</mdc-icon>Wi-Fi
-      <mdc-icon mdc-list-item-meta>info</mdc-icon>
-    </a>
-    <a mdc-list-item href="#/list-demo">
-      <mdc-icon mdc-list-item-graphic>bluetooth</mdc-icon>Bluetooth
-      <mdc-icon mdc-list-item-meta>info</mdc-icon>
-    </a>
-    <a mdc-list-item href="#/list-demo">
-      <mdc-icon mdc-list-item-graphic>data_usage</mdc-icon>Data Usage
-      <mdc-icon mdc-list-item-meta>info</mdc-icon>
-    </a>
-  </mdc-list>
-  <mdc-list-divider></mdc-list-divider>
-  <mdc-list-group-subheader>2nd Group</mdc-list-group-subheader>
-  <mdc-list [avatar]="true">
-    <a mdc-list-item href="#/list-demo">
-      <mdc-icon mdc-list-item-graphic>person</mdc-icon>Single-line item
-    </a>
-    <a mdc-list-item href="#/list-demo">
-      <mdc-icon mdc-list-item-graphic>person</mdc-icon>Single-line item
-    </a>
-    <a mdc-list-item href="#/list-demo">
-      <mdc-icon mdc-list-item-graphic>person</mdc-icon>Single-line item
-    </a>
-  </mdc-list>
-</mdc-list-group>
-  </div>
-          <div fxLayout="column" fxLayoutAlign="start start">
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-group</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-group-subheader</span>></span>Grouped Lists<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-group-subheader</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-list-item</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/list-demo"</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>network_wifi<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Wi-Fi
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-meta</span>></span>info<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
-    <span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-list-item</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/list-demo"</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>bluetooth<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Bluetooth
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-meta</span>></span>info<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
-    <span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-list-item</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/list-demo"</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>data_usage<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Data Usage
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-meta</span>></span>info<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
-    <span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-divider</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-divider</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-group-subheader</span>></span>2nd Group<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-group-subheader</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span> <span style="color:#89bdff">avatar</span>=<span style="color:#65b042">"true"</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-list-item</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/list-demo"</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Single-line item
-    <span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-list-item</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/list-demo"</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Single-line item
-    <span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-list-item</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/list-demo"</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span> <span style="color:#89bdff">mdc-list-item-graphic</span>></span>person<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>Single-line item
-    <span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-list-group</span>></span>
-</pre></div>

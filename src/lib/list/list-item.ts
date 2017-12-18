@@ -13,7 +13,8 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import { toBoolean } from '@angular-mdc/web/common';
+import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
+import { MdcRipple } from '@angular-mdc/web/core';
 
 /** Change event that is fired whenever the selected state of an option changes. */
 export class MdcListSelectionChange {
@@ -70,6 +71,10 @@ export class MdcListItemSecondaryText {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
+  providers: [
+    EventRegistry,
+    MdcRipple
+  ]
 })
 export class MdcListItem {
   private _selected: boolean = false;
@@ -118,7 +123,7 @@ export class MdcListItem {
   }
 
   /** Sets the selected state of the option. */
-  private _setSelected(selected: boolean) {
+  private _setSelected(selected: boolean): void {
     if (selected === this._selected) {
       return;
     }
@@ -128,16 +133,17 @@ export class MdcListItem {
   }
 
   constructor(
+    public ripple: MdcRipple,
     private _changeDetector: ChangeDetectorRef,
     private _renderer: Renderer2,
     public elementRef: ElementRef) { }
 
-  _getHostElement() {
+  _getHostElement(): any {
     return this.elementRef.nativeElement;
   }
 
   /** Emits a change event if the selected state of an option changed. */
-  private _emitChangeEvent() {
+  private _emitChangeEvent(): void {
     this.onSelectionChange.emit(new MdcListSelectionChange(this));
   }
 }

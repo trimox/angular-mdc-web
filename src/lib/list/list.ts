@@ -1,7 +1,6 @@
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ContentChildren,
   Directive,
@@ -9,11 +8,9 @@ import {
   HostBinding,
   Input,
   NgZone,
-  OnChanges,
   OnDestroy,
   QueryList,
   Renderer2,
-  SimpleChange,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -21,6 +18,7 @@ import { defer } from 'rxjs/observable/defer';
 import { filter } from 'rxjs/operators/filter';
 import { merge } from 'rxjs/observable/merge';
 import { Observable } from 'rxjs/Observable';
+import { startWith } from 'rxjs/operators/startWith';
 import { Subject } from 'rxjs/Subject';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { take } from 'rxjs/operators/take';
@@ -88,9 +86,9 @@ export class MdcListDivider {
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
 })
-export class MdcList implements AfterContentInit, OnChanges, OnDestroy {
-  private _disableRipple: boolean = false;
+export class MdcList implements AfterContentInit, OnDestroy {
   private _avatar: boolean = false;
+  private _interactive: boolean = true;
   private _multiple: boolean = false;
 
   /** Emits whenever the component is destroyed. */
@@ -105,9 +103,12 @@ export class MdcList implements AfterContentInit, OnChanges, OnDestroy {
     this._avatar = toBoolean(value);
   }
   @Input()
-  get disableRipple(): boolean { return this._disableRipple; }
-  set disableRipple(value: boolean) {
-    this._disableRipple = toBoolean(value);
+  get interactive(): boolean { return this._interactive; }
+  set interactive(value: boolean) {
+    if (value !== this._interactive) {
+      this._interactive = toBoolean(value);
+      this._setInteractive(value);
+    }
   }
   @HostBinding('class.mdc-list') isHostClass = true;
   @HostBinding('attr.role') role: string = 'list';
@@ -141,10 +142,6 @@ export class MdcList implements AfterContentInit, OnChanges, OnDestroy {
       .pipe(take(1), switchMap(() => this.optionSelectionChanges));
   });
 
-  ngOnChanges(changes: { [key: string]: SimpleChange }): void {
-    const disableRipple = changes['disableRipple'];
-  }
-
   ngAfterContentInit(): void {
     this.optionSelectionChanges.pipe(
       takeUntil(merge(this._destroy, this.options.changes)),
@@ -154,11 +151,27 @@ export class MdcList implements AfterContentInit, OnChanges, OnDestroy {
         this._clearSelection(item.source);
       }
     });
+
+    this.options.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
+      Promise.resolve().then(() => {
+        this._setInteractive(this._interactive);
+      });
+    });
   }
 
   ngOnDestroy(): void {
     this._destroy.next();
     this._destroy.complete();
+  }
+
+  private _setInteractive(value: boolean): void {
+    if (!this.options) {
+      return;
+    }
+
+    this.options.forEach(option => {
+      value ? option.ripple.init() : option.ripple.destroy();
+    });
   }
 
   private _clearSelection(skip?: MdcListItem): void {

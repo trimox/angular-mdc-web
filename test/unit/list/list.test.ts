@@ -105,7 +105,7 @@ describe('MdcListModule', () => {
     <mdc-list-group #group>
       <mdc-list-group-subheader>Grouped Lists</mdc-list-group-subheader>
       <mdc-list [dense]="isDense" [border]="isBordered" [twoLine]="isTwoline"
-       [avatar]="isAvatar" [disableRipple]="isRippleDisabled">
+       [avatar]="isAvatar" [interactive]="isInteractive">
         <mdc-list-item #listitem mdc-list-item-graphic [selected]="isItemSelected">Test
           <mdc-icon mdc-list-item-meta>home</mdc-icon>
         </mdc-list-item>
@@ -125,7 +125,7 @@ class SimpleList {
   isBordered: boolean = false;
   isTwoline: boolean = false;
   isAvatar: boolean = false;
-  isRippleDisabled: boolean = true;
+  isInteractive: boolean = true;
   isItemSelected: boolean = true;
   isInset: boolean = false;
   isPadded: boolean = false;

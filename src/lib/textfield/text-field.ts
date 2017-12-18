@@ -141,10 +141,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     }
   };
 
-  /**
-     * Returns a map of all subcomponents to subfoundations.
-     * @return {!FoundationMapType}
-     */
+  /** Returns a map of all subcomponents to subfoundations. */
   private getFoundationMap_() {
     return {
       bottomLine: this.bottomLine ? this.bottomLine.foundation : undefined,

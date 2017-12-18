@@ -14,7 +14,7 @@ import {
   toBoolean,
   EventRegistry,
 } from '@angular-mdc/web/common';
-import { MdcRipple } from '@angular-mdc/web/core';
+import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
 export type FabPosition = 'bottom-left' | 'bottom-right' | null;

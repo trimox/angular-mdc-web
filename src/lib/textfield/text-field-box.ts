@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EventRegistry } from '@angular-mdc/web/common';
-import { MdcRipple } from '@angular-mdc/web/core';
+import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcTextField } from './text-field';
 
 export const MDC_TEXTFIELD_BOX_CONTROL_VALUE_ACCESSOR: any = {

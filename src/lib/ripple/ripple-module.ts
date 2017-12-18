@@ -15,7 +15,3 @@ const RIPPLE_DIRECTIVES = [
   declarations: [RIPPLE_DIRECTIVES],
 })
 export class MdcRippleModule { }
-
-export * from './ripple.orchestration';
-export * from './ripple.service';
-export * from './ripple.directive';

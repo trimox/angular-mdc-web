@@ -18,7 +18,7 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
-import { MdcRipple } from '@angular-mdc/web/core';
+import { MdcRipple } from '@angular-mdc/web/ripple';
 
 import { MDCCheckboxAdapter } from './adapter';
 import { MDCCheckboxFoundation } from '@material/checkbox';

@@ -6,7 +6,7 @@ import {
   Input,
   Renderer2,
 } from '@angular/core';
-import { MdcRipple } from '@angular-mdc/web/core';
+import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcButton } from '@angular-mdc/web/button';
 
 @Directive({

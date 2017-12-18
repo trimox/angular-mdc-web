@@ -71,10 +71,6 @@ export abstract class MdcRippleOrchestration {
     this._unbounded = unbounded;
   }
 
-  isAttached(): boolean {
-    return this._foundation != null;
-  }
-
   activate(event?: Event): void {
     if (this._foundation) {
       this._foundation.activate(event);

@@ -7,7 +7,7 @@ import {
   Renderer2,
 } from '@angular/core';
 import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
-import { MdcRipple } from '@angular-mdc/web/core';
+import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcButton } from '@angular-mdc/web/button';
 
 @Directive({

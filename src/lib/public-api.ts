@@ -24,3 +24,4 @@ export * from '@angular-mdc/web/switch';
 export * from '@angular-mdc/web/tabs';
 export * from '@angular-mdc/web/textfield';
 export * from '@angular-mdc/web/toolbar';
+export * from '@angular-mdc/web/typography';

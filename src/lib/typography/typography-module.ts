@@ -39,5 +39,3 @@ const TYPOGRAPHY_DIRECTIVES = [
   declarations: [TYPOGRAPHY_DIRECTIVES],
 })
 export class MdcTypographyModule { }
-
-export * from './typography';

@@ -5,6 +5,7 @@ export * from '@angular-mdc/web/cdk';
 export * from '@angular-mdc/web/checkbox';
 export * from '@angular-mdc/web/common';
 export * from '@angular-mdc/web/core';
+export * from '@angular-mdc/web/elevation';
 export * from '@angular-mdc/web/ripple';
 export * from '@angular-mdc/web/dialog';
 export * from '@angular-mdc/web/drawer';

@@ -11,5 +11,3 @@ const ELEVATION_DIRECTIVES = [
   declarations: [ELEVATION_DIRECTIVES],
 })
 export class MdcElevationModule { }
-
-export * from './elevation';

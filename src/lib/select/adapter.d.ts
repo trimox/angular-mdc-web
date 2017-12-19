@@ -1,6 +1,11 @@
 export interface MDCSelectAdapter {
   addClass: (className: string) => void;
   removeClass: (className: string) => void;
+  addClassToLabel: (className: string) => void;
+  removeClassFromLabel: (className: string) => void;
+  addClassToBottomLine: (className: string) => void;
+  removeClassFromBottomLine: (className: string) => void;
+  setBottomLineAttr: (attr: string, value: string) => void;
   setAttr: (attr: string, value: string) => void;
   rmAttr: (attr: string) => void;
   computeBoundingRect: () => { left: number, top: number };
@@ -11,7 +16,10 @@ export interface MDCSelectAdapter {
   makeUntabbable: () => void;
   getComputedStyleValue: (propertyName: string) => string;
   setStyle: (propertyName: string, value: string) => void;
-  create2dRenderingContext: () => { font: string, measureText: () => { width: number } };
+  create2dRenderingContext: () => {
+    font: string,
+    measureText: (string) => { width: number }
+  };
   setMenuElStyle: (propertyName: string, value: string) => void;
   setMenuElAttr: (attr: string, value: string) => void;
   rmMenuElAttr: (attr: string) => void;

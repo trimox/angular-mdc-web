@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
+<div fxLayout="column" fxLayoutAlign="start" class="mdc-padding">
   <h1 mdc-typography-display1>Select Menus</h1>
   <div mdc-typography-subheading2>MDC Select provides Material Design single-option select menus.</div>
   <div class="info-banner" mdc-typography-subheading1>
@@ -174,8 +174,8 @@
   </div>
 </div>
 <div fxLayout="column" class="mdc-padding" fxLayoutAlign="start start">
-  <span mdc-typography-title>Select with ngModel</span>
-  <div [mdc-theme-dark]="isDarkTheme" class="mdc-padding demo-select-container">
+  <h3>Select with ngModel</h3>
+  <div [mdc-theme-dark]="isDarkTheme">
 <mdc-select #select placeholder="Favorite food" [(ngModel)]="selectedValue" name="food"
  [disabled]="isDisabled" (change)="handleChange($event)">
   <mdc-select-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
@@ -205,15 +205,13 @@ Change event: index: {{eventIndex}}, value: {{eventValue}}</pre>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-select</span>></span>
 </pre>
 
-<span mdc-typography-title>Select with FormControl</span>
+<h3>Select with FormControl</h3>
 
-<div class="mdc-padding demo-select-container">
 <mdc-select placeholder="Favorite food" [formControl]="foodControl">
   <mdc-select-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
     {{food.description}}
   </mdc-select-item>
 </mdc-select>
-</div>
 <p mdc-typography-body1>Value: {{ foodControl.value }}</p>
 <p mdc-typography-body1>Touched: {{ foodControl.touched }}</p>
 <p mdc-typography-body1>Dirty: {{ foodControl.dirty }}</p>

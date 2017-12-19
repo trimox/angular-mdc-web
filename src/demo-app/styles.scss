@@ -33,15 +33,6 @@ body {
   padding: 7px !important;
 }
 
-.demo-select-container {
-  .mdc-select {
-    width: 200px;
-  }
-  .mdc-simple-menu {
-    width: 224px;
-  }
-}
-
 .demo-landing {
   @include mdc-theme-prop(color, #fff);
   @include mdc-theme-prop(background-color, $potus-blue);

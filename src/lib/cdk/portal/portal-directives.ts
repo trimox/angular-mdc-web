@@ -7,18 +7,18 @@
  */
 
 import {
-  NgModule,
+  ComponentFactoryResolver,
   ComponentRef,
   Directive,
   EmbeddedViewRef,
-  TemplateRef,
-  ComponentFactoryResolver,
-  ViewContainerRef,
-  OnDestroy,
   Input,
+  NgModule,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewContainerRef,
 } from '@angular/core';
 import { Portal, TemplatePortal, ComponentPortal, BasePortalOutlet } from './portal';
-
 
 /**
  * Directive version of a `TemplatePortal`. Because the directive *is* a TemplatePortal,
@@ -45,9 +45,9 @@ export class CdkPortal extends TemplatePortal<any> {
   selector: '[cdkPortalOutlet]',
   inputs: ['portal: cdkPortalOutlet']
 })
-export class CdkPortalOutlet extends BasePortalOutlet implements OnDestroy {
-  /** The attached portal. */
-  private _portal: Portal<any> | null = null;
+export class CdkPortalOutlet extends BasePortalOutlet implements OnInit, OnDestroy {
+  /** Whether the portal component is initialized. */
+  private _isInitialized = false;
 
   constructor(
     private _componentFactoryResolver: ComponentFactoryResolver,
@@ -57,10 +57,14 @@ export class CdkPortalOutlet extends BasePortalOutlet implements OnDestroy {
 
   /** Portal associated with the Portal outlet. */
   get portal(): Portal<any> | null {
-    return this._portal;
+    return this._attachedPortal;
   }
 
   set portal(portal: Portal<any> | null) {
+    if (this.hasAttached() && !portal && !this._isInitialized) {
+      return;
+    }
+
     if (this.hasAttached()) {
       super.detach();
     }
@@ -69,12 +73,16 @@ export class CdkPortalOutlet extends BasePortalOutlet implements OnDestroy {
       super.attach(portal);
     }
 
-    this._portal = portal;
+    this._attachedPortal = portal;
+  }
+
+  ngOnInit() {
+    this._isInitialized = true;
   }
 
   ngOnDestroy() {
     super.dispose();
-    this._portal = null;
+    this._attachedPortal = null;
   }
 
   /**
@@ -99,7 +107,7 @@ export class CdkPortalOutlet extends BasePortalOutlet implements OnDestroy {
       portal.injector || viewContainerRef.parentInjector);
 
     super.setDisposeFn(() => ref.destroy());
-    this._portal = portal;
+    this._attachedPortal = portal;
 
     return ref;
   }
@@ -114,12 +122,11 @@ export class CdkPortalOutlet extends BasePortalOutlet implements OnDestroy {
     const viewRef = this._viewContainerRef.createEmbeddedView(portal.templateRef, portal.context);
     super.setDisposeFn(() => this._viewContainerRef.clear());
 
-    this._portal = portal;
+    this._attachedPortal = portal;
 
     return viewRef;
   }
 }
-
 
 @NgModule({
   exports: [CdkPortal, CdkPortalOutlet],

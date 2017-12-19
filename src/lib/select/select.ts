@@ -14,11 +14,9 @@ import {
   Input,
   NgZone,
   OnDestroy,
-  Optional,
   Output,
   QueryList,
   Renderer2,
-  Self,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -172,6 +170,9 @@ export class MdcSelectItem {
 
   @HostBinding('class.mdc-list-item') isHostClass = true;
   @HostBinding('tabindex') tabIndex: number = 0;
+  @HostBinding('attr.aria-disabled') get ariaDisabled(): string {
+    return this._disabled ? 'true' : '';
+  }
   @HostListener('keydown', ['$event']) keydown($event) {
     this._onKeydown($event);
   }

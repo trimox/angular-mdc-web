@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { MdcRippleModule } from '@angular-mdc/web/ripple';
-
 import {
   MdcSelect,
   MdcSelectBottomLine,
@@ -30,7 +28,6 @@ export const SELECT_COMPONENTS = [
   imports: [
     FormsModule,
     CommonModule,
-    MdcRippleModule
   ],
   exports: [SELECT_COMPONENTS],
   declarations: [SELECT_COMPONENTS],

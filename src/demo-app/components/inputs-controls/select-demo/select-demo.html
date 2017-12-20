@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutAlign="start" class="mdc-padding">
+<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
   <h1 mdc-typography-display1>Select Menus</h1>
   <div mdc-typography-subheading2>MDC Select provides Material Design single-option select menus.</div>
   <div class="info-banner" mdc-typography-subheading1>
@@ -38,6 +38,10 @@
         <tr>
           <td>value: string</td>
           <td>Value of the checkbox.</td>
+        </tr>
+        <tr>
+          <td>autosize: boolean</td>
+          <td>If true, the width of the select and it's menu are calculated and set appropriately. (Default is true)</td>
         </tr>
         <tr>
           <td>tabIndex: number</td>
@@ -145,6 +149,7 @@
           <th>Parameters</th>
         </tr>
       </thead>
+      <tbody>
         <tr>
           <td>id(): string</td>
           <td>The unique ID of the option.</td>
@@ -169,11 +174,9 @@
           <td>focus()</td>
           <td>Sets focus onto this option.</td>
         </tr>
-      <tbody>
+      </tbody>
     </table>
   </div>
-</div>
-<div fxLayout="column" class="mdc-padding" fxLayoutAlign="start start">
   <h3>Select with ngModel</h3>
   <div [mdc-theme-dark]="isDarkTheme">
 <mdc-select #select placeholder="Favorite food" [(ngModel)]="selectedValue" name="food"
@@ -197,16 +200,7 @@ Change event: index: {{eventIndex}}, value: {{eventValue}}</pre>
   <button mdc-button (click)="clearSelection()">Clear Selection</button>
   <button mdc-button (click)="setSelection()">Set Selection to Fruit</button>
 
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-select</span> #<span style="color:#89bdff">select</span> <span style="color:#89bdff">placeholder</span>=<span style="color:#65b042">"Favorite food"</span> [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"selectedValue"</span> <span style="color:#89bdff">name</span>=<span style="color:#65b042">"food"</span>
- [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"false"</span> (<span style="color:#89bdff">change</span>)=<span style="color:#65b042">"handleChange($event)"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-select-item</span> *<span style="color:#89bdff">ngFor</span>=<span style="color:#65b042">"let food of foods"</span> [<span style="color:#89bdff">value</span>]=<span style="color:#65b042">"food.value"</span> [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"food.disabled"</span>></span>
-    <![CDATA[{{]]>food.description<![CDATA[}}]]>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-select-item</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-select</span>></span>
-</pre>
-
 <h3>Select with FormControl</h3>
-
 <mdc-select placeholder="Favorite food" [formControl]="foodControl">
   <mdc-select-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
     {{food.description}}
@@ -218,10 +212,4 @@ Change event: index: {{eventIndex}}, value: {{eventValue}}</pre>
 <p mdc-typography-body1>Status: {{ foodControl.status }}</p>
 <button mdc-button (click)="foodControl.setValue('pizza-1')">SET VALUE (pizza)</button>
 <button mdc-button (click)="foodControl.reset()">Reset Value</button>
-
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-select</span> <span style="color:#89bdff">placeholder</span>=<span style="color:#65b042">"Favorite food"</span> [<span style="color:#89bdff">formControl</span>]=<span style="color:#65b042">"foodControl"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-select-item</span> *<span style="color:#89bdff">ngFor</span>=<span style="color:#65b042">"let food of foods"</span> [<span style="color:#89bdff">value</span>]=<span style="color:#65b042">"food.value"</span>></span>
-    <![CDATA[{{]]>food.description<![CDATA[}}]]>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-select-item</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-select</span>></span>
-</pre></div>
+</div>

@@ -46,7 +46,7 @@ import {
   toBoolean,
 } from '@angular-mdc/web/common';
 import { MDCSimpleMenu } from '@material/menu/simple';
-import { MdcRippleDirective } from '@angular-mdc/web/ripple';
+import { MdcRipple } from '@angular-mdc/web/ripple';
 
 import { MDCSelectAdapter } from './adapter';
 import { MDCSelectFoundation } from '@material/select';
@@ -94,7 +94,10 @@ export class MdcSelectItems {
 }
 
 @Directive({
-  selector: 'mdc-select-surface'
+  selector: 'mdc-select-surface',
+  providers: [
+    MdcRipple
+  ]
 })
 export class MdcSelectSurface {
   @HostBinding('class.mdc-select__surface') isHostClass = true;
@@ -103,7 +106,11 @@ export class MdcSelectSurface {
     return this._elementRef.nativeElement;
   }
 
-  constructor(private _elementRef: ElementRef) { }
+  constructor(
+    private _elementRef: ElementRef,
+    private _ripple: MdcRipple) {
+    this._ripple.init();
+  }
 }
 
 @Directive({
@@ -240,13 +247,11 @@ export class MdcSelectItem {
     '[id]': 'id',
   },
   template: `
-  <mdc-ripple>
-    <mdc-select-surface>
-      <mdc-select-label>{{placeholder}}</mdc-select-label>
-      <mdc-select-selected-text>{{label}}</mdc-select-selected-text>
-      <mdc-select-bottom-line></mdc-select-bottom-line>
-    </mdc-select-surface>
-  </mdc-ripple>
+  <mdc-select-surface>
+    <mdc-select-label>{{placeholder}}</mdc-select-label>
+    <mdc-select-selected-text>{{label}}</mdc-select-selected-text>
+    <mdc-select-bottom-line></mdc-select-bottom-line>
+  </mdc-select-surface>
   <mdc-select-menu>
     <mdc-select-items>
       <ng-content></ng-content>
@@ -406,6 +411,7 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
   private _placeholder: string;
   private _menuFactory: any;
   private _value: any;
+  private _autosize: boolean = true;
 
   @Input() id: string = this._uniqueId;
   @Input() name: string | null = null;
@@ -452,6 +458,12 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
     this.setDisabled(value);
   }
 
+  @Input()
+  get autosize(): boolean { return this._autosize; }
+  set autosize(value: boolean) {
+    this._autosize = value;
+  }
+
   /** Combined stream of all of the child options' change events. */
   optionSelectionChanges: Observable<MdcSelectedItem> = defer(() => {
     if (this.options) {
@@ -482,6 +494,10 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
   ngAfterViewInit(): void {
     this._menuFactory = new MDCSimpleMenu(this.selectMenu.elementRef.nativeElement);
     this._foundation.init();
+
+    if (this.autosize) {
+      this._setWidth();
+    }
   }
 
   ngAfterContentInit() {
@@ -672,5 +688,14 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
 
   private _getItemByIndex(index: number): MdcSelectItem | null {
     return this.options ? this.options.toArray()[index] : null;
+  }
+
+  private _setWidth() {
+    if (this.options) {
+      const longest = this.options.toArray().map(item =>
+        item.elementRef.nativeElement.textContent).reduce((p, x) => p.length > x.length ? p.length : x.length, 5);
+      this._renderer.setStyle(this.elementRef.nativeElement, 'width', `${longest}rem`);
+      this._mdcAdapter.setMenuElStyle('width', `${longest}rem`);
+    }
   }
 }

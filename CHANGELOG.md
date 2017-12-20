@@ -1,3 +1,48 @@
+<a name="0.6.6"></a>
+## [0.6.6](https://github.com/trimox/angular-mdc-web/compare/v0.6.5...v0.6.6) (2017-12-20)
+
+
+### Bug Fixes
+
+* **dialog:** Inaccurate hasAttached result + portal cleared if attached early ([#490](https://github.com/trimox/angular-mdc-web/issues/490)) ([a4ec3f2](https://github.com/trimox/angular-mdc-web/commit/a4ec3f2))
+* **select:** Correctly set aria-disabled based on disabled value ([#494](https://github.com/trimox/angular-mdc-web/issues/494)) ([5c39a02](https://github.com/trimox/angular-mdc-web/commit/5c39a02)), closes [#493](https://github.com/trimox/angular-mdc-web/issues/493)
+* **textfield:** Fix setting disabled on text fields ([#477](https://github.com/trimox/angular-mdc-web/issues/477)) ([579eb2d](https://github.com/trimox/angular-mdc-web/commit/579eb2d)), closes [#476](https://github.com/trimox/angular-mdc-web/issues/476)
+
+
+### Features
+
+* Update to `material-components-web` v0.27.0
+* **drawer:** Add adapter method `eventTargetHasClass` ([#467](https://github.com/trimox/angular-mdc-web/issues/467)) ([f7a8ff8](https://github.com/trimox/angular-mdc-web/commit/f7a8ff8)), closes [#446](https://github.com/trimox/angular-mdc-web/issues/446)
+* **elevation:** Eject from Core and export [@angular-mdc](https://github.com/angular-mdc)/web/elevation ([#487](https://github.com/trimox/angular-mdc-web/issues/487)) ([2e1b6db](https://github.com/trimox/angular-mdc-web/commit/2e1b6db))
+* **linear-progress:** Add `closed` property ([#463](https://github.com/trimox/angular-mdc-web/issues/463)) ([3ad21a4](https://github.com/trimox/angular-mdc-web/commit/3ad21a4))
+* **linear-progress:** Add setReverse and setDeterminate methods ([#464](https://github.com/trimox/angular-mdc-web/issues/464)) ([d95b15b](https://github.com/trimox/angular-mdc-web/commit/d95b15b))
+* **list:** Add `lines` property to replace `twoLine` ([#489](https://github.com/trimox/angular-mdc-web/issues/489)) ([9a30ea5](https://github.com/trimox/angular-mdc-web/commit/9a30ea5))
+* **list:** Add `padded` property to list divider ([#481](https://github.com/trimox/angular-mdc-web/issues/481)) ([3a34e1a](https://github.com/trimox/angular-mdc-web/commit/3a34e1a)), closes [#480](https://github.com/trimox/angular-mdc-web/issues/480)
+* **list:** Add interactive property to set list item state ([#485](https://github.com/trimox/angular-mdc-web/issues/485)) ([26053ff](https://github.com/trimox/angular-mdc-web/commit/26053ff))
+* **list:** Add new UX styles and improvements ([#473](https://github.com/trimox/angular-mdc-web/issues/473)) ([b00b9f2](https://github.com/trimox/angular-mdc-web/commit/b00b9f2)), closes [#449](https://github.com/trimox/angular-mdc-web/issues/449) [#469](https://github.com/trimox/angular-mdc-web/issues/469) [#470](https://github.com/trimox/angular-mdc-web/issues/470)
+* **menu:** Add adapter method `eventTargetHasClass` ([#466](https://github.com/trimox/angular-mdc-web/issues/466)) ([d741569](https://github.com/trimox/angular-mdc-web/commit/d741569)), closes [#444](https://github.com/trimox/angular-mdc-web/issues/444)
+* **ripple:** Remove from Core + Export [@angular-mdc](https://github.com/angular-mdc)/web/ripple ([#486](https://github.com/trimox/angular-mdc-web/issues/486)) ([12c7ec7](https://github.com/trimox/angular-mdc-web/commit/12c7ec7))
+* **select:** Add new UX styles and behaviors ([#491](https://github.com/trimox/angular-mdc-web/issues/491)) ([9b56af4](https://github.com/trimox/angular-mdc-web/commit/9b56af4)), closes [#448](https://github.com/trimox/angular-mdc-web/issues/448)
+* **theme:** Add MDC color-palette.scss to [@angular-mdc](https://github.com/angular-mdc)/theme ([#492](https://github.com/trimox/angular-mdc-web/issues/492)) ([3b9d2f6](https://github.com/trimox/angular-mdc-web/commit/3b9d2f6))
+* **typography:** Eject from Core and export [@angular-mdc](https://github.com/angular-mdc)/web/typography ([#488](https://github.com/trimox/angular-mdc-web/issues/488)) ([f25a6b1](https://github.com/trimox/angular-mdc-web/commit/f25a6b1))
+* **select:** Add autosize property ([#496](https://github.com/trimox/angular-mdc-web/pull/496))
+
+
+### Performance Improvements
+
+* **linear-progress:** ChangeDetection set to OnPush ([#462](https://github.com/trimox/angular-mdc-web/issues/462)) ([dec4c4f](https://github.com/trimox/angular-mdc-web/commit/dec4c4f))
+
+
+### BREAKING CHANGES
+
+* **list:** Removed `disableRipple` property. Please update your code to use `interactive` property.
+* **list:** Renamed `active` property to `selected`.
+* **list:** Renamed `mdc-list-item-start` to `mdc-list-item-graphic`
+* **list:** Renamed `mdc-list-item-end` to `mdc-list-item-meta`
+* **list:** Removed `isActive()` method
+* **list:** Depreciated `twoLines` property. Use `lines: number` instead.
+
+
 <a name="0.6.5"></a>
 ## [0.6.5](https://github.com/trimox/angular-mdc-web/compare/v0.6.4...v0.6.5) (2017-12-14)
 

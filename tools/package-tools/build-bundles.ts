@@ -4,6 +4,7 @@ import { buildConfig } from './build-config';
 import { BuildPackage } from './build-package';
 import { rollupRemoveLicensesPlugin } from './rollup-remove-licenses';
 import { rollupGlobals, dashCaseToCamelCase } from './rollup-globals';
+import { remapSourcemap } from './sourcemap-remap';
 
 // There are no type definitions available for these imports.
 const rollup = require('rollup');
@@ -65,7 +66,6 @@ export class PackageBundler {
    */
   private async bundleEntryPoint(config: BundlesConfig) {
     // Build FESM-2015 bundle file.
-    // TODO: re-add sorcery when we upgrade to Angular 5.x
     await this.createRollupBundle({
       moduleName: config.moduleName,
       entry: config.entryFile,
@@ -74,7 +74,6 @@ export class PackageBundler {
     });
 
     // Build FESM-5 bundle file.
-    // TODO: re-add sorcery when we upgrade to Angular 5.x
     await this.createRollupBundle({
       moduleName: config.moduleName,
       entry: config.esm5EntryFile,
@@ -83,7 +82,6 @@ export class PackageBundler {
     });
 
     // Create UMD bundle of ES5 output.
-    // TODO: re-add sorcery when we upgrade to Angular 5.x
     await this.createRollupBundle({
       moduleName: config.moduleName,
       entry: config.esm5Dest,
@@ -94,6 +92,14 @@ export class PackageBundler {
     // Create a minified UMD bundle using UglifyJS
     // TODO: re-add sorcery when we upgrade to Angular 5.x
     uglifyJsFile(config.umdDest, config.umdMinDest);
+
+    // Remaps the sourcemaps to be based on top of the original TypeScript source files.
+    await Promise.all([
+      remapSourcemap(config.esm2015Dest),
+      remapSourcemap(config.esm5Dest),
+      remapSourcemap(config.umdDest),
+      remapSourcemap(config.umdMinDest),
+    ]);
   }
 
   /** Creates a rollup bundle of a specified JavaScript file.*/

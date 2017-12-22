@@ -25,7 +25,6 @@ export const rollupGlobals = {
   '@angular/common/http': 'ng.common.http',
   '@angular/router': 'ng.router',
   '@angular/platform-browser': 'ng.platformBrowser',
-  '@angular/platform-server': 'ng.platformServer',
   '@angular/platform-browser-dynamic': 'ng.platformBrowserDynamic',
 
   // Some packages are not really needed for the UMD bundles, but for the missingRollupGlobals rule.

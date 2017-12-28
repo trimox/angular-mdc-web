@@ -10,13 +10,6 @@ import {
 import { toBoolean } from '@angular-mdc/web/common';
 
 @Directive({
-  selector: 'mdc-content, [mdc-content]'
-})
-export class MdcContent {
-  @HostBinding('class.mdc-content') isHostClass = true;
-}
-
-@Directive({
   selector: '[mdc-theme-dark]'
 })
 export class MdcThemeDark implements OnChanges {

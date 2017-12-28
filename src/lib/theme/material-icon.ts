@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: '[material-icon]'
+  selector: '[material-icon], material-icon'
 })
 export class MdcMaterialIcon {
   @HostBinding('class.material-icons') isHostClass = true;

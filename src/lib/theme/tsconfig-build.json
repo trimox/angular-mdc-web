@@ -8,7 +8,8 @@
     "annotateForClosureCompiler": true,
     "strictMetadataEmit": true,
     "flatModuleOutFile": "index.js",
-    "flatModuleId": "@angular-mdc/web/core",
-    "skipTemplateCodegen": true
+    "flatModuleId": "@angular-mdc/web/theme",
+    "skipTemplateCodegen": true,
+    "fullTemplateTypeCheck": true
   }
 }

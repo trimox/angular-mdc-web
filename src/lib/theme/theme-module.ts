@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 
-import { MdcContent, MdcThemeDark } from './theme';
+import { MdcContent } from './mdc-content';
+import { MdcMaterialIcon } from './material-icon';
+import { MdcThemeDark } from './theme-dark';
 
 const THEME_DIRECTIVES = [
   MdcContent,
+  MdcMaterialIcon,
   MdcThemeDark,
 ];
 
@@ -12,5 +15,3 @@ const THEME_DIRECTIVES = [
   declarations: [THEME_DIRECTIVES],
 })
 export class MdcThemeModule { }
-
-export * from './theme';

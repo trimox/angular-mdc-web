@@ -1,5 +1,4 @@
-import { join, resolve as resolvePath } from 'path';
-import { spawn } from 'child_process';
+import { join } from 'path';
 import { PackageBundler } from './build-bundles';
 import { buildConfig } from './build-config';
 import { getSecondaryEntryPointsForPackage } from './secondary-entry-points';

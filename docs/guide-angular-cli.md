@@ -37,7 +37,7 @@ In `src/styles.sass` add the following:
 $mdc-theme-primary: #1565c0; // change primary color example
 $mdc-theme-secondary: #388e3c; // change secondary color example
 
-@import "~@angular-mdc/theme";
+@import "~@angular-mdc/theme/material";
 ```
 
 ## <a name="step4"></a> Step 4: Import Components
@@ -46,7 +46,6 @@ Now just import the NgModule for each component you want to use.
 import {
   MdcButtonModule,
   MdcFabModule,
-  MdcMenuModule
 } from '@angular-mdc/web';
 
 @NgModule({
@@ -54,7 +53,6 @@ import {
   imports: [
    MdcButtonModule,
    MdcFabModule,
-   MdcMenuModule,
    ...
 ],
   ...
@@ -65,6 +63,10 @@ export class ExampleModule { }
 Open `app.component.html` and add the following markup:
 ```html
 <button mdc-button [primary]="true" [raised]="true">My Button</button>
+
+<button mdc-fab>
+  <mdc-icon>edit</mdc-icon>
+</button>
 ```
 
 Run `ng serve` to run your application in develop mode, and navigate to `http://localhost:4200`

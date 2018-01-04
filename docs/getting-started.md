@@ -43,7 +43,7 @@ Import the Angular MDC theme into your project Sass:
 $mdc-theme-primary: #1565c0; // change primary color example
 $mdc-theme-secondary: #388e3c; // change secondary color example
 
-@import "~@angular-mdc/theme";
+@import "~@angular-mdc/theme/material";
 ```
 
 ## <a name="step4"></a> Step 4: Include Material Design Icons

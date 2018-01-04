@@ -12,15 +12,13 @@
 <h2 id="anamestep2astep2importcomponents"><a name="step2"></a> Step 2: Import Components</h2>
 Now just import the NgModule for each component you want to use.
 <pre><![CDATA[import {
-  MdcFabModule,
-  MdcMenuModule
+  MdcButtonModule,
 } from '@angular-mdc/web';
 
 @NgModule({
   ...
   imports: [
-   MdcFabModule,
-   MdcMenuModule,
+   MdcButtonModule,
    ...
 ],
   ...
@@ -35,7 +33,7 @@ export class ExampleModule { }
 <pre>$mdc-theme-primary: #1565c0; // change primary color example
 $mdc-theme-secondary: #388e3c; // change secondary color example
 
-@import "~@angular-mdc/theme";
+@import "~@angular-mdc/theme/material";
 </pre>
 
 <h2 id="anamestep4astep4includematerialdesignicons"><a name="step4"></a> Step 4: Include Material Design Icons</h2>

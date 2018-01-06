@@ -7,7 +7,7 @@
   z-index: 0;
 
   .mdc-permanent-drawer--fixed + & {
-    margin-left: $mdc-permanent-drawer-width;
+    @include mdc-rtl-reflexive-box(margin, left, $mdc-permanent-drawer-width);
   }
 
   // If the drawer is collapsed, which needs to be the element directly before

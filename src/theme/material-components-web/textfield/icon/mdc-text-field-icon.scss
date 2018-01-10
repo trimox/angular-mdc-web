@@ -1,4 +1,5 @@
-// Copyright 2016 Google Inc. All Rights Reserved.
+//
+// Copyright 2017 Google Inc. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,31 +12,24 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+//
 
-@import "../ripple/common";
-@import "../ripple/mixins";
-@import "../ripple/variables";
-@import "./mixins";
+@import "../../theme/variables";
+@import "../../theme/mixins";
 
-// postcss-bem-linter: define fab
+.mdc-text-field--with-leading-icon .mdc-text-field__icon,
+.mdc-text-field--with-trailing-icon .mdc-text-field__icon {
+  position: absolute;
+  bottom: 16px;
+  cursor: pointer;
 
-.mdc-fab {
-  @include mdc-fab-base_;
-  @include mdc-fab-container-color(secondary);
-  @include mdc-fab-ink-color(text-primary-on-secondary);
-  @include mdc-states(text-primary-on-secondary);
+  @include mdc-theme-dark(".mdc-text-field") {
+    @include mdc-theme-prop(color, text-secondary-on-dark);
+  }
 }
 
-.mdc-fab--mini {
-  @include mdc-fab--mini_;
+.mdc-text-field__icon:not([tabindex]),
+.mdc-text-field__icon[tabindex="-1"] {
+  cursor: default;
+  pointer-events: none;
 }
-
-.mdc-fab__icon {
-  @include mdc-fab__icon_;
-}
-
-.mdc-fab--exited {
-  @include mdc-fab--exited_;
-}
-
-// postcss-bem-linter: end

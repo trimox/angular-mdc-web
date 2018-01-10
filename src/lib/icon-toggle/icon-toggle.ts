@@ -104,11 +104,11 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
   set disabled(value: boolean) {
     this._foundation.setDisabled(toBoolean(value));
   }
-  @HostBinding('class.mdc-icon-toggle--primary') get classPrimary() {
-    return this.primary ? 'mdc-icon-toggle--primary' : '';
+  @HostBinding('class.ng-mdc-ripple-surface--primary') get classPrimary() {
+    return this.primary ? 'ng-mdc-ripple-surface--primary' : '';
   }
-  @HostBinding('class.mdc-icon-toggle--accent') get classSecondary() {
-    return this.secondary ? 'mdc-icon-toggle--accent' : '';
+  @HostBinding('class.ng-mdc-ripple-surface--secondary') get classSecondary() {
+    return this.secondary ? 'ng-mdc-ripple-surface--secondary' : '';
   }
   @HostBinding('attr.data-toggle-on') get dataToggleOn() {
     return JSON.stringify({

@@ -23,6 +23,12 @@ export abstract class MdcRippleOrchestration {
     deregisterInteractionHandler: (evtType: string, handler: EventListener) => {
       this._registry.unlisten(evtType, handler);
     },
+    registerDocumentInteractionHandler: (evtType: string, handler: EventListener) => {
+      this._registry.listen(evtType, handler, document, util.applyPassive());
+    },
+    deregisterDocumentInteractionHandler: (evtType: string, handler: EventListener) => {
+      this._registry.unlisten(evtType, handler);
+    },
     registerResizeHandler: (handler: EventListener) => {
       if (isBrowser()) {
         this._registry.listen('resize', handler, window);

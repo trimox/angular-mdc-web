@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 
-import { MdcDrawer } from './drawer';
-
 import {
-  MdcPermanentDrawer,
-  MdcPermanentDrawerSpacer,
-  MdcPermanentDrawerContent,
-} from './permanent/drawer-permanent';
+  MdcDrawer,
+  MdcDrawerContent,
+  MdcDrawerSpacer,
+} from './drawer';
+
+import { MdcDrawerPermanent } from './permanent/drawer-permanent';
 import {
   MdcTemporaryDrawer,
   MdcTemporaryDrawerContent,
@@ -26,21 +26,21 @@ import {
 } from './persistent/drawer-persistent';
 
 const DRAWER_COMPONENTS = [
-  MdcPermanentDrawer,
-  MdcPermanentDrawerSpacer,
-  MdcPermanentDrawerContent,
+  MdcDrawerContent,
+  MdcDrawerPermanent,
+  MdcDrawerSpacer,
+  MdcPersistentDrawer,
+  MdcPersistentDrawerContent,
+  MdcPersistentDrawerHeader,
+  MdcPersistentDrawerHeaderContent,
+  MdcPersistentDrawerNavigation,
+  MdcPersistentDrawerSpacer,
   MdcTemporaryDrawer,
   MdcTemporaryDrawerContent,
-  MdcTemporaryDrawerNavigation,
   MdcTemporaryDrawerHeader,
-  MdcTemporaryDrawerSpacer,
   MdcTemporaryDrawerHeaderContent,
-  MdcPersistentDrawer,
-  MdcPersistentDrawerHeader,
-  MdcPersistentDrawerNavigation,
-  MdcPersistentDrawerHeaderContent,
-  MdcPersistentDrawerContent,
-  MdcPersistentDrawerSpacer,
+  MdcTemporaryDrawerNavigation,
+  MdcTemporaryDrawerSpacer,
 ];
 
 @NgModule({

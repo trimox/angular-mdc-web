@@ -45,8 +45,8 @@
 </mdc-toolbar>
 
 <div fxLayout="row">
-  <mdc-permanent-drawer [fixed]="true" *ngIf="media.isActive('gt-sm')" fxHide fxShow.gt-sm="true">
-   <mdc-permanent-drawer-content>
+  <mdc-drawer-permanent [fixed]="true" *ngIf="media.isActive('gt-sm')" fxHide fxShow.gt-sm="true">
+   <mdc-drawer-content>
       <mdc-list-group>
         <mdc-list>
           <mdc-list-item [routerLink]="['home']" routerLinkActive #rlaHome="routerLinkActive">
@@ -66,8 +66,8 @@
           </mdc-list-item>
         </mdc-list>
       </mdc-list-group>
-    </mdc-permanent-drawer-content>
-  </mdc-permanent-drawer>
+    </mdc-drawer-content>
+  </mdc-drawer-permanent>
 
   <div class="mdc-content">
     <router-outlet></router-outlet>

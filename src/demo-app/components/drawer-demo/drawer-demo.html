@@ -13,7 +13,7 @@
       </thead>
       <tbody>
         <tr>
-          <td>mdc-permanent-drawer</td>
+          <td>mdc-drawer-permanent</td>
         </tr>
       </tbody>
       <thead>
@@ -26,22 +26,6 @@
         <tr>
           <td>fixed: boolean</td>
           <td>Makes permanent drawer fixed on top and have persistent elevation.</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Child Directives</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-permanent-drawer-spacer</td>
-          <td>Optional. Add to node to provide the matching amount of space for toolbar.</td>
-        </tr>
-        <tr>
-          <td>mdc-permanent-drawer-content</td>
-          <td>Mandatory. Needs to be set on the container node for the drawer content.</td>
         </tr>
       </tbody>
     </table>
@@ -213,9 +197,9 @@
  <a mdc-button href="https://github.com/trimox/angular-mdc-web/tree/master/src/demo-app/components/drawer-demo" target="_blank" rel="noopener noreferrer">View Example Source</a>
 </div>
 <div class="demo-host">
-  <mdc-permanent-drawer>
-    <mdc-permanent-drawer-spacer></mdc-permanent-drawer-spacer>
-    <mdc-permanent-drawer-content>
+  <mdc-drawer-permanent>
+    <mdc-drawer-spacer></mdc-drawer-spacer>
+    <mdc-drawer-content>
         <mdc-list-group>
           <mdc-list>
             <mdc-list-item>
@@ -244,8 +228,8 @@
             </mdc-list-item>
           </mdc-list>
         </mdc-list-group>
-    </mdc-permanent-drawer-content>
-  </mdc-permanent-drawer>
+    </mdc-drawer-content>
+  </mdc-drawer-permanent>
   <mdc-content>
     <mdc-toolbar>
         <mdc-toolbar-row>
@@ -286,8 +270,8 @@
       </mdc-toolbar-row>
   </mdc-toolbar>
   <mdc-content fxLayout="row">
-    <mdc-permanent-drawer mdc-elevation=1>
-      <mdc-permanent-drawer-content>
+    <mdc-drawer-permanent mdc-elevation=1>
+      <mdc-drawer-content>
           <mdc-list-group>
             <mdc-list>
               <mdc-list-item>
@@ -316,8 +300,8 @@
               </mdc-list-item>
             </mdc-list>
           </mdc-list-group>
-      </mdc-permanent-drawer-content>
-    </mdc-permanent-drawer>
+      </mdc-drawer-content>
+    </mdc-drawer-permanent>
     <div>
       Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo
       et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc

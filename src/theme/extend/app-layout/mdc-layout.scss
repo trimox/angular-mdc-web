@@ -6,7 +6,7 @@
   overflow: auto;
   z-index: 0;
 
-  .mdc-permanent-drawer--fixed + & {
+  .ng-mdc-drawer--permanent--fixed + & {
     @include mdc-rtl-reflexive-box(margin, left, $mdc-permanent-drawer-width);
   }
 

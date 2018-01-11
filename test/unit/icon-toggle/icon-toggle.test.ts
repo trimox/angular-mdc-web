@@ -42,11 +42,11 @@ describe('MdcIconToggle', () => {
     it('#should apply class based on property', () => {
       testComponent.isPrimary = true;
       fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.classList.contains('mdc-icon-toggle--primary')).toBe(true);
+      expect(buttonDebugElement.nativeElement.classList.contains('ng-mdc-ripple-surface--primary')).toBe(true);
 
       testComponent.isSecondary = true;
       fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.classList.contains('mdc-icon-toggle--accent')).toBe(true);
+      expect(buttonDebugElement.nativeElement.classList.contains('ng-mdc-ripple-surface--secondary')).toBe(true);
     });
 
     it('#should set disabled to true', () => {

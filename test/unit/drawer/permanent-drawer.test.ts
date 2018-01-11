@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 
 import {
   MdcDrawerModule,
-  MdcPermanentDrawer,
+  MdcDrawerPermanent,
 } from '@angular-mdc/web';
 
 describe('MdcPermanentDrawer', () => {
@@ -24,26 +24,26 @@ describe('MdcPermanentDrawer', () => {
 
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;
-    let testInstance: MdcPermanentDrawer;
+    let testInstance: MdcDrawerPermanent;
     let testComponent: SimpleTest;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SimpleTest);
       fixture.detectChanges();
 
-      testDebugElement = fixture.debugElement.query(By.directive(MdcPermanentDrawer));
+      testDebugElement = fixture.debugElement.query(By.directive(MdcDrawerPermanent));
       testInstance = testDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
     });
 
     it('#should have mdc-permanent-drawer by default', () => {
-      expect(testDebugElement.nativeElement.classList).toContain('mdc-permanent-drawer');
+      expect(testDebugElement.nativeElement.classList).toContain('mdc-drawer--permanent');
     });
 
     it('#should not have fixed class modifier', () => {
       testComponent.isFixed = false;
       fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList).not.toContain('mdc-permanent-drawer--fixed');
+      expect(testDebugElement.nativeElement.classList).not.toContain('ng-mdc-drawer--permanent--fixed');
     });
   });
 });
@@ -51,11 +51,11 @@ describe('MdcPermanentDrawer', () => {
 /** Simple component for testing. */
 @Component({
   template: `
-  <mdc-permanent-drawer [fixed]="isFixed">
-    <mdc-permanent-drawer-spacer>Angular MDC</mdc-permanent-drawer-spacer>
-    <mdc-permanent-drawer-content>
-    </mdc-permanent-drawer-content>
-  </mdc-permanent-drawer>
+  <mdc-drawer-permanent [fixed]="isFixed">
+    <mdc-drawer-spacer>Angular MDC</mdc-drawer-spacer>
+    <mdc-drawer-content>
+    </mdc-drawer-content>
+  </mdc-drawer-permanent>
   `,
 })
 class SimpleTest {

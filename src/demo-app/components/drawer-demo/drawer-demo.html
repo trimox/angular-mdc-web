@@ -38,31 +38,7 @@
       </thead>
       <tbody>
         <tr>
-          <td>mdc-persistent-drawer</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Child Directives</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-persistent-drawer-spacer</td>
-          <td>Optional. Add to provide the matching amount of space for toolbar.</td>
-        </tr>
-        <tr>
-          <td>mdc-persistent-drawer-header</td>
-          <td>Optional. Add to create a 16:9 drawer header.</td>
-        </tr>
-        <tr>
-          <td>mdc-persistent-drawer-header-content</td>
-          <td>Optional. Add content inside mdc-persistent-drawer-header.</td>
-        </tr>
-        <tr>
-          <td>mdc-persistent-drawer-content</td>
-          <td>Mandatory. Needs to be set as the container node for the drawer content.</td>
+          <td>mdc-drawer-persistent</td>
         </tr>
       </tbody>
       <thead>
@@ -187,6 +163,33 @@
         <tr>
           <td>closed</td>
           <td>Event dispatched on drawer close.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Child Directives</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-drawer-spacer</td>
+          <td>Optional. Add to provide the matching amount of space for toolbar.</td>
+        </tr>
+        <tr>
+          <td>mdc-drawer-header</td>
+          <td>Optional. Add to create a 16:9 drawer header.</td>
+        </tr>
+        <tr>
+          <td>mdc-drawer-header-content</td>
+          <td>Optional. Add content inside mdc-drawer-header.</td>
+        </tr>
+        <tr>
+          <td>mdc-drawer-content</td>
+          <td>Optional. Should be set on the list of items inside the drawer.</td>
         </tr>
       </tbody>
     </table>
@@ -381,8 +384,8 @@
  <a mdc-button href="https://github.com/trimox/angular-mdc-web/tree/master/src/demo-app/components/drawer-demo" target="_blank" rel="noopener noreferrer">View Example Source</a>
 </div>
 <div class="demo-host">
-  <mdc-persistent-drawer #persistent>
-    <mdc-persistent-drawer-spacer></mdc-persistent-drawer-spacer>
+  <mdc-drawer-persistent #persistent>
+    <mdc-drawer-spacer></mdc-drawer-spacer>
       <mdc-list-group>
         <mdc-list>
           <mdc-list-item>
@@ -411,12 +414,12 @@
           </mdc-list-item>
         </mdc-list>
     </mdc-list-group>
-  </mdc-persistent-drawer>
+  </mdc-drawer-persistent>
   <mdc-content>
     <mdc-toolbar>
         <mdc-toolbar-row>
             <mdc-toolbar-section [alignStart]="true">
-              <button mdc-toolbar-menu-icon material-icon (click)="handlePersistent();">menu</button>
+              <button mdc-toolbar-menu-icon material-icon (click)="persistent.open();">menu</button>
               <span mdc-toolbar-title>Simple Layout</span>
             </mdc-toolbar-section>
             <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">

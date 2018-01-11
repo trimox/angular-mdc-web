@@ -20,68 +20,32 @@ import { MDCDrawerPersistentAdapter } from '../adapter';
 import { MDCPersistentDrawerFoundation, util } from '@material/drawer';
 
 @Directive({
-  selector: 'mdc-persistent-drawer-nav'
+  selector: 'mdc-drawer-persistent-nav'
 })
-export class MdcPersistentDrawerNavigation {
-  @HostBinding('class.mdc-persistent-drawer__drawer') isHostClass = true;
+export class MdcDrawerPersistentNavigation {
+  @HostBinding('class.mdc-drawer__drawer') isHostClass = true;
   @HostBinding('attr.role') role: string = 'navigation';
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: '[mdc-persistent-drawer-spacer], mdc-persistent-drawer-spacer'
-})
-export class MdcPersistentDrawerSpacer {
-  @HostBinding('class.mdc-persistent-drawer__toolbar-spacer') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: '[mdc-persistent-drawer-header], mdc-persistent-drawer-header'
-})
-export class MdcPersistentDrawerHeader {
-  @HostBinding('class.mdc-persistent-drawer__header') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: '[mdc-persistent-drawer-header-content], mdc-persistent-drawer-header-content'
-})
-export class MdcPersistentDrawerHeaderContent {
-  @HostBinding('class.mdc-persistent-drawer__header-content') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: '[mdc-persistent-drawer-content], mdc-persistent-drawer-content'
-})
-export class MdcPersistentDrawerContent {
-  @HostBinding('class.mdc-persistent-drawer__content') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
 }
 
 @Component({
   moduleId: module.id,
-  selector: 'mdc-persistent-drawer',
+  selector: 'mdc-drawer-persistent',
   template: `
-  <mdc-persistent-drawer-nav>
+  <mdc-drawer-persistent-nav>
     <ng-content></ng-content>
-  </mdc-persistent-drawer-nav>
+  </mdc-drawer-persistent-nav>
   `,
   encapsulation: ViewEncapsulation.None,
   providers: [EventRegistry],
   preserveWhitespaces: false,
 })
-export class MdcPersistentDrawer extends MdcDrawer implements AfterViewInit, OnDestroy {
+export class MdcDrawerPersistent extends MdcDrawer implements AfterViewInit, OnDestroy {
   @Output() opened: EventEmitter<void> = new EventEmitter<void>();
   @Output() closed: EventEmitter<void> = new EventEmitter<void>();
-  @HostBinding('class.mdc-persistent-drawer') isHostClass = true;
-  @ViewChild(MdcPersistentDrawerNavigation) drawerNav: MdcPersistentDrawerNavigation;
+  @HostBinding('class.mdc-drawer--persistent') isHostClass = true;
+  @ViewChild(MdcDrawerPersistentNavigation) drawerNav: MdcDrawerPersistentNavigation;
 
   private _mdcAdapter: MDCDrawerPersistentAdapter = {
     addClass: (className: string) => {

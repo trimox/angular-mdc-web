@@ -7,7 +7,7 @@ import {
   MdcDrawerPermanent,
 } from '@angular-mdc/web';
 
-describe('MdcPermanentDrawer', () => {
+describe('MdcDrawerPermanent', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
@@ -36,7 +36,7 @@ describe('MdcPermanentDrawer', () => {
       testComponent = fixture.debugElement.componentInstance;
     });
 
-    it('#should have mdc-permanent-drawer by default', () => {
+    it('#should have mdc-drawer--permanent by default', () => {
       expect(testDebugElement.nativeElement.classList).toContain('mdc-drawer--permanent');
     });
 

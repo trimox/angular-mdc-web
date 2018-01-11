@@ -4,10 +4,10 @@ import { By } from '@angular/platform-browser';
 
 import {
   MdcDrawerModule,
-  MdcPersistentDrawer,
+  MdcDrawerPersistent,
 } from '@angular-mdc/web';
 
-describe('MdcPersistentDrawer', () => {
+describe('MdcDrawerPersistent', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
@@ -24,20 +24,20 @@ describe('MdcPersistentDrawer', () => {
 
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;
-    let testInstance: MdcPersistentDrawer;
+    let testInstance: MdcDrawerPersistent;
     let testComponent: SimpleTest;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SimpleTest);
       fixture.detectChanges();
 
-      testDebugElement = fixture.debugElement.query(By.directive(MdcPersistentDrawer));
+      testDebugElement = fixture.debugElement.query(By.directive(MdcDrawerPersistent));
       testInstance = testDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
     });
 
-    it('#should have mdc-persistent-drawer by default', () => {
-      expect(testDebugElement.nativeElement.classList).toContain('mdc-persistent-drawer');
+    it('#should have mdc-drawer--persistent by default', () => {
+      expect(testDebugElement.nativeElement.classList).toContain('mdc-drawer--persistent');
     });
 
     it('#should be closed', () => {
@@ -65,16 +65,16 @@ describe('MdcPersistentDrawer', () => {
 /** Simple component for testing. */
 @Component({
   template: `
-  <mdc-persistent-drawer>
-    <mdc-persistent-drawer-spacer>Angular MDC</mdc-persistent-drawer-spacer>
-    <mdc-persistent-drawer-header>
-      <mdc-persistent-drawer-header-content>
+  <mdc-drawer-persistent>
+    <mdc-drawer-spacer>Angular MDC</mdc-drawer-spacer>
+    <mdc-drawer-header>
+      <mdc-drawer-header-content>
         header content
-      </mdc-persistent-drawer-header-content>
-    </mdc-persistent-drawer-header>
-    <mdc-persistent-drawer-content>
-    </mdc-persistent-drawer-content>
-  </mdc-persistent-drawer>
+      </mdc-drawer-header-content>
+    </mdc-drawer-header>
+    <mdc-drawer-content>
+    </mdc-drawer-content>
+  </mdc-drawer-persistent>
   `,
 })
 class SimpleTest { }

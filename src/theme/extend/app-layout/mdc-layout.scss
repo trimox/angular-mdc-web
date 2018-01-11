@@ -12,7 +12,7 @@
 
   // If the drawer is collapsed, which needs to be the element directly before
   // the content, set the content to the left edge.
-  .mdc-persistent-drawer:not(.mdc-persistent-drawer--open) + & {
+  .mdc-drawer--persistent:not(.mdc-drawer--open) + & {
     margin-left: 0;
   }
 }

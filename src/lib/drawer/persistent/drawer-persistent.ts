@@ -144,7 +144,7 @@ export class MdcDrawerPersistent extends MdcDrawer implements AfterViewInit, OnD
   }
 
   open(): void {
-    this._foundation.open();
+    this.isOpen() ? this._foundation.close() : this._foundation.open();
   }
 
   close(): void {

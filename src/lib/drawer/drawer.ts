@@ -44,6 +44,16 @@ export class MdcDrawerContent {
   constructor(public elementRef: ElementRef) { }
 }
 
+@Directive({
+  selector: 'mdc-drawer-navigation'
+})
+export class MdcDrawerNavigation {
+  @HostBinding('class.mdc-drawer__drawer') isHostClass = true;
+  @HostBinding('attr.role') role: string = 'navigation';
+
+  constructor(public elementRef: ElementRef) { }
+}
+
 export abstract class MdcDrawer {
   @ContentChildren(MdcListItem, { descendants: true }) options: QueryList<MdcListItem>;
 

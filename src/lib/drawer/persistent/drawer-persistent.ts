@@ -1,7 +1,6 @@
 import {
   AfterViewInit,
   Component,
-  Directive,
   ElementRef,
   EventEmitter,
   HostBinding,
@@ -14,28 +13,18 @@ import {
 } from '@angular/core';
 import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
 
-import { MdcDrawer } from '../drawer';
+import { MdcDrawer, MdcDrawerNavigation } from '../drawer';
 import { FOCUSABLE_ELEMENTS } from '../constants';
 import { MDCDrawerPersistentAdapter } from '../adapter';
 import { MDCPersistentDrawerFoundation, util } from '@material/drawer';
-
-@Directive({
-  selector: 'mdc-drawer-persistent-nav'
-})
-export class MdcDrawerPersistentNavigation {
-  @HostBinding('class.mdc-drawer__drawer') isHostClass = true;
-  @HostBinding('attr.role') role: string = 'navigation';
-
-  constructor(public elementRef: ElementRef) { }
-}
 
 @Component({
   moduleId: module.id,
   selector: 'mdc-drawer-persistent',
   template: `
-  <mdc-drawer-persistent-nav>
+  <mdc-drawer-navigation>
     <ng-content></ng-content>
-  </mdc-drawer-persistent-nav>
+  </mdc-drawer-navigation>
   `,
   encapsulation: ViewEncapsulation.None,
   providers: [EventRegistry],
@@ -45,7 +34,7 @@ export class MdcDrawerPersistent extends MdcDrawer implements AfterViewInit, OnD
   @Output() opened: EventEmitter<void> = new EventEmitter<void>();
   @Output() closed: EventEmitter<void> = new EventEmitter<void>();
   @HostBinding('class.mdc-drawer--persistent') isHostClass = true;
-  @ViewChild(MdcDrawerPersistentNavigation) drawerNav: MdcDrawerPersistentNavigation;
+  @ViewChild(MdcDrawerNavigation) drawerNav: MdcDrawerNavigation;
 
   private _mdcAdapter: MDCDrawerPersistentAdapter = {
     addClass: (className: string) => {

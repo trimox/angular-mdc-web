@@ -1,7 +1,6 @@
 import {
   AfterViewInit,
   Component,
-  Directive,
   ElementRef,
   EventEmitter,
   HostBinding,
@@ -16,75 +15,30 @@ import {
 } from '@angular/core';
 import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
 
-import { MdcDrawer } from '../drawer';
+import { MdcDrawer, MdcDrawerNavigation } from '../drawer';
 import { FOCUSABLE_ELEMENTS } from '../constants';
 import { MDCDrawerTemporaryAdapter } from '../adapter';
 import { MDCTemporaryDrawerFoundation, util } from '@material/drawer';
 
-@Directive({
-  selector: 'mdc-temporary-drawer-nav'
-})
-export class MdcTemporaryDrawerNavigation {
-  @HostBinding('class.mdc-temporary-drawer__drawer') isHostClass = true;
-  @HostBinding('attr.role') role: string = 'navigation';
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: '[mdc-temporary-drawer-spacer], mdc-temporary-drawer-spacer'
-})
-export class MdcTemporaryDrawerSpacer {
-  @HostBinding('class.mdc-temporary-drawer__toolbar-spacer') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: '[mdc-temporary-drawer-content], mdc-temporary-drawer-content'
-})
-export class MdcTemporaryDrawerContent {
-  @HostBinding('class.mdc-temporary-drawer__content') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: '[mdc-temporary-drawer-header], mdc-temporary-drawer-header'
-})
-export class MdcTemporaryDrawerHeader {
-  @HostBinding('class.mdc-temporary-drawer__header') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: '[mdc-temporary-drawer-header-content], mdc-temporary-drawer-header-content'
-})
-export class MdcTemporaryDrawerHeaderContent {
-  @HostBinding('class.mdc-temporary-drawer__header-content') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
 @Component({
   moduleId: module.id,
-  selector: 'mdc-temporary-drawer',
+  selector: 'mdc-drawer-temporary',
   template: `
-  <mdc-temporary-drawer-nav>
+  <mdc-drawer-navigation>
     <ng-content></ng-content>
-  </mdc-temporary-drawer-nav>
+  </mdc-drawer-navigation>
   `,
   encapsulation: ViewEncapsulation.None,
   providers: [EventRegistry],
   preserveWhitespaces: false,
 })
-export class MdcTemporaryDrawer extends MdcDrawer implements AfterViewInit, OnChanges, OnDestroy {
+export class MdcDrawerTemporary extends MdcDrawer implements AfterViewInit, OnChanges, OnDestroy {
   @Input() absolute: boolean = false;
 
   @Output() opened: EventEmitter<void> = new EventEmitter<void>();
   @Output() closed: EventEmitter<void> = new EventEmitter<void>();
-  @HostBinding('class.mdc-temporary-drawer') isHostClass = true;
-  @ViewChild(MdcTemporaryDrawerNavigation) drawerNav: MdcTemporaryDrawerNavigation;
+  @HostBinding('class.mdc-drawer--temporary') isHostClass = true;
+  @ViewChild(MdcDrawerNavigation) drawerNav: MdcDrawerNavigation;
   @Input() closeOnClick: boolean = true;
   private get drawerElement(): ElementRef {
     return this.drawerNav && this.drawerNav.elementRef;
@@ -198,7 +152,7 @@ export class MdcTemporaryDrawer extends MdcDrawer implements AfterViewInit, OnCh
 
   ngOnChanges(changes: { [key: string]: SimpleChange }): void {
     if (changes['absolute']) {
-      const absolute = 'mdc-temporary-drawer--absolute';
+      const absolute = 'ng-mdc-drawer--absolute';
       changes['absolute'].currentValue ? this._mdcAdapter.addClass(absolute) : this._mdcAdapter.removeClass(absolute);
     }
   }

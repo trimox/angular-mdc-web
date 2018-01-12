@@ -6,10 +6,10 @@ import {
   MdcDrawerModule,
   MdcListModule,
   MdcIconModule,
-  MdcTemporaryDrawer,
+  MdcDrawerTemporary,
 } from '@angular-mdc/web';
 
-describe('MdcTemporaryDrawer', () => {
+describe('MdcDrawerTemporary', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
@@ -26,20 +26,20 @@ describe('MdcTemporaryDrawer', () => {
 
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;
-    let testInstance: MdcTemporaryDrawer;
+    let testInstance: MdcDrawerTemporary;
     let testComponent: SimpleTest;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SimpleTest);
       fixture.detectChanges();
 
-      testDebugElement = fixture.debugElement.query(By.directive(MdcTemporaryDrawer));
+      testDebugElement = fixture.debugElement.query(By.directive(MdcDrawerTemporary));
       testInstance = testDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
     });
 
-    it('#should have mdc-temporary-drawer by default', () => {
-      expect(testDebugElement.nativeElement.classList).toContain('mdc-temporary-drawer');
+    it('#should have mdc-drawer--temporary by default', () => {
+      expect(testDebugElement.nativeElement.classList).toContain('mdc-drawer--temporary');
     });
 
     it('#should be closed', () => {
@@ -57,7 +57,7 @@ describe('MdcTemporaryDrawer', () => {
     it('#should be absolute postioned', () => {
       testComponent.isAbsolute = true;
       fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList.contains('mdc-temporary-drawer--absolute')).toBe(true);
+      expect(testDebugElement.nativeElement.classList.contains('ng-mdc-drawer--absolute')).toBe(true);
     });
 
     it('#should provide drawer width', () => {
@@ -78,14 +78,14 @@ describe('MdcTemporaryDrawer', () => {
 
 @Component({
   template: `
-  <mdc-temporary-drawer [absolute]="isAbsolute" [closeOnClick]="isCloseOnClick">
-    <mdc-temporary-drawer-spacer>Angular MDC</mdc-temporary-drawer-spacer>
-    <mdc-temporary-drawer-header>
-      <mdc-temporary-drawer-header-content>
+  <mdc-drawer-temporary [absolute]="isAbsolute" [closeOnClick]="isCloseOnClick">
+    <mdc-drawer-spacer>Angular MDC</mdc-drawer-spacer>
+    <mdc-drawer-header>
+      <mdc-drawer-header-content>
         header content
-      </mdc-temporary-drawer-header-content>
-    </mdc-temporary-drawer-header>
-    <mdc-temporary-drawer-content>
+      </mdc-drawer-header-content>
+    </mdc-drawer-header>
+    <mdc-drawer-content>
       <mdc-list-group>
         <mdc-list>
           <mdc-list-item>
@@ -114,8 +114,8 @@ describe('MdcTemporaryDrawer', () => {
           </mdc-list-item>
         </mdc-list>
       </mdc-list-group>
-    </mdc-temporary-drawer-content>
-  </mdc-temporary-drawer>
+    </mdc-drawer-content>
+  </mdc-drawer-temporary>
   `,
 })
 class SimpleTest {

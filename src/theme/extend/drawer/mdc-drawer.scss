@@ -1,6 +1,9 @@
-@import "./mdc-permanent-drawer";
-@import "./mdc-temporary-drawer";
+@import "./mdc-drawer-permanent";
 
 .mdc-drawer {
   @include mdc-drawer-base_;
+}
+
+.ng-mdc-drawer--absolute {
+  position: absolute;
 }

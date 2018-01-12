@@ -54,7 +54,7 @@ describe('MdcListModule', () => {
     });
 
     it('#should apply class two-line', () => {
-      testComponent.isTwoline = true;
+      testComponent.lines = 2;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-list--two-line')).toBe(true);
     });
@@ -104,7 +104,7 @@ describe('MdcListModule', () => {
   template: `
     <mdc-list-group #group>
       <mdc-list-group-subheader>Grouped Lists</mdc-list-group-subheader>
-      <mdc-list [dense]="isDense" [border]="isBordered" [twoLine]="isTwoline"
+      <mdc-list [dense]="isDense" [border]="isBordered" [lines]="lines"
        [avatar]="isAvatar" [interactive]="isInteractive">
         <mdc-list-item #listitem mdc-list-item-graphic [selected]="isItemSelected">Test
           <mdc-icon mdc-list-item-meta>home</mdc-icon>
@@ -123,7 +123,7 @@ describe('MdcListModule', () => {
 class SimpleList {
   isDense: boolean = false;
   isBordered: boolean = false;
-  isTwoline: boolean = false;
+  lines: number = 1;
   isAvatar: boolean = false;
   isInteractive: boolean = true;
   isItemSelected: boolean = true;

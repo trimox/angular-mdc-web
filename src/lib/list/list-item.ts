@@ -31,7 +31,7 @@ let uniqueIdCounter = 0;
   selector: '[mdc-list-item-graphic], mdc-list-item-graphic'
 })
 export class MdcListItemGraphic {
-  @HostBinding('class.mdc-list-item__start-detail') isHostClass = true;
+  @HostBinding('class.mdc-list-item__graphic') isHostClass = true;
   @HostBinding('attr.aria-hidden') ariaHidden: string = 'true';
 
   constructor(public elementRef: ElementRef) { }
@@ -41,7 +41,7 @@ export class MdcListItemGraphic {
   selector: '[mdc-list-item-meta], mdc-list-item-meta'
 })
 export class MdcListItemMeta {
-  @HostBinding('class.mdc-list-item__end-detail') isHostClass = true;
+  @HostBinding('class.mdc-list-item__meta') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
 }

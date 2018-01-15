@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ViewChild } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -60,6 +60,11 @@ describe('MdcRippleDirective', () => {
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-ripple-surface--accent')).toBe(true);
     });
+    it('#should have mdc-ripple-surface active', () => {
+      testInstance.ripple.activate();
+      fixture.detectChanges();
+      expect(testComponent.ripple.isSurfaceActive()).toBe(false);
+    });
   });
 });
 
@@ -106,13 +111,13 @@ describe('MdcSurfaceDirective', () => {
   });
 });
 
-/** Simple component for testing. */
 @Component({
   template: `
   <mdc-ripple [active]="isRippleActive" [primary]="isPrimary" [secondary]="isSecondary">Test</mdc-ripple>
   `,
 })
 class SimpleRipple {
+  @ViewChild(MdcRippleDirective) ripple: MdcRippleDirective;
   isRippleActive: boolean = true;
   isPrimary: boolean = false;
   isSecondary: boolean = false;

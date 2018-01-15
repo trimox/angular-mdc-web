@@ -105,7 +105,7 @@
     "uglify-js": "^2.8.29",
     "validate-commit-msg": "^2.14.0",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.10.1"
+    "webpack-dev-server": "^2.11.0"
   },
   "config": {
     "validate-commit-msg": {

@@ -38,6 +38,10 @@ export class MdcSurfaceDirective extends MdcRippleOrchestration {
   providers: [EventRegistry]
 })
 export class MdcRippleDirective extends MdcRippleOrchestration implements AfterContentInit {
+  get ripple(): MdcRippleOrchestration {
+    return this.ripple;
+  }
+
   @Input() active: boolean = true;
   @Input() primary: boolean = false;
   @Input() secondary: boolean = false;

@@ -6,7 +6,6 @@ import {
   forwardRef,
   HostBinding,
   Inject,
-  OnInit,
   Renderer2,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -45,7 +44,7 @@ export const MDC_TEXTFIELD_BOX_CONTROL_VALUE_ACCESSOR: any = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
 })
-export class MdcTextFieldBox extends MdcTextField implements OnInit {
+export class MdcTextFieldBox extends MdcTextField {
   renderer: Renderer2;
 
   @HostBinding('class.mdc-text-field--box') isHostClass = true;
@@ -61,25 +60,5 @@ export class MdcTextFieldBox extends MdcTextField implements OnInit {
 
     this._ripple.init();
     this.renderer = _renderer;
-  }
-
-  ngOnInit(): void {
-    this.updateIconState();
-  }
-
-  hasLeadingIcon(): boolean {
-    return this.inputIcon ? this.inputIcon.elementRef.nativeElement.hasAttribute('leading') : false;
-  }
-
-  hasTrailingIcon(): boolean {
-    return this.inputIcon ? this.inputIcon.elementRef.nativeElement.hasAttribute('trailing') : false;
-  }
-
-  updateIconState(): void {
-    if (this.hasLeadingIcon()) {
-      this.renderer.addClass(this.elementRef.nativeElement, 'mdc-text-field--with-leading-icon');
-    } else if (this.hasTrailingIcon()) {
-      this.renderer.addClass(this.elementRef.nativeElement, 'mdc-text-field--with-trailing-icon');
-    }
   }
 }

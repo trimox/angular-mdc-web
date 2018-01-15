@@ -11,6 +11,7 @@ import {
   HostBinding,
   Input,
   OnDestroy,
+  OnInit,
   Output,
   Renderer2,
   ViewChild,
@@ -19,12 +20,12 @@ import {
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
 
-import { MdcIcon } from '@angular-mdc/web/icon';
-
 import { MdcTextFieldHelperText } from './helper-text';
 import { MdcTextFieldBottomLine } from './bottom-line';
+import { MdcTextFieldLeadingIcon, MdcTextFieldTrailingIcon } from './icon';
 import { MdcTextFieldLabel } from './text-field-directives';
-import { MDCTextFieldAdapter } from './adapter';
+
+import { MDCTextFieldAdapter } from '@material/textfield/adapter';
 import { MDCTextFieldFoundation } from '@material/textfield';
 
 // Invalid input type. Using one of these will throw an error.
@@ -74,91 +75,10 @@ export const MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR: any = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
 })
-export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAccessor {
-  private _mdcAdapter: MDCTextFieldAdapter = {
-    addClass: (className: string) => {
-      this._renderer.addClass(this.elementRef.nativeElement, className);
-    },
-    removeClass: (className: string) => {
-      this._renderer.removeClass(this.elementRef.nativeElement, className);
-    },
-    addClassToLabel: (className: string) => {
-      if (this.isTextarea()) { return; }
-
-      if (this.inputLabel && this.label) {
-        this._renderer.addClass(this.inputLabel.elementRef.nativeElement, className);
-      }
-    },
-    removeClassFromLabel: (className: string) => {
-      if (this.isTextarea()) { return; }
-
-      if (this.inputLabel && this.label) {
-        this._renderer.removeClass(this.inputLabel.elementRef.nativeElement, className);
-      }
-    },
-    setIconAttr: (name: string, value: string) => {
-      if (this.inputIcon) {
-        this._renderer.setAttribute(this.inputIcon.elementRef.nativeElement, name, value);
-      }
-    },
-    eventTargetHasClass: (target: HTMLElement, className: string) => {
-      return target.classList.contains(className);
-    },
-    registerTextFieldInteractionHandler: (evtType: string, handler: EventListener) => {
-      this._registry.listen(evtType, handler, this.elementRef.nativeElement);
-    },
-    deregisterTextFieldInteractionHandler: (evtType: string, handler: EventListener) => {
-      this._registry.unlisten(evtType, handler);
-    },
-    notifyIconAction: () => {
-      this.iconAction.emit({
-        source: this
-      });
-    },
-    registerInputInteractionHandler: (evtType: string, handler: EventListener) => {
-      this._registry.listen(evtType, handler, this.inputText.nativeElement);
-    },
-    deregisterInputInteractionHandler: (evtType: string, handler: EventListener) => {
-      this._registry.unlisten(evtType, handler);
-    },
-    registerBottomLineEventHandler: (evtType: string, handler: EventListener) => {
-      if (!this.bottomLine) { return; }
-
-      this._registry.listen(evtType, handler, this.bottomLine.elementRef.nativeElement);
-    },
-    deregisterBottomLineEventHandler: (evtType: string, handler: EventListener) => {
-      if (!this.bottomLine) { return; }
-
-      this._registry.unlisten(evtType, handler);
-    },
-    getNativeInput: () => {
-      return {
-        checkValidity: () => this.inputText.nativeElement.validity.valid,
-        value: this.inputText.nativeElement.value,
-        disabled: this.inputText.nativeElement.disabled,
-        badInput: this.isBadInput(),
-      };
-    }
-  };
-
-  /** Returns a map of all subcomponents to subfoundations. */
-  private getFoundationMap_() {
-    return {
-      bottomLine: this.bottomLine ? this.bottomLine.foundation : undefined,
-      helperText: this.helperText ? this.helperText.foundation : undefined,
-    };
-  }
-
-  private _foundation: {
-    init: Function,
-    destroy: Function,
-    isDisabled: Function,
-    setDisabled: Function,
-    setValid: Function,
-    activateFocus: Function,
-    deactivateFocus: Function,
-    setHelperTextContent: Function,
-  };
+export class MdcTextField implements AfterViewInit, OnDestroy, OnInit, ControlValueAccessor {
+  private _type = 'text';
+  private _disabled: boolean = false;
+  private _required: boolean = false;
   private _focused: boolean = false;
 
   @Input() id: string = `mdc-input-${nextUniqueId++}`;
@@ -169,24 +89,15 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   @Input() placeholder: string = '';
   @Input() tabIndex: number = 0;
   @Input() direction: 'ltr' | 'rtl' = 'ltr';
-  @Output() iconAction = new EventEmitter<any>();
+  @Output() iconAction = new EventEmitter<boolean>();
   @Output() change = new EventEmitter<string | null>();
   @HostBinding('class.mdc-text-field') isHostClass = true;
   @ViewChild('input') inputText: ElementRef;
   @ViewChild(MdcTextFieldLabel) inputLabel: MdcTextFieldLabel;
   @ViewChild(MdcTextFieldHelperText) helperText: MdcTextFieldHelperText;
   @ViewChild(MdcTextFieldBottomLine) bottomLine: MdcTextFieldBottomLine;
-  @ContentChild(MdcIcon) inputIcon: MdcIcon;
-
-  private _type = 'text';
-  private _disabled: boolean = false;
-  private _required: boolean = false;
-
-  /** View -> model callback called when value changes */
-  _onChange: (value: any) => void = () => { };
-
-  /** View -> model callback called when text field has been touched */
-  _onTouched = () => { };
+  @ContentChild(MdcTextFieldLeadingIcon) leadingIcon: MdcTextFieldLeadingIcon;
+  @ContentChild(MdcTextFieldTrailingIcon) trailingIcon: MdcTextFieldTrailingIcon;
 
   @Input()
   get disabled(): boolean { return this._disabled; }
@@ -246,12 +157,72 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     return this._focused ? 'mdc-text-field--focused' : '';
   }
 
+  private _mdcAdapter: MDCTextFieldAdapter = {
+    addClass: (className: string) => {
+      this._renderer.addClass(this.elementRef.nativeElement, className);
+    },
+    removeClass: (className: string) => {
+      this._renderer.removeClass(this.elementRef.nativeElement, className);
+    },
+    hasClass: (className: string) => {
+      return this.elementRef.nativeElement.classList.contains(className);
+    },
+    registerTextFieldInteractionHandler: (evtType: string, handler: EventListener) => {
+      this._registry.listen(evtType, handler, this.elementRef.nativeElement);
+    },
+    deregisterTextFieldInteractionHandler: (evtType: string, handler: EventListener) => {
+      this._registry.unlisten(evtType, handler);
+    },
+    registerBottomLineEventHandler: (evtType: string, handler: EventListener) => {
+      if (!this.bottomLine) { return; }
+
+      this._registry.listen(evtType, handler, this.bottomLine.elementRef.nativeElement);
+    },
+    deregisterBottomLineEventHandler: (evtType: string, handler: EventListener) => {
+      if (!this.bottomLine) { return; }
+
+      this._registry.unlisten(evtType, handler);
+    },
+    isFocused: () => this._focused,
+    isRtl: () => this.direction === 'rtl',
+  };
+
+  /** Returns a map of all subcomponents to subfoundations. */
+  private getFoundationMap_() {
+    return {
+      bottomLine: this.bottomLine ? this.bottomLine.foundation : undefined,
+      helperText: this.helperText ? this.helperText.foundation : undefined,
+      icon: this.leadingIcon ? this.leadingIcon.foundation
+        : this.trailingIcon ? this.trailingIcon.foundation : undefined,
+    };
+  }
+
+  private _foundation: {
+    init: Function,
+    destroy: Function,
+    isDisabled: Function,
+    setDisabled: Function,
+    setValid: Function,
+    activateFocus: Function,
+    deactivateFocus: Function,
+    setHelperTextContent: Function,
+  };
+
+  /** View -> model callback called when value changes */
+  _onChange: (value: any) => void = () => { };
+
+  /** View -> model callback called when text field has been touched */
+  _onTouched = () => { };
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _renderer: Renderer2,
     public elementRef: ElementRef,
     private _registry: EventRegistry) { }
+
+  ngOnInit(): void {
+    this.updateIconState();
+  }
 
   ngAfterViewInit(): void {
     this._foundation
@@ -268,6 +239,13 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     if (this.helperText) {
       this.helperText.foundation.destroy();
     }
+    if (this.leadingIcon) {
+      this.leadingIcon.foundation.destroy();
+    }
+    if (this.trailingIcon) {
+      this.trailingIcon.foundation.destroy();
+    }
+
     this._foundation.destroy();
   }
 
@@ -351,6 +329,18 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   /** Sets the content of the helper text. */
   setHelperTextContent(content: string): void {
     this._foundation.setHelperTextContent(content);
+  }
+
+  updateIconState(): void {
+    if (this.leadingIcon) {
+      this._renderer.addClass(this._getHostElement(), 'mdc-text-field--with-leading-icon');
+    } else if (this.trailingIcon) {
+      this._renderer.addClass(this._getHostElement(), 'mdc-text-field--with-trailing-icon');
+    }
+  }
+
+  _getHostElement() {
+    return this.elementRef.nativeElement;
   }
 
   private _validateType() {

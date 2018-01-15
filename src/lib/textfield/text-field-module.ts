@@ -5,10 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { MdcTextFieldBottomLine } from './bottom-line';
 import { MdcTextFieldHelperText } from './helper-text';
 import {
-  MdcTextFieldLabel,
   MdcTextFieldLeadingIcon,
   MdcTextFieldTrailingIcon,
-} from './text-field-directives';
+} from './icon';
+import { MdcTextFieldLabel } from './text-field-directives';
 import { MdcTextField } from './text-field';
 import { MdcTextFieldBox } from './text-field-box';
 import { MdcTextarea } from './textarea';

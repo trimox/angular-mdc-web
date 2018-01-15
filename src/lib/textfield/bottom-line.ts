@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { EventRegistry } from '@angular-mdc/web/common';
 
-import { MDCTextFieldBottomLineAdapter } from './adapter';
+import { MDCTextFieldBottomLineAdapter } from '@material/textfield/bottom-line/adapter';
 import { MDCTextFieldBottomLineFoundation } from '@material/textfield/bottom-line';
 
 @Directive({

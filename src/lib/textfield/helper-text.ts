@@ -5,7 +5,7 @@ import {
   Input,
   Renderer2,
 } from '@angular/core';
-import { MDCTextFieldHelperTextAdapter } from './adapter';
+import { MDCTextFieldHelperTextAdapter } from '@material/textfield/helper-text/adapter';
 import { MDCTextFieldHelperTextFoundation } from '@material/textfield/helper-text';
 
 @Directive({

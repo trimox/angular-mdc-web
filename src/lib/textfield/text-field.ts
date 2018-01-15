@@ -168,6 +168,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   @Input() maxlength: number;
   @Input() placeholder: string = '';
   @Input() tabIndex: number = 0;
+  @Input() direction: 'ltr' | 'rtl' = 'ltr';
   @Output() iconAction = new EventEmitter<any>();
   @Output() change = new EventEmitter<string | null>();
   @HostBinding('class.mdc-text-field') isHostClass = true;

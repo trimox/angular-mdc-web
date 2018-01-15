@@ -17,8 +17,8 @@ import {
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { toNumber, isBrowser, EventRegistry } from '@angular-mdc/web/common';
 
-import { MDCSliderAdapter } from './adapter';
-import { MDCSliderFoundation } from '@material/slider';
+import { MDCSliderAdapter } from '@material/slider/adapter';
+import MDCSliderFoundation from '@material/slider/foundation';
 
 export const MDC_SLIDER_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
@@ -95,8 +95,7 @@ export class MdcSliderThumbContainer {
 @Component({
   moduleId: module.id,
   selector: 'mdc-slider',
-  template:
-  `
+  template: `
     <mdc-slider-track-container>
       <mdc-slider-track></mdc-slider-track>
       <mdc-slider-track-marker-container *ngIf="markers"></mdc-slider-track-marker-container>
@@ -111,11 +110,12 @@ export class MdcSliderThumbContainer {
       <div class="mdc-slider__focus-ring"></div>
     </mdc-slider-thumb-container>
   `,
-  encapsulation: ViewEncapsulation.None,
   providers: [
     MDC_SLIDER_CONTROL_VALUE_ACCESSOR,
     EventRegistry,
   ],
+  encapsulation: ViewEncapsulation.None,
+  preserveWhitespaces: false
 })
 export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor {
   private _mdcAdapter: MDCSliderAdapter = {
@@ -219,7 +219,7 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
   };
 
   private _foundation: {
-    init: Function,
+    init: () => {},
     destroy: Function,
     setDisabled: Function,
     isDisabled: Function,
@@ -233,7 +233,7 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
     getStep: Function,
     setStep: Function,
     setupTrackMarker: Function,
-  } = new MDCSliderFoundation(this._mdcAdapter);
+  } = new MDCSliderFoundation((this._mdcAdapter));
 
   @Input() direction: 'ltr' | 'rtl' = 'ltr';
   @Input() tabIndex: number = 0;
@@ -296,8 +296,7 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
   constructor(
     private _renderer: Renderer2,
     public elementRef: ElementRef,
-    private _registry: EventRegistry) {
-  }
+    private _registry: EventRegistry) { }
 
   ngAfterViewInit(): void {
     // these must be run AfterViewInit - do not change

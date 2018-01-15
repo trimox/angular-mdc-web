@@ -159,6 +159,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     deactivateFocus: Function,
     setHelperTextContent: Function,
   };
+  private _focused: boolean = false;
 
   @Input() id: string = `mdc-input-${nextUniqueId++}`;
   @Input() fullwidth: boolean = false;
@@ -200,6 +201,11 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     this._required = value != null && `${value}` !== 'false';
   }
   @Input()
+  get focused(): boolean { return this._focused; }
+  set focused(value: boolean) {
+    this._focused = value != null && `${value}` !== 'false';
+  }
+  @Input()
   get type(): string { return this._type; }
   set type(value: string) {
     this._type = value || 'text';
@@ -235,6 +241,10 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     this.placeholder = this.fullwidth ? this.label : '';
     return this.fullwidth ? 'mdc-text-field--fullwidth' : '';
   }
+  @HostBinding('class.mdc-text-field--focused') get classFocused(): string {
+    return this._focused ? 'mdc-text-field--focused' : '';
+  }
+
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
@@ -287,6 +297,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   }
 
   onBlur(): void {
+    this._focused = false;
     this._onTouched();
 
     if (this.bottomLine) {
@@ -306,7 +317,10 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   }
 
   focus(): void {
-    this.inputText.nativeElement.focus();
+    if (!this._disabled) {
+      this._focused = true;
+      this.inputText.nativeElement.focus();
+    }
   }
 
   setValid(value?: boolean): void {

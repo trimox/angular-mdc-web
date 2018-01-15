@@ -116,6 +116,7 @@ describe('MdcTextField', () => {
       [dense]="isDense"
       [fullwidth]="isFullwidth"
       [required]="isRequired"
+      [focused]="isFocused"
       [disabled]="isDisabled">
     </mdc-text-field>
     <p mdc-text-field-helper-text
@@ -128,6 +129,7 @@ class SimpleTextfield {
   myType: string = 'text';
   isDisabled: boolean = false;
   isDense: boolean = false;
+  isFocused: boolean = false;
   isFullwidth: boolean = false;
   isRequired: boolean = false;
 }

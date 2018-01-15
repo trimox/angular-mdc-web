@@ -101,14 +101,14 @@ describe('MdcLinearProgress', () => {
   });
 });
 
-/** Simple component for testing. */
 @Component({
-  template:
-  `
+  template: `
     <mdc-linear-progress
       [reversed]="isReversed"
       [secondary]="isSecondary"
       [closed]="isClosed"
+      [progress]="0.5"
+      [buffer]="0.75"
       [indeterminate]="isIndeterminate">
     </mdc-linear-progress>
   `,

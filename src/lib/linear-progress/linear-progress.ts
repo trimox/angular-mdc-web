@@ -32,6 +32,8 @@ import { MDCLinearProgressFoundation } from '@material/linear-progress';
 export class MdcLinearProgress implements AfterViewInit {
   private _indeterminate: boolean = false;
   private _reversed: boolean = false;
+  private _progress: number;
+  private _buffer: number;
 
   @Input()
   get indeterminate(): boolean { return this._indeterminate; }
@@ -47,6 +49,18 @@ export class MdcLinearProgress implements AfterViewInit {
   }
   @Input() secondary: boolean = false;
   @Input() closed: boolean = false;
+  @Input()
+  get progress(): number { return this._progress; }
+  set progress(value: number) {
+    this._foundation.setProgress(value);
+    this._progress = value;
+  }
+  @Input()
+  get buffer(): number { return this._buffer; }
+  set buffer(value: number) {
+    this._foundation.setBuffer(value);
+    this._buffer = value;
+  }
   @HostBinding('attr.role') role: string = 'progressbar';
   @HostBinding('class.mdc-linear-progress') isHostClass = true;
   @HostBinding('class.mdc-linear-progress--secondary') get classSecondary(): string {
@@ -78,13 +92,13 @@ export class MdcLinearProgress implements AfterViewInit {
   };
 
   private _foundation: {
-    init: Function,
-    setProgress: Function,
-    setBuffer: Function,
-    setReverse: Function,
-    setDeterminate: Function,
-    open: Function,
-    close: Function
+    init: () => {},
+    setProgress: (value: number) => {},
+    setBuffer: (value: number) => {},
+    setReverse: (value: boolean) => {},
+    setDeterminate: (value: boolean) => {},
+    open: () => {},
+    close: () => {}
   } = new MDCLinearProgressFoundation(this._mdcAdapter);
 
   constructor(

@@ -86,12 +86,11 @@
 
   <h3>Determinate Progress</h3>
   <div fxLayout="column" fxLayoutAlign="start" fxFlexOffset="2" fxFlex="50">
-    <mdc-linear-progress #lp [indeterminate]="false"></mdc-linear-progress>
+    <mdc-linear-progress #deter [indeterminate]="false" [progress]="0.5" [buffer]="0.75" [secondary]="true"></mdc-linear-progress>
     <div fxLayout="row" fxFlexOffset="5">
-      <button mdc-button (click)="lp.setBuffer(0.75)">Buffer</button>
-      <button mdc-button (click)="lp.setReverse(!lp.reversed)">Reverse</button>
-      <button mdc-button (click)="lp.closed = !lp.closed">Open/Close</button>
-      <button mdc-button (click)="lp.secondary = !lp.secondary">{{lp.secondary ? 'Primary' : 'Secondary'}} Color</button>
+      <button mdc-button (click)="deter.setReverse(!deter.reversed)">Reverse</button>
+      <button mdc-button (click)="deter.closed = !deter.closed">Open/Close</button>
+      <button mdc-button (click)="deter.secondary = !deter.secondary">{{deter.secondary ? 'Primary' : 'Secondary'}} Color</button>
     </div>
   </div>
 </div>

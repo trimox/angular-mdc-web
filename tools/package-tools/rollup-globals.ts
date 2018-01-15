@@ -7,10 +7,10 @@ export const dashCaseToCamelCase =
   (str: string) => str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 
 /** List of potential secondary entry-points for the Angular MDC package. */
-const matSecondaryEntryPoints = getSubdirectoryNames(join(buildConfig.packagesDir, 'lib'));
+const mdcSecondaryEntryPoints = getSubdirectoryNames(join(buildConfig.packagesDir, 'lib'));
 
 /** Object with all Angular MDC entry points in the format of Rollup globals. */
-const rollupMdcEntryPoints = matSecondaryEntryPoints.reduce((globals: any, entryPoint: string) => {
+const rollupMdcEntryPoints = mdcSecondaryEntryPoints.reduce((globals: any, entryPoint: string) => {
   globals[`@angular-mdc/web/${entryPoint}`] = `ng.mdc.${dashCaseToCamelCase(entryPoint)}`;
   return globals;
 }, {});
@@ -31,31 +31,22 @@ export const rollupGlobals = {
   '@angular-mdc/web': 'ng.mdc',
   '@material/animation': 'mdc.animation',
   '@material/linear-progress': 'mdc.linear-progress',
-  '@material/button': 'mdc.button',
   '@material/checkbox': 'mdc.checkbox',
-  '@material/fab': 'mdc.fab',
-  '@material/card': 'mdc.card',
   '@material/dialog': 'mdc.dialog',
   '@material/drawer': 'mdc.drawer',
   '@material/form-field': 'mdc.form-field',
   '@material/icon-toggle': 'mdc.icon-toggle',
-  '@material/list': 'mdc.list',
   '@material/menu': 'mdc.menu',
-  '@material/menu/util': 'mdc.menu.util',
-  '@material/menu/simple': 'mdc.menu.simple',
   '@material/radio': 'mdc.radio',
   '@material/select': 'mdc.select',
   '@material/ripple': 'mdc.ripple',
-  '@material/slider': 'mdc.slider',
+  '@material/slider/foundation': 'mdc.slider',
   '@material/snackbar': 'mdc.snackbar',
-  '@material/switch': 'mdc.switch',
   '@material/tabs': 'mdc.tabs',
   '@material/textfield': 'mdc.textfield',
   '@material/textfield/bottom-line': 'mdc.textfield.bottomline',
   '@material/textfield/helper-text': 'mdc.textfield.helpertext',
   '@material/toolbar': 'mdc.toolbar',
-  '@material/elevation': 'mdc.elevation',
-  '@material/dialog/util': 'mdc.dialog.util',
 
   'focus-trap': 'focus-trap',
 

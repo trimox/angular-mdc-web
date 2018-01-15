@@ -60,6 +60,19 @@ describe('MdcRippleDirective', () => {
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-ripple-surface--accent')).toBe(true);
     });
+
+    it('#should have mdc-ripple-upgraded--unbounded', () => {
+      testInstance.ripple.setUnbounded(true);
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList.contains('mdc-ripple-upgraded--unbounded')).toBe(true);
+    });
+
+    it('#should have NOT mdc-ripple-upgraded--unbounded', () => {
+      testInstance.ripple.setUnbounded(false);
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList.contains('mdc-ripple-upgraded--unbounded')).toBe(false);
+    });
+
     it('#should have mdc-ripple-surface active', () => {
       testInstance.ripple.activate();
       fixture.detectChanges();

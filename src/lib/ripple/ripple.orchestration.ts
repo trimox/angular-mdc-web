@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { toBoolean, isBrowser, EventRegistry } from '@angular-mdc/web/common';
 
-import { MDCRippleAdapter } from './adapter';
+import { MDCRippleAdapter } from '@material/ripple/adapter';
 import { MDCRippleFoundation, util } from '@material/ripple';
 
 export abstract class MdcRippleOrchestration {
@@ -50,11 +50,12 @@ export abstract class MdcRippleOrchestration {
   };
 
   private _foundation: {
-    init: Function,
-    destroy: Function,
-    activate: Function,
-    deactivate: Function,
-    layout: Function,
+    init: () => {},
+    destroy: () => {},
+    activate: (event: any) => {},
+    deactivate: (event: any) => {},
+    layout: () => {},
+    setUnbounded: (unbounded: boolean) => {}
   };
 
   private _unbounded: boolean = false;
@@ -77,17 +78,23 @@ export abstract class MdcRippleOrchestration {
     this._unbounded = unbounded;
   }
 
-  activate(event?: Event): void {
+  activate(event?: any): void {
     if (this._foundation) {
       this._foundation.activate(event);
       this.activeSurface = true;
     }
   }
 
-  deactivate(event?: Event): void {
+  deactivate(event?: any): void {
     if (this._foundation) {
       this._foundation.deactivate(event);
       this.activeSurface = false;
+    }
+  }
+
+  setUnbounded(value: boolean): void {
+    if (this._foundation) {
+      this._foundation.setUnbounded(value);
     }
   }
 

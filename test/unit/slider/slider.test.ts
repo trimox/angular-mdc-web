@@ -34,7 +34,7 @@ describe('MdcSlider', () => {
       testComponent = fixture.debugElement.componentInstance;
     });
 
-    it('#should have mdc-button by default', () => {
+    it('#should have mdc-slider by default', () => {
       expect(sliderDebugElement.nativeElement.classList)
         .toContain('mdc-slider', 'Expected to have mdc-slider');
     });

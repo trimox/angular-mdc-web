@@ -45,7 +45,7 @@ import {
   KeyCodes,
   toBoolean,
 } from '@angular-mdc/web/common';
-import { MDCSimpleMenu } from '@material/menu/simple';
+import { MDCSimpleMenu } from '@material/menu';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
 import { MDCSelectAdapter } from './adapter';

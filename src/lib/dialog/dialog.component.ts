@@ -31,8 +31,7 @@ import { MdcDialogConfig } from './dialog-config';
 import { MdcDialogRef } from './dialog-ref';
 
 import { MDCDialogAdapter } from './adapter';
-import { createFocusTrapInstance } from '@material/dialog/util';
-import { MDCDialogFoundation } from '@material/dialog';
+import { MDCDialogFoundation, util } from '@material/dialog';
 
 @Component({
   moduleId: module.id,
@@ -209,7 +208,7 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
     const focusedEl = this.dialogButtons.find((_) => _.focused || _.accept);
 
     if (isBrowser()) {
-      this._focusTrap = createFocusTrapInstance(this.dialogSurface.elementRef.nativeElement, {
+      this._focusTrap = util.createFocusTrapInstance(this.dialogSurface.elementRef.nativeElement, {
         initialFocus: focusedEl ? focusedEl.elementRef.nativeElement : this.elementRef.nativeElement,
         clickOutsideDeactivates: this._config ? this._config.clickOutsideToClose : this.clickOutsideToClose,
         escapeDeactivates: this._config ? this._config.escapeToClose : this.escapeToClose,

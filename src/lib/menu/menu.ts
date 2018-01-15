@@ -18,8 +18,7 @@ import {
 import { isBrowser, toBoolean, EventRegistry } from '@angular-mdc/web/common';
 
 import { MDCMenuAdapter } from './adapter';
-import { getTransformPropertyName } from '@material/menu/util';
-import { MDCSimpleMenuFoundation } from '@material/menu/simple';
+import { MDCSimpleMenuFoundation, util } from '@material/menu';
 
 const topLeft = 'mdc-simple-menu--open-from-top-left';
 const topRight = 'mdc-simple-menu--open-from-top-right';
@@ -160,12 +159,12 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
     },
     setScale: (x: number, y: number) => {
       if (isBrowser()) {
-        this._renderer.setStyle(this.elementRef.nativeElement, getTransformPropertyName(window), `scale(${x}, ${y})`);
+        this._renderer.setStyle(this.elementRef.nativeElement, util.getTransformPropertyName(window), `scale(${x}, ${y})`);
       }
     },
     setInnerScale: (x: number, y: number) => {
       if (isBrowser()) {
-        this._renderer.setStyle(this.menuContainer.elementRef.nativeElement, getTransformPropertyName(window), `scale(${x}, ${y})`);
+        this._renderer.setStyle(this.menuContainer.elementRef.nativeElement, util.getTransformPropertyName(window), `scale(${x}, ${y})`);
       }
     },
     getNumberOfItems: () => {
@@ -230,7 +229,7 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
     isRtl: () => this.direction === 'rtl',
     setTransformOrigin: (origin: string) => {
       if (isBrowser()) {
-        this._renderer.setStyle(this.elementRef.nativeElement, `${getTransformPropertyName(window)}-origin`, origin);
+        this._renderer.setStyle(this.elementRef.nativeElement, `${util.getTransformPropertyName(window)}-origin`, origin);
       }
     },
     setPosition: (position) => {

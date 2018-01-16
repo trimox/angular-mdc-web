@@ -89,7 +89,6 @@ export class MdcListDivider {
 export class MdcList implements AfterContentInit, OnDestroy {
   private _avatar: boolean = false;
   private _interactive: boolean = true;
-  private _multiple: boolean = false;
 
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
@@ -151,9 +150,7 @@ export class MdcList implements AfterContentInit, OnDestroy {
       takeUntil(merge(this._destroy, this.options.changes)),
       filter(item => item.source.selected)
     ).subscribe(item => {
-      if (!this._multiple) {
-        this._clearSelection(item.source);
-      }
+      this._clearSelection(item.source);
     });
 
     this.options.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {

@@ -97,6 +97,12 @@ describe('MdcListModule', () => {
       fixture.detectChanges();
       expect(testComponent.divider.padded).toBe(true);
     });
+
+    it('#should not be interactive', () => {
+      testComponent.isInteractive = false;
+      fixture.detectChanges();
+      expect(testInstance.interactive).toBe(false);
+    });
   });
 });
 

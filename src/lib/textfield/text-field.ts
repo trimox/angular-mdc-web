@@ -23,7 +23,7 @@ import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
 import { MdcTextFieldHelperText } from './helper-text';
 import { MdcTextFieldBottomLine } from './bottom-line';
 import { MdcTextFieldLeadingIcon, MdcTextFieldTrailingIcon } from './icon';
-import { MdcTextFieldLabel } from './text-field-directives';
+import { MdcTextFieldLabel } from './label';
 
 import { MDCTextFieldAdapter } from '@material/textfield/adapter';
 import { MDCTextFieldFoundation } from '@material/textfield';
@@ -75,7 +75,7 @@ export const MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR: any = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
 })
-export class MdcTextField implements AfterViewInit, OnDestroy, OnInit, ControlValueAccessor {
+export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAccessor {
   private _type = 'text';
   private _disabled: boolean = false;
   private _required: boolean = false;
@@ -173,6 +173,9 @@ export class MdcTextField implements AfterViewInit, OnDestroy, OnInit, ControlVa
     deregisterTextFieldInteractionHandler: (evtType: string, handler: EventListener) => {
       this._registry.unlisten(evtType, handler);
     },
+    registerInputInteractionHandler: (evtType, handler) =>
+      this._registry.listen(evtType, handler, this.inputText.nativeElement),
+    deregisterInputInteractionHandler: (evtType, handler) => this._registry.unlisten(evtType, handler),
     registerBottomLineEventHandler: (evtType: string, handler: EventListener) => {
       if (!this.bottomLine) { return; }
 
@@ -185,27 +188,31 @@ export class MdcTextField implements AfterViewInit, OnDestroy, OnInit, ControlVa
     },
     isFocused: () => this._focused,
     isRtl: () => this.direction === 'rtl',
+    getNativeInput: () => this.inputText.nativeElement,
   };
 
   /** Returns a map of all subcomponents to subfoundations. */
-  private getFoundationMap_() {
+  private _getFoundationMap() {
     return {
       bottomLine: this.bottomLine ? this.bottomLine.foundation : undefined,
       helperText: this.helperText ? this.helperText.foundation : undefined,
       icon: this.leadingIcon ? this.leadingIcon.foundation
         : this.trailingIcon ? this.trailingIcon.foundation : undefined,
+      label: this.inputLabel ? this.inputLabel.foundation : undefined,
     };
   }
 
   private _foundation: {
-    init: Function,
-    destroy: Function,
-    isDisabled: Function,
-    setDisabled: Function,
-    setValid: Function,
-    activateFocus: Function,
-    deactivateFocus: Function,
-    setHelperTextContent: Function,
+    init: () => {},
+    destroy: () => {},
+    isDisabled: () => boolean,
+    setDisabled: (disabled: boolean) => {},
+    setValid: (isValid: boolean) => {},
+    setValue: (value: string) => {},
+    activateFocus: () => {},
+    deactivateFocus: () => {},
+    isValid: () => boolean,
+    setHelperTextContent: (content: string) => {},
   };
 
   /** View -> model callback called when value changes */
@@ -220,15 +227,11 @@ export class MdcTextField implements AfterViewInit, OnDestroy, OnInit, ControlVa
     public elementRef: ElementRef,
     private _registry: EventRegistry) { }
 
-  ngOnInit(): void {
-    this.updateIconState();
-  }
-
   ngAfterViewInit(): void {
     this._foundation
-      = new MDCTextFieldFoundation(this._mdcAdapter, this.getFoundationMap_());
-
+      = new MDCTextFieldFoundation(this._mdcAdapter, this._getFoundationMap());
     this._foundation.init();
+    this.updateIconState();
     this._changeDetectorRef.detectChanges();
   }
 
@@ -245,16 +248,18 @@ export class MdcTextField implements AfterViewInit, OnDestroy, OnInit, ControlVa
     if (this.trailingIcon) {
       this.trailingIcon.foundation.destroy();
     }
+    if (this.inputLabel) {
+      this.inputLabel.foundation.destroy();
+    }
 
     this._foundation.destroy();
   }
 
   writeValue(value: string): void {
     this.value = value == null ? '' : value;
-    if (this.value.length > 0) {
-      this._mdcAdapter.addClassToLabel('mdc-text-field__label--float-above');
-    } else {
-      this._mdcAdapter.removeClassFromLabel('mdc-text-field__label--float-above');
+    if (this.inputLabel) {
+      this.value.length > 0 ? this.inputLabel.mdcAdapter.addClass('mdc-text-field__label--float-above')
+        : this.inputLabel.mdcAdapter.removeClass('mdc-text-field__label--float-above');
     }
     this.change.emit(value);
     this._changeDetectorRef.markForCheck();
@@ -309,6 +314,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, OnInit, ControlVa
   isTextarea(): boolean {
     const nativeElement = this.elementRef.nativeElement;
     const nodeName = isBrowser ? nativeElement.nodeName : nativeElement.name;
+
     return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
   }
 
@@ -332,6 +338,8 @@ export class MdcTextField implements AfterViewInit, OnDestroy, OnInit, ControlVa
   }
 
   updateIconState(): void {
+    if (this.isTextarea()) { return; }
+
     if (this.leadingIcon) {
       this._renderer.addClass(this._getHostElement(), 'mdc-text-field--with-leading-icon');
     } else if (this.trailingIcon) {

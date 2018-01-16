@@ -1,11 +1,8 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
-  ElementRef,
   forwardRef,
   HostBinding,
-  Inject,
   Input,
   Renderer2,
 } from '@angular/core';

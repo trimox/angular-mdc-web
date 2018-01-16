@@ -8,7 +8,7 @@ import {
   MdcTextFieldLeadingIcon,
   MdcTextFieldTrailingIcon,
 } from './icon';
-import { MdcTextFieldLabel } from './text-field-directives';
+import { MdcTextFieldLabel } from './label';
 import { MdcTextField } from './text-field';
 import { MdcTextFieldBox } from './text-field-box';
 import { MdcTextarea } from './textarea';

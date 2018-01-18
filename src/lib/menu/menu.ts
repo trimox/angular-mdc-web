@@ -17,15 +17,10 @@ import {
 } from '@angular/core';
 import { isBrowser, toBoolean, EventRegistry } from '@angular-mdc/web/common';
 
-import { MDCMenuAdapter } from './adapter';
-import { MDCSimpleMenuFoundation, util } from '@material/menu';
+import { MDCMenuAdapter } from '@material/menu/simple/adapter';
+import { MDCSimpleMenuFoundation, util, Corner } from '@material/menu';
 
-const topLeft = 'mdc-simple-menu--open-from-top-left';
-const topRight = 'mdc-simple-menu--open-from-top-right';
-const bottomLeft = 'mdc-simple-menu--open-from-bottom-left';
-const bottomRight = 'mdc-simple-menu--open-from-bottom-right';
-
-export type MdcMenuOpenFrom = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
+export type MdcMenuAnchorCorner = 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end';
 
 let nextUniqueId = 0;
 let uniqueIdCounter = 0;
@@ -112,7 +107,7 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
   private _previousFocus: any;
 
   @Input() id: string = this._uniqueId;
-  @Input() openFrom: string | MdcMenuOpenFrom = 'topLeft';
+  @Input() anchorCorner: string | MdcMenuAnchorCorner;
   @Input() direction: 'ltr' | 'rtl' = 'ltr';
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
   @Output() select: EventEmitter<any> = new EventEmitter();
@@ -157,16 +152,6 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
         height: isBrowser() ? window.innerHeight : 0
       };
     },
-    setScale: (x: number, y: number) => {
-      if (isBrowser()) {
-        this._renderer.setStyle(this.elementRef.nativeElement, util.getTransformPropertyName(window), `scale(${x}, ${y})`);
-      }
-    },
-    setInnerScale: (x: number, y: number) => {
-      if (isBrowser()) {
-        this._renderer.setStyle(this.menuContainer.elementRef.nativeElement, util.getTransformPropertyName(window), `scale(${x}, ${y})`);
-      }
-    },
     getNumberOfItems: () => {
       return this.options ? this.options.length : 0;
     },
@@ -183,13 +168,6 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
     },
     deregisterBodyClickHandler: (handler: EventListener) => {
       this._registry.unlisten('click', handler);
-    },
-    getYParamsForItemAtIndex: (index: number) => {
-      const { offsetTop: top, offsetHeight: height } = this.options.toArray()[index].elementRef.nativeElement;
-      return { top, height };
-    },
-    setTransitionDelayForItemAtIndex: (index: number, value: string) => {
-      this._renderer.setStyle(this.options.toArray()[index].elementRef.nativeElement, 'transition-delay', value);
     },
     getIndexForEventTarget: (target: EventTarget) => {
       return this.options.toArray().findIndex((_) => _.elementRef.nativeElement === target);
@@ -214,7 +192,7 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
       }
     },
     isFocused: () => {
-      return this.elementRef.nativeElement.ownerDocument.activeElement === this.elementRef.nativeElement;
+      return document.activeElement === this.elementRef.nativeElement;
     },
     focus: () => {
       this.elementRef.nativeElement.focus();
@@ -233,23 +211,24 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
       }
     },
     setPosition: (position) => {
-      const { _renderer: renderer, elementRef: root } = this;
-      position.left ? renderer.setStyle(root.nativeElement, 'left', 0) : renderer.removeStyle(root.nativeElement, 'left');
-      position.right ? renderer.setStyle(root.nativeElement, 'right', 0) : renderer.removeStyle(root.nativeElement, 'right');
-      position.top ? renderer.setStyle(root.nativeElement, 'top', 0) : renderer.removeStyle(root.nativeElement, 'top');
-      position.bottom ? renderer.setStyle(root.nativeElement, 'bottom', 0) : renderer.removeStyle(root.nativeElement, 'bottom');
+      position.left ? this._setStyle(position.left, 'left') : this._removeStyle('left');
+      position.right ? this._setStyle(position.right, 'right') : this._removeStyle('right');
+      position.top ? this._setStyle(position.top, 'top') : this._removeStyle('top');
+      position.bottom ? this._setStyle(position.bottom, 'bottom') : this._removeStyle('bottom');
     },
-    getAccurateTime: () => {
-      return isBrowser() ? window.performance.now() : Date.now();
-    }
+    setMaxHeight: (height) => {
+      this._renderer.setStyle(this.elementRef.nativeElement, 'maxHeight', height);
+    },
   };
 
   private _foundation: {
-    init: Function,
-    destroy: Function,
-    open: Function,
-    close: Function,
-    isOpen: Function
+    init: () => {},
+    destroy: () => {},
+    open: ({ focusIndex: number }) => {},
+    close: (evt?: Event) => {},
+    isOpen: () => boolean,
+    setAnchorCorner: (corner: Corner) => {},
+    setAnchorMargin: Function
   } = new MDCSimpleMenuFoundation(this._mdcAdapter);
 
   constructor(
@@ -266,33 +245,40 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: { [key: string]: SimpleChange }): void {
-    const change = changes['openFrom'];
+    const anchorCorner = changes['anchorCorner'];
 
-    if (change) {
-      if (change.previousValue) {
-        this._mdcAdapter.removeClass(`${this._determineOpenFrom(change.previousValue)}`);
+    if (anchorCorner) {
+      this.setAnchorCorner(anchorCorner.currentValue);
+    }
+  }
+
+  private _setStyle(position: string, anchorPoint: string): void {
+    this._renderer.setStyle(this.elementRef.nativeElement, anchorPoint, position);
+  }
+
+  private _removeStyle(anchorPoint: string): void {
+    this._renderer.removeStyle(this.elementRef.nativeElement, anchorPoint);
+  }
+
+  private _parseAnchorCorner(value: string | MdcMenuAnchorCorner): Corner {
+    switch (value) {
+      case 'top-end': {
+        return Corner.TOP_END;
       }
-      if (change.currentValue) {
-        this._mdcAdapter.addClass(`${this._determineOpenFrom(change.currentValue)}`);
+      case 'bottom-start': {
+        return Corner.BOTTOM_START;
+      }
+      case 'bottom-end': {
+        return Corner.BOTTOM_END;
+      }
+      default: {
+        return Corner.TOP_START;
       }
     }
   }
 
-  private _determineOpenFrom(value: string): string {
-    switch (value) {
-      case 'topRight': {
-        return topRight;
-      }
-      case 'bottomLeft': {
-        return bottomLeft;
-      }
-      case 'bottomRight': {
-        return bottomRight;
-      }
-      default: {
-        return topLeft;
-      }
-    }
+  setAnchorCorner(value: string | MdcMenuAnchorCorner): void {
+    this._foundation.setAnchorCorner(this._parseAnchorCorner(value));
   }
 
   isOpen(): boolean {

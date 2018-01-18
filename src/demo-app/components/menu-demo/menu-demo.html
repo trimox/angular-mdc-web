@@ -29,9 +29,9 @@
           <td>Unique Id of the menu (auto generated if not supplied).</td>
         </tr>
         <tr>
-          <td>openFrom: MdcMenuOpenFrom</td>
-          <td>Override the opening point of the menu. (default: topLeft)
-            <pre>Values: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight'</pre>
+          <td>anchorCorner: string</td>
+          <td>Override the opening point of the menu. (default: top-start)
+            <pre>Values: 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end'</pre>
           </td>
         </tr>
         <tr>
@@ -77,6 +77,11 @@ If the focusIndex is omitted, no menu item will be focused.]]></pre></td>
         <tr>
           <td>getFocusedItemIndex(): number</td>
           <td>Returns the index of the currently focused menu item (-1 if none).</td>
+        </tr>
+        <tr>
+          <td>setAnchorCorner(corner: string)</td>
+          <td>Override the opening point of the menu.
+            <pre>Values: 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end'</pre></td>
         </tr>
       </tbody>
       <thead>
@@ -149,41 +154,41 @@ If the focusIndex is omitted, no menu item will be focused.]]></pre></td>
       </tbody>
     </table>
   </div>
-  <div fxLayout="row" class="mdc-padding" fxLayoutAlign="center center">
+  <div fxLayout="row" fxLayoutAlign="center center">
     <div fxLayout="column">
-      <p>Open from:</p>
+      <p>Anchor Corner:</p>
       <mdc-form-field>
-        <mdc-radio value="topLeft" name="radioGroup" [(ngModel)]="openFrom"></mdc-radio>
-        <label>Top Left</label>
+        <mdc-radio value="top-start" name="radioGroup" [(ngModel)]="anchorCorner"></mdc-radio>
+        <label>Top start</label>
       </mdc-form-field>
       <mdc-form-field>
-        <mdc-radio value="topRight" name="radioGroup" [(ngModel)]="openFrom"></mdc-radio>
-        <label>Top Right</label>
+        <mdc-radio value="top-end" name="radioGroup" [(ngModel)]="anchorCorner"></mdc-radio>
+        <label>Top end</label>
       </mdc-form-field>
       <mdc-form-field>
-        <mdc-radio value="bottomLeft" name="radioGroup" [(ngModel)]="openFrom"></mdc-radio>
-        <label>Bottom Left</label>
+        <mdc-radio value="bottom-start" name="radioGroup" [(ngModel)]="anchorCorner"></mdc-radio>
+        <label>Bottom start</label>
       </mdc-form-field>
       <mdc-form-field>
-        <mdc-radio value="bottomRight" name="radioGroup" [(ngModel)]="openFrom"></mdc-radio>
-        <label>Bottom Right</label>
+        <mdc-radio value="bottom-end" name="radioGroup" [(ngModel)]="anchorCorner"></mdc-radio>
+        <label>Bottom end</label>
       </mdc-form-field>
     </div>
-<div mdc-menu-anchor style="margin-left: 25px;">
-  <button mdc-button [raised]="true" (click)="openMenu()">
-    Open Menu
-  </button>
-  <mdc-menu #menu (select)="handleMenuSelect($event)" [openFrom]="openFrom">
-    <mdc-menu-item id="0">Item 1</mdc-menu-item>
-    <mdc-menu-item id="1" [disabled]="true">Item 2</mdc-menu-item>
-    <mdc-menu-item id="2">Item 3</mdc-menu-item>
-    <mdc-menu-divider></mdc-menu-divider>
-    <mdc-menu-item id="3">Item 4</mdc-menu-item>
-  </mdc-menu>
-</div>
+    <div mdc-menu-anchor>
+      <button mdc-button [raised]="true" (click)="menu.open(1)">
+        Open Menu
+      </button>
+      <mdc-menu #menu (select)="handleMenuSelect($event)" [anchorCorner]="anchorCorner">
+        <mdc-menu-item id="0">Item 1</mdc-menu-item>
+        <mdc-menu-item id="1" [disabled]="true">Item 2</mdc-menu-item>
+        <mdc-menu-item id="2">Item 3</mdc-menu-item>
+        <mdc-menu-divider></mdc-menu-divider>
+        <mdc-menu-item id="3">Item 4</mdc-menu-item>
+      </mdc-menu>
+    </div>
   </div>
   <pre mdc-typography-body1>Selected index: {{selectedIndex}}
-Opening from: {{openFrom}}</pre>
+Opening from: {{anchorCorner}}</pre>
 
 <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">mdc-menu-anchor</span>></span>
   <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">raised</span>]=<span style="color:#65b042">"true"</span> (<span style="color:#e0c589">click</span>)=<span style="color:#65b042">"openMenu()"</span>></span>

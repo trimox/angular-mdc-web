@@ -2,7 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MdcMenu, MdcMenuOpenFrom, MdcMenuModule } from '@angular-mdc/web';
+import { MdcMenu, MdcMenuModule } from '@angular-mdc/web';
 
 describe('MdcMenu', () => {
   let fixture: ComponentFixture<any>;
@@ -61,30 +61,6 @@ describe('MdcMenu', () => {
       expect(testInstance.isOpen()).toBe(true);
     });
 
-    it('#should be open from bottom right', () => {
-      testComponent.myOpenFrom = 'bottomRight';
-      fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList).toContain('mdc-simple-menu--open-from-bottom-right');
-    });
-
-    it('#should still open from top-left', () => {
-      testComponent.myOpenFrom = 'topLeft';
-      fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList).toContain('mdc-simple-menu--open-from-top-left');
-    });
-
-    it('#should be open from top right', () => {
-      testComponent.myOpenFrom = 'topRight';
-      fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList).toContain('mdc-simple-menu--open-from-top-right');
-    });
-
-    it('#should be open from bottom left', () => {
-      testComponent.myOpenFrom = 'bottomLeft';
-      fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList).toContain('mdc-simple-menu--open-from-bottom-left');
-    });
-
     it('#should have focus', () => {
       expect(document.activeElement).not.toBe(testDebugElement.nativeElement);
 
@@ -119,7 +95,7 @@ describe('MdcMenu', () => {
 @Component({
   template: `
     <div mdc-menu-anchor>
-      <mdc-menu [openFrom]="myOpenFrom" (select)="handleSelect($event)"
+      <mdc-menu [anchorCorner]="anchorCorner" (select)="handleSelect($event)"
       (cancel)="handleCancel($event)" direction='ltr'>
         <mdc-menu-item id="0">Item 1</mdc-menu-item>
         <mdc-menu-item id="1" [disabled]="isDisabled">Item 2</mdc-menu-item>
@@ -131,7 +107,7 @@ describe('MdcMenu', () => {
   `,
 })
 class SimpleTest {
-  myOpenFrom: MdcMenuOpenFrom = 'topLeft';
+  anchorCorner: string = 'top-start';
   isDisabled: boolean = true;
   selectedIndex: number = -1;
   isRtl = 'ltr';

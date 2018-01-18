@@ -28,8 +28,8 @@
           <td>Increases the density of the list, making it appear more compact.</td>
         </tr>
         <tr>
-          <td>lines: number</td>
-          <td>Increases the height of the row to give it greater visual separation from adjacent rows. Default is 1.</td>
+          <td>lines: number (Set to 2 for two line list. Default is 1)</td>
+          <td>Increases the height of the row to give it greater visual separation from adjacent rows.</td>
         </tr>
         <tr>
           <td>avatar: boolean</td>
@@ -100,22 +100,22 @@
           <th>Child Directive</th>
         </tr>
       </thead>
-        <tr>
-          <td>mdc-list-item-graphic</td>
-          <td>The first tile in the row (in LTR languages, the left-most).</td>
-        </tr>
-        <tr>
-          <td>mdc-list-item-meta</td>
-          <td>The last tile in the row (in LTR languages, the right-most)</td>
-        </tr>
-        <tr>
-          <td>mdc-list-item-text</td>
-          <td>Primary text for the row (displayed as the middle tile)</td>
-        </tr>
-        <tr>
-          <td>mdc-list-item-secondary</td>
-          <td>Secondary text for the row (displayed in the middle tile)</td>
-        </tr>
+      <tr>
+        <td>mdc-list-item-graphic</td>
+        <td>The first tile in the row (in LTR languages, the left-most).</td>
+      </tr>
+      <tr>
+        <td>mdc-list-item-meta</td>
+        <td>The last tile in the row (in LTR languages, the right-most)</td>
+      </tr>
+      <tr>
+        <td>mdc-list-item-text</td>
+        <td>Primary text for the row (displayed as the middle tile)</td>
+      </tr>
+      <tr>
+        <td>mdc-list-item-secondary</td>
+        <td>Secondary text for the row (displayed in the middle tile)</td>
+      </tr>
       </tbody>
     </table>
     <table>
@@ -170,18 +170,15 @@
     <div fxLayout="row" fxLayoutWrap>
       <button mdc-button (click)="singleline.border = !singleline.border">Border: {{singleline.border ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="singleline.dense = !singleline.dense">Dense: {{singleline.dense ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="divider.inset = !divider.inset">Divider Inset: {{divider.inset ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="divider.padded = !divider.padded">Divider Padded: {{divider.padded ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="singleline.interactive = !singleline.interactive">Interactive w/Ripple: {{singleline.interactive ? 'On' : 'Off'}}</button>
     </div>
     <mdc-list #singleline>
       <mdc-list-item>Single-line item</mdc-list-item>
       <mdc-list-item>Single-line item</mdc-list-item>
-      <mdc-list-divider #divider></mdc-list-divider>
       <mdc-list-item>Single-line item</mdc-list-item>
     </mdc-list>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-list?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
   </div>
-
   <div class="demo-list-host">
     <h3>Two-line List</h3>
     <div fxLayout="row" fxLayoutWrap>
@@ -209,8 +206,8 @@
         </mdc-list-item-text>
       </mdc-list-item>
     </mdc-list>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-list?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
   </div>
-
   <div class="demo-list-host">
     <h3>Start Graphic</h3>
     <div fxLayout="row" fxLayoutWrap>
@@ -229,8 +226,8 @@
         <mdc-icon mdc-list-item-graphic>data_usage</mdc-icon>Data Usage
       </mdc-list-item>
     </mdc-list>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-list?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
   </div>
-
   <div class="demo-list-host">
     <h3>End Meta</h3>
     <div fxLayout="row" fxLayoutWrap>
@@ -240,19 +237,22 @@
     </div>
     <mdc-list #endmeta>
       <mdc-list-item>
-        Wi-Fi<mdc-icon mdc-list-item-meta>info</mdc-icon>
+        Wi-Fi
+        <mdc-icon mdc-list-item-meta>info</mdc-icon>
       </mdc-list-item>
       <mdc-list-item>
-        Bluetooth<mdc-icon mdc-list-item-meta>info</mdc-icon>
+        Bluetooth
+        <mdc-icon mdc-list-item-meta>info</mdc-icon>
       </mdc-list-item>
       <mdc-list-item>
-        Data Usage<mdc-icon mdc-list-item-meta>info</mdc-icon>
+        Data Usage
+        <mdc-icon mdc-list-item-meta>info</mdc-icon>
       </mdc-list-item>
     </mdc-list>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-list?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
   </div>
-
   <div class="demo-list-host">
-    <h3>Start and End Detail</h3>
+    <h3>Start and End Graphic/Meta Detail</h3>
     <div fxLayout="row" fxLayoutWrap>
       <button mdc-button (click)="startend.border = !startend.border">Border: {{startend.border ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="startend.dense = !startend.dense">Dense: {{startend.dense ? 'On' : 'Off'}}</button>
@@ -260,17 +260,20 @@
     </div>
     <mdc-list #startend>
       <mdc-list-item>
-        <mdc-icon mdc-list-item-graphic>network_wifi</mdc-icon>Wi-Fi<mdc-icon mdc-list-item-meta>info</mdc-icon>
+        <mdc-icon mdc-list-item-graphic>network_wifi</mdc-icon>Wi-Fi
+        <mdc-icon mdc-list-item-meta>info</mdc-icon>
       </mdc-list-item>
       <mdc-list-item>
-        <mdc-icon mdc-list-item-graphic>bluetooth</mdc-icon>Bluetooth<mdc-icon mdc-list-item-meta>info</mdc-icon>
+        <mdc-icon mdc-list-item-graphic>bluetooth</mdc-icon>Bluetooth
+        <mdc-icon mdc-list-item-meta>info</mdc-icon>
       </mdc-list-item>
       <mdc-list-item>
-        <mdc-icon mdc-list-item-graphic>data_usage</mdc-icon>Data Usage<mdc-icon mdc-list-item-meta>info</mdc-icon>
+        <mdc-icon mdc-list-item-graphic>data_usage</mdc-icon>Data Usage
+        <mdc-icon mdc-list-item-meta>info</mdc-icon>
       </mdc-list-item>
     </mdc-list>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-list?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
   </div>
-
   <div class="demo-list-host">
     <h3>Checkbox List</h3>
     <div fxLayout="row" fxLayoutWrap>
@@ -292,8 +295,8 @@
         <mdc-checkbox mdc-list-item-meta></mdc-checkbox>
       </mdc-list-item>
     </mdc-list>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-list?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
   </div>
-
   <div class="demo-list-host">
     <h3>Avatars</h3>
     <div fxLayout="row" fxLayoutWrap>
@@ -312,38 +315,44 @@
         <mdc-icon mdc-list-item-graphic>person</mdc-icon>Single-line item
       </mdc-list-item>
     </mdc-list>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-list?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
   </div>
-
   <div class="demo-list-host">
     <h3>Group Lists</h3>
+    <div fxLayout="row" fxLayoutWrap>
+      <button mdc-button (click)="divider.inset = !divider.inset">Divider Inset: {{divider.inset ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="divider.padded = !divider.padded">Divider Padded: {{divider.padded ? 'On' : 'Off'}}</button>
+    </div>
     <mdc-list-group>
       <mdc-list-group-subheader>First Group</mdc-list-group-subheader>
       <mdc-list>
-        <a mdc-list-item href="#/list-demo">
+        <mdc-list-item>
           <mdc-icon mdc-list-item-graphic>network_wifi</mdc-icon>Wi-Fi
           <mdc-icon mdc-list-item-meta>info</mdc-icon>
-        </a>
-        <a mdc-list-item href="#/list-demo">
+        </mdc-list-item>
+        <mdc-list-item>
           <mdc-icon mdc-list-item-graphic>bluetooth</mdc-icon>Bluetooth
           <mdc-icon mdc-list-item-meta>info</mdc-icon>
-        </a>
-        <a mdc-list-item href="#/list-demo">
+        </mdc-list-item>
+        <mdc-list-item>
           <mdc-icon mdc-list-item-graphic>data_usage</mdc-icon>Data Usage
           <mdc-icon mdc-list-item-meta>info</mdc-icon>
-        </a>
+        </mdc-list-item>
       </mdc-list>
-      <mdc-list-divider></mdc-list-divider>
+      <mdc-list-divider #divider></mdc-list-divider>
       <mdc-list-group-subheader>Second Group</mdc-list-group-subheader>
       <mdc-list [avatar]="true">
-        <a mdc-list-item href="#/list-demo">
+        <mdc-list-item>
           <mdc-icon mdc-list-item-graphic>person</mdc-icon>Single-line item
-        </a>
-        <a mdc-list-item href="#/list-demo">
+        </mdc-list-item>
+        <mdc-list-item>
           <mdc-icon mdc-list-item-graphic>person</mdc-icon>Single-line item
-        </a>
-        <a mdc-list-item href="#/list-demo">
+        </mdc-list-item>
+        <mdc-list-item>
           <mdc-icon mdc-list-item-graphic>person</mdc-icon>Single-line item
-        </a>
+        </mdc-list-item>
       </mdc-list>
     </mdc-list-group>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-list?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
   </div>
+</div>

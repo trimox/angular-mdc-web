@@ -188,13 +188,13 @@ If the focusIndex is omitted, no menu item will be focused.]]></pre></td>
     </div>
   </div>
   <pre mdc-typography-body1>Selected index: {{selectedIndex}}
-Opening from: {{anchorCorner}}</pre>
+Anchor Corner: {{anchorCorner}}</pre>
 
 <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">mdc-menu-anchor</span>></span>
-  <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">raised</span>]=<span style="color:#65b042">"true"</span> (<span style="color:#e0c589">click</span>)=<span style="color:#65b042">"openMenu()"</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">raised</span>]=<span style="color:#65b042">"true"</span> (<span style="color:#e0c589">click</span>)=<span style="color:#65b042">"menu.open()"</span>></span>
     Open Menu
   <span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu</span> #<span style="color:#89bdff">menu</span> (<span style="color:#89bdff">select</span>)=<span style="color:#65b042">"handleMenuSelect($event)"</span> [<span style="color:#89bdff">openFrom</span>]=<span style="color:#65b042">"openFrom"</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu</span> #<span style="color:#89bdff">menu</span> (<span style="color:#89bdff">select</span>)=<span style="color:#65b042">"handleMenuSelect($event)"</span> [<span style="color:#89bdff">anchorCorner</span>]=<span style="color:#65b042">"top-start"</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span> <span style="color:#89bdff">id</span>=<span style="color:#65b042">"0"</span>></span>Item 1<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span> <span style="color:#89bdff">id</span>=<span style="color:#65b042">"1"</span> [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"true"</span>></span>Item 2<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span>></span>
     <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span> <span style="color:#89bdff">id</span>=<span style="color:#65b042">"2"</span>></span>Item 3<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span>></span>
@@ -203,25 +203,5 @@ Opening from: {{anchorCorner}}</pre>
   <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">div</span>></span>
 </pre>
-
-<div style="background: #000; overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #66d9ef">import</span> <span style="color: #f8f8f2"><![CDATA[{]]></span> <span style="color: #a6e22e">MdcMenu</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">MdcMenuOpenFrom</span> <span style="color: #f8f8f2"><![CDATA[}]]></span> <span style="color: #a6e22e">from</span> <span style="color: #e6db74">&#39;@angular-mdc/web&#39;</span><span style="color: #f8f8f2">;</span>
-
-<span style="color: #960050; background-color: #1e0010">@</span><span style="color: #a6e22e">Component</span><span style="color: #f8f8f2">(<![CDATA[{]]></span>
-  <span style="color: #a6e22e">selector</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&#39;menu-demo&#39;</span><span style="color: #f8f8f2">,</span>
-  <span style="color: #a6e22e">templateUrl</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&#39;./menu-demo.html&#39;</span>
-<span style="color: #f8f8f2"><![CDATA[}]]>)</span>
-<span style="color: #66d9ef">export</span> <span style="color: #66d9ef">class</span> <span style="color: #a6e22e">MenuDemo</span> <span style="color: #f8f8f2"><![CDATA[{]]></span>
-  <span style="color: #a6e22e">selectedIndex</span> <span style="color: #f92672">=</span> <span style="color: #f92672">-</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">;</span>
-  <span style="color: #a6e22e">openFrom</span>: <span style="color: #66d9ef">MdcMenuOpenFrom</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&#39;topLeft&#39;</span><span style="color: #f8f8f2">;</span>
-  <span style="color: #960050; background-color: #1e0010">@</span><span style="color: #a6e22e">ViewChild</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;menu&#39;</span><span style="color: #f8f8f2">)</span> <span style="color: #a6e22e">menu</span>: <span style="color: #66d9ef">MdcMenu</span><span style="color: #f8f8f2">;</span>
-
-  <span style="color: #a6e22e">showMenu() <![CDATA[{]]></span>
-    <span style="color: #66d9ef">this</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">menu</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">open</span><span style="color: #f8f8f2">();</span>
-  <span style="color: #f8f8f2"><![CDATA[}]]></span>
-  <span style="color: #a6e22e">handleMenuSelect</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">event</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2"><![CDATA[{]]></span> <span style="color: #a6e22e">index</span>: <span style="color: #66d9ef">number</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">item</span>: <span style="color: #66d9ef">HTMLElement</span> <span style="color: #f8f8f2"><![CDATA[}]]>)</span> <span style="color: #f8f8f2"><![CDATA[{]]></span>
-    <span style="color: #66d9ef">this</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">selectedIndex</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">event</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">index</span><span style="color: #f8f8f2">;</span>
-  <span style="color: #f8f8f2"><![CDATA[}]]></span>
-<span style="color: #f8f8f2"><![CDATA[}]]></span>
-</pre></div>
 
 </div>

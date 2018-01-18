@@ -1,8 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 
-import { MdcSelect } from '@angular-mdc/web';
-
 @Component({
   selector: 'select-demo',
   templateUrl: './select-demo.html'
@@ -23,8 +21,6 @@ export class SelectDemo {
     { value: 'tacos-2', description: 'Tacos is disabled', disabled: true },
     { value: 'fruit-3', description: 'Fruit' },
   ];
-
-  @ViewChild('select') select: MdcSelect;
 
   constructor() {
     // this.foodControl.setValue('steak-0');

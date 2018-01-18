@@ -13,6 +13,7 @@ describe('MdcIconToggle', () => {
       imports: [FormsModule, MdcIconToggleModule],
       declarations: [
         SimpleButton,
+        TestOnToggle,
       ]
     });
     TestBed.compileComponents();
@@ -42,11 +43,11 @@ describe('MdcIconToggle', () => {
     it('#should apply class based on property', () => {
       testComponent.isPrimary = true;
       fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.classList.contains('ng-mdc-ripple-surface--primary')).toBe(true);
+      expect(buttonDebugElement.nativeElement.classList.contains('ng-mdc-icon-toggle--primary')).toBe(true);
 
       testComponent.isSecondary = true;
       fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.classList.contains('ng-mdc-ripple-surface--secondary')).toBe(true);
+      expect(buttonDebugElement.nativeElement.classList.contains('ng-mdc-icon-toggle--secondary')).toBe(true);
     });
 
     it('#should set disabled to true', () => {
@@ -55,25 +56,59 @@ describe('MdcIconToggle', () => {
       expect(buttonInstance.disabled).toBe(true);
     });
 
-    it('#should set disabled to true', () => {
+    it('#should set toggle state to true', () => {
       buttonInstance.toggle(true);
       fixture.detectChanges();
       expect(buttonInstance.isOn()).toBe(true);
     });
 
-    it('#should set value', () => {
+    it('#should set value to false', () => {
       testComponent.myModel = false;
       buttonInstance.refreshToggleData();
       fixture.detectChanges();
       expect(buttonInstance.isOn()).toBe(false);
     });
+
+    it('#should handle click event', () => {
+      buttonNativeElement.click();
+      fixture.detectChanges();
+    });
+
+    it('#should stop propagation if disabled', () => {
+      testComponent.isDisabled = true;
+      fixture.detectChanges();
+      buttonNativeElement.click();
+      fixture.detectChanges();
+    });
+  });
+
+  describe('TestOnToggle behaviors', () => {
+    let buttonDebugElement: DebugElement;
+    let buttonNativeElement: HTMLButtonElement;
+    let buttonInstance: MdcIconToggle;
+    let testComponent: TestOnToggle;
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(TestOnToggle);
+      fixture.detectChanges();
+
+      buttonDebugElement = fixture.debugElement.query(By.directive(MdcIconToggle));
+      buttonNativeElement = buttonDebugElement.nativeElement;
+      buttonInstance = buttonDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+    });
+
+    it('#should set button toggle state', () => {
+      testComponent.isOn = false;
+      fixture.detectChanges();
+      expect(buttonInstance.isOn()).toBe(false);
+      expect(buttonInstance.on).toBe(false);
+    });
   });
 });
 
-/** Simple component for testing. */
 @Component({
-  template:
-  `
+  template: `
     <mdc-icon-toggle [(ngModel)]="myModel"
       [disabled]="isDisabled"
       [primary]="isPrimary"
@@ -88,4 +123,17 @@ class SimpleButton {
   isDisabled: boolean = false;
   isPrimary: boolean = false;
   isSecondary: boolean = false;
+}
+
+@Component({
+  template: `
+    <mdc-icon-toggle
+      [on]="isOn"
+      iconOn="favorite" iconOff="favorite_border"
+      labelOn="Add to Favorites" labelOff="Remove from Favorites">
+    </mdc-icon-toggle>
+  `,
+})
+class TestOnToggle {
+  isOn: boolean = true;
 }

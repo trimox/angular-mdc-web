@@ -1,5 +1,7 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -21,7 +23,7 @@ import { toBoolean, isSpaceKey, KeyCodes, EventRegistry } from '@angular-mdc/web
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
-import { MDCIconToggleAdapter } from './adapter';
+import { MDCIconToggleAdapter } from '@material/icon-toggle/adapter';
 import { MDCIconToggleFoundation } from '@material/icon-toggle';
 
 export const MD_ICON_TOGGLE_CONTROL_VALUE_ACCESSOR: Provider = {
@@ -39,10 +41,13 @@ export const MD_ICON_TOGGLE_CONTROL_VALUE_ACCESSOR: Provider = {
     MdcRipple,
     EventRegistry,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   preserveWhitespaces: false,
 })
 export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
+  private _on: boolean;
+
   private _mdcAdapter: MDCIconToggleAdapter = {
     addClass: (className: string) => {
       this._renderer.addClass(this.iconClass ? this.iconInner.elementRef.nativeElement : this.elementRef.nativeElement, className);
@@ -51,17 +56,17 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
       this._renderer.removeClass(this.iconClass ? this.iconInner.elementRef.nativeElement : this.elementRef.nativeElement, className);
     },
     registerInteractionHandler: (type: string, handler: EventListener) => {
-      this._registry.listen(type, handler, this.elementRef.nativeElement);
+      this._registry.listen(type, handler, this._getHostElement());
     },
     deregisterInteractionHandler: (type: string, handler: EventListener) => {
       this._registry.unlisten(type, handler);
     },
     setText: (text: string) => this.iconInner.elementRef.nativeElement.textContent = text,
-    getTabIndex: () => this.elementRef.nativeElement.tabIndex,
-    setTabIndex: (tabIndex: number) => this.elementRef.nativeElement.tabIndex = tabIndex,
-    getAttr: (name: string) => this.elementRef.nativeElement.getAttribute(name),
-    setAttr: (name: string, value: string) => this._renderer.setAttribute(this.elementRef.nativeElement, name, value),
-    rmAttr: (name: string) => this._renderer.removeAttribute(this.elementRef.nativeElement, name),
+    getTabIndex: () => this._getHostElement().tabIndex,
+    setTabIndex: (tabIndex: number) => this._getHostElement().tabIndex = tabIndex,
+    getAttr: (name: string) => this._getHostElement().getAttribute(name),
+    setAttr: (name: string, value: string) => this._renderer.setAttribute(this._getHostElement(), name, value),
+    rmAttr: (name: string) => this._renderer.removeAttribute(this._getHostElement(), name),
     notifyChange: (evtData: { isOn: boolean }) => {
       this.change.emit(evtData.isOn);
       this.onChange(this._foundation.isOn());
@@ -69,14 +74,14 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
   };
 
   private _foundation: {
-    init: Function,
-    destroy: Function,
-    setDisabled: Function,
-    isDisabled: Function,
-    isKeyboardActivated: Function,
-    toggle: Function,
-    refreshToggleData: Function,
-    isOn: Function,
+    init: () => {},
+    destroy: () => {},
+    setDisabled: (isDisabled: boolean) => {},
+    isDisabled: () => boolean,
+    toggle: (isOn: boolean) => {},
+    refreshToggleData: () => {},
+    isKeyboardActivated: () => boolean,
+    isOn: () => boolean,
   } = new MDCIconToggleFoundation(this._mdcAdapter);
 
   @Input() iconOn: string;
@@ -98,17 +103,27 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
   onChange = (value: any) => { };
   onTouched = () => { };
 
+  @Input()
+  get on(): boolean { return this._foundation.isOn(); }
+  set on(value: boolean) {
+    if (value !== this._on) {
+      this._on = value;
+      this._changeDetectorRef.markForCheck();
+      this._foundation.refreshToggleData();
+      this._foundation.toggle(value);
+    }
+  }
   get value(): any { return this._foundation.isOn(); }
   @Input()
   get disabled(): boolean { return this._foundation.isDisabled(); }
   set disabled(value: boolean) {
     this._foundation.setDisabled(toBoolean(value));
   }
-  @HostBinding('class.ng-mdc-ripple-surface--primary') get classPrimary() {
-    return this.primary ? 'ng-mdc-ripple-surface--primary' : '';
+  @HostBinding('class.ng-mdc-icon-toggle--primary') get classPrimary() {
+    return this.primary ? 'ng-mdc-icon-toggle--primary' : '';
   }
-  @HostBinding('class.ng-mdc-ripple-surface--secondary') get classSecondary() {
-    return this.secondary ? 'ng-mdc-ripple-surface--secondary' : '';
+  @HostBinding('class.ng-mdc-icon-toggle--secondary') get classSecondary() {
+    return this.secondary ? 'ng-mdc-icon-toggle--secondary' : '';
   }
   @HostBinding('attr.data-toggle-on') get dataToggleOn() {
     return JSON.stringify({
@@ -135,26 +150,30 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
   }
 
   constructor(
+    private _changeDetectorRef: ChangeDetectorRef,
     private _renderer: Renderer2,
     public elementRef: ElementRef,
     public ripple: MdcRipple,
-    private _registry: EventRegistry) { }
+    private _registry: EventRegistry) {
+  }
 
   ngOnChanges(changes: { [key: string]: SimpleChange }): void {
     const iconClass = changes['iconClass'];
 
     if (iconClass) {
-      this._renderer.addClass(this.iconInner.elementRef.nativeElement, this.iconClass);
+      this._renderer.addClass(this.iconInner.elementRef.nativeElement, iconClass.currentValue);
     }
   }
 
   ngAfterViewInit(): void {
     this._foundation.init();
-    this._foundation.toggle(this._foundation.isOn());
     this._foundation.refreshToggleData();
+    this._foundation.toggle(this._on || this._foundation.isOn());
 
     this.ripple.init(true);
-    this.ripple.activeSurface = !this._foundation.isKeyboardActivated();
+    this.ripple.activeSurface = this._foundation.isKeyboardActivated();
+
+    this._changeDetectorRef.detectChanges();
   }
 
   ngOnDestroy(): void {
@@ -201,6 +220,10 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
         event.preventDefault();
       }
     }
+  }
+
+  private _getHostElement() {
+    return this.elementRef.nativeElement;
   }
 
   private _onBlur(event: FocusEvent): void {

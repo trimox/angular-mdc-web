@@ -19,4 +19,6 @@ export interface MDCSnackbarAdapter {
   deregisterActionClickHandler: (handler: EventListener) => void;
   registerTransitionEndHandler: (handler: EventListener) => void;
   deregisterTransitionEndHandler: (handler: EventListener) => void;
+  notifyShow: () => void;
+  notifyHide: () => void;
 }

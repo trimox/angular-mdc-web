@@ -75,7 +75,7 @@ export class MdcSnackbar {
    * Places a new component as the content of the snackbar container.
    */
   private _attach<T>(component: ComponentType<T>, config: MdcSnackbarConfig): MdcSnackbarRef<T> {
-    const overlayRef = this._createOverlay(config);
+    const overlayRef = this._createOverlay();
     const container = this._attachSnackBarContainer(overlayRef, config);
     const snackBarRef = new MdcSnackbarRef<T>(container, overlayRef);
     const injector = this._createInjector(config, snackBarRef);
@@ -90,9 +90,8 @@ export class MdcSnackbar {
 
   /**
      * Creates a new overlay and places it in the correct location.
-     * @param config The user-specified snackbar config.
      */
-  private _createOverlay(config: MdcSnackbarConfig): OverlayRef {
+  private _createOverlay(): OverlayRef {
     return this.overlay_.create();
   }
 

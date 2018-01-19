@@ -41,14 +41,14 @@ export class MdcSnackbarActionWrapper {
 @Component({
   moduleId: module.id,
   selector: 'mdc-snackbar',
-  template:
-  `
+  template: `
   <mdc-snackbar-text></mdc-snackbar-text>
   <mdc-snackbar-action-wrapper>
     <button #action type="submit" class="mdc-snackbar__action-button"></button>
   </mdc-snackbar-action-wrapper>
   `,
   encapsulation: ViewEncapsulation.None,
+  preserveWhitespaces: false,
   providers: [EventRegistry]
 })
 export class MdcSnackbarComponent implements OnInit, OnDestroy {
@@ -152,18 +152,19 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
     deregisterTransitionEndHandler: (handler: EventListener) => {
       if (isBrowser()) {
         this._registry.unlisten(getCorrectEventName(window, 'transitionend'), handler);
-        this.snackbarRef.dismiss(); // remove container from dom host
       }
-    }
+    },
+    notifyShow: () => { /* not needed */ },
+    notifyHide: () => this.snackbarRef.dismiss(),
   };
 
   private _foundation: {
-    init: Function,
-    destroy: Function,
-    active: Function,
-    setDismissOnAction: Function,
-    dismissesOnAction: Function,
-    show: Function
+    init: () => {},
+    destroy: () => {},
+    active: () => boolean,
+    setDismissOnAction: (dismissOnAction: boolean) => {},
+    dismissesOnAction: () => boolean,
+    show: (data: any) => {}
   } = new MDCSnackbarFoundation(this._mdcAdapter);
 
   constructor(
@@ -191,7 +192,7 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
     const data = this.data;
 
     if (config) {
-      this._foundation.setDismissOnAction(config.dismissOnAction);
+      this._foundation.setDismissOnAction(config.dismissOnAction ? true : false);
       if (config.align === 'start') {
         this._mdcAdapter.addClass('mdc-snackbar--align-start');
       }
@@ -200,7 +201,7 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
         config.actionHandler = () => { };
       }
       if (!data.actionText) {
-        config.actionHandler = null;
+        config.actionHandler = undefined;
       }
 
       setTimeout(() => {
@@ -208,7 +209,7 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
         if (config.focusAction) {
           this._mdcAdapter.setFocus();
         }
-      }, 10);
+      }, 40);
     } else {
       this._foundation.show(data);
     }

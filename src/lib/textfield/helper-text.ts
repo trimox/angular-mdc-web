@@ -9,7 +9,8 @@ import { MDCTextFieldHelperTextAdapter } from '@material/textfield/helper-text/a
 import { MDCTextFieldHelperTextFoundation } from '@material/textfield/helper-text';
 
 @Directive({
-  selector: '[mdc-text-field-helper-text], mdc-text-field-helper-text'
+  selector: '[mdc-text-field-helper-text], mdc-text-field-helper-text',
+  exportAs: 'mdcHelperText'
 })
 export class MdcTextFieldHelperText {
   @Input() id: string;
@@ -40,10 +41,11 @@ export class MdcTextFieldHelperText {
   };
 
   foundation: {
-    setContent: Function,
-    showToScreenReader: Function,
-    setValidity: Function,
-    destroy: Function,
+    init(): void,
+    destroy(): void,
+    setContent(content: string): void,
+    showToScreenReader(): boolean,
+    setValidity(inputIsValid: boolean): void
   } = new MDCTextFieldHelperTextFoundation(this._mdcAdapter);
 
   constructor(

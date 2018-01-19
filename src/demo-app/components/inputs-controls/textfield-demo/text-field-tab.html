@@ -71,9 +71,12 @@
           <pre>Values: 'ltr' | 'rtl'</pre>
         </td>
       </tr>
+      <tr>
+        <td>helperText: string</td>
+        <td>Reference to input's mdc-text-field-helper-text directive</td>
+      </tr>
     </tbody>
   </table>
-
   <table>
     <thead>
       <tr>
@@ -104,73 +107,73 @@
     </tbody>
   </table>
 </div>
-
 <div class="docs-api">
-    <table>
-      <thead>
-        <tr>
-          <th>Methods</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>setValid(value?: boolean)</td>
-          <td>Updates input validity using passed value, or if left empty checking the validity of the input.</td>
-        </tr>
-        <tr>
-          <td>isBadInput(): boolean</td>
-          <td>Returns input bad input validity value.</td>
-        </tr>
-        <tr>
-          <td>isDisabled(): boolean</td>
-          <td>Returns whether or not the input is disabled.</td>
-        </tr>
-        <tr>
-          <td>focus()</td>
-          <td>Sets focus to the input.</td>
-        </tr>
-        <tr>
-          <td>updateIconState()</td>
-          <td>Update the state of class modifiers that display an icon.</td>
-        </tr>
-        <tr>
-          <td>selectAll()</td>
-          <td>Selects all of the input's content.</td>
-        </tr>
-        <tr>
-          <td>setHelperTextContent(content: string)</td>
-          <td>Sets the content of the helper text.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="docs-api">
-    <table>
-      <thead>
-        <tr>
-          <th>Events</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>change(value: string)</td>
-          <td>Emitted whenever the value of the input changes.</td>
-        </tr>
-        <tr>
-          <td>blur(value: string)</td>
-          <td>Emitted whenever the input loses focus.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div fxLayout="column" class="mdc-padding" fxFlexAlign="start start">
-    <div fxLayout="column" class="mdc-padding" fxFlexAlign="start">
-      <mdc-text-field [(ngModel)]="username" id="username" label="Username" [required]="isRequired" [disabled]="isDisabled" [dense]="isDense"></mdc-text-field>
-      <p mdc-text-field-helper-text [validation]="true" [persistent]="false">Username is required</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Methods</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>setValid(value?: boolean)</td>
+        <td>Updates input validity using passed value, or if left empty checking the validity of the input.</td>
+      </tr>
+      <tr>
+        <td>isBadInput(): boolean</td>
+        <td>Returns input bad input validity value.</td>
+      </tr>
+      <tr>
+        <td>isDisabled(): boolean</td>
+        <td>Returns whether or not the input is disabled.</td>
+      </tr>
+      <tr>
+        <td>focus()</td>
+        <td>Sets focus to the input.</td>
+      </tr>
+      <tr>
+        <td>updateIconState()</td>
+        <td>Update the state of class modifiers that display an icon.</td>
+      </tr>
+      <tr>
+        <td>selectAll()</td>
+        <td>Selects all of the input's content.</td>
+      </tr>
+      <tr>
+        <td>setHelperTextContent(content: string)</td>
+        <td>Sets the content of the helper text.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="docs-api">
+  <table>
+    <thead>
+      <tr>
+        <th>Events</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>change(value: string)</td>
+        <td>Emitted whenever the value of the input changes.</td>
+      </tr>
+      <tr>
+        <td>blur(value: string)</td>
+        <td>Emitted whenever the input loses focus.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div fxLayout="column" class="mdc-padding" fxFlexAlign="start start">
+  <div fxLayout="column" class="mdc-padding" fxFlexAlign="start">
+    <mdc-text-field [(ngModel)]="username" #demoInput="ngModel" label="Username" [helperText]="userHelper" [required]="isRequired"
+     [disabled]="isDisabled" [dense]="isDense" (blur)="onBlur($event)" (change)="onChange($event)"></mdc-text-field>
+    <mdc-text-field-helper-text #userHelper="mdcHelperText" [validation]="true" [persistent]="false">
+      <span *ngIf="demoInput.errors?.required">Username is required</span>
+    </mdc-text-field-helper-text>
     <mdc-form-field>
       <mdc-checkbox [(ngModel)]="isRequired"></mdc-checkbox>
       <label>Required</label>
@@ -183,42 +186,19 @@
       <mdc-checkbox [(ngModel)]="isDense"></mdc-checkbox>
       <label>Dense</label>
     </mdc-form-field>
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field</span>
-  [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"username"</span>
-  <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Username"</span>
-  [<span style="color:#89bdff">required</span>]=<span style="color:#65b042">"true"</span>
-  [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"false"</span>
-  [<span style="color:#89bdff">dense</span>]=<span style="color:#65b042">"false"</span>>
-</span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field</span>></span>
-<span style="color:#89bdff">&lt;<span style="color:#89bdff">p</span> <span style="color:#89bdff">mdc-text-field-helper-text</span>
-  [<span style="color:#89bdff">validation</span>]=<span style="color:#65b042">"true"</span>
-  [<span style="color:#89bdff">persistent</span>]=<span style="color:#65b042">"false"</span>></span>Username is required<span style="color:#89bdff">&lt;/<span style="color:#89bdff">p</span>></span>
-</pre>
-</div>
-
-    <div fxLayout="column" class="mdc-padding">
-<span mdc-typography-headline>Prefilled value</span>
+  </div>
+  <div fxLayout="column" class="mdc-padding">
+    <h3>Prefilled value</h3>
     <div fxFlexAlign="start">
-  <mdc-text-field #prefilled [(ngModel)]="prefill" label="Username"></mdc-text-field>
-  <button mdc-button (click)="selectAll()">Select All</button>
-</div>
-</div>
-
-    <div fxLayout="column" class="mdc-padding">
-    <div fxFlexAlign="start">
-<mdc-text-field type="password" label="Password" [required]="true"></mdc-text-field>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field</span> <span style="color:#89bdff">type</span>=<span style="color:#65b042">"password"</span>
-  <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Password"</span>
-  [<span style="color:#89bdff">required</span>]=<span style="color:#65b042">"true"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field</span>></span>
-</pre></div>
-</div>
-
-  <div fxLayout="column" class="mdc-padding" fxFlexAlign="start">
-    <div mdc-theme-dark>
-      <mdc-text-field fxFlexOffset="2" label="Dark Theme"></mdc-text-field>
+      <mdc-text-field #prefilled [(ngModel)]="prefill" label="Username"></mdc-text-field>
+      <button mdc-button (click)="selectAll()">Select All</button>
     </div>
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">mdc-theme-dark</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field</span> <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Dark theme"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">div</span>></span>
-</pre>
+  </div>
+  <h3>Password</h3>
+  <mdc-text-field type="password" label="Password" [required]="true"></mdc-text-field>
+
+  <h3>Dark theme</h3>
+  <div mdc-theme-dark>
+    <mdc-text-field fxFlexOffset="2" label="Dark Theme"></mdc-text-field>
+  </div>
 </div>

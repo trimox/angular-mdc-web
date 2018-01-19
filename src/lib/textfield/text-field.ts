@@ -18,7 +18,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
+import { toBoolean, isBrowser, EventRegistry } from '@angular-mdc/web/common';
 
 import { MdcTextFieldHelperText } from './helper-text';
 import { MdcTextFieldBottomLine } from './bottom-line';
@@ -80,6 +80,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   private _disabled: boolean = false;
   private _required: boolean = false;
   private _focused: boolean = false;
+  private _helperText: MdcTextFieldHelperText;
 
   @Input() id: string = `mdc-input-${nextUniqueId++}`;
   @Input() fullwidth: boolean = false;
@@ -95,7 +96,6 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   @HostBinding('class.mdc-text-field') isHostClass = true;
   @ViewChild('input') inputText: ElementRef;
   @ViewChild(MdcTextFieldLabel) inputLabel: MdcTextFieldLabel;
-  @ViewChild(MdcTextFieldHelperText) helperText: MdcTextFieldHelperText;
   @ViewChild(MdcTextFieldBottomLine) bottomLine: MdcTextFieldBottomLine;
   @ContentChild(MdcTextFieldLeadingIcon) leadingIcon: MdcTextFieldLeadingIcon;
   @ContentChild(MdcTextFieldTrailingIcon) trailingIcon: MdcTextFieldTrailingIcon;
@@ -111,12 +111,17 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   @Input()
   get required(): boolean { return this._required; }
   set required(value: boolean) {
-    this._required = value != null && `${value}` !== 'false';
+    this._required = toBoolean(value);
   }
   @Input()
   get focused(): boolean { return this._focused; }
   set focused(value: boolean) {
-    this._focused = value != null && `${value}` !== 'false';
+    this._focused = toBoolean(value);
+  }
+  @Input()
+  get helperText(): MdcTextFieldHelperText { return this._helperText; }
+  set helperText(helperText: MdcTextFieldHelperText) {
+    this._helperText = helperText;
   }
   @Input()
   get type(): string { return this._type; }
@@ -196,7 +201,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   private _getFoundationMap() {
     return {
       bottomLine: this.bottomLine ? this.bottomLine.foundation : undefined,
-      helperText: this.helperText ? this.helperText.foundation : undefined,
+      helperText: this._helperText ? this.helperText.foundation : undefined,
       icon: this.leadingIcon ? this.leadingIcon.foundation
         : this.trailingIcon ? this.trailingIcon.foundation : undefined,
       label: this.inputLabel ? this.inputLabel.foundation : undefined,
@@ -232,6 +237,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     this._foundation
       = new MDCTextFieldFoundation(this._mdcAdapter, this._getFoundationMap());
     this._foundation.init();
+
     this.updateIconState();
     this._changeDetectorRef.detectChanges();
   }

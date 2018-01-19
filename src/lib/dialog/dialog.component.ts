@@ -142,9 +142,15 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
     },
     notifyAccept: () => {
       this._accept.emit('MDCDialog:accept');
+      if (this.dialogRef) {
+        this.dialogRef.close();
+      }
     },
     notifyCancel: () => {
       this._cancel.emit('MDCDialog:cancel');
+      if (this.dialogRef) {
+        this.dialogRef.close();
+      }
     },
     trapFocusOnSurface: () => {
       if (this._focusTrap) {

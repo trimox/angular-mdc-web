@@ -81,6 +81,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   private _required: boolean = false;
   private _focused: boolean = false;
   private _helperText: MdcTextFieldHelperText;
+  private _useCustomValidity: boolean;
 
   @Input() id: string = `mdc-input-${nextUniqueId++}`;
   @Input() fullwidth: boolean = false;
@@ -144,7 +145,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   }
 
   get valid(): boolean {
-    return this.inputText.nativeElement.validity.valid;
+    return this._useCustomValidity ? this._foundation.isValid() : this.inputText.nativeElement.validity.valid;
   }
 
   /** Whether the control is empty. */
@@ -315,6 +316,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   }
 
   setValid(isValid: boolean): void {
+    this._useCustomValidity = true;
     this._foundation.setValid(isValid);
   }
 

@@ -294,7 +294,6 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     if (this.bottomLine) {
       this.bottomLine.deactivate();
     }
-    this.setValid();
     this.blur.emit(this.value);
     this._changeDetectorRef.markForCheck();
   }
@@ -315,8 +314,8 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     }
   }
 
-  setValid(value?: boolean): void {
-    this._foundation.setValid(value ? value : this.valid);
+  setValid(isValid: boolean): void {
+    this._foundation.setValid(isValid);
   }
 
   isTextarea(): boolean {

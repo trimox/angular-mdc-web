@@ -66,15 +66,16 @@ describe('MdcTextField', () => {
     });
 
     it('#should remove invalid styling', () => {
-      fixture.detectChanges();
       textFieldInstance.setValid(false);
-      expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--invalid')).toBe(false);
+      fixture.detectChanges();
+      expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--invalid')).toBe(true);
     });
 
     it('#should set validity based on input element validity', () => {
-      textFieldInstance.setValid();
+      textFieldInstance.setValid(true);
       fixture.detectChanges();
       expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--invalid')).toBe(false);
+      expect(textFieldInstance.valid).toBe(true);
     });
 
     it('#should select all content', () => {
@@ -87,6 +88,14 @@ describe('MdcTextField', () => {
 
     it('#should deactivate bottomline', () => {
       expect(textFieldInstance.bottomLine.deactivate());
+    });
+
+    it('#should activate focus', () => {
+      expect(textFieldInstance.activateFocus());
+    });
+
+    it('#should deactivate focus', () => {
+      expect(textFieldInstance.deactivateFocus());
     });
 
     it('#should focus on underlying input element when focus() is called', () => {

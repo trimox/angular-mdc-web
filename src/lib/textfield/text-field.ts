@@ -90,7 +90,8 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   @Input() tabIndex: number = 0;
   @Input() direction: 'ltr' | 'rtl' = 'ltr';
   @Output() iconAction = new EventEmitter<boolean>();
-  @Output() change = new EventEmitter<string | null>();
+  @Output() change = new EventEmitter<string>();
+  @Output() blur = new EventEmitter<string>();
   @HostBinding('class.mdc-text-field') isHostClass = true;
   @ViewChild('input') inputText: ElementRef;
   @ViewChild(MdcTextFieldLabel) inputLabel: MdcTextFieldLabel;
@@ -288,6 +289,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
       this.bottomLine.deactivate();
     }
     this.setValid();
+    this.blur.emit(this.value);
     this._changeDetectorRef.markForCheck();
   }
 

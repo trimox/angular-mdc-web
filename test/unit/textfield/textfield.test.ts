@@ -117,7 +117,8 @@ describe('MdcTextField', () => {
       [fullwidth]="isFullwidth"
       [required]="isRequired"
       [focused]="isFocused"
-      [disabled]="isDisabled">
+      [disabled]="isDisabled"
+      (blur)="onBlur($event)">
     </mdc-text-field>
     <p mdc-text-field-helper-text
       [validation]="true"
@@ -132,4 +133,7 @@ class SimpleTextfield {
   isFocused: boolean = false;
   isFullwidth: boolean = false;
   isRequired: boolean = false;
+
+  onBlur(event: any) {
+  }
 }

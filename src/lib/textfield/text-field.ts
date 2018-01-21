@@ -22,6 +22,7 @@ import { toBoolean, isBrowser, EventRegistry } from '@angular-mdc/web/common';
 
 import { MdcTextFieldHelperText } from './helper-text';
 import { MdcTextFieldBottomLine } from './bottom-line';
+import { MdcTextFieldOutline, MdcTextFieldIdleOutline } from './outline';
 import { MdcTextFieldLeadingIcon, MdcTextFieldTrailingIcon } from './icon';
 import { MdcTextFieldLabel } from './label';
 
@@ -65,7 +66,11 @@ export const MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR: any = {
     (blur)="onBlur()"
     (input)="onInput($event.target.value)" />
     <mdc-text-field-label [attr.for]="id" *ngIf="!placeholder">{{label}}</mdc-text-field-label>
-    <mdc-text-field-bottom-line></mdc-text-field-bottom-line>
+    <mdc-text-field-bottom-line *ngIf="!outline"></mdc-text-field-bottom-line>
+    <mdc-text-field-outline *ngIf="outline">
+      <mdc-text-field-outline-path></mdc-text-field-outline-path>
+    </mdc-text-field-outline>
+    <mdc-text-field-idle-outline *ngIf="outline"></mdc-text-field-idle-outline>
   `,
   providers: [
     MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR,
@@ -86,6 +91,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   @Input() id: string = `mdc-input-${nextUniqueId++}`;
   @Input() fullwidth: boolean = false;
   @Input() dense: boolean = false;
+  @Input() outline: boolean = false;
   @Input() label: string;
   @Input() maxlength: number;
   @Input() placeholder: string = '';
@@ -100,6 +106,8 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   @ViewChild(MdcTextFieldBottomLine) bottomLine: MdcTextFieldBottomLine;
   @ContentChild(MdcTextFieldLeadingIcon) leadingIcon: MdcTextFieldLeadingIcon;
   @ContentChild(MdcTextFieldTrailingIcon) trailingIcon: MdcTextFieldTrailingIcon;
+  @ViewChild(MdcTextFieldOutline) outlined: MdcTextFieldOutline;
+  @ViewChild(MdcTextFieldIdleOutline) idleOutline: MdcTextFieldIdleOutline;
 
   @Input()
   get disabled(): boolean { return this._disabled; }
@@ -150,7 +158,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
 
   /** Whether the control is empty. */
   get empty(): boolean {
-    return !this.elementRef.nativeElement.value && !this.isBadInput();
+    return !this.inputText.nativeElement.value && !this.isBadInput();
   }
 
   @HostBinding('class.mdc-text-field--dense') get classDense(): string {
@@ -163,16 +171,19 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   @HostBinding('class.mdc-text-field--focused') get classFocused(): string {
     return this._focused ? 'mdc-text-field--focused' : '';
   }
+  @HostBinding('class.mdc-text-field--outlined') get classOutlined(): string {
+    return this.outline ? 'mdc-text-field--outlined' : '';
+  }
 
   private _mdcAdapter: MDCTextFieldAdapter = {
     addClass: (className: string) => {
-      this._renderer.addClass(this.elementRef.nativeElement, className);
+      this._renderer.addClass(this._getHostElement(), className);
     },
     removeClass: (className: string) => {
-      this._renderer.removeClass(this.elementRef.nativeElement, className);
+      this._renderer.removeClass(this._getHostElement(), className);
     },
     hasClass: (className: string) => {
-      return this.elementRef.nativeElement.classList.contains(className);
+      return this._getHostElement().classList.contains(className);
     },
     registerTextFieldInteractionHandler: (evtType: string, handler: EventListener) => {
       this._registry.listen(evtType, handler, this.elementRef.nativeElement);
@@ -196,6 +207,11 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     isFocused: () => this._focused,
     isRtl: () => this.direction === 'rtl',
     getNativeInput: () => this.inputText.nativeElement,
+    getIdleOutlineStyleValue: (propertyName: string) => {
+      if (this.idleOutline) {
+        return window.getComputedStyle(this.idleOutline.elementRef.nativeElement).getPropertyValue(propertyName);
+      }
+    },
   };
 
   /** Returns a map of all subcomponents to subfoundations. */
@@ -206,6 +222,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
       icon: this.leadingIcon ? this.leadingIcon.foundation
         : this.trailingIcon ? this.trailingIcon.foundation : undefined,
       label: this.inputLabel ? this.inputLabel.foundation : undefined,
+      outline: this.outlined ? this.outlined.foundation : undefined,
     };
   }
 
@@ -245,19 +262,22 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
 
   ngOnDestroy(): void {
     if (this.bottomLine) {
-      this.bottomLine.foundation.destroy();
+      this.bottomLine.destroy();
     }
     if (this.helperText) {
-      this.helperText.foundation.destroy();
+      this.helperText.destroy();
     }
     if (this.leadingIcon) {
-      this.leadingIcon.foundation.destroy();
+      this.leadingIcon.destroy();
     }
     if (this.trailingIcon) {
-      this.trailingIcon.foundation.destroy();
+      this.trailingIcon.destroy();
     }
     if (this.inputLabel) {
-      this.inputLabel.foundation.destroy();
+      this.inputLabel.destroy();
+    }
+    if (this.outlined) {
+      this.outlined.destroy();
     }
 
     this._foundation.destroy();
@@ -304,7 +324,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   }
 
   isBadInput(): boolean {
-    const validity = (this.elementRef.nativeElement as HTMLInputElement).validity;
+    const validity = (this._getHostElement() as HTMLInputElement).validity;
     return validity && validity.badInput;
   }
 
@@ -321,7 +341,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   }
 
   isTextarea(): boolean {
-    const nativeElement = this.elementRef.nativeElement;
+    const nativeElement = this._getHostElement();
     const nodeName = isBrowser ? nativeElement.nodeName : nativeElement.name;
 
     return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
@@ -356,7 +376,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     }
   }
 
-  _getHostElement() {
+  private _getHostElement() {
     return this.elementRef.nativeElement;
   }
 

@@ -55,6 +55,12 @@ describe('MdcTextField', () => {
       expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--fullwidth')).toBe(true);
     });
 
+    it('#should apply class outline', () => {
+      testComponent.isOutline = true;
+      fixture.detectChanges();
+      expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--outlined')).toBe(true);
+    });
+
     it('#should not be disabled', () => {
       fixture.detectChanges();
       expect(textFieldInstance.isDisabled()).toBe(false);
@@ -90,6 +96,18 @@ describe('MdcTextField', () => {
       expect(textFieldInstance.bottomLine.deactivate());
     });
 
+    it('#should set helper content', () => {
+      expect(textFieldInstance.helperText.setContent('test'));
+    });
+
+    it('#should show to screen reader', () => {
+      expect(textFieldInstance.helperText.showToScreenReader());
+    });
+
+    it('#should turn on validation errors', () => {
+      expect(textFieldInstance.helperText.setValidity(true));
+    });
+
     it('#should activate focus', () => {
       expect(textFieldInstance.activateFocus());
     });
@@ -123,13 +141,16 @@ describe('MdcTextField', () => {
       [type]="myType"
       [tabIndex]="1"
       [dense]="isDense"
+      [outline]="isOutline"
       [fullwidth]="isFullwidth"
       [required]="isRequired"
       [focused]="isFocused"
       [disabled]="isDisabled"
+      [helperText]="userHelper"
       (blur)="onBlur($event)">
     </mdc-text-field>
     <p mdc-text-field-helper-text
+      #userHelper="mdcHelperText"
       [validation]="true"
       [persistent]="false">Username is required</p>
   `,
@@ -141,8 +162,8 @@ class SimpleTextfield {
   isDense: boolean = false;
   isFocused: boolean = false;
   isFullwidth: boolean = false;
+  isOutline: boolean = false;
   isRequired: boolean = false;
 
-  onBlur(event: any) {
-  }
+  onBlur(event: any) { }
 }

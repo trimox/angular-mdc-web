@@ -1,4 +1,4 @@
-<div class="docs-api">
+<div class="docs-api" fxLayout="column" fxLayoutAlign="start">
   <table>
     <thead>
       <tr>
@@ -36,6 +36,10 @@
       <tr>
         <td>value: string</td>
         <td>The input element's value.</td>
+      </tr>
+      <tr>
+        <td>outlined: boolean</td>
+        <td>Set a border around all sides of the text field.</td>
       </tr>
       <tr>
         <td>dense: boolean</td>
@@ -106,8 +110,6 @@
       </tr>
     </tbody>
   </table>
-</div>
-<div class="docs-api">
   <table>
     <thead>
       <tr>
@@ -146,8 +148,6 @@
       </tr>
     </tbody>
   </table>
-</div>
-<div class="docs-api">
   <table>
     <thead>
       <tr>
@@ -166,39 +166,51 @@
       </tr>
     </tbody>
   </table>
-</div>
-<div fxLayout="column" class="mdc-padding" fxFlexAlign="start start">
-  <div fxLayout="column" class="mdc-padding" fxFlexAlign="start">
-    <mdc-text-field [(ngModel)]="username" #demoInput="ngModel" label="Username" [helperText]="userHelper" [required]="isRequired"
-     [disabled]="isDisabled" [dense]="isDense" (blur)="onBlur($event)" (change)="onChange($event)"></mdc-text-field>
-    <mdc-text-field-helper-text #userHelper="mdcHelperText" [validation]="true" [persistent]="false">
-      <span *ngIf="demoInput.errors?.required">Username is required</span>
-    </mdc-text-field-helper-text>
-    <mdc-form-field>
-      <mdc-checkbox [(ngModel)]="isRequired"></mdc-checkbox>
-      <label>Required</label>
-    </mdc-form-field>
-    <mdc-form-field>
-      <mdc-checkbox [(ngModel)]="isDisabled"></mdc-checkbox>
-      <label>Disable</label>
-    </mdc-form-field>
-    <mdc-form-field>
-      <mdc-checkbox [(ngModel)]="isDense"></mdc-checkbox>
-      <label>Dense</label>
-    </mdc-form-field>
-  </div>
-  <div fxLayout="column" class="mdc-padding">
-    <h3>Prefilled value</h3>
-    <div fxFlexAlign="start">
-      <mdc-text-field #prefilled [(ngModel)]="prefill" label="Username"></mdc-text-field>
-      <button mdc-button (click)="selectAll()">Select All</button>
+  <div fxLayout="column">
+    <div class="demo-list-host">
+      <h3>Text Field</h3>
+      <div fxLayout="row" fxLayoutWrap>
+        <button mdc-button (click)="user.disabled = !user.disabled">Disabled: {{user.disable ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="user.required = !user.required">Required: {{user.required ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="user.dense = !user.dense">Dense: {{user.dense ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="user.selectAll()">Select All</button>
+      </div>
+      <mdc-text-field #user label="Username" [(ngModel)]="username" #userModel="ngModel" [helperText]="userHelper"></mdc-text-field>
+      <mdc-text-field-helper-text #userHelper="mdcHelperText" [validation]="true" [persistent]="false">
+        <span *ngIf="userModel.errors?.required">Username is required</span>
+      </mdc-text-field-helper-text>
+      <a mdc-button href="https://stackblitz.com/edit/angular-mdc-list?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
     </div>
-  </div>
-  <h3>Password</h3>
-  <mdc-text-field type="password" label="Password" [required]="true"></mdc-text-field>
 
-  <h3>Dark theme</h3>
-  <div mdc-theme-dark>
-    <mdc-text-field fxFlexOffset="2" label="Dark Theme"></mdc-text-field>
+    <div class="demo-list-host">
+      <h3>Outlined Text Field</h3>
+      <div fxLayout="row" fxLayoutWrap>
+        <button mdc-button (click)="outlined.disabled = !outlined.disabled">Disabled: {{outlined.disable ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="outlined.required = !outlined.required">Required: {{outlined.required ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="outlined.dense = !outlined.dense">Dense: {{outlined.dense ? 'On' : 'Off'}}</button>
+      </div>
+      <mdc-text-field #outlined [outline]="true" label="Your name"></mdc-text-field>
+      <a mdc-button href="https://stackblitz.com/edit/angular-mdc-list?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
+    </div>
+
+    <div class="demo-list-host">
+      <h3>Prefilled Text Field</h3>
+      <mdc-text-field #prefilled [(ngModel)]="prefill" label="Username"></mdc-text-field>
+      <a mdc-button href="https://stackblitz.com/edit/angular-mdc-list?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
+    </div>
+
+    <div class="demo-list-host">
+      <h3>Password</h3>
+      <mdc-text-field type="password" label="Password" [required]="true"></mdc-text-field>
+      <a mdc-button href="https://stackblitz.com/edit/angular-mdc-list?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
+    </div>
+
+    <div class="demo-list-host">
+      <h3>Dark theme</h3>
+      <div mdc-theme-dark>
+        <mdc-text-field fxFlexOffset="2" label="Dark Theme"></mdc-text-field>
+      </div>
+      <a mdc-button href="https://stackblitz.com/edit/angular-mdc-list?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
+    </div>
   </div>
 </div>

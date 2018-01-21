@@ -46,6 +46,10 @@ export class MdcTextFieldBottomLine {
     public elementRef: ElementRef,
     private _registry: EventRegistry) { }
 
+  destroy(): void {
+    this.foundation.destroy();
+  }
+
   /** Activates the bottom line */
   activate(): void {
     this.foundation.activate();

@@ -5,14 +5,6 @@ import { Component, ViewChild } from '@angular/core';
   templateUrl: './textfield-demo.html'
 })
 export class TextFieldDemo {
-  comments: string;
-  subject: string;
-  message: string;
-  isDisabled = false;
-  isRequired = true;
-  isDense = false;
-  isTextareaRequired: boolean = false;
-
   textfieldTabs = [
     { label: 'Text Field', route: 'text-field-tab' },
     { label: 'Text Field Box', route: 'text-field-box-tab' },
@@ -24,17 +16,7 @@ export class TextFieldDemo {
   templateUrl: './text-field-tab.html',
 })
 export class TextFieldTab {
-  username: string;
   prefill: string = 'John Doe';
-  isDisabled = false;
-  isRequired = true;
-  isDense = false;
-
-  @ViewChild('prefilled') prefilled: any;
-
-  selectAll() {
-    this.prefilled.selectAll();
-  }
 }
 
 @Component({
@@ -45,6 +27,4 @@ export class TextFieldBoxTab { }
 @Component({
   templateUrl: './textarea-tab.html',
 })
-export class TextAreaTab {
-  isTextareaRequired: boolean = false;
-}
+export class TextAreaTab { }

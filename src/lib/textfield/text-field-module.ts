@@ -12,6 +12,11 @@ import { MdcTextFieldLabel } from './label';
 import { MdcTextField } from './text-field';
 import { MdcTextFieldBox } from './text-field-box';
 import { MdcTextarea } from './textarea';
+import {
+  MdcTextFieldOutline,
+  MdcTextFieldOutlinePath,
+  MdcTextFieldIdleOutline,
+} from './outline';
 
 const TEXTFIELD_COMPONENTS = [
   MdcTextarea,
@@ -19,8 +24,11 @@ const TEXTFIELD_COMPONENTS = [
   MdcTextFieldBottomLine,
   MdcTextFieldBox,
   MdcTextFieldHelperText,
+  MdcTextFieldIdleOutline,
   MdcTextFieldLabel,
   MdcTextFieldLeadingIcon,
+  MdcTextFieldOutline,
+  MdcTextFieldOutlinePath,
   MdcTextFieldTrailingIcon,
 ];
 

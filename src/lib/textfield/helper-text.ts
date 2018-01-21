@@ -52,6 +52,10 @@ export class MdcTextFieldHelperText {
     private _renderer: Renderer2,
     public elementRef: ElementRef) { }
 
+  destroy(): void {
+    this.foundation.destroy();
+  }
+
   /** Sets the content of the helper text field. */
   setContent(content: string): void {
     this.foundation.setContent(content);

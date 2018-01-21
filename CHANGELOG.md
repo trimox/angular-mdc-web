@@ -1,3 +1,61 @@
+<a name="0.7.0"></a>
+# [0.7.0](https://github.com/trimox/angular-mdc-web/compare/v0.6.6...v0.7.0) (2018-01-21)
+
+
+### Bug Fixes
+
+* **build:** Wrong sourcemap paths ([#541](https://github.com/trimox/angular-mdc-web/issues/541)) ([bd23934](https://github.com/trimox/angular-mdc-web/commit/bd23934))
+* **dialog:** Fix DOM cleanup on close ([#560](https://github.com/trimox/angular-mdc-web/issues/560)) ([d14de0e](https://github.com/trimox/angular-mdc-web/commit/d14de0e)), closes [#538](https://github.com/trimox/angular-mdc-web/issues/538)
+* **drawer:** Content is overlapping the drawer in rtl ([#502](https://github.com/trimox/angular-mdc-web/issues/502)) ([c4cf2c9](https://github.com/trimox/angular-mdc-web/commit/c4cf2c9))
+* **slider:** Workaround for MDC foundation export ([#542](https://github.com/trimox/angular-mdc-web/issues/542)) ([3cd3d4f](https://github.com/trimox/angular-mdc-web/commit/3cd3d4f))
+* **text-field:** Set custom validity with setValid(isValid) ([#563](https://github.com/trimox/angular-mdc-web/issues/563)) ([d5af654](https://github.com/trimox/angular-mdc-web/commit/d5af654)), closes [#562](https://github.com/trimox/angular-mdc-web/issues/562)
+
+
+### Features
+
+* **drawer:** Rename permanent drawer ([#530](https://github.com/trimox/angular-mdc-web/issues/530)) ([58f60df](https://github.com/trimox/angular-mdc-web/commit/58f60df)), closes [#529](https://github.com/trimox/angular-mdc-web/issues/529)
+* **drawer:** Rename persistent drawer ([#532](https://github.com/trimox/angular-mdc-web/issues/532)) ([94a8962](https://github.com/trimox/angular-mdc-web/commit/94a8962)), closes [#531](https://github.com/trimox/angular-mdc-web/issues/531)
+* **drawer:** Rename temporary drawer ([#535](https://github.com/trimox/angular-mdc-web/issues/535)) ([e4c439a](https://github.com/trimox/angular-mdc-web/commit/e4c439a)), closes [#534](https://github.com/trimox/angular-mdc-web/issues/534)
+* **drawer:** Toggle visibility of a persistent drawer ([#533](https://github.com/trimox/angular-mdc-web/issues/533)) ([378c11c](https://github.com/trimox/angular-mdc-web/commit/378c11c))
+* **icon-toggle:** Add `on` property for toggle binding ([#555](https://github.com/trimox/angular-mdc-web/issues/555)) ([182701c](https://github.com/trimox/angular-mdc-web/commit/182701c)), closes [#554](https://github.com/trimox/angular-mdc-web/issues/554)
+* **linear-progress:** Add progress and buffer properties ([#544](https://github.com/trimox/angular-mdc-web/issues/544)) ([2b783a4](https://github.com/trimox/angular-mdc-web/commit/2b783a4))
+* **linear-progress:** Set progress buffer color to $mdc-theme-secondary-light ([#543](https://github.com/trimox/angular-mdc-web/issues/543)) ([4865295](https://github.com/trimox/angular-mdc-web/commit/4865295))
+* **menu:** Add new anchor positioning APIs ([#519](https://github.com/trimox/angular-mdc-web/issues/519)) ([349ea76](https://github.com/trimox/angular-mdc-web/commit/349ea76)), closes [#511](https://github.com/trimox/angular-mdc-web/issues/511)
+* **ripple:** Add new DocumentInteractionHandler APIs ([#528](https://github.com/trimox/angular-mdc-web/issues/528)) ([40b5a6e](https://github.com/trimox/angular-mdc-web/commit/40b5a6e)), closes [#440](https://github.com/trimox/angular-mdc-web/issues/440) [#513](https://github.com/trimox/angular-mdc-web/issues/513)
+* **ripple:** Add primary + secondary Sass color mixin ([#522](https://github.com/trimox/angular-mdc-web/issues/522)) ([3f3b67b](https://github.com/trimox/angular-mdc-web/commit/3f3b67b)), closes [#518](https://github.com/trimox/angular-mdc-web/issues/518)
+* **ripple:** Add setUnbounded() method ([#546](https://github.com/trimox/angular-mdc-web/issues/546)) ([127aad0](https://github.com/trimox/angular-mdc-web/commit/127aad0)), closes [#527](https://github.com/trimox/angular-mdc-web/issues/527)
+* **ripple:** Expose MdcRippleOrchestration on mdc-ripple ([#545](https://github.com/trimox/angular-mdc-web/issues/545)) ([23866e6](https://github.com/trimox/angular-mdc-web/commit/23866e6))
+* **select:** Add autosize property to set width automatically ([#496](https://github.com/trimox/angular-mdc-web/issues/496)) ([cfaf961](https://github.com/trimox/angular-mdc-web/commit/cfaf961)), closes [#495](https://github.com/trimox/angular-mdc-web/issues/495)
+* Create export of `[@angular-mdc](https://github.com/angular-mdc)/web/theme` directives ([#501](https://github.com/trimox/angular-mdc-web/issues/501)) ([67ebf4a](https://github.com/trimox/angular-mdc-web/commit/67ebf4a))
+* **snackbar:** Add show/hide events + refactoring ([#552](https://github.com/trimox/angular-mdc-web/issues/552)) ([8de4fff](https://github.com/trimox/angular-mdc-web/commit/8de4fff)), closes [#520](https://github.com/trimox/angular-mdc-web/issues/520)
+* **text-field:** Add `helperText` property to expand functionality ([#559](https://github.com/trimox/angular-mdc-web/issues/559)) ([d23ac40](https://github.com/trimox/angular-mdc-web/commit/d23ac40))
+* **text-field:** Add blur(value) EventEmitter ([#558](https://github.com/trimox/angular-mdc-web/issues/558)) ([35a0f61](https://github.com/trimox/angular-mdc-web/commit/35a0f61)), closes [#557](https://github.com/trimox/angular-mdc-web/issues/557)
+* **text-field:** Implement MDC Outlined Text Field ([#564](https://github.com/trimox/angular-mdc-web/issues/564)) ([0624a94](https://github.com/trimox/angular-mdc-web/commit/0624a94)), closes [#521](https://github.com/trimox/angular-mdc-web/issues/521)
+* **text-field:** Support custom validity checks for valid() ([#565](https://github.com/trimox/angular-mdc-web/issues/565)) ([d0afe72](https://github.com/trimox/angular-mdc-web/commit/d0afe72))
+* **textfield:** Add [focused] property + styling ([#547](https://github.com/trimox/angular-mdc-web/issues/547)) ([3bd8209](https://github.com/trimox/angular-mdc-web/commit/3bd8209)), closes [#517](https://github.com/trimox/angular-mdc-web/issues/517)
+* **textfield:** Add RTL support via [direction] property ([#548](https://github.com/trimox/angular-mdc-web/issues/548)) ([098bd97](https://github.com/trimox/angular-mdc-web/commit/098bd97))
+* **textfield:** Implement MDCTextFieldIconFoundation ([#549](https://github.com/trimox/angular-mdc-web/issues/549)) ([8945629](https://github.com/trimox/angular-mdc-web/commit/8945629)), closes [#514](https://github.com/trimox/angular-mdc-web/issues/514)
+* **textfield:** Implement MDCTextFieldLabelFoundation ([#550](https://github.com/trimox/angular-mdc-web/issues/550)) ([ecb1119](https://github.com/trimox/angular-mdc-web/commit/ecb1119)), closes [#512](https://github.com/trimox/angular-mdc-web/issues/512)
+
+
+### BREAKING CHANGES
+
+* **menu:** * Removed `openFrom` property. Please update your code to use the `anchorCorner` property.
+* **drawer:** * Renamed selector `mdc-persistent-drawer` to `mdc-drawer-permanent`.
+* **drawer:** * Renamed selector `mdc-persistent-drawer` to `mdc-drawer-permanent`.
+* **drawer:** * Renamed selector `mdc-temporary-drawer` to `mdc-drawer-temporary`.
+* Renamed class `MdcPersistentDrawer` to `MdcDrawerPersistent`.
+* Renamed selector `mdc-persistent-drawer-spacer` to `mdc-drawer-spacer`.
+* Renamed selector `mdc-persistent-drawer-content` to `mdc-drawer-content`.
+* Renamed `mdc-persistent-drawer-header` to `mdc-drawer-header`
+* Renamed `mdc-persistent-drawer-header-content` to `mdc-drawer-header-content`
+* Renamed class `MdcPermanentDrawer` to `MdcDrawerPermanent`.
+* Renamed selector `mdc-permanent-drawer-spacer` to `mdc-drawer-spacer`.
+* Renamed selector `mdc-permanent-drawer-content` to `mdc-drawer-content`.
+* Removed `MdcMaterialIconModule`. If needed, please use `MdcThemeModule` instead.
+
+
+
 <a name="0.6.6"></a>
 ## [0.6.6](https://github.com/trimox/angular-mdc-web/compare/v0.6.5...v0.6.6) (2017-12-20)
 

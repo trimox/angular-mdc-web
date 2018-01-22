@@ -227,16 +227,18 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   }
 
   private _foundation: {
-    init: () => {},
-    destroy: () => {},
-    isDisabled: () => boolean,
-    setDisabled: (disabled: boolean) => {},
-    setValid: (isValid: boolean) => {},
-    setValue: (value: string) => {},
-    activateFocus: () => {},
-    deactivateFocus: () => {},
-    isValid: () => boolean,
-    setHelperTextContent: (content: string) => {},
+    init(): void,
+    destroy(): void,
+    isDisabled(): boolean,
+    setDisabled(disabled: boolean): void,
+    setValid(isValid: boolean): void,
+    setValue(value: string): void,
+    activateFocus(): void,
+    deactivateFocus(): void,
+    isValid(): boolean,
+    setHelperTextContent(content: string): void,
+    updateOutline(): void,
+    setRequired(isRequired): boolean
   };
 
   /** View -> model callback called when value changes */
@@ -255,8 +257,12 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     this._foundation
       = new MDCTextFieldFoundation(this._mdcAdapter, this._getFoundationMap());
     this._foundation.init();
-
     this.updateIconState();
+
+    if (this.outlined) {
+      this._foundation.updateOutline();
+    }
+
     this._changeDetectorRef.detectChanges();
   }
 

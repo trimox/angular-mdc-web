@@ -75,11 +75,13 @@ export class MdcTextFieldHelperText {
 
   /** Sets the persistency of the helper text. */
   setPersistent(isPersistent: boolean): void {
+    this.persistent = isPersistent;
     this.foundation.setPersistent(isPersistent);
   }
 
   /** True to make the helper text act as an error validation message. */
   setValidation(isValidation: boolean): void {
+    this.validation = isValidation;
     this.foundation.setValidation(isValidation);
   }
 }

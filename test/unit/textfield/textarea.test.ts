@@ -51,13 +51,15 @@ describe('MdcTextarea', () => {
     <mdc-textarea
       [(ngModel)]="comments"
       label="Comments"
+      [rows]="3"
+      [cols]="5"
       [required]="isRequired"
       [disabled]="isDisabled">
     </mdc-textarea>
   `,
 })
 class SimpleTextfield {
-  username: string = '';
+  comments: string = '';
   isDisabled: boolean = false;
   isRequired: boolean = false;
 }

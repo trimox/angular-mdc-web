@@ -68,7 +68,7 @@ describe('MdcTextField', () => {
 
     it('#should not be empty', () => {
       fixture.detectChanges();
-      expect(textFieldInstance.empty).toBe(true);
+      expect(textFieldInstance.empty).toBe(false);
     });
 
     it('#should remove invalid styling', () => {
@@ -116,6 +116,29 @@ describe('MdcTextField', () => {
       expect(textFieldInstance.deactivateFocus());
     });
 
+    it('#should set validation to true', () => {
+      textFieldInstance.helperText.setValidation(true);
+      fixture.detectChanges();
+      expect(textFieldInstance.helperText.validation).toBe(true);
+    });
+
+    it('#should set persistent to true', () => {
+      textFieldInstance.helperText.setPersistent(true);
+      fixture.detectChanges();
+      expect(textFieldInstance.helperText.persistent).toBe(true);
+    });
+
+    it('#should set style shake to true', () => {
+      expect(textFieldInstance.inputLabel.styleShake(true, true));
+      fixture.detectChanges();
+    });
+
+    it('#should have value of Test', () => {
+      testComponent.username = 'Test';
+      fixture.detectChanges();
+      expect(textFieldInstance.getValue()).toBe('Test');
+    });
+
     it('#should focus on underlying input element when focus() is called', () => {
       expect(document.activeElement).not.toBe(inputElement);
       textFieldInstance.focus();
@@ -136,7 +159,7 @@ describe('MdcTextField', () => {
 @Component({
   template: `
     <mdc-text-field
-      [(ngModel)]="username"
+      value='Test'
       label="Username"
       [type]="myType"
       [tabIndex]="1"
@@ -149,10 +172,10 @@ describe('MdcTextField', () => {
       [helperText]="userHelper"
       (blur)="onBlur($event)">
     </mdc-text-field>
-    <p mdc-text-field-helper-text
+    <mdc-text-field-helper-text
       #userHelper="mdcHelperText"
       [validation]="true"
-      [persistent]="false">Username is required</p>
+      [persistent]="false">Username is required</mdc-text-field-helper-text>
   `,
 })
 class SimpleTextfield {

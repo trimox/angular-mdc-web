@@ -48,6 +48,11 @@ describe('MdcTextFieldBox', () => {
       fixture.detectChanges();
       expect(inputElement.id).toBe('simple-check');
     });
+
+    it('#should set icon disabled', () => {
+      expect(textFieldInstance.leadingIcon.setDisabled(true));
+      fixture.detectChanges();
+    });
   });
 });
 

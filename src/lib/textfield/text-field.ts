@@ -122,6 +122,11 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   get required(): boolean { return this._required; }
   set required(value: boolean) {
     this._required = toBoolean(value);
+    if (!this.isTextarea()) {
+      if (value !== this._required) {
+        this.setRequired(this._required);
+      }
+    }
   }
   @Input()
   get focused(): boolean { return this._focused; }
@@ -234,7 +239,8 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     isValid(): boolean,
     setHelperTextContent(content: string): void,
     updateOutline(): void,
-    setRequired(isRequired): boolean
+    setRequired(isRequired): boolean,
+    isRequired(): boolean,
     getValue(): string,
   };
 
@@ -251,10 +257,11 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     private _registry: EventRegistry) { }
 
   ngAfterViewInit(): void {
+    this.updateIconState();
+
     this._foundation
       = new MDCTextFieldFoundation(this._mdcAdapter, this._getFoundationMap());
     this._foundation.init();
-    this.updateIconState();
 
     if (this.outlined) {
       this.outlined.idleOutline = this.idleOutline;
@@ -349,6 +356,16 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     const nodeName = isBrowser ? nativeElement.nodeName : nativeElement.name;
 
     return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
+  }
+
+  /** Sets the text-field required or not. */
+  setRequired(isRequired): void {
+    this._foundation.setRequired(isRequired);
+  }
+
+  /** True if the Text Field is required. */
+  isRequired(): boolean {
+    return this._foundation.isRequired();
   }
 
   selectAll(): void {

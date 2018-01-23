@@ -71,6 +71,7 @@ export const MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR: any = {
       <mdc-text-field-outline-path></mdc-text-field-outline-path>
     </mdc-text-field-outline>
     <mdc-text-field-idle-outline *ngIf="outline"></mdc-text-field-idle-outline>
+    <ng-content></ng-content>
   `,
   providers: [
     MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR,
@@ -206,12 +207,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     },
     isFocused: () => this._focused,
     isRtl: () => this.direction === 'rtl',
-    getNativeInput: () => this.inputText.nativeElement,
-    getIdleOutlineStyleValue: (propertyName: string) => {
-      if (this.idleOutline) {
-        return window.getComputedStyle(this.idleOutline.elementRef.nativeElement).getPropertyValue(propertyName);
-      }
-    },
+    getNativeInput: () => this.inputText.nativeElement
   };
 
   /** Returns a map of all subcomponents to subfoundations. */
@@ -260,6 +256,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     this.updateIconState();
 
     if (this.outlined) {
+      this.outlined.idleOutline = this.idleOutline;
       this._foundation.updateOutline();
     }
 

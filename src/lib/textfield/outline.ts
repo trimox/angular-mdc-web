@@ -43,8 +43,15 @@ export class MdcTextFieldIdleOutline {
   ],
 })
 export class MdcTextFieldOutline {
+  private _idleOutline: MdcTextFieldIdleOutline;
+
   @HostBinding('class.mdc-text-field__outline') isHostClass = true;
   @ContentChild(MdcTextFieldOutlinePath) outlinePath: MdcTextFieldOutlinePath;
+
+  get idleOutline(): MdcTextFieldIdleOutline { return this._idleOutline; }
+  set idleOutline(idleOutline: MdcTextFieldIdleOutline) {
+    this._idleOutline = idleOutline;
+  }
 
   mdcAdapter: MDCTextFieldOutlineAdapter = {
     getWidth: () => this.elementRef.nativeElement.offsetWidth,
@@ -52,12 +59,11 @@ export class MdcTextFieldOutline {
     setOutlinePathAttr: (value: string) => {
       this._renderer.setAttribute(this.outlinePath.svgpath.nativeElement, 'd', value);
     },
-    // TO-DO: Re-add this for MDC v0.29.0
-    // getIdleOutlineStyleValue: (propertyName: string) => {
-    // if (this.idleOutline) {
-    //   return window.getComputedStyle(this.idleOutline.elementRef.nativeElement).getPropertyValue(propertyName);
-    // }
-    // },
+    getIdleOutlineStyleValue: (propertyName: string) => {
+      if (this.idleOutline) {
+        return window.getComputedStyle(this.idleOutline.elementRef.nativeElement).getPropertyValue(propertyName);
+      }
+    },
   };
 
   foundation: {

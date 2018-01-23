@@ -235,6 +235,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     setHelperTextContent(content: string): void,
     updateOutline(): void,
     setRequired(isRequired): boolean
+    getValue(): string,
   };
 
   /** View -> model callback called when value changes */
@@ -352,6 +353,11 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
 
   selectAll(): void {
     this.inputText.nativeElement.select();
+  }
+
+  /** The value of the input Element. */
+  getValue(): string {
+    return this._foundation.getValue();
   }
 
   /** Deactives the Text Field's focus state. */

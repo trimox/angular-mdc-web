@@ -14,13 +14,11 @@
 // limitations under the License.
 //
 
+@import "../mixins";
 @import "../variables";
 @import "../../rtl/mixins";
 @import "../../theme/variables";
 @import "../../theme/mixins";
-
-@include mdc-text-field-invalid-label-shake_keyframes_(standard, 100%);
-@include mdc-text-field-invalid-label-shake_keyframes_(box, 50%);
 
 // postcss-bem-linter: define text-field-label
 .mdc-text-field__label {
@@ -29,7 +27,6 @@
   left: 0;
   transform-origin: left top;
   transition: mdc-text-field-transition(transform), mdc-text-field-transition(color);
-  color: $mdc-text-field-light-label;
   cursor: text;
 
   // stylelint-disable plugin/selector-bem-pattern
@@ -40,12 +37,8 @@
   }
   // stylelint-enable plugin/selector-bem-pattern
 
-  @include mdc-theme-dark(".mdc-text-field") {
-    @include mdc-theme-prop(color, $mdc-text-field-dark-label);
-  }
-
   &--float-above {
-    transform: translateY(-100%) scale(.75, .75);
+    transform: translateY(-100%) scale(.75);
     cursor: auto;
   }
 }

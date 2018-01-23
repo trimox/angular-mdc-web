@@ -45,7 +45,9 @@ export class MdcTextFieldHelperText {
     destroy(): void,
     setContent(content: string): void,
     showToScreenReader(): boolean,
-    setValidity(inputIsValid: boolean): void
+    setValidity(inputIsValid: boolean): void,
+    setPersistent(isPersistent: boolean): void,
+    setValidation(isValidation: boolean)
   } = new MDCTextFieldHelperTextFoundation(this._mdcAdapter);
 
   constructor(
@@ -69,5 +71,15 @@ export class MdcTextFieldHelperText {
   /** Makes the helper text visible to the screen reader. */
   showToScreenReader(): void {
     this.foundation.showToScreenReader();
+  }
+
+  /** Sets the persistency of the helper text. */
+  setPersistent(isPersistent: boolean): void {
+    this.foundation.setPersistent(isPersistent);
+  }
+
+  /** True to make the helper text act as an error validation message. */
+  setValidation(isValidation: boolean): void {
+    this.foundation.setValidation(isValidation);
   }
 }

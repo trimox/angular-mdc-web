@@ -1,3 +1,21 @@
+<a name="0.7.1"></a>
+## [0.7.1](https://github.com/trimox/angular-mdc-web/compare/v0.7.0...v0.7.1) (2018-01-24)
+
+
+### Bug Fixes
+
+* **text-field:** Fix outlined border missing if prefilled ([#569](https://github.com/trimox/angular-mdc-web/issues/569)) ([1476c9d](https://github.com/trimox/angular-mdc-web/commit/1476c9d))
+
+
+### Features
+
+* Update to material-components-web v0.29.0 ([#570](https://github.com/trimox/angular-mdc-web/issues/570)) ([cb8a274](https://github.com/trimox/angular-mdc-web/commit/cb8a274))
+* **text-field:** Add getValue() method ([#573](https://github.com/trimox/angular-mdc-web/issues/573)) ([7f265cb](https://github.com/trimox/angular-mdc-web/commit/7f265cb))
+* **text-field:** Add setPersistent and setValidation methods ([#572](https://github.com/trimox/angular-mdc-web/issues/572)) ([80e9d7b](https://github.com/trimox/angular-mdc-web/commit/80e9d7b))
+* **text-field:** Add setRequired() and isRequired() methods ([#574](https://github.com/trimox/angular-mdc-web/issues/574)) ([76b32f0](https://github.com/trimox/angular-mdc-web/commit/76b32f0))
+
+
+
 <a name="0.7.0"></a>
 # [0.7.0](https://github.com/trimox/angular-mdc-web/compare/v0.6.6...v0.7.0) (2018-01-21)
 

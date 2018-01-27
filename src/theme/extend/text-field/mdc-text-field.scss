@@ -1,0 +1,8 @@
+/* TEMPORARY FIX FOR MDC BUG */
+.mdc-text-field--with-leading-icon {
+  &.mdc-text-field--outlined {
+    .mdc-text-field__label--float-above {
+      transform: translateX(-32px) translateY(-130%) scale(.75);
+    }
+  }
+}

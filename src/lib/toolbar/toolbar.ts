@@ -89,12 +89,19 @@ export class MdcToolbarMenuIcon {
   encapsulation: ViewEncapsulation.None,
 })
 export class MdcToolbar implements AfterViewInit, OnDestroy {
+  private _fixedAdjustElement: ElementRef;
+
   @Input() flexible: boolean = false;
   @Input() flexibleDefaultBehavior: boolean = true;
   @Input() fixed: boolean = false;
   @Input() waterfall: boolean = false;
   @Input() fixedLastrow: boolean = false;
   @Input() adjustBodyMargin: boolean = true;
+  @Input()
+  get fixedAdjustElement(): ElementRef { return this._fixedAdjustElement; }
+  set fixedAdjustElement(element: ElementRef) {
+    this._fixedAdjustElement = element;
+  }
   @Output() change: EventEmitter<number> = new EventEmitter<number>();
   @ContentChild(MdcToolbarRow) firstRow: MdcToolbarRow;
   @ContentChild(MdcToolbarTitle) title: MdcToolbarTitle;
@@ -174,7 +181,8 @@ export class MdcToolbar implements AfterViewInit, OnDestroy {
     setStyleForFixedAdjustElement: (property: string, value: string) => {
       if (!isBrowser()) { return; }
       if (this.fixed && this.adjustBodyMargin) {
-        this._renderer.setStyle(document.body, property, value);
+        this._renderer.setStyle(this._fixedAdjustElement ?
+          this._fixedAdjustElement.nativeElement : document.body, property, value);
       }
     }
   };

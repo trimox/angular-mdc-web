@@ -79,16 +79,15 @@ describe('MdcToolbar', () => {
   });
 });
 
-/** Simple component for testing. */
 @Component({
-  template:
-  `
+  template: `
     <mdc-toolbar
       [flexible]="isFlexible"
       [fixed]="isFixed"
       [waterfall]="isWaterfall"
       [fixedLastrow]="isFixedLastRow"
       [adjustBodyMargin]="isAdjustBodyMargin"
+      [fixedAdjustElement]="testbody"
       (change)="handleToolbarChange($event);">
       <mdc-toolbar-row>
         <mdc-toolbar-section [alignStart]="true">
@@ -104,6 +103,7 @@ describe('MdcToolbar', () => {
         </mdc-toolbar-section>
       </mdc-toolbar-row>
     </mdc-toolbar>
+    <div #testbody></div>
     <div mdc-toolbar-fixed-adjust></div>
   `,
 })

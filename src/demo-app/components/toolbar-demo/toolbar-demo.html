@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
+<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding" #toolbardemo>
     <h1 mdc-typography-display1>Toolbars</h1>
     <div mdc-typography-subheading2>MDC Toolbar acts as a container for multiple rows containing items such as application title, navigation menu, and tabs, among other things. Toolbars scroll with content by default, but supports fixed behavior as well.</div>
     <div class="info-banner" mdc-typography-subheading1>
@@ -46,6 +46,10 @@
                 <tr>
                   <td>adjustBodyMargin: boolean</td>
                   <td>If true and using a fixed toolbar, a margin-top is set to prevent toolbar overlaying content. (Default is true)</td>
+                </tr>
+                <tr>
+                  <td>fixedAdjustElement: string</td>
+                  <td>Reference to the toolbar's body element. Margins will be adjusted accordingly by adjustBodyMargin.</td>
                 </tr>
             </tbody>
             <thead>
@@ -126,11 +130,11 @@ So when it is minimized, ratio equals to 0 and when it is maximized, ratio equal
     </div>
     <div fxLayout="column">
         <div fxLayout="row" class="mdc-padding">
-<!--             <mdc-form-field>
+            <mdc-form-field>
                 <mdc-checkbox [(ngModel)]="isFixed"></mdc-checkbox>
                 <label>Fixed toolbar</label>
             </mdc-form-field>
- -->            <mdc-form-field>
+            <mdc-form-field>
                 <mdc-checkbox [(ngModel)]="isFlexible"></mdc-checkbox>
                 <label>Flexible toolbar</label>
             </mdc-form-field>
@@ -145,7 +149,8 @@ So when it is minimized, ratio equals to 0 and when it is maximized, ratio equal
         </div>
 
 <div class="demo-drawer-host" fxLayout="column">
-        <mdc-toolbar [flexible]="isFlexible" [fixed]="false" [waterfall]="isWaterfall" [fixedLastrow]="isFixedLastRow" (change)="handleToolbarChange($event)"
+        <mdc-toolbar [fixedAdjustElement]="toolbardemo" [flexible]="isFlexible" [fixed]="isFixed"
+         [waterfall]="isWaterfall" [fixedLastrow]="isFixedLastRow" (change)="handleToolbarChange($event)"
           style="flex-shrink: 0" mdc-elevation=3>
             <mdc-toolbar-row>
                 <mdc-toolbar-section [alignStart]="true">

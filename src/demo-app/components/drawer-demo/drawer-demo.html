@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
+<div>
   <h1 mdc-typography-display1>Drawers</h1>
   <div mdc-typography-subheading2>The MDC Drawer component is a spec-aligned drawer component adhering to the Material Design navigation drawer pattern. It implements permanent, persistent, and temporary drawers.</div>
   <div class="info-banner" mdc-typography-subheading1>
@@ -13,7 +13,7 @@
       </thead>
       <tbody>
         <tr>
-          <td>mdc-drawer-permanent</td>
+          <td>mdc-drawer</td>
         </tr>
       </tbody>
       <thead>
@@ -24,12 +24,17 @@
       </thead>
       <tbody>
         <tr>
+          <td>drawer: string</td>
+          <td>Set the drawer implementation. (Default is 'permanent')
+            <pre>Valid values: 'permanent' | 'persistent' | 'temporary'</pre>
+          </td>
+        </tr>
+        <tr>
           <td>fixed: boolean</td>
           <td>Makes permanent drawer fixed on top and have persistent elevation.</td>
         </tr>
       </tbody>
     </table>
-
     <table>
       <thead>
         <tr>
@@ -142,7 +147,6 @@
         </tr>
       </tbody>
     </table>
-
     <table>
       <thead>
         <tr>
@@ -170,15 +174,14 @@
       </tbody>
     </table>
   </div>
-
-<span mdc-typography-headline>Permanent Drawer - Above Toolbar</span>
-<div class="mdc-padding">
- <a mdc-button href="https://github.com/trimox/angular-mdc-web/tree/master/src/demo-app/components/drawer-demo" target="_blank" rel="noopener noreferrer">View Example Source</a>
-</div>
-<div class="demo-host">
-  <mdc-drawer-permanent>
-    <mdc-drawer-spacer></mdc-drawer-spacer>
-    <mdc-drawer-content>
+  <span mdc-typography-headline>Permanent Drawer - Above Toolbar</span>
+  <div class="mdc-padding">
+    <a mdc-button href="https://github.com/trimox/angular-mdc-web/tree/master/src/demo-app/components/drawer-demo" target="_blank" rel="noopener noreferrer">View Example Source</a>
+  </div>
+  <div class="demo-host">
+    <mdc-drawer drawer='permanent'>
+      <mdc-drawer-spacer></mdc-drawer-spacer>
+      <mdc-drawer-content>
         <mdc-list-group>
           <mdc-list>
             <mdc-list-item>
@@ -207,37 +210,11 @@
             </mdc-list-item>
           </mdc-list>
         </mdc-list-group>
-    </mdc-drawer-content>
-  </mdc-drawer-permanent>
-  <mdc-content>
-    <mdc-toolbar>
+      </mdc-drawer-content>
+    </mdc-drawer>
+    <mdc-content>
+      <mdc-toolbar>
         <mdc-toolbar-row>
-            <mdc-toolbar-section [alignStart]="true">
-              <span mdc-toolbar-title>App Layout</span>
-            </mdc-toolbar-section>
-            <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
-              <a href="#/drawer-demo" mdc-toolbar-icon material-icon>file_download</a>
-              <a href="#/drawer-demo" mdc-toolbar-icon material-icon>print</a>
-              <a href="#/drawer-demo" mdc-toolbar-icon material-icon>more_vert</a>
-            </mdc-toolbar-section>
-        </mdc-toolbar-row>
-    </mdc-toolbar>
-    <div class="mdc-padding">
-      Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo
-      et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc
-      veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an
-      legere iriure blandit. Veri iisque accusamus an pri.
-    </div>
-  </mdc-content>
-</div>
-
-<span style="margin-top: 20px;" mdc-typography-headline>Permanent Drawer - Below Toolbar</span>
-<div class="mdc-padding">
- <a mdc-button href="https://github.com/trimox/angular-mdc-web/tree/master/src/demo-app/components/drawer-demo" target="_blank" rel="noopener noreferrer">View Example Source</a>
-</div>
-<div class="demo-host" fxLayout="column">
-  <mdc-toolbar style="flex-shrink: 0" mdc-elevation=3>
-      <mdc-toolbar-row>
           <mdc-toolbar-section [alignStart]="true">
             <span mdc-toolbar-title>App Layout</span>
           </mdc-toolbar-section>
@@ -246,11 +223,33 @@
             <a href="#/drawer-demo" mdc-toolbar-icon material-icon>print</a>
             <a href="#/drawer-demo" mdc-toolbar-icon material-icon>more_vert</a>
           </mdc-toolbar-section>
+        </mdc-toolbar-row>
+      </mdc-toolbar>
+      <div class="mdc-padding">
+        Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an legere iriure blandit. Veri iisque accusamus an pri.
+      </div>
+    </mdc-content>
+  </div>
+  <span style="margin-top: 20px;" mdc-typography-headline>Permanent Drawer - Below Toolbar</span>
+  <div class="mdc-padding">
+    <a mdc-button href="https://github.com/trimox/angular-mdc-web/tree/master/src/demo-app/components/drawer-demo" target="_blank" rel="noopener noreferrer">View Example Source</a>
+  </div>
+  <div class="demo-host" fxLayout="column">
+    <mdc-toolbar style="flex-shrink: 0" mdc-elevation=3>
+      <mdc-toolbar-row>
+        <mdc-toolbar-section [alignStart]="true">
+          <span mdc-toolbar-title>App Layout</span>
+        </mdc-toolbar-section>
+        <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
+          <a href="#/drawer-demo" mdc-toolbar-icon material-icon>file_download</a>
+          <a href="#/drawer-demo" mdc-toolbar-icon material-icon>print</a>
+          <a href="#/drawer-demo" mdc-toolbar-icon material-icon>more_vert</a>
+        </mdc-toolbar-section>
       </mdc-toolbar-row>
-  </mdc-toolbar>
-  <mdc-content fxLayout="row">
-    <mdc-drawer-permanent mdc-elevation=1>
-      <mdc-drawer-content>
+    </mdc-toolbar>
+    <mdc-content fxLayout="row">
+      <mdc-drawer drawer='permanent' mdc-elevation=1>
+        <mdc-drawer-content>
           <mdc-list-group>
             <mdc-list>
               <mdc-list-item>
@@ -279,29 +278,81 @@
               </mdc-list-item>
             </mdc-list>
           </mdc-list-group>
+        </mdc-drawer-content>
+      </mdc-drawer>
+      <div>
+        Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an legere iriure blandit. Veri iisque accusamus an pri.
+      </div>
+    </mdc-content>
+  </div>
+  <span mdc-typography-headline style="margin-top: 20px;">Temporary Drawer</span>
+  <div class="mdc-padding">
+    <a mdc-button href="https://github.com/trimox/angular-mdc-web/tree/master/src/demo-app/components/drawer-demo" target="_blank" rel="noopener noreferrer">View Example Source</a>
+  </div>
+  <div class="demo-host">
+    <mdc-drawer #temporary drawer='temporary' [fixedAdjustElement]="tempcontent">
+      <mdc-drawer-header class="mdc-theme--primary-bg mdc-theme--text-primary-on-primary">
+        <mdc-drawer-header-content>
+          Header goes here
+        </mdc-drawer-header-content>
+      </mdc-drawer-header>
+      <mdc-drawer-content>
+        <mdc-list-group>
+          <mdc-list>
+            <mdc-list-item>
+              <mdc-icon mdc-list-item-graphic>home</mdc-icon>Home
+            </mdc-list-item>
+            <mdc-list-item>
+              <mdc-icon mdc-list-item-graphic>star</mdc-icon>Star
+            </mdc-list-item>
+            <mdc-list-item>
+              <mdc-icon mdc-list-item-graphic>send</mdc-icon>Sent Mail
+            </mdc-list-item>
+            <mdc-list-item>
+              <mdc-icon mdc-list-item-graphic>drafts</mdc-icon>Drafts
+            </mdc-list-item>
+          </mdc-list>
+          <mdc-list-divider></mdc-list-divider>
+          <mdc-list>
+            <mdc-list-item>
+              <mdc-icon mdc-list-item-graphic>email</mdc-icon>All Mail
+            </mdc-list-item>
+            <mdc-list-item>
+              <mdc-icon mdc-list-item-graphic>delete</mdc-icon>Trash
+            </mdc-list-item>
+            <mdc-list-item>
+              <mdc-icon mdc-list-item-graphic>report</mdc-icon>Spam
+            </mdc-list-item>
+          </mdc-list>
+        </mdc-list-group>
       </mdc-drawer-content>
-    </mdc-drawer-permanent>
-    <div>
-      Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo
-      et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc
-      veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an
-      legere iriure blandit. Veri iisque accusamus an pri.
-    </div>
-  </mdc-content>
-</div>
-
-<span mdc-typography-headline style="margin-top: 20px;">Temporary Drawer</span>
-<div class="mdc-padding">
- <a mdc-button href="https://github.com/trimox/angular-mdc-web/tree/master/src/demo-app/components/drawer-demo" target="_blank" rel="noopener noreferrer">View Example Source</a>
-</div>
-<div class="demo-host">
-<mdc-drawer-temporary #temporary [absolute]="true">
-  <mdc-drawer-header class="mdc-theme--primary-bg mdc-theme--text-primary-on-primary">
-    <mdc-drawer-header-content>
-      Header goes here
-    </mdc-drawer-header-content>
-  </mdc-drawer-header>
-  <mdc-drawer-content>
+    </mdc-drawer>
+    <mdc-content #tempcontent>
+      <mdc-toolbar>
+        <mdc-toolbar-row>
+          <mdc-toolbar-section [alignStart]="true">
+            <button mdc-toolbar-menu-icon material-icon (click)="temporary.open()">menu</button>
+            <span mdc-toolbar-title>Mobile Layout</span>
+          </mdc-toolbar-section>
+          <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
+            <a href="#/drawer-demo" mdc-toolbar-icon material-icon>file_download</a>
+            <a href="#/drawer-demo" mdc-toolbar-icon material-icon>print</a>
+            <a href="#/drawer-demo" mdc-toolbar-icon material-icon>more_vert</a>
+          </mdc-toolbar-section>
+        </mdc-toolbar-row>
+      </mdc-toolbar>
+      <div>
+        Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an legere iriure blandit. Veri iisque accusamus an pri.
+      </div>
+    </mdc-content>
+  </div>
+  <span mdc-typography-headline style="margin-top: 20px;">Persistent Drawer</span>
+  <div class="mdc-padding">
+    <a mdc-button href="https://github.com/trimox/angular-mdc-web/tree/master/src/demo-app/components/drawer-demo" target="_blank" rel="noopener noreferrer">View Example Source</a>
+  </div>
+  <div class="demo-host">
+    <mdc-drawer #persistent drawer='persistent'>
+      <mdc-drawer-spacer></mdc-drawer-spacer>
       <mdc-list-group>
         <mdc-list>
           <mdc-list-item>
@@ -330,88 +381,24 @@
           </mdc-list-item>
         </mdc-list>
       </mdc-list-group>
-  </mdc-drawer-content>
-</mdc-drawer-temporary>
-  <mdc-content>
-    <mdc-toolbar>
+    </mdc-drawer>
+    <mdc-content>
+      <mdc-toolbar>
         <mdc-toolbar-row>
-            <mdc-toolbar-section [alignStart]="true">
-              <button mdc-toolbar-menu-icon material-icon (click)="temporary.open()">menu</button>
-              <span mdc-toolbar-title>Mobile Layout</span>
-            </mdc-toolbar-section>
-            <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
-              <a href="#/drawer-demo" mdc-toolbar-icon material-icon>file_download</a>
-              <a href="#/drawer-demo" mdc-toolbar-icon material-icon>print</a>
-              <a href="#/drawer-demo" mdc-toolbar-icon material-icon>more_vert</a>
-            </mdc-toolbar-section>
+          <mdc-toolbar-section [alignStart]="true">
+            <button mdc-toolbar-menu-icon material-icon (click)="persistent.open();">menu</button>
+            <span mdc-toolbar-title>Simple Layout</span>
+          </mdc-toolbar-section>
+          <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
+            <a href="#/drawer-demo" mdc-toolbar-icon material-icon>file_download</a>
+            <a href="#/drawer-demo" mdc-toolbar-icon material-icon>print</a>
+            <a href="#/drawer-demo" mdc-toolbar-icon material-icon>more_vert</a>
+          </mdc-toolbar-section>
         </mdc-toolbar-row>
-    </mdc-toolbar>
-    <div>
-      Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo
-      et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc
-      veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an
-      legere iriure blandit. Veri iisque accusamus an pri.
-    </div>
-  </mdc-content>
-</div>
-
-<span mdc-typography-headline style="margin-top: 20px;">Persistent Drawer</span>
-<div class="mdc-padding">
- <a mdc-button href="https://github.com/trimox/angular-mdc-web/tree/master/src/demo-app/components/drawer-demo" target="_blank" rel="noopener noreferrer">View Example Source</a>
-</div>
-<div class="demo-host">
-  <mdc-drawer-persistent #persistent>
-    <mdc-drawer-spacer></mdc-drawer-spacer>
-      <mdc-list-group>
-        <mdc-list>
-          <mdc-list-item>
-            <mdc-icon mdc-list-item-graphic>home</mdc-icon>Home
-          </mdc-list-item>
-          <mdc-list-item>
-            <mdc-icon mdc-list-item-graphic>star</mdc-icon>Star
-          </mdc-list-item>
-          <mdc-list-item>
-            <mdc-icon mdc-list-item-graphic>send</mdc-icon>Sent Mail
-          </mdc-list-item>
-          <mdc-list-item>
-            <mdc-icon mdc-list-item-graphic>drafts</mdc-icon>Drafts
-          </mdc-list-item>
-        </mdc-list>
-        <mdc-list-divider></mdc-list-divider>
-        <mdc-list>
-          <mdc-list-item>
-            <mdc-icon mdc-list-item-graphic>email</mdc-icon>All Mail
-          </mdc-list-item>
-          <mdc-list-item>
-            <mdc-icon mdc-list-item-graphic>delete</mdc-icon>Trash
-          </mdc-list-item>
-          <mdc-list-item>
-            <mdc-icon mdc-list-item-graphic>report</mdc-icon>Spam
-          </mdc-list-item>
-        </mdc-list>
-    </mdc-list-group>
-  </mdc-drawer-persistent>
-  <mdc-content>
-    <mdc-toolbar>
-        <mdc-toolbar-row>
-            <mdc-toolbar-section [alignStart]="true">
-              <button mdc-toolbar-menu-icon material-icon (click)="persistent.open();">menu</button>
-              <span mdc-toolbar-title>Simple Layout</span>
-            </mdc-toolbar-section>
-            <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
-              <a href="#/drawer-demo" mdc-toolbar-icon material-icon>file_download</a>
-              <a href="#/drawer-demo" mdc-toolbar-icon material-icon>print</a>
-              <a href="#/drawer-demo" mdc-toolbar-icon material-icon>more_vert</a>
-            </mdc-toolbar-section>
-        </mdc-toolbar-row>
-    </mdc-toolbar>
-    <div>
-      Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo
-      et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc
-      veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an
-      legere iriure blandit. Veri iisque accusamus an pri.
-    </div>
-  </mdc-content>
-</div>
-
+      </mdc-toolbar>
+      <div>
+        Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an legere iriure blandit. Veri iisque accusamus an pri.
+      </div>
+    </mdc-content>
+  </div>
 </div>

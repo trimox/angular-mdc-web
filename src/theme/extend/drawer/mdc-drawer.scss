@@ -1,9 +1,7 @@
-@import "./mdc-drawer-permanent";
+.ng-mdc-drawer--fixed {
+  @include mdc-elevation(1);
 
-.mdc-drawer {
-  @include mdc-drawer-base_;
-}
-
-.ng-mdc-drawer--absolute {
-  position: absolute;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
 }

@@ -1,4 +1,6 @@
 export interface MDCDrawerAdapter {
+  addBodyClass: (className: string) => void;
+  removeBodyClass: (className: string) => void;
   addClass: (className: string) => void;
   removeClass: (className: string) => void;
   hasClass: (className: string) => boolean;
@@ -18,18 +20,9 @@ export interface MDCDrawerAdapter {
   makeElementUntabbable: (el: Element) => void;
   notifyOpen: () => void;
   notifyClose: () => void;
+  isDrawer: (el: Element) => boolean;
   isRtl: () => boolean;
   getDrawerWidth: () => number;
-}
-
-export interface MDCDrawerPersistentAdapter extends MDCDrawerAdapter {
-  isDrawer: (el: Element) => boolean;
-}
-
-export interface MDCDrawerTemporaryAdapter extends MDCDrawerAdapter {
-  addBodyClass: (className: string) => void;
-  removeBodyClass: (className: string) => void;
-  isDrawer: (el: Element) => boolean;
   updateCssVariable: (value: string) => void;
   eventTargetHasClass: (target: HTMLElement, className: string) => boolean;
 }

@@ -6,10 +6,10 @@ import {
   MdcDrawerModule,
   MdcListModule,
   MdcIconModule,
-  MdcDrawerTemporary,
+  MdcDrawer,
 } from '@angular-mdc/web';
 
-describe('MdcDrawerTemporary', () => {
+describe('MdcDrawer', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
@@ -26,26 +26,42 @@ describe('MdcDrawerTemporary', () => {
 
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;
-    let testInstance: MdcDrawerTemporary;
+    let testInstance: MdcDrawer;
     let testComponent: SimpleTest;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SimpleTest);
       fixture.detectChanges();
 
-      testDebugElement = fixture.debugElement.query(By.directive(MdcDrawerTemporary));
+      testDebugElement = fixture.debugElement.query(By.directive(MdcDrawer));
       testInstance = testDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
     });
 
-    it('#should have mdc-drawer--temporary by default', () => {
-      expect(testDebugElement.nativeElement.classList).toContain('mdc-drawer--temporary');
+    it('#should have mdc-drawer--permanent', () => {
+      expect(testDebugElement.nativeElement.classList).toContain('mdc-drawer--permanent');
     });
 
     it('#should be closed', () => {
+      testComponent.drawer = 'temporary';
+      fixture.detectChanges();
+
       testInstance.close();
       fixture.detectChanges();
       expect(testInstance.isOpen()).toBe(false);
+      expect(testInstance.isDrawerPermanent()).toBe(false);
+      expect(testInstance.isDrawerPersistent()).toBe(false);
+    });
+
+    it('#should be open', () => {
+      testComponent.drawer = 'persistent';
+      fixture.detectChanges();
+
+      testInstance.open();
+      fixture.detectChanges();
+      expect(testInstance.isOpen()).toBe(true);
+      expect(testInstance.isDrawerPermanent()).toBe(false);
+      expect(testInstance.isDrawerTemporary()).toBe(false);
     });
 
     it('#should be open', () => {
@@ -54,31 +70,57 @@ describe('MdcDrawerTemporary', () => {
       expect(testInstance.isOpen()).toBe(true);
     });
 
-    it('#should be absolute postioned', () => {
-      testComponent.isAbsolute = true;
+    it('#should be closed after opened twice in a row', () => {
+      testComponent.drawer = 'persistent';
       fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList.contains('ng-mdc-drawer--absolute')).toBe(true);
+
+      testInstance.open();
+      testInstance.open();
+      fixture.detectChanges();
+      expect(testInstance.isOpen()).toBe(false);
     });
 
     it('#should provide drawer width', () => {
       expect(testInstance.getDrawerWidth()).toBeGreaterThanOrEqual(0);
     });
 
-    it('#should be rtl direction', () => {
+    it('#should not be rtl direction', () => {
       expect(testInstance.isRtl()).toBe(false);
     });
 
+    it('#should be rtl direction', () => {
+      testComponent.direction = 'rtl';
+      fixture.detectChanges();
+      expect(testInstance.isRtl()).toBe(true);
+    });
+
     it('#should be closed after click', () => {
+      testComponent.drawer = 'temporary';
+      fixture.detectChanges();
+
       testDebugElement.nativeElement.click();
       fixture.detectChanges();
       expect(testInstance.isOpen()).toBe(false);
+    });
+
+    it('#should not have fixed class modifier', () => {
+      testComponent.isFixed = false;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList).not.toContain('ng-mdc-drawer--fixed');
+    });
+
+    it('#should have fixed class modifier', () => {
+      testComponent.isFixed = true;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList).toContain('ng-mdc-drawer--fixed');
     });
   });
 });
 
 @Component({
   template: `
-  <mdc-drawer-temporary [absolute]="isAbsolute" [closeOnClick]="isCloseOnClick">
+  <mdc-drawer [drawer]="drawer" [fixed]="isFixed" [closeOnClick]="isCloseOnClick"
+   [fixedAdjustElement]="testcontent" [direction]="direction">
     <mdc-drawer-spacer>Angular MDC</mdc-drawer-spacer>
     <mdc-drawer-header>
       <mdc-drawer-header-content>
@@ -115,10 +157,13 @@ describe('MdcDrawerTemporary', () => {
         </mdc-list>
       </mdc-list-group>
     </mdc-drawer-content>
-  </mdc-drawer-temporary>
+  </mdc-drawer>
+  <div #testcontent></div>
   `,
 })
 class SimpleTest {
-  isAbsolute: boolean = false;
+  drawer: string = 'permanent';
+  direction: string = 'ltr';
+  isFixed: boolean = true;
   isCloseOnClick: boolean = true;
 }

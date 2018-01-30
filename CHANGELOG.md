@@ -1,3 +1,13 @@
+<a name="0.7.3"></a>
+## [0.7.3](https://github.com/trimox/angular-mdc-web/compare/v0.7.2...v0.7.3) (2018-01-30)
+
+
+### Features
+
+* **drawer:** Add [primary] on mdc-drawer-header-content ([#583](https://github.com/trimox/angular-mdc-web/issues/583)) ([500021f](https://github.com/trimox/angular-mdc-web/commit/500021f))
+
+
+
 <a name="0.7.2"></a>
 ## [0.7.2](https://github.com/trimox/angular-mdc-web/compare/v0.7.1...v0.7.2) (2018-01-30)
 

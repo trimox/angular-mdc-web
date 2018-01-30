@@ -2,6 +2,7 @@ import {
   Directive,
   ElementRef,
   HostBinding,
+  Input,
 } from '@angular/core';
 
 @Directive({
@@ -26,7 +27,15 @@ export class MdcDrawerHeader {
   selector: '[mdc-drawer-header-content], mdc-drawer-header-content'
 })
 export class MdcDrawerHeaderContent {
+  @Input() primary: boolean = true;
+
   @HostBinding('class.mdc-drawer__header-content') isHostClass = true;
+  @HostBinding('class.mdc-theme--primary-bg') get classPrimaryBackground(): string {
+    return this.primary ? 'mdc-theme--primary-bg' : '';
+  }
+  @HostBinding('class.mdc-theme--text-primary-on-primary') get classPrimaryOnPrimary(): string {
+    return this.primary ? 'mdc-theme--text-primary-on-primary' : '';
+  }
 
   constructor(public elementRef: ElementRef) { }
 }

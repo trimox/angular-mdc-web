@@ -1,4 +1,4 @@
-<div>
+<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start">
   <h1 mdc-typography-display1>Drawers</h1>
   <div mdc-typography-subheading2>The MDC Drawer component is a spec-aligned drawer component adhering to the Material Design navigation drawer pattern. It implements permanent, persistent, and temporary drawers.</div>
   <div class="info-banner" mdc-typography-subheading1>
@@ -31,83 +31,17 @@
         </tr>
         <tr>
           <td>fixed: boolean</td>
-          <td>Makes permanent drawer fixed on top and have persistent elevation.</td>
-        </tr>
-      </tbody>
-    </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-drawer-persistent</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Method</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>open()</td>
-          <td>Opens the drawer.</td>
+          <td>Makes permanent drawer fixed on top and have persistent elevation.
+          <pre>* Permanent drawer only</pre></td>
         </tr>
         <tr>
-          <td>close()</td>
-          <td>Closes the drawer.</td>
-        </tr>
-        <tr>
-          <td>isOpen(): boolean</td>
-          <td>Returns whether or not the drawer is open.</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Events</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>opened</td>
-          <td>Event dispatched on drawer open.</td>
-        </tr>
-        <tr>
-          <td>closed</td>
-          <td>Event dispatched on drawer close.</td>
-        </tr>
-      </tbody>
-    </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-temporary-drawer</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>absolute: boolean</td>
-          <td>If true, drawer can open from container element (e.g.: mdc-content). (Default: false)</td>
+          <td>fixedAdjustElement: ElementRef</td>
+          <td>Reference to a drawer's attached body element. Default is document.body.</td>
         </tr>
         <tr>
           <td>closeOnClick: boolean</td>
-          <td>If false, clicking on the drawer will not close it. (Default: true)</td>
+          <td>If false, clicking on the drawer will not close it. Default is true.
+          <pre>* Temporary drawer only</pre></td>
         </tr>
       </tbody>
       <thead>
@@ -129,6 +63,22 @@
           <td>isOpen(): boolean</td>
           <td>Returns whether or not the drawer is open.</td>
         </tr>
+        <tr>
+          <td>isDrawerPermanent(): boolean</td>
+          <td>Returns whether or not the drawer is permanent.</td>
+        </tr>
+        <tr>
+          <td>isDrawerTemporary(): boolean</td>
+          <td>Returns whether or not the drawer is temporary.</td>
+        </tr>
+        <tr>
+          <td>isDrawerPersistent(): boolean</td>
+          <td>Returns whether or not the drawer is persistent.</td>
+        </tr>
+        <tr>
+          <td>isRtl(): boolean</td>
+          <td>Returns whether or not the drawer is set right-to-left.</td>
+        </tr>
       </tbody>
       <thead>
         <tr>
@@ -138,11 +88,11 @@
       </thead>
       <tbody>
         <tr>
-          <td>opened</td>
+          <td>opened()</td>
           <td>Event dispatched on drawer open.</td>
         </tr>
         <tr>
-          <td>closed</td>
+          <td>closed()</td>
           <td>Event dispatched on drawer close.</td>
         </tr>
       </tbody>
@@ -159,6 +109,16 @@
           <td>mdc-drawer-spacer</td>
           <td>Optional. Add to provide the matching amount of space for toolbar.</td>
         </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Child Directives</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
         <tr>
           <td>mdc-drawer-header</td>
           <td>Optional. Add to create a 16:9 drawer header.</td>
@@ -167,6 +127,29 @@
           <td>mdc-drawer-header-content</td>
           <td>Optional. Add content inside mdc-drawer-header.</td>
         </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>primary: boolean</td>
+          <td>If true, sets mdc-theme--primary-bg and mdc-theme--text-primary-on-primary on mdc-drawer-header-content. Default is true.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Child Directives</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
         <tr>
           <td>mdc-drawer-content</td>
           <td>Optional. Should be set on the list of items inside the drawer.</td>
@@ -174,9 +157,9 @@
       </tbody>
     </table>
   </div>
-  <span mdc-typography-headline>Permanent Drawer - Above Toolbar</span>
+  <h3>Permanent Drawer - Above Toolbar</h3>
   <div class="mdc-padding">
-    <a mdc-button href="https://github.com/trimox/angular-mdc-web/tree/master/src/demo-app/components/drawer-demo" target="_blank" rel="noopener noreferrer">View Example Source</a>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-drawer?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Example Source</a>
   </div>
   <div class="demo-host">
     <mdc-drawer drawer='permanent'>
@@ -196,9 +179,7 @@
             <mdc-list-item>
               <mdc-icon mdc-list-item-graphic>drafts</mdc-icon>Drafts
             </mdc-list-item>
-          </mdc-list>
-          <mdc-list-divider></mdc-list-divider>
-          <mdc-list>
+            <mdc-list-divider></mdc-list-divider>
             <mdc-list-item>
               <mdc-icon mdc-list-item-graphic>email</mdc-icon>All Mail
             </mdc-list-item>
@@ -230,12 +211,12 @@
       </div>
     </mdc-content>
   </div>
-  <span style="margin-top: 20px;" mdc-typography-headline>Permanent Drawer - Below Toolbar</span>
+  <h3>Permanent Drawer - Below Toolbar</h3>
   <div class="mdc-padding">
-    <a mdc-button href="https://github.com/trimox/angular-mdc-web/tree/master/src/demo-app/components/drawer-demo" target="_blank" rel="noopener noreferrer">View Example Source</a>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-drawer?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Example Source</a>
   </div>
   <div class="demo-host" fxLayout="column">
-    <mdc-toolbar style="flex-shrink: 0" mdc-elevation=3>
+    <mdc-toolbar style="flex-shrink: 0" [mdc-elevation]="3">
       <mdc-toolbar-row>
         <mdc-toolbar-section [alignStart]="true">
           <span mdc-toolbar-title>App Layout</span>
@@ -248,7 +229,7 @@
       </mdc-toolbar-row>
     </mdc-toolbar>
     <mdc-content fxLayout="row">
-      <mdc-drawer drawer='permanent' mdc-elevation=1>
+      <mdc-drawer drawer='permanent'>
         <mdc-drawer-content>
           <mdc-list-group>
             <mdc-list>
@@ -264,9 +245,7 @@
               <mdc-list-item>
                 <mdc-icon mdc-list-item-graphic>drafts</mdc-icon>Drafts
               </mdc-list-item>
-            </mdc-list>
-            <mdc-list-divider></mdc-list-divider>
-            <mdc-list>
+              <mdc-list-divider></mdc-list-divider>
               <mdc-list-item>
                 <mdc-icon mdc-list-item-graphic>email</mdc-icon>All Mail
               </mdc-list-item>
@@ -285,13 +264,13 @@
       </div>
     </mdc-content>
   </div>
-  <span mdc-typography-headline style="margin-top: 20px;">Temporary Drawer</span>
+  <h3>Temporary Drawer</h3>
   <div class="mdc-padding">
-    <a mdc-button href="https://github.com/trimox/angular-mdc-web/tree/master/src/demo-app/components/drawer-demo" target="_blank" rel="noopener noreferrer">View Example Source</a>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-drawer?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Example Source</a>
   </div>
   <div class="demo-host">
     <mdc-drawer #temporary drawer='temporary' [fixedAdjustElement]="tempcontent">
-      <mdc-drawer-header class="mdc-theme--primary-bg mdc-theme--text-primary-on-primary">
+      <mdc-drawer-header>
         <mdc-drawer-header-content>
           Header goes here
         </mdc-drawer-header-content>
@@ -311,9 +290,7 @@
             <mdc-list-item>
               <mdc-icon mdc-list-item-graphic>drafts</mdc-icon>Drafts
             </mdc-list-item>
-          </mdc-list>
-          <mdc-list-divider></mdc-list-divider>
-          <mdc-list>
+            <mdc-list-divider></mdc-list-divider>
             <mdc-list-item>
               <mdc-icon mdc-list-item-graphic>email</mdc-icon>All Mail
             </mdc-list-item>
@@ -346,9 +323,9 @@
       </div>
     </mdc-content>
   </div>
-  <span mdc-typography-headline style="margin-top: 20px;">Persistent Drawer</span>
+  <h3>Persistent Drawer</h3>
   <div class="mdc-padding">
-    <a mdc-button href="https://github.com/trimox/angular-mdc-web/tree/master/src/demo-app/components/drawer-demo" target="_blank" rel="noopener noreferrer">View Example Source</a>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-drawer?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Example Source</a>
   </div>
   <div class="demo-host">
     <mdc-drawer #persistent drawer='persistent'>
@@ -367,9 +344,7 @@
           <mdc-list-item>
             <mdc-icon mdc-list-item-graphic>drafts</mdc-icon>Drafts
           </mdc-list-item>
-        </mdc-list>
-        <mdc-list-divider></mdc-list-divider>
-        <mdc-list>
+          <mdc-list-divider></mdc-list-divider>
           <mdc-list-item>
             <mdc-icon mdc-list-item-graphic>email</mdc-icon>All Mail
           </mdc-list-item>

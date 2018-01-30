@@ -83,19 +83,16 @@
     </table>
   </div>
 
-  <div fxLayout="column" class="mdc-padding" fxFlexAlign="start start">
-    <span mdc-typography-headline>Textarea</span>
-    <mdc-textarea label="Comments" rows="8" cols="40" [required]="isTextareaRequired"></mdc-textarea>
-    <mdc-form-field>
-      <mdc-checkbox [(ngModel)]="isTextareaRequired"></mdc-checkbox>
-      <label>Required</label>
-    </mdc-form-field>
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textarea</span>
- <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Comments"</span>
- <span style="color:#89bdff">rows</span>=<span style="color:#65b042">"8"</span>
- <span style="color:#89bdff">cols</span>=<span style="color:#65b042">"40"</span>
-</span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textarea</span>></span>
-</pre> </div>
+  <div fxLayout="column" class="mdc-padding" fxFlexAlign="start">
+    <div class="demo-list-host">
+      <h3>Textarea</h3>
+      <div fxLayout="row" fxLayoutWrap>
+        <button mdc-button (click)="comments.disabled = !comments.disabled">Disabled: {{comments.disable ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="comments.required = !comments.required">Required: {{comments.required ? 'On' : 'Off'}}</button>
+      </div>
+        <mdc-textarea #comments label="Comments" rows="8" cols="40"></mdc-textarea>
+        <a mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
+    </div>
   <div fxLayout="column" class="mdc-padding">
     <span mdc-typography-headline>Full-width single line</span>
     <div>

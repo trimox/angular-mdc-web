@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'textfield-demo',
@@ -16,7 +16,7 @@ export class TextFieldDemo {
   templateUrl: './text-field-tab.html',
 })
 export class TextFieldTab {
-  prefill: string = 'John Doe';
+  username: string;
 }
 
 @Component({

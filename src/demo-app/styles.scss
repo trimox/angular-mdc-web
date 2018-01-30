@@ -35,13 +35,13 @@ body {
 .demo-landing {
   @include mdc-theme-prop(color, #fff);
   @include mdc-theme-prop(background-color, $app-blue);
-  height: 35vh;
+
+  height: 300px;
 }
 
 .demo-landing-card {
   @include mdc-theme-prop(background-color, #fff);
 
-  width: 33em;
   min-height: 190px;
   margin-top: -70px;
   padding: 7px;

@@ -146,6 +146,18 @@
         <td>setHelperTextContent(content: string)</td>
         <td>Sets the content of the helper text.</td>
       </tr>
+      <tr>
+        <td>setRequired(isRequired: boolean)</td>
+        <td>Sets the text-field required or not.</td>
+      </tr>
+      <tr>
+        <td>isRequired(): boolean</td>
+        <td>True if the Text Field is required.</td>
+      </tr>
+      <tr>
+        <td>getValue(): string</td>
+        <td>The value of the input Element.</td>
+      </tr>
     </tbody>
   </table>
   <table>
@@ -175,13 +187,14 @@
         <button mdc-button (click)="user.dense = !user.dense">Dense: {{user.dense ? 'On' : 'Off'}}</button>
         <button mdc-button (click)="user.selectAll()">Select All</button>
       </div>
-      <mdc-text-field #user label="Username" [(ngModel)]="username" #userModel="ngModel" [helperText]="userHelper"></mdc-text-field>
-      <mdc-text-field-helper-text #userHelper="mdcHelperText" [validation]="true" [persistent]="false">
-        <span *ngIf="userModel.errors?.required">Username is required</span>
-      </mdc-text-field-helper-text>
-      <a mdc-button href="https://stackblitz.com/edit/angular-mdc-list?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
+      <div class="demo-text-field__container--column">
+        <mdc-text-field #user label="Username" [(ngModel)]="username" #userModel="ngModel" [helperText]="userHelper" [required]="true"></mdc-text-field>
+        <mdc-text-field-helper-text #userHelper="mdcHelperText" [validation]="true" [persistent]="false">
+          <span *ngIf="userModel.errors?.required">Username is required</span>
+        </mdc-text-field-helper-text>
+        <a mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
+      </div>
     </div>
-
     <div class="demo-list-host">
       <h3>Outlined Text Field</h3>
       <div fxLayout="row" fxLayoutWrap>
@@ -189,28 +202,38 @@
         <button mdc-button (click)="outlined.required = !outlined.required">Required: {{outlined.required ? 'On' : 'Off'}}</button>
         <button mdc-button (click)="outlined.dense = !outlined.dense">Dense: {{outlined.dense ? 'On' : 'Off'}}</button>
       </div>
-      <mdc-text-field #outlined [outline]="true" label="Your name"></mdc-text-field>
-      <a mdc-button href="https://stackblitz.com/edit/angular-mdc-list?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
+      <div class="demo-text-field__container--column">
+        <mdc-text-field #outlined [outline]="true" label="Your name"></mdc-text-field>
+        <a mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
+      </div>
     </div>
-
+    <div class="demo-list-host">
+      <h3>Outlined Text Field w/Icons</h3>
+      <div fxLayout="row" fxLayoutWrap>
+        <button mdc-button (click)="outlinedicon.disabled = !outlinedicon.disabled">Disabled: {{outlinedicon.disable ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="outlinedicon.required = !outlinedicon.required">Required: {{outlinedicon.required ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="outlinedicon.dense = !outlinedicon.dense">Dense: {{outlinedicon.dense ? 'On' : 'Off'}}</button>
+      </div>
+      <div class="demo-text-field__container--column">
+        <mdc-text-field #outlinedicon [outline]="true" label="Event date">
+          <mdc-icon leading>event</mdc-icon>
+        </mdc-text-field>
+        <a mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
+      </div>
+    </div>
     <div class="demo-list-host">
       <h3>Prefilled Text Field</h3>
-      <mdc-text-field #prefilled [(ngModel)]="prefill" label="Username"></mdc-text-field>
-      <a mdc-button href="https://stackblitz.com/edit/angular-mdc-list?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
+      <div class="demo-text-field__container--column">
+        <mdc-text-field value="Harold" label="Username"></mdc-text-field>
+        <a mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
+      </div>
     </div>
-
     <div class="demo-list-host">
       <h3>Password</h3>
-      <mdc-text-field type="password" label="Password" [required]="true"></mdc-text-field>
-      <a mdc-button href="https://stackblitz.com/edit/angular-mdc-list?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
-    </div>
-
-    <div class="demo-list-host">
-      <h3>Dark theme</h3>
-      <div mdc-theme-dark>
-        <mdc-text-field fxFlexOffset="2" label="Dark Theme"></mdc-text-field>
+      <div class="demo-text-field__container--column">
+        <mdc-text-field type="password" label="Password" [required]="true"></mdc-text-field>
+        <a mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
       </div>
-      <a mdc-button href="https://stackblitz.com/edit/angular-mdc-list?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
     </div>
   </div>
 </div>

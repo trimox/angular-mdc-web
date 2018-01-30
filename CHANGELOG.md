@@ -1,3 +1,25 @@
+<a name="0.7.2"></a>
+## [0.7.2](https://github.com/trimox/angular-mdc-web/compare/v0.7.1...v0.7.2) (2018-01-30)
+
+### Bug Fixes
+
+* **text-field:** Workaround for outlined float MDC bug ([#577](https://github.com/trimox/angular-mdc-web/issues/577)) ([ad4736d](https://github.com/trimox/angular-mdc-web/commit/ad4736d))
+
+
+### Features
+
+* **drawer:** Dynamic drawer switching ([#580](https://github.com/trimox/angular-mdc-web/issues/580)) ([8700191](https://github.com/trimox/angular-mdc-web/commit/8700191)), closes [#579](https://github.com/trimox/angular-mdc-web/issues/579)
+* **toolbar:** Add [fixedAdjustElement] input property ([#578](https://github.com/trimox/angular-mdc-web/issues/578)) ([ced579f](https://github.com/trimox/angular-mdc-web/commit/ced579f))
+
+
+### BREAKING CHANGES
+
+* Rename instances of `mdc-drawer-temporary`, `mdc-drawer-persistent` or `mdc-drawer-permanent` to `mdc-drawer`.
+* Set drawer type via `drawer: string` property. Valid values are `'permanent' | 'persistent' | 'temporary'`
+* Removed `[absolute]` input property. Logic replaced with `fixedAdjustElement` input use.
+
+
+
 <a name="0.7.1"></a>
 ## [0.7.1](https://github.com/trimox/angular-mdc-web/compare/v0.7.0...v0.7.1) (2018-01-24)
 

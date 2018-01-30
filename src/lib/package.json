@@ -22,7 +22,7 @@
   "typings": "./mdc.d.ts",
   "private": false,
   "dependencies": {
-    "@angular-mdc/theme": "0.2.1",
+    "@angular-mdc/theme": "0.2.2",
     "material-components-web": "0.29.0"
   },
   "peerDependencies": {

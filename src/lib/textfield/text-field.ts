@@ -10,10 +10,11 @@ import {
   forwardRef,
   HostBinding,
   Input,
+  OnChanges,
   OnDestroy,
-  OnInit,
   Output,
   Renderer2,
+  SimpleChange,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -81,7 +82,7 @@ export const MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR: any = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
 })
-export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAccessor {
+export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, ControlValueAccessor {
   private _type = 'text';
   private _disabled: boolean = false;
   private _required: boolean = false;
@@ -113,10 +114,13 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
-    if (value !== this._disabled) {
-      this._foundation.setDisabled(value);
-      this._disabled = value;
+    this._disabled = toBoolean(value);
+
+    if (this.focused) {
+      this.focused = false;
     }
+    this._foundation.setDisabled(this._disabled);
+    this._changeDetectorRef.markForCheck();
   }
   @Input()
   get required(): boolean { return this._required; }
@@ -125,6 +129,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     if (!this.isTextarea()) {
       if (value !== this._required) {
         this.setRequired(this._required);
+        this._changeDetectorRef.markForCheck();
       }
     }
   }
@@ -242,7 +247,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     setRequired(isRequired): boolean,
     isRequired(): boolean,
     getValue(): string,
-  };
+  } = new MDCTextFieldFoundation(this._mdcAdapter, this._getFoundationMap());
 
   /** View -> model callback called when value changes */
   _onChange: (value: any) => void = () => { };
@@ -256,18 +261,27 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     public elementRef: ElementRef,
     private _registry: EventRegistry) { }
 
-  ngAfterViewInit(): void {
-    this.updateIconState();
+  ngOnChanges(changes: { [key: string]: SimpleChange }): void {
+    const disabled = changes['disabled'];
+    const outline = changes['outline'];
 
+    if (disabled) {
+      this._foundation.setDisabled(disabled.currentValue);
+    }
+
+  }
+
+  ngAfterViewInit(): void {
     this._foundation
       = new MDCTextFieldFoundation(this._mdcAdapter, this._getFoundationMap());
+
     this._foundation.init();
 
     if (this.outlined) {
       this.outlined.idleOutline = this.idleOutline;
       this._foundation.updateOutline();
     }
-
+    this.updateIconState();
     this._changeDetectorRef.detectChanges();
   }
 
@@ -340,7 +354,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   }
 
   focus(): void {
-    if (!this._disabled) {
+    if (!this.disabled) {
       this._focused = true;
       this.inputText.nativeElement.focus();
     }
@@ -359,7 +373,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   }
 
   /** Sets the text-field required or not. */
-  setRequired(isRequired): void {
+  setRequired(isRequired: boolean): void {
     this._foundation.setRequired(isRequired);
   }
 

@@ -3,15 +3,16 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import {
-  MdcSelect,
   MdcSelectBottomLine,
-  MdcSelectItem,
   MdcSelectItems,
   MdcSelectLabel,
   MdcSelectMenu,
   MdcSelectSelectedText,
   MdcSelectSurface,
-} from './select';
+} from './select.directives';
+
+import { MdcSelectItem } from './select-item';
+import { MdcSelect } from './select';
 
 export const SELECT_COMPONENTS = [
   MdcSelect,

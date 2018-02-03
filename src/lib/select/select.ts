@@ -244,7 +244,7 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
 
   @Input() id: string = this._uniqueId;
   @Input() name: string | null = null;
-  @Output() change = new EventEmitter<MdcSelectedData>();
+  @Output() readonly change = new EventEmitter<MdcSelectedData>();
 
   @HostBinding('class.mdc-select') isHostClass = true;
   @HostBinding('attr.role') role: string = 'listbox';
@@ -338,14 +338,6 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
       this._resetOptions();
       this._initializeSelection();
     });
-
-    this.optionSelectionChanges.pipe(
-      takeUntil(merge(this._destroy, this.options.changes)),
-      filter(event => event.isUserInput)
-    ).subscribe(event => {
-      this._propagateChanges(event.source.value);
-      this.close();
-    });
   }
 
   ngOnDestroy(): void {
@@ -366,15 +358,13 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
 
   /** Drops current option subscriptions and IDs and resets from scratch. */
   private _resetOptions(): void {
-    this.optionSelectionChanges.pipe(
-      takeUntil(merge(this._destroy, this.options.changes)),
-      filter(event => event.isUserInput)
-    ).subscribe(event => {
-      this._onChange(event.source.value);
-      this._propagateChanges(event.source);
+    const changedOrDestroyed = merge(this.options.changes, this._destroy);
 
-      this.close();
-    });
+    this.optionSelectionChanges
+      .pipe(takeUntil(changedOrDestroyed), filter(event => event.isUserInput)
+      ).subscribe(event => {
+        this._propagateChanges(event.source.value);
+      });
   }
 
   private _propagateChanges(newValue: any): void {
@@ -480,7 +470,6 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
   close(): void {
     if (this.isOpen()) {
       this._menuFactory.hide();
-      this._renderer.removeClass(this.elementRef.nativeElement, 'mdc-select--open');
       this._changeDetectorRef.markForCheck();
       this.focus();
     }

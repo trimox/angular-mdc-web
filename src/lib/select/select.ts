@@ -61,8 +61,8 @@ export interface MdcSelectedData {
 /** Change event object that is emitted when the select value has changed. */
 export class MdcSelectChange {
   constructor(
-    /** Reference to the select that emitted the change event. */
-    public source: MdcSelect,
+    /** Reference to MdcSelectItem that emitted the change event. */
+    public source: MdcSelectItem,
     /** Current value of the select that emitted the event. */
     public value: any) { }
 }
@@ -246,6 +246,10 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
   @Input() name: string | null = null;
   @Output() readonly change = new EventEmitter<MdcSelectedData>();
 
+  /** Event emitted when the selected value has been changed by the user. */
+  @Output() readonly selectionChange: EventEmitter<MdcSelectChange> =
+    new EventEmitter<MdcSelectChange>();
+
   @HostBinding('class.mdc-select') isHostClass = true;
   @HostBinding('attr.role') role: string = 'listbox';
   @HostBinding('tabindex') tabIndex: number = 0;
@@ -364,6 +368,7 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
       .pipe(takeUntil(changedOrDestroyed), filter(event => event.isUserInput)
       ).subscribe(event => {
         this._propagateChanges(event.source.value);
+        this.selectionChange.emit(new MdcSelectChange(event.source, this.value));
       });
   }
 

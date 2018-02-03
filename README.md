@@ -37,6 +37,8 @@ Each component uses [material-components-web](https://github.com/material-compon
 | button | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/button-demo) |
 | card | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/card-demo) |
 | checkbox | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/checkbox-demo) |
+| chip | WIP |  |
+| data table | WIP |  |
 | dialog | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/dialog-demo) |
 | drawer | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/drawer-demo) |
 | elevation | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/elevation-demo) |

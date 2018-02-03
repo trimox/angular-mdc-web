@@ -18,8 +18,9 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import { ENTER } from '@angular-mdc/web/cdk';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { toBoolean, isSpaceKey, KeyCodes, EventRegistry } from '@angular-mdc/web/common';
+import { toBoolean, isSpaceKey, EventRegistry } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
@@ -214,9 +215,9 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
 
   private _onKeyPress(event: KeyboardEvent): void {
     const keyCode = event.keyCode;
-    if (keyCode === KeyCodes.ENTER || isSpaceKey(event)) {
+    if (keyCode === ENTER || isSpaceKey(event)) {
       this.ripple.activate(event);
-      if (keyCode !== KeyCodes.ENTER) {
+      if (keyCode !== ENTER) {
         event.preventDefault();
       }
     }

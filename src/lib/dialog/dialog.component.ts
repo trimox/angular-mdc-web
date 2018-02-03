@@ -17,7 +17,8 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { isBrowser, KeyCodes, EventRegistry } from '@angular-mdc/web/common';
+import { ESCAPE } from '@angular-mdc/web/cdk';
+import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
 import {
   MdcDialogBackdrop,
   MdcDialogBody,
@@ -202,11 +203,9 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
     this._foundation.destroy();
   }
 
-  private _onKeyDown(keyboardEvent: KeyboardEvent): void {
-    const keyCode = keyboardEvent.keyCode;
-
-    if (keyCode === KeyCodes.ESCAPE) {
-      keyboardEvent.stopPropagation();
+  private _onKeyDown(event: KeyboardEvent): void {
+    if (ESCAPE === event.keyCode) {
+      event.stopPropagation();
     }
   }
 

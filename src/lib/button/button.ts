@@ -15,7 +15,6 @@ import {
 import {
   EventRegistry,
   toBoolean,
-  KeyCodes,
   isSpaceKey,
 } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';

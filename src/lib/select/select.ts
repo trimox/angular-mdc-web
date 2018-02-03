@@ -38,11 +38,11 @@ import { switchMap } from 'rxjs/operators/switchMap';
 import { take } from 'rxjs/operators/take';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 
+import { ENTER } from '@angular-mdc/web/cdk';
 import {
   EventRegistry,
   isBrowser,
   isSpaceKey,
-  KeyCodes,
   toBoolean,
 } from '@angular-mdc/web/common';
 import { MDCSimpleMenu } from '@material/menu';
@@ -226,7 +226,7 @@ export class MdcSelectItem {
 
   _onKeydown(event: KeyboardEvent): void {
     const keyCode = event.keyCode;
-    if (keyCode === KeyCodes.ENTER || isSpaceKey(event)) {
+    if (keyCode === ENTER || isSpaceKey(event)) {
       this._selectViaInteraction();
 
       // Prevent the page from scrolling down and form submits.

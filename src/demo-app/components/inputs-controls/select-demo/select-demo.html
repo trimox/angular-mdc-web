@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
+<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start">
   <h1 mdc-typography-display1>Select Menus</h1>
   <div mdc-typography-subheading2>MDC Select provides Material Design single-option select menus.</div>
   <div class="info-banner" mdc-typography-subheading1>
@@ -113,9 +113,14 @@
           </td>
           <td>Event dispatched on value change.</td>
         </tr>
+        <tr>
+          <td>
+            selectionChange(source: MdcSelectItem, value: any)
+          </td>
+          <td>Event emitted when the selected value has been changed by the user.</td>
+        </tr>
       </tbody>
     </table>
-
     <table>
       <thead>
         <tr>
@@ -177,40 +182,39 @@
       </tbody>
     </table>
   </div>
-  <h3>Select with ngModel </h3>
-  <a mdc-button href="https://stackblitz.com/edit/angular-mdc?embed=1&file=app/select-demo.html" target="_blank" rel="noopener noreferrer">View Source</a>
-  <div [mdc-theme-dark]="isDarkTheme">
+  <div class="demo__container">
+    <h3>Select - ngModel </h3>
+    <div class="demo__container--row">
+      <button mdc-button (click)="select.setDisabled(!select.isDisabled())">Disabled: {{select.isDisabled() ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="clearSelection()">Clear Selection</button>
+      <button mdc-button (click)="setSelection()">Select Fruit</button>
+    </div>    
     <mdc-select #select placeholder="Favorite food" [(ngModel)]="selectedValue" name="food"
-     [disabled]="isDisabled" (change)="handleChange($event)">
+     (change)="onChange($event)" (selectionChange)="onSelectionChange($event)">
       <mdc-select-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
         {{food.description}}
       </mdc-select-item>
     </mdc-select>
+    <span fxFlexOffset="5">Selected value: {{selectedValue}}</span>
+    <span fxFlexOffset="2">change: Index: {{changeIndex}} Value: {{changeValue}}</span>
+    <span fxFlexOffset="2">selectionChange: Value: {{selectionChangeValue}}</span>
+    <a fxFlexOffset="3" mdc-button href="https://stackblitz.com/edit/angular-mdc?embed=1&file=app/select-demo.html" target="_blank" rel="noopener noreferrer">View Source</a>
   </div>
-  <mdc-form-field>
-    <mdc-checkbox [(ngModel)]="isDisabled"></mdc-checkbox>
-    <label>Disable</label>
-  </mdc-form-field>
-  <mdc-form-field>
-    <mdc-checkbox [(ngModel)]="isDarkTheme"></mdc-checkbox>
-    <label>Dark Theme</label>
-  </mdc-form-field>
-  <pre mdc-typography-body1>Selected value: {{selectedValue}}
-Change event: index: {{eventIndex}}, value: {{eventValue}}</pre>
-  <button mdc-button (click)="clearSelection()">Clear Selection</button>
-  <button mdc-button (click)="setSelection()">Set Selection to Fruit</button>
 
-<h3>Select with FormControl</h3>
-<a mdc-button href="https://stackblitz.com/edit/angular-mdc?embed=1&file=app/select-demo.html" target="_blank" rel="noopener noreferrer">View Source</a>
-<mdc-select placeholder="Favorite food" [formControl]="foodControl">
-  <mdc-select-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
-    {{food.description}}
-  </mdc-select-item>
-</mdc-select>
-<p mdc-typography-body1>Value: {{ foodControl.value }}</p>
-<p mdc-typography-body1>Touched: {{ foodControl.touched }}</p>
-<p mdc-typography-body1>Dirty: {{ foodControl.dirty }}</p>
-<p mdc-typography-body1>Status: {{ foodControl.status }}</p>
-<button mdc-button (click)="foodControl.setValue('pizza-1')">SET VALUE (pizza)</button>
-<button mdc-button (click)="foodControl.reset()">Reset Value</button>
+  <div class="demo__container">
+    <h3>Select - FormControl</h3>
+    <div class="demo__container--row">
+      <button mdc-button (click)="foodControl.setValue('pizza-1')">SET VALUE (pizza)</button>
+      <button mdc-button (click)="foodControl.reset()">Reset Value</button>
+    </div>
+    <mdc-select placeholder="Favorite food" [formControl]="foodControl">
+      <mdc-select-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
+        {{food.description}}
+      </mdc-select-item>
+    </mdc-select>
+    <p mdc-typography-body1>Value: {{ foodControl.value }}</p>
+    <p mdc-typography-body1>Touched: {{ foodControl.touched }}</p>
+    <p mdc-typography-body1>Dirty: {{ foodControl.dirty }}</p>
+    <p mdc-typography-body1>Status: {{ foodControl.status }}</p>
+  </div>
 </div>

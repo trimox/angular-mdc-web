@@ -3,7 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  template: '<app-toolbar></app-toolbar>',
+  template: '<app-layout></app-layout>',
   encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent implements OnInit {

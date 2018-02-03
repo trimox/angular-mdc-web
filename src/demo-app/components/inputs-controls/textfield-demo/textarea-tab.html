@@ -1,4 +1,4 @@
-<div class="docs-api">
+<div class="docs-api" fxLayout="column" fxLayoutAlign="start">
   <table>
     <thead>
       <tr>
@@ -32,86 +32,71 @@
     </tbody>
   </table>
 </div>
-
 <div class="docs-api">
-    <table>
-      <thead>
-        <tr>
-          <th>Methods</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>setValid(value?: boolean)</td>
-          <td>Updates input validity using passed value, or if left empty checking the validity of the input.</td>
-        </tr>
-        <tr>
-          <td>isBadInput(): boolean</td>
-          <td>Returns input bad input validity value.</td>
-        </tr>
-        <tr>
-          <td>isDisabled(): boolean</td>
-          <td>Returns whether or not the input is disabled.</td>
-        </tr>
-        <tr>
-          <td>focus()</td>
-          <td>Sets focus to the input.</td>
-        </tr>
-        <tr>
-          <td>selectAll()</td>
-          <td>Selects all of the input's content.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="docs-api">
-    <table>
-      <thead>
-        <tr>
-          <th>Events</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>change(string | null)</td>
-          <td>Emitted whenever the value of the input changes.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div fxLayout="column" class="mdc-padding" fxFlexAlign="start">
-    <div class="demo-list-host">
-      <h3>Textarea</h3>
-      <div fxLayout="row" fxLayoutWrap>
-        <button mdc-button (click)="comments.disabled = !comments.disabled">Disabled: {{comments.disable ? 'On' : 'Off'}}</button>
-        <button mdc-button (click)="comments.required = !comments.required">Required: {{comments.required ? 'On' : 'Off'}}</button>
-      </div>
-        <mdc-textarea #comments label="Comments" rows="8" cols="40"></mdc-textarea>
-        <a mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Methods</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>setValid(value?: boolean)</td>
+        <td>Updates input validity using passed value, or if left empty checking the validity of the input.</td>
+      </tr>
+      <tr>
+        <td>isBadInput(): boolean</td>
+        <td>Returns input bad input validity value.</td>
+      </tr>
+      <tr>
+        <td>isDisabled(): boolean</td>
+        <td>Returns whether or not the input is disabled.</td>
+      </tr>
+      <tr>
+        <td>focus()</td>
+        <td>Sets focus to the input.</td>
+      </tr>
+      <tr>
+        <td>selectAll()</td>
+        <td>Selects all of the input's content.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="docs-api">
+  <table>
+    <thead>
+      <tr>
+        <th>Events</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>change(string | null)</td>
+        <td>Emitted whenever the value of the input changes.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div fxLayout="column" class="mdc-padding" fxFlexAlign="start">
+  <div class="demo-list-host">
+    <h3>Textarea</h3>
+    <div fxLayout="row" fxLayoutWrap>
+      <button mdc-button (click)="comments.disabled = !comments.disabled">Disabled: {{comments.disabled ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="comments.required = !comments.required">Required: {{comments.required ? 'On' : 'Off'}}</button>
     </div>
+    <mdc-textarea #comments label="Comments" rows="8" cols="40"></mdc-textarea>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
+  </div>
   <div fxLayout="column" class="mdc-padding">
     <span mdc-typography-headline>Full-width single line</span>
     <div>
       <mdc-text-field label="Subject" [fullwidth]="true"></mdc-text-field>
     </div>
-    <div fxFlexAlign="start">
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field</span>
-  <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Subject"</span>
-  [<span style="color:#89bdff">fullwidth</span>]=<span style="color:#65b042">"true"</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-text-field</span>></span>
-</pre></div>
   </div>
   <div fxLayout="column" class="mdc-padding">
     <span mdc-typography-headline>Full-Width Textarea</span>
     <mdc-textarea label="Type your message here" [fullwidth]="true" rows="8"></mdc-textarea>
-    <div fxFlexAlign="start">
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textarea</span>
-  <span style="color:#89bdff">label</span>=<span style="color:#65b042">"Type your message here"</span>
-  [<span style="color:#89bdff">fullwidth</span>]=<span style="color:#65b042">"true"</span>
-  <span style="color:#89bdff">rows</span>=<span style="color:#65b042">"8"</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-textarea</span>></span>
-</pre></div>
+  </div>

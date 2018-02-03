@@ -37,7 +37,7 @@ import { SurfaceDemo } from './components/core/surface-demo/surface-demo';
 import { SelectDemo } from './components/inputs-controls/select-demo/select-demo';
 
 import { Home } from './home/home';
-import { AppToolbar } from './navigation/app-toolbar';
+import { AppLayout } from './navigation';
 import { Buttons } from './components/buttons/buttons';
 import { Core } from './components/core/core';
 import { InputsControls } from './components/inputs-controls/inputs-controls';
@@ -59,7 +59,7 @@ import { demoAppRoutes } from './routes';
   declarations: [
     Home,
     AppComponent,
-    AppToolbar,
+    AppLayout,
     Buttons,
     Core,
     InputsControls,

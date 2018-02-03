@@ -20,8 +20,27 @@ body {
   display: none;
 }
 
-.demo-toolbar--primary {
+.demo__toolbar--primary {
   @include mdc-toolbar-fill-color($app-blue);
+}
+
+.demo__container {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  max-width: 700px;
+  margin: 15px;
+}
+
+.demo__container--column {
+  display: flex;
+  flex-direction: column;
+}
+
+.demo__container--row {
+  display: flex;
+  flex-direction: row;
 }
 
 .mdc-textfield--short {
@@ -39,10 +58,11 @@ body {
   height: 300px;
 }
 
-.demo-landing-card {
+.demo-landing__card {
   @include mdc-theme-prop(background-color, #fff);
 
-  min-height: 190px;
+  min-height: 160px;
+  max-width: 490px;
   margin-top: -70px;
   padding: 7px;
 }

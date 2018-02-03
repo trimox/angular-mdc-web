@@ -1,195 +1,161 @@
-<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding" #toolbardemo>
-    <h1 mdc-typography-display1>Toolbars</h1>
-    <div mdc-typography-subheading2>MDC Toolbar acts as a container for multiple rows containing items such as application title, navigation menu, and tabs, among other things. Toolbars scroll with content by default, but supports fixed behavior as well.</div>
-    <div class="info-banner" mdc-typography-subheading1>
-        <![CDATA[import { MdcToolbarModule } from '@angular-mdc/web';]]>
-    </div>
-    <div class="docs-api">
-        <table>
-            <thead>
-                <tr>
-                    <th>Component</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>mdc-toolbar</td>
-                </tr>
-            </tbody>
-            <thead>
-                <tr>
-                    <th>Properties</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>fixed: boolean</td>
-                    <td>Makes toolbar fixed on top and have persistent elevation.</td>
-                </tr>
-                <tr>
-                    <td>waterfall: boolean</td>
-                    <td>Removes fixed toolbar persistent elevation while gaining elevation scrolling down the page.</td>
-                </tr>
-                <tr>
-                    <td>flexible: boolean</td>
-                    <td>Apply flexible space to toolbar's first row.</td>
-                </tr>
-                <tr>
-                    <td>flexibleDefaultBehavior: boolean</td>
-                    <td>Toolbar text has flexible movement.</td>
-                </tr>
-                <tr>
-                    <td>fixedLastrow: boolean</td>
-                    <td>Makes only last row of fixed toolbar anchored on top.</td>
-                </tr>
-                <tr>
-                  <td>adjustBodyMargin: boolean</td>
-                  <td>If true and using a fixed toolbar, a margin-top is set to prevent toolbar overlaying content. (Default is true)</td>
-                </tr>
-                <tr>
-                  <td>fixedAdjustElement: string</td>
-                  <td>Reference to the toolbar's body element. Margins will be adjusted accordingly by adjustBodyMargin.</td>
-                </tr>
-            </tbody>
-            <thead>
-                <tr>
-                    <th>Event</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>change(flexibleExpansionRatio: number)</td>
-                    <td><pre><![CDATA[Emits the ratio of current flexible space to total flexible space height.
+<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start">
+  <h1 mdc-typography-display1>Toolbars</h1>
+  <div mdc-typography-subheading2>MDC Toolbar acts as a container for multiple rows containing items such as application title, navigation menu, and tabs, among other things. Toolbars scroll with content by default, but supports fixed behavior as well.</div>
+  <div class="info-banner" mdc-typography-subheading1>
+    <![CDATA[import { MdcToolbarModule } from '@angular-mdc/web';]]>
+  </div>
+  <div class="docs-api">
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-toolbar</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>fixed: boolean</td>
+          <td>Makes toolbar fixed on top and have persistent elevation.</td>
+        </tr>
+        <tr>
+          <td>waterfall: boolean</td>
+          <td>Removes fixed toolbar persistent elevation while gaining elevation scrolling down the page.</td>
+        </tr>
+        <tr>
+          <td>flexible: boolean</td>
+          <td>Apply flexible space to toolbar's first row.</td>
+        </tr>
+        <tr>
+          <td>flexibleDefaultBehavior: boolean</td>
+          <td>Toolbar text has flexible movement.</td>
+        </tr>
+        <tr>
+          <td>fixedLastrow: boolean</td>
+          <td>Makes only last row of fixed toolbar anchored on top.</td>
+        </tr>
+        <tr>
+          <td>adjustBodyMargin: boolean</td>
+          <td>If true and using a fixed toolbar, a margin-top is set to prevent toolbar overlaying content. (Default is true)</td>
+        </tr>
+        <tr>
+          <td>fixedAdjustElement: ElementRef</td>
+          <td>Reference to the toolbar's body element. Margins will be adjusted accordingly by adjustBodyMargin. Default is document.body</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>change(flexibleExpansionRatio: number)</td>
+          <td><pre><![CDATA[Emits the ratio of current flexible space to total flexible space height.
 So when it is minimized, ratio equals to 0 and when it is maximized, ratio equals to 1.]]></pre></td>
-                </tr>
-            </tbody>
-        </table>
-        <table>
-            <thead>
-                <tr>
-                    <th>Directive</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>mdc-toolbar-section</td>
-                    <td>Toolbar sections are aligned to the toolbar's center</td>
-                </tr>
-            </tbody>
-            <thead>
-                <tr>
-                    <th>Properties</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tr>
-                <td>alignStart: boolean</td>
-                <td>Makes section aligns to the start.</td>
-            </tr>
-            <tr>
-                <td>alignEnd: boolean</td>
-                <td>Makes section aligns to the end.</td>
-            </tr>
-            <tr>
-                <td>shrinkToFit: boolean</td>
-                <td>Makes section takes the width of its content.</td>
-            </tr>
-            </tbody>
-        </table>
-        <table>
-            <thead>
-                <tr>
-                    <th>Directive</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>mdc-toolbar-row</td>
-                    <td>MDC Toolbars can accommodate multiple rows.</td>
-                </tr>
-                <tr>
-                    <td>mdc-toolbar-title</td>
-                    <td>Styles toolbar text representing a page's title, or an application name.</td>
-                </tr>
-                <tr>
-                    <td>mdc-toolbar-fixed-adjust</td>
-                    <td>Optional directive to add a default margin-top to mdc-toolbar's adjacent sibling element.</td>
-                </tr>
-                <tr>
-                    <td>mdc-toolbar-menu-icon</td>
-                    <td>Left most icon of a mdc-toolbar.</td>
-                </tr>
-                <tr>
-                    <td>mdc-toolbar-icon</td>
-                    <td>Icons placed on the right side of a mdc-toolbar.</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div fxLayout="column">
-        <div fxLayout="row" class="mdc-padding">
-            <mdc-form-field>
-                <mdc-checkbox [(ngModel)]="isFixed"></mdc-checkbox>
-                <label>Fixed toolbar</label>
-            </mdc-form-field>
-            <mdc-form-field>
-                <mdc-checkbox [(ngModel)]="isFlexible"></mdc-checkbox>
-                <label>Flexible toolbar</label>
-            </mdc-form-field>
-            <mdc-form-field>
-                <mdc-checkbox [(ngModel)]="isWaterfall"></mdc-checkbox>
-                <label>Waterfall toolbar</label>
-            </mdc-form-field>
-            <mdc-form-field>
-                <mdc-checkbox [(ngModel)]="isFixedLastRow"></mdc-checkbox>
-                <label>Fixed Lastrow</label>
-            </mdc-form-field>
-        </div>
-
-<div class="demo-drawer-host" fxLayout="column">
-        <mdc-toolbar [fixedAdjustElement]="toolbardemo" [flexible]="isFlexible" [fixed]="isFixed"
-         [waterfall]="isWaterfall" [fixedLastrow]="isFixedLastRow" (change)="handleToolbarChange($event)"
-          style="flex-shrink: 0" mdc-elevation=3>
-            <mdc-toolbar-row>
-                <mdc-toolbar-section [alignStart]="true">
-                    <a href="#/toolbar-demo" mdc-toolbar-menu-icon material-icon>menu</a>
-                    <mdc-toolbar-title>App Title</mdc-toolbar-title>
-                </mdc-toolbar-section>
-            </mdc-toolbar-row>
-            <mdc-toolbar-row>
-                <mdc-toolbar-section [alignEnd]="true">
-                    <a href="#/toolbar-demo" mdc-toolbar-icon material-icon>file_download</a>
-                    <a href="#/toolbar-demo" mdc-toolbar-icon material-icon>print</a>
-                    <a href="#/toolbar-demo" mdc-toolbar-icon material-icon>bookmark</a>
-                </mdc-toolbar-section>
-            </mdc-toolbar-row>
-        </mdc-toolbar>
-        <mdc-content>
-        </mdc-content>
-      </div>
-        <p style="padding-right: 12px;">Flexible Expansion Ratio: {{flexibleExpansionRatio}}</p>
-        <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar</span>
-  [<span style="color:#89bdff">flexible</span>]=<span style="color:#65b042">"isFlexible"</span>
-  [<span style="color:#89bdff">fixed</span>]=<span style="color:#65b042">"isFixed"</span>
-  [<span style="color:#89bdff">waterfall</span>]=<span style="color:#65b042">"isWaterfall"</span>
-  [<span style="color:#89bdff">fixedLastrow</span>]=<span style="color:#65b042">"isFixedLastRow"</span>
-  (<span style="color:#89bdff">change</span>)=<span style="color:#65b042">"handleToolbarChange($event)"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-row</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-section</span> [<span style="color:#89bdff">alignStart</span>]=<span style="color:#65b042">"true"</span>></span>
-      <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#"</span> <span style="color:#e0c589">mdc-toolbar-menu-icon</span> <span style="color:#e0c589">material-icon</span>></span>menu<span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
-      <span style="color:#e0c589">&lt;<span style="color:#e0c589">mdc-toolbar-title</span>></span>App Title<span style="color:#e0c589">&lt;/<span style="color:#e0c589">mdc-toolbar-title</span>></span>
-    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-section</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-row</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-row</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-section</span> [<span style="color:#89bdff">alignEnd</span>]=<span style="color:#65b042">"true"</span>></span>
-      <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/toolbar-demo"</span> <span style="color:#e0c589">mdc-toolbar-icon</span> <span style="color:#e0c589">material-icon</span>></span>file_download<span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
-      <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/toolbar-demo"</span> <span style="color:#e0c589">mdc-toolbar-icon</span> <span style="color:#e0c589">material-icon</span>></span>print<span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
-      <span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#/toolbar-demo"</span> <span style="color:#e0c589">mdc-toolbar-icon</span> <span style="color:#e0c589">material-icon</span>></span>bookmark<span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
-    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-section</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar-row</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-toolbar</span>></span>
-</pre>
-    </div>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Directive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-toolbar-section</td>
+          <td>Toolbar sections are aligned to the toolbar's center</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tr>
+        <td>alignStart: boolean</td>
+        <td>Makes section aligns to the start.</td>
+      </tr>
+      <tr>
+        <td>alignEnd: boolean</td>
+        <td>Makes section aligns to the end.</td>
+      </tr>
+      <tr>
+        <td>shrinkToFit: boolean</td>
+        <td>Makes section takes the width of its content.</td>
+      </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Directive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-toolbar-row</td>
+          <td>MDC Toolbars can accommodate multiple rows.</td>
+        </tr>
+        <tr>
+          <td>mdc-toolbar-title</td>
+          <td>Styles toolbar text representing a page's title, or an application name.</td>
+        </tr>
+        <tr>
+          <td>mdc-toolbar-fixed-adjust</td>
+          <td>Optional directive to add a default margin-top to mdc-toolbar's adjacent sibling element.</td>
+        </tr>
+        <tr>
+          <td>mdc-toolbar-menu-icon</td>
+          <td>Left most icon of a mdc-toolbar.</td>
+        </tr>
+        <tr>
+          <td>mdc-toolbar-icon</td>
+          <td>Icons placed on the right side of a mdc-toolbar.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h3>Toolbar</h3>
+  <div fxLayout="row" fxLayoutWrap>
+    <button mdc-button (click)="demo.flexible = !demo.flexible">Flexible: {{demo.flexible ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="demo.fixed = !demo.fixed">Fixed: {{demo.fixed ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="demo.waterfall = !demo.waterfall">Waterfall: {{demo.waterfall ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="demo.fixedLastrow = !demo.fixedLastrow">Fixed Last Row: {{demo.fixedLastrow ? 'On' : 'Off'}}</button>
+  </div>
+  <div class="demo__container--column">
+    <mdc-toolbar #demo [fixedAdjustElement]="democontent" (change)="handleToolbarChange($event)">
+      <mdc-toolbar-row>
+        <mdc-toolbar-section [alignStart]="true">
+          <mdc-toolbar-title>Toolbar Demo</mdc-toolbar-title>
+        </mdc-toolbar-section>
+      </mdc-toolbar-row>
+      <mdc-toolbar-row>
+        <mdc-toolbar-section [alignEnd]="true">
+          <mdc-icon mdc-toolbar-icon>file_download</mdc-icon>
+          <mdc-icon mdc-toolbar-icon>print</mdc-icon>
+          <mdc-icon mdc-toolbar-icon>more_vert</mdc-icon>
+        </mdc-toolbar-section>
+      </mdc-toolbar-row>
+    </mdc-toolbar>
+    <mdc-content #democontent style="max-height: 400px; max-width: 700px;">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Risus feugiat in ante metus dictum at tempor commodo. Vel orci porta non pulvinar neque. Dolor magna eget est lorem ipsum dolor sit. Adipiscing enim eu turpis egestas. Libero enim sed faucibus turpis in eu. Blandit aliquam etiam erat velit scelerisque. Pellentesque eu tincidunt tortor aliquam nulla facilisi cras. Pharetra vel turpis nunc eget lorem dolor sed viverra. Faucibus pulvinar elementum integer enim neque volutpat ac. Facilisi nullam vehicula ipsum a arcu cursus vitae congue. Porta non pulvinar neque laoreet suspendisse interdum. Consectetur purus ut faucibus pulvinar elementum integer. Faucibus et molestie ac feugiat sed. Facilisi cras fermentum odio eu. Eget nunc lobortis mattis aliquam faucibus purus in massa. Morbi blandit cursus risus at ultrices mi tempus imperdiet nulla. Id ornare arcu odio ut. Lobortis scelerisque fermentum dui faucibus in ornare quam viverra. Purus semper eget duis at tellus at urna condimentum mattis. Volutpat maecenas volutpat blandit aliquam etiam. In egestas erat imperdiet sed euismod nisi porta lorem mollis. Mus mauris vitae ultricies leo integer. Et egestas quis ipsum suspendisse. Diam sit amet nisl suscipit adipiscing bibendum. Faucibus ornare suspendisse sed nisi lacus. Accumsan sit amet nulla facilisi morbi tempus iaculis urna. Sed ullamcorper morbi tincidunt ornare massa. Libero enim sed faucibus turpis in eu mi. Tincidunt ornare massa eget egestas purus viverra. Eget sit amet tellus cras. Sed felis eget velit aliquet sagittis id consectetur purus. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet consectetur adipiscing elit duis. Tincidunt augue interdum velit euismod in pellentesque massa placerat duis. Semper auctor neque vitae tempus quam pellentesque nec nam. A scelerisque purus semper eget duis at tellus at. Maecenas volutpat blandit aliquam etiam erat velit. Arcu non odio euismod lacinia at. Netus et malesuada fames ac. Congue eu consequat ac felis. Mattis enim ut tellus elementum sagittis vitae et leo duis. Eu non diam phasellus vestibulum lorem. Ultricies lacus sed turpis tincidunt id aliquet risus. Ac odio tempor orci dapibus ultrices. Malesuada fames ac turpis egestas integer eget aliquet nibh praesent. Nunc congue nisi vitae suscipit tellus mauris a diam. Urna cursus eget nunc scelerisque viverra mauris in aliquam. Semper auctor neque vitae tempus quam pellentesque nec nam. Eu consequat ac felis donec et odio. Quisque non tellus orci ac auctor augue mauris augue neque. Consectetur adipiscing elit pellentesque habitant. Consectetur a erat nam at lectus urna duis. Senectus et netus et malesuada fames ac. Quis blandit turpis cursus in hac habitasse platea dictumst. Sit amet facilisis magna etiam tempor orci eu. Adipiscing bibendum est ultricies integer quis auctor. Erat imperdiet sed euismod nisi porta lorem mollis aliquam ut. Morbi blandit cursus risus at ultrices mi tempus imperdiet. Blandit cursus risus at ultrices mi tempus imperdiet nulla malesuada. Amet risus nullam eget felis eget nunc lobortis mattis. Tristique senectus et netus et. Eget nunc scelerisque viverra mauris in aliquam sem. Elementum pulvinar etiam non quam lacus suspendisse faucibus. Non pulvinar neque laoreet suspendisse interdum. Curabitur vitae nunc sed velit dignissim sodales ut eu sem. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Mi proin sed libero enim sed faucibus. Semper auctor neque vitae tempus quam pellentesque nec nam. Eu consequat ac felis donec et odio. Quisque non tellus orci ac auctor augue mauris augue neque. Consectetur adipiscing elit pellentesque habitant. Consectetur a erat nam at lectus urna duis. Senectus et netus et malesuada fames ac. Quis blandit turpis cursus in hac habitasse platea dictumst. Sit amet facilisis magna etiam tempor orci eu. Adipiscing bibendum est ultricies integer quis auctor. Erat imperdiet sed euismod nisi porta lorem mollis aliquam ut. Morbi blandit cursus risus at ultrices mi tempus imperdiet. Blandit cursus risus at ultrices mi tempus imperdiet nulla malesuada. Amet risus nullam eget felis eget nunc lobortis mattis. Tristique senectus et netus et. Eget nunc scelerisque viverra mauris in aliquam sem. Elementum pulvinar etiam non quam lacus suspendisse faucibus. Non pulvinar neque laoreet suspendisse interdum. Curabitur vitae nunc sed velit dignissim sodales ut eu sem. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Mi proin sed libero enim sed faucibus.
+    </mdc-content>
+  </div>
+  <p>Flexible Expansion Ratio: {{flexibleExpansionRatio}}</p>
+  <div class="mdc-padding">
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-toolbar?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Example Source</a>
+  </div>
 </div>

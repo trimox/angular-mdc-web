@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -6,11 +6,10 @@ import { FormControl, Validators } from '@angular/forms';
   templateUrl: './select-demo.html'
 })
 export class SelectDemo {
-  isDisabled: boolean = false;
   selectedValue: string;
-  isDarkTheme: boolean = false;
-  eventIndex: number;
-  eventValue: any;
+  changeIndex: number;
+  changeValue: any;
+  selectionChangeValue: any;
 
   // foodControl = new FormControl('pizza-1');
   foodControl = new FormControl();
@@ -24,7 +23,7 @@ export class SelectDemo {
 
   constructor() {
     // this.foodControl.setValue('steak-0');
-    // this.selectedValue = 'pizza-1';
+    this.selectedValue = 'pizza-1';
   }
 
   clearSelection() {
@@ -35,8 +34,14 @@ export class SelectDemo {
     this.selectedValue = 'fruit-3';
   }
 
-  handleChange(event: { index: number, value: any }) {
-    this.eventIndex = event.index;
-    this.eventValue = event.value;
+  onChange(event: { index: number, value: any }) {
+    console.log(event);
+    this.changeIndex = event.index;
+    this.changeValue = event.value;
+  }
+
+  onSelectionChange(event: {source: any, value: any}) {
+    console.log(event);
+    this.selectionChangeValue = event.value
   }
 }

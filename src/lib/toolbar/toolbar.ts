@@ -19,7 +19,7 @@ import {
 import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
 
 import { MDCToolbarAdapter } from './adapter';
-import { MDCToolbarFoundation } from '@material/toolbar';
+import { MDCToolbarFoundation, util } from '@material/toolbar';
 
 @Directive({
   selector: '[mdc-toolbar-icon]'
@@ -142,7 +142,7 @@ export class MdcToolbar implements OnInit, OnChanges, OnDestroy {
     },
     registerScrollHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.listen('scroll', handler, window);
+        this._registry.listen('scroll', handler, window, util.applyPassive());
       }
     },
     deregisterScrollHandler: (handler: EventListener) => {

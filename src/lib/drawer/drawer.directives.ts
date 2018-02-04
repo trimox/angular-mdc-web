@@ -6,7 +6,8 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: '[mdc-drawer-spacer], mdc-drawer-spacer'
+  selector: '[mdc-drawer-spacer], mdc-drawer-spacer',
+  exportAs: 'mdcDrawerSpace'
 })
 export class MdcDrawerSpacer {
   @HostBinding('class.mdc-drawer__toolbar-spacer') isHostClass = true;
@@ -15,7 +16,8 @@ export class MdcDrawerSpacer {
 }
 
 @Directive({
-  selector: '[mdc-drawer-header], mdc-drawer-header'
+  selector: '[mdc-drawer-header], mdc-drawer-header',
+  exportAs: 'mdcDrawerHeader'
 })
 export class MdcDrawerHeader {
   @HostBinding('class.mdc-drawer__header') isHostClass = true;
@@ -24,7 +26,8 @@ export class MdcDrawerHeader {
 }
 
 @Directive({
-  selector: '[mdc-drawer-header-content], mdc-drawer-header-content'
+  selector: '[mdc-drawer-header-content], mdc-drawer-header-content',
+  exportAs: 'mdcDrawerHeaderContent'
 })
 export class MdcDrawerHeaderContent {
   @Input() primary: boolean = true;
@@ -41,7 +44,8 @@ export class MdcDrawerHeaderContent {
 }
 
 @Directive({
-  selector: '[mdc-drawer-content], mdc-drawer-content'
+  selector: '[mdc-drawer-content], mdc-drawer-content',
+  exportAs: 'mdcDrawerContent'
 })
 export class MdcDrawerContent {
   @HostBinding('class.mdc-drawer__content') isHostClass = true;
@@ -50,7 +54,8 @@ export class MdcDrawerContent {
 }
 
 @Directive({
-  selector: 'mdc-drawer-navigation'
+  selector: 'mdc-drawer-navigation',
+  exportAs: 'mdcDrawerNavigation'
 })
 export class MdcDrawerNavigation {
   @HostBinding('class.mdc-drawer__drawer') isHostClass = true;

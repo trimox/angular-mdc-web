@@ -38,7 +38,8 @@ export type MdcDrawerType = 'persistent' | 'permanent' | 'temporary';
   preserveWhitespaces: false,
   providers: [
     EventRegistry,
-  ]
+  ],
+  exportAs: 'mdcDrawer'
 })
 export class MdcDrawer implements OnChanges, OnDestroy {
   private _drawer = 'permanent';

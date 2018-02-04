@@ -40,7 +40,7 @@ export type MdcDrawerType = 'persistent' | 'permanent' | 'temporary';
 })
 export class MdcDrawer implements OnChanges, OnDestroy {
   private _drawer = 'permanent';
-  private _fixedAdjustElement: ElementRef;
+  private _fixedAdjustElement: any;
 
   @Input() fixed: boolean = false;
   @Input() direction: 'ltr' | 'rtl' = 'ltr';
@@ -54,8 +54,8 @@ export class MdcDrawer implements OnChanges, OnDestroy {
   }
 
   @Input()
-  get fixedAdjustElement(): ElementRef { return this._fixedAdjustElement; }
-  set fixedAdjustElement(element: ElementRef) {
+  get fixedAdjustElement(): any { return this._fixedAdjustElement; }
+  set fixedAdjustElement(element: any) {
     this._fixedAdjustElement = element;
   }
 
@@ -88,15 +88,13 @@ export class MdcDrawer implements OnChanges, OnDestroy {
     addBodyClass: (className: string) => {
       if (isBrowser()) {
         this.renderer.addClass(this.fixedAdjustElement
-          ? (this.fixedAdjustElement.nativeElement ? this.fixedAdjustElement.nativeElement
-            : this.fixedAdjustElement) : document.body, className);
+          ? this.fixedAdjustElement : document.body, className);
       }
     },
     removeBodyClass: (className: string) => {
       if (isBrowser()) {
         this.renderer.removeClass(this.fixedAdjustElement
-          ? (this.fixedAdjustElement.nativeElement ? this.fixedAdjustElement.nativeElement
-            : this.fixedAdjustElement) : document.body, className);
+          ? this.fixedAdjustElement : document.body, className);
       }
     },
     eventTargetHasClass: (target: HTMLElement, className: string) => {

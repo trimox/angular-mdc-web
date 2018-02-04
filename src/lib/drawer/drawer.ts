@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
@@ -32,6 +33,7 @@ export type MdcDrawerType = 'persistent' | 'permanent' | 'temporary';
     <ng-content></ng-content>
   </mdc-drawer-navigation>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   preserveWhitespaces: false,
   providers: [
@@ -72,7 +74,6 @@ export class MdcDrawer implements OnChanges, OnDestroy {
   @HostBinding('class.ng-mdc-drawer--fixed') get classFixed(): string {
     return this.fixed && this.isDrawerPermanent() ? 'ng-mdc-drawer--fixed' : '';
   }
-
   @ViewChild(MdcDrawerNavigation) drawerNav: MdcDrawerNavigation;
 
   private _mdcAdapter: MDCDrawerAdapter = {

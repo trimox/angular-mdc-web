@@ -31,7 +31,8 @@ export class MdcToolbarIcon {
 }
 
 @Directive({
-  selector: 'mdc-toolbar-section'
+  selector: 'mdc-toolbar-section',
+  exportAs: 'mdcToolbarSection'
 })
 export class MdcToolbarSection {
   @Input() alignStart: boolean = false;
@@ -50,7 +51,8 @@ export class MdcToolbarSection {
 }
 
 @Directive({
-  selector: '[mdc-toolbar-title], mdc-toolbar-title'
+  selector: '[mdc-toolbar-title], mdc-toolbar-title',
+  exportAs: 'mdcToolbarTitle'
 })
 export class MdcToolbarTitle {
   @HostBinding('class.mdc-toolbar__title') isHostClass = true;
@@ -59,7 +61,8 @@ export class MdcToolbarTitle {
 }
 
 @Directive({
-  selector: '[mdc-toolbar-fixed-adjust], mdc-toolbar-fixed-adjust'
+  selector: '[mdc-toolbar-fixed-adjust], mdc-toolbar-fixed-adjust',
+  exportAs: 'mdcToolbarFixedAdjust'
 })
 export class MdcToolbarFixedAdjust {
   @HostBinding('class.mdc-toolbar-fixed-adjust') isHostClass = true;
@@ -68,7 +71,8 @@ export class MdcToolbarFixedAdjust {
 }
 
 @Directive({
-  selector: 'mdc-toolbar-row'
+  selector: 'mdc-toolbar-row',
+  exportAs: 'mdcToolbarRow'
 })
 export class MdcToolbarRow {
   @HostBinding('class.mdc-toolbar__row') isHostClass = true;
@@ -77,7 +81,8 @@ export class MdcToolbarRow {
 }
 
 @Directive({
-  selector: '[mdc-toolbar-menu-icon]'
+  selector: '[mdc-toolbar-menu-icon]',
+  exportAs: 'mdcToolbarMenuIcon'
 })
 export class MdcToolbarMenuIcon {
   @HostBinding('class.mdc-toolbar__menu-icon') isHostClass = true;
@@ -89,9 +94,11 @@ export class MdcToolbarMenuIcon {
   moduleId: module.id,
   selector: 'mdc-toolbar',
   template: '<ng-content></ng-content>',
+  exportAs: 'mdcToolbar',
   providers: [EventRegistry],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  preserveWhitespaces: false
 })
 export class MdcToolbar implements OnInit, OnChanges, OnDestroy {
   private _fixedAdjustElement: any;

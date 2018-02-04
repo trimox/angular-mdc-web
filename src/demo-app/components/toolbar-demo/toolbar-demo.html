@@ -48,8 +48,8 @@
           <td>If true and using a fixed toolbar, a margin-top is set to prevent toolbar overlaying content. (Default is true)</td>
         </tr>
         <tr>
-          <td>fixedAdjustElement: ElementRef</td>
-          <td>Reference to the toolbar's body element. Margins will be adjusted accordingly by adjustBodyMargin. Default is document.body</td>
+          <td>fixedAdjustElement: any</td>
+          <td>Reference to a toolbar's sibling. Margins will be adjusted accordingly if set.</td>
         </tr>
       </tbody>
       <thead>
@@ -128,34 +128,5 @@ So when it is minimized, ratio equals to 0 and when it is maximized, ratio equal
       </tbody>
     </table>
   </div>
-  <h3>Toolbar</h3>
-  <div fxLayout="row" fxLayoutWrap>
-    <button mdc-button (click)="demo.flexible = !demo.flexible">Flexible: {{demo.flexible ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="demo.fixed = !demo.fixed">Fixed: {{demo.fixed ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="demo.waterfall = !demo.waterfall">Waterfall: {{demo.waterfall ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="demo.fixedLastrow = !demo.fixedLastrow">Fixed Last Row: {{demo.fixedLastrow ? 'On' : 'Off'}}</button>
-  </div>
-  <div class="demo__container--column">
-    <mdc-toolbar #demo [fixedAdjustElement]="democontent" (change)="handleToolbarChange($event)">
-      <mdc-toolbar-row>
-        <mdc-toolbar-section [alignStart]="true">
-          <mdc-toolbar-title>Toolbar Demo</mdc-toolbar-title>
-        </mdc-toolbar-section>
-      </mdc-toolbar-row>
-      <mdc-toolbar-row>
-        <mdc-toolbar-section [alignEnd]="true">
-          <mdc-icon mdc-toolbar-icon>file_download</mdc-icon>
-          <mdc-icon mdc-toolbar-icon>print</mdc-icon>
-          <mdc-icon mdc-toolbar-icon>more_vert</mdc-icon>
-        </mdc-toolbar-section>
-      </mdc-toolbar-row>
-    </mdc-toolbar>
-    <mdc-content #democontent style="max-height: 400px; max-width: 700px;">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Risus feugiat in ante metus dictum at tempor commodo. Vel orci porta non pulvinar neque. Dolor magna eget est lorem ipsum dolor sit. Adipiscing enim eu turpis egestas. Libero enim sed faucibus turpis in eu. Blandit aliquam etiam erat velit scelerisque. Pellentesque eu tincidunt tortor aliquam nulla facilisi cras. Pharetra vel turpis nunc eget lorem dolor sed viverra. Faucibus pulvinar elementum integer enim neque volutpat ac. Facilisi nullam vehicula ipsum a arcu cursus vitae congue. Porta non pulvinar neque laoreet suspendisse interdum. Consectetur purus ut faucibus pulvinar elementum integer. Faucibus et molestie ac feugiat sed. Facilisi cras fermentum odio eu. Eget nunc lobortis mattis aliquam faucibus purus in massa. Morbi blandit cursus risus at ultrices mi tempus imperdiet nulla. Id ornare arcu odio ut. Lobortis scelerisque fermentum dui faucibus in ornare quam viverra. Purus semper eget duis at tellus at urna condimentum mattis. Volutpat maecenas volutpat blandit aliquam etiam. In egestas erat imperdiet sed euismod nisi porta lorem mollis. Mus mauris vitae ultricies leo integer. Et egestas quis ipsum suspendisse. Diam sit amet nisl suscipit adipiscing bibendum. Faucibus ornare suspendisse sed nisi lacus. Accumsan sit amet nulla facilisi morbi tempus iaculis urna. Sed ullamcorper morbi tincidunt ornare massa. Libero enim sed faucibus turpis in eu mi. Tincidunt ornare massa eget egestas purus viverra. Eget sit amet tellus cras. Sed felis eget velit aliquet sagittis id consectetur purus. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet consectetur adipiscing elit duis. Tincidunt augue interdum velit euismod in pellentesque massa placerat duis. Semper auctor neque vitae tempus quam pellentesque nec nam. A scelerisque purus semper eget duis at tellus at. Maecenas volutpat blandit aliquam etiam erat velit. Arcu non odio euismod lacinia at. Netus et malesuada fames ac. Congue eu consequat ac felis. Mattis enim ut tellus elementum sagittis vitae et leo duis. Eu non diam phasellus vestibulum lorem. Ultricies lacus sed turpis tincidunt id aliquet risus. Ac odio tempor orci dapibus ultrices. Malesuada fames ac turpis egestas integer eget aliquet nibh praesent. Nunc congue nisi vitae suscipit tellus mauris a diam. Urna cursus eget nunc scelerisque viverra mauris in aliquam. Semper auctor neque vitae tempus quam pellentesque nec nam. Eu consequat ac felis donec et odio. Quisque non tellus orci ac auctor augue mauris augue neque. Consectetur adipiscing elit pellentesque habitant. Consectetur a erat nam at lectus urna duis. Senectus et netus et malesuada fames ac. Quis blandit turpis cursus in hac habitasse platea dictumst. Sit amet facilisis magna etiam tempor orci eu. Adipiscing bibendum est ultricies integer quis auctor. Erat imperdiet sed euismod nisi porta lorem mollis aliquam ut. Morbi blandit cursus risus at ultrices mi tempus imperdiet. Blandit cursus risus at ultrices mi tempus imperdiet nulla malesuada. Amet risus nullam eget felis eget nunc lobortis mattis. Tristique senectus et netus et. Eget nunc scelerisque viverra mauris in aliquam sem. Elementum pulvinar etiam non quam lacus suspendisse faucibus. Non pulvinar neque laoreet suspendisse interdum. Curabitur vitae nunc sed velit dignissim sodales ut eu sem. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Mi proin sed libero enim sed faucibus. Semper auctor neque vitae tempus quam pellentesque nec nam. Eu consequat ac felis donec et odio. Quisque non tellus orci ac auctor augue mauris augue neque. Consectetur adipiscing elit pellentesque habitant. Consectetur a erat nam at lectus urna duis. Senectus et netus et malesuada fames ac. Quis blandit turpis cursus in hac habitasse platea dictumst. Sit amet facilisis magna etiam tempor orci eu. Adipiscing bibendum est ultricies integer quis auctor. Erat imperdiet sed euismod nisi porta lorem mollis aliquam ut. Morbi blandit cursus risus at ultrices mi tempus imperdiet. Blandit cursus risus at ultrices mi tempus imperdiet nulla malesuada. Amet risus nullam eget felis eget nunc lobortis mattis. Tristique senectus et netus et. Eget nunc scelerisque viverra mauris in aliquam sem. Elementum pulvinar etiam non quam lacus suspendisse faucibus. Non pulvinar neque laoreet suspendisse interdum. Curabitur vitae nunc sed velit dignissim sodales ut eu sem. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Mi proin sed libero enim sed faucibus.
-    </mdc-content>
-  </div>
-  <p>Flexible Expansion Ratio: {{flexibleExpansionRatio}}</p>
-  <div class="mdc-padding">
-    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-toolbar?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Example Source</a>
-  </div>
+  <a mdc-button href="https://stackblitz.com/edit/angular-mdc-toolbar?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Examples</a>
 </div>

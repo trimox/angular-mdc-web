@@ -1,8 +1,8 @@
-<mdc-toolbar class="demo__toolbar--primary" [fixed]="true">
+<mdc-toolbar class="demo__toolbar--primary" [fixed]="true" [fixedAdjustElement]="demobody">
   <mdc-toolbar-row>
     <mdc-toolbar-section [alignStart]="true">
       <button material-icon mdc-toolbar-menu-icon (click)="appdrawer.open()" fxShow fxHide.gt-sm="true">menu</button>
-      <a class="demo-toolbar-logo" button mdc-toolbar-menu-icon fxHide fxShow.gt-sm="true" [routerLink]="['home']" mdc-ripple>
+      <a mdc-toolbar-menu-icon fxHide fxShow.gt-sm="true" [routerLink]="['home']">
        <img src="https://trimox.github.io/angular-mdc-web/assets/hub-192x192.png" width="28" height="28" />
      </a>
       <mdc-toolbar-title>Angular MDC</mdc-toolbar-title>
@@ -16,30 +16,31 @@
     </mdc-toolbar-section>
   </mdc-toolbar-row>
 </mdc-toolbar>
-<mdc-drawer #appdrawer [drawer]="media.isActive('gt-sm') ? 'permanent' : 'temporary'" [fixed]="true" [fixedAdjustElement]="democontent">
- <mdc-drawer-content>
-    <mdc-list-group>
-      <mdc-list>
-        <mdc-list-item [routerLink]="['home']" routerLinkActive #rlaHome="routerLinkActive">
-          <mdc-icon mdc-list-item-graphic>home</mdc-icon>Home
-        </mdc-list-item>
-        <mdc-list-divider></mdc-list-divider>
-        <mdc-list-item [routerLink]="['getting-started']" routerLinkActive #rlaStarted="routerLinkActive">
-          <mdc-icon mdc-list-item-graphic>touch_app</mdc-icon>Getting Started
-        </mdc-list-item>
-        <mdc-list-divider></mdc-list-divider>
-        <mdc-list-item [routerLink]="['core']" routerLinkActive #rlaCore="routerLinkActive">
-          <mdc-icon mdc-list-item-graphic>keyboard_arrow_right</mdc-icon>Core Modules
-        </mdc-list-item>
-        <mdc-list-divider></mdc-list-divider>
-        <mdc-list-item *ngFor="let navItem of navLinks" [routerLink]="[navItem.route]" routerLinkActive #rla="routerLinkActive">
-          <mdc-icon mdc-list-item-graphic>{{navItem.icon}}</mdc-icon>{{navItem.name}}
-        </mdc-list-item>
-      </mdc-list>
-    </mdc-list-group>
-  </mdc-drawer-content>
-</mdc-drawer>
-
-<mdc-content #democontent>
-  <router-outlet></router-outlet>
-</mdc-content>
+<div #demobody>
+  <mdc-drawer #appdrawer="mdcDrawer" [drawer]="media.isActive('gt-sm') ? 'permanent' : 'temporary'" [fixed]="true" [fixedAdjustElement]="democontent">
+    <mdc-drawer-content>
+      <mdc-list-group>
+        <mdc-list>
+          <mdc-list-item [routerLink]="['home']" routerLinkActive #rlaHome="routerLinkActive">
+            <mdc-icon mdc-list-item-graphic>home</mdc-icon>Home
+          </mdc-list-item>
+          <mdc-list-divider></mdc-list-divider>
+          <mdc-list-item [routerLink]="['getting-started']" routerLinkActive #rlaStarted="routerLinkActive">
+            <mdc-icon mdc-list-item-graphic>touch_app</mdc-icon>Getting Started
+          </mdc-list-item>
+          <mdc-list-divider></mdc-list-divider>
+          <mdc-list-item [routerLink]="['core']" routerLinkActive #rlaCore="routerLinkActive">
+            <mdc-icon mdc-list-item-graphic>keyboard_arrow_right</mdc-icon>Core Modules
+          </mdc-list-item>
+          <mdc-list-divider></mdc-list-divider>
+          <mdc-list-item *ngFor="let navItem of navLinks" [routerLink]="[navItem.route]" routerLinkActive #rla="routerLinkActive">
+            <mdc-icon mdc-list-item-graphic>{{navItem.icon}}</mdc-icon>{{navItem.name}}
+          </mdc-list-item>
+        </mdc-list>
+      </mdc-list-group>
+    </mdc-drawer-content>
+  </mdc-drawer>
+  <mdc-content #democontent>
+    <router-outlet></router-outlet>
+  </mdc-content>
+</div>

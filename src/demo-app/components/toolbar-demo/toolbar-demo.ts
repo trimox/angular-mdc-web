@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 export class ToolbarDemo {
   flexibleExpansionRatio: number;
 
-  handleToolbarChange(evt: number) {
+  onToolbarChange(evt: number) {
     console.log(evt)
     this.flexibleExpansionRatio = evt;
   }

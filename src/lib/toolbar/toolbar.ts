@@ -1,5 +1,6 @@
 import {
-  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChild,
   Directive,
@@ -7,9 +8,12 @@ import {
   EventEmitter,
   HostBinding,
   Input,
+  OnChanges,
   OnDestroy,
+  OnInit,
   Output,
   Renderer2,
+  SimpleChange,
   ViewEncapsulation,
 } from '@angular/core';
 import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
@@ -86,10 +90,11 @@ export class MdcToolbarMenuIcon {
   selector: 'mdc-toolbar',
   template: '<ng-content></ng-content>',
   providers: [EventRegistry],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class MdcToolbar implements AfterViewInit, OnDestroy {
-  private _fixedAdjustElement: ElementRef;
+export class MdcToolbar implements OnInit, OnChanges, OnDestroy {
+  private _fixedAdjustElement: any;
 
   @Input() flexible: boolean = false;
   @Input() flexibleDefaultBehavior: boolean = true;
@@ -98,9 +103,12 @@ export class MdcToolbar implements AfterViewInit, OnDestroy {
   @Input() fixedLastrow: boolean = false;
   @Input() adjustBodyMargin: boolean = true;
   @Input()
-  get fixedAdjustElement(): ElementRef { return this._fixedAdjustElement; }
-  set fixedAdjustElement(element: ElementRef) {
-    this._fixedAdjustElement = element;
+  get fixedAdjustElement(): any { return this._fixedAdjustElement; }
+  set fixedAdjustElement(element: any) {
+    if (this._fixedAdjustElement !== element) {
+      this._fixedAdjustElement = element;
+      this._changeDetectorRef.markForCheck();
+    }
   }
   @Output() change: EventEmitter<number> = new EventEmitter<number>();
   @ContentChild(MdcToolbarRow) firstRow: MdcToolbarRow;
@@ -152,12 +160,8 @@ export class MdcToolbar implements AfterViewInit, OnDestroy {
         this._registry.unlisten('resize', handler);
       }
     },
-    getViewportWidth: () => {
-      return isBrowser() ? window.innerWidth : 0;
-    },
-    getViewportScrollY: () => {
-      return isBrowser() ? window.pageYOffset : 0;
-    },
+    getViewportWidth: () => isBrowser() ? window.innerWidth : 0,
+    getViewportScrollY: () => isBrowser() ? window.pageYOffset : 0,
     getOffsetHeight: () => this.elementRef.nativeElement.offsetHeight,
     getFirstRowElementOffsetHeight: () => {
       return this.firstRow ? this.firstRow.elementRef.nativeElement.offsetHeight : 0;
@@ -180,32 +184,55 @@ export class MdcToolbar implements AfterViewInit, OnDestroy {
     },
     setStyleForFixedAdjustElement: (property: string, value: string) => {
       if (!isBrowser()) { return; }
-      if (this.fixed && this.adjustBodyMargin) {
+
+      if (this.adjustBodyMargin && this.fixed) {
         this._renderer.setStyle(this._fixedAdjustElement ?
-          this._fixedAdjustElement.nativeElement : document.body, property, value);
+          this._fixedAdjustElement : document.body, property, value);
       }
     }
   };
 
   private _foundation: {
-    init: Function,
-    destroy: Function,
-    updateAdjustElementStyles: Function
-  } = new MDCToolbarFoundation(this._mdcAdapter);
+    init(): void,
+    destroy(): void,
+    updateAdjustElementStyles(): void
+  };
 
   constructor(
+    private _changeDetectorRef: ChangeDetectorRef,
     private _renderer: Renderer2,
     public elementRef: ElementRef,
     private _registry: EventRegistry) { }
 
-  ngAfterViewInit(): void {
+  ngOnChanges(changes: { [key: string]: SimpleChange }): void {
+    const fixedAdjustElement = changes['fixedAdjustElement'];
+
+    if (fixedAdjustElement) {
+      if (fixedAdjustElement.currentValue) {
+        this._renderer.addClass(fixedAdjustElement.currentValue, 'mdc-toolbar-fixed-adjust');
+      }
+      if (fixedAdjustElement.previousValue) {
+        this._renderer.removeClass(fixedAdjustElement.previousValue, 'mdc-toolbar-fixed-adjust');
+      }
+    }
+  }
+
+  ngOnInit(): void {
+    this._foundation = new MDCToolbarFoundation(this._mdcAdapter);
     this._foundation.init();
+
+    this.updateAdjustElementStyles();
+    this._changeDetectorRef.detectChanges();
   }
 
   ngOnDestroy(): void {
-    if (isBrowser() && this.fixed && this.adjustBodyMargin) {
-      this._renderer.removeStyle(document.body, 'margin-top');
+    if (isBrowser()) {
+      if (this.adjustBodyMargin && this.fixed) {
+        this._renderer.removeStyle(this.fixedAdjustElement ?
+          this.fixedAdjustElement : document.body, 'mdc-toolbar-fixed-adjust');
+      }
     }
+
     this._foundation.destroy();
   }
 

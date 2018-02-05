@@ -68,9 +68,7 @@ export const MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR: any = {
     (input)="onInput($event.target.value)" />
     <mdc-text-field-label [attr.for]="id" *ngIf="!placeholder">{{label}}</mdc-text-field-label>
     <mdc-text-field-bottom-line *ngIf="!outline"></mdc-text-field-bottom-line>
-    <mdc-text-field-outline *ngIf="outline">
-      <mdc-text-field-outline-path></mdc-text-field-outline-path>
-    </mdc-text-field-outline>
+    <mdc-text-field-outline *ngIf="outline"></mdc-text-field-outline>
     <mdc-text-field-idle-outline *ngIf="outline"></mdc-text-field-idle-outline>
     <ng-content></ng-content>
   `,
@@ -87,13 +85,13 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
   private _disabled: boolean = false;
   private _required: boolean = false;
   private _focused: boolean = false;
+  private _outline: boolean = false;
   private _helperText: MdcTextFieldHelperText;
   private _useCustomValidity: boolean;
 
   @Input() id: string = `mdc-input-${nextUniqueId++}`;
   @Input() fullwidth: boolean = false;
   @Input() dense: boolean = false;
-  @Input() outline: boolean = false;
   @Input() label: string;
   @Input() maxlength: number;
   @Input() placeholder: string = '';
@@ -126,6 +124,7 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
   get required(): boolean { return this._required; }
   set required(value: boolean) {
     this._required = toBoolean(value);
+
     if (!this.isTextarea()) {
       if (value !== this._required) {
         this.setRequired(this._required);
@@ -137,6 +136,12 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
   get focused(): boolean { return this._focused; }
   set focused(value: boolean) {
     this._focused = toBoolean(value);
+  }
+  @Input()
+  get outline(): boolean { return this._outline; }
+  set outline(value: boolean) {
+    this._outline = toBoolean(value);
+    this._changeDetectorRef.markForCheck();
   }
   @Input()
   get helperText(): MdcTextFieldHelperText { return this._helperText; }
@@ -223,12 +228,12 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
   /** Returns a map of all subcomponents to subfoundations. */
   private _getFoundationMap() {
     return {
-      bottomLine: this.bottomLine ? this.bottomLine.foundation : undefined,
+      bottomLine: (this.bottomLine && !this.outline) ? this.bottomLine.foundation : undefined,
       helperText: this._helperText ? this.helperText.foundation : undefined,
       icon: this.leadingIcon ? this.leadingIcon.foundation
         : this.trailingIcon ? this.trailingIcon.foundation : undefined,
       label: this.inputLabel ? this.inputLabel.foundation : undefined,
-      outline: this.outlined ? this.outlined.foundation : undefined,
+      outline: this.outline ? this.outlined.foundation : undefined,
     };
   }
 
@@ -263,12 +268,10 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
 
   ngOnChanges(changes: { [key: string]: SimpleChange }): void {
     const disabled = changes['disabled'];
-    const outline = changes['outline'];
 
     if (disabled) {
       this._foundation.setDisabled(disabled.currentValue);
     }
-
   }
 
   ngAfterViewInit(): void {
@@ -277,10 +280,11 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
 
     this._foundation.init();
 
-    if (this.outlined) {
+    if (this.outline) {
       this.outlined.idleOutline = this.idleOutline;
       this._foundation.updateOutline();
     }
+
     this.updateIconState();
     this._changeDetectorRef.detectChanges();
   }
@@ -310,10 +314,12 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
 
   writeValue(value: string): void {
     this.value = value == null ? '' : value;
+
     if (this.inputLabel) {
       this.value.length > 0 ? this.inputLabel.mdcAdapter.addClass('mdc-text-field__label--float-above')
         : this.inputLabel.mdcAdapter.removeClass('mdc-text-field__label--float-above');
     }
+
     this.change.emit(value);
     this._changeDetectorRef.markForCheck();
   }

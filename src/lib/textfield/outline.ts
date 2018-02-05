@@ -1,31 +1,16 @@
 import {
   Component,
-  ContentChild,
   Directive,
   ElementRef,
   HostBinding,
   Renderer2,
   ViewChild,
+  ViewEncapsulation,
 } from '@angular/core';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
 import { MDCTextFieldOutlineAdapter } from '@material/textfield/outline/adapter';
 import { MDCTextFieldOutlineFoundation } from '@material/textfield/outline';
-
-@Component({
-  moduleId: module.id,
-  selector: 'mdc-text-field-outline-path',
-  template: `
-  <svg>
-    <path #svgpath class="mdc-text-field__outline-path"/>
-  </svg>
-  `,
-})
-export class MdcTextFieldOutlinePath {
-  @ViewChild('svgpath') svgpath: ElementRef;
-
-  constructor(public elementRef: ElementRef) { }
-}
 
 @Directive({
   selector: 'mdc-text-field-idle-outline',
@@ -36,8 +21,16 @@ export class MdcTextFieldIdleOutline {
   constructor(public elementRef: ElementRef) { }
 }
 
-@Directive({
+@Component({
+  moduleId: module.id,
   selector: 'mdc-text-field-outline',
+  template: `
+  <svg>
+    <path #svgpath class="mdc-text-field__outline-path"/>
+  </svg>
+  `,
+  encapsulation: ViewEncapsulation.None,
+  preserveWhitespaces: false,
   providers: [
     MdcRipple
   ],
@@ -46,7 +39,7 @@ export class MdcTextFieldOutline {
   private _idleOutline: MdcTextFieldIdleOutline;
 
   @HostBinding('class.mdc-text-field__outline') isHostClass = true;
-  @ContentChild(MdcTextFieldOutlinePath) outlinePath: MdcTextFieldOutlinePath;
+  @ViewChild('svgpath') svgpath: ElementRef;
 
   get idleOutline(): MdcTextFieldIdleOutline { return this._idleOutline; }
   set idleOutline(idleOutline: MdcTextFieldIdleOutline) {
@@ -57,12 +50,10 @@ export class MdcTextFieldOutline {
     getWidth: () => this.elementRef.nativeElement.offsetWidth,
     getHeight: () => this.elementRef.nativeElement.offsetHeight,
     setOutlinePathAttr: (value: string) => {
-      this._renderer.setAttribute(this.outlinePath.svgpath.nativeElement, 'd', value);
+      this._renderer.setAttribute(this.svgpath.nativeElement, 'd', value);
     },
     getIdleOutlineStyleValue: (propertyName: string) => {
-      if (this.idleOutline) {
-        return window.getComputedStyle(this.idleOutline.elementRef.nativeElement).getPropertyValue(propertyName);
-      }
+      return window.getComputedStyle(this.idleOutline.elementRef.nativeElement).getPropertyValue(propertyName);
     },
   };
 
@@ -80,6 +71,11 @@ export class MdcTextFieldOutline {
     this._ripple.init();
   }
 
+  init(): void {
+    this.foundation = new MDCTextFieldOutlineFoundation(this.mdcAdapter);
+    this.foundation.init();
+  }
+
   destroy(): void {
     this.foundation.destroy();
   }
@@ -90,5 +86,13 @@ export class MdcTextFieldOutline {
      */
   updateSvgPath(labelWidth: number, isRtl: boolean): void {
     this.foundation.updateSvgPath(labelWidth, isRtl);
+  }
+
+  getWidth(): number {
+    return this.mdcAdapter.getWidth();
+  }
+
+  getHeight(): number {
+    return this.mdcAdapter.getHeight();
   }
 }

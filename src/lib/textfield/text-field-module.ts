@@ -14,7 +14,6 @@ import { MdcTextFieldBox } from './text-field-box';
 import { MdcTextarea } from './textarea';
 import {
   MdcTextFieldOutline,
-  MdcTextFieldOutlinePath,
   MdcTextFieldIdleOutline,
 } from './outline';
 
@@ -28,7 +27,6 @@ const TEXTFIELD_COMPONENTS = [
   MdcTextFieldLabel,
   MdcTextFieldLeadingIcon,
   MdcTextFieldOutline,
-  MdcTextFieldOutlinePath,
   MdcTextFieldTrailingIcon,
 ];
 

@@ -1,3 +1,26 @@
+<a name="0.7.4"></a>
+## [0.7.4](https://github.com/trimox/angular-mdc-web/compare/v0.7.3...v0.7.4) (2018-02-05)
+
+
+### Bug Fixes
+
+* **drawer:** Change fixedAdjustElement type ([#606](https://github.com/trimox/angular-mdc-web/issues/606)) ([9e0f100](https://github.com/trimox/angular-mdc-web/commit/9e0f100))
+* **select:** Menu flickers before disappearing ([#599](https://github.com/trimox/angular-mdc-web/issues/599)) ([ac5d438](https://github.com/trimox/angular-mdc-web/commit/ac5d438)), closes [#509](https://github.com/trimox/angular-mdc-web/issues/509)
+* **text-field:** Fix error if disabled prior to foundation init ([#589](https://github.com/trimox/angular-mdc-web/issues/589)) ([25bf71f](https://github.com/trimox/angular-mdc-web/commit/25bf71f)), closes [#588](https://github.com/trimox/angular-mdc-web/issues/588)
+
+
+### Features
+
+* **drawer:** Add exportAs declarations ([#608](https://github.com/trimox/angular-mdc-web/issues/608)) ([0dbea96](https://github.com/trimox/angular-mdc-web/commit/0dbea96))
+* **drawer:** Remove mdc-elevation(1) on fixed drawer ([#601](https://github.com/trimox/angular-mdc-web/issues/601)) ([c39881c](https://github.com/trimox/angular-mdc-web/commit/c39881c))
+* **drawer:** Use ChangeDetectionStrategy.OnPush ([#607](https://github.com/trimox/angular-mdc-web/issues/607)) ([59365d9](https://github.com/trimox/angular-mdc-web/commit/59365d9))
+* **select:** Add selectionChange event ([#600](https://github.com/trimox/angular-mdc-web/issues/600)) ([f4990ac](https://github.com/trimox/angular-mdc-web/commit/f4990ac)), closes [#591](https://github.com/trimox/angular-mdc-web/issues/591)
+* **toolbar:** Add exportAs declarations ([#605](https://github.com/trimox/angular-mdc-web/issues/605)) ([c932ea6](https://github.com/trimox/angular-mdc-web/commit/c932ea6))
+* **toolbar:** ChangeDetection OnPush + fixedAdjustElement improvements ([#603](https://github.com/trimox/angular-mdc-web/issues/603)) ([749d173](https://github.com/trimox/angular-mdc-web/commit/749d173))
+* **toolbar:** Use passive event listener on scroll ([#604](https://github.com/trimox/angular-mdc-web/issues/604)) ([0771432](https://github.com/trimox/angular-mdc-web/commit/0771432))
+
+
+
 <a name="0.7.3"></a>
 ## [0.7.3](https://github.com/trimox/angular-mdc-web/compare/v0.7.2...v0.7.3) (2018-01-30)
 

@@ -1,3 +1,14 @@
+<a name="0.7.5"></a>
+## [0.7.5](https://github.com/trimox/angular-mdc-web/compare/v0.7.4...v0.7.5) (2018-02-06)
+
+
+### Bug Fixes
+
+* **toolbar:** Alignment for mdc-toolbar-title if flexible toolbar ([#611](https://github.com/trimox/angular-mdc-web/issues/611)) ([7f48474](https://github.com/trimox/angular-mdc-web/commit/7f48474))
+* **toolbar:** Instantiate MDCToolbarFoundation before lifecycles ([#612](https://github.com/trimox/angular-mdc-web/issues/612)) ([fccd90d](https://github.com/trimox/angular-mdc-web/commit/fccd90d))
+
+
+
 <a name="0.7.4"></a>
 ## [0.7.4](https://github.com/trimox/angular-mdc-web/compare/v0.7.3...v0.7.4) (2018-02-05)
 

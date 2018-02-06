@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -10,13 +11,12 @@ import {
   Input,
   OnChanges,
   OnDestroy,
-  OnInit,
   Output,
   Renderer2,
   SimpleChange,
   ViewEncapsulation,
 } from '@angular/core';
-import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
+import { isBrowser, EventRegistry, toBoolean } from '@angular-mdc/web/common';
 
 import { MDCToolbarAdapter } from './adapter';
 import { MDCToolbarFoundation, util } from '@material/toolbar';
@@ -100,15 +100,22 @@ export class MdcToolbarMenuIcon {
   encapsulation: ViewEncapsulation.None,
   preserveWhitespaces: false
 })
-export class MdcToolbar implements OnInit, OnChanges, OnDestroy {
+export class MdcToolbar implements AfterViewInit, OnChanges, OnDestroy {
   private _fixedAdjustElement: any;
+  private _flexible: boolean;
 
-  @Input() flexible: boolean = false;
   @Input() flexibleDefaultBehavior: boolean = true;
   @Input() fixed: boolean = false;
   @Input() waterfall: boolean = false;
   @Input() fixedLastrow: boolean = false;
   @Input() adjustBodyMargin: boolean = true;
+
+  @Input()
+  get flexible(): boolean { return this._flexible; }
+  set flexible(value: boolean) {
+    this._flexible = toBoolean(value);
+    this._changeDetectorRef.markForCheck();
+  }
   @Input()
   get fixedAdjustElement(): any { return this._fixedAdjustElement; }
   set fixedAdjustElement(element: any) {
@@ -203,7 +210,7 @@ export class MdcToolbar implements OnInit, OnChanges, OnDestroy {
     init(): void,
     destroy(): void,
     updateAdjustElementStyles(): void
-  };
+  } = new MDCToolbarFoundation(this._mdcAdapter);
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
@@ -224,8 +231,7 @@ export class MdcToolbar implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  ngOnInit(): void {
-    this._foundation = new MDCToolbarFoundation(this._mdcAdapter);
+  ngAfterViewInit(): void {
     this._foundation.init();
 
     this.updateAdjustElementStyles();

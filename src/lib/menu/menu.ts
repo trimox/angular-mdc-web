@@ -17,8 +17,8 @@ import {
 } from '@angular/core';
 import { isBrowser, toBoolean, EventRegistry } from '@angular-mdc/web/common';
 
-import { MDCMenuAdapter } from '@material/menu/simple/adapter';
-import { MDCSimpleMenuFoundation, util, Corner } from '@material/menu';
+import { MDCMenuAdapter } from '@material/menu/adapter';
+import { MDCMenuFoundation, util, Corner } from '@material/menu';
 
 export type MdcMenuAnchorCorner = 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end';
 
@@ -48,7 +48,7 @@ export class MdcMenuDivider {
 })
 export class MdcMenuItems {
   @HostBinding('class.mdc-list') isHostClass = true;
-  @HostBinding('class.mdc-simple-menu__items') isSelectClass = true;
+  @HostBinding('class.mdc-menu__items') isSelectClass = true;
   @HostBinding('attr.role') role: string = 'menu';
   @HostBinding('attr.aria-hidden') ariaHidden: string = 'true';
 
@@ -111,7 +111,7 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
   @Input() direction: 'ltr' | 'rtl' = 'ltr';
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
   @Output() select: EventEmitter<any> = new EventEmitter();
-  @HostBinding('class.mdc-simple-menu') isHostClass = true;
+  @HostBinding('class.mdc-menu') isHostClass = true;
   @HostBinding('tabindex') tabindex: number = -1;
   @ViewChild(MdcMenuItems) menuContainer: MdcMenuItems;
   @ContentChildren(MdcMenuItem) options: QueryList<MdcMenuItem>;

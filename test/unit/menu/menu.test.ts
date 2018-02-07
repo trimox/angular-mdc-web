@@ -11,7 +11,7 @@ describe('MdcMenu', () => {
     TestBed.configureTestingModule({
       imports: [MdcMenuModule],
       declarations: [
-        SimpleTest,
+        MenuTest,
       ]
     });
     TestBed.compileComponents();
@@ -20,10 +20,10 @@ describe('MdcMenu', () => {
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;
     let testInstance: MdcMenu;
-    let testComponent: SimpleTest;
+    let testComponent: MenuTest;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(SimpleTest);
+      fixture = TestBed.createComponent(MenuTest);
       fixture.detectChanges();
 
       testDebugElement = fixture.debugElement.query(By.directive(MdcMenu));
@@ -31,9 +31,9 @@ describe('MdcMenu', () => {
       testComponent = fixture.debugElement.componentInstance;
     });
 
-    it('#should have mdc-simple-menu by default', () => {
+    it('#should have mdc-menu by default', () => {
       expect(testDebugElement.nativeElement.classList)
-        .toContain('mdc-simple-menu', 'Expected to have mdc-simple-menu');
+        .toContain('mdc-menu', 'Expected to have mdc-menu');
     });
 
     it('#should be closed', () => {
@@ -106,7 +106,7 @@ describe('MdcMenu', () => {
     </div>
   `,
 })
-class SimpleTest {
+class MenuTest {
   anchorCorner: string = 'top-start';
   isDisabled: boolean = true;
   selectedIndex: number = -1;

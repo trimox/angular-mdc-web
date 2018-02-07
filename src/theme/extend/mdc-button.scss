@@ -1,15 +1,7 @@
 .mdc-button--primary {
   @include mdc-button-filled-accessible($mdc-theme-primary);
-
-  @include mdc-theme-dark(".mdc-button") {
-    @include mdc-button-filled-accessible($mdc-theme-primary);
-  }
 }
 
 .mdc-button--secondary {
   @include mdc-button-filled-accessible($mdc-theme-secondary);
-
-  @include mdc-theme-dark(".mdc-button") {
-    @include mdc-button-filled-accessible($mdc-theme-secondary);
-  }
 }

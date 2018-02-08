@@ -220,13 +220,14 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
   };
 
   private _foundation: {
-    init: () => {},
-    destroy: () => {},
-    open: ({ focusIndex: number }) => {},
-    close: (evt?: Event) => {},
-    isOpen: () => boolean,
-    setAnchorCorner: (corner: Corner) => {},
-    setAnchorMargin: Function
+    init(): void,
+    destroy(): void,
+    open({ focusIndex: number }): void,
+    close(evt?: Event): void,
+    isOpen(): boolean,
+    setAnchorCorner(corner: Corner): void,
+    setAnchorMargin(): void,
+    setQuickOpen(quickOpen: boolean): void,
   } = new MDCMenuFoundation(this._mdcAdapter);
 
   constructor(
@@ -311,5 +312,9 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
 
   isRtl(): boolean {
     return this._mdcAdapter.isRtl();
+  }
+
+  setQuickOpen(quickOpen: boolean): void {
+    this._foundation.setQuickOpen(quickOpen);
   }
 }

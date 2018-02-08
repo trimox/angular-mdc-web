@@ -20,7 +20,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
-import { MDCCheckboxAdapter } from './adapter';
+import { MDCCheckboxAdapter } from '@material/checkbox/adapter';
 import { MDCCheckboxFoundation } from '@material/checkbox';
 
 let nextUniqueId = 0;
@@ -60,7 +60,7 @@ export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
   <div class="mdc-checkbox__background">
     <svg class="mdc-checkbox__checkmark"
       viewBox="0 0 24 24">
-      <path class="mdc-checkbox__checkmark__path"
+      <path class="mdc-checkbox__checkmark-path"
             fill="none"
             stroke="white"
             d="M1.73,12.91 8.1,19.28 22.79,4.59"></path>

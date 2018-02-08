@@ -33,7 +33,7 @@ export const MDC_TEXTFIELD_BOX_CONTROL_VALUE_ACCESSOR: any = {
     (blur)="onBlur()"
     (input)="onInput($event.target.value)" />
   <mdc-text-field-label [attr.for]="id">{{label}}</mdc-text-field-label>
-  <mdc-text-field-bottom-line></mdc-text-field-bottom-line>
+  <mdc-line-ripple></mdc-line-ripple>
   <ng-content select="mdc-icon"></ng-content>
   `,
   providers: [

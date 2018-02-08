@@ -12,6 +12,7 @@ export * from '@angular-mdc/web/form-field';
 export * from '@angular-mdc/web/icon';
 export * from '@angular-mdc/web/icon-toggle';
 export * from '@angular-mdc/web/linear-progress';
+export * from '@angular-mdc/web/line-ripple';
 export * from '@angular-mdc/web/list';
 export * from '@angular-mdc/web/menu';
 export * from '@angular-mdc/web/radio';

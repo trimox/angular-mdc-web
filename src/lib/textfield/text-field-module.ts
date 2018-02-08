@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { MdcTextFieldBottomLine } from './bottom-line';
+import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
 import { MdcTextFieldHelperText } from './helper-text';
 import {
   MdcTextFieldLeadingIcon,
@@ -20,7 +20,7 @@ import {
 const TEXTFIELD_COMPONENTS = [
   MdcTextarea,
   MdcTextField,
-  MdcTextFieldBottomLine,
+  MdcLineRipple,
   MdcTextFieldBox,
   MdcTextFieldHelperText,
   MdcTextFieldIdleOutline,

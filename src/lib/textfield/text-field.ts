@@ -22,7 +22,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { toBoolean, isBrowser, EventRegistry } from '@angular-mdc/web/common';
 
 import { MdcTextFieldHelperText } from './helper-text';
-import { MdcTextFieldBottomLine } from './bottom-line';
+import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
 import { MdcTextFieldOutline, MdcTextFieldIdleOutline } from './outline';
 import { MdcTextFieldLeadingIcon, MdcTextFieldTrailingIcon } from './icon';
 import { MdcTextFieldLabel } from './label';
@@ -67,7 +67,7 @@ export const MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR: any = {
     (blur)="onBlur()"
     (input)="onInput($event.target.value)" />
     <mdc-text-field-label [attr.for]="id" *ngIf="!placeholder">{{label}}</mdc-text-field-label>
-    <mdc-text-field-bottom-line *ngIf="!outline"></mdc-text-field-bottom-line>
+    <mdc-line-ripple *ngIf="!outline"></mdc-line-ripple>
     <mdc-text-field-outline *ngIf="outline"></mdc-text-field-outline>
     <mdc-text-field-idle-outline *ngIf="outline"></mdc-text-field-idle-outline>
     <ng-content></ng-content>
@@ -103,7 +103,7 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
   @HostBinding('class.mdc-text-field') isHostClass = true;
   @ViewChild('input') inputText: ElementRef;
   @ViewChild(MdcTextFieldLabel) inputLabel: MdcTextFieldLabel;
-  @ViewChild(MdcTextFieldBottomLine) bottomLine: MdcTextFieldBottomLine;
+  @ViewChild(MdcLineRipple) bottomLine: MdcLineRipple;
   @ContentChild(MdcTextFieldLeadingIcon) leadingIcon: MdcTextFieldLeadingIcon;
   @ContentChild(MdcTextFieldTrailingIcon) trailingIcon: MdcTextFieldTrailingIcon;
   @ViewChild(MdcTextFieldOutline) outlined: MdcTextFieldOutline;
@@ -422,6 +422,7 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
     }
   }
 
+  /** Retrieves the DOM element of the component host. */
   private _getHostElement() {
     return this.elementRef.nativeElement;
   }

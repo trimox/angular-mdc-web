@@ -107,22 +107,21 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnChang
   };
 
   private _foundation: {
-    init: Function,
-    destroy: Function,
-    isChecked: Function,
-    setChecked: Function,
-    setDisabled: Function,
-    isDisabled: Function,
-    getValue: Function,
-    setValue: Function,
-    isIndeterminate: Function,
-    setIndeterminate: Function
+    init(): void,
+    destroy(): void,
+    isChecked(): boolean,
+    setChecked(checked: boolean): void,
+    setDisabled(disabled: boolean): void,
+    isDisabled(): boolean,
+    getValue(): string,
+    setValue(value: string): void,
+    isIndeterminate(): boolean,
+    setIndeterminate(indeterminate: boolean): void
   } = new MDCCheckboxFoundation(this._mdcAdapter);
 
   private _uniqueId: string = `mdc-checkbox-${++nextUniqueId}`;
   private _checked: boolean = false;
   private _indeterminate: boolean = false;
-  private _disableRipple: boolean = false;
   private _disabled: boolean = false;
 
   @Input() id: string = this._uniqueId;
@@ -157,12 +156,6 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnChang
       this._indeterminate = toBoolean(value);
       this._changeDetectorRef.markForCheck();
     }
-  }
-
-  @Input()
-  get disableRipple(): boolean { return this._disableRipple; }
-  set disableRipple(value: boolean) {
-    this._disableRipple = toBoolean(value);
   }
 
   /// Determines the state to go into when [indeterminate] state is toggled.
@@ -210,7 +203,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnChang
     }
 
     if (disabled) {
-      this._foundation.setDisabled(disabled.currentValue);
+      this.setDisabled(disabled.currentValue);
     }
 
     if (indeterminate) {
@@ -229,9 +222,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnChang
   ngAfterViewInit(): void {
     this._foundation.init();
 
-    if (!this._disableRipple) {
-      this.ripple.init(true);
-    }
+    this.ripple.init(true);
   }
 
   ngOnDestroy(): void {
@@ -285,7 +276,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnChang
      * Event handler for checkbox input element.
      * Toggles checked state if element is not disabled.
      * Do not toggle on (change) event since IE doesn't fire change event when
-     *   indeterminate checkbox is clicked.
+     * indeterminate checkbox is clicked.
      */
   _onInputClick() {
     if (this.disabled) { return; }
@@ -301,12 +292,10 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnChang
     this.indeterminateChange.emit({ source: this, indeterminate: value });
   }
 
-  /**
-  * Sets the checkbox's disabled state. Implemented as a part of ControlValueAccessor.
-  * @param isDisabled Whether the checkbox should be disabled.
-  */
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
+  /** Sets the checkbox disabled state */
+  setDisabled(disabled: boolean): void {
+    this.disabled = disabled;
+    this._foundation.setDisabled(disabled);
     this._changeDetectorRef.markForCheck();
   }
 }

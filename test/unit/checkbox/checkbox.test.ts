@@ -93,12 +93,6 @@ describe('MdcCheckbox', () => {
       expect(checkboxInstance.checked).toBe(false);
     });
 
-    it('#should disable ripple', () => {
-      testComponent.isRippleDisabled = true;
-      fixture.detectChanges();
-      expect(checkboxInstance.disableRipple).toBeTruthy('Expected checkbox ripple to be disabled');
-    });
-
     it('#should preserve the user-provided id', () => {
       expect(checkboxNativeElement.id).toBe('simple-check');
       expect(inputElement.id).toBe('simple-check-input');
@@ -302,7 +296,6 @@ describe('MdcCheckbox', () => {
       [(ngModel)]="checkboxValue"
       [checked]="checkboxValue"
       [indeterminate]="isIndeterminate"
-      [disableRipple]="isRippleDisabled"
       [disabled]="isDisabled">
     </mdc-checkbox>
   `,
@@ -310,7 +303,6 @@ describe('MdcCheckbox', () => {
 class SingleCheckbox {
   checkboxId: string | null = 'simple-check';
   isDisabled: boolean = false;
-  isRippleDisabled: boolean = false;
   isIndeterminate: boolean = false;
   checkboxValue: boolean = false;
 }

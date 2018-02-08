@@ -127,9 +127,6 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
     getAttributeForEventTarget: (target: any, attributeName) => {
       return target.getAttribute(attributeName);
     },
-    eventTargetHasClass: (target: HTMLElement, className: string) => {
-      return target.classList.contains(className);
-    },
     hasClass: (className: string) => {
       return this.elementRef.nativeElement.classList.contains(className);
     },

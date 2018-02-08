@@ -18,7 +18,8 @@ import {
 import { isBrowser, toBoolean, EventRegistry } from '@angular-mdc/web/common';
 
 import { MDCMenuAdapter } from '@material/menu/adapter';
-import { MDCMenuFoundation, util, Corner } from '@material/menu';
+import { getTransformPropertyName } from '@material/menu/util';
+import { MDCMenuFoundation, Corner } from '@material/menu';
 
 export type MdcMenuAnchorCorner = 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end';
 
@@ -207,7 +208,7 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
     isRtl: () => this.direction === 'rtl',
     setTransformOrigin: (origin: string) => {
       if (isBrowser()) {
-        this._renderer.setStyle(this.elementRef.nativeElement, `${util.getTransformPropertyName(window)}-origin`, origin);
+        this._renderer.setStyle(this.elementRef.nativeElement, `${getTransformPropertyName(window)}-origin`, origin);
       }
     },
     setPosition: (position) => {
@@ -229,7 +230,7 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
     isOpen: () => boolean,
     setAnchorCorner: (corner: Corner) => {},
     setAnchorMargin: Function
-  } = new MDCSimpleMenuFoundation(this._mdcAdapter);
+  } = new MDCMenuFoundation(this._mdcAdapter);
 
   constructor(
     private _renderer: Renderer2,

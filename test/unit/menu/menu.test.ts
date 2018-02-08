@@ -54,13 +54,6 @@ describe('MdcMenu', () => {
       expect(testInstance.getFocusedItemIndex()).toBe(-1);
     });
 
-    it('#should be open after opening prior', () => {
-      testInstance.open();
-      testInstance.open();
-      fixture.detectChanges();
-      expect(testInstance.isOpen()).toBe(true);
-    });
-
     it('#should have focus', () => {
       expect(document.activeElement).not.toBe(testDebugElement.nativeElement);
 

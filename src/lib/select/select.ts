@@ -38,7 +38,7 @@ import { take } from 'rxjs/operators/take';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 
 import { EventRegistry, isBrowser } from '@angular-mdc/web/common';
-import { MDCSimpleMenu } from '@material/menu';
+import { MDCMenu } from '@material/menu';
 
 import {
   MdcSelectMenu,
@@ -325,7 +325,7 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
   }
 
   ngAfterViewInit(): void {
-    this._menuFactory = new MDCSimpleMenu(this.selectMenu.elementRef.nativeElement);
+    this._menuFactory = new MDCMenu(this.selectMenu.elementRef.nativeElement);
     this._foundation.init();
 
     if (this.autosize) {

@@ -20,7 +20,7 @@ export class MdcSelectLabel {
   selector: 'mdc-select-menu',
 })
 export class MdcSelectMenu {
-  @HostBinding('class.mdc-simple-menu') isHostClass = true;
+  @HostBinding('class.mdc-menu') isHostClass = true;
   @HostBinding('class.mdc-select__menu') isSelectClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -31,7 +31,7 @@ export class MdcSelectMenu {
 })
 export class MdcSelectItems {
   @HostBinding('class.mdc-list') isHostClass = true;
-  @HostBinding('class.mdc-simple-menu__items') isSelectClass = true;
+  @HostBinding('class.mdc-menu__items') isSelectClass = true;
 
   constructor(public elementRef: ElementRef) { }
 }

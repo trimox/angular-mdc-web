@@ -39,6 +39,7 @@ export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
   moduleId: module.id,
   selector: 'mdc-checkbox',
+  exportAs: 'mdcCheckbox',
   host: {
     '[id]': 'id',
   },

@@ -37,7 +37,7 @@ import { switchMap } from 'rxjs/operators/switchMap';
 import { take } from 'rxjs/operators/take';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 
-import { EventRegistry, isBrowser } from '@angular-mdc/web/common';
+import { EventRegistry, isBrowser, toBoolean } from '@angular-mdc/web/common';
 import { MDCMenu } from '@material/menu';
 
 import {
@@ -241,6 +241,7 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
   private _menuFactory: any;
   private _value: any;
   private _autosize: boolean = true;
+  private _box: boolean = false;
 
   @Input() id: string = this._uniqueId;
   @Input() name: string | null = null;
@@ -295,6 +296,16 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
   get autosize(): boolean { return this._autosize; }
   set autosize(value: boolean) {
     this._autosize = value;
+  }
+
+  @Input()
+  get box(): boolean { return this._box; }
+  set box(value: boolean) {
+    this._box = toBoolean(value);
+  }
+
+  @HostBinding('class.mdc-select--box') get classBorder(): string {
+    return this.box ? 'mdc-select--box' : '';
   }
 
   /** Combined stream of all of the child options' change events. */

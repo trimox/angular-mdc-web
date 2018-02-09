@@ -27,7 +27,8 @@ let nextUniqueId = 0;
 let uniqueIdCounter = 0;
 
 @Directive({
-  selector: '[mdc-menu-anchor]'
+  selector: '[mdc-menu-anchor]',
+  exportAs: 'mdcMenuAnchor'
 })
 export class MdcMenuAnchor {
   @HostBinding('class.mdc-menu-anchor') isHostClass = true;
@@ -37,6 +38,7 @@ export class MdcMenuAnchor {
 
 @Component({
   moduleId: module.id,
+  exportAs: 'mdcMenuDivider',
   selector: '[mdc-menu-divider], mdc-menu-divider',
   template: '<div class="mdc-list-divider" role="seperator"></div>',
 })
@@ -46,6 +48,7 @@ export class MdcMenuDivider {
 
 @Directive({
   selector: 'mdc-menu-items',
+  exportAs: 'mdcMenuItems'
 })
 export class MdcMenuItems {
   @HostBinding('class.mdc-list') isHostClass = true;
@@ -61,6 +64,7 @@ export class MdcMenuItems {
   host: {
     '[id]': 'id',
   },
+  exportAs: 'mdcMenuItem'
 })
 export class MdcMenuItem {
   private _disabled: boolean = false;
@@ -96,6 +100,7 @@ export class MdcMenuItem {
   host: {
     '[id]': 'id',
   },
+  exportAs: 'mdcMenu',
   template: `
   <mdc-menu-items>
     <ng-content></ng-content>

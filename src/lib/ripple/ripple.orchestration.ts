@@ -14,10 +14,11 @@ export abstract class MdcRippleOrchestration {
     isUnbounded: () => this.isUnbounded(),
     isSurfaceActive: () => this.isSurfaceActive(),
     isSurfaceDisabled: () => this.isSurfaceDisabled(),
-    addClass: (className: string) => this._renderer.addClass(this.elementRef.nativeElement, className),
-    removeClass: (className: string) => this._renderer.removeClass(this.elementRef.nativeElement, className),
+    addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
+    removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
+    containsEventTarget: (target: EventTarget) => this._getHostElement().contains(target),
     registerInteractionHandler: (evtType: string, handler: EventListener) => {
-      const target = (evtType === 'mouseup' || evtType === 'pointerup') ? window : this.elementRef.nativeElement;
+      const target = (evtType === 'mouseup' || evtType === 'pointerup') ? window : this._getHostElement();
       this._registry.listen(evtType, handler, target, util.applyPassive());
     },
     deregisterInteractionHandler: (evtType: string, handler: EventListener) => {
@@ -38,7 +39,7 @@ export abstract class MdcRippleOrchestration {
       this._registry.unlisten('resize', handler);
     },
     updateCssVariable: (varName: string, value: string) => {
-      this._renderer.setStyle(this.elementRef.nativeElement, varName, value, 2);
+      this._renderer.setStyle(this._getHostElement(), varName, value, 2);
     },
     computeBoundingRect: () => this.getBoundingClientRect(),
     getWindowPageOffset: () => {
@@ -50,12 +51,12 @@ export abstract class MdcRippleOrchestration {
   };
 
   private _foundation: {
-    init: () => {},
-    destroy: () => {},
-    activate: (event: any) => {},
-    deactivate: (event: any) => {},
-    layout: () => {},
-    setUnbounded: (unbounded: boolean) => {}
+    init(): void,
+    destroy(): void,
+    activate(event: any): void,
+    deactivate(event: any): void,
+    layout(): void,
+    setUnbounded(unbounded: boolean): void
   };
 
   private _unbounded: boolean = false;
@@ -103,11 +104,11 @@ export abstract class MdcRippleOrchestration {
   }
 
   isSurfaceDisabled(): boolean {
-    return this.elementRef.nativeElement.attributes.getNamedItem('disabled') ? true : false;
+    return this._getHostElement().attributes.getNamedItem('disabled') ? true : false;
   }
 
   isSurfaceActive(): boolean {
-    return this.elementRef.nativeElement[util.getMatchesProperty(HTMLElement.prototype)](':active');
+    return this._getHostElement()[util.getMatchesProperty(HTMLElement.prototype)](':active');
   }
 
   isUnbounded(): boolean {
@@ -115,6 +116,11 @@ export abstract class MdcRippleOrchestration {
   }
 
   getBoundingClientRect(): ClientRect {
-    return this.elementRef.nativeElement.getBoundingClientRect();
+    return this._getHostElement().getBoundingClientRect();
+  }
+
+  /** Retrieves the DOM element of the component host. */
+  private _getHostElement() {
+    return this.elementRef.nativeElement;
   }
 }

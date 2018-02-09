@@ -298,4 +298,20 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnChang
     this._foundation.setDisabled(disabled);
     this._changeDetectorRef.markForCheck();
   }
+
+  isChecked(): boolean {
+    return this._foundation.isChecked();
+  }
+
+  isDisabled(): boolean {
+    return this._foundation.isDisabled();
+  }
+
+  getValue(): string {
+    return this._foundation.getValue();
+  }
+
+  setValue(value: string): void {
+    this._foundation.setValue(value);
+  }
 }

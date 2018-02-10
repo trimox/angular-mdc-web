@@ -53,14 +53,13 @@ describe('MdcFormField', () => {
       testComponent.isAlignEnd = true;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList).toContain('mdc-form-field--align-end');
+      expect(testInstance.isAlignEnd()).toBe(true);
     });
   });
 });
 
-/** Simple component for testing. */
 @Component({
-  template:
-  `
+  template: `
     <mdc-form-field [alignEnd]="isAlignEnd">
       <mdc-checkbox></mdc-checkbox>
       <label>My label</label>

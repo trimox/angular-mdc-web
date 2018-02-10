@@ -109,4 +109,8 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
   ngOnDestroy(): void {
     this._foundation.destroy();
   }
+
+  isAlignEnd(): boolean {
+    return this.alignEnd;
+  }
 }

@@ -27,9 +27,16 @@ import { MDCFormFieldFoundation } from '@material/form-field';
   exportAs: 'mdcFormField'
 })
 export class MdcFormField implements AfterContentInit, OnDestroy {
-  @Input() alignEnd: boolean = false;
-  @HostBinding('class') get className(): string {
-    return `mdc-form-field${this.alignEnd ? ' mdc-form-field--align-end' : ''}`;
+  private _alignEnd: boolean = false;
+
+  @Input()
+  get alignEnd(): boolean { return this._alignEnd; }
+  set alignEnd(value: boolean) {
+    this._alignEnd = toBoolean(value);
+  }
+  @HostBinding('class.mdc-form-field') isHostClass = true;
+  @HostBinding('class.mdc-form-field--align-end') get classAlignEnd(): string {
+    return this.alignEnd ? 'mdc-form-field--align-end' : '';
   }
   @ContentChild(MdcCheckbox) inputCheckbox: MdcCheckbox;
   @ContentChild(MdcRadio) inputRadio: MdcRadio;

@@ -24,6 +24,7 @@ import { MDCFormFieldFoundation } from '@material/form-field';
   providers: [EventRegistry],
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
+  exportAs: 'mdcFormField'
 })
 export class MdcFormField implements AfterContentInit, OnDestroy {
   @Input() alignEnd: boolean = false;

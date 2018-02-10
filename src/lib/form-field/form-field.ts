@@ -1,6 +1,7 @@
 import {
   AfterContentInit,
-  Directive,
+  ChangeDetectionStrategy,
+  Component,
   ContentChild,
   ElementRef,
   HostBinding,
@@ -8,18 +9,21 @@ import {
   OnDestroy,
   Renderer2
 } from '@angular/core';
-import { EventRegistry } from '@angular-mdc/web/common';
+import { EventRegistry, toBoolean } from '@angular-mdc/web/common';
 
 import { MdcCheckbox } from '@angular-mdc/web/checkbox';
 import { MdcRadio } from '@angular-mdc/web/radio';
 import { MdcSwitch } from '@angular-mdc/web/switch';
 
-import { MDCFormFieldAdapter } from './adapter';
+import { MDCFormFieldAdapter } from '@material/form-field/adapter';
 import { MDCFormFieldFoundation } from '@material/form-field';
 
-@Directive({
+@Component({
   selector: 'mdc-form-field',
+  template: '<ng-content></ng-content>',
   providers: [EventRegistry],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  preserveWhitespaces: false,
 })
 export class MdcFormField implements AfterContentInit, OnDestroy {
   @Input() alignEnd: boolean = false;
@@ -58,8 +62,8 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
   };
 
   private _foundation: {
-    init: Function,
-    destroy: Function
+    init(): void,
+    destroy(): void
   } = new MDCFormFieldFoundation(this._mdcAdapter);
 
   constructor(

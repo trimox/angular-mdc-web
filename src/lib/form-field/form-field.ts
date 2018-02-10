@@ -19,6 +19,7 @@ import { MDCFormFieldAdapter } from '@material/form-field/adapter';
 import { MDCFormFieldFoundation } from '@material/form-field';
 
 @Component({
+  moduleId: module.id,
   selector: 'mdc-form-field',
   template: '<ng-content></ng-content>',
   providers: [EventRegistry],

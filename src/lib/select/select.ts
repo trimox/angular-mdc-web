@@ -379,6 +379,7 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
       .pipe(takeUntil(changedOrDestroyed), filter(event => event.isUserInput)
       ).subscribe(event => {
         this._propagateChanges(event.source.value);
+        this._onChange(event.source.value);
         this.selectionChange.emit(new MdcSelectChange(event.source, this.value));
       });
   }

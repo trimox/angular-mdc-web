@@ -17,7 +17,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { ESCAPE } from '@angular-mdc/web/cdk';
+import { ESCAPE } from '@angular-mdc/web/cdk/keycodes';
 import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
 import {
   MdcDialogBackdrop,

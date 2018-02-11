@@ -18,7 +18,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { ENTER } from '@angular-mdc/web/cdk';
+import { ENTER } from '@angular-mdc/web/cdk/keycodes';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { toBoolean, isSpaceKey, EventRegistry } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';

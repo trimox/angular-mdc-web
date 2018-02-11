@@ -11,7 +11,7 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import { ENTER } from '@angular-mdc/web/cdk';
+import { ENTER } from '@angular-mdc/web/cdk/keycodes';
 import { toBoolean, isSpaceKey } from '@angular-mdc/web/common';
 
 /** Event object emitted by MdcSelectItem when selected or deselected. */

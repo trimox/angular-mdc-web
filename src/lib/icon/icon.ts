@@ -1,5 +1,7 @@
 import {
-  Directive,
+  Attribute,
+  ChangeDetectionStrategy,
+  Component,
   ElementRef,
   HostBinding,
   Input,
@@ -7,10 +9,16 @@ import {
   OnInit,
   Renderer2,
   SimpleChanges,
+  ViewEncapsulation,
 } from '@angular/core';
 
-@Directive({
+@Component({
+  moduleId: module.id,
   selector: 'mdc-icon',
+  template: '<ng-content></ng-content>',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  preserveWhitespaces: false
 })
 export class MdcIcon implements OnChanges, OnInit {
   private _previousFontSetClass: string;
@@ -20,14 +28,19 @@ export class MdcIcon implements OnChanges, OnInit {
   @Input() fontSet: string = 'material-icons';
   @Input() fontIcon: string;
   @Input() fontSize: number | null;
+  @HostBinding('class.ng-mdc-icon') isHostClass = true;
   @HostBinding('class.material-icons') get classMaterialIcon(): string {
     return this.fontSet === 'material-icons' ? 'material-icons' : '';
   }
 
   constructor(
     private _renderer: Renderer2,
-    public elementRef: ElementRef) {
-    _renderer.setAttribute(elementRef.nativeElement, 'aria-hidden', 'true');
+    public elementRef: ElementRef,
+    @Attribute('aria-hidden') ariaHidden: string) {
+
+    if (!ariaHidden) {
+      _renderer.setAttribute(elementRef.nativeElement, 'aria-hidden', 'true');
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {

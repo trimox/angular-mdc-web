@@ -1,31 +1,35 @@
 import {
-  Directive,
+  ChangeDetectionStrategy,
+  Component,
   ElementRef,
   EventEmitter,
   HostBinding,
   Output,
   Renderer2,
+  ViewEncapsulation,
 } from '@angular/core';
 import { EventRegistry } from '@angular-mdc/web/common';
 
 import { MDCLineRippleAdapter } from '@material/line-ripple/adapter';
 import { MDCLineRippleFoundation } from '@material/line-ripple';
 
-@Directive({
+@Component({
   selector: '[mdc-line-ripple], mdc-line-ripple',
-  exportAs: 'mdcLineRipple'
+  template: '<ng-content></ng-content>',
+  exportAs: 'mdcLineRipple',
+  providers: [
+    EventRegistry,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  preserveWhitespaces: false,
 })
 export class MdcLineRipple {
-  @Output() animationEnd = new EventEmitter<boolean>();
   @HostBinding('class.mdc-line-ripple') isHostClass = true;
 
   private _mdcAdapter: MDCLineRippleAdapter = {
-    addClass: (className: string) => {
-      this._renderer.addClass(this._getHostElement(), className);
-    },
-    removeClass: (className: string) => {
-      this._renderer.removeClass(this._getHostElement(), className);
-    },
+    addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
+    removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
     setAttr: (attr: string, value: string) => this._renderer.setAttribute(this._getHostElement(), attr, value),
     registerEventHandler: (evtType: string, handler: EventListener) =>
       this._registry.listen(evtType, handler, this._getHostElement()),
@@ -38,7 +42,6 @@ export class MdcLineRipple {
     activate(): void,
     deactivate(): void,
     setRippleCenter(xCoordinate: number): void,
-    handleTransitionEnd(): void,
   } = new MDCLineRippleFoundation(this._mdcAdapter);
 
   constructor(
@@ -50,12 +53,12 @@ export class MdcLineRipple {
     this.foundation.destroy();
   }
 
-  /** Activates the bottom line */
+  /** Activates the line ripple */
   activate(): void {
     this.foundation.activate();
   }
 
-  /** Deactivates the bottom line */
+  /** Deactivates the line ripple */
   deactivate(): void {
     this.foundation.deactivate();
   }

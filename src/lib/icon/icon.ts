@@ -16,6 +16,7 @@ import {
   moduleId: module.id,
   selector: 'mdc-icon',
   template: '<ng-content></ng-content>',
+  exportAs: 'mdcIcon',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false

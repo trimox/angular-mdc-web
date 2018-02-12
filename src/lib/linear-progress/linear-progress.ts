@@ -15,6 +15,7 @@ import { MDCLinearProgressFoundation } from '@material/linear-progress';
 @Component({
   moduleId: module.id,
   selector: 'mdc-linear-progress',
+  exportAs: 'mdcLinearProgress',
   template: `
   <div class="mdc-linear-progress__buffering-dots"></div>
   <div class="mdc-linear-progress__buffer"></div>

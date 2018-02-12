@@ -73,19 +73,19 @@ export class MdcLinearProgress implements AfterViewInit {
 
   private _mdcAdapter: MDCLinearProgressAdapter = {
     addClass: (className: string) => {
-      this._renderer.addClass(this.elementRef.nativeElement, className);
+      this._renderer.addClass(this._getHostElement(), className);
     },
     getPrimaryBar: () => {
-      return this.elementRef.nativeElement.querySelector('.mdc-linear-progress__primary-bar');
+      return this._getHostElement().querySelector('.mdc-linear-progress__primary-bar');
     },
     getBuffer: () => {
-      return this.elementRef.nativeElement.querySelector('.mdc-linear-progress__buffer');
+      return this._getHostElement().querySelector('.mdc-linear-progress__buffer');
     },
     hasClass: (className: string) => {
-      return this._renderer.parentNode(this.elementRef.nativeElement).classList.contains(className);
+      return this._getHostElement().classList.contains(className);
     },
     removeClass: (className: string) => {
-      this._renderer.removeClass(this.elementRef.nativeElement, className);
+      this._renderer.removeClass(this._getHostElement(), className);
     },
     setStyle: (el: Element, styleProperty: string, value: string) => {
       this._renderer.setStyle(el, styleProperty, value);
@@ -93,13 +93,13 @@ export class MdcLinearProgress implements AfterViewInit {
   };
 
   private _foundation: {
-    init: () => {},
-    setProgress: (value: number) => {},
-    setBuffer: (value: number) => {},
-    setReverse: (value: boolean) => {},
-    setDeterminate: (value: boolean) => {},
-    open: () => {},
-    close: () => {}
+    init(): void,
+    setProgress(value: number): void,
+    setBuffer(value: number): void,
+    setReverse(value: boolean): void,
+    setDeterminate(value: boolean): void,
+    open(): void,
+    close(): void
   } = new MDCLinearProgressFoundation(this._mdcAdapter);
 
   constructor(
@@ -134,5 +134,11 @@ export class MdcLinearProgress implements AfterViewInit {
   setDeterminate(value: boolean): void {
     this._indeterminate = !value;
     this._foundation.setDeterminate(value);
+  }
+
+
+  /** Retrieves the DOM element of the component host. */
+  private _getHostElement() {
+    return this.elementRef.nativeElement;
   }
 }

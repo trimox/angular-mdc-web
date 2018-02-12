@@ -46,7 +46,7 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
 
   private _mdcAdapter: MDCChipSetAdapter = {
     hasClass: (className: string) => {
-      return this._renderer.parentNode(this._getHostElement()).classList.contains(className);
+      return this._getHostElement().classList.contains(className);
     },
   };
 
@@ -62,7 +62,7 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
   ngAfterContentInit(): void {
     // When the list changes, re-subscribe
     this._changeSubscription = this.chips.changes.pipe(startWith(null)).subscribe(() => {
-      // TO-DO
+      // TO-DO(trimox) - Functional use of changes
     });
   }
 

@@ -251,10 +251,12 @@ class HrefButton {
 /** icon button. */
 @Component({
   template: `
-    <button mdc-button>
+    <button mdc-button [icon]="icon">
       <mdc-icon>search</mdc-icon>
       Search
     </button>
   `,
 })
-class IconButton { }
+class IconButton {
+  icon: boolean = true;
+}

@@ -36,6 +36,7 @@ import { MdcIcon } from '@angular-mdc/web/icon';
 export class MdcButton implements AfterContentInit, OnChanges {
   private _disabled: boolean = false;
   private _disableRipple: boolean = false;
+  private _icon: boolean = false;
 
   @Input() raised: boolean = false;
   @Input() primary: boolean = false;
@@ -44,6 +45,12 @@ export class MdcButton implements AfterContentInit, OnChanges {
   @Input() secondary: boolean = false;
   @Input() unelevated: boolean = false;
   @Input() stroked: boolean = false;
+
+  @Input()
+  get icon(): boolean { return this._icon; }
+  set icon(value: boolean) {
+    this._icon = toBoolean(value);
+  }
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
@@ -92,6 +99,7 @@ export class MdcButton implements AfterContentInit, OnChanges {
   ngOnChanges(changes: { [key: string]: SimpleChange }): void {
     const disabled = changes['disabled'];
     const disableRipple = changes['disableRipple'];
+    const icon = changes['icon'];
 
     if (disabled) {
       if (disabled.currentValue) {
@@ -106,13 +114,15 @@ export class MdcButton implements AfterContentInit, OnChanges {
     if (disableRipple) {
       disableRipple.currentValue ? this.ripple.destroy() : this.ripple.init();
     }
+
+    if (icon) {
+      if (icon.currentValue && this.buttonIcon) {
+        this.renderer.addClass(this.buttonIcon.elementRef.nativeElement, 'mdc-button__icon');
+      }
+    }
   }
 
   ngAfterContentInit(): void {
-    if (this.buttonIcon) {
-      this.renderer.addClass(this.buttonIcon.elementRef.nativeElement, 'mdc-button__icon');
-    }
-
     if (!this._disableRipple) {
       this.ripple.init();
     }

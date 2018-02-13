@@ -36,6 +36,7 @@ export const MD_ICON_TOGGLE_CONTROL_VALUE_ACCESSOR: Provider = {
 @Component({
   moduleId: module.id,
   selector: 'mdc-icon-toggle',
+  exportAs: 'mdcIconToggle',
   template: '<mdc-icon></mdc-icon>',
   providers: [
     MD_ICON_TOGGLE_CONTROL_VALUE_ACCESSOR,

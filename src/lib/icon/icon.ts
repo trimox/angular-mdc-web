@@ -29,7 +29,6 @@ export class MdcIcon implements OnChanges, OnInit {
   @Input() fontSet: string = 'material-icons';
   @Input() fontIcon: string;
   @Input() fontSize: number | null;
-  @HostBinding('class.ng-mdc-icon') isHostClass = true;
   @HostBinding('class.material-icons') get classMaterialIcon(): string {
     return this.fontSet === 'material-icons' ? 'material-icons' : '';
   }
@@ -56,7 +55,7 @@ export class MdcIcon implements OnChanges, OnInit {
   }
 
   private _updateFontIconClasses(fontSet: string | null, fontIcon: string | null, fontSize: number | null): void {
-    const el = this.elementRef.nativeElement;
+    const el = this._getHostElement();
 
     if (fontSet !== this._previousFontSetClass) {
       if (this._previousFontSetClass) {
@@ -89,5 +88,10 @@ export class MdcIcon implements OnChanges, OnInit {
       }
       this._previousFontSize = fontSize;
     }
+  }
+
+  /** Retrieves the DOM element of the component host. */
+  private _getHostElement() {
+    return this.elementRef.nativeElement;
   }
 }

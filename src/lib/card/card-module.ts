@@ -1,40 +1,27 @@
 import { NgModule } from '@angular/core';
 
-import { MdcButtonModule } from '@angular-mdc/web/button';
-
 import {
   MdcCard,
-  MdcCardActionButton,
+  MdcCardAction,
+  MdcCardActionButtons,
+  MdcCardActionIcons,
   MdcCardActions,
-  MdcCardHorizontal,
   MdcCardMedia,
-  MdcCardMediaItem,
-  MdcCardPrimary,
-  MdcCardSubtitle,
-  MdcCardSupportingText,
-  MdcCardTitle,
+  MdcCardMediaContent,
 } from './card';
 
-const CARD_COMPONENTS = [
+const CARD_DECLARATIONS = [
   MdcCard,
-  MdcCardActionButton,
+  MdcCardAction,
+  MdcCardActionButtons,
+  MdcCardActionIcons,
   MdcCardActions,
-  MdcCardHorizontal,
   MdcCardMedia,
-  MdcCardMediaItem,
-  MdcCardPrimary,
-  MdcCardSubtitle,
-  MdcCardSupportingText,
-  MdcCardTitle,
+  MdcCardMediaContent,
 ];
 
 @NgModule({
-  imports: [
-    MdcButtonModule,
-  ],
-  exports: [
-    CARD_COMPONENTS,
-  ],
-  declarations: [CARD_COMPONENTS],
+  exports: [CARD_DECLARATIONS],
+  declarations: [CARD_DECLARATIONS],
 })
 export class MdcCardModule { }

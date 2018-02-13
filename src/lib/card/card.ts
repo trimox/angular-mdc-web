@@ -1,130 +1,175 @@
 import {
+  ChangeDetectionStrategy,
+  Component,
   Directive,
   ElementRef,
   HostBinding,
-  Inject,
   Input,
   Renderer2,
+  ViewEncapsulation,
 } from '@angular/core';
-import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
-import { MdcRipple } from '@angular-mdc/web/ripple';
-import { MdcButton } from '@angular-mdc/web/button';
+import { toBoolean } from '@angular-mdc/web/common';
 
 @Directive({
-  selector: 'mdc-card-primary'
+  selector: 'mdc-card-media-content, [mdc-card-media-content]',
+  exportAs: 'mdcCardMediaContent'
 })
-export class MdcCardPrimary {
-  @HostBinding('class.mdc-card__primary') isHostClass = true;
+export class MdcCardMediaContent {
+  @HostBinding('class.mdc-card__media-content') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
 }
 
-@Directive({
-  selector: 'mdc-card-horizontal',
-})
-export class MdcCardHorizontal {
-  @HostBinding('class.mdc-card__horizontal-block') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: '[mdc-card-title], mdc-card-title'
-})
-export class MdcCardTitle {
-  @Input() large: boolean = true;
-  @HostBinding('class.mdc-card__title') isHostClass = true;
-  @HostBinding('class.mdc-card__title--large') get classTitleLarge(): string {
-    return this.large ? 'mdc-card__title--large' : '';
-  }
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: '[mdc-card-subtitle], mdc-card-subtitle'
-})
-export class MdcCardSubtitle {
-  @HostBinding('class.mdc-card__subtitle') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: '[mdc-card-supporting-text], mdc-card-supporting-text'
-})
-export class MdcCardSupportingText {
-  @HostBinding('class.mdc-card__supporting-text') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: '[mdc-card-media-item]'
-})
-export class MdcCardMediaItem {
-  @Input() size: number;
-  @HostBinding('class.mdc-card__media-item') isHostClass = true;
-  @HostBinding('class.mdc-card__media-item--1dot5x') get classMediaItemOne(): string {
-    return this.size === 1 ? 'mdc-card__media-item--1x' : '';
-  }
-  @HostBinding('class.mdc-card__media-item--1dot5x') get classMediaItemOneDotFive(): string {
-    return this.size === 1.5 ? 'mdc-card__media-item--1dot5x' : '';
-  }
-  @HostBinding('class.mdc-card__media-item--2x') get classMediaItemTwo(): string {
-    return this.size === 2 ? 'mdc-card__media-item--2x' : '';
-  }
-  @HostBinding('class.mdc-card__media-item--3x') get classMediaItemThree(): string {
-    return this.size === 3 ? 'mdc-card__media-item--3x' : '';
-  }
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: 'mdc-card-media',
+@Component({
+  moduleId: module.id,
+  selector: 'mdc-card-media, [mdc-card-media]',
+  template: '<ng-content></ng-content>',
+  exportAs: 'mdcCardMedia',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  preserveWhitespaces: false,
 })
 export class MdcCardMedia {
+  private _square: boolean;
+  private _image: boolean;
+
+  @Input()
+  get square(): boolean { return this._square; }
+  set square(value: boolean) {
+    this._square = toBoolean(value);
+  }
+
+  @Input()
+  get image(): boolean { return this._image; }
+  set image(value: boolean) {
+    this._image = toBoolean(value);
+  }
+
   @HostBinding('class.mdc-card__media') isHostClass = true;
+  @HostBinding('class.mdc-card__media--square') get classMediaSquare() {
+    return this.square ? 'mdc-card__media--square' : '';
+  }
+  @HostBinding('class.mdc-card__media--16-9') get classMediaImage() {
+    return this.image ? 'mdc-card__media--16-9' : '';
+  }
 
   constructor(public elementRef: ElementRef) { }
 }
 
-@Directive({
-  selector: 'mdc-card-actions'
+@Component({
+  moduleId: module.id,
+  selector: 'mdc-card-actions, [mdc-card-actions]',
+  template: '<ng-content></ng-content>',
+  exportAs: 'mdcCardActions',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  preserveWhitespaces: false,
 })
 export class MdcCardActions {
-  @Input() vertical: boolean = false;
+  private _fullBleed: boolean;
+  private _icons: boolean;
+  private _buttons: boolean;
+
+  @Input()
+  get fullBleed(): boolean { return this._fullBleed; }
+  set fullBleed(value: boolean) {
+    this._fullBleed = toBoolean(value);
+  }
+  @Input()
+  get buttons(): boolean { return this._buttons; }
+  set buttons(value: boolean) {
+    this._buttons = toBoolean(value);
+  }
+  @Input()
+  get icons(): boolean { return this._icons; }
+  set icons(value: boolean) {
+    this._icons = toBoolean(value);
+  }
+
   @HostBinding('class.mdc-card__actions') isHostClass = true;
-  @HostBinding('class.mdc-card__actions--vertical') get classCardActionVertical(): string {
-    return this.vertical ? 'mdc-card__actions--vertical' : '';
+  @HostBinding('class.mdc-card__actions--full-bleed') get classFullBleed() {
+    return this.fullBleed ? 'mdc-card__actions--full-bleed' : '';
+  }
+  @HostBinding('class.mdc-card__action-buttons') get classActionButtons() {
+    return this.buttons ? 'mdc-card__action-buttons' : '';
+  }
+  @HostBinding('class.mdc-card__action-icons') get classActionIcons() {
+    return this.icons ? 'mdc-card__action-icons' : '';
   }
 
   constructor(public elementRef: ElementRef) { }
 }
 
 @Directive({
-  selector: 'button[mdc-card-button], a[mdc-card-button]',
-  providers: [
-    MdcRipple,
-    EventRegistry,
-  ]
+  selector: 'mdc-card-action-buttons, [mdc-card-action-buttons]',
+  exportAs: 'mdcCardActionButtons'
 })
-export class MdcCardActionButton extends MdcButton {
-  constructor(
-    @Inject(Renderer2) renderer: Renderer2,
-    @Inject(ElementRef) elementRef: ElementRef,
-    @Inject(MdcRipple) ripple: MdcRipple) {
-    super(renderer, elementRef, ripple);
-    this.compact = true;
-  }
+export class MdcCardActionButtons {
+  @HostBinding('class.mdc-card__action-buttons') isHostClass = true;
+
+  constructor(public elementRef: ElementRef) { }
 }
 
 @Directive({
-  selector: 'mdc-card',
+  selector: 'mdc-card-action-icons, [mdc-card-action-icons]',
+  exportAs: 'mdcCardActionIcons'
+})
+export class MdcCardActionIcons {
+  @HostBinding('class.mdc-card__action-icons') isHostClass = true;
+
+  constructor(public elementRef: ElementRef) { }
+}
+
+@Directive({
+  selector: '[mdcCardAction]'
+})
+export class MdcCardAction {
+  @Input('mdcCardAction')
+  get action(): string { return this._action; }
+  set action(action: string) {
+    // If the directive is set without a name (updated programatically), then this setter will
+    // trigger with an empty string and should not overwrite the programatically set value.
+    if (!action) { return; }
+
+    if (action === 'button') {
+      this._renderer.addClass(this.elementRef.nativeElement, 'mdc-card__action--button');
+    } else if (action === 'icon') {
+      this._renderer.addClass(this.elementRef.nativeElement, 'mdc-card__action--icon');
+    }
+
+    this._action = action;
+  }
+  _action: string;
+
+  @HostBinding('class.mdc-card__action') isHostClass = true;
+
+  constructor(
+    private _renderer: Renderer2,
+    public elementRef: ElementRef) { }
+}
+
+@Component({
+  moduleId: module.id,
+  selector: 'mdc-card, [mdc-card]',
+  template: '<ng-content></ng-content>',
+  exportAs: 'mdcCard',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  preserveWhitespaces: false,
 })
 export class MdcCard {
+  private _stroked: boolean;
+
+  @Input()
+  get stroked(): boolean { return this._stroked; }
+  set stroked(value: boolean) {
+    this._stroked = toBoolean(value);
+  }
+
   @HostBinding('class.mdc-card') isHostClass = true;
+  @HostBinding('class.mdc-card--stroked') get classStroked() {
+    return this.stroked ? 'mdc-card--stroked' : '';
+  }
 
   constructor(public elementRef: ElementRef) { }
 }

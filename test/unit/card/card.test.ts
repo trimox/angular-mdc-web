@@ -44,24 +44,24 @@ describe('MdcCard', () => {
   });
 });
 
-/** Simple component for testing. */
 @Component({
-  template:
-  `
-    <mdc-card>
-      <mdc-card-horizontal>
-        <mdc-card-primary>
-          <mdc-card-title>Title</mdc-card-title>
-          <h2 mdc-card-subtitle>Subtitle</h2>
-        </mdc-card-primary>
-        <mdc-card-supporting-text>Test</mdc-card-supporting-text>
-        <img mdc-card-media-item [size]="2" />
-      </mdc-card-horizontal>
-      <mdc-card-actions>
-        <button mdc-card-button>Action 1</button>
-        <button mdc-card-button>Action 2</button>
+  template: `
+    <mdc-card [stroked]="isStroked">
+      <mdc-card-media [square]="isSquare" [image]="isImage">
+        Title
+      </mdc-card-media>
+      <mdc-card-actions [fullBleed]="isFullBleed">
+        <mdc-card-action-buttons>
+          <button mdc-button>Action 1</button>
+          <button mdc-button>Action 2</button>
+        </mdc-card-action-buttons>
       </mdc-card-actions>
     </mdc-card>
   `,
 })
-class SimpleTest { }
+class SimpleTest {
+  isStroked: boolean = false;
+  isSquare: boolean = false;
+  isImage: boolean = false;
+  isFullBleed: boolean = false;
+}

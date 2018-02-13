@@ -40,14 +40,16 @@ describe('MdcIconToggle', () => {
         .toContain('mdc-icon-toggle', 'Expected buttons to have mdc-icon-toggle');
       expect(buttonInstance.isHostClass).toBe(true);
     });
-    it('#should apply class based on property', () => {
+    it('#should apply primary class', () => {
       testComponent.isPrimary = true;
       fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.classList.contains('ng-mdc-icon-toggle--primary')).toBe(true);
+      expect(buttonInstance.icon.elementRef.nativeElement.classList.contains('ng-mdc-icon-toggle--primary')).toBe(true);
+    });
 
+    it('#should apply secondary class', () => {
       testComponent.isSecondary = true;
       fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.classList.contains('ng-mdc-icon-toggle--secondary')).toBe(true);
+      expect(buttonInstance.icon.elementRef.nativeElement.classList.contains('ng-mdc-icon-toggle--secondary')).toBe(true);
     });
 
     it('#should set disabled to true', () => {

@@ -22,6 +22,7 @@ import { MdcIcon } from '@angular-mdc/web/icon';
 
 @Component({
   moduleId: module.id,
+  exportAs: 'mdcButton',
   selector: 'button[mdc-button], a[mdc-button]',
   template: '<ng-content></ng-content>',
   providers: [

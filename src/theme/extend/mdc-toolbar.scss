@@ -10,3 +10,8 @@
     }
   }
 }
+
+/* Temporary workaround for #638 */
+.mdc-toolbar__section {
+  z-index: initial;
+}

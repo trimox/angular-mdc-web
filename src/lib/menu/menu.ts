@@ -219,9 +219,21 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
       position.top ? this._setStyle(position.top, 'top') : this._removeStyle('top');
       position.bottom ? this._setStyle(position.bottom, 'bottom') : this._removeStyle('bottom');
     },
-    setMaxHeight: (height) => {
+    setMaxHeight: (height: string) => {
       this._renderer.setStyle(this.elementRef.nativeElement, 'maxHeight', height);
     },
+    setAttrForOptionAtIndex: (index: number, attr: string, value: string) => {
+      this._renderer.setAttribute(this.options.toArray()[index].elementRef.nativeElement, attr, value);
+    },
+    rmAttrForOptionAtIndex: (index: number, attr: string) => {
+      this._renderer.removeAttribute(this.options.toArray()[index].elementRef.nativeElement, attr);
+    },
+    addClassForOptionAtIndex: (index: number, className: string) => {
+      this._renderer.addClass(this.options.toArray()[index].elementRef.nativeElement, className);
+    },
+    rmClassForOptionAtIndex: (index: number, className: string) => {
+      this._renderer.removeClass(this.options.toArray()[index].elementRef.nativeElement, className);
+    }
   };
 
   private _foundation: {
@@ -233,6 +245,9 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
     setAnchorCorner(corner: Corner): void,
     setAnchorMargin(): void,
     setQuickOpen(quickOpen: boolean): void,
+    setRememberSelection(rememberSelection: boolean): void,
+    setSelectedIndex(index: number): void,
+    getSelectedIndex(): number
   } = new MDCMenuFoundation(this._mdcAdapter);
 
   constructor(
@@ -254,6 +269,18 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
     if (anchorCorner) {
       this.setAnchorCorner(anchorCorner.currentValue);
     }
+  }
+
+  setRememberSelection(rememberSelection: boolean): void {
+    this._foundation.setRememberSelection(rememberSelection);
+  }
+
+  setSelectedIndex(index: number): void {
+    this._foundation.setSelectedIndex(index);
+  }
+
+  getSelectedIndex(): number {
+    return this._foundation.getSelectedIndex();
   }
 
   private _setStyle(position: string, anchorPoint: string): void {
@@ -321,5 +348,9 @@ export class MdcMenu implements AfterViewInit, OnChanges, OnDestroy {
 
   setQuickOpen(quickOpen: boolean): void {
     this._foundation.setQuickOpen(quickOpen);
+  }
+
+  setMaxHeight(height: string): void {
+    this._mdcAdapter.setMaxHeight(height);
   }
 }

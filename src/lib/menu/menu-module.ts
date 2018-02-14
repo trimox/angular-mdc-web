@@ -9,7 +9,7 @@ import {
   MdcMenuItems,
 } from './menu';
 
-const MENU_COMPONENTS = [
+const MENU_DECLARATIONS = [
   MdcMenu,
   MdcMenuAnchor,
   MdcMenuDivider,
@@ -19,7 +19,7 @@ const MENU_COMPONENTS = [
 
 @NgModule({
   imports: [CommonModule],
-  exports: [MENU_COMPONENTS],
-  declarations: [MENU_COMPONENTS],
+  exports: [MENU_DECLARATIONS],
+  declarations: [MENU_DECLARATIONS],
 })
 export class MdcMenuModule { }

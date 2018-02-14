@@ -82,6 +82,12 @@ describe('MdcMenu', () => {
       testDebugElement.nativeElement.click();
       fixture.detectChanges();
     });
+
+    it('#should get selected index', () => {
+      testInstance.setSelectedIndex(2);
+      fixture.detectChanges();
+      expect(testInstance.getSelectedIndex()).toBe(2);
+    });
   });
 });
 

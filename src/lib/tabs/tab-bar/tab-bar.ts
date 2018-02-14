@@ -155,10 +155,6 @@ export class MdcTabBar implements AfterViewInit, AfterContentChecked, OnDestroy 
     const indexToSelect = this._indexToSelect =
       Math.min(this._tabs.length - 1, Math.max(this._indexToSelect || 0, 0));
 
-    if (this._selectedIndex !== indexToSelect && this._selectedIndex != null) {
-      this.setTabActiveAtIndex(indexToSelect);
-    }
-
     if (this._selectedIndex !== indexToSelect) {
       this._selectedIndex = indexToSelect;
     }

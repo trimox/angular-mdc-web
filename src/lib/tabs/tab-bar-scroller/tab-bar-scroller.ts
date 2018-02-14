@@ -24,7 +24,8 @@ import { MDCTabBarScrollerAdapter } from './adapter';
 import { MDCTabBarScrollerFoundation } from '@material/tabs';
 
 @Directive({
-  selector: '[mdc-tab-bar-scroll-back], mdc-tab-bar-scroll-back'
+  selector: '[mdc-tab-bar-scroll-back], mdc-tab-bar-scroll-back',
+  exportAs: 'mdcTabBarScrollBack'
 })
 export class MdcTabBarScrollBack implements AfterContentInit {
   @HostBinding('class.mdc-tab-bar-scroller__indicator') isHostClass = true;
@@ -43,7 +44,8 @@ export class MdcTabBarScrollBack implements AfterContentInit {
 }
 
 @Directive({
-  selector: '[mdc-tab-bar-scroll-forward], mdc-tab-bar-scroll-forward'
+  selector: '[mdc-tab-bar-scroll-forward], mdc-tab-bar-scroll-forward',
+  exportAs: 'mdcTabBarScrollForward'
 })
 export class MdcTabBarScrollForward implements AfterContentInit {
   @HostBinding('class.mdc-tab-bar-scroller__indicator') isHostClass = true;
@@ -62,7 +64,8 @@ export class MdcTabBarScrollForward implements AfterContentInit {
 }
 
 @Directive({
-  selector: '[mdc-tab-bar-scroll-frame], mdc-tab-bar-scroll-frame'
+  selector: '[mdc-tab-bar-scroll-frame], mdc-tab-bar-scroll-frame',
+  exportAs: 'mdcTabBarScrollFrame'
 })
 export class MdcTabBarScrollFrame implements AfterContentInit {
   @HostBinding('class.mdc-tab-bar-scroller__scroll-frame') isHostClass = true;
@@ -90,6 +93,7 @@ export class MdcTabBarScrollFrame implements AfterContentInit {
 @Component({
   moduleId: module.id,
   selector: '[mdc-tab-bar-scroller], mdc-tab-bar-scroller',
+  exportAs: 'mdcTabBarScroller',
   template: '<ng-content></ng-content>',
   providers: [EventRegistry],
   encapsulation: ViewEncapsulation.None,

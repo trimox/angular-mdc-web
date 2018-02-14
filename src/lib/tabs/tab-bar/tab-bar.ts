@@ -25,7 +25,8 @@ import { MDCTabBarAdapter } from './adapter';
 import { MDCTabBarFoundation } from '@material/tabs';
 
 @Directive({
-  selector: '[mdc-tab-bar-indicator], mdc-tab-bar-indicator'
+  selector: '[mdc-tab-bar-indicator], mdc-tab-bar-indicator',
+  exportAs: 'mdcTabBarIndicator'
 })
 export class MdcTabBarIndicator {
   @HostBinding('class.mdc-tab-bar__indicator') isHostClass = true;
@@ -36,6 +37,7 @@ export class MdcTabBarIndicator {
 @Component({
   moduleId: module.id,
   selector: '[mdc-tab-bar], mdc-tab-bar',
+  exportAs: 'mdcTabBar',
   template: `
   <ng-content></ng-content>
   <mdc-tab-bar-indicator></mdc-tab-bar-indicator>

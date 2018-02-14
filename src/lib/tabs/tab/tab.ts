@@ -29,7 +29,8 @@ export interface MdcTabChange {
 }
 
 @Directive({
-  selector: '[mdc-tab-icon-text], mdc-tab-icon-text'
+  selector: '[mdc-tab-icon-text], mdc-tab-icon-text',
+  exportAs: 'mdcTabIconText'
 })
 export class MdcTabIconText {
   @HostBinding('class.mdc-tab__icon-text') isHostClass = true;
@@ -40,6 +41,7 @@ export class MdcTabIconText {
 @Component({
   moduleId: module.id,
   selector: '[mdc-tab], mdc-tab',
+  exportAs: 'mdcTab',
   template: '<ng-content></ng-content>',
   providers: [
     MdcRipple,

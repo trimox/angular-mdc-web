@@ -14,7 +14,7 @@ import {
   MdcTabBarScrollFrame,
 } from './tab-bar-scroller/tab-bar-scroller';
 
-const TAB_COMPONENTS = [
+const TAB_DECLARATIONS = [
   MdcTab,
   MdcTabIconText,
   MdcTabBar,
@@ -26,9 +26,7 @@ const TAB_COMPONENTS = [
 ];
 
 @NgModule({
-  exports: [
-    TAB_COMPONENTS
-  ],
-  declarations: [TAB_COMPONENTS]
+  exports: [TAB_DECLARATIONS],
+  declarations: [TAB_DECLARATIONS]
 })
 export class MdcTabModule { }

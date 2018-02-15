@@ -64,6 +64,7 @@ export const MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR: any = {
     [placeholder]="placeholder"
     [attr.maxlength]="maxlength"
     [required]="required"
+    (focus)="onFocus()"
     (blur)="onBlur()"
     (input)="onInput($event.target.value)" />
     <mdc-text-field-label [attr.for]="id" *ngIf="!placeholder">{{label}}</mdc-text-field-label>
@@ -341,6 +342,10 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
     this._onChange(value);
     this.change.emit(value);
     this._changeDetectorRef.markForCheck();
+  }
+
+  onFocus(): void {
+    this._focused = true;
   }
 
   onBlur(): void {

@@ -1,17 +1,9 @@
 import { NgModule } from '@angular/core';
 
-import {
-  MdcRippleDirective,
-  MdcSurfaceDirective,
-} from './ripple.directive';
-
-const RIPPLE_DIRECTIVES = [
-  MdcRippleDirective,
-  MdcSurfaceDirective,
-];
+import { MdcRippleComponent } from './ripple.component';
 
 @NgModule({
-  exports: [RIPPLE_DIRECTIVES],
-  declarations: [RIPPLE_DIRECTIVES],
+  exports: [MdcRippleComponent],
+  declarations: [MdcRippleComponent],
 })
 export class MdcRippleModule { }

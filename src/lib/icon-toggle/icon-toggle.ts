@@ -18,7 +18,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { ENTER } from '@angular-mdc/web/cdk/keycodes';
+import { SPACE } from '@angular-mdc/web/cdk/keycodes';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { toBoolean, isSpaceKey, EventRegistry } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
@@ -152,11 +152,8 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
   @HostListener('click', ['$event']) onclick(evt: Event) {
     this._onClick(evt);
   }
-  @HostListener('keypress', ['$event']) onkeypress(evt: KeyboardEvent) {
-    this._onKeyPress(evt);
-  }
-  @HostListener('blur', ['$event']) blur(evt: FocusEvent) {
-    this._onBlur(evt);
+  @HostListener('keydown', ['$event']) onkeydown(evt: KeyboardEvent) {
+    this._onKeydown(evt);
   }
 
   constructor(
@@ -190,7 +187,6 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
     this._foundation.toggle(this._on || this._foundation.isOn());
 
     this.ripple.init(true);
-    this.ripple.activeSurface = this._foundation.isKeyboardActivated();
 
     this._changeDetectorRef.detectChanges();
   }
@@ -247,13 +243,15 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
     }
   }
 
-  private _onKeyPress(event: KeyboardEvent): void {
-    const keyCode = event.keyCode;
-    if (keyCode === ENTER || isSpaceKey(event)) {
-      this.ripple.activate(event);
-      if (keyCode !== ENTER) {
-        event.preventDefault();
-      }
+  private _onKeydown(event: KeyboardEvent): void {
+    if (this.disabled) {
+      return;
+    }
+
+    if (event.keyCode === SPACE) {
+      this.ripple.setSurfaceActive(true);
+    } else {
+      this.ripple.setSurfaceActive(false);
     }
   }
 
@@ -263,9 +261,5 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
 
   private _getHostElement() {
     return this.elementRef.nativeElement;
-  }
-
-  private _onBlur(event: FocusEvent): void {
-    this.ripple.deactivate(event);
   }
 }

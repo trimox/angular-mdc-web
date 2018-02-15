@@ -90,12 +90,12 @@ describe('MdcTextField', () => {
       expect(textFieldInstance.selectAll());
     });
 
-    it('#should activate bottomline', () => {
-      expect(textFieldInstance.bottomLine.activate());
+    it('#should activate lineRipple', () => {
+      expect(textFieldInstance.lineRipple.activate());
     });
 
-    it('#should deactivate bottomline', () => {
-      expect(textFieldInstance.bottomLine.deactivate());
+    it('#should deactivate lineRipple', () => {
+      expect(textFieldInstance.lineRipple.deactivate());
     });
 
     it('#should set helper content', () => {

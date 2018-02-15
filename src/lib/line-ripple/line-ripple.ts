@@ -4,6 +4,8 @@ import {
   ElementRef,
   EventEmitter,
   HostBinding,
+  OnDestroy,
+  OnInit,
   Output,
   Renderer2,
   ViewEncapsulation,
@@ -24,12 +26,13 @@ import { MDCLineRippleFoundation } from '@material/line-ripple';
   encapsulation: ViewEncapsulation.None,
   preserveWhitespaces: false,
 })
-export class MdcLineRipple {
+export class MdcLineRipple implements OnInit, OnDestroy {
   @HostBinding('class.mdc-line-ripple') isHostClass = true;
 
   private _mdcAdapter: MDCLineRippleAdapter = {
     addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
     removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
+    hasClass: (className: string) => this._getHostElement().classList.contains(className),
     setAttr: (attr: string, value: string) => this._renderer.setAttribute(this._getHostElement(), attr, value),
     registerEventHandler: (evtType: string, handler: EventListener) =>
       this._registry.listen(evtType, handler, this._getHostElement()),
@@ -48,6 +51,14 @@ export class MdcLineRipple {
     private _renderer: Renderer2,
     public elementRef: ElementRef,
     private _registry: EventRegistry) { }
+
+  ngOnInit(): void {
+    this.foundation.init();
+  }
+
+  ngOnDestroy(): void {
+    this.foundation.destroy();
+  }
 
   destroy(): void {
     this.foundation.destroy();

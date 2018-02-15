@@ -103,7 +103,7 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
   @HostBinding('class.mdc-text-field') isHostClass = true;
   @ViewChild('input') inputText: ElementRef;
   @ViewChild(MdcTextFieldLabel) inputLabel: MdcTextFieldLabel;
-  @ViewChild(MdcLineRipple) bottomLine: MdcLineRipple;
+  @ViewChild(MdcLineRipple) lineRipple: MdcLineRipple;
   @ContentChild(MdcTextFieldLeadingIcon) leadingIcon: MdcTextFieldLeadingIcon;
   @ContentChild(MdcTextFieldTrailingIcon) trailingIcon: MdcTextFieldTrailingIcon;
   @ViewChild(MdcTextFieldOutline) outlined: MdcTextFieldOutline;
@@ -202,7 +202,7 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
       return this._getHostElement().classList.contains(className);
     },
     registerTextFieldInteractionHandler: (evtType: string, handler: EventListener) => {
-      this._registry.listen(evtType, handler, this.elementRef.nativeElement);
+      this._registry.listen(evtType, handler, this._getHostElement());
     },
     deregisterTextFieldInteractionHandler: (evtType: string, handler: EventListener) => {
       this._registry.unlisten(evtType, handler);
@@ -210,25 +210,29 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
     registerInputInteractionHandler: (evtType, handler) =>
       this._registry.listen(evtType, handler, this.inputText.nativeElement),
     deregisterInputInteractionHandler: (evtType, handler) => this._registry.unlisten(evtType, handler),
-    registerBottomLineEventHandler: (evtType: string, handler: EventListener) => {
-      if (!this.bottomLine) { return; }
-
-      this._registry.listen(evtType, handler, this.bottomLine.elementRef.nativeElement);
-    },
-    deregisterBottomLineEventHandler: (evtType: string, handler: EventListener) => {
-      if (!this.bottomLine) { return; }
-
-      this._registry.unlisten(evtType, handler);
-    },
     isFocused: () => this._focused,
     isRtl: () => this.direction === 'rtl',
+    activateLineRipple: () => {
+      if (this.lineRipple) {
+        this.lineRipple.activate();
+      }
+    },
+    deactivateLineRipple: () => {
+      if (this.lineRipple) {
+        this.lineRipple.deactivate();
+      }
+    },
+    setLineRippleTransformOrigin: (normalizedX: number) => {
+      if (this.lineRipple) {
+        this.lineRipple.setRippleCenter(normalizedX);
+      }
+    },
     getNativeInput: () => this.inputText.nativeElement
   };
 
   /** Returns a map of all subcomponents to subfoundations. */
   private _getFoundationMap() {
     return {
-      bottomLine: (this.bottomLine && !this.outline) ? this.bottomLine.foundation : undefined,
       helperText: this._helperText ? this.helperText.foundation : undefined,
       icon: this.leadingIcon ? this.leadingIcon.foundation
         : this.trailingIcon ? this.trailingIcon.foundation : undefined,
@@ -290,8 +294,8 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
   }
 
   ngOnDestroy(): void {
-    if (this.bottomLine) {
-      this.bottomLine.destroy();
+    if (this.lineRipple) {
+      this.lineRipple.destroy();
     }
     if (this.helperText) {
       this.helperText.destroy();
@@ -343,9 +347,6 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
     this._focused = false;
     this._onTouched();
 
-    if (this.bottomLine) {
-      this.bottomLine.deactivate();
-    }
     this.blur.emit(this.value);
     this._changeDetectorRef.markForCheck();
   }

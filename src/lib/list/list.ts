@@ -135,7 +135,7 @@ export class MdcList implements AfterContentInit, OnDestroy {
     public elementRef: ElementRef) { }
 
   /** Combined stream of all of the child options' change events. */
-  optionSelectionChanges: Observable<MdcListSelectionChange> = defer(() => {
+  readonly optionSelectionChanges: Observable<MdcListSelectionChange> = defer(() => {
     if (this.options) {
       return merge(...this.options.map(option => option.onSelectionChange));
     }
@@ -149,13 +149,14 @@ export class MdcList implements AfterContentInit, OnDestroy {
     this.optionSelectionChanges.pipe(
       takeUntil(merge(this._destroy, this.options.changes)),
       filter(item => item.source.selected)
-    ).subscribe(item => {
-      this._clearSelection(item.source);
+    ).subscribe(event => {
+      this._clearSelection(event.source);
     });
 
     this.options.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
       Promise.resolve().then(() => {
         this._setInteractive(this._interactive);
+        this._resetOptions();
       });
     });
   }
@@ -163,6 +164,17 @@ export class MdcList implements AfterContentInit, OnDestroy {
   ngOnDestroy(): void {
     this._destroy.next();
     this._destroy.complete();
+  }
+
+  /** Drops current option subscriptions and IDs and resets from scratch. */
+  private _resetOptions(): void {
+    const changedOrDestroyed = merge(this.options.changes, this._destroy);
+
+    this.optionSelectionChanges
+      .pipe(takeUntil(changedOrDestroyed)
+      ).subscribe(event => {
+        this._clearSelection(event.source);
+      });
   }
 
   private _setInteractive(value: boolean): void {

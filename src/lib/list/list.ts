@@ -5,10 +5,12 @@ import {
   ContentChildren,
   Directive,
   ElementRef,
+  EventEmitter,
   HostBinding,
   Input,
   NgZone,
   OnDestroy,
+  Output,
   QueryList,
   Renderer2,
   ViewChild,
@@ -27,6 +29,15 @@ import { takeUntil } from 'rxjs/operators/takeUntil';
 import { toBoolean } from '@angular-mdc/web/common';
 
 import { MdcListItem, MdcListSelectionChange } from './list-item';
+
+/** Change event that is being fired whenever the selected state of an option changes. */
+export class MdcListItemChange {
+  constructor(
+    /** Reference to the selection list that emitted the event. */
+    public source: MdcList,
+    /** Reference to the option that has been changed. */
+    public option: MdcListItem) { }
+}
 
 @Directive({
   selector: '[mdc-list-group], mdc-list-group',
@@ -133,6 +144,10 @@ export class MdcList implements AfterContentInit, OnDestroy {
   }
   @ContentChildren(MdcListItem) options: QueryList<MdcListItem>;
 
+  /** Emits a change event whenever the selected state of an option changes. */
+  @Output() readonly selectionChange: EventEmitter<MdcListItemChange> =
+    new EventEmitter<MdcListItemChange>();
+
   constructor(
     private _ngZone: NgZone,
     private _renderer: Renderer2,
@@ -154,6 +169,7 @@ export class MdcList implements AfterContentInit, OnDestroy {
       takeUntil(merge(this._destroy, this.options.changes)),
       filter(item => item.source.selected)
     ).subscribe(event => {
+      this.selectionChange.emit(new MdcListItemChange(this, event.source));
       this._clearSelection(event.source);
     });
 

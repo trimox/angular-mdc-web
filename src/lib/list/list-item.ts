@@ -28,7 +28,8 @@ export class MdcListSelectionChange {
 let uniqueIdCounter = 0;
 
 @Directive({
-  selector: '[mdc-list-item-graphic], mdc-list-item-graphic'
+  selector: '[mdc-list-item-graphic], mdc-list-item-graphic',
+  exportAs: 'mdcListItemGraphic',
 })
 export class MdcListItemGraphic {
   @HostBinding('class.mdc-list-item__graphic') isHostClass = true;
@@ -38,7 +39,8 @@ export class MdcListItemGraphic {
 }
 
 @Directive({
-  selector: '[mdc-list-item-meta], mdc-list-item-meta'
+  selector: '[mdc-list-item-meta], mdc-list-item-meta',
+  exportAs: 'mdcListItemMeta',
 })
 export class MdcListItemMeta {
   @HostBinding('class.mdc-list-item__meta') isHostClass = true;
@@ -47,7 +49,8 @@ export class MdcListItemMeta {
 }
 
 @Directive({
-  selector: '[mdc-list-item-text], mdc-list-item-text'
+  selector: '[mdc-list-item-text], mdc-list-item-text',
+  exportAs: 'mdcListItemText',
 })
 export class MdcListItemText {
   @HostBinding('class.mdc-list-item__text') isHostClass = true;
@@ -56,7 +59,8 @@ export class MdcListItemText {
 }
 
 @Directive({
-  selector: '[mdc-list-item-secondary], mdc-list-item-secondary'
+  selector: '[mdc-list-item-secondary], mdc-list-item-secondary',
+  exportAs: 'mdcListItemSecondaryText',
 })
 export class MdcListItemSecondaryText {
   @HostBinding('class.mdc-list-item__secondary-text') isHostClass = true;
@@ -67,6 +71,7 @@ export class MdcListItemSecondaryText {
 @Component({
   moduleId: module.id,
   selector: 'mdc-list-item, a[mdc-list-item]',
+  exportAs: 'mdcListItem',
   host: {
     '[id]': 'id',
   },

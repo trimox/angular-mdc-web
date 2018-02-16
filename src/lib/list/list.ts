@@ -29,7 +29,8 @@ import { toBoolean } from '@angular-mdc/web/common';
 import { MdcListItem, MdcListSelectionChange } from './list-item';
 
 @Directive({
-  selector: '[mdc-list-group], mdc-list-group'
+  selector: '[mdc-list-group], mdc-list-group',
+  exportAs: 'mdcListGroup',
 })
 export class MdcListGroup {
   @HostBinding('class.mdc-list-group') isHostClass = true;
@@ -38,7 +39,8 @@ export class MdcListGroup {
 }
 
 @Directive({
-  selector: '[mdc-list-group-subheader], mdc-list-group-subheader'
+  selector: '[mdc-list-group-subheader], mdc-list-group-subheader',
+  exportAs: 'mdcListGroupSubheader',
 })
 export class MdcListGroupSubheader {
   @HostBinding('class.mdc-list-group__subheader') isHostClass = true;
@@ -49,6 +51,7 @@ export class MdcListGroupSubheader {
 @Component({
   moduleId: module.id,
   selector: '[mdc-list-divider], mdc-list-divider',
+  exportAs: 'mdcListDivider',
   template: '<div #nativeEl class="mdc-list-divider" role="seperator"></div>',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -81,6 +84,7 @@ export class MdcListDivider {
 @Component({
   moduleId: module.id,
   selector: 'mdc-list',
+  exportAs: 'mdcList',
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -124,8 +128,8 @@ export class MdcList implements AfterContentInit, OnDestroy {
   @HostBinding('class.mdc-list--avatar-list') get classAvatarList(): string {
     return this.avatar ? 'mdc-list--avatar-list' : '';
   }
-  @HostBinding('class.mdc-list--border') get classBorder(): string {
-    return this.border ? 'mdc-list--border' : '';
+  @HostBinding('class.ng-mdc-list--border') get classBorder(): string {
+    return this.border ? 'ng-mdc-list--border' : '';
   }
   @ContentChildren(MdcListItem) options: QueryList<MdcListItem>;
 

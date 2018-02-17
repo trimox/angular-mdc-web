@@ -18,7 +18,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { toNumber, isBrowser, EventRegistry } from '@angular-mdc/web/common';
 
 import { MDCSliderAdapter } from '@material/slider/adapter';
-import MDCSliderFoundation from '@material/slider/foundation';
+import { MDCSliderFoundation } from '@material/slider';
 
 export const MDC_SLIDER_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,

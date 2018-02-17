@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
+import { MdcLineRippleModule } from '@angular-mdc/web/line-ripple';
+
 import { MdcTextFieldHelperText } from './helper-text';
 import {
   MdcTextFieldLeadingIcon,
@@ -17,10 +18,9 @@ import {
   MdcTextFieldIdleOutline,
 } from './outline';
 
-const TEXTFIELD_COMPONENTS = [
+const TEXTFIELD_DECLARATIONS = [
   MdcTextarea,
   MdcTextField,
-  MdcLineRipple,
   MdcTextFieldBox,
   MdcTextFieldHelperText,
   MdcTextFieldIdleOutline,
@@ -31,8 +31,12 @@ const TEXTFIELD_COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [FormsModule, CommonModule],
-  exports: [TEXTFIELD_COMPONENTS],
-  declarations: [TEXTFIELD_COMPONENTS],
+  imports: [
+    FormsModule,
+    CommonModule,
+    MdcLineRippleModule
+  ],
+  exports: [TEXTFIELD_DECLARATIONS],
+  declarations: [TEXTFIELD_DECLARATIONS],
 })
 export class MdcTextFieldModule { }

@@ -109,10 +109,6 @@ export class MdcList implements AfterContentInit, OnDestroy {
   private _destroy = new Subject<void>();
 
   @Input() dense: boolean = false;
-
-  /** @deprecated Use `lines` instead. */
-  @Input() twoLine: boolean = false;
-
   @Input() lines: number = 1;
   @Input() border: boolean = false;
   @Input()
@@ -134,7 +130,7 @@ export class MdcList implements AfterContentInit, OnDestroy {
     return this.dense ? 'mdc-list--dense' : '';
   }
   @HostBinding('class.mdc-list--two-line') get classTwoline(): string {
-    return this.twoLine || this.lines === 2 ? 'mdc-list--two-line' : '';
+    return this.lines === 2 ? 'mdc-list--two-line' : '';
   }
   @HostBinding('class.mdc-list--avatar-list') get classAvatarList(): string {
     return this.avatar ? 'mdc-list--avatar-list' : '';

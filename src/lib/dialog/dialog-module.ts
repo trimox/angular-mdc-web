@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { OverlayModule, PortalModule } from '@angular-mdc/web/cdk';
-import { MdcButtonModule } from '@angular-mdc/web/button';
 
 import {
   MdcDialogBackdrop,
@@ -17,7 +16,7 @@ import { MdcDialogComponent } from './dialog.component';
 import { MdcDialogContainer } from './dialog-container';
 import { MdcDialog } from './dialog';
 
-const DIALOG_COMPONENTS = [
+const DIALOG_DECLARATIONS = [
   MdcDialogComponent,
   MdcDialogContainer,
   MdcDialogBackdrop,
@@ -31,19 +30,18 @@ const DIALOG_COMPONENTS = [
 
 @NgModule({
   imports: [
-    OverlayModule,
-    PortalModule,
     CommonModule,
-    MdcButtonModule,
+    OverlayModule,
+    PortalModule
   ],
   exports: [
-    DIALOG_COMPONENTS
+    DIALOG_DECLARATIONS
   ],
-  declarations: DIALOG_COMPONENTS,
+  declarations: DIALOG_DECLARATIONS,
   providers: [MdcDialog],
   entryComponents: [
     MdcDialogContainer,
-    MdcDialogComponent,
+    MdcDialogComponent
   ],
 })
 export class MdcDialogModule { }

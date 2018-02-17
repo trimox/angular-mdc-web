@@ -54,7 +54,7 @@ import { MDCDialogFoundation, util } from '@material/dialog';
   preserveWhitespaces: false,
 })
 export class MdcDialogComponent implements AfterViewInit, OnDestroy {
-  private _config: MdcDialogConfig;
+  _config: MdcDialogConfig;
 
   private _focusTrap: {
     activate: Function;

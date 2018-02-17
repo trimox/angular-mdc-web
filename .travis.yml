@@ -2,7 +2,7 @@ dist: trusty
 language: node_js
 sudo: required
 node_js:
-  - '8.9.4'
+  - '9.5.0'
 
 branches:
   only:
@@ -13,8 +13,8 @@ install:
 
 script:
   - export CHROME_BIN=chromium-browser
-  - npm run lint && npm run test:unit
   - npm run lint
+  - npm run test:unit
 
 after_success:
   - codecov

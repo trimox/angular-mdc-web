@@ -21,6 +21,7 @@ export async function compileEntryPoint(buildPackage: BuildPackage, tsconfigName
   return ngcCompile(ngcFlags).catch(() => {
     const error = `Failed to compile ${secondaryEntryPoint} using ${entryPointTsconfigPath}`;
     console.error(error);
+    return Promise.reject(error);
   });
 }
 

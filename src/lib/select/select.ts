@@ -391,7 +391,9 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
     }
     this._value = newValue;
     this._foundation.setSelectedIndex(this.options.toArray().findIndex(_ => _.value === newValue));
-    this._ngControl.valueAccessor.writeValue(newValue);
+    if (this._ngControl.valueAccessor) {
+      this._ngControl.valueAccessor.writeValue(newValue);
+    }
 
     if (this._foundation.getSelectedIndex() === -1) {
       this._mdcAdapter.removeClassFromLabel('mdc-select__label--float-above');
@@ -422,7 +424,9 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
     if (value) {
       this._onChange(value);
     }
-    this._ngControl.valueAccessor.writeValue(value);
+    if (this._ngControl.valueAccessor) {
+      this._ngControl.valueAccessor.writeValue(value);
+    }
     this._changeDetectorRef.markForCheck();
   }
 

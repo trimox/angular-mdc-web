@@ -8,7 +8,8 @@ import {
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
 @Directive({
-  selector: 'mdc-select-label'
+  selector: 'mdc-select-label',
+  exportAs: 'mdcSelectLabel'
 })
 export class MdcSelectLabel {
   @HostBinding('class.mdc-select__label') isHostClass = true;
@@ -18,6 +19,7 @@ export class MdcSelectLabel {
 
 @Directive({
   selector: 'mdc-select-menu',
+  exportAs: 'mdcSelectMenu'
 })
 export class MdcSelectMenu {
   @HostBinding('class.mdc-menu') isHostClass = true;
@@ -27,7 +29,8 @@ export class MdcSelectMenu {
 }
 
 @Directive({
-  selector: 'mdc-select-items'
+  selector: 'mdc-select-items',
+  exportAs: 'mdcSelectItems'
 })
 export class MdcSelectItems {
   @HostBinding('class.mdc-list') isHostClass = true;
@@ -38,6 +41,7 @@ export class MdcSelectItems {
 
 @Directive({
   selector: 'mdc-select-surface',
+  exportAs: 'mdcSelectSurface',
   providers: [
     MdcRipple
   ]
@@ -52,12 +56,14 @@ export class MdcSelectSurface {
   constructor(
     private _elementRef: ElementRef,
     private _ripple: MdcRipple) {
+
     this._ripple.init();
   }
 }
 
 @Directive({
-  selector: 'mdc-select-selected-text'
+  selector: 'mdc-select-selected-text',
+  exportAs: 'mdcSelectSelectedText'
 })
 export class MdcSelectSelectedText {
   @HostBinding('class.mdc-select__selected-text') isHostClass = true;
@@ -66,7 +72,8 @@ export class MdcSelectSelectedText {
 }
 
 @Directive({
-  selector: 'mdc-select-bottom-line'
+  selector: 'mdc-select-bottom-line',
+  exportAs: 'mdcSelectBottomLine'
 })
 export class MdcSelectBottomLine {
   @HostBinding('class.mdc-select__bottom-line') isHostClass = true;

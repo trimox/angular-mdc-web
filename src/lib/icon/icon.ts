@@ -3,7 +3,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  HostBinding,
   Input,
   OnChanges,
   OnInit,
@@ -22,16 +21,28 @@ import {
   preserveWhitespaces: false
 })
 export class MdcIcon implements OnChanges, OnInit {
+  private _defaultFontSetClass = 'material-icons';
   private _previousFontSetClass: string;
   private _previousFontIconClass: string;
   private _previousFontSize: number | null;
 
-  @Input() fontSet: string = 'material-icons';
-  @Input() fontIcon: string;
-  @Input() fontSize: number | null;
-  @HostBinding('class.material-icons') get classMaterialIcon(): string {
-    return this.fontSet === 'material-icons' ? 'material-icons' : '';
+  /** Font set that the icon is a part of. */
+  @Input()
+  get fontSet(): string { return this._fontSet; }
+  set fontSet(value: string) {
+    this._fontSet = this._cleanupFontValue(value);
   }
+  private _fontSet: string;
+
+  /** Name of an icon within a font set. */
+  @Input()
+  get fontIcon(): string { return this._fontIcon; }
+  set fontIcon(value: string) {
+    this._fontIcon = value;
+  }
+  private _fontIcon: string;
+
+  @Input() fontSize: number | null;
 
   constructor(
     private _renderer: Renderer2,
@@ -45,38 +56,39 @@ export class MdcIcon implements OnChanges, OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     const fontSize = changes['fontSize'] ? changes['fontSize'].currentValue : this.fontSize;
-    const fontSet = changes['fontSet'] ? changes['fontSet'].currentValue : this.fontSet;
-    const fontIcon = changes['fontIcon'] ? changes['fontIcon'].currentValue : this.fontIcon;
-    this._updateFontIconClasses(fontSet, fontIcon, fontSize);
+
+    this._updateFontIconClasses(fontSize);
   }
 
   ngOnInit() {
-    this._updateFontIconClasses(this.fontSet, this.fontIcon, this.fontSize);
+    this._updateFontIconClasses(this.fontSize);
   }
 
-  private _updateFontIconClasses(fontSet: string | null, fontIcon: string | null, fontSize: number | null): void {
-    const el = this._getHostElement();
+  private _updateFontIconClasses(fontSize: number | null): void {
+    const el: HTMLElement = this._getHostElement();
 
-    if (fontSet !== this._previousFontSetClass) {
+    const fontSetClass = this.fontSet ? this.fontSet : this._getDefaultFontSetClass();
+
+    if (fontSetClass !== this._previousFontSetClass) {
       if (this._previousFontSetClass) {
         this._renderer.removeClass(el, this._previousFontSetClass);
       }
-      if (fontSet) {
-        this._renderer.addClass(el, fontSet);
+      if (fontSetClass) {
+        this._renderer.addClass(el, fontSetClass);
       }
-      this._previousFontSetClass = fontSet;
+      this._previousFontSetClass = fontSetClass;
     }
 
-    if (fontIcon !== this._previousFontIconClass) {
+    if (this.fontIcon !== this._previousFontIconClass) {
       if (this._previousFontIconClass) {
         this._renderer.removeClass(el, this._previousFontIconClass);
       }
-      if (fontIcon) {
-        for (const iconClass of fontIcon.split(' ')) {
+      if (this.fontIcon) {
+        for (const iconClass of this.fontIcon.split(' ')) {
           this._renderer.addClass(el, iconClass);
         }
       }
-      this._previousFontIconClass = fontIcon;
+      this._previousFontIconClass = this.fontIcon;
     }
 
     if (fontSize !== this._previousFontSize) {
@@ -88,6 +100,19 @@ export class MdcIcon implements OnChanges, OnInit {
       }
       this._previousFontSize = fontSize;
     }
+  }
+
+  private _getDefaultFontSetClass(): string {
+    return this._defaultFontSetClass;
+  }
+
+  /**
+     * Cleans up a value to be used as a fontIcon or fontSet.
+     * Since the value ends up being assigned as a CSS class, we
+     * have to trim the value and omit space-separated values.
+     */
+  private _cleanupFontValue(value: string) {
+    return typeof value === 'string' ? value.trim().split(' ')[0] : value;
   }
 
   /** Retrieves the DOM element of the component host. */

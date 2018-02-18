@@ -2,16 +2,14 @@ import { NgModule } from '@angular/core';
 
 import { MdcContent } from './mdc-content';
 import { MdcMaterialIcon } from './material-icon';
-import { MdcThemeDark } from './theme-dark';
 
-const THEME_DIRECTIVES = [
+const THEME_DECLARATIONS = [
   MdcContent,
   MdcMaterialIcon,
-  MdcThemeDark,
 ];
 
 @NgModule({
-  exports: [THEME_DIRECTIVES],
-  declarations: [THEME_DIRECTIVES],
+  exports: [THEME_DECLARATIONS],
+  declarations: [THEME_DECLARATIONS],
 })
 export class MdcThemeModule { }

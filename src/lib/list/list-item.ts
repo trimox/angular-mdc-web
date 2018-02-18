@@ -60,9 +60,9 @@ export class MdcListItemText {
 
 @Directive({
   selector: '[mdc-list-item-secondary], mdc-list-item-secondary',
-  exportAs: 'mdcListItemSecondaryText',
+  exportAs: 'mdcListItemSecondary',
 })
-export class MdcListItemSecondaryText {
+export class MdcListItemSecondary {
   @HostBinding('class.mdc-list-item__secondary-text') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }

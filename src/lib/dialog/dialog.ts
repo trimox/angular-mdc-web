@@ -10,11 +10,13 @@ import {
 import {
   ComponentPortal,
   ComponentType,
-  Overlay,
-  OverlayRef,
   PortalInjector,
   TemplatePortal,
-} from '@angular-mdc/web/cdk';
+} from '@angular-mdc/web/portal';
+import {
+  Overlay,
+  OverlayRef,
+} from '@angular-mdc/web/overlay';
 
 import { MdcDialogRef } from './dialog-ref';
 import { MdcDialogContainer } from './dialog-container';

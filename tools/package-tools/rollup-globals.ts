@@ -39,6 +39,7 @@ export const rollupGlobals = {
   '@material/line-ripple': 'mdc.line-ripple',
   '@material/linear-progress': 'mdc.linear-progress',
   '@material/menu': 'mdc.menu',
+  '@material/menu/util': 'mdc.menu.util',
   '@material/radio': 'mdc.radio',
   '@material/ripple': 'mdc.ripple',
   '@material/select': 'mdc.select',

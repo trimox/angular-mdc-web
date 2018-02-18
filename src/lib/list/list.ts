@@ -146,7 +146,6 @@ export class MdcList implements AfterContentInit, OnDestroy {
 
   constructor(
     private _ngZone: NgZone,
-    private _renderer: Renderer2,
     public elementRef: ElementRef) { }
 
   /** Combined stream of all of the child options' change events. */

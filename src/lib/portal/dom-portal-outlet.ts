@@ -15,7 +15,6 @@ import {
 } from '@angular/core';
 import { BasePortalOutlet, ComponentPortal, TemplatePortal } from './portal';
 
-
 /**
  * A PortalOutlet for attaching portals to an arbitrary DOM element outside of the Angular
  * application context.

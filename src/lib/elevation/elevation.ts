@@ -1,7 +1,6 @@
 import {
   Directive,
   ElementRef,
-  HostBinding,
   Input,
   OnChanges,
   Renderer2,
@@ -9,10 +8,9 @@ import {
 } from '@angular/core';
 import { toNumber } from '@angular-mdc/web/common';
 
-const MDC_ELEVATION_VALUES = Array.from(Array(25), (x, i) => i);
-
 @Directive({
-  selector: '[mdc-elevation]'
+  selector: '[mdc-elevation]',
+  exportAs: 'mdcElevation'
 })
 export class MdcElevation implements OnChanges {
   private _mdcElevation: number = 0;
@@ -30,7 +28,7 @@ export class MdcElevation implements OnChanges {
   public ngOnChanges(changes: { [key: string]: SimpleChange }): void {
     const change = changes['mdcElevation'];
 
-    if (MDC_ELEVATION_VALUES.indexOf(Number(this.mdcElevation)) === -1) {
+    if (toNumber(change.currentValue) < 0 || toNumber(change.currentValue > 24)) {
       throw new Error(`Valid mdc-elevation values are 0 through 24`);
     }
 

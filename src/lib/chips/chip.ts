@@ -14,10 +14,13 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import { BACKSPACE, DELETE, SPACE } from '@angular-mdc/web/cdk/keycodes';
-import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
 import { Subject } from 'rxjs/Subject';
 
+import {
+  toBoolean,
+  EventRegistry,
+  BACKSPACE, DELETE, SPACE
+} from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
 import { MDCChipAdapter } from '@material/chips/chip/adapter';

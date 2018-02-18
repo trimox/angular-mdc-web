@@ -8,11 +8,13 @@ import {
 import {
   ComponentPortal,
   ComponentType,
-  Overlay,
-  OverlayRef,
   Portal,
   PortalInjector,
-} from '@angular-mdc/web/cdk';
+} from '@angular-mdc/web/portal';
+import {
+  Overlay,
+  OverlayRef,
+} from '@angular-mdc/web/overlay';
 
 import { MdcSnackbarRef } from './snackbar-ref';
 import { MdcSnackbarComponent } from './snackbar.component';

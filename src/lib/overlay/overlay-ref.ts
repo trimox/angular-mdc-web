@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import { ComponentPortal, Portal, PortalOutlet, TemplatePortal } from '../portal';
+import { ComponentPortal, Portal, PortalOutlet, TemplatePortal } from '@angular-mdc/web/portal';
 import { ComponentRef, EmbeddedViewRef, NgZone } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';

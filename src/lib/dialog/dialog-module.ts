@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { OverlayModule, PortalModule } from '@angular-mdc/web/cdk';
+import { OverlayModule } from '@angular-mdc/web/overlay';
+import { PortalModule } from '@angular-mdc/web/portal';
 
 import {
   MdcDialogBackdrop,

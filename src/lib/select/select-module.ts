@@ -14,7 +14,7 @@ import {
 import { MdcSelectItem } from './select-item';
 import { MdcSelect } from './select';
 
-export const SELECT_COMPONENTS = [
+export const SELECT_DECLARATIONS = [
   MdcSelect,
   MdcSelectBottomLine,
   MdcSelectItem,
@@ -30,7 +30,7 @@ export const SELECT_COMPONENTS = [
     FormsModule,
     CommonModule,
   ],
-  exports: [SELECT_COMPONENTS],
-  declarations: [SELECT_COMPONENTS],
+  exports: SELECT_DECLARATIONS,
+  declarations: SELECT_DECLARATIONS,
 })
 export class MdcSelectModule { }

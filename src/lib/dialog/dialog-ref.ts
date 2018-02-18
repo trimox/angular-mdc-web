@@ -1,4 +1,4 @@
-import { OverlayRef } from '@angular-mdc/web/cdk';
+import { OverlayRef } from '@angular-mdc/web/overlay';
 import { MdcDialogContainer } from './dialog-container';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';

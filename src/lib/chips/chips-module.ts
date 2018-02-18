@@ -10,11 +10,7 @@ export const CHIP_DECLARATIONS = [
 ];
 
 @NgModule({
-  exports: [
-    ...CHIP_DECLARATIONS
-  ],
-  declarations: [
-    ...CHIP_DECLARATIONS
-  ]
+  exports: CHIP_DECLARATIONS,
+  declarations: CHIP_DECLARATIONS
 })
 export class MdcChipsModule { }

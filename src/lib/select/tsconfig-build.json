@@ -9,7 +9,6 @@
     "strictMetadataEmit": true,
     "flatModuleOutFile": "index.js",
     "flatModuleId": "@angular-mdc/web/select",
-    "skipTemplateCodegen": true,
-    "fullTemplateTypeCheck": true
+    "skipTemplateCodegen": true
   }
 }

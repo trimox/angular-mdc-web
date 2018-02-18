@@ -19,8 +19,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { SPACE } from '@angular-mdc/web/cdk/keycodes';
-import { toBoolean, isSpaceKey, EventRegistry } from '@angular-mdc/web/common';
+import { toBoolean, isSpaceKey, EventRegistry, SPACE } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
@@ -102,7 +101,7 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
   @HostBinding('attr.tabIndex') tabindex: string = '0';
   @ViewChild(MdcIcon) icon: MdcIcon;
 
-  onChange = (value: any) => { };
+  onChange: (value: any) => void = () => { };
   onTouched = () => { };
 
   @Input()

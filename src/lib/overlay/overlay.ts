@@ -13,7 +13,7 @@ import {
   Injector,
   NgZone,
 } from '@angular/core';
-import { DomPortalOutlet } from '../portal/dom-portal-outlet';
+import { DomPortalOutlet } from '@angular-mdc/web/portal';
 import { OverlayRef } from './overlay-ref';
 import { OverlayContainer } from './overlay-container';
 

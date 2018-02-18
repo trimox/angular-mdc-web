@@ -10,11 +10,11 @@ import {
   MdcListItem,
   MdcListItemGraphic,
   MdcListItemMeta,
-  MdcListItemSecondaryText,
+  MdcListItemSecondary,
   MdcListItemText,
 } from './list-item';
 
-const LIST_COMPONENTS = [
+const LIST_DECLARATIONS = [
   MdcList,
   MdcListDivider,
   MdcListGroup,
@@ -22,12 +22,12 @@ const LIST_COMPONENTS = [
   MdcListItem,
   MdcListItemGraphic,
   MdcListItemMeta,
-  MdcListItemSecondaryText,
+  MdcListItemSecondary,
   MdcListItemText,
 ];
 
 @NgModule({
-  exports: LIST_COMPONENTS,
-  declarations: LIST_COMPONENTS,
+  exports: LIST_DECLARATIONS,
+  declarations: LIST_DECLARATIONS,
 })
 export class MdcListModule { }

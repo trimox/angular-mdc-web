@@ -1,4 +1,4 @@
-import { OverlayRef } from '@angular-mdc/web/cdk';
+import { OverlayRef } from '@angular-mdc/web/overlay';
 import { MdcSnackbarContainer } from './snackbar-container';
 
 /**

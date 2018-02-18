@@ -62,7 +62,7 @@ export class MdcSwitch {
   @HostBinding('class.mdc-switch') isHostClass = true;
   @ViewChild('inputEl') inputEl: ElementRef;
 
-  private _controlValueAccessorChangeFn: (value: any) => void = (value) => { };
+  private _controlValueAccessorChangeFn: (value: any) => void = () => { };
   onTouched: () => any = () => { };
 
   get inputId(): string { return `${this.id || this._uniqueId}-input`; }

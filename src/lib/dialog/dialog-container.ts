@@ -17,7 +17,7 @@ import {
   CdkPortalOutlet,
   ComponentPortal,
   TemplatePortal,
-} from '@angular-mdc/web/cdk';
+} from '@angular-mdc/web/portal';
 
 @Component({
   moduleId: module.id,

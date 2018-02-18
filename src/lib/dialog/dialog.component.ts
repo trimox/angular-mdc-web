@@ -17,8 +17,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { ESCAPE } from '@angular-mdc/web/cdk/keycodes';
-import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
+import { isBrowser, EventRegistry, ESCAPE } from '@angular-mdc/web/common';
 import {
   MdcDialogBackdrop,
   MdcDialogBody,
@@ -98,7 +97,7 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
     registerInteractionHandler: (evt: string, handler: EventListener) => {
       const clickOutsideToClose = this._config ? this._config.clickOutsideToClose : this.clickOutsideToClose;
 
-      handler = this.dialogSurface && clickOutsideToClose ? handler : () => {
+      handler = this.dialogSurface && clickOutsideToClose ? handler : (event) => {
         if ((<any>event.target).classList.contains('mdc-dialog__footer__button--accept')) {
           this.accept();
         } else if ((<any>event.target).classList.contains('mdc-dialog__footer__button--cancel')) {

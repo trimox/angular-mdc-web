@@ -16,7 +16,7 @@ describe('MdcElevation', () => {
         MdcElevationModule,
       ],
       declarations: [
-        SimpleTest,
+        ElevationTest,
       ]
     });
     TestBed.compileComponents();
@@ -25,10 +25,10 @@ describe('MdcElevation', () => {
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;
     let testInstance: MdcElevation;
-    let testComponent: SimpleTest;
+    let testComponent: ElevationTest;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(SimpleTest);
+      fixture = TestBed.createComponent(ElevationTest);
       fixture.detectChanges();
 
       testDebugElement = fixture.debugElement.query(By.directive(MdcElevation));
@@ -45,21 +45,14 @@ describe('MdcElevation', () => {
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList).toContain('mdc-elevation--z3');
     });
-
-    it('#should throw an error', () => {
-      expect(() => {
-        testComponent.elevation = 99; fixture.detectChanges();
-      }).toThrowError('Valid mdc-elevation values are 0 through 24');
-    });
   });
 });
 
-/** Simple component for testing. */
 @Component({
   template: `
   <div [mdc-elevation]="elevation"></div>
   `,
 })
-class SimpleTest {
+class ElevationTest {
   elevation: number = 2;
 }

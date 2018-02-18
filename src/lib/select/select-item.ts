@@ -11,8 +11,7 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import { ENTER } from '@angular-mdc/web/cdk/keycodes';
-import { toBoolean, isSpaceKey } from '@angular-mdc/web/common';
+import { toBoolean, isSpaceKey, ENTER } from '@angular-mdc/web/common';
 
 /** Event object emitted by MdcSelectItem when selected or deselected. */
 export class MdcOptionSelectionChange {
@@ -28,6 +27,7 @@ let uniqueIdCounter = 0;
 @Component({
   moduleId: module.id,
   selector: 'mdc-select-item',
+  exportAs: 'mdcSelectItem',
   template: '<ng-content></ng-content>',
   host: {
     '[id]': 'id',
@@ -114,7 +114,7 @@ export class MdcSelectItem {
   }
 
   /** Returns the correct tabindex for the option depending on disabled state. */
-  private _getTabIndex(): string {
+  _getTabIndex(): string {
     return this.disabled ? '-1' : '0';
   }
 

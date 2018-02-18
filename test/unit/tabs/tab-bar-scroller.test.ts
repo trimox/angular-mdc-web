@@ -43,10 +43,6 @@ describe('MdcTabBarScroller', () => {
       expect(testInstance.scrollToTabAtIndex(2));
     });
 
-    it('#should findTab should return null', () => {
-      expect(testInstance.findTab(-1)).toBe(null);
-    });
-
     it('#should scroll forward', () => {
       expect(testInstance.scrollForward());
     });

@@ -243,6 +243,7 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
   private _value: any;
   private _autosize: boolean = true;
   private _box: boolean = false;
+  private _multiple: boolean = false;
 
   @Input() id: string = this._uniqueId;
   @Input() name: string | null = null;
@@ -291,6 +292,12 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
   get disabled(): boolean { return this.isDisabled(); }
   set disabled(value: boolean) {
     this.setDisabled(value);
+  }
+
+  @Input()
+  get multiple(): boolean { return this._multiple; }
+  set multiple(value: boolean) {
+    this._multiple = toBoolean(value);
   }
 
   @Input()
@@ -468,9 +475,11 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
     });
   }
 
-  /** The currently selected option. */
-  get selected(): MdcSelectItem {
-    return this.options.find(_ => _.selected);
+  /** The currently selected option(s). */
+  get selected(): MdcSelectItem | MdcSelectItem[] {
+    const selected = this.options.filter(_ => _.selected);
+
+    return this.multiple ? selected : selected[0];
   }
 
   setPlaceholder(text: string): void {

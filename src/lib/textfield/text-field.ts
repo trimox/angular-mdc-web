@@ -30,6 +30,12 @@ import { MdcTextFieldLabel } from './label';
 import { MDCTextFieldAdapter } from '@material/textfield/adapter';
 import { MDCTextFieldFoundation } from '@material/textfield';
 
+export const MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR: any = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => MdcTextField),
+  multi: true
+};
+
 // Invalid input type. Using one of these will throw an error.
 const MD_INPUT_INVALID_TYPES = [
   'button',
@@ -45,12 +51,6 @@ const MD_INPUT_INVALID_TYPES = [
 ];
 
 let nextUniqueId = 0;
-
-export const MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => MdcTextField),
-  multi: true
-};
 
 @Component({
   moduleId: module.id,
@@ -75,7 +75,7 @@ export const MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR: any = {
   `,
   providers: [
     MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR,
-    EventRegistry,
+    EventRegistry
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -119,18 +119,15 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
       this.focused = false;
     }
     this._foundation.setDisabled(this._disabled);
-    this._changeDetectorRef.markForCheck();
   }
   @Input()
   get required(): boolean { return this._required; }
   set required(value: boolean) {
     this._required = toBoolean(value);
 
-    if (!this.isTextarea()) {
-      if (value !== this._required) {
-        this.setRequired(this._required);
-        this._changeDetectorRef.markForCheck();
-      }
+    if (value !== this._required) {
+      this.setRequired(this._required);
+      this._changeDetectorRef.markForCheck();
     }
   }
   @Input()
@@ -292,6 +289,11 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
 
     this.updateIconState();
     this._changeDetectorRef.detectChanges();
+
+    if (this.inputText.nativeElement.disabled) {
+      this._disabled = true;
+      this._foundation.setDisabled(true);
+    }
   }
 
   ngOnDestroy(): void {
@@ -426,6 +428,13 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
     } else if (this.trailingIcon) {
       this._renderer.addClass(this._getHostElement(), 'mdc-text-field--with-trailing-icon');
     }
+  }
+
+  // Implemented as part of ControlValueAccessor.
+  setDisabledState(isDisabled: boolean) {
+    this._disabled = isDisabled;
+    this._foundation.setDisabled(isDisabled);
+    this._changeDetectorRef.markForCheck();
   }
 
   /** Retrieves the DOM element of the component host. */

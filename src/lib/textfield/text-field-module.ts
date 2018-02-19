@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 import { MdcLineRippleModule } from '@angular-mdc/web/line-ripple';
 
@@ -31,12 +30,8 @@ const TEXTFIELD_DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: [
-    FormsModule,
-    CommonModule,
-    MdcLineRippleModule
-  ],
-  exports: [TEXTFIELD_DECLARATIONS],
-  declarations: [TEXTFIELD_DECLARATIONS],
+  imports: [CommonModule, MdcLineRippleModule],
+  exports: TEXTFIELD_DECLARATIONS,
+  declarations: TEXTFIELD_DECLARATIONS,
 })
 export class MdcTextFieldModule { }

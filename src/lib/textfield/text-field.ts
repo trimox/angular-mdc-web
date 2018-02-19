@@ -20,9 +20,9 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { toBoolean, isBrowser, EventRegistry } from '@angular-mdc/web/common';
+import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
 
 import { MdcTextFieldHelperText } from './helper-text';
-import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
 import { MdcTextFieldOutline, MdcTextFieldIdleOutline } from './outline';
 import { MdcTextFieldLeadingIcon, MdcTextFieldTrailingIcon } from './icon';
 import { MdcTextFieldLabel } from './label';

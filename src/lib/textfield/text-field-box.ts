@@ -22,6 +22,7 @@ export const MDC_TEXTFIELD_BOX_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
   moduleId: module.id,
   selector: 'mdc-text-field-box',
+  exportAs: 'mdcTextFieldBox',
   template: `
   <input #input class="mdc-text-field__input"
     [type]="type"

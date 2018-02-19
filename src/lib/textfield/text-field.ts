@@ -55,6 +55,7 @@ let nextUniqueId = 0;
 @Component({
   moduleId: module.id,
   selector: 'mdc-text-field',
+  exportAs: 'mdcTextField',
   template: `
   <input #input class="mdc-text-field__input"
     [type]="type"

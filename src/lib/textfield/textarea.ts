@@ -19,6 +19,7 @@ export const MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
   moduleId: module.id,
   selector: 'mdc-textarea',
+  exportAs: 'mdcTextarea',
   template: `
   <textarea #input class="mdc-text-field__input"
     type="text"

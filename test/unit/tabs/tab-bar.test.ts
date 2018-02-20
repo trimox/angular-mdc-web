@@ -41,11 +41,11 @@ describe('MdcTabBar', () => {
     it('#should apply class based on property', () => {
       testComponent.isPrimary = true;
       fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList.contains('mdc-tab-bar--indicator-primary')).toBe(true);
+      expect(testDebugElement.nativeElement.classList.contains('ng-mdc-indicator-tab-bar--primary')).toBe(true);
 
       testComponent.isSecondary = true;
       fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList.contains('mdc-tab-bar--indicator-accent')).toBe(true);
+      expect(testDebugElement.nativeElement.classList.contains('ng-mdc-indicator-tab-bar--secondary')).toBe(true);
     });
 
     it('#should execute following methods', () => {

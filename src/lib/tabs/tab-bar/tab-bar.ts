@@ -69,11 +69,11 @@ export class MdcTabBar implements AfterViewInit, AfterContentChecked, OnDestroy 
   @HostBinding('class.mdc-tab-bar') isHostClass = true;
   @HostBinding('class.mdc-tab-bar-scroller__scroll-frame__tabs') scrollFrameContent = false;
   @HostBinding('attr.role') role: string = 'tablist';
-  @HostBinding('class.mdc-tab-bar--indicator-primary') get classIndicatorPrimary() {
-    return this.primary ? 'mdc-tab-bar--indicator-primary' : '';
+  @HostBinding('class.ng-mdc-indicator-tab-bar--primary') get classIndicatorPrimary() {
+    return this.primary ? 'ng-mdc-indicator-tab-bar--primary' : '';
   }
-  @HostBinding('class.mdc-tab-bar--indicator-accent') get classIndicatorSecondary() {
-    return this.secondary ? 'mdc-tab-bar--indicator-accent' : '';
+  @HostBinding('class.ng-mdc-indicator-tab-bar--secondary') get classIndicatorSecondary() {
+    return this.secondary ? 'ng-mdc-indicator-tab-bar--secondary' : '';
   }
   @HostBinding('class.mdc-tab-bar--icon-tab-bar') get classTabIcon() {
     return this._tabs.length > 0

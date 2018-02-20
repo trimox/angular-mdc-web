@@ -1,0 +1,20 @@
+.mdc-tab {
+  &--disabled {
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+.ng-mdc-indicator-tab-bar--primary {
+  @include mdc-tab-bar-indicator-ink-color(primary);
+}
+
+.ng-mdc-indicator-tab-bar--secondary {
+  @include mdc-tab-bar-indicator-ink-color(secondary);
+}
+
+.mdc-tab-bar-scroller {
+  &__indicator--forward {
+    width: 31px;
+  }
+}

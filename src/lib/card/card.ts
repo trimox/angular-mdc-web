@@ -56,6 +56,16 @@ export class MdcCardMedia {
   constructor(public elementRef: ElementRef) { }
 }
 
+@Directive({
+  selector: 'mdc-card-primary-action, [mdc-card-primary-action]',
+  exportAs: 'mdcCardPrimaryAction'
+})
+export class MdcCardPrimaryAction {
+  @HostBinding('class.mdc-card__primary-action') isHostClass = true;
+
+  constructor(public elementRef: ElementRef) { }
+}
+
 @Component({
   moduleId: module.id,
   selector: 'mdc-card-actions, [mdc-card-actions]',

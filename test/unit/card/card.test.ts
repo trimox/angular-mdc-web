@@ -47,9 +47,11 @@ describe('MdcCard', () => {
 @Component({
   template: `
     <mdc-card [stroked]="isStroked">
-      <mdc-card-media [square]="isSquare" [image]="isImage">
-        Title
-      </mdc-card-media>
+      <mdc-card-primary-action>
+        <mdc-card-media [square]="isSquare" [image]="isImage">
+          Title
+        </mdc-card-media>
+      </mdc-card-primary-action>
       <mdc-card-actions [fullBleed]="isFullBleed">
         <mdc-card-action-buttons>
           <button mdc-button>Action 1</button>

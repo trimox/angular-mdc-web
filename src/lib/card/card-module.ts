@@ -8,6 +8,7 @@ import {
   MdcCardActions,
   MdcCardMedia,
   MdcCardMediaContent,
+  MdcCardPrimaryAction
 } from './card';
 
 const CARD_DECLARATIONS = [
@@ -18,10 +19,11 @@ const CARD_DECLARATIONS = [
   MdcCardActions,
   MdcCardMedia,
   MdcCardMediaContent,
+  MdcCardPrimaryAction
 ];
 
 @NgModule({
-  exports: [CARD_DECLARATIONS],
-  declarations: [CARD_DECLARATIONS],
+  exports: CARD_DECLARATIONS,
+  declarations: CARD_DECLARATIONS,
 })
 export class MdcCardModule { }

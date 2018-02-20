@@ -129,8 +129,8 @@ describe('MdcSelectModule', () => {
 
 @Component({
   template: `
-    <mdc-select [placeholder]="myPlaceholder" name="food" [autosize]="true"
-     [(ngModel)]="selectedValue" [disabled]="isDisabled" (change)="handleChange($event)">
+    <mdc-select [placeholder]="myPlaceholder" name="food" [autosize]="true" [floatingLabel]="true"
+     [(ngModel)]="selectedValue" [disabled]="isDisabled" (change)="handleChange($event)" [box]="false">
       <mdc-select-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
         {{food.description}}
       </mdc-select-item>
@@ -154,7 +154,7 @@ class SimpleTest {
 
 @Component({
   template: `
-  <mdc-select placeholder="Favorite food" [formControl]="foodControl" [autosize]="false">
+  <mdc-select placeholder="Favorite food" [formControl]="foodControl" [autosize]="false" [box]="true">
     <mdc-select-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
       {{food.description}}
     </mdc-select-item>

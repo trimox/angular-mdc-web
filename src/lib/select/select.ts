@@ -78,7 +78,7 @@ let nextUniqueId = 0;
   },
   template: `
   <mdc-select-surface>
-    <mdc-select-label>{{placeholder}}</mdc-select-label>
+    <mdc-select-label>{{hasFloatingLabel() ? placeholder : ''}}</mdc-select-label>
     <mdc-select-selected-text>{{label}}</mdc-select-selected-text>
     <mdc-select-bottom-line></mdc-select-bottom-line>
   </mdc-select-surface>
@@ -244,6 +244,7 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
   private _autosize: boolean = true;
   private _box: boolean = false;
   private _multiple: boolean = false;
+  private _floatingLabel: boolean = true;
 
   @Input() id: string = this._uniqueId;
   @Input() name: string | null = null;
@@ -298,6 +299,21 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
   get multiple(): boolean { return this._multiple; }
   set multiple(value: boolean) {
     this._multiple = toBoolean(value);
+  }
+
+  @Input()
+  get floatingLabel(): boolean { return this._floatingLabel; }
+  set floatingLabel(value: boolean) {
+    this._floatingLabel = toBoolean(value);
+    this._changeDetectorRef.markForCheck();
+
+    if (this._floatingLabel) {
+      if (this._foundation.getSelectedIndex() === -1) {
+        this._mdcAdapter.removeClassFromLabel('mdc-select__label--float-above');
+      } else {
+        this._mdcAdapter.addClassToLabel('mdc-select__label--float-above');
+      }
+    }
   }
 
   @Input()
@@ -402,10 +418,12 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
       this._ngControl.valueAccessor.writeValue(newValue);
     }
 
-    if (this._foundation.getSelectedIndex() === -1) {
-      this._mdcAdapter.removeClassFromLabel('mdc-select__label--float-above');
-    } else {
-      this._mdcAdapter.addClassToLabel('mdc-select__label--float-above');
+    if (this.floatingLabel) {
+      if (this._foundation.getSelectedIndex() === -1) {
+        this._mdcAdapter.removeClassFromLabel('mdc-select__label--float-above');
+      } else {
+        this._mdcAdapter.addClassToLabel('mdc-select__label--float-above');
+      }
     }
 
     this._changeDetectorRef.markForCheck();
@@ -526,6 +544,10 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
     if (!this.disabled) {
       this.elementRef.nativeElement.focus();
     }
+  }
+
+  hasFloatingLabel(): boolean {
+    return this._floatingLabel || !this.value;
   }
 
   private _onBlur(): void {

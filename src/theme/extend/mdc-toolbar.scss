@@ -1,12 +1,8 @@
 /* Temporary workaround for https://github.com/material-components/material-components-web/pull/2208 */
-.mdc-toolbar--flexible-default-behavior .mdc-toolbar__title {
-  @media (min-width: 600px) {
-    &.mdc-toolbar--fixed-lastrow-only {
-      .mdc-toolbar__title,
-      .mdc-toolbar__menu-icon,
-      .mdc-toolbar__icon {
-        line-height: 2rem;
-      }
+.mdc-toolbar--flexible-default-behavior {
+  .mdc-toolbar__title {
+    @media (max-width: $mdc-toolbar-mobile-breakpoint) {
+      line-height: 1.5rem;
     }
   }
 }

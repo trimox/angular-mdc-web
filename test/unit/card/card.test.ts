@@ -48,8 +48,10 @@ describe('MdcCard', () => {
   template: `
     <mdc-card [stroked]="isStroked">
       <mdc-card-primary-action>
-        <mdc-card-media [square]="isSquare" [image]="isImage">
-          Title
+        <mdc-card-media [square]="isSquare" [rectangle]="isRectangle">
+          <mdc-card-media-content>
+            Title
+          </mdc-card-media-content>
         </mdc-card-media>
       </mdc-card-primary-action>
       <mdc-card-actions [fullBleed]="isFullBleed">
@@ -64,6 +66,6 @@ describe('MdcCard', () => {
 class SimpleTest {
   isStroked: boolean = false;
   isSquare: boolean = false;
-  isImage: boolean = false;
+  isRectangle: boolean = false;
   isFullBleed: boolean = false;
 }

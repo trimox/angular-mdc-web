@@ -31,7 +31,7 @@ export class MdcCardMediaContent {
 })
 export class MdcCardMedia {
   private _square: boolean;
-  private _image: boolean;
+  private _rectangle: boolean;
 
   @Input()
   get square(): boolean { return this._square; }
@@ -40,17 +40,17 @@ export class MdcCardMedia {
   }
 
   @Input()
-  get image(): boolean { return this._image; }
-  set image(value: boolean) {
-    this._image = toBoolean(value);
+  get rectangle(): boolean { return this._rectangle; }
+  set rectangle(value: boolean) {
+    this._rectangle = toBoolean(value);
   }
 
   @HostBinding('class.mdc-card__media') isHostClass = true;
-  @HostBinding('class.mdc-card__media--square') get classMediaSquare() {
+  @HostBinding('class.mdc-card__media--square') get classSquare() {
     return this.square ? 'mdc-card__media--square' : '';
   }
-  @HostBinding('class.mdc-card__media--16-9') get classMediaImage() {
-    return this.image ? 'mdc-card__media--16-9' : '';
+  @HostBinding('class.mdc-card__media--16-9') get classRectangle() {
+    return this.rectangle ? 'mdc-card__media--16-9' : '';
   }
 
   constructor(public elementRef: ElementRef) { }

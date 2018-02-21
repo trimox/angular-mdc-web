@@ -409,6 +409,14 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
       this._ngControl.valueAccessor.writeValue(newValue);
     }
 
+    if (this.floatingLabel) {
+      if (this._foundation.getSelectedIndex() === -1) {
+        this._mdcAdapter.floatLabel(false);
+      } else {
+        this._mdcAdapter.floatLabel(true);
+      }
+    }
+
     this._changeDetectorRef.markForCheck();
     this._mdcAdapter.notifyChange();
   }

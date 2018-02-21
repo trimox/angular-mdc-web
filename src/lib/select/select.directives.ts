@@ -8,16 +8,6 @@ import {
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
 @Directive({
-  selector: 'mdc-select-label',
-  exportAs: 'mdcSelectLabel'
-})
-export class MdcSelectLabel {
-  @HostBinding('class.mdc-select__label') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
   selector: 'mdc-select-menu',
   exportAs: 'mdcSelectMenu'
 })

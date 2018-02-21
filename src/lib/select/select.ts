@@ -42,12 +42,12 @@ import { MDCMenu } from '@material/menu';
 
 import {
   MdcSelectMenu,
-  MdcSelectLabel,
   MdcSelectSurface,
   MdcSelectBottomLine,
   MdcSelectItems,
   MdcSelectSelectedText,
 } from './select.directives';
+import { MdcSelectLabel } from './select-label';
 import { MdcSelectItem, MdcOptionSelectionChange } from './select-item';
 
 import { MDCSelectAdapter } from './adapter';
@@ -103,11 +103,10 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
     removeClass: (className: string) => {
       this._renderer.removeClass(this.elementRef.nativeElement, className);
     },
-    addClassToLabel: (className: string) => {
-      this._renderer.addClass(this.selectLabel.elementRef.nativeElement, className);
-    },
-    removeClassFromLabel: (className: string) => {
-      this._renderer.removeClass(this.selectLabel.elementRef.nativeElement, className);
+    floatLabel: (float: boolean) => {
+      if (this.selectLabel) {
+        this.selectLabel.styleFloat(float);
+      }
     },
     addClassToBottomLine: (className: string) => {
       this._renderer.addClass(this.bottomLine.elementRef.nativeElement, className);
@@ -306,14 +305,6 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
   set floatingLabel(value: boolean) {
     this._floatingLabel = toBoolean(value);
     this._changeDetectorRef.markForCheck();
-
-    if (this._floatingLabel) {
-      if (this._foundation.getSelectedIndex() === -1) {
-        this._mdcAdapter.removeClassFromLabel('mdc-select__label--float-above');
-      } else {
-        this._mdcAdapter.addClassToLabel('mdc-select__label--float-above');
-      }
-    }
   }
 
   @Input()
@@ -416,14 +407,6 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
     this._foundation.setSelectedIndex(this.options.toArray().findIndex(_ => _.value === newValue));
     if (this._ngControl.valueAccessor) {
       this._ngControl.valueAccessor.writeValue(newValue);
-    }
-
-    if (this.floatingLabel) {
-      if (this._foundation.getSelectedIndex() === -1) {
-        this._mdcAdapter.removeClassFromLabel('mdc-select__label--float-above');
-      } else {
-        this._mdcAdapter.addClassToLabel('mdc-select__label--float-above');
-      }
     }
 
     this._changeDetectorRef.markForCheck();

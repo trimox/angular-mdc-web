@@ -1,8 +1,7 @@
 export interface MDCSelectAdapter {
   addClass: (className: string) => void;
   removeClass: (className: string) => void;
-  addClassToLabel: (className: string) => void;
-  removeClassFromLabel: (className: string) => void;
+  floatLabel: (value: boolean) => void;
   addClassToBottomLine: (className: string) => void;
   removeClassFromBottomLine: (className: string) => void;
   setBottomLineAttr: (attr: string, value: string) => void;

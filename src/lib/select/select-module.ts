@@ -5,12 +5,12 @@ import { FormsModule } from '@angular/forms';
 import {
   MdcSelectBottomLine,
   MdcSelectItems,
-  MdcSelectLabel,
   MdcSelectMenu,
   MdcSelectSelectedText,
   MdcSelectSurface,
 } from './select.directives';
 
+import { MdcSelectLabel } from './select-label';
 import { MdcSelectItem } from './select-item';
 import { MdcSelect } from './select';
 

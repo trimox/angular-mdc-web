@@ -119,7 +119,9 @@ describe('MdcChip', () => {
     (selectionChange)="chipSelectionChange($event)"
     (removed)="chipRemove($event)"
     (destroyed)="chipDestroy($event)">
+      <mdc-chip-icon leading>face</mdc-chip-icon>
       <mdc-chip-text>Get Directions</mdc-chip-text>
+      <mdc-chip-icon trailing>more_vert</mdc-chip-icon>
     </mdc-chip>
     <mdc-chip>
       <mdc-chip-text>Get Weather</mdc-chip-text>

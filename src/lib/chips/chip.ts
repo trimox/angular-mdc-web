@@ -1,4 +1,5 @@
 import {
+  Attribute,
   ChangeDetectionStrategy,
   Component,
   ContentChild,
@@ -8,6 +9,7 @@ import {
   HostBinding,
   HostListener,
   Input,
+  Inject,
   OnDestroy,
   OnInit,
   Output,
@@ -22,6 +24,7 @@ import {
   BACKSPACE, DELETE, SPACE
 } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
+import { MdcIcon } from '@angular-mdc/web/icon';
 
 import { MDCChipAdapter } from '@material/chips/chip/adapter';
 import { MDCChipFoundation } from '@material/chips';
@@ -41,6 +44,42 @@ export class MdcChipSelectionChange {
     public selected: boolean,
     /** Whether the selection change was a result of a user interaction. */
     public isUserInput = false) { }
+}
+
+@Directive({
+  selector: 'mdc-chip-icon, [mdc-chip-icon]',
+  exportAs: 'mdcChipIcon'
+})
+export class MdcChipIcon extends MdcIcon {
+  @Input()
+  get leading(): boolean { return this._leading; }
+  set leading(value: boolean) {
+    this._leading = toBoolean(value);
+  }
+  private _leading: boolean;
+
+  @Input()
+  get trailing(): boolean { return this._trailing; }
+  set trailing(value: boolean) {
+    this._trailing = toBoolean(value);
+  }
+  private _trailing: boolean;
+
+  @HostBinding('class.mdc-chip__icon') isHostClass = true;
+  @HostBinding('class.mdc-chip__icon--leading') get classIconLeading(): string {
+    return this.leading ? 'mdc-chip__icon--leading' : '';
+  }
+  @HostBinding('class.mdc-chip__icon--trailing') get classIconTrailing(): string {
+    return this.trailing ? 'mdc-chip__icon--trailing' : '';
+  }
+
+  constructor(
+    @Inject(Renderer2) _renderer: Renderer2,
+    @Inject(ElementRef) elementRef: ElementRef,
+    @Attribute('aria-hidden') ariaHidden: string) {
+
+    super(_renderer, elementRef, ariaHidden);
+  }
 }
 
 @Directive({

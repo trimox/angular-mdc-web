@@ -126,17 +126,20 @@ export class MdcList implements AfterContentInit, OnDestroy {
   }
   @HostBinding('class.mdc-list') isHostClass = true;
   @HostBinding('attr.role') role: string = 'list';
-  @HostBinding('class.mdc-list--dense') get classDenseList(): string {
+  @HostBinding('class.mdc-list--dense') get classDense(): string {
     return this.dense ? 'mdc-list--dense' : '';
   }
-  @HostBinding('class.mdc-list--two-line') get classTwoline(): string {
+  @HostBinding('class.mdc-list--two-line') get classLines(): string {
     return this.lines === 2 ? 'mdc-list--two-line' : '';
   }
-  @HostBinding('class.mdc-list--avatar-list') get classAvatarList(): string {
+  @HostBinding('class.mdc-list--avatar-list') get classAvatar(): string {
     return this.avatar ? 'mdc-list--avatar-list' : '';
   }
   @HostBinding('class.ng-mdc-list--border') get classBorder(): string {
     return this.border ? 'ng-mdc-list--border' : '';
+  }
+  @HostBinding('class.mdc-list--non-interactive') get classInteractive(): string {
+    return !this.interactive ? 'mdc-list--non-interactive' : '';
   }
   @ContentChildren(MdcListItem) options: QueryList<MdcListItem>;
 

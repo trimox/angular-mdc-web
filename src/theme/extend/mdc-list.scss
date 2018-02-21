@@ -12,3 +12,7 @@
     border-top: none;
   }
 }
+
+:not(.mdc-list--non-interactive) > .mdc-list-item {
+  cursor: pointer;
+}

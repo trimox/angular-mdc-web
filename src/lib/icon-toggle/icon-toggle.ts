@@ -126,12 +126,16 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
   get primary(): boolean { return this._primary; }
   set primary(value: boolean) {
     this._primary = toBoolean(value);
+    this._setPrimary(value);
+    this._changeDetectorRef.markForCheck();
   }
 
   @Input()
   get secondary(): boolean { return this._secondary; }
   set secondary(value: boolean) {
     this._secondary = toBoolean(value);
+    this._setSecondary(value);
+    this._changeDetectorRef.markForCheck();
   }
 
   @HostBinding('attr.data-toggle-on') get dataToggleOn() {
@@ -164,19 +168,9 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
 
   ngOnChanges(changes: { [key: string]: SimpleChange }): void {
     const iconClass = changes['iconClass'];
-    const primary = changes['primary'];
-    const secondary = changes['secondary'];
 
     if (iconClass) {
       this._renderer.addClass(this._getIconElement(), iconClass.currentValue);
-    }
-
-    if (primary) {
-      this._setPrimary(primary.currentValue);
-    }
-
-    if (secondary) {
-      this._setSecondary(secondary.currentValue);
     }
   }
 

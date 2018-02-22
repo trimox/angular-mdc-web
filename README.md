@@ -22,7 +22,7 @@ npm i @angular-mdc/web
 ```
 
 ## Requirements
-Angular MDC requires Angular 5, which itself requires TypeScript 2.4+ and RxJS 5.5.2+.
+Angular MDC requires Angular 5, which itself requires TypeScript 2.6+ and RxJS 5.5+.
 
 ## <a name="getstarted"></a> Getting started
 Check out our [Getting Started guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md) to begin adopting  Angular MDC in your project.
@@ -37,11 +37,13 @@ Each component uses [material-components-web](https://github.com/material-compon
 | button | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/button-demo) |
 | card | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/card-demo) |
 | checkbox | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/checkbox-demo) |
-| chip | WIP |  |
-| data table | WIP |  |
+| chips | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/chips-demo) |
+| data-table | In-progress |  |
+| date-picker | Not started |  |
 | dialog | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/dialog-demo) |
 | drawer | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/drawer-demo) |
 | elevation | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/elevation-demo) |
+| expansion-panel | In-progress |  |
 | fab | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/fab-demo) |
 | form-field | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/form-field-demo) |
 | icon-toggle | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/icon-toggle-demo) |
@@ -57,6 +59,7 @@ Each component uses [material-components-web](https://github.com/material-compon
 | tabs | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/tab-demo) |
 | textfield | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/textfield-demo) |
 | theme | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/theme-demo) |
+| time-picker | Not started |  |
 | toolbar | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/toolbar-demo) |
 | typography | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/typography-demo) |
 

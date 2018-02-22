@@ -1,7 +1,9 @@
-<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
-  <h1 mdc-typography-display1>Icon Toggle Buttons</h1>
-  <div mdc-typography-subheading2>MDC Icon Toggle provides a Material Design icon toggle button. It is fully accessible, and is designed to work with any icon set.</div>
-  <div class="info-banner" mdc-typography-subheading1>
+<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
+  <div>
+    <h1 mdc-typography-display1>Icon Toggle Buttons</h1>
+    <span>MDC Icon Toggle provides a Material Design icon toggle button. It is fully accessible, and is designed to work with any icon set.</span>
+  </div>
+  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
     <![CDATA[import { MdcIconToggleModule } from '@angular-mdc/web';]]>
   </div>
   <div class="docs-api">
@@ -104,48 +106,31 @@
       </tbody>
     </table>
   </div>
-  <div class="demo-list-host">
+  <div class="demo-content">
     <h3>Using ngModel</h3>
-    <div fxLayout="row" class="mdc-padding" fxLayoutAlign="center center">
-      <div fxLayout="column">
-        <mdc-form-field>
-          <mdc-checkbox [(ngModel)]="isPrimary"></mdc-checkbox>
-          <label>Primary Color</label>
-        </mdc-form-field>
-        <mdc-form-field>
-          <mdc-checkbox [(ngModel)]="isAccent"></mdc-checkbox>
-          <label>Secondary Color</label>
-        </mdc-form-field>
-        <mdc-form-field>
-          <mdc-checkbox [(ngModel)]="isDisabled"></mdc-checkbox>
-          <label>Disable</label>
-        </mdc-form-field>
-        <mdc-form-field>
-          <mdc-checkbox [(ngModel)]="isDarkTheme"></mdc-checkbox>
-          <label>Dark Theme</label>
-        </mdc-form-field>
-      </div>
-      <div fxLayout="column" class="demo-small-container" [mdc-theme-dark]="isDarkTheme">
-        <mdc-icon-toggle [(ngModel)]="isOn" [disabled]="isDisabled" [primary]="isPrimary" [secondary]="isAccent" iconOn="favorite" iconOff="favorite_border" labelOn="Add to Favorites" labelOff="Remove from Favorites">
-        </mdc-icon-toggle>
-      </div>
+    <div class="demo-content--row">
+      <button mdc-button (click)="demoit.primary = !demoit.primary">Primary Color: {{demoit.primary ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoit.secondary = !demoit.secondary">Secondary Color: {{demoit.secondary ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoit.disabled = !demoit.disabled">Disabled: {{demoit.disabled ? 'On' : 'Off'}}</button>
     </div>
-    <p>NgModel toggle is: {{isOn}}</p>
-    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-icon-toggle?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
-  </div>
-  <div class="demo-list-host">
-    <h3>Using Font Awesome</h3>
-    <div fxLayout="row" fxLayoutAlign="center center">
-      <mdc-icon-toggle iconClass="fa" cssClassOn="fa-battery-full" cssClassOff="fa-battery-empty" labelOn="Full battery" labelOff="Empty battery">
-      </mdc-icon-toggle>
-    </div>
-    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-icon-toggle?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
-  </div>
-  <div class="demo-list-host">
-    <h3>Using the `on` property</h3>
-    <button mdc-button (click)="demotoggle.on = !demotoggle.on">Icon: {{demotoggle.on ? 'On' : 'Off'}}</button>
-    <mdc-icon-toggle #demotoggle iconOn="favorite" iconOff="favorite_border" labelOn="Add to Favorites" labelOff="Remove from Favorites">
+    <mdc-icon-toggle #demoit [(ngModel)]="isOn" iconOn="favorite" iconOff="favorite_border" labelOn="Add to Favorites" labelOff="Remove from Favorites">
     </mdc-icon-toggle>
+    <p>NgModel value: {{isOn}}</p>
     <a mdc-button href="https://stackblitz.com/edit/angular-mdc-icon-toggle?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
+</div>
+  <div class="demo-content">
+  <h3>Using Font Awesome</h3>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <mdc-icon-toggle iconClass="fa" cssClassOn="fa-battery-full" cssClassOff="fa-battery-empty" labelOn="Full battery" labelOff="Empty battery">
+    </mdc-icon-toggle>
   </div>
+  <a mdc-button href="https://stackblitz.com/edit/angular-mdc-icon-toggle?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
+</div>
+  <div class="demo-content">
+  <h3>Using the [on] property</h3>
+  <button mdc-button (click)="demotoggle.on = !demotoggle.on">Icon: {{demotoggle.on ? 'On' : 'Off'}}</button>
+  <mdc-icon-toggle #demotoggle iconOn="favorite" iconOff="favorite_border" labelOn="Add to Favorites" labelOff="Remove from Favorites">
+  </mdc-icon-toggle>
+  <a mdc-button href="https://stackblitz.com/edit/angular-mdc-icon-toggle?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
+</div>
 </div>

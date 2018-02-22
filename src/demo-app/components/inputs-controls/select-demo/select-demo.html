@@ -1,7 +1,9 @@
-<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start">
-  <h1 mdc-typography-display1>Select Menus</h1>
-  <div mdc-typography-subheading2>MDC Select provides Material Design single-option select menus.</div>
-  <div class="info-banner" mdc-typography-subheading1>
+<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
+  <div>
+    <h1 mdc-typography-display1>Select Menus</h1>
+    <span>Select provides Material Design single-option select menus.</span>
+  </div>
+  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
     <![CDATA[import { MdcSelectModule } from '@angular-mdc/web';]]>
   </div>
   <div class="docs-api">
@@ -46,6 +48,10 @@
         <tr>
           <td>tabIndex: number</td>
           <td>Set the underlying tab index of the select. (Default is 0)</td>
+        </tr>
+        <tr>
+          <td>floatingLabel: boolean</td>
+          <td>Whether or not to show or hide a floating placeholder.</td>
         </tr>
       </tbody>
       <thead>
@@ -182,12 +188,14 @@
       </tbody>
     </table>
   </div>
-  <div class="demo__container">
-    <h3>Select - ngModel </h3>
-    <div class="demo__container--row">
+  <div class="demo-content">
+    <h3>Select with ngModel </h3>
+    <div class="demo-content--row" fxLayoutWrap>
       <button mdc-button (click)="select.setDisabled(!select.isDisabled())">Disabled: {{select.isDisabled() ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="clearSelection()">Clear Selection</button>
       <button mdc-button (click)="setSelection()">Select Fruit</button>
+      <button mdc-button (click)="select.box = !select.box">Box style: {{select.box ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="select.floatingLabel = !select.floatingLabel">Floating Label: {{select.floatingLabel ? 'On' : 'Off'}}</button>
     </div>    
     <mdc-select #select placeholder="Favorite food" [(ngModel)]="selectedValue" name="food"
      (change)="onChange($event)" (selectionChange)="onSelectionChange($event)">
@@ -195,19 +203,21 @@
         {{food.description}}
       </mdc-select-item>
     </mdc-select>
-    <span fxFlexOffset="5">Selected value: {{selectedValue}}</span>
-    <span fxFlexOffset="2">change: Index: {{changeIndex}} Value: {{changeValue}}</span>
-    <span fxFlexOffset="2">selectionChange: Value: {{selectionChangeValue}}</span>
+    <p>Selected value: {{selectedValue}}</p>
+    <p>change: Index: {{changeIndex}} Value: {{changeValue}}</p>
+    <p>selectionChange: Value: {{selectionChangeValue}}</p>
     <a fxFlexOffset="3" mdc-button href="https://stackblitz.com/edit/angular-mdc?embed=1&file=app/select-demo.html" target="_blank" rel="noopener noreferrer">View Source</a>
   </div>
 
-  <div class="demo__container">
-    <h3>Select - FormControl</h3>
-    <div class="demo__container--row">
+  <div class="demo-content">
+    <h3>Select with FormControl</h3>
+    <div class="demo-content--row" fxLayoutWrap>
       <button mdc-button (click)="foodControl.setValue('pizza-1')">SET VALUE (pizza)</button>
       <button mdc-button (click)="foodControl.reset()">Reset Value</button>
+      <button mdc-button (click)="select2.box = !select2.box">Box style: {{select2.box ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="select2.floatingLabel = !select2.floatingLabel">Floating Label: {{select2.floatingLabel ? 'On' : 'Off'}}</button>
     </div>
-    <mdc-select placeholder="Favorite food" [formControl]="foodControl">
+    <mdc-select #select2 placeholder="Favorite food" [formControl]="foodControl">
       <mdc-select-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
         {{food.description}}
       </mdc-select-item>
@@ -215,6 +225,6 @@
     <p mdc-typography-body1>Value: {{ foodControl.value }}</p>
     <p mdc-typography-body1>Touched: {{ foodControl.touched }}</p>
     <p mdc-typography-body1>Dirty: {{ foodControl.dirty }}</p>
-    <p mdc-typography-body1>Status: {{ foodControl.status }}</p>
+    <a fxFlexOffset="3" mdc-button href="https://stackblitz.com/edit/angular-mdc?embed=1&file=app/select-demo.html" target="_blank" rel="noopener noreferrer">View Source</a>
   </div>
 </div>

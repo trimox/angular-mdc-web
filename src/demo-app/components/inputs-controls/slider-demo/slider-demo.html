@@ -1,7 +1,9 @@
-<div fxLayout="column" class="mdc-padding">
-  <h1 mdc-typography-display1>Slider</h1>
-  <div mdc-typography-subheading2>Sliders let users select from a range of values by moving the slider thumb.</div>
-  <div class="info-banner" mdc-typography-subheading1>
+<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
+  <div>
+    <h1 mdc-typography-display1>Slider</h1>
+    <span>Sliders let users select from a range of values by moving the slider thumb.</span>
+  </div>
+  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
     <![CDATA[import { MdcSliderModule } from '@angular-mdc/web';]]>
   </div>
   <div class="docs-api">
@@ -95,35 +97,32 @@
           <td>
             change(source: MdcSlider, value)
           </td>
-          <td>Broadcast when slider value is changed and committed by way of a user event,
-           e.g. when a user stops dragging the slider or changes the value using the arrow keys.</td>
+          <td>Broadcast when slider value is changed and committed by way of a user event, e.g. when a user stops dragging the slider or changes the value using the arrow keys.</td>
         </tr>
         <tr>
           <td>
             input(source: MdcSlider, value)
           </td>
-          <td>Broadcasts when slider value is changed by way of a user event,
-           e.g. when a user is dragging the slider or changing the value using the arrow keys.</td>
+          <td>Broadcasts when slider value is changed by way of a user event, e.g. when a user is dragging the slider or changing the value using the arrow keys.</td>
         </tr>
       </tbody>
     </table>
   </div>
-</div>
   <div fxLayout="column" class="mdc-padding">
-      <span mdc-typography-headline>Continuous Slider</span>
-<mdc-slider [min]="continuousMin" [max]="continuousMax" [value]="continuousValue" [(ngModel)]="continuousModel" [disabled]="continuousIsDisabled" (input)="inputContinuousValue($event)">
-</mdc-slider>
-      <label>Slider ngModel : {{continuousModel}}</label>
-      <div fxLayout="row">
-        <mdc-text-field [(ngModel)]="continuousMin" label="Min"></mdc-text-field>
-        <mdc-text-field [(ngModel)]="continuousMax" label="Max"></mdc-text-field>
-        <mdc-text-field [(ngModel)]="continuousValue" label="Value"></mdc-text-field>
-      </div>
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="continuousIsDisabled"></mdc-checkbox>
-        <label>Disable</label>
-      </mdc-form-field>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-slider</span> 
+    <span mdc-typography-headline>Continuous Slider</span>
+    <mdc-slider [min]="continuousMin" [max]="continuousMax" [value]="continuousValue" [(ngModel)]="continuousModel" [disabled]="continuousIsDisabled" (input)="inputContinuousValue($event)">
+    </mdc-slider>
+    <label>Slider ngModel : {{continuousModel}}</label>
+    <div fxLayout="row">
+      <mdc-text-field [(ngModel)]="continuousMin" label="Min"></mdc-text-field>
+      <mdc-text-field [(ngModel)]="continuousMax" label="Max"></mdc-text-field>
+      <mdc-text-field [(ngModel)]="continuousValue" label="Value"></mdc-text-field>
+    </div>
+    <mdc-form-field>
+      <mdc-checkbox [(ngModel)]="continuousIsDisabled"></mdc-checkbox>
+      <label>Disable</label>
+    </mdc-form-field>
+    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-slider</span> 
   [<span style="color:#89bdff">min</span>]=<span style="color:#65b042">"0"</span>
   [<span style="color:#89bdff">max</span>]=<span style="color:#65b042">"100"</span>
   [<span style="color:#89bdff">value</span>]=<span style="color:#65b042">"0"</span>
@@ -133,23 +132,22 @@
   (<span style="color:#89bdff">change</span>)=<span style="color:#65b042">"myChangeEvent($event)"</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-slider</span>></span>
 </pre>
-    </div>
-
+  </div>
   <div fxLayout="column" class="mdc-padding">
-      <span mdc-typography-headline>Discrete Slider</span>
-      <mdc-slider [min]="discreteMin" [max]="discreteMax" [value]="discreteValue" [(ngModel)]="discreteValue" [discrete]="true" [disabled]="discreteIsDisabled">
-      </mdc-slider>
-      <label>Slider value : {{discreteValue}}</label>
-      <div fxLayout="row">
-        <mdc-text-field [(ngModel)]="discreteMin" label="Min"></mdc-text-field>
-        <mdc-text-field [(ngModel)]="discreteMax" label="Max"></mdc-text-field>
-        <mdc-text-field [(ngModel)]="discreteValue" label="Value"></mdc-text-field>
-      </div>
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="discreteIsDisabled"></mdc-checkbox>
-        <label>Disable</label>
-      </mdc-form-field>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-slider</span>
+    <span mdc-typography-headline>Discrete Slider</span>
+    <mdc-slider [min]="discreteMin" [max]="discreteMax" [value]="discreteValue" [(ngModel)]="discreteValue" [discrete]="true" [disabled]="discreteIsDisabled">
+    </mdc-slider>
+    <label>Slider value : {{discreteValue}}</label>
+    <div fxLayout="row">
+      <mdc-text-field [(ngModel)]="discreteMin" label="Min"></mdc-text-field>
+      <mdc-text-field [(ngModel)]="discreteMax" label="Max"></mdc-text-field>
+      <mdc-text-field [(ngModel)]="discreteValue" label="Value"></mdc-text-field>
+    </div>
+    <mdc-form-field>
+      <mdc-checkbox [(ngModel)]="discreteIsDisabled"></mdc-checkbox>
+      <label>Disable</label>
+    </mdc-form-field>
+    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-slider</span>
   [<span style="color:#89bdff">discrete</span>]=<span style="color:#65b042">"true"</span>
   [<span style="color:#89bdff">min</span>]=<span style="color:#65b042">"0"</span>
   [<span style="color:#89bdff">max</span>]=<span style="color:#65b042">"100"</span>
@@ -161,7 +159,6 @@
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-slider</span>></span>
 </pre>
   </div>
-
   <div fxLayout="column" class="mdc-padding">
     <span mdc-typography-headline>Discrete Slider with markers</span>
     <mdc-slider [min]="dmMin" [max]="dmMax" [step]="dmStep" [value]="dmValue" [(ngModel)]="dmModel" [discrete]="true" [markers]="true" [disabled]="dmIsDisabled">
@@ -177,7 +174,7 @@
       <mdc-checkbox [(ngModel)]="dmIsDisabled"></mdc-checkbox>
       <label>Disable</label>
     </mdc-form-field>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-slider</span>
+    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-slider</span>
   [<span style="color:#89bdff">discrete</span>]=<span style="color:#65b042">"true"</span>
   [<span style="color:#89bdff">markers</span>]=<span style="color:#65b042">"true"</span>
   [<span style="color:#89bdff">min</span>]=<span style="color:#65b042">"0"</span>
@@ -190,4 +187,5 @@
   (<span style="color:#89bdff">change</span>)=<span style="color:#65b042">"myChangeEvent($event)"</span>></span>
 <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-slider</span>></span>
 </pre>
+  </div>
 </div>

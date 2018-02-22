@@ -25,15 +25,38 @@
             <mdc-icon mdc-list-item-graphic>home</mdc-icon>Home
           </mdc-list-item>
           <mdc-list-divider></mdc-list-divider>
-          <mdc-list-item [routerLink]="['getting-started']" routerLinkActive #rlaStarted="routerLinkActive">
+          <a mdc-list-item href="https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md" target="_blank" rel="noopener noreferrer">
             <mdc-icon mdc-list-item-graphic>touch_app</mdc-icon>Getting Started
+          </a>
+          <mdc-list-divider></mdc-list-divider>
+          <mdc-list-item (click)="coreVisible = !coreVisible">
+            <mdc-icon mdc-list-item-graphic>keyboard_arrow_{{coreVisible ? 'down' : 'right'}}</mdc-icon>Core Modules
+          </mdc-list-item>
+          <div *ngIf="coreVisible">
+            <mdc-list-item *ngFor="let item of coreRoutes" [routerLink]="[item.route]" routerLinkActive #rlaCore="routerLinkActive">
+              <mdc-icon mdc-list-item-graphic>{{item.icon}}</mdc-icon>{{item.name}}
+            </mdc-list-item>
+          </div>
+          <mdc-list-divider></mdc-list-divider>
+          <mdc-list-item (click)="buttonVisible = !buttonVisible">
+            <mdc-icon mdc-list-item-graphic>keyboard_arrow_{{buttonVisible ? 'down' : 'right'}}</mdc-icon>Buttons
+          </mdc-list-item>
+          <div *ngIf="buttonVisible">
+            <mdc-list-item *ngFor="let item of buttonRoutes" [routerLink]="[item.route]" routerLinkActive #rlaButton="routerLinkActive">
+              <mdc-icon mdc-list-item-graphic>{{item.icon}}</mdc-icon>{{item.name}}
+            </mdc-list-item>
+          </div>
+          <mdc-list-divider></mdc-list-divider>
+          <mdc-list-item (click)="inputVisible = !inputVisible">
+            <mdc-icon mdc-list-item-graphic>keyboard_arrow_{{inputVisible ? 'down' : 'right'}}</mdc-icon>Inputs and Controls
           </mdc-list-item>
           <mdc-list-divider></mdc-list-divider>
-          <mdc-list-item [routerLink]="['core']" routerLinkActive #rlaCore="routerLinkActive">
-            <mdc-icon mdc-list-item-graphic>keyboard_arrow_right</mdc-icon>Core Modules
-          </mdc-list-item>
-          <mdc-list-divider></mdc-list-divider>
-          <mdc-list-item *ngFor="let navItem of navLinks" [routerLink]="[navItem.route]" routerLinkActive #rla="routerLinkActive">
+          <div *ngIf="inputVisible">
+            <mdc-list-item *ngFor="let item of inputRoutes" [routerLink]="[item.route]" routerLinkActive #rlaInputs="routerLinkActive">
+              <mdc-icon mdc-list-item-graphic>{{item.icon}}</mdc-icon>{{item.name}}
+            </mdc-list-item>
+          </div>
+          <mdc-list-item *ngFor="let navItem of navigationLinks" [routerLink]="[navItem.route]" routerLinkActive #rla="routerLinkActive">
             <mdc-icon mdc-list-item-graphic>{{navItem.icon}}</mdc-icon>{{navItem.name}}
           </mdc-list-item>
         </mdc-list>

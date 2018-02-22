@@ -1,14 +1,16 @@
-<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start">
-  <h1 mdc-typography-display1>Cards</h1>
-  <div mdc-typography-subheading2>The MDC Card component is a sheet of material that serves as an entry point to more detailed information.</div>
-  <div class="info-banner" mdc-typography-subheading1>
+<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
+  <div>
+    <h1 mdc-typography-display1>Cards</h1>
+    <span>The MDC Card component is a sheet of material that serves as an entry point to more detailed information.</span>
+  </div>
+  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
     <![CDATA[import { MdcCardModule } from '@angular-mdc/web';]]>
   </div>
   <div class="docs-api">
     <table>
       <thead>
         <tr>
-          <th>Directive</th>
+          <th>Component</th>
         </tr>
       </thead>
       <tbody>
@@ -18,45 +20,39 @@
       </tbody>
       <thead>
         <tr>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>stroked: boolean</td>
+          <td>Removes the shadow and displays a hairline stroke instead</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
           <th>Directive</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>mdc-card-horizontal</td>
-          <td>Stack multiple card blocks horizontally instead of vertically, by placing them inside of a horizontal block.</td>
+          <td>mdc-card-primary-action</td>
+          <td>The main tappable area of the card. Typically contains most (or all) card content except mdc-card-actions. Only applicable to cards that have a primary action that the main surface should trigger.</td>
         </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
         <tr>
-          <td>mdc-card-supporting-text</td>
-          <td>Used for displaying the bulk of the textual content of the card.</td>
+          <th>Component</th>
         </tr>
+      </thead>
+      <tbody>
         <tr>
           <td>mdc-card-media</td>
-          <td>Used for showing rich media in cards, and optionally as a container.</td>
-        </tr>
-      </tbody>
-    </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Directive</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-card-primary</td>
-          <td>Defines the primary text / title content block.</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Child Directive</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-card-title</td>
-          <td>A title block.</td>
         </tr>
       </tbody>
       <thead>
@@ -67,19 +63,12 @@
       </thead>
       <tbody>
         <tr>
-          <td>@Input() large: boolean</td>
-          <td>An option to make the title text larger. (default is true)</td>
+          <td>square: boolean</td>
+          <td>Automatically scales the media area's height to equal its width.</td>
         </tr>
-      </tbody>
-      <thead>
         <tr>
-          <th>Child Directive</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-card-subtitle</td>
-          <td>A subtitle block.</td>
+          <td>rectangle: boolean</td>
+          <td>Automatically scales the media area's height according to its width, maintaining a 16:9 aspect ratio.</td>
         </tr>
       </tbody>
     </table>
@@ -91,33 +80,21 @@
       </thead>
       <tbody>
         <tr>
-          <td>mdc-card-media-item</td>
-          <td>Media items are designed to be used in horizontal blocks, taking up a fixed height, rather than stretching to the width of the card.</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>@Input() size: number</td>
-          <td>Some predefined media item sizes. Valid values are [1, 1.5, 2, and 3]</td>
+          <td>mdc-card-media-content</td>
+          <td>An absolutely-positioned box the same size as the media area, for displaying a title or icon on top of the background-image</td>
         </tr>
       </tbody>
     </table>
     <table>
       <thead>
         <tr>
-          <th>Directive</th>
+          <th>Component</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>mdc-card-actions</td>
-          <td>Place mdc-card-button's inside the action content.</td>
+          <td>Row containing action buttons and/or icons</td>
         </tr>
       </tbody>
       <thead>
@@ -128,8 +105,16 @@
       </thead>
       <tbody>
         <tr>
-          <td>@Input() vertical: boolean</td>
-          <td>Option to lay actions out vertically instead of horizontally.</td>
+          <td>fullBleed: boolean</td>
+          <td>Removes the action area's padding and causes its only child (an mdc-card__action element) to consume 100% of the action area's width.</td>
+        </tr>
+        <tr>
+          <td>icons: boolean</td>
+          <td>A group of supplemental action icons, displayed on the right side of the card (in LTR), adjacent to mdc-card-action buttons</td>
+        </tr>
+        <tr>
+          <td>buttons: boolean</td>
+          <td>A group of action buttons, displayed on the left side of the card (in LTR), adjacent to mdc-card-action icons</td>
         </tr>
       </tbody>
     </table>
@@ -137,195 +122,109 @@
       <thead>
         <tr>
           <th>Directive</th>
-          <th>Description</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>button[mdc-card-button]</td>
+          <td>mdc-card-action-icons</td>
+          <td>A group of supplemental action icons, displayed on the right side of the card (in LTR), adjacent to mdc-card-action buttons</td>
         </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
         <tr>
-          <td>a[mdc-card-button]</td>
-          <td>Compact and spec-aligned buttons for card actions.</td>
+          <th>Directive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-card-action-buttons</td>
+          <td>A group of action buttons, displayed on the left side of the card (in LTR), adjacent to mdc-card-action icons</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Directive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdcCardAction</td>
+          <td>An individual action button or icon. Provide either `icon` or `button`. (e.g.: mdcCardAction="icon" or mdcCardAction="button")</td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div fxLayout="column" fxLayoutAlign="start start">
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="isLargeTitle"></mdc-checkbox>
-        <label>Large Title</label>
-      </mdc-form-field>
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="isThemeDark"></mdc-checkbox>
-        <label>Dark Theme</label>
-      </mdc-form-field>
-<mdc-card class="demo-card" [mdc-theme-dark]="isThemeDark">
-  <mdc-card-primary>
-    <mdc-card-title [large]="isLargeTitle">Title</mdc-card-title>
-    <h2 mdc-card-subtitle>Subtitle</h2>
-  </mdc-card-primary>
-  <mdc-card-actions>
-    <button mdc-card-button>Action 1</button>
-    <button mdc-card-button>Action 2</button>
-  </mdc-card-actions>
-</mdc-card>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card</span> [<span style="color:#89bdff">mdc-theme-dark</span>]=<span style="color:#65b042">"false"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-primary</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-title</span> [<span style="color:#89bdff">large</span>]=<span style="color:#65b042">"true"</span>></span>Title<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-title</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">h2</span> <span style="color:#89bdff">mdc-card-subtitle</span>></span>Subtitle<span style="color:#89bdff">&lt;/<span style="color:#89bdff">h2</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-primary</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-actions</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-card-button</span>></span>Action 1<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-card-button</span>></span>Action 2<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-actions</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card</span>></span>
-</pre>
-    <div fxLayout="column">
-      <mdc-card class="demo-card">
-        <mdc-card-primary>
-          <mdc-card-title>Title</mdc-card-title>
-          <h2 mdc-card-subtitle>Subtitle</h2>
-        </mdc-card-primary>
-        <mdc-card-supporting-text>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </mdc-card-supporting-text>
-        <mdc-card-actions>
-          <button mdc-card-button>Action 1</button>
-          <button mdc-card-button>Action 2</button>
-        </mdc-card-actions>
-      </mdc-card>
-      <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-primary</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc-card-title</span>></span>Title<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc-card-title</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">h2</span> <span style="color:#89bdff">mdc-card-subtitle</span>></span>Subtitle<span style="color:#89bdff">&lt;/<span style="color:#89bdff">h2</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-primary</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-supporting-text</span>></span>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-    sed do eiusmod tempor incididunt ut labore et dolore magna
-    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-supporting-text</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-actions</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-card-button</span>></span>Action 1<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-card-button</span>></span>Action 2<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-actions</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card</span>></span>
-</pre> </div>
-    <div fxLayout="column">
-      <mdc-card class="demo-card">
-        <mdc-card-horizontal>
-          <mdc-card-primary>
-            <mdc-card-title>Title</mdc-card-title>
-            <h2 mdc-card-subtitle>Subtitle</h2>
-          </mdc-card-primary>
-          <img mdc-card-media-item [size]="2" src="https://material-components-web.appspot.com/images/1-1.jpg" />
-        </mdc-card-horizontal>
-        <mdc-card-actions>
-          <button mdc-card-button>Action 1</button>
-          <button mdc-card-button>Action 2</button>
-        </mdc-card-actions>
-      </mdc-card>
-      <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-horizontal</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-primary</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc-card-title</span>></span>Title<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc-card-title</span>></span>
-      <span style="color:#89bdff">&lt;<span style="color:#89bdff">h2</span> <span style="color:#89bdff">mdc-card-subtitle</span>></span>Subtitle<span style="color:#89bdff">&lt;/<span style="color:#89bdff">h2</span>></span>
-    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-primary</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">img</span> <span style="color:#e0c589">mdc-card-media-item</span> [<span style="color:#e0c589">size</span>]=<span style="color:#65b042">"2"</span>
-     <span style="color:#e0c589">src</span>=<span style="color:#65b042">"image.png"</span> /></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-horizontal</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-actions</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-card-button</span>></span>Action 1<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-card-button</span>></span>Action 2<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-actions</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card</span>></span>
-</pre> </div>
-    <div fxLayout="column">
-<mdc-card class="demo-card">
-  <mdc-card-horizontal>
-    <img mdc-card-media-item [size]="3" src="https://material-components-web.appspot.com/images/1-1.jpg" />
-    <mdc-card-actions [vertical]="true">
-      <button mdc-card-button>Action 1</button>
-      <button mdc-card-button>Action 2</button>
-    </mdc-card-actions>
-  </mdc-card-horizontal>
-</mdc-card>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-horizontal</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">img</span> <span style="color:#e0c589">mdc-card-media-item</span> [<span style="color:#e0c589">size</span>]=<span style="color:#65b042">"3"</span> <span style="color:#e0c589">src</span>=<span style="color:#65b042">"image.png"</span> /></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-actions</span> [<span style="color:#89bdff">vertical</span>]=<span style="color:#65b042">"true"</span>></span>
-      <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-card-button</span>></span>Action 1<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-      <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-card-button</span>></span>Action 2<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-actions</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-horizontal</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card</span>></span>
-</pre>
-</div>
-    <div fxLayout="column">
-      <mdc-card class="demo-card">
-        <mdc-card-media [ngClass]="{'demo-card__16-9-media' : true}"></mdc-card-media>
-        <mdc-card-primary>
-          <mdc-card-title>Title</mdc-card-title>
-          <h2 mdc-card-subtitle>Subtitle</h2>
-        </mdc-card-primary>
-        <mdc-card-actions>
-          <button mdc-card-button>Action 1</button>
-          <button mdc-card-button>Action 2</button>
-        </mdc-card-actions>
-      </mdc-card>
-      <pre style="background:#000;color:#f8f8f8"><span style="color:#aeaeae;font-style:italic">&lt;!--Sample 16x9 media header style--></span>
-.demo-card__16-9-media
-  height: 12.313rem;
-  background-image: 
-    url(https://material-components-web.appspot.com/images/16-9.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-
-<span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-media</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"demo-card__16-9-media"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-media</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-primary</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc-card-title</span>></span>Title<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc-card-title</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">h2</span> <span style="color:#89bdff">mdc-card-subtitle</span>></span>Subtitle<span style="color:#89bdff">&lt;/<span style="color:#89bdff">h2</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-primary</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-actions</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-card-button</span>></span>Action 1<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-card-button</span>></span>Action 2<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-actions</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card</span>></span>
-</pre></div>
-    <div fxLayout="column">
-      <mdc-card class="demo-card">
-        <mdc-card-primary>
-          <mdc-card-title>Title</mdc-card-title>
-          <h2 mdc-card-subtitle>Subtitle</h2>
-        </mdc-card-primary>
-        <mdc-card-media [ngClass]="{'demo-card__16-9-media' : true}"></mdc-card-media>
-        <mdc-card-actions>
-          <button mdc-card-button>Action 1</button>
-          <button mdc-card-button [compact]="false">Action 2</button>
-        </mdc-card-actions>
-      </mdc-card>
-      <pre style="background:#000;color:#f8f8f8"><span style="color:#aeaeae;font-style:italic">&lt;!--Sample 16x9 media header style--></span>
-.demo-card__16-9-media
-  height: 12.313rem;
-  background-image: 
-    url(https://material-components-web.appspot.com/images/16-9.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-
-<span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-primary</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc-card-title</span>></span>Title<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc-card-title</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">h2</span> <span style="color:#89bdff">mdc-card-subtitle</span>></span>Subtitle<span style="color:#89bdff">&lt;/<span style="color:#89bdff">h2</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-primary</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-media</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"demo-card__16-9-media"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-media</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-actions</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-card-button</span>></span>Action 1<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-card-button</span>></span>Action 2<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card-actions</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-card</span>></span>
-</pre>
-    </div>
+  <div fxLayout="row" fxLayoutAlign="start start" fxLayoutWrap>
+    <mdc-card class="demo-card" fxFlexOffset="4">
+      <mdc-card-primary-action mdc-ripple>
+        <mdc-card-media class="demo-card__media--16-9" [rectangle]="true"></mdc-card-media>
+        <div class="demo-card__primary">
+          <h2 class="demo-card__title" mdc-typography-title>Our Changing Planet</h2>
+          <h3 class="demo-card__subtitle" mdc-typography-subheading1>by Kurt Wagner</h3>
+        </div>
+        <div class="demo-card__secondary" mdc-typography-body1>
+          Visit ten places on our planet that are undergoing the biggest changes today.
+        </div>
+      </mdc-card-primary-action>
+      <mdc-card-actions>
+        <mdc-card-action-buttons>
+          <button mdc-button mdcCardAction="button">Read</button>
+          <button mdc-button mdcCardAction="button">Bookmark</button>
+        </mdc-card-action-buttons>
+        <mdc-card-action-icons>
+          <mdc-icon-toggle iconOn="favorite" iconOff="favorite_border" mdcCardAction="icon"></mdc-icon-toggle>
+          <mdc-icon mdcCardAction="icon">share</mdc-icon>
+          <mdc-icon mdcCardAction="icon">more_vert</mdc-icon>
+        </mdc-card-action-icons>
+      </mdc-card-actions>
+    </mdc-card>
+    <mdc-card [stroked]="true" fxFlexOffset="4">
+      <div class="demo-card-article-group-heading" mdc-typography-subheading2>Headlines</div>
+      <mdc-list-divider></mdc-list-divider>
+      <mdc-ripple class="demo-card-article">
+        <h2 class="demo-card-article__title" mdc-typography-headline>Copper on the rise</h2>
+        <p class="demo-card-article__snippet" mdc-typography-body1>
+          Copper price soars amid global market optimism and increased demand.
+        </p>
+      </mdc-ripple>
+      <mdc-list-divider></mdc-list-divider>
+      <mdc-ripple class="demo-card-article">
+        <h2 class="demo-card-article__title" mdc-typography-headline>U.S. tech startups rebound</h2>
+        <p class="demo-card-article__snippet" mdc-typography-body1>
+          Favorable business conditions have allowed startups to secure more fundraising deals compared to last year.
+        </p>
+      </mdc-ripple>
+      <mdc-list-divider></mdc-list-divider>
+      <mdc-ripple class="demo-card-article">
+        <h2 class="demo-card-article__title" mdc-typography-headline>Asia's clean energy ambitions</h2>
+        <p class="demo-card-article__snippet" mdc-typography-body1>
+          China plans to invest billions of dollars for the development of over 300 clean energy projects in Southeast Asia.
+        </p>
+      </mdc-ripple>
+      <mdc-list-divider></mdc-list-divider>
+      <mdc-card-actions [fullBleed]="true">
+        <button mdc-button mdcCardAction="button">
+          All Business Headlines
+          <mdc-icon>arrow_forward</mdc-icon>
+        </button>
+      </mdc-card-actions>
+    </mdc-card>
+    <mdc-card class="demo-card--photo" fxFlexOffset="2">
+      <mdc-card-primary-action mdc-ripple>
+        <mdc-card-media [square]="true" class="demo-card__media">
+          <mdc-card-media-content class="demo-card__media-content--with-title">
+            <div class="demo-card__media-title" mdc-typography-subheading2>Vacation Photos</div>
+          </mdc-card-media-content>
+        </mdc-card-media>
+      </mdc-card-primary-action>
+      <mdc-card-actions [icons]="true">
+        <mdc-icon-toggle iconOn="favorite" iconOff="favorite_border" mdcCardAction="icon"></mdc-icon-toggle>
+        <mdc-icon-toggle iconOn="bookmark" iconOff="bookmark_border" mdcCardAction="icon"></mdc-icon-toggle>
+        <mdc-icon mdcCardAction="icon">share</mdc-icon>
+      </mdc-card-actions>
+    </mdc-card>
   </div>
-</div>

@@ -1,7 +1,9 @@
-<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
-  <h1 mdc-typography-display1>Ripple</h1>
-  <div mdc-typography-subheading2>MDC Ripple provides components (or any element) with a material "ink ripple" interaction effect.</div>
-  <div class="info-banner" mdc-typography-subheading1>
+<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
+  <div>
+    <h1 mdc-typography-display1>Ripple</h1>
+    <span>Ripple provides components (or any element) with a material "ink ripple" interaction effect.</span>
+  </div>
+  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
     <![CDATA[import { MdcRippleModule } from '@angular-mdc/web';]]>
   </div>
   <div class="docs-api">
@@ -24,8 +26,7 @@
       </thead>
       <tbody>
         <tr>
-          <td>ripple: <a href="https://github.com/trimox/angular-mdc-web/blob/master/src/lib/ripple/ripple.orchestration.ts"
-           target="_blank" rel="noopener noreferrer">MdcRippleOrchestration</a></td>
+          <td>ripple: <a href="https://github.com/trimox/angular-mdc-web/blob/master/src/lib/ripple/ripple.service.ts" target="_blank" rel="noopener noreferrer">MdcRipple</a></td>
           <td>Use ripple orchestration properties and methods.</td>
         </tr>
         <tr>
@@ -40,52 +41,31 @@
           <td>secondary: boolean</td>
           <td>Colors the ripple with the secondary theme color.</td>
         </tr>
+        <tr>
+          <td>disabled: boolean</td>
+          <td>Disable the ripple ink.</td>
+        </tr>
+        <tr>
+          <td>unbounded: boolean</td>
+          <td>Whether or not the ripple is unbounded (e.g.: checkbox or radio buttons).</td>
+        </tr>
       </tbody>
     </table>
   </div>
-  <div fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutWrap>
-<div fxLayout="column" fxFlexOffset="5">
-<div class="demo-small-container" mdc-ripple>
-  Click me
-</div>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">mdc-ripple</span>></span>
-  Click me
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">div</span>></span>
-</pre>
-</div>
-
-<div fxLayout="column" fxFlexOffset="5">
-<mdc-ripple class="demo-small-container" [mdc-elevation]="7" [active]="isRippleActive">
-  Click me
-</mdc-ripple>
-  <mdc-form-field>
-    <mdc-checkbox [(ngModel)]="isRippleActive"></mdc-checkbox>
-    <label>Ripple Active</label>
-  </mdc-form-field>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-ripple</span> [<span style="color:#89bdff">active</span>]=<span style="color:#65b042">"true"</span>></span>
-  Click me
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-ripple</span>></span>
-</pre>
-</div>
-
-<div fxLayout="column" fxFlexOffset="5">
-  <mdc-ripple [primary]="true" class="demo-small-container" [mdc-elevation]="7">
-   Ripple w/Primary Color
-  </mdc-ripple>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-ripple</span> [<span style="color:#89bdff">primary</span>]=<span style="color:#65b042">"true"</span>></span>
- Ripple w/Primary Color
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-ripple</span>></span>
-</pre>
-</div>
-
-<div fxLayout="column" fxFlexOffset="5">
-  <mdc-ripple [secondary]="true" class="demo-small-container" [mdc-elevation]="7">
-   Ripple w/Secondary Color
-  </mdc-ripple>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-ripple</span> [<span style="color:#89bdff">secondary</span>]=<span style="color:#65b042">"true"</span>></span>
- Ripple w/Secondary Color
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-ripple</span>></span>
-</pre>
-</div>
+  <div class="demo-content--row">
+    <button mdc-button (click)="demoripple.primary = !demoripple.primary">Primary Color: {{demoripple.primary ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="demoripple.secondary = !demoripple.secondary">Secondary Color: {{demoripple.secondary ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="demoripple.active = !demoripple.active">Active: {{demoripple.active ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="demoripple.disabled = !demoripple.disabled">Disabled: {{demoripple.disabled ? 'On' : 'Off'}}</button>
   </div>
+  <mdc-ripple #demoripple [mdc-elevation]="1" fxFlexOffset="2">
+    <div style="height: 200px; width: 200px;" fxLayoutAlign="center center">
+      Click me
+    </div>
+  </mdc-ripple>
+  <h3>Unbounded</h3>
+  <button mdc-button (click)="demoicon.unbounded = !demoicon.unbounded">Unbounded: {{demoicon.unbounded ? 'On' : 'Off'}}</button>
+  <mdc-ripple #demoicon [unbounded]="false">
+    <mdc-icon [fontSize]="42">favorite</mdc-icon>
+  </mdc-ripple>
 </div>

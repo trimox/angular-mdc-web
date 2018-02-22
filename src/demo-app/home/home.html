@@ -3,16 +3,12 @@
     <span mdc-typography-display3>Angular</span>
     <p mdc-typography-headline>Material Web Components</p>
   </div>
-  <div fxLayout="column" fxLayoutAlign="center center">
-    <mdc-card class="demo-landing__card" fxLayout="column" fxFlex="50" fxLayoutAlign="center center">
-      <mdc-card-supporting-text>
-        <span mdc-typography-body1>A faithful and accurate representation of Material Design as envisioned on the web by Google's Material Design team.</span>
-      </mdc-card-supporting-text>
-      <button fxFlexOffset="25px" [raised]="true" [secondary]="true" mdc-button [routerLink]="['/getting-started']">Get Started</button>
-    </mdc-card>
-  </div>
-  <div mdc-typography-caption fxFlexOffset="40px" fxLayout="column" fxLayoutAlign="center center">
-    <span>angular-mdc-web v0.7.4</span>
-    <span>material-components-web v0.29.0</span>
+  <div fxLayout="column" fxFlexOffset="25px" fxLayoutAlign="center center">
+    <span mdc-typography-body1 class="demo-landing__subtitle">
+    A faithful and accurate representation of Material Design as envisioned on the web by Google's Material Design team.</span>
+    <a fxFlexOffset="25px" [raised]="true" [secondary]="true" mdc-button href="https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md" target="_blank" rel="noopener noreferrer">Get Started</a>
+    <div mdc-typography-caption fxFlexOffset="8px" fxLayout="column" fxLayoutAlign="center center">
+      <span>v0.31.0</span>
+    </div>
   </div>
 </div>

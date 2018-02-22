@@ -17,7 +17,6 @@ const DIRECTORY: Child[] = [
 })
 export class TabDemo {
   isDisabled: boolean = true;
-  isDarkTheme: boolean = false;
   isPrimaryColor: boolean = true;
   isSecondaryColor: boolean = false;
   eventTabIndex: number = 0;

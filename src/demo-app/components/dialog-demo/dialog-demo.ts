@@ -1,7 +1,7 @@
 import {
   Component, OnInit, Inject, ViewChild
 } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
 
 import { MdcDialog, MdcDialogComponent, MDC_DIALOG_DATA, MdcDialogRef, MdcTextField } from '@angular-mdc/web';
 
@@ -78,13 +78,13 @@ export class DialogAlertExample {
     </mdc-dialog-header>
     <mdc-dialog-body>
       <mdc-list [avatar]="true">
-        <mdc-list-item (click)="closeDialog()" mdc-surface>
+        <mdc-list-item (click)="closeDialog()">
           <mdc-icon mdc-list-item-graphic>person</mdc-icon>username@gmail.com
         </mdc-list-item>
-        <mdc-list-item (click)="closeDialog()" mdc-surface>
+        <mdc-list-item (click)="closeDialog()">
           <mdc-icon mdc-list-item-graphic>person</mdc-icon>user02@gmail.com
         </mdc-list-item>
-        <mdc-list-item (click)="closeDialog()" mdc-surface>
+        <mdc-list-item (click)="closeDialog()">
           <mdc-icon mdc-list-item-graphic>add</mdc-icon>add account
         </mdc-list-item>
       </mdc-list>
@@ -110,7 +110,7 @@ export class DialogNoFooterExample {
       </mdc-dialog-header-title>
     </mdc-dialog-header>
     <mdc-dialog-body>
-      <form [formGroup]="userForm" id="userForm" (ngSubmit)="updateForm();">
+      <form [formGroup]="userForm" id="userForm" (ngSubmit)="updateForm()">
         <mdc-text-field #input formControlName="username" label="Username" [required]="true"></mdc-text-field>
         <p mdc-text-field-helper-text [validation]="true" [persistent]="false">Username is required</p>
       </form>
@@ -131,9 +131,10 @@ export class DialogFormExample implements OnInit {
 
   ngOnInit() {
     this.userForm = new FormGroup({
-      username: new FormControl('', Validators.required)
+      username: new FormControl({ value: '', disabled: false }, Validators.required)
     });
     // this.userForm.controls['username'].setValue('Sample name');
+    // this.userForm.controls['username'].disable();
   }
 
   closeDialog() {

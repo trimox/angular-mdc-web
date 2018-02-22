@@ -1,8 +1,12 @@
-<div fxLayout="column" class="mdc-padding">
-  <h1 mdc-typography-display1>Lists</h1>
-  <div mdc-typography-subheading2>MDC List provides styles which implement Material Design Lists - "A single continuous column of tessellated subdivisions of equal width." Both single-line and two-line lists are supported.</div>
-  <div class="info-banner" mdc-typography-subheading1>
+<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
+  <div>
+    <h1 mdc-typography-display1>Lists</h1>
+    <span>MDC List provides styles which implement Material Design Lists - "A single continuous column of tessellated subdivisions of equal width." Both single-line and two-line lists are supported.</span>
+  </div>
+  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
     <![CDATA[import { MdcListModule } from '@angular-mdc/web';]]>
+  </div>
+  <div class="info-banner" mdc-typography-subheading1>
   </div>
   <div class="docs-api">
     <table>
@@ -52,7 +56,8 @@
       </thead>
       <tbody>
         <tr>
-          <td>MdcListSelectionChange(source: MdcListItem)</td>
+          <td><pre>selectionChange:
+EventEmitter<![CDATA[<MdcListItemChange>]]></pre></td>
           <td>Change event that is being fired whenever the selected state of an option changes.</td>
         </tr>
       </tbody>
@@ -60,7 +65,7 @@
     <table>
       <thead>
         <tr>
-          <th>Directive</th>
+          <th>Component</th>
         </tr>
       </thead>
       <tbody>
@@ -114,7 +119,7 @@
       </tr>
       <tr>
         <td>mdc-list-item-secondary</td>
-        <td>Secondary text for the row (displayed in the middle tile)</td>
+        <td>Secondary text for the list item. Displayed below the primary text.</td>
       </tr>
       </tbody>
     </table>
@@ -282,17 +287,17 @@
       <button mdc-button (click)="checkboxes.interactive = !checkboxes.interactive">Interactive w/Ripple: {{checkboxes.interactive ? 'On' : 'Off'}}</button>
     </div>
     <mdc-list #checkboxes>
-      <mdc-list-item>
+      <mdc-list-item (click)="checkbox1.toggle()">
         Single-line item
-        <mdc-checkbox mdc-list-item-meta></mdc-checkbox>
+        <mdc-checkbox #checkbox1 mdc-list-item-meta></mdc-checkbox>
       </mdc-list-item>
-      <mdc-list-item>
+      <mdc-list-item (click)="checkbox2.toggle()">
         Single-line item
-        <mdc-checkbox mdc-list-item-meta></mdc-checkbox>
+        <mdc-checkbox #checkbox2 mdc-list-item-meta></mdc-checkbox>
       </mdc-list-item>
-      <mdc-list-item>
+      <mdc-list-item (click)="checkbox3.toggle()">
         Single-line item
-        <mdc-checkbox mdc-list-item-meta></mdc-checkbox>
+        <mdc-checkbox #checkbox3 mdc-list-item-meta></mdc-checkbox>
       </mdc-list-item>
     </mdc-list>
     <a mdc-button href="https://stackblitz.com/edit/angular-mdc-list?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>

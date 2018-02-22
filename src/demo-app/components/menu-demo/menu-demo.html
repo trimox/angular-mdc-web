@@ -1,8 +1,9 @@
-<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
-  <h1 mdc-typography-display1>Menu</h1>
-  <div mdc-typography-subheading2>The MDC Menu component is a spec-aligned menu component adhering to the Material Design menu requirements.</div>
-  <h1 mdc-typography-headline>API reference</h1>
-  <div class="info-banner" mdc-typography-subheading1>
+<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
+  <div>
+    <h1 mdc-typography-display1>Menu</h1>
+    <span>Menu is a spec-aligned menu component adhering to the Material Design menu requirements.</span>
+  </div>
+  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
     <![CDATA[import { MdcMenuModule } from '@angular-mdc/web';]]>
   </div>
   <div class="docs-api">
@@ -82,6 +83,22 @@ If the focusIndex is omitted, no menu item will be focused.]]></pre></td>
           <td>setAnchorCorner(corner: string)</td>
           <td>Override the opening point of the menu.
             <pre>Values: 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end'</pre></td>
+        </tr>
+        <tr>
+          <td>setQuickOpen(quickOpen: boolean)</td>
+          <td>Sets whether the menu should open and close without animation when the open/close methods are called.</td>
+        </tr>
+        <tr>
+          <td>getSelectedIndex(): number</td>
+          <td>Returns the selected item index.</td>
+        </tr>
+        <tr>
+          <td>setSelectedIndex(index: number)</td>
+          <td>Index of the item to set as selected.</td>
+        </tr>
+        <tr>
+          <td>setMaxHeight(height: number)</td>
+          <td>Sets max-height style for the menu element.</td>
         </tr>
       </tbody>
       <thead>
@@ -189,19 +206,5 @@ If the focusIndex is omitted, no menu item will be focused.]]></pre></td>
   </div>
   <pre mdc-typography-body1>Selected index: {{selectedIndex}}
 Anchor Corner: {{anchorCorner}}</pre>
-
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">mdc-menu-anchor</span>></span>
-  <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">raised</span>]=<span style="color:#65b042">"true"</span> (<span style="color:#e0c589">click</span>)=<span style="color:#65b042">"menu.open()"</span>></span>
-    Open Menu
-  <span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu</span> #<span style="color:#89bdff">menu</span> (<span style="color:#89bdff">select</span>)=<span style="color:#65b042">"handleMenuSelect($event)"</span> [<span style="color:#89bdff">anchorCorner</span>]=<span style="color:#65b042">"top-start"</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span> <span style="color:#89bdff">id</span>=<span style="color:#65b042">"0"</span>></span>Item 1<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span> <span style="color:#89bdff">id</span>=<span style="color:#65b042">"1"</span> [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"true"</span>></span>Item 2<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span> <span style="color:#89bdff">id</span>=<span style="color:#65b042">"2"</span>></span>Item 3<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-divider</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-divider</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span> <span style="color:#89bdff">id</span>=<span style="color:#65b042">"3"</span>></span>Item 4<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu-item</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-menu</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">div</span>></span>
-</pre>
 
 </div>

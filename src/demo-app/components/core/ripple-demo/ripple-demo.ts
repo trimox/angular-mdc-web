@@ -4,6 +4,4 @@ import { Component } from '@angular/core';
   selector: 'ripple-demo',
   templateUrl: './ripple-demo.html'
 })
-export class RippleDemo {
-  isRippleActive: boolean = true;
-}
+export class RippleDemo { }

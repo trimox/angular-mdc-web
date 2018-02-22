@@ -23,7 +23,7 @@ export class SelectDemo {
 
   constructor() {
     // this.foodControl.setValue('steak-0');
-    this.selectedValue = 'pizza-1';
+    // this.selectedValue = 'pizza-1';
   }
 
   clearSelection() {

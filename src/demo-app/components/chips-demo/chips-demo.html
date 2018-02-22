@@ -1,0 +1,145 @@
+<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
+  <div>
+    <h1 mdc-typography-display1>Chips</h1>
+    <span>Chips are compact elements that allow users to enter information, select a choice, filter content, or trigger an action.</span>
+  </div>
+  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
+    <![CDATA[import { MdcChipsModule } from '@angular-mdc/web';]]>
+  </div>
+  <div class="docs-api">
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-chip-set</td>
+          <td>Defines the behavior of chips within a specific set. For example,
+           chips in an entry chip set behave differently from those in a filter chip set.</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-chip</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>None yet, coming soon.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Events</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><pre>selectionChange:
+EventEmitter<![CDATA[<MdcChipSelectionChange>]]></pre></td>
+          <td>Emitted when the chip is selected or deselected.</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-chip-icon</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>leading: boolean</td>
+          <td>Indicates a leading icon in the chip</td>
+        </tr>
+        <tr>
+          <td>trailing: boolean</td>
+          <td>Indicates a trailing icon in the chip</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="demo-content">
+    <h3>Chips</h3>
+    <div class="demo-content--row">
+      <mdc-chip-set>
+        <mdc-chip>
+          <mdc-chip-text>Get Directions</mdc-chip-text>
+        </mdc-chip>
+        <mdc-chip>
+          <mdc-chip-text>Get Weather</mdc-chip-text>
+        </mdc-chip>
+        <mdc-chip>
+          <mdc-chip-text>Add to Calendar</mdc-chip-text>
+        </mdc-chip>
+      </mdc-chip-set>
+    </div>
+  </div>
+  <div class="demo-content">
+    <h3>Entry Chips</h3>
+    <div class="demo-content--row">
+      <mdc-chip-set>
+        <mdc-chip>
+          <mdc-chip-icon leading>face</mdc-chip-icon>
+          <mdc-chip-text>Jane Smith</mdc-chip-text>
+          <mdc-chip-icon trailing>more_vert</mdc-chip-icon>
+        </mdc-chip>
+        <mdc-chip>
+          <mdc-chip-icon leading>face</mdc-chip-icon>
+          <mdc-chip-text>John Doe</mdc-chip-text>
+          <mdc-chip-icon trailing>more_vert</mdc-chip-icon>
+        </mdc-chip>
+      </mdc-chip-set>
+    </div>
+  </div>
+  <div class="demo-content">
+    <h3>Filter Chips</h3>
+    <div class="demo-content--row">
+      <mdc-chip-set>
+        <mdc-chip>
+          <mdc-chip-text>Tops</mdc-chip-text>
+          <mdc-chip-icon trailing>cancel</mdc-chip-icon>
+        </mdc-chip>
+        <mdc-chip>
+          <mdc-chip-text>Bottoms</mdc-chip-text>
+          <mdc-chip-icon trailing>cancel</mdc-chip-icon>
+        </mdc-chip>
+        <mdc-chip>
+          <mdc-chip-text>Shoes</mdc-chip-text>
+          <mdc-chip-icon trailing>cancel</mdc-chip-icon>
+        </mdc-chip>
+        <mdc-chip>
+          <mdc-chip-text>Accessories</mdc-chip-text>
+          <mdc-chip-icon trailing>cancel</mdc-chip-icon>
+        </mdc-chip>
+      </mdc-chip-set>
+    </div>
+  </div>
+</div>

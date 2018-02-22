@@ -1,8 +1,10 @@
-<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
-  <h1 mdc-typography-display1>Checkbox</h1>
-  <div mdc-typography-subheading2>The MDC Checkbox component is a spec-aligned checkbox component adhering to the Material Design checkbox requirements.</div>
-  <div class="info-banner" mdc-typography-subheading1>
-    <![CDATA[import { MdcCheckboxModule, MdcFormFieldModule } from '@angular-mdc/web';]]>
+<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
+  <div>
+    <h1 mdc-typography-display1>Checkbox</h1>
+    <span>Checkbox component is a spec-aligned checkbox component adhering to the Material Design checkbox requirements.</span>
+  </div>
+  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
+    <![CDATA[import { MdcFormFieldModule, MdcCheckboxModule } from '@angular-mdc/web';]]>
   </div>
   <div class="docs-api">
     <table>
@@ -60,12 +62,6 @@
           <td>Disables the component.</td>
         </tr>
         <tr>
-          <td>disableRipple: boolean</td>
-          <td>
-<pre>Disable the ink ripple.
-Example: disableRipple="true" or disableRipple</pre></td>
-        </tr>
-        <tr>
           <td>indeterminateToChecked: boolean</td>
           <td>Whether the checkbox should go to checked state or unchecked when toggled from indeterminate state.</td>
         </tr>
@@ -98,35 +94,24 @@ Example: disableRipple="true" or disableRipple</pre></td>
           <td>Event dispatched on value change.</td>
         </tr>
         <tr>
-          <td>indeterminateChange(<![CDATA[{ source: MdcCheckbox, indeterminate: boolean }]]>)</td>
+          <td>indeterminateChange(
+            <![CDATA[{ source: MdcCheckbox, indeterminate: boolean }]]>)</td>
           <td>Emit when checkbox goes in and out of indeterminate state, but not when set to checked.</td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div fxLayout="column" class="mdc-padding" fxLayoutAlign="start start">
-<mdc-form-field [alignEnd]="isAlignEnd">
-  <mdc-checkbox #checkbox [(ngModel)]="isChecked" [indeterminate]="isIndeterminate" [disabled]="isDisabled"
-  [indeterminateToChecked]="false" [disableRipple]="isRippleDisabled"
-  (change)="handleChange($event)" (indeterminateChange)="handleIndeterminateChange($event)"></mdc-checkbox>
-  <label>Checkbox value : {{isChecked}}</label>
-</mdc-form-field>
-
-<button mdc-button (click)="setIndeterminate();">Set Indeterminate</button>
-<button mdc-button (click)="toggleRTL();">Toggle RTL</button>
-<button mdc-button (click)="toggleChecked();">Toggle Checked</button>
-<button mdc-button (click)="toggleRippleDisabled();">Ripple Disabled: {{isRippleDisabled}}</button>
-<button mdc-button (click)="toggleDisabled();">Disabled: {{isDisabled}}</button>
-
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span> [<span style="color:#89bdff">alignEnd</span>]=<span style="color:#65b042">"false"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span> #<span style="color:#89bdff">checkbox</span> [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"myModel"</span> [<span style="color:#89bdff">indeterminate</span>]=<span style="color:#65b042">"false"</span>
-  [<span style="color:#89bdff">indeterminateToChecked</span>]=<span style="color:#65b042">"false"</span>
-  [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"false"</span> [<span style="color:#89bdff">disableRipple</span>]=<span style="color:#65b042">"false"</span>
-  (<span style="color:#89bdff">change</span>)=<span style="color:#65b042">"handleChange($event)"</span>
-  (<span style="color:#89bdff">indeterminateChange</span>)=<span style="color:#65b042">"handleIndeterminateChange($event)"</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-checkbox</span>></span>
-  <span style="color:#e0c589">&lt;<span style="color:#e0c589">label</span>></span>My label<span style="color:#e0c589">&lt;/<span style="color:#e0c589">label</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-form-field</span>></span>
-</pre>
-</div>
+  <div class="demo-content">
+    <div class="demo-content--row">
+      <button mdc-button (click)="demobox.setIndeterminate(true)">Indeterminate</button>
+      <button mdc-button (click)="demofield.alignEnd = !demofield.isAlignEnd()">Align End</button>
+      <button mdc-button (click)="demobox.toggle()">Toggle</button>
+      <button mdc-button (click)="demobox.setDisabled(!demobox.isDisabled())">Disabled</button>
+    </div>
+    <mdc-form-field #demofield>
+      <mdc-checkbox #demobox (change)="onChange($event)" (indeterminateChange)="onIndeterminateChange($event)"></mdc-checkbox>
+      <label>Checkbox value is {{demobox.isChecked()}}</label>
+    </mdc-form-field>
+    <a fxFlexOffset="3" mdc-button href="https://stackblitz.com/edit/angular-mdc?embed=1&file=app/select-demo.html" target="_blank" rel="noopener noreferrer">View Source</a>
+  </div>
 </div>

@@ -1,7 +1,9 @@
-<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
-  <h1 mdc-typography-display1>Typography</h1>
-  <div mdc-typography-subheading2>MDC Typography directives implement the Material Design typography guidelines.</div>
-  <div class="info-banner" mdc-typography-subheading1>
+<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
+  <div>
+    <h1 mdc-typography-display1>Typography</h1>
+    <span>Typography directives implement the Material Design typography guidelines.</span>
+  </div>
+  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
     <![CDATA[import { MdcTypographyModule } from '@angular-mdc/web';]]>
   </div>
   <div class="docs-api">
@@ -87,7 +89,7 @@
         </tr>
       </tbody>
     </table>
-    <table>
+    <table style="width: 400px;">
       <thead>
         <tr>
           <th>mdc-typography-adjust-margin</th>
@@ -112,7 +114,6 @@
             <p>
               In order to minimize unexpected behavior, the style classes only specify font properties, such as size, weight and line height. This means that while text will be correctly styled, it may not be correctly positioned. If you include the mdc-typography--adjust-margin class, though, positioning will be adjusted according to the style</p>
           </td>
-          <td></td>
         </tr>
       </tbody>
     </table>

@@ -1,11 +1,13 @@
-<div fxLayout="column" fxLayoutAlign="start start" class="mdc-padding">
-  <h1 mdc-typography-display1>Dialog</h1>
-  <div mdc-typography-subheading2>Dialogs inform users about a specific task, require decisions, or involve multiple tasks.</div>
-  <div class="info-banner" mdc-typography-subheading1>
+<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
+  <div>
+    <h1 mdc-typography-display1>Dialog</h1>
+    <span>Dialogs inform users about a specific task, require decisions, or involve multiple tasks.</span>
+  </div>
+  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
     <![CDATA[import { MdcDialogModule } from '@angular-mdc/web';]]>
   </div>
 
-  <div>
+  <div fxFlexOffset="2">
     <mdc-tab-bar [primary]="true">
       <mdc-tab *ngFor="let child of dialogTabs" [routerLink]="[{outlets: {taboutlet: child.route}}]"
         routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">{{child.label}}</mdc-tab>

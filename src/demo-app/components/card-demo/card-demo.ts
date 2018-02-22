@@ -1,12 +1,7 @@
-import {
-  Component,
-} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'card-demo',
   templateUrl: './card-demo.html'
 })
-export class CardDemo {
-  isLargeTitle: boolean = true;
-  isThemeDark: boolean;
-}
+export class CardDemo { }

@@ -180,15 +180,32 @@
   </table>
   <div fxLayout="column">
     <div class="demo-list-host">
-      <h3>Text Field</h3>
+      <h3>Text Field with FormControl</h3>
       <div fxLayout="row" fxLayoutWrap>
-        <button mdc-button (click)="user.disabled = !user.disabled">Disabled: {{user.disabled ? 'On' : 'Off'}}</button>
-        <button mdc-button (click)="user.required = !user.required">Required: {{user.required ? 'On' : 'Off'}}</button>
-        <button mdc-button (click)="user.dense = !user.dense">Dense: {{user.dense ? 'On' : 'Off'}}</button>
-        <button mdc-button (click)="user.selectAll()">Select All</button>
+        <button mdc-button (click)="input.disabled = !input.disabled">Disabled: {{input.disabled ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="input.required = !input.required">Required: {{input.required ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="input.dense = !input.dense">Dense: {{input.dense ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="input.selectAll()">Select All</button>
       </div>
       <div class="demo-text-field__container--column">
-        <mdc-text-field #user label="Username" [(ngModel)]="username" #userModel="ngModel" [helperText]="userHelper" [required]="true"></mdc-text-field>
+        <form [formGroup]="userForm" id="userForm" (ngSubmit)="updateForm()">
+          <mdc-text-field #input formControlName="username" label="Username"></mdc-text-field>
+          <p mdc-text-field-helper-text [validation]="true" [persistent]="false">Username is required</p>
+        </form>
+        <a mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
+      </div>
+    </div>
+
+    <div class="demo-list-host">
+      <h3>Text Field with ngModel</h3>
+      <div fxLayout="row" fxLayoutWrap>
+        <button mdc-button (click)="demousername.disabled = !demousername.disabled">Disabled: {{demousername.disabled ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="demousername.required = !demousername.required">Required: {{demousername.required ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="demousername.dense = !demousername.dense">Dense: {{demousername.dense ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="demousername.selectAll()">Select All</button>
+      </div>
+      <div class="demo-text-field__container--column">
+        <mdc-text-field #demousername label="Username" [(ngModel)]="username" #userModel="ngModel" [helperText]="userHelper"></mdc-text-field>
         <mdc-text-field-helper-text #userHelper="mdcHelperText" [validation]="true" [persistent]="false">
           <span *ngIf="userModel.errors?.required">Username is required</span>
         </mdc-text-field-helper-text>
@@ -208,7 +225,7 @@
       </div>
     </div>
     <div class="demo-list-host">
-      <h3>Outlined Text Field w/Icons</h3>
+      <h3>Outlined Text Field - Leading icon</h3>
       <div fxLayout="row" fxLayoutWrap>
         <button mdc-button (click)="outlinedicon.disabled = !outlinedicon.disabled">Disabled: {{outlinedicon.disabled ? 'On' : 'Off'}}</button>
         <button mdc-button (click)="outlinedicon.required = !outlinedicon.required">Required: {{outlinedicon.required ? 'On' : 'Off'}}</button>
@@ -222,9 +239,18 @@
       </div>
     </div>
     <div class="demo-list-host">
+      <h3>Outlined Text Field - Trailing icon</h3>
+      <div class="demo-text-field__container--column">
+        <mdc-text-field #outlinedicon [outline]="true" label="Event date">
+          <mdc-icon trailing>event</mdc-icon>
+        </mdc-text-field>
+        <a mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
+      </div>
+    </div>
+    <div class="demo-list-host">
       <h3>Prefilled Text Field</h3>
       <div class="demo-text-field__container--column">
-        <mdc-text-field value="Harold" label="Username"></mdc-text-field>
+        <mdc-text-field [(ngModel)]="prefilledText" label="Username"></mdc-text-field>
         <a mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
       </div>
     </div>

@@ -1,45 +1,65 @@
 import { Routes } from '@angular/router';
 
-import { Home } from './home/home';
 import { ButtonDemo } from './components/buttons/button-demo/button-demo';
 import { CardDemo } from './components/card-demo/card-demo';
 import { CheckboxDemo } from './components/inputs-controls/checkbox-demo/checkbox-demo';
+import { ChipsDemo } from './components/chips-demo/chips-demo';
 import { DialogDemo } from './components/dialog-demo/dialog-demo';
 import { DrawerDemo } from './components/drawer-demo/drawer-demo';
-import { FabDemo } from './components/buttons/fab-demo/fab-demo';
 import { ElevationDemo } from './components/core/elevation-demo/elevation-demo';
+import { FabDemo } from './components/buttons/fab-demo/fab-demo';
+import { Home } from './home/home';
+import { IconDemo } from './components/icon-demo/icon-demo';
 import { IconToggleDemo } from './components/buttons/icon-toggle-demo/icon-toggle-demo';
 import { LinearProgressDemo } from './components/linear-progress-demo/linear-progress-demo';
 import { ListDemo } from './components/list-demo/list-demo';
 import { MenuDemo } from './components/menu-demo/menu-demo';
 import { RadioDemo } from './components/inputs-controls/radio-demo/radio-demo';
+import { RippleDemo } from './components/core/ripple-demo/ripple-demo';
+import { SelectDemo } from './components/inputs-controls/select-demo/select-demo';
 import { SliderDemo } from './components/inputs-controls/slider-demo/slider-demo';
 import { SnackbarDemo } from './components/snackbar-demo/snackbar-demo';
 import { SwitchDemo } from './components/inputs-controls/switch-demo/switch-demo';
+import { TabDemo } from './components/tab-demo/tab-demo';
 import { TextFieldDemo } from './components/inputs-controls/textfield-demo/textfield-demo';
 import { ToolbarDemo } from './components/toolbar-demo/toolbar-demo';
 import { TypographyDemo } from './components/core/typography-demo/typography-demo';
-import { TabDemo } from './components/tab-demo/tab-demo';
-import { RippleDemo } from './components/core/ripple-demo/ripple-demo';
-import { ThemeDemo } from './components/core/theme-demo/theme-demo';
-import { SurfaceDemo } from './components/core/surface-demo/surface-demo';
-import { IconDemo } from './components/icon-demo/icon-demo';
-import { SelectDemo } from './components/inputs-controls/select-demo/select-demo';
-import { TABS_DEMO_ROUTES } from './components/tab-demo/routes';
+
 import { DIALOG_DEMO_ROUTES } from './components/dialog-demo/routes';
+import { TABS_DEMO_ROUTES } from './components/tab-demo/routes';
 import { TEXTFIELD_DEMO_ROUTES } from './components/inputs-controls/textfield-demo/routes';
 
-import { Buttons } from './components/buttons/buttons';
-import { Core } from './components/core/core';
-import { InputsControls } from './components/inputs-controls/inputs-controls';
-import { GettingStarted } from './docs/getting-started';
+export const DEMO_ROUTES = [
+  ButtonDemo,
+  CardDemo,
+  CheckboxDemo,
+  ChipsDemo,
+  DialogDemo,
+  DrawerDemo,
+  ElevationDemo,
+  FabDemo,
+  Home,
+  IconDemo,
+  IconToggleDemo,
+  LinearProgressDemo,
+  ListDemo,
+  MenuDemo,
+  RadioDemo,
+  RippleDemo,
+  SelectDemo,
+  SliderDemo,
+  SnackbarDemo,
+  SnackbarDemo,
+  SwitchDemo,
+  TabDemo,
+  TextFieldDemo,
+  ToolbarDemo,
+  TypographyDemo,
+];
 
-export const demoAppRoutes: Routes = [
-  { path: 'buttons', component: Buttons },
-  { path: 'core', component: Core },
-  { path: 'inputs-controls', component: InputsControls },
-  { path: 'getting-started', component: GettingStarted },
+export const APP_ROUTES: Routes = [
   { path: 'button-demo', component: ButtonDemo },
+  { path: 'chips-demo', component: ChipsDemo },
   { path: 'checkbox-demo', component: CheckboxDemo },
   { path: 'fab-demo', component: FabDemo },
   { path: 'switch-demo', component: SwitchDemo },
@@ -57,8 +77,6 @@ export const demoAppRoutes: Routes = [
   { path: 'list-demo', component: ListDemo },
   { path: 'drawer-demo', component: DrawerDemo },
   { path: 'ripple-demo', component: RippleDemo },
-  { path: 'surface-demo', component: SurfaceDemo },
-  { path: 'theme-demo', component: ThemeDemo },
   { path: 'icon-demo', component: IconDemo },
   { path: 'dialog-demo', component: DialogDemo, children: DIALOG_DEMO_ROUTES },
   { path: 'icon-toggle-demo', component: IconToggleDemo },

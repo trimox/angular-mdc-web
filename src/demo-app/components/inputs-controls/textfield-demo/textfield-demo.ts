@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'textfield-demo',
@@ -15,8 +16,15 @@ export class TextFieldDemo {
 @Component({
   templateUrl: './text-field-tab.html',
 })
-export class TextFieldTab {
-  username: string;
+export class TextFieldTab implements OnInit {
+  userForm: FormGroup;
+  prefilledText: string = 'Prefilled';
+
+  ngOnInit() {
+    this.userForm = new FormGroup({
+      username: new FormControl({ value: '', disabled: false }, Validators.required)
+    });
+  }
 }
 
 @Component({

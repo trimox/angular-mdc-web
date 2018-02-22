@@ -1,3 +1,80 @@
+<a name="0.31.0"></a>
+# [0.31.0](https://github.com/trimox/angular-mdc-web/compare/v0.7.5...v0.31.0) (2018-02-21)
+
+
+### Bug Fixes
+
+* **dialog:** Remove uneeded MdcButtonModule import ([#677](https://github.com/trimox/angular-mdc-web/issues/677)) ([e2f3907](https://github.com/trimox/angular-mdc-web/commit/e2f3907))
+* **icon:** Handle values with extra spaces ([#683](https://github.com/trimox/angular-mdc-web/issues/683)) ([4938f07](https://github.com/trimox/angular-mdc-web/commit/4938f07))
+* **icon-toggle:** Fix primary/secondary class on icon element ([#660](https://github.com/trimox/angular-mdc-web/issues/660)) ([456d250](https://github.com/trimox/angular-mdc-web/commit/456d250))
+* **icon-toggle:** Listen for keydown events + fix ripple ([#667](https://github.com/trimox/angular-mdc-web/issues/667)) ([6ab3a8e](https://github.com/trimox/angular-mdc-web/commit/6ab3a8e))
+* **list:** Prevent multiple activated items on option change ([#668](https://github.com/trimox/angular-mdc-web/issues/668)) ([8f32136](https://github.com/trimox/angular-mdc-web/commit/8f32136)), closes [#637](https://github.com/trimox/angular-mdc-web/issues/637)
+* **menu:** Close when list-item on page clicked ([#628](https://github.com/trimox/angular-mdc-web/issues/628)) ([ec9c0c7](https://github.com/trimox/angular-mdc-web/commit/ec9c0c7)), closes [#621](https://github.com/trimox/angular-mdc-web/issues/621)
+* **select:** Call change event for formGroup and formControl values ([#641](https://github.com/trimox/angular-mdc-web/issues/641)) ([67d05ba](https://github.com/trimox/angular-mdc-web/commit/67d05ba)), closes [#640](https://github.com/trimox/angular-mdc-web/issues/640)
+* **select:** Check if ngControl valueAccessor exists ([#685](https://github.com/trimox/angular-mdc-web/issues/685)) ([ee2f566](https://github.com/trimox/angular-mdc-web/commit/ee2f566))
+* **select:** Style floating label on propagation of changes ([#703](https://github.com/trimox/angular-mdc-web/issues/703)) ([25be844](https://github.com/trimox/angular-mdc-web/commit/25be844))
+* Compilation errors found with `fullTemplateTypeCheck` ([#680](https://github.com/trimox/angular-mdc-web/issues/680)) ([54b7948](https://github.com/trimox/angular-mdc-web/commit/54b7948))
+* **tabs:** Clicking tab with *ngFor results in ExpressionChangedAfterItHasBeenCheckedError ([b9b5851](https://github.com/trimox/angular-mdc-web/commit/b9b5851)), closes [#664](https://github.com/trimox/angular-mdc-web/issues/664)
+* **text-field:** Import MdcLineRippleModule ([#676](https://github.com/trimox/angular-mdc-web/issues/676)) ([70f5e9b](https://github.com/trimox/angular-mdc-web/commit/70f5e9b))
+* **text-field:** Set _focused inside onFocus() ([#654](https://github.com/trimox/angular-mdc-web/issues/654)) ([f759410](https://github.com/trimox/angular-mdc-web/commit/f759410))
+* **text-field:** Set disabled state with formControl ([#690](https://github.com/trimox/angular-mdc-web/issues/690)) ([31c0138](https://github.com/trimox/angular-mdc-web/commit/31c0138)), closes [#636](https://github.com/trimox/angular-mdc-web/issues/636)
+* **toolbar:** Fix mobile flexible toolbar title alignment ([#695](https://github.com/trimox/angular-mdc-web/issues/695)) ([fe933be](https://github.com/trimox/angular-mdc-web/commit/fe933be))
+* **toolbar:** Line height on flexible toolbar title ([#655](https://github.com/trimox/angular-mdc-web/issues/655)) ([db8f348](https://github.com/trimox/angular-mdc-web/commit/db8f348))
+* **toolbar:** z-index of mdc-menu positioned over mdc-tab ([#656](https://github.com/trimox/angular-mdc-web/issues/656)) ([df405d9](https://github.com/trimox/angular-mdc-web/commit/df405d9)), closes [#638](https://github.com/trimox/angular-mdc-web/issues/638)
+
+
+### Features
+
+* Update material-components-web to v0.31.0 ([#699](https://github.com/trimox/angular-mdc-web/issues/699)) ([55cb7ec](https://github.com/trimox/angular-mdc-web/commit/55cb7ec))
+* **chip:** Implement MDC Chips ([#639](https://github.com/trimox/angular-mdc-web/issues/639)) ([ba31e00](https://github.com/trimox/angular-mdc-web/commit/ba31e00)), closes [#592](https://github.com/trimox/angular-mdc-web/issues/592)
+* **chips:** Add mdc-chip-icon directive ([#702](https://github.com/trimox/angular-mdc-web/issues/702)) ([b25ed7b](https://github.com/trimox/angular-mdc-web/commit/b25ed7b))
+* **button:** Add exportAs declaration ([#662](https://github.com/trimox/angular-mdc-web/issues/662)) ([6ba9048](https://github.com/trimox/angular-mdc-web/commit/6ba9048))
+* **button:** Add icon boolean property ([#663](https://github.com/trimox/angular-mdc-web/issues/663)) ([7bf1c71](https://github.com/trimox/angular-mdc-web/commit/7bf1c71))
+* **card:** Add mdc-card-primary-action directive ([#700](https://github.com/trimox/angular-mdc-web/issues/700)) ([e3936fe](https://github.com/trimox/angular-mdc-web/commit/e3936fe))
+* **card:** Implement MDC Card ([#647](https://github.com/trimox/angular-mdc-web/issues/647)) ([e24a54a](https://github.com/trimox/angular-mdc-web/commit/e24a54a)), closes [#617](https://github.com/trimox/angular-mdc-web/issues/617) [#616](https://github.com/trimox/angular-mdc-web/issues/616) [#617](https://github.com/trimox/angular-mdc-web/issues/617) [#616](https://github.com/trimox/angular-mdc-web/issues/616)
+* **checkbox:** Add exportAs declaration ([#633](https://github.com/trimox/angular-mdc-web/issues/633)) ([a5f64d2](https://github.com/trimox/angular-mdc-web/commit/a5f64d2))
+* **checkbox:** Add public methods for UX state ([#632](https://github.com/trimox/angular-mdc-web/issues/632)) ([7d09af3](https://github.com/trimox/angular-mdc-web/commit/7d09af3))
+* **form-field:** Add exportAs declaration ([#643](https://github.com/trimox/angular-mdc-web/issues/643)) ([10f8dce](https://github.com/trimox/angular-mdc-web/commit/10f8dce))
+* **form-field:** Add public isAlignEnd() method ([#645](https://github.com/trimox/angular-mdc-web/issues/645)) ([462a8ef](https://github.com/trimox/angular-mdc-web/commit/462a8ef))
+* **icon:** Add exportAs declaration ([#651](https://github.com/trimox/angular-mdc-web/issues/651)) ([d184ea0](https://github.com/trimox/angular-mdc-web/commit/d184ea0))
+* **icon:** Set Sass default icon height ([#649](https://github.com/trimox/angular-mdc-web/issues/649)) ([78eb734](https://github.com/trimox/angular-mdc-web/commit/78eb734))
+* **icon-toggle:** Add exportAs declaration ([#661](https://github.com/trimox/angular-mdc-web/issues/661)) ([ad2334b](https://github.com/trimox/angular-mdc-web/commit/ad2334b))
+* **line-ripple:** Implement MDC Line Ripple ([#626](https://github.com/trimox/angular-mdc-web/issues/626)) ([c8e0ec2](https://github.com/trimox/angular-mdc-web/commit/c8e0ec2)), closes [#620](https://github.com/trimox/angular-mdc-web/issues/620)
+* **linear-progress:** Add exportAs declaration ([#658](https://github.com/trimox/angular-mdc-web/issues/658)) ([f12b9a9](https://github.com/trimox/angular-mdc-web/commit/f12b9a9))
+* **list:** Add exportAs declarations  ([#669](https://github.com/trimox/angular-mdc-web/issues/669)) ([cfb2924](https://github.com/trimox/angular-mdc-web/commit/cfb2924))
+* **list:** Add selectionChange event ([#670](https://github.com/trimox/angular-mdc-web/issues/670)) ([d729cc9](https://github.com/trimox/angular-mdc-web/commit/d729cc9))
+* **list:** Remove depreciated `twoLine` property ([#679](https://github.com/trimox/angular-mdc-web/issues/679)) ([453f6f7](https://github.com/trimox/angular-mdc-web/commit/453f6f7))
+* **menu:** Add exportAs declaration ([#634](https://github.com/trimox/angular-mdc-web/issues/634)) ([6894d15](https://github.com/trimox/angular-mdc-web/commit/6894d15))
+* **menu:** Add quick open option ([#629](https://github.com/trimox/angular-mdc-web/issues/629)) ([f309d53](https://github.com/trimox/angular-mdc-web/commit/f309d53)), closes [#619](https://github.com/trimox/angular-mdc-web/issues/619)
+* **menu:** Add selected property to menu items ([#665](https://github.com/trimox/angular-mdc-web/issues/665)) ([25be411](https://github.com/trimox/angular-mdc-web/commit/25be411)), closes [#618](https://github.com/trimox/angular-mdc-web/issues/618)
+* **ripple:** Deduplicate ripple on parents whose children activated ([#635](https://github.com/trimox/angular-mdc-web/issues/635)) ([8f28970](https://github.com/trimox/angular-mdc-web/commit/8f28970)), closes [#596](https://github.com/trimox/angular-mdc-web/issues/596)
+* **ripple:** Redesign Ripple service + component ([#648](https://github.com/trimox/angular-mdc-web/issues/648)) ([f103461](https://github.com/trimox/angular-mdc-web/commit/f103461))
+* **select:** Add `box: boolean` property ([6413276](https://github.com/trimox/angular-mdc-web/commit/6413276)), closes [#595](https://github.com/trimox/angular-mdc-web/issues/595)
+* **select:** Add exportAs declarations ([#684](https://github.com/trimox/angular-mdc-web/issues/684)) ([d75b1b3](https://github.com/trimox/angular-mdc-web/commit/d75b1b3))
+* **select:** Add property for floating label visibility ([#689](https://github.com/trimox/angular-mdc-web/issues/689)) ([8844e5d](https://github.com/trimox/angular-mdc-web/commit/8844e5d)), closes [#623](https://github.com/trimox/angular-mdc-web/issues/623)
+* **select:** Add support for multiple selected options ([#687](https://github.com/trimox/angular-mdc-web/issues/687)) ([5b7e7e4](https://github.com/trimox/angular-mdc-web/commit/5b7e7e4))
+* **select:** Decouple label from mdc-select ([#701](https://github.com/trimox/angular-mdc-web/issues/701)) ([eae9abe](https://github.com/trimox/angular-mdc-web/commit/eae9abe))
+* **tabs:** Add exportAs declarations ([#666](https://github.com/trimox/angular-mdc-web/issues/666)) ([c4d94e7](https://github.com/trimox/angular-mdc-web/commit/c4d94e7))
+* **tabs:** Add Sass modifier for indicator bar color ([#696](https://github.com/trimox/angular-mdc-web/issues/696)) ([be97c20](https://github.com/trimox/angular-mdc-web/commit/be97c20))
+* **text-field:** Add exportAs declarations ([#691](https://github.com/trimox/angular-mdc-web/issues/691)) ([6f71acc](https://github.com/trimox/angular-mdc-web/commit/6f71acc))
+* **theme:** Removal of dark theme ([#681](https://github.com/trimox/angular-mdc-web/issues/681)) ([6cb07e1](https://github.com/trimox/angular-mdc-web/commit/6cb07e1))
+
+
+### Performance Improvements
+
+* **form-field:** Use ChangeDetectionStrategy.OnPush ([#642](https://github.com/trimox/angular-mdc-web/issues/642)) ([bf9c4ff](https://github.com/trimox/angular-mdc-web/commit/bf9c4ff))
+* **icon:** Use ChangeDetectionStrategy.OnPush ([#650](https://github.com/trimox/angular-mdc-web/issues/650)) ([7bcc62c](https://github.com/trimox/angular-mdc-web/commit/7bcc62c))
+
+
+### BREAKING CHANGES
+
+* **theme:** Removed dark theme component per MDC v0.30.0. Please design application theme choices with Sass.
+* **list:** Removed `twoLine` property. Please use `lines: number` with a value of `2`.
+* **button:** `MdcButton` no longer automatically adds `mdc-button__icon` class, if `mdc-icon` is detected. Please update your code to use `[icon]: boolean` property.
+* **card:** All directives for content layouts have been removed. Developers should decide what kind of layout is best for their specific use case. Please see Card documentation for updated examples.
+
+
+
 <a name="0.7.5"></a>
 ## [0.7.5](https://github.com/trimox/angular-mdc-web/compare/v0.7.4...v0.7.5) (2018-02-06)
 

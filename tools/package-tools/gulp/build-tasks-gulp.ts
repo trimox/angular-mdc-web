@@ -20,8 +20,6 @@ export function createPackageBuildTasks(buildPackage: BuildPackage) {
    * Main tasks for the package building. Tasks execute the different sub-tasks in the correct
    * order.
    */
-  task(`${taskName}:clean-build`, sequenceTask('clean', `${taskName}:build`));
-
   task(`${taskName}:build`, sequenceTask(
     // Build all required packages before building.
     ...dependencyNames.map(pkgName => `${pkgName}:build`),

@@ -4,9 +4,6 @@ import * as gulp from 'gulp';
 import * as path from 'path';
 import { buildConfig } from 'ng-mdc-build-tools';
 
-/* Those imports lack typings. */
-const gulpClean = require('gulp-clean');
-
 // There are no type definitions available for these imports.
 const resolveBin = require('resolve-bin');
 
@@ -111,10 +108,4 @@ export function copyTask(srcGlobOrDir: string | string[], outRoot: string) {
   } else {
     return () => gulp.src(srcGlobOrDir.map(name => _globify(name))).pipe(gulp.dest(outRoot));
   }
-}
-
-
-/** Delete files. */
-export function cleanTask(glob: string) {
-  return () => gulp.src(glob, { read: false }).pipe(gulpClean(null));
 }

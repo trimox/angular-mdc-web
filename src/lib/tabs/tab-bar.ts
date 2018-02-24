@@ -19,7 +19,7 @@ import { isBrowser, toNumber, EventRegistry } from '@angular-mdc/web/common';
 import { Subscription } from 'rxjs/Subscription';
 import { merge } from 'rxjs/observable/merge';
 
-import { MdcTab, MdcTabChange } from '../tab/tab';
+import { MdcTab, MdcTabChange } from './tab';
 
 import { MDCTabBarAdapter } from './adapter';
 import { MDCTabBarFoundation } from '@material/tabs';

@@ -3,16 +3,16 @@ import { NgModule } from '@angular/core';
 import {
   MdcTab,
   MdcTabIconText,
-} from './tab/tab';
+} from './tab';
 
-import { MdcTabBar, MdcTabBarIndicator } from './tab-bar/tab-bar';
+import { MdcTabBar, MdcTabBarIndicator } from './tab-bar';
 
 import {
   MdcTabBarScroller,
   MdcTabBarScrollBack,
   MdcTabBarScrollForward,
   MdcTabBarScrollFrame,
-} from './tab-bar-scroller/tab-bar-scroller';
+} from './tab-bar-scroller';
 
 const TAB_DECLARATIONS = [
   MdcTab,
@@ -26,7 +26,7 @@ const TAB_DECLARATIONS = [
 ];
 
 @NgModule({
-  exports: [TAB_DECLARATIONS],
-  declarations: [TAB_DECLARATIONS]
+  exports: TAB_DECLARATIONS,
+  declarations: TAB_DECLARATIONS
 })
 export class MdcTabModule { }

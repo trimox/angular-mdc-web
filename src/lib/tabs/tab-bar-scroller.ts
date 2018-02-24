@@ -16,8 +16,8 @@ import {
 import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
-import { MdcTab } from '../tab/tab';
-import { MdcTabBar } from '../tab-bar/tab-bar';
+import { MdcTab } from './tab';
+import { MdcTabBar } from './tab-bar';
 
 import { getCorrectPropertyName } from '@material/animation';
 import { MDCTabBarScrollerAdapter } from './adapter';

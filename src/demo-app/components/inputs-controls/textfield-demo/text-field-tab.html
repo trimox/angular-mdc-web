@@ -188,7 +188,7 @@
         <button mdc-button (click)="input.selectAll()">Select All</button>
       </div>
       <div class="demo-text-field__container--column">
-        <form [formGroup]="userForm" id="userForm" (ngSubmit)="updateForm()">
+        <form [formGroup]="userForm" id="userForm">
           <mdc-text-field #input formControlName="username" label="Username"></mdc-text-field>
           <p mdc-text-field-helper-text [validation]="true" [persistent]="false">Username is required</p>
         </form>

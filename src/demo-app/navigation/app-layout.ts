@@ -41,7 +41,7 @@ export class AppLayout {
 
   buttonRoutes = [
     { name: 'Button', route: '/button-demo' },
-    { name: 'Floating Action Button (FAB)', route: '/fab-demo' },
+    { name: 'FAB', route: '/fab-demo' },
     { name: 'Icon Toggle', route: '/icon-toggle-demo' },
   ];
 

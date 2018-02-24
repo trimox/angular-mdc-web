@@ -18,6 +18,8 @@ export class TextFieldDemo {
 })
 export class TextFieldTab implements OnInit {
   userForm: FormGroup;
+  updateForm: FormGroup;
+  username: string;
   prefilledText: string = 'Prefilled';
 
   ngOnInit() {

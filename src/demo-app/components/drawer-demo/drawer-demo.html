@@ -270,6 +270,7 @@
   <div class="mdc-padding">
     <a mdc-button href="https://stackblitz.com/edit/angular-mdc-drawer?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Example Source</a>
   </div>
+  <button mdc-button (click)="temporary.closeOnClick = !temporary.closeOnClick">Close on Click: {{temporary.closeOnClick ? 'true' : 'false'}}</button>
   <div class="demo-host">
     <mdc-drawer #temporary drawer='temporary' [fixedAdjustElement]="tempcontent">
       <mdc-drawer-header>

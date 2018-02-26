@@ -14,14 +14,14 @@ import { MDCSelectLabelFoundation } from '@material/select/label';
 export class MdcSelectLabel {
   @HostBinding('class.mdc-select__label') isHostClass = true;
 
-  mdcAdapter: MDCSelectLabelAdapter = {
+  private _mdcAdapter: MDCSelectLabelAdapter = {
     addClass: (className: string) => this._renderer.addClass(this.elementRef.nativeElement, className),
     removeClass: (className: string) => this._renderer.removeClass(this.elementRef.nativeElement, className),
   };
 
   foundation: {
     styleFloat(float: boolean): void
-  } = new MDCSelectLabelFoundation(this.mdcAdapter);
+  } = new MDCSelectLabelFoundation(this._mdcAdapter);
 
   constructor(
     private _renderer: Renderer2,

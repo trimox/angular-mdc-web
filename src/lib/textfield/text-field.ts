@@ -324,8 +324,8 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
     this.value = value == null ? '' : value;
 
     if (this.inputLabel) {
-      this.value.length > 0 ? this.inputLabel.mdcAdapter.addClass('mdc-text-field__label--float-above')
-        : this.inputLabel.mdcAdapter.removeClass('mdc-text-field__label--float-above');
+      this.value.length > 0 ? this.inputLabel.addClass('mdc-text-field__label--float-above')
+        : this.inputLabel.removeClass('mdc-text-field__label--float-above');
     }
 
     this.change.emit(value);

@@ -11,7 +11,7 @@ const mdcSecondaryEntryPoints = getSubdirectoryNames(join(buildConfig.packagesDi
 
 /** Object with all Angular MDC entry points in the format of Rollup globals. */
 const rollupMdcEntryPoints = mdcSecondaryEntryPoints.reduce((globals: any, entryPoint: string) => {
-  globals[`@angular-mdc/web/${entryPoint}`] = `ng.mdc.${dashCaseToCamelCase(entryPoint)}`;
+  globals[`@angular-mdc/web/${entryPoint}`] = `ng.web.${dashCaseToCamelCase(entryPoint)}`;
   return globals;
 }, {});
 
@@ -28,7 +28,7 @@ export const rollupGlobals = {
   '@angular/platform-browser-dynamic': 'ng.platformBrowserDynamic',
 
   // Some packages are not really needed for the UMD bundles, but for the missingRollupGlobals rule.
-  '@angular-mdc/web': 'ng.mdc',
+  '@angular-mdc/web': 'ng.web',
   '@material/animation': 'mdc.animation',
   '@material/checkbox': 'mdc.checkbox',
   '@material/chips': 'mdc.chips',
@@ -43,6 +43,7 @@ export const rollupGlobals = {
   '@material/radio': 'mdc.radio',
   '@material/ripple': 'mdc.ripple',
   '@material/select': 'mdc.select',
+  '@material/select/label': 'mdc.select.label',
   '@material/slider': 'mdc.slider',
   '@material/snackbar': 'mdc.snackbar',
   '@material/tabs': 'mdc.tabs',
@@ -54,6 +55,57 @@ export const rollupGlobals = {
   '@material/toolbar': 'mdc.toolbar',
 
   'focus-trap': 'focus-trap',
+
+  // Include secondary entry-points of the mdc packages
+  ...rollupMdcEntryPoints,
+
+  'rxjs/BehaviorSubject': 'Rx',
+  'rxjs/Observable': 'Rx',
+  'rxjs/Subject': 'Rx',
+  'rxjs/Subscription': 'Rx',
+  'rxjs/Observer': 'Rx',
+  'rxjs/Subscriber': 'Rx',
+
+  'rxjs/observable/combineLatest': 'Rx.Observable',
+  'rxjs/observable/forkJoin': 'Rx.Observable',
+  'rxjs/observable/fromEvent': 'Rx.Observable',
+  'rxjs/observable/merge': 'Rx.Observable',
+  'rxjs/observable/of': 'Rx.Observable',
+  'rxjs/observable/throw': 'Rx.Observable',
+  'rxjs/observable/defer': 'Rx.Observable',
+  'rxjs/observable/fromEventPattern': 'Rx.Observable',
+  'rxjs/observable/empty': 'Rx.Observable',
+
+  'rxjs/operators/debounceTime': 'Rx.operators',
+  'rxjs/operators/takeUntil': 'Rx.operators',
+  'rxjs/operators/take': 'Rx.operators',
+  'rxjs/operators/first': 'Rx.operators',
+  'rxjs/operators/filter': 'Rx.operators',
+  'rxjs/operators/map': 'Rx.operators',
+  'rxjs/operators/tap': 'Rx.operators',
+  'rxjs/operators/startWith': 'Rx.operators',
+  'rxjs/operators/auditTime': 'Rx.operators',
+  'rxjs/operators/switchMap': 'Rx.operators',
+  'rxjs/operators/finalize': 'Rx.operators',
+  'rxjs/operators/catchError': 'Rx.operators',
+  'rxjs/operators/share': 'Rx.operators',
+  'rxjs/operators/delay': 'Rx.operators',
+  'rxjs/operators/combineLatest': 'Rx.operators'
+};
+
+/** Map of externals that are used inside of the different packages. */
+export const rollupExternals = {
+  'tslib': 'tslib',
+
+  '@angular/core': 'ng.core',
+  '@angular/common': 'ng.common',
+  '@angular/forms': 'ng.forms',
+  '@angular/common/http': 'ng.common.http',
+  '@angular/router': 'ng.router',
+  '@angular/platform-browser': 'ng.platformBrowser',
+  '@angular/platform-browser-dynamic': 'ng.platformBrowserDynamic',
+
+  '@angular-mdc/web': 'ng.mdc',
 
   // Include secondary entry-points of the mdc packages
   ...rollupMdcEntryPoints,

@@ -13,7 +13,7 @@ import { MDCTextFieldLabelFoundation } from '@material/textfield/label';
 export class MdcTextFieldLabel {
   @HostBinding('class.mdc-text-field__label') isHostClass = true;
 
-  mdcAdapter: MDCTextFieldLabelAdapter = {
+  private _mdcAdapter: MDCTextFieldLabelAdapter = {
     addClass: (className: string) => this._renderer.addClass(this.elementRef.nativeElement, className),
     removeClass: (className: string) => this._renderer.removeClass(this.elementRef.nativeElement, className),
     getWidth: () => this.elementRef.nativeElement.offsetWidth,
@@ -24,7 +24,7 @@ export class MdcTextFieldLabel {
     getWidth: () => number,
     styleShake: (isValid: boolean, isFocused: boolean) => {},
     styleFloat: (value: string, isFocused: boolean, isBadInput: boolean) => {}
-  } = new MDCTextFieldLabelFoundation(this.mdcAdapter);
+  } = new MDCTextFieldLabelFoundation(this._mdcAdapter);
 
   constructor(
     private _renderer: Renderer2,
@@ -37,6 +37,16 @@ export class MdcTextFieldLabel {
   /** Returns the width of the label element */
   getWidth(): number {
     return this.foundation.getWidth();
+  }
+
+  /** Adds a class to label element */
+  addClass(className: string): void {
+    this._mdcAdapter.addClass(className);
+  }
+
+  /** Removes a class from label element */
+  removeClass(className: string): void {
+    this._mdcAdapter.removeClass(className);
   }
 
   /** Styles the label to produce the label shake for errors */

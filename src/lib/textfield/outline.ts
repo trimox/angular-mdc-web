@@ -46,7 +46,7 @@ export class MdcTextFieldOutline {
     this._idleOutline = idleOutline;
   }
 
-  mdcAdapter: MDCTextFieldOutlineAdapter = {
+  private _mdcAdapter: MDCTextFieldOutlineAdapter = {
     getWidth: () => this.elementRef.nativeElement.offsetWidth,
     getHeight: () => this.elementRef.nativeElement.offsetHeight,
     setOutlinePathAttr: (value: string) => {
@@ -61,7 +61,7 @@ export class MdcTextFieldOutline {
     init(): void,
     destroy(): void,
     updateSvgPath(labelWidth: number, isRtl: boolean): void
-  } = new MDCTextFieldOutlineFoundation(this.mdcAdapter);
+  } = new MDCTextFieldOutlineFoundation(this._mdcAdapter);
 
   constructor(
     private _renderer: Renderer2,
@@ -72,7 +72,7 @@ export class MdcTextFieldOutline {
   }
 
   init(): void {
-    this.foundation = new MDCTextFieldOutlineFoundation(this.mdcAdapter);
+    this.foundation = new MDCTextFieldOutlineFoundation(this._mdcAdapter);
     this.foundation.init();
   }
 
@@ -89,10 +89,10 @@ export class MdcTextFieldOutline {
   }
 
   getWidth(): number {
-    return this.mdcAdapter.getWidth();
+    return this._mdcAdapter.getWidth();
   }
 
   getHeight(): number {
-    return this.mdcAdapter.getHeight();
+    return this._mdcAdapter.getHeight();
   }
 }

@@ -1,15 +1,16 @@
 import { join, dirname } from 'path';
-import { uglifyJsFile } from './minify-sources';
 import { buildConfig } from './build-config';
 import { BuildPackage } from './build-package';
 import { rollupRemoveLicensesPlugin } from './rollup-remove-licenses';
-import { rollupGlobals, dashCaseToCamelCase } from './rollup-globals';
-import { remapSourcemap } from './sourcemap-remap';
+import { rollupGlobals, dashCaseToCamelCase, rollupExternals } from './rollup-globals';
 
 // There are no type definitions available for these imports.
 const rollup = require('rollup');
 const rollupNodeResolutionPlugin = require('rollup-plugin-node-resolve');
+const commonjs = require('rollup-plugin-commonjs');
 const rollupAlias = require('rollup-plugin-alias');
+const babel = require('rollup-plugin-babel');
+const minify = require('rollup-plugin-babel-minify');
 
 /** Directory where all bundles will be created in. */
 const bundlesDir = join(buildConfig.outputDir, 'bundles');
@@ -67,49 +68,40 @@ export class PackageBundler {
   private async bundleEntryPoint(config: BundlesConfig) {
     // Build FESM-2015 bundle file.
     await this.createRollupBundle({
-      moduleName: config.moduleName,
-      entry: config.entryFile,
-      dest: config.esm2015Dest,
+      name: config.moduleName,
+      input: config.entryFile,
+      file: config.esm2015Dest,
       format: 'es',
+      es6: true
     });
 
     // Build FESM-5 bundle file.
     await this.createRollupBundle({
-      moduleName: config.moduleName,
-      entry: config.esm5EntryFile,
-      dest: config.esm5Dest,
+      name: config.moduleName,
+      input: config.esm5EntryFile,
+      file: config.esm5Dest,
       format: 'es',
     });
 
     // Create UMD bundle of ES5 output.
     await this.createRollupBundle({
-      moduleName: config.moduleName,
-      entry: config.esm5Dest,
-      dest: config.umdDest,
-      format: 'umd'
+      name: config.moduleName,
+      input: config.esm5Dest,
+      file: config.umdDest,
+      format: 'umd',
     });
-
-    // Create a minified UMD bundle using UglifyJS
-    uglifyJsFile(config.umdDest, config.umdMinDest);
-
-    // Remaps the sourcemaps to be based on top of the original TypeScript source files.
-    await remapSourcemap(config.esm2015Dest);
-    await remapSourcemap(config.esm5Dest);
-    await remapSourcemap(config.umdDest);
-    await remapSourcemap(config.umdMinDest);
   }
 
   /** Creates a rollup bundle of a specified JavaScript file.*/
   private async createRollupBundle(config: RollupBundleConfig) {
     const bundleOptions = {
       context: 'this',
-      external: Object.keys(rollupGlobals),
-      entry: config.entry,
+      external: Object.keys(rollupExternals),
+      input: config.input,
       onwarn: (message: string) => {
         if (/but never used/.test(message)) {
           return false;
         }
-
         console.warn(message);
       },
       plugins: [
@@ -119,19 +111,29 @@ export class PackageBundler {
 
     const writeOptions = {
       // Keep the moduleId empty because we don't want to force developers to a specific moduleId.
-      moduleId: '',
-      moduleName: config.moduleName || 'ng.mdc',
-      banner: buildConfig.licenseBanner,
-      format: config.format,
-      dest: config.dest,
+      name: config.name || 'ng.web',
       globals: rollupGlobals,
-      sourceMap: true
+      file: config.file,
+      format: config.format,
+      banner: buildConfig.licenseBanner,
+      sourcemap: true
     };
+
+    bundleOptions.plugins.push(rollupNodeResolutionPlugin());
+    bundleOptions.plugins.push(rollupAlias(this.getResolvedSecondaryEntryPointImportPaths(config.file)));
+    bundleOptions.plugins.push(commonjs({
+      include: 'node_modules/**'
+    }));
+    if (!config.es6) { // only run on es5 and umd
+      bundleOptions.plugins.push(babel({
+        include: 'node_modules/**'
+      }));
+    }
 
     // For UMD bundles, we need to adjust the `external` bundle option in order to include
     // all necessary code in the bundle.
     if (config.format === 'umd') {
-      bundleOptions.plugins.push(rollupNodeResolutionPlugin());
+      bundleOptions.plugins.push(minify());
 
       // For all UMD bundles, we want to exclude tslib from the `external` bundle option so that
       // it is inlined into the bundle.
@@ -142,16 +144,10 @@ export class PackageBundler {
       // secondary entry-points from the rollup globals because we want the UMD for the
       // primary entry-point to include *all* of the sources for those entry-points.
       if (this.buildPackage.exportsSecondaryEntryPointsAtRoot &&
-        config.moduleName === `ng.${this.buildPackage.name}`) {
+        config.name === `ng.${this.buildPackage.name}`) {
 
-        const importRegex = new RegExp(`@angular-mdc/web/${this.buildPackage.name}/.+`);
+        const importRegex = new RegExp(`@angular-mdc/${this.buildPackage.name}/.+`);
         external = external.filter(e => !importRegex.test(e));
-
-        // Use the rollup-alias plugin to map imports of the form `@angular-mdc/web/button`
-        // to the actual file location so that rollup can resolve the imports (otherwise they
-        // will be treated as external dependencies and not included in the bundle).
-        bundleOptions.plugins.push(
-          rollupAlias(this.getResolvedSecondaryEntryPointImportPaths(config.dest)));
       }
 
       bundleOptions.external = external;
@@ -168,7 +164,7 @@ export class PackageBundler {
    */
   private getResolvedSecondaryEntryPointImportPaths(bundleOutputDir: string) {
     return this.buildPackage.secondaryEntryPoints.reduce((map, p) => {
-      map[`@angular-mdc/web/${this.buildPackage.name}/${p}`] =
+      map[`@angular-mdc/${this.buildPackage.name}/${p}`] =
         join(dirname(bundleOutputDir), this.buildPackage.name, `${p}.es5.js`);
       return map;
     }, {} as { [key: string]: string });
@@ -188,8 +184,9 @@ interface BundlesConfig {
 
 /** Configuration for creating a bundle via rollup. */
 interface RollupBundleConfig {
-  entry: string;
-  dest: string;
+  input: string;
+  file: string;
   format: string;
-  moduleName: string;
+  name: string;
+  es6?: boolean;
 }

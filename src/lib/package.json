@@ -16,10 +16,10 @@
     "material",
     "mdc"
   ],
-  "main": "./bundles/mdc.umd.js",
-  "module": "./esm5/mdc.es5.js",
-  "es2015": "./esm2015/mdc.js",
-  "typings": "./mdc.d.ts",
+  "main": "./bundles/web.umd.js",
+  "module": "./esm5/web.es5.js",
+  "es2015": "./esm2015/web.js",
+  "typings": "./web.d.ts",
   "private": false,
   "dependencies": {
     "@angular-mdc/theme": "0.31.0"

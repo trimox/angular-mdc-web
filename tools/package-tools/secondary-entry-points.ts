@@ -113,12 +113,12 @@ function buildPackageImportStatementFindCommand(searchDirectory: string, package
   if (platform() === 'win32') {
     return {
       binary: 'findstr',
-      args: ['/r', `from.'@angular-mdc/web/${packageName}/.*'`, `${searchDirectory}\\*.ts`]
+      args: ['/r', `from.'@angular-mdc/${packageName}/.*'`, `${searchDirectory}\\*.ts`]
     };
   } else {
     return {
       binary: 'grep',
-      args: ['-Eroh', '--include', '*.ts', `from '@angular-mdc/web/${packageName}/.+';`, searchDirectory]
+      args: ['-Eroh', '--include', '*.ts', `from '@angular-mdc/${packageName}/.+';`, searchDirectory]
     };
   }
 }

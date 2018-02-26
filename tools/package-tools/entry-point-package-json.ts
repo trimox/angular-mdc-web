@@ -5,7 +5,7 @@ import { writeFileSync } from 'fs';
 export function createEntryPointPackageJson(destDir: string, packageName: string,
   entryPointName: string) {
   const content = {
-    name: `@angular-mdc/web/${entryPointName}`,
+    name: `@angular-mdc/${packageName}/${entryPointName}`,
     typings: `../${entryPointName}.d.ts`,
     main: `../bundles/${packageName}-${entryPointName}.umd.js`,
     module: `../esm5/${entryPointName}.es5.js`,

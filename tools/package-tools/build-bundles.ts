@@ -106,25 +106,26 @@ export class PackageBundler {
       },
       plugins: [
         rollupRemoveLicensesPlugin,
+        rollupNodeResolutionPlugin(),
+        rollupAlias(this.getResolvedSecondaryEntryPointImportPaths(config.file))
       ]
     };
 
     const writeOptions = {
-      // Keep the moduleId empty because we don't want to force developers to a specific moduleId.
       name: config.name || 'ng.web',
       globals: rollupGlobals,
       file: config.file,
       format: config.format,
       banner: buildConfig.licenseBanner,
-      sourcemap: true
+      sourcemap: false
     };
 
-    bundleOptions.plugins.push(rollupNodeResolutionPlugin());
-    bundleOptions.plugins.push(rollupAlias(this.getResolvedSecondaryEntryPointImportPaths(config.file)));
     bundleOptions.plugins.push(commonjs({
       include: 'node_modules/**'
     }));
-    if (!config.es6) { // only run on es5 and umd
+
+    // Only transpile es5 / umd packages
+    if (!config.es6) {
       bundleOptions.plugins.push(babel({
         include: 'node_modules/**'
       }));
@@ -133,7 +134,7 @@ export class PackageBundler {
     // For UMD bundles, we need to adjust the `external` bundle option in order to include
     // all necessary code in the bundle.
     if (config.format === 'umd') {
-      bundleOptions.plugins.push(minify());
+      // bundleOptions.plugins.push(minify());
 
       // For all UMD bundles, we want to exclude tslib from the `external` bundle option so that
       // it is inlined into the bundle.

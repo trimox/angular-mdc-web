@@ -1,3 +1,13 @@
+<a name="0.31.1"></a>
+## [0.31.1](https://github.com/trimox/angular-mdc-web/compare/v0.31.0...v0.31.1) (2018-02-27)
+
+
+### Features
+
+* Transpile material-components-web + IE11 support ([#719](https://github.com/trimox/angular-mdc-web/issues/719)) ([3fc92c2](https://github.com/trimox/angular-mdc-web/commit/3fc92c2)), closes [#708](https://github.com/trimox/angular-mdc-web/issues/708)
+
+
+
 <a name="0.31.0"></a>
 # [0.31.0](https://github.com/trimox/angular-mdc-web/compare/v0.7.5...v0.31.0) (2018-02-21)
 

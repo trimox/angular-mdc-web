@@ -201,12 +201,12 @@ export class MdcTabBarScroller implements AfterViewInit, OnDestroy {
   };
 
   private _foundation: {
-    init: Function,
-    destroy: Function,
-    layout: Function,
-    scrollForward: Function,
-    scrollBack: Function,
-    scrollToTabAtIndex: Function,
+    init(): void,
+    destroy(): void,
+    layout(): void,
+    scrollForward(evt?: Event): void,
+    scrollBack(evt?: Event): void,
+    scrollToTabAtIndex(index: number): void,
   } = new MDCTabBarScrollerFoundation(this._mdcAdapter);
 
   constructor(

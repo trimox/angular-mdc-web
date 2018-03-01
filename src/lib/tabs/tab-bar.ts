@@ -137,11 +137,11 @@ export class MdcTabBar implements AfterViewInit, AfterContentChecked, OnDestroy 
   };
 
   private _foundation: {
-    init: Function,
-    destroy: Function,
-    layout: Function,
-    switchToTabAtIndex: Function,
-    getActiveTabIndex: Function,
+    init(): void,
+    destroy(): void,
+    layout(): void,
+    switchToTabAtIndex(index: number, shouldNotify: boolean): void,
+    getActiveTabIndex(): number
   } = new MDCTabBarFoundation(this._mdcAdapter);
 
   constructor(

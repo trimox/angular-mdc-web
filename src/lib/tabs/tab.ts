@@ -23,8 +23,10 @@ import { MdcIcon } from '@angular-mdc/web/icon';
 import { MDCTabAdapter } from './adapter';
 import { MDCTabFoundation } from '@material/tabs';
 
-export interface MdcTabChange {
+export class MdcTabChange {
+  /** Index of the currently-selected tab. */
   index: number;
+  /** Reference to the currently-selected tab. */
   tab: MdcTab;
 }
 
@@ -112,15 +114,15 @@ export class MdcTab implements OnInit, OnChanges, OnDestroy {
   };
 
   private _foundation: {
-    init: Function,
-    destroy: Function,
-    isActive: Function,
-    setActive: Function,
-    getComputedWidth: Function,
-    getComputedLeft: Function,
-    preventsDefaultOnClick: Function,
-    setPreventDefaultOnClick: Function,
-    measureSelf: Function,
+    init(): void,
+    destroy(): void,
+    isActive(): boolean,
+    setActive(isActive: boolean): void,
+    getComputedWidth(): number,
+    getComputedLeft(): number,
+    preventsDefaultOnClick(): boolean,
+    setPreventDefaultOnClick(preventDefaultOnClick: boolean): void,
+    measureSelf(): void,
   } = new MDCTabFoundation(this._mdcAdapter);
 
   constructor(

@@ -437,9 +437,6 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
     this._clearSelection();
 
     this._selectValue(value, isUserInput);
-    if (value) {
-      this._onChange(value);
-    }
     if (this._ngControl.valueAccessor) {
       this._ngControl.valueAccessor.writeValue(value);
     }

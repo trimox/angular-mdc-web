@@ -79,14 +79,8 @@ export class MdcTabBarScrollFrame implements AfterContentInit {
     }
   }
 
-  findTab(index: number): MdcTab | null {
-    if (this.tabBar) {
-      const tabs = this.tabBar._tabs.toArray();
-      if (index >= 0 && index < tabs.length) {
-        return tabs[index];
-      }
-    }
-    return null;
+  findTab(index: number): MdcTab {
+    return this.tabBar.tabs.toArray()[index];
   }
 }
 
@@ -173,10 +167,10 @@ export class MdcTabBarScroller implements AfterViewInit, OnDestroy {
       }
     },
     getNumberOfTabs: () => {
-      return (this.scrollFrame && this.scrollFrame.tabBar) ? this.scrollFrame.tabBar._tabs.length : 0;
+      return (this.scrollFrame && this.scrollFrame.tabBar) ? this.scrollFrame.tabBar.tabs.length : 0;
     },
-    getComputedWidthForTabAtIndex: (index: number) => this.findTab(index).getComputedWidth(),
-    getComputedLeftForTabAtIndex: (index: number) => this.findTab(index).getComputedLeft(),
+    getComputedWidthForTabAtIndex: (index: number) => this.scrollFrame.findTab(index).getComputedWidth(),
+    getComputedLeftForTabAtIndex: (index: number) => this.scrollFrame.findTab(index).getComputedLeft(),
     getOffsetWidthForScrollFrame: () => {
       return this.scrollFrame ? this.scrollFrame.elementRef.nativeElement.offsetWidth : 0;
     },
@@ -224,10 +218,6 @@ export class MdcTabBarScroller implements AfterViewInit, OnDestroy {
 
   scrollToTabAtIndex(index: number): void {
     this._foundation.scrollToTabAtIndex(index);
-  }
-
-  findTab(index: number): MdcTab | null {
-    return this.scrollFrame ? this.scrollFrame.findTab(index) : null;
   }
 
   layout(): void {

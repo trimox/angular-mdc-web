@@ -1,20 +1,34 @@
-.mdc-tab {
+.ng-mdc-tab {
   &--disabled {
+    @include mdc-tab-ink-color(rgba(black, .3));
+
     cursor: default;
     pointer-events: none;
   }
 }
 
-.ng-mdc-indicator-tab-bar--primary {
+.ng-mdc-tab--primary {
   @include mdc-tab-bar-indicator-ink-color(primary);
+
+  .mdc-tab:not(.mdc-tab--active) {
+    @include mdc-tab-ink-color(rgba(mdc-theme-prop-value(primary), 0.54));
+  }
+
+  .mdc-tab--active,
+  .mdc-tab:hover {
+    @include mdc-tab-ink-color(primary);
+  }
 }
 
-.ng-mdc-indicator-tab-bar--secondary {
+.ng-mdc-tab--secondary {
   @include mdc-tab-bar-indicator-ink-color(secondary);
-}
 
-.mdc-tab-bar-scroller {
-  &__indicator--forward {
-    width: 31px;
+  .mdc-tab:not(.mdc-tab--active) {
+    @include mdc-tab-ink-color(rgba(mdc-theme-prop-value(secondary), 0.54));
+  }
+
+  .mdc-tab--active,
+  .mdc-tab:hover {
+    @include mdc-tab-ink-color(secondary);
   }
 }

@@ -4,11 +4,13 @@ import { Router } from '@angular/router';
 export class Child {
   label: string;
   route: string;
+  icon: string;
+  disabled?: boolean;
 }
-const DIRECTORY: Child[] = [
-  { label: 'Tab One', route: 'first-tab' },
-  { label: 'Tab Two', route: 'second-tab' },
-  { label: 'Tab Three', route: 'third-tab' },
+const PANELS: Child[] = [
+  { label: 'Tab One', route: 'first-tab', icon: 'phone' },
+  { label: 'Tab Two', route: 'second-tab', icon: 'favorite' },
+  { label: 'Tab Three', route: 'third-tab', icon: 'person_pin', disabled: false },
 ];
 
 @Component({
@@ -16,36 +18,11 @@ const DIRECTORY: Child[] = [
   templateUrl: './tab-demo.html'
 })
 export class TabDemo {
-  isDisabled: boolean = true;
-  isPrimaryColor: boolean = true;
-  isSecondaryColor: boolean = false;
-  eventTabIndex: number = 0;
-
-  directory: Child[] = DIRECTORY;
-
-  @ViewChild('myTabBar') myTabs: any;
-  @ViewChild('myScrollFrame') myScrollFrame: any;
+  panels: Child[] = PANELS;
 
   constructor(public router: Router) { }
 
-  switchToTab() {
-    this.myTabs.setTabActiveAtIndex(1);
-  }
-
-  scrollForward() {
-    this.myScrollFrame.scrollForward();
-  }
-
-  scrollBack() {
-    this.myScrollFrame.scrollBack();
-  }
-
-  toggleDisabled() {
-    this.isDisabled = !this.isDisabled;
-  }
-
-  handleTabChange(event: { index: number, tab: any }) {
-    this.eventTabIndex = event.index;
+  onTabChange(event: { index: number, tab: any }) {
     console.log(event);
   }
 }

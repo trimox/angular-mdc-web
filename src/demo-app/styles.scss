@@ -24,6 +24,14 @@ body {
   @include mdc-toolbar-fill-color($app-blue);
 }
 
+.demo__toolbar-tabs--dark {
+  @include mdc-toolbar-fill-color(black);
+}
+
+.demo__toolbar-tabs--indigo {
+  @include mdc-toolbar-fill-color($material-color-indigo-500);
+}
+
 .demo-landing {
   @include mdc-theme-prop(color, #fff);
   @include mdc-theme-prop(background-color, $app-blue);
@@ -46,16 +54,16 @@ body {
   display: flex;
   flex-direction: column;
   padding: 15px;
-  max-width: 700px;
   margin: 15px;
+  max-width: 700px;
 }
 
 .demo-content-no-border {
   display: flex;
   flex-direction: column;
   padding: 15px;
-  max-width: 700px;
   margin: 15px;
+  max-width: 700px;
 }
 
 .demo-content--column {
@@ -105,6 +113,17 @@ body {
   .mdc-tab--active,
   .mdc-tab:hover {
     @include mdc-tab-ink-color(text-primary-on-primary);
+  }
+}
+
+.demo-tab-bar--indigo {
+  .mdc-tab:not(.mdc-tab--active) {
+    @include mdc-tab-ink-color(rgba(mdc-theme-prop-value(white), 0.54));
+  }
+
+  .mdc-tab--active,
+  .mdc-tab:hover {
+    @include mdc-tab-ink-color(white);
   }
 }
 

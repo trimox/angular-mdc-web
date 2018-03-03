@@ -33,12 +33,6 @@ describe('MdcTab', () => {
       testComponent = fixture.debugElement.componentInstance;
     });
 
-    it('#should disable ripple', () => {
-      testComponent.isRippleDisabled = true;
-      fixture.detectChanges();
-      expect(testInstance.disableRipple).toBeTruthy('Expected tab ripple to be disabled');
-    });
-
     it('#should have mdc-tab by default', () => {
       expect(testDebugElement.nativeElement.classList)
         .toContain('mdc-tab', 'Expected to have mdc-tab class applied');
@@ -46,23 +40,18 @@ describe('MdcTab', () => {
     });
 
     it('#should apply class based on property', () => {
-      testComponent.isActive = true;
-      fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList.contains('mdc-tab--active')).toBe(true);
-    });
-
-    it('#should apply class based on property', () => {
       testComponent.isDisabled = true;
       fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList.contains('mdc-tab--disabled')).toBe(true);
+      expect(testDebugElement.nativeElement.classList.contains('ng-mdc-tab--disabled')).toBe(true);
       expect(testInstance.disabled).toBe(true);
     });
 
-    it('#should apply prevent default on click', () => {
-      testComponent.isPreventDefault = false;
+    it('#should NOT apply class based from method', () => {
+      testInstance.setActive(true);
+      testInstance.setDisabled(true);
       fixture.detectChanges();
-      expect(testInstance.preventsDefaultOnClick).toBe(false);
-      expect(testInstance.getPreventDefaultOnClick()).toBe(false);
+      expect(testDebugElement.nativeElement.classList.contains('ng-mdc-tab--disabled')).toBe(false);
+      expect(testInstance.disabled).toBe(false);
     });
 
     it('#should execute following methods', () => {
@@ -71,27 +60,20 @@ describe('MdcTab', () => {
       expect(testInstance.measureSelf());
     });
 
-    it('#should remove active', () => {
-      testComponent.isActive = false;
-      fixture.detectChanges();
-      expect(testInstance.isActive()).toBe(false);
-    });
-
     it('#should apply active', () => {
       testInstance.setActive(true);
       fixture.detectChanges();
       expect(testInstance.isActive()).toBe(true);
+      expect(testInstance.elementRef.nativeElement.click());
     });
   });
 });
 
 /** Simple component for testing. */
 @Component({
-  template:
-    `
+  template: `
     <mdc-tab-bar>
-      <mdc-tab [active]="isActive" [disableRipple]="isRippleDisabled" [preventsDefaultOnClick]="isPreventDefault"
-        [disabled]="isDisabled" (select)="handleSelect($event)">
+      <mdc-tab [disabled]="isDisabled" (onSelected)="handleSelect($event)">
         <mdc-icon>phone</mdc-icon>
         <mdc-tab-icon-text>Recents</mdc-tab-icon-text>
       </mdc-tab>
@@ -101,11 +83,7 @@ describe('MdcTab', () => {
   `,
 })
 class SimpleTabs {
-  isActive: boolean = true;
-  isRippleDisabled: boolean = false;
   isDisabled: boolean = false;
-  isPreventDefault: boolean = true;
 
-  handleSelect(event: any) {
-  }
+  handleSelect(event: any) { }
 }

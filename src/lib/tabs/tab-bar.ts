@@ -1,7 +1,8 @@
 import {
-  AfterContentChecked,
+  AfterContentInit,
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChildren,
   Directive,
@@ -9,20 +10,36 @@ import {
   EventEmitter,
   HostBinding,
   Input,
+  NgZone,
   OnDestroy,
   Output,
   QueryList,
   Renderer2,
   ViewChild,
 } from '@angular/core';
-import { isBrowser, toNumber, EventRegistry } from '@angular-mdc/web/common';
-import { Subscription } from 'rxjs/Subscription';
+import { isBrowser, toNumber, EventRegistry, toBoolean } from '@angular-mdc/web/common';
+import { defer } from 'rxjs/observable/defer';
 import { merge } from 'rxjs/observable/merge';
+import { Observable } from 'rxjs/Observable';
+import { startWith } from 'rxjs/operators/startWith';
+import { Subject } from 'rxjs/Subject';
+import { switchMap } from 'rxjs/operators/switchMap';
+import { take } from 'rxjs/operators/take';
+import { takeUntil } from 'rxjs/operators/takeUntil';
 
-import { MdcTab, MdcTabChange } from './tab';
+import { MdcTab, MdcTabSelected } from './tab';
 
 import { MDCTabBarAdapter } from './adapter';
 import { MDCTabBarFoundation } from '@material/tabs';
+
+/** A simple change event emitted selection changes. */
+export class MdcTabChangeEvent {
+  constructor(
+    /** Index of the currently-selected tab. */
+    public index: number,
+    /** Reference to the currently-selected tab. */
+    public tab: MdcTab) { }
+}
 
 @Directive({
   selector: '[mdc-tab-bar-indicator], mdc-tab-bar-indicator',
@@ -46,7 +63,14 @@ export class MdcTabBarIndicator {
   providers: [EventRegistry],
   preserveWhitespaces: false,
 })
-export class MdcTabBar implements AfterViewInit, AfterContentChecked, OnDestroy {
+export class MdcTabBar implements AfterViewInit, AfterContentInit, OnDestroy {
+  /** Emits whenever the component is destroyed. */
+  private _destroy = new Subject<void>();
+
+  private _disableRipple: boolean = false;
+  private _primary: boolean = false;
+  private _secondary: boolean = false;
+
   /** The tab index that should be selected after the content has been checked. */
   private _indexToSelect: number | null = 0;
 
@@ -58,33 +82,62 @@ export class MdcTabBar implements AfterViewInit, AfterContentChecked, OnDestroy 
   get selectedIndex(): number | null { return this._selectedIndex; }
   private _selectedIndex: number | null = null;
 
-  /** Subscription to tabs being added/removed. */
-  private _tabsSubscription: Subscription = Subscription.EMPTY;
+  @Input()
+  get primary(): boolean { return this._primary; }
+  set primary(value: boolean) {
+    this._primary = toBoolean(value);
+    this._changeDetectorRef.markForCheck();
+  }
+  @Input()
+  get secondary(): boolean { return this._secondary; }
+  set secondary(value: boolean) {
+    this._secondary = toBoolean(value);
+    this._changeDetectorRef.markForCheck();
+  }
+  @Input()
+  get disableRipple(): boolean { return this._disableRipple; }
+  set disableRipple(value: boolean) {
+    this.setDisableRipple(value);
+    this._changeDetectorRef.markForCheck();
+  }
 
-  @Input() primary: boolean = false;
-  @Input() secondary: boolean = false;
-  @Output() change: EventEmitter<MdcTabChange> = new EventEmitter();
-  @ContentChildren(MdcTab) _tabs: QueryList<MdcTab>;
+  /** Event emitted when the tab selection has changed. */
+  @Output() readonly selectedTabChange: EventEmitter<MdcTabChangeEvent> =
+    new EventEmitter<MdcTabChangeEvent>(true);
+
+  @ContentChildren(MdcTab) tabs: QueryList<MdcTab>;
   @ViewChild(MdcTabBarIndicator) indicator: MdcTabBarIndicator;
+
   @HostBinding('class.mdc-tab-bar') isHostClass = true;
   @HostBinding('class.mdc-tab-bar-scroller__scroll-frame__tabs') scrollFrameContent = false;
   @HostBinding('attr.role') role: string = 'tablist';
-  @HostBinding('class.ng-mdc-indicator-tab-bar--primary') get classIndicatorPrimary() {
-    return this.primary ? 'ng-mdc-indicator-tab-bar--primary' : '';
+  @HostBinding('class.mdc-tab-bar--icon-tab-bar') get classTabIcon(): string {
+    return this.tabs.length > 0
+      && this.tabs.first.tabIcon != null
+      && this.tabs.first.tabIconText == null ? 'mdc-tab-bar--icon-tab-bar' : '';
   }
-  @HostBinding('class.ng-mdc-indicator-tab-bar--secondary') get classIndicatorSecondary() {
-    return this.secondary ? 'ng-mdc-indicator-tab-bar--secondary' : '';
+  @HostBinding('class.mdc-tab-bar--icons-with-text') get classTabIconText(): string {
+    return this.tabs.length > 0
+      && this.tabs.first.tabIcon != null
+      && this.tabs.first.tabIconText != null ? 'mdc-tab-bar--icons-with-text' : '';
   }
-  @HostBinding('class.mdc-tab-bar--icon-tab-bar') get classTabIcon() {
-    return this._tabs.length > 0
-      && this._tabs.first.tabIcon != null
-      && this._tabs.first.tabIconText == null;
+  @HostBinding('class.ng-mdc-tab--primary') get classPrimary(): string {
+    return this.primary ? 'ng-mdc-tab--primary' : '';
   }
-  @HostBinding('class.mdc-tab-bar--icons-with-text') get classTabIconText() {
-    return this._tabs.length > 0
-      && this._tabs.first.tabIcon != null
-      && this._tabs.first.tabIconText != null;
+  @HostBinding('class.ng-mdc-tab--secondary') get classSecondary(): string {
+    return this.secondary ? 'ng-mdc-tab--secondary' : '';
   }
+
+  /** Combined stream of all of the tab change events. */
+  readonly optionSelectionChanges: Observable<MdcTabSelected> = defer(() => {
+    if (this.tabs) {
+      return merge(...this.tabs.map(option => option.onSelected));
+    }
+
+    return this._ngZone.onStable
+      .asObservable()
+      .pipe(take(1), switchMap(() => this.optionSelectionChanges));
+  });
 
   private _mdcAdapter: MDCTabBarAdapter = {
     addClass: (className: string) => {
@@ -94,19 +147,19 @@ export class MdcTabBar implements AfterViewInit, AfterContentChecked, OnDestroy 
       this._renderer.removeClass(this.elementRef.nativeElement, className);
     },
     bindOnMDCTabSelectedEvent: () => {
-      this._tabsSubscription = this._tabs.changes.subscribe();
-      this._tabsSubscription = merge(
-        ...this._tabs.map(tab => tab.select)).subscribe((_: MdcTabChange) => {
-          if (_.tab.disabled) { return; }
-          const tabIndex = this._tabs.toArray().indexOf(_.tab);
-          this.selectedIndex = tabIndex;
-          this._foundation.switchToTabAtIndex(tabIndex, true);
+      const changedOrDestroyed = merge(this.tabs.changes, this._destroy);
+
+      this.optionSelectionChanges
+        .pipe(takeUntil(changedOrDestroyed)).subscribe(event => {
+          if (event.tab.disabled) { return; }
+
+          this.setActiveTab(event.tab, true);
+          this._foundation.switchToTabAtIndex(this.getActiveTabIndex(), true);
+          this.selectedTabChange.emit(new MdcTabChangeEvent(this.getActiveTabIndex(), event.tab));
         });
     },
     unbindOnMDCTabSelectedEvent: () => {
-      if (this._tabsSubscription) {
-        this._tabsSubscription.unsubscribe();
-      }
+      /** Not required - we destroy subscription above */
     },
     registerResizeHandler: (handler: EventListener) => {
       if (isBrowser()) {
@@ -123,17 +176,21 @@ export class MdcTabBar implements AfterViewInit, AfterContentChecked, OnDestroy 
       this._renderer.setStyle(this.indicator.elementRef.nativeElement, propertyName, value),
     getOffsetWidthForIndicator: () => this.indicator.elementRef.nativeElement.offsetWidth,
     notifyChange: (evtData: { activeTabIndex: number }) => {
-      this.change.emit({ index: evtData.activeTabIndex, tab: this._tabs.find((_) => _.isActive()) });
+      this.selectedTabChange.emit(new MdcTabChangeEvent(evtData.activeTabIndex, this.getActiveTab()));
     },
-    getNumberOfTabs: () => this._tabs.length,
-    isTabActiveAtIndex: (index: number) => this._tabs.toArray()[index].active,
-    setTabActiveAtIndex: (index: number, isActive: boolean) => this._tabs.toArray()[index].active = isActive,
-    isDefaultPreventedOnClickForTabAtIndex: (index: number) => !!this._tabs.toArray()[index].preventsDefaultOnClick,
+    getNumberOfTabs: () => this.tabs.length,
+    isTabActiveAtIndex: (index: number) => this.tabs.toArray()[index].isActive(),
+    setTabActiveAtIndex: (index: number, isActive: boolean) => this.tabs.toArray()[index].setActive(isActive),
+    isDefaultPreventedOnClickForTabAtIndex: (index: number) => !!this.tabs.toArray()[index].getPreventDefaultOnClick(),
     setPreventDefaultOnClickForTabAtIndex: (index: number, preventDefaultOnClick: boolean) =>
-      this._tabs.toArray()[index].setPreventDefaultOnClick(preventDefaultOnClick),
-    measureTabAtIndex: (index: number) => this._tabs.toArray()[index].measureSelf(),
-    getComputedWidthForTabAtIndex: (index: number) => this._tabs.toArray()[index].getComputedWidth(),
-    getComputedLeftForTabAtIndex: (index: number) => this._tabs.toArray()[index].getComputedLeft()
+      this.tabs.toArray()[index].setPreventDefaultOnClick(preventDefaultOnClick),
+    measureTabAtIndex: (index: number) => this.tabs.toArray()[index].measureSelf(),
+    getComputedWidthForTabAtIndex: (index: number) => {
+      return this.tabs.length ? this.tabs.toArray()[index].getComputedWidth() : -1;
+    },
+    getComputedLeftForTabAtIndex: (index: number) => {
+      return this.tabs.length ? this.tabs.toArray()[index].getComputedLeft() : -1;
+    }
   };
 
   private _foundation: {
@@ -145,6 +202,8 @@ export class MdcTabBar implements AfterViewInit, AfterContentChecked, OnDestroy 
   } = new MDCTabBarFoundation(this._mdcAdapter);
 
   constructor(
+    private _ngZone: NgZone,
+    private _changeDetectorRef: ChangeDetectorRef,
     private _renderer: Renderer2,
     public elementRef: ElementRef,
     private _registry: EventRegistry) { }
@@ -153,21 +212,41 @@ export class MdcTabBar implements AfterViewInit, AfterContentChecked, OnDestroy 
     this._foundation.init();
   }
 
-  ngAfterContentChecked(): void {
-    const indexToSelect = this._indexToSelect =
-      Math.min(this._tabs.length - 1, Math.max(this._indexToSelect || 0, 0));
-
-    if (this._selectedIndex !== indexToSelect) {
-      this._selectedIndex = indexToSelect;
-    }
+  ngAfterContentInit() {
+    this.tabs.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
+      this.setDisableRipple(this.disableRipple);
+      this._initializeSelection();
+    });
   }
 
   ngOnDestroy(): void {
+    this._destroy.next();
+    this._destroy.complete();
     this._foundation.destroy();
   }
 
+  private _initializeSelection(): void {
+    // Defer setting the value in order to avoid the "Expression
+    // has changed after it was checked" errors from Angular.
+    Promise.resolve().then(() => {
+      this.tabs.first.setActive(true);
+    });
+  }
+
+  setDisableRipple(disabled: boolean): void {
+    if (!this.tabs) { return; }
+
+    if (this._disableRipple !== disabled) {
+      this._disableRipple = disabled;
+    }
+
+    this.tabs.forEach(tab => {
+      disabled ? tab.ripple.destroy() : tab.ripple.init();
+    });
+  }
+
   setTabActiveAtIndex(index: number): void {
-    if (this._tabs.toArray()[index].disabled) { return; }
+    if (this.tabs.toArray()[index].disabled) { return; }
 
     this._foundation.switchToTabAtIndex(index, true);
     this._mdcAdapter.setTabActiveAtIndex(index, true);
@@ -175,6 +254,17 @@ export class MdcTabBar implements AfterViewInit, AfterContentChecked, OnDestroy 
 
   getActiveTabIndex(): number {
     return this._foundation.getActiveTabIndex();
+  }
+
+  getActiveTab(): MdcTab {
+    return this.tabs.find(_ => _.isActive())![0];
+  }
+
+  setActiveTab(tab: MdcTab, active: boolean): void {
+    this.tabs.forEach(_ => {
+      _.setActive(false);
+    });
+    this.tabs.find(_ => _ === tab)!.setActive(active);
   }
 
   layout(): void {

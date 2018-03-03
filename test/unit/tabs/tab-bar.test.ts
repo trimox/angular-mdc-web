@@ -38,20 +38,16 @@ describe('MdcTabBar', () => {
         .toContain('mdc-tab-bar', 'Expected MdcTabBar to have mdc-tab-bar css class');
     });
 
-    it('#should apply class based on property', () => {
-      testComponent.isPrimary = true;
-      fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList.contains('ng-mdc-indicator-tab-bar--primary')).toBe(true);
-
-      testComponent.isSecondary = true;
-      fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList.contains('ng-mdc-indicator-tab-bar--secondary')).toBe(true);
-    });
-
     it('#should execute following methods', () => {
       expect(testInstance.getComputedWidth());
       expect(testInstance.layout());
       expect(testInstance.getNumberOfTabs()).toBe(3);
+    });
+
+    it('#should disable ripple', () => {
+      testComponent.isRippleDisabled = true;
+      fixture.detectChanges();
+      expect(testInstance.disableRipple).toBeTruthy('Expected tab ripple to be disabled');
     });
 
     it('#should switch to tab', () => {
@@ -65,21 +61,32 @@ describe('MdcTabBar', () => {
       fixture.detectChanges();
       expect(testInstance.isDefaultPreventedOnClickForTabAtIndex(2)).toBe(false);
     });
+
+    it('#should apply primary class', () => {
+      testComponent.isPrimary = true;
+      fixture.detectChanges();
+      expect(testInstance.elementRef.nativeElement.classList.contains('ng-mdc-tab--primary')).toBe(true);
+    });
+
+    it('#should apply secondary class', () => {
+      testComponent.isSecondary = true;
+      fixture.detectChanges();
+      expect(testInstance.elementRef.nativeElement.classList.contains('ng-mdc-tab--secondary')).toBe(true);
+    });
   });
 });
 
 /** Simple component for testing. */
 @Component({
   template: `
-    <mdc-tab-bar [secondary]="isSecondary" [primary]="isPrimary">
-      <mdc-tab [active]="isActive">Home</mdc-tab>
+    <mdc-tab-bar [secondary]="isSecondary" [primary]="isPrimary" [disableRipple]="isRippleDisabled">
+      <mdc-tab>Home</mdc-tab>
       <mdc-tab>Merchandise</mdc-tab>
       <mdc-tab>About Us</mdc-tab>
     </mdc-tab-bar>
   `,
 })
 class SimpleTabs {
-  isActive: boolean = false;
   isRippleDisabled: boolean = false;
   isSecondary: boolean = false;
   isPrimary: boolean = false;

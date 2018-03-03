@@ -9,7 +9,7 @@
   <div fxFlexOffset="2">
     <mdc-tab-bar [primary]="true">
       <mdc-tab *ngFor="let child of textfieldTabs" [routerLink]="[{outlets: {taboutlet: child.route}}]"
-        routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">{{child.label}}</mdc-tab>
+        routerLinkActive #rla="routerLinkActive">{{child.label}}</mdc-tab>
     </mdc-tab-bar>
   </div>
   <router-outlet name="taboutlet" class="mdc-padding"></router-outlet>

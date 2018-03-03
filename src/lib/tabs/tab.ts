@@ -7,12 +7,10 @@ import {
   EventEmitter,
   HostBinding,
   Input,
-  OnChanges,
   OnDestroy,
   OnInit,
   Output,
   Renderer2,
-  SimpleChange,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -23,10 +21,7 @@ import { MdcIcon } from '@angular-mdc/web/icon';
 import { MDCTabAdapter } from './adapter';
 import { MDCTabFoundation } from '@material/tabs';
 
-export class MdcTabChange {
-  /** Index of the currently-selected tab. */
-  index: number;
-  /** Reference to the currently-selected tab. */
+export interface MdcTabSelected {
   tab: MdcTab;
 }
 
@@ -53,34 +48,19 @@ export class MdcTabIconText {
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
 })
-export class MdcTab implements OnInit, OnChanges, OnDestroy {
+export class MdcTab implements OnInit, OnDestroy {
   private _active: boolean = false;
   private _disabled: boolean = false;
-  private _disableRipple: boolean = false;
 
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
-    this._disabled = value;
+    this.setDisabled(value);
   }
-  @Input()
-  get active(): boolean { return this._active; }
-  set active(value: boolean) {
-    if (this._active !== value) {
-      this._active = value;
-    }
-  }
-  @Input()
-  get preventsDefaultOnClick(): boolean { return this._foundation.preventsDefaultOnClick(); }
-  set preventsDefaultOnClick(value: boolean) {
-    this._foundation.setPreventDefaultOnClick(value);
-  }
-  @Input()
-  get disableRipple(): boolean { return this._disableRipple; }
-  set disableRipple(value: boolean) {
-    this._disableRipple = toBoolean(value);
-  }
-  @Output() select: EventEmitter<MdcTabChange> = new EventEmitter();
+
+  /** Event emitted when the option is selected. */
+  @Output() onSelected: EventEmitter<MdcTabSelected> = new EventEmitter<MdcTabSelected>();
+
   @HostBinding('class.mdc-tab') isHostClass = true;
   @HostBinding('attr.role') role: string = 'tab';
   @HostBinding('class.mdc-tab--with-icon-and-text') get classIconText() {
@@ -89,18 +69,18 @@ export class MdcTab implements OnInit, OnChanges, OnDestroy {
   @HostBinding('class.mdc-tab--active') get classActive() {
     return this._active ? 'mdc-tab--active' : '';
   }
-  @HostBinding('class.mdc-tab--disabled') get classDisabled() {
-    return this._disabled ? 'mdc-tab--disabled' : '';
+  @HostBinding('class.ng-mdc-tab--disabled') get classDisabled() {
+    return this._disabled ? 'ng-mdc-tab--disabled' : '';
   }
   @ContentChild(MdcIcon) tabIcon: MdcIcon;
   @ContentChild(MdcTabIconText) tabIconText: MdcTabIconText;
 
   private _mdcAdapter: MDCTabAdapter = {
     addClass: (className: string) => {
-      this._renderer.addClass(this.elementRef.nativeElement, className);
+      this._renderer.addClass(this._getHostElement(), className);
     },
     removeClass: (className: string) => {
-      this._renderer.removeClass(this.elementRef.nativeElement, className);
+      this._renderer.removeClass(this._getHostElement(), className);
     },
     registerInteractionHandler: (type: string, handler: EventListener) => {
       this._registry.listen(type, handler, this.elementRef.nativeElement);
@@ -108,9 +88,9 @@ export class MdcTab implements OnInit, OnChanges, OnDestroy {
     deregisterInteractionHandler: (type: string, handler: EventListener) => {
       this._registry.unlisten(type, handler);
     },
-    getOffsetWidth: () => this.elementRef.nativeElement.offsetWidth,
-    getOffsetLeft: () => this.elementRef.nativeElement.offsetLeft,
-    notifySelected: () => this.select.emit({ index: null, tab: this })
+    getOffsetWidth: () => this._getHostElement().offsetWidth,
+    getOffsetLeft: () => this._getHostElement().offsetLeft,
+    notifySelected: () => this._emitSelectedEvent()
   };
 
   private _foundation: {
@@ -131,37 +111,9 @@ export class MdcTab implements OnInit, OnChanges, OnDestroy {
     private _registry: EventRegistry,
     public ripple: MdcRipple) { }
 
-  ngOnChanges(changes: { [key: string]: SimpleChange }): void {
-    const disabled = changes['disabled'];
-    const tabIcon = changes['tabIcon'];
-    const active = changes['active'];
-    const disableRipple = changes['disableRipple'];
-
-    if (disabled) {
-      disabled.currentValue ? this._renderer.setStyle(this.elementRef.nativeElement, 'color', '#bcbcbc')
-        : this._renderer.removeStyle(this.elementRef.nativeElement, 'color');
-    }
-    if (tabIcon) {
-      this._renderer.addClass(this.tabIcon.elementRef.nativeElement, 'mdc-tab__icon');
-    }
-    if (active) {
-      this._foundation.setActive(active.currentValue);
-      if (active.currentValue) {
-        this._mdcAdapter.notifySelected();
-      }
-    }
-    if (disableRipple) {
-      disableRipple.currentValue ? this.ripple.destroy() : this.ripple.init();
-    }
-  }
-
   ngOnInit(): void {
     this._foundation.init();
     this.setPreventDefaultOnClick(true);
-
-    if (!this._disableRipple) {
-      this.ripple.init();
-    }
   }
 
   ngOnDestroy(): void {
@@ -169,11 +121,18 @@ export class MdcTab implements OnInit, OnChanges, OnDestroy {
   }
 
   isActive(): boolean {
-    return this._active;
+    return this._foundation.isActive();
   }
 
-  setActive(value: boolean): void {
-    this._active = value;
+  setActive(isActive: boolean): void {
+    this._active = isActive;
+    this._foundation.setActive(isActive);
+  }
+
+  setDisabled(isDisabled: boolean): void {
+    if (this.isActive()) { return; }
+
+    this._disabled = isDisabled;
   }
 
   getComputedWidth(): number {
@@ -188,11 +147,21 @@ export class MdcTab implements OnInit, OnChanges, OnDestroy {
     return this._foundation.preventsDefaultOnClick();
   }
 
-  setPreventDefaultOnClick(value: boolean): void {
-    this._foundation.setPreventDefaultOnClick(value);
+  setPreventDefaultOnClick(preventDefaultOnClick: boolean): void {
+    this._foundation.setPreventDefaultOnClick(preventDefaultOnClick);
   }
 
   measureSelf(): void {
     this._foundation.measureSelf();
+  }
+
+  /** Emits the tab selected event. */
+  private _emitSelectedEvent(): void {
+    this.onSelected.emit({ tab: this });
+  }
+
+  /** Retrieves the DOM element of the component host. */
+  private _getHostElement() {
+    return this.elementRef.nativeElement;
   }
 }

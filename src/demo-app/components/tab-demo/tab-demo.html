@@ -310,19 +310,7 @@ a[mdc-tab]</pre></td>
       </mdc-tab-bar-scroll-back>
       <mdc-tab-bar-scroll-frame>
         <mdc-tab-bar #demoscrolltab (selectedTabChange)="onTabChange($event)">
-          <mdc-tab>Item One</mdc-tab>
-          <mdc-tab>Item Two</mdc-tab>
-          <mdc-tab>Item Three</mdc-tab>
-          <mdc-tab>Item Four</mdc-tab>
-          <mdc-tab>Item Five</mdc-tab>
-          <mdc-tab>Item Six</mdc-tab>
-          <mdc-tab>Item Seven</mdc-tab>
-          <mdc-tab>Item Eight</mdc-tab>
-          <mdc-tab>Item Nine</mdc-tab>
-          <mdc-tab>Item Ten</mdc-tab>
-          <mdc-tab>Item Eleven</mdc-tab>
-          <mdc-tab>Item Tweleve</mdc-tab>
-          <mdc-tab>Item Thirteen</mdc-tab>
+          <mdc-tab *ngFor="let tab of panelsLarge" [active]="tab.active">{{tab.label}}</mdc-tab>
         </mdc-tab-bar>
       </mdc-tab-bar-scroll-frame>
       <mdc-tab-bar-scroll-forward>
@@ -335,7 +323,7 @@ a[mdc-tab]</pre></td>
   <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-tabs?embed=1&file=app/app.component.html&view=editor" target="_blank" rel="noopener noreferrer">View Example Source</a>
   <div class="demo-content--row">
     <button mdc-button (click)="panels[2].disabled = !panels[2].disabled">Disable Tab Three: {{panels[2].disabled ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="toolbartab1.switchToTabAtIndex(2)">Make Tab (2) Active</button>
+    <button mdc-button (click)="toolbartab1.setTabActiveAtIndex(1)">Make Tab Two Active</button>
   </div>
   <div class="demo-tabs-host">
     <mdc-toolbar class="demo__toolbar-tabs--indigo">

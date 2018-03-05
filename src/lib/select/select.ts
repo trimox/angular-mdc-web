@@ -212,14 +212,14 @@ export class MdcSelect implements AfterViewInit, AfterContentInit, ControlValueA
   };
 
   private _foundation: {
-    init: Function,
-    destroy: Function,
-    getValue: Function,
-    getSelectedIndex: Function,
-    setSelectedIndex: Function,
-    isDisabled: Function,
-    setDisabled: Function,
-    resize: Function,
+    init(): void,
+    destroy(): void,
+    getValue(): any,
+    getSelectedIndex(): number,
+    setSelectedIndex(selectedIndex: number): void,
+    isDisabled(): boolean,
+    setDisabled(disabled: boolean): void,
+    resize(): void
   } = new MDCSelectFoundation(this._mdcAdapter);
 
   private _uniqueId: string = `mdc-select-${++nextUniqueId}`;

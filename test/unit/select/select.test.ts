@@ -78,6 +78,10 @@ describe('MdcSelectModule', () => {
       expect(testInstance.options.first.focus());
     });
 
+    it('#should select fruit-3', () => {
+      expect(testInstance.options.toArray()[3].select());
+    });
+
     it('#should be deselected item', () => {
       expect(testInstance.options.first.deselect());
     });

@@ -10,6 +10,7 @@ export * from '@angular-mdc/web/dialog';
 export * from '@angular-mdc/web/drawer';
 export * from '@angular-mdc/web/elevation';
 export * from '@angular-mdc/web/fab';
+export * from '@angular-mdc/web/floating-label';
 export * from '@angular-mdc/web/form-field';
 export * from '@angular-mdc/web/icon';
 export * from '@angular-mdc/web/icon-toggle';

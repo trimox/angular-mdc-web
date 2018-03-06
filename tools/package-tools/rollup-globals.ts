@@ -34,6 +34,7 @@ export const rollupGlobals = {
   '@material/chips': 'mdc.chips',
   '@material/dialog': 'mdc.dialog',
   '@material/drawer': 'mdc.drawer',
+  '@material/floating-label': 'mdc.floating-label',
   '@material/form-field': 'mdc.form-field',
   '@material/icon-toggle': 'mdc.icon-toggle',
   '@material/line-ripple': 'mdc.line-ripple',

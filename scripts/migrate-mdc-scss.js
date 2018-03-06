@@ -15,4 +15,4 @@ fs.mkdirSync(destPath);
 
 cpx.copy(source, dest);
 
-node scripts/rewrite-sass-import-statements.js src/theme/material-components-web
+//node scripts/rewrite-sass-import-statements.js src/theme/material-components-web

@@ -6,6 +6,7 @@ import {
   ElementRef,
   EventEmitter,
   HostBinding,
+  Input,
   OnDestroy,
   OnInit,
   QueryList,
@@ -14,6 +15,8 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { startWith } from 'rxjs/operators/startWith';
+
+import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
 
 import { MdcChip } from './chip';
 import { MDCChipSetAdapter } from '@material/chips/chip-set/adapter';
@@ -36,9 +39,23 @@ export class MdcChipSetChange {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
+  providers: [EventRegistry]
 })
 export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
+  /**
+  * Indicates that the chips in the set are choice chips, which allow a single selection from a set of options.
+  */
+  @Input()
+  get choice(): boolean { return this._choice; }
+  set choice(value: boolean) {
+    this._choice = toBoolean(value);
+  }
+  protected _choice: boolean = false;
+
   @HostBinding('class.mdc-chip-set') isHostClass = true;
+  @HostBinding('class.mdc-chip-set--choice') get classChoice(): string {
+    return this._choice ? 'mdc-chip-set--choice' : '';
+  }
   @ContentChildren(MdcChip) chips: QueryList<MdcChip>;
 
   /** Subscription to changes in the chip list. */
@@ -48,6 +65,10 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
     hasClass: (className: string) => {
       return this._getHostElement().classList.contains(className);
     },
+    registerInteractionHandler: (evtType: string, handler: EventListener) =>
+      this._registry.listen(evtType, handler, this._getHostElement()),
+    deregisterInteractionHandler: (evtType: string, handler: EventListener) =>
+      this._registry.unlisten(evtType, handler),
   };
 
   private _foundation: {
@@ -57,7 +78,8 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
 
   constructor(
     private _renderer: Renderer2,
-    public elementRef: ElementRef) { }
+    public elementRef: ElementRef,
+    private _registry: EventRegistry) { }
 
   ngAfterContentInit(): void {
     // When the list changes, re-subscribe

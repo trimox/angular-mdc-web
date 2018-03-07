@@ -305,9 +305,6 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
     if (this.trailingIcon) {
       this.trailingIcon.destroy();
     }
-    if (this.outlined) {
-      this.outlined.destroy();
-    }
 
     this._foundation.destroy();
   }

@@ -3,6 +3,8 @@ import {
   Directive,
   ElementRef,
   HostBinding,
+  OnDestroy,
+  OnInit,
   Renderer2,
   ViewChild,
   ViewEncapsulation,
@@ -31,11 +33,9 @@ export class MdcTextFieldIdleOutline {
   `,
   encapsulation: ViewEncapsulation.None,
   preserveWhitespaces: false,
-  providers: [
-    MdcRipple
-  ],
+  providers: [MdcRipple],
 })
-export class MdcTextFieldOutline {
+export class MdcTextFieldOutline implements OnInit, OnDestroy {
   private _idleOutline: MdcTextFieldIdleOutline;
 
   @HostBinding('class.mdc-text-field__outline') isHostClass = true;
@@ -67,16 +67,18 @@ export class MdcTextFieldOutline {
     private _renderer: Renderer2,
     public elementRef: ElementRef,
     private _ripple: MdcRipple) {
+    this._ripple.init();
+  }
+
+  ngOnInit(): void {
+    this.foundation = new MDCTextFieldOutlineFoundation(this._mdcAdapter);
+    this.foundation.init();
 
     this._ripple.init();
   }
 
-  init(): void {
-    this.foundation = new MDCTextFieldOutlineFoundation(this._mdcAdapter);
-    this.foundation.init();
-  }
-
-  destroy(): void {
+  ngOnDestroy(): void {
+    this._ripple.destroy();
     this.foundation.destroy();
   }
 

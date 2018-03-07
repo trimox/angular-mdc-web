@@ -5,11 +5,12 @@ import { By } from '@angular/platform-browser';
 import {
   MdcChipsModule,
   MdcChip,
+  MdcChipSet,
   MdcChipEvent,
   MdcChipSelectionChange,
 } from '@angular-mdc/web';
 
-describe('MdcChip', () => {
+describe('Chips', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
@@ -24,7 +25,7 @@ describe('MdcChip', () => {
     TestBed.compileComponents();
   }));
 
-  describe('basic behaviors', () => {
+  describe('MdcChip', () => {
     let testDebugElement: DebugElement;
     let testNativeElement: HTMLElement;
     let testInstance: MdcChip;
@@ -87,12 +88,12 @@ describe('MdcChip', () => {
     });
 
     it('should make disabled chips non-focusable', () => {
-      expect(testNativeElement.getAttribute('tabindex')).toBe('-1');
+      expect(testNativeElement.getAttribute('tabIndex')).toBe('0');
 
       testComponent.disabled = true;
       fixture.detectChanges();
 
-      expect(testNativeElement.getAttribute('tabindex')).toBeFalsy();
+      expect(testNativeElement.getAttribute('tabIndex')).toBeFalsy();
     });
 
     it('allows removal', () => {
@@ -107,11 +108,46 @@ describe('MdcChip', () => {
       fixture.detectChanges();
     });
   });
+
+  describe('MdcChipSet', () => {
+    let testDebugElement: DebugElement;
+    let testNativeElement: HTMLElement;
+    let testInstance: MdcChipSet;
+    let testComponent: ChipTest;
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(ChipTest);
+      fixture.detectChanges();
+
+      testDebugElement = fixture.debugElement.query(By.directive(MdcChipSet));
+      testNativeElement = testDebugElement.nativeElement;
+      testInstance = testDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+    });
+
+    it('#should have mdc-chip-set by default', () => {
+      expect(testDebugElement.nativeElement.classList).toContain('mdc-chip-set');
+    });
+
+    it('#should apply choice class modifier', () => {
+      testComponent.choice = true;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList.contains('mdc-chip-set--choice')).toBe(true);
+      expect(testInstance.choice).toBe(true);
+    });
+
+    it('#should apply filter class modifier', () => {
+      testComponent.filter = true;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList.contains('mdc-chip-set--filter')).toBe(true);
+      expect(testInstance.filter).toBe(true);
+    });
+  });
 });
 
 @Component({
   template: `
-  <mdc-chip-set>
+  <mdc-chip-set [choice]="choice" [filter]="filter">
     <mdc-chip *ngIf="shouldShow" [selected]="selected"
     [disabled]="disabled" [removable]="removable"
     [selectable]="selectable"
@@ -135,6 +171,8 @@ class ChipTest {
   disabled: boolean = false;
   selectable: boolean = true;
   removable: boolean = true;
+  choice: boolean = false;
+  filter: boolean = false;
 
   chipFocus: (event?: MdcChipEvent) => void = () => { };
   chipDestroy: (event?: MdcChipEvent) => void = () => { };

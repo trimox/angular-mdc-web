@@ -52,10 +52,24 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
   }
   protected _choice: boolean = false;
 
+  /**
+  * Indicates that the chips in the set are filter chips, which allow multiple selection from a set of options.
+  */
+  @Input()
+  get filter(): boolean { return this._filter; }
+  set filter(value: boolean) {
+    this._filter = toBoolean(value);
+  }
+  protected _filter: boolean = false;
+
   @HostBinding('class.mdc-chip-set') isHostClass = true;
   @HostBinding('class.mdc-chip-set--choice') get classChoice(): string {
     return this._choice ? 'mdc-chip-set--choice' : '';
   }
+  @HostBinding('class.mdc-chip-set--filter') get classFilter(): string {
+    return this._filter ? 'mdc-chip-set--filter' : '';
+  }
+
   @ContentChildren(MdcChip) chips: QueryList<MdcChip>;
 
   /** Subscription to changes in the chip list. */

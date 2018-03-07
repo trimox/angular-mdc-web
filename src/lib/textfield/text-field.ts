@@ -124,11 +124,8 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
   @Input()
   get required(): boolean { return this._required; }
   set required(value: boolean) {
-    this._required = toBoolean(value);
-
     if (value !== this._required) {
-      this.setRequired(this._required);
-      this._changeDetectorRef.markForCheck();
+      this.setRequired(toBoolean(value));
     }
   }
   @Input()
@@ -255,9 +252,7 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
     isValid(): boolean,
     setHelperTextContent(content: string): void,
     updateOutline(): void,
-    setRequired(isRequired): boolean,
-    isRequired(): boolean,
-    getValue(): string,
+    getValue(): string
   } = new MDCTextFieldFoundation(this._mdcAdapter, this._getFoundationMap());
 
   /** View -> model callback called when value changes */
@@ -385,12 +380,13 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
 
   /** Sets the text-field required or not. */
   setRequired(isRequired: boolean): void {
-    this._foundation.setRequired(isRequired);
+    this._required = isRequired;
+    this._changeDetectorRef.markForCheck();
   }
 
   /** True if the Text Field is required. */
   isRequired(): boolean {
-    return this._foundation.isRequired();
+    return this.required;
   }
 
   selectAll(): void {

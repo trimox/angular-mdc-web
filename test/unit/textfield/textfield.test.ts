@@ -131,7 +131,7 @@ describe('MdcTextField', () => {
     });
 
     it('#should set style shake to true', () => {
-      expect(textFieldInstance.inputLabel.styleShake(true, true));
+      expect(textFieldInstance.floatingLabel.shake(true));
       fixture.detectChanges();
     });
 

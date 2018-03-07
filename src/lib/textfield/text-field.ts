@@ -20,12 +20,12 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { toBoolean, isBrowser, EventRegistry } from '@angular-mdc/web/common';
+import { MdcFloatingLabel } from '@angular-mdc/web/floating-label';
 import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
 
 import { MdcTextFieldHelperText } from './helper-text';
 import { MdcTextFieldOutline, MdcTextFieldIdleOutline } from './outline';
 import { MdcTextFieldLeadingIcon, MdcTextFieldTrailingIcon } from './icon';
-import { MdcTextFieldLabel } from './label';
 
 import { MDCTextFieldAdapter } from '@material/textfield/adapter';
 import { MDCTextFieldFoundation } from '@material/textfield';
@@ -68,7 +68,7 @@ let nextUniqueId = 0;
     (focus)="onFocus()"
     (blur)="onBlur()"
     (input)="onInput($event.target.value)" />
-    <mdc-text-field-label [attr.for]="id" *ngIf="!placeholder">{{label}}</mdc-text-field-label>
+    <mdc-floating-label [attr.for]="id" *ngIf="!placeholder">{{label}}</mdc-floating-label>
     <mdc-line-ripple *ngIf="!outline"></mdc-line-ripple>
     <mdc-text-field-outline *ngIf="outline"></mdc-text-field-outline>
     <mdc-text-field-idle-outline *ngIf="outline"></mdc-text-field-idle-outline>
@@ -104,7 +104,7 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
   @Output() blur = new EventEmitter<string>();
   @HostBinding('class.mdc-text-field') isHostClass = true;
   @ViewChild('input') inputText: ElementRef;
-  @ViewChild(MdcTextFieldLabel) inputLabel: MdcTextFieldLabel;
+  @ViewChild(MdcFloatingLabel) floatingLabel: MdcFloatingLabel;
   @ViewChild(MdcLineRipple) lineRipple: MdcLineRipple;
   @ContentChild(MdcTextFieldLeadingIcon) leadingIcon: MdcTextFieldLeadingIcon;
   @ContentChild(MdcTextFieldTrailingIcon) trailingIcon: MdcTextFieldTrailingIcon;
@@ -226,6 +226,10 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
         this.lineRipple.setRippleCenter(normalizedX);
       }
     },
+    shakeLabel: (shouldShake: boolean) => this.floatingLabel.shake(shouldShake),
+    floatLabel: (shouldFloat: boolean) => this.floatingLabel.float(shouldFloat),
+    hasLabel: () => !!this.floatingLabel,
+    getLabelWidth: () => this.floatingLabel.getWidth(),
     getNativeInput: () => this.inputText.nativeElement
   };
 
@@ -235,7 +239,6 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
       helperText: this._helperText ? this.helperText.foundation : undefined,
       icon: this.leadingIcon ? this.leadingIcon.foundation
         : this.trailingIcon ? this.trailingIcon.foundation : undefined,
-      label: this.inputLabel ? this.inputLabel.foundation : undefined,
       outline: this.outline ? this.outlined.foundation : undefined,
     };
   }
@@ -298,9 +301,6 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
   }
 
   ngOnDestroy(): void {
-    if (this.lineRipple) {
-      this.lineRipple.destroy();
-    }
     if (this.helperText) {
       this.helperText.destroy();
     }
@@ -309,9 +309,6 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
     }
     if (this.trailingIcon) {
       this.trailingIcon.destroy();
-    }
-    if (this.inputLabel) {
-      this.inputLabel.destroy();
     }
     if (this.outlined) {
       this.outlined.destroy();
@@ -323,9 +320,8 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
   writeValue(value: string): void {
     this.value = value == null ? '' : value;
 
-    if (this.inputLabel) {
-      this.value.length > 0 ? this.inputLabel.addClass('mdc-text-field__label--float-above')
-        : this.inputLabel.removeClass('mdc-text-field__label--float-above');
+    if (this.floatingLabel) {
+      this.floatingLabel.float(this.value.length > 0);
     }
 
     this.change.emit(value);

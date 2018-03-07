@@ -35,7 +35,7 @@ export const MDC_TEXTFIELD_BOX_CONTROL_VALUE_ACCESSOR: any = {
     [required]="required"
     (blur)="onBlur()"
     (input)="onInput($event.target.value)" />
-  <mdc-text-field-label [attr.for]="id">{{label}}</mdc-text-field-label>
+  <mdc-floating-label [attr.for]="id">{{label}}</mdc-floating-label>
   <mdc-line-ripple></mdc-line-ripple>
   <ng-content select="mdc-icon"></ng-content>
   `,

@@ -5,4 +5,3 @@ export * from './outline';
 export * from './textarea';
 export * from './helper-text';
 export * from './icon';
-export * from './label';

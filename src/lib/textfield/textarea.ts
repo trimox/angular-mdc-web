@@ -7,6 +7,7 @@ import {
   Renderer2,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+
 import { EventRegistry } from '@angular-mdc/web/common';
 import { MdcTextField } from './text-field';
 
@@ -32,7 +33,7 @@ export const MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
     [required]="required"
     (blur)="onBlur()"
     (input)="onInput($event.target.value)"></textarea>
-    <mdc-text-field-label [attr.for]="id">{{label}}</mdc-text-field-label>
+    <mdc-floating-label [attr.for]="id">{{label}}</mdc-floating-label>
   `,
   providers: [
     MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR,

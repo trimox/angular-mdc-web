@@ -179,7 +179,7 @@ export class MdcChip implements OnInit, OnDestroy {
 
   @HostBinding('class.mdc-chip') isHostClass = true;
   @HostBinding('attr.tabindex') get tabindex(): number | null {
-    return this.disabled ? null : -1;
+    return this.disabled ? null : 0;
   }
 
   @HostListener('focus', ['$event']) onfocus() {

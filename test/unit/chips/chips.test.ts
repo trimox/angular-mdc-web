@@ -57,6 +57,12 @@ describe('Chips', () => {
       expect(testInstance.selected).toBe(true);
     });
 
+    it('#should toggle', () => {
+      testInstance.toggleSelected();
+      fixture.detectChanges();
+      expect(testInstance.selected).toBe(true);
+    });
+
     it('emits focus on click', () => {
       spyOn(testInstance, 'focus').and.callThrough();
 

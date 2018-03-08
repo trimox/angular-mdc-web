@@ -71,21 +71,21 @@ export class MdcIcon implements OnChanges, OnInit {
 
     if (fontSetClass !== this._previousFontSetClass) {
       if (this._previousFontSetClass) {
-        this._renderer.removeClass(el, this._previousFontSetClass);
+        this.getRenderer().removeClass(el, this._previousFontSetClass);
       }
       if (fontSetClass) {
-        this._renderer.addClass(el, fontSetClass);
+        this.getRenderer().addClass(el, fontSetClass);
       }
       this._previousFontSetClass = fontSetClass;
     }
 
     if (this.fontIcon !== this._previousFontIconClass) {
       if (this._previousFontIconClass) {
-        this._renderer.removeClass(el, this._previousFontIconClass);
+        this.getRenderer().removeClass(el, this._previousFontIconClass);
       }
       if (this.fontIcon) {
         for (const iconClass of this.fontIcon.split(' ')) {
-          this._renderer.addClass(el, iconClass);
+          this.getRenderer().addClass(el, iconClass);
         }
       }
       this._previousFontIconClass = this.fontIcon;
@@ -93,10 +93,10 @@ export class MdcIcon implements OnChanges, OnInit {
 
     if (fontSize !== this._previousFontSize) {
       if (this._previousFontSize) {
-        this._renderer.removeStyle(el, `font-size: ${fontSize}px`);
+        this.getRenderer().removeStyle(el, `font-size: ${fontSize}px`);
       }
       if (fontSize) {
-        this._renderer.setStyle(el, 'font-size', `${fontSize}px`);
+        this.getRenderer().setStyle(el, 'font-size', `${fontSize}px`);
       }
       this._previousFontSize = fontSize;
     }
@@ -118,5 +118,10 @@ export class MdcIcon implements OnChanges, OnInit {
   /** Retrieves the DOM element of the component host. */
   private _getHostElement() {
     return this.elementRef.nativeElement;
+  }
+
+  /** Retrieves the renderer of the component host. */
+  getRenderer(): Renderer2 {
+    return this._renderer;
   }
 }

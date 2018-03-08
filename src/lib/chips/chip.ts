@@ -3,16 +3,18 @@ import {
   ChangeDetectionStrategy,
   Component,
   ContentChild,
+  ContentChildren,
   Directive,
   ElementRef,
   EventEmitter,
   HostBinding,
   HostListener,
-  Input,
   Inject,
+  Input,
   OnDestroy,
   OnInit,
   Output,
+  QueryList,
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
@@ -70,7 +72,20 @@ export class MdcChipIcon extends MdcIcon {
     return this.leading ? 'mdc-chip__icon--leading' : '';
   }
   @HostBinding('class.mdc-chip__icon--trailing') get classIconTrailing(): string {
+    this.trailing ? this.getRenderer().setAttribute(this.elementRef.nativeElement, 'tabIndex', '0')
+      : this.getRenderer().removeAttribute(this.elementRef.nativeElement, 'tabIndex');
+    this.trailing ? this.getRenderer().setAttribute(this.elementRef.nativeElement, 'role', 'button')
+      : this.getRenderer().removeAttribute(this.elementRef.nativeElement, 'role');
+
     return this.trailing ? 'mdc-chip__icon--trailing' : '';
+  }
+
+  isLeading(): boolean {
+    return this._leading;
+  }
+
+  isTrailing(): boolean {
+    return this._trailing;
   }
 
   constructor(
@@ -196,12 +211,30 @@ export class MdcChip implements OnInit, OnDestroy {
   }
 
   @ContentChild(MdcChipText) chipText: MdcChipText;
+  @ContentChildren(MdcChipIcon) icons: QueryList<MdcChipIcon>;
 
   private _mdcAdapter: MDCChipAdapter = {
+    addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
+    removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
+    hasClass: (className: string) => this._getHostElement().classList.contains(className),
     registerInteractionHandler: (evtType: string, handler: EventListener) =>
       this._registry.listen(evtType, handler, this._getHostElement()),
     deregisterInteractionHandler: (evtType: string, handler: EventListener) =>
       this._registry.unlisten(evtType, handler),
+    registerTrailingIconInteractionHandler: (evtType: string, handler: EventListener) => {
+      if (this.icons) {
+        const trailingIcon = this.icons.find((_: MdcChipIcon) => _.isTrailing());
+
+        if (trailingIcon) {
+          this._registry.listen(evtType, handler, trailingIcon.elementRef.nativeElement);
+        }
+      }
+    },
+    deregisterTrailingIconInteractionHandler: (evtType: string, handler: EventListener) => {
+      if (this.icons) {
+        this._registry.unlisten(evtType, handler);
+      }
+    },
     notifyInteraction: () => {
       this.selectionChange.emit({
         source: this,
@@ -214,6 +247,7 @@ export class MdcChip implements OnInit, OnDestroy {
   private _foundation: {
     init(): void,
     destroy(): void,
+    toggleSelected(): void
   } = new MDCChipFoundation(this._mdcAdapter);
 
   constructor(
@@ -290,6 +324,8 @@ export class MdcChip implements OnInit, OnDestroy {
       isUserInput,
       selected: this._selected
     });
+
+    this._foundation.toggleSelected();
 
     return this.selected;
   }

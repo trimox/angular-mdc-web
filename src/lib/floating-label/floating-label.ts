@@ -6,7 +6,6 @@ import {
   HostBinding,
   OnDestroy,
   OnInit,
-  Output,
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
@@ -22,7 +21,7 @@ import { MDCFloatingLabelFoundation } from '@material/floating-label';
   providers: [EventRegistry],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  preserveWhitespaces: false,
+  preserveWhitespaces: false
 })
 export class MdcFloatingLabel implements OnInit, OnDestroy {
   @HostBinding('class.mdc-floating-label') isHostClass = true;

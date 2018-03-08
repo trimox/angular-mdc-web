@@ -6,7 +6,6 @@ import {
   HostBinding,
   OnDestroy,
   OnInit,
-  Output,
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';

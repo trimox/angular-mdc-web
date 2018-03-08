@@ -81,7 +81,7 @@ module.exports = [{
             loader: 'angular2-template-loader'
           }, {
           loader: 'string-replace-loader',
-            query: {
+            options: {
               search: 'moduleId: module.id,',
               replace: '',
               flags: 'g'

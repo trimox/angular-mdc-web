@@ -57,10 +57,30 @@ describe('Chips', () => {
       expect(testInstance.selected).toBe(true);
     });
 
+    it('#should set selected to true', () => {
+      testInstance.selectViaInteraction();
+      fixture.detectChanges();
+      expect(testInstance.selected).toBe(true);
+    });
+
     it('#should toggle', () => {
       testInstance.toggleSelected();
       fixture.detectChanges();
       expect(testInstance.selected).toBe(true);
+    });
+
+    it('#should have leading icon', () => {
+      expect(testInstance.icons.first.isLeading()).toBe(true);
+    });
+
+    it('#should have trailing icon', () => {
+      expect(testInstance.icons.last.isTrailing()).toBe(true);
+    });
+
+    it('#should not be selected', () => {
+      testInstance.deselect();
+      fixture.detectChanges();
+      expect(testInstance.selected).toBe(false);
     });
 
     it('emits focus on click', () => {
@@ -70,18 +90,6 @@ describe('Chips', () => {
 
       expect(testInstance.focus).toHaveBeenCalledTimes(1);
     });
-
-    // it('allows selection', () => {
-    //   spyOn(testComponent, 'chipSelectionChange');
-    //   expect(testNativeElement.classList).not.toContain('mdc-chip-selected');
-
-    //   testComponent.selected = true;
-    //   fixture.detectChanges();
-
-    //   expect(testNativeElement.classList).toContain('mdc-chip-selected');
-    //   expect(testComponent.chipSelectionChange)
-    //     .toHaveBeenCalledWith({ source: testInstance, isUserInput: false, selected: true });
-    // });
 
     it('emits destroy on destruction', () => {
       spyOn(testComponent, 'chipDestroy').and.callThrough();
@@ -155,8 +163,7 @@ describe('Chips', () => {
   template: `
   <mdc-chip-set [choice]="choice" [filter]="filter">
     <mdc-chip *ngIf="shouldShow" [selected]="selected"
-    [disabled]="disabled" [removable]="removable"
-    [selectable]="selectable"
+    [disabled]="disabled"
     (focus)="chipFocus($event)"
     (selectionChange)="chipSelectionChange($event)"
     (removed)="chipRemove($event)"
@@ -175,8 +182,6 @@ class ChipTest {
   selected: boolean = false;
   shouldShow: boolean = true;
   disabled: boolean = false;
-  selectable: boolean = true;
-  removable: boolean = true;
   choice: boolean = false;
   filter: boolean = false;
 

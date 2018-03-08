@@ -148,27 +148,6 @@ export class MdcChip implements OnInit, OnDestroy {
     });
   }
 
-  /**
-  * Determines whether or not the chip displays the remove styling and emits (remove) events.
-  */
-  @Input()
-  get removable(): boolean { return this._removable; }
-  set removable(value: boolean) {
-    this._removable = toBoolean(value);
-  }
-  protected _removable: boolean = true;
-
-  /**
-   * Whether or not the chips are selectable. When a chip is not selectable,
-   * changes to it's selected state are always ignored.
-   */
-  @Input()
-  get selectable(): boolean { return this._selectable; }
-  set selectable(value: boolean) {
-    this._selectable = toBoolean(value);
-  }
-  protected _selectable: boolean = true;
-
   /** Whether the chip is disabled. */
   @Input()
   get disabled(): boolean { return this._disabled; }
@@ -279,51 +258,35 @@ export class MdcChip implements OnInit, OnDestroy {
    * Informs any listeners of the removal request. Does not remove the chip from the DOM.
    */
   remove(): void {
-    if (this.removable) {
-      this.removed.emit({ chip: this });
-    }
+    this.removed.emit({ chip: this });
   }
 
   /** Selects the chip. */
   select(): void {
     this._selected = true;
-    this.selectionChange.emit({
-      source: this,
-      isUserInput: false,
-      selected: true
-    });
+    this._emitSelectionChangeEvent(false);
+    this._foundation.toggleSelected();
   }
 
   /** Deselects the chip. */
   deselect(): void {
     this._selected = false;
-    this.selectionChange.emit({
-      source: this,
-      isUserInput: false,
-      selected: false
-    });
+    this._emitSelectionChangeEvent(false);
+    this._foundation.toggleSelected();
   }
 
   /** Select this chip and emit selected event */
   selectViaInteraction(): void {
     this._selected = true;
-    // Emit select event when selected changes.
-    this.selectionChange.emit({
-      source: this,
-      isUserInput: true,
-      selected: true
-    });
+    this._emitSelectionChangeEvent(true);
+    this._foundation.toggleSelected();
   }
 
   /** Toggles the current selected state of this chip. */
   toggleSelected(isUserInput: boolean = false): boolean {
     this._selected = !this.selected;
-
-    this.selectionChange.emit({
-      source: this,
-      isUserInput,
-      selected: this._selected
-    });
+    this._emitSelectionChangeEvent(isUserInput);
+    this._foundation.toggleSelected();
 
     this._foundation.toggleSelected();
 
@@ -335,6 +298,7 @@ export class MdcChip implements OnInit, OnDestroy {
     if (this.disabled) {
       return;
     }
+    this.select();
 
     event.preventDefault();
     event.stopPropagation();
@@ -357,8 +321,7 @@ export class MdcChip implements OnInit, OnDestroy {
         event.preventDefault();
         break;
       case SPACE:
-        // If we are selectable, toggle the focused chip
-        if (this.selectable) {
+        if (!this.disabled) {
           this.toggleSelected(true);
         }
 
@@ -375,5 +338,10 @@ export class MdcChip implements OnInit, OnDestroy {
   /** Retrieves the DOM element of the component host. */
   private _getHostElement() {
     return this.elementRef.nativeElement;
+  }
+
+  /** Emits the selection change event. */
+  private _emitSelectionChangeEvent(isUserInput = false): void {
+    this.selectionChange.emit({ source: this, isUserInput: isUserInput, selected: this.selected });
   }
 }

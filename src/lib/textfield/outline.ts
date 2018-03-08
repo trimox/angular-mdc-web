@@ -9,8 +9,6 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { MdcRipple } from '@angular-mdc/web/ripple';
-
 import { MDCTextFieldOutlineAdapter } from '@material/textfield/outline/adapter';
 import { MDCTextFieldOutlineFoundation } from '@material/textfield/outline';
 
@@ -32,8 +30,7 @@ export class MdcTextFieldIdleOutline {
   </svg>
   `,
   encapsulation: ViewEncapsulation.None,
-  preserveWhitespaces: false,
-  providers: [MdcRipple],
+  preserveWhitespaces: false
 })
 export class MdcTextFieldOutline implements OnInit, OnDestroy {
   private _idleOutline: MdcTextFieldIdleOutline;
@@ -65,20 +62,14 @@ export class MdcTextFieldOutline implements OnInit, OnDestroy {
 
   constructor(
     private _renderer: Renderer2,
-    public elementRef: ElementRef,
-    private _ripple: MdcRipple) {
-    this._ripple.init();
-  }
+    public elementRef: ElementRef) { }
 
   ngOnInit(): void {
     this.foundation = new MDCTextFieldOutlineFoundation(this._mdcAdapter);
     this.foundation.init();
-
-    this._ripple.init();
   }
 
   ngOnDestroy(): void {
-    this._ripple.destroy();
     this.foundation.destroy();
   }
 

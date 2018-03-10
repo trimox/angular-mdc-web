@@ -4,21 +4,18 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OUT_PATH = path.resolve('./publish');
 const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
 
-const CSS_LOADER_CONFIG = [{
-  loader: 'css-loader',
-  options: {
-    minimize: true,
-  }
-}, {
-  loader: 'postcss-loader',
-  options: {
-    plugins: () => [require('autoprefixer')({
-      grid: false
-    })]
-  }
-}, {
-  loader: 'sass-loader'
-}];
+const CSS_LOADER_CONFIG = [
+  { loader: 'css-loader' },
+  {
+    loader: 'postcss-loader',
+    options: {
+      plugins: () => [require('autoprefixer')({
+        grid: false
+      })]
+    }
+  },
+  { loader: 'sass-loader' }
+];
 
 module.exports = [{
   context: path.resolve(__dirname, '../../src/demo-app'),

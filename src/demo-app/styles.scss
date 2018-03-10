@@ -3,7 +3,7 @@ $app-blue: #2980b9;
 $mdc-theme-primary: #1565c0;
 $mdc-theme-secondary: #388e3c;
 
-@import "../theme/material.scss";
+@import "~@angular-mdc/theme";
 
 body {
   height: 100%;
@@ -185,6 +185,10 @@ body {
   max-width: 600px;
 }
 
+//
+// Card styles
+//
+
 .demo-card {
   width: 350px;
 }
@@ -295,4 +299,40 @@ body {
 
 .demo-card__action-buttons--text-only {
   margin-left: 8px;
+}
+
+//
+// Radio button
+//
+
+.demo-radio--custom {
+  $color: $material-color-red-500;
+
+  @include mdc-radio-unchecked-stroke-color($color);
+  @include mdc-radio-checked-stroke-color($color);
+  @include mdc-radio-ink-color($material-color-orange-500);
+  @include mdc-radio-focus-indicator-color($color);
+  @include mdc-states($color);
+}
+
+//
+// Top App Bar
+//
+
+.demo-top-app-bar-container {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  margin: 15px;
+  width: 700px;
+  max-width: 700px;
+}
+
+.demo-top-app-bar-content {
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+  max-width: 700px;
+  height: 200px;
+  overflow-y: scroll;
 }

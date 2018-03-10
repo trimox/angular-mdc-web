@@ -41,7 +41,6 @@ export class MdcButton implements AfterContentInit, OnChanges {
   @Input() raised: boolean = false;
   @Input() primary: boolean = false;
   @Input() dense: boolean = false;
-  @Input() compact: boolean = false;
   @Input() secondary: boolean = false;
   @Input() unelevated: boolean = false;
   @Input() stroked: boolean = false;
@@ -76,9 +75,6 @@ export class MdcButton implements AfterContentInit, OnChanges {
   }
   @HostBinding('class.mdc-button--dense') get classDense(): string {
     return this.dense ? 'mdc-button--dense' : '';
-  }
-  @HostBinding('class.mdc-button--compact') get classCompact(): string {
-    return this.compact ? 'mdc-button--compact' : '';
   }
   @HostBinding('class.mdc-button--unelevated') get classUnelevated(): string {
     return this.unelevated ? 'mdc-button--unelevated' : '';

@@ -62,10 +62,6 @@ describe('MdcButton', () => {
       fixture.detectChanges();
       expect(buttonDebugElement.nativeElement.classList.contains('mdc-button--dense')).toBe(true);
 
-      testComponent.isCompact = true;
-      fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.classList.contains('mdc-button--compact')).toBe(true);
-
       testComponent.isUnelevated = true;
       fixture.detectChanges();
       expect(buttonDebugElement.nativeElement.classList.contains('mdc-button--unelevated')).toBe(true);
@@ -214,7 +210,6 @@ describe('MdcButton', () => {
       [primary]="isPrimary"
       [secondary]="isSecondary"
       [dense]="isDense"
-      [compact]="isCompact"
       [unelevated]="isUnelevated"
       [stroked]="isStroked">
       My label
@@ -225,7 +220,6 @@ class SimpleButton {
   isDisabled: boolean = false;
   isRaised: boolean = false;
   isDense: boolean = false;
-  isCompact: boolean = false;
   isPrimary: boolean = false;
   isSecondary: boolean = false;
   isRippleDisabled: boolean = false;

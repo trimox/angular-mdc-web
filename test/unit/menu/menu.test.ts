@@ -88,6 +88,12 @@ describe('MdcMenu', () => {
       fixture.detectChanges();
       expect(testInstance.getSelectedIndex()).toBe(2);
     });
+
+    it('#should set max height of menu list', () => {
+      testInstance.setMaxHeight('200');
+      fixture.detectChanges();
+      expect(testDebugElement.styles.maxHeight).toBe('200');
+    });
   });
 });
 

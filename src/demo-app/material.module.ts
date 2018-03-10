@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import {
+  MdcAppBarModule,
   MdcButtonModule,
   MdcCardModule,
   MdcCheckboxModule,
@@ -29,6 +30,7 @@ import {
 
 @NgModule({
   exports: [
+    MdcAppBarModule,
     MdcButtonModule,
     MdcCardModule,
     MdcCheckboxModule,

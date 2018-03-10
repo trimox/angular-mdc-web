@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 
+import { AppBarDemo } from './components/app-bar/app-bar-demo';
 import { ButtonDemo } from './components/buttons/button-demo/button-demo';
 import { CardDemo } from './components/card-demo/card-demo';
 import { CheckboxDemo } from './components/inputs-controls/checkbox-demo/checkbox-demo';
@@ -30,6 +31,7 @@ import { TABS_DEMO_ROUTES } from './components/tab-demo/routes';
 import { TEXTFIELD_DEMO_ROUTES } from './components/inputs-controls/textfield-demo/routes';
 
 export const DEMO_ROUTES = [
+  AppBarDemo,
   ButtonDemo,
   CardDemo,
   CheckboxDemo,
@@ -58,6 +60,7 @@ export const DEMO_ROUTES = [
 ];
 
 export const APP_ROUTES: Routes = [
+  { path: 'app-bar-demo', component: AppBarDemo },
   { path: 'button-demo', component: ButtonDemo },
   { path: 'chips-demo', component: ChipsDemo },
   { path: 'checkbox-demo', component: CheckboxDemo },

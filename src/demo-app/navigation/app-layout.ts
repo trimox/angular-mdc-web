@@ -11,6 +11,7 @@ export class AppLayout {
   inputVisible: boolean;
 
   navigationLinks = [
+    { name: 'App Bar', route: 'app-bar-demo', icon: 'remove' },
     { name: 'Card', route: 'card-demo', icon: 'credit_card' },
     { name: 'Chips', route: 'chips-demo', icon: 'indeterminate_check_box' },
     { name: 'Dialog', route: 'dialog-demo', icon: 'question_answer' },

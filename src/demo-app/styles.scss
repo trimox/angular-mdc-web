@@ -321,11 +321,8 @@ body {
 
 .demo-top-app-bar-container {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
-  padding: 15px;
-  margin: 15px;
-  width: 700px;
-  max-width: 700px;
 }
 
 .demo-top-app-bar-content {
@@ -335,4 +332,10 @@ body {
   max-width: 700px;
   height: 200px;
   overflow-y: scroll;
+}
+
+.demo-top-app-bar--not-fixed {
+  .mdc-top-app-bar--short {
+    position: relative;
+  }
 }

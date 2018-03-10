@@ -1,0 +1,111 @@
+<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
+  <div>
+    <h1 mdc-typography-display1>App Bar</h1>
+    <span>MDC App Bar acts as a container for items such as application title, navigation icon, and action items. Top app bars scroll with content by default.</span>
+  </div>
+  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
+    <![CDATA[import { MdcAppBarModule } from '@angular-mdc/web';]]>
+  </div>
+  <div class="docs-api">
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-app-bar</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>short: boolean</td>
+          <td>Style the app bar as a short app bar.</td>
+        </tr>
+        <tr>
+          <td>collapsed: boolean</td>
+          <td>Indicate the short app bar is collapsed. (requires short is set to true)</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Events</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><pre>navigationSelected:
+EventEmitter<![CDATA[<MdcAppBarNavSelected>]]></pre></td>
+          <td>Emitted when the app bar navigation menu icon is selected.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <a mdc-button href="https://stackblitz.com/edit/angular-mdc-app-bar?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Example Source</a>
+
+  <div class="demo-top-app-bar-container demo-top-app-bar--not-fixed">
+    <div class="demo-content--row">
+      <button mdc-button (click)="demoappbar.short = !demoappbar.short">Short: {{demoappbar.short ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoappbar.collapsed = !demoappbar.collapsed">Short and Collapsed: {{demoappbar.collapsed ? 'On' : 'Off'}}</button>
+    </div>
+    <mdc-app-bar #demoappbar>
+      <mdc-app-bar-row>
+        <mdc-app-bar-section align="start">
+          <mdc-icon mdcAppBarNavIcon>menu</mdc-icon>
+          <mdc-app-bar-title>Title</mdc-app-bar-title>
+        </mdc-app-bar-section>
+        <mdc-app-bar-section align="end">
+          <mdc-icon mdcAppBarActionItem>file_download</mdc-icon>
+        </mdc-app-bar-section>
+      </mdc-app-bar-row>
+    </mdc-app-bar>
+    <div class="demo-top-app-bar-content">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      Risus feugiat in ante metus dictum at tempor commodo. Vel orci porta non pulvinar neque. Dolor magna eget est lorem ipsum
+      dolor sit. Adipiscing enim eu turpis egestas. Libero enim sed faucibus turpis in eu. Blandit aliquam etiam erat velit scelerisque.
+      Pellentesque eu tincidunt tortor aliquam nulla facilisi cras. Pharetra vel turpis nunc eget lorem dolor sed viverra. Faucibus
+      pulvinar elementum integer enim neque volutpat ac. Facilisi nullam vehicula ipsum a arcu cursus vitae congue. Porta non
+      pulvinar neque laoreet suspendisse interdum. Consectetur purus ut faucibus pulvinar elementum integer. Faucibus et molestie
+      ac feugiat sed. Facilisi cras fermentum odio eu. Eget nunc lobortis mattis aliquam faucibus purus in massa. Morbi blandit
+      cursus risus at ultrices mi tempus imperdiet nulla. Id ornare arcu odio ut. Lobortis scelerisque fermentum dui faucibus
+      in ornare quam viverra. Purus semper eget duis at tellus at urna condimentum mattis. Volutpat maecenas volutpat blandit
+      aliquam etiam. In egestas erat imperdiet sed euismod nisi porta lorem mollis. Mus mauris vitae ultricies leo integer. Et
+      egestas quis ipsum suspendisse. Diam sit amet nisl suscipit adipiscing bibendum. Faucibus ornare suspendisse sed nisi lacus.
+      Accumsan sit amet nulla facilisi morbi tempus iaculis urna. Sed ullamcorper morbi tincidunt ornare massa. Libero enim sed
+      faucibus turpis in eu mi. Tincidunt ornare massa eget egestas purus viverra. Eget sit amet tellus cras. Sed felis eget velit
+      aliquet sagittis id consectetur purus. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet consectetur
+      adipiscing elit duis. Tincidunt augue interdum velit euismod in pellentesque massa placerat duis. Semper auctor neque vitae
+      tempus quam pellentesque nec nam. A scelerisque purus semper eget duis at tellus at. Maecenas volutpat blandit aliquam etiam
+      erat velit. Arcu non odio euismod lacinia at. Netus et malesuada fames ac. Congue eu consequat ac felis. Mattis enim ut
+      tellus elementum sagittis vitae et leo duis. Eu non diam phasellus vestibulum lorem. Ultricies lacus sed turpis tincidunt
+      id aliquet risus. Ac odio tempor orci dapibus ultrices. Malesuada fames ac turpis egestas integer eget aliquet nibh praesent.
+      Nunc congue nisi vitae suscipit tellus mauris a diam. Urna cursus eget nunc scelerisque viverra mauris in aliquam. Semper
+      auctor neque vitae tempus quam pellentesque nec nam. Eu consequat ac felis donec et odio. Quisque non tellus orci ac auctor
+      augue mauris augue neque. Consectetur adipiscing elit pellentesque habitant. Consectetur a erat nam at lectus urna duis.
+      Senectus et netus et malesuada fames ac. Quis blandit turpis cursus in hac habitasse platea dictumst. Sit amet facilisis
+      magna etiam tempor orci eu. Adipiscing bibendum est ultricies integer quis auctor. Erat imperdiet sed euismod nisi porta
+      lorem mollis aliquam ut. Morbi blandit cursus risus at ultrices mi tempus imperdiet. Blandit cursus risus at ultrices mi
+      tempus imperdiet nulla malesuada. Amet risus nullam eget felis eget nunc lobortis mattis. Tristique senectus et netus et.
+      Eget nunc scelerisque viverra mauris in aliquam sem. Elementum pulvinar etiam non quam lacus suspendisse faucibus. Non pulvinar
+      neque laoreet suspendisse interdum. Curabitur vitae nunc sed velit dignissim sodales ut eu sem. Pulvinar sapien et ligula
+      ullamcorper malesuada proin libero nunc. Mi proin sed libero enim sed faucibus. Semper auctor neque vitae tempus quam pellentesque
+      nec nam. Eu consequat ac felis donec et odio. Quisque non tellus orci ac auctor augue mauris augue neque. Consectetur adipiscing
+      elit pellentesque habitant. Consectetur a erat nam at lectus urna duis. Senectus et netus et malesuada fames ac. Quis blandit
+      turpis cursus in hac habitasse platea dictumst. Sit amet facilisis magna etiam tempor orci eu. Adipiscing bibendum est ultricies
+      integer quis auctor. Erat imperdiet sed euismod nisi porta lorem mollis aliquam ut. Morbi blandit cursus risus at ultrices
+      mi tempus imperdiet. Blandit cursus risus at ultrices mi tempus imperdiet nulla malesuada. Amet risus nullam eget felis
+      eget nunc lobortis mattis. Tristique senectus et netus et. Eget nunc scelerisque viverra mauris in aliquam sem. Elementum
+      pulvinar etiam non quam lacus suspendisse faucibus. Non pulvinar neque laoreet suspendisse interdum. Curabitur vitae nunc
+      sed velit dignissim sodales ut eu sem. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Mi proin sed libero
+      enim sed faucibus.
+    </div>
+  </div>
+</div>

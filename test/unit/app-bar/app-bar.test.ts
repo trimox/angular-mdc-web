@@ -44,18 +44,16 @@ describe('MdcAppBar', () => {
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short')).toBe(true);
     });
 
+    it('#should remove mdc-top-app-bar--short class based on property', () => {
+      testComponent.short = false;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short')).toBe(false);
+    });
+
     it('#should apply mdc-top-app-bar--short-collapsed class based on property', () => {
       testComponent.collapsed = true;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short-collapsed')).toBe(true);
-    });
-
-    it('#should turn off collapsed', () => {
-      testComponent.collapsed = true;
-      fixture.detectChanges();
-      testComponent.short = false;
-      fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short-collapsed')).toBe(false);
     });
   });
 });
@@ -63,18 +61,20 @@ describe('MdcAppBar', () => {
 @Component({
   template: `
     <mdc-app-bar
+      [fixedAdjustElement]="testcontent"
       [short]="short"
       [collapsed]="collapsed">
       <mdc-app-bar-row>
         <mdc-app-bar-section align="start">
-          <a href="#" mdcAppBarNavIcon material-icon>menu</a>
+          <mdc-icon mdcAppBarNavIcon>menu</mdc-icon>
           <mdc-app-bar-title>Title</mdc-app-bar-title>
         </mdc-app-bar-section>
         <mdc-app-bar-section align="end">
-          <a href="#/toolbar-demo" mdcAppBarActionItem material-icon>file_download</a>
+          <mdc-icon mdcAppBarActionItem>file_download</mdc-icon>
         </mdc-app-bar-section>
       </mdc-app-bar-row>
     </mdc-app-bar>
+    <div #testcontent></div>
   `,
 })
 class SimpleTest {

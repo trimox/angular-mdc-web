@@ -63,6 +63,15 @@ export class MdcAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
   }
   protected _collapsed: boolean = false;
 
+  @Input()
+  get fixedAdjustElement(): any { return this._fixedAdjustElement; }
+  set fixedAdjustElement(element: any) {
+    if (this._fixedAdjustElement !== element) {
+      this.setFixedAdjustElement(element);
+    }
+  }
+  protected _fixedAdjustElement: any;
+
   /** Event emitted when the navigation icon is selected. */
   @Output() navigationSelected: EventEmitter<MdcAppBarNavSelected> = new EventEmitter<MdcAppBarNavSelected>();
 
@@ -93,22 +102,28 @@ export class MdcAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
     },
     notifyNavigationIconClicked: () => this.navigationSelected.emit({ source: this }),
     registerScrollHandler: (handler: EventListener) => {
-      if (isBrowser()) {
-        this._registry.listen('scroll', handler, window, util.applyPassive());
-      }
+      if (!isBrowser()) { return; }
+
+      const element = (this.fixedAdjustElement && this.short) ? this.fixedAdjustElement : window;
+      this._registry.listen('scroll', handler, element, util.applyPassive());
     },
     deregisterScrollHandler: (handler: EventListener) => {
-      if (isBrowser()) {
-        this._registry.unlisten('scroll', handler);
-      }
+      if (!isBrowser()) { return; }
+
+      this._registry.unlisten('scroll', handler);
     },
-    getViewportScrollY: () => isBrowser() ? window.pageYOffset : 0,
+    getViewportScrollY: () => {
+      if (!isBrowser()) { return 0; }
+
+      return (this.fixedAdjustElement && this.short) ? this.fixedAdjustElement.scrollTop : window.pageYOffset;
+    },
     getTotalActionItems: () => this.actions ? this.actions.length : 0
   };
 
   foundation: {
     init(): void,
-    destroy(): void
+    destroy(): void,
+    scrollHandler_: any
   } = new MDCTopAppBarFoundation(this._mdcAdapter);
 
   constructor(
@@ -134,20 +149,46 @@ export class MdcAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
     this.foundation.destroy();
   }
 
+  /** Sets the fixed adjust element for scrolling, if needed. */
+  setFixedAdjustElement(element: any): void {
+    this._fixedAdjustElement = element;
+    this.refreshAppBar();
+
+    this._changeDetectorRef.markForCheck();
+  }
+
   /** Sets the top app bar to short or not. */
   setShort(short: boolean): void {
     this._short = toBoolean(short);
-    if (this.collapsed && !short) {
-      this.setCollapsed(false);
-    }
+    this.refreshAppBar();
+
     this._changeDetectorRef.markForCheck();
   }
 
   /** Sets the top app bar to short-collapsed or not. */
   setCollapsed(collapsed: boolean): void {
-    this._short = collapsed ? true : this._short;
     this._collapsed = toBoolean(collapsed);
+    this.refreshAppBar();
+
     this._changeDetectorRef.markForCheck();
+  }
+
+  refreshAppBar() {
+    this._mdcAdapter.deregisterScrollHandler(this.foundation.scrollHandler_);
+
+    setTimeout(() => {
+      if (!this.collapsed && this.short) {
+        this._mdcAdapter.registerScrollHandler(this.foundation.scrollHandler_);
+      }
+
+      if (!this.collapsed && !this.short) {
+        this._mdcAdapter.removeClass('mdc-top-app-bar--short-collapsed');
+      }
+
+      if (this.short && this._mdcAdapter.getViewportScrollY() > 0) {
+        this._mdcAdapter.addClass('mdc-top-app-bar--short-collapsed');
+      }
+    }, 10);
   }
 
   /** Retrieves the DOM element of the component host. */

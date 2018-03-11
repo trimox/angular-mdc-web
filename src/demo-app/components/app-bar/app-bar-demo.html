@@ -27,11 +27,16 @@
       <tbody>
         <tr>
           <td>short: boolean</td>
-          <td>Style the app bar as a short app bar.</td>
+          <td><pre>Style the app bar as a short app bar.
+Short top app bars should only be used with one action item.</pre></td>
         </tr>
         <tr>
           <td>collapsed: boolean</td>
           <td>Indicate the short app bar is collapsed. (requires short is set to true)</td>
+        </tr>
+        <tr>
+          <td>fixedAdjustElement: any</td>
+          <td>If set, scroll event listener is attached to element object.</td>
         </tr>
       </tbody>
       <thead>
@@ -48,15 +53,88 @@ EventEmitter<![CDATA[<MdcAppBarNavSelected>]]></pre></td>
         </tr>
       </tbody>
     </table>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Directive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-app-bar-row</td>
+          <td>A one-line row to add app bar sections.</td>
+        </tr>
+        <tr>
+          <td>mdc-app-bar-title</td>
+          <td>Styles toolbar text representing a page's title, or an application name.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Directive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-app-bar-section</td>
+          <td>A content area for navigation or actions.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>align: string</td>
+          <td><pre>Makes section align to either 'start' or 'end' of row.
+Valid values are 'start' | 'end'</pre></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Directive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-icon[mdcAppBarNavIcon], mdc-app-bar-navigation-icon</td>
+          <td>Left most icon of app bar used for navigation.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Directive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-icon[mdcAppBarActionItem], mdc-app-bar-action-item</td>
+          <td>Top app bars can accommodate multiple action items on opposite side of navigation icon.</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
   <a mdc-button href="https://stackblitz.com/edit/angular-mdc-app-bar?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Example Source</a>
 
   <div class="demo-top-app-bar-container demo-top-app-bar--not-fixed">
     <div class="demo-content--row">
       <button mdc-button (click)="demoappbar.short = !demoappbar.short">Short: {{demoappbar.short ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="demoappbar.collapsed = !demoappbar.collapsed">Short and Collapsed: {{demoappbar.collapsed ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoappbar.collapsed = !demoappbar.collapsed">Collapse Always: {{demoappbar.collapsed ? 'On' : 'Off'}}</button>
     </div>
-    <mdc-app-bar #demoappbar>
+    <mdc-app-bar #demoappbar [fixedAdjustElement]="appbarcontent">
       <mdc-app-bar-row>
         <mdc-app-bar-section align="start">
           <mdc-icon mdcAppBarNavIcon>menu</mdc-icon>
@@ -67,7 +145,7 @@ EventEmitter<![CDATA[<MdcAppBarNavSelected>]]></pre></td>
         </mdc-app-bar-section>
       </mdc-app-bar-row>
     </mdc-app-bar>
-    <div class="demo-top-app-bar-content">
+    <div class="demo-top-app-bar-content" #appbarcontent>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
       Risus feugiat in ante metus dictum at tempor commodo. Vel orci porta non pulvinar neque. Dolor magna eget est lorem ipsum
       dolor sit. Adipiscing enim eu turpis egestas. Libero enim sed faucibus turpis in eu. Blandit aliquam etiam erat velit scelerisque.

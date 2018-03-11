@@ -7,7 +7,7 @@
 
 [Demo App](https://trimox.github.io/angular-mdc-web/) with API, documentation and examples
 
-Incorporating [Google Material Components](https://material.io/components/), our Angular library provides a faithful and accurate representation of Material Design as it is envisioned on the web platform by Google's Material Design team.
+Incorporating [Google Material Components](https://material.io/components/) for a faithful and accurate representation of Material Design as envisioned on the web platform by Google's Material Design team.
 
 #### Quick Links
 *  [Changelog](https://github.com/trimox/angular-mdc-web/blob/master/CHANGELOG.md)
@@ -40,7 +40,6 @@ Each component uses [material-components-web](https://github.com/material-compon
 | checkbox | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/checkbox-demo) |
 | chips | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/chips-demo) |
 | data-table | In-progress |  |
-| date-picker | Not started |  |
 | dialog | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/dialog-demo) |
 | drawer | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/drawer-demo) |
 | elevation | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/elevation-demo) |
@@ -60,7 +59,6 @@ Each component uses [material-components-web](https://github.com/material-compon
 | tabs | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/tab-demo) |
 | textfield | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/textfield-demo) |
 | theme | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/theme-demo) |
-| time-picker | Not started |  |
 | toolbar | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/toolbar-demo) |
 | typography | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/typography-demo) |
 

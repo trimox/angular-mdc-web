@@ -1,16 +1,7 @@
-.ng-mdc-tab {
-  &--disabled {
-    @include mdc-tab-ink-color(rgba(black, .3));
-
-    cursor: default;
-    pointer-events: none;
-  }
-}
-
 .ng-mdc-tab--primary {
   @include mdc-tab-bar-indicator-ink-color(primary);
 
-  .mdc-tab:not(.mdc-tab--active) {
+  .mdc-tab:not(.mdc-tab--active):not(.ng-mdc-tab--disabled) {
     @include mdc-tab-ink-color(rgba(mdc-theme-prop-value(primary), 0.54));
   }
 
@@ -23,12 +14,21 @@
 .ng-mdc-tab--secondary {
   @include mdc-tab-bar-indicator-ink-color(secondary);
 
-  .mdc-tab:not(.mdc-tab--active) {
+  .mdc-tab:not(.mdc-tab--active):not(.ng-mdc-tab--disabled) {
     @include mdc-tab-ink-color(rgba(mdc-theme-prop-value(secondary), 0.54));
   }
 
   .mdc-tab--active,
   .mdc-tab:hover {
     @include mdc-tab-ink-color(secondary);
+  }
+}
+
+.ng-mdc-tab {
+  &--disabled {
+    @include mdc-tab-ink-color(rgba(black, .3));
+
+    cursor: default;
+    pointer-events: none;
   }
 }

@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChild,
   Directive,
@@ -49,17 +50,22 @@ export class MdcTabIconText {
   preserveWhitespaces: false,
 })
 export class MdcTab implements OnInit, OnDestroy {
-  private _active: boolean = false;
-  private _disabled: boolean = false;
+  @Input()
+  get active(): boolean { return this._active; }
+  set active(value: boolean) {
+    this.setActive(value);
+  }
+  protected _active: boolean = false;
 
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this.setDisabled(value);
   }
+  protected _disabled: boolean = false;
 
   /** Event emitted when the option is selected. */
-  @Output() onSelected: EventEmitter<MdcTabSelected> = new EventEmitter<MdcTabSelected>();
+  @Output() readonly onSelected: EventEmitter<MdcTabSelected> = new EventEmitter<MdcTabSelected>();
 
   @HostBinding('class.mdc-tab') isHostClass = true;
   @HostBinding('attr.role') role: string = 'tab';
@@ -106,6 +112,7 @@ export class MdcTab implements OnInit, OnDestroy {
   } = new MDCTabFoundation(this._mdcAdapter);
 
   constructor(
+    private _changeDetectorRef: ChangeDetectorRef,
     private _renderer: Renderer2,
     public elementRef: ElementRef,
     private _registry: EventRegistry,
@@ -124,15 +131,16 @@ export class MdcTab implements OnInit, OnDestroy {
     return this._foundation.isActive();
   }
 
-  setActive(isActive: boolean): void {
-    this._active = isActive;
-    this._foundation.setActive(isActive);
+  setActive(active: boolean): void {
+    this._active = toBoolean(active);
+    this._foundation.setActive(active);
+
+    this._changeDetectorRef.markForCheck();
   }
 
-  setDisabled(isDisabled: boolean): void {
-    if (this.isActive()) { return; }
-
-    this._disabled = isDisabled;
+  setDisabled(disabled: boolean): void {
+    this._disabled = disabled;
+    this._changeDetectorRef.markForCheck();
   }
 
   getComputedWidth(): number {

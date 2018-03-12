@@ -46,25 +46,23 @@ describe('MdcTab', () => {
       expect(testInstance.disabled).toBe(true);
     });
 
-    it('#should NOT apply class based from method', () => {
-      testInstance.setActive(true);
-      testInstance.setDisabled(true);
-      fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList.contains('ng-mdc-tab--disabled')).toBe(false);
-      expect(testInstance.disabled).toBe(false);
-    });
-
     it('#should execute following methods', () => {
       expect(testInstance.getComputedWidth());
       expect(testInstance.getComputedLeft());
       expect(testInstance.measureSelf());
     });
 
-    it('#should apply active', () => {
+    it('#should apply active via method', () => {
       testInstance.setActive(true);
       fixture.detectChanges();
       expect(testInstance.isActive()).toBe(true);
       expect(testInstance.elementRef.nativeElement.click());
+    });
+
+    it('#should apply active via property', () => {
+      testInstance.active = true;
+      fixture.detectChanges();
+      expect(testInstance.isActive()).toBe(true);
     });
   });
 });

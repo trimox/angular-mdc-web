@@ -27,6 +27,10 @@
       </thead>
       <tbody>
         <tr>
+          <td>active: boolean</td>
+          <td>Sets a tab as active.</td>
+        </tr>
+        <tr>
           <td>primary: boolean</td>
           <td>Sets tab to use primary theme color.</td>
         </tr>
@@ -255,7 +259,7 @@ a[mdc-tab]</pre></td>
       <button mdc-button (click)="demotab1.disableRipple = !demotab1.disableRipple">Ripple Disabled: {{demotab1.disableRipple ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="panels[2].disabled = !panels[2].disabled">Disable Tab Three: {{panels[2].disabled ? 'On' : 'Off'}}</button>
     </div>
-    <mdc-tab-bar #demotab1>
+    <mdc-tab-bar #demotab1 [primary]="true">
       <mdc-tab *ngFor="let tab of panels" [disabled]="tab.disabled">{{tab.label}}</mdc-tab>
     </mdc-tab-bar>
   </div>

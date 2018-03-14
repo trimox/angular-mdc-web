@@ -21,13 +21,13 @@ import { SelectDemo } from './components/inputs-controls/select-demo/select-demo
 import { SliderDemo } from './components/inputs-controls/slider-demo/slider-demo';
 import { SnackbarDemo } from './components/snackbar-demo/snackbar-demo';
 import { SwitchDemo } from './components/inputs-controls/switch-demo/switch-demo';
-import { TabDemo } from './components/tab-demo/tab-demo';
+import { TabDemo } from './components/tab-demo';
 import { TextFieldDemo } from './components/inputs-controls/textfield-demo/textfield-demo';
 import { ToolbarDemo } from './components/toolbar-demo/toolbar-demo';
 import { TypographyDemo } from './components/core/typography-demo/typography-demo';
 
 import { DIALOG_DEMO_ROUTES } from './components/dialog-demo/routes';
-import { TABS_DEMO_ROUTES } from './components/tab-demo/routes';
+import { TABS_DEMO_ROUTES } from './components/tab-demo';
 import { TEXTFIELD_DEMO_ROUTES } from './components/inputs-controls/textfield-demo/routes';
 
 export const DEMO_ROUTES = [

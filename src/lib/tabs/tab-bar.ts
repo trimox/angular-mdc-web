@@ -215,7 +215,7 @@ export class MdcTabBar implements AfterViewInit, AfterContentInit, OnDestroy {
   ngAfterContentInit() {
     this.tabs.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
       this.setDisableRipple(this.disableRipple);
-      this._initializeSelection();
+      this._foundation.layout();
     });
   }
 
@@ -223,14 +223,6 @@ export class MdcTabBar implements AfterViewInit, AfterContentInit, OnDestroy {
     this._destroy.next();
     this._destroy.complete();
     this._foundation.destroy();
-  }
-
-  private _initializeSelection(): void {
-    // Defer setting the value in order to avoid the "Expression
-    // has changed after it was checked" errors from Angular.
-    Promise.resolve().then(() => {
-      this.tabs.first.setActive(true);
-    });
   }
 
   setDisableRipple(disabled: boolean): void {

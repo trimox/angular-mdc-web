@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 
+import { MdcRouter } from '@angular-mdc/web/common';
+
 import {
   MdcTab,
   MdcTabIconText,
@@ -26,7 +28,13 @@ const TAB_DECLARATIONS = [
 ];
 
 @NgModule({
-  exports: TAB_DECLARATIONS,
-  declarations: TAB_DECLARATIONS
+  exports: [
+    MdcRouter,
+    TAB_DECLARATIONS
+  ],
+  declarations: [
+    MdcRouter,
+    TAB_DECLARATIONS
+  ]
 })
 export class MdcTabModule { }

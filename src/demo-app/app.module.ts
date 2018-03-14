@@ -13,7 +13,7 @@ import { DialogExampleModule } from './components/dialog-demo/dialog-example.mod
 import { AppComponent } from './app.component';
 import { DialogServiceTab, DialogTab } from './components/dialog-demo/dialog-demo';
 import { TextFieldTab, TextFieldBoxTab, TextAreaTab } from './components/inputs-controls/textfield-demo/textfield-demo';
-import { ItemOneContent, ItemTwoContent, ItemThreeContent } from './components/tab-demo/tab-demo';
+import { DemoRouteOne, DemoRouteTwo, DemoRouteThree } from './components/tab-demo';
 
 import { AppLayout } from './navigation';
 
@@ -34,9 +34,9 @@ import { APP_ROUTES, DEMO_ROUTES } from './routes';
     AppComponent,
     AppLayout,
     DEMO_ROUTES,
-    ItemOneContent,
-    ItemTwoContent,
-    ItemThreeContent,
+    DemoRouteOne,
+    DemoRouteTwo,
+    DemoRouteThree,
     DialogServiceTab,
     DialogTab,
     TextFieldTab,

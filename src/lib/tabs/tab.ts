@@ -15,7 +15,15 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
+import { takeUntil } from 'rxjs/operators/takeUntil';
+
+import {
+  MdcRouter,
+  MdcRouteEvent,
+  toBoolean, EventRegistry
+} from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
@@ -50,6 +58,12 @@ export class MdcTabIconText {
   preserveWhitespaces: false,
 })
 export class MdcTab implements OnInit, OnDestroy {
+  /** Emits whenever the component is destroyed. */
+  private _destroy = new Subject<void>();
+
+  /** Subscription to route changes. */
+  private _routerChangeSubscription: Subscription | null;
+
   @Input()
   get active(): boolean { return this._active; }
   set active(value: boolean) {
@@ -80,6 +94,7 @@ export class MdcTab implements OnInit, OnDestroy {
   }
   @ContentChild(MdcIcon) tabIcon: MdcIcon;
   @ContentChild(MdcTabIconText) tabIconText: MdcTabIconText;
+  @ContentChild(MdcRouter) tabRouter: MdcRouter;
 
   private _mdcAdapter: MDCTabAdapter = {
     addClass: (className: string) => {
@@ -89,7 +104,7 @@ export class MdcTab implements OnInit, OnDestroy {
       this._renderer.removeClass(this._getHostElement(), className);
     },
     registerInteractionHandler: (type: string, handler: EventListener) => {
-      this._registry.listen(type, handler, this.elementRef.nativeElement);
+      this._registry.listen(type, handler, this._getHostElement());
     },
     deregisterInteractionHandler: (type: string, handler: EventListener) => {
       this._registry.unlisten(type, handler);
@@ -121,9 +136,19 @@ export class MdcTab implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._foundation.init();
     this.setPreventDefaultOnClick(true);
+
+    if (this.tabRouter) {
+      this._routerChangeSubscription = this.tabRouter.routeChange
+        .pipe(takeUntil(this._destroy))
+        .subscribe((_: MdcRouteEvent) => {
+          this.setActive(_.active);
+        });
+    }
   }
 
   ngOnDestroy(): void {
+    this._destroy.next();
+    this._destroy.complete();
     this._foundation.destroy();
   }
 

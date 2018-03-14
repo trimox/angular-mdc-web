@@ -252,28 +252,32 @@ a[mdc-tab]</pre></td>
   </div>
   <div class="demo-content">
     <h3>Tabs - Labels</h3>
-    <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-tabs?embed=1&file=app/app.component.html&view=editor" target="_blank" rel="noopener noreferrer">View Example Source</a>
+    <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-tabs?embed=1&file=app/app.component.html&view=editor"
+     target="_blank" rel="noopener noreferrer">View Example Source</a>
     <div class="demo-content--row">
       <button mdc-button (click)="demotab1.primary = !demotab1.primary">Primary: {{demotab1.primary ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demotab1.secondary = !demotab1.secondary">Secondary: {{demotab1.secondary ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demotab1.disableRipple = !demotab1.disableRipple">Ripple Disabled: {{demotab1.disableRipple ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="panels[2].disabled = !panels[2].disabled">Disable Tab Three: {{panels[2].disabled ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoTabs[2].disabled = !demoTabs[2].disabled">Disable Tab Three: {{demoTabs[2].disabled ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="addTab()">Add a Tab</button>
+      <button mdc-button (click)="deleteTab(demoTabs[1])">Remove Tab</button>
     </div>
     <mdc-tab-bar #demotab1 [primary]="true">
-      <mdc-tab *ngFor="let tab of panels" [disabled]="tab.disabled">{{tab.label}}</mdc-tab>
+      <mdc-tab *ngFor="let tab of demoTabs" [disabled]="tab.disabled">{{tab.label}}</mdc-tab>
     </mdc-tab-bar>
   </div>
 
   <div class="demo-content">
     <h3>Tabs - Icons</h3>
-    <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-tabs?embed=1&file=app/app.component.html&view=editor" target="_blank" rel="noopener noreferrer">View Example Source</a>
+    <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-tabs?embed=1&file=app/app.component.html&view=editor"
+     target="_blank" rel="noopener noreferrer">View Example Source</a>
     <div class="demo-content--row">
       <button mdc-button (click)="demotabicons.primary = !demotabicons.primary">Primary: {{demotabicons.primary ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demotabicons.secondary = !demotabicons.secondary">Secondary: {{demotabicons.secondary ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demotabicons.disableRipple = !demotabicons.disableRipple">Ripple Disabled: {{demotabicons.disableRipple ? 'On' : 'Off'}}</button>
     </div>
     <mdc-tab-bar #demotabicons>
-      <mdc-tab *ngFor="let tab of panels">
+      <mdc-tab *ngFor="let tab of demoTabs">
         <mdc-icon>{{tab.icon}}</mdc-icon>
       </mdc-tab>
     </mdc-tab-bar>
@@ -281,14 +285,15 @@ a[mdc-tab]</pre></td>
 
   <div class="demo-content">
     <h3>Tabs - Icons and Labels</h3>
-    <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-tabs?embed=1&file=app/app.component.html&view=editor" target="_blank" rel="noopener noreferrer">View Example Source</a>
+    <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-tabs?embed=1&file=app/app.component.html&view=editor"
+     target="_blank" rel="noopener noreferrer">View Example Source</a>
     <div class="demo-content--row">
       <button mdc-button (click)="demotabiconslabels.primary = !demotabiconslabels.primary">Primary: {{demotabiconslabels.primary ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demotabiconslabels.secondary = !demotabiconslabels.secondary">Secondary: {{demotabiconslabels.secondary ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demotabiconslabels.setDisableRipple(!demotabiconslabels.disableRipple)">Ripple Disabled: {{demotabiconslabels.disableRipple ? 'On' : 'Off'}}</button>
     </div>
     <mdc-tab-bar #demotabiconslabels>
-      <mdc-tab *ngFor="let tab of panels">
+      <mdc-tab *ngFor="let tab of demoTabs">
         <mdc-icon>{{tab.icon}}</mdc-icon>
         <mdc-tab-icon-text>{{tab.label}}</mdc-tab-icon-text>
       </mdc-tab>
@@ -297,11 +302,13 @@ a[mdc-tab]</pre></td>
 
   <div class="demo-content">
     <h3>Tabs - Scroller</h3>
-    <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-tabs?embed=1&file=app/app.component.html&view=editor" target="_blank" rel="noopener noreferrer">View Example Source</a>
+    <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-tabs?embed=1&file=app/app.component.html&view=editor"
+     target="_blank" rel="noopener noreferrer">View Example Source</a>
     <div class="demo-content--row">
       <button mdc-button (click)="demoscrolltab.primary = !demoscrolltab.primary">Primary: {{demoscrolltab.primary ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoscrolltab.secondary = !demoscrolltab.secondary">Secondary: {{demoscrolltab.secondary ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoscrolltab.setDisableRipple(!demoscrolltab.disableRipple)">Ripple Disabled: {{demoscrolltab.disableRipple ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="addScrollTab()">Add a Tab</button>
     </div>
     <div class="demo-content--row">
       <button mdc-button (click)="demoscroll.scrollBack()">Scroll Back</button>
@@ -314,7 +321,7 @@ a[mdc-tab]</pre></td>
       </mdc-tab-bar-scroll-back>
       <mdc-tab-bar-scroll-frame>
         <mdc-tab-bar #demoscrolltab (selectedTabChange)="onTabChange($event)">
-          <mdc-tab *ngFor="let tab of panelsLarge" [active]="tab.active">{{tab.label}}</mdc-tab>
+          <mdc-tab *ngFor="let tab of asyncTabs | async" [active]="tab.active">{{tab.label}}</mdc-tab>
         </mdc-tab-bar>
       </mdc-tab-bar-scroll-frame>
       <mdc-tab-bar-scroll-forward>
@@ -324,9 +331,10 @@ a[mdc-tab]</pre></td>
   </div>
 
   <h3>Toolbar with Tabs</h3>
-  <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-tabs?embed=1&file=app/app.component.html&view=editor" target="_blank" rel="noopener noreferrer">View Example Source</a>
+  <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-tabs?embed=1&file=app/app.component.html&view=editor"
+   target="_blank" rel="noopener noreferrer">View Example Source</a>
   <div class="demo-content--row">
-    <button mdc-button (click)="panels[2].disabled = !panels[2].disabled">Disable Tab Three: {{panels[2].disabled ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="demoTabs[2].disabled = !demoTabs[2].disabled">Disable Tab Three: {{demoTabs[2].disabled ? 'On' : 'Off'}}</button>
     <button mdc-button (click)="toolbartab1.setTabActiveAtIndex(1)">Make Tab Two Active</button>
   </div>
   <div class="demo-tabs-host">
@@ -337,7 +345,7 @@ a[mdc-tab]</pre></td>
         </mdc-toolbar-section>
         <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="false">
           <mdc-tab-bar #toolbartab1 class="demo-tab-bar--indigo">
-            <mdc-tab *ngFor="let tab of panels" [disabled]="tab.disabled">
+            <mdc-tab *ngFor="let tab of demoTabs" [disabled]="tab.disabled">
               <mdc-icon>{{tab.icon}}</mdc-icon>
               <mdc-tab-icon-text>{{tab.label}}</mdc-tab-icon-text>
             </mdc-tab>
@@ -348,10 +356,12 @@ a[mdc-tab]</pre></td>
   </div>
 
   <h3>Toolbar - Router Outlet</h3>
-  <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-tabs?embed=1&file=app/app.component.html&view=editor" target="_blank" rel="noopener noreferrer">View Example Source</a>
+  <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-tabs?embed=1&file=app/app.component.html&view=editor"
+   target="_blank" rel="noopener noreferrer">View Example Source</a>
   <div class="demo-content--row">
     <button mdc-button (click)="myTabBar.primary = !myTabBar.primary">Primary: {{myTabBar.primary ? 'On' : 'Off'}}</button>
     <button mdc-button (click)="myTabBar.secondary = !myTabBar.secondary">Secondary: {{myTabBar.secondary ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="addRouteTab()">Add a Tab</button>
   </div>
   <div class="demo-tabs-host">
     <mdc-toolbar class="demo__toolbar-tabs--dark">
@@ -359,10 +369,10 @@ a[mdc-tab]</pre></td>
         <mdc-toolbar-section [alignStart]="true">
           <mdc-toolbar-title>Dynamic Views</mdc-toolbar-title>
         </mdc-toolbar-section>
-        <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="false">
+        <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
           <mdc-tab-bar #myTabBar [primary]="true">
-            <mdc-tab *ngFor="let child of panels" [routerLink]="[{outlets: {taboutlet: child.route}}]"
-             routerLinkActive #rla="routerLinkActive">{{child.label}}</mdc-tab>
+            <mdc-tab *ngFor="let tab of demoTabRoutes" [routerLink]="[{outlets: {taboutlet: tab.route}}]" mdcRouter
+             routerLinkActive #rla="routerLinkActive">{{tab.label}}</mdc-tab>
           </mdc-tab-bar>
         </mdc-toolbar-section>
       </mdc-toolbar-row>

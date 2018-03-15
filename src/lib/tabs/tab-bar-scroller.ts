@@ -13,6 +13,8 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+
 import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
@@ -94,12 +96,15 @@ export class MdcTabBarScrollFrame implements AfterContentInit {
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
 })
-export class MdcTabBarScroller implements AfterViewInit, OnDestroy {
+export class MdcTabBarScroller implements AfterViewInit, AfterContentInit, OnDestroy {
   @Input() direction: 'ltr' | 'rtl' = 'ltr';
   @HostBinding('class.mdc-tab-bar-scroller') isHostClass = true;
   @ContentChild(MdcTabBarScrollFrame) scrollFrame: MdcTabBarScrollFrame;
   @ContentChild(MdcTabBarScrollBack) back: MdcTabBarScrollBack;
   @ContentChild(MdcTabBarScrollForward) forward: MdcTabBarScrollForward;
+
+  /** Subscription to tabs being added/removed. */
+  private _tabBarChangeSubscription: Subscription | null;
 
   private _mdcAdapter: MDCTabBarScrollerAdapter = {
     addClass: (className: string) => {
@@ -212,7 +217,17 @@ export class MdcTabBarScroller implements AfterViewInit, OnDestroy {
     this._foundation.init();
   }
 
+  ngAfterContentInit(): void {
+    this._tabBarChangeSubscription = this.scrollFrame.tabBar.tabsChangeEvent.subscribe(() => {
+      this.layout();
+    });
+  }
+
   ngOnDestroy(): void {
+    if (this._tabBarChangeSubscription) {
+      this._tabBarChangeSubscription.unsubscribe();
+      this._tabBarChangeSubscription = null;
+    }
     this._foundation.destroy();
   }
 

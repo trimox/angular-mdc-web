@@ -1,6 +1,5 @@
 import {
   AfterContentInit,
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -63,7 +62,7 @@ export class MdcTabBarIndicator {
   providers: [EventRegistry],
   preserveWhitespaces: false,
 })
-export class MdcTabBar implements AfterViewInit, AfterContentInit, OnDestroy {
+export class MdcTabBar implements AfterContentInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
@@ -104,6 +103,9 @@ export class MdcTabBar implements AfterViewInit, AfterContentInit, OnDestroy {
   /** Event emitted when the tab selection has changed. */
   @Output() readonly selectedTabChange: EventEmitter<MdcTabChangeEvent> =
     new EventEmitter<MdcTabChangeEvent>(true);
+
+  /** Event emitted when tabs are added or removed. */
+  @Output() readonly tabsChangeEvent: EventEmitter<void> = new EventEmitter<void>();
 
   @ContentChildren(MdcTab) tabs: QueryList<MdcTab>;
   @ViewChild(MdcTabBarIndicator) indicator: MdcTabBarIndicator;
@@ -159,7 +161,7 @@ export class MdcTabBar implements AfterViewInit, AfterContentInit, OnDestroy {
         });
     },
     unbindOnMDCTabSelectedEvent: () => {
-      /** Not required - we destroy subscription above */
+      /* not needed */
     },
     registerResizeHandler: (handler: EventListener) => {
       if (isBrowser()) {
@@ -208,14 +210,17 @@ export class MdcTabBar implements AfterViewInit, AfterContentInit, OnDestroy {
     public elementRef: ElementRef,
     private _registry: EventRegistry) { }
 
-  ngAfterViewInit(): void {
-    this._foundation.init();
-  }
-
-  ngAfterContentInit() {
+  ngAfterContentInit(): void {
+    // Subscribe to changes in the amount of tabs, in order to be
+    // able to re-render the content as new tabs are added or removed.
     this.tabs.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
+      this._foundation.init();
+
+      this._initializeSelection();
       this.setDisableRipple(this.disableRipple);
       this._foundation.layout();
+
+      this.tabsChangeEvent.emit();
     });
   }
 
@@ -223,6 +228,16 @@ export class MdcTabBar implements AfterViewInit, AfterContentInit, OnDestroy {
     this._destroy.next();
     this._destroy.complete();
     this._foundation.destroy();
+  }
+
+  private _initializeSelection(): void {
+    // Defer setting the value in order to avoid the "Expression
+    // has changed after it was checked" errors from Angular.
+    Promise.resolve().then(() => {
+      if (this.getActiveTabIndex() < 0 && this.tabs.first) {
+        this.tabs.first.setActive(true);
+      }
+    });
   }
 
   setDisableRipple(disabled: boolean): void {
@@ -248,8 +263,10 @@ export class MdcTabBar implements AfterViewInit, AfterContentInit, OnDestroy {
     return this._foundation.getActiveTabIndex();
   }
 
-  getActiveTab(): MdcTab {
-    return this.tabs.find(_ => _.isActive())![0];
+  getActiveTab(): MdcTab | null {
+    const tab = this.tabs.find(_ => _.isActive());
+
+    return tab ? tab[0] : null;
   }
 
   setActiveTab(tab: MdcTab, active: boolean): void {

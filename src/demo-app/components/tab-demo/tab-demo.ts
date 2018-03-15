@@ -13,50 +13,38 @@ export const TABS_DEMO_ROUTES: Routes = [
   { path: 'third-tab', component: DemoRouteThree, outlet: 'taboutlet' },
 ];
 
-export class Tab {
-  label: string;
-  route?: string;
-  icon?: string;
-  disabled?: boolean;
-  active?: boolean;
-}
-
-const DEMO_TABS: Tab[] = [
-  { label: 'Tab One', icon: 'phone' },
-  { label: 'Tab Two', icon: 'favorite' },
-  { label: 'Tab Three', icon: 'person_pin', disabled: false },
-];
-
-const DEMO_TABS_ROUTES: Tab[] = [
-  { label: 'Tab One', route: 'first-tab', icon: 'phone' },
-  { label: 'Tab Two', route: 'second-tab', icon: 'favorite' },
-  { label: 'Tab Three', route: 'third-tab', icon: 'person_pin', disabled: false },
-];
-
-const DEMO_SCROLLING_TABS: Tab[] = [
-  { label: 'Tab One' },
-  { label: 'Tab Two', active: true },
-  { label: 'Tab Three' },
-  { label: 'Tab Four' },
-  { label: 'Tab Five' },
-  { label: 'Tab Six' },
-  { label: 'Tab Seven' },
-  { label: 'Tab Eight' },
-  { label: 'Tab Nine' },
-];
-
 @Component({
   selector: 'tab-demo',
   templateUrl: './tab-demo.html'
 })
 export class TabDemo {
+  demoTabs = [
+    { label: 'Tab One', icon: 'phone' },
+    { label: 'Tab Two', icon: 'favorite' },
+    { label: 'Tab Three', icon: 'person_pin', disabled: false },
+  ];
+
+  demoTabRoutes = [
+    { label: 'Tab One', route: 'first-tab' },
+    { label: 'Tab Two', route: 'second-tab' },
+    { label: 'Tab Three', route: 'third-tab', disabled: false },
+  ];
+
+  demoScrollingTabs = [
+    { label: 'Tab One' },
+    { label: 'Tab Two', active: true },
+    { label: 'Tab Three' },
+    { label: 'Tab Four' },
+    { label: 'Tab Five' },
+    { label: 'Tab Six' },
+    { label: 'Tab Seven' },
+    { label: 'Tab Eight' },
+    { label: 'Tab Nine' },
+  ];
+
   asyncTabs: Observable<any>;
 
-  demoTabs: Tab[] = DEMO_TABS;
-  demoScrollingTabs: Tab[] = DEMO_SCROLLING_TABS;
-  demoTabRoutes: Tab[] = DEMO_TABS_ROUTES;
-
-  constructor(public router: Router) {
+  constructor(private router: Router) {
     this.asyncTabs = Observable.create((observer: any) => {
       setTimeout(() => {
         observer.next(this.demoScrollingTabs);
@@ -69,19 +57,15 @@ export class TabDemo {
   }
 
   addTab() {
-    // console.log(this.demoTabs)
-    this.demoTabs.splice(3, 0,
-      { label: `Tab ${this.demoTabs.length++}` });
+    this.demoTabs.push({ label: `Tab ${this.demoTabs.length}`, icon: 'config' });
   }
 
   addRouteTab() {
-    this.demoTabRoutes.splice(3, 0,
-      { label: `Tab ${this.demoTabRoutes.length++}`, route: 'first-tab' });
+    this.demoTabRoutes.push({ label: `Tab ${this.demoTabRoutes.length}`, route: 'first-tab' });
   }
 
   addScrollTab() {
-    this.demoScrollingTabs.splice(3, 0,
-      { label: `Tab ${this.demoScrollingTabs.length++}` });
+    this.demoScrollingTabs.push({ label: `Tab ${this.demoScrollingTabs.length}` });
   }
 
   deleteTab(tab: any) {

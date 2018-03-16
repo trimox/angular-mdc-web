@@ -58,6 +58,10 @@ body {
   max-width: 700px;
 }
 
+.demo-content--no-padding {
+  padding: 0;
+}
+
 .demo-content-no-border {
   display: flex;
   flex-direction: column;
@@ -156,15 +160,6 @@ body {
   }
 }
 
-.demo-host {
-  border: 1px solid;
-  height: 400px;
-  display: flex;
-  overflow: hidden;
-  position: relative;
-  width: 800px;
-}
-
 .demo-tabs-host {
   border: 1px solid;
   height: 400px;
@@ -173,16 +168,6 @@ body {
   overflow: hidden;
   position: relative;
   width: 800px;
-}
-
-.demo-list-host {
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  display: flex;
-  margin-bottom: 10px;
-  padding: 5px;
-  flex-direction: column;
-  position: relative;
-  max-width: 600px;
 }
 
 //

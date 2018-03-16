@@ -179,7 +179,7 @@
     </tbody>
   </table>
   <div fxLayout="column">
-    <div class="demo-list-host">
+    <div class="demo-content">
       <h3>Text Field with FormControl</h3>
       <div fxLayout="row wrap">
         <button mdc-button (click)="input.disabled = !input.disabled">Disabled: {{input.disabled ? 'On' : 'Off'}}</button>
@@ -196,7 +196,7 @@
       </div>
     </div>
 
-    <div class="demo-list-host">
+    <div class="demo-content">
       <h3>Text Field with ngModel</h3>
       <div fxLayout="row wrap">
         <button mdc-button (click)="demousername.disabled = !demousername.disabled">Disabled: {{demousername.disabled ? 'On' : 'Off'}}</button>
@@ -212,7 +212,7 @@
         <a mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
       </div>
     </div>
-    <div class="demo-list-host">
+    <div class="demo-content">
       <h3>Outlined Text Field</h3>
       <div fxLayout="row wrap">
         <button mdc-button (click)="outlined.disabled = !outlined.disabled">Disabled: {{outlined.disabled ? 'On' : 'Off'}}</button>
@@ -224,7 +224,7 @@
         <a mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
       </div>
     </div>
-    <div class="demo-list-host">
+    <div class="demo-content">
       <h3>Outlined Text Field - Leading icon</h3>
       <div fxLayout="row wrap">
         <button mdc-button (click)="outlinedicon.disabled = !outlinedicon.disabled">Disabled: {{outlinedicon.disabled ? 'On' : 'Off'}}</button>
@@ -238,23 +238,23 @@
         <a mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
       </div>
     </div>
-    <div class="demo-list-host">
+    <div class="demo-content">
       <h3>Outlined Text Field - Trailing icon</h3>
       <div class="demo-text-field__container--column">
-        <mdc-text-field #outlinedicon [outline]="true" label="Event date">
+        <mdc-text-field [outline]="true" label="Event date">
           <mdc-icon trailing>event</mdc-icon>
         </mdc-text-field>
         <a mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
       </div>
     </div>
-    <div class="demo-list-host">
+    <div class="demo-content">
       <h3>Prefilled Text Field</h3>
       <div class="demo-text-field__container--column">
         <mdc-text-field [(ngModel)]="prefilledText" label="Username"></mdc-text-field>
         <a mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
       </div>
     </div>
-    <div class="demo-list-host">
+    <div class="demo-content">
       <h3>Password</h3>
       <div class="demo-text-field__container--column">
         <mdc-text-field type="password" label="Password" [required]="true"></mdc-text-field>

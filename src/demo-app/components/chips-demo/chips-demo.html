@@ -16,8 +16,22 @@
       <tbody>
         <tr>
           <td>mdc-chip-set</td>
-          <td>Defines the behavior of chips within a specific set. For example,
-           chips in an entry chip set behave differently from those in a filter chip set.</td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Properties</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>choice: boolean</td>
+          <td>Indicates that the chips in the set are choice chips, which allow a single selection from a set of options.</td>
+        </tr>
+        <tr>
+          <td>filter: boolean</td>
+          <td>Indicates that the chips in the set are filter chips, which allow multiple selection from a set of options.</td>
         </tr>
       </tbody>
     </table>
@@ -103,22 +117,6 @@ EventEmitter<![CDATA[<MdcChipSelectionChange>]]></pre></td>
     </div>
   </div>
   <div class="demo-content">
-    <h3>Choice Chips</h3>
-    <div class="demo-content--row">
-      <mdc-chip-set [choice]="true">
-        <mdc-chip>
-          <mdc-chip-text>Get Directions</mdc-chip-text>
-        </mdc-chip>
-        <mdc-chip>
-          <mdc-chip-text>Get Weather</mdc-chip-text>
-        </mdc-chip>
-        <mdc-chip>
-          <mdc-chip-text>Add to Calendar</mdc-chip-text>
-        </mdc-chip>
-      </mdc-chip-set>
-    </div>
-  </div>
-  <div class="demo-content">
     <h3>Entry Chips</h3>
     <div class="demo-content--row">
       <mdc-chip-set>
@@ -131,6 +129,22 @@ EventEmitter<![CDATA[<MdcChipSelectionChange>]]></pre></td>
           <mdc-chip-icon leading>face</mdc-chip-icon>
           <mdc-chip-text>John Doe</mdc-chip-text>
           <mdc-chip-icon trailing>more_vert</mdc-chip-icon>
+        </mdc-chip>
+      </mdc-chip-set>
+    </div>
+  </div>
+  <div class="demo-content">
+    <h3>Choice Chips</h3>
+    <div class="demo-content--row">
+      <mdc-chip-set [choice]="true">
+        <mdc-chip>
+          <mdc-chip-text>Get Directions</mdc-chip-text>
+        </mdc-chip>
+        <mdc-chip>
+          <mdc-chip-text>Get Weather</mdc-chip-text>
+        </mdc-chip>
+        <mdc-chip>
+          <mdc-chip-text>Add to Calendar</mdc-chip-text>
         </mdc-chip>
       </mdc-chip-set>
     </div>

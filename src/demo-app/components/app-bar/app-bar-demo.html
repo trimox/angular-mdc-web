@@ -134,7 +134,7 @@ Valid values are 'start' | 'end'</pre></td>
       <button mdc-button (click)="demoappbar.short = !demoappbar.short">Short: {{demoappbar.short ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoappbar.collapsed = !demoappbar.collapsed">Collapse Always: {{demoappbar.collapsed ? 'On' : 'Off'}}</button>
     </div>
-    <mdc-app-bar #demoappbar [fixedAdjustElement]="appbarcontent">
+    <mdc-app-bar #demoappbar [fixedAdjustElement]="appbarcontent" [short]="true">
       <mdc-app-bar-row>
         <mdc-app-bar-section align="start">
           <mdc-icon mdcAppBarNavIcon>menu</mdc-icon>

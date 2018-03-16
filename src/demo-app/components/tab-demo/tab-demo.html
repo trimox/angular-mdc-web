@@ -249,6 +249,19 @@ a[mdc-tab]</pre></td>
         </tr>
       </tbody>
     </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Directive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mdc-tab[mdcRouter]</td>
+          <td>Sets active to true on mdc-tab, if router link state change detected. What this means is the active tab will be set after browser refresh etc.</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
   <div class="demo-content">
     <h3>Tabs - Labels</h3>
@@ -259,8 +272,6 @@ a[mdc-tab]</pre></td>
       <button mdc-button (click)="demotab1.secondary = !demotab1.secondary">Secondary: {{demotab1.secondary ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demotab1.disableRipple = !demotab1.disableRipple">Ripple Disabled: {{demotab1.disableRipple ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoTabs[2].disabled = !demoTabs[2].disabled">Disable Tab Three: {{demoTabs[2].disabled ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="addTab()">Add a Tab</button>
-      <button mdc-button (click)="deleteTab(demoTabs[1])">Remove Tab</button>
     </div>
     <mdc-tab-bar #demotab1 [primary]="true">
       <mdc-tab *ngFor="let tab of demoTabs" [disabled]="tab.disabled">{{tab.label}}</mdc-tab>
@@ -301,7 +312,7 @@ a[mdc-tab]</pre></td>
   </div>
 
   <div class="demo-content">
-    <h3>Tabs - Scroller</h3>
+    <h3>Tabs - Scroller (async)</h3>
     <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-tabs?embed=1&file=app/app.component.html&view=editor"
      target="_blank" rel="noopener noreferrer">View Example Source</a>
     <div class="demo-content--row">
@@ -361,7 +372,6 @@ a[mdc-tab]</pre></td>
   <div class="demo-content--row">
     <button mdc-button (click)="myTabBar.primary = !myTabBar.primary">Primary: {{myTabBar.primary ? 'On' : 'Off'}}</button>
     <button mdc-button (click)="myTabBar.secondary = !myTabBar.secondary">Secondary: {{myTabBar.secondary ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="addRouteTab()">Add a Tab</button>
   </div>
   <div class="demo-tabs-host">
     <mdc-toolbar class="demo__toolbar-tabs--dark">

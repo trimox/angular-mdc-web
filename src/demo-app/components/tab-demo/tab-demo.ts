@@ -56,14 +56,6 @@ export class TabDemo {
     console.log(event);
   }
 
-  addTab() {
-    this.demoTabs.push({ label: `Tab ${this.demoTabs.length}`, icon: 'config' });
-  }
-
-  addRouteTab() {
-    this.demoTabRoutes.push({ label: `Tab ${this.demoTabRoutes.length}`, route: 'first-tab' });
-  }
-
   addScrollTab() {
     this.demoScrollingTabs.push({ label: `Tab ${this.demoScrollingTabs.length}` });
   }

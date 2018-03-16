@@ -326,12 +326,10 @@ body {
 }
 
 .demo-top-app-bar-content {
-  display: flex;
-  flex-direction: column;
   width: 700px;
-  max-width: 700px;
-  height: 200px;
+  height: 300px;
   overflow-y: scroll;
+  will-change: transform;
 }
 
 .demo-top-app-bar--not-fixed {

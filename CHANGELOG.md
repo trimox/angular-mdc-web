@@ -1,3 +1,46 @@
+<a name="0.32.0"></a>
+# [0.32.0](https://github.com/trimox/angular-mdc-web/compare/v0.31.1...v0.32.0) (2018-03-16)
+
+
+### Bug Fixes
+
+* **chips:** Set enabled chip tabindex to 0 ([#747](https://github.com/trimox/angular-mdc-web/issues/747)) ([2dcd1ee](https://github.com/trimox/angular-mdc-web/commit/2dcd1ee))
+* **select:** Fix prefilled select set as dirty ([#734](https://github.com/trimox/angular-mdc-web/issues/734)) ([32b24fa](https://github.com/trimox/angular-mdc-web/commit/32b24fa)), closes [#733](https://github.com/trimox/angular-mdc-web/issues/733)
+* **tabs:** Add/remove tabs asynchronously ([#771](https://github.com/trimox/angular-mdc-web/issues/771)) ([bdb9986](https://github.com/trimox/angular-mdc-web/commit/bdb9986))
+* **tabs:** Wrong color on inactive and disabled tabs ([#767](https://github.com/trimox/angular-mdc-web/issues/767)) ([cfd79d9](https://github.com/trimox/angular-mdc-web/commit/cfd79d9))
+* **text-field:** Disable validation check in setRequired ([#748](https://github.com/trimox/angular-mdc-web/issues/748)) ([f052c86](https://github.com/trimox/angular-mdc-web/commit/f052c86))
+* **text-field:** Make Outline use OnInit and OnDestroy ([#749](https://github.com/trimox/angular-mdc-web/issues/749)) ([f2bd30a](https://github.com/trimox/angular-mdc-web/commit/f2bd30a))
+
+
+### Features
+
+* **app-bar:** Add fixedAdjustElement property ([#763](https://github.com/trimox/angular-mdc-web/issues/763)) ([b8ab99a](https://github.com/trimox/angular-mdc-web/commit/b8ab99a))
+* **app-bar:** Implement MDC App Bar ([#757](https://github.com/trimox/angular-mdc-web/issues/757)) ([e2d4a59](https://github.com/trimox/angular-mdc-web/commit/e2d4a59)), closes [#724](https://github.com/trimox/angular-mdc-web/issues/724)
+* **button:** Remove compact property ([#759](https://github.com/trimox/angular-mdc-web/issues/759)) ([fc83408](https://github.com/trimox/angular-mdc-web/commit/fc83408))
+* **chips:** Add chip subscriptions interaction handling ([#774](https://github.com/trimox/angular-mdc-web/issues/774)) ([4c7a56f](https://github.com/trimox/angular-mdc-web/commit/4c7a56f))
+* **chips:** Add choice property to mdc-chip-set ([#744](https://github.com/trimox/angular-mdc-web/issues/744)) ([e4b11fb](https://github.com/trimox/angular-mdc-web/commit/e4b11fb)), closes [#743](https://github.com/trimox/angular-mdc-web/issues/743)
+* **chips:** Add filter property to mdc-chip-set ([#745](https://github.com/trimox/angular-mdc-web/issues/745)) ([1200ae6](https://github.com/trimox/angular-mdc-web/commit/1200ae6)), closes [#725](https://github.com/trimox/angular-mdc-web/issues/725)
+* **chips:** Emit selectionChangeEvent on chip toggle ([#756](https://github.com/trimox/angular-mdc-web/issues/756)) ([fa82cf3](https://github.com/trimox/angular-mdc-web/commit/fa82cf3))
+* **chips:** New MDCChipAdapter methods for handling trailing icons ([#750](https://github.com/trimox/angular-mdc-web/issues/750)) ([73542e0](https://github.com/trimox/angular-mdc-web/commit/73542e0))
+* Update material-components-web to v0.32 ([#738](https://github.com/trimox/angular-mdc-web/issues/738)) ([ec148e8](https://github.com/trimox/angular-mdc-web/commit/ec148e8))
+* **floating-label:** Implement MDC Floating Label ([#742](https://github.com/trimox/angular-mdc-web/issues/742)) ([5cb8127](https://github.com/trimox/angular-mdc-web/commit/5cb8127)), closes [#741](https://github.com/trimox/angular-mdc-web/issues/741)
+* **tabs:** Add [mdcRouter] for `[@angular](https://github.com/angular)/router` support ([#770](https://github.com/trimox/angular-mdc-web/issues/770)) ([a5e30c8](https://github.com/trimox/angular-mdc-web/commit/a5e30c8)), closes [#735](https://github.com/trimox/angular-mdc-web/issues/735)
+* **tabs:** Improvements + fixes ([#732](https://github.com/trimox/angular-mdc-web/issues/732)) ([009057d](https://github.com/trimox/angular-mdc-web/commit/009057d)), closes [#720](https://github.com/trimox/angular-mdc-web/issues/720) [#729](https://github.com/trimox/angular-mdc-web/issues/729) [#730](https://github.com/trimox/angular-mdc-web/issues/730)
+* **tabs:** Re-add active property to mdc-tab ([#768](https://github.com/trimox/angular-mdc-web/issues/768)) ([c3abbbc](https://github.com/trimox/angular-mdc-web/commit/c3abbbc))
+* **text-field:** Use mdc-floating-label ([#746](https://github.com/trimox/angular-mdc-web/issues/746)) ([582620e](https://github.com/trimox/angular-mdc-web/commit/582620e))
+
+
+### BREAKING CHANGES
+
+* **button:** The compact variant of MDC Button is removed.
+### Tabs
+* Removed `select` event from `mdc-tab`.
+* Removed `change` event from `mdc-tab-bar`. Please update your code to use `selectedTabChange: EventEmitter<MdcTabChangeEvent>`.
+* Moved `disableRipple: boolean` to `mdc-tab-bar`
+* Moved `primary` and `secondary` to `mdc-tab-bar`
+
+
+
 <a name="0.31.1"></a>
 ## [0.31.1](https://github.com/trimox/angular-mdc-web/compare/v0.31.0...v0.31.1) (2018-02-27)
 

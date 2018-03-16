@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { MdcRouter } from '@angular-mdc/web/common';
+import { MdcRouterModule } from '@angular-mdc/web/common';
 
 import {
   MdcTab,
@@ -28,12 +28,12 @@ const TAB_DECLARATIONS = [
 ];
 
 @NgModule({
+  imports: [MdcRouterModule],
   exports: [
-    MdcRouter,
+    MdcRouterModule,
     TAB_DECLARATIONS
   ],
   declarations: [
-    MdcRouter,
     TAB_DECLARATIONS
   ]
 })

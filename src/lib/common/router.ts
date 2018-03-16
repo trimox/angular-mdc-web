@@ -3,6 +3,7 @@ import {
   ContentChildren,
   Directive,
   EventEmitter,
+  NgModule,
   OnDestroy,
   Output,
   QueryList,
@@ -96,3 +97,9 @@ export class MdcRouter implements AfterContentInit, OnDestroy {
     this.routeChange.emit({ active: active });
   }
 }
+
+@NgModule({
+  exports: [MdcRouter],
+  declarations: [MdcRouter],
+})
+export class MdcRouterModule { }

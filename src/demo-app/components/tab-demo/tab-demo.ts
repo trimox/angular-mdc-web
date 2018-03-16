@@ -19,8 +19,8 @@ export const TABS_DEMO_ROUTES: Routes = [
 })
 export class TabDemo {
   demoTabs = [
-    { label: 'Tab One', icon: 'phone' },
-    { label: 'Tab Two', icon: 'favorite' },
+    { label: 'Tab One', icon: 'phone', disabled: false },
+    { label: 'Tab Two', icon: 'favorite', disabled: false },
     { label: 'Tab Three', icon: 'person_pin', disabled: false },
   ];
 

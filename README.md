@@ -34,7 +34,7 @@ Each component uses [material-components-web](https://github.com/material-compon
 
 | Component  | Status  | Demo |
 | ---------- | ------- | :------: |
-| app-bar | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/app-bar) |
+| app-bar | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/app-bar-demo) |
 | button | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/button-demo) |
 | card | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/card-demo) |
 | checkbox | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/checkbox-demo) |

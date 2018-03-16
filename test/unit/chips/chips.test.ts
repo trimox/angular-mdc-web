@@ -7,7 +7,7 @@ import {
   MdcChip,
   MdcChipSet,
   MdcChipEvent,
-  MdcChipSelectionChange,
+  MdcChipSelectionEvent
 } from '@angular-mdc/web';
 
 describe('Chips', () => {
@@ -15,12 +15,8 @@ describe('Chips', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MdcChipsModule,
-      ],
-      declarations: [
-        ChipTest,
-      ]
+      imports: [MdcChipsModule],
+      declarations: [ChipTest]
     });
     TestBed.compileComponents();
   }));
@@ -45,24 +41,6 @@ describe('Chips', () => {
       expect(testDebugElement.nativeElement.classList).toContain('mdc-chip');
     });
 
-    it('#should set selected to true', () => {
-      testInstance.select();
-      fixture.detectChanges();
-      expect(testInstance.selected).toBe(true);
-    });
-
-    it('#should set selected to true', () => {
-      testInstance.select();
-      fixture.detectChanges();
-      expect(testInstance.selected).toBe(true);
-    });
-
-    it('#should set selected to true', () => {
-      testInstance.selectViaInteraction();
-      fixture.detectChanges();
-      expect(testInstance.selected).toBe(true);
-    });
-
     it('#should toggle', () => {
       testInstance.toggleSelected();
       fixture.detectChanges();
@@ -75,20 +53,6 @@ describe('Chips', () => {
 
     it('#should have trailing icon', () => {
       expect(testInstance.icons.last.isTrailing()).toBe(true);
-    });
-
-    it('#should not be selected', () => {
-      testInstance.deselect();
-      fixture.detectChanges();
-      expect(testInstance.selected).toBe(false);
-    });
-
-    it('emits focus on click', () => {
-      spyOn(testInstance, 'focus').and.callThrough();
-
-      testNativeElement.click();
-
-      expect(testInstance.focus).toHaveBeenCalledTimes(1);
     });
 
     it('emits destroy on destruction', () => {
@@ -162,7 +126,7 @@ describe('Chips', () => {
 @Component({
   template: `
   <mdc-chip-set [choice]="choice" [filter]="filter">
-    <mdc-chip *ngIf="shouldShow" [selected]="selected"
+    <mdc-chip *ngIf="shouldShow"
     [disabled]="disabled"
     (focus)="chipFocus($event)"
     (selectionChange)="chipSelectionChange($event)"
@@ -179,7 +143,6 @@ describe('Chips', () => {
   `,
 })
 class ChipTest {
-  selected: boolean = false;
   shouldShow: boolean = true;
   disabled: boolean = false;
   choice: boolean = false;
@@ -187,6 +150,6 @@ class ChipTest {
 
   chipFocus: (event?: MdcChipEvent) => void = () => { };
   chipDestroy: (event?: MdcChipEvent) => void = () => { };
-  chipSelectionChange: (event?: MdcChipSelectionChange) => void = () => { };
+  chipSelectionChange: (event?: MdcChipSelectionEvent) => void = () => { };
   chipRemove: (event?: MdcChipEvent) => void = () => { };
 }

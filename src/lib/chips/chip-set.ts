@@ -4,7 +4,6 @@ import {
   Component,
   ContentChildren,
   ElementRef,
-  EventEmitter,
   HostBinding,
   Input,
   OnDestroy,
@@ -13,23 +12,17 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { startWith } from 'rxjs/operators/startWith';
+import { merge } from 'rxjs/observable/merge';
 
 import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
 
-import { MdcChip } from './chip';
+import { MdcChip, MdcChipSelectionEvent } from './chip';
 import { MDCChipSetAdapter } from '@material/chips/chip-set/adapter';
 import { MDCChipSetFoundation } from '@material/chips';
-
-/** Change event object that is emitted when the chip list value has changed. */
-export class MdcChipSetChange {
-  constructor(
-    /** ChipSet that emitted the event. */
-    public source: MdcChipSet,
-    /** Value of the chipset when the event was emitted. */
-    public value: any) { }
-}
 
 @Component({
   moduleId: module.id,
@@ -72,8 +65,16 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
 
   @ContentChildren(MdcChip) chips: QueryList<MdcChip>;
 
+  /** Subscription to interaction in chips. */
+  private _chipInteractionSubscription: Subscription | null;
+
   /** Subscription to changes in the chip list. */
   private _changeSubscription: Subscription;
+
+  /** Combined stream of all of the child chips' selection change events. */
+  get chipSelectionChanges(): Observable<MdcChipSelectionEvent> {
+    return merge(...this.chips.map(chip => chip.selectionChange));
+  }
 
   private _mdcAdapter: MDCChipSetAdapter = {
     hasClass: (className: string) => {
@@ -96,9 +97,9 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
     private _registry: EventRegistry) { }
 
   ngAfterContentInit(): void {
-    // When the list changes, re-subscribe
+    // When chips change, re-subscribe
     this._changeSubscription = this.chips.changes.pipe(startWith(null)).subscribe(() => {
-      // TO-DO(trimox) - Functional use of changes
+      this._resetChips();
     });
   }
 
@@ -110,7 +111,26 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
     if (this._changeSubscription) {
       this._changeSubscription.unsubscribe();
     }
+
+    this._dropSubscriptions();
     this._foundation.destroy();
+  }
+
+  private _resetChips(): void {
+    this._chipInteractionSubscription = this.chipSelectionChanges.subscribe(event => {
+      this.chips.forEach(chip => {
+        if ((chip.selected && this.choice) || event.source === chip) {
+          chip.toggleSelected();
+        }
+      });
+    });
+  }
+
+  private _dropSubscriptions(): void {
+    if (this._chipInteractionSubscription) {
+      this._chipInteractionSubscription.unsubscribe();
+      this._chipInteractionSubscription = null;
+    }
   }
 
   /** Retrieves the DOM element of the component host. */

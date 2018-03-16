@@ -38,14 +38,10 @@ export interface MdcChipEvent {
 }
 
 /** Event object emitted by MdcChip when selected or deselected. */
-export class MdcChipSelectionChange {
+export class MdcChipSelectionEvent {
   constructor(
     /** Reference to the chip that emitted the event. */
-    public source: MdcChip,
-    /** Whether the chip that emitted the event is selected. */
-    public selected: boolean,
-    /** Whether the selection change was a result of a user interaction. */
-    public isUserInput = false) { }
+    public source: MdcChip) { }
 }
 
 @Directive({
@@ -67,6 +63,10 @@ export class MdcChipIcon extends MdcIcon {
   }
   private _trailing: boolean;
 
+  @HostListener('click', ['$event']) onclick(evt: Event) {
+    this._handleClick(evt);
+  }
+
   @HostBinding('class.mdc-chip__icon') isHostClass = true;
   @HostBinding('class.mdc-chip__icon--leading') get classIconLeading(): string {
     return this.leading ? 'mdc-chip__icon--leading' : '';
@@ -86,6 +86,12 @@ export class MdcChipIcon extends MdcIcon {
 
   isTrailing(): boolean {
     return this._trailing;
+  }
+
+  /** Ensures events fire properly upon click. */
+  _handleClick(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   constructor(
@@ -127,8 +133,7 @@ let nextUniqueId = 0;
 })
 export class MdcChip implements OnInit, OnDestroy {
   private _id = `mdc-chip-${nextUniqueId++}`;
-  protected _selected: boolean = false;
-  protected _disabled: boolean = false;
+  public selected: boolean = false;
 
   /** Whether the chip has focus. */
   _hasFocus: boolean = false;
@@ -136,24 +141,13 @@ export class MdcChip implements OnInit, OnDestroy {
   /** The unique ID of the option. */
   get id(): string { return this._id; }
 
-  /** Whether the chip is selected. */
-  @Input()
-  get selected(): boolean { return this._selected; }
-  set selected(value: boolean) {
-    this._selected = toBoolean(value);
-    this.selectionChange.emit({
-      source: this,
-      isUserInput: false,
-      selected: value
-    });
-  }
-
   /** Whether the chip is disabled. */
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this._disabled = toBoolean(value);
   }
+  protected _disabled: boolean = false;
 
   /** Emits when the chip is focused. */
   readonly _onFocus = new Subject<MdcChipEvent>();
@@ -165,8 +159,12 @@ export class MdcChip implements OnInit, OnDestroy {
   @Output() readonly destroyed: EventEmitter<MdcChipEvent> = new EventEmitter<MdcChipEvent>();
 
   /** Emitted when the chip is selected or deselected. */
-  @Output() readonly selectionChange: EventEmitter<MdcChipSelectionChange> =
-    new EventEmitter<MdcChipSelectionChange>();
+  @Output() readonly selectionChange: EventEmitter<MdcChipSelectionEvent> =
+    new EventEmitter<MdcChipSelectionEvent>();
+
+  /** Emitted when the chip is selected or deselected. */
+  @Output() readonly trailingIconInteraction: EventEmitter<void> =
+    new EventEmitter<void>();
 
   /** Emitted when a chip is to be removed. */
   @Output() readonly removed: EventEmitter<MdcChipEvent> = new EventEmitter<MdcChipEvent>();
@@ -178,9 +176,6 @@ export class MdcChip implements OnInit, OnDestroy {
 
   @HostListener('focus', ['$event']) onfocus() {
     this._hasFocus = true;
-  }
-  @HostListener('click', ['$event']) onclick(evt: Event) {
-    this._handleClick(evt);
   }
   @HostListener('keydown', ['$event']) onkeydown(evt: KeyboardEvent) {
     this._handleKeydown(evt);
@@ -216,11 +211,10 @@ export class MdcChip implements OnInit, OnDestroy {
     },
     notifyInteraction: () => {
       this.selectionChange.emit({
-        source: this,
-        isUserInput: true,
-        selected: this._selected
+        source: this
       });
     },
+    notifyTrailingIconInteraction: () => this.trailingIconInteraction.emit()
   };
 
   private _foundation: {
@@ -261,49 +255,10 @@ export class MdcChip implements OnInit, OnDestroy {
     this.removed.emit({ chip: this });
   }
 
-  /** Selects the chip. */
-  select(): void {
-    this._selected = true;
-    this._emitSelectionChangeEvent(false);
-    this._foundation.toggleSelected();
-  }
-
-  /** Deselects the chip. */
-  deselect(): void {
-    this._selected = false;
-    this._emitSelectionChangeEvent(false);
-    this._foundation.toggleSelected();
-  }
-
-  /** Select this chip and emit selected event */
-  selectViaInteraction(): void {
-    this._selected = true;
-    this._emitSelectionChangeEvent(true);
-    this._foundation.toggleSelected();
-  }
-
   /** Toggles the current selected state of this chip. */
-  toggleSelected(isUserInput: boolean = false): boolean {
-    this._selected = !this.selected;
-    this._emitSelectionChangeEvent(isUserInput);
+  toggleSelected() {
+    this.selected = !this.selected;
     this._foundation.toggleSelected();
-
-    this._foundation.toggleSelected();
-
-    return this.selected;
-  }
-
-  /** Ensures events fire properly upon click. */
-  _handleClick(event: Event) {
-    if (this.disabled) {
-      return;
-    }
-    this.select();
-
-    event.preventDefault();
-    event.stopPropagation();
-
-    this.focus();
   }
 
   /** Handle custom key presses. */
@@ -322,7 +277,7 @@ export class MdcChip implements OnInit, OnDestroy {
         break;
       case SPACE:
         if (!this.disabled) {
-          this.toggleSelected(true);
+          this.toggleSelected();
         }
 
         // Always prevent space from scrolling the page since the list has focus
@@ -341,7 +296,7 @@ export class MdcChip implements OnInit, OnDestroy {
   }
 
   /** Emits the selection change event. */
-  private _emitSelectionChangeEvent(isUserInput = false): void {
-    this.selectionChange.emit({ source: this, isUserInput: isUserInput, selected: this.selected });
+  private _emitSelectionChangeEvent(): void {
+    this.selectionChange.emit({ source: this });
   }
 }

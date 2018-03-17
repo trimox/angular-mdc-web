@@ -87,6 +87,8 @@ let nextUniqueId = 0;
   preserveWhitespaces: false,
 })
 export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, ControlValueAccessor {
+  protected _uid = `mdc-input-${nextUniqueId++}`;
+
   private _disabled: boolean = false;
   private _required: boolean = false;
   private _focused: boolean = false;
@@ -94,7 +96,6 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
   private _helperText: MdcTextFieldHelperText;
   private _useCustomValidity: boolean;
 
-  @Input() id: string = `mdc-input-${nextUniqueId++}`;
   @Input() fullwidth: boolean = false;
   @Input() dense: boolean = false;
   @Input() label: string;
@@ -113,6 +114,27 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
   @ContentChild(MdcTextFieldTrailingIcon) trailingIcon: MdcTextFieldTrailingIcon;
   @ViewChild(MdcTextFieldOutline) outlined: MdcTextFieldOutline;
   @ViewChild(MdcTextFieldIdleOutline) idleOutline: MdcTextFieldIdleOutline;
+
+  /** Input type of the element. */
+  @Input()
+  get type(): string { return this._type; }
+  set type(value: string) {
+    this._type = value || 'text';
+    this._validateType();
+
+    // When using Angular inputs, developers are no longer able to set the properties on the native
+    // input element. To ensure that bindings for `type` work, we need to sync the setter
+    // with the native property. Textarea elements don't support the type property or attribute.
+    if (!this._isTextarea() && getSupportedInputTypes().has(this._type)) {
+      this.inputText.nativeElement.type = this._type;
+    }
+  }
+  protected _type = 'text';
+
+  @Input()
+  get id(): string { return this._id; }
+  set id(value: string) { this._id = value || this._uid; }
+  protected _id: string;
 
   /** Input type of the element. */
   @Input()
@@ -274,7 +296,11 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
     private _changeDetectorRef: ChangeDetectorRef,
     private _renderer: Renderer2,
     public elementRef: ElementRef,
-    private _registry: EventRegistry) { }
+    private _registry: EventRegistry) {
+
+    // Force setter to be called in case id was not specified.
+    this.id = this.id;
+  }
 
   ngOnChanges(changes: { [key: string]: SimpleChange }): void {
     const disabled = changes['disabled'];

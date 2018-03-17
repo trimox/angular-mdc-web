@@ -3,6 +3,8 @@ import {
   ElementRef,
   HostBinding,
   Input,
+  OnDestroy,
+  OnInit,
   Renderer2,
 } from '@angular/core';
 import { MDCTextFieldHelperTextAdapter } from '@material/textfield/helper-text/adapter';
@@ -12,7 +14,7 @@ import { MDCTextFieldHelperTextFoundation } from '@material/textfield/helper-tex
   selector: '[mdc-text-field-helper-text], mdc-text-field-helper-text',
   exportAs: 'mdcHelperText'
 })
-export class MdcTextFieldHelperText {
+export class MdcTextFieldHelperText implements OnInit, OnDestroy {
   @Input() id: string;
   @Input() persistent: boolean = false;
   @Input() validation: boolean = false;
@@ -53,6 +55,14 @@ export class MdcTextFieldHelperText {
   constructor(
     private _renderer: Renderer2,
     public elementRef: ElementRef) { }
+
+  ngOnInit(): void {
+    this.foundation.init();
+  }
+
+  ngOnDestroy(): void {
+    this.foundation.destroy();
+  }
 
   destroy(): void {
     this.foundation.destroy();

@@ -115,22 +115,6 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
   @ViewChild(MdcTextFieldOutline) outlined: MdcTextFieldOutline;
   @ViewChild(MdcTextFieldIdleOutline) idleOutline: MdcTextFieldIdleOutline;
 
-  /** Input type of the element. */
-  @Input()
-  get type(): string { return this._type; }
-  set type(value: string) {
-    this._type = value || 'text';
-    this._validateType();
-
-    // When using Angular inputs, developers are no longer able to set the properties on the native
-    // input element. To ensure that bindings for `type` work, we need to sync the setter
-    // with the native property. Textarea elements don't support the type property or attribute.
-    if (!this._isTextarea() && getSupportedInputTypes().has(this._type)) {
-      this.inputText.nativeElement.type = this._type;
-    }
-  }
-  protected _type = 'text';
-
   @Input()
   get id(): string { return this._id; }
   set id(value: string) { this._id = value || this._uid; }
@@ -331,9 +315,6 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
   }
 
   ngOnDestroy(): void {
-    if (this.helperText) {
-      this.helperText.destroy();
-    }
     if (this.leadingIcon) {
       this.leadingIcon.destroy();
     }

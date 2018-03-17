@@ -5,3 +5,4 @@ export * from './keycodes';
 export * from './number-property';
 export * from './platform';
 export * from './router';
+export * from './features';

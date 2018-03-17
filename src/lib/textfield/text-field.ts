@@ -19,7 +19,12 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { toBoolean, isBrowser, EventRegistry } from '@angular-mdc/web/common';
+import {
+  toBoolean,
+  isBrowser,
+  EventRegistry,
+  getSupportedInputTypes
+} from '@angular-mdc/web/common';
 import { MdcFloatingLabel } from '@angular-mdc/web/floating-label';
 import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
 
@@ -58,7 +63,6 @@ let nextUniqueId = 0;
   exportAs: 'mdcTextField',
   template: `
   <input #input class="mdc-text-field__input"
-    [type]="type"
     [id]="id"
     [tabindex]="tabIndex"
     [disabled]="disabled"
@@ -83,7 +87,6 @@ let nextUniqueId = 0;
   preserveWhitespaces: false,
 })
 export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, ControlValueAccessor {
-  private _type = 'text';
   private _disabled: boolean = false;
   private _required: boolean = false;
   private _focused: boolean = false;
@@ -110,6 +113,22 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
   @ContentChild(MdcTextFieldTrailingIcon) trailingIcon: MdcTextFieldTrailingIcon;
   @ViewChild(MdcTextFieldOutline) outlined: MdcTextFieldOutline;
   @ViewChild(MdcTextFieldIdleOutline) idleOutline: MdcTextFieldIdleOutline;
+
+  /** Input type of the element. */
+  @Input()
+  get type(): string { return this._type; }
+  set type(value: string) {
+    this._type = value || 'text';
+    this._validateType();
+
+    // When using Angular inputs, developers are no longer able to set the properties on the native
+    // input element. To ensure that bindings for `type` work, we need to sync the setter
+    // with the native property. Textarea elements don't support the type property or attribute.
+    if (!this._isTextarea() && getSupportedInputTypes().has(this._type)) {
+      this.inputText.nativeElement.type = this._type;
+    }
+  }
+  protected _type = 'text';
 
   @Input()
   get disabled(): boolean { return this._disabled; }
@@ -143,16 +162,6 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
   get helperText(): MdcTextFieldHelperText { return this._helperText; }
   set helperText(helperText: MdcTextFieldHelperText) {
     this._helperText = helperText;
-  }
-  @Input()
-  get type(): string { return this._type; }
-  set type(value: string) {
-    this._type = value || 'text';
-    this._validateType();
-
-    if (!this.isTextarea()) {
-      this._renderer.setProperty(this.inputText, 'type', this._type);
-    }
   }
 
   /** The input element's value. */
@@ -368,7 +377,7 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
     this._foundation.setValid(isValid);
   }
 
-  isTextarea(): boolean {
+  private _isTextarea(): boolean {
     const nativeElement = this._getHostElement();
     const nodeName = isBrowser ? nativeElement.nodeName : nativeElement.name;
 
@@ -411,7 +420,7 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
   }
 
   updateIconState(): void {
-    if (this.isTextarea()) { return; }
+    if (this._isTextarea()) { return; }
 
     if (this.leadingIcon) {
       this._renderer.addClass(this._getHostElement(), 'mdc-text-field--with-leading-icon');
@@ -432,7 +441,8 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
     return this.elementRef.nativeElement;
   }
 
-  private _validateType() {
+  /** Make sure the input is a supported type. */
+  protected _validateType() {
     if (MD_INPUT_INVALID_TYPES.indexOf(this._type) > -1) {
       throw Error(`Input type "${this._type}" is not supported.`);
     }

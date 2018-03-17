@@ -1,29 +1,14 @@
 const webpack = require('webpack');
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OUT_PATH = path.resolve('./publish');
 const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
-
-const CSS_LOADER_CONFIG = [
-  { loader: 'css-loader' },
-  {
-    loader: 'postcss-loader',
-    options: {
-      plugins: () => [require('autoprefixer')({
-        grid: false
-      })]
-    }
-  },
-  { loader: 'sass-loader' }
-];
 
 module.exports = [{
   context: path.resolve(__dirname, '../../src/demo-app'),
   entry: {
     'polyfills': './polyfills.ts',
     'vendor': './vendor.ts',
-    'app': './main.ts',
-    'css': './styles.scss',
+    'app': './main.ts'
   },
   devtool: 'source-map',
   devServer: {
@@ -49,14 +34,6 @@ module.exports = [{
       /(.+)?angular(\\|\/)core(.+)?/,
       path.resolve(__dirname, './src')
     ),
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        postcss: function() {
-          return [autoprefixer];
-        }
-      }
-    }),
-    new ExtractTextPlugin('styles.css'),
     new webpack.optimize.CommonsChunkPlugin({
       name: ['app', 'vendor', 'polyfills'],
       minChunks: Infinity
@@ -96,11 +73,12 @@ module.exports = [{
           publicPath: 'assets/'
         }
       }, {
-          test: /\.scss$/,
-          use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: CSS_LOADER_CONFIG
-      })
-    }]
+        test: /\.(sass|scss)$/,
+        loaders: [
+          'raw-loader',
+          'sass-loader',
+        ]
+      }
+    ]
   }
 }]

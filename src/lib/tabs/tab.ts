@@ -142,6 +142,7 @@ export class MdcTab implements OnInit, OnDestroy {
         .pipe(takeUntil(this._destroy))
         .subscribe((_: MdcRouteEvent) => {
           this.setActive(_.active);
+          this._emitSelectedEvent();
         });
     }
   }

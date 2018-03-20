@@ -104,7 +104,7 @@ export class MdcDrawer implements OnChanges, OnDestroy {
     },
     hasNecessaryDom: () => !!this.drawerNav,
     registerInteractionHandler: (evt: string, handler: EventListener) => {
-      this._registry.listen(util.remapEvent(evt), handler, this.elementRef.nativeElement);
+      this._registry.listen(util.remapEvent(evt), handler, this._getHostElement(), util.applyPassive());
     },
     deregisterInteractionHandler: (evt: string, handler: EventListener) => {
       this._registry.unlisten(evt, handler);

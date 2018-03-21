@@ -1,11 +1,11 @@
 import {
+  AfterContentInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
   forwardRef,
   HostBinding,
-  Inject,
   Renderer2,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -50,21 +50,22 @@ export const MDC_TEXTFIELD_BOX_CONTROL_VALUE_ACCESSOR: any = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
 })
-export class MdcTextFieldBox extends MdcTextField {
+export class MdcTextFieldBox extends MdcTextField implements AfterContentInit {
   renderer: Renderer2;
 
-  @HostBinding('class.mdc-text-field--box') isHostClass = true;
-
   constructor(
-    @Inject(ChangeDetectorRef) _changeDetectorRef: ChangeDetectorRef,
-    @Inject(Renderer2) _renderer: Renderer2,
-    @Inject(ElementRef) elementRef: ElementRef,
-    @Inject(EventRegistry) _registry: EventRegistry,
-    private _ripple: MdcRipple) {
+    _changeDetectorRef: ChangeDetectorRef,
+    _renderer: Renderer2,
+    elementRef: ElementRef,
+    _registry: EventRegistry,
+    _ripple: MdcRipple) {
 
-    super(_changeDetectorRef, _renderer, elementRef, _registry);
+    super(_changeDetectorRef, _renderer, elementRef, _ripple, _registry);
 
-    this._ripple.init();
     this.renderer = _renderer;
+  }
+
+  ngAfterContentInit() {
+    this.setBox(true);
   }
 }

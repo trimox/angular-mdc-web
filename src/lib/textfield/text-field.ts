@@ -24,6 +24,7 @@ import {
   toNumber,
   getSupportedInputTypes
 } from '@angular-mdc/web/common';
+import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcFloatingLabel } from '@angular-mdc/web/floating-label';
 import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
 
@@ -79,6 +80,7 @@ let nextUniqueId = 0;
   `,
   providers: [
     MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR,
+    MdcRipple,
     EventRegistry
   ],
   encapsulation: ViewEncapsulation.None,
@@ -282,10 +284,11 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   _onTouched = () => { };
 
   constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
-    private _renderer: Renderer2,
+    protected _changeDetectorRef: ChangeDetectorRef,
+    protected _renderer: Renderer2,
     public elementRef: ElementRef,
-    private _registry: EventRegistry) {
+    protected _ripple: MdcRipple,
+    protected _registry: EventRegistry) {
 
     // Force setter to be called in case id was not specified.
     this.id = this.id;
@@ -406,6 +409,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     if (this._outline && this._box) {
       this._outline = false;
     }
+    this._box ? this._ripple.init() : this._ripple.destroy();
 
     this._changeDetectorRef.markForCheck();
   }

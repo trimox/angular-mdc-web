@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
+import { MdcRipple } from '@angular-mdc/web/ripple';
 import { EventRegistry } from '@angular-mdc/web/common';
 import { MdcTextField } from './text-field';
 
@@ -37,6 +38,7 @@ export const MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
   `,
   providers: [
     MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR,
+    MdcRipple,
     EventRegistry
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

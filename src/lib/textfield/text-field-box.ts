@@ -27,7 +27,6 @@ export const MDC_TEXTFIELD_BOX_CONTROL_VALUE_ACCESSOR: any = {
   exportAs: 'mdcTextFieldBox',
   template: `
   <input #input class="mdc-text-field__input"
-    [type]="type"
     [id]="id"
     [tabindex]="tabIndex"
     [attr.maxlength]="maxlength"

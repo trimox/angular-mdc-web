@@ -21,6 +21,7 @@ import {
   toBoolean,
   isBrowser,
   EventRegistry,
+  toNumber,
   getSupportedInputTypes
 } from '@angular-mdc/web/common';
 import { MdcFloatingLabel } from '@angular-mdc/web/floating-label';
@@ -166,12 +167,11 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
 
   /** The input element's value. */
   @Input()
-  get value(): string { return this.inputText.nativeElement.value; }
-  set value(value: string) {
-    if (value !== this.value) {
-      this.inputText.nativeElement.value = value;
-    }
+  get value(): any { return this._value; }
+  set value(value: any) {
+    this.setValue(value);
   }
+  protected _value: string;
 
   get valid(): boolean {
     return this._useCustomValidity ? this._foundation.isValid() : this.inputText.nativeElement.validity.valid;
@@ -255,13 +255,13 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     isDisabled(): boolean,
     setDisabled(disabled: boolean): void,
     setValid(isValid: boolean): void,
-    setValue(value: string): void,
+    setValue(value: any): void,
     activateFocus(): void,
     deactivateFocus(): void,
     isValid(): boolean,
     setHelperTextContent(content: string): void,
     updateOutline(): void,
-    getValue(): string
+    getValue(): any
   } = new MDCTextFieldFoundation(this._mdcAdapter, this._getFoundationMap());
 
   /** View -> model callback called when value changes */
@@ -311,14 +311,13 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     this._foundation.destroy();
   }
 
-  writeValue(value: string): void {
-    this.value = value == null ? '' : value;
+  writeValue(value: any): void {
+    this.setValue(value === null ? '' : value);
 
     if (this.floatingLabel) {
       this.floatingLabel.float(this.value.length > 0);
     }
 
-    this.change.emit(value);
     this._changeDetectorRef.markForCheck();
   }
 
@@ -330,11 +329,8 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     this._onTouched = fn;
   }
 
-  onInput(value: string): void {
-    this.value = value;
-    this._onChange(value);
-    this.change.emit(value);
-    this._changeDetectorRef.markForCheck();
+  onInput(value: any): void {
+    this.setValue(value);
   }
 
   onFocus(): void {
@@ -380,6 +376,16 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   /** Sets the text-field required or not. */
   setRequired(isRequired: boolean): void {
     this._required = isRequired;
+    this._changeDetectorRef.markForCheck();
+  }
+
+  setValue(value: any): void {
+    this._value = (this.type === 'number') ?
+      (value === '' ? null : toNumber(value)) : value;
+
+    this._foundation.setValue(this._value);
+    this._onChange(this._value);
+
     this._changeDetectorRef.markForCheck();
   }
 

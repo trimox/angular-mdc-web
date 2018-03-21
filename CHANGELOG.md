@@ -1,3 +1,33 @@
+<a name="0.32.1"></a>
+## [0.32.1](https://github.com/trimox/angular-mdc-web/compare/v0.32.0...v0.32.1) (2018-03-21)
+
+
+### Bug Fixes
+
+* **tabs:** Ink color for hover state ([#797](https://github.com/trimox/angular-mdc-web/issues/797)) ([395bf62](https://github.com/trimox/angular-mdc-web/commit/395bf62))
+* **tabs:** Set active tab from mdcRouter ([#791](https://github.com/trimox/angular-mdc-web/issues/791)) ([cec662f](https://github.com/trimox/angular-mdc-web/commit/cec662f))
+* **text-field:** Numeric value returned by ControlValueAccessor ([#794](https://github.com/trimox/angular-mdc-web/issues/794)) ([6895446](https://github.com/trimox/angular-mdc-web/commit/6895446)), closes [#773](https://github.com/trimox/angular-mdc-web/issues/773)
+* **text-field:** Value undefined for floating label ([#795](https://github.com/trimox/angular-mdc-web/issues/795)) ([07b7120](https://github.com/trimox/angular-mdc-web/commit/07b7120))
+
+
+### Features
+
+* **text-field:** Add `box` property ([#798](https://github.com/trimox/angular-mdc-web/issues/798)) ([c6438ac](https://github.com/trimox/angular-mdc-web/commit/c6438ac)), closes [#796](https://github.com/trimox/angular-mdc-web/issues/796)
+* **text-field:** Add setOutline method ([#799](https://github.com/trimox/angular-mdc-web/issues/799)) ([a614dec](https://github.com/trimox/angular-mdc-web/commit/a614dec))
+
+
+### Performance Improvements
+
+* **demo:** Improve Sass processing time ([#780](https://github.com/trimox/angular-mdc-web/issues/780)) ([b0ec2f3](https://github.com/trimox/angular-mdc-web/commit/b0ec2f3))
+* **drawer:** Use passive event listener for interactions ([#787](https://github.com/trimox/angular-mdc-web/issues/787)) ([d5f4cbd](https://github.com/trimox/angular-mdc-web/commit/d5f4cbd))
+
+
+### BREAKING CHANGES
+
+* **text-field:** - `mdc-text-field-box` directive is deprecated and no longer supported. Please update your code accordingly. Example: `<mdc-text-field [box]="true"></mdc-text-field>`
+
+
+
 <a name="0.32.0"></a>
 # [0.32.0](https://github.com/trimox/angular-mdc-web/compare/v0.31.1...v0.32.0) (2018-03-16)
 

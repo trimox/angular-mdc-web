@@ -312,7 +312,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   }
 
   writeValue(value: any): void {
-    this.setValue(value === null ? '' : value);
+    this.setValue(value == null ? '' : value);
 
     if (this.floatingLabel) {
       this.floatingLabel.float(this.value.length > 0);

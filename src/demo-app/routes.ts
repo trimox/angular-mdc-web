@@ -28,7 +28,6 @@ import { TypographyDemo } from './components/core/typography-demo/typography-dem
 
 import { DIALOG_DEMO_ROUTES } from './components/dialog-demo/routes';
 import { TABS_DEMO_ROUTES } from './components/tab-demo';
-import { TEXTFIELD_DEMO_ROUTES } from './components/inputs-controls/textfield-demo/routes';
 
 export const DEMO_ROUTES = [
   AppBarDemo,
@@ -68,7 +67,7 @@ export const APP_ROUTES: Routes = [
   { path: 'switch-demo', component: SwitchDemo },
   { path: 'snackbar-demo', component: SnackbarDemo },
   { path: 'menu-demo', component: MenuDemo },
-  { path: 'textfield-demo', component: TextFieldDemo, children: TEXTFIELD_DEMO_ROUTES },
+  { path: 'textfield-demo', component: TextFieldDemo },
   { path: 'toolbar-demo', component: ToolbarDemo },
   { path: 'linear-progress-demo', component: LinearProgressDemo },
   { path: 'typography-demo', component: TypographyDemo },

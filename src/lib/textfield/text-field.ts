@@ -135,6 +135,13 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   protected _type = 'text';
 
   @Input()
+  get box(): boolean { return this._box; }
+  set box(value: boolean) {
+    this.setBox(value);
+  }
+  protected _box: boolean = false;
+
+  @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this.setDisabledState(value);
@@ -182,6 +189,9 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     return !this.inputText.nativeElement.value && !this.isBadInput();
   }
 
+  @HostBinding('class.mdc-text-field--box') get classBox(): string {
+    return this.box ? 'mdc-text-field--box' : '';
+  }
   @HostBinding('class.mdc-text-field--dense') get classDense(): string {
     return this.dense ? 'mdc-text-field--dense' : '';
   }
@@ -385,6 +395,13 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
 
     this._foundation.setValue(this._value);
     this._onChange(this._value);
+
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /** Styles the text field as a box text field. */
+  setBox(box: boolean): void {
+    this._box = toBoolean(box);
 
     this._changeDetectorRef.markForCheck();
   }

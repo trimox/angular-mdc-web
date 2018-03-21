@@ -63,6 +63,12 @@ describe('MdcTextField', () => {
       textFieldInstance.outlined.getWidth();
     });
 
+    it('#should apply class box', () => {
+      testComponent.box = true;
+      fixture.detectChanges();
+      expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--box')).toBe(true);
+    });
+
     it('#should not be disabled', () => {
       fixture.detectChanges();
       expect(textFieldInstance.isDisabled()).toBe(false);
@@ -149,6 +155,11 @@ describe('MdcTextField', () => {
       expect(document.activeElement).toBe(textFieldInstance.inputText.nativeElement);
     });
 
+    it('#should set icon disabled', () => {
+      expect(textFieldInstance.leadingIcon.setDisabled(true));
+      fixture.detectChanges();
+    });
+
     it('#should throw an error', () => {
       expect(() => {
         testComponent.myType = 'button'; fixture.detectChanges();
@@ -168,11 +179,14 @@ describe('MdcTextField', () => {
       [dense]="isDense"
       [outline]="isOutline"
       [fullwidth]="isFullwidth"
+      [box]="box"
       [required]="isRequired"
       [focused]="isFocused"
       [disabled]="isDisabled"
       [helperText]="userHelper"
       (blur)="onBlur($event)">
+      <mdc-icon leading>person</mdc-icon>
+      <mdc-icon trailing>person</mdc-icon>
     </mdc-text-field>
     <mdc-text-field-helper-text
       #userHelper="mdcHelperText"
@@ -189,6 +203,7 @@ class SimpleTextfield {
   isFullwidth: boolean = false;
   isOutline: boolean = false;
   isRequired: boolean = false;
+  box: boolean = false;
 
   onBlur(event: any) { }
 }

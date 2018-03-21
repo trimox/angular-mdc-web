@@ -381,8 +381,8 @@ a[mdc-tab]</pre></td>
         </mdc-toolbar-section>
         <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
           <mdc-tab-bar #myTabBar [primary]="true">
-            <mdc-tab *ngFor="let tab of demoTabRoutes" [routerLink]="[{outlets: {taboutlet: tab.route}}]" mdcRouter
-             routerLinkActive #rla="routerLinkActive">{{tab.label}}</mdc-tab>
+            <mdc-tab *ngFor="let tab of demoTabRoutes" [routerLink]="[{outlets: {taboutlet: tab.route}}]"
+            mdcRouter>{{tab.label}}</mdc-tab>
           </mdc-tab-bar>
         </mdc-toolbar-section>
       </mdc-toolbar-row>

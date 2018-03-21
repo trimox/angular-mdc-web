@@ -27,7 +27,7 @@ export class TabDemo {
   demoTabRoutes = [
     { label: 'Tab One', route: 'first-tab' },
     { label: 'Tab Two', route: 'second-tab' },
-    { label: 'Tab Three', route: 'third-tab', disabled: false },
+    { label: 'Tab Three', route: 'third-tab' },
   ];
 
   demoScrollingTabs = [

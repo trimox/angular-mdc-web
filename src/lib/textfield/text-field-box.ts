@@ -21,6 +21,10 @@ export const MDC_TEXTFIELD_BOX_CONTROL_VALUE_ACCESSOR: any = {
   multi: true
 };
 
+/**
+ * @deprecated
+ * @deletion-target 0.34.0
+ */
 @Component({
   moduleId: module.id,
   selector: 'mdc-text-field-box',

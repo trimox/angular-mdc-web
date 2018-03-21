@@ -10,11 +10,9 @@ import {
   forwardRef,
   HostBinding,
   Input,
-  OnChanges,
   OnDestroy,
   Output,
   Renderer2,
-  SimpleChange,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -86,10 +84,9 @@ let nextUniqueId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
 })
-export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, ControlValueAccessor {
+export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAccessor {
   protected _uid = `mdc-input-${nextUniqueId++}`;
 
-  private _disabled: boolean = false;
   private _required: boolean = false;
   private _focused: boolean = false;
   private _outline: boolean = false;
@@ -139,13 +136,10 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
-    this._disabled = toBoolean(value);
-
-    if (this.focused) {
-      this.focused = false;
-    }
-    this._foundation.setDisabled(this._disabled);
+    this.setDisabledState(value);
   }
+  protected _disabled: boolean;
+
   @Input()
   get required(): boolean { return this._required; }
   set required(value: boolean) {
@@ -286,14 +280,6 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
     this.id = this.id;
   }
 
-  ngOnChanges(changes: { [key: string]: SimpleChange }): void {
-    const disabled = changes['disabled'];
-
-    if (disabled) {
-      this._foundation.setDisabled(disabled.currentValue);
-    }
-  }
-
   ngAfterViewInit(): void {
     this._foundation
       = new MDCTextFieldFoundation(this._mdcAdapter, this._getFoundationMap());
@@ -358,8 +344,8 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
   onBlur(): void {
     this._focused = false;
     this._onTouched();
-
     this.blur.emit(this.value);
+
     this._changeDetectorRef.markForCheck();
   }
 
@@ -440,6 +426,10 @@ export class MdcTextField implements AfterViewInit, OnChanges, OnDestroy, Contro
   setDisabledState(isDisabled: boolean) {
     this._disabled = isDisabled;
     this._foundation.setDisabled(isDisabled);
+    if (this.focused) {
+      this.focused = false;
+    }
+
     this._changeDetectorRef.markForCheck();
   }
 

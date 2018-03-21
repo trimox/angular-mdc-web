@@ -90,7 +90,6 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
 
   private _required: boolean = false;
   private _focused: boolean = false;
-  private _outline: boolean = false;
   private _helperText: MdcTextFieldHelperText;
   private _useCustomValidity: boolean;
 
@@ -142,6 +141,13 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   protected _box: boolean = false;
 
   @Input()
+  get outline(): boolean { return this._outline; }
+  set outline(value: boolean) {
+    this.setOutline(value);
+  }
+  protected _outline: boolean = false;
+
+  @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this.setDisabledState(value);
@@ -160,12 +166,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   set focused(value: boolean) {
     this._focused = toBoolean(value);
   }
-  @Input()
-  get outline(): boolean { return this._outline; }
-  set outline(value: boolean) {
-    this._outline = toBoolean(value);
-    this._changeDetectorRef.markForCheck();
-  }
+
   @Input()
   get helperText(): MdcTextFieldHelperText { return this._helperText; }
   set helperText(helperText: MdcTextFieldHelperText) {
@@ -402,6 +403,19 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   /** Styles the text field as a box text field. */
   setBox(box: boolean): void {
     this._box = toBoolean(box);
+    if (this._outline && this._box) {
+      this._outline = false;
+    }
+
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /** Styles the text field as an outlined text field. */
+  setOutline(outline: boolean): void {
+    this._outline = toBoolean(outline);
+    if (this._outline && this._box) {
+      this._box = false;
+    }
 
     this._changeDetectorRef.markForCheck();
   }

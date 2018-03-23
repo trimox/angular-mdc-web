@@ -48,16 +48,16 @@ describe('MdcRippleDirective', () => {
       expect(testDebugElement.nativeElement.classList.contains('mdc-ripple-surface')).toBe(false);
     });
 
-    it('#should have ng-mdc-ripple-surface--primary if true', () => {
+    it('#should have mdc-ripple-surface--primary if true', () => {
       testComponent.isPrimary = true;
       fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList.contains('ng-mdc-ripple-surface--primary')).toBe(true);
+      expect(testDebugElement.nativeElement.classList.contains('mdc-ripple-surface--primary')).toBe(true);
     });
 
-    it('#should have ng-mdc-ripple-surface--secondary if true', () => {
+    it('#should have mdc-ripple-surface--accent if true', () => {
       testComponent.isSecondary = true;
       fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList.contains('ng-mdc-ripple-surface--secondary')).toBe(true);
+      expect(testDebugElement.nativeElement.classList.contains('mdc-ripple-surface--accent')).toBe(true);
     });
 
     it('#should have mdc-ripple-upgraded--unbounded', () => {

@@ -64,11 +64,11 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
   @HostBinding('class.mdc-ripple-surface') get classSurface(): string {
     return this.active ? 'mdc-ripple-surface' : '';
   }
-  @HostBinding('class.ng-mdc-ripple-surface--primary') get classPrimary(): string {
-    return this.primary ? 'ng-mdc-ripple-surface--primary' : '';
+  @HostBinding('class.mdc-ripple-surface--primary') get classPrimary(): string {
+    return this.primary ? 'mdc-ripple-surface--primary' : '';
   }
-  @HostBinding('class.ng-mdc-ripple-surface--secondary') get classSecondary(): string {
-    return this.secondary ? 'ng-mdc-ripple-surface--secondary' : '';
+  @HostBinding('class.mdc-ripple-surface--accent') get classSecondary(): string {
+    return this.secondary ? 'mdc-ripple-surface--accent' : '';
   }
 
   constructor(

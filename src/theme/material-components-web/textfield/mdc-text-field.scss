@@ -17,6 +17,7 @@
 @import "../animation/variables";
 @import "../floating-label/mdc-floating-label";
 @import "../line-ripple/mdc-line-ripple";
+@import "../notched-outline/mdc-notched-outline";
 @import "../ripple/common";
 @import "../ripple/mixins";
 @import "../rtl/mixins";
@@ -27,7 +28,6 @@
 @import "./helper-text/mdc-text-field-helper-text";
 @import "./icon/mdc-text-field-icon";
 @import "./mixins";
-@import "./outline/mdc-text-field-outline";
 @import "./variables";
 
 // postcss-bem-linter: define text-field
@@ -60,7 +60,7 @@
   }
 
   width: 100%;
-  padding: 0 0 8px;
+  padding: 20px 0 8px;
   transition: mdc-text-field-transition(opacity);
   border: none;
   border-bottom: 1px solid;
@@ -163,10 +163,6 @@
   &:not(.mdc-text-field--textarea):not(.mdc-text-field--outlined) {
     height: 48px;
   }
-
-  .mdc-floating-label {
-    pointer-events: none;
-  }
 }
 
 .mdc-text-field--dense {
@@ -246,13 +242,13 @@
 
 // Never show the idle outline when the label is floating, otherwise the label
 // will collide with the idle outline.
-.mdc-floating-label--float-above ~ .mdc-text-field__idle-outline {
+.mdc-floating-label--float-above ~ .mdc-notched-outline__idle {
   opacity: 0;
 }
 
 // Show the outline when the label is floating, since the outline has a
 // notch for the label to fit into.
-.mdc-floating-label--float-above ~ .mdc-text-field__outline {
+.mdc-floating-label--float-above ~ .mdc-notched-outline {
   opacity: 1;
 }
 

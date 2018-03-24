@@ -48,7 +48,7 @@ export class MdcAppBarActionItem {
     public elementRef: ElementRef,
     private _ripple: MdcRipple) {
 
-    _ripple.init(true);
+    _ripple.attachTo(this.elementRef.nativeElement, true);
   }
 }
 
@@ -65,7 +65,7 @@ export class MdcAppBarNavigationIcon {
     public elementRef: ElementRef,
     private _ripple: MdcRipple) {
 
-    _ripple.init(true);
+    _ripple.attachTo(this.getHostElement(), true);
   }
 
   /** Retrieves the DOM element of the directive. */

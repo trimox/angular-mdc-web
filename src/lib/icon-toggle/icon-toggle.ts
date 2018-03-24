@@ -179,7 +179,7 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
     this._foundation.refreshToggleData();
     this._foundation.toggle(this._on || this._foundation.isOn());
 
-    this.ripple.init(true);
+    this.ripple.attachTo(this._getHostElement(), true);
 
     this._changeDetectorRef.detectChanges();
   }

@@ -196,7 +196,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnChang
     const disabled = changes['disabled'];
 
     if (disableRipple) {
-      disableRipple.currentValue ? this.ripple.destroy() : this.ripple.init(true);
+      disableRipple.currentValue ? this.ripple.destroy() : this.ripple.attachTo(this.elementRef.nativeElement, true);
     }
 
     if (checked) {
@@ -223,7 +223,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnChang
   ngAfterViewInit(): void {
     this._foundation.init();
 
-    this.ripple.init(true);
+    this.ripple.attachTo(this.elementRef.nativeElement, true);
   }
 
   ngOnDestroy(): void {

@@ -40,19 +40,6 @@ describe('MdcButton', () => {
         .toContain('mdc-button', 'Expected buttons to have mdc-button');
     });
 
-    it('#should disable ripple', () => {
-      testComponent.isRippleDisabled = true;
-      fixture.detectChanges();
-
-      buttonInstance.focus();
-      fixture.detectChanges();
-
-      buttonNativeElement.blur();
-      fixture.detectChanges();
-      expect(buttonInstance.ripple.isSurfaceDisabled()).toBe(false);
-      expect(buttonInstance.disableRipple).toBeTruthy('Expected ripple to be disabled');
-    });
-
     it('#should apply class based on property', () => {
       testComponent.isRaised = true;
       fixture.detectChanges();

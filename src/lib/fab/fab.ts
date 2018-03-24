@@ -71,7 +71,7 @@ export class MdcFab implements AfterContentInit, OnDestroy {
       this._renderer.addClass(this.fabIcon.elementRef.nativeElement, 'mdc-fab__icon');
       this._renderer.addClass(this._getHostElement(), 'mdc-fab__icon--size');
     }
-    this._ripple.init();
+    this._ripple.attachTo(this._getHostElement());
   }
 
   ngOnDestroy(): void {
@@ -83,7 +83,7 @@ export class MdcFab implements AfterContentInit, OnDestroy {
     this._getHostElement().focus();
   }
 
-  _getHostElement() {
+  private _getHostElement() {
     return this.elementRef.nativeElement;
   }
 

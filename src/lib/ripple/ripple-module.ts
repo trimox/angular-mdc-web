@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 
-import { MdcRippleComponent } from './ripple.component';
+import {
+  MdcRippleComponent,
+  MdcRippleDirective
+} from './ripple';
 
 @NgModule({
-  exports: [MdcRippleComponent],
-  declarations: [MdcRippleComponent],
+  exports: [MdcRippleComponent, MdcRippleDirective],
+  declarations: [MdcRippleComponent, MdcRippleDirective],
 })
 export class MdcRippleModule { }

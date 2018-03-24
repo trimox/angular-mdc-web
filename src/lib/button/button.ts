@@ -8,6 +8,7 @@ import {
   HostListener,
   Input,
   OnChanges,
+  OnDestroy,
   Renderer2,
   SimpleChange,
   ViewEncapsulation,
@@ -33,7 +34,7 @@ import { MdcIcon } from '@angular-mdc/web/icon';
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
 })
-export class MdcButton implements AfterContentInit, OnChanges {
+export class MdcButton implements AfterContentInit, OnChanges, OnDestroy {
   private _disabled: boolean = false;
   private _disableRipple: boolean = false;
   private _icon: boolean = false;
@@ -54,11 +55,6 @@ export class MdcButton implements AfterContentInit, OnChanges {
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this._disabled = toBoolean(value);
-  }
-  @Input()
-  get disableRipple(): boolean { return this._disableRipple; }
-  set disableRipple(value: boolean) {
-    this._disableRipple = toBoolean(value);
   }
   @HostBinding('tabindex') get tabindex(): number {
     return this.disabled ? -1 : 0;
@@ -94,7 +90,6 @@ export class MdcButton implements AfterContentInit, OnChanges {
 
   ngOnChanges(changes: { [key: string]: SimpleChange }): void {
     const disabled = changes['disabled'];
-    const disableRipple = changes['disableRipple'];
     const icon = changes['icon'];
 
     if (disabled) {
@@ -107,10 +102,6 @@ export class MdcButton implements AfterContentInit, OnChanges {
       }
     }
 
-    if (disableRipple) {
-      disableRipple.currentValue ? this.ripple.destroy() : this.ripple.init();
-    }
-
     if (icon) {
       if (icon.currentValue && this.buttonIcon) {
         this.renderer.addClass(this.buttonIcon.elementRef.nativeElement, 'mdc-button__icon');
@@ -119,9 +110,11 @@ export class MdcButton implements AfterContentInit, OnChanges {
   }
 
   ngAfterContentInit(): void {
-    if (!this._disableRipple) {
-      this.ripple.init();
-    }
+    this.ripple.attachTo(this._getHostElement());
+  }
+
+  ngOnDestroy(): void {
+    this.ripple.destroy();
   }
 
   /** Focuses the button. */

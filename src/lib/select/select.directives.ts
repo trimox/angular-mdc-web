@@ -47,7 +47,7 @@ export class MdcSelectSurface {
     private _elementRef: ElementRef,
     private _ripple: MdcRipple) {
 
-    this._ripple.init();
+    this._ripple.attachTo(this.getHostElement());
   }
 }
 

@@ -88,12 +88,6 @@ describe('MdcRadio', () => {
       expect(radioInstance.checked).toBe(false);
     });
 
-    it('#should disable ripple', () => {
-      testComponent.isRippleDisabled = true;
-      fixture.detectChanges();
-      expect(radioInstance.disableRipple).toBeTruthy('Expected radio ripple to be disabled');
-    });
-
     it('#should preserve the user-provided id', () => {
       expect(radioNativeElement.id).toBe('simple-radio');
       expect(inputElement.id).toBe('simple-radio-input');

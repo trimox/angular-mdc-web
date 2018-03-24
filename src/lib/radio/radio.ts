@@ -1,17 +1,16 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
   forwardRef,
   HostBinding,
   Input,
-  OnChanges,
   OnDestroy,
   Output,
   Provider,
   Renderer2,
-  SimpleChange,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -57,36 +56,14 @@ export const MD_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
     </div>
   `,
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     MD_RADIO_CONTROL_VALUE_ACCESSOR,
     MdcRipple,
     EventRegistry,
   ]
 })
-export class MdcRadio implements AfterViewInit, OnChanges, OnDestroy {
-  private _mdcAdapter: MDCRadioAdapter = {
-    addClass: (className: string) => {
-      this._renderer.addClass(this.elementRef.nativeElement, className);
-    },
-    removeClass: (className: string) => {
-      this._renderer.removeClass(this.elementRef.nativeElement, className);
-    },
-    getNativeControl: () => {
-      return this.inputEl.nativeElement;
-    }
-  };
-
-  private _foundation: {
-    init: Function,
-    destroy: Function,
-    isChecked: Function,
-    setChecked: Function,
-    setDisabled: Function,
-    isDisabled: Function,
-    getValue: Function,
-    setValue: Function
-  } = new MDCRadioFoundation(this._mdcAdapter);
-
+export class MdcRadio implements AfterViewInit, OnDestroy {
   private _uniqueId: string = `mdc-radio-${++nextUniqueId}`;
   private _disableRipple: boolean = false;
 
@@ -95,12 +72,6 @@ export class MdcRadio implements AfterViewInit, OnChanges, OnDestroy {
   @Input() tabIndex: number = 0;
   @Input('aria-label') ariaLabel: string = '';
   @Input('aria-labelledby') ariaLabelledby: string | null = null;
-  @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
-  @HostBinding('class.mdc-radio') isHostClass = true;
-  @ViewChild('inputEl') inputEl: ElementRef;
-
-  private _controlValueAccessorChangeFn: (value: any) => void = () => { };
-  onTouched: () => any = () => { };
 
   get inputId(): string { return `${this.id || this._uniqueId}-input`; }
   @Input()
@@ -118,34 +89,50 @@ export class MdcRadio implements AfterViewInit, OnChanges, OnDestroy {
   set disabled(value: boolean) {
     this.setDisabledState(toBoolean(value));
   }
-  @Input()
-  get disableRipple(): boolean { return this._disableRipple; }
-  set disableRipple(value: boolean) {
-    this._disableRipple = toBoolean(value);
-  }
+
+  @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
+  @HostBinding('class.mdc-radio') isHostClass = true;
+  @ViewChild('inputEl') inputEl: ElementRef;
+
+  private _mdcAdapter: MDCRadioAdapter = {
+    addClass: (className: string) => {
+      this._renderer.addClass(this._getHostElement(), className);
+    },
+    removeClass: (className: string) => {
+      this._renderer.removeClass(this._getHostElement(), className);
+    },
+    getNativeControl: () => {
+      return this.inputEl.nativeElement;
+    }
+  };
+
+  private _foundation: {
+    init(): void,
+    destroy(): void,
+    isChecked(): boolean,
+    setChecked(checked: boolean): void,
+    setDisabled(disabled: boolean): void,
+    isDisabled(): boolean,
+    getValue(): string,
+    setValue(value: string): void
+  } = new MDCRadioFoundation(this._mdcAdapter);
+
+  private _controlValueAccessorChangeFn: (value: any) => void = () => { };
+  onTouched: () => any = () => { };
 
   constructor(
     private _renderer: Renderer2,
     public elementRef: ElementRef,
     public ripple: MdcRipple) { }
 
-  ngOnChanges(changes: { [key: string]: SimpleChange }): void {
-    const disableRipple = changes['disableRipple'];
-
-    if (disableRipple) {
-      disableRipple.currentValue ? this.ripple.destroy() : this.ripple.init(true);
-    }
-  }
-
   ngAfterViewInit(): void {
     this._foundation.init();
 
-    if (!this._disableRipple) {
-      this.ripple.init(true);
-    }
+    this.ripple.attachTo(this._getHostElement(), true);
   }
 
   ngOnDestroy(): void {
+    this.ripple.destroy();
     this._foundation.destroy();
   }
 
@@ -175,5 +162,10 @@ export class MdcRadio implements AfterViewInit, OnChanges, OnDestroy {
 
   focus(): void {
     this.inputEl.nativeElement.focus();
+  }
+
+  /** Retrieves the DOM element of the component host. */
+  private _getHostElement() {
+    return this.elementRef.nativeElement;
   }
 }

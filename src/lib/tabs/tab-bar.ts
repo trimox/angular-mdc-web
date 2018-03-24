@@ -248,7 +248,7 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
     }
 
     this.tabs.forEach(tab => {
-      disabled ? tab.ripple.destroy() : tab.ripple.init();
+      disabled ? tab.ripple.destroy() : tab.ripple.attachTo(tab.elementRef.nativeElement);
     });
   }
 

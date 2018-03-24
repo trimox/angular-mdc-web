@@ -201,7 +201,11 @@ export class MdcList implements AfterContentInit, OnDestroy {
     }
 
     this.options.forEach(option => {
-      value ? option.ripple.init() : option.ripple.destroy();
+      if (value) {
+        option.ripple.attachTo(option._getHostElement());
+      } else {
+        option.ripple.destroy();
+      }
     });
   }
 

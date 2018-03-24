@@ -64,7 +64,6 @@ describe('MdcRippleDirective', () => {
       testInstance.setUnbounded(true);
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-ripple-upgraded--unbounded')).toBe(true);
-      expect(testInstance.ripple.isUnbounded()).toBe(true);
     });
 
     it('#should have NOT mdc-ripple-upgraded--unbounded', () => {

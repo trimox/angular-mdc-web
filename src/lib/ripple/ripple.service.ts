@@ -10,6 +10,11 @@ import { MDCRippleFoundation, util } from '@material/ripple';
 
 @Injectable()
 export class MdcRipple {
+  private _root: any;
+  private _unbounded: boolean = false;
+  private _disabled: boolean = false;
+  private _surfaceActive: boolean = false;
+
   private _mdcAdapter: MDCRippleAdapter = {
     browserSupportsCssVars: () => (typeof window !== 'undefined') ? util.supportsCssVariables(window) : false,
     isUnbounded: () => this._unbounded,
@@ -58,25 +63,30 @@ export class MdcRipple {
     deactivate(event: any): void,
     layout(): void,
     setUnbounded(unbounded: boolean): void
-  } = new MDCRippleFoundation(this._mdcAdapter);
-
-  private _unbounded: boolean = false;
-  private _disabled: boolean = false;
-  private _surfaceActive: boolean = false;
+  };
 
   constructor(
     protected _renderer: Renderer2,
     protected _registry: EventRegistry,
     protected elementRef: ElementRef) { }
 
-  init(unbounded: boolean = false): void {
-    this.setUnbounded(unbounded);
+  attachTo(root: any, unbounded: boolean = false) {
+    this._root = root;
 
+    this._foundation = new MDCRippleFoundation(this._mdcAdapter);
+    this.init();
+
+    this.setUnbounded(unbounded);
+  }
+
+  init(): void {
     this._foundation.init();
   }
 
   destroy(): void {
-    this._foundation.destroy();
+    if (this.isAttached()) {
+      this._foundation.destroy();
+    }
   }
 
   activate(event?: any): void {
@@ -112,12 +122,12 @@ export class MdcRipple {
     return this._surfaceActive || this._getHostElement()[util.getMatchesProperty(HTMLElement.prototype)](':active');
   }
 
-  isUnbounded(): boolean {
-    return this._unbounded;
+  isAttached(): boolean {
+    return this._foundation ? true : false;
   }
 
   /** Retrieves the DOM element of the component host. */
   private _getHostElement() {
-    return this.elementRef.nativeElement;
+    return this._root;
   }
 }

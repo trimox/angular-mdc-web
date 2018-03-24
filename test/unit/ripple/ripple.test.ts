@@ -4,7 +4,8 @@ import { By } from '@angular/platform-browser';
 
 import {
   MdcRippleModule,
-  MdcRippleComponent
+  MdcRippleComponent,
+  MdcRippleDirective
 } from '@angular-mdc/web';
 
 describe('MdcRippleDirective', () => {
@@ -77,7 +78,9 @@ describe('MdcRippleDirective', () => {
 @Component({
   template: `
   <mdc-ripple [active]="isRippleActive" [primary]="isPrimary" [secondary]="isSecondary"
-    [disabled]="disabled" #testripple="mdcRipple">Test</mdc-ripple>
+    [disabled]="disabled" [attachTo]="test">
+    <div #test>Test</div>
+  </mdc-ripple>
   `,
 })
 class SimpleRipple {

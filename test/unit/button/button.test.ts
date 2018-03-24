@@ -192,7 +192,6 @@ describe('MdcButton', () => {
     <button mdc-button
       (click)="increment()"
       [disabled]="isDisabled"
-      [disableRipple]="isRippleDisabled"
       [raised]="isRaised"
       [primary]="isPrimary"
       [secondary]="isSecondary"
@@ -209,7 +208,6 @@ class SimpleButton {
   isDense: boolean = false;
   isPrimary: boolean = false;
   isSecondary: boolean = false;
-  isRippleDisabled: boolean = false;
   isUnelevated: boolean = false;
   isStroked: boolean = false;
   clickCount: number = 0;

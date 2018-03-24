@@ -59,8 +59,6 @@ describe('MdcTextField', () => {
       testComponent.isOutline = true;
       fixture.detectChanges();
       expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--outlined')).toBe(true);
-      textFieldInstance.outlined.getHeight();
-      textFieldInstance.outlined.getWidth();
     });
 
     it('#should apply class box', () => {

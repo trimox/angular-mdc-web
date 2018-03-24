@@ -41,6 +41,7 @@ export const rollupGlobals = {
   '@material/linear-progress': 'mdc.linear-progress',
   '@material/menu': 'mdc.menu',
   '@material/menu/util': 'mdc.menu.util',
+  '@material/notched-outline': 'mdc.notched-outline',
   '@material/radio': 'mdc.radio',
   '@material/ripple': 'mdc.ripple',
   '@material/select': 'mdc.select',
@@ -52,7 +53,6 @@ export const rollupGlobals = {
   '@material/textfield/helper-text': 'mdc.textfield.helpertext',
   '@material/textfield/icon': 'mdc.textfield.icon',
   '@material/textfield/label': 'mdc.textfield.label',
-  '@material/textfield/outline': 'mdc.textfield.outline',
   '@material/toolbar': 'mdc.toolbar',
   '@material/top-app-bar': 'mdc.top-app-bar',
 

@@ -19,6 +19,7 @@ export * from '@angular-mdc/web/line-ripple';
 export * from '@angular-mdc/web/linear-progress';
 export * from '@angular-mdc/web/list';
 export * from '@angular-mdc/web/menu';
+export * from '@angular-mdc/web/notched-outline';
 export * from '@angular-mdc/web/radio';
 export * from '@angular-mdc/web/ripple';
 export * from '@angular-mdc/web/select';

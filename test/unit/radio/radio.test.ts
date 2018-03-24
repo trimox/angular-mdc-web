@@ -243,7 +243,6 @@ describe('MdcRadio', () => {
     <mdc-radio
       [id]="radioId"
       [value]="radioValue"
-      [disableRipple]="isRippleDisabled"
       [disabled]="isDisabled">
     </mdc-radio>
   `,
@@ -251,7 +250,6 @@ describe('MdcRadio', () => {
 class SingleRadio {
   radioId: string | null = 'simple-radio';
   isDisabled: boolean = false;
-  isRippleDisabled: boolean = false;
   radioValue: string = 'single_radio';
 }
 

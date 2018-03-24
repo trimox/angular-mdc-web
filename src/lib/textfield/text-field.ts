@@ -27,9 +27,9 @@ import {
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcFloatingLabel } from '@angular-mdc/web/floating-label';
 import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
+import { MdcNotchedOutline, MdcNotchedOutlineIdle } from '@angular-mdc/web/notched-outline';
 
 import { MdcTextFieldHelperText } from './helper-text';
-import { MdcTextFieldOutline, MdcTextFieldIdleOutline } from './outline';
 import { MdcTextFieldLeadingIcon, MdcTextFieldTrailingIcon } from './icon';
 
 import { MDCTextFieldAdapter } from '@material/textfield/adapter';
@@ -73,9 +73,9 @@ let nextUniqueId = 0;
     (blur)="onBlur()"
     (input)="onInput($event.target.value)" />
     <mdc-floating-label [attr.for]="id" *ngIf="!placeholder">{{label}}</mdc-floating-label>
+    <mdc-notched-outline *ngIf="outline"></mdc-notched-outline>
+    <mdc-notched-outline-idle *ngIf="outline"></mdc-notched-outline-idle>
     <mdc-line-ripple *ngIf="!outline"></mdc-line-ripple>
-    <mdc-text-field-outline *ngIf="outline"></mdc-text-field-outline>
-    <mdc-text-field-idle-outline *ngIf="outline"></mdc-text-field-idle-outline>
     <ng-content></ng-content>
   `,
   providers: [
@@ -111,8 +111,8 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   @ViewChild(MdcLineRipple) lineRipple: MdcLineRipple;
   @ContentChild(MdcTextFieldLeadingIcon) leadingIcon: MdcTextFieldLeadingIcon;
   @ContentChild(MdcTextFieldTrailingIcon) trailingIcon: MdcTextFieldTrailingIcon;
-  @ViewChild(MdcTextFieldOutline) outlined: MdcTextFieldOutline;
-  @ViewChild(MdcTextFieldIdleOutline) idleOutline: MdcTextFieldIdleOutline;
+  @ViewChild(MdcNotchedOutline) outlined: MdcNotchedOutline;
+  @ViewChild(MdcNotchedOutlineIdle) outlineIdle: MdcNotchedOutlineIdle;
 
   @Input()
   get id(): string { return this._id; }
@@ -249,6 +249,8 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     floatLabel: (shouldFloat: boolean) => this.floatingLabel.float(shouldFloat),
     hasLabel: () => !!this.floatingLabel,
     getLabelWidth: () => this.floatingLabel.getWidth(),
+    hasOutline: () => this.outline,
+    updateOutlinePath: (labelWidth, isRtl) => this.outlined.updateSvgPath(labelWidth, isRtl),
     getNativeInput: () => this.inputText.nativeElement
   };
 
@@ -257,8 +259,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     return {
       helperText: this._helperText ? this.helperText.foundation : undefined,
       icon: this.leadingIcon ? this.leadingIcon.foundation
-        : this.trailingIcon ? this.trailingIcon.foundation : undefined,
-      outline: this.outline ? this.outlined.foundation : undefined,
+        : this.trailingIcon ? this.trailingIcon.foundation : undefined
     };
   }
 
@@ -300,12 +301,13 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
 
     this._foundation.init();
 
-    if (this.outline) {
-      this.outlined.idleOutline = this.idleOutline;
+    if (this.outline && this.outlined) {
+      this.outlined.outlineIdle = this.outlineIdle;
       this._foundation.updateOutline();
     }
 
     this.updateIconState();
+
     this._changeDetectorRef.detectChanges();
 
     if (this.inputText.nativeElement.disabled) {
@@ -321,6 +323,9 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     if (this.trailingIcon) {
       this.trailingIcon.destroy();
     }
+    if (this._ripple.isAttached()) {
+      this._ripple.destroy();
+    }
 
     this._foundation.destroy();
   }
@@ -329,10 +334,23 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     this.setValue(value == null ? '' : value);
 
     if (this.floatingLabel) {
-      this.floatingLabel.float(this.value.length > 0);
+      this.floatingLabel.float(this._canFloatLabel(value));
     }
 
     this._changeDetectorRef.markForCheck();
+  }
+
+  private _canFloatLabel(value: any): boolean {
+    if (value) {
+      if (value.length > 0) {
+        return true;
+      }
+    }
+    if (Number(value) || value === 0) {
+      return true;
+    }
+
+    return false;
   }
 
   registerOnChange(fn: (value: any) => any): void {
@@ -409,7 +427,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     if (this._outline && this._box) {
       this._outline = false;
     }
-    this._box ? this._ripple.init() : this._ripple.destroy();
+    this._box ? this._ripple.attachTo(this._getHostElement()) : this._ripple.destroy();
 
     this._changeDetectorRef.markForCheck();
   }

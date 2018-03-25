@@ -133,6 +133,7 @@ Valid values are 'start' | 'end'</pre></td>
     <div class="demo-content--row">
       <button mdc-button (click)="demoappbar.short = !demoappbar.short">Short: {{demoappbar.short ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoappbar.collapsed = !demoappbar.collapsed">Collapse Always: {{demoappbar.collapsed ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoappbar.prominent = !demoappbar.prominent">Promient: {{demoappbar.prominent ? 'On' : 'Off'}}</button>
     </div>
     <mdc-app-bar #demoappbar [fixedAdjustElement]="appbarcontent" [short]="true">
       <mdc-app-bar-row>

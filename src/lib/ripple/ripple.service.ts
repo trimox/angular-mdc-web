@@ -74,9 +74,8 @@ export class MdcRipple {
     this._root = root;
 
     this._foundation = new MDCRippleFoundation(this._mdcAdapter);
-    this.init();
-
     this.setUnbounded(unbounded);
+    this.init();
   }
 
   init(): void {

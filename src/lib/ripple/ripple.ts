@@ -2,6 +2,7 @@ import {
   AfterContentInit,
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Directive,
   ElementRef,
@@ -27,13 +28,6 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
   get ripple(): MdcRipple {
     return this._ripple;
   }
-
-  @Input()
-  get active(): boolean { return this._active; }
-  set active(value: boolean) {
-    this._active = toBoolean(value);
-  }
-  private _active: boolean = true;
 
   @Input()
   get primary(): boolean { return this._primary; }
@@ -71,9 +65,10 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
   set unbounded(value: boolean) {
     this.setUnbounded(value);
   }
-  protected _unbounded: boolean;
+  protected _unbounded: boolean = false;
 
   constructor(
+    protected _changeDetectorRef: ChangeDetectorRef,
     protected _ripple: MdcRipple,
     protected _renderer: Renderer2,
     protected elementRef: ElementRef) { }
@@ -89,15 +84,20 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
   setUnbounded(unbounded: boolean): void {
     this._unbounded = unbounded;
 
-    this.ripple.setUnbounded(unbounded);
+    if (this.ripple.isAttached()) {
+      this.ripple.setUnbounded(unbounded);
+    }
+    this._changeDetectorRef.markForCheck();
   }
 
-  setAttachTo(element: any, unbounded: boolean = false): void {
+  setAttachTo(element: any, unbounded?: boolean): void {
     this._attachTo = element;
     this._renderer.addClass(this.attachTo, 'mdc-ripple-surface');
 
-    this.ripple.attachTo(element, unbounded);
-    this.setUnbounded(unbounded);
+    this.ripple.attachTo(element, this.unbounded);
+    this.setUnbounded(unbounded ? unbounded : this.unbounded);
+
+    this._changeDetectorRef.markForCheck();
   }
 
   setPrimary(primary: boolean): void {
@@ -125,22 +125,16 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
     EventRegistry
   ],
 })
-export class MdcRippleDirective extends MdcRippleComponent implements AfterViewInit, OnDestroy {
+export class MdcRippleDirective extends MdcRippleComponent {
   constructor(
+    _changeDetectorRef: ChangeDetectorRef,
     _ripple: MdcRipple,
     _renderer: Renderer2,
     elementRef: ElementRef) {
 
-    super(_ripple, _renderer, elementRef);
-  }
+    super(_changeDetectorRef, _ripple, _renderer, elementRef);
 
-  ngAfterViewInit(): void {
-    this.setAttachTo(this.elementRef.nativeElement, true);
     this._renderer.setAttribute(this.elementRef.nativeElement, 'data-mdc-ripple-is-unbounded', '');
-    this.ripple.layout();
-  }
-
-  ngOnDestroy(): void {
-    this.ripple.destroy();
+    this.setUnbounded(true);
   }
 }

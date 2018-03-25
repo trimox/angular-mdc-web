@@ -30,10 +30,6 @@
           <td>Use ripple orchestration properties and methods.</td>
         </tr>
         <tr>
-          <td>active: boolean</td>
-          <td>Activate or de-activate ripple ink effect. (Default is true)</td>
-        </tr>
-        <tr>
           <td>primary: boolean</td>
           <td>Colors the ripple with the primary theme color.</td>
         </tr>
@@ -52,20 +48,17 @@
       </tbody>
     </table>
   </div>
-  <div class="demo-content--row">
-    <button mdc-button (click)="demoripple.primary = !demoripple.primary">Primary Color: {{demoripple.primary ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="demoripple.secondary = !demoripple.secondary">Secondary Color: {{demoripple.secondary ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="demoripple.active = !demoripple.active">Active: {{demoripple.active ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="demoripple.disabled = !demoripple.disabled">Disabled: {{demoripple.disabled ? 'On' : 'Off'}}</button>
-  </div>
-  <mdc-ripple #demoripple [mdc-elevation]="1" fxFlexOffset="2">
-    <div style="height: 200px; width: 200px;" fxLayoutAlign="center center">
-      Click me
+  <div class="demo-content">
+    <h3>Ripple</h3>
+    <div class="demo-content--row">
+      <button mdc-button (click)="demoripple.primary = !demoripple.primary">Primary Color: {{demoripple.primary ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoripple.secondary = !demoripple.secondary">Secondary Color: {{demoripple.secondary ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoripple.disabled = !demoripple.disabled">Disabled: {{demoripple.disabled ? 'On' : 'Off'}}</button>
     </div>
-  </mdc-ripple>
-  <h3>Unbounded</h3>
-  <button mdc-button (click)="demoicon.unbounded = !demoicon.unbounded">Unbounded: {{demoicon.unbounded ? 'On' : 'Off'}}</button>
-  <mdc-ripple #demoicon [unbounded]="false">
-    <mdc-icon [fontSize]="42">favorite</mdc-icon>
-  </mdc-ripple>
+    <mdc-ripple #demoripple [mdc-elevation]="1" [attachTo]="demodiv">
+      <div style="height: 200px; width: 100%;" fxLayoutAlign="center center" #demodiv>
+        Click me
+      </div>
+    </mdc-ripple>
+  </div>
 </div>

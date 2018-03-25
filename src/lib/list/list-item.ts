@@ -9,6 +9,7 @@ import {
   HostBinding,
   HostListener,
   Input,
+  OnDestroy,
   Output,
   Renderer2,
   ViewEncapsulation,
@@ -84,7 +85,7 @@ export class MdcListItemSecondary {
     MdcRipple
   ]
 })
-export class MdcListItem {
+export class MdcListItem implements OnDestroy {
   private _selected: boolean = false;
   private _id = `mdc-list-item-${uniqueIdCounter++}`;
 
@@ -145,6 +146,10 @@ export class MdcListItem {
     private _changeDetector: ChangeDetectorRef,
     private _renderer: Renderer2,
     public elementRef: ElementRef) { }
+
+  ngOnDestroy(): void {
+    this.ripple.destroy();
+  }
 
   _getHostElement(): any {
     return this.elementRef.nativeElement;

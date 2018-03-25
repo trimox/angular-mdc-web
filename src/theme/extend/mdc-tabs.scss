@@ -9,7 +9,7 @@
   @include mdc-tab-bar-indicator-ink-color(primary);
 
   .mdc-tab:not(.mdc-tab--active) {
-    @include mdc-tab-ink-color(rgba(mdc-theme-prop-value(primary), 0.54));
+    @include mdc-tab-ink-color(rgba(mdc-theme-prop-value(primary), .54));
   }
 
   .mdc-tab--active,
@@ -22,7 +22,7 @@
   @include mdc-tab-bar-indicator-ink-color(secondary);
 
   .mdc-tab:not(.mdc-tab--active) {
-    @include mdc-tab-ink-color(rgba(mdc-theme-prop-value(secondary), 0.54));
+    @include mdc-tab-ink-color(rgba(mdc-theme-prop-value(secondary), .54));
   }
 
   .mdc-tab--active,

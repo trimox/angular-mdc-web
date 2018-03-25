@@ -145,6 +145,8 @@ export class MdcCardAction {
       this._renderer.addClass(this.elementRef.nativeElement, 'mdc-card__action--button');
     } else if (action === 'icon') {
       this._renderer.addClass(this.elementRef.nativeElement, 'mdc-card__action--icon');
+      this._renderer.setAttribute(this.elementRef.nativeElement, 'tabIndex', '0');
+      this._renderer.setAttribute(this.elementRef.nativeElement, 'role', 'button');
     }
 
     this._action = action;

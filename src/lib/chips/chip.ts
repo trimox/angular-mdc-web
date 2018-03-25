@@ -1,6 +1,8 @@
 import {
+  AfterViewInit,
   Attribute,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChild,
   ContentChildren,
@@ -9,10 +11,8 @@ import {
   EventEmitter,
   HostBinding,
   HostListener,
-  Inject,
   Input,
   OnDestroy,
-  OnInit,
   Output,
   QueryList,
   Renderer2,
@@ -44,15 +44,20 @@ export class MdcChipSelectionEvent {
     public source: MdcChip) { }
 }
 
-@Directive({
+@Component({
+  moduleId: module.id,
   selector: 'mdc-chip-icon, [mdc-chip-icon]',
-  exportAs: 'mdcChipIcon'
+  template: '<ng-content></ng-content>',
+  exportAs: 'mdcChipIcon',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  preserveWhitespaces: false
 })
 export class MdcChipIcon extends MdcIcon {
   @Input()
   get leading(): boolean { return this._leading; }
   set leading(value: boolean) {
     this._leading = toBoolean(value);
+    this._changeDetectorRef.markForCheck();
   }
   private _leading: boolean;
 
@@ -60,12 +65,10 @@ export class MdcChipIcon extends MdcIcon {
   get trailing(): boolean { return this._trailing; }
   set trailing(value: boolean) {
     this._trailing = toBoolean(value);
+    this._changeDetectorRef.markForCheck();
+
   }
   private _trailing: boolean;
-
-  @HostListener('click', ['$event']) onclick(evt: Event) {
-    this._handleClick(evt);
-  }
 
   @HostBinding('class.mdc-chip__icon') isHostClass = true;
   @HostBinding('class.mdc-chip__icon--leading') get classIconLeading(): string {
@@ -81,27 +84,36 @@ export class MdcChipIcon extends MdcIcon {
   }
 
   isLeading(): boolean {
-    return this._leading;
+    return this.leading;
   }
 
   isTrailing(): boolean {
-    return this._trailing;
-  }
-
-  /** Ensures events fire properly upon click. */
-  _handleClick(event: Event) {
-    event.preventDefault();
-    event.stopPropagation();
+    return this.trailing;
   }
 
   constructor(
-    @Inject(Renderer2) _renderer: Renderer2,
-    @Inject(ElementRef) elementRef: ElementRef,
+    private _changeDetectorRef: ChangeDetectorRef,
+    _renderer: Renderer2,
+    elementRef: ElementRef,
     @Attribute('aria-hidden') ariaHidden: string) {
 
     super(_renderer, elementRef, ariaHidden);
   }
 }
+
+@Component({
+  selector: 'mdc-chip-checkmark',
+  exportAs: 'mdcChipCheckmark',
+  template: `
+  <div class="mdc-chip__checkmark">
+    <svg class="mdc-chip__checkmark-svg" viewBox="-2 -3 30 30">
+      <path class="mdc-chip__checkmark-path" fill="none" stroke="black" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+    </svg>
+  </div>
+  `,
+  preserveWhitespaces: false
+})
+export class MdcChipCheckmark { }
 
 @Directive({
   selector: 'mdc-chip-text',
@@ -122,7 +134,11 @@ let nextUniqueId = 0;
     '[id]': 'id'
   },
   exportAs: 'mdcChip',
-  template: '<ng-content></ng-content>',
+  template: `
+  <ng-content *ngIf="isleadingIconVisibile()" select="mdc-chip-icon[leading]"></ng-content>
+  <mdc-chip-checkmark *ngIf="filter"></mdc-chip-checkmark>
+  <ng-content></ng-content>
+  `,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
@@ -131,9 +147,22 @@ let nextUniqueId = 0;
   ],
   preserveWhitespaces: false,
 })
-export class MdcChip implements OnInit, OnDestroy {
+export class MdcChip implements AfterViewInit, OnDestroy {
   private _id = `mdc-chip-${nextUniqueId++}`;
-  public selected: boolean = false;
+
+  get selected(): boolean { return this._selected; }
+  set selected(value: boolean) {
+    this._selected = toBoolean(value);
+    this._changeDetectorRef.markForCheck();
+  }
+  protected _selected: boolean = false;
+
+  get filter(): boolean { return this._filter; }
+  set filter(value: boolean) {
+    this._filter = toBoolean(value);
+    this._changeDetectorRef.markForCheck();
+  }
+  protected _filter: boolean = false;
 
   /** Whether the chip has focus. */
   _hasFocus: boolean = false;
@@ -191,6 +220,23 @@ export class MdcChip implements OnInit, OnDestroy {
     addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
     removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
     hasClass: (className: string) => this._getHostElement().classList.contains(className),
+    addClassToLeadingIcon: (className: string) => {
+      const leadingIcon = this.getLeadingIcon();
+      if (leadingIcon) {
+        this._renderer.addClass(leadingIcon.elementRef.nativeElement, className);
+      }
+    },
+    removeClassFromLeadingIcon: (className: string) => {
+      const leadingIcon = this.getLeadingIcon();
+      if (leadingIcon) {
+        this._renderer.removeClass(leadingIcon.elementRef.nativeElement, className);
+      }
+    },
+    eventTargetHasClass: (target: HTMLElement, className: string) => target.classList.contains(className),
+    registerEventHandler: (evtType: string, handler: EventListener) =>
+      this._registry.listen(evtType, handler, this._getHostElement()),
+    deregisterEventHandler: (evtType: string, handler: EventListener) =>
+      this._registry.unlisten(evtType, handler),
     registerInteractionHandler: (evtType: string, handler: EventListener) =>
       this._registry.listen(evtType, handler, this._getHostElement()),
     deregisterInteractionHandler: (evtType: string, handler: EventListener) =>
@@ -204,16 +250,9 @@ export class MdcChip implements OnInit, OnDestroy {
         }
       }
     },
-    deregisterTrailingIconInteractionHandler: (evtType: string, handler: EventListener) => {
-      if (this.icons) {
-        this._registry.unlisten(evtType, handler);
-      }
-    },
-    notifyInteraction: () => {
-      this.selectionChange.emit({
-        source: this
-      });
-    },
+    deregisterTrailingIconInteractionHandler: (evtType: string, handler: EventListener) =>
+      this._registry.unlisten(evtType, handler),
+    notifyInteraction: () => this._emitSelectionChangeEvent(),
     notifyTrailingIconInteraction: () => this.trailingIconInteraction.emit()
   };
 
@@ -221,20 +260,24 @@ export class MdcChip implements OnInit, OnDestroy {
     init(): void,
     destroy(): void,
     toggleSelected(): void
-  } = new MDCChipFoundation(this._mdcAdapter);
+  };
 
   constructor(
+    private _changeDetectorRef: ChangeDetectorRef,
     private _ripple: MdcRipple,
     private _renderer: Renderer2,
     public elementRef: ElementRef,
     private _registry: EventRegistry) { }
 
-  ngOnInit(): void {
-    this._ripple.init();
+  ngAfterViewInit(): void {
+    this._ripple.attachTo(this._getHostElement());
+
+    this._foundation = new MDCChipFoundation(this._mdcAdapter);
     this._foundation.init();
   }
 
   ngOnDestroy(): void {
+    this._ripple.destroy();
     this.destroyed.emit({ chip: this });
     this._foundation.destroy();
   }
@@ -283,6 +326,16 @@ export class MdcChip implements OnInit, OnDestroy {
         // Always prevent space from scrolling the page since the list has focus
         event.preventDefault();
         break;
+    }
+  }
+
+  isleadingIconVisibile(): boolean {
+    return this.filter && this.selected ? false : true;
+  }
+
+  getLeadingIcon(): MdcChipIcon | undefined {
+    if (this.icons) {
+      return this.icons.find((_: MdcChipIcon) => _.isLeading());
     }
   }
 

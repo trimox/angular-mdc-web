@@ -185,6 +185,7 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.ripple.destroy();
     this._foundation.destroy();
   }
 

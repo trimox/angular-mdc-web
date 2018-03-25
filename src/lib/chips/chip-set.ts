@@ -6,17 +6,21 @@ import {
   ElementRef,
   HostBinding,
   Input,
+  NgZone,
   OnDestroy,
   OnInit,
   QueryList,
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
-import { startWith } from 'rxjs/operators/startWith';
+import { defer } from 'rxjs/observable/defer';
 import { merge } from 'rxjs/observable/merge';
+import { Observable } from 'rxjs/Observable';
+import { startWith } from 'rxjs/operators/startWith';
+import { Subject } from 'rxjs/Subject';
+import { switchMap } from 'rxjs/operators/switchMap';
+import { take } from 'rxjs/operators/take';
+import { takeUntil } from 'rxjs/operators/takeUntil';
 
 import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
 
@@ -35,6 +39,9 @@ import { MDCChipSetFoundation } from '@material/chips';
   providers: [EventRegistry]
 })
 export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
+  /** Emits whenever the component is destroyed. */
+  private _destroy = new Subject<void>();
+
   /**
   * Indicates that the chips in the set are choice chips, which allow a single selection from a set of options.
   */
@@ -65,21 +72,19 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
 
   @ContentChildren(MdcChip) chips: QueryList<MdcChip>;
 
-  /** Subscription to interaction in chips. */
-  private _chipInteractionSubscription: Subscription | null;
+  /** Combined stream of all of the chip change events. */
+  readonly chipSelectionChanges: Observable<MdcChipSelectionEvent> = defer(() => {
+    if (this.chips) {
+      return merge(...this.chips.map(chip => chip.selectionChange));
+    }
 
-  /** Subscription to changes in the chip list. */
-  private _changeSubscription: Subscription;
-
-  /** Combined stream of all of the child chips' selection change events. */
-  get chipSelectionChanges(): Observable<MdcChipSelectionEvent> {
-    return merge(...this.chips.map(chip => chip.selectionChange));
-  }
+    return this._ngZone.onStable
+      .asObservable()
+      .pipe(take(1), switchMap(() => this.chipSelectionChanges));
+  });
 
   private _mdcAdapter: MDCChipSetAdapter = {
-    hasClass: (className: string) => {
-      return this._getHostElement().classList.contains(className);
-    },
+    hasClass: (className: string) => this._getHostElement().classList.contains(className),
     registerInteractionHandler: (evtType: string, handler: EventListener) =>
       this._registry.listen(evtType, handler, this._getHostElement()),
     deregisterInteractionHandler: (evtType: string, handler: EventListener) =>
@@ -88,49 +93,48 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
 
   private _foundation: {
     init(): void,
-    destroy(): void,
+    destroy(): void
   } = new MDCChipSetFoundation(this._mdcAdapter);
 
   constructor(
+    private _ngZone: NgZone,
     private _renderer: Renderer2,
     public elementRef: ElementRef,
     private _registry: EventRegistry) { }
 
   ngAfterContentInit(): void {
-    // When chips change, re-subscribe
-    this._changeSubscription = this.chips.changes.pipe(startWith(null)).subscribe(() => {
-      this._resetChips();
+    this.chipSelectionChanges.pipe(
+      takeUntil(merge(this._destroy, this.chips.changes))
+    ).subscribe(event => {
+      if (!this.filter) {
+        this.chips.forEach(chip => {
+          if (chip.selected && chip !== event.source) {
+            chip.toggleSelected();
+          }
+        });
+      }
+      if (this.choice || this.filter) {
+        event.source.toggleSelected();
+      }
     });
-  }
 
-  ngOnInit(): void {
-    this._foundation.init();
-  }
-
-  ngOnDestroy(): void {
-    if (this._changeSubscription) {
-      this._changeSubscription.unsubscribe();
-    }
-
-    this._dropSubscriptions();
-    this._foundation.destroy();
-  }
-
-  private _resetChips(): void {
-    this._chipInteractionSubscription = this.chipSelectionChanges.subscribe(event => {
-      this.chips.forEach(chip => {
-        if ((chip.selected && this.choice) || event.source === chip) {
-          chip.toggleSelected();
-        }
+    this.chips.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
+      Promise.resolve().then(() => {
+        this.chips.forEach(chip => {
+          chip.filter = this.filter;
+        });
       });
     });
   }
 
-  private _dropSubscriptions(): void {
-    if (this._chipInteractionSubscription) {
-      this._chipInteractionSubscription.unsubscribe();
-      this._chipInteractionSubscription = null;
-    }
+  ngOnDestroy(): void {
+    this._destroy.next();
+    this._destroy.complete();
+    this._foundation.destroy();
+  }
+
+  ngOnInit(): void {
+    this._foundation.init();
   }
 
   /** Retrieves the DOM element of the component host. */

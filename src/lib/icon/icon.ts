@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  HostBinding,
   Input,
   OnChanges,
   OnInit,
@@ -45,9 +46,9 @@ export class MdcIcon implements OnChanges, OnInit {
   @Input() fontSize: number | null;
 
   constructor(
-    private _renderer: Renderer2,
+    protected _renderer: Renderer2,
     public elementRef: ElementRef,
-    @Attribute('aria-hidden') ariaHidden: string) {
+    @Attribute('aria-hidden') protected ariaHidden: string) {
 
     if (!ariaHidden) {
       _renderer.setAttribute(elementRef.nativeElement, 'aria-hidden', 'true');

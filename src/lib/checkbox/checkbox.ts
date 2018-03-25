@@ -81,13 +81,16 @@ export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
 export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnChanges, OnDestroy {
   private _mdcAdapter: MDCCheckboxAdapter = {
     addClass: (className: string) => {
-      this._renderer.addClass(this.elementRef.nativeElement, className);
+      this._renderer.addClass(this._getHostElement(), className);
     },
     removeClass: (className: string) => {
-      this._renderer.removeClass(this.elementRef.nativeElement, className);
+      this._renderer.removeClass(this._getHostElement(), className);
     },
+    setNativeControlAttr: (attr: string, value: string) =>
+      this._renderer.setAttribute(this.inputEl.nativeElement, attr, value),
+    removeNativeControlAttr: (attr: string) => this._renderer.removeAttribute(this.inputEl.nativeElement, attr),
     registerAnimationEndHandler: (handler: EventListener) => {
-      this._registry.listen('animationend', handler, this.elementRef.nativeElement);
+      this._registry.listen('animationend', handler, this._getHostElement());
     },
     deregisterAnimationEndHandler: (handler: EventListener) => {
       this._registry.unlisten('animationend', handler);
@@ -102,7 +105,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnChang
       return this.inputEl.nativeElement;
     },
     forceLayout: () => {
-      return this.elementRef.nativeElement.offsetWidth;
+      return this._getHostElement().offsetWidth;
     },
     isAttachedToDOM: () => !!this.elementRef
   };
@@ -190,14 +193,9 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnChang
     private _registry: EventRegistry) { }
 
   ngOnChanges(changes: { [key: string]: SimpleChange }): void {
-    const disableRipple = changes['disableRipple'];
     const indeterminate = changes['indeterminate'];
     const checked = changes['checked'];
     const disabled = changes['disabled'];
-
-    if (disableRipple) {
-      disableRipple.currentValue ? this.ripple.destroy() : this.ripple.attachTo(this.elementRef.nativeElement, true);
-    }
 
     if (checked) {
       this._foundation.setChecked(checked.currentValue);
@@ -227,6 +225,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnChang
   }
 
   ngOnDestroy(): void {
+    this.ripple.destroy();
     this._foundation.destroy();
   }
 
@@ -314,5 +313,10 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnChang
 
   setValue(value: string): void {
     this._foundation.setValue(value);
+  }
+
+  /** Retrieves the DOM element of the component host. */
+  private _getHostElement() {
+    return this.elementRef.nativeElement;
   }
 }

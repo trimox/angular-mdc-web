@@ -77,7 +77,7 @@
     "karma-remap-istanbul": "^0.6.0",
     "karma-webpack": "^3.0.0",
     "magic-string": "^0.24.0",
-    "node-sass": "^4.7.2",
+    "node-sass": "4.7.2",
     "raw-loader": "^0.5.1",
     "resolve-bin": "^0.4.0",
     "rollup": "^0.56.5",

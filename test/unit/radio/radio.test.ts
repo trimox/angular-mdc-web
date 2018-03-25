@@ -55,7 +55,7 @@ describe('MdcRadio', () => {
       inputElement.click();
       fixture.detectChanges();
 
-      expect(radioInstance.checked).toBe(true);
+      expect(radioInstance.isChecked()).toBe(true);
     });
 
     it('#should add and remove disabled state', () => {
@@ -63,6 +63,7 @@ describe('MdcRadio', () => {
       expect(radioNativeElement.classList).not.toContain('mdc-radio--disabled');
       expect(inputElement.tabIndex).toBe(0);
       expect(inputElement.disabled).toBe(false);
+      expect(radioInstance.isDisabled()).toBe(false);
 
       testComponent.isDisabled = true;
       fixture.detectChanges();
@@ -231,7 +232,7 @@ describe('MdcRadio', () => {
         inputElement.click();
         fixture.detectChanges();
 
-        expect(radioInstance.checked).toBe(true);
+        expect(radioInstance.isChecked()).toBe(true);
       });
     });
   });

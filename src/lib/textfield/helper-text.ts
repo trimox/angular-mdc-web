@@ -49,7 +49,7 @@ export class MdcTextFieldHelperText implements OnInit, OnDestroy {
     showToScreenReader(): boolean,
     setValidity(inputIsValid: boolean): void,
     setPersistent(isPersistent: boolean): void,
-    setValidation(isValidation: boolean)
+    setValidation(isValidation: boolean): void
   } = new MDCTextFieldHelperTextFoundation(this._mdcAdapter);
 
   constructor(

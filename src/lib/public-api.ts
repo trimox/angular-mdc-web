@@ -13,6 +13,7 @@ export * from '@angular-mdc/web/elevation';
 export * from '@angular-mdc/web/fab';
 export * from '@angular-mdc/web/floating-label';
 export * from '@angular-mdc/web/form-field';
+export * from '@angular-mdc/web/grid-list';
 export * from '@angular-mdc/web/icon';
 export * from '@angular-mdc/web/icon-toggle';
 export * from '@angular-mdc/web/line-ripple';

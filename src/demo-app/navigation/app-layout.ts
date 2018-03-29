@@ -18,7 +18,6 @@ export class AppLayout {
     { name: 'Drawer', route: 'drawer-demo', icon: 'code' },
     { name: 'Icon', route: 'icon-demo', icon: 'star' },
     { name: 'Linear Progress', route: 'linear-progress-demo', icon: 'compare_arrows' },
-    { name: 'List', route: 'list-demo', icon: 'list' },
     { name: 'Menu', route: 'menu-demo', icon: 'menu' },
     { name: 'Snackbar', route: 'snackbar-demo', icon: 'info_outline' },
     { name: 'Tabs', route: 'tab-demo', icon: 'tab' },
@@ -44,6 +43,11 @@ export class AppLayout {
     { name: 'Button', route: '/button-demo' },
     { name: 'FAB', route: '/fab-demo' },
     { name: 'Icon Toggle', route: '/icon-toggle-demo' },
+  ];
+
+  listRoutes = [
+    { name: 'List', route: 'list-demo' },
+    { name: 'Grid List', route: 'grid-list-demo' },
   ];
 
   constructor(public media: ObservableMedia) { }

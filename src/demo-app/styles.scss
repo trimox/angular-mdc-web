@@ -6,7 +6,7 @@ $mdc-theme-secondary: #388e3c;
 @import "~@angular-mdc/theme";
 
 body {
-  height: 100%;
+  height: calc(100vh - 64px);
   margin: 0;
 }
 
@@ -46,7 +46,8 @@ body {
 }
 
 .demo-page {
-  padding-bottom: 50px;
+  padding: 12px 0 50px 20px;
+  max-width: 900px;
 }
 
 .demo-content {
@@ -55,7 +56,7 @@ body {
   flex-direction: column;
   padding: 15px;
   margin: 15px;
-  max-width: 700px;
+  max-width: 900px;
 }
 
 .demo-content--no-padding {
@@ -63,11 +64,8 @@ body {
 }
 
 .demo-content-no-border {
-  display: flex;
-  flex-direction: column;
   padding: 15px;
   margin: 15px;
-  max-width: 700px;
 }
 
 .demo-content--column {
@@ -109,6 +107,134 @@ body {
   padding: 3px;
 }
 
+.demo-tabs-host {
+  border: 1px solid;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  width: 800px;
+}
+
+//
+// Markdown
+//
+
+.markdown-body {
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.markdown-body > *:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body h1, h2 {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+  padding-bottom: .3em;
+  border-bottom: 1px solid #eaecef;
+}
+
+.markdown-body h1 {
+  font-size: 2em;
+}
+
+.markdown-body h2 {
+  font-size: 1.5em;
+}
+
+.markdown-body h3 {
+  font-size: 1.2em;
+  font-weight: 600;
+  width: fit-content;
+  margin-bottom: 12px;
+}
+
+.markdown-body ul {
+  margin-bottom: 0;
+}
+
+.markdown-body pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 90%;
+  line-height: 1.45;
+  background-color: #f6f8fa;
+  border-radius: 3px;
+  margin-top: 0;
+  margin-bottom: 16px;
+  width: fit-content;
+}
+
+.markdown-body .caption {
+  margin: 0;
+}
+
+.markdown-body pre > code {
+  padding: 0;
+  margin: 0;
+  font-size: 1.3em;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+//
+// API table
+//
+
+.docs-api table {
+  display: inline-block;
+  overflow-x: auto;
+  margin: 0 0 12px;
+  max-width: 100vw;
+  border: 1px solid #eee;
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  td, th {
+    border: 1px solid #eee;
+    padding: 12px 12px 12px 24px;
+  }
+
+  td:first-child, th:first-child {
+    border-left: none;
+  }
+
+  td:last-child, th:last-child {
+    border-right: none;
+  }
+
+  th {
+    background: #fafafa;
+    border-top: none;
+    color: rgba(0,0,0,.54);
+    font-weight: 500;
+    text-align: left;
+  }
+
+  td:first-child code {
+    background: 0;
+  }
+
+  tr:last-child > td {
+    border-bottom: none;
+  }
+}
+
+//
+// Demo toolbar-with-tabs
+//
+
 .demo-toolbar--with-tab-bar {
   .mdc-tab:not(.mdc-tab--active) {
     @include mdc-tab-ink-color(rgba(mdc-theme-prop-value(text-primary-on-primary), 0.54));
@@ -129,45 +255,6 @@ body {
   .mdc-tab:hover {
     @include mdc-tab-ink-color(white);
   }
-}
-
-.docs-api table {
-  margin: 20px 0 32px;
-  border-radius: 2px;
-  color: rgba(0, 0, 0, .87);
-  border-collapse: collapse;
-  border-spacing: 0;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, .24), 0 0 1px rgba(0, 0, 0, .12);
-
-  th {
-    padding: 13px 32px;
-    background: #f5f5f5;
-    text-align: left;
-    max-width: 100px;
-  }
-
-  td {
-    margin: 1em, 0;
-    padding: 8px 16px;
-    border: 1px solid rgba(0, 0, 0, .03);
-    font-size: 0.8em;
-    font-family: monospace, monospace;
-  }
-
-  pre {
-    font-size: 0.9em;
-    font-family: monospace, monospace;
-  }
-}
-
-.demo-tabs-host {
-  border: 1px solid;
-  height: 400px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  position: relative;
-  width: 800px;
 }
 
 //
@@ -321,4 +408,12 @@ body {
   .mdc-top-app-bar--short {
     position: relative;
   }
+}
+
+//
+// Grid List
+///
+
+.demo-grid-tile__image {
+  background-image: url(/assets/1-1.jpg);
 }

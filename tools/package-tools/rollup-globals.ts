@@ -42,6 +42,7 @@ export const rollupGlobals = {
   '@material/menu': 'mdc.menu',
   '@material/menu/util': 'mdc.menu.util',
   '@material/notched-outline': 'mdc.notched-outline',
+  '@material/grid-list': 'mdc.grid-list',
   '@material/radio': 'mdc.radio',
   '@material/ripple': 'mdc.ripple',
   '@material/select': 'mdc.select',

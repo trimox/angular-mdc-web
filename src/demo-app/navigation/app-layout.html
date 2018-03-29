@@ -8,7 +8,7 @@
       <mdc-toolbar-title>Angular MDC</mdc-toolbar-title>
     </mdc-toolbar-section>
     <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
-      <a mdc-toolbar-icon href="https://github.com/trimox/angular-mdc-web" alt="GitHub">
+      <a mdc-toolbar-icon href="https://github.com/trimox/angular-mdc-web" alt="GitHub" target="_blank" rel="noopener noreferrer">
         <mdc-icon>
           <img src="https://trimox.github.io/angular-mdc-web/assets/github-circle-white-transparent.svg" height="24" />
         </mdc-icon>
@@ -51,12 +51,21 @@
           <mdc-list-item (click)="inputVisible = !inputVisible">
             <mdc-icon mdc-list-item-graphic>keyboard_arrow_{{inputVisible ? 'down' : 'right'}}</mdc-icon>Inputs and Controls
           </mdc-list-item>
-          <mdc-list-divider></mdc-list-divider>
           <div *ngIf="inputVisible">
             <mdc-list-item *ngFor="let item of inputRoutes" [routerLink]="[item.route]" routerLinkActive #rlaInputs="routerLinkActive">
               <mdc-icon mdc-list-item-graphic>{{item.icon}}</mdc-icon>{{item.name}}
             </mdc-list-item>
           </div>
+          <mdc-list-divider></mdc-list-divider>
+          <mdc-list-item (click)="listVisible = !listVisible">
+            <mdc-icon mdc-list-item-graphic>keyboard_arrow_{{listVisible ? 'down' : 'right'}}</mdc-icon>Lists
+          </mdc-list-item>
+          <div *ngIf="listVisible">
+            <mdc-list-item *ngFor="let item of listRoutes" [routerLink]="[item.route]" routerLinkActive #rlaLists="routerLinkActive">
+              <mdc-icon mdc-list-item-graphic>{{item.icon}}</mdc-icon>{{item.name}}
+            </mdc-list-item>
+          </div>
+          <mdc-list-divider></mdc-list-divider>
           <mdc-list-item *ngFor="let navItem of navigationLinks" [routerLink]="[navItem.route]" routerLinkActive #rla="routerLinkActive">
             <mdc-icon mdc-list-item-graphic>{{navItem.icon}}</mdc-icon>{{navItem.name}}
           </mdc-list-item>

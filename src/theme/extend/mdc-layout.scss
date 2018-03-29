@@ -1,9 +1,6 @@
 .mdc-content {
   display: block;
   position: relative; // Prevent content from overlaying drawers in x, y, or z.
-  min-height: 100%; // Allow content to expand the page.
-  overflow: auto;
-  z-index: 0;
 
   .ng-mdc-drawer--fixed + & {
     @include mdc-rtl-reflexive-box(margin, left, $mdc-permanent-drawer-width);

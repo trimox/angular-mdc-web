@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 
 import {
-  MdcAdjustMargin,
   MdcBody1,
   MdcBody2,
   MdcTypographyButton,
@@ -17,8 +16,7 @@ import {
   MdcTypography,
 } from './typography';
 
-const TYPOGRAPHY_DIRECTIVES = [
-  MdcAdjustMargin,
+const TYPOGRAPHY_DECLARATIONS = [
   MdcBody1,
   MdcBody2,
   MdcTypographyButton,
@@ -35,7 +33,7 @@ const TYPOGRAPHY_DIRECTIVES = [
 ];
 
 @NgModule({
-  exports: [TYPOGRAPHY_DIRECTIVES],
-  declarations: [TYPOGRAPHY_DIRECTIVES],
+  exports: TYPOGRAPHY_DECLARATIONS,
+  declarations: TYPOGRAPHY_DECLARATIONS,
 })
 export class MdcTypographyModule { }

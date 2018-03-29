@@ -1,121 +1,108 @@
-<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
-  <div>
-    <h1 mdc-typography-display1>Typography</h1>
-    <span>Typography directives implement the Material Design typography guidelines.</span>
-  </div>
-  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
-    <![CDATA[import { MdcTypographyModule } from '@angular-mdc/web';]]>
-  </div>
-  <div class="docs-api">
-    <table>
-      <thead>
-        <tr>
-          <th>Directive</th>
-          <th>Format</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-typography-button</td>
-          <td>
-            <div mdc-typography-button>Button</div>
-          </td>
-        </tr>
-        <tr>
-          <td>mdc-typography-body1</td>
-          <td>
-            <div mdc-typography-body1>Body 1</div>
-          </td>
-        </tr>
-        <tr>
-          <td>mdc-typography-body2</td>
-          <td>
-            <div mdc-typography-body2>Body 2</div>
-          </td>
-        </tr>
-        <tr>
-          <td>mdc-typography-subheading1</td>
-          <td>
-            <div mdc-typography-subheading1>Subheading 1</div>
-          </td>
-        </tr>
-        <tr>
-          <td>mdc-typography-subheading2</td>
-          <td>
-            <div mdc-typography-subheading2>Subheading 2</div>
-          </td>
-        </tr>
-        <tr>
-          <td>mdc-typography-caption</td>
-          <td>
-            <div mdc-typography-caption>Caption</div>
-          </td>
-        </tr>
-        <tr>
-          <td>mdc-typography-title</td>
-          <td>
-            <div mdc-typography-title>Title</div>
-          </td>
-        </tr>
-        <tr>
-          <td>mdc-typography-headline</td>
-          <td>
-            <div mdc-typography-headline>Headline</div>
-          </td>
-        </tr>
-        <tr>
-          <td>mdc-typography-display1</td>
-          <td>
-            <div mdc-typography-display1>Display 1</div>
-          </td>
-        </tr>
-        <tr>
-          <td>mdc-typography-display2</td>
-          <td>
-            <div mdc-typography-display2>Display 2</div>
-          </td>
-        </tr>
-        <tr>
-          <td>mdc-typography-display3</td>
-          <td>
-            <div mdc-typography-display3>Display 3</div>
-          </td>
-        </tr>
-        <tr>
-          <td>mdc-typography-display4</td>
-          <td>
-            <div mdc-typography-display4>Display 4</div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <table style="width: 400px;">
-      <thead>
-        <tr>
-          <th>mdc-typography-adjust-margin</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">body</span> <span style="color:#89bdff">mdc-typography</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">h1</span> <span style="color:#89bdff">mdc-typography-display</span>4 <span style="color:#89bdff">mdc-typography-adjust-margin</span>></span>
-    Big header
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">h1</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">p</span> <span style="color:#89bdff">mdc-typography-body</span>1 <span style="color:#89bdff">mdc-typography-adjust-margin</span>></span>
-    A paragraph with
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">span</span> <span style="color:#e0c589">mdc-typography-body</span>2 <span style="color:#e0c589">mdc-typography-adjust-margin</span>></span>
-      emphasis.
-    <span style="color:#e0c589">&lt;/<span style="color:#e0c589">span</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">p</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">body</span>></span>
-</pre>
-            <p>
-              In order to minimize unexpected behavior, the style classes only specify font properties, such as size, weight and line height. This means that while text will be correctly styled, it may not be correctly positioned. If you include the mdc-typography--adjust-margin class, though, positioning will be adjusted according to the style</p>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Typography</h1>
+    <div>Material Design's text sizes and styles were developed to balance content density and reading comfort under typical usage conditions.
+    </div>
+    <h2>Design & API Documentation</h2>
+    <ul>
+      <li><a mdc-button href="https://material.io/guidelines/style/typography.html"
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Typography</a>
+      </li>
+      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-typography/README.md"
+        target="_blank" rel="noopener noreferrer">Material Components Web</a>
+      </li>
+    </ul>
+    <h2>Installation</h2>
+    <pre><code><![CDATA[import { MdcTypographyModule } from '@angular-mdc/web';]]></code></pre>
+
+    <h2>Usage</h2>
+    <div class="docs-api">
+      <table>
+        <thead>
+          <tr>
+            <th>Directive</th>
+            <th>Format</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>mdc-typography</td>
+            <td>Sets the font to Roboto</td>
+          </tr>
+          <tr>
+            <td>mdc-typography-button</td>
+            <td>
+              <div mdc-typography-button>Button</div>
+            </td>
+          </tr>
+          <tr>
+            <td>mdc-typography-body1</td>
+            <td>
+              <div mdc-typography-body1>Body 1</div>
+            </td>
+          </tr>
+          <tr>
+            <td>mdc-typography-body2</td>
+            <td>
+              <div mdc-typography-body2>Body 2</div>
+            </td>
+          </tr>
+          <tr>
+            <td>mdc-typography-subheading1</td>
+            <td>
+              <div mdc-typography-subheading1>Subheading 1</div>
+            </td>
+          </tr>
+          <tr>
+            <td>mdc-typography-subheading2</td>
+            <td>
+              <div mdc-typography-subheading2>Subheading 2</div>
+            </td>
+          </tr>
+          <tr>
+            <td>mdc-typography-caption</td>
+            <td>
+              <div mdc-typography-caption>Caption</div>
+            </td>
+          </tr>
+          <tr>
+            <td>mdc-typography-title</td>
+            <td>
+              <div mdc-typography-title>Title</div>
+            </td>
+          </tr>
+          <tr>
+            <td>mdc-typography-headline</td>
+            <td>
+              <div mdc-typography-headline>Headline</div>
+            </td>
+          </tr>
+          <tr>
+            <td>mdc-typography-display1</td>
+            <td>
+              <div mdc-typography-display1>Display 1</div>
+            </td>
+          </tr>
+          <tr>
+            <td>mdc-typography-display2</td>
+            <td>
+              <div mdc-typography-display2>Display 2</div>
+            </td>
+          </tr>
+          <tr>
+            <td>mdc-typography-display3</td>
+            <td>
+              <div mdc-typography-display3>Display 3</div>
+            </td>
+          </tr>
+          <tr>
+            <td>mdc-typography-display4</td>
+            <td>
+              <div mdc-typography-display4>Display 4</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

@@ -44,10 +44,8 @@ describe('MdcTypography', () => {
   });
 });
 
-/** Simple component for testing. */
 @Component({
-  template:
-  `
+  template: `
   <div mdc-typography>
   <h1 mdc-typography-display4></h1>
   <h1 mdc-typography-display3></h1>
@@ -61,7 +59,6 @@ describe('MdcTypography', () => {
   <h1 mdc-typography-body1></h1>
   <h1 mdc-typography-caption></h1>
   <h1 mdc-typography-button></h1>
-  <p mdc-typography-adjust-margin></p>
   </div>
   `,
 })

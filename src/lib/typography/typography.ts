@@ -11,13 +11,6 @@ export class MdcTypography {
 }
 
 @Directive({
-  selector: '[mdc-typography-adjust-margin]'
-})
-export class MdcAdjustMargin {
-  @HostBinding('class.mdc-typography--adjust-margin') isHostClass = true;
-}
-
-@Directive({
   selector: '[mdc-typography-display4]'
 })
 export class MdcDisplay4 {

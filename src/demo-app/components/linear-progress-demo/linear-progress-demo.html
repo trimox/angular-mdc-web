@@ -1,106 +1,117 @@
-<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
-  <div>
-    <h1 mdc-typography-display1>Linear Progress</h1>
-    <span>The MDC Linear Progress component is a spec-aligned linear progress indicator component adhering to the Material Design progress & activity requirements.</span>
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Linear Progress</h1>
+    <div>The MDC Linear Progress component is a spec-aligned linear progress indicator component adhering to the Material Design progress & activity requirements.</div>
+    <h2>References</h2>
+    <ul>
+      <li><a mdc-button href="https://material.io/guidelines/components/progress-activity.html"
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Progress Activity</a>
+      </li>
+      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-linear-progress/README.md"
+        target="_blank" rel="noopener noreferrer">Material Components Web</a>
+      </li>
+    </ul>
+    <h2>Import</h2>
+    <pre><code><![CDATA[import { MdcLinearProgressModule } from '@angular-mdc/web';]]></code></pre>
+
+    <h2>Design & API Documentation</h2>
+    <div class="docs-api">
+      <h3>mdc-linear-progress</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>indeterminate: boolean</td>
+            <td>Puts the linear progress indicator in an indeterminate state.</td>
+          </tr>
+          <tr>
+            <td>reversed: boolean</td>
+            <td>Reverses the direction of the linear progress indicator.</td>
+          </tr>
+          <tr>
+            <td>secondary: boolean</td>
+            <td>Colors the button with the secondary theme color.</td>
+          </tr>
+          <tr>
+            <td>closed: boolean</td>
+            <td>Hides the linear progress indicator.</td>
+          </tr>
+          <tr>
+            <td>progress: number</td>
+            <td>Sets the progress bar to this value. Value should be between [0, 1].</td>
+          </tr>
+          <tr>
+            <td>buffer: number</td>
+            <td>Sets the buffer bar to this value. Value should be between [0, 1].</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Methods</th>
+            <th>Parameters</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>open()</td>
+            <td>Puts the component in the open state.</td>
+          </tr>
+          <tr>
+            <td>close()</td>
+            <td>Puts the component in the closed state.</td>
+          </tr>
+          <tr>
+            <td>setProgress(value: number)</td>
+            <td>Sets the progress bar to this value. Value should be between [0, 1].</td>
+          </tr>
+          <tr>
+            <td>setBuffer(value: number)</td>
+            <td>Sets the buffer bar to this value. Value should be between [0, 1].</td>
+          </tr>
+          <tr>
+            <td>setReverse(value: boolean)</td>
+            <td>Reverses the direction of the linear progress indicator.</td>
+          </tr>
+          <tr>
+            <td>setDeterminate(value: boolean)</td>
+            <td>Toggles the component between the determinate and indeterminate state.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h2>Basic Usage</h2>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-linear-progress"
+     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
   </div>
-  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
-    <![CDATA[import { MdcLinearProgressModule } from '@angular-mdc/web';]]>
-  </div>
-  <div class="docs-api">
-    <table>
-      <thead>
-        <tr>
-          <th>Component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-linear-progress</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>indeterminate: boolean</td>
-          <td>Puts the linear progress indicator in an indeterminate state.</td>
-        </tr>
-        <tr>
-          <td>reversed: boolean</td>
-          <td>Reverses the direction of the linear progress indicator.</td>
-        </tr>
-        <tr>
-          <td>secondary: boolean</td>
-          <td>Colors the button with the secondary theme color.</td>
-        </tr>
-        <tr>
-          <td>closed: boolean</td>
-          <td>Hides the linear progress indicator.</td>
-        </tr>
-        <tr>
-          <td>progress: number</td>
-          <td>Sets the progress bar to this value. Value should be between [0, 1].</td>
-        </tr>
-        <tr>
-          <td>buffer: number</td>
-          <td>Sets the buffer bar to this value. Value should be between [0, 1].</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Methods</th>
-          <th>Parameters</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>open()</td>
-          <td>Puts the component in the open state.</td>
-        </tr>
-        <tr>
-          <td>close()</td>
-          <td>Puts the component in the closed state.</td>
-        </tr>
-        <tr>
-          <td>setProgress(value: number)</td>
-          <td>Sets the progress bar to this value. Value should be between [0, 1].</td>
-        </tr>
-        <tr>
-          <td>setBuffer(value: number)</td>
-          <td>Sets the buffer bar to this value. Value should be between [0, 1].</td>
-        </tr>
-        <tr>
-          <td>setReverse(value: boolean)</td>
-          <td>Reverses the direction of the linear progress indicator.</td>
-        </tr>
-        <tr>
-          <td>setDeterminate(value: boolean)</td>
-          <td>Toggles the component between the determinate and indeterminate state.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <h3>Indeterminate Progress</h3>
-  <div fxLayout="column" fxLayoutAlign="start" fxFlexOffset="2" fxFlex="50">
-    <mdc-linear-progress #lp [indeterminate]="true"></mdc-linear-progress>
-    <div fxLayout="row" fxFlexOffset="5">
-      <button mdc-button (click)="lp.setReverse(!lp.reversed)">Reverse</button>
-      <button mdc-button (click)="lp.closed = !lp.closed">Open/Close</button>
-      <button mdc-button (click)="lp.secondary = !lp.secondary">{{lp.secondary ? 'Primary' : 'Secondary'}} Color</button>
+
+  <div class="demo-content">
+    <h3>Indeterminate Progress</h3>
+    <div fxLayout="column" fxLayoutAlign="start" fxFlexOffset="2" fxFlex="50">
+      <mdc-linear-progress #lp [indeterminate]="true"></mdc-linear-progress>
+      <div fxLayout="row" fxFlexOffset="5">
+        <button mdc-button (click)="lp.setReverse(!lp.reversed)">Reverse</button>
+        <button mdc-button (click)="lp.closed = !lp.closed">Open/Close</button>
+        <button mdc-button (click)="lp.secondary = !lp.secondary">{{lp.secondary ? 'Primary' : 'Secondary'}} Color</button>
+      </div>
     </div>
   </div>
 
-  <h3>Determinate Progress</h3>
-  <div fxLayout="column" fxLayoutAlign="start" fxFlexOffset="2" fxFlex="50">
-    <mdc-linear-progress #deter [indeterminate]="false" [progress]="0.5" [buffer]="0.75" [secondary]="true"></mdc-linear-progress>
-    <div fxLayout="row" fxFlexOffset="5">
-      <button mdc-button (click)="deter.setReverse(!deter.reversed)">Reverse</button>
-      <button mdc-button (click)="deter.closed = !deter.closed">Open/Close</button>
-      <button mdc-button (click)="deter.secondary = !deter.secondary">{{deter.secondary ? 'Primary' : 'Secondary'}} Color</button>
+  <div class="demo-content">
+    <h3>Determinate Progress</h3>
+    <div fxLayout="column" fxLayoutAlign="start" fxFlexOffset="2" fxFlex="50">
+      <mdc-linear-progress #deter [indeterminate]="false" [progress]="0.5" [buffer]="0.75" [secondary]="true"></mdc-linear-progress>
+      <div fxLayout="row" fxFlexOffset="5">
+        <button mdc-button (click)="deter.setReverse(!deter.reversed)">Reverse</button>
+        <button mdc-button (click)="deter.closed = !deter.closed">Open/Close</button>
+        <button mdc-button (click)="deter.secondary = !deter.secondary">{{deter.secondary ? 'Primary' : 'Secondary'}} Color</button>
+      </div>
     </div>
   </div>
 </div>

@@ -1,105 +1,103 @@
-<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
-  <div>
-    <h1 mdc-typography-display1>Chips</h1>
-    <span>Chips are compact elements that allow users to enter information, select a choice, filter content, or trigger an action.</span>
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Chips</h1>
+    <div>Chips are compact elements that allow users to enter information, select a choice, filter content, or trigger an action.</div>
+    <h2>References</h2>
+    <ul>
+      <li><a mdc-button href="https://material.io/guidelines/components/chips.html"
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Chips</a>
+      </li>
+      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-chips/README.md"
+        target="_blank" rel="noopener noreferrer">Material Components Web</a>
+      </li>
+    </ul>
+    <h2>Import</h2>
+    <pre><code><![CDATA[import { MdcChipsModule } from '@angular-mdc/web';]]></code></pre>
+
+    <h2>Design & API Documentation</h2>
+    <div class="docs-api">
+      <h3>mdc-chip-set</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>choice: boolean</td>
+            <td>Indicates that the chips in the set are choice chips, which allow a single selection from a set of options.</td>
+          </tr>
+          <tr>
+            <td>filter: boolean</td>
+            <td>Indicates that the chips in the set are filter chips, which allow multiple selection from a set of options.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-chip</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>None yet, coming soon.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Events</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><pre>selectionChange:
+  EventEmitter<![CDATA[<MdcChipSelectionChange>]]></pre></td>
+            <td>Emitted when the chip is selected or deselected.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-chip-text</h3>
+      <table>
+        <tr>
+          <td>Indicates the text content of the chip.</td>
+        </tr>
+      </table>
+
+      <h3>mdc-chip-icon</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>leading: boolean</td>
+            <td>Indicates a leading icon in the chip</td>
+          </tr>
+          <tr>
+            <td>trailing: boolean</td>
+            <td>Indicates a trailing icon in the chip</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h2>Basic Usage</h2>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-chips"
+     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
   </div>
-  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
-    <![CDATA[import { MdcChipsModule } from '@angular-mdc/web';]]>
-  </div>
-  <div class="docs-api">
-    <table>
-      <thead>
-        <tr>
-          <th>Component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-chip-set</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>choice: boolean</td>
-          <td>Indicates that the chips in the set are choice chips, which allow a single selection from a set of options.</td>
-        </tr>
-        <tr>
-          <td>filter: boolean</td>
-          <td>Indicates that the chips in the set are filter chips, which allow multiple selection from a set of options.</td>
-        </tr>
-      </tbody>
-    </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-chip</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>None yet, coming soon.</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Events</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><pre>selectionChange:
-EventEmitter<![CDATA[<MdcChipSelectionChange>]]></pre></td>
-          <td>Emitted when the chip is selected or deselected.</td>
-        </tr>
-      </tbody>
-    </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-chip-icon</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>leading: boolean</td>
-          <td>Indicates a leading icon in the chip</td>
-        </tr>
-        <tr>
-          <td>trailing: boolean</td>
-          <td>Indicates a trailing icon in the chip</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+
   <div class="demo-content">
     <h3>Chips</h3>
     <div class="demo-content--row">

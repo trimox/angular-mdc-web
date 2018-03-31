@@ -1,168 +1,181 @@
-  <div class="docs-api">
-    <table>
-      <thead>
-        <tr>
-          <th>Service</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-dialog</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Dialog Methods</th>
-          <th>Parameters</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>open(componentOrTemplateRef: any)</td>
-          <td>Opens a modal dialog containing the given component.</td>
-        </tr>
-        <tr>
-          <td><pre><![CDATA[open(componentOrTemplateRef: any, {
+<div class="docs-api">
+  <table>
+    <thead>
+      <tr>
+        <th>Service</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>mdc-dialog</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <thead>
+      <tr>
+        <th>Dialog Methods</th>
+        <th>Parameters</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>open(componentOrTemplateRef: any)</td>
+        <td>Opens a modal dialog containing the given component.</td>
+      </tr>
+      <tr>
+        <td><pre><![CDATA[open(componentOrTemplateRef: any, {
     config
   })
 ]]></pre></td>
-          <td>Extra configuration options.
-<pre><![CDATA[config {
+        <td>Extra configuration options.
+          <pre><![CDATA[config {
   clickOutsideToClose?: boolean = true;
   escapeToClose?: boolean = true;}
 ]]></pre>
-          </td>
-        </tr>
-        <tr>
-          <td>close()</td>
-          <td>Closes the dialog.</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Config</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>clickOutsideToClose: boolean</td>
-          <td>Close the dialog if user clicks on the backdrop. (Default: true)</td>
-        </tr>
-        <tr>
-          <td>escapeToClose: boolean</td>
-          <td>Enable or disable close on escape key (Default: true).</td>
-        </tr>
-      </tbody>
-    </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Directives</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-dialog</td>
-          <td>Defines the dialog content block.</td>
-        </tr>
-        <tr>
-          <td>mdc-dialog-header</td>
-          <td>Defines the header content block.</td>
-        </tr>
-        <tr>
-          <td>mdc-dialog-header-title</td>
-          <td>Briefly describes the type of choice being made.</td>
-        </tr>
-        <tr>
-          <td>mdc-dialog-body</td>
-          <td>Body content typically consists of text and/or UI control elements.</td>
-        </tr>
-        <tr>
-          <td>mdc-dialog-footer</td>
-          <td>Place mdc-dialog-button's inside the footer.</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Events</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>accept</td>
-          <td>Broadcast when a user accepts the dialog.</td>
-        </tr>
-        <tr>
-          <td>cancel</td>
-          <td>Broadcast when a user cancels the dialog.</td>
-        </tr>
-      </tbody>
-    </table>
+        </td>
+      </tr>
+      <tr>
+        <td>close()</td>
+        <td>Closes the dialog.</td>
+      </tr>
+    </tbody>
+  </table>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Button Directives</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>button[mdc-dialog-button]</td>
-        </tr>
-        <tr>
-          <td>a[mdc-dialog-button]</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>accept: boolean</td>
-          <td>Closes the dialog and emits an accept() event.</td>
-        </tr>
-        <tr>
-          <td>cancel: boolean</td>
-          <td>Closes the dialog and emits an cancel() event.</td>
-        </tr>
-        <tr>
-          <td>action: boolean</td>
-          <td>Apply contrasting secondary color to button.</td>
-        </tr>
-        <tr>
-          <td>focused: boolean</td>
-          <td>Set initial focus to button after Dialog opened.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Config</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>clickOutsideToClose: boolean</td>
+        <td>Close the dialog if user clicks on the backdrop. (Default: true)</td>
+      </tr>
+      <tr>
+        <td>escapeToClose: boolean</td>
+        <td>Enable or disable close on escape key (Default: true).</td>
+      </tr>
+    </tbody>
+  </table>
 
-<h1 mdc-typography-title>Configuring dialog content via entryComponents</h1>
+  <h3>mdc-dialog</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>Defines the dialog.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>mdc-dialog-header</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>Defines the header content block.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>mdc-dialog-header-title</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>Briefly describes the type of choice being made.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>mdc-dialog-body</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>Body content typically consists of text and/or UI control elements.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>mdc-dialog-footer</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>Place mdc-dialog-button's inside the footer.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Events</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>accept</td>
+        <td>Broadcast when a user accepts the dialog.</td>
+      </tr>
+      <tr>
+        <td>cancel</td>
+        <td>Broadcast when a user cancels the dialog.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>button[mdc-dialog-button]</h3>
+  <h3 class="small-margin">a[mdc-dialog-button]</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Properties</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>accept: boolean</td>
+        <td>Closes the dialog and emits an accept() event.</td>
+      </tr>
+      <tr>
+        <td>cancel: boolean</td>
+        <td>Closes the dialog and emits an cancel() event.</td>
+      </tr>
+      <tr>
+        <td>action: boolean</td>
+        <td>Apply contrasting secondary color to button.</td>
+      </tr>
+      <tr>
+        <td>focused: boolean</td>
+        <td>Set initial focus to button after Dialog opened.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<h2>Basic Usage</h2>
+<a mdc-button href="https://stackblitz.com/edit/angular-mdc-dialog"
+ target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
+
+<h3>Configuring dialog content via entryComponents</h3>
 <pre>Because MdcDialog instantiates components at run-time, the Angular compiler needs extra information to create the necessary ComponentFactory for your dialog content component.
 For any component loaded into a dialog, you must include your component class in the list of entryComponents in your NgModule definition so that the Angular compiler knows to create the ComponentFactory.</pre>
 
-<div class="mdc-padding">
- <a mdc-button href="https://stackblitz.com/edit/angular-mdc-dialog?embed=1&file=app/app.component.ts&view=editor"
-  target="_blank" rel="noopener noreferrer">View Example Source</a>
-</div>
-
-<mdc-form-field>
-  <mdc-checkbox [(ngModel)]="isEscapeToClose"></mdc-checkbox>
-  <label>Escape Key Closes</label>
-</mdc-form-field>
-<mdc-form-field>
-  <mdc-checkbox [(ngModel)]="isClickOutsideToClose"></mdc-checkbox>
-  <label>Click or Touch Outside Closes</label>
-</mdc-form-field>
-<div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start start" class="mdc-padding">
-  <button mdc-button [primary]="true" (click)="openSimple()">Simple Dialog</button>
-  <button mdc-button [primary]="true" (click)="openScrolling()">Scrolling Dialog</button>
-  <button mdc-button [primary]="true" (click)="openAlert()">Alert Dialog</button>
-  <button mdc-button [primary]="true" (click)="openNoFooter()">No Footer Dialog</button>
-  <button mdc-button [primary]="true" (click)="openForm()">Form Dialog</button>
+<div class="demo-content">
+  <mdc-form-field>
+    <mdc-checkbox [(ngModel)]="isEscapeToClose"></mdc-checkbox>
+    <label>Escape Key Closes</label>
+  </mdc-form-field>
+  <mdc-form-field>
+    <mdc-checkbox [(ngModel)]="isClickOutsideToClose"></mdc-checkbox>
+    <label>Click or Touch Outside Closes</label>
+  </mdc-form-field>
+  <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start start">
+    <button mdc-button [primary]="true" (click)="openSimple()">Simple Dialog</button>
+    <button mdc-button [primary]="true" (click)="openScrolling()">Scrolling Dialog</button>
+    <button mdc-button [primary]="true" (click)="openAlert()">Alert Dialog</button>
+    <button mdc-button [primary]="true" (click)="openNoFooter()">No Footer Dialog</button>
+    <button mdc-button [primary]="true" (click)="openForm()">Form Dialog</button>
+  </div>
 </div>

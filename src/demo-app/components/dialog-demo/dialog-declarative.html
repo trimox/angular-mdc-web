@@ -1,15 +1,6 @@
 <div class="docs-api">
+  <h3>mdc-dialog</h3>
   <table>
-    <thead>
-      <tr>
-        <th>Component</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>mdc-dialog</td>
-      </tr>
-    </tbody>
     <thead>
       <tr>
         <th>Properties</th>
@@ -26,6 +17,8 @@
         <td>Enable or disable close on escape key (Default: true).</td>
       </tr>
     </tbody>
+  </table>
+  <table>
     <thead>
       <tr>
         <th>Methods</th>
@@ -43,30 +36,44 @@
       </tr>
     </tbody>
   </table>
+
+  <h3>mdc-dialog-header</h3>
   <table>
-    <thead>
-      <tr>
-        <th>Directives</th>
-      </tr>
-    </thead>
     <tbody>
       <tr>
-        <td>mdc-dialog-header</td>
         <td>Defines the header content block.</td>
       </tr>
+    </tbody>
+  </table>
+
+  <h3>mdc-dialog-header-title</h3>
+  <table>
+    <tbody>
       <tr>
-        <td>mdc-dialog-header-title</td>
         <td>Briefly describes the type of choice being made.</td>
       </tr>
+    </tbody>
+  </table>
+
+  <h3>mdc-dialog-body</h3>
+  <table>
+    <tbody>
       <tr>
-        <td>mdc-dialog-body</td>
         <td>Body content typically consists of text and/or UI control elements.</td>
       </tr>
+    </tbody>
+  </table>
+
+  <h3>mdc-dialog-footer</h3>
+  <table>
+    <tbody>
       <tr>
-        <td>mdc-dialog-footer</td>
         <td>Place mdc-dialog-button's inside the footer.</td>
       </tr>
     </tbody>
+  </table>
+
+  <table>
     <thead>
       <tr>
         <th>Events</th>
@@ -85,20 +92,9 @@
     </tbody>
   </table>
 
+  <h3>button[mdc-dialog-button]</h3>
+  <h3 class="small-margin">a[mdc-dialog-button]</h3>
   <table>
-    <thead>
-      <tr>
-        <th>Button Directives</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>button[mdc-dialog-button]</td>
-      </tr>
-      <tr>
-        <td>a[mdc-dialog-button]</td>
-      </tr>
-    </tbody>
     <thead>
       <tr>
         <th>Properties</th>
@@ -126,16 +122,18 @@
   </table>
 </div>
 
-<mdc-form-field>
-  <mdc-checkbox [(ngModel)]="isEscapeToClose"></mdc-checkbox>
-  <label>Escape Key Closes</label>
-</mdc-form-field>
-<mdc-form-field>
-  <mdc-checkbox [(ngModel)]="isClickOutsideToClose"></mdc-checkbox>
-  <label>Click or Touch Outside Closes</label>
-</mdc-form-field>
-<div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start start" class="mdc-padding">
-  <button mdc-button [primary]="true" (click)="openDialog()">Declarative Dialog</button>
+<div class="demo-content">
+  <mdc-form-field>
+    <mdc-checkbox [(ngModel)]="isEscapeToClose"></mdc-checkbox>
+    <label>Escape Key Closes</label>
+  </mdc-form-field>
+  <mdc-form-field>
+    <mdc-checkbox [(ngModel)]="isClickOutsideToClose"></mdc-checkbox>
+    <label>Click or Touch Outside Closes</label>
+  </mdc-form-field>
+  <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start start" class="mdc-padding">
+    <button mdc-button [primary]="true" (click)="openDialog()">Declarative Dialog</button>
+  </div>
 </div>
 
 <mdc-dialog #myDialog [escapeToClose]="isEscapeToClose" [clickOutsideToClose]="isClickOutsideToClose">
@@ -152,28 +150,3 @@
     <button mdc-dialog-button [accept]="true">Accept</button>
   </mdc-dialog-footer>
 </mdc-dialog>
-
-<pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span> #<span style="color:#89bdff">myDialog</span> 
-  [<span style="color:#89bdff">escapeToClose</span>]=<span style="color:#65b042">"true"</span>
-  [<span style="color:#89bdff">clickOutsideToClose</span>]=<span style="color:#65b042">"true"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
-    <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header-title</span>></span>
-      Use Google's location service?
-    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header-title</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-header</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-body</span>></span>
-    Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-body</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-dialog-button</span> [<span style="color:#e0c589">cancel</span>]=<span style="color:#65b042">"true"</span>></span>Decline<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-    <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-dialog-button</span> [<span style="color:#e0c589">accept</span>]=<span style="color:#65b042">"true"</span>></span>Accept<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog-footer</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-dialog</span>></span>
-</pre>
-
-<div style="background: #000; overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #f8f8f8; background-color: #000">@</span><span style="color: #a6e22e">ViewChild</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;myDialog&#39;</span><span style="color: #f8f8f2">)</span> <span style="color: #a6e22e">myDialog</span>: <span style="color: #66d9ef">MdcDialogComponent</span><span style="color: #f8f8f2">;</span>
-
-<span style="color: #a6e22e">openDialog() <![CDATA[{]]></span>
-  <span style="color: #66d9ef">this</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">myDialog</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">show</span><span style="color: #f8f8f2">();</span>
-<span style="color: #f8f8f2"><![CDATA[}]]></span>
-</pre></div>

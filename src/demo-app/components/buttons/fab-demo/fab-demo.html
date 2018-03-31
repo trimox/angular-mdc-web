@@ -1,120 +1,103 @@
-<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
-  <div>
-    <h1 mdc-typography-display1>Floating Action Button</h1>
-    <span>FAB is a spec-aligned button component adhering to the Material Design button requirements.</span>
-  </div>
-  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
-    <![CDATA[import { MdcFabModule } from '@angular-mdc/web';]]>
-  </div>
-  <div class="docs-api">
-    <table>
-      <thead>
-        <tr>
-          <th>Component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>button[mdc-fab]</td>
-        </tr>
-        <tr>
-          <td>a[mdc-fab]</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mini: boolean</td>
-          <td>Make the fab smaller (40 x 40 pixels).</td>
-        </tr>
-        <tr>
-          <td>exited: boolean</td>
-          <td>Animates the FAB in or out of view.</td>
-        </tr>
-        <tr>
-          <td>tabIndex: number</td>
-          <td>Set the tabindex of the button. (Default: 0).</td>
-        </tr>
-        <tr>
-          <td>position: string</td>
-          <td>Set absolute position. Valid values: 'bottom-left' | 'bottom-right' | null</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Methods</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>toggleExited(exited?: boolean)</td>
-          <td>Toggle the fab animation in and out. Optional argument for specifying exited.</td>
-        </tr>
-        <tr>
-          <td>focus()</td>
-          <td>Focuses the button.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div fxLayout="column" class="mdc-padding" fxLayoutGap="25px">
-  <div fxLayout="row" class="mdc-padding" fxLayoutAlign="start center" fxLayoutGap="25px">
-    <div fxLayout="column">
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="isMini"></mdc-checkbox>
-        <label>Mini</label>
-      </mdc-form-field>
-    </div>
-<button mdc-fab
-  [mini]="isMini">
-  <mdc-icon>edit</mdc-icon>
-</button>
-    </div>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span>
-  [<span style="color:#e0c589">mini</span>]=<span style="color:#65b042">"false"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>edit<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
-<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-</pre>
-<span mdc-typography-headline>Exit/Entry Animation</span>
-  <div fxLayout="row" class="mdc-padding" fxLayoutAlign="start center" fxLayoutGap="25px">
-    <button mdc-fab #fab
-      (click)="fab.toggleExited();">
-      <mdc-icon>save</mdc-icon>
-    </button>
-    <button mdc-button (click)="fab.toggleExited()" *ngIf="fab.exited">Show FAB again</button>
-</div>
-<pre style="background:#000;color:#f8f8f8">
-<span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span> #<span style="color:#e0c589">fab</span>
-  (<span style="color:#e0c589">click</span>)=<span style="color:#65b042">"fab.toggleExited()"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>search<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
-<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-</pre>
-<span mdc-typography-headline>Using Font Awesome</span>
-<button mdc-fab>
-  <mdc-icon fontSet="fa" fontIcon="fa-keyboard-o"></mdc-icon>
-</button>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>
-    <span style="color:#89bdff">fontSet</span>=<span style="color:#65b042">"fa"</span>
-    <span style="color:#89bdff">fontIcon</span>=<span style="color:#65b042">"fa-keyboard-o"</span>></span><span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
-<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-</pre>
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Floating Action Button</h1>
+    <div>A floating action button represents the primary action in an application.</div>
+    <h2>References</h2>
+    <ul>
+      <li><a mdc-button href="https://material.io/guidelines/components/buttons-floating-action-button.html"
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Floating Action Button</a>
+      </li>
+      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-fab/README.md"
+        target="_blank" rel="noopener noreferrer">Material Components Web</a>
+      </li>
+    </ul>
+    <h2>Import</h2>
+    <pre><code><![CDATA[import { MdcFabModule } from '@angular-mdc/web';]]></code></pre>
 
-<span mdc-typography-headline>Absolute Positioning (bottom-right)</span>
-<button mdc-fab
- position="bottom-right">
-  <mdc-icon>add</mdc-icon>
-</button>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-fab</span>
-  <span style="color:#e0c589">position</span>=<span style="color:#65b042">"bottom-right"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>add<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
-<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-</pre>
-</div>
+    <h2>Design & API Documentation</h2>
+    <div class="docs-api">
+      <h3>button[mdc-fab]</h3>
+      <h3 class="small-margin">a[mdc-fab]</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>mini: boolean</td>
+            <td>Make the fab smaller (40 x 40 pixels).</td>
+          </tr>
+          <tr>
+            <td>exited: boolean</td>
+            <td>Animates the FAB in or out of view.</td>
+          </tr>
+          <tr>
+            <td>tabIndex: number</td>
+            <td>Set the tabindex of the button. (Default: 0).</td>
+          </tr>
+          <tr>
+            <td>position: string</td>
+            <td>Set absolute position. Valid values: 'bottom-left' | 'bottom-right' | null</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Methods</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>toggleExited(exited?: boolean)</td>
+            <td>Toggle the fab animation in and out. Optional argument for specifying exited.</td>
+          </tr>
+          <tr>
+            <td>focus()</td>
+            <td>Focuses the button.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h2>Basic Usage</h2>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-fab"
+     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
+  </div>
+
+  <div class="demo-content">
+    <div class="demo-content--row">
+      <button mdc-button (click)="demofab.mini = !demofab.mini">Mini: {{demofab.mini ? 'On' : 'Off'}}</button>
+    </div>
+    <button mdc-fab #demofab>
+      <mdc-icon>edit</mdc-icon>
+    </button>
+  </div>
+
+  <div class="demo-content">
+    <h3>Exit/Entry Animation</h3>
+    <div fxLayout="row" class="mdc-padding" fxLayoutAlign="start center" fxLayoutGap="25px">
+      <button mdc-fab #fab (click)="fab.toggleExited();">
+        <mdc-icon>save</mdc-icon>
+      </button>
+      <button mdc-button (click)="fab.toggleExited()" *ngIf="fab.exited">Show FAB again</button>
+    </div>
+  </div>
+
+  <div class="demo-content">
+    <h3>Using Font Awesome</h3>
+    <button mdc-fab>
+      <mdc-icon fontSet="fa" fontIcon="fa-keyboard-o"></mdc-icon>
+    </button>
+  </div>
+
+  <div class="demo-content">
+    <h3>Absolute Positioning (bottom-right)</h3>
+    <button mdc-fab position="bottom-right">
+      <mdc-icon>add</mdc-icon>
+    </button>
+  </div>
 </div>

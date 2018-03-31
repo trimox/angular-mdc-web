@@ -1,164 +1,131 @@
-<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
-  <div>
-    <h1 mdc-typography-display1>Cards</h1>
-    <span>The MDC Card component is a sheet of material that serves as an entry point to more detailed information.</span>
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Cards</h1>
+    <div>MDC Card is a component that implements the Material Design card component, and makes it available to developers as a set of CSS classes.</div>
+    <h2>References</h2>
+    <ul>
+      <li><a mdc-button href="https://material.io/guidelines/components/cards.html"
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Cards</a>
+      </li>
+      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-card/README.md"
+        target="_blank" rel="noopener noreferrer">Material Components Web</a>
+      </li>
+    </ul>
+    <h2>Import</h2>
+    <pre><code><![CDATA[import { MdcCardModule } from '@angular-mdc/web';]]></code></pre>
+
+    <h2>Design & API Documentation</h2>
+    <div class="docs-api">
+      <h3>mdc-card</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>stroked: boolean</td>
+            <td>Removes the shadow and displays a hairline stroke instead</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-card-primary-action</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>The main tappable area of the card. Typically contains most (or all) card content except mdc-card-actions. Only applicable to cards that have a primary action that the main surface should trigger.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-card-media</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>square: boolean</td>
+            <td>Automatically scales the media area's height to equal its width.</td>
+          </tr>
+          <tr>
+            <td>rectangle: boolean</td>
+            <td>Automatically scales the media area's height according to its width, maintaining a 16:9 aspect ratio.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-card-media-content</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>An absolutely-positioned box the same size as the media area, for displaying a title or icon on top of the background-image</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-card-actions</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>fullBleed: boolean</td>
+            <td>Removes the action area's padding and causes its only child (an mdc-card__action element) to consume 100% of the action area's width.</td>
+          </tr>
+          <tr>
+            <td>icons: boolean</td>
+            <td>A group of supplemental action icons, displayed on the right side of the card (in LTR), adjacent to mdc-card-action buttons</td>
+          </tr>
+          <tr>
+            <td>buttons: boolean</td>
+            <td>A group of action buttons, displayed on the left side of the card (in LTR), adjacent to mdc-card-action icons</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-card-action-icons</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>A group of supplemental action icons, displayed on the right side of the card (in LTR), adjacent to mdc-card-action buttons</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-card-action-buttons</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>A group of action buttons, displayed on the left side of the card (in LTR), adjacent to mdc-card-action icons</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdcCardAction</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>An individual action button or icon. Provide either `icon` or `button`. (e.g.: mdcCardAction="icon" or mdcCardAction="button")</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h2>Basic Usage</h2>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-card"
+     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
   </div>
-  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
-    <![CDATA[import { MdcCardModule } from '@angular-mdc/web';]]>
-  </div>
-  <div class="docs-api">
-    <table>
-      <thead>
-        <tr>
-          <th>Component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-card</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>stroked: boolean</td>
-          <td>Removes the shadow and displays a hairline stroke instead</td>
-        </tr>
-      </tbody>
-    </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Directive</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-card-primary-action</td>
-          <td>The main tappable area of the card. Typically contains most (or all) card content except mdc-card-actions. Only applicable to cards that have a primary action that the main surface should trigger.</td>
-        </tr>
-      </tbody>
-    </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-card-media</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>square: boolean</td>
-          <td>Automatically scales the media area's height to equal its width.</td>
-        </tr>
-        <tr>
-          <td>rectangle: boolean</td>
-          <td>Automatically scales the media area's height according to its width, maintaining a 16:9 aspect ratio.</td>
-        </tr>
-      </tbody>
-    </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Directive</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-card-media-content</td>
-          <td>An absolutely-positioned box the same size as the media area, for displaying a title or icon on top of the background-image</td>
-        </tr>
-      </tbody>
-    </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-card-actions</td>
-          <td>Row containing action buttons and/or icons</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>fullBleed: boolean</td>
-          <td>Removes the action area's padding and causes its only child (an mdc-card__action element) to consume 100% of the action area's width.</td>
-        </tr>
-        <tr>
-          <td>icons: boolean</td>
-          <td>A group of supplemental action icons, displayed on the right side of the card (in LTR), adjacent to mdc-card-action buttons</td>
-        </tr>
-        <tr>
-          <td>buttons: boolean</td>
-          <td>A group of action buttons, displayed on the left side of the card (in LTR), adjacent to mdc-card-action icons</td>
-        </tr>
-      </tbody>
-    </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Directive</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-card-action-icons</td>
-          <td>A group of supplemental action icons, displayed on the right side of the card (in LTR), adjacent to mdc-card-action buttons</td>
-        </tr>
-      </tbody>
-    </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Directive</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-card-action-buttons</td>
-          <td>A group of action buttons, displayed on the left side of the card (in LTR), adjacent to mdc-card-action icons</td>
-        </tr>
-      </tbody>
-    </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Directive</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdcCardAction</td>
-          <td>An individual action button or icon. Provide either `icon` or `button`. (e.g.: mdcCardAction="icon" or mdcCardAction="button")</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <a mdc-button href="https://stackblitz.com/edit/angular-mdc-card?embed=1&file=app/app.component.html&view=editor" target="_blank" rel="noopener noreferrer">View Example Source</a>
+
   <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="7px">
     <div class="demo-content-no-border">
       <mdc-card class="demo-card" fxFlexOffset="4">
@@ -179,8 +146,8 @@
           </mdc-card-action-buttons>
           <mdc-card-action-icons>
             <mdc-icon-toggle iconOn="favorite" iconOff="favorite_border" mdcCardAction="icon"></mdc-icon-toggle>
-            <mdc-icon mdcCardAction="icon" mdcRipple tabindex="0">share</mdc-icon>
-            <mdc-icon mdcCardAction="icon" mdcRipple tabindex="0">more_vert</mdc-icon>
+            <mdc-icon mdcCardAction="icon" mdcRipple>share</mdc-icon>
+            <mdc-icon mdcCardAction="icon" mdcRipple>more_vert</mdc-icon>
           </mdc-card-action-icons>
         </mdc-card-actions>
       </mdc-card>

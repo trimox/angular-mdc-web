@@ -1,115 +1,124 @@
-<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
-  <div>
-    <h1 mdc-typography-display1>Slider</h1>
-    <span>Sliders let users select from a range of values by moving the slider thumb.</span>
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Slider</h1>
+    <div>MDC Slider provides an implementation of the Material Design slider component.</div>
+    <h2>References</h2>
+    <ul>
+      <li><a mdc-button href="https://material.io/guidelines/components/sliders.html"
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Sliders</a>
+      </li>
+      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-slider/README.md"
+        target="_blank" rel="noopener noreferrer">Material Components Web</a>
+      </li>
+    </ul>
+    <h2>Import</h2>
+    <pre><code><![CDATA[import { MdcSliderModule } from '@angular-mdc/web';]]></code></pre>
+
+    <h2>Design & API Documentation</h2>
+    <div class="docs-api">
+      <h3>mdc-slider</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>min: number</td>
+            <td>The minimum value that the slider can have.</td>
+          </tr>
+          <tr>
+            <td>max: number</td>
+            <td>The maximum value that the slider can have.</td>
+          </tr>
+          <tr>
+            <td>value: number</td>
+            <td>The current value of the slider.</td>
+          </tr>
+          <tr>
+            <td>step: number</td>
+            <td>Specifies the increments at which a slider value can be set.</td>
+          </tr>
+          <tr>
+            <td>discrete: boolean</td>
+            <td>Discrete sliders allow users to select a specific value from a range. (Default: false)</td>
+          </tr>
+          <tr>
+            <td>markers: boolean</td>
+            <td>Show markers on track. Discrete sliders support displaying markers on their tracks. (Default: false)</td>
+          </tr>
+          <tr>
+            <td>disabled: boolean</td>
+            <td>Disables the toggle slider.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Methods</th>
+            <th>Parameters</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>setMin(amount: number)</td>
+            <td>Sets the min value the slider can have.</td>
+          </tr>
+          <tr>
+            <td>getMin(): number</td>
+            <td>Returns the min value the slider can have.</td>
+          </tr>
+          <tr>
+            <td>setMax(amount: number)</td>
+            <td>Sets the max value the slider can have.</td>
+          </tr>
+          <tr>
+            <td>getMax(): number</td>
+            <td>Returns the max value the slider can have.</td>
+          </tr>
+          <tr>
+            <td>setStep(amount: number)</td>
+            <td>Sets the slider step value to the given amount.</td>
+          </tr>
+          <tr>
+            <td>getStep(): number</td>
+            <td>Returns the slider step value.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Events</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              change(source: MdcSlider, value)
+            </td>
+            <td>Broadcast when slider value is changed and committed by way of a user event, e.g. when a user stops dragging the slider or changes the value using the arrow keys.</td>
+          </tr>
+          <tr>
+            <td>
+              input(source: MdcSlider, value)
+            </td>
+            <td>Broadcasts when slider value is changed by way of a user event, e.g. when a user is dragging the slider or changing the value using the arrow keys.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h2>Basic Usage</h2>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-slider"
+     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
   </div>
-  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
-    <![CDATA[import { MdcSliderModule } from '@angular-mdc/web';]]>
-  </div>
-  <div class="docs-api">
-    <table>
-      <thead>
-        <tr>
-          <th>Component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-slider</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>min: number</td>
-          <td>The minimum value that the slider can have.</td>
-        </tr>
-        <tr>
-          <td>max: number</td>
-          <td>The maximum value that the slider can have.</td>
-        </tr>
-        <tr>
-          <td>value: number</td>
-          <td>The current value of the slider.</td>
-        </tr>
-        <tr>
-          <td>step: number</td>
-          <td>Specifies the increments at which a slider value can be set.</td>
-        </tr>
-        <tr>
-          <td>discrete: boolean</td>
-          <td>Discrete sliders allow users to select a specific value from a range. (Default: false)</td>
-        </tr>
-        <tr>
-          <td>markers: boolean</td>
-          <td>Show markers on track. Discrete sliders support displaying markers on their tracks. (Default: false)</td>
-        </tr>
-        <tr>
-          <td>disabled: boolean</td>
-          <td>Disables the toggle slider.</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Methods</th>
-          <th>Parameters</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>setMin(amount: number)</td>
-          <td>Sets the min value the slider can have.</td>
-        </tr>
-        <tr>
-          <td>getMin(): number</td>
-          <td>Returns the min value the slider can have.</td>
-        </tr>
-        <tr>
-          <td>setMax(amount: number)</td>
-          <td>Sets the max value the slider can have.</td>
-        </tr>
-        <tr>
-          <td>getMax(): number</td>
-          <td>Returns the max value the slider can have.</td>
-        </tr>
-        <tr>
-          <td>setStep(amount: number)</td>
-          <td>Sets the slider step value to the given amount.</td>
-        </tr>
-        <tr>
-          <td>getStep(): number</td>
-          <td>Returns the slider step value.</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Events</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            change(source: MdcSlider, value)
-          </td>
-          <td>Broadcast when slider value is changed and committed by way of a user event, e.g. when a user stops dragging the slider or changes the value using the arrow keys.</td>
-        </tr>
-        <tr>
-          <td>
-            input(source: MdcSlider, value)
-          </td>
-          <td>Broadcasts when slider value is changed by way of a user event, e.g. when a user is dragging the slider or changing the value using the arrow keys.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div fxLayout="column" class="mdc-padding">
-    <span mdc-typography-headline>Continuous Slider</span>
+
+  <div class="demo-content">
+    <h3>Continuous Slider</h3>
     <mdc-slider [min]="continuousMin" [max]="continuousMax" [value]="continuousValue" [(ngModel)]="continuousModel" [disabled]="continuousIsDisabled" (input)="inputContinuousValue($event)">
     </mdc-slider>
     <label>Slider ngModel : {{continuousModel}}</label>
@@ -122,19 +131,9 @@
       <mdc-checkbox [(ngModel)]="continuousIsDisabled"></mdc-checkbox>
       <label>Disable</label>
     </mdc-form-field>
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-slider</span> 
-  [<span style="color:#89bdff">min</span>]=<span style="color:#65b042">"0"</span>
-  [<span style="color:#89bdff">max</span>]=<span style="color:#65b042">"100"</span>
-  [<span style="color:#89bdff">value</span>]=<span style="color:#65b042">"0"</span>
-  [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"50"</span>
-  [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"false"</span>
-  (<span style="color:#89bdff">input</span>)=<span style="color:#65b042">"myInputEvent($event)"</span>
-  (<span style="color:#89bdff">change</span>)=<span style="color:#65b042">"myChangeEvent($event)"</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-slider</span>></span>
-</pre>
   </div>
-  <div fxLayout="column" class="mdc-padding">
-    <span mdc-typography-headline>Discrete Slider</span>
+  <div class="demo-content">
+    <h3>Discrete Slider</h3>
     <mdc-slider [min]="discreteMin" [max]="discreteMax" [value]="discreteValue" [(ngModel)]="discreteValue" [discrete]="true" [disabled]="discreteIsDisabled">
     </mdc-slider>
     <label>Slider value : {{discreteValue}}</label>
@@ -147,20 +146,9 @@
       <mdc-checkbox [(ngModel)]="discreteIsDisabled"></mdc-checkbox>
       <label>Disable</label>
     </mdc-form-field>
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-slider</span>
-  [<span style="color:#89bdff">discrete</span>]=<span style="color:#65b042">"true"</span>
-  [<span style="color:#89bdff">min</span>]=<span style="color:#65b042">"0"</span>
-  [<span style="color:#89bdff">max</span>]=<span style="color:#65b042">"100"</span>
-  [<span style="color:#89bdff">value</span>]=<span style="color:#65b042">"20"</span>
-  [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"20"</span>
-  [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"false"</span>
-  (<span style="color:#89bdff">input</span>)=<span style="color:#65b042">"myInputEvent($event)"</span>
-  (<span style="color:#89bdff">change</span>)=<span style="color:#65b042">"myChangeEvent($event)"</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-slider</span>></span>
-</pre>
   </div>
-  <div fxLayout="column" class="mdc-padding">
-    <span mdc-typography-headline>Discrete Slider with markers</span>
+  <div class="demo-content">
+    <h3>Discrete Slider with markers</h3>
     <mdc-slider [min]="dmMin" [max]="dmMax" [step]="dmStep" [value]="dmValue" [(ngModel)]="dmModel" [discrete]="true" [markers]="true" [disabled]="dmIsDisabled">
     </mdc-slider>
     <label>Slider value : {{dmModel}}</label>
@@ -174,18 +162,5 @@
       <mdc-checkbox [(ngModel)]="dmIsDisabled"></mdc-checkbox>
       <label>Disable</label>
     </mdc-form-field>
-    <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-slider</span>
-  [<span style="color:#89bdff">discrete</span>]=<span style="color:#65b042">"true"</span>
-  [<span style="color:#89bdff">markers</span>]=<span style="color:#65b042">"true"</span>
-  [<span style="color:#89bdff">min</span>]=<span style="color:#65b042">"0"</span>
-  [<span style="color:#89bdff">max</span>]=<span style="color:#65b042">"100"</span>
-  [<span style="color:#89bdff">value</span>]=<span style="color:#65b042">"10"</span>
-  [<span style="color:#89bdff">step</span>]=<span style="color:#65b042">"5"</span>
-  [(<span style="color:#89bdff">ngModel</span>)]=<span style="color:#65b042">"myValue"</span>
-  [<span style="color:#89bdff">disabled</span>]=<span style="color:#65b042">"false"</span>
-  (<span style="color:#89bdff">input</span>)=<span style="color:#65b042">"myInputEvent($event)"</span>
-  (<span style="color:#89bdff">change</span>)=<span style="color:#65b042">"myChangeEvent($event)"</span>></span>
-<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-slider</span>></span>
-</pre>
   </div>
 </div>

@@ -1,179 +1,177 @@
-<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
-  <div>
-    <h1 mdc-typography-display1>Menu</h1>
-    <span>Menu is a spec-aligned menu component adhering to the Material Design menu requirements.</span>
-  </div>
-  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
-    <![CDATA[import { MdcMenuModule } from '@angular-mdc/web';]]>
-  </div>
-  <div class="docs-api">
-    <table>
-      <thead>
-        <tr>
-          <th>Component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-menu</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>id: string</td>
-          <td>Unique Id of the menu (auto generated if not supplied).</td>
-        </tr>
-        <tr>
-          <td>anchorCorner: string</td>
-          <td>Override the opening point of the menu. (default: top-start)
-            <pre>Values: 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end'</pre>
-          </td>
-        </tr>
-        <tr>
-          <td>direction: string</td>
-          <td>Support for right-to-left (RTL). (Default is ltr)
-            <pre>Values: 'ltr' | 'rtl'</pre>
-          </td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Methods</th>
-          <th>Parameters</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>open(focusIndex?: number)</td>
-          <td><pre><![CDATA[Opens the menu.
-focusIndex is an optional argument to to set focus to a menu item index.
-If the focusIndex is omitted, no menu item will be focused.]]></pre></td>
-        </tr>
-        <tr>
-          <td>isOpen(): boolean</td>
-          <td>Returns whether or not the menu is open.</td>
-        </tr>
-        <tr>
-          <td>close()</td>
-          <td>Closes the menu.</td>
-        </tr>
-        <tr>
-          <td>isFocused(): boolean</td>
-          <td>Returns whether or not the menu has focus.</td>
-        </tr>
-        <tr>
-          <td>focus()</td>
-          <td>Set focus to the menu element.</td>
-        </tr>
-        <tr>
-          <td>isRtl(): boolean</td>
-          <td>Returns whether or not the menu direction is right-to-left.</td>
-        </tr>
-        <tr>
-          <td>getFocusedItemIndex(): number</td>
-          <td>Returns the index of the currently focused menu item (-1 if none).</td>
-        </tr>
-        <tr>
-          <td>setAnchorCorner(corner: string)</td>
-          <td>Override the opening point of the menu.
-            <pre>Values: 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end'</pre></td>
-        </tr>
-        <tr>
-          <td>setQuickOpen(quickOpen: boolean)</td>
-          <td>Sets whether the menu should open and close without animation when the open/close methods are called.</td>
-        </tr>
-        <tr>
-          <td>getSelectedIndex(): number</td>
-          <td>Returns the selected item index.</td>
-        </tr>
-        <tr>
-          <td>setSelectedIndex(index: number)</td>
-          <td>Index of the item to set as selected.</td>
-        </tr>
-        <tr>
-          <td>setMaxHeight(height: string)</td>
-          <td>Sets max-height style for the menu element.</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Event</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>cancel()</td>
-          <td>Dispatches an event that the menu closed with no selection made.</td>
-        </tr>
-        <tr>
-          <td>select(item: HTMLElement, index: number)</td>
-          <td>Dispatches an event that a menu item has been selected.</td>
-        </tr>
-      </tbody>
-    </table>
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Menus</h1>
+    <div>The MDC Menu component is a spec-aligned menu component adhering to the Material Design menu specification.</div>
+    <h2>References</h2>
+    <ul>
+      <li><a mdc-button href="https://material.io/guidelines/components/menus.html"
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Menus</a>
+      </li>
+      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-menu/README.md"
+        target="_blank" rel="noopener noreferrer">Material Components Web</a>
+      </li>
+    </ul>
+    <h2>Import</h2>
+    <pre><code><![CDATA[import { MdcMenuModule } from '@angular-mdc/web';]]></code></pre>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Directive</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-menu-item</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>id: string</td>
-          <td>The unique ID of the option.</td>
-        </tr>
-        <tr>
-          <td>label: string</td>
-          <td>The displayed label of the option.</td>
-        </tr>
-        <tr>
-          <td>disabled: boolean</td>
-          <td>Disable selection of the select item.</td>
-        </tr>
-      </tbody>
-      <tbody>
-    </table>
+    <h2>Design & API Documentation</h2>
+    <div class="docs-api">
+      <h3>mdc-menu</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>id: string</td>
+            <td>Unique Id of the menu (auto generated if not supplied).</td>
+          </tr>
+          <tr>
+            <td>anchorCorner: string</td>
+            <td>Override the opening point of the menu. (default: top-start)
+              <pre>Values: 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end'</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>direction: string</td>
+            <td>Support for right-to-left (RTL). (Default is ltr)
+              <pre>Values: 'ltr' | 'rtl'</pre>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Methods</th>
+            <th>Parameters</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>open(focusIndex?: number)</td>
+            <td><pre><![CDATA[Opens the menu.
+  focusIndex is an optional argument to to set focus to a menu item index.
+  If the focusIndex is omitted, no menu item will be focused.]]></pre></td>
+          </tr>
+          <tr>
+            <td>isOpen(): boolean</td>
+            <td>Returns whether or not the menu is open.</td>
+          </tr>
+          <tr>
+            <td>close()</td>
+            <td>Closes the menu.</td>
+          </tr>
+          <tr>
+            <td>isFocused(): boolean</td>
+            <td>Returns whether or not the menu has focus.</td>
+          </tr>
+          <tr>
+            <td>focus()</td>
+            <td>Set focus to the menu element.</td>
+          </tr>
+          <tr>
+            <td>isRtl(): boolean</td>
+            <td>Returns whether or not the menu direction is right-to-left.</td>
+          </tr>
+          <tr>
+            <td>getFocusedItemIndex(): number</td>
+            <td>Returns the index of the currently focused menu item (-1 if none).</td>
+          </tr>
+          <tr>
+            <td>setAnchorCorner(corner: string)</td>
+            <td>Override the opening point of the menu.
+              <pre>Values: 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end'</pre></td>
+          </tr>
+          <tr>
+            <td>setQuickOpen(quickOpen: boolean)</td>
+            <td>Sets whether the menu should open and close without animation when the open/close methods are called.</td>
+          </tr>
+          <tr>
+            <td>getSelectedIndex(): number</td>
+            <td>Returns the selected item index.</td>
+          </tr>
+          <tr>
+            <td>setSelectedIndex(index: number)</td>
+            <td>Index of the item to set as selected.</td>
+          </tr>
+          <tr>
+            <td>setMaxHeight(height: string)</td>
+            <td>Sets max-height style for the menu element.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>cancel()</td>
+            <td>Dispatches an event that the menu closed with no selection made.</td>
+          </tr>
+          <tr>
+            <td>select(item: HTMLElement, index: number)</td>
+            <td>Dispatches an event that a menu item has been selected.</td>
+          </tr>
+        </tbody>
+      </table>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Directives</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-menu-anchor</td>
-          <td>Use to anchor a menu to an element.</td>
-        </tr>
-        <tr>
-          <td>mdc-menu-divider</td>
-          <td>Draws a line at the bottom of the menu item.</td>
-        </tr>
-      </tbody>
-    </table>
+      <h3>mdc-menu-item</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>id: string</td>
+            <td>The unique ID of the option.</td>
+          </tr>
+          <tr>
+            <td>label: string</td>
+            <td>The displayed label of the option.</td>
+          </tr>
+          <tr>
+            <td>disabled: boolean</td>
+            <td>Disable selection of the select item.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-menu-anchor</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>Use to anchor a menu to an element.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-menu-divider</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>Draws a line at the bottom of the menu item.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h2>Basic Usage</h2>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-menu"
+     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
   </div>
-  <a mdc-button href="https://stackblitz.com/edit/angular-mdc-menu?embed=1&file=app/app.component.html&view=editor" target="_blank" rel="noopener noreferrer">View Example Source</a>
-  <div fxLayout="row" fxLayoutAlign="center center">
-    <div fxLayout="column">
+
+  <div class="demo-content">
+    <div class="demo-content--row">
       <p>Anchor Corner:</p>
       <mdc-form-field>
         <mdc-radio value="top-start" name="radioGroup" [(ngModel)]="anchorCorner"></mdc-radio>
@@ -192,20 +190,22 @@ If the focusIndex is omitted, no menu item will be focused.]]></pre></td>
         <label>Bottom end</label>
       </mdc-form-field>
     </div>
-    <div mdc-menu-anchor>
-      <button mdc-button [raised]="true" (click)="menu.open(1)">
-        Open Menu
-      </button>
-      <mdc-menu #menu (select)="handleMenuSelect($event)" [anchorCorner]="anchorCorner">
-        <mdc-menu-item id="0">Item 1</mdc-menu-item>
-        <mdc-menu-item id="1" [disabled]="true">Item 2</mdc-menu-item>
-        <mdc-menu-item id="2">Item 3</mdc-menu-item>
-        <mdc-menu-divider></mdc-menu-divider>
-        <mdc-menu-item id="3">Item 4</mdc-menu-item>
-      </mdc-menu>
-    </div>
-  </div>
-  <pre mdc-typography-body1>Selected index: {{selectedIndex}}
-Anchor Corner: {{anchorCorner}}</pre>
 
+    <div class="demo-content--row">
+      <div mdc-menu-anchor>
+        <button mdc-button [raised]="true" (click)="menu.open()">
+          Open Menu
+        </button>
+        <mdc-menu #menu (select)="handleMenuSelect($event)" [anchorCorner]="anchorCorner">
+          <mdc-menu-item id="0">Item 1</mdc-menu-item>
+          <mdc-menu-item id="1" [disabled]="true">Item 2</mdc-menu-item>
+          <mdc-menu-item id="2">Item 3</mdc-menu-item>
+          <mdc-menu-divider></mdc-menu-divider>
+          <mdc-menu-item id="3">Item 4</mdc-menu-item>
+        </mdc-menu>
+      </div>
+    </div>
+    <p>Selected index: {{selectedIndex}}</p>
+    <p>Anchor Corner: {{anchorCorner}}</p>
+  </div>
 </div>

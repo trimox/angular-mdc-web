@@ -1,30 +1,42 @@
-<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
-  <div>
-    <h1 mdc-typography-display1>Elevation</h1>
-    <span>Shadows provide important visual cues about objects’ depth and directional movement. They are the only visual cue indicating the amount of separation between surfaces. An object’s elevation determines the appearance of its shadow.</span>
-  </div>
-  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
-    <![CDATA[import { MdcElevationModule } from '@angular-mdc/web';]]>
-  </div>
-  <div class="docs-api">
-    <table>
-      <thead>
-        <tr>
-          <th>Directive</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>[mdc-elevation]="#"</td>
-          <td>Elevation values are mapped out in a "z-space" and range from 0 to 24.</td>
-        </tr>
-      </tbody>
-    </table>
-    <div fxLayout="row wrap">
-      <figure [mdc-elevation]="i" class="demo-surface" *ngFor="let i of items">
-        <figcaption>[mdc-elevation]="{{i}}"</figcaption>
-      </figure>
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Elevation</h1>
+    <div>Shadows provide important visual cues about objects’ depth and directional movement. They are the only visual cue indicating the amount of separation between surfaces. An object’s elevation determines the appearance of its shadow.
     </div>
+    <h2>References</h2>
+    <ul>
+      <li><a mdc-button href="https://material.io/guidelines/what-is-material/elevation-shadows.html"
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Elevation</a>
+      </li>
+      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-elevation/README.md"
+        target="_blank" rel="noopener noreferrer">Material Components Web</a>
+      </li>
+    </ul>
+    <h2>Import</h2>
+    <pre><code><![CDATA[import { MdcElevationModule } from '@angular-mdc/web';]]></code></pre>
+
+    <h2>Design & API Documentation</h2>
+    <div class="docs-api">
+      <table>
+        <thead>
+          <tr>
+            <th>Directive</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>[mdc-elevation]="#"</td>
+            <td>Elevation values are mapped out in a "z-space" and range from 0 to 24.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <h2>Basic Usage</h2>
+  <div class="demo-content--row">
+    <figure [mdc-elevation]="i" class="demo-surface" *ngFor="let i of items">
+      <figcaption>[mdc-elevation]="{{i}}"</figcaption>
+    </figure>
   </div>
 </div>

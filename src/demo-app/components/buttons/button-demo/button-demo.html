@@ -1,126 +1,97 @@
-<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
-  <div>
-    <h1 mdc-typography-display1>Buttons</h1>
-    <span>Button is a spec-aligned button component adhering to the Material Design button requirements.</span>
-  </div>
-  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
-    <![CDATA[import { MdcButtonModule } from '@angular-mdc/web';]]>
-  </div>
-  <div class="docs-api">
-    <table>
-      <thead>
-        <tr>
-          <th>Component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>button[mdc-button]</td>
-        </tr>
-        <tr>
-          <td>a[mdc-button]</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>primary: boolean</td>
-          <td>Colors the button with the primary theme color.</td>
-        </tr>
-        <tr>
-          <td>secondary: boolean</td>
-          <td>Colors the button with the secondary theme color.</td>
-        </tr>
-        <tr>
-          <td>dense: boolean</td>
-          <td>Compresses the button text to make it slightly smaller.</td>
-        </tr>
-        <tr>
-          <td>raised: boolean</td>
-          <td>Elevates the button and creates a colored background.</td>
-        </tr>
-        <tr>
-          <td>unelevated: boolean</td>
-          <td>A button that is flush with the surface.</td>
-        </tr>
-        <tr>
-          <td>stroked: boolean</td>
-          <td>A button that is flush with the surface and has a visible border.</td>
-        </tr>
-        <tr>
-          <td>icon: boolean</td>
-          <td>Sets styling of icon element.</td>
-        </tr>
-        <tr>
-          <td>disabled: boolean</td>
-          <td>Disables the button.</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Methods</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>focus()</td>
-          <td>Focuses the button.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <button mdc-button [primary]="true" [raised]="true">Primary and Raised</button>
-  <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span>
- [<span style="color:#e0c589">primary</span>]=<span style="color:#65b042">"true"</span>
- [<span style="color:#e0c589">raised</span>]=<span style="color:#65b042">"true"</span>></span>Primary and Raised<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-</pre>
-  <button mdc-button [secondary]="true">Secondary Color</button>
-  <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">secondary</span>]=<span style="color:#65b042">"true"</span>></span>Secondary Color<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-</pre>
-<button mdc-button [icon]="true"><mdc-icon>favorite</mdc-icon>Icon</button>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">icon</span>]=<span style="color:#65b042">"true"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>favorite<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
-  Icon
-<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-</pre>
-<button mdc-button [secondary]="true" [raised]="true" [icon]="true"><mdc-icon>favorite</mdc-icon>Icon</button>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">icon</span>]=<span style="color:#65b042">"true"</span>
-  [<span style="color:#e0c589">secondary</span>]=<span style="color:#65b042">"true"</span>
-  [<span style="color:#e0c589">raised</span>]=<span style="color:#65b042">"true"</span>></span>
-  <span style="color:#89bdff">&lt;<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>favorite<span style="color:#89bdff">&lt;/<span style="color:#89bdff">mdc</span><span style="color:#89bdff">-icon</span>></span>
-  Icon
-<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-</pre>
-  <button mdc-button [unelevated]="true">Unelevated</button>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">unelevated</span>]=<span style="color:#65b042">"true"</span>></span>Unelevated<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-</pre>
-  <button mdc-button [stroked]="true">Stroked</button>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">stroked</span>]=<span style="color:#65b042">"true"</span>></span>Stroked<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-</pre>
-  <a mdc-button [primary]="true" [raised]="true" href="#/button-demo">Href link</a>
-<pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">mdc-button</span>
- [<span style="color:#e0c589">primary</span>]=<span style="color:#65b042">"true"</span>
- [<span style="color:#e0c589">raised</span>]=<span style="color:#65b042">"true"</span>
- <span style="color:#e0c589">href</span>=<span style="color:#65b042">"/#/button-demo"</span>></span>Href link<span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
-</pre>
-  <button mdc-button [raised]="true">Raised</button>
-  <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span> [<span style="color:#e0c589">raised</span>]=<span style="color:#65b042">"true"</span>></span>Raised<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-</pre>
-  <button mdc-button [dense]="true" [raised]="true">Dense and Raised</button>
-  <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span>
- [<span style="color:#e0c589">dense</span>]=<span style="color:#65b042">"true"</span>
- [<span style="color:#e0c589">raised</span>]=<span style="color:#65b042">"true"</span>></span>Dense and Raised<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-</pre>
-  <button mdc-button [primary]="true" [raised]="true" [disabled]="true">Disabled</button>
-  <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">mdc-button</span>
- [<span style="color:#e0c589">primary</span>]=<span style="color:#65b042">"true"</span>
- [<span style="color:#e0c589">disabled</span>]=<span style="color:#65b042">"true"</span>></span>Disabled<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
-</pre>
-</div>
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Buttons</h1>
+    <div>Button is a spec-aligned button component adhering to the Material Design button requirements.</div>
+    <h2>References</h2>
+    <ul>
+      <li><a mdc-button href="https://material.io/guidelines/components/buttons.html"
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Buttons</a>
+      </li>
+      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-button/README.md"
+        target="_blank" rel="noopener noreferrer">Material Components Web</a>
+      </li>
+    </ul>
+    <h2>Import</h2>
+    <pre><code><![CDATA[import { MdcButtonModule } from '@angular-mdc/web';]]></code></pre>
 
+    <h2>Design & API Documentation</h2>
+    <div class="docs-api">
+      <h3>button[mdc-button]</h3>
+      <h3 class="small-margin">a[mdc-button]</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>primary: boolean</td>
+            <td>Colors the button with the primary theme color.</td>
+          </tr>
+          <tr>
+            <td>secondary: boolean</td>
+            <td>Colors the button with the secondary theme color.</td>
+          </tr>
+          <tr>
+            <td>dense: boolean</td>
+            <td>Compresses the button text to make it slightly smaller.</td>
+          </tr>
+          <tr>
+            <td>raised: boolean</td>
+            <td>Elevates the button and creates a colored background.</td>
+          </tr>
+          <tr>
+            <td>unelevated: boolean</td>
+            <td>A button that is flush with the surface.</td>
+          </tr>
+          <tr>
+            <td>stroked: boolean</td>
+            <td>A button that is flush with the surface and has a visible border.</td>
+          </tr>
+          <tr>
+            <td>icon: boolean</td>
+            <td>Sets styling of icon element.</td>
+          </tr>
+          <tr>
+            <td>disabled: boolean</td>
+            <td>Disables the button.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Methods</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>focus()</td>
+            <td>Focuses the button.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Basic Usage</h2>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-buttons"
+     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
+  </div>
+
+  <div class="demo-content--column demo-content--center">
+    <button mdc-button [primary]="true" [raised]="true">Primary and Raised</button>
+    <button mdc-button [secondary]="true">Secondary Color</button>
+    <button mdc-button [icon]="true"><mdc-icon>favorite</mdc-icon>Icon</button>
+    <button mdc-button [secondary]="true" [raised]="true" [icon]="true"><mdc-icon>favorite</mdc-icon>Icon</button>
+    <button mdc-button [unelevated]="true">Unelevated</button>
+    <button mdc-button [stroked]="true">Stroked</button>
+    <a mdc-button [primary]="true" [raised]="true" href="#/button-demo">Href link</a>
+    <button mdc-button [raised]="true">Raised</button>
+    <button mdc-button [dense]="true" [raised]="true">Dense and Raised</button>
+    <button mdc-button [primary]="true" [raised]="true" [disabled]="true">Disabled</button>
+  </div>
+</div>

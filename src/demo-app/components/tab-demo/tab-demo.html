@@ -1,18 +1,23 @@
-<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
-  <div>
-    <h1 mdc-typography-display1>Tabs</h1>
-    <span>Tabs enable content organization at a high level, such as switching between views, data sets, or functional aspects of an app.</span>
-  </div>
-  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
-    <![CDATA[import { MdcTabModule } from '@angular-mdc/web';]]>
-  </div>
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Tabs</h1>
+    <div>The MDC Tabs component contains components which are used to create spec-aligned tabbed navigation components adhering to the Material Design tabs guidelines.</div>
+    <h2>References</h2>
+    <ul>
+      <li><a mdc-button href="https://material.io/guidelines/components/tabs.html"
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Tabs</a>
+      </li>
+      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-tabs/README.md"
+        target="_blank" rel="noopener noreferrer">Material Components Web</a>
+      </li>
+    </ul>
+    <h2>Import</h2>
+    <pre><code><![CDATA[import { MdcTabModule } from '@angular-mdc/web';]]></code></pre>
+
+    <h2>Design & API Documentation</h2>
   <div class="docs-api">
+    <h3>mdc-tab-bar</h3>
     <table>
-      <thead>
-        <tr>
-          <th>Directive</th>
-        </tr>
-      </thead>
       <tbody>
         <tr>
           <td>mdc-tab-bar</td>
@@ -49,6 +54,8 @@
 Example: disableRipple="true" or disableRipple</pre></td>
         </tr>
       </tbody>
+    </table>
+    <table>
       <thead>
         <tr>
           <th>Methods</th>
@@ -97,6 +104,8 @@ Example: disableRipple="true" or disableRipple</pre></td>
           <td>Returns the active tab.</td>
         </tr>
       </tbody>
+    </table>
+    <table>
       <thead>
         <tr>
           <th>Events</th>
@@ -110,16 +119,12 @@ Example: disableRipple="true" or disableRipple</pre></td>
         </tr>
       </tbody>
     </table>
+
+    <h3>mdc-tab</h3>
+    <h3 class="small-margin">a[mdc-tab]</h3>
     <table>
-      <thead>
-        <tr>
-          <th>Directive</th>
-        </tr>
-      </thead>
       <tbody>
         <tr>
-          <td><pre>mdc-tab
-a[mdc-tab]</pre></td>
           <td>The individual tab elements.</td>
         </tr>
         <tr>
@@ -127,18 +132,22 @@ a[mdc-tab]</pre></td>
           <td>Whether or not the tab is disabled. Setting this makes the tab disabled.</td>
         </tr>
       </tbody>
-      <thead>
-        <tr>
-          <th>Child Directives</th>
-          <th>Description</th>
-        </tr>
-      </thead>
+    </table>
+
+    <h3>mdc-tab[mdcRouter]</h3>
+    <table>
       <tbody>
         <tr>
-          <td>mdc-tab-icon-text</td>
-          <td>Text and icon are centered horizontally in the tab.</td>
+          <td colspan="2">Sets active to true on mdc-tab, if router link state change detected. What this means is the active tab will be set after browser refresh etc.</td>
         </tr>
       </tbody>
+    </table>
+
+    <h3>mdc-tab-icon-text</h3>
+    <table>
+      <tr>
+        <td colspan="2">Text and icon are centered horizontally in the tab.</td>
+      </tr>
       <thead>
         <tr>
           <th>Methods</th>
@@ -179,6 +188,8 @@ a[mdc-tab]</pre></td>
           <td>Whether or not the tab is disabled.</td>
         </tr>
       </tbody>
+    </table>
+    <table>
       <thead>
         <tr>
           <th>Events</th>
@@ -192,38 +203,12 @@ a[mdc-tab]</pre></td>
         </tr>
       </tbody>
     </table>
+
+    <h3>mdc-tab-bar-scroller</h3>
     <table>
-      <thead>
-        <tr>
-          <th>Directive</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-tab-bar-scroller</td>
-          <td>The component which controls the horizontal scrolling behavior of an mdc-tab-bar that overflows its container.</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Child Directives</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-tab-bar-scroll-frame</td>
-          <td>The scroll frame is the parent element of the tab bar, and serves to mask the tabs in the tab bar when they overflow the available width.</td>
-        </tr>
-        <tr>
-          <td>mdc-tab-bar-scroll-back</td>
-          <td>Scrolls the tab bar such that the leftmost tab traverses the scroll frame.</td>
-        </tr>
-        <tr>
-          <td>mdc-tab-bar-scroll-forward</td>
-          <td>Scrolls the tab bar such that the rightmost tab traverses the scroll frame.</td>
-        </tr>
-      </tbody>
+      <tr>
+        <td colspan="2">The component which controls the horizontal scrolling behavior of an mdc-tab-bar that overflows its container.</td>
+      </tr>
       <thead>
         <tr>
           <th>Methods</th>
@@ -249,24 +234,41 @@ a[mdc-tab]</pre></td>
         </tr>
       </tbody>
     </table>
+
+    <h3>mdc-tab-bar-scroll-frame</h3>
     <table>
-      <thead>
-        <tr>
-          <th>Directive</th>
-        </tr>
-      </thead>
       <tbody>
         <tr>
-          <td>mdc-tab[mdcRouter]</td>
-          <td>Sets active to true on mdc-tab, if router link state change detected. What this means is the active tab will be set after browser refresh etc.</td>
+          <td>The scroll frame is the parent element of the tab bar, and serves to mask the tabs in the tab bar when they overflow the available width.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>mdc-tab-bar-scroll-back</h3>
+    <table>
+      <tbody>
+        <tr>
+          <td>Scrolls the tab bar such that the leftmost tab traverses the scroll frame.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>mdc-tab-bar-scroll-forward</h3>
+    <table>
+      <tbody>
+        <tr>
+          <td>Scrolls the tab bar such that the rightmost tab traverses the scroll frame.</td>
         </tr>
       </tbody>
     </table>
   </div>
+    <h2>Basic Usage</h2>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-tabs"
+     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
+  </div>
+
   <div class="demo-content">
     <h3>Tabs - Labels</h3>
-    <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-tabs?embed=1&file=app/app.component.html&view=editor"
-     target="_blank" rel="noopener noreferrer">View Example Source</a>
     <div class="demo-content--row">
       <button mdc-button (click)="demotab1.primary = !demotab1.primary">Primary: {{demotab1.primary ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demotab1.secondary = !demotab1.secondary">Secondary: {{demotab1.secondary ? 'On' : 'Off'}}</button>
@@ -280,8 +282,6 @@ a[mdc-tab]</pre></td>
 
   <div class="demo-content">
     <h3>Tabs - Icons</h3>
-    <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-tabs?embed=1&file=app/app.component.html&view=editor"
-     target="_blank" rel="noopener noreferrer">View Example Source</a>
     <div class="demo-content--row">
       <button mdc-button (click)="demotabicons.primary = !demotabicons.primary">Primary: {{demotabicons.primary ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demotabicons.secondary = !demotabicons.secondary">Secondary: {{demotabicons.secondary ? 'On' : 'Off'}}</button>
@@ -296,8 +296,6 @@ a[mdc-tab]</pre></td>
 
   <div class="demo-content">
     <h3>Tabs - Icons and Labels</h3>
-    <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-tabs?embed=1&file=app/app.component.html&view=editor"
-     target="_blank" rel="noopener noreferrer">View Example Source</a>
     <div class="demo-content--row">
       <button mdc-button (click)="demotabiconslabels.primary = !demotabiconslabels.primary">Primary: {{demotabiconslabels.primary ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demotabiconslabels.secondary = !demotabiconslabels.secondary">Secondary: {{demotabiconslabels.secondary ? 'On' : 'Off'}}</button>
@@ -313,8 +311,6 @@ a[mdc-tab]</pre></td>
 
   <div class="demo-content">
     <h3>Tabs - Scroller (async)</h3>
-    <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-tabs?embed=1&file=app/app.component.html&view=editor"
-     target="_blank" rel="noopener noreferrer">View Example Source</a>
     <div class="demo-content--row">
       <button mdc-button (click)="demoscrolltab.primary = !demoscrolltab.primary">Primary: {{demoscrolltab.primary ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoscrolltab.secondary = !demoscrolltab.secondary">Secondary: {{demoscrolltab.secondary ? 'On' : 'Off'}}</button>
@@ -342,8 +338,6 @@ a[mdc-tab]</pre></td>
   </div>
 
   <h3>Toolbar with Tabs</h3>
-  <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-tabs?embed=1&file=app/app.component.html&view=editor"
-   target="_blank" rel="noopener noreferrer">View Example Source</a>
   <div class="demo-content--row">
     <button mdc-button (click)="demoTabs[2].disabled = !demoTabs[2].disabled">Disable Tab Three: {{demoTabs[2].disabled ? 'On' : 'Off'}}</button>
     <button mdc-button (click)="toolbartab1.setTabActiveAtIndex(1)">Make Tab Two Active</button>
@@ -367,8 +361,6 @@ a[mdc-tab]</pre></td>
   </div>
 
   <h3>Toolbar - Router Outlet</h3>
-  <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-tabs?embed=1&file=app/app.component.html&view=editor"
-   target="_blank" rel="noopener noreferrer">View Example Source</a>
   <div class="demo-content--row">
     <button mdc-button (click)="myTabBar.primary = !myTabBar.primary">Primary: {{myTabBar.primary ? 'On' : 'Off'}}</button>
     <button mdc-button (click)="myTabBar.secondary = !myTabBar.secondary">Secondary: {{myTabBar.secondary ? 'On' : 'Off'}}</button>

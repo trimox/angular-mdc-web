@@ -57,6 +57,10 @@ body {
   padding: 15px;
   margin: 15px;
   max-width: 900px;
+
+  h3 {
+    margin-top: .3em;
+  }
 }
 
 .demo-content--no-padding {
@@ -77,6 +81,7 @@ body {
   display: flex;
   flex-direction: row;
   flex-flow: wrap;
+  padding-bottom: 7px;
 }
 
 .demo-text-field__container--column {
@@ -86,6 +91,14 @@ body {
   flex-direction: column;
   position: relative;
   max-width: 200px;
+}
+
+.demo-content--center {
+  align-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
 }
 
 .demo-surface {
@@ -155,6 +168,10 @@ body {
   font-size: 1.2em;
   font-weight: 500;
   margin-bottom: 7px;
+
+  &.small-margin  {
+    margin-top: 3px;
+  }
 }
 
 .markdown-body ul {
@@ -192,7 +209,6 @@ body {
 //
 
 .docs-api table {
-  display: inline-block;
   overflow-x: auto;
   margin: 0 0 7px;
   max-width: 100vw;
@@ -401,7 +417,7 @@ body {
 }
 
 .demo-top-app-bar-content {
-  width: 700px;
+  width: 900px;
   height: 300px;
   overflow-y: scroll;
   will-change: transform;

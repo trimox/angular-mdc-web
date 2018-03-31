@@ -1,113 +1,122 @@
-<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
-  <div>
-    <h1 mdc-typography-display1>Icon Toggle Buttons</h1>
-    <span>MDC Icon Toggle provides a Material Design icon toggle button. It is fully accessible, and is designed to work with any icon set.</span>
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Icon Toggle Buttons</h1>
+    <div>MDC Icon Toggle provides a Material Design icon toggle button. It is fully accessible, and is designed to work with any icon set.</div>
+    <h2>References</h2>
+    <ul>
+      <li><a mdc-button href="https://material.io/guidelines/components/buttons.html#buttons-toggle-buttons"
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Toggle Buttons</a>
+      </li>
+      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-icon-toggle/README.md"
+        target="_blank" rel="noopener noreferrer">Material Components Web</a>
+      </li>
+    </ul>
+    <h2>Import</h2>
+    <pre><code><![CDATA[import { MdcIconToggleModule } from '@angular-mdc/web';]]></code></pre>
+
+    <h2>Design & API Documentation</h2>
+    <div class="docs-api">
+      <h3>mdc-icon-toggle</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>on: boolean</td>
+            <td>Returns whether or not the icon toggle is currently toggled on. Setting this property will update the toggle state.</td>
+          </tr>
+          <tr>
+            <td>iconClass: string</td>
+            <td>Set selector to other icon libraries such as Font Awesome. (default is 'material-icon')</td>
+          </tr>
+          <tr>
+            <td>iconOn: string</td>
+            <td>Set icon as content when toggled on. Use for Material Icons.</td>
+          </tr>
+          <tr>
+            <td>iconOff: string</td>
+            <td>Set icon as content when toggled off. Use for Material Icons.</td>
+          </tr>
+          <tr>
+            <td>labelOn: string</td>
+            <td>Set "aria-label" attribute when toggled on.</td>
+          </tr>
+          <tr>
+            <td>labelOff: string</td>
+            <td>Set "aria-label" attribute when toggled off.</td>
+          </tr>
+          <tr>
+            <td>cssClassOn: string</td>
+            <td>A css class to apply to the icon element when toggled on. Use for Font Awesome library.</td>
+          </tr>
+          <tr>
+            <td>cssClassOff: string</td>
+            <td>A css class to apply to the icon element when toggled off. Use for Font Awesome library.</td>
+          </tr>
+          <tr>
+            <td>primary: boolean</td>
+            <td>Colors the button with the primary theme color.</td>
+          </tr>
+          <tr>
+            <td>secondary: boolean</td>
+            <td>Colors the button with the secondary theme color.</td>
+          </tr>
+          <tr>
+            <td>disabled: boolean</td>
+            <td>Disables the toggle button.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Methods</th>
+            <th>Parameters</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>toggle(isOn?: boolean)</td>
+            <td>Toggles the button state. If an argument is given, will toggle on if true, off if false.</td>
+          </tr>
+          <tr>
+            <td>refreshToggleData()</td>
+            <td>Allow's developers to refresh toggle data if needed.</td>
+          </tr>
+          <tr>
+            <td>isOn()</td>
+            <td>Returns true if the button is toggled on, false otherwise.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Events</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <pre><![CDATA[change({ isOn: boolean })]]></pre>
+            </td>
+            <td>Broadcast when a user toggles the button.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h2>Basic Usage</h2>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-icon-toggle"
+     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
   </div>
-  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
-    <![CDATA[import { MdcIconToggleModule } from '@angular-mdc/web';]]>
-  </div>
-  <div class="docs-api">
-    <table>
-      <thead>
-        <tr>
-          <th>Component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-icon-toggle</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>on: boolean</td>
-          <td>Returns whether or not the icon toggle is currently toggled on. Setting this property will update the toggle state.</td>
-        </tr>
-        <tr>
-          <td>iconClass: string</td>
-          <td>Set selector to other icon libraries such as Font Awesome. (default is 'material-icon')</td>
-        </tr>
-        <tr>
-          <td>iconOn: string</td>
-          <td>Set icon as content when toggled on. Use for Material Icons.</td>
-        </tr>
-        <tr>
-          <td>iconOff: string</td>
-          <td>Set icon as content when toggled off. Use for Material Icons.</td>
-        </tr>
-        <tr>
-          <td>labelOn: string</td>
-          <td>Set "aria-label" attribute when toggled on.</td>
-        </tr>
-        <tr>
-          <td>labelOff: string</td>
-          <td>Set "aria-label" attribute when toggled off.</td>
-        </tr>
-        <tr>
-          <td>cssClassOn: string</td>
-          <td>A css class to apply to the icon element when toggled on. Use for Font Awesome library.</td>
-        </tr>
-        <tr>
-          <td>cssClassOff: string</td>
-          <td>A css class to apply to the icon element when toggled off. Use for Font Awesome library.</td>
-        </tr>
-        <tr>
-          <td>primary: boolean</td>
-          <td>Colors the button with the primary theme color.</td>
-        </tr>
-        <tr>
-          <td>secondary: boolean</td>
-          <td>Colors the button with the secondary theme color.</td>
-        </tr>
-        <tr>
-          <td>disabled: boolean</td>
-          <td>Disables the toggle button.</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Methods</th>
-          <th>Parameters</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>toggle(isOn?: boolean)</td>
-          <td>Toggles the button state. If an argument is given, will toggle on if true, off if false.</td>
-        </tr>
-        <tr>
-          <td>refreshToggleData()</td>
-          <td>Allow's developers to refresh toggle data if needed.</td>
-        </tr>
-        <tr>
-          <td>isOn()</td>
-          <td>Returns true if the button is toggled on, false otherwise.</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Events</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <pre><![CDATA[change({ isOn: boolean })]]></pre>
-          </td>
-          <td>Broadcast when a user toggles the button.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+
   <div class="demo-content">
-    <h3>Using ngModel</h3>
+    <h3>ngModel</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="demoit.primary = !demoit.primary">Primary Color: {{demoit.primary ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoit.secondary = !demoit.secondary">Secondary Color: {{demoit.secondary ? 'On' : 'Off'}}</button>
@@ -115,22 +124,18 @@
     </div>
     <mdc-icon-toggle #demoit [(ngModel)]="isOn" iconOn="favorite" iconOff="favorite_border" labelOn="Add to Favorites" labelOff="Remove from Favorites">
     </mdc-icon-toggle>
-    <p>NgModel value: {{isOn}}</p>
-    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-icon-toggle?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
-</div>
+    <p>NgModel: {{isOn}}</p>
+  </div>
   <div class="demo-content">
-  <h3>Using Font Awesome</h3>
-  <div fxLayout="row" fxLayoutAlign="center center">
-    <mdc-icon-toggle iconClass="fa" cssClassOn="fa-battery-full" cssClassOff="fa-battery-empty" labelOn="Full battery" labelOff="Empty battery">
+    <h3>Using Font Awesome</h3>
+    <mdc-icon-toggle iconClass="fa" cssClassOn="fa-battery-full" cssClassOff="fa-battery-empty" labelOn="Full battery" labelOff="Empty battery"></mdc-icon-toggle>
+  </div>
+  <div class="demo-content">
+    <h3>Using the [on] property</h3>
+    <div class="demo-content--row">
+      <button mdc-button (click)="demotoggle.on = !demotoggle.on">Icon: {{demotoggle.on ? 'On' : 'Off'}}</button>
+    </div>
+    <mdc-icon-toggle #demotoggle iconOn="favorite" iconOff="favorite_border" labelOn="Add to Favorites" labelOff="Remove from Favorites">
     </mdc-icon-toggle>
   </div>
-  <a mdc-button href="https://stackblitz.com/edit/angular-mdc-icon-toggle?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
-</div>
-  <div class="demo-content">
-  <h3>Using the [on] property</h3>
-  <button mdc-button (click)="demotoggle.on = !demotoggle.on">Icon: {{demotoggle.on ? 'On' : 'Off'}}</button>
-  <mdc-icon-toggle #demotoggle iconOn="favorite" iconOff="favorite_border" labelOn="Add to Favorites" labelOff="Remove from Favorites">
-  </mdc-icon-toggle>
-  <a mdc-button href="https://stackblitz.com/edit/angular-mdc-icon-toggle?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
-</div>
 </div>

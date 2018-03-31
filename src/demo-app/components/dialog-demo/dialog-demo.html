@@ -1,17 +1,24 @@
-<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
-  <div>
-    <h1 mdc-typography-display1>Dialog</h1>
-    <span>Dialogs inform users about a specific task, require decisions, or involve multiple tasks.</span>
-  </div>
-  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
-    <![CDATA[import { MdcDialogModule } from '@angular-mdc/web';]]>
-  </div>
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Dialog</h1>
+    <div>The MDC Dialog component is a spec-aligned dialog component adhering to the Material Design dialog pattern. It implements a modal dialog window. You may notice that full screen components outlined in the dialog spec do not appear in MDC Dialog. This is because they have been deemed to be outside of the scope of what a dialog should be.</div>
+    <h2>References</h2>
+    <ul>
+      <li><a mdc-button href="https://material.io/guidelines/components/dialogs.html"
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Dialog</a>
+      </li>
+      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-dialog/README.md"
+        target="_blank" rel="noopener noreferrer">Material Components Web</a>
+      </li>
+    </ul>
+    <h2>Import</h2>
+    <pre><code><![CDATA[import { MdcDialogModule } from '@angular-mdc/web';]]></code></pre>
 
-  <div fxFlexOffset="2">
+    <h2>Design & API Documentation</h2>
     <mdc-tab-bar [primary]="true">
       <mdc-tab *ngFor="let child of dialogTabs" [routerLink]="[{outlets: {taboutlet: child.route}}]" mdcRouter
         routerLinkActive #rla="routerLinkActive">{{child.label}}</mdc-tab>
     </mdc-tab-bar>
+    <router-outlet name="taboutlet"></router-outlet>
   </div>
-  <router-outlet name="taboutlet"></router-outlet>
 </div>

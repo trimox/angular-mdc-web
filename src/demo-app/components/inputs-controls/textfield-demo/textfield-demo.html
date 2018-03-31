@@ -236,7 +236,7 @@
       </table>
     </div>
   </div>
-  <h2>Examples</h2>
+  <h2>Basic Usage</h2>
   <a mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field"
    target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
   <div class="demo-content">
@@ -314,18 +314,6 @@
     </div>
   </div>
   <div class="demo-content">
-    <h3>Prefilled Text Field</h3>
-    <div class="demo-text-field__container--column">
-      <mdc-text-field [(ngModel)]="prefilledText" label="Username"></mdc-text-field>
-    </div>
-  </div>
-  <div class="demo-content">
-    <h3>Password</h3>
-    <div class="demo-text-field__container--column">
-      <mdc-text-field type="password" label="Password" [required]="true"></mdc-text-field>
-    </div>
-  </div>
-  <div class="demo-content">
     <h3>Text Field Box</h3>
     <div fxLayout="row wrap">
       <button mdc-button (click)="demobox1.disabled = !demobox1.disabled">Disabled: {{demobox1.disabled ? 'On' : 'Off'}}</button>
@@ -341,21 +329,46 @@
   </div>
 
   <div class="demo-content">
-    <h3>Text Field Box - Leading/trailing icons</h3>
+    <h3>Text Field Box - Leading icon</h3>
     <div fxLayout="row wrap">
       <button mdc-button (click)="demobox2.disabled = !demobox2.disabled">Disabled: {{demobox2.disabled ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demobox2.required = !demobox2.required">Required: {{demobox2.required ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demobox2.dense = !demobox2.dense">Dense: {{demobox2.dense ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demobox2icon.clickable = !demobox2icon.clickable">Clickable Icon: {{demobox2icon.clickable ? 'On' : 'Off'}}</button>
     </div>
     <div class="demo-text-field__container--column">
       <mdc-text-field #demobox2 label="Your name" [box]="true">
-        <mdc-icon leading>person</mdc-icon>
+        <mdc-icon leading #demobox2icon>person</mdc-icon>
       </mdc-text-field>
       <p mdc-text-field-helper-text [validation]="true">Name is required</p>
+    </div>
+  </div>
 
+  <div class="demo-content">
+    <h3>Text Field Box - Trailing icon</h3>
+    <div fxLayout="row wrap">
+      <button mdc-button (click)="demobox3.disabled = !demobox3.disabled">Disabled: {{demobox3.disabled ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demobox3.required = !demobox3.required">Required: {{demobox3.required ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demobox3.dense = !demobox3.dense">Dense: {{demobox3.dense ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demobox3icon.clickable = !demobox3icon.clickable">Clickable Icon: {{demobox3icon.clickable ? 'On' : 'Off'}}</button>
+    </div>
+    <div class="demo-text-field__container--column">
       <mdc-text-field #demobox3 label="Your name" [box]="true">
-        <mdc-icon trailing>person</mdc-icon>
+        <mdc-icon trailing #demobox3icon>person</mdc-icon>
       </mdc-text-field>
+    </div>
+  </div>
+
+  <div class="demo-content">
+    <h3>Prefilled Text Field</h3>
+    <div class="demo-text-field__container--column">
+      <mdc-text-field [(ngModel)]="prefilledText" label="Username"></mdc-text-field>
+    </div>
+  </div>
+  <div class="demo-content">
+    <h3>Password</h3>
+    <div class="demo-text-field__container--column">
+      <mdc-text-field type="password" label="Password" [required]="true"></mdc-text-field>
     </div>
   </div>
 
@@ -374,6 +387,11 @@
   </div>
   <div class="demo-content">
     <h3>Full-width Textarea</h3>
-    <mdc-textarea label="Type your message here" [fullwidth]="true" rows="8"></mdc-textarea>
+    <div fxLayout="row wrap">
+      <button mdc-button (click)="demofullwidth.disabled = !demofullwidth.disabled">Disabled: {{demofullwidth.disabled ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demofullwidth.required = !demofullwidth.required">Required: {{demofullwidth.required ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demofullwidth.dense = !demofullwidth.dense">Dense: {{demofullwidth.dense ? 'On' : 'Off'}}</button>
+    </div>
+    <mdc-textarea #demofullwidth label="Type your message here" [fullwidth]="true" rows="8"></mdc-textarea>
   </div>
 </div>

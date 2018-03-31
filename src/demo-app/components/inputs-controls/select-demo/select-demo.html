@@ -1,199 +1,205 @@
-<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
-  <div>
-    <h1 mdc-typography-display1>Select Menus</h1>
-    <span>Select provides Material Design single-option select menus.</span>
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Select Menus</h1>
+    <div>MDC Select provides Material Design single-option select menus.</div>
+    <h2>References</h2>
+    <ul>
+      <li><a mdc-button href="https://material.io/guidelines/components/text-fields.html"
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Text Fields</a>
+      </li>
+      <li><a mdc-button href="https://material.io/guidelines/components/menus.html"
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Menus</a>
+      </li>
+      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-select/README.md"
+        target="_blank" rel="noopener noreferrer">Material Components Web</a>
+      </li>
+    </ul>
+    <h2>Import</h2>
+    <pre><code><![CDATA[import { MdcSelectModule } from '@angular-mdc/web';]]></code></pre>
+
+    <h2>Design & API Documentation</h2>
+    <div class="docs-api">
+      <h3>mdc-select</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>id: string</td>
+            <td>Unique Id of the select (auto generated if not supplied).</td>
+          </tr>
+          <tr>
+            <td>name: string</td>
+            <td>Name of the select.</td>
+          </tr>
+          <tr>
+            <td>placeholder: string</td>
+            <td>Text shown if no value has been selected.</td>
+          </tr>
+          <tr>
+            <td>value: string</td>
+            <td>Value of the checkbox.</td>
+          </tr>
+          <tr>
+            <td>autosize: boolean</td>
+            <td>If true, the width of the select and it's menu are calculated and set appropriately. (Default is true)</td>
+          </tr>
+          <tr>
+            <td>tabIndex: number</td>
+            <td>Set the underlying tab index of the select. (Default is 0)</td>
+          </tr>
+          <tr>
+            <td>floatingLabel: boolean</td>
+            <td>Whether or not to show or hide a floating placeholder.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Methods</th>
+            <th>Parameters</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>focus()</td>
+            <td>Sets focus to the select component.</td>
+          </tr>
+          <tr>
+            <td>getValue(): string</td>
+            <td>Returns the value of the currently selected option, or an empty string if no option is selected.</td>
+          </tr>
+          <tr>
+            <td>open(index?: number = 0)</td>
+            <td>Opens the select menu and sets focus to provided index.</td>
+          </tr>
+          <tr>
+            <td>close()</td>
+            <td>Closes the select menu.</td>
+          </tr>
+          <tr>
+            <td>isOpen(): boolean</td>
+            <td>Returns whether or not the menu is open.</td>
+          </tr>
+          <tr>
+            <td>getSelectedIndex(): number</td>
+            <td>Returns the index of the currently selected option. Returns -1 if no option is currently selected.</td>
+          </tr>
+          <tr>
+            <td>isDisabled(): boolean</td>
+            <td>Returns whether or not the select is disabled.</td>
+          </tr>
+          <tr>
+            <td>setDisabled(disabled: boolean)</td>
+            <td>Enables/disables the select.</td>
+          </tr>
+          <tr>
+            <td>setPlaceholder(text: string)</td>
+            <td>Sets the placeholder text.</td>
+          </tr>
+          <tr>
+            <td>setSelectionByValue(value)</td>
+            <td>Sets the selected item by value.</td>
+          </tr>
+          <tr>
+            <td>resize()</td>
+            <td>Resizes the menu list if styling required.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Events</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              change(index: number, value: string)
+            </td>
+            <td>Event dispatched on value change.</td>
+          </tr>
+          <tr>
+            <td>
+              selectionChange(source: MdcSelectItem, value: any)
+            </td>
+            <td>Event emitted when the selected value has been changed by the user.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-select-item</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>value: string</td>
+            <td>Value of the select item.</td>
+          </tr>
+          <tr>
+            <td>disabled: boolean</td>
+            <td>Disable selection of the select item.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Methods</th>
+            <th>Parameters</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>id(): string</td>
+            <td>The unique ID of the option.</td>
+          </tr>
+          <tr>
+            <td>selected(): boolean</td>
+            <td>Whether or not the option is currently selected.</td>
+          </tr>
+          <tr>
+            <td>label(): string</td>
+            <td>The displayed label of the option.</td>
+          </tr>
+          <tr>
+            <td>select()</td>
+            <td>Selects the option.</td>
+          </tr>
+          <tr>
+            <td>deselect()</td>
+            <td>Deselects the option.</td>
+          </tr>
+          <tr>
+            <td>focus()</td>
+            <td>Sets focus onto this option.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h2>Basic Usage</h2>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-select"
+     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
   </div>
-  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
-    <![CDATA[import { MdcSelectModule } from '@angular-mdc/web';]]>
-  </div>
-  <div class="docs-api">
-    <table>
-      <thead>
-        <tr>
-          <th>Component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-select</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>id: string</td>
-          <td>Unique Id of the select (auto generated if not supplied).</td>
-        </tr>
-        <tr>
-          <td>name: string</td>
-          <td>Name of the select.</td>
-        </tr>
-        <tr>
-          <td>placeholder: string</td>
-          <td>Text shown if no value has been selected.</td>
-        </tr>
-        <tr>
-          <td>value: string</td>
-          <td>Value of the checkbox.</td>
-        </tr>
-        <tr>
-          <td>autosize: boolean</td>
-          <td>If true, the width of the select and it's menu are calculated and set appropriately. (Default is true)</td>
-        </tr>
-        <tr>
-          <td>tabIndex: number</td>
-          <td>Set the underlying tab index of the select. (Default is 0)</td>
-        </tr>
-        <tr>
-          <td>floatingLabel: boolean</td>
-          <td>Whether or not to show or hide a floating placeholder.</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Methods</th>
-          <th>Parameters</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>focus()</td>
-          <td>Sets focus to the select component.</td>
-        </tr>
-        <tr>
-          <td>getValue(): string</td>
-          <td>Returns the value of the currently selected option, or an empty string if no option is selected.</td>
-        </tr>
-        <tr>
-          <td>open(index?: number = 0)</td>
-          <td>Opens the select menu and sets focus to provided index.</td>
-        </tr>
-        <tr>
-          <td>close()</td>
-          <td>Closes the select menu.</td>
-        </tr>
-        <tr>
-          <td>isOpen(): boolean</td>
-          <td>Returns whether or not the menu is open.</td>
-        </tr>
-        <tr>
-          <td>getSelectedIndex(): number</td>
-          <td>Returns the index of the currently selected option. Returns -1 if no option is currently selected.</td>
-        </tr>
-        <tr>
-          <td>isDisabled(): boolean</td>
-          <td>Returns whether or not the select is disabled.</td>
-        </tr>
-        <tr>
-          <td>setDisabled(disabled: boolean)</td>
-          <td>Enables/disables the select.</td>
-        </tr>
-        <tr>
-          <td>setPlaceholder(text: string)</td>
-          <td>Sets the placeholder text.</td>
-        </tr>
-        <tr>
-          <td>setSelectionByValue(value)</td>
-          <td>Sets the selected item by value.</td>
-        </tr>
-        <tr>
-          <td>resize()</td>
-          <td>Resizes the menu list if styling required.</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Events</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            change(index: number, value: string)
-          </td>
-          <td>Event dispatched on value change.</td>
-        </tr>
-        <tr>
-          <td>
-            selectionChange(source: MdcSelectItem, value: any)
-          </td>
-          <td>Event emitted when the selected value has been changed by the user.</td>
-        </tr>
-      </tbody>
-    </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Directive</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-select-item</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>value: string</td>
-          <td>Value of the select item.</td>
-        </tr>
-        <tr>
-          <td>disabled: boolean</td>
-          <td>Disable selection of the select item.</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Methods</th>
-          <th>Parameters</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>id(): string</td>
-          <td>The unique ID of the option.</td>
-        </tr>
-        <tr>
-          <td>selected(): boolean</td>
-          <td>Whether or not the option is currently selected.</td>
-        </tr>
-        <tr>
-          <td>label(): string</td>
-          <td>The displayed label of the option.</td>
-        </tr>
-        <tr>
-          <td>select()</td>
-          <td>Selects the option.</td>
-        </tr>
-        <tr>
-          <td>deselect()</td>
-          <td>Deselects the option.</td>
-        </tr>
-        <tr>
-          <td>focus()</td>
-          <td>Sets focus onto this option.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+
   <div class="demo-content">
     <h3>Select with ngModel </h3>
     <div class="demo-content--row">
-      <button mdc-button (click)="select.setDisabled(!select.isDisabled())">Disabled: {{select.isDisabled() ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="clearSelection()">Clear Selection</button>
       <button mdc-button (click)="setSelection()">Select Fruit</button>
+      <button mdc-button (click)="select.setDisabled(!select.isDisabled())">Disabled: {{select.isDisabled() ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="select.box = !select.box">Box style: {{select.box ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="select.floatingLabel = !select.floatingLabel">Floating Label: {{select.floatingLabel ? 'On' : 'Off'}}</button>
     </div>    
@@ -203,10 +209,9 @@
         {{food.description}}
       </mdc-select-item>
     </mdc-select>
-    <p>Selected value: {{selectedValue}}</p>
-    <p>change: Index: {{changeIndex}} Value: {{changeValue}}</p>
-    <p>selectionChange: Value: {{selectionChangeValue}}</p>
-    <a fxFlexOffset="3" mdc-button href="https://stackblitz.com/edit/angular-mdc?embed=1&file=app/select-demo.html" target="_blank" rel="noopener noreferrer">View Source</a>
+    <p>Value: {{selectedValue}}</p>
+    <p>Change event: Index: {{changeIndex}} Value: {{changeValue}}</p>
+    <p>selectionChange event: Value: {{selectionChangeValue}}</p>
   </div>
 
   <div class="demo-content">
@@ -225,6 +230,5 @@
     <p mdc-typography-body1>Value: {{ foodControl.value }}</p>
     <p mdc-typography-body1>Touched: {{ foodControl.touched }}</p>
     <p mdc-typography-body1>Dirty: {{ foodControl.dirty }}</p>
-    <a fxFlexOffset="3" mdc-button href="https://stackblitz.com/edit/angular-mdc?embed=1&file=app/select-demo.html" target="_blank" rel="noopener noreferrer">View Source</a>
   </div>
 </div>

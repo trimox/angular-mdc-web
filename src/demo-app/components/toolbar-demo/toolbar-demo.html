@@ -1,134 +1,149 @@
-<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
-  <div>
-    <h1 mdc-typography-display1>Toolbars</h1>
-    <span>Toolbar acts as a container for multiple rows containing items such as application title, navigation menu, and tabs, among other things. Toolbars scroll with content by default, but supports fixed behavior as well.</span>
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Toolbars</h1>
+    <div>MDC Toolbar acts as a container for multiple rows containing items such as application title, navigation menu, and tabs, among other things. Toolbars scroll with content by default, but support fixed behavior as well.</div>
+    <h2>References</h2>
+    <ul>
+      <li><a mdc-button href="https://material.io/guidelines/components/toolbars.html"
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Toolbars</a>
+      </li>
+      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-toolbar/README.md"
+        target="_blank" rel="noopener noreferrer">Material Components Web</a>
+      </li>
+    </ul>
+    <h2>Import</h2>
+    <pre><code><![CDATA[import { MdcToolbarModule } from '@angular-mdc/web';]]></code></pre>
+
+    <h2>Design & API Documentation</h2>
+    <div class="docs-api">
+      <h3>mdc-toolbar</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>fixed: boolean</td>
+            <td>Makes toolbar fixed on top and have persistent elevation.</td>
+          </tr>
+          <tr>
+            <td>waterfall: boolean</td>
+            <td>Removes fixed toolbar persistent elevation while gaining elevation scrolling down the page.</td>
+          </tr>
+          <tr>
+            <td>flexible: boolean</td>
+            <td>Apply flexible space to toolbar's first row.</td>
+          </tr>
+          <tr>
+            <td>flexibleDefaultBehavior: boolean</td>
+            <td>Toolbar text has flexible movement.</td>
+          </tr>
+          <tr>
+            <td>fixedLastrow: boolean</td>
+            <td>Makes only last row of fixed toolbar anchored on top.</td>
+          </tr>
+          <tr>
+            <td>adjustBodyMargin: boolean</td>
+            <td>If true and using a fixed toolbar, a margin-top is set to prevent toolbar overlaying content. (Default is true)</td>
+          </tr>
+          <tr>
+            <td>fixedAdjustElement: any</td>
+            <td>Reference to a toolbar's sibling. Margins will be adjusted accordingly if set.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>change(flexibleExpansionRatio: number)</td>
+            <td><pre><![CDATA[Emits the ratio of current flexible space to total flexible space height.
+  So when it is minimized, ratio equals to 0 and when it is maximized, ratio equals to 1.]]></pre></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-toolbar-section</h3>
+      <table>
+        <tr>
+          <td colspan="2">Toolbar sections are aligned to the toolbar's center</td>
+        </tr>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tr>
+          <td>alignStart: boolean</td>
+          <td>Makes section aligns to the start.</td>
+        </tr>
+        <tr>
+          <td>alignEnd: boolean</td>
+          <td>Makes section aligns to the end.</td>
+        </tr>
+        <tr>
+          <td>shrinkToFit: boolean</td>
+          <td>Makes section takes the width of its content.</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-toolbar-row</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td colspan="2">MDC Toolbars can accommodate multiple rows.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-toolbar-title</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>Styles toolbar text representing a page's title, or an application name.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-toolbar-fixed-adjust</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>Optional directive to add a default margin-top to mdc-toolbar's adjacent sibling element.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-toolbar-menu-icon</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>Left most icon of a mdc-toolbar.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-toolbar-icon</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>Icons placed on the right side of a mdc-toolbar.</td>
+          </tr>
+        </tbody>
+      </table>
   </div>
-  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
-    <![CDATA[import { MdcToolbarModule } from '@angular-mdc/web';]]>
+    <h2>Basic Usage</h2>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-toolbar"
+     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
   </div>
-  <div class="docs-api">
-    <table>
-      <thead>
-        <tr>
-          <th>Component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-toolbar</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>fixed: boolean</td>
-          <td>Makes toolbar fixed on top and have persistent elevation.</td>
-        </tr>
-        <tr>
-          <td>waterfall: boolean</td>
-          <td>Removes fixed toolbar persistent elevation while gaining elevation scrolling down the page.</td>
-        </tr>
-        <tr>
-          <td>flexible: boolean</td>
-          <td>Apply flexible space to toolbar's first row.</td>
-        </tr>
-        <tr>
-          <td>flexibleDefaultBehavior: boolean</td>
-          <td>Toolbar text has flexible movement.</td>
-        </tr>
-        <tr>
-          <td>fixedLastrow: boolean</td>
-          <td>Makes only last row of fixed toolbar anchored on top.</td>
-        </tr>
-        <tr>
-          <td>adjustBodyMargin: boolean</td>
-          <td>If true and using a fixed toolbar, a margin-top is set to prevent toolbar overlaying content. (Default is true)</td>
-        </tr>
-        <tr>
-          <td>fixedAdjustElement: any</td>
-          <td>Reference to a toolbar's sibling. Margins will be adjusted accordingly if set.</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Event</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>change(flexibleExpansionRatio: number)</td>
-          <td><pre><![CDATA[Emits the ratio of current flexible space to total flexible space height.
-So when it is minimized, ratio equals to 0 and when it is maximized, ratio equals to 1.]]></pre></td>
-        </tr>
-      </tbody>
-    </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Directive</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-toolbar-section</td>
-          <td>Toolbar sections are aligned to the toolbar's center</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tr>
-        <td>alignStart: boolean</td>
-        <td>Makes section aligns to the start.</td>
-      </tr>
-      <tr>
-        <td>alignEnd: boolean</td>
-        <td>Makes section aligns to the end.</td>
-      </tr>
-      <tr>
-        <td>shrinkToFit: boolean</td>
-        <td>Makes section takes the width of its content.</td>
-      </tr>
-      </tbody>
-    </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Directive</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-toolbar-row</td>
-          <td>MDC Toolbars can accommodate multiple rows.</td>
-        </tr>
-        <tr>
-          <td>mdc-toolbar-title</td>
-          <td>Styles toolbar text representing a page's title, or an application name.</td>
-        </tr>
-        <tr>
-          <td>mdc-toolbar-fixed-adjust</td>
-          <td>Optional directive to add a default margin-top to mdc-toolbar's adjacent sibling element.</td>
-        </tr>
-        <tr>
-          <td>mdc-toolbar-menu-icon</td>
-          <td>Left most icon of a mdc-toolbar.</td>
-        </tr>
-        <tr>
-          <td>mdc-toolbar-icon</td>
-          <td>Icons placed on the right side of a mdc-toolbar.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <a mdc-button href="https://stackblitz.com/edit/angular-mdc-toolbar?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Examples</a>
 </div>

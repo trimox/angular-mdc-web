@@ -8,7 +8,6 @@ export class ToolbarDemo {
   flexibleExpansionRatio: number;
 
   onToolbarChange(evt: number) {
-    console.log(evt)
     this.flexibleExpansionRatio = evt;
   }
 }

@@ -14,7 +14,7 @@ import { AppComponent } from './app.component';
 import { DialogServiceTab, DialogTab } from './components/dialog-demo/dialog-demo';
 import { DemoRouteOne, DemoRouteTwo, DemoRouteThree } from './components/tab-demo';
 
-import { AppLayout } from './navigation';
+import { AppLayout } from './app-layout/app-layout';
 
 import { APP_ROUTES, DEMO_ROUTES } from './routes';
 

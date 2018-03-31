@@ -33,16 +33,16 @@
     "@angular/core": "^5.2.9",
     "@angular/forms": "^5.2.9",
     "@angular/platform-browser": "^5.2.9",
-    "core-js": "^2.5.3",
+    "core-js": "^2.5.4",
     "material-components-web": "^0.33.0",
-    "rxjs": "^5.5.7",
+    "rxjs": "^5.5.8",
     "tsickle": "^0.27.2",
     "tslib": "^1.9.0",
-    "zone.js": "^0.8.20"
+    "zone.js": "^0.8.21"
   },
   "devDependencies": {
     "@angular/compiler-cli": "^5.2.9",
-    "@angular/flex-layout": "^5.0.0-beta.13",
+    "@angular/flex-layout": "^5.0.0-beta.14",
     "@angular/platform-browser-dynamic": "^5.2.9",
     "@angular/router": "^5.2.9",
     "@babel/core": "^7.0.0-beta.42",

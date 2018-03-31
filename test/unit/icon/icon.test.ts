@@ -77,21 +77,19 @@ describe('MdcIcon', () => {
   });
 });
 
-/** Simple component for testing. */
 @Component({
-  template:
-    `
-    <mdc-icon [fontSize]="mySize">{{myIcon}}</mdc-icon>
+  template: `
+    <mdc-icon [fontSize]="mySize" [clickable]="clickable">{{myIcon}}</mdc-icon>
   `,
 })
 class SimpleTest {
   myIcon: string = 'home';
   mySize: number = 24;
+  clickable: boolean;
 }
 
 @Component({
-  template:
-    `
+  template: `
     <button mdc-fab>
       <mdc-icon 
        fontSet="myFontSet"

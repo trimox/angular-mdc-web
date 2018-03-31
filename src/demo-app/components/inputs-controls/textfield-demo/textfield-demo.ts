@@ -22,16 +22,14 @@ export class TextFieldDemo {
   }
 
   submitForm() {
+    console.log(this.demoForm)
     if (!this.demoForm.valid) {
       if (!this.demoformInput.valid) {
-        console.log(this.demoForm)
         this.demoformInput.setValid(false);
       }
       return;
     }
 
     this.demoformInput.setValid(true);
-    console.log(this.demoForm)
-    console.log(this.demoForm.value)
   }
 }

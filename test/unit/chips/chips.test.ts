@@ -79,11 +79,26 @@ describe('Chips', () => {
 
       testInstance.remove();
       fixture.detectChanges();
-
       expect(testComponent.chipRemove).toHaveBeenCalledWith({ chip: testInstance });
+    });
 
+    it('handles blur event', () => {
       testInstance._blur();
       fixture.detectChanges();
+    });
+
+    it('handles focus event', () => {
+      testNativeElement.focus();
+      fixture.detectChanges();
+    });
+
+    it('handles click event', () => {
+      testNativeElement.click();
+      fixture.detectChanges();
+    });
+
+    it('expect leading chip icon to not be undefined', () => {
+      expect(testInstance.getLeadingIcon()).toBeDefined();
     });
   });
 

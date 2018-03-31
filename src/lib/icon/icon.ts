@@ -3,7 +3,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  HostBinding,
   Input,
   OnChanges,
   OnInit,
@@ -11,6 +10,7 @@ import {
   SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
+import { toBoolean } from '@angular-mdc/web/common';
 
 @Component({
   moduleId: module.id,
@@ -33,7 +33,7 @@ export class MdcIcon implements OnChanges, OnInit {
   set fontSet(value: string) {
     this._fontSet = this._cleanupFontValue(value);
   }
-  private _fontSet: string;
+  protected _fontSet: string;
 
   /** Name of an icon within a font set. */
   @Input()
@@ -41,9 +41,32 @@ export class MdcIcon implements OnChanges, OnInit {
   set fontIcon(value: string) {
     this._fontIcon = value;
   }
-  private _fontIcon: string;
+  protected _fontIcon: string;
 
   @Input() fontSize: number | null;
+
+  @Input()
+  get leading(): boolean { return this._leading; }
+  set leading(value: boolean) {
+    this._leading = toBoolean(value);
+  }
+  protected _leading: boolean;
+
+  @Input()
+  get trailing(): boolean { return this._trailing; }
+  set trailing(value: boolean) {
+    this._trailing = toBoolean(value);
+  }
+  protected _trailing: boolean;
+
+  @Input()
+  get clickable(): boolean { return this._clickable; }
+  set clickable(value: boolean) {
+    this.setClickable(value);
+  }
+  protected _clickable: boolean;
+
+  public foundation: any;
 
   constructor(
     protected _renderer: Renderer2,
@@ -72,21 +95,21 @@ export class MdcIcon implements OnChanges, OnInit {
 
     if (fontSetClass !== this._previousFontSetClass) {
       if (this._previousFontSetClass) {
-        this.getRenderer().removeClass(el, this._previousFontSetClass);
+        this._renderer.removeClass(el, this._previousFontSetClass);
       }
       if (fontSetClass) {
-        this.getRenderer().addClass(el, fontSetClass);
+        this._renderer.addClass(el, fontSetClass);
       }
       this._previousFontSetClass = fontSetClass;
     }
 
     if (this.fontIcon !== this._previousFontIconClass) {
       if (this._previousFontIconClass) {
-        this.getRenderer().removeClass(el, this._previousFontIconClass);
+        this._renderer.removeClass(el, this._previousFontIconClass);
       }
       if (this.fontIcon) {
         for (const iconClass of this.fontIcon.split(' ')) {
-          this.getRenderer().addClass(el, iconClass);
+          this._renderer.addClass(el, iconClass);
         }
       }
       this._previousFontIconClass = this.fontIcon;
@@ -94,10 +117,10 @@ export class MdcIcon implements OnChanges, OnInit {
 
     if (fontSize !== this._previousFontSize) {
       if (this._previousFontSize) {
-        this.getRenderer().removeStyle(el, `font-size: ${fontSize}px`);
+        this._renderer.removeStyle(el, `font-size: ${fontSize}px`);
       }
       if (fontSize) {
-        this.getRenderer().setStyle(el, 'font-size', `${fontSize}px`);
+        this._renderer.setStyle(el, 'font-size', `${fontSize}px`);
       }
       this._previousFontSize = fontSize;
     }
@@ -117,12 +140,26 @@ export class MdcIcon implements OnChanges, OnInit {
   }
 
   /** Retrieves the DOM element of the component host. */
-  private _getHostElement() {
+  protected _getHostElement() {
     return this.elementRef.nativeElement;
   }
 
-  /** Retrieves the renderer of the component host. */
-  getRenderer(): Renderer2 {
-    return this._renderer;
+  isLeading(): boolean {
+    return this.leading;
+  }
+
+  isTrailing(): boolean {
+    return this.trailing;
+  }
+
+  setClickable(clickable: boolean): void {
+    this._clickable = toBoolean(clickable);
+    if (this.clickable) {
+      this._renderer.setAttribute(this._getHostElement(), 'tabindex', '0');
+      this._renderer.addClass(this._getHostElement(), 'ng-mdc-icon--clickable');
+    } else {
+      this._renderer.setAttribute(this._getHostElement(), 'tabindex', '-1');
+      this._renderer.removeClass(this._getHostElement(), 'ng-mdc-icon--clickable');
+    }
   }
 }

@@ -28,15 +28,9 @@ export class MdcTextFieldHelperText implements OnInit, OnDestroy {
   }
 
   private _mdcAdapter: MDCTextFieldHelperTextAdapter = {
-    addClass: (className: string) => {
-      this._renderer.addClass(this.elementRef.nativeElement, className);
-    },
-    removeClass: (className: string) => {
-      this._renderer.removeClass(this.elementRef.nativeElement, className);
-    },
-    hasClass: (className: string) => {
-      return this.elementRef.nativeElement.classList.contains(className);
-    },
+    addClass: (className: string) => this._renderer.addClass(this.elementRef.nativeElement, className),
+    removeClass: (className: string) => this._renderer.removeClass(this.elementRef.nativeElement, className),
+    hasClass: (className: string) => this.elementRef.nativeElement.classList.contains(className),
     setAttr: (attr: string, value: string) => this._renderer.setAttribute(this.elementRef.nativeElement, attr, value),
     removeAttr: (attr: string) => this._renderer.removeAttribute(this.elementRef.nativeElement, attr),
     setContent: (content: string) => this.elementRef.nativeElement.textContent = content,
@@ -61,7 +55,7 @@ export class MdcTextFieldHelperText implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.foundation.destroy();
+    this.destroy();
   }
 
   destroy(): void {

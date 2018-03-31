@@ -1,398 +1,379 @@
-<div fxFlexOffset="1" fxLayout="column" fxLayoutAlign="start start" class="demo-page">
-  <div>
-    <h1 mdc-typography-display1>Text Field</h1>
-    <span>Text fields allow users to input, edit, and select text.</span>
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Text Field</h1>
+    <div>Text fields allow users to input, edit, and select text.</div>
+    <h2>References</h2>
+    <ul>
+      <li><a mdc-button href="https://material.io/guidelines/components/text-fields.html"
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Text Fields</a>
+      </li>
+      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-textfield/README.md"
+        target="_blank" rel="noopener noreferrer">Material Components Web</a>
+      </li>
+    </ul>
+    <h2>Import</h2>
+    <pre><code><![CDATA[import { MdcTextFieldModule } from '@angular-mdc/web';]]></code></pre>
+
+    <h2>Design & API Documentation</h2>
+    <div class="docs-api">
+      <h3>mdc-text-field</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>id: string</td>
+            <td>Unique id of the element.</td>
+          </tr>
+          <tr>
+            <td>type: string = 'text'</td>
+            <td>Input type of textfield (e.g. email, password, url).</td>
+          </tr>
+          <tr>
+            <td>name: string</td>
+            <td>Name of the textfield.</td>
+          </tr>
+          <tr>
+            <td>label: string</td>
+            <td>Shown to the user when there's no focus or values.</td>
+          </tr>
+          <tr>
+            <td>value: string</td>
+            <td>The input element's value.</td>
+          </tr>
+          <tr>
+            <td>outline: boolean</td>
+            <td>Set a border around all sides of the text field.</td>
+          </tr>
+          <tr>
+            <td>box: boolean</td>
+            <td>Styles the text field as a box text field.</td>
+          </tr>
+          <tr>
+            <td>dense: boolean</td>
+            <td>Shrinks the font size and height of the input.</td>
+          </tr>
+          <tr>
+            <td>fullwidth: boolean</td>
+            <td>Use to change element to fullwidth textfield. Not usable with mdc-textfield-box.</td>
+          </tr>
+          <tr>
+            <td>disabled: boolean</td>
+            <td>Disables the component.</td>
+          </tr>
+          <tr>
+            <td>required: boolean</td>
+            <td>Whether the element is required.</td>
+          </tr>
+          <tr>
+            <td>tabIndex: number</td>
+            <td>Tab index of the text element.</td>
+          </tr>
+          <tr>
+            <td>maxlength: number</td>
+            <td>Maxlength of characters allowed to be entered.</td>
+          </tr>
+          <tr>
+            <td>focused: boolean</td>
+            <td>Set or unset focus on the input element.</td>
+          </tr>
+          <tr>
+            <td>direction: string</td>
+            <td>Support for right-to-left (RTL). (Default is ltr)
+              <pre>Values: 'ltr' | 'rtl'</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>helperText: string</td>
+            <td>Reference to input's mdc-text-field-helper-text directive</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Methods</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>setValid(value?: boolean)</td>
+            <td>Updates input validity using passed value, or if left empty checking the validity of the input.</td>
+          </tr>
+          <tr>
+            <td>isBadInput(): boolean</td>
+            <td>Returns input bad input validity value.</td>
+          </tr>
+          <tr>
+            <td>isDisabled(): boolean</td>
+            <td>Returns whether or not the input is disabled.</td>
+          </tr>
+          <tr>
+            <td>focus()</td>
+            <td>Sets focus to the input.</td>
+          </tr>
+          <tr>
+            <td>updateIconState()</td>
+            <td>Update the state of class modifiers that display an icon.</td>
+          </tr>
+          <tr>
+            <td>selectAll()</td>
+            <td>Selects all of the input's content.</td>
+          </tr>
+          <tr>
+            <td>setHelperTextContent(content: string)</td>
+            <td>Sets the content of the helper text.</td>
+          </tr>
+          <tr>
+            <td>setRequired(isRequired: boolean)</td>
+            <td>Sets the text-field required or not.</td>
+          </tr>
+          <tr>
+            <td>isRequired(): boolean</td>
+            <td>True if the Text Field is required.</td>
+          </tr>
+          <tr>
+            <td>getValue(): string</td>
+            <td>The value of the input Element.</td>
+          </tr>
+          <tr>
+            <td>setBox(box: boolean)</td>
+            <td>Styles the text field as a box text field.</td>
+          </tr>
+          <tr>
+            <td>setOutline(outline: boolean)</td>
+            <td>Styles the text field as an outlined text field.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Events</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>change(value: string)</td>
+            <td>Emitted whenever the value of the input changes.</td>
+          </tr>
+          <tr>
+            <td>blur(value: string)</td>
+            <td>Emitted whenever the input loses focus.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-text-field-helper-text</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>validation: boolean</td>
+            <td>Help text can be used to provide additional validation messages.</td>
+          </tr>
+          <tr>
+            <td>persistent: boolean</td>
+            <td>Help text will always be visible.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-icon[leading]</h3>
+      <h3>mdc-icon[trailing]</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>mdc-icon[leading]</td>
+            <td>Add a leading icon to the textfield.
+              <pre class="caption">Example: <![CDATA[<mdc-icon leading>person</mdc-icon>]]></pre></td>
+          </tr>
+          <tr>
+            <td>mdc-icon[trailing]</td>
+            <td>Add a trailing icon to the textfield.
+              <pre class="caption">Example: <![CDATA[<mdc-icon trailing>person</mdc-icon>]]></pre></td>
+          </tr>
+          <tr>
+            <td>clickable: boolean</td>
+            <td>Whether or not the icon is clickable.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-textarea</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>rows: number</td>
+            <td>Number of rows for this textarea.</td>
+          </tr>
+          <tr>
+            <td>cols: number</td>
+            <td>Number of columns for this textarea.</td>
+          </tr>
+          <tr>
+            <td>focused: boolean</td>
+            <td>Set or unset focus on the input element.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-  <div class="demo-docs-class-name" mdc-typography-subheading2 fxFlexOffset="2">
-    <![CDATA[import { MdcTextFieldModule } from '@angular-mdc/web';]]>
+  <h2>Examples</h2>
+  <a mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field"
+   target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
+  <div class="demo-content">
+    <h3>Text Field with FormControl</h3>
+    <div fxLayout="row wrap">
+      <button mdc-button (click)="demoformInput.disabled = !demoformInput.disabled">Disabled: {{demoformInput.disabled ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoformInput.required = !demoformInput.required">Required: {{demoformInput.required ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoformInput.dense = !demoformInput.dense">Dense: {{demoformInput.dense ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoformInput.box = !demoformInput.box">Box: {{demoformInput.box ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoformInput.selectAll()">Select All</button>
+    </div>
+    <div class="demo-text-field__container--column">
+      <form [formGroup]="demoForm" id="demoForm" (ngSubmit)="submitForm()">
+        <mdc-text-field #demoformInput formControlName="userName" label="Username" maxlength="10" [helperText]="demoformHelper" [required]="true"></mdc-text-field>
+        <mdc-text-field-helper-text #demoformHelper="mdcHelperText" [validation]="true" [persistent]="false">
+          <span *ngIf="demoForm.controls['userName'].errors?.required">Username is required</span>
+        </mdc-text-field-helper-text>
+      </form>
+      <button mdc-button type="submit" form="demoForm">Submit Form</button>
+    </div>
+    <p mdc-typography-body1>Touched: {{ demoForm.touched }}</p>
+    <p mdc-typography-body1>Dirty: {{ demoForm.dirty }}</p>
   </div>
-  <div class="docs-api">
-    <table>
-      <thead>
-        <tr>
-          <th>Component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-text-field</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>id: string</td>
-          <td>Unique id of the element.</td>
-        </tr>
-        <tr>
-          <td>type: string = 'text'</td>
-          <td>Input type of textfield (e.g. email, password, url).</td>
-        </tr>
-        <tr>
-          <td>name: string</td>
-          <td>Name of the textfield.</td>
-        </tr>
-        <tr>
-          <td>label: string</td>
-          <td>Shown to the user when there's no focus or values.</td>
-        </tr>
-        <tr>
-          <td>value: string</td>
-          <td>The input element's value.</td>
-        </tr>
-        <tr>
-          <td>outline: boolean</td>
-          <td>Set a border around all sides of the text field.</td>
-        </tr>
-        <tr>
-          <td>box: boolean</td>
-          <td>Styles the text field as a box text field.</td>
-        </tr>
-        <tr>
-          <td>dense: boolean</td>
-          <td>Shrinks the font size and height of the input.</td>
-        </tr>
-        <tr>
-          <td>fullwidth: boolean</td>
-          <td>Use to change element to fullwidth textfield. Not usable with mdc-textfield-box.</td>
-        </tr>
-        <tr>
-          <td>disabled: boolean</td>
-          <td>Disables the component.</td>
-        </tr>
-        <tr>
-          <td>required: boolean</td>
-          <td>Whether the element is required.</td>
-        </tr>
-        <tr>
-          <td>tabIndex: number</td>
-          <td>Tab index of the text element.</td>
-        </tr>
-        <tr>
-          <td>maxlength: number</td>
-          <td>Maxlength of characters allowed to be entered.</td>
-        </tr>
-        <tr>
-          <td>focused: boolean</td>
-          <td>Set or unset focus on the input element.</td>
-        </tr>
-        <tr>
-          <td>direction: string</td>
-          <td>Support for right-to-left (RTL). (Default is ltr)
-            <pre>Values: 'ltr' | 'rtl'</pre>
-          </td>
-        </tr>
-        <tr>
-          <td>helperText: string</td>
-          <td>Reference to input's mdc-text-field-helper-text directive</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Methods</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>setValid(value?: boolean)</td>
-          <td>Updates input validity using passed value, or if left empty checking the validity of the input.</td>
-        </tr>
-        <tr>
-          <td>isBadInput(): boolean</td>
-          <td>Returns input bad input validity value.</td>
-        </tr>
-        <tr>
-          <td>isDisabled(): boolean</td>
-          <td>Returns whether or not the input is disabled.</td>
-        </tr>
-        <tr>
-          <td>focus()</td>
-          <td>Sets focus to the input.</td>
-        </tr>
-        <tr>
-          <td>updateIconState()</td>
-          <td>Update the state of class modifiers that display an icon.</td>
-        </tr>
-        <tr>
-          <td>selectAll()</td>
-          <td>Selects all of the input's content.</td>
-        </tr>
-        <tr>
-          <td>setHelperTextContent(content: string)</td>
-          <td>Sets the content of the helper text.</td>
-        </tr>
-        <tr>
-          <td>setRequired(isRequired: boolean)</td>
-          <td>Sets the text-field required or not.</td>
-        </tr>
-        <tr>
-          <td>isRequired(): boolean</td>
-          <td>True if the Text Field is required.</td>
-        </tr>
-        <tr>
-          <td>getValue(): string</td>
-          <td>The value of the input Element.</td>
-        </tr>
-        <tr>
-          <td>setBox(box: boolean)</td>
-          <td>Styles the text field as a box text field.</td>
-        </tr>
-        <tr>
-          <td>setOutline(outline: boolean)</td>
-          <td>Styles the text field as an outlined text field.</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Events</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>change(value: string)</td>
-          <td>Emitted whenever the value of the input changes.</td>
-        </tr>
-        <tr>
-          <td>blur(value: string)</td>
-          <td>Emitted whenever the input loses focus.</td>
-        </tr>
-      </tbody>
-    </table>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Directive</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-text-field-helper-text</td>
-          <td>Useful for providing supplemental information to users, as well for validation messages.</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>validation: boolean</td>
-          <td>Help text can be used to provide additional validation messages.</td>
-        </tr>
-        <tr>
-          <td>persistent: boolean</td>
-          <td>Help text will always be visible.</td>
-        </tr>
-      </tbody>
-    </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Leading/Trailing icons</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-icon[leading]</td>
-          <td>Add a leading icon to the textfield.
-            <pre> Example: <![CDATA[<mdc-icon leading>person</mdc-icon>]]></pre></td>
-        </tr>
-        <tr>
-          <td>mdc-icon[trailing]</td>
-          <td>Add a trailing icon to the textfield.
-            <pre> Example: <![CDATA[<mdc-icon trailing>person</mdc-icon>]]></pre></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>mdc-textarea</td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Properties</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>rows: number</td>
-          <td>Number of rows for this textarea. Not usable with mdc-textfield-box.</td>
-        </tr>
-        <tr>
-          <td>cols: number</td>
-          <td>Number of columns for this textarea. Not usable with mdc-textfield-box.</td>
-        </tr>
-        <tr>
-          <td>focused: boolean</td>
-          <td>Set or unset focus on the input element.</td>
-        </tr>
-      </tbody>
-    </table>
-    <div fxLayout="column">
-      <div class="demo-content">
-        <h3>Text Field with FormControl</h3>
-        <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
-        <div fxLayout="row wrap">
-          <button mdc-button (click)="demoformInput.disabled = !demoformInput.disabled">Disabled: {{demoformInput.disabled ? 'On' : 'Off'}}</button>
-          <button mdc-button (click)="demoformInput.required = !demoformInput.required">Required: {{demoformInput.required ? 'On' : 'Off'}}</button>
-          <button mdc-button (click)="demoformInput.dense = !demoformInput.dense">Dense: {{demoformInput.dense ? 'On' : 'Off'}}</button>
-          <button mdc-button (click)="demoformInput.box = !demoformInput.box">Box: {{demoformInput.box ? 'On' : 'Off'}}</button>
-          <button mdc-button (click)="demoformInput.selectAll()">Select All</button>
-        </div>
-        <div class="demo-text-field__container--column">
-          <form [formGroup]="demoForm" id="demoForm" (ngSubmit)="submitForm()">
-            <mdc-text-field #demoformInput formControlName="userName" label="Username" maxlength="10" [helperText]="demoformHelper" [required]="true"></mdc-text-field>
-            <mdc-text-field-helper-text #demoformHelper="mdcHelperText" [validation]="true" [persistent]="false">
-              <span *ngIf="demoForm.controls['userName'].errors?.required">Username is required</span>
-            </mdc-text-field-helper-text>
-          </form>
-          <button mdc-button type="submit" form="demoForm">Submit Form</button>
-        </div>
-        <p mdc-typography-body1>Touched: {{ demoForm.touched }}</p>
-        <p mdc-typography-body1>Dirty: {{ demoForm.dirty }}</p>
-      </div>
-
-      <div class="demo-content">
-        <h3>Text Field with ngModel</h3>
-        <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
-        <div fxLayout="row wrap">
-          <button mdc-button (click)="demousername.disabled = !demousername.disabled">Disabled: {{demousername.disabled ? 'On' : 'Off'}}</button>
-          <button mdc-button (click)="demousername.required = !demousername.required">Required: {{demousername.required ? 'On' : 'Off'}}</button>
-          <button mdc-button (click)="demousername.dense = !demousername.dense">Dense: {{demousername.dense ? 'On' : 'Off'}}</button>
-          <button mdc-button (click)="demousername.box = !demousername.box">Box: {{demousername.box ? 'On' : 'Off'}}</button>
-          <button mdc-button (click)="demousername.selectAll()">Select All</button>
-        </div>
-        <div class="demo-text-field__container--column">
-          <mdc-text-field #demousername label="Username" [(ngModel)]="username" #userModel="ngModel" [helperText]="userHelper"></mdc-text-field>
-          <mdc-text-field-helper-text #userHelper="mdcHelperText" [validation]="true" [persistent]="false">
-            <span *ngIf="userModel.errors?.required">Username is required</span>
-          </mdc-text-field-helper-text>
-        </div>
-      </div>
-      <div class="demo-content">
-        <h3>Outlined Text Field</h3>
-        <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
-        <div fxLayout="row wrap">
-          <button mdc-button (click)="outlined.disabled = !outlined.disabled">Disabled: {{outlined.disabled ? 'On' : 'Off'}}</button>
-          <button mdc-button (click)="outlined.required = !outlined.required">Required: {{outlined.required ? 'On' : 'Off'}}</button>
-          <button mdc-button (click)="outlined.dense = !outlined.dense">Dense: {{outlined.dense ? 'On' : 'Off'}}</button>
-        </div>
-        <div class="demo-text-field__container--column">
-          <mdc-text-field #outlined [outline]="true" label="Your name"></mdc-text-field>
-        </div>
-      </div>
-      <div class="demo-content">
-        <h3>Outlined Text Field - Leading icon</h3>
-        <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
-        <div fxLayout="row wrap">
-          <button mdc-button (click)="outlinedicon.disabled = !outlinedicon.disabled">Disabled: {{outlinedicon.disabled ? 'On' : 'Off'}}</button>
-          <button mdc-button (click)="outlinedicon.required = !outlinedicon.required">Required: {{outlinedicon.required ? 'On' : 'Off'}}</button>
-          <button mdc-button (click)="outlinedicon.dense = !outlinedicon.dense">Dense: {{outlinedicon.dense ? 'On' : 'Off'}}</button>
-        </div>
-        <div class="demo-text-field__container--column">
-          <mdc-text-field #outlinedicon [outline]="true" label="Event date">
-            <mdc-icon leading>event</mdc-icon>
-          </mdc-text-field>
-        </div>
-      </div>
-      <div class="demo-content">
-        <h3>Outlined Text Field - Trailing icon</h3>
-        <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
-        <div class="demo-text-field__container--column">
-          <mdc-text-field [outline]="true" label="Event date">
-            <mdc-icon trailing>event</mdc-icon>
-          </mdc-text-field>
-        </div>
-      </div>
-      <div class="demo-content">
-        <h3>Prefilled Text Field</h3>
-        <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
-        <div class="demo-text-field__container--column">
-          <mdc-text-field [(ngModel)]="prefilledText" label="Username"></mdc-text-field>
-        </div>
-      </div>
-      <div class="demo-content">
-        <h3>Password</h3>
-        <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
-        <div class="demo-text-field__container--column">
-          <mdc-text-field type="password" label="Password" [required]="true"></mdc-text-field>
-        </div>
-      </div>
+  <div class="demo-content">
+    <h3>Text Field with ngModel</h3>
+    <div fxLayout="row wrap">
+      <button mdc-button (click)="demousername.disabled = !demousername.disabled">Disabled: {{demousername.disabled ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demousername.required = !demousername.required">Required: {{demousername.required ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demousername.dense = !demousername.dense">Dense: {{demousername.dense ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demousername.box = !demousername.box">Box: {{demousername.box ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demousername.selectAll()">Select All</button>
     </div>
+    <div class="demo-text-field__container--column">
+      <mdc-text-field #demousername label="Username" [(ngModel)]="username" #userModel="ngModel" [helperText]="userHelper"></mdc-text-field>
+      <mdc-text-field-helper-text #userHelper="mdcHelperText" [validation]="true" [persistent]="false">
+        <span *ngIf="!demousername.value">Username is required</span>
+      </mdc-text-field-helper-text>
+    </div>
+  </div>
+  <div class="demo-content">
+    <h3>Outlined Text Field</h3>
+    <div fxLayout="row wrap">
+      <button mdc-button (click)="outlined.disabled = !outlined.disabled">Disabled: {{outlined.disabled ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="outlined.required = !outlined.required">Required: {{outlined.required ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="outlined.dense = !outlined.dense">Dense: {{outlined.dense ? 'On' : 'Off'}}</button>
+    </div>
+    <div class="demo-text-field__container--column">
+      <mdc-text-field #outlined [outline]="true" label="Your name"></mdc-text-field>
+    </div>
+  </div>
+  <div class="demo-content">
+    <h3>Outlined Text Field - Leading icon</h3>
+    <div fxLayout="row wrap">
+      <button mdc-button (click)="outlinedicon.disabled = !outlinedicon.disabled">Disabled: {{outlinedicon.disabled ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="outlinedicon.required = !outlinedicon.required">Required: {{outlinedicon.required ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="outlinedicon.dense = !outlinedicon.dense">Dense: {{outlinedicon.dense ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="leadingicon.clickable = !leadingicon.clickable">Clickable Icon: {{leadingicon.clickable ? 'On' : 'Off'}}</button>
+    </div>
+    <div class="demo-text-field__container--column">
+      <mdc-text-field #outlinedicon [outline]="true" label="Event date">
+        <mdc-icon leading #leadingicon>event</mdc-icon>
+      </mdc-text-field>
+    </div>
+  </div>
+  <div class="demo-content">
+    <h3>Outlined Text Field - Trailing icon</h3>
+    <div fxLayout="row wrap">
+      <button mdc-button (click)="trailingicon.clickable = !trailingicon.clickable">Clickable Icon: {{trailingicon.clickable ? 'On' : 'Off'}}</button>
+    </div>
+    <div class="demo-text-field__container--column">
+      <mdc-text-field [outline]="true" label="Event date">
+        <mdc-icon trailing #trailingicon>event</mdc-icon>
+      </mdc-text-field>
+    </div>
+  </div>
+  <div class="demo-content">
+    <h3>Prefilled Text Field</h3>
+    <div class="demo-text-field__container--column">
+      <mdc-text-field [(ngModel)]="prefilledText" label="Username"></mdc-text-field>
+    </div>
+  </div>
+  <div class="demo-content">
+    <h3>Password</h3>
+    <div class="demo-text-field__container--column">
+      <mdc-text-field type="password" label="Password" [required]="true"></mdc-text-field>
+    </div>
+  </div>
+  <div class="demo-content">
+    <h3>Text Field Box</h3>
+    <div fxLayout="row wrap">
+      <button mdc-button (click)="demobox1.disabled = !demobox1.disabled">Disabled: {{demobox1.disabled ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demobox1.required = !demobox1.required">Required: {{demobox1.required ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demobox1.dense = !demobox1.dense">Dense: {{demobox1.dense ? 'On' : 'Off'}}</button>
+   </div>
+    <div class="demo-text-field__container--column">
+      <mdc-text-field #demobox1 [box]="true" [helperText]="demoboxHelper" [required]="true" label="Your name"></mdc-text-field>
+      <mdc-text-field-helper-text #demoboxHelper="mdcHelperText" [validation]="true" [persistent]="false">
+        <span *ngIf="!demobox1.value">Username is required</span>
+      </mdc-text-field-helper-text>
+    </div>
+  </div>
 
-    <div class="demo-content">
-      <h3>Text Field Box</h3>
-      <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
-      <div fxLayout="row wrap">
-        <button mdc-button (click)="demobox1.disabled = !demobox1.disabled">Disabled: {{demobox1.disabled ? 'On' : 'Off'}}</button>
-        <button mdc-button (click)="demobox1.required = !demobox1.required">Required: {{demobox1.required ? 'On' : 'Off'}}</button>
-        <button mdc-button (click)="demobox1.dense = !demobox1.dense">Dense: {{demobox1.dense ? 'On' : 'Off'}}</button> 
-     </div>
-      <div class="demo-text-field__container--column">
-        <mdc-text-field #demobox1 [box]="true" [required]="true" label="Your name"></mdc-text-field>
-        <p mdc-text-field-helper-text [validation]="true">Name is required</p>
-      </div>
+  <div class="demo-content">
+    <h3>Text Field Box - Leading/trailing icons</h3>
+    <div fxLayout="row wrap">
+      <button mdc-button (click)="demobox2.disabled = !demobox2.disabled">Disabled: {{demobox2.disabled ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demobox2.required = !demobox2.required">Required: {{demobox2.required ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demobox2.dense = !demobox2.dense">Dense: {{demobox2.dense ? 'On' : 'Off'}}</button>
     </div>
+    <div class="demo-text-field__container--column">
+      <mdc-text-field #demobox2 label="Your name" [box]="true">
+        <mdc-icon leading>person</mdc-icon>
+      </mdc-text-field>
+      <p mdc-text-field-helper-text [validation]="true">Name is required</p>
 
-    <div class="demo-content">
-      <h3>Text Field Box - Leading/trailing icons</h3>
-      <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
-      <div fxLayout="row wrap">
-        <button mdc-button (click)="demobox2.disabled = !demobox2.disabled">Disabled: {{demobox2.disabled ? 'On' : 'Off'}}</button>
-        <button mdc-button (click)="demobox2.required = !demobox2.required">Required: {{demobox2.required ? 'On' : 'Off'}}</button>
-        <button mdc-button (click)="demobox2.dense = !demobox2.dense">Dense: {{demobox2.dense ? 'On' : 'Off'}}</button> 
-      </div>
-      <div class="demo-text-field__container--column">
-        <mdc-text-field #demobox2 label="Your name" [box]="true">
-          <mdc-icon leading>person</mdc-icon>
-        </mdc-text-field>
-        <p mdc-text-field-helper-text [validation]="true">Name is required</p>
+      <mdc-text-field #demobox3 label="Your name" [box]="true">
+        <mdc-icon trailing>person</mdc-icon>
+      </mdc-text-field>
+    </div>
+  </div>
 
-        <mdc-text-field #demobox3 label="Your name" [box]="true">
-          <mdc-icon trailing>person</mdc-icon>
-        </mdc-text-field>
-        <p mdc-text-field-helper-text [validation]="true">Name is required</p>
-      </div>
+  <div class="demo-content">
+    <h3>Textarea</h3>
+    <div fxLayout="row wrap">
+      <button mdc-button (click)="comments.disabled = !comments.disabled">Disabled: {{comments.disabled ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="comments.required = !comments.required">Required: {{comments.required ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="comments.dense = !comments.dense">Dense: {{comments.dense ? 'On' : 'Off'}}</button>
     </div>
-
-    <div class="demo-content">
-      <h3>Textarea</h3>
-      <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
-      <div fxLayout="row wrap">
-        <button mdc-button (click)="comments.disabled = !comments.disabled">Disabled: {{comments.disabled ? 'On' : 'Off'}}</button>
-        <button mdc-button (click)="comments.required = !comments.required">Required: {{comments.required ? 'On' : 'Off'}}</button>
-        <button mdc-button (click)="comments.dense = !comments.dense">Dense: {{comments.dense ? 'On' : 'Off'}}</button> 
-      </div>
-      <mdc-textarea #comments label="Comments" rows="8" cols="40"></mdc-textarea>
-    </div>
-    <div class="demo-content">
-      <h3>Full-width single line</h3>
-      <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
-      <mdc-text-field label="Subject" [fullwidth]="true"></mdc-text-field>
-    </div>
-    <div class="demo-content">
-      <h3>Full-width Textarea</h3>
-      <a fxFlexAlign="start" mdc-button href="https://stackblitz.com/edit/angular-mdc-text-field?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Source</a>
-      <mdc-textarea label="Type your message here" [fullwidth]="true" rows="8"></mdc-textarea>
-    </div>
+    <mdc-textarea #comments label="Comments" rows="8" cols="40"></mdc-textarea>
+  </div>
+  <div class="demo-content">
+    <h3>Full-width single line</h3>
+    <mdc-text-field label="Subject" [fullwidth]="true"></mdc-text-field>
+  </div>
+  <div class="demo-content">
+    <h3>Full-width Textarea</h3>
+    <mdc-textarea label="Type your message here" [fullwidth]="true" rows="8"></mdc-textarea>
   </div>
 </div>

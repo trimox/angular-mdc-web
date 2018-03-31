@@ -6,10 +6,6 @@ import { MdcLineRippleModule } from '@angular-mdc/web/line-ripple';
 import { MdcNotchedOutlineModule } from '@angular-mdc/web/notched-outline';
 
 import { MdcTextFieldHelperText } from './helper-text';
-import {
-  MdcTextFieldLeadingIcon,
-  MdcTextFieldTrailingIcon,
-} from './icon';
 import { MdcTextField } from './text-field';
 import { MdcTextarea } from './textarea';
 
@@ -17,8 +13,6 @@ const TEXTFIELD_DECLARATIONS = [
   MdcTextarea,
   MdcTextField,
   MdcTextFieldHelperText,
-  MdcTextFieldLeadingIcon,
-  MdcTextFieldTrailingIcon,
 ];
 
 @NgModule({

@@ -6,6 +6,7 @@ import { By } from '@angular/platform-browser';
 import {
   MdcTextField,
   MdcTextFieldModule,
+  MdcIconModule
 } from '@angular-mdc/web';
 
 describe('MdcTextField', () => {
@@ -13,7 +14,7 @@ describe('MdcTextField', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MdcTextFieldModule, FormsModule, ReactiveFormsModule],
+      imports: [MdcTextFieldModule, MdcIconModule, FormsModule, ReactiveFormsModule],
       declarations: [
         SimpleTextfield,
       ]
@@ -36,6 +37,10 @@ describe('MdcTextField', () => {
       textFieldNativeElement = textFieldDebugElement.nativeElement;
       textFieldInstance = textFieldDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
+    });
+
+    it('should be created', () => {
+      expect(textFieldInstance).toBeTruthy();
     });
 
     it('#should have mdc-text-field by default', () => {
@@ -134,6 +139,12 @@ describe('MdcTextField', () => {
       expect(textFieldInstance.helperText.persistent).toBe(true);
     });
 
+    it('#should set required to true', () => {
+      testComponent.required = true;
+      fixture.detectChanges();
+      expect(textFieldInstance.required).toBe(true);
+    });
+
     it('#should set style shake to true', () => {
       expect(textFieldInstance.floatingLabel.shake(true));
       fixture.detectChanges();
@@ -153,15 +164,33 @@ describe('MdcTextField', () => {
       expect(document.activeElement).toBe(textFieldInstance.inputText.nativeElement);
     });
 
-    it('#should set icon disabled', () => {
-      expect(textFieldInstance.leadingIcon.setDisabled(true));
-      fixture.detectChanges();
-    });
-
     it('#should throw an error', () => {
       expect(() => {
         testComponent.myType = 'button'; fixture.detectChanges();
       }).toThrowError('Input type "button" is not supported.');
+    });
+
+    it('handles blur event', () => {
+      textFieldNativeElement.blur();
+      fixture.detectChanges();
+    });
+
+    it('handles focus event', () => {
+      textFieldNativeElement.focus();
+      fixture.detectChanges();
+    });
+
+    it('handles click event', () => {
+      textFieldNativeElement.click();
+      fixture.detectChanges();
+    });
+
+    it('expect leading icon to be defined', () => {
+      expect(textFieldInstance.getLeadingIcon()).toBeDefined();
+    });
+
+    it('expect trailing icon to be defined', () => {
+      expect(textFieldInstance.getTrailingIcon()).toBeDefined();
     });
   });
 });
@@ -178,7 +207,7 @@ describe('MdcTextField', () => {
       [outline]="isOutline"
       [fullwidth]="isFullwidth"
       [box]="box"
-      [required]="isRequired"
+      [required]="required"
       [focused]="isFocused"
       [disabled]="isDisabled"
       [helperText]="userHelper"
@@ -200,7 +229,7 @@ class SimpleTextfield {
   isFocused: boolean = false;
   isFullwidth: boolean = false;
   isOutline: boolean = false;
-  isRequired: boolean = false;
+  required: boolean = false;
   box: boolean = false;
 
   onBlur(event: any) { }

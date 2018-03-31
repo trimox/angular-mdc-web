@@ -212,7 +212,6 @@ export class MdcGridList implements AfterViewInit, AfterContentInit, OnDestroy {
     this._foundation.init();
 
     this.setAspect(this.aspect);
-    this.alignCenter();
   }
 
   ngAfterContentInit(): void {

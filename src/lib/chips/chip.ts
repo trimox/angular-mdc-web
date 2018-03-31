@@ -1,6 +1,5 @@
 import {
   AfterViewInit,
-  Attribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -44,6 +43,8 @@ export class MdcChipSelectionEvent {
     public source: MdcChip) { }
 }
 
+let nextUniqueId = 0;
+
 @Component({
   moduleId: module.id,
   selector: 'mdc-chip-icon, [mdc-chip-icon]',
@@ -53,55 +54,18 @@ export class MdcChipSelectionEvent {
   preserveWhitespaces: false
 })
 export class MdcChipIcon extends MdcIcon {
-  @Input()
-  get leading(): boolean { return this._leading; }
-  set leading(value: boolean) {
-    this._leading = toBoolean(value);
-    this._changeDetectorRef.markForCheck();
-  }
-  private _leading: boolean;
-
-  @Input()
-  get trailing(): boolean { return this._trailing; }
-  set trailing(value: boolean) {
-    this._trailing = toBoolean(value);
-    this._changeDetectorRef.markForCheck();
-
-  }
-  private _trailing: boolean;
-
   @HostBinding('class.mdc-chip__icon') isHostClass = true;
   @HostBinding('class.mdc-chip__icon--leading') get classIconLeading(): string {
     return this.leading ? 'mdc-chip__icon--leading' : '';
   }
   @HostBinding('class.mdc-chip__icon--trailing') get classIconTrailing(): string {
-    this.trailing ? this.getRenderer().setAttribute(this.elementRef.nativeElement, 'tabIndex', '0')
-      : this.getRenderer().removeAttribute(this.elementRef.nativeElement, 'tabIndex');
-    this.trailing ? this.getRenderer().setAttribute(this.elementRef.nativeElement, 'role', 'button')
-      : this.getRenderer().removeAttribute(this.elementRef.nativeElement, 'role');
-
+    this.setClickable(this.trailing);
     return this.trailing ? 'mdc-chip__icon--trailing' : '';
-  }
-
-  isLeading(): boolean {
-    return this.leading;
-  }
-
-  isTrailing(): boolean {
-    return this.trailing;
-  }
-
-  constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
-    _renderer: Renderer2,
-    elementRef: ElementRef,
-    @Attribute('aria-hidden') ariaHidden: string) {
-
-    super(_renderer, elementRef, ariaHidden);
   }
 }
 
 @Component({
+  moduleId: module.id,
   selector: 'mdc-chip-checkmark',
   exportAs: 'mdcChipCheckmark',
   template: `
@@ -124,8 +88,6 @@ export class MdcChipText {
 
   constructor(public elementRef: ElementRef) { }
 }
-
-let nextUniqueId = 0;
 
 @Component({
   moduleId: module.id,

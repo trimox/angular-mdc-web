@@ -1,28 +1,21 @@
 import {
-  ChangeDetectionStrategy,
-  Component,
+  Directive,
   ElementRef,
   HostBinding,
   OnDestroy,
   OnInit,
-  Renderer2,
-  ViewEncapsulation,
+  Renderer2
 } from '@angular/core';
 import { EventRegistry } from '@angular-mdc/web/common';
 
 import { MDCLineRippleAdapter } from '@material/line-ripple/adapter';
 import { MDCLineRippleFoundation } from '@material/line-ripple';
 
-@Component({
+@Directive({
   selector: '[mdc-line-ripple], mdc-line-ripple',
-  template: '<ng-content></ng-content>',
-  exportAs: 'mdcLineRipple',
   providers: [
     EventRegistry,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  preserveWhitespaces: false,
 })
 export class MdcLineRipple implements OnInit, OnDestroy {
   @HostBinding('class.mdc-line-ripple') isHostClass = true;

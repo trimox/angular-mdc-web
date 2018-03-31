@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import {
   MdcGridListModule,
   MdcGridList,
+  MdcIconModule,
 } from '@angular-mdc/web';
 
 describe('MdcGridList', () => {
@@ -12,7 +13,7 @@ describe('MdcGridList', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MdcGridListModule],
+      imports: [MdcGridListModule, MdcIconModule],
       declarations: [SimpleTest]
     });
     TestBed.compileComponents();
@@ -34,6 +35,11 @@ describe('MdcGridList', () => {
       testComponent = fixture.debugElement.componentInstance;
     });
 
+    it('should be created', () => {
+      expect(testInstance).toBeTruthy();
+      expect(testInstance.alignCenter());
+    });
+
     it('#should have mdc-grid-list by default', () => {
       expect(testDebugElement.nativeElement.classList).toContain('mdc-grid-list');
     });
@@ -43,17 +49,30 @@ describe('MdcGridList', () => {
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-grid-list--header-caption')).toBe(true);
     });
+
+    it('#should apply mdc-grid-list--tile-gutter-1 class based on property', () => {
+      testComponent.narrow = true;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList.contains('mdc-grid-list--tile-gutter-1')).toBe(true);
+    });
+
+    it('#should apply mdc-grid-list--with-icon-align-end class based on property', () => {
+      testComponent.iconAlign = 'end';
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList.contains('mdc-grid-list--with-icon-align-end')).toBe(true);
+    });
   });
 });
 
 @Component({
   template: `
-    <mdc-grid-list [header]="header" [narrow]="narrow">
+    <mdc-grid-list [header]="header" [narrow]="narrow" [iconAlign]="iconAlign">
       <mdc-grid-tile>
         <mdc-grid-tile-primary>
           <mdc-grid-tile-primary-content></mdc-grid-tile-primary-content>
         </mdc-grid-tile-primary>
         <mdc-grid-tile-secondary>
+          <mdc-icon>star_favorite</mdc-icon>
           <mdc-grid-tile-title>Single Very long Grid Title</mdc-grid-tile-title>
           <mdc-grid-tile-support-text>2nd</mdc-grid-tile-support-text>
         </mdc-grid-tile-secondary>
@@ -64,4 +83,5 @@ describe('MdcGridList', () => {
 class SimpleTest {
   header: boolean = false;
   narrow: boolean = false;
+  iconAlign: string = 'start';
 }

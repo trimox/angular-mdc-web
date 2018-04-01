@@ -76,20 +76,24 @@
         </tbody>
       </table>
     </div>
-
     <h2>Basic Usage</h2>
     <a mdc-button href="https://stackblitz.com/edit/angular-mdc-buttons"
      target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
   </div>
 
-  <div class="demo-content--column demo-content--center">
+  <div class="demo-content--row" fxLayoutGap="12px">
     <button mdc-button [primary]="true" [raised]="true">Primary and Raised</button>
     <button mdc-button [secondary]="true">Secondary Color</button>
     <button mdc-button [icon]="true"><mdc-icon>favorite</mdc-icon>Icon</button>
     <button mdc-button [secondary]="true" [raised]="true" [icon]="true"><mdc-icon>favorite</mdc-icon>Icon</button>
+  </div>
+  <div class="demo-content--row" fxLayoutGap="18px">
     <button mdc-button [unelevated]="true">Unelevated</button>
     <button mdc-button [stroked]="true">Stroked</button>
     <a mdc-button [primary]="true" [raised]="true" href="#/button-demo">Href link</a>
+  </div>
+
+  <div class="demo-content--row" fxLayoutGap="18px">
     <button mdc-button [raised]="true">Raised</button>
     <button mdc-button [dense]="true" [raised]="true">Dense and Raised</button>
     <button mdc-button [primary]="true" [raised]="true" [disabled]="true">Disabled</button>

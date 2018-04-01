@@ -9,6 +9,7 @@ export class AppLayout {
   coreVisible: boolean;
   buttonVisible: boolean;
   inputVisible: boolean;
+  listVisible: boolean;
 
   navigationLinks = [
     { name: 'App Bar', route: 'app-bar-demo', icon: 'remove' },

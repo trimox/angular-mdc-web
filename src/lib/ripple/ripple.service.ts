@@ -11,6 +11,7 @@ import { MDCRippleFoundation, util } from '@material/ripple';
 @Injectable()
 export class MdcRipple {
   private _root: any;
+  private _interactionElement: ElementRef | undefined;
   private _unbounded: boolean = false;
   private _disabled: boolean = false;
   private _surfaceActive: boolean = false;
@@ -23,30 +24,23 @@ export class MdcRipple {
     addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
     removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
     containsEventTarget: (target: EventTarget) => this._getHostElement().contains(target),
-    registerInteractionHandler: (evtType: string, handler: EventListener) => {
-      const target = (evtType === 'mouseup' || evtType === 'pointerup') ? window : this._getHostElement();
-      this._registry.listen(evtType, handler, target, util.applyPassive());
-    },
-    deregisterInteractionHandler: (evtType: string, handler: EventListener) => {
-      this._registry.unlisten(evtType, handler);
-    },
-    registerDocumentInteractionHandler: (evtType: string, handler: EventListener) => {
-      this._registry.listen(evtType, handler, document, util.applyPassive());
-    },
-    deregisterDocumentInteractionHandler: (evtType: string, handler: EventListener) => {
-      this._registry.unlisten(evtType, handler);
-    },
+    registerInteractionHandler: (evtType: string, handler: EventListener) =>
+      this._registry.listen(evtType, handler,
+        this._interactionElement ? this._interactionElement : this._getHostElement(), util.applyPassive()),
+    deregisterInteractionHandler: (evtType: string, handler: EventListener) =>
+      this._registry.unlisten(evtType, handler),
+    registerDocumentInteractionHandler: (evtType: string, handler: EventListener) =>
+      this._registry.listen(evtType, handler, document, util.applyPassive()),
+    deregisterDocumentInteractionHandler: (evtType: string, handler: EventListener) =>
+      this._registry.unlisten(evtType, handler),
     registerResizeHandler: (handler: EventListener) => {
       if (isBrowser()) {
         this._registry.listen('resize', handler, window);
       }
     },
-    deregisterResizeHandler: (handler: EventListener) => {
-      this._registry.unlisten('resize', handler);
-    },
-    updateCssVariable: (varName: string, value: string) => {
-      this._renderer.setStyle(this._getHostElement(), varName, value, 2);
-    },
+    deregisterResizeHandler: (handler: EventListener) => this._registry.unlisten('resize', handler),
+    updateCssVariable: (varName: string, value: string) =>
+      this._renderer.setStyle(this._getHostElement(), varName, value, 2),
     computeBoundingRect: () => this._getHostElement().getBoundingClientRect(),
     getWindowPageOffset: () => {
       return {
@@ -70,8 +64,9 @@ export class MdcRipple {
     protected _registry: EventRegistry,
     protected elementRef: ElementRef) { }
 
-  attachTo(root: any, unbounded: boolean = false) {
+  attachTo(root: any, unbounded: boolean = false, interactionElement?: ElementRef) {
     this._root = root;
+    this._interactionElement = interactionElement;
 
     this._foundation = new MDCRippleFoundation(this._mdcAdapter);
     this.setUnbounded(unbounded);

@@ -280,7 +280,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   private _getFoundationMap() {
     return {
       helperText: this._helperText ? this.helperText.foundation : undefined,
-      icon: this.icons && this.icons.length > 0 ? this.icons.first.foundation : undefined
+      icon: this._hasIcons() ? this.icons.first.foundation : undefined
     };
   }
 
@@ -357,7 +357,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   }
 
   ngOnDestroy(): void {
-    if (this.icons) {
+    if (this._hasIcons()) {
       this.icons.forEach(icon => {
         icon.foundation.destroy();
       });
@@ -460,7 +460,8 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     if (this._outline && this._box) {
       this._outline = false;
     }
-    this._box ? this._ripple.attachTo(this._getHostElement()) : this._ripple.destroy();
+    this._box ? this._ripple.attachTo(this._getHostElement(), false,
+      this.inputText.nativeElement) : this._ripple.destroy();
 
     this._changeDetectorRef.markForCheck();
   }
@@ -513,15 +514,15 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   }
 
   getLeadingIcon(): MdcIcon | undefined {
-    if (this.icons) {
-      return this.icons.find((_: MdcIcon) => _.isLeading());
-    }
+    return this.icons.find((_: MdcIcon) => _.isLeading());
   }
 
   getTrailingIcon(): MdcIcon | undefined {
-    if (this.icons) {
-      return this.icons.find((_: MdcIcon) => _.isTrailing());
-    }
+    return this.icons.find((_: MdcIcon) => _.isTrailing());
+  }
+
+  private _hasIcons(): boolean {
+    return this.icons && this.icons.length > 0;
   }
 
   // Implemented as part of ControlValueAccessor.
@@ -531,7 +532,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     if (this.focused) {
       this.focused = false;
     }
-    if (this.icons) {
+    if (this._hasIcons()) {
       // Reset the clickable state of mdc-icon
       this.icons.first.clickable = this.icons.first.clickable;
     }

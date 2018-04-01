@@ -1,3 +1,35 @@
+<a name="0.33.0"></a>
+# [0.33.0](https://github.com/trimox/angular-mdc-web/compare/v0.32.1...v0.33.0) (2018-04-01)
+
+
+### Bug Fixes
+
+* **text-field:** Add return type for setValidation ([#814](https://github.com/trimox/angular-mdc-web/issues/814)) ([299e9aa](https://github.com/trimox/angular-mdc-web/commit/299e9aa))
+* **text-field:** Apply ripple when text-field is box ([#802](https://github.com/trimox/angular-mdc-web/issues/802)) ([6dccd59](https://github.com/trimox/angular-mdc-web/commit/6dccd59))
+* **text-field:** Clicking icon should not cause ripple ([#822](https://github.com/trimox/angular-mdc-web/issues/822)) ([840dd8d](https://github.com/trimox/angular-mdc-web/commit/840dd8d))
+* **text-field:** Clicking mdc-floating-label should focus textfield ([#821](https://github.com/trimox/angular-mdc-web/issues/821)) ([13f9fa0](https://github.com/trimox/angular-mdc-web/commit/13f9fa0))
+
+
+### Features
+
+* **app-bar:** Add prominent property ([#805](https://github.com/trimox/angular-mdc-web/issues/805)) ([8112fbe](https://github.com/trimox/angular-mdc-web/commit/8112fbe)), closes [#789](https://github.com/trimox/angular-mdc-web/issues/789)
+* **chips:** Replace leading icon with checkmark in selected filter chips ([#810](https://github.com/trimox/angular-mdc-web/issues/810)) ([0f47eba](https://github.com/trimox/angular-mdc-web/commit/0f47eba)), closes [#790](https://github.com/trimox/angular-mdc-web/issues/790)
+* **grid-list:** Implement MDC Grid List ([#813](https://github.com/trimox/angular-mdc-web/issues/813)) ([a0c8d52](https://github.com/trimox/angular-mdc-web/commit/a0c8d52)), closes [#772](https://github.com/trimox/angular-mdc-web/issues/772)
+* **icon:** Add clickable property ([#818](https://github.com/trimox/angular-mdc-web/issues/818)) ([00fc5df](https://github.com/trimox/angular-mdc-web/commit/00fc5df)), closes [#792](https://github.com/trimox/angular-mdc-web/issues/792) [#593](https://github.com/trimox/angular-mdc-web/issues/593)
+* **notched-outline:** Implement MDC Notched Outline ([#806](https://github.com/trimox/angular-mdc-web/issues/806)) ([601c8a6](https://github.com/trimox/angular-mdc-web/commit/601c8a6))
+* **radio:** Make Radio button MDC Foundation methods public ([#812](https://github.com/trimox/angular-mdc-web/issues/812)) ([120acb9](https://github.com/trimox/angular-mdc-web/commit/120acb9))
+* **ripple:** Add mdcRipple directive + attachTo property ([#809](https://github.com/trimox/angular-mdc-web/issues/809)) ([f60a7d8](https://github.com/trimox/angular-mdc-web/commit/f60a7d8)), closes [#808](https://github.com/trimox/angular-mdc-web/issues/808)
+* **typography:** Remove mdc-typography-adjust-margin directive ([#816](https://github.com/trimox/angular-mdc-web/issues/816)) ([3fe0b39](https://github.com/trimox/angular-mdc-web/commit/3fe0b39)), closes [#815](https://github.com/trimox/angular-mdc-web/issues/815)
+* Updated to `material-components-web` v0.33.0
+
+
+### BREAKING CHANGES
+
+* **typography:** Removed the mdc-typography-adjust-margin feature. Please update your code
+accordingly.
+
+
+
 <a name="0.32.1"></a>
 ## [0.32.1](https://github.com/trimox/angular-mdc-web/compare/v0.32.0...v0.32.1) (2018-03-21)
 

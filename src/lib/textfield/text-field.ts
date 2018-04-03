@@ -348,6 +348,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
         this.updateIconState();
         if (this.outline && this.outlined) {
           this.outlined.outlineIdle = this.outlineIdle;
+          this._foundation.updateOutline();
         }
 
         this.writeValue(this._value);

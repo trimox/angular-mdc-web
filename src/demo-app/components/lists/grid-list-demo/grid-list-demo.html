@@ -55,18 +55,18 @@ start, end</pre></td>
       <h3>mdc-grid-tile-title</h3>
       <h3>mdc-grid-tile-support-text</h3>
     </div>
-
     <h2>Basic Usage</h2>
     <a mdc-button href="https://stackblitz.com/edit/angular-mdc-grid-list"
      target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
   </div>
+
   <div class="demo-content">
     <h3>Grid List</h3>
-    <div fxLayout="row wrap">
+    <div class="demo-content--row">
       <button mdc-button (click)="demogrid1.header = !demogrid1.header">Header: {{demogrid1.header ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demogrid1.narrow = !demogrid1.narrow">Narrow: {{demogrid1.narrow ? 'On' : 'Off'}}</button>
     </div>
-    <div fxLayout="row wrap">
+    <div class="demo-content--row">
       <button mdc-button (click)="demogrid1.aspect = '1x1'">1x1</button>
       <button mdc-button (click)="demogrid1.aspect = '16x9'">16x9 Aspect</button>
       <button mdc-button (click)="demogrid1.aspect = '2x3'">2x3 Aspect</button>
@@ -77,7 +77,7 @@ start, end</pre></td>
     <mdc-grid-list #demogrid1>
       <mdc-grid-tile *ngFor="let tile of gridTiles">
         <mdc-grid-tile-primary>
-          <img mdc-grid-tile-primary-content src="/assets/1-1.jpg"/>
+          <img mdc-grid-tile-primary-content src="https://material-components-web.appspot.com/images/1-1.jpg"/>
         </mdc-grid-tile-primary>
         <mdc-grid-tile-secondary>
           <mdc-grid-tile-title>{{tile.title}}</mdc-grid-tile-title>
@@ -88,7 +88,7 @@ start, end</pre></td>
   </div>
 
   <div class="demo-content">
-    <div fxLayout="row wrap">
+    <div class="demo-content--row">
       <button mdc-button (click)="demogrid2.header = !demogrid2.header">Header: {{demogrid2.header ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demogrid2.narrow = !demogrid2.narrow">Narrow: {{demogrid2.narrow ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demogrid2.iconAlign = 'start'">Icon Alignment - Start: {{demogrid2.iconAlign === 'start' ? 'On' : 'Off'}}</button>
@@ -97,7 +97,7 @@ start, end</pre></td>
     <mdc-grid-list #demogrid2>
       <mdc-grid-tile *ngFor="let tile of gridTiles">
         <mdc-grid-tile-primary>
-          <img mdc-grid-tile-primary-content src="/assets/1-1.jpg"/>
+          <img mdc-grid-tile-primary-content src="https://material-components-web.appspot.com/images/1-1.jpg"/>
         </mdc-grid-tile-primary>
         <mdc-grid-tile-secondary>
           <mdc-icon>{{tile.icon}}</mdc-icon>
@@ -108,14 +108,14 @@ start, end</pre></td>
     </mdc-grid-list>
   </div>
   <div class="demo-content">
-    <div fxLayout="row wrap">
+    <div class="demo-content--row">
       <button mdc-button (click)="demogrid3.header = !demogrid3.header">Header: {{demogrid3.header ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demogrid3.narrow = !demogrid3.narrow">Narrow: {{demogrid3.narrow ? 'On' : 'Off'}}</button>
     </div>
     <mdc-grid-list #demogrid3>
       <mdc-grid-tile *ngFor="let tile of gridTiles">
         <mdc-grid-tile-primary>
-          <img mdc-grid-tile-primary-content src="/assets/1-1.jpg"/>
+          <img mdc-grid-tile-primary-content src="https://material-components-web.appspot.com/images/1-1.jpg"/>
         </mdc-grid-tile-primary>
         <mdc-grid-tile-secondary>
           <mdc-grid-tile-title>{{tile.title}}</mdc-grid-tile-title>

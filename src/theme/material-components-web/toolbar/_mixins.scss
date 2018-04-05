@@ -60,9 +60,8 @@
   position: relative;
   align-items: start;
   justify-content: center;
-  box-sizing: border-box;
-  width: $mdc-toolbar-icon-size + $mdc-toolbar-icon-padding * 2;
-  height: $mdc-toolbar-icon-size + $mdc-toolbar-icon-padding * 2;
+  width: $mdc-toolbar-icon-size;
+  height: $mdc-toolbar-icon-size;
   padding: $mdc-toolbar-icon-padding;
   border: none;
   outline: none;

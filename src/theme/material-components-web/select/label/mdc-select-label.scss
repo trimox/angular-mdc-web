@@ -14,9 +14,10 @@
 // limitations under the License.
 //
 
-@import "../../rtl/mixins";
 @import "../variables";
+@import "../../rtl/mixins";
 
+// postcss-bem-linter: define select-label
 .mdc-select__label {
   @include mdc-rtl-reflexive-position(left, 0);
 
@@ -24,7 +25,7 @@
   bottom: 8px;
   left: 0;
   transform-origin: left top;
-  transition: $mdc-select-native-control-transition;
+  transition: $mdc-select-menu-transition;
   pointer-events: none;
   will-change: transform;
 

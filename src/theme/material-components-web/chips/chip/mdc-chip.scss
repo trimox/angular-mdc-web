@@ -26,6 +26,7 @@
 .mdc-chip {
   @include mdc-ripple-surface;
   @include mdc-ripple-radius-bounded;
+  
   @include mdc-chip-corner-radius($mdc-chip-border-radius-default);
   @include mdc-chip-fill-color($mdc-chip-fill-color-default);
   @include mdc-chip-ink-color($mdc-chip-ink-color-default);
@@ -35,8 +36,8 @@
   position: relative;
   align-items: center;
   padding: $mdc-chip-vertical-padding $mdc-chip-horizontal-padding;
-  outline: none;
   cursor: pointer;
+  outline: none;
   overflow: hidden;
 
   &:hover {
@@ -54,10 +55,10 @@
 }
 
 .mdc-chip__icon {
-  border-radius: 50%;
-  outline: none;
   color: $mdc-chip-icon-color;
   vertical-align: middle;
+  border-radius: 50%;
+  outline: none;
 }
 
 .mdc-chip__icon--trailing {
@@ -131,23 +132,26 @@
   }
 }
 
-.mdc-chip--selected .mdc-chip__icon--leading {
-  opacity: 0;
+.mdc-chip--selected {
+  .mdc-chip__icon--leading {
+    opacity: 0;
 
-  + .mdc-chip__checkmark {
-    // This ensures that the checkmark has zero width while the leading icon is still animating.
-    width: 0;
-    opacity: 1;
+    + .mdc-chip__checkmark {
+      opacity: 1;
+      // This ensures that the checkmark has zero width while the leading icon is still animating.
+      width: 0;
+    }
   }
 }
 
-.mdc-chip__icon--hidden-leading.mdc-chip__icon--leading {
-  width: 0;
+.mdc-chip__icon--hidden-leading {
+  &.mdc-chip__icon--leading {
+    // This ensures that the leading icon doesn't fade in while the checkmark is fading out.
+    opacity: 0;
+    width: 0;
 
-  // This ensures that the leading icon doesn't fade in while the checkmark is fading out.
-  opacity: 0;
-
-  + .mdc-chip__checkmark {
-    width: 24px;
+    + .mdc-chip__checkmark {
+      width: 24px;
+    }
   }
 }

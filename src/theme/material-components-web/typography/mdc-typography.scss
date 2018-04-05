@@ -25,4 +25,8 @@
   .mdc-typography--#{$style} {
     @include mdc-typography($style);
   }
+
+  .mdc-typography--adjust-margin.mdc-typography--#{$style} {
+    @include mdc-typography-adjust-margin($style);
+  }
 }

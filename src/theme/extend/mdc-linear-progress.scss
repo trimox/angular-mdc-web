@@ -1,3 +1,4 @@
 .mdc-linear-progress--secondary {
   @include mdc-linear-progress-bar-color($mdc-theme-secondary);
+  @include mdc-linear-progress-buffer-color($mdc-theme-secondary-light);
 }

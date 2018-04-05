@@ -35,6 +35,7 @@ $mdc-typography-styles: (
     line-height: 7rem, /* 112sp */
     font-weight: map-get($mdc-typography-font-weight-values, light),
     letter-spacing: -.04em,
+    margin: -1rem 0 3.5rem -.085em /* -16sp 0 56sp -.085em */,
     text-decoration: inherit,
     text-transform: inherit
   ),
@@ -43,6 +44,7 @@ $mdc-typography-styles: (
     line-height: 3.5rem, /* 56px */
     font-weight: map-get($mdc-typography-font-weight-values, regular),
     letter-spacing: -.02em,
+    margin: -8px 0 64px -.07em,
     text-decoration: inherit,
     text-transform: inherit
   ),
@@ -51,6 +53,7 @@ $mdc-typography-styles: (
     line-height: 3rem, /* 48px */
     font-weight: map-get($mdc-typography-font-weight-values, regular),
     letter-spacing: normal,
+    margin: -.5rem 0 4rem -.07em /* -8sp 0 64sp -.07em */,
     text-decoration: inherit,
     text-transform: inherit
   ),
@@ -59,6 +62,7 @@ $mdc-typography-styles: (
     line-height: 2.5rem, /* 40sp */
     font-weight: map-get($mdc-typography-font-weight-values, regular),
     letter-spacing: normal,
+    margin: -.5rem 0 4rem -.07em /* -8sp 0 64sp -.07em */,
     text-decoration: inherit,
     text-transform: inherit
   ),
@@ -67,6 +71,7 @@ $mdc-typography-styles: (
     line-height: 2rem, /* 32sp */
     font-weight: map-get($mdc-typography-font-weight-values, regular),
     letter-spacing: normal,
+    margin: -.5rem 0 1rem -.06em /* -8sp 0 16sp -.06em */,
     text-decoration: inherit,
     text-transform: inherit
   ),
@@ -75,6 +80,7 @@ $mdc-typography-styles: (
     line-height: 2rem, /* 32sp */
     font-weight: map-get($mdc-typography-font-weight-values, medium),
     letter-spacing: .02em,
+    margin: -.5rem 0 1rem -.05em /* -8sp 0 16sp -.05em */,
     text-decoration: inherit,
     text-transform: inherit
   ),
@@ -83,6 +89,7 @@ $mdc-typography-styles: (
     line-height: 1.75rem, /* 28sp */
     font-weight: map-get($mdc-typography-font-weight-values, regular),
     letter-spacing: .04em,
+    margin: -.5rem 0 1rem -.06em /* -8sp 0 16sp -.06em */,
     text-decoration: inherit,
     text-transform: inherit
   ),
@@ -91,6 +98,7 @@ $mdc-typography-styles: (
     line-height: 1.5rem, /* 24sp */
     font-weight: map-get($mdc-typography-font-weight-values, regular),
     letter-spacing: .04em,
+    margin: -.313rem 0 .813rem -.06em /* -5sp 0 13sp -.06em */,
     text-decoration: inherit,
     text-transform: inherit
   ),
@@ -99,6 +107,7 @@ $mdc-typography-styles: (
     line-height: 1.5rem, /* 24sp */
     font-weight: map-get($mdc-typography-font-weight-values, medium),
     letter-spacing: .04em,
+    margin: -.25rem 0 .75rem 0 /* -4sp 0 12sp 0 */,
     text-decoration: inherit,
     text-transform: inherit
   ),
@@ -107,6 +116,7 @@ $mdc-typography-styles: (
     line-height: 1.25rem, /* 20sp */
     font-weight: map-get($mdc-typography-font-weight-values, regular),
     letter-spacing: .04em,
+    margin: -.25rem 0 .75rem 0 /* -4sp 0 12sp 0 */,
     text-decoration: inherit,
     text-transform: inherit
   ),
@@ -115,6 +125,7 @@ $mdc-typography-styles: (
     line-height: 1.25rem, /* 20sp */
     font-weight: map-get($mdc-typography-font-weight-values, regular),
     letter-spacing: .08em,
+    margin: -.5rem 0 1rem -.04em /* -8sp 0 16sp -.04em */,
     text-decoration: inherit,
     text-transform: inherit
   ),
@@ -123,6 +134,7 @@ $mdc-typography-styles: (
     line-height: 2.25rem, /* 36sp */
     font-weight: map-get($mdc-typography-font-weight-values, medium),
     letter-spacing: .04em,
+    margin: inherit /* We do not have adjust margin for button */,
     text-decoration: none,
     text-transform: uppercase
   )

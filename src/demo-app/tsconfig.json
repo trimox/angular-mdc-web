@@ -15,7 +15,7 @@
       "@angular-mdc/web/*": ["../../src/lib/*"],
       "@angular-mdc/web": ["../../src/lib/public-api.ts"],
       "@angular-mdc/theme/*": ["../../src/theme/*"],
-      "@angular-mdc/theme": ["../../src/theme/material.scss"],
+      "@angular-mdc/theme": ["../../src/theme/material.scss"]
     }
   },
   "files": [

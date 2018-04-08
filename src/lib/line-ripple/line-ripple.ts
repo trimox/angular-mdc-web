@@ -24,7 +24,7 @@ export class MdcLineRipple implements OnInit, OnDestroy {
     addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
     removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
     hasClass: (className: string) => this._getHostElement().classList.contains(className),
-    setAttr: (attr: string, value: string) => this._renderer.setAttribute(this._getHostElement(), attr, value),
+    setStyle: (propertyName: string, value: string) => this._renderer.setAttribute(this._getHostElement(), propertyName, value),
     registerEventHandler: (evtType: string, handler: EventListener) =>
       this._registry.listen(evtType, handler, this._getHostElement()),
     deregisterEventHandler: (evtType: string, handler: EventListener) => this._registry.unlisten(evtType, handler),

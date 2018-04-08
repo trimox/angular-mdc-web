@@ -1,18 +1,15 @@
 import { Component, DebugElement } from '@angular/core';
 import {
-  ControlValueAccessor,
   FormControl,
   FormGroup,
-  FormGroupDirective,
   FormsModule,
-  NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { async, fakeAsync, flush, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MdcSelectModule, MdcSelect, MdcSelectItem } from '@angular-mdc/web';
+import { MdcSelectModule, MdcSelect } from '@angular-mdc/web';
 
 describe('MdcSelectModule', () => {
   let fixture: ComponentFixture<any>;
@@ -52,21 +49,17 @@ describe('MdcSelectModule', () => {
       testComponent.isDisabled = true;
       fixture.detectChanges();
       expect(testInstance.disabled).toBe(true);
+      expect(testInstance.isDisabled()).toBe(true);
+    });
+
+    it('#should set floatingLabel to false', () => {
+      testComponent.floatingLabel = false;
+      fixture.detectChanges();
+      expect(testInstance.floatingLabel).toBe(false);
     });
 
     it('#should generate a unique id for the select if no id is set', () => {
       expect(testInstance.id).toMatch(/mdc-select-\d+/);
-    });
-
-    it('#should be closed', () => {
-      testInstance.open(1);
-      testInstance.close();
-      fixture.detectChanges();
-      expect(testInstance.isOpen()).toBe(false);
-    });
-
-    it('#should be Fruit', () => {
-      expect(testInstance.options.toArray()[3].label).toMatch('Fruit');
     });
 
     it('#should have `Please select` as placeholder text', () => {
@@ -74,28 +67,16 @@ describe('MdcSelectModule', () => {
       expect(testInstance.placeholder).toMatch('Please select');
     });
 
-    it('#should be focused item', () => {
-      expect(testInstance.options.first.focus());
-    });
-
     it('#should select fruit-3', () => {
-      expect(testInstance.options.toArray()[3].select());
-    });
-
-    it('#should be deselected item', () => {
-      expect(testInstance.options.first.deselect());
-    });
-
-    it('#should be call `resize` on item removal', () => {
-      testComponent.foods.splice(2, 1);
+      testComponent.selectedValue = 'fruit-3';
       fixture.detectChanges();
-      expect(testInstance.options.toArray().length).toBe(3);
+      expect(testInstance.getValue());
     });
 
     it('#should have no selected options', () => {
       testComponent.selectedValue = null;
       fixture.detectChanges();
-      expect(testInstance.getSelectedIndex()).toBe(-1);
+      expect(testInstance.getSelectedIndex()).toBe(0);
     });
   });
 
@@ -105,7 +86,7 @@ describe('MdcSelectModule', () => {
     let testInstance: MdcSelect;
     let testComponent: SelectFormControl;
 
-    beforeEach(fakeAsync(() => {
+    beforeEach(() => {
       fixture = TestBed.createComponent(SelectFormControl);
       fixture.detectChanges();
 
@@ -114,37 +95,33 @@ describe('MdcSelectModule', () => {
       testInstance = testDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
 
-      testNativeElement.click();
       fixture.detectChanges();
-    }));
+    });
 
-    it('#should set value to tacos-2', fakeAsync(() => {
+    it('#should set value to tacos-2', () => {
       testComponent.foodControl.setValue('tacos-2');
-      testNativeElement.click();
       fixture.detectChanges();
-      flush();
 
       expect(testInstance.getValue()).toBe('tacos-2');
-      testInstance.close();
-      testInstance.resize();
-    }));
+    });
   });
 });
 
 @Component({
   template: `
-    <mdc-select [placeholder]="myPlaceholder" name="food" [autosize]="true" [floatingLabel]="true"
+    <mdc-select [placeholder]="myPlaceholder" name="food" [autosize]="true" [floatingLabel]="floatingLabel"
      [(ngModel)]="selectedValue" [disabled]="isDisabled" (change)="handleChange($event)" [box]="false">
-      <mdc-select-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
+      <option *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
         {{food.description}}
-      </mdc-select-item>
+      </option>
     </mdc-select>
   `,
 })
 class SimpleTest {
   myPlaceholder: string = 'Favorite food';
   isDisabled: boolean = true;
-  selectedValue: string = '';
+  floatingLabel: boolean;
+  selectedValue: string;
 
   foods = [
     { value: 'steak-0', description: 'Steak' },
@@ -159,9 +136,9 @@ class SimpleTest {
 @Component({
   template: `
   <mdc-select placeholder="Favorite food" [formControl]="foodControl" [autosize]="false" [box]="true">
-    <mdc-select-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
+    <option *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
       {{food.description}}
-    </mdc-select-item>
+    </option>
   </mdc-select>
   `,
 })

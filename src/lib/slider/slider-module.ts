@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 import {
   MdcSlider,
@@ -13,7 +12,7 @@ import {
   MdcSliderTrackMarkerContainer,
 } from './slider';
 
-const SLIDER_COMPONENTS = [
+const SLIDER_DECLARATIONS = [
   MdcSlider,
   MdcSliderPin,
   MdcSliderPinValueMarker,
@@ -25,8 +24,8 @@ const SLIDER_COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [CommonModule, FormsModule],
-  exports: SLIDER_COMPONENTS,
-  declarations: SLIDER_COMPONENTS
+  imports: [CommonModule],
+  exports: SLIDER_DECLARATIONS,
+  declarations: SLIDER_DECLARATIONS
 })
 export class MdcSliderModule { }

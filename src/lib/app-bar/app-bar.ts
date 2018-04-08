@@ -63,11 +63,12 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
   protected _short: boolean = false;
 
   @Input()
-  get collapsed(): boolean { return this._collapsed; }
-  set collapsed(value: boolean) {
-    this.setCollapsed(value);
+  get shortCollapsed(): boolean { return this._shortCollapsed; }
+  set shortCollapsed(value: boolean) {
+    this.setShortCollapsed(value);
   }
-  protected _collapsed: boolean = false;
+  protected _shortCollapsed: boolean = false;
+
   @Input()
   get dense(): boolean { return this._dense; }
   set dense(value: boolean) {
@@ -98,7 +99,7 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
     return this.short ? 'mdc-top-app-bar--short' : '';
   }
   @HostBinding('class.mdc-top-app-bar--short-collapsed') get classShortCollapsed(): string {
-    return this.collapsed ? 'mdc-top-app-bar--short-collapsed' : '';
+    return this.shortCollapsed ? 'mdc-top-app-bar--short-collapsed' : '';
   }
 
   @ContentChild(MdcAppBarNavigationIcon) navigationIcon: MdcAppBarNavigationIcon;
@@ -215,6 +216,7 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
       this.setProminent(false);
       this.setDense(false);
     } else {
+      this.setShortCollapsed(false);
     }
     this.refreshAppBar();
 
@@ -222,9 +224,9 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
   }
 
   /** Sets the top app bar to short-collapsed or not. */
-  setCollapsed(collapsed: boolean): void {
-    this._collapsed = toBoolean(collapsed);
-    if (this._collapsed) {
+  setShortCollapsed(shortCollapsed: boolean): void {
+    this._shortCollapsed = toBoolean(shortCollapsed);
+    if (this._shortCollapsed) {
       this.setShort(true);
     }
     this.refreshAppBar();
@@ -248,7 +250,7 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
         this._topAppBarFoundation = new MDCTopAppBarFoundation(this._mdcAdapter);
       }
 
-      if (this.short && !this.collapsed) {
+      if (this.short && !this.shortCollapsed) {
         this._mdcAdapter.registerScrollHandler(this._shortAppBarFoundation.scrollHandler_);
       }
 

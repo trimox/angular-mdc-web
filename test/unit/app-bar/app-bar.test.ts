@@ -51,7 +51,7 @@ describe('MdcAppBar', () => {
     });
 
     it('#should apply mdc-top-app-bar--short-collapsed class based on property', () => {
-      testComponent.collapsed = true;
+      testComponent.shortCollapsed = true;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short-collapsed')).toBe(true);
     });
@@ -61,6 +61,12 @@ describe('MdcAppBar', () => {
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--prominent')).toBe(true);
     });
+
+    it('#should apply mdc-top-app-bar--dense class based on property', () => {
+      testComponent.dense = true;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--dense')).toBe(true);
+    });
   });
 });
 
@@ -69,8 +75,9 @@ describe('MdcAppBar', () => {
     <mdc-app-bar
       [fixedAdjustElement]="testcontent"
       [short]="short"
+      [dense]="dense"
       [prominent]="prominent"
-      [collapsed]="collapsed">
+      [shortCollapsed]="shortCollapsed">
       <mdc-app-bar-row>
         <mdc-app-bar-section align="start">
           <mdc-icon mdcAppBarNavIcon>menu</mdc-icon>
@@ -86,6 +93,7 @@ describe('MdcAppBar', () => {
 })
 class SimpleTest {
   short: boolean = true;
-  collapsed: boolean = false;
+  shortCollapsed: boolean = false;
   prominent: boolean = false;
+  dense: boolean = false;
 }

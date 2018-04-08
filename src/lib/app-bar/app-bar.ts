@@ -26,7 +26,7 @@ import {
   MdcAppBarNavigationIcon,
 } from './app-bar.directives';
 import { MDCTopAppBarAdapter } from '@material/top-app-bar/adapter';
-import { MDCTopAppBarFoundation, MDCShortTopAppBarFoundation, util } from '@material/top-app-bar';
+import { MDCTopAppBarFoundation, MDCShortTopAppBarFoundation } from '@material/top-app-bar';
 
 /** Event object emitted by MdcAppBar navigation icon selected. */
 export class MdcAppBarNavSelected {
@@ -68,6 +68,12 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
     this.setCollapsed(value);
   }
   protected _collapsed: boolean = false;
+  @Input()
+  get dense(): boolean { return this._dense; }
+  set dense(value: boolean) {
+    this.setDense(value);
+  }
+  protected _dense: boolean = false;
 
   @Input()
   get fixedAdjustElement(): any { return this._fixedAdjustElement; }
@@ -85,6 +91,9 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
   @HostBinding('class.mdc-top-app-bar--prominent') get classProminent(): string {
     return this.prominent ? 'mdc-top-app-bar--prominent' : '';
   }
+  @HostBinding('class.mdc-top-app-bar--dense') get classDense(): string {
+    return this.dense ? 'mdc-top-app-bar--dense' : '';
+  }
   @HostBinding('class.mdc-top-app-bar--short') get classShort(): string {
     return this.short ? 'mdc-top-app-bar--short' : '';
   }
@@ -101,7 +110,7 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
     hasClass: (className: string) => this._getHostElement().classList.contains(className),
     registerNavigationIconInteractionHandler: (type: string, handler: EventListener) => {
       if (this.navigationIcon) {
-        this._registry.listen(type, handler, this.navigationIcon.getHostElement(), util.applyPassive());
+        this._registry.listen(type, handler, this.navigationIcon.getHostElement());
       }
     },
     deregisterNavigationIconInteractionHandler: (type: string, handler: EventListener) => {
@@ -114,7 +123,7 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
       if (!isBrowser()) { return; }
 
       const element = (this.fixedAdjustElement && this.short) ? this.fixedAdjustElement : window;
-      this._registry.listen('scroll', handler, element, util.applyPassive());
+      this._registry.listen('scroll', handler, element);
     },
     deregisterScrollHandler: (handler: EventListener) => {
       if (!isBrowser()) { return; }
@@ -187,13 +196,25 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
     this._changeDetectorRef.markForCheck();
   }
 
+  /** Sets the top app bar to dense variant. */
+  setDense(dense: boolean): void {
+    this._dense = toBoolean(dense);
+    if (this._dense) {
+      this.setShort(false);
+    }
+
+    this.refreshAppBar();
+
+    this._changeDetectorRef.markForCheck();
+  }
+
   /** Sets the top app bar to short or not. */
   setShort(short: boolean): void {
     this._short = toBoolean(short);
     if (this._short) {
       this.setProminent(false);
+      this.setDense(false);
     } else {
-      this.setCollapsed(false);
     }
     this.refreshAppBar();
 
@@ -231,7 +252,7 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
         this._mdcAdapter.registerScrollHandler(this._shortAppBarFoundation.scrollHandler_);
       }
 
-      if (this.prominent) {
+      if (this.prominent || this.dense) {
         this._mdcAdapter.removeClass('mdc-top-app-bar--short-collapsed');
       }
 

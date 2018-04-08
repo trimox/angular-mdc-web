@@ -35,8 +35,12 @@
             <td>Enables prominent variant.</td>
           </tr>
           <tr>
-            <td>collapsed: boolean</td>
-            <td>Indicate the short app bar is collapsed. (requires short is set to true)</td>
+            <td>dense: boolean</td>
+            <td>Enables dense variant.</td>
+          </tr>
+          <tr>
+            <td>shortCollapsed: boolean</td>
+            <td>Set the short app bar to always collapsed.</td>
           </tr>
           <tr>
             <td>fixedAdjustElement: any</td>
@@ -130,8 +134,9 @@
   <div class="demo-top-app-bar-container demo-top-app-bar--not-fixed">
     <div class="demo-content--row">
       <button mdc-button (click)="demoappbar.short = !demoappbar.short">Short: {{demoappbar.short ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="demoappbar.collapsed = !demoappbar.collapsed">Collapse Always: {{demoappbar.collapsed ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoappbar.shortCollapsed = !demoappbar.shortCollapsed">Short Collapsed: {{demoappbar.shortCollapsed ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoappbar.prominent = !demoappbar.prominent">Promient: {{demoappbar.prominent ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoappbar.dense = !demoappbar.dense">Dense: {{demoappbar.dense ? 'On' : 'Off'}}</button>
     </div>
     <mdc-app-bar #demoappbar [fixedAdjustElement]="appbarcontent" [short]="true">
       <mdc-app-bar-row>

@@ -171,27 +171,30 @@
   </div>
 
   <div class="demo-content">
-    <div class="demo-content--row">
-      <p>Anchor Corner:</p>
-      <mdc-form-field>
-        <mdc-radio value="top-start" name="radioGroup" [(ngModel)]="anchorCorner"></mdc-radio>
-        <label>Top start</label>
-      </mdc-form-field>
-      <mdc-form-field>
-        <mdc-radio value="top-end" name="radioGroup" [(ngModel)]="anchorCorner"></mdc-radio>
-        <label>Top end</label>
-      </mdc-form-field>
-      <mdc-form-field>
-        <mdc-radio value="bottom-start" name="radioGroup" [(ngModel)]="anchorCorner"></mdc-radio>
-        <label>Bottom start</label>
-      </mdc-form-field>
-      <mdc-form-field>
-        <mdc-radio value="bottom-end" name="radioGroup" [(ngModel)]="anchorCorner"></mdc-radio>
-        <label>Bottom end</label>
-      </mdc-form-field>
-    </div>
+    <p>Anchor Corner:</p>
+    <pre mdc-typography-body1>Selected index: {{selectedIndex}}
+Anchor Corner: {{anchorCorner}}</pre>
 
     <div class="demo-content--row">
+      <div class="demo-content--column">
+        <mdc-form-field>
+          <mdc-radio value="top-start" name="radioGroup" [(ngModel)]="anchorCorner"></mdc-radio>
+          <label>Top start</label>
+        </mdc-form-field>
+        <mdc-form-field>
+          <mdc-radio value="top-end" name="radioGroup" [(ngModel)]="anchorCorner"></mdc-radio>
+          <label>Top end</label>
+        </mdc-form-field>
+        <mdc-form-field>
+          <mdc-radio value="bottom-start" name="radioGroup" [(ngModel)]="anchorCorner"></mdc-radio>
+          <label>Bottom start</label>
+        </mdc-form-field>
+        <mdc-form-field>
+          <mdc-radio value="bottom-end" name="radioGroup" [(ngModel)]="anchorCorner"></mdc-radio>
+          <label>Bottom end</label>
+        </mdc-form-field>
+      </div>
+      <div class="demo-content--column">
       <div mdc-menu-anchor>
         <button mdc-button [raised]="true" (click)="menu.open()">
           Open Menu
@@ -205,7 +208,5 @@
         </mdc-menu>
       </div>
     </div>
-    <p>Selected index: {{selectedIndex}}</p>
-    <p>Anchor Corner: {{anchorCorner}}</p>
   </div>
 </div>

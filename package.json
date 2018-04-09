@@ -7,9 +7,9 @@
     "type": "git",
     "url": "https://github.com/trimox/angular-mdc-web.git"
   },
-  "version": "0.33.1",
+  "version": "0.34.1",
   "engines": {
-    "node": ">= 9.5.0"
+    "node": ">= 9.11.1"
   },
   "scripts": {
     "build": "gulp web:build",
@@ -129,6 +129,7 @@
           "button",
           "card",
           "checkbox",
+          "chips",
           "common",
           "dialog",
           "drawer",

@@ -97,7 +97,7 @@ export class MdcChipText {
   },
   exportAs: 'mdcChip',
   template: `
-  <ng-content *ngIf="isleadingIconVisibile()" select="mdc-chip-icon[leading]"></ng-content>
+  <ng-content *ngIf="isLeadingIconVisibile()" select="mdc-chip-icon[leading]"></ng-content>
   <mdc-chip-checkmark *ngIf="filter"></mdc-chip-checkmark>
   <ng-content></ng-content>
   `,
@@ -291,7 +291,7 @@ export class MdcChip implements AfterViewInit, OnDestroy {
     }
   }
 
-  isleadingIconVisibile(): boolean {
+  isLeadingIconVisibile(): boolean {
     return this.filter && this.selected ? false : true;
   }
 

@@ -131,6 +131,7 @@ describe('MdcTextField', () => {
       textFieldInstance.helperText.setValidation(true);
       fixture.detectChanges();
       expect(textFieldInstance.helperText.validation).toBe(true);
+      expect(textFieldInstance.isBadInput()).toBe(false);
     });
 
     it('#should set persistent to true', () => {
@@ -143,6 +144,7 @@ describe('MdcTextField', () => {
       testComponent.required = true;
       fixture.detectChanges();
       expect(textFieldInstance.required).toBe(true);
+      expect(textFieldInstance.isRequired()).toBe(true);
     });
 
     it('#should set style shake to true', () => {

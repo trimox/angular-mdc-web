@@ -261,7 +261,8 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     hasLabel: () => !!this.floatingLabel,
     getLabelWidth: () => this.floatingLabel.getWidth(),
     hasOutline: () => this.outline,
-    updateOutlinePath: (labelWidth: number, isRtl: boolean) => this.outlined.updateSvgPath(labelWidth, isRtl),
+    notchOutline: (notchWidth: number, isRtl: boolean) => this.outlined.notch(notchWidth, isRtl),
+    closeOutline: () => this.outlined.closeNotch(),
     registerValidationAttributeChangeHandler: (handler: MutationCallback) => {
       const attributeChanges = new MutationObserver(handler);
       return attributeChanges.observe(this.inputText.nativeElement, {
@@ -303,8 +304,10 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     deactivateFocus(): void,
     isValid(): boolean,
     setHelperTextContent(content: string): void,
-    updateOutline(): void,
-    getValue(): any
+    notchOutline(openNotch: boolean): void,
+    getValue(): any,
+    shouldFloat: boolean,
+    shouldShake: boolean
   } = new MDCTextFieldFoundation(this._mdcAdapter);
 
   private _iconFoundation: {
@@ -348,7 +351,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
         this.updateIconState();
         if (this.outline && this.outlined) {
           this.outlined.outlineIdle = this.outlineIdle;
-          this._foundation.updateOutline();
+          this._foundation.notchOutline(this.shouldFloat());
         }
 
         this.writeValue(this._value);
@@ -374,17 +377,8 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     this._changeDetectorRef.markForCheck();
   }
 
-  private _canFloatLabel(value: any): boolean {
-    if (value) {
-      if (value.length > 0) {
-        return true;
-      }
-    }
-    if (Number(value) || value === 0) {
-      return true;
-    }
-
-    return false;
+  shouldFloat(): boolean {
+    return this._foundation.shouldFloat;
   }
 
   registerOnChange(fn: (value: any) => any): void {
@@ -416,7 +410,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   }
 
   isBadInput(): boolean {
-    const validity = (this._getHostElement() as HTMLInputElement).validity;
+    const validity = this.inputText.nativeElement.validity;
     return validity && validity.badInput;
   }
 

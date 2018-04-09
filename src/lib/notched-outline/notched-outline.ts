@@ -50,18 +50,21 @@ export class MdcNotchedOutline implements OnInit, OnDestroy {
   private _mdcAdapter: MDCNotchedOutlineAdapter = {
     getWidth: () => this.elementRef.nativeElement.offsetWidth,
     getHeight: () => this.elementRef.nativeElement.offsetHeight,
-    setOutlinePathAttr: (value: string) => {
-      this._renderer.setAttribute(this.svgpath.nativeElement, 'd', value);
-    },
+    addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
+    removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
+    setOutlinePathAttr: (value: string) => this._renderer.setAttribute(this.svgpath.nativeElement, 'd', value),
     getIdleOutlineStyleValue: (propertyName: string) => {
-      return window.getComputedStyle(this.outlineIdle.elementRef.nativeElement).getPropertyValue(propertyName);
-    },
+      if (this.outlineIdle) {
+        return window.getComputedStyle(this.outlineIdle.elementRef.nativeElement).getPropertyValue(propertyName);
+      }
+    }
   };
 
-  foundation: {
+  _foundation: {
     init(): void,
     destroy(): void,
-    updateSvgPath(notchWidth: number, isRtl: boolean): void
+    notch(notchWidth: number, isRtl: boolean): void,
+    closeNotch(): void
   } = new MDCNotchedOutlineFoundation(this._mdcAdapter);
 
   constructor(
@@ -70,23 +73,25 @@ export class MdcNotchedOutline implements OnInit, OnDestroy {
     public elementRef: ElementRef) { }
 
   ngOnInit(): void {
-    this.foundation.init();
+    this._foundation.init();
   }
 
   ngOnDestroy(): void {
-    this.foundation.destroy();
-  }
-
-  destroy(): void {
-    this.foundation.destroy();
+    this._foundation.destroy();
   }
 
   /**
-   * Updates the SVG path of the focus outline element based on the given width of the
-   * label element and the RTL context.
+   * Updates outline selectors and SVG path to open notch.
    */
-  updateSvgPath(notchWidth: number, isRtl: boolean): void {
-    this.foundation.updateSvgPath(notchWidth, isRtl);
+  notch(notchWidth: number, isRtl: boolean): void {
+    this._foundation.notch(notchWidth, isRtl);
+  }
+
+  /**
+   * Updates the outline selectors to close notch and return it to idle state.
+   */
+  closeNotch() {
+    this._foundation.closeNotch();
   }
 
   /** Retrieves the DOM element of the component host. */

@@ -57,7 +57,7 @@ let nextUniqueId = 0;
    (blur)="onBlur()"
    (change)="onChange($event)"
    (focus)="onFocus()">
-    <ng-content></ng-content>
+    <ng-content #options></ng-content>
   </select>
   <mdc-select-label>{{hasFloatingLabel() ? placeholder : ''}}</mdc-select-label>
   <mdc-select-bottom-line></mdc-select-bottom-line>
@@ -160,7 +160,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   @ViewChild(MdcSelectLabel) selectLabel: MdcSelectLabel;
   @ViewChild(MdcSelectBottomLine) bottomLine: MdcSelectBottomLine;
   @ViewChild('input') inputEl: ElementRef;
-  @ContentChildren(HTMLOptionElement) options: QueryList<HTMLOptionElement>;
+  @ContentChildren('options') options: QueryList<HTMLOptionElement>;
 
   /** View -> model callback called when value changes */
   _onChange: (value: any) => void = () => { };

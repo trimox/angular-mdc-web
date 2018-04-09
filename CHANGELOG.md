@@ -1,3 +1,31 @@
+<a name="0.34.1"></a>
+## [0.34.1](https://github.com/trimox/angular-mdc-web/compare/v0.33.0...v0.34.1) (2018-04-09)
+
+
+### Bug Fixes
+
+* **chips:** Casing for isLeadingIconVisibile method ([#844](https://github.com/trimox/angular-mdc-web/issues/844)) ([ee622e9](https://github.com/trimox/angular-mdc-web/commit/ee622e9))
+* **line-ripple:** Rename adapter method setAttr to setStyle ([#835](https://github.com/trimox/angular-mdc-web/issues/835)) ([e46730e](https://github.com/trimox/angular-mdc-web/commit/e46730e))
+* **select:** Use templateRef for options ([#845](https://github.com/trimox/angular-mdc-web/issues/845)) ([aca8fa2](https://github.com/trimox/angular-mdc-web/commit/aca8fa2))
+* **text-field:** Should display notched outline ([#827](https://github.com/trimox/angular-mdc-web/issues/827)) ([6f5d6b6](https://github.com/trimox/angular-mdc-web/commit/6f5d6b6))
+
+
+### Features
+
+* Update to material-components-web v0.34.1 ([#841](https://github.com/trimox/angular-mdc-web/issues/841)) ([4c239b8](https://github.com/trimox/angular-mdc-web/commit/4c239b8))
+* **app-bar:** Add dense property ([#831](https://github.com/trimox/angular-mdc-web/issues/831)) ([3d86e1c](https://github.com/trimox/angular-mdc-web/commit/3d86e1c))
+* **app-bar:** Rename collapsed to shortCollapsed ([#832](https://github.com/trimox/angular-mdc-web/issues/832)) ([d4f6ad5](https://github.com/trimox/angular-mdc-web/commit/d4f6ad5))
+* **notched-outline:** Add MDC Foundation methods ([#836](https://github.com/trimox/angular-mdc-web/issues/836)) ([8b87e14](https://github.com/trimox/angular-mdc-web/commit/8b87e14))
+* **select:** Replace menu with native html select ([#834](https://github.com/trimox/angular-mdc-web/issues/834)) ([61a3171](https://github.com/trimox/angular-mdc-web/commit/61a3171))
+
+
+### BREAKING CHANGES
+
+* **app-bar:** Renamed [collapsed] to [shortCollapsed]. Please update your code accordingly.
+* **select:** - The template and adapter APIs have changed to take advantage of the native select element; see the MDC Select README for more information.
+* **select:** - Removed mdc-select-item component. Replace with HTML5's native option element.
+
+
 <a name="0.33.0"></a>
 # [0.33.0](https://github.com/trimox/angular-mdc-web/compare/v0.32.1...v0.33.0) (2018-04-01)
 

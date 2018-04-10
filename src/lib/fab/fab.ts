@@ -1,6 +1,7 @@
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChild,
   ElementRef,
@@ -29,27 +30,30 @@ export type FabPosition = 'bottom-left' | 'bottom-right' | null;
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  preserveWhitespaces: false
 })
 export class MdcFab implements AfterContentInit, OnDestroy {
-  private _exited: boolean = false;
-  private _position: FabPosition = null;
+  @Input()
+  get mini(): boolean { return this._mini; }
+  set mini(value: boolean) {
+    this.setMini(value);
+  }
+  private _mini: boolean;
 
-  @Input() mini: boolean = false;
   @Input()
   get exited(): boolean { return this._exited; }
   set exited(value: boolean) {
-    this._exited = toBoolean(value);
+    this.setExited(value);
   }
+  private _exited: boolean;
+
   @Input()
-  get position(): FabPosition { return this._position; }
-  set position(value: FabPosition) {
-    if (value !== this._position) {
-      value ? this._renderer.addClass(this._getHostElement(), `mdc-fab--${value}`)
-        : this._renderer.removeClass(this._getHostElement(), `mdc-fab--${this._position}`);
-      this._position = value;
-    }
+  get position(): string { return this._position; }
+  set position(value: string) {
+    this.setPosition(value);
   }
+  private _position: string;
+
   @Input('attr.tabindex') tabIndex: number = 0;
   @ContentChild(MdcIcon) fabIcon: MdcIcon;
   @HostBinding('class.mdc-fab') isHostClass = true;
@@ -57,11 +61,11 @@ export class MdcFab implements AfterContentInit, OnDestroy {
     return this.mini ? 'mdc-fab--mini' : '';
   }
   @HostBinding('class.mdc-fab--exited') get classExited(): string {
-    this.tabIndex = this._exited ? -1 : this.tabIndex;
-    return this._exited ? 'mdc-fab--exited' : '';
+    return this.exited ? 'mdc-fab--exited' : '';
   }
 
   constructor(
+    private _changeDetectionRef: ChangeDetectorRef,
     private _renderer: Renderer2,
     public elementRef: ElementRef,
     private _ripple: MdcRipple) { }
@@ -78,6 +82,30 @@ export class MdcFab implements AfterContentInit, OnDestroy {
     this._ripple.destroy();
   }
 
+  setMini(mini: boolean): void {
+    this._mini = mini;
+    this._changeDetectionRef.markForCheck();
+  }
+
+  setExited(exited: boolean): void {
+    this._exited = exited;
+    this.tabIndex = exited ? -1 : this.tabIndex;
+    this._changeDetectionRef.markForCheck();
+  }
+
+  setPosition(position: string): void {
+    this._renderer.removeClass(this._getHostElement(), `mdc-fab--${this._position}`);
+    this._position = position;
+
+    if (this.position) {
+      this._renderer.addClass(this._getHostElement(), `mdc-fab--${position}`);
+    }
+  }
+
+  toggleExited(exited?: boolean): void {
+    this._exited = exited != null ? exited : !this._exited;
+  }
+
   /** Focuses the button. */
   focus(): void {
     this._getHostElement().focus();
@@ -85,9 +113,5 @@ export class MdcFab implements AfterContentInit, OnDestroy {
 
   private _getHostElement() {
     return this.elementRef.nativeElement;
-  }
-
-  toggleExited(exited?: boolean): void {
-    this._exited = exited != null ? exited : !this._exited;
   }
 }

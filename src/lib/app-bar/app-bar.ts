@@ -188,7 +188,7 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
   /** Sets the top app bar to prominent or not. */
   setProminent(prominent: boolean): void {
     this._prominent = toBoolean(prominent);
-    if (this._prominent) {
+    if (this.prominent) {
       this.setShort(false);
     }
 
@@ -200,7 +200,7 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
   /** Sets the top app bar to dense variant. */
   setDense(dense: boolean): void {
     this._dense = toBoolean(dense);
-    if (this._dense) {
+    if (this.dense) {
       this.setShort(false);
     }
 
@@ -212,7 +212,7 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
   /** Sets the top app bar to short or not. */
   setShort(short: boolean): void {
     this._short = toBoolean(short);
-    if (this._short) {
+    if (this.short) {
       this.setProminent(false);
       this.setDense(false);
     } else {
@@ -226,7 +226,7 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
   /** Sets the top app bar to short-collapsed or not. */
   setShortCollapsed(shortCollapsed: boolean): void {
     this._shortCollapsed = toBoolean(shortCollapsed);
-    if (this._shortCollapsed) {
+    if (this.shortCollapsed) {
       this.setShort(true);
     }
     this.refreshAppBar();
@@ -254,7 +254,7 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
         this._mdcAdapter.registerScrollHandler(this._shortAppBarFoundation.scrollHandler_);
       }
 
-      if (this.prominent || this.dense) {
+      if (this.prominent || this.dense || !this.short) {
         this._mdcAdapter.removeClass('mdc-top-app-bar--short-collapsed');
       }
 

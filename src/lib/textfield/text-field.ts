@@ -1,5 +1,6 @@
 import {
   AfterContentInit,
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -96,7 +97,7 @@ let nextUniqueId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
 })
-export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAccessor {
+export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy, ControlValueAccessor {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
@@ -334,7 +335,17 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     this.id = this.id;
   }
 
+  ngAfterViewInit(): void {
+    if (this.outline && this.outlined) {
+      this.outlined.outlineIdle = this.outlineIdle;
+      this._foundation.notchOutline(this.shouldFloat());
+    }
+  }
+
   ngAfterContentInit(): void {
+    this._foundation = new MDCTextFieldFoundation(this._mdcAdapter, this._getFoundationMap());
+    this._foundation.init();
+
     this.icons.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
       Promise.resolve().then(() => {
         this.icons.forEach(icon => {
@@ -345,15 +356,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
           }
         });
 
-        this._foundation = new MDCTextFieldFoundation(this._mdcAdapter, this._getFoundationMap());
-        this._foundation.init();
-
         this.updateIconState();
-        if (this.outline && this.outlined) {
-          this.outlined.outlineIdle = this.outlineIdle;
-          this._foundation.notchOutline(this.shouldFloat());
-        }
-
         this.writeValue(this._value);
         this._changeDetectorRef.detectChanges();
       });

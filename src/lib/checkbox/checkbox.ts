@@ -56,6 +56,7 @@ export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
     [checked]="checked"
     [attr.value]="checked"
     [indeterminate]="indeterminate"
+    (change)="onChange($event)"
     (click)="_onInputClick($event)"/>
   <div class="mdc-checkbox__background">
     <svg class="mdc-checkbox__checkmark"
@@ -79,33 +80,21 @@ export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnChanges, OnDestroy {
   private _mdcAdapter: MDCCheckboxAdapter = {
-    addClass: (className: string) => {
-      this._renderer.addClass(this._getHostElement(), className);
-    },
-    removeClass: (className: string) => {
-      this._renderer.removeClass(this._getHostElement(), className);
-    },
+    addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
+    removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
     setNativeControlAttr: (attr: string, value: string) =>
       this._renderer.setAttribute(this.inputEl.nativeElement, attr, value),
     removeNativeControlAttr: (attr: string) => this._renderer.removeAttribute(this.inputEl.nativeElement, attr),
-    registerAnimationEndHandler: (handler: EventListener) => {
-      this._registry.listen('animationend', handler, this._getHostElement());
-    },
-    deregisterAnimationEndHandler: (handler: EventListener) => {
-      this._registry.unlisten('animationend', handler);
-    },
-    registerChangeHandler: (handler: EventListener) => {
-      this._registry.listen('change', handler, this.inputEl.nativeElement);
-    },
-    deregisterChangeHandler: (handler: EventListener) => {
-      this._registry.unlisten('change', handler);
-    },
-    getNativeControl: () => {
-      return this.inputEl.nativeElement;
-    },
-    forceLayout: () => {
-      return this._getHostElement().offsetWidth;
-    },
+    registerAnimationEndHandler: (handler: EventListener) =>
+      this._registry.listen('animationend', handler, this._getHostElement()),
+    deregisterAnimationEndHandler: (handler: EventListener) =>
+      this._registry.unlisten('animationend', handler),
+    registerChangeHandler: (handler: EventListener) =>
+      this._registry.listen('change', handler, this.inputEl.nativeElement),
+    deregisterChangeHandler: (handler: EventListener) =>
+      this._registry.unlisten('change', handler),
+    getNativeControl: () => this.inputEl.nativeElement,
+    forceLayout: () => this._getHostElement().offsetWidth,
     isAttachedToDOM: () => !!this.elementRef
   };
 
@@ -267,6 +256,10 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnChang
     this._controlValueAccessorChangeFn(this.checked);
   }
 
+  onChange(evt: Event): void {
+    evt.stopPropagation();
+  }
+
   /**
      * Event handler for checkbox input element.
      * Toggles checked state if element is not disabled.
@@ -276,9 +269,9 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnChang
   _onInputClick(evt: Event) {
     if (this.disabled) { return; }
 
-    evt.stopPropagation();
     this.toggle();
     this.change.emit(this);
+    evt.stopPropagation();
   }
 
   setIndeterminate(value: boolean): void {

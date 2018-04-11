@@ -1,6 +1,7 @@
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChildren,
   Directive,
@@ -69,10 +70,6 @@ export class MdcListGroupSubheader {
   preserveWhitespaces: false,
 })
 export class MdcListDivider {
-  private _inset: boolean = false;
-  private _padded: boolean = false;
-
-  @ViewChild('nativeEl') nativeEl: ElementRef;
   @Input()
   get inset(): boolean { return this._inset; }
   set inset(value: boolean) {
@@ -80,6 +77,7 @@ export class MdcListDivider {
     this._inset ? this._renderer.addClass(this.nativeEl.nativeElement, 'mdc-list-divider--inset')
       : this._renderer.removeClass(this.nativeEl.nativeElement, 'mdc-list-divider--inset');
   }
+  private _inset: boolean = false;
 
   @Input()
   get padded(): boolean { return this._padded; }
@@ -88,6 +86,9 @@ export class MdcListDivider {
     this._padded ? this._renderer.addClass(this.nativeEl.nativeElement, 'mdc-list-divider--padded')
       : this._renderer.removeClass(this.nativeEl.nativeElement, 'mdc-list-divider--padded');
   }
+  private _padded: boolean = false;
+
+  @ViewChild('nativeEl') nativeEl: ElementRef;
 
   constructor(private _renderer: Renderer2) { }
 }
@@ -102,28 +103,36 @@ export class MdcListDivider {
   preserveWhitespaces: false,
 })
 export class MdcList implements AfterContentInit, OnDestroy {
-  private _avatar: boolean = false;
-  private _interactive: boolean = true;
-
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
   @Input() dense: boolean = false;
   @Input() lines: number = 1;
   @Input() border: boolean = false;
+
   @Input()
   get avatar(): boolean { return this._avatar; }
   set avatar(value: boolean) {
     this._avatar = toBoolean(value);
   }
+  private _avatar: boolean;
+
   @Input()
   get interactive(): boolean { return this._interactive; }
   set interactive(value: boolean) {
     if (value !== this._interactive) {
-      this._interactive = toBoolean(value);
-      this._setInteractive(value);
+      this.setInteractive(value);
     }
   }
+  private _interactive: boolean = true;
+
+  @Input()
+  get multiple(): boolean { return this._multiple; }
+  set multiple(value: boolean) {
+    this.setMultiple(value);
+  }
+  private _multiple: boolean;
+
   @HostBinding('class.mdc-list') isHostClass = true;
   @HostBinding('attr.role') role: string = 'list';
   @HostBinding('class.mdc-list--dense') get classDense(): string {
@@ -141,13 +150,14 @@ export class MdcList implements AfterContentInit, OnDestroy {
   @HostBinding('class.mdc-list--non-interactive') get classInteractive(): string {
     return !this.interactive ? 'mdc-list--non-interactive' : '';
   }
-  @ContentChildren(MdcListItem) options: QueryList<MdcListItem>;
+  @ContentChildren(MdcListItem, { descendants: true }) options: QueryList<MdcListItem>;
 
   /** Emits a change event whenever the selected state of an option changes. */
   @Output() readonly selectionChange: EventEmitter<MdcListItemChange> =
     new EventEmitter<MdcListItemChange>();
 
   constructor(
+    private _changeDetectorRef: ChangeDetectorRef,
     private _ngZone: NgZone,
     public elementRef: ElementRef) { }
 
@@ -164,17 +174,18 @@ export class MdcList implements AfterContentInit, OnDestroy {
 
   ngAfterContentInit(): void {
     this.optionSelectionChanges.pipe(
-      takeUntil(merge(this._destroy, this.options.changes)),
-      filter(item => item.source.selected)
+      takeUntil(merge(this._destroy, this.options.changes))
     ).subscribe(event => {
       this.selectionChange.emit(new MdcListItemChange(this, event.source));
-      this._clearSelection(event.source);
     });
 
     this.options.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
       Promise.resolve().then(() => {
-        this._setInteractive(this._interactive);
-        this._resetOptions();
+        this.setInteractive(this.interactive);
+
+        if (!this.multiple) {
+          this._resetOptions();
+        }
       });
     });
   }
@@ -191,11 +202,15 @@ export class MdcList implements AfterContentInit, OnDestroy {
     this.optionSelectionChanges
       .pipe(takeUntil(changedOrDestroyed)
       ).subscribe(event => {
-        this._clearSelection(event.source);
+        if (!this.multiple) {
+          this.clearSelected(event.source);
+        }
       });
   }
 
-  private _setInteractive(value: boolean): void {
+  setInteractive(value: boolean): void {
+    this._interactive = toBoolean(value);
+
     if (!this.options) {
       return;
     }
@@ -209,14 +224,21 @@ export class MdcList implements AfterContentInit, OnDestroy {
     });
   }
 
-  private _clearSelection(skip?: MdcListItem): void {
+  setMultiple(multiple: boolean): void {
+    this._multiple = multiple;
+    this.clearSelected();
+
+    this._changeDetectorRef.markForCheck();
+  }
+
+  clearSelected(skip?: MdcListItem): void {
     if (!this.options) {
       return;
     }
 
     this.options.forEach(option => {
       if (option !== skip) {
-        option.deselect();
+        option.setSelected(false);
       }
     });
   }

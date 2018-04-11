@@ -86,7 +86,6 @@ export class MdcListItemSecondary {
   ]
 })
 export class MdcListItem implements OnDestroy {
-  private _selected: boolean = false;
   private _id = `mdc-list-item-${uniqueIdCounter++}`;
 
   /** The unique ID of the option. */
@@ -94,50 +93,30 @@ export class MdcListItem implements OnDestroy {
 
   @HostBinding('class.mdc-list-item') isHostClass = true;
   @HostBinding('attr.role') role: string = 'listitem';
+  @HostBinding('class.mdc-list-item--selected') get classSelected(): string {
+    return this.selected ? 'mdc-list-item--selected' : '';
+  }
+
   @Output() onSelectionChange: EventEmitter<MdcListSelectionChange>
     = new EventEmitter<MdcListSelectionChange>();
   @ContentChild(MdcListItemGraphic) listItemStart: MdcListItemGraphic;
+
   @HostListener('click', ['$event']) onclick() {
-    this._setSelected(true);
-    this.onSelectionChange.emit(new MdcListSelectionChange(this));
+    this.setSelected(!this.selected);
+    this._emitChangeEvent();
   }
 
   /** Whether the option is selected. */
   @Input()
   get selected(): boolean { return this._selected; }
   set selected(value: boolean) {
-    const isSelected = toBoolean(value);
-
-    if (isSelected !== this._selected) {
-      this._setSelected(isSelected);
-      this._emitChangeEvent();
-    }
+    this.setSelected(value);
   }
-
-  /** Selects the option. */
-  select(): void {
-    this._selected = true;
-    this._renderer.addClass(this._getHostElement(), 'mdc-list-item--activated');
-  }
-
-  /** Deselects the option. */
-  deselect(): void {
-    this._selected = false;
-    this._renderer.removeClass(this._getHostElement(), 'mdc-list-item--activated');
-  }
-
-  /** Toggles the selection state of the option. */
-  toggle(): void {
-    this.selected = !this.selected;
-  }
+  private _selected: boolean;
 
   /** Sets the selected state of the option. */
-  private _setSelected(selected: boolean): void {
-    if (selected === this._selected) {
-      return;
-    }
-
-    selected ? this.select() : this.deselect();
+  setSelected(selected: boolean): void {
+    this._selected = selected;
     this._changeDetector.markForCheck();
   }
 

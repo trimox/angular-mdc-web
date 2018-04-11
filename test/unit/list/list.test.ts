@@ -79,15 +79,7 @@ describe('MdcListModule', () => {
 
     it('#should be selected', () => {
       testComponent.listitem._getHostElement().click();
-      fixture.detectChanges();
-      expect(testComponent.listitem.selected).toBe(true);
-    });
-
-    it('#should be selected', () => {
-      testComponent.isItemSelected = false;
-      fixture.detectChanges();
-
-      testComponent.listitem.toggle();
+      testComponent.listitem._getHostElement().click();
       fixture.detectChanges();
       expect(testComponent.listitem.selected).toBe(true);
     });
@@ -111,7 +103,7 @@ describe('MdcListModule', () => {
     <mdc-list-group #group>
       <mdc-list-group-subheader>Grouped Lists</mdc-list-group-subheader>
       <mdc-list [dense]="isDense" [border]="isBordered" [lines]="lines"
-       [avatar]="isAvatar" [interactive]="isInteractive">
+       [avatar]="isAvatar" [interactive]="isInteractive" [multiple]="multiple">
         <mdc-list-item #listitem mdc-list-item-graphic [selected]="isItemSelected">Test
           <mdc-icon mdc-list-item-meta>home</mdc-icon>
         </mdc-list-item>
@@ -135,6 +127,7 @@ class SimpleList {
   isItemSelected: boolean = true;
   isInset: boolean = false;
   isPadded: boolean = false;
+  multiple: boolean = false;
 
   @ViewChild('divider') divider: MdcListDivider;
   @ViewChild('listitem') listitem: MdcListItem;

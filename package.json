@@ -140,6 +140,7 @@
           "grid-list",
           "icon",
           "icon-toggle",
+          "image-list",
           "layout-grid",
           "linear-progress",
           "line-ripple",

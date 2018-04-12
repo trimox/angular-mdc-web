@@ -10,7 +10,7 @@ import { DrawerDemo } from './components/drawer-demo/drawer-demo';
 import { Home } from './home/home';
 import { IconDemo } from './components/icon-demo/icon-demo';
 import { LinearProgressDemo } from './components/linear-progress-demo/linear-progress-demo';
-import { ListDemo, GridListDemo } from './components/lists';
+import { ListDemo, GridListDemo, ImageListDemo } from './components/lists';
 import { MenuDemo } from './components/menu-demo/menu-demo';
 import { ElevationDemo, RippleDemo, TypographyDemo } from './components/core';
 import { SnackbarDemo } from './components/snackbar-demo/snackbar-demo';
@@ -34,6 +34,7 @@ export const DEMO_ROUTES = [
   Home,
   IconDemo,
   IconToggleDemo,
+  ImageListDemo,
   LinearProgressDemo,
   ListDemo,
   MenuDemo,
@@ -68,6 +69,7 @@ export const APP_ROUTES: Routes = [
   { path: 'radio-demo', component: RadioDemo },
   { path: 'card-demo', component: CardDemo },
   { path: 'elevation-demo', component: ElevationDemo },
+  { path: 'image-list-demo', component: ImageListDemo },
   { path: 'list-demo', component: ListDemo },
   { path: 'grid-list-demo', component: GridListDemo },
   { path: 'drawer-demo', component: DrawerDemo },

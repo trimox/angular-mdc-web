@@ -47,16 +47,13 @@ body {
 
 .demo-page {
   padding: 12px 0 50px 20px;
-  max-width: 900px;
+  max-width: 1000px;
 }
 
 .demo-content {
   border: 1px solid rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
   padding: 15px;
   margin: 15px;
-  max-width: 900px;
 
   h3 {
     margin-top: .3em;
@@ -80,17 +77,8 @@ body {
 .demo-content--row {
   display: flex;
   flex-direction: row;
-  flex-flow: wrap;
-  padding-bottom: 7px;
-}
-
-.demo-text-field__container--column {
-  display: flex;
-  margin-bottom: 10px;
-  padding: 5px;
-  flex-direction: column;
-  position: relative;
-  max-width: 200px;
+  flex-wrap: wrap;
+  padding: 10px 0 10px 0;
 }
 
 .demo-content--center {
@@ -107,17 +95,7 @@ body {
   justify-content: center;
   width: 200px;
   height: 100px;
-  margin: 0 60px 50px;
   border-radius: 3px;
-  font-size: .8em;
-  color: #9E9E9E;
-  background: white;
-}
-
-.demo-docs-class-name {
-  background: rgba(0,0,0,.06);
-  font-family: Roboto Mono,monospace;
-  padding: 3px;
 }
 
 .demo-tabs-host {
@@ -137,71 +115,64 @@ body {
 .markdown-body {
   line-height: 1.5;
   word-wrap: break-word;
-}
-
-.markdown-body > *:first-child {
   margin-top: 0 !important;
-}
+  max-width: 900px;
 
-.markdown-body > *:last-child {
-  margin-bottom: 0 !important;
-}
-
-.markdown-body h1, h2 {
-  margin-top: 24px;
-  margin-bottom: 16px;
-  font-weight: 600;
-  line-height: 1.25;
-  padding-bottom: .3em;
-  border-bottom: 1px solid #eaecef;
-}
-
-.markdown-body h1 {
-  font-size: 2em;
-}
-
-.markdown-body h2 {
-  font-size: 1.5em;
-}
-
-.markdown-body h3 {
-  font-size: 1.2em;
-  font-weight: 500;
-  margin-bottom: 7px;
-
-  &.small-margin  {
-    margin-top: 3px;
+  h1 {
+    font-size: 2em;
   }
-}
 
-.markdown-body ul {
-  margin-bottom: 0;
-}
+  h2 {
+    font-size: 1.5em;
+  }
 
-.markdown-body pre {
-  padding: 16px;
-  overflow: auto;
-  font-size: 90%;
-  line-height: 1.45;
-  background-color: #f6f8fa;
-  border-radius: 3px;
-  margin-top: 0;
-  margin-bottom: 16px;
-  width: fit-content;
-}
+  h1, h2 {
+    margin: 24px 16px 16px 0;
+    font-weight: 600;
+    line-height: 1.25;
+    padding-bottom: .3em;
+    border-bottom: 1px solid #eaecef;
+  }
 
-.markdown-body .caption {
-  margin: 0;
-}
+  h3 {
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-bottom: 7px;
 
-.markdown-body pre > code {
-  padding: 0;
-  margin: 0;
-  font-size: 1.3em;
-  word-break: normal;
-  white-space: pre;
-  background: transparent;
-  border: 0;
+    &.small-margin  {
+      margin-top: 1px;
+    }
+  }
+
+  ul {
+    margin-bottom: 0;
+  }
+
+  pre {
+    padding: 16px;
+    overflow: auto;
+    font-size: 90%;
+    line-height: 1.45;
+    background-color: #f6f8fa;
+    border-radius: 3px;
+    margin-top: 0;
+    margin-bottom: 16px;
+    width: fit-content;
+  }
+
+  .caption {
+    margin: 0;
+  }
+
+  pre > code {
+    padding: 0;
+    margin: 0;
+    font-size: 1.3em;
+    word-break: normal;
+    white-space: pre;
+    background: transparent;
+    border: 0;
+  }
 }
 
 //
@@ -211,7 +182,7 @@ body {
 .docs-api table {
   overflow-x: auto;
   margin: 0 0 7px;
-  max-width: 100vw;
+  max-width: 90vw;
   border: 1px solid #eee;
   border-collapse: collapse;
   border-spacing: 0;
@@ -393,6 +364,17 @@ body {
 }
 
 //
+// Drawer
+//
+
+.demo-drawer-content--row {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  max-width: 1000px;
+}
+
+//
 // Radio button
 //
 
@@ -410,14 +392,7 @@ body {
 // Top App Bar
 //
 
-.demo-top-app-bar-container {
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: column;
-}
-
 .demo-top-app-bar-content {
-  width: 900px;
   height: 300px;
   overflow-y: scroll;
   will-change: transform;
@@ -431,7 +406,7 @@ body {
 
 //
 // Grid List
-///
+//
 
 .demo-grid-tile__image {
   background-image: url(https://material-components-web.appspot.com/images/1-1.jpg);
@@ -443,4 +418,27 @@ body {
 
 .mdc-content {
   overflow: auto;
+}
+
+//
+// Image List
+//
+
+.standard-image-list {
+  @include mdc-image-list-aspect(1.5); // Images are 3:2
+  @include mdc-image-list-standard-columns(5);
+}
+
+.masonry-image-list {
+  @include mdc-image-list-masonry-columns(5);
+}
+
+@media (max-width: 599px) {
+  .standard-image-list {
+    @include mdc-image-list-standard-columns(3);
+  }
+
+  .masonry-image-list {
+    @include mdc-image-list-masonry-columns(3);
+  }
 }

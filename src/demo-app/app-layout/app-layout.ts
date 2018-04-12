@@ -22,7 +22,7 @@ export class AppLayout {
     { name: 'Menu', route: 'menu-demo', icon: 'menu' },
     { name: 'Snackbar', route: 'snackbar-demo', icon: 'info_outline' },
     { name: 'Tabs', route: 'tab-demo', icon: 'tab' },
-    { name: 'Toolbar', route: 'toolbar-demo', icon: 'remove' },
+    { name: 'Toolbar', route: 'toolbar-demo', icon: 'remove' }
   ];
 
   inputRoutes = [
@@ -31,24 +31,25 @@ export class AppLayout {
     { name: 'Select', route: 'select-demo' },
     { name: 'Slider', route: 'slider-demo' },
     { name: 'Switch', route: 'switch-demo' },
-    { name: 'Text Field', route: 'textfield-demo' },
+    { name: 'Text Field', route: 'textfield-demo' }
   ];
 
   coreRoutes = [
     { name: 'Elevation', route: 'elevation-demo' },
     { name: 'Ripple', route: 'ripple-demo' },
-    { name: 'Typography', route: 'typography-demo' },
+    { name: 'Typography', route: 'typography-demo' }
   ];
 
   buttonRoutes = [
     { name: 'Button', route: '/button-demo' },
     { name: 'FAB', route: '/fab-demo' },
-    { name: 'Icon Toggle', route: '/icon-toggle-demo' },
+    { name: 'Icon Toggle', route: '/icon-toggle-demo' }
   ];
 
   listRoutes = [
     { name: 'List', route: 'list-demo' },
     { name: 'Grid List', route: 'grid-list-demo' },
+    { name: 'Image List', route: 'image-list-demo' }
   ];
 
   constructor(public media: ObservableMedia) { }

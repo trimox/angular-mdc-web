@@ -74,7 +74,7 @@ export class MdcGridTilePrimary {
 }
 
 @Directive({
-  selector: '[mdc-grid-tile-primary-content], mdc-grid-tile-primary-content',
+  selector: '[mdcGridTilePrimaryContent], mdc-grid-tile-primary-content',
   exportAs: 'mdcGridTilePrimaryContent'
 })
 export class MdcGridTilePrimaryContent {

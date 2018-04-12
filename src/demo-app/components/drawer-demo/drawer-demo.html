@@ -167,7 +167,7 @@
 
   <h3>Permanent Drawer - Above Toolbar</h3>
   <a mdc-button href="https://stackblitz.com/edit/angular-mdc-drawer?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Example Source</a>
-  <div fxLayout="row" class="demo-content demo-content--no-padding">
+  <div class="demo-drawer-content--row">
     <mdc-drawer drawer='permanent'>
       <mdc-drawer-spacer></mdc-drawer-spacer>
       <mdc-drawer-content>
@@ -199,7 +199,7 @@
         </mdc-list-group>
       </mdc-drawer-content>
     </mdc-drawer>
-    <mdc-content>
+    <div class="demo-content--column">
       <mdc-toolbar>
         <mdc-toolbar-row>
           <mdc-toolbar-section [alignStart]="true">
@@ -212,10 +212,8 @@
           </mdc-toolbar-section>
         </mdc-toolbar-row>
       </mdc-toolbar>
-      <div class="mdc-padding">
-        Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an legere iriure blandit. Veri iisque accusamus an pri.
-      </div>
-    </mdc-content>
+      Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an legere iriure blandit. Veri iisque accusamus an pri.
+    </div>
   </div>
 
   <h3>Permanent Drawer - Below Toolbar</h3>
@@ -330,7 +328,7 @@
   </div>
   <h3>Persistent Drawer</h3>
   <a mdc-button href="https://stackblitz.com/edit/angular-mdc-drawer?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Example Source</a>
-  <div class="demo-content demo-content--no-padding" fxLayout="row">
+  <div class="demo-drawer-content--row">
     <mdc-drawer #persistent drawer='persistent'>
       <mdc-drawer-spacer></mdc-drawer-spacer>
       <mdc-list-group>

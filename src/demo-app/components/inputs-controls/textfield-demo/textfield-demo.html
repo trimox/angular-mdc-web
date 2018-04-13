@@ -241,13 +241,14 @@
   </div>
 
   <div class="demo-content">
-    <h3>Text Field with FormControl</h3>
+    <h3>Text Field - FormControl</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="demoformInput.disabled = !demoformInput.disabled">Disabled: {{demoformInput.disabled ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoformInput.required = !demoformInput.required">Required: {{demoformInput.required ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoformInput.dense = !demoformInput.dense">Dense: {{demoformInput.dense ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoformInput.box = !demoformInput.box">Box: {{demoformInput.box ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoformInput.selectAll()">Select All</button>
+      <button mdc-button (click)="demoForm.reset()">Reset Control</button>
     </div>
     <form [formGroup]="demoForm" id="demoForm" (ngSubmit)="submitForm()">
       <mdc-text-field #demoformInput formControlName="userName" label="Username" maxlength="10" [helperText]="demoformHelper" [required]="true"></mdc-text-field>
@@ -256,25 +257,53 @@
       </mdc-text-field-helper-text>
     </form>
     <button mdc-button type="submit" form="demoForm">Submit Form</button>
-    <p mdc-typography-body1>Touched: {{ demoForm.touched }}</p>
     <p mdc-typography-body1>Dirty: {{ demoForm.dirty }}</p>
+    <p mdc-typography-body1>Valid: {{ demoForm.valid }}</p>
+    <p mdc-typography-body1>Touched: {{ demoForm.touched }}</p>
+    <p mdc-typography-body1>Value: {{ demoForm.controls['userName'].value }}</p>
   </div>
 
   <div class="demo-content">
-    <h3>Text Field with ngModel</h3>
+    <h3>Text Field - Numeric with ngModel Form</h3>
+    <div class="demo-content--row">
+      <button mdc-button (click)="demoweight.disabled = !demoweight.disabled">Disabled: {{demoweight.disabled ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoweight.required = !demoweight.required">Required: {{demoweight.required ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoweight.dense = !demoweight.dense">Dense: {{demoweight.dense ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoweight.box = !demoweight.box">Box: {{demoweight.box ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoweight.selectAll()">Select All</button>
+      <button mdc-button (click)="resetWeightModel(demoWeightForm)">Reset model</button>
+    </div>
+    <form #demoWeightForm="ngForm" id="demoWeightForm" (ngSubmit)="submitWeightForm(demoWeightForm)">
+      <mdc-text-field #demoweight type="number" name="demoweight" label="Weight" ngModel #demoWeightModel="ngModel"
+       [required]="true" [helperText]="weightHelper"></mdc-text-field>
+      <mdc-text-field-helper-text #weightHelper="mdcHelperText" [validation]="true" [persistent]="false">
+        <span *ngIf="!demoweight.value">Weight is required</span>
+      </mdc-text-field-helper-text>
+    </form>
+    <button mdc-button type="submit" form="demoWeightForm">Submit Form</button>
+    <p mdc-typography-body1>Dirty: {{ demoWeightModel.dirty }}</p>
+    <p mdc-typography-body1>Valid: {{ demoWeightForm.valid }}</p>
+    <p mdc-typography-body1>Touched: {{ demoWeightModel.touched }}</p>
+    <p mdc-typography-body1>Value: {{ demoWeightModel.value }}</p>
+  </div>
+
+  <div class="demo-content">
+    <h3>Text Field - Simple ngModel</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="demousername.disabled = !demousername.disabled">Disabled: {{demousername.disabled ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demousername.required = !demousername.required">Required: {{demousername.required ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demousername.dense = !demousername.dense">Dense: {{demousername.dense ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demousername.box = !demousername.box">Box: {{demousername.box ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demousername.selectAll()">Select All</button>
+      <button mdc-button (click)="resetUserModel()">Reset model</button>
     </div>
-    <mdc-text-field #demousername label="Username" [(ngModel)]="username" #userModel="ngModel" [helperText]="userHelper"></mdc-text-field>
+    <mdc-text-field #demousername label="Username" [(ngModel)]="username" #userModel="ngModel" [helperText]="userHelper" [required]="true"></mdc-text-field>
     <mdc-text-field-helper-text #userHelper="mdcHelperText" [validation]="true" [persistent]="false">
       <span *ngIf="!demousername.value">Username is required</span>
     </mdc-text-field-helper-text>
-    <span mdc-typography-body1>ngModel Value: {{username}}</span>
+    <p mdc-typography-body1>ngModel Value: {{username}}</p>
   </div>
+
   <div class="demo-content">
     <h3>Outlined Text Field</h3>
     <div class="demo-content--row">

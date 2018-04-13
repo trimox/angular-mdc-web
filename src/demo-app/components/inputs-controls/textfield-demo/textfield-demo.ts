@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormControl, ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, FormGroup, NgForm, Validators } from '@angular/forms';
 
 import { MdcTextField } from '@angular-mdc/web';
 
@@ -22,7 +22,8 @@ export class TextFieldDemo {
   }
 
   submitForm() {
-    console.log(this.demoForm)
+    console.log(this.demoForm);
+
     if (!this.demoForm.valid) {
       if (!this.demoformInput.valid) {
         this.demoformInput.setValid(false);
@@ -31,5 +32,17 @@ export class TextFieldDemo {
     }
 
     this.demoformInput.setValid(true);
+  }
+
+  submitWeightForm(f: NgForm) {
+    console.log(f.value);
+  }
+
+  resetUserModel() {
+    this.username = '';
+  }
+
+  resetWeightModel(f: NgForm) {
+    f.reset();
   }
 }

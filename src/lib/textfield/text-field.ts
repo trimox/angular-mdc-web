@@ -171,9 +171,7 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
   @Input()
   get required(): boolean { return this._required; }
   set required(value: boolean) {
-    if (value !== this._required) {
-      this.setRequired(toBoolean(value));
-    }
+    this.setRequired(toBoolean(value));
   }
   @Input()
   get focused(): boolean { return this._focused; }
@@ -222,21 +220,13 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
   }
 
   private _mdcAdapter: MDCTextFieldAdapter = {
-    addClass: (className: string) => {
-      this._renderer.addClass(this._getHostElement(), className);
-    },
-    removeClass: (className: string) => {
-      this._renderer.removeClass(this._getHostElement(), className);
-    },
-    hasClass: (className: string) => {
-      return this._getHostElement().classList.contains(className);
-    },
-    registerTextFieldInteractionHandler: (evtType: string, handler: EventListener) => {
-      this._registry.listen(evtType, handler, this._getHostElement());
-    },
-    deregisterTextFieldInteractionHandler: (evtType: string, handler: EventListener) => {
-      this._registry.unlisten(evtType, handler);
-    },
+    addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
+    removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
+    hasClass: (className: string) => this._getHostElement().classList.contains(className),
+    registerTextFieldInteractionHandler: (evtType: string, handler: EventListener) =>
+      this._registry.listen(evtType, handler, this._getHostElement()),
+    deregisterTextFieldInteractionHandler: (evtType: string, handler: EventListener) =>
+      this._registry.unlisten(evtType, handler),
     registerInputInteractionHandler: (evtType: string, handler: EventListener) =>
       this._registry.listen(evtType, handler, this.inputText.nativeElement),
     deregisterInputInteractionHandler: (evtType: string, handler: EventListener) => this._registry.unlisten(evtType, handler),
@@ -374,9 +364,7 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
   }
 
   writeValue(value: any): void {
-    if (!value || !this._foundation) { return; }
     this.setValue(value == null ? '' : value);
-
     this._changeDetectorRef.markForCheck();
   }
 
@@ -446,8 +434,15 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
     this._value = (this.type === 'number') ?
       (value === '' ? null : toNumber(value)) : value;
 
-    this._foundation.setValue(this._value);
-    this._onChange(this._value);
+    this._foundation.setValue(this.value);
+    if (this.value) {
+      this._onChange(this.value);
+    }
+
+    if (this.required && !this.value) {
+      this.setRequired(false);
+      setTimeout(() => this.setRequired(true));
+    }
 
     this._changeDetectorRef.markForCheck();
   }

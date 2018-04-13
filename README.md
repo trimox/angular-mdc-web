@@ -48,7 +48,7 @@ Each component uses [material-components-web](https://github.com/material-compon
 | form-field | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/form-field-demo) |
 | grid-list | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/grid-list-demo) |
 | icon-toggle | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/icon-toggle-demo) |
-| image-list | In-progress | |
+| image-list | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/image-list-demo) |
 | linear-progress | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/linear-progress-demo) |
 | list | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/list-demo) |
 | menu | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/menu-demo) |

@@ -38,8 +38,8 @@ export class MdcDialog {
      * @param config Additional configuration options for the dialog.
      * @returns Reference to the newly-opened dialog.
      */
-  open<T, D = any>(componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-    config?: MdcDialogConfig<D>): MdcDialogRef<T> {
+  open<T = any>(componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
+    config?: MdcDialogConfig): MdcDialogRef<T> {
     const _config = _applyConfigDefaults(config);
 
     if (this._openedDialogRef) {

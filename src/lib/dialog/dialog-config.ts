@@ -5,7 +5,7 @@ export type DialogRole = 'dialog' | 'alertdialog';
 
 export const MDC_DIALOG_DATA = new InjectionToken<any>('MdcDialogData');
 
-export class MdcDialogConfig<D = any> {
+export class MdcDialogConfig {
   /** ID for the dialog. If omitted, a unique one will be generated. */
   id?: string;
 

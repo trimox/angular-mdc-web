@@ -1,3 +1,32 @@
+<a name="0.34.2"></a>
+## [0.34.2](https://github.com/trimox/angular-mdc-web/compare/v0.34.1...v0.34.2) (2018-04-13)
+
+
+### Bug Fixes
+
+* **app-bar:** Should remove short-collapsed class ([#852](https://github.com/trimox/angular-mdc-web/issues/852)) ([1743f01](https://github.com/trimox/angular-mdc-web/commit/1743f01))
+* **checkbox:** Set ripple interaction to native input ([#853](https://github.com/trimox/angular-mdc-web/issues/853)) ([d748635](https://github.com/trimox/angular-mdc-web/commit/d748635))
+* **checkbox:** Should use stopPropagation for click event ([#854](https://github.com/trimox/angular-mdc-web/issues/854)) ([ad6b2b1](https://github.com/trimox/angular-mdc-web/commit/ad6b2b1))
+* **dialog:** Remove unused declarations ([#862](https://github.com/trimox/angular-mdc-web/issues/862)) ([e7353cf](https://github.com/trimox/angular-mdc-web/commit/e7353cf))
+* **text-field:** Errors for Outlined init ([#849](https://github.com/trimox/angular-mdc-web/issues/849)) ([9baabfa](https://github.com/trimox/angular-mdc-web/commit/9baabfa))
+* **text-field:** Set display property for mdc-text-field-helper-text ([#851](https://github.com/trimox/angular-mdc-web/issues/851)) ([4d48108](https://github.com/trimox/angular-mdc-web/commit/4d48108))
+* **text-field:** Should reset ngModel and FormControl values ([#861](https://github.com/trimox/angular-mdc-web/issues/861)) ([f31df0e](https://github.com/trimox/angular-mdc-web/commit/f31df0e)), closes [#848](https://github.com/trimox/angular-mdc-web/issues/848)
+
+
+### Features
+
+* **image-list:** Implement MDC Image List ([#847](https://github.com/trimox/angular-mdc-web/issues/847)) ([3a01d66](https://github.com/trimox/angular-mdc-web/commit/3a01d66))
+* **fab:** Add public methods for UX states ([#850](https://github.com/trimox/angular-mdc-web/issues/850)) ([c1fe757](https://github.com/trimox/angular-mdc-web/commit/c1fe757))
+* **grid-list:** Add selector mdcGridTilePrimaryContent ([#860](https://github.com/trimox/angular-mdc-web/issues/860)) ([7de1d71](https://github.com/trimox/angular-mdc-web/commit/7de1d71))
+* **lists:** Add multiple property + Improvements ([#856](https://github.com/trimox/angular-mdc-web/issues/856)) ([103c8af](https://github.com/trimox/angular-mdc-web/commit/103c8af)), closes [#829](https://github.com/trimox/angular-mdc-web/issues/829) [#855](https://github.com/trimox/angular-mdc-web/issues/855) [#826](https://github.com/trimox/angular-mdc-web/issues/826)
+
+
+### BREAKING CHANGES
+
+* Removed `toggle()`, `select()` and `deselect()` methods from mdc-list-item. Please update your code to use `setSelected(selected: boolean)`.
+
+
+
 <a name="0.34.1"></a>
 ## [0.34.1](https://github.com/trimox/angular-mdc-web/compare/v0.33.0...v0.34.1) (2018-04-09)
 

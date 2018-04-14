@@ -127,6 +127,7 @@ describe('MdcCheckbox', () => {
       fixture.detectChanges();
 
       expect(inputElement.checked).toBe(true);
+      expect(checkboxInstance.getValue()).toBe('true');
     });
 
     it('#should toggle checked to false', () => {
@@ -136,6 +137,7 @@ describe('MdcCheckbox', () => {
       fixture.detectChanges();
 
       expect(inputElement.checked).toBe(false);
+      expect(checkboxInstance.isDisabled()).toBe(true);
     });
 
     it('#should not set indeterminate to true', () => {
@@ -147,13 +149,14 @@ describe('MdcCheckbox', () => {
       expect(checkboxInstance.indeterminate).toBe(false);
     });
 
-    it('#should set checked to false', () => {
+    it('#should set checked to true', () => {
       testComponent.isIndeterminate = true;
       fixture.detectChanges();
       expect(checkboxInstance.toggle());
       fixture.detectChanges();
 
-      expect(inputElement.checked).toBe(false);
+      expect(inputElement.checked).toBe(true);
+      expect(checkboxInstance.isChecked()).toBe(true);
     });
 
     it('#should set indeterminate to true', () => {
@@ -272,8 +275,6 @@ describe('MdcCheckbox', () => {
       }));
 
       it('#should toggle checked state on click', () => {
-        expect(checkboxInstance.checked).toBe(false);
-
         inputElement.click();
         fixture.detectChanges();
 
@@ -295,6 +296,7 @@ describe('MdcCheckbox', () => {
       [id]="checkboxId"
       [(ngModel)]="checkboxValue"
       [checked]="checkboxValue"
+      [indeterminateToChecked]="indeterminateToChecked"
       [indeterminate]="isIndeterminate"
       [disabled]="isDisabled">
     </mdc-checkbox>
@@ -305,6 +307,7 @@ class SingleCheckbox {
   isDisabled: boolean = false;
   isIndeterminate: boolean = false;
   checkboxValue: boolean = false;
+  indeterminateToChecked: boolean = true;
 }
 
 /** Simple test component with an aria-label set. */

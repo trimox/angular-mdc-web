@@ -103,13 +103,8 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
 
   protected _uid = `mdc-input-${nextUniqueId++}`;
 
-  private _required: boolean = false;
-  private _focused: boolean = false;
-  private _helperText: MdcTextFieldHelperText;
   private _useCustomValidity: boolean;
 
-  @Input() fullwidth: boolean = false;
-  @Input() dense: boolean = false;
   @Input() label: string;
   @Input() maxlength: number;
   @Input() placeholder: string = '';
@@ -141,7 +136,7 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
     // When using Angular inputs, developers are no longer able to set the properties on the native
     // input element. To ensure that bindings for `type` work, we need to sync the setter
     // with the native property. Textarea elements don't support the type property or attribute.
-    if (!this._isTextarea() && getSupportedInputTypes().has(this._type)) {
+    if (!this.isTextarea() && getSupportedInputTypes().has(this._type)) {
       this.inputText.nativeElement.type = this._type;
     }
   }
@@ -171,19 +166,37 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
   @Input()
   get required(): boolean { return this._required; }
   set required(value: boolean) {
-    this.setRequired(toBoolean(value));
+    this.setRequired(value);
   }
+  private _required: boolean = false;
+
   @Input()
   get focused(): boolean { return this._focused; }
   set focused(value: boolean) {
     this._focused = toBoolean(value);
   }
+  private _focused: boolean = false;
+
+  @Input()
+  get fullwidth(): boolean { return this._fullwidth; }
+  set fullwidth(value: boolean) {
+    this.setFullwidth(value);
+  }
+  private _fullwidth: boolean;
+
+  @Input()
+  get dense(): boolean { return this._dense; }
+  set dense(value: boolean) {
+    this.setDense(value);
+  }
+  private _dense: boolean;
 
   @Input()
   get helperText(): MdcTextFieldHelperText { return this._helperText; }
   set helperText(helperText: MdcTextFieldHelperText) {
-    this._helperText = helperText;
+    this.setHelperText(helperText);
   }
+  private _helperText: MdcTextFieldHelperText;
 
   /** The input element's value. */
   @Input()
@@ -209,7 +222,6 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
     return this.dense ? 'mdc-text-field--dense' : '';
   }
   @HostBinding('class.mdc-text-field--fullwidth') get classFullwidth(): string {
-    this.placeholder = this.fullwidth ? this.label : '';
     return this.fullwidth ? 'mdc-text-field--fullwidth' : '';
   }
   @HostBinding('class.mdc-text-field--focused') get classFocused(): string {
@@ -417,7 +429,7 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
     this._foundation.setValid(isValid);
   }
 
-  private _isTextarea(): boolean {
+  isTextarea(): boolean {
     const nativeElement = this._getHostElement();
     const nodeName = isBrowser ? nativeElement.nodeName : nativeElement.name;
 
@@ -466,6 +478,28 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
       this._box = false;
     }
 
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /** Styles the text field as a fullwidth text field. */
+  setFullwidth(fullwidth: boolean): void {
+    this._fullwidth = toBoolean(fullwidth);
+    this.placeholder = this.fullwidth ? this.label : '';
+
+    this._changeDetectorRef.markForCheck();
+  }
+
+  setDense(dense: boolean): void {
+    this._dense = toBoolean(dense);
+    this._changeDetectorRef.markForCheck();
+  }
+
+  setDisabled(disabled: boolean): void {
+    this.setDisabledState(disabled);
+  }
+
+  setHelperText(helperText: MdcTextFieldHelperText): void {
+    this._helperText = helperText;
     this._changeDetectorRef.markForCheck();
   }
 
@@ -531,6 +565,10 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
     }
 
     this._changeDetectorRef.markForCheck();
+  }
+
+  hasClass(className: string): boolean {
+    return this._getHostElement().classList.contains(className);
   }
 
   /** Retrieves the DOM element of the component host. */

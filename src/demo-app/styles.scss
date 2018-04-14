@@ -36,7 +36,7 @@ body {
   @include mdc-theme-prop(color, #fff);
   @include mdc-theme-prop(background-color, $app-blue);
 
-  height: 300px;
+  height: 40vh;
 
   &__subtitle {
     @include mdc-theme-prop(color, text-secondary-on-background);
@@ -45,8 +45,12 @@ body {
   }
 }
 
+.demo__toolbar-logo {
+  padding-top: 10px;
+}
+
 .demo-page {
-  padding: 12px 0 50px 20px;
+  padding: 0 0 50px 20px;
   max-width: 1000px;
 }
 
@@ -441,4 +445,123 @@ body {
   .masonry-image-list {
     @include mdc-image-list-masonry-columns(3);
   }
+}
+
+//
+// Checkbox
+//
+
+.demo-checkbox--custom-all {
+  $color: $material-color-red-500;
+
+  @include mdc-checkbox-focus-indicator-color($color);
+  @include mdc-states($color);
+  @include mdc-checkbox-container-colors(
+    $unmarked-stroke-color: $color,
+    $unmarked-fill-color: rgba($color, .25),
+    $marked-fill-color: $color);
+}
+
+.demo-checkbox--custom-stroke-and-fill {
+  @include mdc-checkbox-container-colors(
+    $unmarked-stroke-color: $material-color-blue-500,
+    $marked-fill-color: $material-color-purple-500);
+}
+
+//
+// Text Field
+//
+
+.demo-text-field-custom-colors:not(.mdc-text-field--invalid) {
+  $idle-border: rgba(blue, .38);
+  $hover-border: rgba(blue, .6);
+  $focused-border: rgba(blue, 1);
+
+  @include mdc-text-field-bottom-line-color($idle-border);
+  @include mdc-text-field-hover-bottom-line-color($hover-border);
+  @include mdc-text-field-line-ripple-color($focused-border);
+  @include mdc-text-field-ink-color(black);
+  @include mdc-text-field-label-color(rgba(blue, .5));
+  @include mdc-text-field-outline-color($idle-border);
+  @include mdc-text-field-hover-outline-color($hover-border);
+  @include mdc-text-field-focused-outline-color($focused-border);
+  @include mdc-text-field-helper-text-color($idle-border);
+  @include mdc-text-field-textarea-stroke-color($idle-border);
+  @include mdc-text-field-icon-color($hover-border);
+
+  &.mdc-text-field--focused {
+    @include mdc-text-field-label-color(rgba(blue, .87));
+    @include mdc-text-field-icon-color($focused-border);
+  }
+}
+
+.demo-textarea:not(.mdc-text-field--invalid) {
+  $idle-border: rgba(blue, .38);
+  $hover-border: rgba(blue, .6);
+  $focused-border: rgba(blue, 1);
+
+  @include mdc-text-field-ink-color(black);
+  @include mdc-text-field-label-color(rgba(blue, .5));
+  @include mdc-text-field-textarea-stroke-color($idle-border);
+
+  &.mdc-text-field--focused {
+    @include mdc-text-field-label-color(rgba(blue, .87));
+    @include mdc-text-field-textarea-stroke-color($focused-border);
+  }
+}
+
+.demo-textarea.mdc-text-field--invalid {
+  @include mdc-text-field-ink-color(orange);
+  @include mdc-text-field-label-color(rgba(orange, .5));
+  @include mdc-text-field-textarea-stroke-color(rgba(orange, .38));
+
+  &.mdc-text-field--focused {
+    @include mdc-text-field-label-color(rgba(orange, .87));
+    @include mdc-text-field-textarea-stroke-color(orange);
+  }
+}
+
+.demo-fullwidth-input:not(.mdc-text-field--invalid) {
+  @include mdc-text-field-fullwidth-bottom-line-color(rgba(blue, .38));
+  @include mdc-text-field-ink-color(black);
+  @include mdc-text-field-label-color(rgba(blue, .5));
+  @include mdc-text-field-line-ripple-color(blue);
+
+  &.mdc-text-field--focused {
+    @include mdc-text-field-label-color(rgba(blue, .87));
+  }
+}
+
+.demo-fullwidth-input.mdc-text-field--invalid {
+  @include mdc-text-field-fullwidth-bottom-line-color(rgba(orange, .38));
+  @include mdc-text-field-ink-color(orange);
+  @include mdc-text-field-label-color(rgba(orange, .5));
+  @include mdc-text-field-line-ripple-color(orange);
+
+  &.mdc-text-field--focused {
+    @include mdc-text-field-label-color(rgba(orange, .87));
+    @include mdc-text-field-fullwidth-bottom-line-color(orange);
+  }
+}
+
+//
+// Icon
+//
+
+.demo-icon-custom-colors {
+  $color: $material-color-orange-500;
+
+  @include mdc-theme-prop(color, $color);
+}
+
+//
+// Switch
+//
+
+.demo-switch--custom {
+  $color: $material-color-red-500;
+
+  @include mdc-switch-track-color($color);
+  @include mdc-switch-knob-color($color);
+  @include mdc-switch-focus-indicator-color($color);
 }

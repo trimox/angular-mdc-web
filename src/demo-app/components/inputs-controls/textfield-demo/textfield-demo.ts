@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Renderer2 } from '@angular/core';
 import { FormControl, ReactiveFormsModule, FormGroup, NgForm, Validators } from '@angular/forms';
 
 import { MdcTextField } from '@angular-mdc/web';
@@ -15,7 +15,9 @@ export class TextFieldDemo {
 
   @ViewChild('demoformInput') demoformInput: MdcTextField;
 
-  constructor() {
+  constructor(
+    private _renderer: Renderer2) {
+
     this.demoForm = new FormGroup({
       userName: new FormControl({ value: '', disabled: false }, Validators.required)
     });
@@ -44,5 +46,27 @@ export class TextFieldDemo {
 
   resetWeightModel(f: NgForm) {
     f.reset();
+  }
+
+  alternateColors(input: MdcTextField) {
+    if (!input.isTextarea()) {
+      const demoTextField = 'demo-text-field-custom-colors';
+
+      input.hasClass(demoTextField) ?
+        this._renderer.removeClass(input.elementRef.nativeElement, demoTextField)
+        : this._renderer.addClass(input.elementRef.nativeElement, demoTextField);
+    } else if (input.isTextarea()) {
+      const demoTextarea = 'demo-textarea';
+
+      input.hasClass(demoTextarea) ?
+        this._renderer.removeClass(input.elementRef.nativeElement, demoTextarea)
+        : this._renderer.addClass(input.elementRef.nativeElement, demoTextarea);
+    } else {
+      const demoFullwidth = 'demo-fullwidth-input';
+
+      input.hasClass(demoFullwidth) ?
+        this._renderer.removeClass(input.elementRef.nativeElement, demoFullwidth)
+        : this._renderer.addClass(input.elementRef.nativeElement, demoFullwidth);
+    }
   }
 }

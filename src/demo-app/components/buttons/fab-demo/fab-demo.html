@@ -1,7 +1,7 @@
 <div class="demo-page">
   <div class="markdown-body">
     <h1>Floating Action Button</h1>
-    <div>A floating action button represents the primary action in an application.</div>
+    A floating action button represents the primary action in an application.
     <h2>References</h2>
     <ul>
       <li><a mdc-button href="https://material.io/guidelines/components/buttons-floating-action-button.html"
@@ -112,6 +112,7 @@
     <div class="demo-content--row">
       <button mdc-button (click)="demofabposition.position = 'bottom-left'">Bottom Left</button>
       <button mdc-button (click)="demofabposition.position = 'bottom-right'">Bottom Right</button>
+      <button mdc-button (click)="demofabposition.mini = !demofabposition.mini">Mini: {{demofabposition.mini ? 'On' : 'Off'}}</button>
     </div>
     <button #demofabposition mdc-fab position='bottom-right'>
       <mdc-icon>add</mdc-icon>

@@ -1,7 +1,7 @@
 <div class="demo-page">
   <div class="markdown-body">
     <h1>Icons</h1>
-    <div>Material icons use geometric shapes to visually represent core ideas, capabilities, or topics.</div>
+    Material icons use geometric shapes to visually represent core ideas, capabilities, or topics.
     <h2>References</h2>
     <ul>
       <li><a mdc-button href="https://material.io/guidelines/style/icons.html"
@@ -41,29 +41,70 @@
           </tr>
         </tbody>
       </table>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Methods</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>setClickable(clickable: boolean)</td>
+            <td>Whether or not the icon is clickable.</td>
+          </tr>
+          <tr>
+            <td>isLeading(): boolean</td>
+            <td>Whether or not the icon is set as leading icon.</td>
+          </tr>
+          <tr>
+            <td>isTrailing(): boolean</td>
+            <td>Whether or not the icon is set as trailing icon.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+    <h2>Theming</h2>
+    To customize the colors of any part of the icon, use the following mixins.
+    <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-theme#sass-mixins-variables-and-functions"
+     target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
+
+
     <h2>Basic Usage</h2>
     <a mdc-button href="https://stackblitz.com/edit/angular-mdc-icon"
      target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
   </div>
 
   <div class="demo-content">
-    <h3>Default Material icons</h3>
-    <mdc-icon>home</mdc-icon>
+    <h3>Material icons (default)</h3>
+    <div class="demo-content--row">
+      <button mdc-button (click)="alternateColors(demoicon)">Alternate Colors</button>
+    </div>
+    <mdc-icon #demoicon>home</mdc-icon>
   </div>
 
   <div class="demo-content">
-    <h3>Adjusted Font Size</h3>
-    <mdc-icon [fontSize]="48">home</mdc-icon>
+    <h3>Font Size adjusted</h3>
+    <div class="demo-content--row">
+      <button mdc-button (click)="alternateColors(demosize)">Alternate Colors</button>
+    </div>
+    <mdc-icon #demosize [fontSize]="48">home</mdc-icon>
   </div>
 
   <div class="demo-content">
     <h3>Using Font Awesome</h3>
-    <mdc-icon fontSet="fa" fontIcon="fa-camera"></mdc-icon>
+    <div class="demo-content--row">
+      <button mdc-button (click)="alternateColors(demofa)">Alternate Colors</button>
+    </div>
+    <mdc-icon #demofa fontSet="fa" fontIcon="fa-camera"></mdc-icon>
   </div>
 
   <div class="demo-content">
     <h3>Using Font Awesome w/size modifier</h3>
-    <mdc-icon fontSet="fa" fontIcon="fa-map fa-4x"></mdc-icon>
+    <div class="demo-content--row">
+      <button mdc-button (click)="alternateColors(fasize)">Alternate Colors</button>
+    </div>
+    <mdc-icon #fasize fontSet="fa" fontIcon="fa-map fa-4x"></mdc-icon>
   </div>
 </div>

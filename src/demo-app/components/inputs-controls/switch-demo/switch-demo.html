@@ -1,7 +1,7 @@
 <div class="demo-page">
   <div class="markdown-body">
     <h1>Switches</h1>
-    <div>The MDC Switch component is a spec-aligned switch component adhering to the Material Design Switch requirements.</div>
+    The MDC Switch component is a spec-aligned switch component adhering to the Material Design Switch requirements.
     <h2>References</h2>
     <ul>
       <li><a mdc-button href="https://material.io/guidelines/components/selection-controls.html#selection-controls-switch"
@@ -84,6 +84,11 @@
         </tbody>
       </table>
     </div>
+    <h2>Theming</h2>
+    To customize the colors of any part of the switch, use the following mixins.
+    <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-switch#sass-mixins"
+     target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
+
     <h2>Basic Usage</h2>
     <a mdc-button href="https://stackblitz.com/edit/angular-mdc-switch"
      target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
@@ -95,6 +100,7 @@
       <button mdc-button (click)="demoformfield.alignEnd = !demoformfield.isAlignEnd()">RTL</button>
       <button mdc-button (click)="demoswitch.checked = !demoswitch.checked">Checked: {{demoswitch.checked ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoswitch.disabled = !demoswitch.disabled">Disabled: {{demoswitch.disabled ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="alternateColors(demoswitch)">Alternate Colors</button>
     </div>
     <div class="demo-content--row">
       <mdc-form-field #demoformfield>

@@ -1,4 +1,6 @@
 import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -12,13 +14,21 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { toBoolean } from '@angular-mdc/web/common';
 
-export const MD_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
+export const MDC_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => MdcSwitch),
   multi: true
 };
+
+/** Change event object emitted by MdcSwitch. */
+export class MdcSwitchChange {
+  constructor(
+    /** The source MdcSwitch of the event. */
+    public source: MdcSwitch,
+    /** The new `checked` value of the switch. */
+    public checked: boolean) { }
+}
 
 let nextUniqueId = 0;
 
@@ -38,32 +48,48 @@ let nextUniqueId = 0;
     [tabIndex]="tabIndex"
     [disabled]="disabled"
     [checked]="checked"
+    (click)="onInputClick($event)"
+    (blur)="onBlur()"
     (change)="onChange($event)"/>
   <div class="mdc-switch__background">
     <div class="mdc-switch__knob"></div>
   </div>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  providers: [
-    MD_SWITCH_CONTROL_VALUE_ACCESSOR,
-  ],
+  providers: [MDC_SWITCH_CONTROL_VALUE_ACCESSOR],
   preserveWhitespaces: false,
 })
 export class MdcSwitch {
   private _uniqueId: string = `mdc-switch-${++nextUniqueId}`;
-  private _disableRipple: boolean = false;
 
   @Input() id: string = this._uniqueId;
   @Input() name: string | null = null;
-  @Input() checked: boolean = false;
-  @Input() disabled: boolean;
+
+  @Input()
+  get checked(): boolean { return this._checked; }
+  set checked(value: boolean) {
+    this.setChecked(value);
+  }
+  private _checked: boolean = false;
+
+  @Input()
+  get disabled(): boolean { return this._disabled; }
+  set disabled(value: boolean) {
+    this.setDisabledState(value);
+  }
+  private _disabled: boolean = false;
+
   @Input() tabIndex: number = 0;
-  @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
+  @Output() readonly change: EventEmitter<MdcSwitchChange> = new EventEmitter<MdcSwitchChange>();
   @HostBinding('class.mdc-switch') isHostClass = true;
   @ViewChild('inputEl') inputEl: ElementRef;
 
-  private _controlValueAccessorChangeFn: (value: any) => void = () => { };
-  onTouched: () => any = () => { };
+  /** View -> model callback called when value changes */
+  _onChange: (value: any) => void = () => { };
+
+  /** View -> model callback called when control has been touched */
+  _onTouched = () => { };
 
   get inputId(): string { return `${this.id || this._uniqueId}-input`; }
   @HostBinding('class.mdc-switch--disabled') get classDisabled(): string {
@@ -71,26 +97,65 @@ export class MdcSwitch {
   }
 
   constructor(
+    private _changeDetectorRef: ChangeDetectorRef,
     private _renderer: Renderer2,
     public elementRef: ElementRef) { }
 
   onChange(evt: Event): void {
     evt.stopPropagation();
-    this.checked = this.inputEl.nativeElement.checked;
-    this._controlValueAccessorChangeFn((<any>evt.target).checked);
-    this.change.emit(evt);
+
+    this.setChecked(this.inputEl.nativeElement.checked);
   }
 
-  writeValue(value: string): void {
-    this.checked = !!value;
+  onInputClick(evt: Event): void {
+    evt.stopPropagation();
+  }
+
+  onBlur(): void {
+    this._onTouched();
+  }
+
+  writeValue(value: any): void {
+    this.setChecked(value);
   }
 
   registerOnChange(fn: (value: any) => void): void {
-    this._controlValueAccessorChangeFn = fn;
+    this._onChange = fn;
   }
 
   registerOnTouched(fn: any): void {
-    this.onTouched = fn;
+    this._onTouched = fn;
+  }
+
+  setDisabled(disabled: boolean): void {
+    this.setDisabledState(disabled);
+  }
+
+  setChecked(checked: boolean): void {
+    if (this.disabled) { return; }
+
+    const previousValue = this.checked;
+
+    this._checked = checked;
+    if (previousValue !== null || undefined) {
+      this._onChange(this.checked);
+      this.change.emit(new MdcSwitchChange(this, this.checked));
+    }
+
+    this._changeDetectorRef.markForCheck();
+  }
+
+  isChecked(): boolean {
+    return this.checked;
+  }
+
+  isDisabled(): boolean {
+    return this.disabled;
+  }
+
+  setDisabledState(disabled: boolean): void {
+    this._disabled = disabled;
+    this._changeDetectorRef.markForCheck();
   }
 
   focus(): void {

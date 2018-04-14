@@ -47,7 +47,7 @@
           </tr>
           <tr>
             <td>checked: boolean</td>
-            <td>Use to verify the checked value.</td>
+            <td>Use to set the checked value.</td>
           </tr>
           <tr>
             <td>disabled: boolean</td>
@@ -64,6 +64,22 @@
         </thead>
         <tbody>
           <tr>
+            <td>setDisabled(disabled: boolean)</td>
+            <td>Disables the component.</td>
+          </tr>
+          <tr>
+            <td>setChecked(checked: boolean)</td>
+            <td>Set whether or not the switch is checked.</td>
+          </tr>
+          <tr>
+            <td>isChecked(): boolean</td>
+            <td>Whether or not switch is checked.</td>
+          </tr>
+          <tr>
+            <td>isDisabled(): boolean</td>
+            <td>Whether or not switch is disabled.</td>
+          </tr>
+          <tr>
             <td>focus()</td>
             <td>Set focus to the switch.</td>
           </tr>
@@ -78,7 +94,7 @@
         </thead>
         <tbody>
           <tr>
-            <td>change</td>
+            <td>change(source: MdcSwitch, value: boolean)</td>
             <td>Event dispatched on value change.</td>
           </tr>
         </tbody>
@@ -104,9 +120,23 @@
     </div>
     <div class="demo-content--row">
       <mdc-form-field #demoformfield>
-        <mdc-switch [(ngModel)]="isSwitchOn" #demoswitch></mdc-switch>
+        <mdc-switch [(ngModel)]="isSwitchOn" #demoswitch (change)="onChange($event)"></mdc-switch>
         <label>off/on</label>
       </mdc-form-field>
     </div>
+    <p>ngModel value: {{isSwitchOn}}</p>
+  </div>
+
+  <div class="demo-content">
+    <h3>Switch - ngModel Form</h3>
+    <form #demoForm="ngForm" id="demoForm">
+      <mdc-form-field>
+        <mdc-switch #demoSwitch ngModel [name]="demoSwitch" #demoSwitchModel="ngModel"></mdc-switch>
+        <label>off/on</label>
+      </mdc-form-field>
+    </form>
+    <p mdc-typography-body1>Dirty: {{ demoSwitchModel.dirty }}</p>
+    <p mdc-typography-body1>Touched: {{ demoSwitchModel.touched }}</p>
+    <p mdc-typography-body1>Value: {{ demoSwitchModel.value }}</p>
   </div>
 </div>

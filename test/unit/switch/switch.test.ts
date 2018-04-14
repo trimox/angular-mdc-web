@@ -57,24 +57,12 @@ describe('MdcSwitch', () => {
 
     it('#should add and remove disabled state', () => {
       expect(switchInstance.disabled).toBe(false);
-      expect(switchNativeElement.classList).not.toContain('mdc-switch--disabled');
       expect(inputElement.tabIndex).toBe(0);
-      expect(inputElement.disabled).toBe(false);
-
-      testComponent.isDisabled = true;
       fixture.detectChanges();
 
-      expect(switchInstance.disabled).toBe(true);
-      expect(switchNativeElement.classList).toContain('mdc-switch--disabled');
+      switchInstance.setDisabled(true);
+      fixture.detectChanges();
       expect(inputElement.disabled).toBe(true);
-
-      testComponent.isDisabled = false;
-      fixture.detectChanges();
-
-      expect(switchInstance.disabled).toBe(false);
-      expect(switchNativeElement.classList).not.toContain('mdc-switch--disabled');
-      expect(inputElement.tabIndex).toBe(0);
-      expect(inputElement.disabled).toBe(false);
     });
 
     it('#should not toggle `checked` state upon interation while disabled', () => {
@@ -83,6 +71,8 @@ describe('MdcSwitch', () => {
 
       inputElement.click();
       expect(switchInstance.checked).toBe(false);
+      expect(switchInstance.isChecked()).toBe(false);
+      expect(switchInstance.isDisabled()).toBe(true);
     });
 
     it('#should preserve the user-provided id', () => {

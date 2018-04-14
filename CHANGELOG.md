@@ -1,3 +1,21 @@
+<a name="0.34.3"></a>
+## [0.34.3](https://github.com/trimox/angular-mdc-web/compare/v0.34.2...v0.34.3) (2018-04-14)
+
+
+### Features
+
+* **checkbox:** Add public methods + improvements ([#866](https://github.com/trimox/angular-mdc-web/issues/866)) ([a2096a9](https://github.com/trimox/angular-mdc-web/commit/a2096a9))
+* **switch:** New UX state methods + improvements ([#868](https://github.com/trimox/angular-mdc-web/issues/868)) ([405b367](https://github.com/trimox/angular-mdc-web/commit/405b367))
+* **text-field:** Add public methods for UX states ([#867](https://github.com/trimox/angular-mdc-web/issues/867)) ([fc77f64](https://github.com/trimox/angular-mdc-web/commit/fc77f64))
+
+
+### BREAKING CHANGES
+
+* **switch:** Update `(change)` event listener to match `MdcSwitchChange` class.
+* **checkbox:** Update `(change)` event listener to match `MdcCheckboxChange` class.
+
+
+
 <a name="0.34.2"></a>
 ## [0.34.2](https://github.com/trimox/angular-mdc-web/compare/v0.34.1...v0.34.2) (2018-04-13)
 

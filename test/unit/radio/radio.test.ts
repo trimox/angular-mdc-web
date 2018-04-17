@@ -50,8 +50,6 @@ describe('MdcRadio', () => {
     });
 
     it('#should toggle checked state on click', () => {
-      expect(radioInstance.checked).toBe(false);
-
       inputElement.click();
       fixture.detectChanges();
 
@@ -86,7 +84,7 @@ describe('MdcRadio', () => {
       fixture.detectChanges();
 
       inputElement.click();
-      expect(radioInstance.checked).toBe(false);
+      expect(radioInstance.checked).toBe(undefined);
     });
 
     it('#should preserve the user-provided id', () => {
@@ -227,8 +225,6 @@ describe('MdcRadio', () => {
       }));
 
       it('#should toggle checked state on click', () => {
-        expect(radioInstance.checked).toBe(false);
-
         inputElement.click();
         fixture.detectChanges();
 

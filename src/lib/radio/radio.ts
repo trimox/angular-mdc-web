@@ -24,11 +24,22 @@ import { MDCRadioFoundation } from '@material/radio';
 
 let nextUniqueId = 0;
 
-export const MD_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
+export const MDC_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => MdcRadio),
   multi: true
 };
+
+/** Change event object emitted by MdcRadio. */
+export class MdcRadioChange {
+  constructor(
+    /** The source MdcRadio of the event. */
+    public source: MdcRadio,
+    /** The value of the radio button. */
+    public value: any,
+    /** The new `checked` value of the radio button. */
+    public checked: boolean) { }
+}
 
 @Component({
   moduleId: module.id,
@@ -48,9 +59,9 @@ export const MD_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
     [attr.aria-labelledby]="ariaLabelledby"
     [disabled]="disabled"
     [checked]="checked"
-    [value]="value"
-    (change)="onChange($event)"
-    (blur)="onBlur()" />
+    [attr.value]="value"
+    (click)="onInputClick($event)"
+    (change)="onChange($event)" />
     <div class="mdc-radio__background">
       <div class="mdc-radio__outer-circle"></div>
       <div class="mdc-radio__inner-circle"></div>
@@ -59,7 +70,7 @@ export const MD_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
-    MD_RADIO_CONTROL_VALUE_ACCESSOR,
+    MDC_RADIO_CONTROL_VALUE_ACCESSOR,
     MdcRipple,
     EventRegistry,
   ]
@@ -76,27 +87,27 @@ export class MdcRadio implements AfterViewInit, OnDestroy {
   get inputId(): string { return `${this.id || this._uniqueId}-input`; }
 
   @Input()
-  get value(): boolean { return this._value; }
-  set value(newValue: boolean) {
+  get value(): any { return this._value; }
+  set value(newValue: any) {
     this.setValue(newValue);
   }
-  protected _value: any;
+  private _value: any;
 
   @Input()
   get checked(): boolean { return this._checked; }
   set checked(value: boolean) {
     this.setChecked(value);
   }
-  protected _checked: boolean = false;
+  private _checked: boolean;
 
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this.setDisabledState(value);
   }
-  protected _disabled: boolean = false;
+  private _disabled: boolean = false;
 
-  @Output() change: EventEmitter<Event> = new EventEmitter<Event>();
+  @Output() readonly change: EventEmitter<MdcRadioChange> = new EventEmitter<MdcRadioChange>();
   @HostBinding('class.mdc-radio') isHostClass = true;
   @ViewChild('inputEl') inputEl: ElementRef;
 
@@ -113,8 +124,8 @@ export class MdcRadio implements AfterViewInit, OnDestroy {
     setChecked(checked: boolean): void,
     setDisabled(disabled: boolean): void,
     isDisabled(): boolean,
-    getValue(): string,
-    setValue(value: string): void
+    getValue(): any,
+    setValue(value: any): void
   } = new MDCRadioFoundation(this._mdcAdapter);
 
   /** View -> model callback called when value changes */
@@ -131,9 +142,7 @@ export class MdcRadio implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this._foundation.init();
-    this.ripple.attachTo(this._getHostElement(), true);
-
-    this._changeDetectorRef.detectChanges();
+    this.ripple.attachTo(this._getHostElement(), true, this.inputEl.nativeElement);
   }
 
   ngOnDestroy(): void {
@@ -141,23 +150,19 @@ export class MdcRadio implements AfterViewInit, OnDestroy {
     this._foundation.destroy();
   }
 
-  onChange(evt: Event): void {
+  onInputClick(evt: Event): void {
     evt.stopPropagation();
-    this._onChange((<any>evt.target).value);
-    this.change.emit(evt);
+
+    this._onTouched();
   }
 
-  onBlur(): void {
-    this._onTouched();
-    this._changeDetectorRef.markForCheck();
+  onChange(evt: Event): void {
+    evt.stopPropagation();
+    this.setChecked(this.inputEl.nativeElement.checked);
   }
 
   writeValue(value: any): void {
-    if (this.value === value) {
-      this.setChecked(value);
-    }
-
-    this._changeDetectorRef.markForCheck();
+    this.setChecked(value);
   }
 
   registerOnChange(fn: (value: any) => any): void {
@@ -168,14 +173,26 @@ export class MdcRadio implements AfterViewInit, OnDestroy {
     this._onTouched = fn;
   }
 
+  setDisabled(disabled: boolean): void {
+    this.setDisabledState(disabled);
+  }
+
   setDisabledState(disabled: boolean): void {
-    this._foundation.setDisabled(disabled);
     this._disabled = disabled;
+    this._foundation.setDisabled(disabled);
     this._changeDetectorRef.markForCheck();
   }
 
   setChecked(checked: boolean): void {
     this._checked = checked;
+    if (checked) {
+      this._onChange(this.checked);
+    }
+
+    if (checked || checked == null) {
+      this.change.emit(new MdcRadioChange(this, this.getValue(), this.checked));
+    }
+
     this._foundation.setChecked(checked);
     this._changeDetectorRef.markForCheck();
   }

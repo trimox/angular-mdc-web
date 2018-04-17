@@ -35,9 +35,26 @@
           </tr>
         </tbody>
       </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Methods</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>setMasonry(masonry: boolean)</td>
+            <td>Indicates that this Image List should use the Masonry variant or not.</td>
+          </tr>
+          <tr>
+            <td>setTextProtection(textProtection: boolean)</td>
+            <td>Indicates that supporting content should be positioned in a scrim overlaying each image (instead of positioned separately under each image).</td>
+          </tr>
+        </tbody>
+      </table>
 
-      <h3>mdc-image-list-item</h3>
-      <h3 class="small-margin">[mdcImageListItem]</h3>
+      <h3>mdc-image-list-item, [mdcImageListItem]</h3>
       <table>
         <tbody>
           <tr>
@@ -46,8 +63,7 @@
         </tbody>
       </table>
 
-      <h3>[mdcImageListImageAspect]</h3>
-      <h3 class="small-margin">mdc-image-list-image-aspect</h3>
+      <h3>mdc-image-list-image-aspect, [mdcImageListImageAspect]</h3>
       <table>
         <tbody>
           <tr>
@@ -56,8 +72,7 @@
         </tbody>
       </table>
 
-      <h3>[mdcImageListImage]</h3>
-      <h3 class="small-margin">mdc-image-list-image</h3>
+      <h3>mdc-image-list-image, [mdcImageListImage]</h3>
       <table>
         <tbody>
           <tr>
@@ -66,8 +81,7 @@
         </tbody>
       </table>
 
-      <h3>mdc-image-list-supporting</h3>
-      <h3 class="small-margin">[mdcImageListSupporting]</h3>
+      <h3>mdc-image-list-supporting, [mdcImageListSupporting]</h3>
       <table>
         <tbody>
           <tr>
@@ -76,8 +90,7 @@
         </tbody>
       </table>
 
-      <h3>mdc-image-list-label</h3>
-      <h3 class="small-margin">[mdcImageListLabel]</h3>
+      <h3>mdc-image-list-label, [mdcImageListLabel]</h3>
       <table>
         <tbody>
           <tr>
@@ -86,6 +99,23 @@
         </tbody>
       </table>
     </div>
+    <h2>Sass Mixins</h2>
+    To customize the image list, use the following mixins.
+    <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-image-list#sass-mixins"
+     target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
+
+<p>Constraining width</p>
+     <pre><![CDATA[
+.my-image-list {
+  @include mdc-image-list-standard-columns(5);
+}
+
+@media (max-width: 599px) {
+  .my-image-list {
+    @include mdc-image-list-standard-columns(3);
+  }
+}
+]]></pre>
     <h2>Basic Usage</h2>
     <a mdc-button href="https://stackblitz.com/edit/angular-mdc-image-list"
      target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
@@ -108,6 +138,7 @@
     </mdc-image-list>
   </div>
 
+  <div class="demo-content">
     <h3>Masonry Image List</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="demomasonry.textProtection = !demomasonry.textProtection">Text Protection: {{demomasonry.textProtection ? 'On' : 'Off'}}</button>
@@ -120,4 +151,5 @@
         </mdc-image-list-supporting>
       </mdc-image-list-item>
     </mdc-image-list>
+  </div>
 </div>

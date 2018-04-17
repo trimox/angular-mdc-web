@@ -46,14 +46,83 @@ start, end</pre></td>
           </tr>
         </tbody>
       </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>setNarrow(narrow: boolean)</td>
+            <td>If set, gutter padding becomes 1px. (Default is 4px).</td>
+          </tr>
+          <tr>
+            <td>setHeader(header: boolean)</td>
+            <td>Change the footer caption to be a header caption.</td>
+          </tr>
+          <tr>
+            <td>setAspect(aspect: string)</td>
+            <td>Applies desired aspect ratio to grid list. (Default is 1x1).<pre class="caption">Valid values:
+1x1, 16x9, 2x3, 3x2, 4x3, 3x4</pre></td>
+          </tr>
+        </tbody>
+      </table>
 
       <h3>mdc-grid-tile</h3>
-      <h3>mdc-grid-tile-primary</h3>
-      <h3>[mdcGridTilePrimaryContent]</h3>
-      <h3 class="small-margin">mdc-grid-tile-primary-content</h3>
-      <h3>mdc-grid-tile-secondary</h3>
-      <h3>mdc-grid-tile-title</h3>
-      <h3>mdc-grid-tile-support-text</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>Mandatory. Indicates each tile in an grid list.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-grid-tile-primary, [mdcGridTilePrimary]</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>Mandatory. Container element for mdcGridTilePrimaryContent.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-grid-tile-primary-content, [mdcGridTilePrimaryContent]</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>Mandatory. Indicates the image element in each tile.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-grid-tile-secondary, [mdcGridTileSecondary]</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>Optional. Container element for mdc-grid-tile-title.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-grid-tile-title, [mdcGridTileTitle]</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>Optional. Indicates the tile label in each item.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-grid-tile-support-text, [mdcGridTileSupportText]</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>Optional. Indicates the tile supporting text below a tile title for each item.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <h2>Basic Usage</h2>
     <a mdc-button href="https://stackblitz.com/edit/angular-mdc-grid-list"

@@ -65,11 +65,14 @@
         </tbody>
       </table>
     </div>
-    <h2>Theming</h2>
-    To customize the colors of any part of the icon, use the following mixins.
-    <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-theme#sass-mixins-variables-and-functions"
-     target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
+    <h2>Sass Mixins</h2>
+    Example for an alternate icon color.
+     <pre><![CDATA[
+.demo-icon-custom-colors {
+  $color: $material-color-orange-500;
 
+  @include mdc-theme-prop(color, $color);
+}]]></pre>
 
     <h2>Basic Usage</h2>
     <a mdc-button href="https://stackblitz.com/edit/angular-mdc-icon"

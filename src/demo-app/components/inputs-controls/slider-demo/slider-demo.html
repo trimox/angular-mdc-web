@@ -119,10 +119,10 @@
 
   <div class="demo-content">
     <h3>Continuous Slider</h3>
-    <mdc-slider [min]="continuousMin" [max]="continuousMax" [value]="continuousValue" [(ngModel)]="continuousModel" [disabled]="continuousIsDisabled" (input)="inputContinuousValue($event)">
-    </mdc-slider>
-    <label>Slider ngModel : {{continuousModel}}</label>
-    <div fxLayout="row">
+    <mdc-slider [min]="continuousMin" [max]="continuousMax" [value]="continuousValue" [(ngModel)]="continuousModel"
+     [disabled]="continuousIsDisabled" (input)="inputContinuousValue($event)"></mdc-slider>
+    <p>Slider ngModel : {{continuousModel}}</p>
+    <div class="demo-content--row">
       <mdc-text-field [(ngModel)]="continuousMin" label="Min"></mdc-text-field>
       <mdc-text-field [(ngModel)]="continuousMax" label="Max"></mdc-text-field>
       <mdc-text-field [(ngModel)]="continuousValue" label="Value"></mdc-text-field>
@@ -134,10 +134,10 @@
   </div>
   <div class="demo-content">
     <h3>Discrete Slider</h3>
-    <mdc-slider [min]="discreteMin" [max]="discreteMax" [value]="discreteValue" [(ngModel)]="discreteValue" [discrete]="true" [disabled]="discreteIsDisabled">
-    </mdc-slider>
-    <label>Slider value : {{discreteValue}}</label>
-    <div fxLayout="row">
+    <mdc-slider [min]="discreteMin" [max]="discreteMax" [value]="discreteValue" [(ngModel)]="discreteValue"
+     [discrete]="true" [disabled]="discreteIsDisabled"></mdc-slider>
+    <p>Slider value : {{discreteValue}}</p>
+    <div class="demo-content--row">
       <mdc-text-field [(ngModel)]="discreteMin" label="Min"></mdc-text-field>
       <mdc-text-field [(ngModel)]="discreteMax" label="Max"></mdc-text-field>
       <mdc-text-field [(ngModel)]="discreteValue" label="Value"></mdc-text-field>
@@ -149,10 +149,10 @@
   </div>
   <div class="demo-content">
     <h3>Discrete Slider with markers</h3>
-    <mdc-slider [min]="dmMin" [max]="dmMax" [step]="dmStep" [value]="dmValue" [(ngModel)]="dmModel" [discrete]="true" [markers]="true" [disabled]="dmIsDisabled">
-    </mdc-slider>
-    <label>Slider value : {{dmModel}}</label>
-    <div fxLayout="row">
+      <mdc-slider [min]="dmMin" [max]="dmMax" [step]="dmStep" [value]="dmValue" [(ngModel)]="dmModel"
+       [discrete]="true" [markers]="true" [disabled]="dmIsDisabled"></mdc-slider>
+    <p>Slider value : {{dmModel}}</p>
+    <div class="demo-content--row">
       <mdc-text-field [(ngModel)]="dmMin" label="Min"></mdc-text-field>
       <mdc-text-field [(ngModel)]="dmMax" label="Max"></mdc-text-field>
       <mdc-text-field [(ngModel)]="dmStep" label="Step"></mdc-text-field>

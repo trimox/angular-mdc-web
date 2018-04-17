@@ -93,9 +93,7 @@
 
   <div class="demo-content">
     <h3>Indeterminate Progress</h3>
-    <div class="demo-content--column">
-      <mdc-linear-progress #lp [indeterminate]="true"></mdc-linear-progress>
-    </div>
+    <mdc-linear-progress #lp [indeterminate]="true"></mdc-linear-progress>
     <div class="demo-content--row">
       <button mdc-button (click)="lp.setReverse(!lp.reversed)">Reverse</button>
       <button mdc-button (click)="lp.closed = !lp.closed">Open/Close</button>
@@ -105,9 +103,7 @@
 
   <div class="demo-content">
     <h3>Determinate Progress</h3>
-    <div class="demo-content--column">
-      <mdc-linear-progress #deter [indeterminate]="false" [progress]="0.5" [buffer]="0.75" [secondary]="true"></mdc-linear-progress>
-    </div>
+    <mdc-linear-progress #deter [indeterminate]="false" [progress]="0.5" [buffer]="0.75" [secondary]="true"></mdc-linear-progress>
     <div class="demo-content--row">
       <button mdc-button (click)="deter.setReverse(!deter.reversed)">Reverse</button>
       <button mdc-button (click)="deter.closed = !deter.closed">Open/Close</button>

@@ -1,3 +1,7 @@
+.mdc-linear-progress {
+  display: block;
+}
+
 .mdc-linear-progress--secondary {
   @include mdc-linear-progress-bar-color($mdc-theme-secondary);
 }

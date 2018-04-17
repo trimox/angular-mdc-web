@@ -40,7 +40,7 @@ const MDC_VALID_ASPECTS = [
 ];
 
 @Directive({
-  selector: '[mdc-grid-tile-title], mdc-grid-tile-title',
+  selector: 'mdc-grid-tile-title, [mdcGridTileTitle]',
   exportAs: 'mdcGridTileTitle'
 })
 export class MdcGridTileTitle {
@@ -50,7 +50,7 @@ export class MdcGridTileTitle {
 }
 
 @Directive({
-  selector: '[mdc-grid-tile-support-text], mdc-grid-tile-support-text',
+  selector: 'mdc-grid-tile-support-text, [mdcGridTileSupportText]',
   exportAs: 'mdcGridTileSupportText'
 })
 export class MdcGridTileSupportText {
@@ -59,17 +59,13 @@ export class MdcGridTileSupportText {
   constructor(public elementRef: ElementRef) { }
 }
 
-@Component({
-  moduleId: module.id,
-  selector: '[mdc-grid-tile-primary], mdc-grid-tile-primary',
-  exportAs: 'mdcGridTilePrimary',
-  template: `
-  <div class="mdc-grid-tile__primary">
-    <ng-content></ng-content>
-  </div>
-  `
+@Directive({
+  selector: 'mdc-grid-tile-primary, [mdcGridTilePrimary]',
+  exportAs: 'mdcGridTilePrimary'
 })
 export class MdcGridTilePrimary {
+  @HostBinding('class.mdc-grid-tile__primary') isHostClass = true;
+
   constructor(public elementRef: ElementRef) { }
 }
 
@@ -82,7 +78,7 @@ export class MdcGridTilePrimaryContent {
 }
 
 @Directive({
-  selector: '[mdc-grid-tile-secondary], mdc-grid-tile-secondary',
+  selector: 'mdc-grid-tile-secondary, [mdcGridTileSecondary]',
   exportAs: 'mdcGridTileSecondary'
 })
 export class MdcGridTileSecondary {
@@ -92,7 +88,7 @@ export class MdcGridTileSecondary {
 }
 
 @Directive({
-  selector: '[mdc-grid-tile], mdc-grid-tile',
+  selector: 'mdc-grid-tile, [mdcGridTile]',
   exportAs: 'mdcGridTile'
 })
 export class MdcGridTile {
@@ -102,8 +98,8 @@ export class MdcGridTile {
 }
 
 @Directive({
-  selector: '[mdc-grid-list-tiles], mdc-grid-list-tiles',
-  exportAs: 'mdcGridTiles'
+  selector: 'mdc-grid-list-tiles, [mdcGridListTiles]',
+  exportAs: 'mdcGridListTiles'
 })
 export class MdcGridListTiles {
   @HostBinding('class.mdc-grid-list__tiles') isHostClass = true;

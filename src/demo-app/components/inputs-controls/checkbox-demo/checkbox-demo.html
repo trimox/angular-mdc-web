@@ -154,12 +154,10 @@
       <button mdc-button (click)="demofield.alignEnd = !demofield.isAlignEnd()">Align End: {{demobox.alignEnd ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demobox.setDisabled(!demobox.isDisabled())">Disabled: {{demobox.disabled ? 'On' : 'Off'}}</button>
     </div>
-    <div class="demo-content--row">
-      <mdc-form-field #demofield>
-        <mdc-checkbox #demobox (change)="onChange($event)" (indeterminateChange)="onIndeterminateChange($event)"></mdc-checkbox>
-        <label>Checkbox value is {{demobox.isChecked()}}</label>
-      </mdc-form-field>
-    </div>
+    <mdc-form-field #demofield>
+      <mdc-checkbox #demobox (change)="onChange($event)" (indeterminateChange)="onIndeterminateChange($event)"></mdc-checkbox>
+      <label>Checkbox value is {{demobox.isChecked()}}</label>
+    </mdc-form-field>
   </div>
 
   <div class="demo-content">
@@ -168,12 +166,10 @@
       <button mdc-button (click)="democustomcolor.setIndeterminate(true)">Indeterminate: {{democustomcolor.indeterminate ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="democustomcolor.setDisabled(!democustomcolor.isDisabled())">Disabled: {{democustomcolor.disabled ? 'On' : 'Off'}}</button>
     </div>
-    <div class="demo-content--row">
-      <mdc-form-field>
-        <mdc-checkbox #democustomcolor class="demo-checkbox--custom-all"></mdc-checkbox>
-        <label>Custom Color</label>
-      </mdc-form-field>
-    </div>
+    <mdc-form-field>
+      <mdc-checkbox #democustomcolor class="demo-checkbox--custom-all"></mdc-checkbox>
+      <label>Custom Color</label>
+    </mdc-form-field>
   </div>
 
   <div class="demo-content">
@@ -182,11 +178,9 @@
       <button mdc-button (click)="democustomcolor2.setIndeterminate(true)">Indeterminate: {{democustomcolor2.indeterminate ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="democustomcolor2.setDisabled(!democustomcolor2.isDisabled())">Disabled: {{democustomcolor2.disabled ? 'On' : 'Off'}}</button>
     </div>
-    <div class="demo-content--row">
-      <mdc-form-field>
-        <mdc-checkbox #democustomcolor2 class="demo-checkbox--custom-stroke-and-fill"></mdc-checkbox>
-        <label>Custom Color</label>
-      </mdc-form-field>
-    </div>
+    <mdc-form-field>
+      <mdc-checkbox #democustomcolor2 class="demo-checkbox--custom-stroke-and-fill"></mdc-checkbox>
+      <label>Custom Color</label>
+    </mdc-form-field>
   </div>
 </div>

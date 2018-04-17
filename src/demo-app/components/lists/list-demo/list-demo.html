@@ -195,6 +195,11 @@
         </tbody>
       </table>
     </div>
+    <h2>Sass Mixins</h2>
+    To customize the list ink colors, use the following mixins.
+    <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-list#sass-mixins"
+     target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
+
     <h2>Basic Usage</h2>
     <a mdc-button href="https://stackblitz.com/edit/angular-mdc-list"
      target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
@@ -316,7 +321,7 @@
       <button mdc-button (click)="checkboxes.multiple = !checkboxes.multiple">Multiple: {{checkboxes.multiple ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="checkboxes.interactive = !checkboxes.interactive">Interactive w/Ripple: {{checkboxes.interactive ? 'On' : 'Off'}}</button>
     </div>
-    <mdc-list #checkboxes [multiple]="true">
+    <mdc-list #checkboxes>
       <mdc-list-item (click)="checkbox1.toggle()">
         Single-line item
         <mdc-checkbox #checkbox1 mdc-list-item-meta></mdc-checkbox>

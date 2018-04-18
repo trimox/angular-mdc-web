@@ -119,7 +119,7 @@
       <button mdc-button (click)="alternateColors(demoswitch)">Alternate Colors</button>
     </div>
     <mdc-form-field #demoformfield>
-      <mdc-switch [(ngModel)]="isSwitchOn" #demoswitch (change)="onChange($event)"></mdc-switch>
+      <mdc-switch [(ngModel)]="isSwitchOn" name="demoswitch" #demoswitch (change)="onChange($event)"></mdc-switch>
       <label>off/on</label>
     </mdc-form-field>
     <p>ngModel value: {{isSwitchOn}}</p>

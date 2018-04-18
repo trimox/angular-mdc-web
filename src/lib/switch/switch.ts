@@ -42,6 +42,7 @@ let nextUniqueId = 0;
     `
   <input type="checkbox"
     #inputEl
+    role="switch"
     class="mdc-switch__native-control"
     [id]="inputId"
     [name]="name"

@@ -183,6 +183,13 @@ describe('MdcButton', () => {
     it('#should have class mdc-button__icon by default', () => {
       expect(buttonDebugElement.nativeElement.classList.contains('mdc-button__icon')).toBe(true);
     });
+
+    it('#should not apply icon style', () => {
+      testComponent.icon = false;
+      fixture.detectChanges();
+
+      expect(buttonNativeElement.classList.contains('mdc-button__icon')).toBe(false);
+    });
   });
 });
 

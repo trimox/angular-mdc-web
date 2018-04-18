@@ -565,3 +565,25 @@ body {
   @include mdc-switch-knob-color($color);
   @include mdc-switch-focus-indicator-color($color);
 }
+
+//
+// Button
+//
+
+.mdc-button.big-round-corner-button {
+  @include mdc-button-corner-radius(8px);
+}
+
+.mdc-button.thick-stroke-button {
+  @include mdc-button-stroke-width(4px);
+}
+
+.demo-ink-color {
+  @include mdc-button-icon-color(white);
+  @include mdc-button-ink-color(orange);
+  @include mdc-states(orange);
+}
+
+.demo-icon-color {
+  @include mdc-button-icon-color(orange);
+}

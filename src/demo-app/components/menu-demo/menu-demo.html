@@ -36,10 +36,12 @@
             </td>
           </tr>
           <tr>
-            <td>direction: string</td>
-            <td>Support for right-to-left (RTL). (Default is ltr)
-              <pre>Values: 'ltr' | 'rtl'</pre>
-            </td>
+            <td>rememberSelection: boolean</td>
+            <td>Whether or not previous selection is focused upon menu open. (Default is false)</td>
+          </tr>
+          <tr>
+            <td>quickOpen: boolean</td>
+            <td>Sets whether the menu should open and close without animation when the open/close methods are called.</td>
           </tr>
         </tbody>
       </table>
@@ -52,10 +54,8 @@
         </thead>
         <tbody>
           <tr>
-            <td>open(focusIndex?: number)</td>
-            <td><pre><![CDATA[Opens the menu.
-  focusIndex is an optional argument to to set focus to a menu item index.
-  If the focusIndex is omitted, no menu item will be focused.]]></pre></td>
+            <td>open()</td>
+            <td>Opens the menu.</td>
           </tr>
           <tr>
             <td>isOpen(): boolean</td>
@@ -66,20 +66,12 @@
             <td>Closes the menu.</td>
           </tr>
           <tr>
-            <td>isFocused(): boolean</td>
-            <td>Returns whether or not the menu has focus.</td>
+            <td>toggle()</td>
+            <td>Open or close the menu.</td>
           </tr>
           <tr>
             <td>focus()</td>
             <td>Set focus to the menu element.</td>
-          </tr>
-          <tr>
-            <td>isRtl(): boolean</td>
-            <td>Returns whether or not the menu direction is right-to-left.</td>
-          </tr>
-          <tr>
-            <td>getFocusedItemIndex(): number</td>
-            <td>Returns the index of the currently focused menu item (-1 if none).</td>
           </tr>
           <tr>
             <td>setAnchorCorner(corner: string)</td>
@@ -102,6 +94,10 @@
             <td>setMaxHeight(height: string)</td>
             <td>Sets max-height style for the menu element.</td>
           </tr>
+          <tr>
+            <td>setRememberSelection(rememberSelection: boolean)</td>
+            <td>Remembers previous selection, and focuses.</td>
+          </tr>
         </tbody>
       </table>
       <table>
@@ -117,7 +113,7 @@
             <td>Dispatches an event that the menu closed with no selection made.</td>
           </tr>
           <tr>
-            <td>select(item: HTMLElement, index: number)</td>
+            <td>select(item: MdcMenuItem, index: number)</td>
             <td>Dispatches an event that a menu item has been selected.</td>
           </tr>
         </tbody>
@@ -170,43 +166,45 @@
      target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
   </div>
 
-  <div class="demo-content">
-    <p>Anchor Corner:</p>
-    <pre mdc-typography-body1>Selected index: {{selectedIndex}}
-Anchor Corner: {{anchorCorner}}</pre>
-
+  <div class="demo-content" style="margin-bottom: 60px;">
     <div class="demo-content--row">
-      <div class="demo-content--column">
-        <mdc-form-field>
-          <mdc-radio value="top-start" name="radioGroup" [(ngModel)]="anchorCorner"></mdc-radio>
-          <label>Top start</label>
-        </mdc-form-field>
-        <mdc-form-field>
-          <mdc-radio value="top-end" name="radioGroup" [(ngModel)]="anchorCorner"></mdc-radio>
-          <label>Top end</label>
-        </mdc-form-field>
-        <mdc-form-field>
-          <mdc-radio value="bottom-start" name="radioGroup" [(ngModel)]="anchorCorner"></mdc-radio>
-          <label>Bottom start</label>
-        </mdc-form-field>
-        <mdc-form-field>
-          <mdc-radio value="bottom-end" name="radioGroup" [(ngModel)]="anchorCorner"></mdc-radio>
-          <label>Bottom end</label>
-        </mdc-form-field>
-      </div>
-      <div class="demo-content--column">
-      <div mdc-menu-anchor>
-        <button mdc-button [raised]="true" (click)="menu.open()">
-          Open Menu
-        </button>
-        <mdc-menu #menu (select)="handleMenuSelect($event)" [anchorCorner]="anchorCorner">
-          <mdc-menu-item id="0">Item 1</mdc-menu-item>
-          <mdc-menu-item id="1" [disabled]="true">Item 2</mdc-menu-item>
-          <mdc-menu-item id="2">Item 3</mdc-menu-item>
-          <mdc-menu-divider></mdc-menu-divider>
-          <mdc-menu-item id="3">Item 4</mdc-menu-item>
-        </mdc-menu>
-      </div>
+      <button mdc-button (click)="demomenu.toggle()">Toggle</button>
+      <button mdc-button (click)="demomenu.rememberSelection = !demomenu.rememberSelection">Remember Selection: {{demomenu.rememberSelection ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demomenu.quickOpen = !demomenu.quickOpen">Quick Open: {{demomenu.quickOpen ? 'On' : 'Off'}}</button>
     </div>
+    <div class="demo-content--row">
+      <mdc-form-field>
+        <mdc-radio value="top-start" name="radioGroup" (change)="onRadioChange($event)"></mdc-radio>
+        <label>Top start</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-radio value="top-end" name="radioGroup" (change)="onRadioChange($event)"></mdc-radio>
+        <label>Top end</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-radio value="bottom-start" name="radioGroup" (change)="onRadioChange($event)"></mdc-radio>
+        <label>Bottom start</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-radio value="bottom-end" name="radioGroup" (change)="onRadioChange($event)"></mdc-radio>
+        <label>Bottom end</label>
+      </mdc-form-field>
+    </div>
+
+    <mdc-menu-anchor #demoanchor>
+      <button mdc-button [raised]="true" (click)="demomenu.open()">
+        Open Menu
+      </button>
+      <mdc-menu #demomenu (select)="handleMenuSelect($event)" [anchorCorner]="anchorCorner" [anchor]="demoanchor">
+        <mdc-menu-item id="0">Item 1</mdc-menu-item>
+        <mdc-menu-item id="1" [disabled]="true">Item 2</mdc-menu-item>
+        <mdc-menu-item id="2">Item 3</mdc-menu-item>
+        <mdc-menu-divider></mdc-menu-divider>
+        <mdc-menu-item id="3">Item 4</mdc-menu-item>
+      </mdc-menu>
+    </mdc-menu-anchor>
+
+    <p>Selected index: {{selectedIndex}}</p>
+    <p>Anchor corner: {{demomenu.anchorCorner}}</p>
   </div>
 </div>

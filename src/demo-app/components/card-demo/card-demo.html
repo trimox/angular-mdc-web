@@ -31,8 +31,22 @@
           </tr>
         </tbody>
       </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Methods</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>setStroked(stroked: boolean)</td>
+            <td>Removes the shadow and displays a hairline stroke instead</td>
+          </tr>
+        </tbody>
+      </table>
 
-      <h3>mdc-card-primary-action</h3>
+      <h3>mdc-card-primary-action, [mdcCardPrimaryAction]</h3>
       <table>
         <tbody>
           <tr>
@@ -41,7 +55,7 @@
         </tbody>
       </table>
 
-      <h3>mdc-card-media</h3>
+      <h3>mdc-card-media, [mdcCardMedia]</h3>
       <table>
         <thead>
           <tr>
@@ -55,13 +69,32 @@
             <td>Automatically scales the media area's height to equal its width.</td>
           </tr>
           <tr>
-            <td>rectangle: boolean</td>
+            <td>wide: boolean</td>
             <td>Automatically scales the media area's height according to its width, maintaining a 16:9 aspect ratio.</td>
           </tr>
         </tbody>
       </table>
 
-      <h3>mdc-card-media-content</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Methods</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>setSquare(square: boolean)</td>
+            <td>Automatically scales the media area's height to equal its width.</td>
+          </tr>
+          <tr>
+            <td>setWide(wide: boolean)</td>
+            <td>Automatically scales the media area's height according to its width, maintaining a 16:9 aspect ratio.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-card-media-content, [mdcCardMediaContent]</h3>
       <table>
         <tbody>
           <tr>
@@ -70,7 +103,7 @@
         </tbody>
       </table>
 
-      <h3>mdc-card-actions</h3>
+      <h3>mdc-card-actions, [mdcCardActions]</h3>
       <table>
         <thead>
           <tr>
@@ -94,7 +127,7 @@
         </tbody>
       </table>
 
-      <h3>mdc-card-action-icons</h3>
+      <h3>mdc-card-action-icons, [mdcCardActionIcons]</h3>
       <table>
         <tbody>
           <tr>
@@ -103,7 +136,7 @@
         </tbody>
       </table>
 
-      <h3>mdc-card-action-buttons</h3>
+      <h3>mdc-card-action-buttons, [mdcCardActionButtons]</h3>
       <table>
         <tbody>
           <tr>
@@ -112,7 +145,7 @@
         </tbody>
       </table>
 
-      <h3>mdcCardAction</h3>
+      <h3>[mdcCardAction]</h3>
       <table>
         <tbody>
           <tr>
@@ -121,6 +154,11 @@
         </tbody>
       </table>
     </div>
+    <h2>Sass Mixins</h2>
+    To customize the colors, radius and more, use the following mixins.
+    <p><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-card/README.md#sass-mixins"
+     target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
+
     <h2>Basic Usage</h2>
     <a mdc-button href="https://stackblitz.com/edit/angular-mdc-card"
      target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
@@ -130,7 +168,7 @@
     <div class="demo-content-no-border">
       <mdc-card class="demo-card" fxFlexOffset="4">
         <mdc-card-primary-action mdc-ripple>
-          <mdc-card-media class="demo-card__media--16-9" [rectangle]="true"></mdc-card-media>
+          <mdc-card-media class="demo-card__media--16-9" [wide]="true"></mdc-card-media>
           <div class="demo-card__primary">
             <h2 class="demo-card__title" mdc-typography-title>Our Changing Planet</h2>
             <h3 class="demo-card__subtitle" mdc-typography-subheading1>by Kurt Wagner</h3>

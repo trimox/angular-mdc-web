@@ -12,12 +12,8 @@ describe('MdcCard', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MdcCardModule,
-      ],
-      declarations: [
-        SimpleTest,
-      ]
+      imports: [MdcCardModule],
+      declarations: [SimpleTest]
     });
     TestBed.compileComponents();
   }));
@@ -48,7 +44,7 @@ describe('MdcCard', () => {
   template: `
     <mdc-card [stroked]="isStroked">
       <mdc-card-primary-action>
-        <mdc-card-media [square]="isSquare" [rectangle]="isRectangle">
+        <mdc-card-media [square]="square" [wide]="wide">
           <mdc-card-media-content>
             Title
           </mdc-card-media-content>
@@ -65,7 +61,7 @@ describe('MdcCard', () => {
 })
 class SimpleTest {
   isStroked: boolean = false;
-  isSquare: boolean = false;
-  isRectangle: boolean = false;
+  square: boolean = true;
+  wide: boolean = false;
   isFullBleed: boolean = false;
 }

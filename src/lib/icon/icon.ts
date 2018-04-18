@@ -157,9 +157,11 @@ export class MdcIcon implements OnChanges, OnInit {
     if (this.clickable) {
       this._renderer.setAttribute(this._getHostElement(), 'tabindex', '0');
       this._renderer.addClass(this._getHostElement(), 'ng-mdc-icon--clickable');
+      this._renderer.setAttribute(this._getHostElement(), 'role', 'button');
     } else {
       this._renderer.setAttribute(this._getHostElement(), 'tabindex', '-1');
       this._renderer.removeClass(this._getHostElement(), 'ng-mdc-icon--clickable');
+      this._renderer.removeAttribute(this._getHostElement(), 'role');
     }
   }
 }

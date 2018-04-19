@@ -27,8 +27,7 @@
         <tbody>
           <tr>
             <td>short: boolean</td>
-            <td>Style the app bar as a short app bar.
-<pre>Short top app bars should only be used with one action item.</pre></td>
+            <td>Style the app bar as a short app bar. Short top app bars should only be used with one action item.</td>
           </tr>
           <tr>
             <td>prominent: boolean</td>
@@ -51,6 +50,37 @@
       <table>
         <thead>
           <tr>
+            <th>Methods</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>setShort(short: boolean)</td>
+            <td>Style the app bar as a short app bar. Short top app bars should only be used with one action item.</td>
+          </tr>
+          <tr>
+            <td>setProminent(prominent: boolean)</td>
+            <td>Enables prominent variant.</td>
+          </tr>
+          <tr>
+            <td>setDense(dense: boolean)</td>
+            <td>Enables dense variant.</td>
+          </tr>
+          <tr>
+            <td>shortCollapsed: boolean</td>
+            <td>Set the short app bar to always collapsed.</td>
+          </tr>
+          <tr>
+            <td>setFixedAdjustElement(element: any)</td>
+            <td>If set, scroll event listener is attached to element object.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table>
+        <thead>
+          <tr>
             <th>Events</th>
             <th>Description</th>
           </tr>
@@ -64,7 +94,7 @@
         </tbody>
       </table>
 
-      <h3>mdc-app-bar-row</h3>
+      <h3>mdc-app-bar-row, [mdcAppBarRow]</h3>
       <table>
         <tbody>
           <tr>
@@ -82,7 +112,7 @@
         </tbody>
       </table>
 
-      <h3>mdc-app-bar-section</h3>
+      <h3>mdc-app-bar-section, [mdcAppBarSection]</h3>
       <table>
         <tbody>
           <tr>
@@ -106,8 +136,7 @@
         </tbody>
       </table>
 
-      <h3>mdc-icon[mdcAppBarNavIcon]</h3>
-      <h3 class="small-margin">mdc-app-bar-navigation-icon</h3>
+      <h3>mdc-app-bar-navigation-icon, mdc-icon[mdcAppBarNavIcon]</h3>
       <table>
         <tbody>
           <tr>
@@ -116,8 +145,7 @@
         </tbody>
       </table>
 
-      <h3>mdc-icon[mdcAppBarActionItem]</h3>
-      <h3 class="small-margin">mdc-app-bar-action-item</h3>
+      <h3>mdc-app-bar-action-item, mdc-icon[mdcAppBarActionItem]</h3>
       <table>
         <tbody>
           <tr>
@@ -126,6 +154,11 @@
         </tbody>
       </table>
     </div>
+    <h2>Sass Mixins</h2>
+    To customize the colors of any part of the app bar, use the following mixins.
+    <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-top-app-bar#sass-mixins"
+     target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
+
     <h2>Basic Usage</h2>
     <a mdc-button href="https://stackblitz.com/edit/angular-mdc-app-bar"
      target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>

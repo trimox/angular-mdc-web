@@ -7,7 +7,7 @@ import {
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
 @Directive({
-  selector: '[mdc-app-bar-row], mdc-app-bar-row',
+  selector: '[mdc-app-bar-row], mdc-app-bar-row, [mdcAppBarRow]',
   exportAs: 'mdcAppBarRow'
 })
 export class MdcAppBarRow {
@@ -17,7 +17,7 @@ export class MdcAppBarRow {
 }
 
 @Directive({
-  selector: '[mdc-app-bar-section], mdc-app-bar-section',
+  selector: '[mdc-app-bar-section], mdc-app-bar-section, [mdcAppBarSection]',
   exportAs: 'mdcAppBarSection'
 })
 export class MdcAppBarSection {
@@ -36,7 +36,7 @@ export class MdcAppBarSection {
 }
 
 @Directive({
-  selector: 'mdc-icon[mdcAppBarActionItem], mdc-app-bar-action-item',
+  selector: 'mdc-icon[mdcAppBarActionItem], mdc-app-bar-action-item, [mdcAppBarActionItem]',
   exportAs: 'mdcAppBarActionItem',
   providers: [MdcRipple]
 })
@@ -53,7 +53,7 @@ export class MdcAppBarActionItem {
 }
 
 @Directive({
-  selector: 'mdc-icon[mdcAppBarNavIcon], mdc-app-bar-navigation-icon',
+  selector: 'mdc-icon[mdcAppBarNavIcon], mdc-app-bar-navigation-icon, [mdcAppBarNavigationIcon]',
   exportAs: 'mdcAppBarNavigationIcon',
   providers: [MdcRipple]
 })
@@ -75,7 +75,7 @@ export class MdcAppBarNavigationIcon {
 }
 
 @Directive({
-  selector: '[mdc-app-bar-title], mdc-app-bar-title',
+  selector: '[mdc-app-bar-title], mdc-app-bar-title, [mdcAppBarTitle]',
   exportAs: 'mdcAppBarTitle'
 })
 export class MdcAppBarTitle {

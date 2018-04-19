@@ -1,6 +1,7 @@
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChildren,
   ElementRef,
@@ -48,9 +49,9 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
   @Input()
   get choice(): boolean { return this._choice; }
   set choice(value: boolean) {
-    this._choice = toBoolean(value);
+    this.setChoice(value);
   }
-  protected _choice: boolean = false;
+  private _choice: boolean = false;
 
   /**
   * Indicates that the chips in the set are filter chips, which allow multiple selection from a set of options.
@@ -58,9 +59,9 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
   @Input()
   get filter(): boolean { return this._filter; }
   set filter(value: boolean) {
-    this._filter = toBoolean(value);
+    this.setFilter(value);
   }
-  protected _filter: boolean = false;
+  private _filter: boolean = false;
 
   @HostBinding('class.mdc-chip-set') isHostClass = true;
   @HostBinding('class.mdc-chip-set--choice') get classChoice(): string {
@@ -97,6 +98,7 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
   } = new MDCChipSetFoundation(this._mdcAdapter);
 
   constructor(
+    private _changeDetectorRef: ChangeDetectorRef,
     private _ngZone: NgZone,
     private _renderer: Renderer2,
     public elementRef: ElementRef,
@@ -135,6 +137,16 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._foundation.init();
+  }
+
+  setChoice(choice: boolean): void {
+    this._choice = choice;
+    this._changeDetectorRef.markForCheck();
+  }
+
+  setFilter(filter: boolean): void {
+    this._filter = filter;
+    this._changeDetectorRef.markForCheck();
   }
 
   /** Retrieves the DOM element of the component host. */

@@ -60,7 +60,10 @@ body {
   margin: 15px;
 
   h3 {
-    margin-top: .3em;
+    @include mdc-typography(title);
+
+    margin-top: .1em;
+    margin-bottom: .8em;
   }
 }
 
@@ -123,16 +126,17 @@ body {
   max-width: 900px;
 
   h1 {
-    font-size: 2em;
+    @include mdc-typography(display1);
+
+    font-weight: 500;
   }
 
   h2 {
-    font-size: 1.5em;
+    @include mdc-typography(headline);
   }
 
   h1, h2 {
     margin: 24px 16px 16px 0;
-    font-weight: 600;
     line-height: 1.25;
     padding-bottom: .3em;
     border-bottom: 1px solid #eaecef;
@@ -586,4 +590,20 @@ body {
 
 .demo-icon-color {
   @include mdc-button-icon-color(orange);
+}
+
+//
+// FAB
+//
+
+.mdc-fab.red800Fab {
+  @include mdc-fab-accessible($material-color-red-800);
+}
+
+.mdc-fab.yellow800Fab {
+  @include mdc-fab-accessible($material-color-yellow-800);
+}
+
+.mdc-fab.purple500Fab {
+  @include mdc-fab-accessible($material-color-purple-500);
 }

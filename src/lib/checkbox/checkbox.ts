@@ -37,7 +37,7 @@ export interface MdcIndeterminateChange {
   indeterminate: boolean;
 }
 
-export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
+export const MDC_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => MdcCheckbox),
   multi: true
@@ -77,7 +77,7 @@ export const MD_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
   </div>
   `,
   providers: [
-    MD_CHECKBOX_CONTROL_VALUE_ACCESSOR,
+    MDC_CHECKBOX_CONTROL_VALUE_ACCESSOR,
     MdcRipple,
     EventRegistry,
   ],
@@ -89,20 +89,15 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
   private _mdcAdapter: MDCCheckboxAdapter = {
     addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
     removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
-    setNativeControlAttr: (attr: string, value: string) =>
-      this._renderer.setAttribute(this.inputEl.nativeElement, attr, value),
+    setNativeControlAttr: (attr: string, value: string) => this._renderer.setAttribute(this.inputEl.nativeElement, attr, value),
     removeNativeControlAttr: (attr: string) => this._renderer.removeAttribute(this.inputEl.nativeElement, attr),
-    registerAnimationEndHandler: (handler: EventListener) =>
-      this._registry.listen('animationend', handler, this._getHostElement()),
-    deregisterAnimationEndHandler: (handler: EventListener) =>
-      this._registry.unlisten('animationend', handler),
-    registerChangeHandler: (handler: EventListener) =>
-      this._registry.listen('change', handler, this.inputEl.nativeElement),
-    deregisterChangeHandler: (handler: EventListener) =>
-      this._registry.unlisten('change', handler),
+    registerAnimationEndHandler: (handler: EventListener) => this._registry.listen('animationend', handler, this._getHostElement()),
+    deregisterAnimationEndHandler: (handler: EventListener) => this._registry.unlisten('animationend', handler),
+    registerChangeHandler: (handler: EventListener) => this._registry.listen('change', handler, this.inputEl.nativeElement),
+    deregisterChangeHandler: (handler: EventListener) => this._registry.unlisten('change', handler),
     getNativeControl: () => this.inputEl.nativeElement,
     forceLayout: () => this._getHostElement().offsetWidth,
-    isAttachedToDOM: () => !!this.elementRef
+    isAttachedToDOM: () => !!this.inputEl
   };
 
   private _foundation: {

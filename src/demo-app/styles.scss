@@ -59,6 +59,10 @@ body {
   padding: 15px;
   margin: 15px;
 
+  p {
+    @include mdc-typography(body1);
+  }
+
   h3 {
     @include mdc-typography(title);
 
@@ -606,4 +610,17 @@ body {
 
 .mdc-fab.purple500Fab {
   @include mdc-fab-accessible($material-color-purple-500);
+}
+
+//
+// Slider
+//
+
+.demo-slider--custom {
+  @include mdc-slider-highlight-color($material-color-red-700);
+  @include mdc-slider-rail-color($material-color-yellow-600, 1);
+  @include mdc-slider-rail-tick-mark-color(white);
+  @include mdc-slider-thumb-color($material-color-orange-500);
+  @include mdc-slider-focus-halo-color($material-color-yellow-900);
+  @include mdc-slider-value-pin-fill-color-accessible($material-color-pink-500);
 }

@@ -41,6 +41,7 @@ describe('MdcSlider', () => {
 
     it('#should apply class mdc-slider--discrete based on property', () => {
       testComponent.isDiscrete = true;
+      sliderInstance.layout();
       fixture.detectChanges();
       expect(sliderDebugElement.nativeElement.classList.contains('mdc-slider--discrete')).toBe(true);
     });
@@ -83,6 +84,18 @@ describe('MdcSlider', () => {
       fixture.detectChanges();
       expect(sliderInstance.disabled).toBe(true);
     });
+
+    it('#should return value of 15', () => {
+      testComponent.myValue = 15;
+      fixture.detectChanges();
+      expect(sliderInstance.getValue()).toBe(15);
+    });
+
+    it('#should return value of 15', () => {
+      sliderInstance.setValue(25);
+      fixture.detectChanges();
+      expect(sliderInstance.getValue()).toBe(25);
+    });
   });
 });
 
@@ -90,6 +103,7 @@ describe('MdcSlider', () => {
 @Component({
   template: `
     <mdc-slider
+      ngModel #demoMarkerModel="ngModel"
       [value]="myValue"
       [max]="myMax"
       [min]="myMin"

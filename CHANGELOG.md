@@ -1,3 +1,42 @@
+<a name="0.34.4"></a>
+## [0.34.4](https://github.com/trimox/angular-mdc-web/compare/v0.34.3...v0.34.4) (2018-04-20)
+
+
+### Bug Fixes
+
+* Set components internal nodes to block ([#871](https://github.com/trimox/angular-mdc-web/issues/871)) ([d78af8c](https://github.com/trimox/angular-mdc-web/commit/d78af8c))
+* **switch:** Add role="switch" to input ([#875](https://github.com/trimox/angular-mdc-web/issues/875)) ([1034500](https://github.com/trimox/angular-mdc-web/commit/1034500))
+* **text-field:** Add role="button" to icon ([#874](https://github.com/trimox/angular-mdc-web/issues/874)) ([dde07ef](https://github.com/trimox/angular-mdc-web/commit/dde07ef))
+
+
+### Features
+
+* **app-bar:** Add additional selectors ([#882](https://github.com/trimox/angular-mdc-web/issues/882)) ([6f7b96d](https://github.com/trimox/angular-mdc-web/commit/6f7b96d))
+* **button:** New UX state methods ([#878](https://github.com/trimox/angular-mdc-web/issues/878)) ([886fb53](https://github.com/trimox/angular-mdc-web/commit/886fb53))
+* **cards:** New UX state methods + [wide] property ([#877](https://github.com/trimox/angular-mdc-web/issues/877)) ([35e061e](https://github.com/trimox/angular-mdc-web/commit/35e061e))
+* **chips:** New UX state methods ([#883](https://github.com/trimox/angular-mdc-web/issues/883)) ([4753e48](https://github.com/trimox/angular-mdc-web/commit/4753e48))
+* **menu:** New UX state methods + improvements ([#876](https://github.com/trimox/angular-mdc-web/issues/876)) ([ccb3d6a](https://github.com/trimox/angular-mdc-web/commit/ccb3d6a))
+* **radio:** Enhance ngForm and FormControl usage ([#870](https://github.com/trimox/angular-mdc-web/issues/870)) ([5f00df4](https://github.com/trimox/angular-mdc-web/commit/5f00df4))
+* **slider:** New UX state methods + improvements ([#885](https://github.com/trimox/angular-mdc-web/issues/885)) ([62bf4f4](https://github.com/trimox/angular-mdc-web/commit/62bf4f4)), closes [#881](https://github.com/trimox/angular-mdc-web/issues/881)
+
+
+### BREAKING CHANGES
+
+* **radio:** Update mdc-radio change event listener to use MdcRadioChange class.
+* **card:** Renamed [rectangle] to [wide]. Please update your code accordingly.
+* **slider:** Update mdc-slider (change) and (input) listeners to use class MdcSliderChange.
+
+### mdc-menu - [View all mdc-menu changes](https://github.com/trimox/angular-mdc-web/pull/876)
+- Update your code to use MdcMenuChange class for select event listener.
+- Update your code to bind an element to [anchor] property. Please refer to documentation.
+- Removed @Input() direction
+- Removed isFocused(): boolean method
+- Removed getFocusedItemIndex(): number method
+- Removed hasAnchor(): boolean method
+- Removed isRtl(): boolean method
+
+
+
 <a name="0.34.3"></a>
 ## [0.34.3](https://github.com/trimox/angular-mdc-web/compare/v0.34.2...v0.34.3) (2018-04-14)
 

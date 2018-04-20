@@ -199,7 +199,7 @@
       <button mdc-button [raised]="true" (click)="demomenu.open()">
         Open Menu
       </button>
-      <mdc-menu #demomenu (select)="handleMenuSelect($event)" [anchorCorner]="anchorCorner" [anchor]="demoanchor">
+      <mdc-menu #demomenu (select)="handleMenuSelect($event)" [anchor]="demoanchor">
         <mdc-menu-item id="0">Item 1</mdc-menu-item>
         <mdc-menu-item id="1" [disabled]="true">Item 2</mdc-menu-item>
         <mdc-menu-item id="2">Item 3</mdc-menu-item>

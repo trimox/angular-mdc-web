@@ -7,6 +7,7 @@ import {
   Directive,
   ElementRef,
   Input,
+  NgZone,
   OnDestroy,
   Renderer2,
 } from '@angular/core';
@@ -68,13 +69,16 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
   protected _unbounded: boolean = false;
 
   constructor(
+    private _ngZone: NgZone,
     protected _changeDetectorRef: ChangeDetectorRef,
     protected _ripple: MdcRipple,
     protected _renderer: Renderer2,
     protected elementRef: ElementRef) { }
 
   ngAfterContentInit(): void {
-    this.setAttachTo(this.attachTo ? this.attachTo : this._getHostElement());
+    this._ngZone.runOutsideAngular(() => setTimeout(() => {
+      this.setAttachTo(this.attachTo ? this.attachTo : this._getHostElement());
+    }, 10));
   }
 
   ngOnDestroy(): void {
@@ -127,12 +131,13 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
 })
 export class MdcRippleDirective extends MdcRippleComponent {
   constructor(
+    _ngZone: NgZone,
     _changeDetectorRef: ChangeDetectorRef,
     _ripple: MdcRipple,
     _renderer: Renderer2,
     elementRef: ElementRef) {
 
-    super(_changeDetectorRef, _ripple, _renderer, elementRef);
+    super(_ngZone, _changeDetectorRef, _ripple, _renderer, elementRef);
 
     this._renderer.setAttribute(this.elementRef.nativeElement, 'data-mdc-ripple-is-unbounded', '');
     this.setUnbounded(true);

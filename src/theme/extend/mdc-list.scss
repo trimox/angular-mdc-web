@@ -1,5 +1,5 @@
-.mdc-list {
-  display: block;
+:not(.mdc-list--non-interactive) > .mdc-list-item {
+  cursor: pointer;
 }
 
 .ng-mdc-list--border {
@@ -17,6 +17,6 @@
   }
 }
 
-:not(.mdc-list--non-interactive) > .mdc-list-item {
-  cursor: pointer;
+.mdc-list {
+  display: block;
 }

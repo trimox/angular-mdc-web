@@ -4,10 +4,10 @@
   overflow-y: auto;
 }
 
-.mdc-drawer--persistent:not(.mdc-drawer--open) {
-  display: none;
-}
-
 .mdc-drawer--persistent {
   display: inline-flex;
+}
+
+.mdc-drawer--persistent:not(.mdc-drawer--open) {
+  display: none;
 }

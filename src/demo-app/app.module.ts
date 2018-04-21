@@ -4,8 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { FlexLayoutModule } from '@angular/flex-layout';
-
 import { DemoMaterialModule } from './material.module';
 
 import { DialogExampleModule } from './components/dialog-demo/dialog-example.module';
@@ -24,7 +22,6 @@ import { APP_ROUTES, DEMO_ROUTES } from './routes';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FlexLayoutModule,
     DemoMaterialModule,
     DialogExampleModule,
     RouterModule.forRoot(APP_ROUTES, { useHash: true, enableTracing: false })

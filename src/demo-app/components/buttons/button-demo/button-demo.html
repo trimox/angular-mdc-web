@@ -144,44 +144,48 @@
  -->
   <div class="demo-content">
     <h3>Different Color Icons/Ink</h3>
-    <button mdc-button [unelevated]="true" [icon]="true" class="demo-ink-color">
-      <mdc-icon>favorite</mdc-icon>
-      Ink Color
-    </button>
-    <button mdc-button [stroked]="true" [icon]="true" class="demo-icon-color">
-      <mdc-icon>favorite</mdc-icon>
-      Icon Color
-    </button>
+    <div class="demo-content--row demo-content--row-with-button">
+      <button mdc-button [unelevated]="true" [icon]="true" class="demo-ink-color">
+        <mdc-icon>favorite</mdc-icon>
+        Ink Color
+      </button>
+      <button mdc-button [stroked]="true" [icon]="true" class="demo-icon-color">
+        <mdc-icon>favorite</mdc-icon>
+        Icon Color
+      </button>
+    </div>
   </div>
 
   <div class="demo-content">
     <h3>Custom button (Experimental)</h3>
-    <button mdc-button [unelevated]="true" class="big-round-corner-button">
-      Corner Radius
-    </button>
-    <button mdc-button [stroked]="true" class="thick-stroke-button">
-      Thick Stroke Width
-    </button>
+    <div class="demo-content--row demo-content--row-with-button">
+      <button mdc-button [unelevated]="true" class="big-round-corner-button">
+        Corner Radius
+      </button>
+      <button mdc-button [stroked]="true" class="thick-stroke-button">
+        Thick Stroke Width
+      </button>
+    </div>
   </div>
 
   <div class="demo-content">
-    <div class="demo-content--row" fxLayoutGap="12px">
+    <div class="demo-content--row demo-content--row-with-button">
       <button mdc-button [primary]="true" [raised]="true">Primary and Raised</button>
       <button mdc-button [secondary]="true">Secondary Color</button>
     </div>
 
-    <div class="demo-content--row" fxLayoutGap="12px">
+    <div class="demo-content--row demo-content--row-with-button">
       <button mdc-button [icon]="true"><mdc-icon>favorite</mdc-icon>Icon</button>
       <button mdc-button [secondary]="true" [raised]="true" [icon]="true"><mdc-icon>favorite</mdc-icon>Icon</button>
     </div>
 
-    <div class="demo-content--row" fxLayoutGap="18px">
+    <div class="demo-content--row demo-content--row-with-button">
       <button mdc-button [unelevated]="true">Unelevated</button>
       <button mdc-button [stroked]="true">Stroked</button>
       <a mdc-button [primary]="true" [raised]="true" href="#/button-demo">Href link</a>
     </div>
 
-    <div class="demo-content--row" fxLayoutGap="18px">
+    <div class="demo-content--row demo-content--row-with-button">
       <button mdc-button [raised]="true">Raised</button>
       <button mdc-button [dense]="true" [raised]="true">Dense and Raised</button>
       <button mdc-button [primary]="true" [raised]="true" [disabled]="true">Disabled</button>

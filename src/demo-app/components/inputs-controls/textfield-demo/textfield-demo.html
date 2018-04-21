@@ -194,7 +194,7 @@
         </tbody>
       </table>
 
-      <h3>mdc-text-field-helper-text</h3>
+      <h3>mdc-text-field-helper-text, [mdcTextFieldHelperText]</h3>
       <table>
         <thead>
           <tr>
@@ -361,7 +361,7 @@
   </div>
   <div class="demo-content">
     <h3>Outlined Text Field - Trailing icon</h3>
-    <div fxLayout="row wrap">
+    <div class="demo-content--row">
       <button mdc-button (click)="trailingicon.clickable = !trailingicon.clickable">Clickable Icon: {{trailingicon.clickable ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="alternateColors(outlinedtrailing)">Alternate Colors</button>
     </div>
@@ -395,7 +395,7 @@
     <mdc-text-field #demobox2 label="Your name" [box]="true">
       <mdc-icon leading #demobox2icon>person</mdc-icon>
     </mdc-text-field>
-    <p mdc-text-field-helper-text [validation]="true">Name is required</p>
+    <mdc-text-field-helper-text [validation]="true">Name is required</mdc-text-field-helper-text>
   </div>
 
   <div class="demo-content">

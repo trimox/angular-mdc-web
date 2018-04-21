@@ -49,6 +49,11 @@
         </tbody>
       </table>
     </div>
+    <h2>Sass Mixins</h2>
+    To customize the ripple, use the following mixins.
+    <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-ripple#sass-apis"
+     target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
+
     <h2>Basic Usage</h2>
     <a mdc-button href="https://stackblitz.com/edit/angular-mdc-ripple"
      target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
@@ -61,7 +66,7 @@
       <button mdc-button (click)="demoripple.disabled = !demoripple.disabled">Disabled: {{demoripple.disabled ? 'On' : 'Off'}}</button>
     </div>
     <mdc-ripple #demoripple [mdc-elevation]="1" [attachTo]="demodiv">
-      <div style="height: 200px; width: 100%;" fxLayoutAlign="center center" #demodiv>
+      <div style="height: 200px; width: 100%;" class="demo-content--center" #demodiv>
         Click me
       </div>
     </mdc-ripple>

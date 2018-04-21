@@ -80,8 +80,8 @@
             <td>Returns whether or not the drawer is persistent.</td>
           </tr>
           <tr>
-            <td>isRtl(): boolean</td>
-            <td>Returns whether or not the drawer is set right-to-left.</td>
+            <td>setFixed(boolean)</td>
+            <td>Makes permanent drawer fixed on top and have persistent elevation.
           </tr>
         </tbody>
       </table>
@@ -160,79 +160,21 @@
         </tbody>
       </table>
     </div>
+    <h2>Sass Mixins</h2>
+    To customize the colors of any part of the drawer, use the following mixins.
+    <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-drawer#sass-mixins"
+     target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
+
     <h2>Basic Usage</h2>
     <a mdc-button href="https://stackblitz.com/edit/angular-mdc-drawer"
      target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
   </div>
 
-  <h3>Permanent Drawer - Above Toolbar</h3>
-  <a mdc-button href="https://stackblitz.com/edit/angular-mdc-drawer?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Example Source</a>
-  <div class="demo-drawer-content--row">
-    <mdc-drawer drawer='permanent'>
-      <mdc-drawer-spacer></mdc-drawer-spacer>
-      <mdc-drawer-content>
-        <mdc-list-group>
-          <mdc-list>
-            <mdc-list-item>
-              <mdc-icon mdc-list-item-graphic>home</mdc-icon>Home
-            </mdc-list-item>
-            <mdc-list-item>
-              <mdc-icon mdc-list-item-graphic>star</mdc-icon>Star
-            </mdc-list-item>
-            <mdc-list-item>
-              <mdc-icon mdc-list-item-graphic>send</mdc-icon>Sent Mail
-            </mdc-list-item>
-            <mdc-list-item>
-              <mdc-icon mdc-list-item-graphic>drafts</mdc-icon>Drafts
-            </mdc-list-item>
-            <mdc-list-divider></mdc-list-divider>
-            <mdc-list-item>
-              <mdc-icon mdc-list-item-graphic>email</mdc-icon>All Mail
-            </mdc-list-item>
-            <mdc-list-item>
-              <mdc-icon mdc-list-item-graphic>delete</mdc-icon>Trash
-            </mdc-list-item>
-            <mdc-list-item>
-              <mdc-icon mdc-list-item-graphic>report</mdc-icon>Spam
-            </mdc-list-item>
-          </mdc-list>
-        </mdc-list-group>
-      </mdc-drawer-content>
-    </mdc-drawer>
-    <div class="demo-content--column">
-      <mdc-toolbar>
-        <mdc-toolbar-row>
-          <mdc-toolbar-section [alignStart]="true">
-            <mdc-toolbar-title>App Layout</mdc-toolbar-title>
-          </mdc-toolbar-section>
-          <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
-            <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>file_download</a>
-            <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>print</a>
-            <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>more_vert</a>
-          </mdc-toolbar-section>
-        </mdc-toolbar-row>
-      </mdc-toolbar>
-      Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an legere iriure blandit. Veri iisque accusamus an pri.
-    </div>
-  </div>
-
-  <h3>Permanent Drawer - Below Toolbar</h3>
-  <a mdc-button href="https://stackblitz.com/edit/angular-mdc-drawer?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Example Source</a>
-  <div class="demo-content demo-content--no-padding">
-    <mdc-toolbar>
-      <mdc-toolbar-row>
-        <mdc-toolbar-section [alignStart]="true">
-          <mdc-toolbar-title>App Layout</mdc-toolbar-title>
-        </mdc-toolbar-section>
-        <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
-          <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>file_download</a>
-          <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>print</a>
-          <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>more_vert</a>
-        </mdc-toolbar-section>
-      </mdc-toolbar-row>
-    </mdc-toolbar>
-    <mdc-content fxLayout="row">
+  <div class="demo-content">
+    <h3>Permanent Drawer - Above Toolbar</h3>
+    <div class="demo-content__drawer demo-content__drawer--row">
       <mdc-drawer drawer='permanent'>
+        <mdc-drawer-spacer></mdc-drawer-spacer>
         <mdc-drawer-content>
           <mdc-list-group>
             <mdc-list>
@@ -262,23 +204,138 @@
           </mdc-list-group>
         </mdc-drawer-content>
       </mdc-drawer>
-      <div>
+      <div class="demo-content__drawer--column">
+        <mdc-toolbar>
+          <mdc-toolbar-row>
+            <mdc-toolbar-section [alignStart]="true">
+              <mdc-toolbar-title>App Layout</mdc-toolbar-title>
+            </mdc-toolbar-section>
+            <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
+              <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>file_download</a>
+              <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>print</a>
+              <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>more_vert</a>
+            </mdc-toolbar-section>
+          </mdc-toolbar-row>
+        </mdc-toolbar>
         Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an legere iriure blandit. Veri iisque accusamus an pri.
       </div>
-    </mdc-content>
+    </div>
   </div>
 
-  <h3>Temporary Drawer</h3>
-  <a mdc-button href="https://stackblitz.com/edit/angular-mdc-drawer?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Example Source</a>
-  <button mdc-button (click)="temporary.closeOnClick = !temporary.closeOnClick">Close on Click: {{temporary.closeOnClick ? 'true' : 'false'}}</button>
-  <div class="demo-content demo-content--no-padding" style="position: relative; height: 520px">
-    <mdc-drawer #temporary drawer='temporary' [fixedAdjustElement]="tempcontent">
-      <mdc-drawer-header>
-        <mdc-drawer-header-content>
-          Header goes here
-        </mdc-drawer-header-content>
-      </mdc-drawer-header>
-      <mdc-drawer-content>
+  <div class="demo-content">
+    <h3>Permanent Drawer - Below Toolbar</h3>
+    <div class="demo-content__drawer">
+      <mdc-toolbar>
+        <mdc-toolbar-row>
+          <mdc-toolbar-section [alignStart]="true">
+            <mdc-toolbar-title>App Layout</mdc-toolbar-title>
+          </mdc-toolbar-section>
+          <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
+            <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>file_download</a>
+            <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>print</a>
+            <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>more_vert</a>
+          </mdc-toolbar-section>
+        </mdc-toolbar-row>
+      </mdc-toolbar>
+      <div class="demo-content__drawer--row">
+        <mdc-drawer drawer='permanent'>
+          <mdc-drawer-content>
+            <mdc-list-group>
+              <mdc-list>
+                <mdc-list-item>
+                  <mdc-icon mdc-list-item-graphic>home</mdc-icon>Home
+                </mdc-list-item>
+                <mdc-list-item>
+                  <mdc-icon mdc-list-item-graphic>star</mdc-icon>Star
+                </mdc-list-item>
+                <mdc-list-item>
+                  <mdc-icon mdc-list-item-graphic>send</mdc-icon>Sent Mail
+                </mdc-list-item>
+                <mdc-list-item>
+                  <mdc-icon mdc-list-item-graphic>drafts</mdc-icon>Drafts
+                </mdc-list-item>
+                <mdc-list-divider></mdc-list-divider>
+                <mdc-list-item>
+                  <mdc-icon mdc-list-item-graphic>email</mdc-icon>All Mail
+                </mdc-list-item>
+                <mdc-list-item>
+                  <mdc-icon mdc-list-item-graphic>delete</mdc-icon>Trash
+                </mdc-list-item>
+                <mdc-list-item>
+                  <mdc-icon mdc-list-item-graphic>report</mdc-icon>Spam
+                </mdc-list-item>
+              </mdc-list>
+            </mdc-list-group>
+          </mdc-drawer-content>
+        </mdc-drawer>
+        Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an legere iriure blandit. Veri iisque accusamus an pri.
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-content">
+    <h3>Temporary Drawer</h3>
+    <button mdc-button (click)="temporary.closeOnClick = !temporary.closeOnClick">Close on Click: {{temporary.closeOnClick ? 'true' : 'false'}}</button>
+    <div class="demo-content__drawer demo-content__drawer--temporary">
+      <mdc-drawer #temporary drawer='temporary' [fixedAdjustElement]="demoTemporaryContent">
+        <mdc-drawer-header>
+          <mdc-drawer-header-content>
+            Header goes here
+          </mdc-drawer-header-content>
+        </mdc-drawer-header>
+        <mdc-drawer-content>
+          <mdc-list-group>
+            <mdc-list>
+              <mdc-list-item>
+                <mdc-icon mdc-list-item-graphic>home</mdc-icon>Home
+              </mdc-list-item>
+              <mdc-list-item>
+                <mdc-icon mdc-list-item-graphic>star</mdc-icon>Star
+              </mdc-list-item>
+              <mdc-list-item>
+                <mdc-icon mdc-list-item-graphic>send</mdc-icon>Sent Mail
+              </mdc-list-item>
+              <mdc-list-item>
+                <mdc-icon mdc-list-item-graphic>drafts</mdc-icon>Drafts
+              </mdc-list-item>
+              <mdc-list-divider></mdc-list-divider>
+              <mdc-list-item>
+                <mdc-icon mdc-list-item-graphic>email</mdc-icon>All Mail
+              </mdc-list-item>
+              <mdc-list-item>
+                <mdc-icon mdc-list-item-graphic>delete</mdc-icon>Trash
+              </mdc-list-item>
+              <mdc-list-item>
+                <mdc-icon mdc-list-item-graphic>report</mdc-icon>Spam
+              </mdc-list-item>
+            </mdc-list>
+          </mdc-list-group>
+        </mdc-drawer-content>
+      </mdc-drawer>
+      <div #demoTemporaryContent>
+        <mdc-toolbar>
+          <mdc-toolbar-row>
+            <mdc-toolbar-section [alignStart]="true">
+              <mdc-icon mdc-toolbar-menu-icon material-icon (click)="temporary.open()">menu</mdc-icon>
+              <mdc-toolbar-title>Mobile Layout</mdc-toolbar-title>
+            </mdc-toolbar-section>
+            <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
+              <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>file_download</a>
+              <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>print</a>
+              <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>more_vert</a>
+            </mdc-toolbar-section>
+          </mdc-toolbar-row>
+        </mdc-toolbar>
+        Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an legere iriure blandit. Veri iisque accusamus an pri.
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-content">
+    <h3>Persistent Drawer</h3>
+    <div class="demo-content__drawer demo-content__drawer--persistent">
+      <mdc-drawer #persistent drawer='persistent'>
+        <mdc-drawer-spacer></mdc-drawer-spacer>
         <mdc-list-group>
           <mdc-list>
             <mdc-list-item>
@@ -305,76 +362,23 @@
             </mdc-list-item>
           </mdc-list>
         </mdc-list-group>
-      </mdc-drawer-content>
-    </mdc-drawer>
-    <mdc-content #tempcontent>
-      <mdc-toolbar>
-        <mdc-toolbar-row>
-          <mdc-toolbar-section [alignStart]="true">
-            <mdc-icon mdc-toolbar-menu-icon material-icon (click)="temporary.open()">menu</mdc-icon>
-            <mdc-toolbar-title>Mobile Layout</mdc-toolbar-title>
-          </mdc-toolbar-section>
-          <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
-            <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>file_download</a>
-            <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>print</a>
-            <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>more_vert</a>
-          </mdc-toolbar-section>
-        </mdc-toolbar-row>
-      </mdc-toolbar>
+      </mdc-drawer>
       <div>
+        <mdc-toolbar>
+          <mdc-toolbar-row>
+            <mdc-toolbar-section [alignStart]="true">
+              <mdc-icon mdc-toolbar-menu-icon material-icon (click)="persistent.open()">menu</mdc-icon>
+              <mdc-toolbar-title>Simple Layout</mdc-toolbar-title>
+            </mdc-toolbar-section>
+            <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
+              <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>file_download</a>
+              <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>print</a>
+              <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>more_vert</a>
+            </mdc-toolbar-section>
+          </mdc-toolbar-row>
+        </mdc-toolbar>
         Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an legere iriure blandit. Veri iisque accusamus an pri.
       </div>
-    </mdc-content>
-  </div>
-  <h3>Persistent Drawer</h3>
-  <a mdc-button href="https://stackblitz.com/edit/angular-mdc-drawer?embed=1&file=app/app.component.html" target="_blank" rel="noopener noreferrer">View Example Source</a>
-  <div class="demo-drawer-content--row">
-    <mdc-drawer #persistent drawer='persistent'>
-      <mdc-drawer-spacer></mdc-drawer-spacer>
-      <mdc-list-group>
-        <mdc-list>
-          <mdc-list-item>
-            <mdc-icon mdc-list-item-graphic>home</mdc-icon>Home
-          </mdc-list-item>
-          <mdc-list-item>
-            <mdc-icon mdc-list-item-graphic>star</mdc-icon>Star
-          </mdc-list-item>
-          <mdc-list-item>
-            <mdc-icon mdc-list-item-graphic>send</mdc-icon>Sent Mail
-          </mdc-list-item>
-          <mdc-list-item>
-            <mdc-icon mdc-list-item-graphic>drafts</mdc-icon>Drafts
-          </mdc-list-item>
-          <mdc-list-divider></mdc-list-divider>
-          <mdc-list-item>
-            <mdc-icon mdc-list-item-graphic>email</mdc-icon>All Mail
-          </mdc-list-item>
-          <mdc-list-item>
-            <mdc-icon mdc-list-item-graphic>delete</mdc-icon>Trash
-          </mdc-list-item>
-          <mdc-list-item>
-            <mdc-icon mdc-list-item-graphic>report</mdc-icon>Spam
-          </mdc-list-item>
-        </mdc-list>
-      </mdc-list-group>
-    </mdc-drawer>
-    <mdc-content>
-      <mdc-toolbar>
-        <mdc-toolbar-row>
-          <mdc-toolbar-section [alignStart]="true">
-            <mdc-icon mdc-toolbar-menu-icon material-icon (click)="persistent.open()">menu</mdc-icon>
-            <mdc-toolbar-title>Simple Layout</mdc-toolbar-title>
-          </mdc-toolbar-section>
-          <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
-            <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>file_download</a>
-            <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>print</a>
-            <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>more_vert</a>
-          </mdc-toolbar-section>
-        </mdc-toolbar-row>
-      </mdc-toolbar>
-      <div>
-        Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an legere iriure blandit. Veri iisque accusamus an pri.
-      </div>
-    </mdc-content>
+    </div>
   </div>
 </div>

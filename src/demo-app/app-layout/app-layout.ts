@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
-import { MediaChange, ObservableMedia } from '@angular/flex-layout';
+import { Component, OnInit, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './app-layout.html'
 })
-export class AppLayout {
+export class AppLayout implements OnInit {
+  isLayoutMobile: boolean;
+
   coreVisible: boolean;
   buttonVisible: boolean;
   inputVisible: boolean;
@@ -52,5 +53,11 @@ export class AppLayout {
     { name: 'Image List', route: 'image-list-demo' }
   ];
 
-  constructor(public media: ObservableMedia) { }
+  @HostListener('window:resize', ['$event']) onResize(event) {
+    this.isLayoutMobile = event.target.innerWidth > 960 ? false : true;
+  }
+
+  ngOnInit(): void {
+    this.isLayoutMobile = window.innerWidth > 960 ? false : true;
+  }
 }

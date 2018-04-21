@@ -171,11 +171,11 @@ For any component loaded into a dialog, you must include your component class in
     <mdc-checkbox [(ngModel)]="isClickOutsideToClose"></mdc-checkbox>
     <label>Click or Touch Outside Closes</label>
   </mdc-form-field>
-  <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start start">
-    <button mdc-button [primary]="true" (click)="openSimple()">Simple Dialog</button>
-    <button mdc-button [primary]="true" (click)="openScrolling()">Scrolling Dialog</button>
-    <button mdc-button [primary]="true" (click)="openAlert()">Alert Dialog</button>
-    <button mdc-button [primary]="true" (click)="openNoFooter()">No Footer Dialog</button>
-    <button mdc-button [primary]="true" (click)="openForm()">Form Dialog</button>
+  <div class="demo-content--row demo-content--row-with-button">
+    <button mdc-button (click)="openSimple()">Simple Dialog</button>
+    <button mdc-button (click)="openScrolling()">Scrolling Dialog</button>
+    <button mdc-button (click)="openAlert()">Alert Dialog</button>
+    <button mdc-button (click)="openNoFooter()">No Footer Dialog</button>
+    <button mdc-button (click)="openForm()">Form Dialog</button>
   </div>
 </div>

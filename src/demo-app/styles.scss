@@ -1,6 +1,4 @@
-$app-blue: #2980b9;
-
-$mdc-theme-primary: #1565c0;
+$mdc-theme-primary: #0277bd;
 $mdc-theme-secondary: #388e3c;
 
 @import "~@angular-mdc/theme";
@@ -20,39 +18,60 @@ body {
   display: none;
 }
 
+//
+// Demo Toolbar
+//
+
 .demo__toolbar--primary {
-  @include mdc-toolbar-fill-color($app-blue);
+  @include mdc-toolbar-fill-color($mdc-theme-primary);
 }
 
-.demo__toolbar-tabs--dark {
-  @include mdc-toolbar-fill-color(black);
-}
-
-.demo__toolbar-tabs--indigo {
-  @include mdc-toolbar-fill-color($material-color-indigo-500);
-}
+//
+// Demo Landing
+//
 
 .demo-landing {
   @include mdc-theme-prop(color, #fff);
-  @include mdc-theme-prop(background-color, $app-blue);
+  @include mdc-theme-prop(background-color, $mdc-theme-primary);
 
   height: 40vh;
 
   &__subtitle {
+    @include mdc-typography(body1);
     @include mdc-theme-prop(color, text-secondary-on-background);
 
     margin: 20px;
   }
+
+  &__version {
+    @include mdc-typography(caption);
+
+    margin: 8px;
+  }
 }
 
-.demo__toolbar-logo {
+.demo-navigation__logo {
   padding-top: 10px;
+
+  @media (max-width: 960px) {
+    display: none;
+  }
+}
+
+.demo-navigation__icon {
+  @media (min-width: 959px) {
+    display: none;
+  }
 }
 
 .demo-page {
-  padding: 0 0 50px 20px;
+  padding: 1px 0 50px 20px;
   max-width: 1000px;
 }
+
+//
+// demo-content
+//
 
 .demo-content {
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -71,15 +90,6 @@ body {
   }
 }
 
-.demo-content--no-padding {
-  padding: 0;
-}
-
-.demo-content-no-border {
-  padding: 15px;
-  margin: 15px;
-}
-
 .demo-content--column {
   display: flex;
   flex-direction: column;
@@ -90,14 +100,48 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   padding: 10px 0 10px 0;
+
+  &-with-button {
+    .mdc-button, .mdc-fab {
+      margin: 16px;
+    }
+  }
 }
 
 .demo-content--center {
+  display: flex;
+  flex-direction: column;
   align-content: center;
   align-items: center;
-  flex-direction: column;
-  display: flex;
   justify-content: center;
+}
+
+.demo-content__card {
+  margin: 17px;
+}
+
+.demo-content__drawer {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+
+  &--row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &--column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &--temporary {
+    height: 55vh;
+    position: relative;
+  }
+
+  &--persistent {
+    display: inline-flex;
+    height: 55vh;
+  }
 }
 
 .demo-surface {
@@ -248,6 +292,14 @@ body {
   }
 }
 
+.demo__toolbar-tabs--dark {
+  @include mdc-toolbar-fill-color(black);
+}
+
+.demo__toolbar-tabs--indigo {
+  @include mdc-toolbar-fill-color($material-color-indigo-500);
+}
+
 .demo-tab-bar--indigo {
   .mdc-tab:not(.mdc-tab--active) {
     @include mdc-tab-ink-color(rgba(mdc-theme-prop-value(white), 0.54));
@@ -375,16 +427,6 @@ body {
   margin-left: 8px;
 }
 
-//
-// Drawer
-//
-
-.demo-drawer-content--row {
-  display: flex;
-  flex-direction: row;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  max-width: 1000px;
-}
 
 //
 // Radio button
@@ -422,14 +464,6 @@ body {
 
 .demo-grid-tile__image {
   background-image: url(https://material-components-web.appspot.com/images/1-1.jpg);
-}
-
-//
-// MDC Content
-//
-
-.mdc-content {
-  overflow: auto;
 }
 
 //

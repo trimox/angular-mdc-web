@@ -122,6 +122,7 @@ body {
 
 .demo-content__drawer {
   border: 1px solid rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
 
   &--row {
     display: flex;
@@ -210,28 +211,17 @@ body {
 
   pre {
     padding: 16px;
-    overflow: auto;
-    font-size: 90%;
+    font-size: 1.1em;
     line-height: 1.45;
     background-color: #f6f8fa;
     border-radius: 3px;
-    margin-top: 0;
-    margin-bottom: 16px;
-    width: fit-content;
-  }
+    margin: 0 16px 16px 0;
 
-  .caption {
-    margin: 0;
-  }
-
-  pre > code {
-    padding: 0;
-    margin: 0;
-    font-size: 1.3em;
-    word-break: normal;
-    white-space: pre;
-    background: transparent;
-    border: 0;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
   }
 }
 
@@ -240,9 +230,7 @@ body {
 //
 
 .docs-api table {
-  overflow-x: auto;
-  margin: 0 0 7px;
-  max-width: 90vw;
+  margin: 0 12px 7px 0;
   border: 1px solid #eee;
   border-collapse: collapse;
   border-spacing: 0;
@@ -266,10 +254,6 @@ body {
     color: rgba(0,0,0,.54);
     font-weight: 500;
     text-align: left;
-  }
-
-  td:first-child code {
-    background: 0;
   }
 
   tr:last-child > td {
@@ -313,6 +297,14 @@ body {
   .mdc-tab:hover {
     @include mdc-tab-ink-color(white);
   }
+}
+
+//
+// mdc-content
+//
+
+.mdc-content {
+  overflow: auto;
 }
 
 //

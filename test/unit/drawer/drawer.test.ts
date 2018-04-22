@@ -42,7 +42,7 @@ describe('MdcDrawer', () => {
       expect(testDebugElement.nativeElement.classList).toContain('mdc-drawer--permanent');
     });
 
-    it('#should be closed', () => {
+    it('#should set temporary', () => {
       testComponent.drawer = 'temporary';
       fixture.detectChanges();
 
@@ -53,7 +53,7 @@ describe('MdcDrawer', () => {
       expect(testInstance.isDrawerPersistent()).toBe(false);
     });
 
-    it('#should be open', () => {
+    it('#should set persistent', () => {
       testComponent.drawer = 'persistent';
       fixture.detectChanges();
 
@@ -62,6 +62,14 @@ describe('MdcDrawer', () => {
       expect(testInstance.isOpen()).toBe(true);
       expect(testInstance.isDrawerPermanent()).toBe(false);
       expect(testInstance.isDrawerTemporary()).toBe(false);
+    });
+
+    it('#should set permanent', () => {
+      testComponent.drawer = '';
+      fixture.detectChanges();
+
+      expect(testInstance.isDrawerPermanent()).toBe(true);
+      expect(testInstance.drawer).toBe('permanent');
     });
 
     it('#should be open', () => {
@@ -82,16 +90,6 @@ describe('MdcDrawer', () => {
 
     it('#should provide drawer width', () => {
       expect(testInstance.getDrawerWidth()).toBeGreaterThanOrEqual(0);
-    });
-
-    it('#should not be rtl direction', () => {
-      expect(testInstance.isRtl()).toBe(false);
-    });
-
-    it('#should be rtl direction', () => {
-      testComponent.direction = 'rtl';
-      fixture.detectChanges();
-      expect(testInstance.isRtl()).toBe(true);
     });
 
     it('#should be closed after click', () => {
@@ -120,7 +118,7 @@ describe('MdcDrawer', () => {
 @Component({
   template: `
   <mdc-drawer [drawer]="drawer" [fixed]="isFixed" [closeOnClick]="isCloseOnClick"
-   [fixedAdjustElement]="testcontent" [direction]="direction">
+   [fixedAdjustElement]="testcontent">
     <mdc-drawer-spacer>Angular MDC</mdc-drawer-spacer>
     <mdc-drawer-header>
       <mdc-drawer-header-content>
@@ -163,7 +161,6 @@ describe('MdcDrawer', () => {
 })
 class SimpleTest {
   drawer: string = 'permanent';
-  direction: string = 'ltr';
   isFixed: boolean = true;
   isCloseOnClick: boolean = true;
 }

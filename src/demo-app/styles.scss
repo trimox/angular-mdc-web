@@ -134,13 +134,17 @@ body {
   }
 
   &--temporary {
-    height: 55vh;
     position: relative;
+    height: 55vh;
   }
 
   &--persistent {
-    display: inline-flex;
+    display: flex;
     height: 55vh;
+
+    .mdc-drawer--persistent:not(.mdc-drawer--open) {
+      display: none;
+    }
   }
 }
 

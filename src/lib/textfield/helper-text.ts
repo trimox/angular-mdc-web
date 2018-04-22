@@ -11,7 +11,7 @@ import { MDCTextFieldHelperTextAdapter } from '@material/textfield/helper-text/a
 import { MDCTextFieldHelperTextFoundation } from '@material/textfield/helper-text';
 
 @Directive({
-  selector: '[mdc-text-field-helper-text], mdc-text-field-helper-text',
+  selector: '[mdc-text-field-helper-text], mdc-text-field-helper-text, [mdcTextFieldHelperText]',
   exportAs: 'mdcHelperText'
 })
 export class MdcTextFieldHelperText implements OnInit, OnDestroy {

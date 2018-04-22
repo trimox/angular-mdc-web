@@ -39,11 +39,9 @@ Each component uses [material-components-web](https://github.com/material-compon
 | card | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/card-demo) |
 | checkbox | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/checkbox-demo) |
 | chips | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/chips-demo) |
-| data-table | In-progress |  |
 | dialog | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/dialog-demo) |
 | drawer | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/drawer-demo) |
 | elevation | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/elevation-demo) |
-| expansion-panel | In-progress |  |
 | fab | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/fab-demo) |
 | form-field | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/form-field-demo) |
 | grid-list | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/grid-list-demo) |

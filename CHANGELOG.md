@@ -1,3 +1,22 @@
+<a name="0.34.5"></a>
+## [0.34.5](https://github.com/trimox/angular-mdc-web/compare/v0.34.4...v0.34.5) (2018-04-22)
+
+
+### Bug Fixes
+
+* **card:** Set `display: inline-flex` ([#896](https://github.com/trimox/angular-mdc-web/issues/896)) ([47f78a0](https://github.com/trimox/angular-mdc-web/commit/47f78a0)), closes [#895](https://github.com/trimox/angular-mdc-web/issues/895)
+* **drawer:** Should hide persistent drawer when collapsed ([#899](https://github.com/trimox/angular-mdc-web/issues/899)) ([77503bf](https://github.com/trimox/angular-mdc-web/commit/77503bf)), closes [#731](https://github.com/trimox/angular-mdc-web/issues/731)
+* **ripple:** Should appropriately size mdcRipple ([#897](https://github.com/trimox/angular-mdc-web/issues/897)) ([c742668](https://github.com/trimox/angular-mdc-web/commit/c742668)), closes [#894](https://github.com/trimox/angular-mdc-web/issues/894)
+
+
+### Features
+
+* **demo-app:** Remove [@angular](https://github.com/angular)/flex-layout dependency ([#900](https://github.com/trimox/angular-mdc-web/issues/900)) ([ab0ae3e](https://github.com/trimox/angular-mdc-web/commit/ab0ae3e))
+* **drawer:** New UX state methods + improvements ([#903](https://github.com/trimox/angular-mdc-web/issues/903)) ([0de8bb9](https://github.com/trimox/angular-mdc-web/commit/0de8bb9)), closes [#892](https://github.com/trimox/angular-mdc-web/issues/892)
+* **text-field:** Add [mdcTextFieldHelperText] selector ([#902](https://github.com/trimox/angular-mdc-web/issues/902)) ([2fbc810](https://github.com/trimox/angular-mdc-web/commit/2fbc810))
+
+
+
 <a name="0.34.4"></a>
 ## [0.34.4](https://github.com/trimox/angular-mdc-web/compare/v0.34.3...v0.34.4) (2018-04-20)
 

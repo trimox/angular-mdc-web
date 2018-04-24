@@ -5,8 +5,6 @@
 - [Step 3 - Import Angular MDC Sass](#step3)
 - [Step 4 - Import Angular MDC](#step4)
 
-> NOTE: This guide does not cover the using `yarn`.
-
 ## Requirements
 Angular MDC requires Angular 5, which itself requires TypeScript 2.4+ and RxJS 5.5.2+.
 
@@ -15,13 +13,13 @@ Angular MDC requires Angular 5, which itself requires TypeScript 2.4+ and RxJS 5
 npm i -g @angular/cli
 ```
 
-#### If generating a new project, you need to set default CSS preprocessor to `sass`:
+#### If generating a new project, you need to set default CSS preprocessor to `scss`:
 ```
-ng new PROJECT-NAME --style=sass
+ng new PROJECT-NAME --style=scss
 cd PROJECT-NAME
 ```
 
-#### On existing projects, you need to set default CSS preprocessor to `sass`:
+#### On existing projects, you need to set default CSS preprocessor to `scss`:
 ```
 ng set defaults.styleExt scss
 ```

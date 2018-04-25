@@ -1,11 +1,12 @@
-﻿<div class="demo-landing demo-content--column demo-content--center" [mdc-elevation]="2">
-  <span mdc-typography-display2>Angular</span>
-  <p mdc-typography-display1>Material Web Components</p>
+﻿<div class="demo-landing demo-content--center" [mdc-elevation]="2">
+  <div class="demo-landing__summary demo-content--column demo-content--center">
+    <span class="demo-landing__summary--title">Material Web Components</span>
+    <p class="demo-landing__summary--caption">for Angular</p>
+  </div>
 </div>
 <div class="demo-content--center">
   <p class="demo-landing__subtitle">
   A faithful and accurate representation of Material Design as envisioned on the web by Google's Material Design team.</p>
-  <a [raised]="true" [secondary]="true" mdc-button href="https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md"
-   target="_blank" rel="noopener noreferrer">Get Started</a>
-  <div class="demo-landing__version demo-content--center">v0.34.5</div>
+  <button [raised]="true" [secondary]="true" mdc-button [routerLink]="['/getting-started']">Get Started</button>
+  <span class="demo-landing__version">v0.34.5</span>
 </div>

@@ -128,7 +128,9 @@
       <button mdc-button (click)="demobutton.stroked = !demobutton.stroked">Stroked: {{demobutton.stroked ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demobutton.disabled = !demobutton.disabled">Disabled: {{demobutton.disabled ? 'On' : 'Off'}}</button>
     </div>
-    <button mdc-button #demobutton [primary]="true">Change Me</button>
+    <div class="demo-content--center">
+      <button mdc-button #demobutton [primary]="true">Button</button>
+    </div>
   </div>
 
 <!--   <div class="demo-content">

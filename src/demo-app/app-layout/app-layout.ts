@@ -7,6 +7,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 export class AppLayout implements OnInit {
   isLayoutMobile: boolean;
 
+  startVisible: boolean;
   coreVisible: boolean;
   buttonVisible: boolean;
   inputVisible: boolean;
@@ -51,6 +52,11 @@ export class AppLayout implements OnInit {
     { name: 'List', route: 'list-demo' },
     { name: 'Grid List', route: 'grid-list-demo' },
     { name: 'Image List', route: 'image-list-demo' }
+  ];
+
+  startRoutes = [
+    { name: 'Installation', route: 'getting-started' },
+    { name: 'Angular CLI', route: 'cli-guide' }
   ];
 
   @HostListener('window:resize', ['$event']) onResize(event) {

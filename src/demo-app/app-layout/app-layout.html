@@ -25,9 +25,14 @@
             <mdc-icon mdc-list-item-graphic>home</mdc-icon>Home
           </mdc-list-item>
           <mdc-list-divider></mdc-list-divider>
-          <a mdc-list-item href="https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md" target="_blank" rel="noopener noreferrer">
-            <mdc-icon mdc-list-item-graphic>touch_app</mdc-icon>Getting Started
-          </a>
+          <mdc-list-item (click)="startVisible = !startVisible">
+            <mdc-icon mdc-list-item-graphic>keyboard_arrow_{{startVisible ? 'down' : 'right'}}</mdc-icon>Getting Started
+          </mdc-list-item>
+          <div *ngIf="startVisible">
+            <mdc-list-item *ngFor="let item of startRoutes" [routerLink]="[item.route]" routerLinkActive #rlaCore="routerLinkActive">
+              <mdc-icon mdc-list-item-graphic>{{item.icon}}</mdc-icon>{{item.name}}
+            </mdc-list-item>
+          </div>
           <mdc-list-divider></mdc-list-divider>
           <mdc-list-item (click)="coreVisible = !coreVisible">
             <mdc-icon mdc-list-item-graphic>keyboard_arrow_{{coreVisible ? 'down' : 'right'}}</mdc-icon>Core Modules

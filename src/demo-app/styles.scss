@@ -36,6 +36,25 @@ body {
 
   height: 40vh;
 
+  &__summary {
+    &--title {
+      @include mdc-typography(display3);
+
+      @media (max-width: 655px) {
+        font-size: 8vmin;
+      }
+    }
+
+    &--caption {
+      @include mdc-typography(display2);
+
+      @media (max-width: 655px) {
+        font-size: 8vmin;
+        margin-top: 10px;
+      }
+    }
+  }
+
   &__subtitle {
     @include mdc-typography(body1);
     @include mdc-theme-prop(color, text-secondary-on-background);
@@ -76,7 +95,7 @@ body {
 .demo-content {
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 15px;
-  margin: 15px;
+  margin: 15px 15px 15px 0;
 
   p {
     @include mdc-typography(body1);
@@ -188,6 +207,10 @@ body {
     @include mdc-typography(headline);
   }
 
+  h4 {
+    @include mdc-typography(body2);
+  }
+
   h1, h2 {
     margin: 24px 16px 16px 0;
     line-height: 1.25;
@@ -216,6 +239,7 @@ body {
     background-color: #f6f8fa;
     border-radius: 3px;
     margin: 0 16px 16px 0;
+    width: fit-content;
 
     white-space: pre-wrap;
     white-space: -moz-pre-wrap;
@@ -653,4 +677,13 @@ body {
   @include mdc-slider-thumb-color($material-color-orange-500);
   @include mdc-slider-focus-halo-color($material-color-yellow-900);
   @include mdc-slider-value-pin-fill-color-accessible($material-color-pink-500);
+}
+
+//
+// Linear progress
+//
+
+.demo-linear-progress--custom {
+  @include mdc-linear-progress-bar-color($material-color-red-500);
+  @include mdc-linear-progress-buffer-color($material-color-red-100);
 }

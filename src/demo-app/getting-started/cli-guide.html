@@ -1,0 +1,62 @@
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Angular CLI - Getting started</h1>
+    <h2>Step 1: Install Angular CLI</h2>
+    Already have @angular/cli installed? Skip to Step 2.
+
+    <h4>npm</h4>
+    <pre>npm i -g @angular/cli</pre>
+
+    <h4>yarn</h4>
+    <pre>yarn global add @angular/cli</pre>
+
+    <h2>Step 2: Create Project</h2>
+    If generating a new project, you need to set default CSS preprocessor to scss:
+    <pre>ng new PROJECT-NAME --style=scss
+cd PROJECT-NAME</pre>
+
+    On existing projects, you need to set default CSS preprocessor to scss:
+    <pre>ng set defaults.styleExt scss</pre>
+
+    <h2>Step 3: Install Angular MDC</h2>
+    <h4>npm</h4>
+    <pre>npm i @angular-mdc/web</pre>
+
+    <h4>yarn</h4>
+    <h4><pre>yarn add @angular-mdc/web</pre></h4>
+
+    <h2>Step 4: Import Angular MDC Sass</h2>
+    Edit src/styles.sass, and insert:
+    <pre><![CDATA[$mdc-theme-primary: #1565c0; // example primary color
+$mdc-theme-secondary: #388e3c; // example secondary color
+
+@import "~@angular-mdc/theme/material";]]></pre>
+
+    <h2>Step 5: Import Components</h2>
+    Now just import the NgModule for each component you want to use.
+    <pre><![CDATA[import {
+  MdcFabModule,
+  MdcMenuModule
+} from '@angular-mdc/web';
+
+@NgModule({
+  ...
+  imports: [
+   MdcFabModule,
+   MdcMenuModule,
+   ...
+],
+  ...
+})
+export class ExampleModule { }]]></pre>
+
+    Open app.component.html and add the following markup:
+    <pre><![CDATA[<button mdc-button [primary]="true" [raised]="true">My Button</button>
+
+<button mdc-fab>
+  <mdc-icon>edit</mdc-icon>
+</button>]]></pre>
+
+    Run `ng serve` to run your application in develop mode, and navigate to http://localhost:4200
+  </div>
+</div>

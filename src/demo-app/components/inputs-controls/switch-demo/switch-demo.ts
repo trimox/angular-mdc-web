@@ -13,11 +13,11 @@ export class SwitchDemo {
   isSwitchOn: boolean = true;
 
   alternateColors(input: MdcSwitch) {
-    const demoSwitch = 'demo-switch--custom';
+    const demoInput = 'demo-switch--custom';
 
-    input.elementRef.nativeElement.classList.contains(demoSwitch) ?
-      this._renderer.removeClass(input.elementRef.nativeElement, demoSwitch)
-      : this._renderer.addClass(input.elementRef.nativeElement, demoSwitch);
+    input.elementRef.nativeElement.classList.contains(demoInput) ?
+      this._renderer.removeClass(input.elementRef.nativeElement, demoInput)
+      : this._renderer.addClass(input.elementRef.nativeElement, demoInput);
   }
 
   onChange(evt: Event): void {

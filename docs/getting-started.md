@@ -6,15 +6,20 @@
  - [Step 4 - Include Material Design Icons](#step4)
  - [Step 5 - Include Roboto Font](#step5)
 
-## Using Angular CLI?
-If you intend to use Angular CLI, please reference [Angular CLI - Getting Started guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/guide-angular-cli.md).
+Using Angular CLI? [Angular CLI - Getting Started guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/guide-angular-cli.md)
 
 ## Requirements
 Angular MDC requires Angular 5, which itself requires TypeScript 2.4+ and RxJS 5.5.2+.
 
 ## <a name="step1"></a> Step 1: Install Angular MDC
+#### npm
 ```
 npm i @angular-mdc/web
+```
+
+#### yarn
+```
+yarn add @angular-mdc/web
 ```
 
 ## <a name="step2"></a> Step 2: Import Components

@@ -77,12 +77,8 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
   @ContentChildren(MdcDialogButton, { descendants: true }) dialogButtons: QueryList<MdcDialogButton>;
 
   private _mdcAdapter: MDCDialogAdapter = {
-    addClass: (className: string) => {
-      this._renderer.addClass(this.elementRef.nativeElement, className);
-    },
-    removeClass: (className: string) => {
-      this._renderer.removeClass(this.elementRef.nativeElement, className);
-    },
+    addClass: (className: string) => this._renderer.addClass(this.elementRef.nativeElement, className),
+    removeClass: (className: string) => this._renderer.removeClass(this.elementRef.nativeElement, className),
     addBodyClass: (className: string) => {
       if (isBrowser()) {
         this._renderer.addClass(document.body, className);
@@ -106,15 +102,10 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
       };
       this._registry.listen(evt, handler, this.elementRef.nativeElement);
     },
-    deregisterInteractionHandler: (evt: string, handler: EventListener) => {
-      this._registry.unlisten(evt, handler);
-    },
-    registerSurfaceInteractionHandler: (evt: string, handler: EventListener) => {
-      this._registry.listen(evt, handler, this.dialogSurface.elementRef.nativeElement);
-    },
-    deregisterSurfaceInteractionHandler: (evt: string, handler: EventListener) => {
-      this._registry.unlisten(evt, handler);
-    },
+    deregisterInteractionHandler: (evt: string, handler: EventListener) => this._registry.unlisten(evt, handler),
+    registerSurfaceInteractionHandler: (evt: string, handler: EventListener) =>
+      this._registry.listen(evt, handler, this.dialogSurface.elementRef.nativeElement),
+    deregisterSurfaceInteractionHandler: (evt: string, handler: EventListener) => this._registry.unlisten(evt, handler),
     registerDocumentKeydownHandler: (handler: EventListener) => {
       if (!isBrowser()) { return; }
 
@@ -162,22 +153,17 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
         this._focusTrap.deactivate();
       }
     },
-    isDialog: (el: Element) => {
-      return this.dialogSurface ? el === this.dialogSurface.elementRef.nativeElement : false;
-    },
-    layoutFooterRipples: () => {
-      this.dialogButtons.forEach((_) => _.ripple.layout());
-    },
+    isDialog: (el: Element) => this.dialogSurface ? el === this.dialogSurface.elementRef.nativeElement : false
   };
 
   private _foundation: {
-    init: Function,
-    destroy: Function,
-    open: Function,
-    close: Function,
-    isOpen: Function,
-    accept: Function,
-    cancel: Function,
+    init(): void,
+    destroy(): void,
+    open(): void,
+    close(): void,
+    isOpen(): boolean,
+    accept(shouldNotify: boolean): void,
+    cancel(shouldNotify: boolean): void
   } = new MDCDialogFoundation(this._mdcAdapter);
 
   constructor(
@@ -193,6 +179,7 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this._foundation.init();
+
     if (this._config) {
       this.show();
     }
@@ -241,9 +228,5 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
 
   cancel(shouldNotify: boolean = true): void {
     this._foundation.cancel(shouldNotify);
-  }
-
-  layoutFooterRipples(): void {
-    this._mdcAdapter.layoutFooterRipples();
   }
 }

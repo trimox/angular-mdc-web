@@ -93,7 +93,6 @@ describe('MdcDialog', () => {
     viewContainerFixture.detectChanges();
 
     expect(dialogRef.componentInstance.myDialog.close());
-    expect(dialogRef.componentInstance.myDialog.layoutFooterRipples());
   });
 
   it('#should signal an accept on a simple dialog', () => {

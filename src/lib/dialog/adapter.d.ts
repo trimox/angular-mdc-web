@@ -17,5 +17,4 @@ export interface MDCDialogAdapter {
   trapFocusOnSurface: () => void;
   untrapFocusOnSurface: () => void;
   isDialog: (el: Element) => boolean;
-  layoutFooterRipples: () => void;
 }

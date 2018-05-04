@@ -94,6 +94,17 @@ describe('Chips', () => {
     it('expect leading chip icon to not be undefined', () => {
       expect(testInstance.getLeadingIcon()).toBeDefined();
     });
+    it('#should apply primary class modifier', () => {
+      testComponent.primary = true;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList.contains('ng-mdc-chip--primary')).toBe(true);
+    });
+
+    it('#should apply secondary class modifier', () => {
+      testComponent.secondary = true;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList.contains('ng-mdc-chip--secondary')).toBe(true);
+    });
   });
 
   describe('MdcChipSet', () => {
@@ -137,6 +148,8 @@ describe('Chips', () => {
   <mdc-chip-set [choice]="choice" [filter]="filter">
     <mdc-chip *ngIf="shouldShow"
     [disabled]="disabled"
+    [primary]="primary"
+    [secondary]="secondary"
     (focus)="chipFocus($event)"
     (selectionChange)="chipSelectionChange($event)"
     (removed)="chipRemove($event)"
@@ -156,6 +169,8 @@ class ChipTest {
   disabled: boolean = false;
   choice: boolean = false;
   filter: boolean = false;
+  primary: boolean = false;
+  secondary: boolean = false;
 
   chipFocus: (event?: MdcChipEvent) => void = () => { };
   chipDestroy: (event?: MdcChipEvent) => void = () => { };

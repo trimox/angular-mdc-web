@@ -126,6 +126,20 @@ export class MdcChip implements AfterViewInit, OnDestroy {
   }
   protected _filter: boolean = false;
 
+  @Input()
+  get primary(): boolean { return this._primary; }
+  set primary(value: boolean) {
+    this.setPrimary(value);
+  }
+  protected _primary: boolean = false;
+
+  @Input()
+  get secondary(): boolean { return this._secondary; }
+  set secondary(value: boolean) {
+    this.setSecondary(value);
+  }
+  protected _secondary: boolean = false;
+
   /** Whether the chip has focus. */
   _hasFocus: boolean = false;
 
@@ -163,6 +177,12 @@ export class MdcChip implements AfterViewInit, OnDestroy {
   @HostBinding('class.mdc-chip') isHostClass = true;
   @HostBinding('attr.tabindex') get tabindex(): number | null {
     return this.disabled ? null : 0;
+  }
+  @HostBinding('class.ng-mdc-chip--primary') get classPrimary(): string {
+    return this.primary ? 'ng-mdc-chip--primary' : '';
+  }
+  @HostBinding('class.ng-mdc-chip--secondary') get classSecondary(): string {
+    return this.secondary ? 'ng-mdc-chip--secondary' : '';
   }
 
   @HostListener('focus', ['$event']) onfocus() {
@@ -242,6 +262,14 @@ export class MdcChip implements AfterViewInit, OnDestroy {
     this._ripple.destroy();
     this.destroyed.emit({ chip: this });
     this._foundation.destroy();
+  }
+
+  setPrimary(primary: boolean): void {
+    this._primary = primary;
+  }
+
+  setSecondary(secondary: boolean): void {
+    this._secondary = secondary;
   }
 
   /** Allows for programmatic focusing of the chip. */

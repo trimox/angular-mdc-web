@@ -14,8 +14,14 @@
 // limitations under the License.
 //
 
-@import "../../theme/mixins";
+// This variable is not intended to be overridden externally; it uses !default to avoid being reset
+// every time this file is imported.
+$mdc-base-styles-emitted_: () !default;
 
-@mixin mdc-select-bottom-line-fill-color($color) {
-  @include mdc-theme-prop(background-color, $color);
+@mixin mdc-base-emit-once($key) {
+  @if not index($mdc-base-styles-emitted_, $key) {
+    $mdc-base-styles-emitted_: append($mdc-base-styles-emitted_, $key, comma) !global;
+
+    @content;
+  }
 }

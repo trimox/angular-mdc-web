@@ -18,30 +18,32 @@
 @import "./mixins";
 @import "./variables";
 @import "../animation/variables";
+@import "../line-ripple/mdc-line-ripple";
+@import "../floating-label/mdc-floating-label";
 @import "../typography/mixins";
 @import "../ripple/common";
 @import "../ripple/mixins";
 @import "../rtl/mixins";
-@import "./label/mdc-select-label";
-@import "./bottom-line/mdc-select-bottom-line";
 
 // postcss-bem-linter: define select
 .mdc-select {
-  @include mdc-typography-base;
   @include mdc-select-container-fill-color(transparent);
   @include mdc-select-dd-arrow-svg-bg_;
-  @include mdc-select-ink-color(text-primary-on-light);
-  @include mdc-select-label-color(black, .6);
-  @include mdc-select-bottom-line-color(rgba(black, .5));
+  @include mdc-select-ink-color($mdc-select-ink-color);
+  @include mdc-select-label-color($mdc-select-label-color);
+  @include mdc-select-bottom-line-color($mdc-select-bottom-line-idle-color);
 
   // Focused state colors
   @include mdc-select-focused-bottom-line-color(primary);
-  @include mdc-select-focused-label-color(primary);
+  @include mdc-select-focused-label-color($mdc-select-focused-label-color);
+
+  // Hover state colors
+  @include mdc-select-hover-bottom-line-color($mdc-select-bottom-line-hover-color);
 
   display: inline-flex;
   position: relative;
   box-sizing: border-box;
-  height: 48px;
+  height: 52px;
   background-repeat: no-repeat;
   background-position: right 8px bottom 12px;
   overflow: hidden;
@@ -52,7 +54,7 @@
 
   &__native-control {
     @include mdc-rtl-reflexive-property(padding, 0, $mdc-select-arrow-padding);
-    @include mdc-typography-base;
+    @include mdc-typography(subtitle1);
 
     &::-ms-expand {
       display: none;
@@ -64,9 +66,11 @@
     }
 
     width: 100%;
-    padding-top: 22px;
-    padding-bottom: 8px;
+    padding-top: 20px;
+    padding-bottom: 4px;
     border: none;
+    border-bottom: 1px solid;
+    border-radius: 0;
     outline: none;
     background-color: transparent;
     white-space: nowrap;
@@ -74,7 +78,12 @@
     appearance: none;
   }
 
-  @include mdc-select-focused-bottom-line_ {
+  // stylelint-disable-next-line plugin/selector-bem-pattern
+  .mdc-floating-label {
+    pointer-events: none;
+  }
+
+  @include mdc-select-focused-line-ripple_ {
     &::after {
       transform: scale(1, 2);
       opacity: 1;
@@ -82,22 +91,15 @@
   }
 }
 
-// needed to make this a keyframe animation because having translateY in the
-// not-selected state caused an unwanted scrolling behavior to occur
-.mdc-select--is-changing .mdc-select__native-control {
-  animation: mdc-select-float-native-control 125ms 1;
-  animation-timing-function: $mdc-animation-deceleration-curve-timing-function;
-}
-
 .mdc-select--box {
-  @include mdc-select-container-fill-color(rgba(black, .04));
+  @include mdc-select-container-fill-color($mdc-select-box-fill-color);
   @include mdc-ripple-surface;
   @include mdc-ripple-radius-bounded;
   // Select Box intentionally omits press ripple, so each state needs to be specified individually
-  @include mdc-states-base-color(text-primary-on-background);
-  @include mdc-states-hover-opacity(mdc-states-opacity(text-primary-on-background, hover));
+  @include mdc-states-base-color($mdc-select-ink-color);
+  @include mdc-states-hover-opacity(mdc-states-opacity($mdc-select-ink-color, hover));
   @include mdc-states-focus-opacity(
-    mdc-states-opacity(text-primary-on-background, focus),
+    mdc-states-opacity($mdc-select-ink-color, focus),
     $has-nested-focusable-element: true
   );
 
@@ -109,11 +111,6 @@
     background-position: left 10px center;
   }
 
-  .mdc-select__native-control,
-  .mdc-select__label {
-    @include mdc-typography(subheading2);
-  }
-
   .mdc-select__native-control {
     @include mdc-rtl-reflexive-property(padding, $mdc-select-label-padding, $mdc-select-arrow-padding);
 
@@ -121,29 +118,42 @@
     border-radius: 4px 4px 0 0;
   }
 
-  .mdc-select__label {
+  // stylelint-disable plugin/selector-bem-pattern
+  .mdc-floating-label {
     @include mdc-rtl-reflexive-position(left, 16px);
 
     bottom: 12px;
+    line-height: 1.75rem;
 
     &--float-above {
       transform: translateY(-40%) scale(.75, .75);
     }
   }
+  // stylelint-enable plugin/selector-bem-pattern
 }
 
 .mdc-select--disabled {
-  @include mdc-select-floating-label-color(text-disabled-on-light);
-  @include mdc-select-dd-arrow-svg-bg_(000000, .38);
-  @include mdc-select-container-fill-color_(transparent);
+  @include mdc-select-dd-arrow-svg-bg_($mdc-select-disabled-ink-color);
 
-  border-bottom-width: 1px;
-  border-bottom-style: dotted;
+  &.mdc-select--box {
+    @include mdc-select-container-fill-color_($mdc-select-box-disabled-fill-color);
+  }
+
+  .mdc-floating-label {
+    @include mdc-floating-label-ink-color($mdc-select-disabled-label-color);
+  }
+
+  // stylelint-disable plugin/selector-bem-pattern
+  .mdc-line-ripple {
+    display: none;
+  }
+  // stylelint-enable plugin/selector-bem-pattern
+
+  .mdc-select__native-control {
+    border-bottom-style: dotted;
+  }
+
   opacity: .38;
   cursor: default;
   pointer-events: none;
-
-  .mdc-select__bottom-line {
-    display: none;
-  }
 }

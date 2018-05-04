@@ -1,5 +1,5 @@
 //
-// Copyright 2017 Google Inc. All Rights Reserved.
+// Copyright 2018 Google Inc. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,25 +14,7 @@
 // limitations under the License.
 //
 
-@import "../../rtl/mixins";
-@import "../variables";
+@import "../theme/mixins";
 
-.mdc-select__label {
-  @include mdc-rtl-reflexive-position(left, 0);
-
-  position: absolute;
-  bottom: 8px;
-  left: 0;
-  transform-origin: left top;
-  transition: $mdc-select-native-control-transition;
-  pointer-events: none;
-  will-change: transform;
-
-  @include mdc-rtl(".mdc-select") {
-    transform-origin: right top;
-  }
-
-  &--float-above {
-    transform: translateY(-100%) scale(.75);
-  }
-}
+$mdc-card-outline-color: mix(mdc-theme-prop-value(on-surface), mdc-theme-prop-value(surface), 12%);
+$mdc-card-outline-width: 1px;

@@ -289,7 +289,9 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
   }
 
   private _mdcIconAdapter: MDCTextFieldIconAdapter = {
+    getAttr: (attr: string) => this.icons.first.elementRef.nativeElement.getAttribute(attr),
     setAttr: (attr: string, value: string) => this._renderer.setAttribute(this.icons.first.elementRef.nativeElement, attr, value),
+    removeAttr: (attr: string) => this._renderer.removeAttribute(this.icons.first.elementRef.nativeElement, attr),
     registerInteractionHandler: (evtType: string, handler: EventListener) =>
       this._registry.listen(evtType, handler, this.icons.first.elementRef.nativeElement),
     deregisterInteractionHandler: (evtType: string, handler: EventListener) => this._registry.unlisten(evtType, handler),

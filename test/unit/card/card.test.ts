@@ -42,7 +42,7 @@ describe('MdcCard', () => {
 
 @Component({
   template: `
-    <mdc-card [stroked]="isStroked">
+    <mdc-card [outlined]="outlined">
       <mdc-card-primary-action>
         <mdc-card-media [square]="square" [wide]="wide">
           <mdc-card-media-content>
@@ -60,7 +60,7 @@ describe('MdcCard', () => {
   `,
 })
 class SimpleTest {
-  isStroked: boolean = false;
+  outlined: boolean = false;
   square: boolean = true;
   wide: boolean = false;
   isFullBleed: boolean = false;

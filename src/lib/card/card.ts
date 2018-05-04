@@ -179,20 +179,20 @@ export class MdcCardAction {
 })
 export class MdcCard {
   @Input()
-  get stroked(): boolean { return this._stroked; }
-  set stroked(value: boolean) {
-    this.setStroked(value);
+  get outlined(): boolean { return this._outlined; }
+  set outlined(value: boolean) {
+    this.setOutlined(value);
   }
-  private _stroked: boolean;
+  private _outlined: boolean;
 
   @HostBinding('class.mdc-card') isHostClass = true;
-  @HostBinding('class.mdc-card--stroked') get classStroked() {
-    return this.stroked ? 'mdc-card--stroked' : '';
+  @HostBinding('class.mdc-card--outlined') get classOutlined() {
+    return this.outlined ? 'mdc-card--outlined' : '';
   }
 
   constructor(public elementRef: ElementRef) { }
 
-  setStroked(stroked: boolean): void {
-    this._stroked = stroked;
+  setOutlined(outlined: boolean): void {
+    this._outlined = outlined;
   }
 }

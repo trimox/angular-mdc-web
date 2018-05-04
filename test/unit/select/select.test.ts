@@ -1,12 +1,15 @@
 import { Component, DebugElement } from '@angular/core';
 import {
+  ControlValueAccessor,
   FormControl,
   FormGroup,
+  FormGroupDirective,
   FormsModule,
+  NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { MdcSelectModule, MdcSelect } from '@angular-mdc/web';
@@ -46,7 +49,7 @@ describe('MdcSelectModule', () => {
     });
 
     it('#should set disabled to true', () => {
-      testComponent.isDisabled = true;
+      testComponent.disabled = true;
       fixture.detectChanges();
       expect(testInstance.disabled).toBe(true);
       expect(testInstance.isDisabled()).toBe(true);
@@ -64,17 +67,18 @@ describe('MdcSelectModule', () => {
 
     it('#should have `Please select` as placeholder text', () => {
       testInstance.setPlaceholder('Please select');
+      fixture.detectChanges();
       expect(testInstance.placeholder).toMatch('Please select');
     });
 
     it('#should select fruit-3', () => {
-      testComponent.selectedValue = 'fruit-3';
+      testInstance.setValue('fruit-3');
       fixture.detectChanges();
       expect(testInstance.getValue());
     });
 
     it('#should have no selected options', () => {
-      testComponent.selectedValue = null;
+      testInstance.setValue(null);
       fixture.detectChanges();
       expect(testInstance.getSelectedIndex()).toBe(0);
     });
@@ -104,24 +108,33 @@ describe('MdcSelectModule', () => {
 
       expect(testInstance.getValue()).toBe('tacos-2');
     });
+
+    it('should be able to focus the select trigger', fakeAsync(() => {
+      document.body.focus(); // ensure that focus isn't on the trigger already
+      testInstance.focus();
+
+      expect(document.activeElement).toBe(testInstance.inputEl.nativeElement, 'Expected select element to be focused.');
+    }));
   });
 });
 
 @Component({
   template: `
-    <mdc-select [placeholder]="myPlaceholder" name="food" [autosize]="true" [floatingLabel]="floatingLabel"
-     [(ngModel)]="selectedValue" [disabled]="isDisabled" (change)="handleChange($event)" [box]="false">
-      <option *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
-        {{food.description}}
-      </option>
-    </mdc-select>
+    <form #demoSelectForm="ngForm" id="demoSelectForm">
+      <mdc-select #select placeholder="Favorite food" ngModel #demoSelectModel="ngModel" name="food"
+       [disabled]="disabled" [floatingLabel]="floatingLabel"
+       (change)="handleChange($event)" (selectionChange)="handleSelectedChange($event)">
+        <option *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
+          {{food.description}}
+        </option>
+      </mdc-select>
+    </form>
   `,
 })
 class SimpleTest {
   myPlaceholder: string = 'Favorite food';
-  isDisabled: boolean = true;
+  disabled: boolean = true;
   floatingLabel: boolean;
-  selectedValue: string;
 
   foods = [
     { value: 'steak-0', description: 'Steak' },
@@ -131,11 +144,12 @@ class SimpleTest {
   ];
 
   handleChange(event: { index: number, value: string }) { }
+  handleSelectedChange(event: { index: number, value: string }) { }
 }
 
 @Component({
   template: `
-  <mdc-select placeholder="Favorite food" [formControl]="foodControl" [autosize]="false" [box]="true">
+  <mdc-select placeholder="Favorite food" [formControl]="foodControl" [autosize]="false" [box]="true" (blur)="handleBlur()">
     <option *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
       {{food.description}}
     </option>
@@ -153,4 +167,5 @@ class SelectFormControl {
   ];
 
   handleChange(event: { index: number, value: string }) { }
+  handleBlur: () => void = () => { };
 }

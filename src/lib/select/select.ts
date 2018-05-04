@@ -24,8 +24,8 @@ import { takeUntil } from 'rxjs/operators/takeUntil';
 import { EventRegistry, isBrowser, toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
-import { MdcSelectBottomLine } from './select-bottom-line';
-import { MdcSelectLabel } from './select-label';
+import { MdcFloatingLabel } from '@angular-mdc/web/floating-label';
+import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
 
 import { MDCSelectAdapter } from './adapter';
 import { MDCSelectFoundation } from '@material/select';
@@ -59,8 +59,8 @@ let nextUniqueId = 0;
    (focus)="onFocus()">
     <ng-content #options></ng-content>
   </select>
-  <mdc-select-label>{{hasFloatingLabel() ? placeholder : ''}}</mdc-select-label>
-  <mdc-select-bottom-line></mdc-select-bottom-line>
+  <mdc-floating-label [attr.for]="id">{{hasFloatingLabel() ? placeholder : ''}}</mdc-floating-label>
+  <mdc-line-ripple></mdc-line-ripple>
   `,
   providers: [
     MDC_SELECT_CONTROL_VALUE_ACCESSOR,
@@ -72,40 +72,10 @@ let nextUniqueId = 0;
   preserveWhitespaces: false,
 })
 export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDestroy {
-  private _mdcAdapter: MDCSelectAdapter = {
-    addClass: (className: string) =>
-      this._renderer.addClass(this._getHostElement(), className),
-    removeClass: (className: string) =>
-      this._renderer.removeClass(this._getHostElement(), className),
-    floatLabel: (value: any) => this.selectLabel.styleFloat(value),
-    activateBottomLine: () => this.bottomLine.activate(),
-    deactivateBottomLine: () => this.bottomLine.deactivate(),
-    setDisabled: (disabled: boolean) => this._getInputElement().disabled = disabled,
-    registerInteractionHandler: (type: string, handler: EventListener) =>
-      this._registry.listen(type, handler, this._getInputElement()),
-    deregisterInteractionHandler: (type: string, handler: EventListener) =>
-      this._registry.unlisten(type, handler),
-    getSelectedIndex: () => this._getInputElement().selectedIndex,
-    setSelectedIndex: (index: number) => this._getInputElement().selectedIndex = index,
-    getValue: () => this._getInputElement().value,
-    setValue: (value: string) => this._getInputElement().value = value
-  };
-
-  private _foundation: {
-    init(): void,
-    destroy(): void,
-    setValue(any): void,
-    setSelectedIndex(index: number): void,
-    setDisabled(disabled: boolean): void
-  } = new MDCSelectFoundation(this._mdcAdapter);
-
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
   private _uniqueId: string = `mdc-select-${++nextUniqueId}`;
-
-  private _label: string = '';
-  get label(): any { return this._label; }
 
   @Input() id: string = this._uniqueId;
   @Input() name: string | null = null;
@@ -157,8 +127,8 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   @HostBinding('class.mdc-select--box') get classBorder(): string {
     return this.box ? 'mdc-select--box' : '';
   }
-  @ViewChild(MdcSelectLabel) selectLabel: MdcSelectLabel;
-  @ViewChild(MdcSelectBottomLine) bottomLine: MdcSelectBottomLine;
+  @ViewChild(MdcFloatingLabel) _selectLabel: MdcFloatingLabel;
+  @ViewChild(MdcLineRipple) _lineRipple: MdcLineRipple;
   @ViewChild('input') inputEl: ElementRef;
   @ContentChildren('options') options: QueryList<HTMLOptionElement>;
 
@@ -167,6 +137,33 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
 
   /** View -> model callback called when select has been touched */
   _onTouched = () => { };
+
+  private _mdcAdapter: MDCSelectAdapter = {
+    addClass: (className: string) =>
+      this._renderer.addClass(this._getHostElement(), className),
+    removeClass: (className: string) =>
+      this._renderer.removeClass(this._getHostElement(), className),
+    floatLabel: (value: any) => this._selectLabel.float(value),
+    activateBottomLine: () => this._lineRipple.activate(),
+    deactivateBottomLine: () => this._lineRipple.deactivate(),
+    setDisabled: (disabled: boolean) => this._getInputElement().disabled = disabled,
+    registerInteractionHandler: (type: string, handler: EventListener) =>
+      this._registry.listen(type, handler, this._getInputElement()),
+    deregisterInteractionHandler: (type: string, handler: EventListener) =>
+      this._registry.unlisten(type, handler),
+    getSelectedIndex: () => this._getInputElement().selectedIndex,
+    setSelectedIndex: (index: number) => this._getInputElement().selectedIndex = index,
+    getValue: () => this._getInputElement().value,
+    setValue: (value: string) => this._getInputElement().value = value
+  };
+
+  private _foundation: {
+    init(): void,
+    destroy(): void,
+    setValue(any): void,
+    setSelectedIndex(index: number): void,
+    setDisabled(disabled: boolean): void
+  } = new MDCSelectFoundation(this._mdcAdapter);
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
@@ -248,7 +245,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
     if (newValue && newValue.length > 0) {
       this._onChange(newValue);
     }
-    this.selectLabel.styleFloat(newValue);
+    this._selectLabel.float(newValue);
 
     this._changeDetectorRef.markForCheck();
   }
@@ -307,7 +304,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
 
   private _setWidth() {
     if (this.options) {
-      const labelLength = this.selectLabel.elementRef.nativeElement.textContent.length;
+      const labelLength = this._selectLabel.elementRef.nativeElement.textContent.length;
       this._renderer.setStyle(this._getHostElement(), 'width', `${labelLength}rem`);
     }
   }

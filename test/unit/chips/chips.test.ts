@@ -41,12 +41,6 @@ describe('Chips', () => {
       expect(testDebugElement.nativeElement.classList).toContain('mdc-chip');
     });
 
-    it('#should toggle', () => {
-      testInstance.toggleSelected();
-      fixture.detectChanges();
-      expect(testInstance.selected).toBe(true);
-    });
-
     it('#should have leading icon', () => {
       expect(testInstance.icons.first.isLeading()).toBe(true);
     });

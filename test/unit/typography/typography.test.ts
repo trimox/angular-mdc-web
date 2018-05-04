@@ -12,12 +12,8 @@ describe('MdcTypography', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MdcTypographyModule,
-      ],
-      declarations: [
-        SimpleTest,
-      ]
+      imports: [MdcTypographyModule],
+      declarations: [SimpleTest]
     });
     TestBed.compileComponents();
   }));
@@ -47,18 +43,19 @@ describe('MdcTypography', () => {
 @Component({
   template: `
   <div mdc-typography>
-  <h1 mdc-typography-display4></h1>
-  <h1 mdc-typography-display3></h1>
-  <h1 mdc-typography-display2></h1>
-  <h1 mdc-typography-display1></h1>
-  <h1 mdc-typography-headline></h1>
-  <h1 mdc-typography-title></h1>
-  <h1 mdc-typography-subheading2></h1>
-  <h1 mdc-typography-subheading1></h1>
+  <h1 mdc-typography-headline6></h1>
+  <h1 mdc-typography-headline5></h1>
+  <h1 mdc-typography-headline4></h1>
+  <h1 mdc-typography-headline3></h1>
+  <h1 mdc-typography-headline2></h1>
+  <h1 mdc-typography-headline1></h1>
+  <h1 mdc-typography-subtitle2></h1>
+  <h1 mdc-typography-subtitle1></h1>
   <h1 mdc-typography-body2></h1>
   <h1 mdc-typography-body1></h1>
   <h1 mdc-typography-caption></h1>
   <h1 mdc-typography-button></h1>
+  <div mdcOverline></div>
   </div>
   `,
 })

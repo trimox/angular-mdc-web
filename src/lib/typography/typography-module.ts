@@ -1,35 +1,37 @@
 import { NgModule } from '@angular/core';
 
 import {
-  MdcBody1,
-  MdcBody2,
-  MdcTypographyButton,
-  MdcCaption,
-  MdcDisplay1,
-  MdcDisplay2,
-  MdcDisplay3,
-  MdcDisplay4,
-  MdcHeadline,
-  MdcSubheading1,
-  MdcSubheading2,
-  MdcTitle,
   MdcTypography,
+  MdcTypographyBody1,
+  MdcTypographyBody2,
+  MdcTypographyButton,
+  MdcTypographyCaption,
+  MdcTypographyHeadline1,
+  MdcTypographyHeadline2,
+  MdcTypographyHeadline3,
+  MdcTypographyHeadline4,
+  MdcTypographyHeadline5,
+  MdcTypographyHeadline6,
+  MdcTypographyOverline,
+  MdcTypographySubtitle1,
+  MdcTypographySubtitle2
 } from './typography';
 
 const TYPOGRAPHY_DECLARATIONS = [
-  MdcBody1,
-  MdcBody2,
-  MdcTypographyButton,
-  MdcCaption,
-  MdcDisplay1,
-  MdcDisplay2,
-  MdcDisplay3,
-  MdcDisplay4,
-  MdcHeadline,
-  MdcSubheading1,
-  MdcSubheading2,
-  MdcTitle,
   MdcTypography,
+  MdcTypographyBody1,
+  MdcTypographyBody2,
+  MdcTypographyButton,
+  MdcTypographyCaption,
+  MdcTypographyHeadline1,
+  MdcTypographyHeadline2,
+  MdcTypographyHeadline3,
+  MdcTypographyHeadline4,
+  MdcTypographyHeadline5,
+  MdcTypographyHeadline6,
+  MdcTypographyOverline,
+  MdcTypographySubtitle1,
+  MdcTypographySubtitle2
 ];
 
 @NgModule({

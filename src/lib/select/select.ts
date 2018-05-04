@@ -198,7 +198,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
 
   writeValue(value: any): void {
     if (value !== this._getInputElement().value) {
-      this.setValue(value);
+      this.setValue(value, false);
     }
     this.change.emit(new MdcSelectChange(this._getInputElement().selectedIndex, value));
     this._initializeSelection(value);
@@ -213,7 +213,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   }
 
   onChange(event: Event): void {
-    this.setValue((<any>event.target).value);
+    this.setValue((<any>event.target).value, true);
     this.selectionChange.emit(new MdcSelectChange(this._getInputElement().selectedIndex, this.getValue()));
     event.stopPropagation();
   }
@@ -232,17 +232,17 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
     // Defer setting the value in order to avoid the "Expression
     // has changed after it was checked" errors from Angular.
     Promise.resolve().then(() => {
-      this.setValue(value);
+      this.setValue(value, false);
     });
   }
 
-  setValue(newValue: any): void {
+  setValue(newValue: any, isUserInput: boolean = true): void {
     if (this.disabled) {
       return;
     }
 
     this._foundation.setValue(newValue);
-    if (newValue && newValue.length > 0) {
+    if (isUserInput) {
       this._onChange(newValue);
     }
     this._selectLabel.float(newValue);

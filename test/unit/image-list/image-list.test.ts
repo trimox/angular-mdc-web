@@ -7,7 +7,7 @@ import {
   MdcImageList
 } from '@angular-mdc/web';
 
-describe('MdcGridList', () => {
+describe('MdcImageList', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {

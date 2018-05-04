@@ -53,6 +53,7 @@ Each component uses [material-components-web](https://github.com/material-compon
 | radio | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/radio-demo) |
 | ripple | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/ripple-demo) |
 | select | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/select-demo) |
+| shape | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/shape-demo) |
 | slider | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/slider-demo) |
 | snackbar | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/snackbar-demo) |
 | switch | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/switch-demo) |

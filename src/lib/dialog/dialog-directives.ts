@@ -78,7 +78,7 @@ export class MdcDialogButton extends MdcButton {
   @Input() focused: boolean = false;
 
   @HostBinding('class.mdc-dialog__footer__button') get isFooterButton(): string {
-    return this.renderer.parentNode(this.elementRef) === MdcDialogFooter ? 'mdc-dialog__footer__button' : '';
+    return this._renderer.parentNode(this._elementRef) === MdcDialogFooter ? 'mdc-dialog__footer__button' : '';
   }
   @HostBinding('class.mdc-dialog__action') get classAction(): string {
     return this.action ? 'mdc-dialog__action' : '';
@@ -91,9 +91,10 @@ export class MdcDialogButton extends MdcButton {
   }
 
   constructor(
-    @Inject(Renderer2) renderer: Renderer2,
-    @Inject(ElementRef) elementRef: ElementRef,
-    @Inject(MdcRipple) ripple: MdcRipple) {
-    super(renderer, elementRef, ripple);
+    _renderer: Renderer2,
+    _elementRef: ElementRef,
+    _ripple: MdcRipple) {
+
+    super(_renderer, _elementRef, _ripple);
   }
 }

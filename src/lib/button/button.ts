@@ -69,11 +69,11 @@ export class MdcButton implements AfterContentInit, OnDestroy {
   protected _unelevated: boolean = false;
 
   @Input()
-  get stroked(): boolean { return this._stroked; }
-  set stroked(value: boolean) {
-    this.setStroked(value);
+  get outlined(): boolean { return this._outlined; }
+  set outlined(value: boolean) {
+    this.setOutlined(value);
   }
-  protected _stroked: boolean = false;
+  protected _outlined: boolean = false;
 
   @Input()
   get icon(): boolean { return this._icon; }
@@ -108,8 +108,8 @@ export class MdcButton implements AfterContentInit, OnDestroy {
   @HostBinding('class.mdc-button--unelevated') get classUnelevated(): string {
     return this.unelevated ? 'mdc-button--unelevated' : '';
   }
-  @HostBinding('class.mdc-button--stroked') get classStroked(): string {
-    return this.stroked ? 'mdc-button--stroked' : '';
+  @HostBinding('class.mdc-button--outlined') get classOutlined(): string {
+    return this.outlined ? 'mdc-button--outlined' : '';
   }
   @HostListener('click', ['$event']) onclick(evt: Event) {
     this._onClick(evt);
@@ -117,27 +117,27 @@ export class MdcButton implements AfterContentInit, OnDestroy {
   @ContentChild(MdcIcon) buttonIcon: MdcIcon;
 
   constructor(
-    public renderer: Renderer2,
-    public elementRef: ElementRef,
-    public ripple: MdcRipple) { }
+    protected _renderer: Renderer2,
+    protected _elementRef: ElementRef,
+    protected _ripple: MdcRipple) { }
 
   ngAfterContentInit(): void {
-    this.ripple.attachTo(this._getHostElement());
+    this._ripple.attachTo(this.getHostElement());
   }
 
   ngOnDestroy(): void {
-    this.ripple.destroy();
+    this._ripple.destroy();
   }
 
   setDisabled(disabled: boolean): void {
     this._disabled = disabled;
 
     if (disabled) {
-      this.renderer.setAttribute(this._getHostElement(), 'disabled', 'true');
-      this.renderer.setAttribute(this._getHostElement(), 'aria-disabled', 'true');
+      this._renderer.setAttribute(this.getHostElement(), 'disabled', 'true');
+      this._renderer.setAttribute(this.getHostElement(), 'aria-disabled', 'true');
     } else {
-      this.renderer.removeAttribute(this._getHostElement(), 'disabled');
-      this.renderer.removeAttribute(this._getHostElement(), 'aria-disabled');
+      this._renderer.removeAttribute(this.getHostElement(), 'disabled');
+      this._renderer.removeAttribute(this.getHostElement(), 'aria-disabled');
     }
   }
 
@@ -161,27 +161,24 @@ export class MdcButton implements AfterContentInit, OnDestroy {
     this._unelevated = unelevated;
   }
 
-  setStroked(stroked: boolean): void {
-    this._stroked = stroked;
+  setOutlined(outlined: boolean): void {
+    this._outlined = outlined;
   }
 
   setIcon(icon: boolean): void {
     this._icon = icon;
 
-    if (icon && this.buttonIcon) {
-      this.renderer.addClass(this.buttonIcon.elementRef.nativeElement, 'mdc-button__icon');
-    } else {
-      this.renderer.removeClass(this.buttonIcon.elementRef.nativeElement, 'mdc-button__icon');
-    }
+    icon && this.buttonIcon ? this._renderer.addClass(this.buttonIcon.elementRef.nativeElement, 'mdc-button__icon')
+      : this._renderer.removeClass(this.buttonIcon.elementRef.nativeElement, 'mdc-button__icon');
   }
 
   /** Focuses the button. */
   focus(): void {
-    this._getHostElement().focus();
+    this.getHostElement().focus();
   }
 
-  protected _getHostElement() {
-    return this.elementRef.nativeElement;
+  getHostElement() {
+    return this._elementRef.nativeElement;
   }
 
   private _onClick(event: Event): void {

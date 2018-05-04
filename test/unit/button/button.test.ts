@@ -53,9 +53,9 @@ describe('MdcButton', () => {
       fixture.detectChanges();
       expect(buttonDebugElement.nativeElement.classList.contains('mdc-button--unelevated')).toBe(true);
 
-      testComponent.isStroked = true;
+      testComponent.outlined = true;
       fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.classList.contains('mdc-button--stroked')).toBe(true);
+      expect(buttonDebugElement.nativeElement.classList.contains('mdc-button--outlined')).toBe(true);
 
       testComponent.isPrimary = true;
       fixture.detectChanges();
@@ -101,17 +101,6 @@ describe('MdcButton', () => {
       testComponent.isDisabled = true;
       fixture.detectChanges();
       expect(buttonNativeElement.disabled).toBeTruthy('Expected button to be disabled');
-    });
-
-    it('#ripple should be deactivated', () => {
-      buttonInstance.ripple.deactivate();
-      fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.classList.contains('mdc-ripple-surface')).toBe(false);
-    });
-
-    it('#ripple should be updated', () => {
-      buttonInstance.ripple.layout();
-      fixture.detectChanges();
     });
   });
 
@@ -204,7 +193,7 @@ describe('MdcButton', () => {
       [secondary]="isSecondary"
       [dense]="isDense"
       [unelevated]="isUnelevated"
-      [stroked]="isStroked">
+      [outlined]="outlined">
       My label
     </button>
   `,
@@ -216,7 +205,7 @@ class SimpleButton {
   isPrimary: boolean = false;
   isSecondary: boolean = false;
   isUnelevated: boolean = false;
-  isStroked: boolean = false;
+  outlined: boolean = false;
   clickCount: number = 0;
 
   increment() {

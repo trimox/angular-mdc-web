@@ -200,7 +200,7 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
 
     if (isBrowser()) {
       this._focusTrap = util.createFocusTrapInstance(this.dialogSurface.elementRef.nativeElement, {
-        initialFocus: focusedEl ? focusedEl.elementRef.nativeElement : this.elementRef.nativeElement,
+        initialFocus: focusedEl ? focusedEl.getHostElement() : this.elementRef.nativeElement,
         clickOutsideDeactivates: this._config ? this._config.clickOutsideToClose : this.clickOutsideToClose,
         escapeDeactivates: this._config ? this._config.escapeToClose : this.escapeToClose,
       });
@@ -209,7 +209,7 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
       this._foundation.open();
 
       if (focusedEl) {
-        focusedEl.elementRef.nativeElement.focus();
+        focusedEl.focus();
       }
     }, 10);
   }

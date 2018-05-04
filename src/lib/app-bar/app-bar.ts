@@ -26,7 +26,11 @@ import {
   MdcAppBarNavigationIcon,
 } from './app-bar.directives';
 import { MDCTopAppBarAdapter } from '@material/top-app-bar/adapter';
-import { MDCTopAppBarFoundation, MDCShortTopAppBarFoundation } from '@material/top-app-bar';
+import {
+  MDCTopAppBarFoundation,
+  MDCShortTopAppBarFoundation,
+  MDCFixedTopAppBarFoundation
+} from '@material/top-app-bar';
 
 /** Event object emitted by MdcAppBar navigation icon selected. */
 export class MdcAppBarNavSelected {
@@ -47,6 +51,13 @@ export class MdcAppBarNavSelected {
 export class MdcAppBar implements AfterContentInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
+
+  @Input()
+  get fixed(): boolean { return this._fixed; }
+  set fixed(value: boolean) {
+    this.setFixed(value);
+  }
+  protected _fixed: boolean = false;
 
   @Input()
   get prominent(): boolean { return this._prominent; }
@@ -101,14 +112,19 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
   @HostBinding('class.mdc-top-app-bar--short-collapsed') get classShortCollapsed(): string {
     return this.shortCollapsed ? 'mdc-top-app-bar--short-collapsed' : '';
   }
+  @HostBinding('class.mdc-top-app-bar--fixed') get classFixed(): string {
+    return this.fixed ? 'mdc-top-app-bar--fixed' : '';
+  }
 
   @ContentChild(MdcAppBarNavigationIcon) navigationIcon: MdcAppBarNavigationIcon;
   @ContentChildren(MdcAppBarActionItem, { descendants: true }) actions: QueryList<MdcAppBarActionItem>;
 
   private _mdcAdapter: MDCTopAppBarAdapter = {
+    hasClass: (className: string) => this._getHostElement().classList.contains(className),
     addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
     removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
-    hasClass: (className: string) => this._getHostElement().classList.contains(className),
+    setStyle: (property: string, value: string) => this._renderer.setStyle(this._getHostElement(), property, value),
+    getTopAppBarHeight: () => this._getHostElement().clientHeight,
     registerNavigationIconInteractionHandler: (type: string, handler: EventListener) => {
       if (this.navigationIcon) {
         this._registry.listen(type, handler, this.navigationIcon.getHostElement());
@@ -131,6 +147,16 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
 
       this._registry.unlisten('scroll', handler);
     },
+    registerResizeHandler: (handler: EventListener) => {
+      if (!isBrowser()) { return; }
+
+      this._registry.listen('resize', handler, window);
+    },
+    deregisterResizeHandler: (handler: EventListener) => {
+      if (!isBrowser()) { return; }
+
+      this._registry.unlisten('resize', handler);
+    },
     getViewportScrollY: () => {
       if (!isBrowser()) { return 0; }
 
@@ -145,6 +171,12 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
   };
 
   private _shortAppBarFoundation: {
+    init(): void,
+    destroy(): void,
+    scrollHandler_: void
+  };
+
+  private _fixedAppBarFoundation: {
     init(): void,
     destroy(): void,
     scrollHandler_: void
@@ -185,6 +217,18 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
     this._changeDetectorRef.markForCheck();
   }
 
+  /** Sets the top app bar to fixed or not. */
+  setFixed(fixed: boolean): void {
+    this._fixed = toBoolean(fixed);
+    if (this.fixed) {
+      this.setShort(false);
+    }
+
+    this.refreshAppBar();
+
+    this._changeDetectorRef.markForCheck();
+  }
+
   /** Sets the top app bar to prominent or not. */
   setProminent(prominent: boolean): void {
     this._prominent = toBoolean(prominent);
@@ -215,6 +259,7 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
     if (this.short) {
       this.setProminent(false);
       this.setDense(false);
+      this.setFixed(false);
     } else {
       this.setShortCollapsed(false);
     }
@@ -234,6 +279,20 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
     this._changeDetectorRef.markForCheck();
   }
 
+  private _destroyFoundations() {
+    if (this._shortAppBarFoundation) {
+      this._shortAppBarFoundation.destroy();
+    }
+
+    if (this._topAppBarFoundation) {
+      this._topAppBarFoundation.destroy();
+    }
+
+    if (this._fixedAppBarFoundation) {
+      this._fixedAppBarFoundation.destroy();
+    }
+  }
+
   refreshAppBar() {
     if (this._shortAppBarFoundation) {
       this._mdcAdapter.deregisterScrollHandler(this._shortAppBarFoundation.scrollHandler_);
@@ -241,12 +300,13 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
 
     setTimeout(() => {
       if (this.short && !this._shortAppBarFoundation) {
-        if (this._topAppBarFoundation) {
-          this._topAppBarFoundation.destroy();
-        }
+        this._destroyFoundations();
         this._shortAppBarFoundation = new MDCShortTopAppBarFoundation(this._mdcAdapter);
+      } else if (this.fixed) {
+        this._destroyFoundations();
+        this._fixedAppBarFoundation = new MDCFixedTopAppBarFoundation(this._mdcAdapter);
       } else {
-        this._shortAppBarFoundation.destroy();
+        this._destroyFoundations();
         this._topAppBarFoundation = new MDCTopAppBarFoundation(this._mdcAdapter);
       }
 
@@ -254,7 +314,7 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
         this._mdcAdapter.registerScrollHandler(this._shortAppBarFoundation.scrollHandler_);
       }
 
-      if (this.prominent || this.dense || !this.short) {
+      if (this.fixed || this.prominent || this.dense || !this.short) {
         this._mdcAdapter.removeClass('mdc-top-app-bar--short-collapsed');
       }
 

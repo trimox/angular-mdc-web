@@ -67,12 +67,20 @@ describe('MdcAppBar', () => {
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--dense')).toBe(true);
     });
+
+    it('#should apply mdc-top-app-bar--fixed class based on property', () => {
+      testComponent.fixed = true;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--fixed')).toBe(true);
+      expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short')).toBe(false);
+    });
   });
 });
 
 @Component({
   template: `
     <mdc-app-bar
+      [fixed]="fixed"
       [fixedAdjustElement]="testcontent"
       [short]="short"
       [dense]="dense"
@@ -92,6 +100,7 @@ describe('MdcAppBar', () => {
   `,
 })
 class SimpleTest {
+  fixed: boolean = false;
   short: boolean = true;
   shortCollapsed: boolean = false;
   prominent: boolean = false;

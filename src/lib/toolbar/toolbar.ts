@@ -240,10 +240,8 @@ export class MdcToolbar implements AfterViewInit, OnChanges, OnDestroy {
 
   ngOnDestroy(): void {
     if (isBrowser()) {
-      if (this.adjustBodyMargin && this.fixed) {
-        this._renderer.removeStyle(this.fixedAdjustElement ?
-          this.fixedAdjustElement : document.body, 'mdc-toolbar-fixed-adjust');
-      }
+      this._renderer.removeStyle(this.fixedAdjustElement ?
+        this.fixedAdjustElement : document.body, 'mdc-toolbar-fixed-adjust');
     }
 
     this._foundation.destroy();

@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 @Injectable()
-export class MdcChipService {
+export class MdcPortalService {
   constructor(
     private _componentFactoryResolver: ComponentFactoryResolver,
     private _appRef: ApplicationRef,
@@ -31,7 +31,7 @@ export class MdcChipService {
     parent.appendChild(child);
   }
 
-  destroyRef(componentRef: ComponentRef<any>, delay: number) {
+  destroyRef(componentRef: ComponentRef<any>, delay: number = 10) {
     setTimeout(() => {
       this._appRef.detachView(componentRef.hostView);
       componentRef.destroy();

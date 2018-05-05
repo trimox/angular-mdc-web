@@ -315,7 +315,7 @@ export class MdcChip implements AfterContentInit, OnDestroy {
     this._onBlur.next({ chip: this });
   }
 
-  foundation(): MDCChipFoundation {
+  foundation(): any {
     return this._foundation;
   }
 

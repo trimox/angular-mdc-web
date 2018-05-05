@@ -23,13 +23,12 @@ import { switchMap } from 'rxjs/operators/switchMap';
 import { take } from 'rxjs/operators/take';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 
-import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
+import { toBoolean, EventRegistry, MdcPortalService } from '@angular-mdc/web/common';
 
 import { MdcChip, MdcChipIcon, MdcChipText, MdcChipSelectionEvent } from './chip';
-import { MdcChipService } from './chip.service';
 
 import { MDCChipSetAdapter } from '@material/chips/chip-set/adapter';
-import { MDCChipSetFoundation, MDCChipFoundation } from '@material/chips';
+import { MDCChipSetFoundation } from '@material/chips/chip-set';
 
 @Component({
   moduleId: module.id,
@@ -41,14 +40,12 @@ import { MDCChipSetFoundation, MDCChipFoundation } from '@material/chips';
   preserveWhitespaces: false,
   providers: [
     EventRegistry,
-    MdcChipService
+    MdcPortalService
   ]
 })
 export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
-
-  private _disposeFn: (() => void) | null;
 
   /**
   * Indicates that the chips in the set are choice chips, which allow a single selection from a set of options.
@@ -120,12 +117,12 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
     init(): void,
     destroy(): void,
     addChip(text: string, leadingIcon: string, trailingIcon: string): HTMLElement,
-    select(chipFoundation: MDCChipFoundation): void,
-    deselect(chipFoundation: MDCChipFoundation): void
+    select(chipFoundation: any): void,
+    deselect(chipFoundation: any): void
   } = new MDCChipSetFoundation(this._mdcAdapter);
 
   constructor(
-    private _chipService: MdcChipService,
+    private _portalService: MdcPortalService,
     private _changeDetectorRef: ChangeDetectorRef,
     private _ngZone: NgZone,
     private _renderer: Renderer2,
@@ -183,39 +180,31 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
     this._changeDetectorRef.markForCheck();
   }
 
-  private _setDisposeFn(fn: () => void) {
-    this._disposeFn = fn;
-  }
-
   private _createChip(text: string, leadingIcon: string, trailingIcon: string): HTMLElement {
-    const chipContainerRef = this._chipService.createComponentRef(MdcChip);
-    const chipContainerElement = this._chipService.getDomElementFromComponentRef(chipContainerRef);
-    this._chipService.addChild(chipContainerElement, this._getHostElement());
-    this._setDisposeFn(() => chipContainerRef.destroy());
+    const chipContainerRef = this._portalService.createComponentRef(MdcChip);
+    const chipContainerElement = this._portalService.getDomElementFromComponentRef(chipContainerRef);
+    this._portalService.addChild(chipContainerElement, this._getHostElement());
 
     if (leadingIcon) {
-      const chipIconRef = this._chipService.createComponentRef(MdcChipIcon);
-      const chipIconContainerElement = this._chipService.getDomElementFromComponentRef(chipIconRef);
+      const chipIconRef = this._portalService.createComponentRef(MdcChipIcon);
+      const chipIconContainerElement = this._portalService.getDomElementFromComponentRef(chipIconRef);
       chipIconContainerElement.textContent = leadingIcon;
       chipIconRef.instance.leading = true;
-      this._chipService.addChild(chipIconContainerElement, chipContainerElement);
-      this._setDisposeFn(() => chipIconRef.destroy());
+      this._portalService.addChild(chipIconContainerElement, chipContainerElement);
     }
 
-    const chipTextRef = this._chipService.createComponentRef(MdcChipText);
-    const chipTextContainerElement = this._chipService.getDomElementFromComponentRef(chipTextRef);
+    const chipTextRef = this._portalService.createComponentRef(MdcChipText);
+    const chipTextContainerElement = this._portalService.getDomElementFromComponentRef(chipTextRef);
     chipTextContainerElement.textContent = text;
-    this._chipService.addChild(chipTextContainerElement, chipContainerElement);
-    this._setDisposeFn(() => chipTextRef.destroy());
+    this._portalService.addChild(chipTextContainerElement, chipContainerElement);
 
     if (trailingIcon) {
-      const chipIconRef = this._chipService.createComponentRef(MdcChipIcon);
+      const chipIconRef = this._portalService.createComponentRef(MdcChipIcon);
       chipIconRef.instance.trailing = true;
       chipIconRef.instance.clickable = true;
-      const chipIconContainerElement = this._chipService.getDomElementFromComponentRef(chipIconRef);
+      const chipIconContainerElement = this._portalService.getDomElementFromComponentRef(chipIconRef);
       chipIconContainerElement.textContent = trailingIcon;
-      this._chipService.addChild(chipIconContainerElement, chipContainerElement);
-      this._setDisposeFn(() => chipIconRef.destroy());
+      this._portalService.addChild(chipIconContainerElement, chipContainerElement);
     }
 
     return chipContainerElement;

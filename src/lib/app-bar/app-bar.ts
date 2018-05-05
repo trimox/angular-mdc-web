@@ -139,7 +139,7 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
     registerScrollHandler: (handler: EventListener) => {
       if (!isBrowser()) { return; }
 
-      const element = (this.fixedAdjustElement && this.short) ? this.fixedAdjustElement : window;
+      const element = this.fixedAdjustElement ? this.fixedAdjustElement : window;
       this._registry.listen('scroll', handler, element);
     },
     deregisterScrollHandler: (handler: EventListener) => {
@@ -160,7 +160,7 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
     getViewportScrollY: () => {
       if (!isBrowser()) { return 0; }
 
-      return (this.fixedAdjustElement && this.short) ? this.fixedAdjustElement.scrollTop : window.pageYOffset;
+      return this.fixedAdjustElement ? this.fixedAdjustElement.scrollTop : window.pageYOffset;
     },
     getTotalActionItems: () => this.actions ? this.actions.length : 0
   };
@@ -168,18 +168,6 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
   private _topAppBarFoundation: {
     init(): void,
     destroy(): void
-  };
-
-  private _shortAppBarFoundation: {
-    init(): void,
-    destroy(): void,
-    scrollHandler_: void
-  };
-
-  private _fixedAppBarFoundation: {
-    init(): void,
-    destroy(): void,
-    scrollHandler_: void
   };
 
   constructor(
@@ -201,9 +189,6 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
     this._destroy.next();
     this._destroy.complete();
 
-    if (this._shortAppBarFoundation) {
-      this._shortAppBarFoundation.destroy();
-    }
     if (this._topAppBarFoundation) {
       this._topAppBarFoundation.destroy();
     }
@@ -279,48 +264,21 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
     this._changeDetectorRef.markForCheck();
   }
 
-  private _destroyFoundations() {
-    if (this._shortAppBarFoundation) {
-      this._shortAppBarFoundation.destroy();
-    }
-
-    if (this._topAppBarFoundation) {
-      this._topAppBarFoundation.destroy();
-    }
-
-    if (this._fixedAppBarFoundation) {
-      this._fixedAppBarFoundation.destroy();
-    }
-  }
-
   refreshAppBar() {
-    if (this._shortAppBarFoundation) {
-      this._mdcAdapter.deregisterScrollHandler(this._shortAppBarFoundation.scrollHandler_);
-    }
-
     setTimeout(() => {
-      if (this.short && !this._shortAppBarFoundation) {
-        this._destroyFoundations();
-        this._shortAppBarFoundation = new MDCShortTopAppBarFoundation(this._mdcAdapter);
+      if (this._topAppBarFoundation) {
+        this._topAppBarFoundation.destroy();
+      }
+
+      if (this.short) {
+        this._topAppBarFoundation = new MDCShortTopAppBarFoundation(this._mdcAdapter);
       } else if (this.fixed) {
-        this._destroyFoundations();
-        this._fixedAppBarFoundation = new MDCFixedTopAppBarFoundation(this._mdcAdapter);
+        this._topAppBarFoundation = new MDCFixedTopAppBarFoundation(this._mdcAdapter);
       } else {
-        this._destroyFoundations();
         this._topAppBarFoundation = new MDCTopAppBarFoundation(this._mdcAdapter);
       }
 
-      if (this.short && !this.shortCollapsed) {
-        this._mdcAdapter.registerScrollHandler(this._shortAppBarFoundation.scrollHandler_);
-      }
-
-      if (this.fixed || this.prominent || this.dense || !this.short) {
-        this._mdcAdapter.removeClass('mdc-top-app-bar--short-collapsed');
-      }
-
-      if (this.short && this._mdcAdapter.getViewportScrollY() > 0) {
-        this._mdcAdapter.addClass('mdc-top-app-bar--short-collapsed');
-      }
+      this._topAppBarFoundation.init();
     }, 10);
   }
 

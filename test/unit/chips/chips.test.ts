@@ -76,11 +76,6 @@ describe('Chips', () => {
       expect(testComponent.chipRemove).toHaveBeenCalledWith({ chip: testInstance });
     });
 
-    it('handles blur event', () => {
-      testInstance._blur();
-      fixture.detectChanges();
-    });
-
     it('handles focus event', () => {
       testNativeElement.focus();
       fixture.detectChanges();
@@ -94,6 +89,11 @@ describe('Chips', () => {
     it('expect leading chip icon to not be undefined', () => {
       expect(testInstance.getLeadingIcon()).toBeDefined();
     });
+
+    it('expect foundation to be defined', () => {
+      expect(testInstance.foundation()).toBeDefined();
+    });
+
     it('#should apply primary class modifier', () => {
       testComponent.primary = true;
       fixture.detectChanges();
@@ -140,12 +140,25 @@ describe('Chips', () => {
       expect(testDebugElement.nativeElement.classList.contains('mdc-chip-set--filter')).toBe(true);
       expect(testInstance.filter).toBe(true);
     });
+
+    it('#should apply input class modifier', () => {
+      testComponent.input = true;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList.contains('mdc-chip-set--input')).toBe(true);
+      expect(testInstance.input).toBe(true);
+    });
+
+    it('#should add new chip', () => {
+      testInstance.addChip('test', 'favorite', 'cancel');
+      fixture.detectChanges();
+      expect(testInstance.chips.length).toBe(2);
+    });
   });
 });
 
 @Component({
   template: `
-  <mdc-chip-set [choice]="choice" [filter]="filter">
+  <mdc-chip-set [choice]="choice" [filter]="filter" [input]="input">
     <mdc-chip *ngIf="shouldShow"
     [disabled]="disabled"
     [primary]="primary"
@@ -169,6 +182,7 @@ class ChipTest {
   disabled: boolean = false;
   choice: boolean = false;
   filter: boolean = false;
+  input: boolean = false;
   primary: boolean = false;
   secondary: boolean = false;
 

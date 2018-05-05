@@ -1,0 +1,130 @@
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Shape</h1>
+    <p>Shapes direct attention, identify components, communicate state, and express brand.</p>
+    Many MDC Web components include direct support for rounded corners; this package provides additional support for applying angled corners to unelevated surfaces.
+    <h2>References</h2>
+    <ul>
+      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-shape/README.md"
+        target="_blank" rel="noopener noreferrer">Material Components Web</a>
+      </li>
+    </ul>
+    <h2>Import</h2>
+    <pre><code><![CDATA[import { MdcShapeModule } from '@angular-mdc/web';]]></code></pre>
+
+    <h2>Design & API Documentation</h2>
+    <div class="docs-api">
+      <h3>mdc-shape-container, [mdcShapeContainer]</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>Mandatory. Parent element containing the component to be masked.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-shape-container-corner, [mdcShapeContainerCorner]</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>Mandatory. Element for masking a specific corner; there may be up to 4.</td>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>corner: string</td>
+            <td>Set element to an angled corner.
+<pre>Valid values: top-left | top-right | bottom-left | bottom-right</pre>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Methods</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>setCorner(corner: string)</td>
+            <td>Set element to an angled corner.
+<pre>Valid values: top-left | top-right | bottom-left | bottom-right</pre>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h2>Sass Mixins</h2>
+    To customize the angled corners, use the following mixins.
+    <p><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-shape/README.md#sass-mixins"
+     target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
+
+    <h2>Basic Usage</h2>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-shape"
+     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
+  </div>
+
+  <div class="demo-content">
+    <h3>Button - Filled</h3>
+    <mdc-shape-container class="demo-two-corner-container">
+      <button mdc-button [unelevated]="true">Skip</button>
+      <mdc-shape-container-corner corner="top-left"></mdc-shape-container-corner>
+      <mdc-shape-container-corner corner="bottom-right"></mdc-shape-container-corner>
+    </mdc-shape-container>
+
+    <mdc-shape-container class="demo-four-corner-container">
+      <button mdc-button [unelevated]="true">Finish</button>
+      <mdc-shape-container-corner corner="top-left"></mdc-shape-container-corner>
+      <mdc-shape-container-corner corner="top-right"></mdc-shape-container-corner>
+      <mdc-shape-container-corner corner="bottom-left"></mdc-shape-container-corner>
+      <mdc-shape-container-corner corner="bottom-right"></mdc-shape-container-corner>
+    </mdc-shape-container>
+  </div>
+
+  <div class="demo-content">
+    <h3>Button - Outlined</h3>
+    <mdc-shape-container class="demo-two-corner-container demo-two-corner-container--outlined">
+      <button mdc-button [outlined]="true">Skip</button>
+      <mdc-shape-container-corner corner="top-left"></mdc-shape-container-corner>
+      <mdc-shape-container-corner corner="bottom-right"></mdc-shape-container-corner>
+    </mdc-shape-container>
+
+    <mdc-shape-container class="demo-four-corner-container demo-four-corner-container--outlined">
+      <button mdc-button [outlined]="true">Finish</button>
+      <mdc-shape-container-corner corner="top-left"></mdc-shape-container-corner>
+      <mdc-shape-container-corner corner="top-right"></mdc-shape-container-corner>
+      <mdc-shape-container-corner corner="bottom-left"></mdc-shape-container-corner>
+      <mdc-shape-container-corner corner="bottom-right"></mdc-shape-container-corner>
+    </mdc-shape-container>
+  </div>
+
+  <div class="demo-content">
+    <h3>Card</h3>
+    <mdc-shape-container class="demo-shape-card-container">
+      <mdc-card [outlined]="true">
+        <mdc-card-primary-action class="demo-card__primary-action" mdc-ripple>
+          <div class="demo-card__music-row">
+            <mdc-card-media [square]="true" class="demo-card__media demo-card__media--music"></mdc-card-media>
+            <div class="demo-card__music-info">
+              <div mdcHeadline5>Title</div>
+              <div mdcBody2>Body text</div>
+            </div>
+          </div>
+        </mdc-card-primary-action>
+      <mdc-shape-container-corner corner="top-left"></mdc-shape-container-corner>
+      <mdc-shape-container-corner corner="top-right"></mdc-shape-container-corner>
+      <mdc-shape-container-corner corner="bottom-left"></mdc-shape-container-corner>
+      <mdc-shape-container-corner corner="bottom-right"></mdc-shape-container-corner>
+      </mdc-card>
+    </mdc-shape-container>
+  </div>
+</div>

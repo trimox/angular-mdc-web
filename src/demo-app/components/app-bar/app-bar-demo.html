@@ -26,6 +26,10 @@
         </thead>
         <tbody>
           <tr>
+            <td>fixed: boolean</td>
+            <td>Style the app bar as a fixed top app bar.</td>
+          </tr>
+          <tr>
             <td>short: boolean</td>
             <td>Style the app bar as a short app bar. Short top app bars should only be used with one action item.</td>
           </tr>
@@ -55,6 +59,10 @@
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td>setFixed(fixed: boolean)</td>
+            <td>Style the app bar as a fixed top app bar.</td>
+          </tr>
           <tr>
             <td>setShort(short: boolean)</td>
             <td>Style the app bar as a short app bar. Short top app bars should only be used with one action item.</td>
@@ -164,14 +172,15 @@
      target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
   </div>
 
-  <div class="demo-content demo-top-app-bar--not-fixed">
+  <div class="demo-content">
     <div class="demo-content--row">
-      <button mdc-button (click)="demoappbar.short = !demoappbar.short">Short: {{demoappbar.short ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="demoappbar.shortCollapsed = !demoappbar.shortCollapsed">Short Collapsed: {{demoappbar.shortCollapsed ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoappbar.fixed = !demoappbar.fixed">Fixed: {{demoappbar.fixed ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoappbar.prominent = !demoappbar.prominent">Promient: {{demoappbar.prominent ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoappbar.dense = !demoappbar.dense">Dense: {{demoappbar.dense ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoappbar.short = !demoappbar.short">Short: {{demoappbar.short ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoappbar.shortCollapsed = !demoappbar.shortCollapsed">Short Collapsed: {{demoappbar.shortCollapsed ? 'On' : 'Off'}}</button>
     </div>
-    <mdc-app-bar #demoappbar [fixedAdjustElement]="appbarcontent" [short]="true">
+    <mdc-app-bar #demoappbar [fixedAdjustElement]="appbarcontent" [short]="true" class="demo-top-app-bar--not-fixed">
       <mdc-app-bar-row>
         <mdc-app-bar-section align="start">
           <mdc-icon mdcAppBarNavIcon>menu</mdc-icon>

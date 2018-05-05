@@ -4,7 +4,6 @@ $mdc-theme-secondary: #388e3c;
 @import "~@angular-mdc/theme";
 
 body {
-  height: calc(100vh - 64px);
   margin: 0;
 }
 
@@ -19,11 +18,13 @@ body {
 }
 
 //
-// Demo Toolbar
+// Demo App Bar
 //
 
-.demo__toolbar--primary {
-  @include mdc-toolbar-fill-color($mdc-theme-primary);
+.demo__app-bar--primary {
+  @include mdc-top-app-bar-fill-color($mdc-theme-primary);
+
+  z-index: 4;
 }
 
 //
@@ -34,11 +35,11 @@ body {
   @include mdc-theme-prop(color, #fff);
   @include mdc-theme-prop(background-color, $mdc-theme-primary);
 
-  height: 40vh;
+  height: 50vh;
 
   &__summary {
     &--title {
-      @include mdc-typography(display3);
+      @include mdc-typography(headline2);
 
       @media (max-width: 655px) {
         font-size: 8vmin;
@@ -46,7 +47,7 @@ body {
     }
 
     &--caption {
-      @include mdc-typography(display2);
+      @include mdc-typography(headline3);
 
       @media (max-width: 655px) {
         font-size: 8vmin;
@@ -69,27 +70,20 @@ body {
   }
 }
 
-.demo-navigation__logo {
-  padding-top: 10px;
-
-  @media (max-width: 960px) {
-    display: none;
-  }
-}
-
-.demo-navigation__icon {
-  @media (min-width: 959px) {
-    display: none;
-  }
-}
-
 .demo-page {
-  padding: 1px 0 50px 20px;
   max-width: 1000px;
+
+  @media (min-width: 1000px) {
+    padding: 50px 5px 50px 70px;
+  }
+
+  @media (max-width: 999px) {
+    padding: 50px 0 50px 15px;
+  }
 }
 
 //
-// demo-content
+// Demo content
 //
 
 .demo-content {
@@ -102,7 +96,7 @@ body {
   }
 
   h3 {
-    @include mdc-typography(title);
+    @include mdc-typography(headline6);
 
     margin-top: .1em;
     margin-bottom: .8em;
@@ -198,13 +192,13 @@ body {
   max-width: 900px;
 
   h1 {
-    @include mdc-typography(display1);
+    @include mdc-typography(headline4);
 
     font-weight: 500;
   }
 
   h2 {
-    @include mdc-typography(headline);
+    @include mdc-typography(headline5);
   }
 
   h4 {
@@ -239,7 +233,6 @@ body {
     background-color: #f6f8fa;
     border-radius: 3px;
     margin: 0 16px 16px 0;
-    width: fit-content;
 
     white-space: pre-wrap;
     white-space: -moz-pre-wrap;
@@ -295,12 +288,12 @@ body {
 
 .demo-toolbar--with-tab-bar {
   .mdc-tab:not(.mdc-tab--active) {
-    @include mdc-tab-ink-color(rgba(mdc-theme-prop-value(text-primary-on-primary), 0.54));
+    @include mdc-tab-ink-color(rgba(mdc-theme-prop-value(mdc-theme-prop-value(on-primary)), 0.54));
   }
 
   .mdc-tab--active,
   .mdc-tab:hover {
-    @include mdc-tab-ink-color(text-primary-on-primary);
+    @include mdc-tab-ink-color(on-primary);
   }
 }
 
@@ -473,9 +466,7 @@ body {
 }
 
 .demo-top-app-bar--not-fixed {
-  .mdc-top-app-bar--short {
-    position: relative;
-  }
+  position: relative;
 }
 
 //
@@ -636,8 +627,8 @@ body {
   @include mdc-button-corner-radius(8px);
 }
 
-.mdc-button.thick-stroke-button {
-  @include mdc-button-stroke-width(4px);
+.mdc-button.thick-outline-button {
+  @include mdc-button-outline-width(4px);
 }
 
 .demo-ink-color {
@@ -686,4 +677,27 @@ body {
 .demo-linear-progress--custom {
   @include mdc-linear-progress-bar-color($material-color-red-500);
   @include mdc-linear-progress-buffer-color($material-color-red-100);
+}
+
+//
+// Shape
+//
+
+.demo-two-corner-container {
+  @include mdc-shape-angled-corner($mdc-theme-background, $mdc-button-height / 4, 0);
+}
+
+.demo-four-corner-container {
+  margin: 0 8px;
+  @include mdc-shape-angled-corner($mdc-theme-background, $mdc-button-height / 4 + 1);
+}
+
+.demo-two-corner-container--outlined,
+.demo-four-corner-container--outlined {
+  @include mdc-shape-angled-corner-outline(2px, $mdc-theme-primary);
+}
+
+.demo-shape-card-container {
+  @include mdc-shape-angled-corner($mdc-theme-background, 24px, 4px);
+  @include mdc-shape-angled-corner-outline($mdc-card-outline-width, $mdc-card-outline-color);
 }

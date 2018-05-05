@@ -33,6 +33,14 @@
             <td>filter: boolean</td>
             <td>Indicates that the chips in the set are filter chips, which allow multiple selection from a set of options.</td>
           </tr>
+          <tr>
+            <td>primary: boolean</td>
+            <td>Colors selected chip with the primary theme color.</td>
+          </tr>
+          <tr>
+            <td>secondary: boolean</td>
+            <td>Colors selected chips with the secondary theme color.</td>
+          </tr>
         </tbody>
       </table>
       <table>
@@ -84,14 +92,14 @@
         </tbody>
       </table>
 
-      <h3>mdc-chip-text</h3>
+      <h3>mdc-chip-text, [mdcChipText]</h3>
       <table>
         <tr>
           <td>Indicates the text content of the chip.</td>
         </tr>
       </table>
 
-      <h3>mdc-chip-icon</h3>
+      <h3>mdc-chip-icon, [mdcChipIcon]</h3>
       <table>
         <thead>
           <tr>
@@ -122,34 +130,35 @@
   </div>
 
   <div class="demo-content">
-    <h3>Chips</h3>
+    <h3>Chip - Theming</h3>
     <div class="demo-content--row">
-      <mdc-chip-set>
-        <mdc-chip>
-          <mdc-chip-text>Get Directions</mdc-chip-text>
-        </mdc-chip>
-        <mdc-chip>
-          <mdc-chip-text>Get Weather</mdc-chip-text>
-        </mdc-chip>
-        <mdc-chip>
-          <mdc-chip-text>Add to Calendar</mdc-chip-text>
-        </mdc-chip>
-      </mdc-chip-set>
+      <button mdc-button (click)="simplechip.primary = !simplechip.primary">Primary: {{simplechip.primary ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="simplechip.secondary = !simplechip.secondary">Secondary: {{simplechip.secondary ? 'On' : 'Off'}}</button>
     </div>
+    <mdc-chip-set>
+      <mdc-chip #simplechip>
+        <mdc-chip-icon leading>face</mdc-chip-icon>
+        <mdc-chip-text>Jane Smith</mdc-chip-text>
+      </mdc-chip>
+    </mdc-chip-set>
   </div>
+
   <div class="demo-content">
-    <h3>Entry Chips</h3>
+    <h3>Input Chips</h3>
     <div class="demo-content--row">
-      <mdc-chip-set>
+      <button mdc-button (click)="inputchipset.addChip('test', 'face', 'cancel')">Add Chip</button>
+    </div>
+    <div class="demo-content--row">
+      <mdc-chip-set #inputchipset [input]="true">
         <mdc-chip>
           <mdc-chip-icon leading>face</mdc-chip-icon>
           <mdc-chip-text>Jane Smith</mdc-chip-text>
-          <mdc-chip-icon trailing>more_vert</mdc-chip-icon>
+          <mdc-chip-icon trailing>cancel</mdc-chip-icon>
         </mdc-chip>
         <mdc-chip>
           <mdc-chip-icon leading>face</mdc-chip-icon>
           <mdc-chip-text>John Doe</mdc-chip-text>
-          <mdc-chip-icon trailing>more_vert</mdc-chip-icon>
+          <mdc-chip-icon trailing>cancel</mdc-chip-icon>
         </mdc-chip>
       </mdc-chip-set>
     </div>
@@ -176,19 +185,15 @@
       <mdc-chip-set [filter]="true">
         <mdc-chip>
           <mdc-chip-text>Tops</mdc-chip-text>
-          <mdc-chip-icon trailing>cancel</mdc-chip-icon>
         </mdc-chip>
         <mdc-chip>
           <mdc-chip-text>Bottoms</mdc-chip-text>
-          <mdc-chip-icon trailing>cancel</mdc-chip-icon>
         </mdc-chip>
         <mdc-chip>
           <mdc-chip-text>Shoes</mdc-chip-text>
-          <mdc-chip-icon trailing>cancel</mdc-chip-icon>
         </mdc-chip>
         <mdc-chip>
           <mdc-chip-text>Accessories</mdc-chip-text>
-          <mdc-chip-icon trailing>cancel</mdc-chip-icon>
         </mdc-chip>
       </mdc-chip-set>
     </div>
@@ -210,6 +215,30 @@
         <mdc-chip>
           <mdc-chip-icon leading>face</mdc-chip-icon>
           <mdc-chip-text>David</mdc-chip-text>
+        </mdc-chip>
+      </mdc-chip-set>
+    </div>
+  </div>
+
+  <div class="demo-content">
+    <h3>Action Chips</h3>
+    <div class="demo-content--row">
+      <mdc-chip-set>
+        <mdc-chip>
+          <mdc-chip-icon leading>wb_sunny</mdc-chip-icon>
+          <mdc-chip-text>Turn on lights</mdc-chip-text>
+        </mdc-chip>
+        <mdc-chip>
+          <mdc-chip-icon leading>bookmark</mdc-chip-icon>
+          <mdc-chip-text>Bookmark</mdc-chip-text>
+        </mdc-chip>
+        <mdc-chip>
+          <mdc-chip-icon leading>alarm</mdc-chip-icon>
+          <mdc-chip-text>Set alarm</mdc-chip-text>
+        </mdc-chip>
+        <mdc-chip>
+          <mdc-chip-icon leading>directions</mdc-chip-icon>
+          <mdc-chip-text>Get Directions</mdc-chip-text>
         </mdc-chip>
       </mdc-chip-set>
     </div>

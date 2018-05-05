@@ -5,20 +5,23 @@ import { ButtonDemo, FabDemo, IconToggleDemo } from './components/buttons';
 import { CardDemo } from './components/card-demo/card-demo';
 import { CheckboxDemo, RadioDemo, SelectDemo, SliderDemo, SwitchDemo, TextFieldDemo } from './components/inputs-controls';
 import { ChipsDemo } from './components/chips-demo/chips-demo';
+import { DIALOG_DEMO_ROUTES } from './components/dialog-demo/routes';
 import { DialogDemo } from './components/dialog-demo/dialog-demo';
 import { DrawerDemo } from './components/drawer-demo/drawer-demo';
-import { Home } from './home/home';
+import { ElevationDemo } from './components/elevation-demo/elevation-demo';
 import { GettingStarted, CliGuide } from './getting-started';
+import { Home } from './home/home';
 import { IconDemo } from './components/icon-demo/icon-demo';
 import { LinearProgressDemo } from './components/linear-progress-demo/linear-progress-demo';
 import { ListDemo, GridListDemo, ImageListDemo } from './components/lists';
 import { MenuDemo } from './components/menu-demo/menu-demo';
-import { ElevationDemo, RippleDemo, TypographyDemo } from './components/core';
+import { RippleDemo } from './components/ripple-demo/ripple-demo';
 import { SnackbarDemo } from './components/snackbar-demo/snackbar-demo';
+import { ShapeDemo } from './components/shape-demo/shape-demo';
 import { TabDemo } from './components/tab-demo';
 import { ToolbarDemo } from './components/toolbar-demo/toolbar-demo';
+import { TypographyDemo } from './components/typography-demo/typography-demo';
 
-import { DIALOG_DEMO_ROUTES } from './components/dialog-demo/routes';
 import { TABS_DEMO_ROUTES } from './components/tab-demo';
 
 export const DEMO_ROUTES = [
@@ -45,6 +48,7 @@ export const DEMO_ROUTES = [
   RippleDemo,
   SelectDemo,
   SliderDemo,
+  ShapeDemo,
   SnackbarDemo,
   SnackbarDemo,
   SwitchDemo,
@@ -78,6 +82,7 @@ export const APP_ROUTES: Routes = [
   { path: 'ripple-demo', component: RippleDemo },
   { path: 'select-demo', component: SelectDemo },
   { path: 'slider-demo', component: SliderDemo },
+  { path: 'shape-demo', component: ShapeDemo },
   { path: 'snackbar-demo', component: SnackbarDemo },
   { path: 'switch-demo', component: SwitchDemo },
   { path: 'tab-demo', component: TabDemo, children: TABS_DEMO_ROUTES },

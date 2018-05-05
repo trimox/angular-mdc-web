@@ -1,14 +1,11 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './app-layout.html'
 })
-export class AppLayout implements OnInit {
-  isLayoutMobile: boolean;
-
+export class AppLayout {
   startVisible: boolean;
-  coreVisible: boolean;
   buttonVisible: boolean;
   inputVisible: boolean;
   listVisible: boolean;
@@ -19,12 +16,16 @@ export class AppLayout implements OnInit {
     { name: 'Chips', route: 'chips-demo', icon: 'indeterminate_check_box' },
     { name: 'Dialog', route: 'dialog-demo', icon: 'question_answer' },
     { name: 'Drawer', route: 'drawer-demo', icon: 'code' },
+    { name: 'Elevation', route: 'elevation-demo', icon: 'filter_none' },
     { name: 'Icon', route: 'icon-demo', icon: 'star' },
     { name: 'Linear Progress', route: 'linear-progress-demo', icon: 'compare_arrows' },
     { name: 'Menu', route: 'menu-demo', icon: 'menu' },
+    { name: 'Ripple', route: 'ripple-demo', icon: 'code' },
     { name: 'Snackbar', route: 'snackbar-demo', icon: 'info_outline' },
+    { name: 'Shape', route: 'shape-demo', icon: 'crop_free' },
     { name: 'Tabs', route: 'tab-demo', icon: 'tab' },
-    { name: 'Toolbar', route: 'toolbar-demo', icon: 'remove' }
+    { name: 'Toolbar', route: 'toolbar-demo', icon: 'remove' },
+    { name: 'Typography', route: 'typography-demo', 'icon': 'title' }
   ];
 
   inputRoutes = [
@@ -34,12 +35,6 @@ export class AppLayout implements OnInit {
     { name: 'Slider', route: 'slider-demo' },
     { name: 'Switch', route: 'switch-demo' },
     { name: 'Text Field', route: 'textfield-demo' }
-  ];
-
-  coreRoutes = [
-    { name: 'Elevation', route: 'elevation-demo' },
-    { name: 'Ripple', route: 'ripple-demo' },
-    { name: 'Typography', route: 'typography-demo' }
   ];
 
   buttonRoutes = [
@@ -58,12 +53,4 @@ export class AppLayout implements OnInit {
     { name: 'Installation', route: 'getting-started' },
     { name: 'Angular CLI', route: 'cli-guide' }
   ];
-
-  @HostListener('window:resize', ['$event']) onResize(event) {
-    this.isLayoutMobile = event.target.innerWidth > 960 ? false : true;
-  }
-
-  ngOnInit(): void {
-    this.isLayoutMobile = window.innerWidth > 960 ? false : true;
-  }
 }

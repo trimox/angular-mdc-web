@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component({
   selector: 'select-demo',
   templateUrl: './select-demo.html'
 })
 export class SelectDemo {
-  selectedValue: string;
-
   // foodControl = new FormControl('fruit-3');
   foodControl = new FormControl();
 

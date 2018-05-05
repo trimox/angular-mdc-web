@@ -40,15 +40,15 @@
           </tr>
           <tr>
             <td>raised: boolean</td>
-            <td>Elevates the button and creates a colored background.</td>
+            <td>A contained button that is elevated upon the surface.</td>
           </tr>
           <tr>
             <td>unelevated: boolean</td>
-            <td>A button that is flush with the surface.</td>
+            <td>A contained button that is flush with the surface.</td>
           </tr>
           <tr>
-            <td>stroked: boolean</td>
-            <td>A button that is flush with the surface and has a visible border.</td>
+            <td>outlined: boolean</td>
+            <td>A contained button that is flush with the surface and has a visible border.</td>
           </tr>
           <tr>
             <td>icon: boolean</td>
@@ -83,15 +83,15 @@
           </tr>
           <tr>
             <td>setRaised(raised: boolean)</td>
-            <td>Elevates the button and creates a colored background.</td>
+            <td>A contained button that is elevated upon the surface.</td>
           </tr>
           <tr>
             <td>setUnelevated(unelevated: boolean)</td>
-            <td>A button that is flush with the surface.</td>
+            <td>A contained button that is flush with the surface.</td>
           </tr>
           <tr>
-            <td>setStroked(stroked: boolean)</td>
-            <td>A button that is flush with the surface and has a visible border.</td>
+            <td>setOutlined(outlined: boolean)</td>
+            <td>A contained button that is flush with the surface and has a visible border.</td>
           </tr>
           <tr>
             <td>setIcon(icon: boolean)</td>
@@ -125,11 +125,11 @@
       <button mdc-button (click)="demobutton.dense = !demobutton.dense">Dense: {{demobutton.dense ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demobutton.raised = !demobutton.raised">Raised: {{demobutton.raised ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demobutton.unelevated = !demobutton.unelevated">Unelevated: {{demobutton.unelevated ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="demobutton.stroked = !demobutton.stroked">Stroked: {{demobutton.stroked ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demobutton.outlined = !demobutton.outlined">Outlined: {{demobutton.outlined ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demobutton.disabled = !demobutton.disabled">Disabled: {{demobutton.disabled ? 'On' : 'Off'}}</button>
     </div>
     <div class="demo-content--center">
-      <button mdc-button #demobutton [primary]="true">Button</button>
+      <button mdc-button #demobutton>Button</button>
     </div>
   </div>
 
@@ -151,7 +151,7 @@
         <mdc-icon>favorite</mdc-icon>
         Ink Color
       </button>
-      <button mdc-button [stroked]="true" [icon]="true" class="demo-icon-color">
+      <button mdc-button [outlined]="true" [icon]="true" class="demo-icon-color">
         <mdc-icon>favorite</mdc-icon>
         Icon Color
       </button>
@@ -164,7 +164,7 @@
       <button mdc-button [unelevated]="true" class="big-round-corner-button">
         Corner Radius
       </button>
-      <button mdc-button [stroked]="true" class="thick-stroke-button">
+      <button mdc-button [outlined]="true" class="thick-stroke-button">
         Thick Stroke Width
       </button>
     </div>
@@ -183,7 +183,7 @@
 
     <div class="demo-content--row demo-content--row-with-button">
       <button mdc-button [unelevated]="true">Unelevated</button>
-      <button mdc-button [stroked]="true">Stroked</button>
+      <button mdc-button [outlined]="true">Outlined</button>
       <a mdc-button [primary]="true" [raised]="true" href="#/button-demo">Href link</a>
     </div>
 

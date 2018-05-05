@@ -277,7 +277,6 @@
       <button mdc-button (click)="demoformInput.dense = !demoformInput.dense">Dense: {{demoformInput.dense ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoformInput.box = !demoformInput.box">Box: {{demoformInput.box ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoformInput.selectAll()">Select All</button>
-      <button mdc-button (click)="demoForm.reset()">Reset Control</button>
       <button mdc-button (click)="alternateColors(demoformInput)">Alternate Colors</button>
     </div>
     <form [formGroup]="demoForm" id="demoForm" (ngSubmit)="submitForm()">
@@ -286,9 +285,13 @@
         <span *ngIf="demoForm.controls['userName'].errors?.required">Username is required</span>
       </mdc-text-field-helper-text>
     </form>
-    <button mdc-button type="submit" form="demoForm">Submit Form</button>
+    <div class="demo-content--row">
+      <button mdc-button type="submit" form="demoForm">Submit</button>
+      <button mdc-button (click)="demoForm.reset()">Reset</button>
+    </div>
     <p>Dirty: {{ demoForm.dirty }}</p>
     <p>Valid: {{ demoForm.valid }}</p>
+    <p>Pristine: {{ demoForm.pristine }}</p>
     <p>Touched: {{ demoForm.touched }}</p>
     <p>Value: {{ demoForm.controls['userName'].value }}</p>
   </div>
@@ -301,7 +304,6 @@
       <button mdc-button (click)="demoweight.dense = !demoweight.dense">Dense: {{demoweight.dense ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoweight.box = !demoweight.box">Box: {{demoweight.box ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoweight.selectAll()">Select All</button>
-      <button mdc-button (click)="resetWeightModel(demoWeightForm)">Reset model</button>
       <button mdc-button (click)="alternateColors(demoweight)">Alternate Colors</button>
     </div>
     <form #demoWeightForm="ngForm" id="demoWeightForm" (ngSubmit)="submitWeightForm(demoWeightForm)">
@@ -311,9 +313,13 @@
         <span *ngIf="!demoweight.value">Weight is required</span>
       </mdc-text-field-helper-text>
     </form>
-    <button mdc-button type="submit" form="demoWeightForm">Submit Form</button>
+    <div class="demo-content--row">
+      <button mdc-button type="submit" form="demoWeightForm">Submit</button>
+      <button mdc-button (click)="resetWeightModel(demoWeightForm)">Reset</button>
+    </div>
     <p>Dirty: {{ demoWeightModel.dirty }}</p>
     <p>Valid: {{ demoWeightForm.valid }}</p>
+    <p>Pristine: {{ demoWeightForm.pristine }}</p>
     <p>Touched: {{ demoWeightModel.touched }}</p>
     <p>Value: {{ demoWeightModel.value }}</p>
   </div>
@@ -326,13 +332,13 @@
       <button mdc-button (click)="demousername.dense = !demousername.dense">Dense: {{demousername.dense ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demousername.box = !demousername.box">Box: {{demousername.box ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demousername.selectAll()">Select All</button>
-      <button mdc-button (click)="resetUserModel()">Reset model</button>
       <button mdc-button (click)="alternateColors(demousername)">Alternate Colors</button>
     </div>
     <mdc-text-field #demousername label="Username" [(ngModel)]="username" #userModel="ngModel" [helperText]="userHelper" [required]="true"></mdc-text-field>
     <mdc-text-field-helper-text #userHelper="mdcHelperText" [validation]="true" [persistent]="false">
       <span *ngIf="!demousername.value">Username is required</span>
     </mdc-text-field-helper-text>
+    <button mdc-button (click)="resetUserModel()">Reset model</button>
     <p>ngModel Value: {{username}}</p>
   </div>
 

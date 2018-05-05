@@ -274,12 +274,18 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
         this._topAppBarFoundation = new MDCShortTopAppBarFoundation(this._mdcAdapter);
       } else if (this.fixed) {
         this._topAppBarFoundation = new MDCFixedTopAppBarFoundation(this._mdcAdapter);
+        this._removeShortCollapsed();
       } else {
         this._topAppBarFoundation = new MDCTopAppBarFoundation(this._mdcAdapter);
+        this._removeShortCollapsed();
       }
 
       this._topAppBarFoundation.init();
     }, 10);
+  }
+
+  private _removeShortCollapsed(): void {
+    this._renderer.removeClass(this._getHostElement(), 'mdc-top-app-bar--short-collapsed');
   }
 
   /** Retrieves the DOM element of the component host. */

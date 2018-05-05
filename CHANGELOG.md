@@ -1,3 +1,43 @@
+<a name="0.35.0"></a>
+# [0.35.0](https://github.com/trimox/angular-mdc-web/compare/v0.34.5...v0.35.0) (2018-05-05)
+
+
+### Bug Fixes
+
+* **demo-app:** Overflow scroll for demo-content__drawer ([#905](https://github.com/trimox/angular-mdc-web/issues/905)) ([3e4001e](https://github.com/trimox/angular-mdc-web/commit/3e4001e))
+* **select:** Should clear value on empty option selected ([#926](https://github.com/trimox/angular-mdc-web/issues/926)) ([5d6a41c](https://github.com/trimox/angular-mdc-web/commit/5d6a41c)), closes [#923](https://github.com/trimox/angular-mdc-web/issues/923)
+* **text-field:** Should clear ngModel when empty ([#940](https://github.com/trimox/angular-mdc-web/issues/940)) ([ea18f49](https://github.com/trimox/angular-mdc-web/commit/ea18f49)), closes [#939](https://github.com/trimox/angular-mdc-web/issues/939)
+* **toolbar:** Should remove `margin-top` on destroy ([#934](https://github.com/trimox/angular-mdc-web/issues/934)) ([1e6253d](https://github.com/trimox/angular-mdc-web/commit/1e6253d)), closes [#933](https://github.com/trimox/angular-mdc-web/issues/933)
+
+
+### Features
+
+* Upgrade to material-components-web v0.35.0 ([#919](https://github.com/trimox/angular-mdc-web/issues/919)) ([f6602d7](https://github.com/trimox/angular-mdc-web/commit/f6602d7))
+* **app-bar:** Add fixed property ([#931](https://github.com/trimox/angular-mdc-web/issues/931)) ([ff62516](https://github.com/trimox/angular-mdc-web/commit/ff62516)), closes [#912](https://github.com/trimox/angular-mdc-web/issues/912)
+* **app-bar:** Use Foundation API for scrolling ([#942](https://github.com/trimox/angular-mdc-web/issues/942)) ([ae2f53f](https://github.com/trimox/angular-mdc-web/commit/ae2f53f))
+* **button:** Add outlined property ([#928](https://github.com/trimox/angular-mdc-web/issues/928)) ([8bafbfa](https://github.com/trimox/angular-mdc-web/commit/8bafbfa)), closes [#920](https://github.com/trimox/angular-mdc-web/issues/920)
+* **card:** Add outlined property ([#930](https://github.com/trimox/angular-mdc-web/issues/930)) ([64d6a6b](https://github.com/trimox/angular-mdc-web/commit/64d6a6b))
+* **chips:** Add input chips ([#938](https://github.com/trimox/angular-mdc-web/issues/938)) ([f899d07](https://github.com/trimox/angular-mdc-web/commit/f899d07)), closes [#909](https://github.com/trimox/angular-mdc-web/issues/909)
+* **chips:** Add primary and secondary properties ([#937](https://github.com/trimox/angular-mdc-web/issues/937)) ([97f82eb](https://github.com/trimox/angular-mdc-web/commit/97f82eb)), closes [#936](https://github.com/trimox/angular-mdc-web/issues/936)
+* **demo-app:** Getting Started guides + improvements ([#914](https://github.com/trimox/angular-mdc-web/issues/914)) ([260d648](https://github.com/trimox/angular-mdc-web/commit/260d648))
+* **dialog:** Remove layoutFooterRipples() ([#927](https://github.com/trimox/angular-mdc-web/issues/927)) ([6be757a](https://github.com/trimox/angular-mdc-web/commit/6be757a))
+* **linear-progress:** Add determinate property ([#917](https://github.com/trimox/angular-mdc-web/issues/917)) ([70bd1e3](https://github.com/trimox/angular-mdc-web/commit/70bd1e3))
+* **shape:** Implement MDC Shape ([#935](https://github.com/trimox/angular-mdc-web/issues/935)) ([7ce01ab](https://github.com/trimox/angular-mdc-web/commit/7ce01ab)), closes [#908](https://github.com/trimox/angular-mdc-web/issues/908)
+* **typography:** Update styles to match guidance ([#932](https://github.com/trimox/angular-mdc-web/issues/932)) ([7a4f0ac](https://github.com/trimox/angular-mdc-web/commit/7a4f0ac)), closes [#911](https://github.com/trimox/angular-mdc-web/issues/911)
+
+
+### BREAKING CHANGES
+
+* **typography:** All legacy typography directives will continue to work for the near future.
+* **card:** Renamed `stroked` property to `outlined`
+* **button:** Property `stroked` renamed to `outlined`
+* Sass mixin `mdc-button-stroked-width` renamed to `mdc-button-outline-width`
+* Sass mixin `mdc-button-stroked-color` renamed to `mdc-button-outline-color`
+* **dialog:** Removes layoutFooterRipples() as per material-components-web v0.35.0
+* **linear-progress:** Removed indeterminate property, please update your code accordingly.
+
+
+
 <a name="0.34.5"></a>
 ## [0.34.5](https://github.com/trimox/angular-mdc-web/compare/v0.34.4...v0.34.5) (2018-04-22)
 

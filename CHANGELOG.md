@@ -1,3 +1,19 @@
+<a name="0.35.1"></a>
+## [0.35.1](https://github.com/trimox/angular-mdc-web/compare/v0.35.0...v0.35.1) (2018-05-05)
+
+
+### Bug Fixes
+
+* **app-bar:** Should remove short-collapsed class ([#946](https://github.com/trimox/angular-mdc-web/issues/946)) ([2f06042](https://github.com/trimox/angular-mdc-web/commit/2f06042))
+
+
+### Features
+
+* Add component portal service ([#945](https://github.com/trimox/angular-mdc-web/issues/945)) ([af687d8](https://github.com/trimox/angular-mdc-web/commit/af687d8))
+* Upgrade to material-components-web v0.35.1 ([#944](https://github.com/trimox/angular-mdc-web/issues/944)) ([245d821](https://github.com/trimox/angular-mdc-web/commit/245d821))
+
+
+
 <a name="0.35.0"></a>
 # [0.35.0](https://github.com/trimox/angular-mdc-web/compare/v0.34.5...v0.35.0) (2018-05-05)
 

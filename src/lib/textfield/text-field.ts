@@ -378,7 +378,7 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
   }
 
   writeValue(value: any): void {
-    this.setValue(value == null ? '' : value);
+    this.setValue(value == null ? '' : value, false);
     this._changeDetectorRef.markForCheck();
   }
 
@@ -444,12 +444,12 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
     this._changeDetectorRef.markForCheck();
   }
 
-  setValue(value: any): void {
+  setValue(value: any, isUserInput: boolean = true): void {
     this._value = (this.type === 'number') ?
       (value === '' ? null : toNumber(value)) : value;
 
     this._foundation.setValue(this.value);
-    if (this.value) {
+    if (isUserInput) {
       this._onChange(this.value);
     }
 

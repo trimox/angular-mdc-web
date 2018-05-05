@@ -35,7 +35,7 @@ body {
   @include mdc-theme-prop(color, #fff);
   @include mdc-theme-prop(background-color, $mdc-theme-primary);
 
-  height: 50vh;
+  height: 45vh;
 
   &__summary {
     &--title {
@@ -47,7 +47,7 @@ body {
     }
 
     &--caption {
-      @include mdc-typography(headline3);
+      @include mdc-typography(headline4);
 
       @media (max-width: 655px) {
         font-size: 8vmin;

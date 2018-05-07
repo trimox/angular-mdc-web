@@ -164,106 +164,98 @@
      target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
   </div>
 
-  <div class="demo-content__card">
-    <mdc-card class="demo-card">
-      <mdc-card-primary-action mdc-ripple>
-        <mdc-card-media class="demo-card__media--16-9" [wide]="true"></mdc-card-media>
-        <div class="demo-card__primary">
-          <h2 class="demo-card__title" mdc-typography-title>Our Changing Planet</h2>
-          <h3 class="demo-card__subtitle" mdc-typography-subheading1>by Kurt Wagner</h3>
-        </div>
-        <div class="demo-card__secondary" mdc-typography-body1>
-          Visit ten places on our planet that are undergoing the biggest changes today.
-        </div>
-      </mdc-card-primary-action>
-      <mdc-card-actions>
-        <mdc-card-action-buttons>
-          <button mdc-button mdcCardAction="button">Read</button>
-          <button mdc-button mdcCardAction="button">Bookmark</button>
-        </mdc-card-action-buttons>
-        <mdc-card-action-icons>
-          <mdc-icon-toggle iconOn="favorite" iconOff="favorite_border" mdcCardAction="icon"></mdc-icon-toggle>
-          <mdc-icon mdcCardAction="icon" mdcRipple>share</mdc-icon>
-          <mdc-icon mdcCardAction="icon" mdcRipple>more_vert</mdc-icon>
-        </mdc-card-action-icons>
-      </mdc-card-actions>
-    </mdc-card>
-  </div>
+  <mdc-card class="demo-card">
+    <mdc-card-primary-action mdc-ripple>
+      <mdc-card-media class="demo-card__media--16-9" [wide]="true"></mdc-card-media>
+      <div class="demo-card__primary">
+        <h2 class="demo-card__title" mdcHeadline6>Our Changing Planet</h2>
+        <h3 class="demo-card__subtitle" mdcSubtitle2>by Kurt Wagner</h3>
+      </div>
+      <div class="demo-card__secondary" mdcBody2>
+        Visit ten places on our planet that are undergoing the biggest changes today.
+      </div>
+    </mdc-card-primary-action>
+    <mdc-card-actions>
+      <mdc-card-action-buttons>
+        <button mdc-button mdcCardAction="button">Read</button>
+        <button mdc-button mdcCardAction="button">Bookmark</button>
+      </mdc-card-action-buttons>
+      <mdc-card-action-icons>
+        <mdc-icon-toggle iconOn="favorite" iconOff="favorite_border" mdcCardAction="icon"></mdc-icon-toggle>
+        <mdc-icon mdcCardAction="icon" mdcRipple>share</mdc-icon>
+        <mdc-icon mdcCardAction="icon" mdcRipple>more_vert</mdc-icon>
+      </mdc-card-action-icons>
+    </mdc-card-actions>
+  </mdc-card>
 
-  <div class="demo-content__card">
-    <mdc-card [outlined]="true">
-      <div class="demo-card-article-group-heading" mdc-typography-subheading2>Headlines</div>
-      <mdc-list-divider></mdc-list-divider>
-      <mdc-ripple class="demo-card-article">
-        <h2 class="demo-card-article__title" mdc-typography-headline>Copper on the rise</h2>
-        <p class="demo-card-article__snippet" mdc-typography-body1>
-          Copper price soars amid global market optimism and increased demand.
-        </p>
-      </mdc-ripple>
-      <mdc-list-divider></mdc-list-divider>
-      <mdc-ripple class="demo-card-article">
-        <h2 class="demo-card-article__title" mdc-typography-headline>U.S. tech startups rebound</h2>
-        <p class="demo-card-article__snippet" mdc-typography-body1>
-          Favorable business conditions have allowed startups to secure more fundraising deals compared to last year.
-        </p>
-      </mdc-ripple>
-      <mdc-list-divider></mdc-list-divider>
-      <mdc-ripple class="demo-card-article">
-        <h2 class="demo-card-article__title" mdc-typography-headline>Asia's clean energy ambitions</h2>
-        <p class="demo-card-article__snippet" mdc-typography-body1>
-          China plans to invest billions of dollars for the development of over 300 clean energy projects in Southeast Asia.
-        </p>
-      </mdc-ripple>
-      <mdc-list-divider></mdc-list-divider>
-      <mdc-card-actions [fullBleed]="true">
-        <button mdc-button mdcCardAction="button">
+  <mdc-card [outlined]="true" class="demo-card">
+    <div class="demo-card-article-group-heading" mdcSubtitle2>Headlines</div>
+    <mdc-list-divider></mdc-list-divider>
+    <mdc-ripple class="demo-card-article">
+      <h2 class="demo-card-article__title" mdcHeadline5>Copper on the rise</h2>
+      <p class="demo-card-article__snippet" mdcBody2>
+        Copper price soars amid global market optimism and increased demand.
+      </p>
+    </mdc-ripple>
+    <mdc-list-divider></mdc-list-divider>
+    <mdc-ripple class="demo-card-article">
+      <h2 class="demo-card-article__title" mdcHeadline5>U.S. tech startups rebound</h2>
+      <p class="demo-card-article__snippet" mdcBody2>
+        Favorable business conditions have allowed startups to secure more fundraising deals compared to last year.
+      </p>
+    </mdc-ripple>
+    <mdc-list-divider></mdc-list-divider>
+    <mdc-ripple class="demo-card-article">
+      <h2 class="demo-card-article__title" mdcHeadline5>Asia's clean energy ambitions</h2>
+      <p class="demo-card-article__snippet" mdcBody2>
+        China plans to invest billions of dollars for the development of over 300 clean energy projects in Southeast Asia.
+      </p>
+    </mdc-ripple>
+    <mdc-list-divider></mdc-list-divider>
+    <mdc-card-actions [fullBleed]="true">
+      <button mdc-button mdcCardAction="button">
           All Business Headlines
           <mdc-icon>arrow_forward</mdc-icon>
         </button>
-      </mdc-card-actions>
-    </mdc-card>
-  </div>
+    </mdc-card-actions>
+  </mdc-card>
 
-  <div class="demo-content__card">
-    <mdc-card class="demo-card--photo">
-      <mdc-card-primary-action mdc-ripple>
-        <mdc-card-media [square]="true" class="demo-card__media">
-          <mdc-card-media-content class="demo-card__media-content--with-title">
-            <div class="demo-card__media-title" mdc-typography-subheading2>Vacation Photos</div>
-          </mdc-card-media-content>
-        </mdc-card-media>
-      </mdc-card-primary-action>
-      <mdc-card-actions [icons]="true">
-        <mdc-icon-toggle iconOn="favorite" iconOff="favorite_border" mdcCardAction="icon"></mdc-icon-toggle>
-        <mdc-icon-toggle iconOn="bookmark" iconOff="bookmark_border" mdcCardAction="icon"></mdc-icon-toggle>
-        <mdc-icon mdcCardAction="icon" mdcRipple>share</mdc-icon>
-      </mdc-card-actions>
-    </mdc-card>
-  </div>
+  <mdc-card class="demo-card demo-card--photo">
+    <mdc-card-primary-action mdc-ripple>
+      <mdc-card-media [square]="true" class="demo-card__media">
+        <mdc-card-media-content class="demo-card__media-content--with-title">
+          <div class="demo-card__media-title" mdcSubtitle2>Vacation Photos</div>
+        </mdc-card-media-content>
+      </mdc-card-media>
+    </mdc-card-primary-action>
+    <mdc-card-actions [icons]="true">
+      <mdc-icon-toggle iconOn="favorite" iconOff="favorite_border" mdcCardAction="icon"></mdc-icon-toggle>
+      <mdc-icon-toggle iconOn="bookmark" iconOff="bookmark_border" mdcCardAction="icon"></mdc-icon-toggle>
+      <mdc-icon mdcCardAction="icon" mdcRipple>share</mdc-icon>
+    </mdc-card-actions>
+  </mdc-card>
 
-  <div class="demo-content__card">
-    <mdc-card class="mdc-card demo-card demo-card--music">
-      <mdc-card-primary-action class="demo-card__primary-action" mdc-ripple>
-        <div class="demo-card__music-row">
-          <mdc-card-media [square]="true" class="demo-card__media demo-card__media--music"></mdc-card-media>
-          <div class="demo-card__music-info">
-            <div class="demo-card__music-title mdc-typography--headline">Title</div>
-            <div class="demo-card__music-artist mdc-typography--body1">Under the Grave</div>
-            <div class="demo-card__music-year mdc-typography--body1">(2016)</div>
-          </div>
+  <mdc-card class="demo-card demo-card--music">
+    <mdc-card-primary-action mdc-ripple>
+      <div class="demo-card__music-row">
+        <mdc-card-media [square]="true" class="demo-card__media demo-card__media--music"></mdc-card-media>
+        <div class="demo-card__music-info">
+          <div class="demo-card__music-title" mdcHeadline5>Title</div>
+          <div class="demo-card__music-artist" mdcBody2>Under the Grave</div>
+          <div class="demo-card__music-year" mdcBody2>(2016)</div>
         </div>
-      </mdc-card-primary-action>
-      <mdc-list-divider></mdc-list-divider>
-      <mdc-card-actions>
-        <mdc-card-action-buttons class="demo-card__action-buttons--text-only">Rate this album</mdc-card-action-buttons>
-        <mdc-card-action-icons>
-          <mdc-icon-toggle iconOn="star" iconOff="star_border" mdcCardAction="icon"></mdc-icon-toggle>
-          <mdc-icon-toggle iconOn="star" iconOff="star_border" mdcCardAction="icon"></mdc-icon-toggle>
-          <mdc-icon-toggle iconOn="star" iconOff="star_border" mdcCardAction="icon"></mdc-icon-toggle>
-          <mdc-icon-toggle iconOn="star" iconOff="star_border" mdcCardAction="icon"></mdc-icon-toggle>
-          <mdc-icon-toggle iconOn="star" iconOff="star_border" mdcCardAction="icon"></mdc-icon-toggle>
-        </mdc-card-action-icons>
-      </mdc-card-actions>
-    </mdc-card>
-  </div>
+      </div>
+    </mdc-card-primary-action>
+    <mdc-list-divider></mdc-list-divider>
+    <mdc-card-actions>
+      <mdc-card-action-buttons class="demo-card__action-buttons--text-only">Rate this album</mdc-card-action-buttons>
+      <mdc-card-action-icons>
+        <mdc-icon-toggle iconOn="star" iconOff="star_border" mdcCardAction="icon"></mdc-icon-toggle>
+        <mdc-icon-toggle iconOn="star" iconOff="star_border" mdcCardAction="icon"></mdc-icon-toggle>
+        <mdc-icon-toggle iconOn="star" iconOff="star_border" mdcCardAction="icon"></mdc-icon-toggle>
+        <mdc-icon-toggle iconOn="star" iconOff="star_border" mdcCardAction="icon"></mdc-icon-toggle>
+        <mdc-icon-toggle iconOn="star" iconOff="star_border" mdcCardAction="icon"></mdc-icon-toggle>
+      </mdc-card-action-icons>
+    </mdc-card-actions>
+  </mdc-card>
 </div>

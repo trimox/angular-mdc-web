@@ -158,9 +158,11 @@
 <a mdc-button href="https://stackblitz.com/edit/angular-mdc-dialog"
  target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
 
-<h3>Configuring dialog content via entryComponents</h3>
-<pre>Because MdcDialog instantiates components at run-time, the Angular compiler needs extra information to create the necessary ComponentFactory for your dialog content component.
-For any component loaded into a dialog, you must include your component class in the list of entryComponents in your NgModule definition so that the Angular compiler knows to create the ComponentFactory.</pre>
+<p mdcSubtitle1>Configuring dialog content via Angular entryComponents</p>
+<a mdc-button href="https://angular.io/guide/entry-components" target="_blank" rel="noopener noreferrer">Angular EntryComponents Documentation</a>
+<p mdcBody2>Because MdcDialog instantiates components at run-time, the Angular compiler needs extra information to create the necessary
+  ComponentFactory for your dialog content component. For any component loaded into a dialog, you must include your component
+  class in the list of entryComponents in your NgModule definition so that the Angular compiler knows to create the ComponentFactory.</p>
 
 <div class="demo-content">
   <mdc-form-field>

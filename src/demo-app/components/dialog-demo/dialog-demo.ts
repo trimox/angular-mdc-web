@@ -1,6 +1,4 @@
-import {
-  Component, OnInit, Inject, ViewChild
-} from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { FormControl, ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
 
 import { MdcDialog, MdcDialogComponent, MDC_DIALOG_DATA, MdcDialogRef, MdcTextField } from '@angular-mdc/web';

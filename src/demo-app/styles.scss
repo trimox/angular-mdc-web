@@ -37,22 +37,26 @@ body {
 
   height: 45vh;
 
-  &__summary {
-    &--title {
-      @include mdc-typography(headline2);
+  &--title {
+    @include mdc-typography(headline2);
 
-      @media (max-width: 655px) {
-        font-size: 8vmin;
-      }
+    margin-top: 20px;
+    margin-bottom: 0;
+
+    @media (max-width: 699px) {
+      font-size: 8vw;
     }
+  }
 
-    &--caption {
-      @include mdc-typography(headline4);
+  &--caption {
+    @include mdc-typography(headline4);
 
-      @media (max-width: 655px) {
-        font-size: 8vmin;
-        margin-top: 10px;
-      }
+    margin-top: 20px;
+    margin-bottom: 0;
+
+    @media (max-width: 699px) {
+      font-size: 6vw;
+      margin: 0;
     }
   }
 
@@ -60,7 +64,11 @@ body {
     @include mdc-typography(body1);
     @include mdc-theme-prop(color, text-secondary-on-background);
 
-    margin: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
   }
 
   &__version {
@@ -78,7 +86,7 @@ body {
   }
 
   @media (max-width: 999px) {
-    padding: 50px 0 50px 15px;
+    padding: 50px 8px 50px 15px;
   }
 }
 
@@ -129,8 +137,11 @@ body {
   justify-content: center;
 }
 
-.demo-content__card {
-  margin: 17px;
+.demo-content__tabs {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  height: 400px;
+  overflow-x: auto;
+  max-width: 800px;
 }
 
 .demo-content__drawer {
@@ -171,16 +182,6 @@ body {
   border-radius: 3px;
 }
 
-.demo-tabs-host {
-  border: 1px solid;
-  height: 400px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  position: relative;
-  width: 800px;
-}
-
 //
 // Markdown
 //
@@ -189,7 +190,6 @@ body {
   line-height: 1.5;
   word-wrap: break-word;
   margin-top: 0 !important;
-  max-width: 900px;
 
   h1 {
     @include mdc-typography(headline4);
@@ -251,6 +251,7 @@ body {
   border: 1px solid #eee;
   border-collapse: collapse;
   border-spacing: 0;
+  max-width: 90vw;
 
   td, th {
     border: 1px solid #eee;
@@ -330,6 +331,7 @@ body {
 
 .demo-card {
   width: 350px;
+  margin: 28px;
 }
 
 .demo-card__primary {
@@ -350,10 +352,6 @@ body {
   @include mdc-theme-prop(color, text-secondary-on-background);
 
   padding: 0 1rem 8px 1rem;
-}
-
-.demo-card-article {
-  width: 300px;
 }
 
 .demo-card-article {
@@ -439,7 +437,6 @@ body {
 .demo-card__action-buttons--text-only {
   margin-left: 8px;
 }
-
 
 //
 // Radio button

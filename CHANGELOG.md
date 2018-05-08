@@ -1,3 +1,18 @@
+<a name="0.35.2"></a>
+## [0.35.2](https://github.com/trimox/angular-mdc-web/compare/v0.35.1...v0.35.2) (2018-05-08)
+
+
+### Bug Fixes
+
+* **card:** Remove unneeded display: inline-flex ([#950](https://github.com/trimox/angular-mdc-web/issues/950)) ([550e360](https://github.com/trimox/angular-mdc-web/commit/550e360))
+
+
+### Features
+
+* **typography:** Add camelCase selectors ([#951](https://github.com/trimox/angular-mdc-web/issues/951)) ([813aaeb](https://github.com/trimox/angular-mdc-web/commit/813aaeb))
+
+
+
 <a name="0.35.1"></a>
 ## [0.35.1](https://github.com/trimox/angular-mdc-web/compare/v0.35.0...v0.35.1) (2018-05-05)
 

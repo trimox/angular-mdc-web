@@ -37,7 +37,7 @@ body {
 
   height: 45vh;
 
-  &--title {
+  &__title {
     @include mdc-typography(headline2);
 
     margin-top: 20px;
@@ -48,7 +48,7 @@ body {
     }
   }
 
-  &--caption {
+  &__caption {
     @include mdc-typography(headline4);
 
     margin-top: 20px;

@@ -42,20 +42,20 @@ describe('MdcTypography', () => {
 
 @Component({
   template: `
-  <div mdc-typography>
-  <h1 mdc-typography-headline6></h1>
-  <h1 mdc-typography-headline5></h1>
-  <h1 mdc-typography-headline4></h1>
-  <h1 mdc-typography-headline3></h1>
-  <h1 mdc-typography-headline2></h1>
-  <h1 mdc-typography-headline1></h1>
-  <h1 mdc-typography-subtitle2></h1>
-  <h1 mdc-typography-subtitle1></h1>
-  <h1 mdc-typography-body2></h1>
-  <h1 mdc-typography-body1></h1>
-  <h1 mdc-typography-caption></h1>
-  <h1 mdc-typography-button></h1>
-  <div mdcOverline></div>
+  <div mdcTypography>
+    <div mdcOverline>Overline Text</div>
+    <h1 mdcButton>Button Text</h1>
+    <h1 mdcBody1>Body 1</h1>
+    <h1 mdcBody2>Body 2</h1>
+    <h1 mdcSubtitle1>Subtitle 1</h1>
+    <h1 mdcSubtitle2>Subtitle 2</h1>
+    <h1 mdcCaption>Caption</h1>
+    <h1 mdcHeadline6>Headline 6</h1>
+    <h1 mdcHeadline5>Headline 5</h1>
+    <h1 mdcHeadline4>Headline 4</h1>
+    <h1 mdcHeadline3>Headline 3</h1>
+    <h1 mdcHeadline2>Headline 2</h1>
+    <h1 mdcHeadline1>Headline 1</h1>
   </div>
   `,
 })

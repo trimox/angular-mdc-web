@@ -4,63 +4,63 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: '[mdc-typography]'
+  selector: '[mdc-typography], [mdcTypography]'
 })
 export class MdcTypography {
   @HostBinding('class.mdc-typography') isHostClass = true;
 }
 
 @Directive({
-  selector: '[mdcHeadline1], [mdc-typography-headline1], [mdc-typography-display4]'
+  selector: '[mdcHeadline1], [mdc-typography-display4]'
 })
 export class MdcTypographyHeadline1 {
   @HostBinding('class.mdc-typography--headline1') isHostClass = true;
 }
 
 @Directive({
-  selector: '[mdcHeadline2], [mdc-typography-headline2], [mdc-typography-display3]'
+  selector: '[mdcHeadline2], [mdc-typography-display3]'
 })
 export class MdcTypographyHeadline2 {
   @HostBinding('class.mdc-typography--headline2') isHostClass = true;
 }
 
 @Directive({
-  selector: '[mdcHeadline3], [mdc-typography-headline3], [mdc-typography-display2]'
+  selector: '[mdcHeadline3], [mdc-typography-display2]'
 })
 export class MdcTypographyHeadline3 {
   @HostBinding('class.mdc-typography--headline3') isHostClass = true;
 }
 
 @Directive({
-  selector: '[mdcHeadline4], [mdc-typography-headline4], [mdc-typography-display1]'
+  selector: '[mdcHeadline4], [mdc-typography-display1]'
 })
 export class MdcTypographyHeadline4 {
   @HostBinding('class.mdc-typography--headline4') isHostClass = true;
 }
 
 @Directive({
-  selector: '[mdcHeadline5], [mdc-typography-headline5], [mdc-typography-headline]'
+  selector: '[mdcHeadline5], [mdc-typography-headline]'
 })
 export class MdcTypographyHeadline5 {
   @HostBinding('class.mdc-typography--headline5') isHostClass = true;
 }
 
 @Directive({
-  selector: '[mdcHeadline6], [mdc-typography-headline6], [mdc-typography-title]'
+  selector: '[mdcHeadline6], [mdc-typography-title]'
 })
 export class MdcTypographyHeadline6 {
   @HostBinding('class.mdc-typography--headline6') isHostClass = true;
 }
 
 @Directive({
-  selector: '[mdcSubtitle1], [mdc-typography-subtitle1], [mdc-typography-subheading2]'
+  selector: '[mdcSubtitle1], [mdc-typography-subheading2]'
 })
 export class MdcTypographySubtitle1 {
   @HostBinding('class.mdc-typography--subtitle1') isHostClass = true;
 }
 
 @Directive({
-  selector: '[mdcSubtitle2], [mdc-typography-subtitle2], [mdc-typography-subheading1]'
+  selector: '[mdcSubtitle2], [mdc-typography-subheading1]'
 })
 export class MdcTypographySubtitle2 {
   @HostBinding('class.mdc-typography--subtitle2') isHostClass = true;
@@ -88,14 +88,14 @@ export class MdcTypographyCaption {
 }
 
 @Directive({
-  selector: '[mdcButton], [mdc-typography-button]'
+  selector: '[mdcButton]'
 })
 export class MdcTypographyButton {
   @HostBinding('class.mdc-typography--button') isHostClass = true;
 }
 
 @Directive({
-  selector: '[mdcOverline], [mdc-typography-overline]'
+  selector: '[mdcOverline]'
 })
 export class MdcTypographyOverline {
   @HostBinding('class.mdc-typography--overline') isHostClass = true;

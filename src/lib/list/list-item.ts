@@ -29,7 +29,7 @@ export class MdcListSelectionChange {
 let uniqueIdCounter = 0;
 
 @Directive({
-  selector: '[mdc-list-item-graphic], mdc-list-item-graphic',
+  selector: '[mdcListItemGraphic], [mdc-list-item-graphic], mdc-list-item-graphic',
   exportAs: 'mdcListItemGraphic',
 })
 export class MdcListItemGraphic {
@@ -40,7 +40,7 @@ export class MdcListItemGraphic {
 }
 
 @Directive({
-  selector: '[mdc-list-item-meta], mdc-list-item-meta',
+  selector: '[mdcListItemMeta], [mdc-list-item-meta], mdc-list-item-meta',
   exportAs: 'mdcListItemMeta',
 })
 export class MdcListItemMeta {
@@ -50,7 +50,7 @@ export class MdcListItemMeta {
 }
 
 @Directive({
-  selector: '[mdc-list-item-text], mdc-list-item-text',
+  selector: '[mdcListItemText], [mdc-list-item-text], mdc-list-item-text',
   exportAs: 'mdcListItemText',
 })
 export class MdcListItemText {
@@ -60,7 +60,7 @@ export class MdcListItemText {
 }
 
 @Directive({
-  selector: '[mdc-list-item-secondary], mdc-list-item-secondary',
+  selector: '[mdcListItemSecondary], [mdc-list-item-secondary], mdc-list-item-secondary',
   exportAs: 'mdcListItemSecondary',
 })
 export class MdcListItemSecondary {

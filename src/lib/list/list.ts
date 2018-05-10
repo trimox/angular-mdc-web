@@ -51,7 +51,7 @@ export class MdcListGroup {
 }
 
 @Directive({
-  selector: '[mdc-list-group-subheader], mdc-list-group-subheader',
+  selector: '[mdcListGroupSubheader], [mdc-list-group-subheader], mdc-list-group-subheader',
   exportAs: 'mdcListGroupSubheader',
 })
 export class MdcListGroupSubheader {

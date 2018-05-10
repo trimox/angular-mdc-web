@@ -88,7 +88,7 @@ describe('MdcAppBar', () => {
       [shortCollapsed]="shortCollapsed">
       <mdc-app-bar-row>
         <mdc-app-bar-section align="start">
-          <mdc-icon mdcAppBarNavIcon>menu</mdc-icon>
+          <mdc-icon mdcAppBarNavigationIcon>menu</mdc-icon>
           <mdc-app-bar-title>Title</mdc-app-bar-title>
         </mdc-app-bar-section>
         <mdc-app-bar-section align="end">

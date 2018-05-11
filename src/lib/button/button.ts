@@ -76,11 +76,11 @@ export class MdcButton implements AfterContentInit, OnDestroy {
   protected _outlined: boolean = false;
 
   @Input()
-  get icon(): boolean { return this._icon; }
-  set icon(value: boolean) {
+  get icon(): any { return this._icon; }
+  set icon(value: any) {
     this.setIcon(value);
   }
-  protected _icon: boolean = false;
+  protected _icon: any;
 
   @Input()
   get disabled(): boolean { return this._disabled; }
@@ -165,11 +165,14 @@ export class MdcButton implements AfterContentInit, OnDestroy {
     this._outlined = outlined;
   }
 
-  setIcon(icon: boolean): void {
+  setIcon(icon: any): void {
     this._icon = icon;
 
-    icon && this.buttonIcon ? this._renderer.addClass(this.buttonIcon.elementRef.nativeElement, 'mdc-button__icon')
-      : this._renderer.removeClass(this.buttonIcon.elementRef.nativeElement, 'mdc-button__icon');
+    if (this.buttonIcon) {
+       this._renderer.addClass(this.buttonIcon.elementRef.nativeElement, 'mdc-button__icon');
+    } else if (icon) {
+      this._renderer.addClass(this.icon, 'mdc-button__icon');
+    }
   }
 
   /** Focuses the button. */

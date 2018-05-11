@@ -18,7 +18,7 @@ const MDC_VALID_SHAPE_CORNERS = [
 
 @Component({
   moduleId: module.id,
-  selector: '[mdcShapeContainerCorner], [mdc-shape-container-corner], mdc-shape-container-corner',
+  selector: '[mdcShapeContainerCorner], mdc-shape-container-corner',
   exportAs: 'mdcShapeContainerCorner',
   template: '<ng-content></ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,12 +28,16 @@ const MDC_VALID_SHAPE_CORNERS = [
 export class MdcShapeContainerCorner {
   @HostBinding('class.mdc-shape-container__corner') isHostClass = true;
 
-  @Input()
+  @Input('mdcShapeContainerCorner')
   get corner(): string { return this._corner; }
-  set corner(value: string) {
-    this.setCorner(value);
+  set corner(corner: string) {
+    // If the directive is set without a name (updated programatically), then this setter will
+    // trigger with an empty string and should not overwrite the programatically set value.
+    if (!corner) { return; }
+
+    this.setCorner(corner);
   }
-  protected _corner: string;
+  private _corner: string;
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,

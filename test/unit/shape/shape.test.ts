@@ -47,10 +47,10 @@ describe('MdcShape', () => {
 @Component({
   template: `
     <mdc-shape-container class="demo-four-corner-container">
-      <mdc-shape-container-corner corner="top-left"></mdc-shape-container-corner>
-      <mdc-shape-container-corner corner="top-right"></mdc-shape-container-corner>
-      <mdc-shape-container-corner corner="bottom-left"></mdc-shape-container-corner>
-      <mdc-shape-container-corner corner="bottom-right"></mdc-shape-container-corner>
+      <div mdcShapeContainerCorner="top-left"></div>
+      <div mdcShapeContainerCorner="top-right"></div>
+      <div mdcShapeContainerCorner="bottom-left"></div>
+      <div mdcShapeContainerCorner="bottom-right"></div>
     </mdc-shape-container>
   `,
 })

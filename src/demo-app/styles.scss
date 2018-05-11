@@ -107,7 +107,7 @@ body {
     @include mdc-typography(headline6);
 
     margin-top: .1em;
-    margin-bottom: .1em;
+    margin-bottom: .3em;
   }
 }
 
@@ -697,4 +697,34 @@ body {
 .demo-shape-card-container {
   @include mdc-shape-angled-corner($mdc-theme-background, 24px, 4px);
   @include mdc-shape-angled-corner-outline($mdc-card-outline-width, $mdc-card-outline-color);
+}
+
+.demo-shape-card {
+  @include mdc-card-corner-radius(24px 4px);
+
+  @include mdc-rtl {
+    @include mdc-card-corner-radius(4px 24px);
+  }
+}
+
+.demo-shape-card--row {
+  display: flex;
+}
+
+.demo-shape-card__media {
+  background-image: url(https://material-components-web.appspot.com/images/1-1.jpg);
+
+  width: 110px;
+  border-top-left-radius: inherit;
+
+  @include mdc-rtl {
+    border-top-left-radius: 0;
+    border-top-right-radius: inherit;
+  }
+}
+
+.demo-shape-card__info {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 16px;
 }

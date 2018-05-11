@@ -143,7 +143,7 @@
   </div>
 
   <div class="demo-content">
-    <h3>Continuous Slider - ngModel</h3>
+    <h3 class="demo-content__headline">Continuous Slider - ngModel</h3>
     <mdc-slider #democontinous [min]="continuousMin" [max]="continuousMax" [value]="50"
      (input)="onInput($event)" (change)="onChange($event)" ngModel #demoContinousModel="ngModel"></mdc-slider>
     <mdc-text-field [(ngModel)]="continuousMin" label="Min" type="number"></mdc-text-field>
@@ -159,7 +159,7 @@
     <p>Value from change event: {{continuousChangeEventValue}}</p>
   </div>
   <div class="demo-content">
-    <h3>Discrete Slider</h3>
+    <h3 class="demo-content__headline">Discrete Slider</h3>
     <mdc-slider #demodiscrete [min]="discreteMin" [max]="discreteMax" [discrete]="true" [value]="50"
       (input)="discreteInputEventValue = $event.value" (change)="discreteChangeEventValue = $event.value"></mdc-slider>
     <mdc-text-field [(ngModel)]="discreteMin" label="Min" type="number"></mdc-text-field>
@@ -172,7 +172,7 @@
     <p>Value from change event: {{discreteChangeEventValue}}</p>
   </div>
   <div class="demo-content">
-    <h3>Discrete Slider with markers</h3>
+    <h3 class="demo-content__headline">Discrete Slider with markers</h3>
       <mdc-slider #demomarkers [min]="dmMin" [max]="dmMax" [step]="dmStep" ngModel #demoMarkerModel="ngModel"
        [discrete]="true" [markers]="true" [value]="20"
        (input)="markersInputEventValue = $event.value" (change)="markersChangeEventValue = $event.value"></mdc-slider>
@@ -188,7 +188,7 @@
   </div>
 
   <div class="demo-content">
-    <h3>Custom colors</h3>
-      <mdc-slider [discrete]="true" [markers]="true" class="demo-slider--custom"></mdc-slider>
+    <h3 class="demo-content__headline">Custom colors</h3>
+    <mdc-slider [discrete]="true" [markers]="true" class="demo-slider--custom"></mdc-slider>
   </div>
 </div>

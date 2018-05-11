@@ -728,3 +728,11 @@ body {
   flex-direction: column;
   padding: 8px 16px;
 }
+
+//
+// Drawer
+//
+
+.demo-drawer--custom {
+  @include mdc-drawer-ink-color(#fff);
+}

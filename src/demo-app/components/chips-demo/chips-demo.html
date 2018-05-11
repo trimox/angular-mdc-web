@@ -33,14 +33,6 @@
             <td>filter: boolean</td>
             <td>Indicates that the chips in the set are filter chips, which allow multiple selection from a set of options.</td>
           </tr>
-          <tr>
-            <td>primary: boolean</td>
-            <td>Colors selected chip with the primary theme color.</td>
-          </tr>
-          <tr>
-            <td>secondary: boolean</td>
-            <td>Colors selected chips with the secondary theme color.</td>
-          </tr>
         </tbody>
       </table>
       <table>
@@ -72,7 +64,12 @@
         </thead>
         <tbody>
           <tr>
-            <td>None yet, coming soon.</td>
+            <td>primary: boolean</td>
+            <td>Colors selected chip with the primary theme color.</td>
+          </tr>
+          <tr>
+            <td>secondary: boolean</td>
+            <td>Colors selected chips with the secondary theme color.</td>
           </tr>
         </tbody>
       </table>
@@ -91,14 +88,14 @@
         </tbody>
       </table>
 
-      <h3>mdc-chip-text, [mdcChipText]</h3>
+      <h3>mdc-chip-text, mdcChipText</h3>
       <table>
         <tr>
           <td>Indicates the text content of the chip.</td>
         </tr>
       </table>
 
-      <h3>mdc-chip-icon, [mdcChipIcon]</h3>
+      <h3>mdc-chip-icon, mdcChipIcon</h3>
       <table>
         <thead>
           <tr>
@@ -129,7 +126,7 @@
   </div>
 
   <div class="demo-content">
-    <h3>Chip - Theming</h3>
+    <h3 class="demo-content__headline">Chip - Theming</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="simplechip.primary = !simplechip.primary">Primary: {{simplechip.primary ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="simplechip.secondary = !simplechip.secondary">Secondary: {{simplechip.secondary ? 'On' : 'Off'}}</button>
@@ -143,7 +140,7 @@
   </div>
 
   <div class="demo-content">
-    <h3>Input Chips</h3>
+    <h3 class="demo-content__headline">Input Chips</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="inputchipset.addChip('test', 'face', 'cancel')">Add Chip</button>
     </div>
@@ -163,7 +160,7 @@
     </div>
   </div>
   <div class="demo-content">
-    <h3>Choice Chips</h3>
+    <h3 class="demo-content__headline">Choice Chips</h3>
     <div class="demo-content--row">
       <mdc-chip-set [choice]="true">
         <mdc-chip>
@@ -179,7 +176,7 @@
     </div>
   </div>
   <div class="demo-content">
-    <h3>Filter Chips</h3>
+    <h3 class="demo-content__headline">Filter Chips</h3>
     <div class="demo-content--row">
       <mdc-chip-set [filter]="true">
         <mdc-chip>
@@ -220,7 +217,7 @@
   </div>
 
   <div class="demo-content">
-    <h3>Action Chips</h3>
+    <h3 class="demo-content__headline">Action Chips</h3>
     <div class="demo-content--row">
       <mdc-chip-set>
         <mdc-chip>

@@ -270,7 +270,7 @@
   </div>
 
   <div class="demo-content">
-    <h3>Text Field - FormControl</h3>
+    <h3 class="demo-content__headline">Text Field - FormControl</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="demoformInput.disabled = !demoformInput.disabled">Disabled: {{demoformInput.disabled ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoformInput.required = !demoformInput.required">Required: {{demoformInput.required ? 'On' : 'Off'}}</button>
@@ -297,7 +297,7 @@
   </div>
 
   <div class="demo-content">
-    <h3>Text Field - Numeric with ngModel Form</h3>
+    <h3 class="demo-content__headline">Text Field - Numeric with ngModel Form</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="demoweight.disabled = !demoweight.disabled">Disabled: {{demoweight.disabled ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoweight.required = !demoweight.required">Required: {{demoweight.required ? 'On' : 'Off'}}</button>
@@ -325,7 +325,7 @@
   </div>
 
   <div class="demo-content">
-    <h3>Text Field - Simple ngModel</h3>
+    <h3 class="demo-content__headline">Text Field - Simple ngModel</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="demousername.disabled = !demousername.disabled">Disabled: {{demousername.disabled ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demousername.required = !demousername.required">Required: {{demousername.required ? 'On' : 'Off'}}</button>
@@ -343,7 +343,7 @@
   </div>
 
   <div class="demo-content">
-    <h3>Outlined Text Field</h3>
+    <h3 class="demo-content__headline">Outlined Text Field</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="outlined.disabled = !outlined.disabled">Disabled: {{outlined.disabled ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="outlined.required = !outlined.required">Required: {{outlined.required ? 'On' : 'Off'}}</button>
@@ -353,7 +353,7 @@
     <mdc-text-field #outlined [outline]="true" label="Your name"></mdc-text-field>
   </div>
   <div class="demo-content">
-    <h3>Outlined Text Field - Leading icon</h3>
+    <h3 class="demo-content__headline">Outlined Text Field - Leading icon</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="outlinedicon.disabled = !outlinedicon.disabled">Disabled: {{outlinedicon.disabled ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="outlinedicon.required = !outlinedicon.required">Required: {{outlinedicon.required ? 'On' : 'Off'}}</button>
@@ -366,7 +366,7 @@
     </mdc-text-field>
   </div>
   <div class="demo-content">
-    <h3>Outlined Text Field - Trailing icon</h3>
+    <h3 class="demo-content__headline">Outlined Text Field - Trailing icon</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="trailingicon.clickable = !trailingicon.clickable">Clickable Icon: {{trailingicon.clickable ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="alternateColors(outlinedtrailing)">Alternate Colors</button>
@@ -376,7 +376,7 @@
     </mdc-text-field>
   </div>
   <div class="demo-content">
-    <h3>Text Field Box</h3>
+    <h3 class="demo-content__headline">Text Field Box</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="demobox1.disabled = !demobox1.disabled">Disabled: {{demobox1.disabled ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demobox1.required = !demobox1.required">Required: {{demobox1.required ? 'On' : 'Off'}}</button>
@@ -390,7 +390,7 @@
   </div>
 
   <div class="demo-content">
-    <h3>Text Field Box - Leading icon</h3>
+    <h3 class="demo-content__headline">Text Field Box - Leading icon</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="demobox2.disabled = !demobox2.disabled">Disabled: {{demobox2.disabled ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demobox2.required = !demobox2.required">Required: {{demobox2.required ? 'On' : 'Off'}}</button>
@@ -405,7 +405,7 @@
   </div>
 
   <div class="demo-content">
-    <h3>Text Field Box - Trailing icon</h3>
+    <h3 class="demo-content__headline">Text Field Box - Trailing icon</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="demobox3.disabled = !demobox3.disabled">Disabled: {{demobox3.disabled ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demobox3.required = !demobox3.required">Required: {{demobox3.required ? 'On' : 'Off'}}</button>
@@ -419,16 +419,16 @@
   </div>
 
   <div class="demo-content">
-    <h3>Prefilled Text Field</h3>
+    <h3 class="demo-content__headline">Prefilled Text Field</h3>
     <mdc-text-field [(ngModel)]="prefilledText" label="Username"></mdc-text-field>
   </div>
   <div class="demo-content">
-    <h3>Password</h3>
+    <h3 class="demo-content__headline">Password</h3>
     <mdc-text-field type="password" label="Password" [required]="true"></mdc-text-field>
   </div>
 
   <div class="demo-content">
-    <h3>Textarea</h3>
+    <h3 class="demo-content__headline">Textarea</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="comments.disabled = !comments.disabled">Disabled: {{comments.disabled ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="comments.required = !comments.required">Required: {{comments.required ? 'On' : 'Off'}}</button>
@@ -438,14 +438,14 @@
     <mdc-textarea #comments label="Comments" rows="8" cols="40"></mdc-textarea>
   </div>
   <div class="demo-content">
-    <h3>Full-width single line</h3>
+    <h3 class="demo-content__headline">Full-width single line</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="alternateColors(demofullwidth)">Alternate Colors</button>
     </div>
     <mdc-text-field #demofullwidth label="Subject" [fullwidth]="true"></mdc-text-field>
   </div>
   <div class="demo-content">
-    <h3>Full-width Textarea</h3>
+    <h3 class="demo-content__headline">Full-width Textarea</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="demofullwidthtextarea.disabled = !demofullwidthtextarea.disabled">Disabled: {{demofullwidthtextarea.disabled ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demofullwidthtextarea.required = !demofullwidthtextarea.required">Required: {{demofullwidthtextarea.required ? 'On' : 'Off'}}</button>

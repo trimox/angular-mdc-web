@@ -4,7 +4,7 @@
     MDC Icon Toggle provides a Material Design icon toggle button. It is fully accessible, and is designed to work with any icon set.
     <h2>References</h2>
     <ul>
-      <li><a mdc-button href="https://material.io/guidelines/components/buttons.html#buttons-toggle-buttons"
+      <li><a mdc-button href="https://material.io/design/components/buttons.html#toggle-button"
         target="_blank" rel="noopener noreferrer">Material Design guidelines: Toggle Buttons</a>
       </li>
       <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-icon-toggle/README.md"
@@ -27,7 +27,7 @@
         <tbody>
           <tr>
             <td>on: boolean</td>
-            <td>Returns whether or not the icon toggle is currently toggled on. Setting this property will update the toggle state.</td>
+            <td>Setting this property will update the toggle state.</td>
           </tr>
           <tr>
             <td>iconClass: string</td>
@@ -80,6 +80,10 @@
         </thead>
         <tbody>
           <tr>
+            <td>setOn(on: boolean)</td>
+            <td>Setting this property will update the toggle state.</td>
+          </tr>
+          <tr>
             <td>toggle(isOn?: boolean)</td>
             <td>Toggles the button state. If an argument is given, will toggle on if true, off if false.</td>
           </tr>
@@ -90,6 +94,22 @@
           <tr>
             <td>isOn()</td>
             <td>Returns true if the button is toggled on, false otherwise.</td>
+          </tr>
+          <tr>
+            <td>setPrimary(primary: boolean)</td>
+            <td>Colors the button with the primary theme color.</td>
+          </tr>
+          <tr>
+            <td>setSecondary(secondary: boolean)</td>
+            <td>Colors the button with the secondary theme color.</td>
+          </tr>
+          <tr>
+            <td>setDisabled(disabled: boolean)</td>
+            <td>Sets the button to disabled or not.</td>
+          </tr>
+          <tr>
+            <td>setIconClass(iconClass: string)</td>
+            <td>Set selector to other icon libraries such as Font Awesome. (default is 'material-icon')</td>
           </tr>
         </tbody>
       </table>
@@ -114,7 +134,7 @@
   </div>
 
   <div class="demo-content">
-    <h3>ngModel</h3>
+    <h3 class="demo-content__headline">Using ngModel</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="demoit.primary = !demoit.primary">Primary Color: {{demoit.primary ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoit.secondary = !demoit.secondary">Secondary Color: {{demoit.secondary ? 'On' : 'Off'}}</button>
@@ -125,11 +145,11 @@
     <p>NgModel: {{isOn}}</p>
   </div>
   <div class="demo-content">
-    <h3>Using Font Awesome</h3>
+    <h3 class="demo-content__headline">Using Font Awesome</h3>
     <mdc-icon-toggle iconClass="fa" cssClassOn="fa-battery-full" cssClassOff="fa-battery-empty" labelOn="Full battery" labelOff="Empty battery"></mdc-icon-toggle>
   </div>
   <div class="demo-content">
-    <h3>Using the [on] property</h3>
+    <h3 class="demo-content__headline">Using [on] property</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="demotoggle.on = !demotoggle.on">Icon: {{demotoggle.on ? 'On' : 'Off'}}</button>
     </div>

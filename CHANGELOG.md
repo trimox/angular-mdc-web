@@ -1,3 +1,22 @@
+<a name="0.35.3"></a>
+## [0.35.3](https://github.com/trimox/angular-mdc-web/compare/v0.35.2...v0.35.3) (2018-05-11)
+
+
+### Features
+
+* **app-bar:** Add camelCase selectors ([#954](https://github.com/trimox/angular-mdc-web/issues/954)) ([b507c68](https://github.com/trimox/angular-mdc-web/commit/b507c68))
+* **button:** Add SVG icon support ([#962](https://github.com/trimox/angular-mdc-web/issues/962)) ([37ddd1f](https://github.com/trimox/angular-mdc-web/commit/37ddd1f)), closes [#000000](https://github.com/trimox/angular-mdc-web/issues/000000) [#879](https://github.com/trimox/angular-mdc-web/issues/879)
+* **icon-toggle:** New UX state methods + improvements ([#961](https://github.com/trimox/angular-mdc-web/issues/961)) ([b6b3865](https://github.com/trimox/angular-mdc-web/commit/b6b3865))
+* **list:** Add camelCase selectors ([#955](https://github.com/trimox/angular-mdc-web/issues/955)) ([e19e369](https://github.com/trimox/angular-mdc-web/commit/e19e369))
+* **shape:** Bind mdcShapeContainerCorner to @Input alias ([#958](https://github.com/trimox/angular-mdc-web/issues/958)) ([b78f184](https://github.com/trimox/angular-mdc-web/commit/b78f184)), closes [#957](https://github.com/trimox/angular-mdc-web/issues/957)
+
+
+### BREAKING CHANGES
+
+* **shape:** Removed `mdc-shape-container-corner`, please update your code accordingly to use `mdcShapeContainerCorner`.
+
+
+
 <a name="0.35.2"></a>
 ## [0.35.2](https://github.com/trimox/angular-mdc-web/compare/v0.35.1...v0.35.2) (2018-05-08)
 

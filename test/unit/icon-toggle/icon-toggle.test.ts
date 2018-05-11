@@ -41,19 +41,31 @@ describe('MdcIconToggle', () => {
       expect(buttonInstance.isHostClass).toBe(true);
     });
     it('#should apply primary class', () => {
-      testComponent.isPrimary = true;
+      testComponent.primary = true;
       fixture.detectChanges();
-      expect(buttonInstance.icon.elementRef.nativeElement.classList.contains('ng-mdc-icon-toggle--primary')).toBe(true);
+      expect(buttonNativeElement.classList.contains('ng-mdc-icon-toggle--primary')).toBe(true);
     });
 
     it('#should apply secondary class', () => {
-      testComponent.isSecondary = true;
+      testComponent.secondary = true;
       fixture.detectChanges();
-      expect(buttonInstance.icon.elementRef.nativeElement.classList.contains('ng-mdc-icon-toggle--secondary')).toBe(true);
+      expect(buttonNativeElement.classList.contains('ng-mdc-icon-toggle--secondary')).toBe(true);
+    });
+
+    it('#should apply fa class', () => {
+      buttonInstance.setIconClass('fa');
+      fixture.detectChanges();
+      expect(buttonInstance.icon.elementRef.nativeElement.classList.contains('fa')).toBe(true);
+    });
+
+    it('#should apply material-icons class', () => {
+      buttonInstance.setIconClass('');
+      fixture.detectChanges();
+      expect(buttonInstance.icon.elementRef.nativeElement.classList.contains('material-icons')).toBe(true);
     });
 
     it('#should set disabled to true', () => {
-      testComponent.isDisabled = true;
+      testComponent.disabled = true;
       fixture.detectChanges();
       expect(buttonInstance.disabled).toBe(true);
     });
@@ -77,7 +89,7 @@ describe('MdcIconToggle', () => {
     });
 
     it('#should stop propagation if disabled', () => {
-      testComponent.isDisabled = true;
+      testComponent.disabled = true;
       fixture.detectChanges();
       buttonNativeElement.click();
       fixture.detectChanges();
@@ -112,9 +124,9 @@ describe('MdcIconToggle', () => {
 @Component({
   template: `
     <mdc-icon-toggle [(ngModel)]="myModel"
-      [disabled]="isDisabled"
-      [primary]="isPrimary"
-      [secondary]="isSecondary"
+      [disabled]="disabled"
+      [primary]="primary"
+      [secondary]="secondary"
       iconOn="favorite" iconOff="favorite_border"
       labelOn="Add to Favorites" labelOff="Remove from Favorites">
     </mdc-icon-toggle>
@@ -122,9 +134,9 @@ describe('MdcIconToggle', () => {
 })
 class SimpleButton {
   myModel: boolean = true;
-  isDisabled: boolean = false;
-  isPrimary: boolean = false;
-  isSecondary: boolean = false;
+  disabled: boolean = false;
+  primary: boolean = false;
+  secondary: boolean = false;
 }
 
 @Component({

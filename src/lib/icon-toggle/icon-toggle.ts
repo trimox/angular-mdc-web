@@ -9,12 +9,10 @@ import {
   HostBinding,
   HostListener,
   Input,
-  OnChanges,
   OnDestroy,
   Output,
   Provider,
   Renderer2,
-  SimpleChange,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -44,26 +42,99 @@ export const MD_ICON_TOGGLE_CONTROL_VALUE_ACCESSOR: Provider = {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  preserveWhitespaces: false,
+  preserveWhitespaces: false
 })
-export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
+export class MdcIconToggle implements AfterViewInit, OnDestroy {
+  @Input() iconOn: string;
+  @Input() iconOff: string;
+  @Input() labelOn: string;
+  @Input() labelOff: string;
+  @Input() cssClassOn: string;
+  @Input() cssClassOff: string;
+
+  onChange: (value: any) => void = () => { };
+  onTouched = () => { };
+
+  @Input()
+  get iconClass(): string { return this._iconClass; }
+  set iconClass(value: string) {
+    this.setIconClass(value);
+  }
+  private _iconClass: string;
+
+  @Input()
+  get on(): boolean { return this._foundation.isOn(); }
+  set on(value: boolean) {
+    this.setOn(value);
+  }
   private _on: boolean;
+
+  get value(): any { return this._foundation.isOn(); }
+
+  @Input()
+  get disabled(): boolean { return this._disabled; }
+  set disabled(value: boolean) {
+    this.setDisabled(value);
+  }
+  private _disabled: boolean;
+
+  @Input()
+  get primary(): boolean { return this._primary; }
+  set primary(value: boolean) {
+    this.setPrimary(value);
+  }
   private _primary: boolean;
+
+  @Input()
+  get secondary(): boolean { return this._secondary; }
+  set secondary(value: boolean) {
+    this.setSecondary(value);
+  }
   private _secondary: boolean;
 
+  @Output() readonly change: EventEmitter<boolean> = new EventEmitter();
+
+  @HostBinding('class.mdc-icon-toggle') isHostClass = true;
+  @HostBinding('attr.role') role: string = 'button';
+  @HostBinding('attr.aria-pressed') ariaPressed: string = 'false';
+  @HostBinding('attr.tabIndex') tabindex: string = '0';
+
+  @HostBinding('class.ng-mdc-icon-toggle--primary') get classPrimary(): string {
+    return this.primary ? 'ng-mdc-icon-toggle--primary' : '';
+  }
+  @HostBinding('class.ng-mdc-icon-toggle--secondary') get classSecondary(): string {
+    return this.secondary ? 'ng-mdc-icon-toggle--secondary' : '';
+  }
+  @HostBinding('attr.data-toggle-on') get dataToggleOn() {
+    return JSON.stringify({
+      content: this.iconOn,
+      label: this.labelOn,
+      cssClass: this.cssClassOn
+    });
+  }
+  @HostBinding('attr.data-toggle-off') get dataToggleOff() {
+    return JSON.stringify({
+      content: this.iconOff,
+      label: this.labelOff,
+      cssClass: this.cssClassOff
+    });
+  }
+
+  @HostListener('click', ['$event']) onclick(evt: Event) {
+    this._onClick(evt);
+  }
+  @HostListener('keydown', ['$event']) onkeydown(evt: KeyboardEvent) {
+    this._onKeydown(evt);
+  }
+
+  @ViewChild(MdcIcon) icon: MdcIcon;
+
   private _mdcAdapter: MDCIconToggleAdapter = {
-    addClass: (className: string) => {
-      this._renderer.addClass(this.iconClass ? this._getIconElement() : this._getHostElement(), className);
-    },
-    removeClass: (className: string) => {
-      this._renderer.removeClass(this.iconClass ? this._getIconElement() : this._getHostElement(), className);
-    },
-    registerInteractionHandler: (type: string, handler: EventListener) => {
-      this._registry.listen(type, handler, this._getHostElement());
-    },
-    deregisterInteractionHandler: (type: string, handler: EventListener) => {
-      this._registry.unlisten(type, handler);
-    },
+    addClass: (className: string) => this._renderer.addClass(this.iconClass ? this._getIconElement() : this._getHostElement(), className),
+    removeClass: (className: string) =>
+      this._renderer.removeClass(this.iconClass ? this._getIconElement() : this._getHostElement(), className),
+    registerInteractionHandler: (type: string, handler: EventListener) => this._registry.listen(type, handler, this._getHostElement()),
+    deregisterInteractionHandler: (type: string, handler: EventListener) => this._registry.unlisten(type, handler),
     setText: (text: string) => this._getIconElement().textContent = text,
     getTabIndex: () => this._getHostElement().tabIndex,
     setTabIndex: (tabIndex: number) => this._getHostElement().tabIndex = tabIndex,
@@ -84,80 +155,8 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
     toggle(isOn?: boolean): void,
     refreshToggleData(): void,
     isKeyboardActivated(): boolean,
-    isOn(): boolean,
+    isOn(): boolean
   } = new MDCIconToggleFoundation(this._mdcAdapter);
-
-  @Input() iconOn: string;
-  @Input() iconOff: string;
-  @Input() labelOn: string;
-  @Input() labelOff: string;
-  @Input() cssClassOn: string;
-  @Input() cssClassOff: string;
-  @Input() iconClass: string;
-  @Output() change: EventEmitter<boolean> = new EventEmitter();
-  @HostBinding('class.mdc-icon-toggle') isHostClass = true;
-  @HostBinding('attr.role') role: string = 'button';
-  @HostBinding('attr.aria-pressed') ariaPressed: string = 'false';
-  @HostBinding('attr.tabIndex') tabindex: string = '0';
-  @ViewChild(MdcIcon) icon: MdcIcon;
-
-  onChange: (value: any) => void = () => { };
-  onTouched = () => { };
-
-  @Input()
-  get on(): boolean { return this._foundation.isOn(); }
-  set on(value: boolean) {
-    if (value !== this._on) {
-      this._on = value;
-      this._changeDetectorRef.markForCheck();
-      this._foundation.refreshToggleData();
-      this._foundation.toggle(value);
-    }
-  }
-  get value(): any { return this._foundation.isOn(); }
-
-  @Input()
-  get disabled(): boolean { return this._foundation.isDisabled(); }
-  set disabled(value: boolean) {
-    this._foundation.setDisabled(toBoolean(value));
-  }
-
-  @Input()
-  get primary(): boolean { return this._primary; }
-  set primary(value: boolean) {
-    this._primary = toBoolean(value);
-    this._setPrimary(value);
-    this._changeDetectorRef.markForCheck();
-  }
-
-  @Input()
-  get secondary(): boolean { return this._secondary; }
-  set secondary(value: boolean) {
-    this._secondary = toBoolean(value);
-    this._setSecondary(value);
-    this._changeDetectorRef.markForCheck();
-  }
-
-  @HostBinding('attr.data-toggle-on') get dataToggleOn() {
-    return JSON.stringify({
-      content: this.iconOn,
-      label: this.labelOn,
-      cssClass: this.cssClassOn
-    });
-  }
-  @HostBinding('attr.data-toggle-off') get dataToggleOff() {
-    return JSON.stringify({
-      content: this.iconOff,
-      label: this.labelOff,
-      cssClass: this.cssClassOff
-    });
-  }
-  @HostListener('click', ['$event']) onclick(evt: Event) {
-    this._onClick(evt);
-  }
-  @HostListener('keydown', ['$event']) onkeydown(evt: KeyboardEvent) {
-    this._onKeydown(evt);
-  }
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
@@ -165,14 +164,6 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
     public elementRef: ElementRef,
     public ripple: MdcRipple,
     private _registry: EventRegistry) { }
-
-  ngOnChanges(changes: { [key: string]: SimpleChange }): void {
-    const iconClass = changes['iconClass'];
-
-    if (iconClass) {
-      this._renderer.addClass(this._getIconElement(), iconClass.currentValue);
-    }
-  }
 
   ngAfterViewInit(): void {
     this._foundation.init();
@@ -209,24 +200,44 @@ export class MdcIconToggle implements AfterViewInit, OnChanges, OnDestroy {
     this._foundation.refreshToggleData();
   }
 
+  setIconClass(iconClass: string): void {
+    this._renderer.removeClass(this._getIconElement(), this._iconClass);
+    this._iconClass = iconClass ? iconClass : 'material-icons';
+
+    this._renderer.addClass(this._getIconElement(), this._iconClass);
+
+    this._changeDetectorRef.markForCheck();
+  }
+
   isOn(): boolean {
     return this._foundation.isOn();
   }
 
-  private _setPrimary(primary: boolean): void {
-    if (primary) {
-      this._renderer.addClass(this._getIconElement(), 'ng-mdc-icon-toggle--primary');
-    } else {
-      this._renderer.removeClass(this._getIconElement(), 'ng-mdc-icon-toggle--primary');
+  setOn(on: boolean): void {
+    if (on !== this._on) {
+      this._on = on;
+      this._foundation.refreshToggleData();
+      this._foundation.toggle(on);
+
+      this._changeDetectorRef.markForCheck();
     }
   }
 
-  private _setSecondary(secondary: boolean): void {
-    if (secondary) {
-      this._renderer.addClass(this._getIconElement(), 'ng-mdc-icon-toggle--secondary');
-    } else {
-      this._renderer.removeClass(this._getIconElement(), 'ng-mdc-icon-toggle--secondary');
-    }
+  setPrimary(primary: boolean): void {
+    this._primary = toBoolean(primary);
+    this._changeDetectorRef.markForCheck();
+  }
+
+  setSecondary(secondary: boolean): void {
+    this._secondary = toBoolean(secondary);
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /** Sets the button disabled state */
+  setDisabled(disabled: boolean): void {
+    this._disabled = disabled;
+    this._foundation.setDisabled(disabled);
+    this._changeDetectorRef.markForCheck();
   }
 
   private _onClick(event: Event): void {

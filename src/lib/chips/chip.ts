@@ -17,7 +17,7 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 import {
   toBoolean,

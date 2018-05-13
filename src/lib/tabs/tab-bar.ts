@@ -17,14 +17,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { isBrowser, toNumber, EventRegistry, toBoolean } from '@angular-mdc/web/common';
-import { defer } from 'rxjs/observable/defer';
-import { merge } from 'rxjs/observable/merge';
-import { Observable } from 'rxjs/Observable';
-import { startWith } from 'rxjs/operators/startWith';
-import { Subject } from 'rxjs/Subject';
-import { switchMap } from 'rxjs/operators/switchMap';
-import { take } from 'rxjs/operators/take';
-import { takeUntil } from 'rxjs/operators/takeUntil';
+import { defer,  merge,  Observable,  Subject } from 'rxjs';
+import { startWith,  switchMap,  take,  takeUntil } from 'rxjs/operators';
 
 import { MdcTab, MdcTabSelected } from './tab';
 

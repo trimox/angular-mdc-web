@@ -13,7 +13,7 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
 import { MdcIcon } from '@angular-mdc/web/icon';

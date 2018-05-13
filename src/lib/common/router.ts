@@ -14,9 +14,8 @@ import {
   RouterLink,
   RouterLinkWithHref
 } from '@angular/router';
-import { filter } from 'rxjs/operators/filter';
-import { Subject } from 'rxjs/Subject';
-import { takeUntil } from 'rxjs/operators/takeUntil';
+import { filter,  takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 export interface MdcRouteEvent {
   active: boolean;

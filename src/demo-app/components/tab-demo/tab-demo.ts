@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, Routes } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { DemoRouteOne } from './route-one';
 import { DemoRouteTwo } from './route-two';

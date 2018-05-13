@@ -15,9 +15,8 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import { takeUntil } from 'rxjs/operators/takeUntil';
-import { startWith } from 'rxjs/operators/startWith';
-import { Subject } from 'rxjs/Subject';
+import { takeUntil,  startWith } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 import { EventRegistry, isBrowser, toBoolean } from '@angular-mdc/web/common';
 

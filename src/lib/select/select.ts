@@ -17,9 +17,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { startWith } from 'rxjs/operators/startWith';
-import { Subject } from 'rxjs/Subject';
-import { takeUntil } from 'rxjs/operators/takeUntil';
+import { startWith,  takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 import { EventRegistry, isBrowser, toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';

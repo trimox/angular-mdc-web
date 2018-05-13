@@ -1,7 +1,6 @@
 import { OverlayRef } from '@angular-mdc/web/overlay';
 import { MdcDialogContainer } from './dialog-container';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable,  Subject } from 'rxjs';
 
 let uniqueId = 0;
 

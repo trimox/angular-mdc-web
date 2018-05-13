@@ -25,7 +25,7 @@
     "@angular-mdc/theme": "0.35.2"
   },
   "peerDependencies": {
-    "@angular/core": ">=5.0.0",
-    "@angular/common": ">=5.0.0"
+    "@angular/core": ">=6.0.0",
+    "@angular/common": ">=6.0.0"
   }
 }

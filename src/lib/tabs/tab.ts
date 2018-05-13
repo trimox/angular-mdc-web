@@ -15,9 +15,8 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
-import { takeUntil } from 'rxjs/operators/takeUntil';
+import { Subject,  Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import {
   MdcRouter,

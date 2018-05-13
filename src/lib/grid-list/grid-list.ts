@@ -15,9 +15,8 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { startWith } from 'rxjs/operators/startWith';
-import { Subject } from 'rxjs/Subject';
-import { takeUntil } from 'rxjs/operators/takeUntil';
+import { startWith,  takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 import {
   isBrowser,

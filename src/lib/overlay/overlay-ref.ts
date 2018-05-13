@@ -8,8 +8,7 @@
 
 import { ComponentPortal, Portal, PortalOutlet, TemplatePortal } from '@angular-mdc/web/portal';
 import { ComponentRef, EmbeddedViewRef, NgZone } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable,  Subject } from 'rxjs';
 
 /** An object where all of its properties cannot be written. */
 export type ImmutableObject<T> = {

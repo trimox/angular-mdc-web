@@ -157,7 +157,7 @@ export class MdcList implements AfterContentInit, OnDestroy {
   /** Combined stream of all of the child options' change events. */
   readonly optionSelectionChanges: Observable<MdcListSelectionChange> = defer(() => {
     if (this.options) {
-      return merge(...this.options.map(option => option.onSelectionChange));
+      return merge(...this.options.map(option => option.selectionChange));
     }
 
     return this._ngZone.onStable

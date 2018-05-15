@@ -78,7 +78,7 @@ export class MdcTab implements OnInit, OnDestroy {
   protected _disabled: boolean = false;
 
   /** Event emitted when the option is selected. */
-  @Output() readonly onSelected: EventEmitter<MdcTabSelected> = new EventEmitter<MdcTabSelected>();
+  @Output() readonly selected: EventEmitter<MdcTabSelected> = new EventEmitter<MdcTabSelected>();
 
   @HostBinding('class.mdc-tab') isHostClass = true;
   @HostBinding('attr.role') role: string = 'tab';
@@ -190,7 +190,7 @@ export class MdcTab implements OnInit, OnDestroy {
 
   /** Emits the tab selected event. */
   private _emitSelectedEvent(): void {
-    this.onSelected.emit({ tab: this });
+    this.selected.emit({ tab: this });
   }
 
   /** Retrieves the DOM element of the component host. */

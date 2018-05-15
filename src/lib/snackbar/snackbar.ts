@@ -26,8 +26,8 @@ export class MdcSnackbar {
   private _openedSnackBarRef: MdcSnackbarRef<any> | null = null;
 
   constructor(
-    private overlay_: Overlay,
-    private injector_: Injector,
+    private _overlay: Overlay,
+    private _injector: Injector,
     @Optional() @SkipSelf() private _parentSnackBar: MdcSnackbar) {
   }
 
@@ -94,7 +94,7 @@ export class MdcSnackbar {
      * Creates a new overlay and places it in the correct location.
      */
   private _createOverlay(): OverlayRef {
-    return this.overlay_.create();
+    return this._overlay.create();
   }
 
   /**
@@ -113,7 +113,7 @@ export class MdcSnackbar {
     injectionTokens.set(MDC_SNACK_BAR_DATA, config.data);
     injectionTokens.set(MdcSnackbarConfig, config);
 
-    return new PortalInjector(userInjector || this.injector_, injectionTokens);
+    return new PortalInjector(userInjector || this._injector, injectionTokens);
   }
 }
 

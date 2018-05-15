@@ -127,7 +127,7 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
   /** Combined stream of all of the tab change events. */
   readonly optionSelectionChanges: Observable<MdcTabSelected> = defer(() => {
     if (this.tabs) {
-      return merge(...this.tabs.map(option => option.onSelected));
+      return merge(...this.tabs.map(option => option.selected));
     }
 
     return this._ngZone.onStable

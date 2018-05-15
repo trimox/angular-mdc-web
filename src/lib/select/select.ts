@@ -17,7 +17,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { startWith,  takeUntil } from 'rxjs/operators';
+import { startWith, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import { EventRegistry, isBrowser, toBoolean } from '@angular-mdc/web/common';
@@ -67,8 +67,7 @@ let nextUniqueId = 0;
     MdcRipple
   ],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDestroy {
   /** Emits whenever the component is destroyed. */
@@ -138,18 +137,14 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   _onTouched = () => { };
 
   private _mdcAdapter: MDCSelectAdapter = {
-    addClass: (className: string) =>
-      this._renderer.addClass(this._getHostElement(), className),
-    removeClass: (className: string) =>
-      this._renderer.removeClass(this._getHostElement(), className),
+    addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
+    removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
     floatLabel: (value: any) => this._selectLabel.float(value),
     activateBottomLine: () => this._lineRipple.activate(),
     deactivateBottomLine: () => this._lineRipple.deactivate(),
     setDisabled: (disabled: boolean) => this._getInputElement().disabled = disabled,
-    registerInteractionHandler: (type: string, handler: EventListener) =>
-      this._registry.listen(type, handler, this._getInputElement()),
-    deregisterInteractionHandler: (type: string, handler: EventListener) =>
-      this._registry.unlisten(type, handler),
+    registerInteractionHandler: (type: string, handler: EventListener) => this._registry.listen(type, handler, this._getInputElement()),
+    deregisterInteractionHandler: (type: string, handler: EventListener) => this._registry.unlisten(type, handler),
     getSelectedIndex: () => this._getInputElement().selectedIndex,
     setSelectedIndex: (index: number) => this._getInputElement().selectedIndex = index,
     getValue: () => this._getInputElement().value,
@@ -159,7 +154,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   private _foundation: {
     init(): void,
     destroy(): void,
-    setValue(any): void,
+    setValue(value: any): void,
     setSelectedIndex(index: number): void,
     setDisabled(disabled: boolean): void
   } = new MDCSelectFoundation(this._mdcAdapter);

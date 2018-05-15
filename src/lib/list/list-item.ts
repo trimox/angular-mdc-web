@@ -97,7 +97,7 @@ export class MdcListItem implements OnDestroy {
     return this.selected ? 'mdc-list-item--selected' : '';
   }
 
-  @Output() onSelectionChange: EventEmitter<MdcListSelectionChange>
+  @Output() readonly selectionChange: EventEmitter<MdcListSelectionChange>
     = new EventEmitter<MdcListSelectionChange>();
   @ContentChild(MdcListItemGraphic) listItemStart: MdcListItemGraphic;
 
@@ -136,6 +136,6 @@ export class MdcListItem implements OnDestroy {
 
   /** Emits a change event if the selected state of an option changed. */
   private _emitChangeEvent(): void {
-    this.onSelectionChange.emit(new MdcListSelectionChange(this));
+    this.selectionChange.emit(new MdcListSelectionChange(this));
   }
 }

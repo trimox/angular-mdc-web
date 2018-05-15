@@ -15,7 +15,7 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import { takeUntil,  startWith } from 'rxjs/operators';
+import { takeUntil, startWith } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import { EventRegistry, isBrowser, toBoolean } from '@angular-mdc/web/common';
@@ -34,7 +34,6 @@ import {
 /** Event object emitted by MdcAppBar navigation icon selected. */
 export class MdcAppBarNavSelected {
   constructor(
-    /** Reference to the option that emitted the event. */
     public source: MdcAppBar) { }
 }
 
@@ -273,17 +272,18 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
         this._topAppBarFoundation = new MDCShortTopAppBarFoundation(this._mdcAdapter);
       } else if (this.fixed) {
         this._topAppBarFoundation = new MDCFixedTopAppBarFoundation(this._mdcAdapter);
-        this._removeShortCollapsed();
+        this._removeShortVariant();
       } else {
         this._topAppBarFoundation = new MDCTopAppBarFoundation(this._mdcAdapter);
-        this._removeShortCollapsed();
+        this._removeShortVariant();
       }
 
       this._topAppBarFoundation.init();
     }, 10);
   }
 
-  private _removeShortCollapsed(): void {
+  private _removeShortVariant(): void {
+    this._renderer.removeClass(this._getHostElement(), 'mdc-top-app-bar--short-has-action-item');
     this._renderer.removeClass(this._getHostElement(), 'mdc-top-app-bar--short-collapsed');
   }
 

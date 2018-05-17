@@ -18,7 +18,6 @@ export class SelectDemo {
   ];
 
   constructor() {
-    // this.selectedValue = 'pizza-1';
     // this.foodControl.setValue('fruit-3');
   }
 

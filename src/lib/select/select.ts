@@ -175,6 +175,8 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
 
     this.options.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
       Promise.resolve().then(() => {
+        this._selectLabel.float(this.getValue());
+
         if (this.autosize) {
           this._setWidth();
         }

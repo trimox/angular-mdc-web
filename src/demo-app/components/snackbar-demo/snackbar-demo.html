@@ -132,10 +132,10 @@
         <label>Focus on Action button</label>
       </mdc-form-field>
     </div>
+    <mdc-text-field [(ngModel)]="message" label="Message" [required]="true"></mdc-text-field>
+    <mdc-text-field [(ngModel)]="action" label="Action"></mdc-text-field>
     <div>
-      <mdc-text-field [(ngModel)]="message" label="Message" [required]="true"></mdc-text-field>
-      <mdc-text-field [(ngModel)]="action" label="Action"></mdc-text-field>
+      <button mdc-button [primary]="true" [raised]="true" (click)="show()">Show</button>
     </div>
-    <button mdc-button [primary]="true" [raised]="true" (click)="show()">Show Snackbar</button>
   </div>
 </div>

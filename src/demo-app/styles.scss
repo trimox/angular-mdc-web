@@ -459,7 +459,6 @@ body {
 .demo-top-app-bar-content {
   height: 300px;
   overflow-y: scroll;
-  will-change: transform;
 }
 
 .demo-top-app-bar--not-fixed {
@@ -654,6 +653,10 @@ body {
   @include mdc-fab-accessible($material-color-purple-500);
 }
 
+.mdc-fab.blackFab {
+  @include mdc-fab-accessible(black);
+}
+
 //
 // Slider
 //
@@ -727,6 +730,11 @@ body {
   display: flex;
   flex-direction: column;
   padding: 8px 16px;
+}
+
+.demo-shape-fab-container {
+  margin: 0 8px;
+  @include mdc-shape-angled-corner($mdc-theme-background, 56px / 2);
 }
 
 //

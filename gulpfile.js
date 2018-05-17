@@ -11,7 +11,8 @@ const tsconfig = require(tsconfigPath);
 
 // Register TS compilation.
 require('ts-node').register({
-  project: tsconfigPath
+  project: tsconfigPath,
+  transpileOnly: true
 });
 
 // The gulp tsconfig file maps specific imports to relative paths. In combination with ts-node

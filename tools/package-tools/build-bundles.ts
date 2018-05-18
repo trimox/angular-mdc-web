@@ -35,6 +35,7 @@ export class PackageBundler {
     return this.bundleEntryPoint({
       entryFile: this.buildPackage.entryFilePath,
       esm5EntryFile: join(this.buildPackage.esm5OutputDir, 'index.js'),
+      importName: `@angular-mdc/${this.buildPackage.name}`,
       moduleName: `ng.${this.buildPackage.name}`,
       esm2015Dest: join(bundlesDir, `${packageName}.js`),
       esm5Dest: join(bundlesDir, `${packageName}.es5.js`),
@@ -48,11 +49,13 @@ export class PackageBundler {
     const packageName = this.buildPackage.name;
     const entryFile = join(this.buildPackage.outputDir, entryPoint, 'index.js');
     const esm5EntryFile = join(this.buildPackage.esm5OutputDir, entryPoint, 'index.js');
+    const dashedEntryName = dashCaseToCamelCase(entryPoint);
 
     return this.bundleEntryPoint({
       entryFile,
       esm5EntryFile,
-      moduleName: `ng.${packageName}.${dashCaseToCamelCase(entryPoint)}`,
+      importName: `@angular-mdc/${this.buildPackage.name}/${dashedEntryName}`,
+      moduleName: `ng.${packageName}.${dashedEntryName}`,
       esm2015Dest: join(bundlesDir, `${packageName}`, `${entryPoint}.js`),
       esm5Dest: join(bundlesDir, `${packageName}`, `${entryPoint}.es5.js`),
       umdDest: join(bundlesDir, `${packageName}-${entryPoint}.umd.js`),
@@ -68,26 +71,29 @@ export class PackageBundler {
   private async bundleEntryPoint(config: BundlesConfig) {
     // Build FESM-2015 bundle file.
     await this.createRollupBundle({
-      name: config.moduleName,
-      input: config.entryFile,
-      file: config.esm2015Dest,
+      importName: config.importName,
+      moduleName: config.moduleName,
+      entry: config.entryFile,
+      dest: config.esm2015Dest,
       format: 'es',
       es6: true
     });
 
     // Build FESM-5 bundle file.
     await this.createRollupBundle({
-      name: config.moduleName,
-      input: config.esm5EntryFile,
-      file: config.esm5Dest,
+      importName: config.importName,
+      moduleName: config.moduleName,
+      entry: config.esm5EntryFile,
+      dest: config.esm5Dest,
       format: 'es',
     });
 
     // Create UMD bundle of ES5 output.
     await this.createRollupBundle({
-      name: config.moduleName,
-      input: config.esm5Dest,
-      file: config.umdDest,
+      importName: config.importName,
+      moduleName: config.moduleName,
+      entry: config.esm5Dest,
+      dest: config.umdDest,
       format: 'umd',
     });
   }
@@ -97,7 +103,7 @@ export class PackageBundler {
     const bundleOptions = {
       context: 'this',
       external: Object.keys(rollupExternals),
-      input: config.input,
+      input: config.entry,
       onwarn: (message: string) => {
         if (/but never used/.test(message)) {
           return false;
@@ -107,14 +113,15 @@ export class PackageBundler {
       plugins: [
         rollupRemoveLicensesPlugin,
         rollupNodeResolutionPlugin(),
-        rollupAlias(this.getResolvedSecondaryEntryPointImportPaths(config.file))
+        rollupAlias(this.getResolvedSecondaryEntryPointImportPaths(config.dest))
       ]
     };
 
     const writeOptions = {
-      name: config.name || 'ng.web',
+      name: config.moduleName || 'ng.web',
+      amd: { id: config.importName },
       globals: rollupGlobals,
-      file: config.file,
+      file: config.dest,
       format: config.format,
       banner: buildConfig.licenseBanner,
       sourcemap: false
@@ -145,7 +152,7 @@ export class PackageBundler {
       // secondary entry-points from the rollup globals because we want the UMD for the
       // primary entry-point to include *all* of the sources for those entry-points.
       if (this.buildPackage.exportsSecondaryEntryPointsAtRoot &&
-        config.name === `ng.${this.buildPackage.name}`) {
+        config.moduleName === `ng.${this.buildPackage.name}`) {
 
         const importRegex = new RegExp(`@angular-mdc/${this.buildPackage.name}/.+`);
         external = external.filter(e => !importRegex.test(e));
@@ -176,6 +183,7 @@ export class PackageBundler {
 interface BundlesConfig {
   entryFile: string;
   esm5EntryFile: string;
+  importName: string;
   moduleName: string;
   esm2015Dest: string;
   esm5Dest: string;
@@ -185,9 +193,10 @@ interface BundlesConfig {
 
 /** Configuration for creating a bundle via rollup. */
 interface RollupBundleConfig {
-  input: string;
-  file: string;
+  entry: string;
+  dest: string;
   format: string;
-  name: string;
+  moduleName: string;
+  importName: string;
   es6?: boolean;
 }

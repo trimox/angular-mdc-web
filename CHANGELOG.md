@@ -1,3 +1,20 @@
+<a name="0.35.5"></a>
+## [0.35.5](https://github.com/trimox/angular-mdc-web/compare/v0.35.3...v0.35.5) (2018-05-18)
+
+
+### Bug Fixes
+
+* **app-bar:** Should remove `mdc-top-app-bar--short-has-action-item` ([#973](https://github.com/trimox/angular-mdc-web/issues/973)) ([5875ab5](https://github.com/trimox/angular-mdc-web/commit/5875ab5)), closes [#972](https://github.com/trimox/angular-mdc-web/issues/972)
+* **form-field:** Should interact with control label ([#987](https://github.com/trimox/angular-mdc-web/issues/987)) ([73c026a](https://github.com/trimox/angular-mdc-web/commit/73c026a)), closes [#986](https://github.com/trimox/angular-mdc-web/issues/986)
+* **select:** Should float label for selected html option ([#979](https://github.com/trimox/angular-mdc-web/issues/979)) ([ccb0133](https://github.com/trimox/angular-mdc-web/commit/ccb0133)), closes [#976](https://github.com/trimox/angular-mdc-web/issues/976) [#963](https://github.com/trimox/angular-mdc-web/issues/963)
+
+
+### Features
+
+* Upgrade to RxJS v6.0 and Angular v6.0 ([#964](https://github.com/trimox/angular-mdc-web/issues/964)) ([c461b88](https://github.com/trimox/angular-mdc-web/commit/c461b88)), closes [#947](https://github.com/trimox/angular-mdc-web/issues/947) [#918](https://github.com/trimox/angular-mdc-web/issues/918)
+
+
+
 <a name="0.35.3"></a>
 ## [0.35.3](https://github.com/trimox/angular-mdc-web/compare/v0.35.2...v0.35.3) (2018-05-11)
 

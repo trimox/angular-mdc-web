@@ -18,6 +18,7 @@ import {
 import { NG_VALUE_ACCESSOR, RadioControlValueAccessor } from '@angular/forms';
 import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
+import { MdcFormFieldControl } from '@angular-mdc/web/form-field';
 
 import { MDCRadioAdapter } from '@material/radio/adapter';
 import { MDCRadioFoundation } from '@material/radio';
@@ -73,9 +74,12 @@ export class MdcRadioChange {
     MDC_RADIO_CONTROL_VALUE_ACCESSOR,
     MdcRipple,
     EventRegistry,
+    [{ provide: MdcFormFieldControl, useExisting: MdcRadio }]
   ]
 })
-export class MdcRadio implements AfterViewInit, OnDestroy {
+export class MdcRadio implements AfterViewInit, OnDestroy, MdcFormFieldControl<any> {
+  readonly componentInstance = MdcRadio;
+
   private _uniqueId: string = `mdc-radio-${++nextUniqueId}`;
 
   @Input() id: string = this._uniqueId;

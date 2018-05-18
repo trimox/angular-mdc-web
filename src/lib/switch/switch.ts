@@ -15,6 +15,8 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
+import { MdcFormFieldControl } from '@angular-mdc/web/form-field';
+
 export const MDC_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => MdcSwitch),
@@ -58,11 +60,15 @@ let nextUniqueId = 0;
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  providers: [MDC_SWITCH_CONTROL_VALUE_ACCESSOR],
-  preserveWhitespaces: false,
+  providers: [
+    MDC_SWITCH_CONTROL_VALUE_ACCESSOR,
+    [{ provide: MdcFormFieldControl, useExisting: MdcSwitch }],
+  ]
 })
-export class MdcSwitch {
+export class MdcSwitch implements MdcFormFieldControl<any> {
   private _uniqueId: string = `mdc-switch-${++nextUniqueId}`;
+
+  readonly componentInstance = MdcSwitch;
 
   @Input() id: string = this._uniqueId;
   @Input() name: string | null = null;

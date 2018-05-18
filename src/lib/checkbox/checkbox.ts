@@ -17,6 +17,7 @@ import {
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
+import { MdcFormFieldControl } from '@angular-mdc/web/form-field';
 
 import { MDCCheckboxAdapter } from '@material/checkbox/adapter';
 import { MDCCheckboxFoundation } from '@material/checkbox';
@@ -80,12 +81,14 @@ export const MDC_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
     MDC_CHECKBOX_CONTROL_VALUE_ACCESSOR,
     MdcRipple,
     EventRegistry,
+    [{ provide: MdcFormFieldControl, useExisting: MdcCheckbox }]
   ],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestroy {
+export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestroy, MdcFormFieldControl<any> {
+  readonly componentInstance = MdcCheckbox;
+
   private _mdcAdapter: MDCCheckboxAdapter = {
     addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
     removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),

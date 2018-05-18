@@ -9,7 +9,7 @@
 Using Angular CLI? [Angular CLI - Getting Started guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/guide-angular-cli.md)
 
 ## Requirements
-Angular MDC requires Angular 5, which itself requires TypeScript 2.4+ and RxJS 5.5.2+.
+Angular MDC requires Angular 6, which itself requires TypeScript 2.7+ and RxJS 6+.
 
 ## <a name="step1"></a> Step 1: Install Angular MDC
 #### npm

@@ -22,7 +22,7 @@ npm i @angular-mdc/web
 ```
 
 ## Requirements
-Angular MDC requires Angular 5, which itself requires TypeScript 2.6+ and RxJS 5.5+.
+Angular MDC requires Angular 6, which itself requires TypeScript 2.7+ and RxJS 6+.
 
 ## <a name="getstarted"></a> Getting started
 Check out our [Getting Started guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md) to begin adopting  Angular MDC in your project.

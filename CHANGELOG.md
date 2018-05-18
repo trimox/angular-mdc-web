@@ -1,3 +1,13 @@
+<a name="0.35.6"></a>
+## [0.35.6](https://github.com/trimox/angular-mdc-web/compare/v0.35.5...v0.35.6) (2018-05-18)
+
+
+### Bug Fixes
+
+* **package:** Should transpile material-components-web ([#990](https://github.com/trimox/angular-mdc-web/issues/990)) ([68d55a5](https://github.com/trimox/angular-mdc-web/commit/68d55a5)), closes [#988](https://github.com/trimox/angular-mdc-web/issues/988)
+
+
+
 <a name="0.35.5"></a>
 ## [0.35.5](https://github.com/trimox/angular-mdc-web/compare/v0.35.3...v0.35.5) (2018-05-18)
 

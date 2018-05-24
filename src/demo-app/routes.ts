@@ -9,6 +9,7 @@ import { DIALOG_DEMO_ROUTES } from './components/dialog-demo/routes';
 import { DialogDemo } from './components/dialog-demo/dialog-demo';
 import { DrawerDemo } from './components/drawer-demo/drawer-demo';
 import { ElevationDemo } from './components/elevation-demo/elevation-demo';
+import { FormFieldDemo } from './components/form-field-demo/form-field-demo';
 import { GettingStarted, CliGuide } from './getting-started';
 import { Home } from './home/home';
 import { IconDemo } from './components/icon-demo/icon-demo';
@@ -16,8 +17,8 @@ import { LinearProgressDemo } from './components/linear-progress-demo/linear-pro
 import { ListDemo, GridListDemo, ImageListDemo } from './components/lists';
 import { MenuDemo } from './components/menu-demo/menu-demo';
 import { RippleDemo } from './components/ripple-demo/ripple-demo';
-import { SnackbarDemo } from './components/snackbar-demo/snackbar-demo';
 import { ShapeDemo } from './components/shape-demo/shape-demo';
+import { SnackbarDemo } from './components/snackbar-demo/snackbar-demo';
 import { TabDemo } from './components/tab-demo';
 import { ToolbarDemo } from './components/toolbar-demo/toolbar-demo';
 import { TypographyDemo } from './components/typography-demo/typography-demo';
@@ -35,6 +36,7 @@ export const DEMO_ROUTES = [
   DrawerDemo,
   ElevationDemo,
   FabDemo,
+  FormFieldDemo,
   GettingStarted,
   GridListDemo,
   Home,
@@ -69,6 +71,7 @@ export const APP_ROUTES: Routes = [
   { path: 'drawer-demo', component: DrawerDemo },
   { path: 'elevation-demo', component: ElevationDemo },
   { path: 'fab-demo', component: FabDemo },
+  { path: 'form-field-demo', component: FormFieldDemo },
   { path: 'getting-started', component: GettingStarted },
   { path: 'grid-list-demo', component: GridListDemo },
   { path: 'home', component: Home, pathMatch: 'full' },

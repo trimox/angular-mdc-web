@@ -1,3 +1,13 @@
+<a name="0.35.7"></a>
+## [0.35.7](https://github.com/trimox/angular-mdc-web/compare/v0.35.6...v0.35.7) (2018-05-24)
+
+
+### Features
+
+* Update to material-components-web v0.35.2 ([#994](https://github.com/trimox/angular-mdc-web/issues/994)) ([23fe5e7](https://github.com/trimox/angular-mdc-web/commit/23fe5e7)), closes [#993](https://github.com/trimox/angular-mdc-web/issues/993)
+
+
+
 <a name="0.35.6"></a>
 ## [0.35.6](https://github.com/trimox/angular-mdc-web/compare/v0.35.5...v0.35.6) (2018-05-18)
 

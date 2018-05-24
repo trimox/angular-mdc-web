@@ -10,30 +10,18 @@
         <td>mdc-dialog</td>
       </tr>
     </tbody>
-  </table>
-  <table>
     <thead>
       <tr>
-        <th>Dialog Methods</th>
-        <th>Parameters</th>
+        <th>Methods</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>open(componentOrTemplateRef: any)</td>
-        <td>Opens a modal dialog containing the given component.</td>
-      </tr>
-      <tr>
-        <td><pre><![CDATA[open(componentOrTemplateRef: any, {
-    config
-  })
-]]></pre></td>
-        <td>Extra configuration options.
-          <pre><![CDATA[config {
-  clickOutsideToClose?: boolean = true;
-  escapeToClose?: boolean = true;}
-]]></pre>
-        </td>
+        <td>
+<pre>open(componentOrTemplateRef, {{"{
+    clickOutsideToClose?: boolean,
+    escapeToClose?: boolean
+  }"}})></pre></td>
       </tr>
       <tr>
         <td>close()</td>

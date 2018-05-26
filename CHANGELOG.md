@@ -418,7 +418,7 @@ accordingly.
 * **linear-progress:** Add exportAs declaration ([#658](https://github.com/trimox/angular-mdc-web/issues/658)) ([f12b9a9](https://github.com/trimox/angular-mdc-web/commit/f12b9a9))
 * **list:** Add exportAs declarations  ([#669](https://github.com/trimox/angular-mdc-web/issues/669)) ([cfb2924](https://github.com/trimox/angular-mdc-web/commit/cfb2924))
 * **list:** Add selectionChange event ([#670](https://github.com/trimox/angular-mdc-web/issues/670)) ([d729cc9](https://github.com/trimox/angular-mdc-web/commit/d729cc9))
-* **list:** Remove depreciated `twoLine` property ([#679](https://github.com/trimox/angular-mdc-web/issues/679)) ([453f6f7](https://github.com/trimox/angular-mdc-web/commit/453f6f7))
+* **list:** Remove deprecated `twoLine` property ([#679](https://github.com/trimox/angular-mdc-web/issues/679)) ([453f6f7](https://github.com/trimox/angular-mdc-web/commit/453f6f7))
 * **menu:** Add exportAs declaration ([#634](https://github.com/trimox/angular-mdc-web/issues/634)) ([6894d15](https://github.com/trimox/angular-mdc-web/commit/6894d15))
 * **menu:** Add quick open option ([#629](https://github.com/trimox/angular-mdc-web/issues/629)) ([f309d53](https://github.com/trimox/angular-mdc-web/commit/f309d53)), closes [#619](https://github.com/trimox/angular-mdc-web/issues/619)
 * **menu:** Add selected property to menu items ([#665](https://github.com/trimox/angular-mdc-web/issues/665)) ([25be411](https://github.com/trimox/angular-mdc-web/commit/25be411)), closes [#618](https://github.com/trimox/angular-mdc-web/issues/618)
@@ -634,7 +634,7 @@ accordingly.
 * **list:** Renamed `mdc-list-item-start` to `mdc-list-item-graphic`
 * **list:** Renamed `mdc-list-item-end` to `mdc-list-item-meta`
 * **list:** Removed `isActive()` method
-* **list:** Depreciated `twoLines` property. Use `lines: number` instead.
+* **list:** Deprecated `twoLines` property. Use `lines: number` instead.
 
 
 <a name="0.6.5"></a>
@@ -1078,7 +1078,7 @@ mdc-card-button. Please update your code accordingly.
 
 ### BREAKING CHANGES
 
-* **dialog:** Depreciated `mdc-dialog-button-accept` and `mdc-dialog-button-cancel`.
+* **dialog:** Deprecated `mdc-dialog-button-accept` and `mdc-dialog-button-cancel`.
 Use new [mdc-dialog-button] with [accept] and [cancel] properties instead.
   <mdc-dialog-footer>
     <button mdc-dialog-button [cancel]="true">Cancel</button>
@@ -1283,7 +1283,7 @@ The reason we do not import our component SCSS anymore is we need to provide dev
 
 ### BREAKING CHANGES
 
-* **elevation:** Removed depreciated mdc-elevation-z# directives. Please update your code
+* **elevation:** Removed deprecated mdc-elevation-z# directives. Please update your code
 accordingly.
 
 

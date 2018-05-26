@@ -299,7 +299,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   }
 
   private _setWidth() {
-    if (this.options) {
+    if (this.options && this.placeholder) {
       const labelLength = this._selectLabel.elementRef.nativeElement.textContent.length;
       this._renderer.setStyle(this._getHostElement(), 'width', `${labelLength}rem`);
     }

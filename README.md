@@ -1,7 +1,7 @@
 # Angular MDC
 
 [![npm version](https://badge.fury.io/js/%40angular-mdc%2Fweb.svg)](https://badge.fury.io/js/%40angular-mdc%2Fweb)
-[![Build Status](https://travis-ci.org/trimox/angular-mdc-web.svg?branch=master)](https://travis-ci.org/trimox/angular-mdc-web)
+[![Build Status](https://travis-ci.com/trimox/angular-mdc-web.svg?branch=master)](https://travis-ci.com/trimox/angular-mdc-web)
 [![codecov](https://codecov.io/gh/trimox/angular-mdc-web/branch/master/graph/badge.svg)](https://codecov.io/gh/trimox/angular-mdc-web)
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angular-mdc/Lobby)
 
@@ -30,7 +30,7 @@ Check out our [Getting Started guide](https://github.com/trimox/angular-mdc-web/
 Using Angular CLI? Try our [Angular CLI - step by step guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/guide-angular-cli.md).
 
 ## Material Design Components
-Each component uses [material-components-web](https://github.com/material-components/material-components-web) foundation and adapter APIs.
+Implemented via MDC-Web [foundations/adapters](https://github.com/material-components/material-components-web/blob/master/docs/integrating-into-frameworks.md#the-advanced-approach-using-foundations-and-adapters).
 
 | Component  | Status  | Demo |
 | ---------- | ------- | :------: |
@@ -63,5 +63,13 @@ Each component uses [material-components-web](https://github.com/material-compon
 | toolbar | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/toolbar-demo) |
 | typography | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/typography-demo) |
 
-## Developing Angular MDC
-Want to develop your own components or change existing ones? Check out our [Developer guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/developer.md).
+## Browser Support
+We officially support the last two versions of every major browser.
+
+- Chrome
+- Safari
+- Firefox
+- IE 11/Edge
+- Opera
+- Mobile Safari
+- Chrome on Android

@@ -2,23 +2,26 @@ dist: trusty
 language: node_js
 sudo: required
 node_js:
-  - '9.11.1'
+  - '10.2.1'
 
 branches:
   only:
     - master
 
-install:
-  - npm install
-
-script:
-  - export CHROME_BIN=chromium-browser
-  - npm run lint
-  - npm run test:unit
-
-after_success:
-  - codecov
+before_install:
+  - npm i -g npm@6.1.0
 
 cache:
   directories:
     - ./node_modules
+
+install:
+  - npm ci
+
+script:
+  - export CHROME_BIN=chromium-browser
+  - npm run lint:ts
+  - npm run test:unit
+
+after_success:
+  - codecov

@@ -35,8 +35,7 @@ export type MdcDrawerType = 'persistent' | 'permanent' | 'temporary';
   `,
   providers: [EventRegistry],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  preserveWhitespaces: false
+  encapsulation: ViewEncapsulation.None
 })
 export class MdcDrawer implements OnDestroy {
   @Input()

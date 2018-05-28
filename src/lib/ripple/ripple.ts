@@ -22,8 +22,7 @@ import { MdcRipple } from './ripple.service';
     MdcRipple,
     EventRegistry
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcRippleComponent implements AfterContentInit, OnDestroy {
   get ripple(): MdcRipple {

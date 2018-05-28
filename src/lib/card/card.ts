@@ -26,8 +26,7 @@ export class MdcCardMediaContent {
   template: '<ng-content></ng-content>',
   exportAs: 'mdcCardMedia',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcCardMedia {
   @Input()
@@ -79,8 +78,7 @@ export class MdcCardPrimaryAction {
   template: '<ng-content></ng-content>',
   exportAs: 'mdcCardActions',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcCardActions {
   @Input()
@@ -174,8 +172,7 @@ export class MdcCardAction {
   template: '<ng-content></ng-content>',
   exportAs: 'mdcCard',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcCard {
   @Input()

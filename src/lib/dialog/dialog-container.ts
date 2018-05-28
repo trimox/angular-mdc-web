@@ -23,8 +23,7 @@ import {
   moduleId: module.id,
   selector: 'mdc-dialog-container',
   template: `<ng-template cdkPortalOutlet></ng-template>`,
-  encapsulation: ViewEncapsulation.None,
-  preserveWhitespaces: false,
+  encapsulation: ViewEncapsulation.None
 })
 export class MdcDialogContainer extends BasePortalOutlet {
   /** Element that was focused before the dialog was opened. Save this to restore upon close. */

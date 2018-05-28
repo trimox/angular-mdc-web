@@ -43,8 +43,7 @@ export class MdcAppBarNavSelected {
   exportAs: 'mdcAppBar',
   providers: [EventRegistry],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  preserveWhitespaces: false
+  encapsulation: ViewEncapsulation.None
 })
 export class MdcAppBar implements AfterContentInit, OnDestroy {
   /** Emits whenever the component is destroyed. */

@@ -28,8 +28,7 @@ export class MdcImageListItem {
     <ng-content></ng-content>
   </div>
   `,
-  encapsulation: ViewEncapsulation.None,
-  preserveWhitespaces: false
+  encapsulation: ViewEncapsulation.None
 })
 export class MdcImageListImageAspect {
   constructor(public elementRef: ElementRef) { }
@@ -71,8 +70,7 @@ export class MdcImageListLabel {
   exportAs: 'mdcImageList',
   template: '<ng-content></ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  preserveWhitespaces: false
+  encapsulation: ViewEncapsulation.None
 })
 export class MdcImageList {
   @Input()

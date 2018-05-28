@@ -79,7 +79,6 @@ export class MdcListItemSecondary {
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
   providers: [
     EventRegistry,
     MdcRipple

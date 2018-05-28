@@ -15,7 +15,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { Subject,  Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import {
@@ -53,8 +53,7 @@ export class MdcTabIconText {
     EventRegistry
   ],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcTab implements OnInit, OnDestroy {
   /** Emits whenever the component is destroyed. */

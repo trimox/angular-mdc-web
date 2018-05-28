@@ -29,8 +29,7 @@ import { MDCLinearProgressFoundation } from '@material/linear-progress';
   </div>
   `,
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcLinearProgress implements AfterViewInit, OnDestroy {
   @Input()

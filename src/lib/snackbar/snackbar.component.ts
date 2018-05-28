@@ -30,7 +30,6 @@ import { getCorrectEventName } from '@material/animation';
   </div>
   `,
   encapsulation: ViewEncapsulation.None,
-  preserveWhitespaces: false,
   providers: [EventRegistry]
 })
 export class MdcSnackbarComponent implements OnInit, OnDestroy {

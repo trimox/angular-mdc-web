@@ -15,7 +15,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { startWith,  takeUntil } from 'rxjs/operators';
+import { startWith, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import {
@@ -117,8 +117,7 @@ export class MdcGridListTiles {
   `,
   providers: [EventRegistry],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcGridList implements AfterViewInit, AfterContentInit, OnDestroy {
   /** Emits whenever the component is destroyed. */

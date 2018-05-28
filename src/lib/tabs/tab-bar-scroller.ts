@@ -93,8 +93,7 @@ export class MdcTabBarScrollFrame implements AfterContentInit {
   template: '<ng-content></ng-content>',
   providers: [EventRegistry],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcTabBarScroller implements AfterViewInit, AfterContentInit, OnDestroy {
   @Input() direction: 'ltr' | 'rtl' = 'ltr';

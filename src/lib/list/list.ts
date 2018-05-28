@@ -17,8 +17,8 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { defer,  merge,  Observable,  Subject } from 'rxjs';
-import { filter,  startWith,  switchMap,  take,  takeUntil } from 'rxjs/operators';
+import { defer, merge, Observable, Subject } from 'rxjs';
+import { filter, startWith, switchMap, take, takeUntil } from 'rxjs/operators';
 
 import { toBoolean } from '@angular-mdc/web/common';
 
@@ -59,8 +59,7 @@ export class MdcListGroupSubheader {
   exportAs: 'mdcListDivider',
   template: '<div #nativeEl class="mdc-list-divider" role="seperator"></div>',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcListDivider {
   @Input()
@@ -92,8 +91,7 @@ export class MdcListDivider {
   exportAs: 'mdcList',
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcList implements AfterContentInit, OnDestroy {
   /** Emits whenever the component is destroyed. */

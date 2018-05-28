@@ -29,8 +29,7 @@ export type FabPosition = 'bottom-left' | 'bottom-right' | null;
     EventRegistry,
   ],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcFab implements AfterContentInit, OnDestroy {
   @Input()

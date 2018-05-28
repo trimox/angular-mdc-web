@@ -29,8 +29,7 @@ import { MdcIcon } from '@angular-mdc/web/icon';
     EventRegistry
   ],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcButton implements AfterContentInit, OnDestroy {
   @Input()

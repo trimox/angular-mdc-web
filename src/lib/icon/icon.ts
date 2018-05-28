@@ -18,8 +18,7 @@ import { toBoolean } from '@angular-mdc/web/common';
   template: '<ng-content></ng-content>',
   exportAs: 'mdcIcon',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcIcon implements OnChanges, OnInit {
   private _defaultFontSetClass = 'material-icons';

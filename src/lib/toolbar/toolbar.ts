@@ -97,8 +97,7 @@ export class MdcToolbarMenuIcon {
   exportAs: 'mdcToolbar',
   providers: [EventRegistry],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  preserveWhitespaces: false
+  encapsulation: ViewEncapsulation.None
 })
 export class MdcToolbar implements AfterViewInit, OnChanges, OnDestroy {
   private _fixedAdjustElement: any;

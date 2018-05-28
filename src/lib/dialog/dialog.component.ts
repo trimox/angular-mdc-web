@@ -49,8 +49,7 @@ import { MDCDialogFoundation, util } from '@material/dialog';
     '[attr.aria-describedby]': '_config?.ariaDescribedBy || null',
   },
   providers: [EventRegistry],
-  encapsulation: ViewEncapsulation.None,
-  preserveWhitespaces: false,
+  encapsulation: ViewEncapsulation.None
 })
 export class MdcDialogComponent implements AfterViewInit, OnDestroy {
   _config: MdcDialogConfig;

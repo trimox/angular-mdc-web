@@ -117,8 +117,7 @@ export class MdcMenuItem {
   </mdc-menu-items>
   `,
   providers: [EventRegistry],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcMenu implements AfterViewInit, OnDestroy {
   private _uniqueId: string = `mdc-menu-${++nextUniqueId}`;

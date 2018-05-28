@@ -57,8 +57,7 @@ export class MdcSliderChange {
     EventRegistry,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  preserveWhitespaces: false
+  encapsulation: ViewEncapsulation.None
 })
 export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor {
   @Input() tabIndex: number = 0;

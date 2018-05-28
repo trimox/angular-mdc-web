@@ -14,8 +14,8 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import { defer,  merge,  Observable,  Subject } from 'rxjs';
-import { startWith,  switchMap,  take,  takeUntil } from 'rxjs/operators';
+import { defer, merge, Observable, Subject } from 'rxjs';
+import { startWith, switchMap, take, takeUntil } from 'rxjs/operators';
 
 import { toBoolean, EventRegistry, MdcPortalService } from '@angular-mdc/web/common';
 
@@ -31,7 +31,6 @@ import { MDCChipSetFoundation } from '@material/chips/chip-set';
   template: `<ng-content></ng-content>`,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
   providers: [
     EventRegistry,
     MdcPortalService

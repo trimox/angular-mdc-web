@@ -22,8 +22,7 @@ const MDC_VALID_SHAPE_CORNERS = [
   exportAs: 'mdcShapeContainerCorner',
   template: '<ng-content></ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  preserveWhitespaces: false
+  encapsulation: ViewEncapsulation.None
 })
 export class MdcShapeContainerCorner {
   @HostBinding('class.mdc-shape-container__corner') isHostClass = true;
@@ -73,8 +72,7 @@ export class MdcShapeContainerCorner {
   exportAs: 'mdcShapeContainer',
   template: '<ng-content></ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  preserveWhitespaces: false
+  encapsulation: ViewEncapsulation.None
 })
 export class MdcShapeContainer {
   @HostBinding('class.mdc-shape-container') isHostClass = true;

@@ -17,8 +17,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { isBrowser, toNumber, EventRegistry, toBoolean } from '@angular-mdc/web/common';
-import { defer,  merge,  Observable,  Subject } from 'rxjs';
-import { startWith,  switchMap,  take,  takeUntil } from 'rxjs/operators';
+import { defer, merge, Observable, Subject } from 'rxjs';
+import { startWith, switchMap, take, takeUntil } from 'rxjs/operators';
 
 import { MdcTab, MdcTabSelected } from './tab';
 
@@ -53,8 +53,7 @@ export class MdcTabBarIndicator {
   <mdc-tab-bar-indicator></mdc-tab-bar-indicator>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [EventRegistry],
-  preserveWhitespaces: false,
+  providers: [EventRegistry]
 })
 export class MdcTabBar implements AfterContentInit, OnDestroy {
   /** Emits whenever the component is destroyed. */

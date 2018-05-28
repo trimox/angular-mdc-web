@@ -33,8 +33,7 @@ export class MdcNotchedOutlineIdle {
   </svg>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  preserveWhitespaces: false,
+  encapsulation: ViewEncapsulation.None
 })
 export class MdcNotchedOutline implements OnInit, OnDestroy {
   get outlineIdle(): MdcNotchedOutlineIdle { return this._outlineIdle; }

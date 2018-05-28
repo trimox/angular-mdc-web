@@ -41,8 +41,7 @@ export const MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
     MdcRipple,
     EventRegistry
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcTextarea extends MdcTextField {
   @Input() rows: number;

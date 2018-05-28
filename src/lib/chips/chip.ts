@@ -50,8 +50,7 @@ let nextUniqueId = 0;
   selector: 'mdc-chip-icon, [mdc-chip-icon], [mdcChipIcon]',
   template: '<ng-content></ng-content>',
   exportAs: 'mdcChipIcon',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcChipIcon extends MdcIcon {
   @HostBinding('class.mdc-chip__icon') isHostClass = true;
@@ -74,8 +73,7 @@ export class MdcChipIcon extends MdcIcon {
       <path class="mdc-chip__checkmark-path" fill="none" stroke="black" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
     </svg>
   </div>
-  `,
-  preserveWhitespaces: false
+  `
 })
 export class MdcChipCheckmark { }
 
@@ -84,8 +82,7 @@ export class MdcChipCheckmark { }
   selector: 'mdc-chip-text, [mdcChipText]',
   exportAs: 'mdcChipText',
   template: '<ng-content></ng-content>',
-  encapsulation: ViewEncapsulation.None,
-  preserveWhitespaces: false
+  encapsulation: ViewEncapsulation.None
 })
 export class MdcChipText {
   @HostBinding('class.mdc-chip__text') isHostClass = true;
@@ -110,8 +107,7 @@ export class MdcChipText {
   providers: [
     MdcRipple,
     EventRegistry,
-  ],
-  preserveWhitespaces: false
+  ]
 })
 export class MdcChip implements AfterContentInit, OnDestroy {
   private _id = `mdc-chip-${nextUniqueId++}`;

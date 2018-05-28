@@ -19,7 +19,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { startWith,  takeUntil } from 'rxjs/operators';
+import { startWith, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import {
@@ -93,8 +93,7 @@ let nextUniqueId = 0;
     EventRegistry
   ],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy, ControlValueAccessor {
   /** Emits whenever the component is destroyed. */

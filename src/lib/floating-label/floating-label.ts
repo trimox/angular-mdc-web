@@ -20,8 +20,7 @@ import { MDCFloatingLabelFoundation } from '@material/floating-label';
   exportAs: 'mdcFloatingLabel',
   providers: [EventRegistry],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  preserveWhitespaces: false
+  encapsulation: ViewEncapsulation.None
 })
 export class MdcFloatingLabel implements OnInit, OnDestroy {
   @HostBinding('class.mdc-floating-label') isHostClass = true;

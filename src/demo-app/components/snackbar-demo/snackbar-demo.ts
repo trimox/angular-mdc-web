@@ -7,7 +7,7 @@ import { MdcSnackbar } from '@angular-mdc/web';
   templateUrl: './snackbar-demo.html',
 })
 export class SnackbarDemo {
-  message = 'Message deleted';
+  message = 'Message sent';
   action = 'Undo';
   multiline = false;
   dismissOnAction: boolean = true;
@@ -24,6 +24,14 @@ export class SnackbarDemo {
       dismissOnAction: this.dismissOnAction,
       focusAction: this.focusAction,
       actionOnBottom: this.actionOnBottom,
+    });
+
+    snackbarRef.afterDismiss().subscribe(() => {
+      console.log('The snack-bar was dismissed');
+    });
+
+    snackbarRef.afterOpen().subscribe(() => {
+      console.log('The snack-bar was opened');
     });
   }
 }

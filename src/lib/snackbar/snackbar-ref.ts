@@ -1,21 +1,44 @@
-import { OverlayRef } from '@angular-mdc/web/overlay';
-import { MdcSnackbarContainer } from './snackbar-container';
+import { Observable, Subject } from 'rxjs';
+
+import { MdcSnackbarComponent } from './snackbar.component';
 
 /**
  * Reference to a snackbar dispatched from the snackbar service.
  */
 export class MdcSnackbarRef<T> {
-  componentInstance: T;
-  containerInstance: MdcSnackbarContainer;
+  /** The instance of the component making up the content of the snackbar. */
+  instance: T;
+  componentInstance: MdcSnackbarComponent;
 
-  constructor(
-    private _containerInstance: MdcSnackbarContainer,
-    private _overlayRef: OverlayRef) {
-    this.containerInstance = _containerInstance;
+  constructor(component: MdcSnackbarComponent) {
+    this.componentInstance = component;
   }
 
-  /** Dismisses the snack bar. */
+  /** Subject for notifying the user that the snackbar has been dismissed. */
+  private readonly _afterDismiss = new Subject<void>();
+
+  /** Subject for notifying the user that the snackbar has opened and appeared. */
+  private readonly _afterOpen = new Subject<void>();
+
+  /** Gets an observable that is notified when the snackbar is finished closing. */
+  afterDismiss(): Observable<void> {
+    return this._afterDismiss.asObservable();
+  }
+
+  /** Gets an observable that is notified when the snackbar has opened and appeared. */
+  afterOpen(): Observable<void> {
+    return this._afterOpen.asObservable();
+  }
+
+  open(): void {
+    this.componentInstance.show();
+
+    this._afterOpen.next();
+    this._afterOpen.complete();
+  }
+
   dismiss(): void {
-    this._overlayRef.dispose();
+    this._afterDismiss.next();
+    this._afterDismiss.complete();
   }
 }

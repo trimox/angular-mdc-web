@@ -110,7 +110,7 @@
   </div>
 
   <div class="demo-content">
-    <div class="demo-content--column">
+    <div class="demo-content--row">
       <mdc-form-field>
         <mdc-checkbox [(ngModel)]="multiline"></mdc-checkbox>
         <label>Multiline</label>
@@ -132,10 +132,6 @@
         <label>Focus on Action button</label>
       </mdc-form-field>
     </div>
-    <mdc-text-field [(ngModel)]="message" label="Message" [required]="true"></mdc-text-field>
-    <mdc-text-field [(ngModel)]="action" label="Action"></mdc-text-field>
-    <div>
-      <button mdc-button [primary]="true" [raised]="true" (click)="show()">Show</button>
-    </div>
+    <button mdc-button [primary]="true" [raised]="true" (click)="show()">Show Snackbar</button>
   </div>
 </div>

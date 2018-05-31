@@ -147,12 +147,6 @@ describe('Chips', () => {
       expect(testDebugElement.nativeElement.classList.contains('mdc-chip-set--input')).toBe(true);
       expect(testInstance.input).toBe(true);
     });
-
-    it('#should add new chip', () => {
-      testInstance.addChip('test', 'favorite', 'cancel');
-      fixture.detectChanges();
-      expect(testInstance.chips.length).toBe(2);
-    });
   });
 });
 

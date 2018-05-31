@@ -99,7 +99,6 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
     registerInteractionHandler: (evtType: string, handler: EventListener) =>
       this._registry.listen(evtType, handler, this._getHostElement()),
     deregisterInteractionHandler: (evtType: string, handler: EventListener) => this._registry.unlisten(evtType, handler),
-    appendChip: (text: string, leadingIcon: string, trailingIcon: string) => this._createChip(text, leadingIcon, trailingIcon),
     removeChip: (chip: MdcChip) => {
       const index = this.chips.toArray().indexOf(chip);
       this.chips.toArray().splice(index, 1);
@@ -109,7 +108,6 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
   private _foundation: {
     init(): void,
     destroy(): void,
-    addChip(text: string, leadingIcon: string, trailingIcon: string): HTMLElement,
     select(chipFoundation: any): void,
     deselect(chipFoundation: any): void
   } = new MDCChipSetFoundation(this._mdcAdapter);
@@ -171,40 +169,6 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
   setInput(input: boolean): void {
     this._input = input;
     this._changeDetectorRef.markForCheck();
-  }
-
-  private _createChip(text: string, leadingIcon: string, trailingIcon: string): HTMLElement {
-    const chipContainerRef = this._portalService.createComponentRef(MdcChip);
-    const chipContainerElement = this._portalService.getDomElementFromComponentRef(chipContainerRef);
-    this._portalService.addChild(chipContainerElement, this._getHostElement());
-
-    if (leadingIcon) {
-      const chipIconRef = this._portalService.createComponentRef(MdcChipIcon);
-      const chipIconContainerElement = this._portalService.getDomElementFromComponentRef(chipIconRef);
-      chipIconContainerElement.textContent = leadingIcon;
-      chipIconRef.instance.leading = true;
-      this._portalService.addChild(chipIconContainerElement, chipContainerElement);
-    }
-
-    const chipTextRef = this._portalService.createComponentRef(MdcChipText);
-    const chipTextContainerElement = this._portalService.getDomElementFromComponentRef(chipTextRef);
-    chipTextContainerElement.textContent = text;
-    this._portalService.addChild(chipTextContainerElement, chipContainerElement);
-
-    if (trailingIcon) {
-      const chipIconRef = this._portalService.createComponentRef(MdcChipIcon);
-      chipIconRef.instance.trailing = true;
-      chipIconRef.instance.clickable = true;
-      const chipIconContainerElement = this._portalService.getDomElementFromComponentRef(chipIconRef);
-      chipIconContainerElement.textContent = trailingIcon;
-      this._portalService.addChild(chipIconContainerElement, chipContainerElement);
-    }
-
-    return chipContainerElement;
-  }
-
-  addChip(text: string, leadingIcon: string, trailingIcon: string): void {
-    this._foundation.addChip(text, leadingIcon, trailingIcon);
   }
 
   /** Retrieves the DOM element of the component host. */

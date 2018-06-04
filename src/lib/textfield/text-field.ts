@@ -264,11 +264,10 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
     hasOutline: () => this.outline,
     notchOutline: (notchWidth: number, isRtl: boolean) => this.outlined.notch(notchWidth, isRtl),
     closeOutline: () => this.outlined.closeNotch(),
-    registerValidationAttributeChangeHandler: (handler: MutationCallback) => {
-      const attributeChanges = new MutationObserver(handler);
-      return attributeChanges.observe(this.inputText.nativeElement, {
-        attributes: true
-      });
+    registerValidationAttributeChangeHandler: (handler: (whitelist: Array<string>) => void) => {
+      const getAttributesList = (mutationsList) => mutationsList.map((mutation) => mutation.attributeName);
+      const observer = new MutationObserver((mutationsList) => handler(getAttributesList(mutationsList)));
+      return observer.observe(this.inputText.nativeElement, { attributes: true });
     },
     deregisterValidationAttributeChangeHandler: (observer: MutationObserver) => {
       if (observer) {

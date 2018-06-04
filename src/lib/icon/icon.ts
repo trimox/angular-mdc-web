@@ -30,6 +30,7 @@ export class MdcIcon implements OnInit {
   get fontSet(): string { return this._fontSet; }
   set fontSet(value: string) {
     this._fontSet = this._cleanupFontValue(value);
+    this._updateFontIconClasses();
   }
   protected _fontSet: string;
 
@@ -38,6 +39,7 @@ export class MdcIcon implements OnInit {
   get fontIcon(): string { return this._fontIcon; }
   set fontIcon(value: string) {
     this._fontIcon = value;
+    this._updateFontIconClasses();
   }
   protected _fontIcon: string;
 
@@ -83,10 +85,10 @@ export class MdcIcon implements OnInit {
   }
 
   ngOnInit() {
-    this._updateFontIconClasses(this.fontSize);
+    this._updateFontIconClasses();
   }
 
-  private _updateFontIconClasses(fontSize: number | null): void {
+  private _updateFontIconClasses(): void {
     const el: HTMLElement = this._getHostElement();
 
     const fontSetClass = this.fontSet ? this.fontSet : this._getDefaultFontSetClass();
@@ -113,14 +115,14 @@ export class MdcIcon implements OnInit {
       this._previousFontIconClass = this.fontIcon;
     }
 
-    if (fontSize !== this._previousFontSize) {
+    if (this.fontSize !== this._previousFontSize) {
       if (this._previousFontSize) {
-        this._renderer.removeStyle(el, `font-size: ${fontSize}px`);
+        this._renderer.removeStyle(el, `font-size: ${this.fontSize}px`);
       }
-      if (fontSize) {
-        this._renderer.setStyle(el, 'font-size', `${fontSize}px`);
+      if (this.fontSize) {
+        this._renderer.setStyle(el, 'font-size', `${this.fontSize}px`);
       }
-      this._previousFontSize = fontSize;
+      this._previousFontSize = this.fontSize;
     }
   }
 
@@ -161,7 +163,7 @@ export class MdcIcon implements OnInit {
 
   setFontSize(value: number): void {
     this._fontSize = value;
-    this._updateFontIconClasses(value);
+    this._updateFontIconClasses();
     this._changeDetectorRef.markForCheck();
   }
 

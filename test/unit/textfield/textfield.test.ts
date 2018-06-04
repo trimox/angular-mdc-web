@@ -77,6 +77,12 @@ describe('MdcTextField', () => {
       expect(textFieldInstance.isDisabled()).toBe(false);
     });
 
+    it('#should be disabled', () => {
+      testComponent.disabled = true;
+      fixture.detectChanges();
+      expect(textFieldInstance.isDisabled()).toBe(true);
+    });
+
     it('#should not be empty', () => {
       fixture.detectChanges();
       expect(textFieldInstance.empty).toBe(false);
@@ -85,13 +91,13 @@ describe('MdcTextField', () => {
     it('#should remove invalid styling', () => {
       textFieldInstance.setValid(false);
       fixture.detectChanges();
-      expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--invalid')).toBe(true);
+      expect(textFieldInstance.hasClass('mdc-text-field--invalid')).toBe(true);
     });
 
     it('#should set validity based on input element validity', () => {
       textFieldInstance.setValid(true);
       fixture.detectChanges();
-      expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--invalid')).toBe(false);
+      expect(textFieldInstance.hasClass('mdc-text-field--invalid')).toBe(false);
       expect(textFieldInstance.valid).toBe(true);
     });
 
@@ -156,6 +162,7 @@ describe('MdcTextField', () => {
       testComponent.username = 'Test';
       fixture.detectChanges();
       expect(textFieldInstance.getValue()).toBe('Test');
+      expect(textFieldInstance.shouldFloat()).toBe(true);
     });
 
     it('#should focus on underlying input element when focus() is called', () => {
@@ -211,7 +218,7 @@ describe('MdcTextField', () => {
       [box]="box"
       [required]="required"
       [focused]="isFocused"
-      [disabled]="isDisabled"
+      [disabled]="disabled"
       [helperText]="userHelper"
       (blur)="onBlur($event)">
       <mdc-icon leading>person</mdc-icon>
@@ -226,7 +233,7 @@ describe('MdcTextField', () => {
 class SimpleTextfield {
   username: string = 'Test';
   myType: string = 'text';
-  isDisabled: boolean = false;
+  disabled: boolean = false;
   isDense: boolean = false;
   isFocused: boolean = false;
   isFullwidth: boolean = false;

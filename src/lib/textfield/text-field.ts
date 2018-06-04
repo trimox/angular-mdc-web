@@ -157,7 +157,7 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
-    this.setDisabledState(value);
+    this.setDisabled(value);
   }
   protected _disabled: boolean;
 
@@ -287,8 +287,9 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
 
   private _mdcIconAdapter: MDCTextFieldIconAdapter = {
     getAttr: (attr: string) => this.icons.first.elementRef.nativeElement.getAttribute(attr),
-    setAttr: (attr: string, value: string) => this._renderer.setAttribute(this.icons.first.elementRef.nativeElement, attr, value),
-    removeAttr: (attr: string) => this._renderer.removeAttribute(this.icons.first.elementRef.nativeElement, attr),
+    setAttr: (attr: string, value: string) => this.icons.first.elementRef.nativeElement.setAttribute(attr, value),
+    removeAttr: (attr: string) => this.icons.first.elementRef.nativeElement.removeAttribute(attr),
+    setContent: (content: string) => this.icons.first.elementRef.nativeElement.textContent = content,
     registerInteractionHandler: (evtType: string, handler: EventListener) =>
       this._registry.listen(evtType, handler, this.icons.first.elementRef.nativeElement),
     deregisterInteractionHandler: (evtType: string, handler: EventListener) => this._registry.unlisten(evtType, handler),
@@ -309,14 +310,18 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
     notchOutline(openNotch: boolean): void,
     getValue(): any,
     shouldFloat: boolean,
-    shouldShake: boolean
+    shouldShake: boolean,
+    setIconAriaLabel(label: string): void,
+    setIconContent(content: string): void
   } = new MDCTextFieldFoundation(this._mdcAdapter);
 
   private _iconFoundation: {
     init(): void,
     destroy(): void,
     setDisabled(disabled: boolean): void,
-    handleInteraction(evt: any): void
+    handleInteraction(evt: any): void,
+    setContent(content: string): void,
+    setAriaLabel(label: string): void
   };
 
   /** View -> model callback called when value changes */
@@ -531,6 +536,14 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
     this._foundation.setHelperTextContent(content);
   }
 
+  setIconAriaLabel(label: string): void {
+    this._iconFoundation.setAriaLabel(label);
+  }
+
+  setIconContent(content: string): void {
+    this._iconFoundation.setContent(content);
+  }
+
   updateIconState(): void {
     if (this.icons.find(_ => _.isLeading())) {
       this._renderer.addClass(this._getHostElement(), 'mdc-text-field--with-leading-icon');
@@ -555,6 +568,7 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
   setDisabledState(isDisabled: boolean) {
     this._disabled = isDisabled;
     this._foundation.setDisabled(isDisabled);
+
     if (this.focused) {
       this.focused = false;
     }

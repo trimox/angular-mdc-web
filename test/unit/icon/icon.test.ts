@@ -67,6 +67,10 @@ describe('MdcIcon', () => {
       fixture.detectChanges();
       testInstance.setIcon('ambulance');
       testInstance.setFontSize(12);
+      fixture.detectChanges();
+      expect(testInstance.getIcon()).toBe('ambulance');
+      testInstance.setFontSize(22);
+      fixture.detectChanges();
     });
   });
 

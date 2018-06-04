@@ -12,12 +12,10 @@ describe('MdcIcon', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MdcIconModule,
-      ],
+      imports: [MdcIconModule],
       declarations: [
         SimpleTest,
-        FontAwesomeTest,
+        FontAwesomeTest
       ]
     });
     TestBed.compileComponents();
@@ -54,6 +52,21 @@ describe('MdcIcon', () => {
       testComponent.mySize = null;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.style.fontSize).toBe('24px');
+    });
+
+    it('#should have text content of face', () => {
+      testInstance.setIcon('face');
+      fixture.detectChanges();
+      expect(testInstance.getIcon()).toBe('face');
+    });
+
+    it('#should have font size of 12', () => {
+      testInstance.fontSet = 'fa';
+      fixture.detectChanges();
+      testInstance.fontIcon = 'cake';
+      fixture.detectChanges();
+      testInstance.setIcon('ambulance');
+      testInstance.setFontSize(12);
     });
   });
 
@@ -92,12 +105,14 @@ class SimpleTest {
   template: `
     <button mdc-fab>
       <mdc-icon 
-       fontSet="myFontSet"
-       fontIcon="myFontIcon"></mdc-icon>
+        fontSize="fontSize"
+       fontSet="fontSet"
+       fontIcon="fontIcon"></mdc-icon>
     </button>
   `,
 })
 class FontAwesomeTest {
-  myFontSet: string = 'fa';
-  myFontIcon: string = 'fa-keyboard-o';
+  fontSet: string = 'fa';
+  fontIcon: string = 'fa-keyboard-o';
+  fontSize: number;
 }

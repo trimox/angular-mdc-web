@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import {
   MdcCardModule,
   MdcCard,
+  MdcCardMediaContent
 } from '@angular-mdc/web';
 
 describe('MdcCard', () => {
@@ -45,23 +46,23 @@ describe('MdcCard', () => {
     <mdc-card [outlined]="outlined">
       <mdc-card-primary-action>
         <mdc-card-media [square]="square" [wide]="wide">
-          <mdc-card-media-content>
+          <mdc-card-media-content #mediaContent>
             Title
           </mdc-card-media-content>
         </mdc-card-media>
       </mdc-card-primary-action>
-      <mdc-card-actions [fullBleed]="isFullBleed">
+      <mdc-card-actions [fullBleed]="fullBleed">
         <mdc-card-action-buttons>
-          <button mdc-button>Action 1</button>
-          <button mdc-button>Action 2</button>
+          <button mdc-button mdcCardAction="button">Action 1</button>
+          <button mdc-button mdcCardAction="button">Action 2</button>
         </mdc-card-action-buttons>
       </mdc-card-actions>
     </mdc-card>
   `,
 })
 class SimpleTest {
-  outlined: boolean = false;
+  outlined: boolean = true;
   square: boolean = true;
   wide: boolean = false;
-  isFullBleed: boolean = false;
+  fullBleed: boolean = true;
 }

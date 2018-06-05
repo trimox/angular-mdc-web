@@ -1,0 +1,9 @@
+.ng-mdc-icon-button--primary {
+  @include mdc-icon-button-ink-color($mdc-theme-primary);
+  @include mdc-states(primary);
+}
+
+.ng-mdc-icon-button--secondary {
+  @include mdc-icon-button-ink-color($mdc-theme-secondary);
+  @include mdc-states(secondary);
+}

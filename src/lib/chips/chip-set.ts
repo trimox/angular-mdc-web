@@ -17,7 +17,7 @@ import {
 import { defer, merge, Observable, Subject } from 'rxjs';
 import { startWith, switchMap, take, takeUntil } from 'rxjs/operators';
 
-import { toBoolean, EventRegistry, MdcPortalService } from '@angular-mdc/web/common';
+import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
 
 import { MdcChip, MdcChipIcon, MdcChipText, MdcChipSelectionEvent } from './chip';
 
@@ -31,10 +31,7 @@ import { MDCChipSetFoundation } from '@material/chips/chip-set';
   template: `<ng-content></ng-content>`,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    EventRegistry,
-    MdcPortalService
-  ]
+  providers: [EventRegistry]
 })
 export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
@@ -113,7 +110,6 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
   } = new MDCChipSetFoundation(this._mdcAdapter);
 
   constructor(
-    private _portalService: MdcPortalService,
     private _changeDetectorRef: ChangeDetectorRef,
     private _ngZone: NgZone,
     private _renderer: Renderer2,

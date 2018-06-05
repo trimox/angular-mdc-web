@@ -111,6 +111,7 @@ export class MdcIconButton implements AfterViewInit, OnDestroy {
     new EventEmitter<MdcIconButtonChange>();
 
   @HostBinding('class.mdc-icon-button') isHostClass = true;
+  @HostBinding('class.material-icons') isMaterialIcons = true;
   @HostBinding('attr.aria-pressed') ariaPressed: string = 'false';
   @HostBinding('attr.tabIndex') get tabindex(): number {
     return this.disabled ? -1 : 0;
@@ -263,6 +264,9 @@ export class MdcIconButton implements AfterViewInit, OnDestroy {
   }
 
   private _getIconInnerSelector() {
-    return this.elementRef.nativeElement.firstElementChild;
+    const iconSelector = this.elementRef.nativeElement.firstElementChild;
+
+    this.isMaterialIcons = !iconSelector ? true : false;
+    return iconSelector;
   }
 }

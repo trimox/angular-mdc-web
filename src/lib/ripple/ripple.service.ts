@@ -3,7 +3,7 @@ import {
   Renderer2,
   Injectable,
 } from '@angular/core';
-import { toBoolean, isBrowser, EventRegistry } from '@angular-mdc/web/common';
+import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
 
 import { MDCRippleAdapter } from '@material/ripple/adapter';
 import { MDCRippleFoundation, util } from '@material/ripple';
@@ -11,7 +11,7 @@ import { MDCRippleFoundation, util } from '@material/ripple';
 @Injectable()
 export class MdcRipple {
   private _root: any;
-  private _interactionElement: ElementRef | undefined;
+  private _interactionElement: HTMLElement;
   private _unbounded: boolean = false;
   private _disabled: boolean = false;
   private _surfaceActive: boolean = false;
@@ -64,9 +64,11 @@ export class MdcRipple {
     protected _registry: EventRegistry,
     protected elementRef: ElementRef) { }
 
-  attachTo(root: any, unbounded: boolean = false, interactionElement?: ElementRef) {
+  attachTo(root: any, unbounded: boolean = false, interactionElement?: HTMLElement) {
     this._root = root;
-    this._interactionElement = interactionElement;
+    if (interactionElement) {
+      this._interactionElement = interactionElement;
+    }
 
     this._foundation = new MDCRippleFoundation(this._mdcAdapter);
     this.setUnbounded(unbounded);
@@ -109,7 +111,8 @@ export class MdcRipple {
   }
 
   isSurfaceDisabled(): boolean {
-    return this._getHostElement().attributes.getNamedItem('disabled') ? true : false;
+    return this._interactionElement ? this._interactionElement.attributes.getNamedItem('disabled') ? true : false :
+      this._getHostElement().attributes.getNamedItem('disabled') ? true : false;
   }
 
   isSurfaceActive(): boolean {

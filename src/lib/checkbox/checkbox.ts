@@ -243,11 +243,12 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
      * indeterminate checkbox is clicked.
      */
   _onInputClick(evt: Event) {
+    evt.stopPropagation();
+
     if (this.disabled) { return; }
 
     this.toggle();
     this.change.emit(new MdcCheckboxChange(this, this.checked));
-    evt.stopPropagation();
   }
 
   setIndeterminate(indeterminate: boolean): void {
@@ -272,9 +273,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
 
   /** Sets the checkbox disabled state */
   setDisabled(disabled: boolean): void {
-    this._disabled = disabled;
-    this._foundation.setDisabled(disabled);
-    this._changeDetectorRef.markForCheck();
+    this.setDisabledState(disabled);
   }
 
   isChecked(): boolean {
@@ -293,6 +292,12 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
     this._checked = checked;
     this._foundation.setValue(checked);
 
+    this._changeDetectorRef.markForCheck();
+  }
+
+  setDisabledState(disabled: boolean): void {
+    this._disabled = disabled;
+    this._foundation.setDisabled(disabled);
     this._changeDetectorRef.markForCheck();
   }
 

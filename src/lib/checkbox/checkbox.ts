@@ -15,9 +15,11 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
+import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcFormFieldControl } from '@angular-mdc/web/form-field';
+
+import { getCorrectEventName } from '@material/animation';
 
 import { MDCCheckboxAdapter } from '@material/checkbox/adapter';
 import { MDCCheckboxFoundation } from '@material/checkbox';
@@ -94,8 +96,16 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
     removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
     setNativeControlAttr: (attr: string, value: string) => this._renderer.setAttribute(this.inputEl.nativeElement, attr, value),
     removeNativeControlAttr: (attr: string) => this._renderer.removeAttribute(this.inputEl.nativeElement, attr),
-    registerAnimationEndHandler: (handler: EventListener) => this._registry.listen('animationend', handler, this._getHostElement()),
-    deregisterAnimationEndHandler: (handler: EventListener) => this._registry.unlisten('animationend', handler),
+    registerAnimationEndHandler: (handler: EventListener) => {
+      if (isBrowser()) {
+        this._registry.listen(getCorrectEventName(window, 'animationend'), handler, this._getHostElement());
+      }
+    },
+    deregisterAnimationEndHandler: (handler: EventListener) => {
+      if (isBrowser()) {
+        this._registry.unlisten(getCorrectEventName(window, 'animationend'), handler);
+      }
+    },
     registerChangeHandler: (handler: EventListener) => this._registry.listen('change', handler, this.inputEl.nativeElement),
     deregisterChangeHandler: (handler: EventListener) => this._registry.unlisten('change', handler),
     getNativeControl: () => this.inputEl.nativeElement,

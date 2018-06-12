@@ -45,7 +45,7 @@ Implemented via MDC-Web [foundations/adapters](https://github.com/material-compo
 | fab | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/fab-demo) |
 | form-field | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/form-field-demo) |
 | grid-list | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/grid-list-demo) |
-| icon-toggle | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/icon-toggle-demo) |
+| icon-button | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/icon-button-demo) |
 | image-list | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/image-list-demo) |
 | linear-progress | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/linear-progress-demo) |
 | list | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/list-demo) |
@@ -60,7 +60,6 @@ Implemented via MDC-Web [foundations/adapters](https://github.com/material-compo
 | tabs | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/tab-demo) |
 | textfield | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/textfield-demo) |
 | theme | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/theme-demo) |
-| toolbar | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/toolbar-demo) |
 | typography | Available | [View Demo](https://trimox.github.io/angular-mdc-web/#/typography-demo) |
 
 ## Browser Support

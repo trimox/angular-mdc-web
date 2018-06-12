@@ -1,4 +1,4 @@
-<mdc-app-bar class="demo__app-bar--primary" [fixed]="true">
+<mdc-app-bar #appbar [fixed]="true" [fixedAdjustElement]="mainContent">
   <mdc-app-bar-row>
     <mdc-app-bar-section align="start">
       <mdc-icon mdcAppBarNavIcon (click)="appdrawer.open()">menu</mdc-icon>
@@ -66,4 +66,16 @@
   </mdc-drawer-content>
 </mdc-drawer>
 
-<router-outlet></router-outlet>
+<router-outlet #mainContent></router-outlet>
+
+<div class="demo-controls-container" #demoAppBar>
+  <div class="demo-content--row">
+    <button mdc-button (click)="appbar.fixed = !appbar.fixed">Fixed: {{appbar.fixed ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="appbar.prominent = !appbar.prominent">Promient: {{appbar.prominent ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="appbar.dense = !appbar.dense">Dense: {{appbar.dense ? 'On' : 'Off'}}</button>
+  </div>
+  <div class="demo-content--row">
+    <button mdc-button (click)="appbar.short = !appbar.short">Short: {{appbar.short ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="appbar.shortCollapsed = !appbar.shortCollapsed">Short Collapsed: {{appbar.shortCollapsed ? 'On' : 'Off'}}</button>
+  </div>
+</div>

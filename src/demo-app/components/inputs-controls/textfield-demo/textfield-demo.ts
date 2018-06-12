@@ -1,7 +1,7 @@
 import { Component, ViewChild, Renderer2 } from '@angular/core';
 import { FormControl, ReactiveFormsModule, FormGroup, NgForm, Validators } from '@angular/forms';
 
-import { MdcTextField } from '@angular-mdc/web';
+import { MdcTextField, MdcIcon } from '@angular-mdc/web';
 
 @Component({
   selector: 'textfield-demo',
@@ -68,5 +68,9 @@ export class TextFieldDemo {
         this._renderer.removeClass(input.elementRef.nativeElement, demoFullwidth)
         : this._renderer.addClass(input.elementRef.nativeElement, demoFullwidth);
     }
+  }
+
+  changeOutlinedIcon(textField: MdcTextField, icon?: MdcIcon) {
+    icon ? icon.setIcon('face') : textField.setIconContent('cake');
   }
 }

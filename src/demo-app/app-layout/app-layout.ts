@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+
+import { MdcAppBar } from '@angular-mdc/web';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './app-layout.html'
 })
-export class AppLayout {
+export class AppLayout implements OnInit {
   startVisible: boolean;
   buttonVisible: boolean;
   inputVisible: boolean;
@@ -17,7 +20,6 @@ export class AppLayout {
     { name: 'Dialog', route: 'dialog-demo', icon: 'question_answer' },
     { name: 'Drawer', route: 'drawer-demo', icon: 'code' },
     { name: 'Elevation', route: 'elevation-demo', icon: 'filter_none' },
-    { name: 'Form Field', route: 'form-field-demo', icon: 'code' },
     { name: 'Icon', route: 'icon-demo', icon: 'star' },
     { name: 'Linear Progress', route: 'linear-progress-demo', icon: 'compare_arrows' },
     { name: 'Menu', route: 'menu-demo', icon: 'menu' },
@@ -31,6 +33,7 @@ export class AppLayout {
 
   inputRoutes = [
     { name: 'Checkbox', route: 'checkbox-demo' },
+    { name: 'Form Field', route: 'form-field-demo' },
     { name: 'Radio Buttons', route: 'radio-demo' },
     { name: 'Select', route: 'select-demo' },
     { name: 'Slider', route: 'slider-demo' },
@@ -41,7 +44,8 @@ export class AppLayout {
   buttonRoutes = [
     { name: 'Button', route: '/button-demo' },
     { name: 'FAB', route: '/fab-demo' },
-    { name: 'Icon Toggle', route: '/icon-toggle-demo' }
+    { name: 'Icon Button', route: '/icon-button-demo' },
+    { name: 'Icon Toggle (deprecated)', route: '/icon-toggle-demo' }
   ];
 
   listRoutes = [
@@ -54,4 +58,22 @@ export class AppLayout {
     { name: 'Installation', route: 'getting-started' },
     { name: 'Angular CLI', route: 'cli-guide' }
   ];
+
+  @ViewChild('appbar') appbar: MdcAppBar;
+  @ViewChild('demoAppBar') demoAppBar: ElementRef;
+
+  constructor(private _router: Router) { }
+
+  ngOnInit() {
+    this._router.events.subscribe(event => {
+      if (this._router.url.includes('/app-bar-demo')) {
+        if (event instanceof NavigationEnd) {
+          this.demoAppBar.nativeElement.style.display = 'block';
+        } else {
+          this.demoAppBar.nativeElement.style.display = 'none';
+          this.appbar.fixed = true;
+        }
+      }
+    });
+  }
 }

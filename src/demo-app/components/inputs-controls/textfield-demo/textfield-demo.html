@@ -173,6 +173,14 @@
             <td>setHelperText(helperText: MdcTextFieldHelperText)</td>
             <td>Reference to input's mdc-text-field-helper-text directive</td>
           </tr>
+          <tr>
+            <td>setIconAriaLabel(label: string)</td>
+            <td>Sets the aria label of the icon.</td>
+          </tr>
+          <tr>
+            <td>setIconContent(content: string)</td>
+            <td>Sets the text content of the icon.</td>
+          </tr>
         </tbody>
       </table>
       <table>
@@ -360,6 +368,7 @@
       <button mdc-button (click)="outlinedicon.dense = !outlinedicon.dense">Dense: {{outlinedicon.dense ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="leadingicon.clickable = !leadingicon.clickable">Clickable Icon: {{leadingicon.clickable ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="alternateColors(outlinedicon)">Alternate Colors</button>
+      <button mdc-button (click)="changeOutlinedIcon(outlinedicon, leadingicon)">Change Icon</button>
     </div>
     <mdc-text-field #outlinedicon [outline]="true" label="Event date">
       <mdc-icon leading #leadingicon>event</mdc-icon>
@@ -370,6 +379,7 @@
     <div class="demo-content--row">
       <button mdc-button (click)="trailingicon.clickable = !trailingicon.clickable">Clickable Icon: {{trailingicon.clickable ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="alternateColors(outlinedtrailing)">Alternate Colors</button>
+      <button mdc-button (click)="changeOutlinedIcon(outlinedtrailing)">Change Icon</button>
     </div>
     <mdc-text-field #outlinedtrailing [outline]="true" label="Event date">
       <mdc-icon trailing #trailingicon>event</mdc-icon>

@@ -122,11 +122,11 @@
       <mdc-switch [(ngModel)]="isSwitchOn" name="demoswitch" #demoswitch (change)="onChange($event)"></mdc-switch>
       <label>off/on</label>
     </mdc-form-field>
-    <p>ngModel value: {{isSwitchOn}}</p>
+    <p>NgModel value: {{isSwitchOn}}</p>
   </div>
 
   <div class="demo-content">
-    <h3 class="demo-content__headline">Switch - ngModel Form</h3>
+    <h3 class="demo-content__headline">Switch - NgModel Form</h3>
     <form #demoForm="ngForm" id="demoForm">
       <mdc-form-field>
         <mdc-switch #demoSwitch ngModel [name]="demoSwitch" #demoSwitchModel="ngModel"></mdc-switch>

@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { AppBarDemo } from './components/app-bar/app-bar-demo';
-import { ButtonDemo, FabDemo, IconToggleDemo } from './components/buttons';
+import { ButtonDemo, FabDemo, IconButtonDemo, IconToggleDemo } from './components/buttons';
 import { CardDemo } from './components/card-demo/card-demo';
 import { CheckboxDemo, RadioDemo, SelectDemo, SliderDemo, SwitchDemo, TextFieldDemo } from './components/inputs-controls';
 import { ChipsDemo } from './components/chips-demo/chips-demo';
@@ -9,7 +9,7 @@ import { DIALOG_DEMO_ROUTES } from './components/dialog-demo/routes';
 import { DialogDemo } from './components/dialog-demo/dialog-demo';
 import { DrawerDemo } from './components/drawer-demo/drawer-demo';
 import { ElevationDemo } from './components/elevation-demo/elevation-demo';
-import { FormFieldDemo } from './components/form-field-demo/form-field-demo';
+import { FormFieldDemo } from './components/inputs-controls/form-field-demo/form-field-demo';
 import { GettingStarted, CliGuide } from './getting-started';
 import { Home } from './home/home';
 import { IconDemo } from './components/icon-demo/icon-demo';
@@ -41,6 +41,7 @@ export const DEMO_ROUTES = [
   GridListDemo,
   Home,
   IconDemo,
+  IconButtonDemo,
   IconToggleDemo,
   ImageListDemo,
   LinearProgressDemo,
@@ -76,6 +77,7 @@ export const APP_ROUTES: Routes = [
   { path: 'grid-list-demo', component: GridListDemo },
   { path: 'home', component: Home, pathMatch: 'full' },
   { path: 'icon-demo', component: IconDemo },
+  { path: 'icon-button-demo', component: IconButtonDemo },
   { path: 'icon-toggle-demo', component: IconToggleDemo },
   { path: 'image-list-demo', component: ImageListDemo },
   { path: 'linear-progress-demo', component: LinearProgressDemo },

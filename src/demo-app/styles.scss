@@ -18,16 +18,6 @@ body {
 }
 
 //
-// Demo App Bar
-//
-
-.demo__app-bar--primary {
-  @include mdc-top-app-bar-fill-color($mdc-theme-primary);
-
-  z-index: 4;
-}
-
-//
 // Demo Landing
 //
 
@@ -171,6 +161,16 @@ body {
       display: none;
     }
   }
+}
+
+.demo-controls-container {
+  @include mdc-elevation(4);
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color: white;
+  padding: 10px;
+  display: none;
 }
 
 .demo-surface {
@@ -451,19 +451,6 @@ body {
   @include mdc-radio-ink-color($material-color-orange-500);
   @include mdc-radio-focus-indicator-color($color);
   @include mdc-states($color);
-}
-
-//
-// Top App Bar
-//
-
-.demo-top-app-bar-content {
-  height: 300px;
-  overflow-y: scroll;
-}
-
-.demo-top-app-bar--not-fixed {
-  position: relative;
 }
 
 //

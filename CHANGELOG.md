@@ -1,3 +1,30 @@
+<a name="0.36.0"></a>
+# [0.36.0](https://github.com/trimox/angular-mdc-web/compare/v0.35.7...v0.36.0) (2018-06-12)
+
+
+### Bug Fixes
+
+* **app-bar:** Should follow material spec ([#1042](https://github.com/trimox/angular-mdc-web/issues/1042)) ([6ebeb2c](https://github.com/trimox/angular-mdc-web/commit/6ebeb2c)), closes [#998](https://github.com/trimox/angular-mdc-web/issues/998)
+* **checkbox:** Remove unneeded FormsModule import ([#1034](https://github.com/trimox/angular-mdc-web/issues/1034)) ([b395dc9](https://github.com/trimox/angular-mdc-web/commit/b395dc9))
+* **checkbox:** Should call ControlValueAccessor setDisabledState() ([#1032](https://github.com/trimox/angular-mdc-web/issues/1032)) ([3dbd7ac](https://github.com/trimox/angular-mdc-web/commit/3dbd7ac)), closes [#1030](https://github.com/trimox/angular-mdc-web/issues/1030)
+* **checkbox:** Should check vendor prefixes in registerAnimationEndHandler ([#1033](https://github.com/trimox/angular-mdc-web/issues/1033)) ([12f1a63](https://github.com/trimox/angular-mdc-web/commit/12f1a63))
+* **ripple:** Should not ripple for disabled inputs ([#1036](https://github.com/trimox/angular-mdc-web/issues/1036)) ([f493770](https://github.com/trimox/angular-mdc-web/commit/f493770)), closes [#1035](https://github.com/trimox/angular-mdc-web/issues/1035)
+* **select:** Should not autosize with empty placeholder ([#997](https://github.com/trimox/angular-mdc-web/issues/997)) ([a41b524](https://github.com/trimox/angular-mdc-web/commit/a41b524)), closes [#996](https://github.com/trimox/angular-mdc-web/issues/996)
+* **text-field:** Make ValidationAttributeChangeHandler expect array of strings ([#1013](https://github.com/trimox/angular-mdc-web/issues/1013)) ([00038b2](https://github.com/trimox/angular-mdc-web/commit/00038b2))
+
+
+### Features
+
+* **icon:** Adds public UX state methods ([#1021](https://github.com/trimox/angular-mdc-web/issues/1021)) ([de4a1dc](https://github.com/trimox/angular-mdc-web/commit/de4a1dc)), closes [#1018](https://github.com/trimox/angular-mdc-web/issues/1018) [#1019](https://github.com/trimox/angular-mdc-web/issues/1019) [#1020](https://github.com/trimox/angular-mdc-web/issues/1020)
+* **icon-button:** Implement MDC Icon Button ([#1025](https://github.com/trimox/angular-mdc-web/issues/1025)) ([02a2652](https://github.com/trimox/angular-mdc-web/commit/02a2652))
+* Add [materialIcons] selector ([#1027](https://github.com/trimox/angular-mdc-web/issues/1027)) ([c01c1c3](https://github.com/trimox/angular-mdc-web/commit/c01c1c3))
+* Update to material-components-web v0.36.0 ([#1026](https://github.com/trimox/angular-mdc-web/issues/1026)) ([4ef8a73](https://github.com/trimox/angular-mdc-web/commit/4ef8a73))
+* **icon-button:** Should use material-icons as default library ([#1031](https://github.com/trimox/angular-mdc-web/issues/1031)) ([d76be18](https://github.com/trimox/angular-mdc-web/commit/d76be18))
+* **snackbar:** Add afterDismiss() and afterOpen() observables ([#1006](https://github.com/trimox/angular-mdc-web/issues/1006)) ([80fc319](https://github.com/trimox/angular-mdc-web/commit/80fc319))
+* **text-field:** Add setIconContent() and setIconAriaLabel() methods ([#1022](https://github.com/trimox/angular-mdc-web/issues/1022)) ([276d46e](https://github.com/trimox/angular-mdc-web/commit/276d46e)), closes [#1010](https://github.com/trimox/angular-mdc-web/issues/1010) [#1011](https://github.com/trimox/angular-mdc-web/issues/1011)
+
+
+
 <a name="0.35.7"></a>
 ## [0.35.7](https://github.com/trimox/angular-mdc-web/compare/v0.35.6...v0.35.7) (2018-05-24)
 

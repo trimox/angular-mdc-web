@@ -7,7 +7,6 @@ import {
   HostBinding,
   OnDestroy,
   OnInit,
-  Renderer2,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
@@ -47,11 +46,11 @@ export class MdcNotchedOutline implements OnInit, OnDestroy {
   @ViewChild('svgpath') svgpath: ElementRef;
 
   private _mdcAdapter: MDCNotchedOutlineAdapter = {
-    getWidth: () => this.elementRef.nativeElement.offsetWidth,
-    getHeight: () => this.elementRef.nativeElement.offsetHeight,
-    addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
-    removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
-    setOutlinePathAttr: (value: string) => this._renderer.setAttribute(this.svgpath.nativeElement, 'd', value),
+    getWidth: () => this._getHostElement().offsetWidth,
+    getHeight: () => this._getHostElement().offsetHeight,
+    addClass: (className: string) => this._getHostElement().classList.add(className),
+    removeClass: (className: string) => this._getHostElement().classList.remove(className),
+    setOutlinePathAttr: (value: string) => this.svgpath.nativeElement.setAttribute('d', value),
     getIdleOutlineStyleValue: (propertyName: string) => {
       if (this.outlineIdle) {
         return window.getComputedStyle(this.outlineIdle.elementRef.nativeElement).getPropertyValue(propertyName);
@@ -68,7 +67,6 @@ export class MdcNotchedOutline implements OnInit, OnDestroy {
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    private _renderer: Renderer2,
     public elementRef: ElementRef) { }
 
   ngOnInit(): void {
@@ -94,7 +92,7 @@ export class MdcNotchedOutline implements OnInit, OnDestroy {
   }
 
   /** Retrieves the DOM element of the component host. */
-  private _getHostElement() {
+  private _getHostElement(): HTMLElement {
     return this.elementRef.nativeElement;
   }
 }

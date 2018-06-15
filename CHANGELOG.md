@@ -1,3 +1,22 @@
+<a name="0.36.2"></a>
+## [0.36.2](https://github.com/trimox/angular-mdc-web/compare/v0.36.1...v0.36.2) (2018-06-15)
+
+
+### Features
+
+* **text-field:** Improvements + refactoring ([#1051](https://github.com/trimox/angular-mdc-web/issues/1051)) ([585b697](https://github.com/trimox/angular-mdc-web/commit/585b697)), closes [#1040](https://github.com/trimox/angular-mdc-web/issues/1040)
+
+### Text Field improvements
+- Should allow changing variants (e.g.: `outline` to `box`).
+- Add `label[mdcFloatingLabel]` selector
+- Add `mdcLineRipple` selector
+- Rewrote `notched-outline` component
+- Should not set `type` on `mdc-textarea`
+- Should set `type` on `mdc-text-field`, if not set
+- Remove Renderer2 usage
+- Fixed quite a few issues for `mdc-text-field`
+
+
 <a name="0.36.0"></a>
 # [0.36.0](https://github.com/trimox/angular-mdc-web/compare/v0.35.7...v0.36.0) (2018-06-12)
 

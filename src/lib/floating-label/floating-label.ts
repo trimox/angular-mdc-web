@@ -6,8 +6,7 @@ import {
   HostBinding,
   OnDestroy,
   OnInit,
-  Renderer2,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { EventRegistry } from '@angular-mdc/web/common';
 
@@ -15,7 +14,7 @@ import { MDCFloatingLabelAdapter } from '@material/floating-label/adapter';
 import { MDCFloatingLabelFoundation } from '@material/floating-label';
 
 @Component({
-  selector: '[mdc-floating-label], mdc-floating-label',
+  selector: 'label[mdcFloatingLabel], mdc-floating-label',
   template: '<ng-content></ng-content>',
   exportAs: 'mdcFloatingLabel',
   providers: [EventRegistry],
@@ -26,8 +25,8 @@ export class MdcFloatingLabel implements OnInit, OnDestroy {
   @HostBinding('class.mdc-floating-label') isHostClass = true;
 
   private _mdcAdapter: MDCFloatingLabelAdapter = {
-    addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
-    removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
+    addClass: (className: string) => this._getHostElement().classList.add(className),
+    removeClass: (className: string) => this._getHostElement().classList.remove(className),
     getWidth: () => this._getHostElement().offsetWidth,
     registerInteractionHandler: (evtType: string, handler: EventListener) =>
       this._registry.listen(evtType, handler, this._getHostElement()),
@@ -43,7 +42,6 @@ export class MdcFloatingLabel implements OnInit, OnDestroy {
   } = new MDCFloatingLabelFoundation(this._mdcAdapter);
 
   constructor(
-    private _renderer: Renderer2,
     public elementRef: ElementRef,
     private _registry: EventRegistry) { }
 
@@ -52,10 +50,6 @@ export class MdcFloatingLabel implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.foundation.destroy();
-  }
-
-  destroy(): void {
     this.foundation.destroy();
   }
 
@@ -75,7 +69,7 @@ export class MdcFloatingLabel implements OnInit, OnDestroy {
   }
 
   /** Retrieves the DOM element of the component host. */
-  private _getHostElement() {
+  private _getHostElement(): HTMLElement {
     return this.elementRef.nativeElement;
   }
 }

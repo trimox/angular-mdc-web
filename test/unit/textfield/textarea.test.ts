@@ -42,6 +42,10 @@ describe('MdcTextarea', () => {
       expect(textFieldDebugElement.nativeElement.classList)
         .toContain('mdc-text-field--textarea', 'Expected to have mdc-text-field--textarea class');
     });
+
+    it('#should equal textarea', () => {
+      expect(textFieldInstance.isTextarea()).toBe(true);
+    });
   });
 });
 

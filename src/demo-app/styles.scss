@@ -89,8 +89,8 @@ body {
   padding: 15px;
   margin: 15px 15px 15px 0;
 
-  p {
-    @include mdc-typography(body1);
+  p:not(.mdc-text-field-helper-text) {
+    @include mdc-typography(body2);
   }
 
   &__headline {

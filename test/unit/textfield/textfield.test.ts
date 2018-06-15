@@ -1,6 +1,6 @@
 import { Component, DebugElement } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed } from '@angular/core/testing';
-import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
+import { async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed, tick } from '@angular/core/testing';
+import { FormControl, FormsModule, NgModel } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import {
@@ -14,10 +14,8 @@ describe('MdcTextField', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MdcTextFieldModule, MdcIconModule, FormsModule, ReactiveFormsModule],
-      declarations: [
-        SimpleTextfield,
-      ]
+      imports: [MdcTextFieldModule, MdcIconModule, FormsModule],
+      declarations: [SimpleTextfield]
     });
     TestBed.compileComponents();
   }));
@@ -27,12 +25,11 @@ describe('MdcTextField', () => {
     let textFieldNativeElement: HTMLElement;
     let textFieldInstance: MdcTextField;
     let testComponent: SimpleTextfield;
-    let inputElement: HTMLInputElement;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SimpleTextfield);
       fixture.detectChanges();
-
+      fixture.whenStable();
       textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextField));
       textFieldNativeElement = textFieldDebugElement.nativeElement;
       textFieldInstance = textFieldDebugElement.componentInstance;
@@ -61,9 +58,13 @@ describe('MdcTextField', () => {
     });
 
     it('#should apply class outline', () => {
-      testComponent.isOutline = true;
+      testComponent.box = true;
+      fixture.detectChanges();
+
+      testComponent.outline = true;
       fixture.detectChanges();
       expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--outlined')).toBe(true);
+      expect(textFieldInstance.box).toBe(false);
     });
 
     it('#should apply class box', () => {
@@ -73,7 +74,6 @@ describe('MdcTextField', () => {
     });
 
     it('#should not be disabled', () => {
-      fixture.detectChanges();
       expect(textFieldInstance.isDisabled()).toBe(false);
     });
 
@@ -83,10 +83,30 @@ describe('MdcTextField', () => {
       expect(textFieldInstance.isDisabled()).toBe(true);
     });
 
-    it('#should not be empty', () => {
+    it('#should have value of testing', fakeAsync(() => {
+      testComponent.myModel = 'testing';
       fixture.detectChanges();
+      tick();
+
+      expect(textFieldInstance.getValue()).toBe('testing');
+      tick();
+    }));
+
+    it('#should float label', fakeAsync(() => {
+      testComponent.myModel = 'testing';
+      fixture.detectChanges();
+      tick();
+      expect(textFieldInstance.shouldFloat()).toBe(true);
+    }));
+
+    it('#should not be empty', fakeAsync(() => {
+      textFieldInstance.setValue('newvalue');
+      fixture.detectChanges();
+      tick();
+
+      expect(textFieldInstance.getValue()).toBe('newvalue');
       expect(textFieldInstance.empty).toBe(false);
-    });
+    }));
 
     it('#should remove invalid styling', () => {
       textFieldInstance.setValid(false);
@@ -106,11 +126,11 @@ describe('MdcTextField', () => {
     });
 
     it('#should activate lineRipple', () => {
-      expect(textFieldInstance.lineRipple.activate());
+      expect(textFieldInstance._lineRipple.activate());
     });
 
     it('#should deactivate lineRipple', () => {
-      expect(textFieldInstance.lineRipple.deactivate());
+      expect(textFieldInstance._lineRipple.deactivate());
     });
 
     it('#should set helper content', () => {
@@ -154,29 +174,22 @@ describe('MdcTextField', () => {
     });
 
     it('#should set style shake to true', () => {
-      expect(textFieldInstance.floatingLabel.shake(true));
+      expect(textFieldInstance._floatingLabel.shake(true));
       fixture.detectChanges();
-    });
-
-    it('#should have value of Test', () => {
-      testComponent.username = 'Test';
-      fixture.detectChanges();
-      expect(textFieldInstance.getValue()).toBe('Test');
-      expect(textFieldInstance.shouldFloat()).toBe(true);
     });
 
     it('#should focus on underlying input element when focus() is called', () => {
-      expect(document.activeElement).not.toBe(inputElement);
+      expect(document.activeElement).not.toBe(textFieldInstance._input.nativeElement);
       textFieldInstance.focus();
       fixture.detectChanges();
 
-      expect(document.activeElement).toBe(textFieldInstance.inputText.nativeElement);
+      expect(document.activeElement).toBe(textFieldInstance._input.nativeElement);
     });
 
-    it('#should throw an error', () => {
-      expect(() => {
-        testComponent.myType = 'button'; fixture.detectChanges();
-      }).toThrowError('Input type "button" is not supported.');
+    it('change type', () => {
+      testComponent.myType = '';
+      fixture.detectChanges();
+      expect(textFieldInstance.type).toBe('text');
     });
 
     it('handles blur event', () => {
@@ -208,12 +221,12 @@ describe('MdcTextField', () => {
 @Component({
   template: `
     <mdc-text-field
-      value='Test'
+      [(ngModel)]="myModel"
       label="Username"
       [type]="myType"
       [tabIndex]="1"
       [dense]="isDense"
-      [outline]="isOutline"
+      [outline]="outline"
       [fullwidth]="isFullwidth"
       [box]="box"
       [required]="required"
@@ -224,20 +237,21 @@ describe('MdcTextField', () => {
       <mdc-icon leading>person</mdc-icon>
       <mdc-icon trailing>person</mdc-icon>
     </mdc-text-field>
-    <mdc-text-field-helper-text
+    <p mdcTextFieldHelperText
       #userHelper="mdcHelperText"
       [validation]="true"
-      [persistent]="false">Username is required</mdc-text-field-helper-text>
+      [persistent]="false">Username is required
+    </p>
   `,
 })
 class SimpleTextfield {
-  username: string = 'Test';
+  myModel: string = 'Test';
   myType: string = 'text';
   disabled: boolean = false;
   isDense: boolean = false;
   isFocused: boolean = false;
   isFullwidth: boolean = false;
-  isOutline: boolean = false;
+  outline: boolean = false;
   required: boolean = false;
   box: boolean = false;
 

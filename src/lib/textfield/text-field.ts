@@ -1,6 +1,5 @@
 import {
   AfterContentInit,
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -14,9 +13,8 @@ import {
   OnDestroy,
   Output,
   QueryList,
-  Renderer2,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { startWith, takeUntil } from 'rxjs/operators';
@@ -26,13 +24,12 @@ import {
   toBoolean,
   isBrowser,
   EventRegistry,
-  toNumber,
-  getSupportedInputTypes
+  toNumber
 } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcFloatingLabel } from '@angular-mdc/web/floating-label';
 import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
-import { MdcNotchedOutline, MdcNotchedOutlineIdle } from '@angular-mdc/web/notched-outline';
+import { MdcNotchedOutline } from '@angular-mdc/web/notched-outline';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
 import { MdcTextFieldHelperText } from './helper-text';
@@ -49,20 +46,6 @@ export const MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR: any = {
   multi: true
 };
 
-// Invalid input type. Using one of these will throw an error.
-const MDC_INPUT_INVALID_TYPES = [
-  'button',
-  'checkbox',
-  'color',
-  'file',
-  'hidden',
-  'image',
-  'radio',
-  'range',
-  'reset',
-  'submit'
-];
-
 let nextUniqueId = 0;
 
 @Component({
@@ -73,19 +56,19 @@ let nextUniqueId = 0;
   <ng-content select="mdc-icon[leading]"></ng-content>
   <input #input class="mdc-text-field__input"
     [id]="id"
+    [type]="type"
     [tabindex]="tabIndex"
     [disabled]="disabled"
-    [placeholder]="placeholder"
+    [attr.placeholder]="placeholder"
     [attr.maxlength]="maxlength"
     [required]="required"
     (focus)="onFocus()"
     (blur)="onBlur()"
     (input)="onInput($event.target.value)" />
     <ng-content></ng-content>
-    <mdc-floating-label [attr.for]="id" *ngIf="!placeholder">{{label}}</mdc-floating-label>
+    <label mdcFloatingLabel [attr.for]="id" *ngIf="!placeholder">{{label}}</label>
     <mdc-line-ripple *ngIf="!outline"></mdc-line-ripple>
     <mdc-notched-outline *ngIf="outline"></mdc-notched-outline>
-    <mdc-notched-outline-idle *ngIf="outline"></mdc-notched-outline-idle>
   `,
   providers: [
     MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR,
@@ -95,7 +78,7 @@ let nextUniqueId = 0;
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy, ControlValueAccessor {
+export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAccessor {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
@@ -105,19 +88,9 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
 
   @Input() label: string;
   @Input() maxlength: number;
-  @Input() placeholder: string = '';
+  @Input() placeholder: string;
   @Input() tabIndex: number = 0;
   @Input() direction: 'ltr' | 'rtl' = 'ltr';
-  @Output() iconAction = new EventEmitter<boolean>();
-  @Output() change = new EventEmitter<string>();
-  @Output() blur = new EventEmitter<string>();
-  @HostBinding('class.mdc-text-field') isHostClass = true;
-  @ViewChild('input') inputText: ElementRef;
-  @ViewChild(MdcFloatingLabel) floatingLabel: MdcFloatingLabel;
-  @ViewChild(MdcLineRipple) lineRipple: MdcLineRipple;
-  @ContentChildren(MdcIcon) icons: QueryList<MdcIcon>;
-  @ViewChild(MdcNotchedOutline) outlined: MdcNotchedOutline;
-  @ViewChild(MdcNotchedOutlineIdle) outlineIdle: MdcNotchedOutlineIdle;
 
   @Input()
   get id(): string { return this._id; }
@@ -129,14 +102,6 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
   get type(): string { return this._type; }
   set type(value: string) {
     this._type = value || 'text';
-    this._validateType();
-
-    // When using Angular inputs, developers are no longer able to set the properties on the native
-    // input element. To ensure that bindings for `type` work, we need to sync the setter
-    // with the native property. Textarea elements don't support the type property or attribute.
-    if (!this.isTextarea() && getSupportedInputTypes().has(this._type)) {
-      this.inputText.nativeElement.type = this._type;
-    }
   }
   protected _type = 'text';
 
@@ -199,20 +164,28 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
   /** The input element's value. */
   @Input()
   get value(): any { return this._value; }
-  set value(value: any) {
-    this.setValue(value);
+  set value(newValue: any) {
+    if (this._value !== newValue) {
+      this.setValue(newValue);
+    }
   }
   protected _value: string;
 
   get valid(): boolean {
-    return this._useCustomValidity ? this._foundation.isValid() : this.inputText.nativeElement.validity.valid;
+    return this._useCustomValidity ? this._foundation.isValid() :
+      (this._getInputElement() as HTMLInputElement).validity.valid;
   }
 
   /** Whether the control is empty. */
   get empty(): boolean {
-    return !this.inputText.nativeElement.value && !this.isBadInput();
+    return !this._getInputElement().value && !this.isBadInput();
   }
 
+  @Output() iconAction = new EventEmitter<boolean>();
+  @Output() change = new EventEmitter<string>();
+  @Output() blur = new EventEmitter<string>();
+
+  @HostBinding('class.mdc-text-field') isHostClass = true;
   @HostBinding('class.mdc-text-field--box') get classBox(): string {
     return this.box ? 'mdc-text-field--box' : '';
   }
@@ -229,69 +202,75 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
     return this.outline ? 'mdc-text-field--outlined' : '';
   }
 
+  @ViewChild('input') _input: ElementRef;
+  @ViewChild(MdcFloatingLabel) _floatingLabel: MdcFloatingLabel;
+  @ViewChild(MdcLineRipple) _lineRipple: MdcLineRipple;
+  @ViewChild(MdcNotchedOutline) _notchedOutline: MdcNotchedOutline;
+  @ContentChildren(MdcIcon) _icons: QueryList<MdcIcon>;
+
   private _mdcAdapter: MDCTextFieldAdapter = {
-    addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
-    removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
+    addClass: (className: string) => this._getHostElement().classList.add(className),
+    removeClass: (className: string) => this._getHostElement().classList.remove(className),
     hasClass: (className: string) => this._getHostElement().classList.contains(className),
     registerTextFieldInteractionHandler: (evtType: string, handler: EventListener) =>
-      this._registry.listen(evtType, handler, this._getHostElement()),
+      this._registry.listen(evtType, handler, this._getInputElement()),
     deregisterTextFieldInteractionHandler: (evtType: string, handler: EventListener) =>
       this._registry.unlisten(evtType, handler),
     registerInputInteractionHandler: (evtType: string, handler: EventListener) =>
-      this._registry.listen(evtType, handler, this.inputText.nativeElement),
+      this._registry.listen(evtType, handler, this._getInputElement()),
     deregisterInputInteractionHandler: (evtType: string, handler: EventListener) => this._registry.unlisten(evtType, handler),
     isFocused: () => this._focused,
     isRtl: () => this.direction === 'rtl',
     activateLineRipple: () => {
-      if (this.lineRipple) {
-        this.lineRipple.activate();
+      if (this._lineRipple) {
+        this._lineRipple.activate();
       }
     },
     deactivateLineRipple: () => {
-      if (this.lineRipple) {
-        this.lineRipple.deactivate();
+      if (this._lineRipple) {
+        this._lineRipple.deactivate();
       }
     },
     setLineRippleTransformOrigin: (normalizedX: number) => {
-      if (this.lineRipple) {
-        this.lineRipple.setRippleCenter(normalizedX);
+      if (this._lineRipple) {
+        this._lineRipple.setRippleCenter(normalizedX);
       }
     },
-    shakeLabel: (shouldShake: boolean) => this.floatingLabel.shake(shouldShake),
-    floatLabel: (shouldFloat: boolean) => this.floatingLabel.float(shouldFloat),
-    hasLabel: () => !!this.floatingLabel,
-    getLabelWidth: () => this.floatingLabel.getWidth(),
-    hasOutline: () => this.outline,
-    notchOutline: (notchWidth: number, isRtl: boolean) => this.outlined.notch(notchWidth, isRtl),
-    closeOutline: () => this.outlined.closeNotch(),
+    shakeLabel: (shouldShake: boolean) => this._floatingLabel.shake(shouldShake),
+    floatLabel: (shouldFloat: boolean) => this._floatingLabel.float(shouldFloat),
+    hasLabel: () => !!this._floatingLabel,
+    getLabelWidth: () => this._floatingLabel.getWidth(),
+    hasOutline: () => !!this._notchedOutline,
+    notchOutline: (labelWidth: number, isRtl: boolean) => this._notchedOutline.notch(labelWidth, isRtl),
+    closeOutline: () => this._notchedOutline.closeNotch(),
     registerValidationAttributeChangeHandler: (handler: (whitelist: Array<string>) => void) => {
       const getAttributesList = (mutationsList) => mutationsList.map((mutation) => mutation.attributeName);
       const observer = new MutationObserver((mutationsList) => handler(getAttributesList(mutationsList)));
-      return observer.observe(this.inputText.nativeElement, { attributes: true });
+      return observer.observe(this._getInputElement(), { attributes: true });
     },
     deregisterValidationAttributeChangeHandler: (observer: MutationObserver) => {
       if (observer) {
         observer.disconnect();
       }
     },
-    getNativeInput: () => this.inputText.nativeElement
+    getNativeInput: () => this._getInputElement()
   };
 
   /** Returns a map of all subcomponents to subfoundations. */
   private _getFoundationMap() {
     return {
       helperText: this._helperText ? this.helperText.foundation : undefined,
-      icon: this._hasIcons() ? this.icons.first.foundation : undefined
+      icon: this._hasIcons() ? this._icons.first.foundation : undefined
     };
   }
 
   private _mdcIconAdapter: MDCTextFieldIconAdapter = {
-    getAttr: (attr: string) => this.icons.first.elementRef.nativeElement.getAttribute(attr),
-    setAttr: (attr: string, value: string) => this.icons.first.elementRef.nativeElement.setAttribute(attr, value),
-    removeAttr: (attr: string) => this.icons.first.elementRef.nativeElement.removeAttribute(attr),
-    setContent: (content: string) => this.icons.first.elementRef.nativeElement.textContent = content,
+    getAttr: (attr: string) => this._icons.first.elementRef.nativeElement.getAttribute(attr),
+    setAttr: (attr: string, value: string) => this._icons.first.elementRef.nativeElement.setAttribute(attr, value),
+    removeAttr: (attr: string) => this._icons.first.elementRef.nativeElement.removeAttribute(attr),
+    setContent: (content: string) => this._icons.first.elementRef.nativeElement.textContent = content,
     registerInteractionHandler: (evtType: string, handler: EventListener) =>
-      this._registry.listen(evtType, handler, this.icons.first.elementRef.nativeElement),
+      this._registry.listen(evtType, handler, this._icons.first.elementRef.nativeElement),
     deregisterInteractionHandler: (evtType: string, handler: EventListener) => this._registry.unlisten(evtType, handler),
     notifyIconAction: () => this.iconAction.emit(true)
   };
@@ -332,7 +311,6 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
 
   constructor(
     protected _changeDetectorRef: ChangeDetectorRef,
-    protected _renderer: Renderer2,
     public elementRef: ElementRef,
     protected _ripple: MdcRipple,
     protected _registry: EventRegistry) {
@@ -341,21 +319,14 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
     this.id = this.id;
   }
 
-  ngAfterViewInit(): void {
-    if (this.outline && this.outlined) {
-      this.outlined.outlineIdle = this.outlineIdle;
-      this._foundation.notchOutline(this.shouldFloat());
-    }
-  }
-
   ngAfterContentInit(): void {
     this._foundation = new MDCTextFieldFoundation(this._mdcAdapter, this._getFoundationMap());
     this._foundation.init();
 
-    this.icons.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
+    this._icons.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
       Promise.resolve().then(() => {
-        this.icons.forEach(icon => {
-          this._renderer.addClass(icon.elementRef.nativeElement, 'mdc-text-field__icon');
+        this._icons.forEach(icon => {
+          icon.elementRef.nativeElement.classList.add('mdc-text-field__icon');
           if (icon.isLeading() || icon.isTrailing()) {
             this._iconFoundation = new MDCTextFieldIconFoundation(this._mdcIconAdapter);
             icon.foundation = this._iconFoundation;
@@ -363,29 +334,26 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
         });
 
         this.updateIconState();
-        this.writeValue(this._value);
-        this._changeDetectorRef.detectChanges();
       });
     });
   }
 
   ngOnDestroy(): void {
     if (this._hasIcons()) {
-      this.icons.forEach(icon => {
+      this._icons.forEach(icon => {
         icon.foundation.destroy();
       });
     }
+
+    this._destroy.next();
+    this._destroy.complete();
+
     this._ripple.destroy();
     this._foundation.destroy();
   }
 
   writeValue(value: any): void {
     this.setValue(value == null ? '' : value, false);
-    this._changeDetectorRef.markForCheck();
-  }
-
-  shouldFloat(): boolean {
-    return this._foundation.shouldFloat;
   }
 
   registerOnChange(fn: (value: any) => any): void {
@@ -412,19 +380,43 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
     this._changeDetectorRef.markForCheck();
   }
 
+  setValue(value: any, isUserInput: boolean = true): void {
+    this._value = this.type === 'number' ?
+      (value === '' ? null : toNumber(value)) : value;
+
+    setTimeout(() => {
+      this._foundation.setValue(this._value);
+
+      if (isUserInput) {
+        this._onChange(this._value);
+      }
+
+      if (this.required && !this._value) {
+        this.setRequired(false);
+        setTimeout(() => this.setRequired(true));
+      }
+    }, 0);
+
+    this._changeDetectorRef.markForCheck();
+  }
+
+  shouldFloat(): boolean {
+    return this._foundation.shouldFloat;
+  }
+
   isDisabled(): boolean {
     return this._foundation.isDisabled();
   }
 
   isBadInput(): boolean {
-    const validity = this.inputText.nativeElement.validity;
+    const validity = this._getInputElement().validity;
     return validity && validity.badInput;
   }
 
   focus(): void {
     if (!this.disabled) {
       this._focused = true;
-      this.inputText.nativeElement.focus();
+      this._getInputElement().focus();
     }
   }
 
@@ -433,33 +425,14 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
     this._foundation.setValid(isValid);
   }
 
+  /** Determines if the component host is a textarea. */
   isTextarea(): boolean {
-    const nativeElement = this._getHostElement();
-    const nodeName = isBrowser ? nativeElement.nodeName : nativeElement.name;
-
-    return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
+    return this._getHostElement().nodeName.toLowerCase() === 'mdc-textarea';
   }
 
   /** Sets the text-field required or not. */
   setRequired(required: boolean): void {
     this._required = required;
-    this._changeDetectorRef.markForCheck();
-  }
-
-  setValue(value: any, isUserInput: boolean = true): void {
-    this._value = (this.type === 'number') ?
-      (value === '' ? null : toNumber(value)) : value;
-
-    this._foundation.setValue(this.value);
-    if (isUserInput) {
-      this._onChange(this.value);
-    }
-
-    if (this.required && !this.value) {
-      this.setRequired(false);
-      setTimeout(() => this.setRequired(true));
-    }
-
     this._changeDetectorRef.markForCheck();
   }
 
@@ -469,18 +442,18 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
     if (this._outline && this._box) {
       this._outline = false;
     }
-    this._box ? this._ripple.attachTo(this._getHostElement(), false,
-      this.inputText.nativeElement) : this._ripple.destroy();
+    this._box ? this._ripple.attachTo(this._getHostElement(), false, this._getInputElement()) :
+      this._ripple.destroy();
 
     this._changeDetectorRef.markForCheck();
   }
 
   /** Styles the text field as an outlined text field. */
   setOutline(outline: boolean): void {
-    this._outline = toBoolean(outline);
-    if (this._outline && this._box) {
+    if (outline && this._box) {
       this._box = false;
     }
+    this._outline = toBoolean(outline);
 
     this._changeDetectorRef.markForCheck();
   }
@@ -513,7 +486,7 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
   }
 
   selectAll(): void {
-    this.inputText.nativeElement.select();
+    (this._getInputElement() as HTMLInputElement).select();
   }
 
   /** The value of the input Element. */
@@ -545,36 +518,33 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
   }
 
   updateIconState(): void {
-    if (this.icons.find(_ => _.isLeading())) {
-      this._renderer.addClass(this._getHostElement(), 'mdc-text-field--with-leading-icon');
-    } else if (this.icons.find(_ => _.isTrailing())) {
-      this._renderer.addClass(this._getHostElement(), 'mdc-text-field--with-trailing-icon');
+    if (this.getLeadingIcon()) {
+      this._getHostElement().classList.add('mdc-text-field--with-leading-icon');
+    } else if (this.getTrailingIcon()) {
+      this._getHostElement().classList.add('mdc-text-field--with-trailing-icon');
     }
   }
 
   getLeadingIcon(): MdcIcon | undefined {
-    return this.icons.find((_: MdcIcon) => _.isLeading());
+    return this._icons.find((_: MdcIcon) => _.isLeading());
   }
 
   getTrailingIcon(): MdcIcon | undefined {
-    return this.icons.find((_: MdcIcon) => _.isTrailing());
-  }
-
-  private _hasIcons(): boolean {
-    return this.icons && this.icons.length > 0;
+    return this._icons.find((_: MdcIcon) => _.isTrailing());
   }
 
   // Implemented as part of ControlValueAccessor.
   setDisabledState(isDisabled: boolean) {
     this._disabled = isDisabled;
-    this._foundation.setDisabled(isDisabled);
+
+    setTimeout(() => this._foundation.setDisabled(isDisabled));
 
     if (this.focused) {
       this.focused = false;
     }
     if (this._hasIcons()) {
       // Reset the clickable state of mdc-icon
-      this.icons.first.clickable = this.icons.first.clickable;
+      this._icons.first.clickable = this._icons.first.clickable;
     }
 
     this._changeDetectorRef.markForCheck();
@@ -584,15 +554,16 @@ export class MdcTextField implements AfterViewInit, AfterContentInit, OnDestroy,
     return this._getHostElement().classList.contains(className);
   }
 
-  /** Retrieves the DOM element of the component host. */
-  private _getHostElement() {
-    return this.elementRef.nativeElement;
+  private _hasIcons(): boolean {
+    return this._icons && this._icons.length > 0;
   }
 
-  /** Make sure the input is a supported type. */
-  protected _validateType() {
-    if (MDC_INPUT_INVALID_TYPES.indexOf(this._type) > -1) {
-      throw Error(`Input type "${this._type}" is not supported.`);
-    }
+  private _getInputElement() {
+    return this._input.nativeElement;
+  }
+
+  /** Retrieves the DOM element of the component host. */
+  private _getHostElement(): HTMLElement {
+    return this.elementRef.nativeElement;
   }
 }

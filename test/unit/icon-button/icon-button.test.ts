@@ -52,18 +52,6 @@ describe('MdcIconButton', () => {
       expect(buttonNativeElement.classList.contains('ng-mdc-icon-button--secondary')).toBe(true);
     });
 
-    // it('#should apply fa class', () => {
-    //   buttonInstance.setIconClass('fa');
-    //   fixture.detectChanges();
-    //   expect(buttonInstance.icon.elementRef.nativeElement.classList.contains('fa')).toBe(true);
-    // });
-
-    // it('#should apply material-icons class', () => {
-    //   buttonInstance.setIconClass('');
-    //   fixture.detectChanges();
-    //   expect(buttonInstance.icon.elementRef.nativeElement.classList.contains('material-icons')).toBe(true);
-    // });
-
     it('#should set disabled to true', () => {
       testComponent.disabled = true;
       fixture.detectChanges();

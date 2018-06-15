@@ -58,7 +58,7 @@ let nextUniqueId = 0;
    (focus)="onFocus()">
     <ng-content #options></ng-content>
   </select>
-  <mdc-floating-label [attr.for]="id">{{hasFloatingLabel() ? placeholder : ''}}</mdc-floating-label>
+  <label mdcFloatingLabel [attr.for]="id">{{hasFloatingLabel() ? placeholder : ''}}</label>
   <mdc-line-ripple></mdc-line-ripple>
   `,
   providers: [

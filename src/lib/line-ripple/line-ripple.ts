@@ -3,8 +3,7 @@ import {
   ElementRef,
   HostBinding,
   OnDestroy,
-  OnInit,
-  Renderer2
+  OnInit
 } from '@angular/core';
 import { EventRegistry } from '@angular-mdc/web/common';
 
@@ -12,22 +11,20 @@ import { MDCLineRippleAdapter } from '@material/line-ripple/adapter';
 import { MDCLineRippleFoundation } from '@material/line-ripple';
 
 @Directive({
-  selector: '[mdc-line-ripple], mdc-line-ripple',
-  providers: [
-    EventRegistry,
-  ],
+  selector: '[mdcLineRipple], mdc-line-ripple',
+  providers: [EventRegistry]
 })
 export class MdcLineRipple implements OnInit, OnDestroy {
   @HostBinding('class.mdc-line-ripple') isHostClass = true;
 
   private _mdcAdapter: MDCLineRippleAdapter = {
-    addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
-    removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
+    addClass: (className: string) => this._getHostElement().classList.add(className),
+    removeClass: (className: string) => this._getHostElement().classList.remove(className),
     hasClass: (className: string) => this._getHostElement().classList.contains(className),
-    setStyle: (propertyName: string, value: string) => this._renderer.setAttribute(this._getHostElement(), propertyName, value),
+    setStyle: (propertyName: string, value: string) => this._getHostElement().style.setProperty(propertyName, value),
     registerEventHandler: (evtType: string, handler: EventListener) =>
       this._registry.listen(evtType, handler, this._getHostElement()),
-    deregisterEventHandler: (evtType: string, handler: EventListener) => this._registry.unlisten(evtType, handler),
+    deregisterEventHandler: (evtType: string, handler: EventListener) => this._registry.unlisten(evtType, handler)
   };
 
   foundation: {
@@ -35,11 +32,10 @@ export class MdcLineRipple implements OnInit, OnDestroy {
     destroy(): void,
     activate(): void,
     deactivate(): void,
-    setRippleCenter(xCoordinate: number): void,
+    setRippleCenter(xCoordinate: number): void
   } = new MDCLineRippleFoundation(this._mdcAdapter);
 
   constructor(
-    private _renderer: Renderer2,
     public elementRef: ElementRef,
     private _registry: EventRegistry) { }
 
@@ -48,10 +44,6 @@ export class MdcLineRipple implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.foundation.destroy();
-  }
-
-  destroy(): void {
     this.foundation.destroy();
   }
 
@@ -74,7 +66,7 @@ export class MdcLineRipple implements OnInit, OnDestroy {
   }
 
   /** Retrieves the DOM element of the component host. */
-  private _getHostElement() {
+  private _getHostElement(): HTMLElement {
     return this.elementRef.nativeElement;
   }
 }

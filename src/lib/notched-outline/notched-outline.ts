@@ -1,10 +1,7 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
-  Directive,
   ElementRef,
-  HostBinding,
   OnDestroy,
   OnInit,
   ViewChild,
@@ -13,49 +10,34 @@ import {
 import { MDCNotchedOutlineAdapter } from '@material/notched-outline/adapter';
 import { MDCNotchedOutlineFoundation } from '@material/notched-outline';
 
-@Directive({
-  selector: 'mdc-notched-outline-idle',
-})
-export class MdcNotchedOutlineIdle {
-  @HostBinding('class.mdc-notched-outline__idle') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
 @Component({
   moduleId: module.id,
-  selector: '[mdc-notched-outline], mdc-notched-outline',
+  selector: '[mdcNotchedOutline], mdc-notched-outline',
   exportAs: 'mdcNotchedOutline',
   template: `
-  <svg>
-    <path #svgpath class="mdc-notched-outline__path"/>
-  </svg>
+  <div #notchOutline class="mdc-notched-outline">
+    <svg>
+      <path #svgpath class="mdc-notched-outline__path"/>
+    </svg>
+  </div>
+  <div #notchIdle class="mdc-notched-outline__idle"></div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 export class MdcNotchedOutline implements OnInit, OnDestroy {
-  get outlineIdle(): MdcNotchedOutlineIdle { return this._outlineIdle; }
-  set outlineIdle(outlineIdle: MdcNotchedOutlineIdle) {
-    this._outlineIdle = outlineIdle;
-    this._changeDetectorRef.markForCheck();
-  }
-  private _outlineIdle: MdcNotchedOutlineIdle;
-
-  @HostBinding('class.mdc-notched-outline') isHostClass = true;
-  @ViewChild('svgpath') svgpath: ElementRef;
+  @ViewChild('notchOutline') _notchOutline: ElementRef;
+  @ViewChild('svgpath') _svgpath: ElementRef;
+  @ViewChild('notchIdle') _notchIdle: ElementRef;
 
   private _mdcAdapter: MDCNotchedOutlineAdapter = {
-    getWidth: () => this._getHostElement().offsetWidth,
-    getHeight: () => this._getHostElement().offsetHeight,
-    addClass: (className: string) => this._getHostElement().classList.add(className),
-    removeClass: (className: string) => this._getHostElement().classList.remove(className),
-    setOutlinePathAttr: (value: string) => this.svgpath.nativeElement.setAttribute('d', value),
-    getIdleOutlineStyleValue: (propertyName: string) => {
-      if (this.outlineIdle) {
-        return window.getComputedStyle(this.outlineIdle.elementRef.nativeElement).getPropertyValue(propertyName);
-      }
-    }
+    getWidth: () => this._notchOutline.nativeElement.offsetWidth,
+    getHeight: () => this._notchOutline.nativeElement.offsetHeight,
+    addClass: (className: string) => this._notchOutline.nativeElement.classList.add(className),
+    removeClass: (className: string) => this._notchOutline.nativeElement.classList.remove(className),
+    setOutlinePathAttr: (value: string) => this._svgpath.nativeElement.setAttribute('d', value),
+    getIdleOutlineStyleValue: (propertyName: string) =>
+      window.getComputedStyle(this._notchIdle.nativeElement).getPropertyValue(propertyName)
   };
 
   _foundation: {
@@ -65,9 +47,7 @@ export class MdcNotchedOutline implements OnInit, OnDestroy {
     closeNotch(): void
   } = new MDCNotchedOutlineFoundation(this._mdcAdapter);
 
-  constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
-    public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef) { }
 
   ngOnInit(): void {
     this._foundation.init();
@@ -89,10 +69,5 @@ export class MdcNotchedOutline implements OnInit, OnDestroy {
    */
   closeNotch() {
     this._foundation.closeNotch();
-  }
-
-  /** Retrieves the DOM element of the component host. */
-  private _getHostElement(): HTMLElement {
-    return this.elementRef.nativeElement;
   }
 }

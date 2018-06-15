@@ -1,5 +1,5 @@
 import { Component, ViewChild, Renderer2 } from '@angular/core';
-import { FormControl, ReactiveFormsModule, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 
 import { MdcTextField, MdcIcon } from '@angular-mdc/web';
 
@@ -40,8 +40,8 @@ export class TextFieldDemo {
     console.log(f.value);
   }
 
-  resetUserModel() {
-    this.username = '';
+  resetTextFieldValue(input: MdcTextField) {
+    input.setValue(null);
   }
 
   resetWeightModel(f: NgForm) {

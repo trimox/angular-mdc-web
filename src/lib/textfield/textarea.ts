@@ -3,8 +3,7 @@ import {
   Component,
   forwardRef,
   HostBinding,
-  Input,
-  Renderer2,
+  Input
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -24,7 +23,6 @@ export const MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
   exportAs: 'mdcTextarea',
   template: `
   <textarea #input class="mdc-text-field__input"
-    type="text"
     [id]="id"
     [rows]="rows"
     [cols]="cols"
@@ -34,7 +32,7 @@ export const MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
     [required]="required"
     (blur)="onBlur()"
     (input)="onInput($event.target.value)"></textarea>
-    <mdc-floating-label [attr.for]="id">{{label}}</mdc-floating-label>
+    <label mdcFloatingLabel [attr.for]="id">{{label}}</label>
   `,
   providers: [
     MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR,

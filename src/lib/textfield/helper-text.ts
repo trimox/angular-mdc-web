@@ -4,20 +4,32 @@ import {
   HostBinding,
   Input,
   OnDestroy,
-  OnInit,
-  Renderer2,
+  OnInit
 } from '@angular/core';
 import { MDCTextFieldHelperTextAdapter } from '@material/textfield/helper-text/adapter';
 import { MDCTextFieldHelperTextFoundation } from '@material/textfield/helper-text';
 
 @Directive({
-  selector: '[mdc-text-field-helper-text], mdc-text-field-helper-text, [mdcTextFieldHelperText]',
+  selector: '[mdcTextFieldHelperText], mdc-text-field-helper-text',
   exportAs: 'mdcHelperText'
 })
 export class MdcTextFieldHelperText implements OnInit, OnDestroy {
   @Input() id: string;
-  @Input() persistent: boolean = false;
-  @Input() validation: boolean = false;
+
+  @Input()
+  get persistent(): boolean { return this._persistent; }
+  set persistent(value: boolean) {
+    this.setPersistent(value);
+  }
+  private _persistent: boolean;
+
+  @Input()
+  get validation(): boolean { return this._validation; }
+  set validation(value: boolean) {
+    this.setValidation(value);
+  }
+  private _validation: boolean;
+
   @HostBinding('class.mdc-text-field-helper-text') isHostClass = true;
   @HostBinding('attr.aria-hidden') ariaHidden: string = 'true';
   @HostBinding('class.mdc-text-field-helper-text--persistent') get classPersistent(): string {
@@ -28,12 +40,12 @@ export class MdcTextFieldHelperText implements OnInit, OnDestroy {
   }
 
   private _mdcAdapter: MDCTextFieldHelperTextAdapter = {
-    addClass: (className: string) => this._renderer.addClass(this.elementRef.nativeElement, className),
-    removeClass: (className: string) => this._renderer.removeClass(this.elementRef.nativeElement, className),
-    hasClass: (className: string) => this.elementRef.nativeElement.classList.contains(className),
-    setAttr: (attr: string, value: string) => this._renderer.setAttribute(this.elementRef.nativeElement, attr, value),
-    removeAttr: (attr: string) => this._renderer.removeAttribute(this.elementRef.nativeElement, attr),
-    setContent: (content: string) => this.elementRef.nativeElement.textContent = content,
+    addClass: (className: string) => this._getHostElement().classList.add(className),
+    removeClass: (className: string) => this._getHostElement().classList.remove(className),
+    hasClass: (className: string) => this._getHostElement().classList.contains(className),
+    setAttr: (attr: string, value: string) => this._getHostElement().setAttribute(attr, value),
+    removeAttr: (attr: string) => this._getHostElement().removeAttribute(attr),
+    setContent: (content: string) => this._getHostElement().textContent = content
   };
 
   foundation: {
@@ -46,19 +58,13 @@ export class MdcTextFieldHelperText implements OnInit, OnDestroy {
     setValidation(isValidation: boolean): void
   } = new MDCTextFieldHelperTextFoundation(this._mdcAdapter);
 
-  constructor(
-    private _renderer: Renderer2,
-    public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef) { }
 
   ngOnInit(): void {
     this.foundation.init();
   }
 
   ngOnDestroy(): void {
-    this.destroy();
-  }
-
-  destroy(): void {
     this.foundation.destroy();
   }
 
@@ -78,14 +84,19 @@ export class MdcTextFieldHelperText implements OnInit, OnDestroy {
   }
 
   /** Sets the persistency of the helper text. */
-  setPersistent(isPersistent: boolean): void {
-    this.persistent = isPersistent;
-    this.foundation.setPersistent(isPersistent);
+  setPersistent(persistent: boolean): void {
+    this._persistent = persistent;
+    this.foundation.setPersistent(persistent);
   }
 
   /** True to make the helper text act as an error validation message. */
-  setValidation(isValidation: boolean): void {
-    this.validation = isValidation;
-    this.foundation.setValidation(isValidation);
+  setValidation(validation: boolean): void {
+    this._validation = validation;
+    this.foundation.setValidation(validation);
+  }
+
+  /** Retrieves the DOM element of the component host. */
+  private _getHostElement(): HTMLElement {
+    return this.elementRef.nativeElement;
   }
 }

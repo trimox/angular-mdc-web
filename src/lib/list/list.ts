@@ -15,7 +15,7 @@ import {
   QueryList,
   Renderer2,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { defer, merge, Observable, Subject } from 'rxjs';
 import { filter, startWith, switchMap, take, takeUntil } from 'rxjs/operators';
@@ -34,7 +34,7 @@ export class MdcListItemChange {
 }
 
 @Directive({
-  selector: '[mdc-list-group], mdc-list-group',
+  selector: '[mdcListGroup], [mdc-list-group], mdc-list-group',
   exportAs: 'mdcListGroup',
 })
 export class MdcListGroup {

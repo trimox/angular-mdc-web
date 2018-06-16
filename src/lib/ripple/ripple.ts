@@ -47,7 +47,7 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this._disabled = toBoolean(value);
-    this.ripple.setDisabled(value);
+    this._disabled ? this.ripple.destroy() : this.ripple.init();
   }
   private _disabled: boolean;
 

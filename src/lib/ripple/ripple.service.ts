@@ -1,7 +1,6 @@
 import {
   ElementRef,
-  Renderer2,
-  Injectable,
+  Injectable
 } from '@angular/core';
 import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
 
@@ -13,20 +12,19 @@ export class MdcRipple {
   private _root: any;
   private _interactionElement: HTMLElement;
   private _unbounded: boolean = false;
-  private _disabled: boolean = false;
   private _surfaceActive: boolean = false;
 
   private _mdcAdapter: MDCRippleAdapter = {
     browserSupportsCssVars: () => (typeof window !== 'undefined') ? util.supportsCssVariables(window) : false,
     isUnbounded: () => this._unbounded,
     isSurfaceActive: () => this.isSurfaceActive(),
-    isSurfaceDisabled: () => this._disabled || this.isSurfaceDisabled(),
-    addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
-    removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
-    containsEventTarget: (target: EventTarget) => this._getHostElement().contains(target),
+    isSurfaceDisabled: () => this.isSurfaceDisabled(),
+    addClass: (className: string) => this._root.classList.add(className),
+    removeClass: (className: string) => this._root.classList.remove(className),
+    containsEventTarget: (target: EventTarget) => this._root.contains(target),
     registerInteractionHandler: (evtType: string, handler: EventListener) =>
       this._registry.listen(evtType, handler,
-        this._interactionElement ? this._interactionElement : this._getHostElement(), util.applyPassive()),
+        this._interactionElement ? this._interactionElement : this._root, util.applyPassive()),
     deregisterInteractionHandler: (evtType: string, handler: EventListener) =>
       this._registry.unlisten(evtType, handler),
     registerDocumentInteractionHandler: (evtType: string, handler: EventListener) =>
@@ -39,9 +37,8 @@ export class MdcRipple {
       }
     },
     deregisterResizeHandler: (handler: EventListener) => this._registry.unlisten('resize', handler),
-    updateCssVariable: (varName: string, value: string) =>
-      this._renderer.setStyle(this._getHostElement(), varName, value, 2),
-    computeBoundingRect: () => this._getHostElement().getBoundingClientRect(),
+    updateCssVariable: (varName: string, value: string) => this._root.style.setProperty(varName, value),
+    computeBoundingRect: () => this._root.getBoundingClientRect(),
     getWindowPageOffset: () => {
       return {
         x: (typeof window !== 'undefined') ? window.pageXOffset : 0,
@@ -50,7 +47,7 @@ export class MdcRipple {
     }
   };
 
-  private _foundation: {
+  protected _foundation: {
     init(): void,
     destroy(): void,
     activate(event: any): void,
@@ -60,7 +57,6 @@ export class MdcRipple {
   };
 
   constructor(
-    protected _renderer: Renderer2,
     protected _registry: EventRegistry,
     protected elementRef: ElementRef) { }
 
@@ -72,16 +68,18 @@ export class MdcRipple {
 
     this._foundation = new MDCRippleFoundation(this._mdcAdapter);
     this.setUnbounded(unbounded);
-    this.init();
+    this._foundation.init();
   }
 
   init(): void {
+    this._foundation = new MDCRippleFoundation(this._mdcAdapter);
     this._foundation.init();
   }
 
   destroy(): void {
-    if (this.isAttached()) {
+    if (this._foundation) {
       this._foundation.destroy();
+      this._foundation = null;
     }
   }
 
@@ -98,33 +96,28 @@ export class MdcRipple {
     this._foundation.setUnbounded(value);
   }
 
-  setDisabled(value: boolean): void {
-    this._disabled = value;
-  }
-
   layout(): void {
     this._foundation.layout();
   }
 
+  /**
+   * @deprecated
+   * @deletion-target in-tracker
+   */
   setSurfaceActive(active: boolean): void {
     this._surfaceActive = active;
   }
 
   isSurfaceDisabled(): boolean {
     return this._interactionElement ? this._interactionElement.attributes.getNamedItem('disabled') ? true : false :
-      this._getHostElement().attributes.getNamedItem('disabled') ? true : false;
+      this._root.attributes.getNamedItem('disabled') ? true : false;
   }
 
   isSurfaceActive(): boolean {
-    return this._surfaceActive || this._getHostElement()[util.getMatchesProperty(HTMLElement.prototype)](':active');
+    return this._surfaceActive || this._root[util.getMatchesProperty(HTMLElement.prototype)](':active');
   }
 
   isAttached(): boolean {
-    return this._foundation ? true : false;
-  }
-
-  /** Retrieves the DOM element of the component host. */
-  private _getHostElement() {
-    return this._root;
+    return !!this._foundation;
   }
 }

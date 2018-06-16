@@ -153,9 +153,7 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
           this.selectedTabChange.emit(new MdcTabChangeEvent(this.getActiveTabIndex(), event.tab));
         });
     },
-    unbindOnMDCTabSelectedEvent: () => {
-      /* not needed */
-    },
+    unbindOnMDCTabSelectedEvent: () => {      /* not needed */ },
     registerResizeHandler: (handler: EventListener) => {
       if (isBrowser()) {
         this._registry.listen('resize', handler, window);
@@ -170,9 +168,7 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
     setStyleForIndicator: (propertyName: string, value: string) =>
       this._renderer.setStyle(this.indicator.elementRef.nativeElement, propertyName, value),
     getOffsetWidthForIndicator: () => this.indicator.elementRef.nativeElement.offsetWidth,
-    notifyChange: (evtData: { activeTabIndex: number }) => {
-      this.selectedTabChange.emit(new MdcTabChangeEvent(evtData.activeTabIndex, this.getActiveTab()));
-    },
+    notifyChange: (evtData: { activeTabIndex: number }) => { /* not needed */ },
     getNumberOfTabs: () => this.tabs.length,
     isTabActiveAtIndex: (index: number) => this.tabs.toArray()[index].isActive(),
     setTabActiveAtIndex: (index: number, isActive: boolean) => this.tabs.toArray()[index].setActive(isActive),

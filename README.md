@@ -7,7 +7,7 @@
 
 [Demo App](https://trimox.github.io/angular-mdc-web/) with API, documentation and examples
 
-Incorporating [Google Material Components](https://material.io/components/) for a faithful and accurate representation of Material Design as envisioned on the web platform by Google's Material Design team.
+Incorporating [Google Material Components](https://material.io/components/) for a faithful and accurate representation of Material Design as envisioned on the web platform.
 
 #### Quick Links
 *  [Changelog](https://github.com/trimox/angular-mdc-web/blob/master/CHANGELOG.md)

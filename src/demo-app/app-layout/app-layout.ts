@@ -27,7 +27,7 @@ export class AppLayout implements OnInit {
     { name: 'Snackbar', route: 'snackbar-demo', icon: 'info_outline' },
     { name: 'Shape', route: 'shape-demo', icon: 'transform' },
     { name: 'Tabs', route: 'tab-demo', icon: 'tab' },
-    { name: 'Toolbar', route: 'toolbar-demo', icon: 'remove' },
+    { name: 'Toolbar (deprecated)', route: 'toolbar-demo', icon: 'remove' },
     { name: 'Typography', route: 'typography-demo', 'icon': 'title' }
   ];
 

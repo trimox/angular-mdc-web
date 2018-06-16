@@ -308,7 +308,7 @@
       <button mdc-button (click)="demotabiconslabels.secondary = !demotabiconslabels.secondary">Secondary: {{demotabiconslabels.secondary ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demotabiconslabels.setDisableRipple(!demotabiconslabels.disableRipple)">Ripple Disabled: {{demotabiconslabels.disableRipple ? 'On' : 'Off'}}</button>
     </div>
-    <mdc-tab-bar #demotabiconslabels>
+    <mdc-tab-bar #demotabiconslabels (selectedTabChange)="onTabChange($event)">
       <mdc-tab *ngFor="let tab of demoTabs">
         <mdc-icon>{{tab.icon}}</mdc-icon>
         <mdc-tab-icon-text>{{tab.label}}</mdc-tab-icon-text>

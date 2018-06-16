@@ -11,13 +11,9 @@ import {
   Input,
   OnDestroy,
   Output,
-  Renderer2,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
-import {
-  toBoolean,
-  EventRegistry
-} from '@angular-mdc/web/common';
+import { EventRegistry } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
 /** Change event that is fired whenever the selected state of an option changes. */
@@ -93,7 +89,7 @@ export class MdcListItem implements OnDestroy {
   @HostBinding('class.mdc-list-item') isHostClass = true;
   @HostBinding('attr.role') role: string = 'listitem';
   @HostBinding('class.mdc-list-item--selected') get classSelected(): string {
-    return this.selected ? 'mdc-list-item--selected' : '';
+    return this.selected && this.ripple.isAttached() ? 'mdc-list-item--selected' : '';
   }
 
   @Output() readonly selectionChange: EventEmitter<MdcListSelectionChange>
@@ -122,14 +118,17 @@ export class MdcListItem implements OnDestroy {
   constructor(
     public ripple: MdcRipple,
     private _changeDetector: ChangeDetectorRef,
-    private _renderer: Renderer2,
     public elementRef: ElementRef) { }
 
   ngOnDestroy(): void {
     this.ripple.destroy();
   }
 
-  _getHostElement(): any {
+  setInteractive(interactive: boolean): void {
+    interactive ? this.ripple.attachTo(this._getHostElement()) : this.ripple.destroy();
+  }
+
+  private _getHostElement(): HTMLElement {
     return this.elementRef.nativeElement;
   }
 

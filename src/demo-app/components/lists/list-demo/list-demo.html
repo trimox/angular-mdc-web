@@ -16,7 +16,7 @@
 
     <h2>Design & API Documentation</h2>
     <div class="docs-api">
-      <h3>mdc-list-group</h3>
+      <h3>mdc-list-group, mdcListGroup</h3>
       <table>
         <tbody>
           <tr>
@@ -155,7 +155,7 @@
         </tbody>
       </table>
 
-      <h3>mdc-list-item-text</h3>
+      <h3>mdcListItemText, mdc-list-item-text</h3>
       <table>
         <tbody>
           <tr>
@@ -164,7 +164,7 @@
         </tbody>
       </table>
 
-      <h3>mdc-list-item-secondary</h3>
+      <h3>mdcListItemSecondary, mdc-list-item-secondary</h3>
       <table>
         <tbody>
           <tr>
@@ -252,7 +252,7 @@
       <button mdc-button (click)="startgraphic.border = !startgraphic.border">Border: {{startgraphic.border ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="startgraphic.dense = !startgraphic.dense">Dense: {{startgraphic.dense ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="startgraphic.multiple = !startgraphic.multiple">Multiple: {{startgraphic.multiple ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="startgraphic.interactive = !startgraphic.interactive">Interactive w/Ripple: {{startgraphic.interactive ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="startgraphic.interactive = !startgraphic.interactive">Interactive: {{startgraphic.interactive ? 'On' : 'Off'}}</button>
     </div>
     <mdc-list #startgraphic>
       <mdc-list-item>
@@ -271,7 +271,7 @@
     <div class="demo-content--row">
       <button mdc-button (click)="endmeta.border = !endmeta.border">Border: {{endmeta.border ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="endmeta.dense = !endmeta.dense">Dense: {{endmeta.dense ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="endmeta.interactive = !endmeta.interactive">Interactive w/Ripple: {{endmeta.interactive ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="endmeta.interactive = !endmeta.interactive">Interactive: {{endmeta.interactive ? 'On' : 'Off'}}</button>
     </div>
     <mdc-list #endmeta>
       <mdc-list-item>
@@ -294,7 +294,7 @@
       <button mdc-button (click)="startend.border = !startend.border">Border: {{startend.border ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="startend.dense = !startend.dense">Dense: {{startend.dense ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="startend.multiple = !startend.multiple">Multiple: {{startend.multiple ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="startend.interactive = !startend.interactive">Interactive w/Ripple: {{startend.interactive ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="startend.interactive = !startend.interactive">Interactive: {{startend.interactive ? 'On' : 'Off'}}</button>
     </div>
     <mdc-list #startend>
       <mdc-list-item>
@@ -317,7 +317,7 @@
       <button mdc-button (click)="checkboxes.border = !checkboxes.border">Border: {{checkboxes.border ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="checkboxes.dense = !checkboxes.dense">Dense: {{checkboxes.dense ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="checkboxes.multiple = !checkboxes.multiple">Multiple: {{checkboxes.multiple ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="checkboxes.interactive = !checkboxes.interactive">Interactive w/Ripple: {{checkboxes.interactive ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="checkboxes.interactive = !checkboxes.interactive">Interactive: {{checkboxes.interactive ? 'On' : 'Off'}}</button>
     </div>
     <mdc-list #checkboxes>
       <mdc-list-item (click)="checkbox1.toggle()">
@@ -334,12 +334,29 @@
       </mdc-list-item>
     </mdc-list>
   </div>
-  <div class="demo-content">
+<!--   <div class="demo-content">
+    <h3 class="demo-content__headline">Checkbox List (leading)</h3>
+    <mdc-list>
+      <mdc-list-item>
+        <mdc-checkbox mdcListItemGraphic></mdc-checkbox>
+        Single-line item
+      </mdc-list-item>
+      <mdc-list-item>
+        <mdc-checkbox mdcListItemGraphic></mdc-checkbox>
+        Single-line item
+      </mdc-list-item>
+      <mdc-list-item>
+        <mdc-checkbox mdcListItemGraphic></mdc-checkbox>
+        Single-line item
+      </mdc-list-item>
+    </mdc-list>
+  </div>
+ -->  <div class="demo-content">
     <h3 class="demo-content__headline">Avatars</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="avatar.border = !avatar.border">Border: {{avatar.border ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="avatar.dense = !avatar.dense">Dense: {{avatar.dense ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="avatar.interactive = !avatar.interactive">Interactive w/Ripple: {{avatar.interactive ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="avatar.interactive = !avatar.interactive">Interactive: {{avatar.interactive ? 'On' : 'Off'}}</button>
     </div>
     <mdc-list #avatar>
       <mdc-list-item>

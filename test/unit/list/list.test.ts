@@ -78,8 +78,8 @@ describe('MdcListModule', () => {
     });
 
     it('#should be selected', () => {
-      testComponent.listitem._getHostElement().click();
-      testComponent.listitem._getHostElement().click();
+      testComponent.listitem.elementRef.nativeElement.click();
+      testComponent.listitem.elementRef.nativeElement.click();
       fixture.detectChanges();
       expect(testComponent.listitem.selected).toBe(true);
     });

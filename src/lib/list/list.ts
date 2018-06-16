@@ -13,7 +13,6 @@ import {
   OnDestroy,
   Output,
   QueryList,
-  Renderer2,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
@@ -57,7 +56,7 @@ export class MdcListGroupSubheader {
   moduleId: module.id,
   selector: '[mdc-list-divider], mdc-list-divider',
   exportAs: 'mdcListDivider',
-  template: '<div #nativeEl class="mdc-list-divider" role="seperator"></div>',
+  template: '<div #divider class="mdc-list-divider" role="seperator"></div>',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -66,8 +65,8 @@ export class MdcListDivider {
   get inset(): boolean { return this._inset; }
   set inset(value: boolean) {
     this._inset = toBoolean(value);
-    this._inset ? this._renderer.addClass(this.nativeEl.nativeElement, 'mdc-list-divider--inset')
-      : this._renderer.removeClass(this.nativeEl.nativeElement, 'mdc-list-divider--inset');
+    this._inset ? this._divider.nativeElement.classList.add('mdc-list-divider--inset')
+      : this._divider.nativeElement.classList.remove('mdc-list-divider--inset');
   }
   private _inset: boolean = false;
 
@@ -75,14 +74,12 @@ export class MdcListDivider {
   get padded(): boolean { return this._padded; }
   set padded(value: boolean) {
     this._padded = toBoolean(value);
-    this._padded ? this._renderer.addClass(this.nativeEl.nativeElement, 'mdc-list-divider--padded')
-      : this._renderer.removeClass(this.nativeEl.nativeElement, 'mdc-list-divider--padded');
+    this._padded ? this._divider.nativeElement.classList.add('mdc-list-divider--padded')
+      : this._divider.nativeElement.classList.remove('mdc-list-divider--padded');
   }
   private _padded: boolean = false;
 
-  @ViewChild('nativeEl') nativeEl: ElementRef;
-
-  constructor(private _renderer: Renderer2) { }
+  @ViewChild('divider') _divider: ElementRef;
 }
 
 @Component({
@@ -207,11 +204,7 @@ export class MdcList implements AfterContentInit, OnDestroy {
     }
 
     this.options.forEach(option => {
-      if (value) {
-        option.ripple.attachTo(option._getHostElement());
-      } else {
-        option.ripple.destroy();
-      }
+      option.setInteractive(value);
     });
   }
 

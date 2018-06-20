@@ -1,3 +1,20 @@
+<a name="0.36.3"></a>
+## [0.36.3](https://github.com/trimox/angular-mdc-web/compare/v0.36.2...v0.36.3) (2018-06-20)
+
+
+### Bug Fixes
+
+* **list:** Should not have selected state if non-interactive ([#1054](https://github.com/trimox/angular-mdc-web/issues/1054)) ([7dfff6b](https://github.com/trimox/angular-mdc-web/commit/7dfff6b)), closes [#999](https://github.com/trimox/angular-mdc-web/issues/999)
+* **ripple:** Should detach on destroy ([#1052](https://github.com/trimox/angular-mdc-web/issues/1052)) ([d21294d](https://github.com/trimox/angular-mdc-web/commit/d21294d)), closes [#1014](https://github.com/trimox/angular-mdc-web/issues/1014)
+* **tabs:** Should emit one selectedTabChange event ([#1055](https://github.com/trimox/angular-mdc-web/issues/1055)) ([c8e73f3](https://github.com/trimox/angular-mdc-web/commit/c8e73f3)), closes [#1039](https://github.com/trimox/angular-mdc-web/issues/1039)
+
+
+### Features
+
+* **list:** Add [mdcListGroup] selector ([#1053](https://github.com/trimox/angular-mdc-web/issues/1053)) ([071941d](https://github.com/trimox/angular-mdc-web/commit/071941d))
+
+
+
 <a name="0.36.2"></a>
 ## [0.36.2](https://github.com/trimox/angular-mdc-web/compare/v0.36.1...v0.36.2) (2018-06-15)
 

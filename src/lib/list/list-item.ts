@@ -96,7 +96,7 @@ export class MdcListItem implements OnDestroy {
     = new EventEmitter<MdcListSelectionChange>();
   @ContentChild(MdcListItemGraphic) listItemStart: MdcListItemGraphic;
 
-  @HostListener('click', ['$event']) onclick() {
+  @HostListener('click') onclick() {
     this.setSelected(!this.selected);
     this._emitChangeEvent();
   }

@@ -27,7 +27,6 @@ export class AppLayout implements OnInit {
     { name: 'Snackbar', route: 'snackbar-demo', icon: 'info_outline' },
     { name: 'Shape', route: 'shape-demo', icon: 'transform' },
     { name: 'Tabs', route: 'tab-demo', icon: 'tab' },
-    { name: 'Toolbar (deprecated)', route: 'toolbar-demo', icon: 'remove' },
     { name: 'Typography', route: 'typography-demo', 'icon': 'title' }
   ];
 
@@ -44,8 +43,7 @@ export class AppLayout implements OnInit {
   buttonRoutes = [
     { name: 'Button', route: '/button-demo' },
     { name: 'FAB', route: '/fab-demo' },
-    { name: 'Icon Button', route: '/icon-button-demo' },
-    { name: 'Icon Toggle (deprecated)', route: '/icon-toggle-demo' }
+    { name: 'Icon Button', route: '/icon-button-demo' }
   ];
 
   listRoutes = [

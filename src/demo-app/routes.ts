@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { AppBarDemo } from './components/app-bar/app-bar-demo';
-import { ButtonDemo, FabDemo, IconButtonDemo, IconToggleDemo } from './components/buttons';
+import { ButtonDemo, FabDemo, IconButtonDemo } from './components/buttons';
 import { CardDemo } from './components/card-demo/card-demo';
 import { CheckboxDemo, RadioDemo, SelectDemo, SliderDemo, SwitchDemo, TextFieldDemo } from './components/inputs-controls';
 import { ChipsDemo } from './components/chips-demo/chips-demo';
@@ -20,7 +20,6 @@ import { RippleDemo } from './components/ripple-demo/ripple-demo';
 import { ShapeDemo } from './components/shape-demo/shape-demo';
 import { SnackbarDemo } from './components/snackbar-demo/snackbar-demo';
 import { TabDemo } from './components/tab-demo';
-import { ToolbarDemo } from './components/toolbar-demo/toolbar-demo';
 import { TypographyDemo } from './components/typography-demo/typography-demo';
 
 import { TABS_DEMO_ROUTES } from './components/tab-demo';
@@ -42,7 +41,6 @@ export const DEMO_ROUTES = [
   Home,
   IconDemo,
   IconButtonDemo,
-  IconToggleDemo,
   ImageListDemo,
   LinearProgressDemo,
   ListDemo,
@@ -57,7 +55,6 @@ export const DEMO_ROUTES = [
   SwitchDemo,
   TabDemo,
   TextFieldDemo,
-  ToolbarDemo,
   TypographyDemo,
 ];
 
@@ -78,7 +75,6 @@ export const APP_ROUTES: Routes = [
   { path: 'home', component: Home, pathMatch: 'full' },
   { path: 'icon-demo', component: IconDemo },
   { path: 'icon-button-demo', component: IconButtonDemo },
-  { path: 'icon-toggle-demo', component: IconToggleDemo },
   { path: 'image-list-demo', component: ImageListDemo },
   { path: 'linear-progress-demo', component: LinearProgressDemo },
   { path: 'list-demo', component: ListDemo },
@@ -92,7 +88,6 @@ export const APP_ROUTES: Routes = [
   { path: 'switch-demo', component: SwitchDemo },
   { path: 'tab-demo', component: TabDemo, children: TABS_DEMO_ROUTES },
   { path: 'textfield-demo', component: TextFieldDemo },
-  { path: 'toolbar-demo', component: ToolbarDemo },
   { path: 'typography-demo', component: TypographyDemo },
   { path: '**', redirectTo: 'home' }
 ];

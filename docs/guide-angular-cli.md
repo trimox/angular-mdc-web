@@ -58,6 +58,7 @@ Now just import the NgModule for each component you want to use.
 import {
   MdcButtonModule,
   MdcFabModule,
+  MdcIconModule,
 } from '@angular-mdc/web';
 
 @NgModule({
@@ -65,6 +66,7 @@ import {
   imports: [
    MdcButtonModule,
    MdcFabModule,
+   MdcIconModule,
    ...
 ],
   ...

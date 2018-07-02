@@ -27,7 +27,8 @@ Now just import the NgModule for each component you want to use.
 ```ts
 import {
   MdcFabModule,
-  MdcMenuModule
+  MdcMenuModule,
+  MdcIconModule
 } from '@angular-mdc/web';
 
 @NgModule({
@@ -35,6 +36,7 @@ import {
   imports: [
    MdcFabModule,
    MdcMenuModule,
+   MdcIconModule
    ...
 ],
   ...

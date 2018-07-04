@@ -455,6 +455,12 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     }
     this._outline = toBoolean(outline);
 
+    if (this.outline && this.value) {
+      setTimeout(() => {
+        this._foundation.notchOutline(this.value);
+      });
+    }
+
     this._changeDetectorRef.markForCheck();
   }
 

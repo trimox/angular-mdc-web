@@ -14,13 +14,5 @@
 // limitations under the License.
 //
 
-// postcss-bem-linter: define icon-button
-
-@import "./mixins";
-
-.mdc-icon-button {
-  @include mdc-icon-button-base_;
-  @include mdc-states;
-}
-
-// postcss-bem-linter: end
+$mdc-fab-extended-icon-padding: 12px;
+$mdc-fab-extended-label-padding: 20px;

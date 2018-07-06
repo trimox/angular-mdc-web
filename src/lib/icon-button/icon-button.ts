@@ -138,11 +138,8 @@ export class MdcIconButton implements AfterViewInit, OnDestroy {
     deregisterInteractionHandler: (type: string, handler: EventListener) => this._registry.unlisten(type, handler),
     setText: (text: string) =>
       this._getIconInnerSelector() ? this._getIconInnerSelector().textContent = text : this._getHostElement().textContent = text,
-    getTabIndex: () => this._getHostElement().tabIndex,
-    setTabIndex: (tabIndex: number) => this._getHostElement().tabIndex = tabIndex,
     getAttr: (name: string) => this._getHostElement().getAttribute(name),
     setAttr: (name: string, value: string) => this._getHostElement().setAttribute(name, value),
-    removeAttr: (name: string) => this._getHostElement().removeAttribute(name),
     notifyChange: (evtData: { isOn: boolean }) => {
       this.change.emit(new MdcIconButtonChange(this, evtData.isOn));
       this._onChange(this._foundation.isOn());
@@ -205,11 +202,11 @@ export class MdcIconButton implements AfterViewInit, OnDestroy {
     this._iconOn = iconOn;
 
     if (!this._getIconInnerSelector()) {
-      this._mdcAdapter.removeAttr('data-toggle-on-class');
-      this._mdcAdapter.setAttr('data-toggle-on-content', iconOn);
+      this._getHostElement().removeAttribute('data-toggle-on-class');
+      this._getHostElement().setAttribute('data-toggle-on-content', iconOn);
     } else {
-      this._mdcAdapter.removeAttr('data-toggle-on-content');
-      this._mdcAdapter.setAttr('data-toggle-on-class', iconOn);
+      this._getHostElement().removeAttribute('data-toggle-on-content');
+      this._getHostElement().setAttribute('data-toggle-on-class', iconOn);
     }
     this._foundation.refreshToggleData();
   }
@@ -218,11 +215,11 @@ export class MdcIconButton implements AfterViewInit, OnDestroy {
     this._iconOff = iconOff;
 
     if (!this._getIconInnerSelector()) {
-      this._mdcAdapter.removeAttr('data-toggle-off-class');
-      this._mdcAdapter.setAttr('data-toggle-off-content', iconOff);
+      this._getHostElement().removeAttribute('data-toggle-off-class');
+      this._getHostElement().setAttribute('data-toggle-off-content', iconOff);
     } else {
-      this._mdcAdapter.removeAttr('data-toggle-off-content');
-      this._mdcAdapter.setAttr('data-toggle-on-class', iconOff);
+      this._getHostElement().removeAttribute('data-toggle-off-content');
+      this._getHostElement().setAttribute('data-toggle-on-class', iconOff);
     }
     this._foundation.refreshToggleData();
   }
@@ -255,11 +252,12 @@ export class MdcIconButton implements AfterViewInit, OnDestroy {
   /** Sets the button disabled state */
   setDisabled(disabled: boolean): void {
     this._disabled = disabled;
-    disabled ? this._mdcAdapter.setAttr('disabled') : this._mdcAdapter.removeAttr('disabled');
+    disabled ? this._getHostElement().setAttribute('disabled', '') :
+      this._getHostElement().removeAttribute('disabled');
     this._changeDetectorRef.markForCheck();
   }
 
-  private _getHostElement() {
+  private _getHostElement(): HTMLElement {
     return this.elementRef.nativeElement;
   }
 

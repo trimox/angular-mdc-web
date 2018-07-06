@@ -39,10 +39,16 @@ describe('MdcFab', () => {
       expect(buttonInstance.isHostClass).toBe(true);
     });
 
-    it('#should apply class based on property', () => {
-      testComponent.isMini = true;
+    it('#should apply class mini', () => {
+      testComponent.mini = true;
       fixture.detectChanges();
       expect(buttonDebugElement.nativeElement.classList.contains('mdc-fab--mini')).toBe(true);
+    });
+
+    it('#should apply class extended', () => {
+      testComponent.extended = true;
+      fixture.detectChanges();
+      expect(buttonDebugElement.nativeElement.classList.contains('mdc-fab--extended')).toBe(true);
     });
 
     it('#should apply class `exited`', () => {
@@ -125,13 +131,15 @@ describe('MdcFab', () => {
       [tabIndex]="customTabIndex"
       [exited]="isExited"
       [position]="myPosition"
-      [mini]="isMini">
+      [extended]="extended"
+      [mini]="mini">
       <mdc-icon>search</mdc-icon>
     </button>
   `,
 })
 class SimpleButton {
-  isMini: boolean = false;
+  mini: boolean = false;
+  extended: boolean;
   isExited: boolean = false;
   clickCount: number = 0;
   customTabIndex: number = 2;

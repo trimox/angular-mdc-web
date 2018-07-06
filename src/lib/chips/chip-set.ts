@@ -11,8 +11,7 @@ import {
   OnDestroy,
   OnInit,
   QueryList,
-  Renderer2,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { defer, merge, Observable, Subject } from 'rxjs';
 import { startWith, switchMap, take, takeUntil } from 'rxjs/operators';
@@ -20,6 +19,8 @@ import { startWith, switchMap, take, takeUntil } from 'rxjs/operators';
 import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
 
 import { MdcChip, MdcChipIcon, MdcChipText, MdcChipSelectionEvent } from './chip';
+
+import { MDCChipInteractionEventType } from '@material/chips/chip/foundation';
 
 import { MDCChipSetAdapter } from '@material/chips/chip-set/adapter';
 import { MDCChipSetFoundation } from '@material/chips/chip-set';
@@ -93,9 +94,9 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
 
   private _mdcAdapter: MDCChipSetAdapter = {
     hasClass: (className: string) => this._getHostElement().classList.contains(className),
-    registerInteractionHandler: (evtType: string, handler: EventListener) =>
+    registerInteractionHandler: (evtType: string, handler: MDCChipInteractionEventType) =>
       this._registry.listen(evtType, handler, this._getHostElement()),
-    deregisterInteractionHandler: (evtType: string, handler: EventListener) => this._registry.unlisten(evtType, handler),
+    deregisterInteractionHandler: (evtType: string, handler: MDCChipInteractionEventType) => this._registry.unlisten(evtType, handler),
     removeChip: (chip: MdcChip) => {
       const index = this.chips.toArray().indexOf(chip);
       this.chips.toArray().splice(index, 1);
@@ -112,7 +113,6 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _ngZone: NgZone,
-    private _renderer: Renderer2,
     public elementRef: ElementRef,
     private _registry: EventRegistry) { }
 
@@ -168,7 +168,7 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
   }
 
   /** Retrieves the DOM element of the component host. */
-  private _getHostElement() {
+  private _getHostElement(): HTMLElement {
     return this.elementRef.nativeElement;
   }
 }

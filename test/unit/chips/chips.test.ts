@@ -97,6 +97,11 @@ describe('Chips', () => {
       expect(testInstance.isSelected()).toBe(true);
     });
 
+    it('is removable', () => {
+      testComponent.removable = false;
+      fixture.detectChanges();
+    });
+
     it('expect leading chip icon to not be undefined', () => {
       expect(testInstance.getLeadingIcon()).toBeDefined();
     });
@@ -176,13 +181,14 @@ describe('Chips', () => {
       <mdc-chip-text>Get Directions</mdc-chip-text>
       <mdc-chip-icon trailing>more_vert</mdc-chip-icon>
     </mdc-chip>
-    <mdc-chip>
+    <mdc-chip [removable]="removable">
       <mdc-chip-text>Get Weather</mdc-chip-text>
     </mdc-chip>
   </mdc-chip-set>
   `,
 })
 class ChipTest {
+  removable: boolean;
   shouldShow: boolean = true;
   disabled: boolean = false;
   choice: boolean = false;

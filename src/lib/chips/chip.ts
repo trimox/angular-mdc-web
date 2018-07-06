@@ -14,7 +14,6 @@ import {
   OnDestroy,
   Output,
   QueryList,
-  Renderer2,
   ViewEncapsulation
 } from '@angular/core';
 import { Subject } from 'rxjs';
@@ -142,6 +141,16 @@ export class MdcChip implements AfterContentInit, OnDestroy {
   }
   protected _secondary: boolean;
 
+  /**
+    * Determines whether or not the chip displays the remove styling and emits (removed) events.
+    */
+  @Input()
+  get removable(): boolean { return this._removable; }
+  set removable(value: boolean) {
+    this.setRemovable(value);
+  }
+  protected _removable: boolean = true;
+
   /** Whether the chip has focus. */
   _hasFocus: boolean = false;
 
@@ -196,19 +205,19 @@ export class MdcChip implements AfterContentInit, OnDestroy {
   @ContentChildren(MdcChipIcon) icons: QueryList<MdcChipIcon>;
 
   private _mdcAdapter: MDCChipAdapter = {
-    addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
-    removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
+    addClass: (className: string) => this._getHostElement().classList.add(className),
+    removeClass: (className: string) => this._getHostElement().classList.remove(className),
     hasClass: (className: string) => this._getHostElement().classList.contains(className),
     addClassToLeadingIcon: (className: string) => {
       const leadingIcon = this.getLeadingIcon();
       if (leadingIcon) {
-        this._renderer.addClass(leadingIcon.elementRef.nativeElement, className);
+        leadingIcon.elementRef.nativeElement.classList.add(className);
       }
     },
     removeClassFromLeadingIcon: (className: string) => {
       const leadingIcon = this.getLeadingIcon();
       if (leadingIcon) {
-        this._renderer.removeClass(leadingIcon.elementRef.nativeElement, className);
+        leadingIcon.elementRef.nativeElement.classList.remove(className);
       }
     },
     eventTargetHasClass: (target: HTMLElement, className: string) => target.classList.contains(className),
@@ -235,31 +244,35 @@ export class MdcChip implements AfterContentInit, OnDestroy {
         window.getComputedStyle(this._getHostElement()).getPropertyValue(propertyName);
       }
     },
-    setStyleProperty: (propertyName: string, value: string) => this._renderer.setStyle(this._getHostElement(), propertyName, value)
+    setStyleProperty: (propertyName: string, value: string) => this._getHostElement().style.setProperty(propertyName, value)
   };
 
   private _foundation: {
     init(): void,
     destroy(): void,
     setSelected(selected: boolean): void,
-    isSelected(): boolean
-  };
+    isSelected(): boolean,
+    setShouldRemoveOnTrailingIconClick(shouldRemove: boolean): void,
+    beginExit(): void
+  } = new MDCChipFoundation(this._mdcAdapter);
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _ripple: MdcRipple,
-    private _renderer: Renderer2,
     public elementRef: ElementRef,
     private _registry: EventRegistry) { }
 
   ngAfterContentInit(): void {
     this._ripple.attachTo(this._getHostElement());
 
-    this._foundation = new MDCChipFoundation(this._mdcAdapter);
     this._foundation.init();
   }
 
   ngOnDestroy(): void {
+    if (!this.removable) {
+      this._foundation.beginExit();
+    }
+
     this._ripple.destroy();
     this.destroyed.emit({ chip: this });
     this._foundation.destroy();
@@ -290,6 +303,12 @@ export class MdcChip implements AfterContentInit, OnDestroy {
     }
 
     this._secondary = secondary;
+  }
+
+  setRemovable(removable: boolean): void {
+    this._removable = toBoolean(removable);
+    this._foundation.setShouldRemoveOnTrailingIconClick(removable);
+    this._changeDetectorRef.markForCheck();
   }
 
   /** Allows for programmatic focusing of the chip. */

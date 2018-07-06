@@ -33,6 +33,10 @@
             <td>filter: boolean</td>
             <td>Indicates that the chips in the set are filter chips, which allow multiple selection from a set of options.</td>
           </tr>
+          <tr>
+            <td>input: boolean</td>
+            <td>Indicates that the chips in the set are input chips, which enable user input by converting text into chips.</td>
+          </tr>
         </tbody>
       </table>
       <table>
@@ -51,6 +55,10 @@
             <td>setFilter(filter: boolean)</td>
             <td>Indicates that the chips in the set are filter chips, which allow multiple selection from a set of options.</td>
           </tr>
+          <tr>
+            <td>setInput(input: boolean)</td>
+            <td>Indicates that the chips in the set are input chips, which enable user input by converting text into chips.</td>
+          </tr>
         </tbody>
       </table>
 
@@ -63,6 +71,14 @@
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td>label: string</td>
+            <td>Sets the text content of the chip.</td>
+          </tr>
+          <tr>
+            <td>removable: boolean</td>
+            <td>Sets whether a trailing icon click should trigger exit/removal of the chip. (Default is true)</td>
+          </tr>
           <tr>
             <td>primary: boolean</td>
             <td>Colors selected chip with the primary theme color.</td>
@@ -143,14 +159,12 @@
     <h3 class="demo-content__headline">Input Chips</h3>
     <div class="demo-content--row">
       <mdc-chip-set #inputchipset [input]="true">
-        <mdc-chip>
+        <mdc-chip label="Jane Smith">
           <mdc-chip-icon leading>face</mdc-chip-icon>
-          <mdc-chip-text>Jane Smith</mdc-chip-text>
           <mdc-chip-icon trailing>cancel</mdc-chip-icon>
         </mdc-chip>
-        <mdc-chip>
+        <mdc-chip label='James Bond'>
           <mdc-chip-icon leading>face</mdc-chip-icon>
-          <mdc-chip-text>John Doe</mdc-chip-text>
           <mdc-chip-icon trailing>cancel</mdc-chip-icon>
         </mdc-chip>
       </mdc-chip-set>

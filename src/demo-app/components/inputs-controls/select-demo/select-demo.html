@@ -58,7 +58,11 @@
           </tr>
           <tr>
             <td>box: boolean</td>
-            <td>Styles the select as a box select.</td>
+            <td>Styles the select as a box select. (Default is true)</td>
+          </tr>
+          <tr>
+            <td>outlined: boolean</td>
+            <td>Styles the select as an outlined select.</td>
           </tr>
         </tbody>
       </table>
@@ -101,6 +105,10 @@
           <tr>
             <td>setBox(box: boolean)</td>
             <td>Styles the select as a box select.</td>
+          </tr>
+          <tr>
+            <td>setOutlined(outline: boolean)</td>
+            <td>Styles the select as an outlined select.</td>
           </tr>
           <tr>
             <td>setValue(value)</td>
@@ -160,7 +168,8 @@
       <button mdc-button (click)="demoSelectModel.reset()">Clear Selection</button>
       <button mdc-button (click)="select.setValue('fruit-3')">Select Fruit</button>
       <button mdc-button (click)="select.setDisabled(!select.isDisabled())">Disabled: {{select.isDisabled() ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="select.box = !select.box">Box style: {{select.box ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="select.box = !select.box">Box: {{select.box ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="select.outlined = !select.outlined">Outlined: {{select.outlined ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="select.floatingLabel = !select.floatingLabel">Floating Label: {{select.floatingLabel ? 'On' : 'Off'}}</button>
     </div>
     <form #demoSelectForm="ngForm" id="demoSelectForm">
@@ -184,6 +193,7 @@
       <button mdc-button (click)="foodControl.setValue('pizza-1')">Select Pizza</button>
       <button mdc-button (click)="select2.setDisabled(!select2.isDisabled())">Disabled: {{select2.isDisabled() ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="select2.box = !select2.box">Box style: {{select2.box ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="select2.outlined = !select2.outlined">Outlined: {{select2.outlined ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="select2.floatingLabel = !select2.floatingLabel">Floating Label: {{select2.floatingLabel ? 'On' : 'Off'}}</button>
     </div>
     <mdc-select #select2 placeholder="Favorite food" [formControl]="foodControl">

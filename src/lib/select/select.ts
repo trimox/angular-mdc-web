@@ -14,7 +14,7 @@ import {
   QueryList,
   Renderer2,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { startWith, takeUntil } from 'rxjs/operators';
@@ -23,6 +23,7 @@ import { Subject } from 'rxjs';
 import { EventRegistry, isBrowser, toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
+import { MdcNotchedOutline } from '@angular-mdc/web/notched-outline';
 import { MdcFloatingLabel } from '@angular-mdc/web/floating-label';
 import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
 
@@ -59,7 +60,8 @@ let nextUniqueId = 0;
     <ng-content #options></ng-content>
   </select>
   <label mdcFloatingLabel [attr.for]="id">{{hasFloatingLabel() ? placeholder : ''}}</label>
-  <mdc-line-ripple></mdc-line-ripple>
+  <mdc-line-ripple *ngIf="!outlined"></mdc-line-ripple>
+  <mdc-notched-outline *ngIf="outlined"></mdc-notched-outline>
   `,
   providers: [
     MDC_SELECT_CONTROL_VALUE_ACCESSOR,
@@ -103,9 +105,20 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   @Input()
   get box(): boolean { return this._box; }
   set box(value: boolean) {
-    this.setBox(value);
+    if (value !== this._box) {
+      this.setBox(value);
+    }
   }
-  private _box: boolean = false;
+  private _box: boolean = true;
+
+  @Input()
+  get outlined(): boolean { return this._outlined; }
+  set outlined(value: boolean) {
+    if (value !== this._outlined) {
+      this.setOutlined(value);
+    }
+  }
+  private _outlined: boolean = false;
 
   @Input()
   get autosize(): boolean { return this._autosize; }
@@ -122,12 +135,18 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
 
   @HostBinding('class.mdc-select') isHostClass = true;
   @HostBinding('tabindex') tabIndex: number = 0;
-  @HostBinding('class.mdc-select--box') get classBorder(): string {
+  @HostBinding('class.mdc-select--box') get classBox(): string {
     return this.box ? 'mdc-select--box' : '';
   }
+  @HostBinding('class.mdc-select--outlined') get classOutlined(): string {
+    return this.outlined ? 'mdc-select--outlined' : '';
+  }
+
   @ViewChild(MdcFloatingLabel) _selectLabel: MdcFloatingLabel;
   @ViewChild(MdcLineRipple) _lineRipple: MdcLineRipple;
   @ViewChild('input') inputEl: ElementRef;
+  @ViewChild(MdcNotchedOutline) _notchedOutline: MdcNotchedOutline;
+
   @ContentChildren('options') options: QueryList<HTMLOptionElement>;
 
   /** View -> model callback called when value changes */
@@ -139,16 +158,31 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   private _mdcAdapter: MDCSelectAdapter = {
     addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
     removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
-    floatLabel: (value: any) => this._selectLabel.float(value),
-    activateBottomLine: () => this._lineRipple.activate(),
-    deactivateBottomLine: () => this._lineRipple.deactivate(),
+    hasClass: (className: string) => this._getHostElement().classList.contains(className),
+    floatLabel: (shouldFloat: boolean) => this._selectLabel.float(shouldFloat),
+    activateBottomLine: () => {
+      if (this._lineRipple) {
+        this._lineRipple.activate();
+      }
+    },
+    deactivateBottomLine: () => {
+      if (this._lineRipple) {
+        this._lineRipple.deactivate();
+      }
+    },
     setDisabled: (disabled: boolean) => this._getInputElement().disabled = disabled,
     registerInteractionHandler: (type: string, handler: EventListener) => this._registry.listen(type, handler, this._getInputElement()),
     deregisterInteractionHandler: (type: string, handler: EventListener) => this._registry.unlisten(type, handler),
     getSelectedIndex: () => this._getInputElement().selectedIndex,
     setSelectedIndex: (index: number) => this._getInputElement().selectedIndex = index,
     getValue: () => this._getInputElement().value,
-    setValue: (value: string) => this._getInputElement().value = value
+    setValue: (value: string) => this._getInputElement().value = value,
+    isRtl: () => getComputedStyle(this._getHostElement()).direction === 'rtl',
+    hasLabel: () => !!this._selectLabel,
+    getLabelWidth: () => this._selectLabel.getWidth(),
+    hasOutline: () => !!this._notchedOutline,
+    notchOutline: (labelWidth: number, isRtl: boolean) => this._notchedOutline.notch(labelWidth, isRtl),
+    closeOutline: () => this._notchedOutline.closeNotch()
   };
 
   private _foundation: {
@@ -156,7 +190,8 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
     destroy(): void,
     setValue(value: any): void,
     setSelectedIndex(index: number): void,
-    setDisabled(disabled: boolean): void
+    setDisabled(disabled: boolean): void,
+    notchOutline(openNotch: boolean): void
   } = new MDCSelectFoundation(this._mdcAdapter);
 
   constructor(
@@ -276,15 +311,42 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
 
   /** Styles the select as a box. */
   setBox(box: boolean): void {
+    if (box && this._outlined) {
+      this.setOutlined(false);
+    }
     this._box = toBoolean(box);
-    this._box ? this._ripple.attachTo(this._getHostElement(), false,
-      this._getInputElement()) : this._ripple.destroy();
+
+    this.box ? this._ripple.attachTo(this._getHostElement(), false, this._getInputElement()) :
+      this._ripple.destroy();
+
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /** Styles the select style to outlined. */
+  setOutlined(outlined: boolean): void {
+    if (outlined && this._box) {
+      this.setBox(false);
+    }
+    this._outlined = toBoolean(outlined);
+
+    setTimeout(() => {
+      if (this.getValue() && this._outlined) {
+        this._foundation.notchOutline(this.hasFloatingLabel());
+      }
+    });
 
     this._changeDetectorRef.markForCheck();
   }
 
   setFloatingLabel(floatingLabel: boolean) {
     this._floatingLabel = toBoolean(floatingLabel);
+
+    setTimeout(() => {
+      if (this.outlined && this.getValue()) {
+        this._foundation.notchOutline(floatingLabel);
+      }
+    });
+
     this._changeDetectorRef.markForCheck();
   }
 

@@ -182,10 +182,10 @@ export class MdcChip implements AfterContentInit, OnDestroy {
     return this.secondary ? 'ng-mdc-chip--secondary' : '';
   }
 
-  @HostListener('focus', ['$event']) onfocus() {
+  @HostListener('focus') onfocus() {
     this._hasFocus = true;
   }
-  @HostListener('blur', ['$event']) onblur() {
+  @HostListener('blur') onblur() {
     this._blur();
   }
 

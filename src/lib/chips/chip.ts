@@ -15,7 +15,7 @@ import {
   Output,
   QueryList,
   Renderer2,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { Subject } from 'rxjs';
 
@@ -100,44 +100,47 @@ export class MdcChipText {
   template: `
   <ng-content *ngIf="isLeadingIconVisibile()" select="mdc-chip-icon[leading]"></ng-content>
   <mdc-chip-checkmark *ngIf="filter"></mdc-chip-checkmark>
+  <div class="mdc-chip__text" *ngIf="label">{{label}}</div>
   <ng-content></ng-content>
   `,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     MdcRipple,
-    EventRegistry,
+    EventRegistry
   ]
 })
 export class MdcChip implements AfterContentInit, OnDestroy {
   private _id = `mdc-chip-${nextUniqueId++}`;
 
+  @Input() label: string;
+
   get selected(): boolean { return this._selected; }
   set selected(value: boolean) {
     this.setSelected(value);
   }
-  protected _selected: boolean = false;
+  protected _selected: boolean;
 
   get filter(): boolean { return this._filter; }
   set filter(value: boolean) {
     this._filter = toBoolean(value);
     this._changeDetectorRef.markForCheck();
   }
-  protected _filter: boolean = false;
+  protected _filter: boolean;
 
   @Input()
   get primary(): boolean { return this._primary; }
   set primary(value: boolean) {
     this.setPrimary(value);
   }
-  protected _primary: boolean = false;
+  protected _primary: boolean;
 
   @Input()
   get secondary(): boolean { return this._secondary; }
   set secondary(value: boolean) {
     this.setSecondary(value);
   }
-  protected _secondary: boolean = false;
+  protected _secondary: boolean;
 
   /** Whether the chip has focus. */
   _hasFocus: boolean = false;
@@ -151,7 +154,7 @@ export class MdcChip implements AfterContentInit, OnDestroy {
   set disabled(value: boolean) {
     this._disabled = toBoolean(value);
   }
-  protected _disabled: boolean = false;
+  protected _disabled: boolean;
 
   /** Emits when the chip is focused. */
   readonly _onFocus = new Subject<MdcChipEvent>();
@@ -274,10 +277,18 @@ export class MdcChip implements AfterContentInit, OnDestroy {
   }
 
   setPrimary(primary: boolean): void {
+    if (primary) {
+      this.setSecondary(false);
+    }
+
     this._primary = primary;
   }
 
   setSecondary(secondary: boolean): void {
+    if (secondary) {
+      this.setPrimary(false);
+    }
+
     this._secondary = secondary;
   }
 
@@ -311,12 +322,12 @@ export class MdcChip implements AfterContentInit, OnDestroy {
     this._onBlur.next({ chip: this });
   }
 
-  foundation(): any {
+  getFoundation(): MDCChipFoundation {
     return this._foundation;
   }
 
   /** Retrieves the DOM element of the component host. */
-  protected _getHostElement() {
+  protected _getHostElement(): HTMLElement {
     return this.elementRef.nativeElement;
   }
 

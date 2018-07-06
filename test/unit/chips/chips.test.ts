@@ -86,12 +86,23 @@ describe('Chips', () => {
       fixture.detectChanges();
     });
 
+    it('is selected', () => {
+      expect(testInstance.selected).toBeUndefined();
+    });
+
+    it('is selected', () => {
+      testInstance.selected = true;
+      fixture.detectChanges();
+      expect(testInstance.selected).toBe(true);
+      expect(testInstance.isSelected()).toBe(true);
+    });
+
     it('expect leading chip icon to not be undefined', () => {
       expect(testInstance.getLeadingIcon()).toBeDefined();
     });
 
     it('expect foundation to be defined', () => {
-      expect(testInstance.foundation()).toBeDefined();
+      expect(testInstance.getFoundation()).toBeDefined();
     });
 
     it('#should apply primary class modifier', () => {

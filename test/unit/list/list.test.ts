@@ -84,6 +84,26 @@ describe('MdcListModule', () => {
       expect(testComponent.listitem.selected).toBe(true);
     });
 
+    it('#should handle keydown', () => {
+      const event: Event = new KeyboardEvent('keydown', {
+        'code': 'ArrowDown'
+      });
+      testDebugElement.nativeElement.dispatchEvent(event);
+      fixture.detectChanges();
+    });
+
+    it('#should handle focusin', () => {
+      const event: Event = new FocusEvent('focusin');
+      testDebugElement.nativeElement.dispatchEvent(event);
+      fixture.detectChanges();
+    });
+
+    it('#should handle focusout', () => {
+      const event: Event = new FocusEvent('focusout');
+      testDebugElement.nativeElement.dispatchEvent(event);
+      fixture.detectChanges();
+    });
+
     it('#should have divider padding', () => {
       testComponent.isPadded = true;
       fixture.detectChanges();
@@ -104,8 +124,11 @@ describe('MdcListModule', () => {
       <mdc-list-group-subheader>Grouped Lists</mdc-list-group-subheader>
       <mdc-list [dense]="isDense" [border]="isBordered" [lines]="lines"
        [avatar]="isAvatar" [interactive]="isInteractive" [multiple]="multiple">
-        <mdc-list-item #listitem mdc-list-item-graphic [selected]="isItemSelected">Test
-          <mdc-icon mdc-list-item-meta>home</mdc-icon>
+        <mdc-list-item #listitem mdcListItemGraphic [selected]="isItemSelected">Test
+          <mdc-icon mdcListItemMeta>info</mdc-icon>
+        </mdc-list-item>
+        <mdc-list-item mdcListItemGraphic>Test
+          <mdc-icon mdcListItemMeta>info</mdc-icon>
         </mdc-list-item>
         <mdc-list-divider #divider [padded]="isPadded" [inset]="isInset"></mdc-list-divider>
         <mdc-list-item>

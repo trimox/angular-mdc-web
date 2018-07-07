@@ -8,6 +8,7 @@ import {
   ElementRef,
   EventEmitter,
   HostBinding,
+  HostListener,
   Input,
   NgZone,
   OnDestroy,
@@ -23,6 +24,9 @@ import { toBoolean } from '@angular-mdc/web/common';
 
 import { MdcListItem, MdcListSelectionChange } from './list-item';
 
+import { MDCListAdapter } from '@material/list/adapter';
+import { MDCListFoundation } from '@material/list/foundation';
+
 /** Change event that is being fired whenever the selected state of an option changes. */
 export class MdcListItemChange {
   constructor(
@@ -33,7 +37,7 @@ export class MdcListItemChange {
 }
 
 @Directive({
-  selector: '[mdcListGroup], [mdc-list-group], mdc-list-group',
+  selector: '[mdcListGroup], mdc-list-group',
   exportAs: 'mdcListGroup',
 })
 export class MdcListGroup {
@@ -43,7 +47,7 @@ export class MdcListGroup {
 }
 
 @Directive({
-  selector: '[mdcListGroupSubheader], [mdc-list-group-subheader], mdc-list-group-subheader',
+  selector: '[mdcListGroupSubheader], mdc-list-group-subheader',
   exportAs: 'mdcListGroupSubheader',
 })
 export class MdcListGroupSubheader {
@@ -54,7 +58,7 @@ export class MdcListGroupSubheader {
 
 @Component({
   moduleId: module.id,
-  selector: '[mdc-list-divider], mdc-list-divider',
+  selector: '[mdcListDivider], mdc-list-divider',
   exportAs: 'mdcListDivider',
   template: '<div #divider class="mdc-list-divider" role="seperator"></div>',
   encapsulation: ViewEncapsulation.None,
@@ -123,6 +127,7 @@ export class MdcList implements AfterContentInit, OnDestroy {
 
   @HostBinding('class.mdc-list') isHostClass = true;
   @HostBinding('attr.role') role: string = 'list';
+  @HostBinding('attr.aria-orientation') ariaOrientation: string = 'vertical';
   @HostBinding('class.mdc-list--dense') get classDense(): string {
     return this.dense ? 'mdc-list--dense' : '';
   }
@@ -138,11 +143,48 @@ export class MdcList implements AfterContentInit, OnDestroy {
   @HostBinding('class.mdc-list--non-interactive') get classInteractive(): string {
     return !this.interactive ? 'mdc-list--non-interactive' : '';
   }
-  @ContentChildren(MdcListItem, { descendants: true }) options: QueryList<MdcListItem>;
+
+  @HostListener('keydown', ['$event']) onkeydown(evt: KeyboardEvent) {
+    this._foundation.handleKeydown(evt);
+  }
+  @HostListener('focusin', ['$event']) onfocusin(evt: FocusEvent) {
+    this._foundation.handleFocusIn(evt);
+  }
+  @HostListener('focusout', ['$event']) onfocusout(evt: FocusEvent) {
+    this._foundation.handleFocusOut(evt);
+  }
+
+  @ContentChildren(MdcListItem, { descendants: true }) _listItems: QueryList<MdcListItem>;
 
   /** Emits a change event whenever the selected state of an option changes. */
   @Output() readonly selectionChange: EventEmitter<MdcListItemChange> =
     new EventEmitter<MdcListItemChange>();
+
+  private _mdcAdapter: MDCListAdapter = {
+    getListItemCount: () => this._listItems.length,
+    getFocusedElementIndex: () => this._listItems.toArray().findIndex((_) => _.getListItemElement() === document.activeElement),
+    getListItemIndex: (node: Element) => this._listItems.toArray().findIndex((_) => _.getListItemElement() === node),
+    focusItemAtIndex: (ndx: number) => this._listItems.toArray()[ndx].getListItemElement().focus(),
+    setTabIndexForListItemChildren: (listItemIndex, tabIndexValue) => {
+      const listItemChildren = [].slice.call(this._listItems.toArray()[listItemIndex].getListItemElement()
+        .querySelectorAll('button:not(:disabled), a'));
+      listItemChildren.forEach((ele) => ele.setAttribute('tabindex', tabIndexValue));
+    }
+  };
+
+  private _foundation: {
+    init(): void,
+    destroy(): void,
+    setVerticalOrientation(vertical: boolean): void,
+    setWrapFocus(wrapFocus: boolean): void,
+    handleKeydown(evt: KeyboardEvent): void,
+    handleFocusIn(evt: FocusEvent): void,
+    handleFocusOut(evt: FocusEvent): void,
+    focusNextElement(index: number): void,
+    focusPrevElement(index: number): void,
+    focusFirstElement(): void,
+    focusLastElement(): void
+  } = new MDCListFoundation(this._mdcAdapter);
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
@@ -151,8 +193,8 @@ export class MdcList implements AfterContentInit, OnDestroy {
 
   /** Combined stream of all of the child options' change events. */
   readonly optionSelectionChanges: Observable<MdcListSelectionChange> = defer(() => {
-    if (this.options) {
-      return merge(...this.options.map(option => option.selectionChange));
+    if (this._listItems) {
+      return merge(...this._listItems.map(option => option.selectionChange));
     }
 
     return this._ngZone.onStable
@@ -161,13 +203,16 @@ export class MdcList implements AfterContentInit, OnDestroy {
   });
 
   ngAfterContentInit(): void {
+    this._foundation.init();
+    this._foundation.setVerticalOrientation(true);
+
     this.optionSelectionChanges.pipe(
-      takeUntil(merge(this._destroy, this.options.changes))
+      takeUntil(merge(this._destroy, this._listItems.changes))
     ).subscribe(event => {
       this.selectionChange.emit(new MdcListItemChange(this, event.source));
     });
 
-    this.options.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
+    this._listItems.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
       Promise.resolve().then(() => {
         this.setInteractive(this.interactive);
 
@@ -185,7 +230,7 @@ export class MdcList implements AfterContentInit, OnDestroy {
 
   /** Drops current option subscriptions and IDs and resets from scratch. */
   private _resetOptions(): void {
-    const changedOrDestroyed = merge(this.options.changes, this._destroy);
+    const changedOrDestroyed = merge(this._listItems.changes, this._destroy);
 
     this.optionSelectionChanges
       .pipe(takeUntil(changedOrDestroyed)
@@ -199,11 +244,11 @@ export class MdcList implements AfterContentInit, OnDestroy {
   setInteractive(value: boolean): void {
     this._interactive = toBoolean(value);
 
-    if (!this.options) {
+    if (!this._listItems) {
       return;
     }
 
-    this.options.forEach(option => {
+    this._listItems.forEach(option => {
       option.setInteractive(value);
     });
   }
@@ -216,11 +261,11 @@ export class MdcList implements AfterContentInit, OnDestroy {
   }
 
   clearSelected(skip?: MdcListItem): void {
-    if (!this.options) {
+    if (!this._listItems) {
       return;
     }
 
-    this.options.forEach(option => {
+    this._listItems.forEach(option => {
       if (option !== skip) {
         option.setSelected(false);
       }

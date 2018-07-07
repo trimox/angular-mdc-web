@@ -25,7 +25,7 @@ export class MdcListSelectionChange {
 let uniqueIdCounter = 0;
 
 @Directive({
-  selector: '[mdcListItemGraphic], [mdc-list-item-graphic], mdc-list-item-graphic',
+  selector: '[mdcListItemGraphic], mdc-list-item-graphic',
   exportAs: 'mdcListItemGraphic',
 })
 export class MdcListItemGraphic {
@@ -36,7 +36,7 @@ export class MdcListItemGraphic {
 }
 
 @Directive({
-  selector: '[mdcListItemMeta], [mdc-list-item-meta], mdc-list-item-meta',
+  selector: '[mdcListItemMeta], mdc-list-item-meta',
   exportAs: 'mdcListItemMeta',
 })
 export class MdcListItemMeta {
@@ -46,7 +46,7 @@ export class MdcListItemMeta {
 }
 
 @Directive({
-  selector: '[mdcListItemText], [mdc-list-item-text], mdc-list-item-text',
+  selector: '[mdcListItemText], mdc-list-item-text',
   exportAs: 'mdcListItemText',
 })
 export class MdcListItemText {
@@ -56,7 +56,7 @@ export class MdcListItemText {
 }
 
 @Directive({
-  selector: '[mdcListItemSecondary], [mdc-list-item-secondary], mdc-list-item-secondary',
+  selector: '[mdcListItemSecondary], mdc-list-item-secondary',
   exportAs: 'mdcListItemSecondary',
 })
 export class MdcListItemSecondary {
@@ -87,19 +87,21 @@ export class MdcListItem implements OnDestroy {
   get id(): string { return this._id; }
 
   @HostBinding('class.mdc-list-item') isHostClass = true;
+  @HostBinding('tabindex') tabIndex: number = -1;
   @HostBinding('attr.role') role: string = 'listitem';
   @HostBinding('class.mdc-list-item--selected') get classSelected(): string {
     return this.selected && this.ripple.isAttached() ? 'mdc-list-item--selected' : '';
   }
 
-  @Output() readonly selectionChange: EventEmitter<MdcListSelectionChange>
-    = new EventEmitter<MdcListSelectionChange>();
-  @ContentChild(MdcListItemGraphic) listItemStart: MdcListItemGraphic;
-
   @HostListener('click') onclick() {
     this.setSelected(!this.selected);
     this._emitChangeEvent();
   }
+
+  @Output() readonly selectionChange: EventEmitter<MdcListSelectionChange>
+    = new EventEmitter<MdcListSelectionChange>();
+
+  @ContentChild(MdcListItemGraphic) listItemStart: MdcListItemGraphic;
 
   /** Whether the option is selected. */
   @Input()
@@ -125,10 +127,10 @@ export class MdcListItem implements OnDestroy {
   }
 
   setInteractive(interactive: boolean): void {
-    interactive ? this.ripple.attachTo(this._getHostElement()) : this.ripple.destroy();
+    interactive ? this.ripple.attachTo(this.getListItemElement()) : this.ripple.destroy();
   }
 
-  private _getHostElement(): HTMLElement {
+  getListItemElement(): HTMLElement {
     return this.elementRef.nativeElement;
   }
 

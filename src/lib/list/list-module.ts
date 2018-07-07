@@ -4,14 +4,14 @@ import {
   MdcList,
   MdcListDivider,
   MdcListGroup,
-  MdcListGroupSubheader,
+  MdcListGroupSubheader
 } from './list';
 import {
   MdcListItem,
   MdcListItemGraphic,
   MdcListItemMeta,
   MdcListItemSecondary,
-  MdcListItemText,
+  MdcListItemText
 } from './list-item';
 
 const LIST_DECLARATIONS = [

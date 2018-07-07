@@ -40,6 +40,7 @@ export const rollupGlobals = {
   '@material/icon-toggle': 'mdc.icon-toggle',
   '@material/line-ripple': 'mdc.line-ripple',
   '@material/linear-progress': 'mdc.linear-progress',
+  '@material/list': 'mdc.list',
   '@material/menu': 'mdc.menu',
   '@material/menu/util': 'mdc.menu.util',
   '@material/notched-outline': 'mdc.notched-outline',

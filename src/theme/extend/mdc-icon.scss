@@ -1,4 +1,7 @@
-.ng-mdc-icon--clickable {
+.ng-mdc-icon--clickable,
+a.ng-mdc-icon {
+  text-decoration: none;
+
   outline: none;
   -webkit-user-select: none;
   -moz-user-select: none;

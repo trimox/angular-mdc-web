@@ -4,6 +4,7 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  HostBinding,
   Input,
   OnInit,
   Renderer2,
@@ -13,7 +14,7 @@ import { toBoolean } from '@angular-mdc/web/common';
 
 @Component({
   moduleId: module.id,
-  selector: 'mdc-icon',
+  selector: 'mdc-icon, [mdcIcon]',
   template: '<ng-content></ng-content>',
   exportAs: 'mdcIcon',
   encapsulation: ViewEncapsulation.None,
@@ -70,6 +71,8 @@ export class MdcIcon implements OnInit {
     this.setClickable(value);
   }
   protected _clickable: boolean;
+
+  @HostBinding('class.ng-mdc-icon') isHostClass = true;
 
   public foundation: any;
 

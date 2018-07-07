@@ -3,9 +3,3 @@
   height: 100vh;
   overflow-y: auto;
 }
-
-.mdc-drawer__content {
-  :not(.mdc-list--non-interactive) > .mdc-list-item {
-    cursor: pointer;
-  }
-}

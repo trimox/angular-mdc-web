@@ -1,7 +1,7 @@
-.mdc-button--primary {
+.ng-mdc-button--primary {
   @include mdc-button-filled-accessible($mdc-theme-primary);
 }
 
-.mdc-button--secondary {
+.ng-mdc-button--secondary {
   @include mdc-button-filled-accessible($mdc-theme-secondary);
 }

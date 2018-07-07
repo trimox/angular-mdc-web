@@ -9,13 +9,9 @@ import {
   Input,
   OnDestroy,
   Renderer2,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
-import {
-  EventRegistry,
-  toBoolean,
-  isSpaceKey,
-} from '@angular-mdc/web/common';
+import { EventRegistry } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
@@ -95,11 +91,11 @@ export class MdcButton implements AfterContentInit, OnDestroy {
   @HostBinding('class.mdc-button--raised') get classRaised(): string {
     return this.raised ? 'mdc-button--raised' : '';
   }
-  @HostBinding('class.mdc-button--primary') get classPrimary(): string {
-    return this.primary ? 'mdc-button--primary' : '';
+  @HostBinding('class.ng-mdc-button--primary') get classPrimary(): string {
+    return this.primary ? 'ng-mdc-button--primary' : '';
   }
-  @HostBinding('class.mdc-button--secondary') get classSecondary(): string {
-    return this.secondary ? 'mdc-button--secondary' : '';
+  @HostBinding('class.ng-mdc-button--secondary') get classSecondary(): string {
+    return this.secondary ? 'ng-mdc-button--secondary' : '';
   }
   @HostBinding('class.mdc-button--dense') get classDense(): string {
     return this.dense ? 'mdc-button--dense' : '';
@@ -116,7 +112,7 @@ export class MdcButton implements AfterContentInit, OnDestroy {
   @ContentChild(MdcIcon) buttonIcon: MdcIcon;
 
   constructor(
-    protected _renderer: Renderer2,
+    protected _renderer: Renderer2, // remove after dialog PR#1057
     protected _elementRef: ElementRef,
     protected _ripple: MdcRipple) { }
 
@@ -132,11 +128,11 @@ export class MdcButton implements AfterContentInit, OnDestroy {
     this._disabled = disabled;
 
     if (disabled) {
-      this._renderer.setAttribute(this.getHostElement(), 'disabled', 'true');
-      this._renderer.setAttribute(this.getHostElement(), 'aria-disabled', 'true');
+      this.getHostElement().setAttribute('disabled', 'true');
+      this.getHostElement().setAttribute('aria-disabled', 'true');
     } else {
-      this._renderer.removeAttribute(this.getHostElement(), 'disabled');
-      this._renderer.removeAttribute(this.getHostElement(), 'aria-disabled');
+      this.getHostElement().removeAttribute('disabled');
+      this.getHostElement().removeAttribute('aria-disabled');
     }
   }
 
@@ -168,9 +164,9 @@ export class MdcButton implements AfterContentInit, OnDestroy {
     this._icon = icon;
 
     if (this.buttonIcon) {
-       this._renderer.addClass(this.buttonIcon.elementRef.nativeElement, 'mdc-button__icon');
+      this.buttonIcon.elementRef.nativeElement.classList.add('mdc-button__icon');
     } else if (icon) {
-      this._renderer.addClass(this.icon, 'mdc-button__icon');
+      this.icon.classList.add('mdc-button__icon');
     }
   }
 
@@ -179,7 +175,7 @@ export class MdcButton implements AfterContentInit, OnDestroy {
     this.getHostElement().focus();
   }
 
-  getHostElement() {
+  getHostElement(): HTMLElement {
     return this._elementRef.nativeElement;
   }
 

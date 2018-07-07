@@ -110,7 +110,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   set box(value: boolean) {
     this.setBox(value);
   }
-  protected _box: boolean = false;
+  protected _box: boolean = true;
 
   @Input()
   get outline(): boolean { return this._outline; }
@@ -187,7 +187,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
 
   @HostBinding('class.mdc-text-field') isHostClass = true;
   @HostBinding('class.mdc-text-field--box') get classBox(): string {
-    return this.box ? 'mdc-text-field--box' : '';
+    return this.box && !this.isTextarea() && !this.fullwidth ? 'mdc-text-field--box' : '';
   }
   @HostBinding('class.mdc-text-field--dense') get classDense(): string {
     return this.dense ? 'mdc-text-field--dense' : '';
@@ -439,7 +439,8 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   /** Styles the text field as a box text field. */
   setBox(box: boolean): void {
     this._box = toBoolean(box);
-    if (this._outline && this._box) {
+
+    if (this._outline && box) {
       this._outline = false;
     }
     this._box ? this._ripple.attachTo(this._getHostElement(), false, this._getInputElement()) :
@@ -450,10 +451,11 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
 
   /** Styles the text field as an outlined text field. */
   setOutline(outline: boolean): void {
+    this._outline = toBoolean(outline);
+
     if (outline && this._box) {
       this._box = false;
     }
-    this._outline = toBoolean(outline);
 
     if (this.outline && this.value) {
       setTimeout(() => {

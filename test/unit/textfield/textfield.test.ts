@@ -68,6 +68,8 @@ describe('MdcTextField', () => {
     });
 
     it('#should apply class box', () => {
+      testComponent.outline = true;
+      fixture.detectChanges();
       testComponent.box = true;
       fixture.detectChanges();
       expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--box')).toBe(true);

@@ -1,5 +1,5 @@
-:not(.mdc-list--non-interactive) > .mdc-list-item {
-  cursor: pointer;
+.mdc-list {
+  display: block;
 }
 
 .ng-mdc-list--border {
@@ -15,8 +15,4 @@
   .mdc-list-item:not(:first-child) {
     border-top: none;
   }
-}
-
-.mdc-list {
-  display: block;
 }

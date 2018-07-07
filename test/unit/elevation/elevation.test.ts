@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 
 import {
   MdcElevationModule,
-  MdcElevation,
+  MdcElevation
 } from '@angular-mdc/web';
 
 describe('MdcElevation', () => {
@@ -12,12 +12,8 @@ describe('MdcElevation', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MdcElevationModule,
-      ],
-      declarations: [
-        ElevationTest,
-      ]
+      imports: [MdcElevationModule],
+      declarations: [ElevationTest]
     });
     TestBed.compileComponents();
   }));
@@ -40,6 +36,11 @@ describe('MdcElevation', () => {
       expect(testDebugElement.nativeElement.classList).toContain('mdc-elevation--z2');
     });
 
+    it('#should throw error', () => {
+      testComponent.elevation = 30;
+      expect(() => { fixture.detectChanges() }).toThrow();
+    });
+
     it('#should have mdc-elevation--z3 by default', () => {
       testComponent.elevation = 3;
       fixture.detectChanges();
@@ -50,7 +51,7 @@ describe('MdcElevation', () => {
 
 @Component({
   template: `
-  <div [mdc-elevation]="elevation"></div>
+  <div [mdcElevation]="elevation"></div>
   `,
 })
 class ElevationTest {

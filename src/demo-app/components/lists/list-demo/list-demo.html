@@ -52,8 +52,9 @@
             <td>Increases the density of the list, making it appear more compact.</td>
           </tr>
           <tr>
-            <td>lines: number (Set to 2 for two line list. Default is 1)</td>
-            <td>Increases the height of the row to give it greater visual separation from adjacent rows.</td>
+            <td>lines: number</td>
+            <td>Increases the height of the row to give it greater visual separation from adjacent rows.
+            (For two line list, use 2. Default is 1)</td>
           </tr>
           <tr>
             <td>avatar: boolean</td>
@@ -204,6 +205,62 @@
   </div>
 
   <div class="demo-content">
+    <h3 class="demo-content__headline">Custom</h3>
+    <mdc-list-group>
+      <h3 mdcListGroupSubheader>Folders</h3>
+      <mdc-list [lines]="2" [avatar]="true" class="demo-list--custom">
+        <mdc-list-item>
+          <mdc-icon mdcListItemGraphic>folder</mdc-icon>
+          <mdc-list-item-text>Photos
+            <mdc-list-item-secondary>Jan 9, 2015</mdc-list-item-secondary>
+          </mdc-list-item-text>
+          <a href="#" mdcListItemMeta mdcIcon
+            aria-label="View more information" title="More info"
+            onclick="event.preventDefault();">info</a>
+          </mdc-list-item>
+        <mdc-list-item>
+          <mdc-icon mdcListItemGraphic>folder</mdc-icon>
+          <mdc-list-item-text>Recipes
+            <mdc-list-item-secondary>Jan 17, 2015</mdc-list-item-secondary>
+          </mdc-list-item-text>
+          <a href="#" mdcListItemMeta mdcIcon
+            aria-label="View more information" title="More info"
+            onclick="event.preventDefault();">info</a>
+        </mdc-list-item>
+        <mdc-list-item>
+          <mdc-icon mdcListItemGraphic>folder</mdc-icon>
+          <mdc-list-item-text>Work
+            <mdc-list-item-secondary>Jan 28, 2015</mdc-list-item-secondary>
+          </mdc-list-item-text>
+          <a href="#" mdcListItemMeta mdcIcon
+            aria-label="View more information" title="More info"
+            onclick="event.preventDefault();">info</a>
+        </mdc-list-item>
+        <mdc-list-divider inset></mdc-list-divider>
+        <h3 mdcListGroupSubheader>Files</h3>
+        <mdc-list-item>
+          <mdc-icon mdcListItemGraphic>insert_drive_file</mdc-icon>
+          <mdc-list-item-text>Vacation Itinerary
+            <mdc-list-item-secondary>Jan 10, 2015</mdc-list-item-secondary>
+          </mdc-list-item-text>
+          <a href="#" mdcListItemMeta mdcIcon
+            aria-label="View more information" title="More info"
+            onclick="event.preventDefault();">info</a>
+        </mdc-list-item>
+        <mdc-list-item>
+          <mdc-icon mdcListItemGraphic>insert_drive_file</mdc-icon>
+          <mdc-list-item-text>Kitchen Remodel
+            <mdc-list-item-secondary>Jan 20, 2015</mdc-list-item-secondary>
+          </mdc-list-item-text>
+          <a href="#" mdcListItemMeta mdcIcon
+            aria-label="View more information" title="More info"
+            onclick="event.preventDefault();">info</a>
+        </mdc-list-item>
+      </mdc-list>
+    </mdc-list-group>
+  </div>
+
+  <div class="demo-content">
     <h3 class="demo-content__headline">Single-Line</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="singleline.border = !singleline.border">Border: {{singleline.border ? 'On' : 'Off'}}</button>
@@ -217,6 +274,7 @@
       <mdc-list-item>Single-line item</mdc-list-item>
     </mdc-list>
   </div>
+
   <div class="demo-content">
     <h3 class="demo-content__headline">Two-line List</h3>
     <div class="demo-content--row">
@@ -246,6 +304,7 @@
       </mdc-list-item>
     </mdc-list>
   </div>
+
   <div class="demo-content">
     <h3 class="demo-content__headline">Start Graphic</h3>
     <div class="demo-content--row">
@@ -266,6 +325,7 @@
       </mdc-list-item>
     </mdc-list>
   </div>
+
   <div class="demo-content">
     <h3 class="demo-content__headline">End Meta</h3>
     <div class="demo-content--row">
@@ -288,6 +348,7 @@
       </mdc-list-item>
     </mdc-list>
   </div>
+
   <div class="demo-content">
     <h3 class="demo-content__headline">Start and End Graphic/Meta Detail</h3>
     <div class="demo-content--row">
@@ -311,6 +372,7 @@
       </mdc-list-item>
     </mdc-list>
   </div>
+
   <div class="demo-content">
     <h3 class="demo-content__headline">Checkbox List</h3>
     <div class="demo-content--row">
@@ -334,6 +396,7 @@
       </mdc-list-item>
     </mdc-list>
   </div>
+
 <!--   <div class="demo-content">
     <h3 class="demo-content__headline">Checkbox List (leading)</h3>
     <mdc-list>
@@ -351,7 +414,9 @@
       </mdc-list-item>
     </mdc-list>
   </div>
- -->  <div class="demo-content">
+ -->
+
+ <div class="demo-content">
     <h3 class="demo-content__headline">Avatars</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="avatar.border = !avatar.border">Border: {{avatar.border ? 'On' : 'Off'}}</button>
@@ -370,6 +435,7 @@
       </mdc-list-item>
     </mdc-list>
   </div>
+
   <div class="demo-content">
     <h3 class="demo-content__headline">Group Lists</h3>
     <div class="demo-content--row">

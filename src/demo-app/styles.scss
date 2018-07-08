@@ -454,6 +454,23 @@ body {
 }
 
 //
+// List
+//
+
+.demo-list--custom {
+  @include mdc-list-item-graphic-ink-color(white);
+  @include mdc-list-item-graphic-fill-color(text-icon-on-background);
+
+  @include mdc-list-divider-color($material-color-pink-50);
+
+  @include mdc-list-item-primary-text-ink-color($material-color-blue-600);
+  @include mdc-list-item-secondary-text-ink-color($material-color-purple-600);
+  @include mdc-list-item-graphic-fill-color($material-color-pink-400);
+  @include mdc-list-item-graphic-ink-color($material-color-pink-50);
+  @include mdc-list-item-meta-ink-color($material-color-orange-500);
+}
+
+//
 // Grid List
 //
 
@@ -615,13 +632,14 @@ body {
   @include mdc-button-outline-width(4px);
 }
 
-.demo-ink-color {
+.demo-button-ink-color {
+  @include mdc-button-container-fill-color($material-color-purple-500);
   @include mdc-button-icon-color(white);
   @include mdc-button-ink-color(orange);
   @include mdc-states(orange);
 }
 
-.demo-icon-color {
+.demo-button-icon-color {
   @include mdc-button-icon-color(orange);
 }
 

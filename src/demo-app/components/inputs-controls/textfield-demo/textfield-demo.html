@@ -1,7 +1,7 @@
 <div class="demo-page">
   <div class="markdown-body">
     <h1>Text Field</h1>
-    Text fields allow users to input, edit, and select text.
+    Text fields let users enter and edit text.
     <h2>References</h2>
     <ul>
       <li><a mdc-button href="https://material.io/guidelines/components/text-fields.html"
@@ -51,7 +51,7 @@
           </tr>
           <tr>
             <td>box: boolean</td>
-            <td>Styles the text field as a box text field.</td>
+            <td>Styles the text field as a box text field. (Default is true)</td>
           </tr>
           <tr>
             <td>dense: boolean</td>
@@ -363,9 +363,7 @@
       <button mdc-button (click)="alternateColors(outlined)">Alternate Colors</button>
     </div>
     <mdc-text-field #outlined [outline]="true" label="Your name"></mdc-text-field>
-  </div>
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Outlined Text Field - Leading icon</h3>
+
     <div class="demo-content--row">
       <button mdc-button (click)="outlinedicon.disabled = !outlinedicon.disabled">Disabled: {{outlinedicon.disabled ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="outlinedicon.required = !outlinedicon.required">Required: {{outlinedicon.required ? 'On' : 'Off'}}</button>
@@ -377,9 +375,7 @@
     <mdc-text-field #outlinedicon [outline]="true" label="Event date">
       <mdc-icon leading #leadingicon>event</mdc-icon>
     </mdc-text-field>
-  </div>
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Outlined Text Field - Trailing icon</h3>
+
     <div class="demo-content--row">
       <button mdc-button (click)="trailingicon.clickable = !trailingicon.clickable">Clickable Icon: {{trailingicon.clickable ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="alternateColors(outlinedtrailing)">Alternate Colors</button>
@@ -390,50 +386,7 @@
     </mdc-text-field>
   </div>
   <div class="demo-content">
-    <h3 class="demo-content__headline">Text Field Box</h3>
-    <div class="demo-content--row">
-      <button mdc-button (click)="demobox1.disabled = !demobox1.disabled">Disabled: {{demobox1.disabled ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="demobox1.required = !demobox1.required">Required: {{demobox1.required ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="demobox1.dense = !demobox1.dense">Dense: {{demobox1.dense ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="alternateColors(demobox1)">Alternate Colors</button>
-   </div>
-    <mdc-text-field #demobox1 [box]="true" [helperText]="demoboxHelper" [required]="true" label="Your name"></mdc-text-field>
-    <mdc-text-field-helper-text #demoboxHelper="mdcHelperText" [validation]="true" [persistent]="false">
-      <span *ngIf="!demobox1.value">Username is required</span>
-    </mdc-text-field-helper-text>
-  </div>
-
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Text Field Box - Leading icon</h3>
-    <div class="demo-content--row">
-      <button mdc-button (click)="demobox2.disabled = !demobox2.disabled">Disabled: {{demobox2.disabled ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="demobox2.required = !demobox2.required">Required: {{demobox2.required ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="demobox2.dense = !demobox2.dense">Dense: {{demobox2.dense ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="demobox2icon.clickable = !demobox2icon.clickable">Clickable Icon: {{demobox2icon.clickable ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="alternateColors(demobox2)">Alternate Colors</button>
-    </div>
-    <mdc-text-field #demobox2 label="Your name" [box]="true">
-      <mdc-icon leading #demobox2icon>person</mdc-icon>
-    </mdc-text-field>
-    <mdc-text-field-helper-text [validation]="true">Name is required</mdc-text-field-helper-text>
-  </div>
-
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Text Field Box - Trailing icon</h3>
-    <div class="demo-content--row">
-      <button mdc-button (click)="demobox3.disabled = !demobox3.disabled">Disabled: {{demobox3.disabled ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="demobox3.required = !demobox3.required">Required: {{demobox3.required ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="demobox3.dense = !demobox3.dense">Dense: {{demobox3.dense ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="demobox3icon.clickable = !demobox3icon.clickable">Clickable Icon: {{demobox3icon.clickable ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="alternateColors(demobox3)">Alternate Colors</button>
-    </div>
-    <mdc-text-field #demobox3 label="Your name" [box]="true">
-      <mdc-icon trailing #demobox3icon>person</mdc-icon>
-    </mdc-text-field>
-  </div>
-
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Prefilled Text Field - Using ngModel</h3>
+    <h3 class="demo-content__headline">Prefilled with ngModel</h3>
     <mdc-text-field [(ngModel)]="prefilledText" label="Username"></mdc-text-field>
     <p>ngModel: {{prefilledText}}
   </div>

@@ -18,49 +18,49 @@
   <mdc-drawer-content>
     <mdc-list-group>
       <mdc-list>
-        <mdc-list-item [routerLink]="['home']" routerLinkActive #rlaHome="routerLinkActive">
+        <a mdc-list-item [routerLink]="['home']" routerLinkActive #rlaHome="routerLinkActive">
           <mdc-icon mdcListItemGraphic>home</mdc-icon>Home
-        </mdc-list-item>
+        </a>
         <mdc-list-divider></mdc-list-divider>
-        <mdc-list-item (click)="startVisible = !startVisible">
+        <a mdc-list-item (click)="startVisible = !startVisible">
           <mdc-icon mdcListItemGraphic>keyboard_arrow_{{startVisible ? 'down' : 'right'}}</mdc-icon>Getting Started
-        </mdc-list-item>
+        </a>
         <div *ngIf="startVisible">
-          <mdc-list-item *ngFor="let item of startRoutes" [routerLink]="[item.route]" routerLinkActive #rlaCore="routerLinkActive">
+          <a mdc-list-item *ngFor="let item of startRoutes" [routerLink]="[item.route]" routerLinkActive #rlaCore="routerLinkActive">
             <mdc-icon mdcListItemGraphic>{{item.icon}}</mdc-icon>{{item.name}}
-          </mdc-list-item>
+          </a>
         </div>
         <mdc-list-divider></mdc-list-divider>
-        <mdc-list-item (click)="buttonVisible = !buttonVisible">
+        <a mdc-list-item (click)="buttonVisible = !buttonVisible">
           <mdc-icon mdcListItemGraphic>keyboard_arrow_{{buttonVisible ? 'down' : 'right'}}</mdc-icon>Buttons
-        </mdc-list-item>
+        </a>
         <div *ngIf="buttonVisible">
-          <mdc-list-item *ngFor="let item of buttonRoutes" [routerLink]="[item.route]" routerLinkActive #rlaButton="routerLinkActive">
+          <a mdc-list-item *ngFor="let item of buttonRoutes" [routerLink]="[item.route]" routerLinkActive #rlaButton="routerLinkActive">
             <mdc-icon mdcListItemGraphic>{{item.icon}}</mdc-icon>{{item.name}}
-          </mdc-list-item>
+          </a>
         </div>
         <mdc-list-divider></mdc-list-divider>
-        <mdc-list-item (click)="inputVisible = !inputVisible">
+        <a mdc-list-item (click)="inputVisible = !inputVisible">
           <mdc-icon mdcListItemGraphic>keyboard_arrow_{{inputVisible ? 'down' : 'right'}}</mdc-icon>Inputs and Controls
-        </mdc-list-item>
+        </a>
         <div *ngIf="inputVisible">
-          <mdc-list-item *ngFor="let item of inputRoutes" [routerLink]="[item.route]" routerLinkActive #rlaInputs="routerLinkActive">
+          <a mdc-list-item *ngFor="let item of inputRoutes" [routerLink]="[item.route]" routerLinkActive #rlaInputs="routerLinkActive">
             <mdc-icon mdcListItemGraphic>{{item.icon}}</mdc-icon>{{item.name}}
-          </mdc-list-item>
+          </a>
         </div>
         <mdc-list-divider></mdc-list-divider>
-        <mdc-list-item (click)="listVisible = !listVisible">
+        <a mdc-list-item (click)="listVisible = !listVisible">
           <mdc-icon mdcListItemGraphic>keyboard_arrow_{{listVisible ? 'down' : 'right'}}</mdc-icon>Lists
-        </mdc-list-item>
+        </a>
         <div *ngIf="listVisible">
-          <mdc-list-item *ngFor="let item of listRoutes" [routerLink]="[item.route]" routerLinkActive #rlaLists="routerLinkActive">
+          <a mdc-list-item *ngFor="let item of listRoutes" [routerLink]="[item.route]" routerLinkActive #rlaLists="routerLinkActive">
             <mdc-icon mdcListItemGraphic>{{item.icon}}</mdc-icon>{{item.name}}
-          </mdc-list-item>
+          </a>
         </div>
         <mdc-list-divider></mdc-list-divider>
-        <mdc-list-item *ngFor="let navItem of navigationLinks" [routerLink]="[navItem.route]" routerLinkActive #rla="routerLinkActive">
+        <a mdc-list-item *ngFor="let navItem of navigationLinks" [routerLink]="[navItem.route]" routerLinkActive #rla="routerLinkActive">
           <mdc-icon mdcListItemGraphic>{{navItem.icon}}</mdc-icon>{{navItem.name}}
-        </mdc-list-item>
+        </a>
       </mdc-list>
     </mdc-list-group>
   </mdc-drawer-content>

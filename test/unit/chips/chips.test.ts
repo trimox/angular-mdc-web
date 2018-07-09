@@ -106,10 +106,6 @@ describe('Chips', () => {
       expect(testInstance.getLeadingIcon()).toBeDefined();
     });
 
-    it('expect foundation to be defined', () => {
-      expect(testInstance.getFoundation()).toBeDefined();
-    });
-
     it('#should apply primary class modifier', () => {
       testComponent.primary = true;
       fixture.detectChanges();

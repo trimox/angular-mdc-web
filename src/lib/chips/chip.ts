@@ -27,7 +27,7 @@ import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
 import { MDCChipAdapter } from '@material/chips/chip/adapter';
-import { MDCChipFoundation } from '@material/chips';
+import { MDCChipFoundation } from '@material/chips/chip';
 
 /** Represents an event fired on an individual `mdc-chip`. */
 export interface MdcChipEvent {
@@ -339,10 +339,6 @@ export class MdcChip implements AfterContentInit, OnDestroy {
 
   private _blur(): void {
     this._onBlur.next({ chip: this });
-  }
-
-  getFoundation(): MDCChipFoundation {
-    return this._foundation;
   }
 
   /** Retrieves the DOM element of the component host. */

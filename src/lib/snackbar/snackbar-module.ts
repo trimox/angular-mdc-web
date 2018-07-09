@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { MdcPortalService } from '@angular-mdc/web/common';
+import { MdcPortalService } from '@angular-mdc/web/portal';
 
 import { MdcSnackbar } from './snackbar.service';
 import { MdcSnackbarComponent } from './snackbar.component';

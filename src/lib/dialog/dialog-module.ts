@@ -1,48 +1,51 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { OverlayModule } from '@angular-mdc/web/overlay';
-import { PortalModule } from '@angular-mdc/web/portal';
+import { MdcPortalService, PortalModule } from '@angular-mdc/web/portal';
+
+import { MdcDialogConfig } from './dialog-config';
+import { MdcDialogRef } from './dialog-ref';
+import { MdcDialogContainer } from './dialog-container';
+import { MdcDialogComponent } from './dialog.component';
+import { MdcDialog } from './dialog.service';
 
 import {
-  MdcDialogBackdrop,
   MdcDialogBody,
   MdcDialogButton,
   MdcDialogFooter,
   MdcDialogHeader,
   MdcDialogHeaderTitle,
-  MdcDialogSurface,
+  MdcDialogSurface
 } from './dialog-directives';
-import { MdcDialogComponent } from './dialog.component';
-import { MdcDialogContainer } from './dialog-container';
-import { MdcDialog } from './dialog';
+
+import {
+  DIALOG_CONFIG,
+  DIALOG_CONTAINER,
+  DIALOG_REF
+} from './dialog-injectors';
 
 const DIALOG_DECLARATIONS = [
-  MdcDialogComponent,
-  MdcDialogContainer,
-  MdcDialogBackdrop,
   MdcDialogBody,
   MdcDialogButton,
+  MdcDialogComponent,
+  MdcDialogContainer,
   MdcDialogFooter,
   MdcDialogHeader,
   MdcDialogHeaderTitle,
-  MdcDialogSurface,
+  MdcDialogSurface
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    OverlayModule,
-    PortalModule
-  ],
-  exports: [
-    DIALOG_DECLARATIONS
-  ],
+  imports: [CommonModule, PortalModule],
+  exports: DIALOG_DECLARATIONS,
   declarations: DIALOG_DECLARATIONS,
-  providers: [MdcDialog],
-  entryComponents: [
-    MdcDialogContainer,
-    MdcDialogComponent
+  providers: [
+    MdcPortalService,
+    MdcDialog,
+    { provide: DIALOG_REF, useValue: MdcDialogRef },
+    { provide: DIALOG_CONTAINER, useValue: MdcDialogContainer },
+    { provide: DIALOG_CONFIG, useValue: MdcDialogConfig }
   ],
+  entryComponents: [MdcDialogContainer]
 })
 export class MdcDialogModule { }

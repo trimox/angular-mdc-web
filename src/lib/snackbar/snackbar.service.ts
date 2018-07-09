@@ -2,7 +2,7 @@ import { ComponentRef, Injectable, OnDestroy } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { MdcPortalService } from '@angular-mdc/web/common';
+import { MdcPortalService } from '@angular-mdc/web/portal';
 
 import { MdcSnackbarRef } from './snackbar-ref';
 import { MdcSnackbarComponent } from './snackbar.component';

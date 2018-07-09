@@ -1,16 +1,16 @@
-import { ViewContainerRef, InjectionToken } from '@angular/core';
+import { ViewContainerRef } from '@angular/core';
 
-/** Valid ARIA roles for a dialog element. */
-export type DialogRole = 'dialog' | 'alertdialog';
+import { ComponentType } from '@angular-mdc/web/portal';
+import { MdcDialogContainer } from './dialog-container';
 
-export const MDC_DIALOG_DATA = new InjectionToken<any>('MdcDialogData');
+export class MdcDialogConfig<D = any> {
+  /** Component to use as the container for the dialog. */
+  containerComponent?: ComponentType<MdcDialogContainer>;
 
-export class MdcDialogConfig {
+  viewContainerRef?: ViewContainerRef;
+
   /** ID for the dialog. If omitted, a unique one will be generated. */
   id?: string;
-
-  /** The ARIA role of the dialog element. */
-  role?: DialogRole = 'dialog';
 
   /** ID of the element that describes the dialog.  */
   ariaDescribedBy?: string | null = null;
@@ -24,9 +24,9 @@ export class MdcDialogConfig {
   /** Whether the user can click outside to close the dialog */
   clickOutsideToClose?: boolean = true;
 
-  /** Data being injected into the child component. */
-  data?: any = null;
+  /** Whether the dialog has a backdrop. */
+  backdrop?: boolean = true;
 
-  /** The view container to place snack bar into. */
-  viewContainerRef?: ViewContainerRef;
+  /** Data to be injected into the dialog content. */
+  data?: D | null = null;
 }

@@ -7,6 +7,8 @@ import {
   Injector
 } from '@angular/core';
 
+import { ComponentType } from './portal';
+
 @Injectable()
 export class MdcPortalService {
   /** A function that will permanently dispose portal host. */
@@ -17,11 +19,11 @@ export class MdcPortalService {
     private _appRef: ApplicationRef,
     private _injector: Injector) { }
 
-  createComponentRef(component: any, parent: HTMLElement = document.body): ComponentRef<any> {
-    const componentRef = this._componentFactoryResolver
-      .resolveComponentFactory(component)
-      .create(this._injector);
+  createComponentRef<T>(portal: ComponentType<T>, parent: HTMLElement = document.body): ComponentRef<T> {
+    const componentFactory = this._componentFactoryResolver.resolveComponentFactory(portal);
+    let componentRef: ComponentRef<T>;
 
+    componentRef = componentFactory.create(this._injector);
     this._appRef.attachView(componentRef.hostView);
     this.setDisposeFn(() => {
       this._appRef.detachView(componentRef.hostView);
@@ -46,10 +48,6 @@ export class MdcPortalService {
   }
 
   dispose(): void {
-    this._invokeDisposeFn();
-  }
-
-  private _invokeDisposeFn(): void {
     if (this._disposeFn) {
       this._disposeFn();
       this._disposeFn = null;

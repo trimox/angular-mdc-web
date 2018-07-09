@@ -1,31 +1,30 @@
 import {
-  AfterViewInit,
+  AfterContentInit,
   Component,
   ContentChild,
   ContentChildren,
   ElementRef,
   EventEmitter,
   HostBinding,
-  Inject,
   Input,
   OnDestroy,
   Optional,
   Output,
   QueryList,
-  Renderer2,
   SkipSelf,
-  ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
-import { isBrowser, EventRegistry, ESCAPE } from '@angular-mdc/web/common';
+
 import {
-  MdcDialogBackdrop,
+  isBrowser,
+  EventRegistry,
+  ESCAPE
+} from '@angular-mdc/web/common';
+
+import {
   MdcDialogBody,
   MdcDialogButton,
-  MdcDialogFooter,
-  MdcDialogHeader,
-  MdcDialogHeaderTitle,
-  MdcDialogSurface,
+  MdcDialogSurface
 } from './dialog-directives';
 import { MdcDialogConfig } from './dialog-config';
 import { MdcDialogRef } from './dialog-ref';
@@ -37,78 +36,78 @@ import { MDCDialogFoundation, util } from '@material/dialog';
   moduleId: module.id,
   selector: 'mdc-dialog',
   template: `
-  <mdc-dialog-surface>
-    <ng-content></ng-content>
-  </mdc-dialog-surface>
-  <mdc-dialog-backdrop></mdc-dialog-backdrop>
+  <ng-content></ng-content>
+  <div class="mdc-dialog__backdrop" *ngIf="config?.backdrop"></div>
   `,
   host: {
-    '[attr.role]': '_config?.role',
-    '[attr.aria-labelledby]': '_config?.ariaLabel ? null : _ariaLabelledBy',
-    '[attr.aria-label]': '_config?.ariaLabel',
-    '[attr.aria-describedby]': '_config?.ariaDescribedBy || null',
+    '[attr.aria-labelledby]': 'config?.ariaLabel',
+    '[attr.aria-label]': 'config?.ariaLabel',
+    '[attr.aria-describedby]': 'config?.ariaDescribedBy || null',
   },
   providers: [EventRegistry],
   encapsulation: ViewEncapsulation.None
 })
-export class MdcDialogComponent implements AfterViewInit, OnDestroy {
-  _config: MdcDialogConfig;
-
+export class MdcDialogComponent implements AfterContentInit, OnDestroy {
   private _focusTrap: {
-    activate: Function;
-    deactivate: Function;
-    pause: Function;
-    unpause: Function;
+    activate(): void,
+    deactivate(): void
   };
 
-  /** ID of the element that should be considered as the dialog's label. */
-  _ariaLabelledBy: string | null = null;
+  config: MdcDialogConfig;
 
   @Input() clickOutsideToClose: boolean = true;
   @Input() escapeToClose: boolean = true;
+  @Input() backdrop: boolean = true;
+
   @HostBinding('class.mdc-dialog') isHostClass = true;
+  @HostBinding('attr.role') alertDialog: string = 'alertdialog';
   @HostBinding('attr.aria-hidden') ariaHidden: string = 'true';
   @HostBinding('tabindex') tabIndex: number = -1;
-  @Output('accept') _accept: EventEmitter<string> = new EventEmitter();
-  @Output('cancel') _cancel: EventEmitter<string> = new EventEmitter();
-  @ViewChild(MdcDialogSurface) dialogSurface: MdcDialogSurface;
-  @ContentChild(MdcDialogBody) dialogBody: MdcDialogBody;
-  @ContentChildren(MdcDialogButton, { descendants: true }) dialogButtons: QueryList<MdcDialogButton>;
+
+  /** Event emitted when the dialog is closed. */
+  @Output() readonly closed: EventEmitter<void> = new EventEmitter<void>();
+
+  @Output('accept') readonly _accept: EventEmitter<string> = new EventEmitter();
+  @Output('cancel') readonly _cancel: EventEmitter<string> = new EventEmitter();
+
+  @ContentChild(MdcDialogSurface) _surface: MdcDialogSurface;
+  @ContentChild(MdcDialogBody) _dialogBody: MdcDialogBody;
+  @ContentChildren(MdcDialogButton, { descendants: true }) _actions: QueryList<MdcDialogButton>;
 
   private _mdcAdapter: MDCDialogAdapter = {
-    addClass: (className: string) => this._renderer.addClass(this.elementRef.nativeElement, className),
-    removeClass: (className: string) => this._renderer.removeClass(this.elementRef.nativeElement, className),
+    addClass: (className: string) => this._getHostElement().classList.add(className),
+    removeClass: (className: string) => this._getHostElement().classList.remove(className),
     addBodyClass: (className: string) => {
       if (isBrowser()) {
-        this._renderer.addClass(document.body, className);
+        document.body.classList.add(className);
       }
     },
     removeBodyClass: (className: string) => {
       if (isBrowser()) {
-        this._renderer.removeClass(document.body, className);
+        document.body.classList.remove(className);
       }
     },
     eventTargetHasClass: (target: HTMLElement, className: string) => target.classList.contains(className),
     registerInteractionHandler: (evt: string, handler: EventListener) => {
-      const clickOutsideToClose = this._config ? this._config.clickOutsideToClose : this.clickOutsideToClose;
+      const clickOutsideToClose = this.config ? this.config.clickOutsideToClose : this.clickOutsideToClose;
 
-      handler = this.dialogSurface && clickOutsideToClose ? handler : (event) => {
+      handler = this._surface && clickOutsideToClose ? handler : (event) => {
         if ((<any>event.target).classList.contains('mdc-dialog__footer__button--accept')) {
           this.accept();
         } else if ((<any>event.target).classList.contains('mdc-dialog__footer__button--cancel')) {
           this.cancel();
         }
       };
-      this._registry.listen(evt, handler, this.elementRef.nativeElement);
+      this._registry.listen(evt, handler, this._getHostElement());
     },
     deregisterInteractionHandler: (evt: string, handler: EventListener) => this._registry.unlisten(evt, handler),
     registerSurfaceInteractionHandler: (evt: string, handler: EventListener) =>
-      this._registry.listen(evt, handler, this.dialogSurface.elementRef.nativeElement),
+      this._registry.listen(evt, handler, this._surface.elementRef.nativeElement),
     deregisterSurfaceInteractionHandler: (evt: string, handler: EventListener) => this._registry.unlisten(evt, handler),
     registerDocumentKeydownHandler: (handler: EventListener) => {
       if (!isBrowser()) { return; }
 
-      const escapeToClose = this._config ? this._config.escapeToClose : this.escapeToClose;
+      const escapeToClose = this.config ? this.config.escapeToClose : this.escapeToClose;
 
       handler = escapeToClose ? handler : this._onKeyDown;
       this._registry.listen('keydown', handler, document);
@@ -116,31 +115,19 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
     deregisterDocumentKeydownHandler: (handler: EventListener) => {
       if (!isBrowser()) { return; }
 
-      const escapeToClose = this._config ? this._config.escapeToClose : this.escapeToClose;
-      handler = escapeToClose ? handler : this._onKeyDown;
-      this._registry.unlisten('keydown', handler);
+      const escapeToClose = this.config ? this.config.escapeToClose : this.escapeToClose;
+      this._registry.unlisten('keydown', escapeToClose ? handler : this._onKeyDown);
     },
-    registerTransitionEndHandler: (handler: EventListener) => {
-      if (this.dialogSurface) {
-        this._registry.listen('transitionend', handler, this.dialogSurface.elementRef.nativeElement);
-      }
-    },
-    deregisterTransitionEndHandler: (handler: EventListener) => {
-      if (this.dialogSurface) {
-        this._registry.unlisten('transitionend', handler);
-      }
-    },
+    registerTransitionEndHandler: (handler: EventListener) =>
+      this._registry.listen('transitionend', handler, this._surface.elementRef.nativeElement),
+    deregisterTransitionEndHandler: (handler: EventListener) => this._registry.unlisten('transitionend', handler),
     notifyAccept: () => {
-      this._accept.emit('MDCDialog:accept');
-      if (this.dialogRef) {
-        this.dialogRef.close();
-      }
+      this._accept.emit();
+      this._closeDialogRef('accepted');
     },
     notifyCancel: () => {
-      this._cancel.emit('MDCDialog:cancel');
-      if (this.dialogRef) {
-        this.dialogRef.close();
-      }
+      this._cancel.emit();
+      this._closeDialogRef('canceled');
     },
     trapFocusOnSurface: () => {
       if (this._focusTrap) {
@@ -152,7 +139,7 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
         this._focusTrap.deactivate();
       }
     },
-    isDialog: (el: Element) => this.dialogSurface ? el === this.dialogSurface.elementRef.nativeElement : false
+    isDialog: (el: Element) => this._surface ? el === this._surface.elementRef.nativeElement : false
   };
 
   private _foundation: {
@@ -166,21 +153,17 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
   } = new MDCDialogFoundation(this._mdcAdapter);
 
   constructor(
-    private _renderer: Renderer2,
     public elementRef: ElementRef,
     private _registry: EventRegistry,
-    @Optional() @SkipSelf() public dialogRef: MdcDialogRef<any>) {
+    @Optional() @SkipSelf() public dialogRef: MdcDialogRef<any>) { }
 
+  ngAfterContentInit(): void {
     if (this.dialogRef) {
-      this._config = this.dialogRef._containerInstance._config;
-    }
-  }
+      this.config = this.dialogRef.componentInstance.config;
 
-  ngAfterViewInit(): void {
-    this._foundation.init();
-
-    if (this._config) {
-      this.show();
+      setTimeout(() => {
+        this.show();
+      });
     }
   }
 
@@ -188,32 +171,46 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
     this._foundation.destroy();
   }
 
-  private _onKeyDown(event: KeyboardEvent): void {
-    if (ESCAPE === event.keyCode) {
-      event.stopPropagation();
-    }
+  initDeclarativeConfig(): void {
+    this.config = new MdcDialogConfig();
+
+    this.config.backdrop = this.backdrop;
+    this.config.clickOutsideToClose = this.clickOutsideToClose;
+    this.config.escapeToClose = this.escapeToClose;
   }
 
   show(): void {
-    const focusedEl = this.dialogButtons.find((_) => _.focused || _.accept);
+    if (!this.dialogRef) {
+      this.initDeclarativeConfig();
+    }
+
+    this._foundation.init();
+
+    const focusedEl = this._actions.find((_) => _.accept);
 
     if (isBrowser()) {
-      this._focusTrap = util.createFocusTrapInstance(this.dialogSurface.elementRef.nativeElement, {
-        initialFocus: focusedEl ? focusedEl.getHostElement() : this.elementRef.nativeElement,
-        clickOutsideDeactivates: this._config ? this._config.clickOutsideToClose : this.clickOutsideToClose,
-        escapeDeactivates: this._config ? this._config.escapeToClose : this.escapeToClose,
+      this._focusTrap = util.createFocusTrapInstance(this._surface.elementRef.nativeElement, {
+        initialFocus: focusedEl ? focusedEl.getHostElement() : this._getHostElement(),
+        clickOutsideDeactivates: this.config ? this.config.clickOutsideToClose : this.clickOutsideToClose,
+        escapeDeactivates: this.config ? this.config.escapeToClose : this.escapeToClose,
       });
     }
-    setTimeout(() => {
-      this._foundation.open();
 
-      if (focusedEl) {
-        focusedEl.focus();
-      }
-    }, 10);
+    this._foundation.open();
+
+    if (focusedEl) {
+      focusedEl.focus();
+    }
+  }
+
+  private _closeDialogRef(result?: any): void {
+    if (this.dialogRef) {
+      this.dialogRef.close(result);
+    }
   }
 
   close(): void {
+    this.closed.emit();
     this._foundation.close();
   }
 
@@ -227,5 +224,16 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
 
   cancel(shouldNotify: boolean = true): void {
     this._foundation.cancel(shouldNotify);
+  }
+
+  private _onKeyDown(event: KeyboardEvent): void {
+    if (ESCAPE === event.keyCode) {
+      event.stopPropagation();
+    }
+  }
+
+  /** Retrieves the DOM element of the component host. */
+  private _getHostElement(): HTMLElement {
+    return this.elementRef.nativeElement;
   }
 }

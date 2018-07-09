@@ -9,7 +9,6 @@ import { DemoMaterialModule } from './material.module';
 import { DialogExampleModule } from './components/dialog-demo/dialog-example.module';
 
 import { AppComponent } from './app.component';
-import { DialogServiceTab, DialogTab } from './components/dialog-demo/dialog-demo';
 import { DemoRouteOne, DemoRouteTwo, DemoRouteThree } from './components/tab-demo';
 
 import { AppLayout } from './app-layout/app-layout';
@@ -32,13 +31,9 @@ import { APP_ROUTES, DEMO_ROUTES } from './routes';
     DEMO_ROUTES,
     DemoRouteOne,
     DemoRouteTwo,
-    DemoRouteThree,
-    DialogServiceTab,
-    DialogTab,
+    DemoRouteThree
   ],
-  entryComponents: [
-    AppComponent
-  ]
+  entryComponents: [AppComponent]
 })
 export class AppModule {
   constructor(private _appRef: ApplicationRef) { }

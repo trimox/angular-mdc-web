@@ -7,21 +7,12 @@
  */
 
 import {
-  TemplateRef,
   ViewContainerRef,
   ElementRef,
   ComponentRef,
   EmbeddedViewRef,
   Injector
 } from '@angular/core';
-import {
-  throwNullPortalOutletError,
-  throwPortalAlreadyAttachedError,
-  throwNoPortalAttachedError,
-  throwNullPortalError,
-  throwPortalOutletAlreadyDisposedError,
-  throwUnknownPortalTypeError
-} from './portal-errors';
 
 /** Interface that can be used to generically type a class. */
 export interface ComponentType<T> {
@@ -37,14 +28,6 @@ export abstract class Portal<T> {
 
   /** Attach this portal to a host. */
   attach(host: PortalOutlet): T {
-    if (host == null) {
-      throwNullPortalOutletError();
-    }
-
-    if (host.hasAttached()) {
-      throwPortalAlreadyAttachedError();
-    }
-
     this._attachedHost = host;
     return <T>host.attach(this);
   }
@@ -53,12 +36,8 @@ export abstract class Portal<T> {
   detach(): void {
     const host = this._attachedHost;
 
-    if (host == null) {
-      throwNoPortalAttachedError();
-    } else {
-      this._attachedHost = null;
-      host.detach();
-    }
+    this._attachedHost = null;
+    host.detach();
   }
 
   /** Whether this portal is attached to a host. */
@@ -103,55 +82,18 @@ export class ComponentPortal<T> extends Portal<ComponentRef<T>> {
   }
 }
 
-/**
- * A `TemplatePortal` is a portal that represents some embedded template (TemplateRef).
- */
-export class TemplatePortal<C = any> extends Portal<C> {
-  /** The embedded template that will be used to instantiate an embedded View in the host. */
-  templateRef: TemplateRef<C>;
-
-  /** Reference to the ViewContainer into which the template will be stamped out. */
-  viewContainerRef: ViewContainerRef;
-
-  context: C | undefined;
-
-  constructor(template: TemplateRef<C>, viewContainerRef: ViewContainerRef, context?: C) {
-    super();
-    this.templateRef = template;
-    this.viewContainerRef = viewContainerRef;
-    this.context = context;
-  }
-
-  get origin(): ElementRef {
-    return this.templateRef.elementRef;
-  }
-
-  /**
-   * Attach the the portal to the provided `PortalOutlet`.
-   * When a context is provided it will override the `context` property of the `TemplatePortal`
-   * instance.
-   */
-  attach(host: PortalOutlet, context: C | undefined = this.context): C {
-    this.context = context;
-    return super.attach(host);
-  }
-
-  detach(): void {
-    this.context = undefined;
-    return super.detach();
-  }
-}
-
-/**
- * A `PortalOutlet` is an space that can contain a single `Portal`.
- */
+/** A `PortalOutlet` is an space that can contain a single `Portal`. */
 export interface PortalOutlet {
+  /** Attaches a portal to this outlet. */
   attach(portal: Portal<any>): any;
 
+  /** Detaches the currently attached portal from this outlet. */
   detach(): any;
 
+  /** Performs cleanup before the outlet is destroyed. */
   dispose(): void;
 
+  /** Whether there is currently a portal attached to this outlet. */
   hasAttached(): boolean;
 }
 
@@ -175,37 +117,17 @@ export abstract class BasePortalOutlet implements PortalOutlet {
   }
 
   attach<T>(portal: ComponentPortal<T>): ComponentRef<T>;
-  attach<T>(portal: TemplatePortal<T>): EmbeddedViewRef<T>;
   attach(portal: any): any;
 
   /** Attaches a portal. */
   attach(portal: Portal<any>): any {
-    if (!portal) {
-      throwNullPortalError();
-    }
-
-    if (this.hasAttached()) {
-      throwPortalAlreadyAttachedError();
-    }
-
-    if (this._isDisposed) {
-      throwPortalOutletAlreadyDisposedError();
-    }
-
     if (portal instanceof ComponentPortal) {
       this._attachedPortal = portal;
       return this.attachComponentPortal(portal);
-    } else if (portal instanceof TemplatePortal) {
-      this._attachedPortal = portal;
-      return this.attachTemplatePortal(portal);
     }
-
-    throwUnknownPortalTypeError();
   }
 
   abstract attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T>;
-
-  abstract attachTemplatePortal<C>(portal: TemplatePortal<C>): EmbeddedViewRef<C>;
 
   /** Detaches a previously attached portal. */
   detach(): void {

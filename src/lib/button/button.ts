@@ -8,7 +8,6 @@ import {
   HostListener,
   Input,
   OnDestroy,
-  Renderer2,
   ViewEncapsulation
 } from '@angular/core';
 import { EventRegistry } from '@angular-mdc/web/common';
@@ -112,7 +111,6 @@ export class MdcButton implements AfterContentInit, OnDestroy {
   @ContentChild(MdcIcon) buttonIcon: MdcIcon;
 
   constructor(
-    protected _renderer: Renderer2, // remove after dialog PR#1057
     protected _elementRef: ElementRef,
     protected _ripple: MdcRipple) { }
 

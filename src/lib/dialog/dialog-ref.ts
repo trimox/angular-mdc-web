@@ -1,59 +1,50 @@
-import { OverlayRef } from '@angular-mdc/web/overlay';
-import { MdcDialogContainer } from './dialog-container';
-import { Observable,  Subject } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
+import { MdcDialogContainer } from './dialog-container';
+import { MdcDialogConfig } from './dialog-config';
+
+/** Unique id for the created dialog. */
 let uniqueId = 0;
 
 /**
  * Reference to a dialog dispatched from the MdcDialog service.
  */
 export class MdcDialogRef<T, R = any> {
+  /** The instance of the component in the dialog. */
   componentInstance: T;
-
-  /** Subject for notifying the user that the dialog has finished opening. */
-  private _afterOpen = new Subject<void>();
-
-  /** Subject for notifying the user that the dialog has finished closing. */
-  private _afterClosed = new Subject<R | undefined>();
-
-  /** Subject for notifying the user that the dialog has started closing. */
-  private _beforeClose = new Subject<R | undefined>();
 
   /** Result to be passed to afterClosed. */
   private _result: R | undefined;
 
   constructor(
-    private _overlayRef: OverlayRef,
-    public _containerInstance: MdcDialogContainer,
-    readonly id: string = `mdc-dialog-${uniqueId++}`) { }
+    protected _containerInstance: MdcDialogContainer,
+    readonly id: string = `mdc-dialog-${uniqueId++}`) {
 
-  /** Closes the dialog. */
+    this.afterClosed().subscribe(() => {
+      this.componentInstance = null!;
+    });
+  }
+
+  /**
+   * Close the dialog.
+   * @param dialogResult Optional result to return to the dialog opener.
+   */
   close(dialogResult?: R): void {
     this._result = dialogResult;
-
-    this._beforeClose.next(this._result);
-    this._beforeClose.complete();
-    this._overlayRef.dispose();
+    this._containerInstance.closed();
   }
 
-  /**
-   * Gets an observable that is notified when the dialog is finished opening.
-   */
-  afterOpen(): Observable<void> {
-    return this._afterOpen.asObservable();
+  get config(): MdcDialogConfig {
+    return this._containerInstance.config;
   }
 
-  /**
-   * Gets an observable that is notified when the dialog is finished closing.
-   */
+  get data(): any {
+    return this._containerInstance.config.data;
+  }
+
+  /** Gets an observable that is notified when the dialog is finished closing. */
   afterClosed(): Observable<R | undefined> {
-    return this._afterClosed.asObservable();
-  }
-
-  /**
-   * Gets an observable that is notified when the dialog has started closing.
-   */
-  beforeClose(): Observable<R | undefined> {
-    return this._beforeClose.asObservable();
+    return this._containerInstance._afterExit.pipe(map(() => this._result));
   }
 }

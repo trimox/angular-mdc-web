@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { DemoMaterialModule } from '../../material.module';
 
@@ -8,28 +8,27 @@ import {
   DialogScrollingExample,
   DialogSimpleExample,
   DialogNoFooterExample,
-  DialogFormExample,
+  DialogFormExample
 } from './dialog-demo';
 
 @NgModule({
   imports: [
-    FormsModule,
     ReactiveFormsModule,
-    DemoMaterialModule,
+    DemoMaterialModule
   ],
   declarations: [
     DialogAlertExample,
     DialogScrollingExample,
     DialogSimpleExample,
     DialogNoFooterExample,
-    DialogFormExample,
+    DialogFormExample
   ],
   entryComponents: [
     DialogAlertExample,
     DialogSimpleExample,
     DialogScrollingExample,
     DialogNoFooterExample,
-    DialogFormExample,
+    DialogFormExample
   ]
 })
 export class DialogExampleModule { }

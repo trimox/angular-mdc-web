@@ -11,43 +11,39 @@ import {
   ComponentRef,
   Directive,
   EmbeddedViewRef,
-  Input,
+  EventEmitter,
   NgModule,
   OnDestroy,
   OnInit,
+  Output,
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import { Portal, TemplatePortal, ComponentPortal, BasePortalOutlet } from './portal';
+import { BasePortalOutlet, ComponentPortal, Portal } from './portal';
 
 /**
- * Directive version of a `TemplatePortal`. Because the directive *is* a TemplatePortal,
- * the directive instance itself can be attached to a host, enabling declarative use of portals.
+ * Possible attached references to the CdkPortalOutlet.
  */
-@Directive({
-  selector: '[cdk-portal], [cdkPortal], [portal]',
-  exportAs: 'cdkPortal',
-})
-export class CdkPortal extends TemplatePortal<any> {
-  constructor(templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef) {
-    super(templateRef, viewContainerRef);
-  }
-}
+export type CdkPortalOutletAttachedRef = ComponentRef<any> | EmbeddedViewRef<any> | null;
 
 /**
  * Directive version of a PortalOutlet. Because the directive *is* a PortalOutlet, portals can be
  * directly attached to it, enabling declarative use.
  *
  * Usage:
- * <ng-template [cdkPortalOutlet]="greeting"></ng-template>
+ * `<ng-template [cdkPortalOutlet]="greeting"></ng-template>`
  */
 @Directive({
-  selector: '[cdkPortalOutlet]',
+  selector: '[cdkPortalOutlet], [cdkPortalHost], [portalHost]',
+  exportAs: 'cdkPortalOutlet, cdkPortalHost',
   inputs: ['portal: cdkPortalOutlet']
 })
 export class CdkPortalOutlet extends BasePortalOutlet implements OnInit, OnDestroy {
   /** Whether the portal component is initialized. */
   private _isInitialized = false;
+
+  /** Reference to the currently-attached component/view ref. */
+  private _attachedRef: CdkPortalOutletAttachedRef;
 
   constructor(
     private _componentFactoryResolver: ComponentFactoryResolver,
@@ -61,6 +57,10 @@ export class CdkPortalOutlet extends BasePortalOutlet implements OnInit, OnDestr
   }
 
   set portal(portal: Portal<any> | null) {
+    // Ignore the cases where the `portal` is set to a falsy value before the lifecycle hooks have
+    // run. This handles the cases where the user might do something like `<div cdkPortalOutlet>`
+    // and attach a portal programmatically in the parent component. When Angular does the first CD
+    // round, it will fire the setter with empty string, causing the user's content to be cleared.
     if (this.hasAttached() && !portal && !this._isInitialized) {
       return;
     }
@@ -76,6 +76,14 @@ export class CdkPortalOutlet extends BasePortalOutlet implements OnInit, OnDestr
     this._attachedPortal = portal;
   }
 
+  @Output() attached: EventEmitter<CdkPortalOutletAttachedRef> =
+    new EventEmitter<CdkPortalOutletAttachedRef>();
+
+  /** Component or view reference that is attached to the portal. */
+  get attachedRef(): CdkPortalOutletAttachedRef {
+    return this._attachedRef;
+  }
+
   ngOnInit() {
     this._isInitialized = true;
   }
@@ -83,6 +91,7 @@ export class CdkPortalOutlet extends BasePortalOutlet implements OnInit, OnDestr
   ngOnDestroy() {
     super.dispose();
     this._attachedPortal = null;
+    this._attachedRef = null;
   }
 
   /**
@@ -108,28 +117,15 @@ export class CdkPortalOutlet extends BasePortalOutlet implements OnInit, OnDestr
 
     super.setDisposeFn(() => ref.destroy());
     this._attachedPortal = portal;
+    this._attachedRef = ref;
+    this.attached.emit(ref);
 
     return ref;
-  }
-
-  /**
-   * Attach the given TemplatePortal to this PortlHost as an embedded View.
-   * @param portal Portal to be attached.
-   * @returns Reference to the created embedded view.
-   */
-  attachTemplatePortal<C>(portal: TemplatePortal<C>): EmbeddedViewRef<C> {
-    portal.setAttachedHost(this);
-    const viewRef = this._viewContainerRef.createEmbeddedView(portal.templateRef, portal.context);
-    super.setDisposeFn(() => this._viewContainerRef.clear());
-
-    this._attachedPortal = portal;
-
-    return viewRef;
   }
 }
 
 @NgModule({
-  exports: [CdkPortal, CdkPortalOutlet],
-  declarations: [CdkPortal, CdkPortalOutlet],
+  exports: [CdkPortalOutlet],
+  declarations: [CdkPortalOutlet],
 })
 export class PortalModule { }

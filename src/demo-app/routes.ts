@@ -5,7 +5,6 @@ import { ButtonDemo, FabDemo, IconButtonDemo } from './components/buttons';
 import { CardDemo } from './components/card-demo/card-demo';
 import { CheckboxDemo, RadioDemo, SelectDemo, SliderDemo, SwitchDemo, TextFieldDemo } from './components/inputs-controls';
 import { ChipsDemo } from './components/chips-demo/chips-demo';
-import { DIALOG_DEMO_ROUTES } from './components/dialog-demo/routes';
 import { DialogDemo } from './components/dialog-demo/dialog-demo';
 import { DrawerDemo } from './components/drawer-demo/drawer-demo';
 import { ElevationDemo } from './components/elevation-demo/elevation-demo';
@@ -65,7 +64,7 @@ export const APP_ROUTES: Routes = [
   { path: 'checkbox-demo', component: CheckboxDemo },
   { path: 'chips-demo', component: ChipsDemo },
   { path: 'cli-guide', component: CliGuide },
-  { path: 'dialog-demo', component: DialogDemo, children: DIALOG_DEMO_ROUTES },
+  { path: 'dialog-demo', component: DialogDemo },
   { path: 'drawer-demo', component: DrawerDemo },
   { path: 'elevation-demo', component: ElevationDemo },
   { path: 'fab-demo', component: FabDemo },

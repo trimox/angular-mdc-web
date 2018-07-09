@@ -2,63 +2,52 @@ import {
   Component,
   ComponentRef,
   ElementRef,
-  EmbeddedViewRef,
-  Optional,
   Inject,
+  Input,
+  Optional,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-
-import { MdcDialogConfig } from './dialog-config';
+import { Subject } from 'rxjs';
 
 import {
   BasePortalOutlet,
-  CdkPortalOutlet,
   ComponentPortal,
-  TemplatePortal,
+  CdkPortalOutlet
 } from '@angular-mdc/web/portal';
+
+import { MdcDialogConfig } from './dialog-config';
 
 @Component({
   moduleId: module.id,
   selector: 'mdc-dialog-container',
-  template: `<ng-template cdkPortalOutlet></ng-template>`,
+  template: '<ng-template cdkPortalOutlet></ng-template>',
   encapsulation: ViewEncapsulation.None
 })
 export class MdcDialogContainer extends BasePortalOutlet {
-  /** Element that was focused before the dialog was opened. Save this to restore upon close. */
-  private _elementFocusedBeforeDialogWasOpened: HTMLElement | null = null;
-
-  /** The dialog configuration. */
-  _config: MdcDialogConfig;
-
   @ViewChild(CdkPortalOutlet) _portalOutlet: CdkPortalOutlet;
+  config: MdcDialogConfig;
 
   constructor(
-    public elementRef: ElementRef,
+    protected _elementRef: ElementRef,
     @Optional() @Inject(DOCUMENT) private _document: any) {
+
     super();
   }
 
-  /** Attach a component portal as content to this container. */
-  attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T> {
-    this._savePreviouslyFocusedElement();
-    return this._portalOutlet.attachComponentPortal(portal);
+  closed(): void {
+    this._afterExit.next();
   }
+
+  /** A subject emitting after the dialog exits the view. */
+  _afterExit: Subject<void> = new Subject();
 
   /**
-     * Attach a TemplatePortal as content to this dialog container.
-     * @param portal Portal to be attached as the dialog content.
-     */
-  attachTemplatePortal<C>(portal: TemplatePortal<C>): EmbeddedViewRef<C> {
-    this._savePreviouslyFocusedElement();
-    return this._portalOutlet.attachTemplatePortal(portal);
-  }
-
-  /** Saves a reference to the element that was focused before the dialog was opened. */
-  private _savePreviouslyFocusedElement() {
-    if (this._document) {
-      this._elementFocusedBeforeDialogWasOpened = this._document.activeElement as HTMLElement;
-    }
+   * Attach a ComponentPortal as content to this dialog container.
+   * @param portal Portal to be attached as the dialog content.
+   */
+  attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T> {
+    return this._portalOutlet.attachComponentPortal(portal);
   }
 }

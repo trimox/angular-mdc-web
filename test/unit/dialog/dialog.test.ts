@@ -1,143 +1,109 @@
-import { NgModule, Component, Directive, DebugElement, ViewContainerRef, Injector, ViewChild, Inject } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
-import { async, inject, tick, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
-import { SpyLocation } from '@angular/common/testing';
+import { NgModule, Component, DebugElement } from '@angular/core';
+import { inject, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
-  MDC_DIALOG_DATA,
   MdcDialog,
   MdcDialogComponent,
   MdcDialogBody,
   MdcDialogModule,
-  MdcDialogRef,
-  OverlayContainer,
+  MdcDialogRef
 } from '@angular-mdc/web';
 
-describe('MdcDialog', () => {
+describe('MdcDialog Service', () => {
   let dialog: MdcDialog;
-  let overlayContainerElement: HTMLElement;
 
   let dialogDebugElement: DebugElement;
   let dialogInstance = MdcDialogComponent;
 
-  let testViewContainerRef: ViewContainerRef;
-  let viewContainerFixture: ComponentFixture<ComponentWithChildViewContainer>;
-  let mockLocation: SpyLocation;
-
-  let fixture: ComponentFixture<any>;
-
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [MdcDialogModule, DialogTestModule],
-      providers: [
-        {
-          provide: OverlayContainer, useFactory: () => {
-            overlayContainerElement = document.createElement('div');
-            return { getContainerElement: () => overlayContainerElement };
-          }
-        },
-        { provide: Location, useClass: SpyLocation }
-      ],
+      providers: [MdcDialog]
     });
 
     TestBed.compileComponents();
   }));
 
-  beforeEach(inject([MdcDialog, Location], (dg: MdcDialog, l: Location) => {
-    dialog = dg;
-    mockLocation = l as SpyLocation;
+  beforeEach(inject([MdcDialog], (d: MdcDialog) => {
+    dialog = d;
   }));
-
-  beforeEach(() => {
-    viewContainerFixture = TestBed.createComponent(ComponentWithChildViewContainer);
-
-    viewContainerFixture.detectChanges();
-    testViewContainerRef = viewContainerFixture.componentInstance.childViewContainer;
-  });
 
   it('#should open a simple dialog', () => {
     let dialogRef = dialog.open(SimpleDialog);
-    viewContainerFixture.detectChanges();
 
     expect(dialogRef.componentInstance.dialogRef).toBe(dialogRef);
-
-    viewContainerFixture.detectChanges();
   });
 
-  it('#should open a dialog with a component and no ViewContainerRef', () => {
+  it('should close a dialog and get back a result', fakeAsync(() => {
+    let afterCloseCallback = jasmine.createSpy('afterClose callback');
     let dialogRef = dialog.open(SimpleDialog);
 
-    viewContainerFixture.detectChanges();
+    dialogRef.afterClosed().subscribe(afterCloseCallback);
+    dialogRef.close('Pizza');
 
-    expect(dialogRef.componentInstance instanceof SimpleDialog).toBe(true);
-    expect(dialogRef.componentInstance.dialogRef).toBe(dialogRef);
-  });
-
-  it('#should use injector from viewContainerRef for DialogInjector', () => {
-    let dialogRef = dialog.open(SimpleDialog, {
-      viewContainerRef: testViewContainerRef
-    });
-
-    viewContainerFixture.detectChanges();
-
-    let dialogInjector = dialogRef.componentInstance.dialogInjector;
-
-    expect(dialogRef.componentInstance.dialogRef).toBe(dialogRef);
-    expect(dialogInjector.get<DirectiveWithViewContainer>(DirectiveWithViewContainer)).toBeTruthy(
-      'Expected the dialog component to be created with the injector from the viewContainerRef.'
-    );
-  });
+    expect(afterCloseCallback).toHaveBeenCalledWith('Pizza');
+  }));
 
   it('#should close a simple dialog', () => {
     let dialogRef = dialog.open(SimpleDialog);
-    viewContainerFixture.detectChanges();
 
-    expect(dialogRef.componentInstance.myDialog.close());
+    expect(dialogRef.close('Pizza'));
   });
 
-  it('#should signal an accept on a simple dialog', () => {
+  it('#should close a service created dialog', () => {
     let dialogRef = dialog.open(SimpleDialog);
-    viewContainerFixture.detectChanges();
 
-    expect(dialogRef.componentInstance.myDialog.accept());
-    expect(dialogRef.componentInstance.myDialog.isOpen()).toBe(false);
-  });
-
-  it('#should signal an cancel on a simple dialog', () => {
-    let dialogRef = dialog.open(SimpleDialog);
-    viewContainerFixture.detectChanges();
-
-    expect(dialogRef.componentInstance.myDialog.cancel());
-    expect(dialogRef.componentInstance.myDialog.isOpen()).toBe(false);
+    expect(dialog.close());
   });
 
   it('#should have click outside to close', () => {
-    let dialogRef = dialog.open(SimpleDialog, { ariaLabel: 'test', ariaDescribedBy: 'testing', clickOutsideToClose: true });
-    viewContainerFixture.detectChanges();
+    let dialogRef = dialog.open(SimpleDialog, {
+      ariaLabel: 'test',
+      ariaDescribedBy: 'testing',
+      clickOutsideToClose: true,
+      id: 'mydialog',
+      data: { myData: 'test' }
+    });
+
+    expect(dialogRef.data.myData).toBe('test');
+    expect(dialogRef.config).toBeDefined();
+
     dialogRef.close();
   });
 
   it('#should open dialog with no footer', () => {
     let dialogRef = dialog.open(DialogNoFooter);
-    viewContainerFixture.detectChanges();
     dialogRef.close();
+  });
+
+  it('#should not show second dialog', () => {
+    let dialogRef = dialog.open(SimpleDialog, { id: 'mydialog' });
+    dialog.open(SimpleDialog, { id: 'mydialog' });
+    dialogRef.close();
+  });
+
+  it('#should handle keydown', () => {
+    let dialogRef = dialog.open(DialogNoFooter);
+    const event: Event = new KeyboardEvent('keydown', {
+      'code': 'Escape'
+    });
+
+    // .dispatchEvent(event);
   });
 });
 
 describe('MdcDialogComponent', () => {
   let fixture: ComponentFixture<any>;
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [MdcDialogModule],
-      declarations: [
-        SimpleDeclarativeDialog,
-      ]
+      declarations: [SimpleDeclarativeDialog]
     });
     TestBed.compileComponents();
   }));
 
-  describe('basic behaviors', () => {
+  describe('MdcDialogComponent', () => {
     let dialogDebugElement: DebugElement;
     let dialogNativeElement: HTMLElement;
     let dialogInstance: MdcDialogComponent;
@@ -164,9 +130,31 @@ describe('MdcDialogComponent', () => {
         .toContain('mdc-dialog', 'Expected to have mdc-dialog');
     });
 
-    it('#should check if mdc-dialog isOpen', () => {
-      dialogInstance.isOpen();
+    it('#should be open', () => {
+      dialogInstance.show();
       fixture.detectChanges();
+      expect(dialogInstance.isOpen()).toBe(true);
+    });
+
+    it('#should be closed', () => {
+      dialogInstance.show();
+      dialogInstance.close();
+      fixture.detectChanges();
+      expect(dialogInstance.isOpen()).toBe(false);
+    });
+
+    it('#should handle dialog accept', () => {
+      dialogInstance.show();
+      dialogInstance.accept();
+      fixture.detectChanges();
+      expect(dialogInstance.isOpen()).toBe(false);
+    });
+
+    it('#should handle dialog cancel', () => {
+      dialogInstance.show();
+      dialogInstance.cancel();
+      fixture.detectChanges();
+      expect(dialogInstance.isOpen()).toBe(false);
     });
 
     it('#should check if mdc-dialog is scrollable', () => {
@@ -176,25 +164,6 @@ describe('MdcDialogComponent', () => {
     });
   });
 });
-
-@Directive({ selector: 'dir-with-view-container' })
-class DirectiveWithViewContainer {
-  constructor(public viewContainerRef: ViewContainerRef) { }
-}
-
-@Component({
-  selector: 'arbitrary-component',
-  template: `<dir-with-view-container *ngIf="childComponentExists"></dir-with-view-container>`,
-})
-class ComponentWithChildViewContainer {
-  @ViewChild(DirectiveWithViewContainer) childWithViewContainer: DirectiveWithViewContainer;
-
-  childComponentExists: boolean = true;
-
-  get childViewContainer() {
-    return this.childWithViewContainer.viewContainerRef;
-  }
-}
 
 @Component({
   template: `
@@ -217,9 +186,7 @@ class ComponentWithChildViewContainer {
   `,
 })
 class SimpleDialog {
-  @ViewChild('mydialog') myDialog: MdcDialogComponent;
-  constructor(public dialogRef: MdcDialogRef<SimpleDialog>,
-    public dialogInjector: Injector) { }
+  constructor(public dialogRef: MdcDialogRef<SimpleDialog>) { }
 
   isCancel: boolean = true;
   isAction: boolean = true;
@@ -243,25 +210,27 @@ class SimpleDialog {
   `,
 })
 class DialogNoFooter {
-  constructor(public dialogRef: MdcDialogRef<SimpleDialog>) { }
+  constructor(public dialogRef: MdcDialogRef<DialogNoFooter>) { }
 }
 
 /** Simple component for testing. */
 @Component({
   template: `
     <mdc-dialog [clickOutsideToClose]="true" [escapeToClose]="true">
-      <mdc-dialog-header>
-        <mdc-dialog-header-title>
-          Use Google's location service?
-        </mdc-dialog-header-title>
-      </mdc-dialog-header>
-      <mdc-dialog-body [scrollable]="isScrolling">
-        Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
-      </mdc-dialog-body>
-      <mdc-dialog-footer>
-        <button mdc-dialog-button [cancel]="isCancel">Decline</button>
-        <button mdc-dialog-button [action]="isAction" [accept]="isAccept">Accept</button>
-      </mdc-dialog-footer>
+      <mdc-dialog-surface>
+        <mdc-dialog-header>
+          <mdc-dialog-header-title>
+            Use Google's location service?
+          </mdc-dialog-header-title>
+        </mdc-dialog-header>
+        <mdc-dialog-body [scrollable]="isScrolling">
+          Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
+        </mdc-dialog-body>
+        <mdc-dialog-footer>
+          <button mdc-dialog-button [cancel]="isCancel">Decline</button>
+          <button mdc-dialog-button [action]="isAction" [accept]="isAccept">Accept</button>
+        </mdc-dialog-footer>
+      </mdc-dialog-surface>
     </mdc-dialog>
   `,
 })
@@ -273,21 +242,17 @@ class SimpleDeclarativeDialog {
 }
 
 const TEST_DIRECTIVES = [
-  ComponentWithChildViewContainer,
-  DirectiveWithViewContainer,
   SimpleDialog,
-  DialogNoFooter,
+  DialogNoFooter
 ];
 
 @NgModule({
-  imports: [CommonModule, MdcDialogModule],
+  imports: [MdcDialogModule],
   exports: TEST_DIRECTIVES,
   declarations: TEST_DIRECTIVES,
-  entryComponents:
-    [
-      ComponentWithChildViewContainer,
-      SimpleDialog,
-      DialogNoFooter,
-    ],
+  entryComponents: [
+    SimpleDialog,
+    DialogNoFooter
+  ],
 })
 class DialogTestModule { }

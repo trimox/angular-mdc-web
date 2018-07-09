@@ -1,3 +1,46 @@
+<a name="0.37.0"></a>
+# [0.37.0](https://github.com/trimox/angular-mdc-web/compare/v0.36.3...v0.37.0) (2018-07-09)
+
+
+### Bug Fixes
+
+* **chips:** Fix package build issue ([#1101](https://github.com/trimox/angular-mdc-web/issues/1101)) ([e0c7560](https://github.com/trimox/angular-mdc-web/commit/e0c7560))
+* **icon-button:** Remove unused adapter methods ([#1069](https://github.com/trimox/angular-mdc-web/issues/1069)) ([be6877a](https://github.com/trimox/angular-mdc-web/commit/be6877a))
+* **list:** Remove ancillary event parameter ([#1062](https://github.com/trimox/angular-mdc-web/issues/1062)) ([02f3381](https://github.com/trimox/angular-mdc-web/commit/02f3381)), closes [#1061](https://github.com/trimox/angular-mdc-web/issues/1061)
+* **list:** Should not set cursor to pointer ([#1090](https://github.com/trimox/angular-mdc-web/issues/1090)) ([b21a8b4](https://github.com/trimox/angular-mdc-web/commit/b21a8b4)), closes [#1089](https://github.com/trimox/angular-mdc-web/issues/1089)
+* **text-field:** Should notch value after toggling box/outlined ([#1073](https://github.com/trimox/angular-mdc-web/issues/1073)) ([6bd7650](https://github.com/trimox/angular-mdc-web/commit/6bd7650)), closes [#1070](https://github.com/trimox/angular-mdc-web/issues/1070)
+
+
+### Features
+
+* **chips:** Add label property to chip ([#1079](https://github.com/trimox/angular-mdc-web/issues/1079)) ([e56d0eb](https://github.com/trimox/angular-mdc-web/commit/e56d0eb)), closes [#1078](https://github.com/trimox/angular-mdc-web/issues/1078)
+* **chips:** Add removable property for mdc-chip ([#1080](https://github.com/trimox/angular-mdc-web/issues/1080)) ([ed9c3f5](https://github.com/trimox/angular-mdc-web/commit/ed9c3f5)), closes [#1075](https://github.com/trimox/angular-mdc-web/issues/1075)
+* **dialog:** Create new dialog service and component ([#1057](https://github.com/trimox/angular-mdc-web/issues/1057)) ([68a81ff](https://github.com/trimox/angular-mdc-web/commit/68a81ff)), closes [#1007](https://github.com/trimox/angular-mdc-web/issues/1007) [#1056](https://github.com/trimox/angular-mdc-web/issues/1056) [#1058](https://github.com/trimox/angular-mdc-web/issues/1058) [#1064](https://github.com/trimox/angular-mdc-web/issues/1064)
+* **dialog:** Set list item cursor to pointer ([#1092](https://github.com/trimox/angular-mdc-web/issues/1092)) ([50a2b05](https://github.com/trimox/angular-mdc-web/commit/50a2b05)), closes [#1091](https://github.com/trimox/angular-mdc-web/issues/1091)
+* **elevation:** Rename mdc-elevation to mdcElevation ([#1082](https://github.com/trimox/angular-mdc-web/issues/1082)) ([d4725e6](https://github.com/trimox/angular-mdc-web/commit/d4725e6)), closes [#1081](https://github.com/trimox/angular-mdc-web/issues/1081)
+* **fab:** Add Extended FAB ([#1074](https://github.com/trimox/angular-mdc-web/issues/1074)) ([14c7f5d](https://github.com/trimox/angular-mdc-web/commit/14c7f5d)), closes [#1045](https://github.com/trimox/angular-mdc-web/issues/1045)
+* **icon:** Add directive selector mdcIcon ([#1088](https://github.com/trimox/angular-mdc-web/issues/1088)) ([f993a87](https://github.com/trimox/angular-mdc-web/commit/f993a87)), closes [#1086](https://github.com/trimox/angular-mdc-web/issues/1086)
+* **list:** Add arrow key a11y support ([#1076](https://github.com/trimox/angular-mdc-web/issues/1076)) ([373fa7d](https://github.com/trimox/angular-mdc-web/commit/373fa7d)), closes [#1047](https://github.com/trimox/angular-mdc-web/issues/1047)
+* **select:** Add outlined variant ([#1071](https://github.com/trimox/angular-mdc-web/issues/1071)) ([94c9e40](https://github.com/trimox/angular-mdc-web/commit/94c9e40)), closes [#1038](https://github.com/trimox/angular-mdc-web/issues/1038) [#1046](https://github.com/trimox/angular-mdc-web/issues/1046)
+* **text-field:** Set default variant to box ([#1095](https://github.com/trimox/angular-mdc-web/issues/1095)) ([4353b70](https://github.com/trimox/angular-mdc-web/commit/4353b70)), closes [#1094](https://github.com/trimox/angular-mdc-web/issues/1094)
+
+
+### BREAKING CHANGES
+
+* **elevation:** Renamed `[mdc-elevation]` to `[mdcElevation]`, please update your code accordingly.
+* **dialog:** - Add required directive `mdc-dialog-surface` as child to `mdc-dialog`. Please review the updated dialog documentation.
+* **text-field:** As per material spec updates, the default variant for Text Field is box.
+* **list:** - Removed deprecated selectors:
+  - `[mdc-list-divider]` use `mdcListDivider`
+  - `[mdc-list-group-subheader]`, use `mdcListGroupSubheader`
+  - `[mdc-list-group]`, use `mdcListGroup`
+  - `[mdc-list-item-graphic]`, use `mdcListItemGraphic`
+  - `[mdc-list-item-meta]`, use `mdcListItemMeta`
+  - `[mdc-list-item-text]`, use `mdcListItemText`
+  - `[mdc-list-item-secondary]`, use `mdcListItemSecondary`
+
+
+
 <a name="0.36.3"></a>
 ## [0.36.3](https://github.com/trimox/angular-mdc-web/compare/v0.36.2...v0.36.3) (2018-06-20)
 

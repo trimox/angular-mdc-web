@@ -6,7 +6,7 @@ import {
   MdcAppBarNavigationIcon,
   MdcAppBarRow,
   MdcAppBarSection,
-  MdcAppBarTitle,
+  MdcAppBarTitle
 } from './app-bar.directives';
 
 const APPBAR_DECLARATIONS = [
@@ -15,11 +15,11 @@ const APPBAR_DECLARATIONS = [
   MdcAppBarNavigationIcon,
   MdcAppBarRow,
   MdcAppBarSection,
-  MdcAppBarTitle,
+  MdcAppBarTitle
 ];
 
 @NgModule({
   exports: APPBAR_DECLARATIONS,
-  declarations: APPBAR_DECLARATIONS,
+  declarations: APPBAR_DECLARATIONS
 })
 export class MdcAppBarModule { }

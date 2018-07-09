@@ -168,7 +168,6 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
     setStyleForIndicator: (propertyName: string, value: string) =>
       this._renderer.setStyle(this.indicator.elementRef.nativeElement, propertyName, value),
     getOffsetWidthForIndicator: () => this.indicator.elementRef.nativeElement.offsetWidth,
-    notifyChange: (evtData: { activeTabIndex: number }) => { /* not needed */ },
     getNumberOfTabs: () => this.tabs.length,
     isTabActiveAtIndex: (index: number) => this.tabs.toArray()[index].isActive(),
     setTabActiveAtIndex: (index: number, isActive: boolean) => this.tabs.toArray()[index].setActive(isActive),

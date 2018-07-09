@@ -18,7 +18,6 @@ export interface MDCTabBarAdapter {
   getOffsetWidth: () => number;
   setStyleForIndicator: (propertyName: string, value: string) => void;
   getOffsetWidthForIndicator: () => number;
-  notifyChange: (evtData: { activeTabIndex: number }) => void;
   getNumberOfTabs: () => number;
   isTabActiveAtIndex: (index: number) => boolean;
   setTabActiveAtIndex: (index: number, isActive: boolean) => void;

@@ -13,6 +13,7 @@
 
 ### Features
 
+* Update material-components-web to 0.37.0
 * **chips:** Add label property to chip ([#1079](https://github.com/trimox/angular-mdc-web/issues/1079)) ([e56d0eb](https://github.com/trimox/angular-mdc-web/commit/e56d0eb)), closes [#1078](https://github.com/trimox/angular-mdc-web/issues/1078)
 * **chips:** Add removable property for mdc-chip ([#1080](https://github.com/trimox/angular-mdc-web/issues/1080)) ([ed9c3f5](https://github.com/trimox/angular-mdc-web/commit/ed9c3f5)), closes [#1075](https://github.com/trimox/angular-mdc-web/issues/1075)
 * **dialog:** Create new dialog service and component ([#1057](https://github.com/trimox/angular-mdc-web/issues/1057)) ([68a81ff](https://github.com/trimox/angular-mdc-web/commit/68a81ff)), closes [#1007](https://github.com/trimox/angular-mdc-web/issues/1007) [#1056](https://github.com/trimox/angular-mdc-web/issues/1056) [#1058](https://github.com/trimox/angular-mdc-web/issues/1058) [#1064](https://github.com/trimox/angular-mdc-web/issues/1064)

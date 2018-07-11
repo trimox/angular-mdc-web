@@ -134,7 +134,20 @@ export class PackageBundler {
     // Only transpile es5 / umd packages
     if (!config.es6) {
       bundleOptions.plugins.push(babel({
-        include: 'node_modules/**'
+        include: 'node_modules/**',
+        presets: [
+          ['@babel/preset-env',
+            {
+              "modules": false,
+              "targets": {
+                "browsers": [
+                  "last 2 versions",
+                  "not ie 10"
+                ]
+              }
+            }
+          ]
+        ]
       }));
     }
 

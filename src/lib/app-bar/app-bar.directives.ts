@@ -1,4 +1,6 @@
 import {
+  ChangeDetectionStrategy,
+  Component,
   Directive,
   ElementRef,
   HostBinding,
@@ -16,11 +18,18 @@ export class MdcAppBarRow {
   constructor(public elementRef: ElementRef) { }
 }
 
-@Directive({
+@Component({
+  moduleId: module.id,
   selector: 'mdc-app-bar-section, [mdcAppBarSection]',
-  exportAs: 'mdcAppBarSection'
+  exportAs: 'mdcAppBarSection',
+  template: `
+  <ng-content></ng-content>
+  <span class="mdc-top-app-bar__title" *ngIf="title">{{title}}</span>
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcAppBarSection {
+  @Input() title: string;
   @Input() align: string;
 
   @HostBinding('class.mdc-top-app-bar__section') isHostClass = true;

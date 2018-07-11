@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { MdcAppBar } from './app-bar';
 import {
@@ -19,6 +20,7 @@ const APPBAR_DECLARATIONS = [
 ];
 
 @NgModule({
+  imports: [CommonModule],
   exports: APPBAR_DECLARATIONS,
   declarations: APPBAR_DECLARATIONS
 })

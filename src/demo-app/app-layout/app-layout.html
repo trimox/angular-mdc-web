@@ -1,8 +1,7 @@
 <mdc-app-bar #appbar [fixed]="true" [fixedAdjustElement]="mainContent">
   <mdc-app-bar-row>
-    <mdc-app-bar-section align="start">
+    <mdc-app-bar-section align="start" title="Angular MDC">
       <mdc-icon mdcAppBarNavIcon (click)="appdrawer.open()">menu</mdc-icon>
-      <mdc-app-bar-title>Angular MDC</mdc-app-bar-title>
     </mdc-app-bar-section>
     <mdc-app-bar-section align="end">
       <a mdcAppBarActionItem href="https://github.com/trimox/angular-mdc-web" alt="GitHub" target="_blank" rel="noopener noreferrer">
@@ -66,7 +65,9 @@
   </mdc-drawer-content>
 </mdc-drawer>
 
-<router-outlet #mainContent></router-outlet>
+<div #mainContent>
+  <router-outlet></router-outlet>
+</div>
 
 <div class="demo-controls-container" #demoAppBar>
   <div class="demo-content--row">

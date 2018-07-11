@@ -35,8 +35,9 @@ export class DialogDemo {
 
   openAlert() {
     const dialogRef = this.dialog.open(DialogAlertExample, {
-      escapeToClose: false,
-      clickOutsideToClose: false,
+      escapeToClose: this.escapeToClose,
+      clickOutsideToClose: this.clickOutsideToClose,
+      backdrop: this.backdrop
     });
   }
 
@@ -44,6 +45,7 @@ export class DialogDemo {
     const dialogRef = this.dialog.open(DialogNoFooterExample, {
       escapeToClose: this.escapeToClose,
       clickOutsideToClose: this.clickOutsideToClose,
+      backdrop: this.backdrop
     });
   }
 
@@ -51,6 +53,7 @@ export class DialogDemo {
     const dialogRef = this.dialog.open(DialogFormExample, {
       escapeToClose: this.escapeToClose,
       clickOutsideToClose: this.clickOutsideToClose,
+      backdrop: this.backdrop,
       data: {userName: 'testing'}
     });
   }

@@ -72,11 +72,11 @@ body {
   max-width: 1000px;
 
   @media (min-width: 1000px) {
-    padding: 50px 5px 50px 70px;
+    padding: 0 5px 50px 70px;
   }
 
   @media (max-width: 999px) {
-    padding: 50px 8px 50px 15px;
+    padding: 0 8px 50px 15px;
   }
 }
 
@@ -185,6 +185,13 @@ body {
 //
 // Markdown
 //
+
+.docs-markdown-code {
+  background: rgba(0,0,0,.03);
+  font-size: 90%;
+  padding: 3px;
+  font-family: 'Roboto', monospace;
+}
 
 .markdown-body {
   line-height: 1.5;

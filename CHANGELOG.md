@@ -1,3 +1,18 @@
+<a name="0.37.1"></a>
+## [0.37.1](https://github.com/trimox/angular-mdc-web/compare/v0.37.0...v0.37.1) (2018-07-11)
+
+
+### Bug Fixes
+
+* **app-bar:** Should set padding-top with correct class ([#1104](https://github.com/trimox/angular-mdc-web/issues/1104)) ([f95d7fc](https://github.com/trimox/angular-mdc-web/commit/f95d7fc)), closes [#1103](https://github.com/trimox/angular-mdc-web/issues/1103)
+
+
+### Features
+
+* **app-bar:** Add title property to MdcAppBarSection ([#1108](https://github.com/trimox/angular-mdc-web/issues/1108)) ([9e3e442](https://github.com/trimox/angular-mdc-web/commit/9e3e442)), closes [#1107](https://github.com/trimox/angular-mdc-web/issues/1107)
+
+
+
 <a name="0.37.0"></a>
 # [0.37.0](https://github.com/trimox/angular-mdc-web/compare/v0.36.3...v0.37.0) (2018-07-09)
 

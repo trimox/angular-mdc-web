@@ -50,6 +50,15 @@ describe('MdcAppBar', () => {
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short')).toBe(false);
     });
 
+    it('#should add mdc-top-app-bar--short after setting shortCollapsed', () => {
+      testComponent.short = false;
+      fixture.detectChanges();
+
+      testComponent.shortCollapsed = true;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short')).toBe(true);
+    });
+
     it('#should apply mdc-top-app-bar--short-collapsed class based on property', () => {
       testComponent.shortCollapsed = true;
       fixture.detectChanges();

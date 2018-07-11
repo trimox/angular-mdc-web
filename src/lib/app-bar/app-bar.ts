@@ -1,5 +1,6 @@
 import {
   AfterContentInit,
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -44,44 +45,56 @@ export class MdcAppBarNavSelected {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class MdcAppBar implements AfterContentInit, OnDestroy {
+export class MdcAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
+
+  private _isFoundationInit: boolean;
 
   @Input()
   get fixed(): boolean { return this._fixed; }
   set fixed(value: boolean) {
-    this.setFixed(value);
+    if (value !== this._fixed) {
+      this.setFixed(value);
+    }
   }
-  protected _fixed: boolean = false;
+  protected _fixed: boolean;
 
   @Input()
   get prominent(): boolean { return this._prominent; }
   set prominent(value: boolean) {
-    this.setProminent(value);
+    if (value !== this._prominent) {
+      this.setProminent(value);
+    }
   }
-  protected _prominent: boolean = false;
+  protected _prominent: boolean;
 
   @Input()
   get short(): boolean { return this._short; }
   set short(value: boolean) {
-    this.setShort(value);
+    if (value !== this._short) {
+      this.setShort(value);
+    }
   }
-  protected _short: boolean = false;
+  protected _short: boolean;
 
   @Input()
   get shortCollapsed(): boolean { return this._shortCollapsed; }
   set shortCollapsed(value: boolean) {
-    this.setShortCollapsed(value);
+    if (value !== this._shortCollapsed) {
+      this.setShortCollapsed(value);
+    }
   }
-  protected _shortCollapsed: boolean = false;
+  protected _shortCollapsed: boolean;
 
   @Input()
   get dense(): boolean { return this._dense; }
   set dense(value: boolean) {
-    this.setDense(value);
+    if (value !== this._dense) {
+      this.setDense(value);
+    }
   }
-  protected _dense: boolean = false;
+  protected _dense: boolean;
 
   @Input()
   get fixedAdjustElement(): HTMLElement { return this._fixedAdjustElement; }
@@ -91,16 +104,6 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
     }
   }
   protected _fixedAdjustElement: HTMLElement;
-
-  @Input()
-  get viewport(): HTMLElement { return this._viewport; }
-  set viewport(element: HTMLElement) {
-    if (this._viewport !== element) {
-      this._viewport = element;
-      this._getHostElement().style.position = 'absolute';
-    }
-  }
-  protected _viewport: HTMLElement;
 
   /** Event emitted when the navigation icon is selected. */
   @Output() navigationSelected: EventEmitter<MdcAppBarNavSelected> = new EventEmitter<MdcAppBarNavSelected>();
@@ -115,9 +118,6 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
   @HostBinding('class.mdc-top-app-bar--short') get classShort(): string {
     return this.short ? 'mdc-top-app-bar--short' : '';
   }
-  @HostBinding('class.mdc-top-app-bar--short-collapsed') get classShortCollapsed(): string {
-    return this.shortCollapsed ? 'mdc-top-app-bar--short-collapsed' : '';
-  }
   @HostBinding('class.mdc-top-app-bar--fixed') get classFixed(): string {
     return this.fixed ? 'mdc-top-app-bar--fixed' : '';
   }
@@ -131,9 +131,8 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
     removeClass: (className: string) => {
       if (className === 'mdc-top-app-bar--short-collapsed' && this.shortCollapsed) {
         return;
-      } else {
-        this._getHostElement().classList.remove(className);
       }
+      this._getHostElement().classList.remove(className);
     },
     setStyle: (property: string, value: string) => this._getHostElement().style.setProperty(property, value),
     getTopAppBarHeight: () => this._getHostElement().clientHeight,
@@ -141,7 +140,7 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
     registerScrollHandler: (handler: EventListener) => {
       if (!isBrowser()) { return; }
 
-      this._registry.listen('scroll', handler, this.viewport ? this.viewport : window);
+      this._registry.listen('scroll', handler, window);
     },
     deregisterScrollHandler: (handler: EventListener) => {
       if (!isBrowser()) { return; }
@@ -151,7 +150,7 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
     registerResizeHandler: (handler: EventListener) => {
       if (!isBrowser()) { return; }
 
-      this._registry.listen('resize', handler, this.viewport ? this.viewport : window);
+      this._registry.listen('resize', handler, window);
     },
     deregisterResizeHandler: (handler: EventListener) => {
       if (!isBrowser()) { return; }
@@ -161,7 +160,7 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
     getViewportScrollY: () => {
       if (!isBrowser()) { return 0; }
 
-      return this.viewport ? this.viewport.scrollTop : window.pageYOffset;
+      return window.pageYOffset;
     },
     getTotalActionItems: () => this.actions ? this.actions.length : 0
   };
@@ -169,7 +168,7 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
   private _foundation: {
     init(): void,
     destroy(): void
-  };
+  } = new MDCTopAppBarFoundation(this._mdcAdapter);
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
@@ -183,10 +182,12 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
           : this._mdcAdapter.removeClass('mdc-top-app-bar--short-has-action-item');
       }
     });
+  }
 
-    setTimeout(() => {
+  ngAfterViewInit(): void {
+    if (!this._isFoundationInit) {
       this.initializeFoundation();
-    }, 20);
+    }
   }
 
   ngOnDestroy(): void {
@@ -198,58 +199,83 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
 
   setFixedAdjustElement(element: HTMLElement): void {
     this._fixedAdjustElement = element;
-    this._changeDetectorRef.markForCheck();
+    this._initAppBar();
   }
 
   /** Sets the top app bar to fixed or not. */
-  setFixed(fixed: boolean): void {
+  setFixed(fixed: boolean, isUserInput: boolean = true): void {
     this._fixed = toBoolean(fixed);
-    this.fixed && this.short ? this.setShort(false) : this.initializeFoundation();
-    this._changeDetectorRef.markForCheck();
+
+    if (this.fixed && this.short) {
+      this.setShort(false, false);
+    }
+
+    if (isUserInput) {
+      this.initializeFoundation();
+    }
   }
 
   /** Sets the top app bar to prominent or not. */
-  setProminent(prominent: boolean): void {
+  setProminent(prominent: boolean, isUserInput: boolean = true): void {
     this._prominent = toBoolean(prominent);
-    this.prominent && this.short ? this.setShort(false) : this.initializeFoundation();
+
+    if (this.prominent && this.short) {
+      this.setShort(false, false);
+    }
+
+    if (isUserInput) {
+      this.initializeFoundation();
+    }
   }
 
   /** Sets the top app bar to dense variant. */
-  setDense(dense: boolean): void {
+  setDense(dense: boolean, isUserInput: boolean = true): void {
     this._dense = toBoolean(dense);
-    this.dense && this.short ? this.setShort(false) : this.initializeFoundation();
+
+    if (this.dense && this.short) {
+      this.setShort(false, false);
+    }
+
+    if (isUserInput) {
+      this.initializeFoundation();
+    }
   }
 
   /** Sets the top app bar to short or not. */
-  setShort(short: boolean): void {
+  setShort(short: boolean, isUserInput: boolean = true): void {
     this._short = toBoolean(short);
+
     if (this.short) {
-      this.setProminent(false);
-      this.setDense(false);
-      this.setFixed(false);
+      this.setProminent(false, false);
+      this.setDense(false, false);
+      this.setFixed(false, false);
     } else {
-      this.setShortCollapsed(false);
+      this.setShortCollapsed(false, false);
     }
 
-    this.initializeFoundation();
-    this._changeDetectorRef.markForCheck();
+    if (isUserInput) {
+      this.initializeFoundation();
+    }
   }
 
   /** Sets the top app bar to short-collapsed or not. */
-  setShortCollapsed(shortCollapsed: boolean): void {
+  setShortCollapsed(shortCollapsed: boolean, isUserInput: boolean = true): void {
     this._shortCollapsed = toBoolean(shortCollapsed);
+
     if (this.shortCollapsed && !this.short) {
-      this.setShort(true);
+      this.setShort(true, false);
+    }
+
+    if (isUserInput) {
+      this.initializeFoundation();
     }
   }
 
-  initializeFoundation() {
-    if (this._foundation) {
-      this._foundation.destroy();
-    }
+  initializeFoundation(): void {
+    this._foundation.destroy();
 
     this._getHostElement().style.top = '0px';
-    this._resetAppBar();
+    this._resetFixedShort();
 
     if (this.short) {
       this._foundation = new MDCShortTopAppBarFoundation(this._mdcAdapter);
@@ -260,15 +286,36 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
     }
 
     this._foundation.init();
+    this._isFoundationInit = true;
+
+    this._initAppBar();
   }
 
-  private _resetAppBar() {
+  private _resetFixedShort(): void {
     this._getHostElement().classList.remove('mdc-top-app-bar--short-has-action-item');
     this._getHostElement().classList.remove('mdc-top-app-bar--short-collapsed');
     this._getHostElement().classList.remove('mdc-top-app-bar--fixed-scrolled');
+  }
+
+  private _initAppBar(): void {
+    if (!this.fixed) {
+      this._getHostElement().classList.remove('mdc-top-app-bar--fixed-scrolled');
+    }
 
     if (this.fixed && this._getScrollOffset() > 0) {
       this._getHostElement().classList.add('mdc-top-app-bar--fixed-scrolled');
+    }
+
+    if (!this.short) {
+      this._getHostElement().classList.remove('mdc-top-app-bar--short-has-action-item');
+      this._getHostElement().classList.remove('mdc-top-app-bar--short-collapsed');
+    }
+    if (this.short && this._getScrollOffset() > 0) {
+      this._getHostElement().classList.add('mdc-top-app-bar--short-collapsed');
+    }
+
+    if (this.shortCollapsed) {
+      this._getHostElement().classList.add('mdc-top-app-bar--short-collapsed');
     }
 
     if (this.fixedAdjustElement) {
@@ -278,30 +325,26 @@ export class MdcAppBar implements AfterContentInit, OnDestroy {
       this.fixedAdjustElement.classList.remove('mdc-top-app-bar--prominent-fixed-adjust');
       this.fixedAdjustElement.classList.remove('mdc-top-app-bar--dense-prominent-fixed-adjust');
 
-      if (this.short) {
+      if (this._short) {
         this.fixedAdjustElement.classList.add('mdc-top-app-bar--short-fixed-adjust');
+      } else if (this._dense && this._prominent) {
+        this.fixedAdjustElement.classList.add('mdc-top-app-bar--dense-prominent-fixed-adjust');
       } else if (this._dense) {
         this.fixedAdjustElement.classList.add('mdc-top-app-bar--dense-fixed-adjust');
       } else if (this._prominent) {
         this.fixedAdjustElement.classList.add('mdc-top-app-bar--prominent-fixed-adjust');
-      } else if (this.dense && this.prominent) {
-        this.fixedAdjustElement.classList.add('mdc-top-app-bar--dense-prominent-fixed-adjust');
       } else {
         this.fixedAdjustElement.classList.add('mdc-top-app-bar--fixed-adjust');
       }
     }
   }
 
-  private _getViewport(): HTMLElement | Window {
-    return this.viewport ? this.viewport : window;
-  }
-
   private _getScrollOffset(): number {
-    return this.viewport ? this.viewport.scrollTop : window.pageYOffset;
+    return window.pageYOffset;
   }
 
   /** Retrieves the DOM element of the component host. */
-  private _getHostElement() {
+  private _getHostElement(): HTMLElement {
     return this.elementRef.nativeElement;
   }
 }

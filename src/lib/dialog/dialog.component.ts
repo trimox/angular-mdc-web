@@ -123,11 +123,11 @@ export class MdcDialogComponent implements AfterContentInit, OnDestroy {
     deregisterTransitionEndHandler: (handler: EventListener) => this._registry.unlisten('transitionend', handler),
     notifyAccept: () => {
       this._accept.emit();
-      this._closeDialogRef('accepted');
+      this._closeDialogRef();
     },
     notifyCancel: () => {
       this._cancel.emit();
-      this._closeDialogRef('canceled');
+      this._closeDialogRef();
     },
     trapFocusOnSurface: () => {
       if (this._focusTrap) {

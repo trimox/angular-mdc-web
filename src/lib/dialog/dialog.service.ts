@@ -7,7 +7,8 @@ import {
   Optional,
   SkipSelf
 } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject, defer } from 'rxjs';
+import { startWith } from 'rxjs/operators';
 
 import {
   MdcPortalService,
@@ -29,23 +30,29 @@ import {
 
 @Injectable()
 export class MdcDialog {
-  /** Stream that emits when a dialog is closed. */
-  get afterClosed(): Subject<MdcDialogRef<any>> {
-    return this._parentDialog ? this._parentDialog.afterClosed : this._afterClosed;
+  /** Stream that emits when all dialogs are closed. */
+  get _afterAllClosed(): Observable<void> {
+    return this._afterClosed;
   }
-  _afterClosed: Subject<MdcDialogRef<any>> = new Subject();
+  _afterClosed = new Subject<void>();
+  afterClosed: Observable<void> = defer<void>(() => this.openDialogs.length ?
+    this._afterAllClosed : this._afterAllClosed.pipe(startWith(undefined)));
 
   /** Stream that emits when a dialog is opened. */
   get openDialogs(): MdcDialogRef<any>[] {
-    return this._parentDialog ? this._parentDialog.openDialogs : this._openDialogs;
+    return this._openDialogs;
   }
   _openDialogs: MdcDialogRef<any>[] = [];
 
   constructor(
     private _portalService: MdcPortalService,
     private injector: Injector,
-    @Inject(DIALOG_REF) private dialogRefConstructor,
-    @Optional() @SkipSelf() private _parentDialog: MdcDialog) { }
+    @Inject(DIALOG_REF) private dialogRefConstructor) { }
+
+  /** Gets an open dialog by id. */
+  getById(id: string): MdcDialogRef<any> | undefined {
+    return this._openDialogs.find(ref => ref.id === id);
+  }
 
   /** Closes all open dialogs. */
   close(): void {
@@ -56,11 +63,11 @@ export class MdcDialog {
    * Opens a dialog containing the given component.
    */
   open<T>(component: ComponentType<T>, config?: MdcDialogConfig): MdcDialogRef<any> | undefined {
-    if (this.openDialogs.length) {
-      return;
-    }
-
     config = this._applyConfigDefaults(config);
+
+    if (config.id && this.getById(config.id)) {
+      throw Error(`Dialog with id "${config.id}" exists already. The dialog id must be unique.`);
+    }
 
     const dialogContainer = this._attachDialogContainer(config);
     const dialogRef = this._attachDialogContentForComponent(component, dialogContainer, config);
@@ -111,7 +118,7 @@ export class MdcDialog {
       if (dialogIdx !== -1) { this._openDialogs.splice(dialogIdx, 1); }
 
       if (!this._openDialogs.length) {
-        this.afterClosed.next();
+        this._afterClosed.next();
         dialogCloseSub.unsubscribe();
       }
       this._portalService.dispose();

@@ -54,7 +54,7 @@ export class DialogDemo {
       escapeToClose: this.escapeToClose,
       clickOutsideToClose: this.clickOutsideToClose,
       backdrop: this.backdrop,
-      data: {userName: 'testing'}
+      data: {userName: 'austin'}
     });
   }
 }
@@ -178,10 +178,6 @@ export class DialogFormExample implements OnInit {
     // this.userForm.controls['username'].disable();
   }
 
-  closeDialog() {
-    this.dialogRef.close();
-  }
-
   updateForm() {
     if (!this.userForm.valid) {
       if (!this.input.valid) {
@@ -189,6 +185,6 @@ export class DialogFormExample implements OnInit {
       }
       return;
     }
-    this.closeDialog();
+    this.dialogRef.close();
   }
 }

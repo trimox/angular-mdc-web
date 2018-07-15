@@ -76,19 +76,23 @@ describe('MdcDialog Service', () => {
     dialogRef.close();
   });
 
-  it('#should not show second dialog', () => {
-    let dialogRef = dialog.open(SimpleDialog, { id: 'mydialog' });
-    dialog.open(SimpleDialog, { id: 'mydialog' });
-    dialogRef.close();
-  });
-
   it('#should handle keydown', () => {
     let dialogRef = dialog.open(DialogNoFooter);
     const event: Event = new KeyboardEvent('keydown', {
       'code': 'Escape'
     });
+  });
 
-    // .dispatchEvent(event);
+  it('#should throw error', () => {
+    let dialogRef = dialog.open(SimpleDialog, {
+      id: 'mydialog'
+    });
+
+    expect(() => {
+      dialogRef = dialog.open(SimpleDialog, {
+        id: 'mydialog'
+      });
+    }).toThrow();
   });
 });
 

@@ -22,6 +22,8 @@ export class MdcDialogRef<T, R = any> {
     readonly id: string = `mdc-dialog-${uniqueId++}`) {
 
     this.afterClosed().subscribe(() => {
+      this._containerInstance.detach();
+      this._containerInstance.dispose();
       this.componentInstance = null!;
     });
   }

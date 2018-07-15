@@ -29,7 +29,7 @@ cd PROJECT-NAME
 
 #### On existing projects, you need to set default CSS preprocessor to `scss`:
 ```
-ng set defaults.styleExt scss
+ng config schematics.@schematics/angular:component.styleext scss
 ```
 
 ## <a name="step3"></a> Step 3: Install Angular MDC

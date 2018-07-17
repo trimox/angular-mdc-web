@@ -17,24 +17,9 @@ export class MdcSnackbarRef<T> {
   /** Subject for notifying the user that the snackbar has been dismissed. */
   private readonly _afterDismiss = new Subject<void>();
 
-  /** Subject for notifying the user that the snackbar has opened and appeared. */
-  private readonly _afterOpen = new Subject<void>();
-
   /** Gets an observable that is notified when the snackbar is finished closing. */
   afterDismiss(): Observable<void> {
     return this._afterDismiss.asObservable();
-  }
-
-  /** Gets an observable that is notified when the snackbar has opened and appeared. */
-  afterOpen(): Observable<void> {
-    return this._afterOpen.asObservable();
-  }
-
-  open(): void {
-    this.componentInstance.show();
-
-    this._afterOpen.next();
-    this._afterOpen.complete();
   }
 
   dismiss(): void {

@@ -50,8 +50,6 @@ export class MdcSnackbar implements OnDestroy {
         this.dismiss();
       });
 
-    this._openedSnackbarRef.open();
-
     return this._openedSnackbarRef;
   }
 

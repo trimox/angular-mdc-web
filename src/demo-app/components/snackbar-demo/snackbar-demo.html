@@ -1,11 +1,11 @@
 <div class="demo-page">
   <div class="markdown-body">
     <h1>Snackbars</h1>
-    The MDC Snackbar component is a spec-aligned snackbar/toast component adhering to the Material Design snackbars & toasts requirements.
+    Snackbars provide brief messages about app processes at the bottom of the screen.
     <h2>References</h2>
     <ul>
       <li><a mdc-button href="https://material.io/design/components/snackbars.html"
-        target="_blank" rel="noopener noreferrer">Material Design guidelines: Snackbars & toasts</a>
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Snackbars</a>
       </li>
       <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-snackbar/README.md"
         target="_blank" rel="noopener noreferrer">Material Components Web</a>
@@ -63,6 +63,10 @@
     focusAction?: boolean = false;
   }]]></pre>
             </td>
+          </tr>
+          <tr>
+            <td>afterDismissed</td>
+            <td>Gets an observable that is notified when the snackbar is finished closing.</td>
           </tr>
         </tbody>
       </table>

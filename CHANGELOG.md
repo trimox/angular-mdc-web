@@ -1,3 +1,20 @@
+<a name="0.37.2"></a>
+## [0.37.2](https://github.com/trimox/angular-mdc-web/compare/v0.37.1...v0.37.2) (2018-07-18)
+
+
+### Bug Fixes
+
+* **dialog:** Remove adapter hardcoded result values ([#1112](https://github.com/trimox/angular-mdc-web/issues/1112)) ([93f2365](https://github.com/trimox/angular-mdc-web/commit/93f2365)), closes [#1111](https://github.com/trimox/angular-mdc-web/issues/1111)
+* **dialog:** Remove dialog reference after closing ([#1113](https://github.com/trimox/angular-mdc-web/issues/1113)) ([34d5099](https://github.com/trimox/angular-mdc-web/commit/34d5099)), closes [#1110](https://github.com/trimox/angular-mdc-web/issues/1110)
+* **snackbar:** Should display from async request ([#1121](https://github.com/trimox/angular-mdc-web/issues/1121)) ([d92ce8d](https://github.com/trimox/angular-mdc-web/commit/d92ce8d)), closes [#1120](https://github.com/trimox/angular-mdc-web/issues/1120)
+
+
+### Features
+
+* Update to material-components-web v0.37.1 ([#1123](https://github.com/trimox/angular-mdc-web/issues/1123)) ([9bdc335](https://github.com/trimox/angular-mdc-web/commit/9bdc335)), closes [#1122](https://github.com/trimox/angular-mdc-web/issues/1122)
+
+
+
 <a name="0.37.1"></a>
 ## [0.37.1](https://github.com/trimox/angular-mdc-web/compare/v0.37.0...v0.37.1) (2018-07-11)
 

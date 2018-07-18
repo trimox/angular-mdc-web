@@ -10,9 +10,8 @@ import {
   Input,
   OnDestroy,
   Output,
-  Renderer2,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
@@ -92,10 +91,10 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
   readonly componentInstance = MdcCheckbox;
 
   private _mdcAdapter: MDCCheckboxAdapter = {
-    addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
-    removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
-    setNativeControlAttr: (attr: string, value: string) => this._renderer.setAttribute(this.inputEl.nativeElement, attr, value),
-    removeNativeControlAttr: (attr: string) => this._renderer.removeAttribute(this.inputEl.nativeElement, attr),
+    addClass: (className: string) => this._getHostElement().classList.add(className),
+    removeClass: (className: string) => this._getHostElement().classList.remove(className),
+    setNativeControlAttr: (attr: string, value: string) => this._getInputElement().setAttribute(attr, value),
+    removeNativeControlAttr: (attr: string) => this._getInputElement().removeAttribute(attr),
     registerAnimationEndHandler: (handler: EventListener) => {
       if (isBrowser()) {
         this._registry.listen(getCorrectEventName(window, 'animationend'), handler, this._getHostElement());
@@ -106,9 +105,9 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
         this._registry.unlisten(getCorrectEventName(window, 'animationend'), handler);
       }
     },
-    registerChangeHandler: (handler: EventListener) => this._registry.listen('change', handler, this.inputEl.nativeElement),
+    registerChangeHandler: (handler: EventListener) => this._registry.listen('change', handler, this._getInputElement()),
     deregisterChangeHandler: (handler: EventListener) => this._registry.unlisten('change', handler),
-    getNativeControl: () => this.inputEl.nativeElement,
+    getNativeControl: () => this._getInputElement(),
     forceLayout: () => this._getHostElement().offsetWidth,
     isAttachedToDOM: () => !!this.inputEl
   };
@@ -191,7 +190,6 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    private _renderer: Renderer2,
     public elementRef: ElementRef,
     public ripple: MdcRipple,
     private _registry: EventRegistry) { }
@@ -311,8 +309,13 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
     this._changeDetectorRef.markForCheck();
   }
 
+  /** Retrieves the DOM element of the input. */
+  private _getInputElement(): HTMLElement {
+    return this.inputEl.nativeElement;
+  }
+
   /** Retrieves the DOM element of the component host. */
-  private _getHostElement() {
+  private _getHostElement(): HTMLElement {
     return this.elementRef.nativeElement;
   }
 }

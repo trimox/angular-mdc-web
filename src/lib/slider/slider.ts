@@ -13,10 +13,10 @@ import {
   Provider,
   Renderer2,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { toNumber, isBrowser, EventRegistry } from '@angular-mdc/web/common';
+import { toNumber, toBoolean, isBrowser, EventRegistry } from '@angular-mdc/web/common';
 
 import { MDCSliderAdapter } from '@material/slider/adapter';
 import { MDCSliderFoundation } from '@material/slider';
@@ -253,11 +253,11 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
   }
 
   setDiscrete(discrete: boolean): void {
-    this._discrete = discrete;
+    this._discrete = toBoolean(discrete);
   }
 
   setMarkers(markers: boolean): void {
-    this._markers = markers;
+    this._markers = toBoolean(markers);
   }
 
   setValue(value: number): void {
@@ -327,7 +327,7 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
   }
 
   setDisabledState(disabled: boolean): void {
-    this._disabled = disabled;
+    this._disabled = toBoolean(disabled);
 
     if (!this._foundation) { return; }
     this._foundation.setDisabled(disabled);

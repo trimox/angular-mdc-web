@@ -14,7 +14,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
+import { isBrowser, EventRegistry, toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcFormFieldControl } from '@angular-mdc/web/form-field';
 
@@ -264,7 +264,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
 
     const previousValue = this.indeterminate;
 
-    this._indeterminate = indeterminate;
+    this._indeterminate = toBoolean(indeterminate);
     this._foundation.setIndeterminate(indeterminate);
     this.indeterminateChange.emit({ source: this, indeterminate: indeterminate });
     if (!indeterminate && !this.indeterminateToChecked) {
@@ -275,7 +275,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
   }
 
   setIndeterminateToChecked(indeterminateToChecked: boolean): void {
-    this._indeterminateToChecked = indeterminateToChecked;
+    this._indeterminateToChecked = toBoolean(indeterminateToChecked);
     this._changeDetectorRef.markForCheck();
   }
 
@@ -304,7 +304,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
   }
 
   setDisabledState(disabled: boolean): void {
-    this._disabled = disabled;
+    this._disabled = toBoolean(disabled);
     this._foundation.setDisabled(disabled);
     this._changeDetectorRef.markForCheck();
   }

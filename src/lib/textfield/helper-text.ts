@@ -6,6 +6,8 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core';
+import { toBoolean } from '@angular-mdc/web/common';
+
 import { MDCTextFieldHelperTextAdapter } from '@material/textfield/helper-text/adapter';
 import { MDCTextFieldHelperTextFoundation } from '@material/textfield/helper-text';
 
@@ -85,13 +87,13 @@ export class MdcTextFieldHelperText implements OnInit, OnDestroy {
 
   /** Sets the persistency of the helper text. */
   setPersistent(persistent: boolean): void {
-    this._persistent = persistent;
+    this._persistent = toBoolean(persistent);
     this.foundation.setPersistent(persistent);
   }
 
   /** True to make the helper text act as an error validation message. */
   setValidation(validation: boolean): void {
-    this._validation = validation;
+    this._validation = toBoolean(validation);
     this.foundation.setValidation(validation);
   }
 

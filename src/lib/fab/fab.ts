@@ -98,18 +98,18 @@ export class MdcFab implements AfterContentInit, OnDestroy {
   }
 
   setMini(mini: boolean): void {
-    this._mini = mini;
+    this._mini = toBoolean(mini);
     this._changeDetectionRef.markForCheck();
   }
 
   setExited(exited: boolean): void {
-    this._exited = exited;
+    this._exited = toBoolean(exited);
     this.tabIndex = exited ? -1 : this.tabIndex;
     this._changeDetectionRef.markForCheck();
   }
 
   setExtended(extended: boolean): void {
-    this._extended = extended;
+    this._extended = toBoolean(extended);
   }
 
   setPosition(position: string): void {

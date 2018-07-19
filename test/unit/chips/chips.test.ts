@@ -77,8 +77,10 @@ describe('Chips', () => {
     });
 
     it('handles focus event', () => {
-      testNativeElement.focus();
+      testInstance.focus();
       fixture.detectChanges();
+
+      expect(document.activeElement).toBe(testNativeElement);
     });
 
     it('handles click event', () => {

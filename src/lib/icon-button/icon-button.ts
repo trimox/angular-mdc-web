@@ -15,7 +15,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { EventRegistry } from '@angular-mdc/web/common';
+import { EventRegistry, toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
 import { MDCIconButtonToggleAdapter } from '@material/icon-button/adapter';
@@ -238,7 +238,7 @@ export class MdcIconButton implements AfterViewInit, OnDestroy {
       this.setSecondary(false);
     }
 
-    this._primary = primary;
+    this._primary = toBoolean(primary);
   }
 
   setSecondary(secondary: boolean): void {
@@ -246,12 +246,12 @@ export class MdcIconButton implements AfterViewInit, OnDestroy {
       this.setPrimary(false);
     }
 
-    this._secondary = secondary;
+    this._secondary = toBoolean(secondary);
   }
 
   /** Sets the button disabled state */
   setDisabled(disabled: boolean): void {
-    this._disabled = disabled;
+    this._disabled = toBoolean(disabled);
     disabled ? this._getHostElement().setAttribute('disabled', '') :
       this._getHostElement().removeAttribute('disabled');
     this._changeDetectorRef.markForCheck();

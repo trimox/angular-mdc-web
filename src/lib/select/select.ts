@@ -303,7 +303,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
 
   // Implemented as part of ControlValueAccessor.
   setDisabledState(disabled: boolean) {
-    this._disabled = disabled;
+    this._disabled = toBoolean(disabled);
     this._foundation.setDisabled(disabled);
 
     this._changeDetectorRef.markForCheck();

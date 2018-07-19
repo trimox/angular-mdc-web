@@ -153,17 +153,17 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
   }
 
   setChoice(choice: boolean): void {
-    this._choice = choice;
+    this._choice = toBoolean(choice);
     this._changeDetectorRef.markForCheck();
   }
 
   setFilter(filter: boolean): void {
-    this._filter = filter;
+    this._filter = toBoolean(filter);
     this._changeDetectorRef.markForCheck();
   }
 
   setInput(input: boolean): void {
-    this._input = input;
+    this._input = toBoolean(input);
     this._changeDetectorRef.markForCheck();
   }
 

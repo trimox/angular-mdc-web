@@ -8,6 +8,7 @@ import {
   Input,
   ViewEncapsulation
 } from '@angular/core';
+import { toBoolean } from '@angular-mdc/web/common';
 
 @Directive({
   selector: '[mdcImageListItem], mdc-image-list-item',
@@ -100,12 +101,12 @@ export class MdcImageList {
     public elementRef: ElementRef) { }
 
   setMasonry(masonry: boolean): void {
-    this._masonry = masonry;
+    this._masonry = toBoolean(masonry);
     this._changeDetectorRef.markForCheck();
   }
 
   setTextProtection(textProtection: boolean): void {
-    this._textProtection = textProtection;
+    this._textProtection = toBoolean(textProtection);
     this._changeDetectorRef.markForCheck();
   }
 }

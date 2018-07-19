@@ -104,13 +104,13 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
   }
 
   setPrimary(primary: boolean): void {
-    this._primary = primary;
+    this._primary = toBoolean(primary);
     this._primary ? this._renderer.addClass(this.attachTo, 'mdc-ripple-surface--primary')
       : this._renderer.removeClass(this.attachTo, 'mdc-ripple-surface--primary');
   }
 
   setSecondary(secondary: boolean): void {
-    this._secondary = secondary;
+    this._secondary = toBoolean(secondary);
     this._secondary ? this._renderer.addClass(this.attachTo, 'mdc-ripple-surface--accent')
       : this._renderer.removeClass(this.attachTo, 'mdc-ripple-surface--accent');
   }

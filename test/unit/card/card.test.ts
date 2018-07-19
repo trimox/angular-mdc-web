@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import {
   MdcCardModule,
   MdcCard,
+  MdcCardMedia,
   MdcCardMediaContent
 } from '@angular-mdc/web';
 
@@ -25,6 +26,8 @@ describe('MdcCard', () => {
     let testInstance: MdcCard;
     let testComponent: SimpleTest;
 
+    let testDebugMediaElement: DebugElement;
+
     beforeEach(() => {
       fixture = TestBed.createComponent(SimpleTest);
       fixture.detectChanges();
@@ -33,10 +36,18 @@ describe('MdcCard', () => {
       testNativeElement = testDebugElement.nativeElement;
       testInstance = testDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
+
+      testDebugMediaElement = fixture.debugElement.query(By.directive(MdcCardMedia));
     });
 
     it('#should have mdc-card by default', () => {
       expect(testDebugElement.nativeElement.classList).toContain('mdc-card');
+    });
+
+    it('#should set to wide', () => {
+      testComponent.wide = true;
+      fixture.detectChanges();
+      expect(testDebugMediaElement.nativeElement.classList.contains('mdc-card__media--16-9')).toBe(true);
     });
   });
 });

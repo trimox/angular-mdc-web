@@ -11,9 +11,10 @@ import {
   Provider,
   Renderer2,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { toBoolean } from '@angular-mdc/web/common';
 
 import { MdcFormFieldControl } from '@angular-mdc/web/form-field';
 
@@ -143,7 +144,7 @@ export class MdcSwitch implements MdcFormFieldControl<any> {
 
     const previousValue = this.checked;
 
-    this._checked = checked;
+    this._checked = toBoolean(checked);
     if (previousValue !== null || undefined) {
       this._onChange(this.checked);
       this.change.emit(new MdcSwitchChange(this, this.checked));
@@ -161,7 +162,7 @@ export class MdcSwitch implements MdcFormFieldControl<any> {
   }
 
   setDisabledState(disabled: boolean): void {
-    this._disabled = disabled;
+    this._disabled = toBoolean(disabled);
     this._changeDetectorRef.markForCheck();
   }
 

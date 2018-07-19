@@ -10,6 +10,7 @@ import {
   Renderer2,
   ViewEncapsulation
 } from '@angular/core';
+import { toBoolean } from '@angular-mdc/web/common';
 import { MDCLinearProgressAdapter } from './adapter';
 
 import { MDCLinearProgressFoundation } from '@material/linear-progress';
@@ -131,14 +132,14 @@ export class MdcLinearProgress implements AfterViewInit, OnDestroy {
   }
 
   setReverse(reverse: boolean): void {
-    this._reversed = reverse;
+    this._reversed = toBoolean(reverse);
     this._foundation.setReverse(reverse);
 
     this._changeDetectorRef.markForCheck();
   }
 
   setDeterminate(determinate: boolean): void {
-    this._determinate = determinate;
+    this._determinate = toBoolean(determinate);
     this._foundation.setDeterminate(determinate);
 
     this._changeDetectorRef.markForCheck();

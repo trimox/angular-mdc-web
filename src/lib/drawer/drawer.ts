@@ -12,7 +12,7 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
+import { isBrowser, EventRegistry, toBoolean } from '@angular-mdc/web/common';
 
 import { MdcDrawerNavigation } from './drawer.directives';
 import { MDCDrawerAdapter } from './adapter';
@@ -196,7 +196,7 @@ export class MdcDrawer implements OnDestroy {
   }
 
   setFixed(fixed: boolean): void {
-    this._fixed = fixed;
+    this._fixed = toBoolean(fixed);
     this._changeDetectorRef.markForCheck();
   }
 

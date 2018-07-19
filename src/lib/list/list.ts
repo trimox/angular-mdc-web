@@ -254,7 +254,7 @@ export class MdcList implements AfterContentInit, OnDestroy {
   }
 
   setMultiple(multiple: boolean): void {
-    this._multiple = multiple;
+    this._multiple = toBoolean(multiple);
     this.clearSelected();
 
     this._changeDetectorRef.markForCheck();

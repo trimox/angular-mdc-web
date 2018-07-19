@@ -8,10 +8,9 @@ import {
   HostBinding,
   Input,
   OnDestroy,
-  Renderer2,
   ViewEncapsulation
 } from '@angular/core';
-import { EventRegistry } from '@angular-mdc/web/common';
+import { EventRegistry, toBoolean } from '@angular-mdc/web/common';
 
 import { MdcFormFieldControl } from './form-field-control';
 import { MDCFormFieldAdapter } from '@material/form-field/adapter';
@@ -65,7 +64,6 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    private _renderer: Renderer2,
     public elementRef: ElementRef,
     private _registry: EventRegistry) { }
 
@@ -75,7 +73,7 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
 
       if (label.nextSibling.tagName === 'LABEL') {
         this._label = label.nextSibling;
-        this._renderer.setAttribute(this._label, 'for', this.input.inputId);
+        this._label.setAttribute('for', this.input.inputId);
 
         this._foundation = new MDCFormFieldFoundation(this._mdcAdapter);
         this._foundation.init();
@@ -92,7 +90,7 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
   }
 
   setAlignEnd(alignEnd: boolean): void {
-    this._alignEnd = alignEnd;
+    this._alignEnd = toBoolean(alignEnd);
     this._changeDetectorRef.markForCheck();
   }
 

@@ -13,7 +13,7 @@ import {
   Output,
   ViewEncapsulation
 } from '@angular/core';
-import { EventRegistry } from '@angular-mdc/web/common';
+import { EventRegistry, toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
 /** Change event that is fired whenever the selected state of an option changes. */
@@ -124,7 +124,7 @@ export class MdcListItem implements OnDestroy {
 
   /** Sets the selected state of the option. */
   setSelected(selected: boolean): void {
-    this._selected = selected;
+    this._selected = toBoolean(selected);
     this._changeDetector.markForCheck();
   }
 

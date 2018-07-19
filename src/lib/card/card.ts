@@ -5,8 +5,7 @@ import {
   ElementRef,
   HostBinding,
   Input,
-  Renderer2,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { toBoolean } from '@angular-mdc/web/common';
 
@@ -54,11 +53,11 @@ export class MdcCardMedia {
   constructor(public elementRef: ElementRef) { }
 
   setWide(wide: boolean): void {
-    this._wide = wide;
+    this._wide = toBoolean(wide);
   }
 
   setSquare(square: boolean): void {
-    this._square = square;
+    this._square = toBoolean(square);
   }
 }
 
@@ -148,11 +147,11 @@ export class MdcCardAction {
     if (!action) { return; }
 
     if (action === 'button') {
-      this._renderer.addClass(this.elementRef.nativeElement, 'mdc-card__action--button');
+      this.elementRef.nativeElement.classList.add('mdc-card__action--button');
     } else if (action === 'icon') {
-      this._renderer.addClass(this.elementRef.nativeElement, 'mdc-card__action--icon');
-      this._renderer.setAttribute(this.elementRef.nativeElement, 'tabIndex', '0');
-      this._renderer.setAttribute(this.elementRef.nativeElement, 'role', 'button');
+      this.elementRef.nativeElement.classList.add('mdc-card__action--icon');
+      this.elementRef.nativeElement.setAttribute('tabIndex', '0');
+      this.elementRef.nativeElement.setAttribute('role', 'button');
     }
 
     this._action = action;
@@ -161,9 +160,7 @@ export class MdcCardAction {
 
   @HostBinding('class.mdc-card__action') isHostClass = true;
 
-  constructor(
-    private _renderer: Renderer2,
-    public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef) { }
 }
 
 @Component({
@@ -190,6 +187,6 @@ export class MdcCard {
   constructor(public elementRef: ElementRef) { }
 
   setOutlined(outlined: boolean): void {
-    this._outlined = outlined;
+    this._outlined = toBoolean(outlined);
   }
 }

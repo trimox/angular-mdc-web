@@ -294,7 +294,7 @@ export class MdcChip implements AfterContentInit, OnDestroy {
       this.setSecondary(false);
     }
 
-    this._primary = primary;
+    this._primary = toBoolean(primary);
   }
 
   setSecondary(secondary: boolean): void {
@@ -302,7 +302,7 @@ export class MdcChip implements AfterContentInit, OnDestroy {
       this.setPrimary(false);
     }
 
-    this._secondary = secondary;
+    this._secondary = toBoolean(secondary);
   }
 
   setRemovable(removable: boolean): void {

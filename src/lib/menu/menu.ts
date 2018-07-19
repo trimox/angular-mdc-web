@@ -252,7 +252,7 @@ export class MdcMenu implements AfterViewInit, OnDestroy {
   }
 
   setRememberSelection(rememberSelection: boolean): void {
-    this._rememberSelection = rememberSelection;
+    this._rememberSelection = toBoolean(rememberSelection);
     this._foundation.setRememberSelection(rememberSelection);
 
     this._changeDetectorRef.markForCheck();
@@ -277,7 +277,7 @@ export class MdcMenu implements AfterViewInit, OnDestroy {
   }
 
   setQuickOpen(quickOpen: boolean): void {
-    this._quickOpen = quickOpen;
+    this._quickOpen = toBoolean(quickOpen);
     this._foundation.setQuickOpen(quickOpen);
 
     this._changeDetectorRef.markForCheck();

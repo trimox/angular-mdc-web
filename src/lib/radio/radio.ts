@@ -13,7 +13,7 @@ import {
   Provider,
   Renderer2,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, RadioControlValueAccessor } from '@angular/forms';
 import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
@@ -182,13 +182,13 @@ export class MdcRadio implements AfterViewInit, OnDestroy, MdcFormFieldControl<a
   }
 
   setDisabledState(disabled: boolean): void {
-    this._disabled = disabled;
+    this._disabled = toBoolean(disabled);
     this._foundation.setDisabled(disabled);
     this._changeDetectorRef.markForCheck();
   }
 
   setChecked(checked: boolean): void {
-    this._checked = checked;
+    this._checked = toBoolean(checked);
     if (checked) {
       this._onChange(this.checked);
     }

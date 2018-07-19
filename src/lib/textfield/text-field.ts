@@ -432,7 +432,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
 
   /** Sets the text-field required or not. */
   setRequired(required: boolean): void {
-    this._required = required;
+    this._required = toBoolean(required);
     this._changeDetectorRef.markForCheck();
   }
 

@@ -10,7 +10,7 @@ import {
   OnDestroy,
   ViewEncapsulation
 } from '@angular/core';
-import { EventRegistry } from '@angular-mdc/web/common';
+import { EventRegistry, toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
@@ -135,27 +135,35 @@ export class MdcButton implements AfterContentInit, OnDestroy {
   }
 
   setRaised(raised: boolean): void {
-    this._raised = raised;
-  }
-
-  setPrimary(primary: boolean): void {
-    this._primary = primary;
+    this._raised = toBoolean(raised);
   }
 
   setDense(dense: boolean): void {
-    this._dense = dense;
+    this._dense = toBoolean(dense);
+  }
+
+  setPrimary(primary: boolean): void {
+    this._primary = toBoolean(primary);
+
+    if (primary) {
+      this.setSecondary(false);
+    }
   }
 
   setSecondary(secondary: boolean): void {
-    this._secondary = secondary;
+    this._secondary = toBoolean(secondary);
+
+    if (secondary) {
+      this.setPrimary(false);
+    }
   }
 
   setUnelevated(unelevated: boolean): void {
-    this._unelevated = unelevated;
+    this._unelevated = toBoolean(unelevated);
   }
 
   setOutlined(outlined: boolean): void {
-    this._outlined = outlined;
+    this._outlined = toBoolean(outlined);
   }
 
   setIcon(icon: any): void {

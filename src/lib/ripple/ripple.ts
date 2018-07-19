@@ -9,7 +9,7 @@ import {
   Input,
   NgZone,
   OnDestroy,
-  Renderer2,
+  Renderer2
 } from '@angular/core';
 import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
 
@@ -28,6 +28,15 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
   get ripple(): MdcRipple {
     return this._ripple;
   }
+
+  @Input()
+  get attachTo(): any { return this._attachTo; }
+  set attachTo(element: any) {
+    if (this._attachTo !== element) {
+      this.setAttachTo(element);
+    }
+  }
+  protected _attachTo: any;
 
   @Input()
   get primary(): boolean { return this._primary; }
@@ -50,15 +59,6 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
     this._disabled ? this.ripple.destroy() : this.ripple.init();
   }
   private _disabled: boolean;
-
-  @Input()
-  get attachTo(): any { return this._attachTo; }
-  set attachTo(element: any) {
-    if (this._attachTo !== element) {
-      this.setAttachTo(element);
-    }
-  }
-  protected _attachTo: any;
 
   @Input()
   get unbounded(): boolean { return this._unbounded; }
@@ -126,7 +126,7 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
   providers: [
     MdcRipple,
     EventRegistry
-  ],
+  ]
 })
 export class MdcRippleDirective extends MdcRippleComponent {
   constructor(

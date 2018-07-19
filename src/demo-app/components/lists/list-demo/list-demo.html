@@ -211,27 +211,21 @@
       <mdc-list [lines]="2" [avatar]="true" class="demo-list--custom">
         <mdc-list-item>
           <mdc-icon mdcListItemGraphic>folder</mdc-icon>
-          <mdc-list-item-text>Photos
-            <mdc-list-item-secondary>Jan 9, 2015</mdc-list-item-secondary>
-          </mdc-list-item-text>
+          <mdc-list-item-text secondaryText="Jan 9, 2015">Photos</mdc-list-item-text>
           <a href="#" mdcListItemMeta mdcIcon
             aria-label="View more information" title="More info"
             onclick="event.preventDefault();">info</a>
           </mdc-list-item>
         <mdc-list-item>
           <mdc-icon mdcListItemGraphic>folder</mdc-icon>
-          <mdc-list-item-text>Recipes
-            <mdc-list-item-secondary>Jan 17, 2015</mdc-list-item-secondary>
-          </mdc-list-item-text>
+          <mdc-list-item-text secondaryText="Jan 17, 2015">Recipes</mdc-list-item-text>
           <a href="#" mdcListItemMeta mdcIcon
             aria-label="View more information" title="More info"
             onclick="event.preventDefault();">info</a>
         </mdc-list-item>
         <mdc-list-item>
           <mdc-icon mdcListItemGraphic>folder</mdc-icon>
-          <mdc-list-item-text>Work
-            <mdc-list-item-secondary>Jan 28, 2015</mdc-list-item-secondary>
-          </mdc-list-item-text>
+          <mdc-list-item-text secondaryText="Jan 28, 2015">Work</mdc-list-item-text>
           <a href="#" mdcListItemMeta mdcIcon
             aria-label="View more information" title="More info"
             onclick="event.preventDefault();">info</a>
@@ -276,7 +270,7 @@
   </div>
 
   <div class="demo-content">
-    <h3 class="demo-content__headline">Two-line List</h3>
+    <h3 class="demo-content__headline">Two-line</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="twoline.border = !twoline.border">Border: {{twoline.border ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="twoline.dense = !twoline.dense">Dense: {{twoline.dense ? 'On' : 'Off'}}</button>
@@ -285,22 +279,13 @@
     </div>
     <mdc-list #twoline [lines]="2">
       <mdc-list-item>
-        <mdc-list-item-text>
-          Single-line item
-          <mdc-list-item-secondary>Secondary text</mdc-list-item-secondary>
-        </mdc-list-item-text>
+        <mdc-list-item-text secondaryText="Secondary text">Single-line item</mdc-list-item-text>
       </mdc-list-item>
       <mdc-list-item>
-        <mdc-list-item-text>
-          Single-line item
-          <mdc-list-item-secondary>Secondary text</mdc-list-item-secondary>
-        </mdc-list-item-text>
+        <mdc-list-item-text secondaryText="Secondary text">Single-line item</mdc-list-item-text>
       </mdc-list-item>
       <mdc-list-item>
-        <mdc-list-item-text>
-          Single-line item
-          <mdc-list-item-secondary>Secondary text</mdc-list-item-secondary>
-        </mdc-list-item-text>
+        <mdc-list-item-text secondaryText="Secondary text">Single-line item</mdc-list-item-text>
       </mdc-list-item>
     </mdc-list>
   </div>
@@ -315,13 +300,16 @@
     </div>
     <mdc-list #startgraphic>
       <mdc-list-item>
-        <mdc-icon mdcListItemGraphic>network_wifi</mdc-icon>Wi-Fi
+        <mdc-icon mdcListItemGraphic>network_wifi</mdc-icon>
+        <mdc-list-item-text>Wi-Fi</mdc-list-item-text>
       </mdc-list-item>
       <mdc-list-item>
-        <mdc-icon mdcListItemGraphic>bluetooth</mdc-icon>Bluetooth
+        <mdc-icon mdcListItemGraphic>bluetooth</mdc-icon>
+        <mdc-list-item-text>Bluetooth</mdc-list-item-text>
       </mdc-list-item>
       <mdc-list-item>
-        <mdc-icon mdcListItemGraphic>data_usage</mdc-icon>Data Usage
+        <mdc-icon mdcListItemGraphic>data_usage</mdc-icon>
+        <mdc-list-item-text>Data Usage</mdc-list-item-text>
       </mdc-list-item>
     </mdc-list>
   </div>
@@ -335,15 +323,15 @@
     </div>
     <mdc-list #endmeta>
       <mdc-list-item>
-        Wi-Fi
+        <mdc-list-item-text>Wi-Fi</mdc-list-item-text>
         <mdc-icon mdcListItemMeta>info</mdc-icon>
       </mdc-list-item>
       <mdc-list-item>
-        Bluetooth
+        <mdc-list-item-text>Bluetooth</mdc-list-item-text>
         <mdc-icon mdcListItemMeta>info</mdc-icon>
       </mdc-list-item>
       <mdc-list-item>
-        Data Usage
+        <mdc-list-item-text>Data Usage</mdc-list-item-text>
         <mdc-icon mdcListItemMeta>info</mdc-icon>
       </mdc-list-item>
     </mdc-list>

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import {
   MdcList,
@@ -27,6 +28,7 @@ const LIST_DECLARATIONS = [
 ];
 
 @NgModule({
+  imports: [CommonModule],
   exports: LIST_DECLARATIONS,
   declarations: LIST_DECLARATIONS,
 })

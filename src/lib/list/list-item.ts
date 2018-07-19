@@ -45,11 +45,22 @@ export class MdcListItemMeta {
   constructor(public elementRef: ElementRef) { }
 }
 
-@Directive({
+@Component({
+  moduleId: module.id,
   selector: '[mdcListItemText], mdc-list-item-text',
   exportAs: 'mdcListItemText',
+  template: `
+  <ng-container>
+    <ng-content></ng-content>
+    <span class="mdc-list-item__secondary-text" *ngIf="secondaryText">{{secondaryText}}</span>
+  </ng-container>
+  `,
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcListItemText {
+  @Input() secondaryText: string;
+
   @HostBinding('class.mdc-list-item__text') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }

@@ -4,7 +4,6 @@ import { By } from '@angular/platform-browser';
 
 import {
   MdcRippleModule,
-  MdcRipple,
   MdcRippleComponent,
 } from '@angular-mdc/web';
 

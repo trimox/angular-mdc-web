@@ -1,13 +1,17 @@
 const path = require('path');
 const webpack = require('webpack');
-const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
+  mode: 'production',
+  devtool: 'inline-source-map',
+  performance: {
+    hints: false
+  },
   resolve: {
     plugins: [
-      new TsConfigPathsPlugin({
-        configFileName: './test/unit/tsconfig.json',
-        compiler: 'typescript'
+      new TsconfigPathsPlugin({
+        configFile: './test/unit/tsconfig.json'
       })
     ],
     extensions: ['.js', '.ts'],
@@ -16,7 +20,7 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        loader: 'awesome-typescript-loader?{configFileName: "test/unit/tsconfig.json"}'
+        loader: 'ts-loader'
       }, {
         loader: 'string-replace-loader',
           query: {
@@ -31,12 +35,5 @@ module.exports = {
         include: path.resolve('src/lib/')
       }
     ]
-  },
-  plugins: [
-    // Workaround for angular/angular#1158
-    new webpack.ContextReplacementPlugin(
-      /(.+)?angular(\\|\/)core(.+)?/,
-      path.resolve(__dirname, './test')
-    )
-  ]
+  }
 };

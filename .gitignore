@@ -2,7 +2,5 @@
 /dist/
 /npm-debug.log
 /build/
-/publish-demo/
-/src/demo-app/dist
 /coverage
 *.log

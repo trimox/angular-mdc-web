@@ -1,0 +1,166 @@
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Slider</h1>
+    Sliders allow users to make selections from a range of values.
+    <h2>References</h2>
+    <ul>
+      <li><a mdc-button href="https://material.io/guidelines/components/sliders.html"
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Sliders</a>
+      </li>
+      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-slider/README.md"
+        target="_blank" rel="noopener noreferrer">Material Components Web</a>
+      </li>
+    </ul>
+    <h2>Import</h2>
+    <pre><code><![CDATA[import { MdcSliderModule } from '@angular-mdc/web';]]></code></pre>
+
+    <h2>Design & API Documentation</h2>
+    <div class="docs-api">
+      <h3>mdc-slider</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>min: number</td>
+            <td>The minimum value that the slider can have.</td>
+          </tr>
+          <tr>
+            <td>max: number</td>
+            <td>The maximum value that the slider can have.</td>
+          </tr>
+          <tr>
+            <td>value: number</td>
+            <td>The current value of the slider.</td>
+          </tr>
+          <tr>
+            <td>step: number</td>
+            <td>Specifies the increments at which a slider value can be set.</td>
+          </tr>
+          <tr>
+            <td>discrete: boolean</td>
+            <td>Discrete sliders allow users to select a specific value from a range. (Default: false)</td>
+          </tr>
+          <tr>
+            <td>markers: boolean</td>
+            <td>Show markers on track. Discrete sliders support displaying markers on their tracks. (Default: false)</td>
+          </tr>
+          <tr>
+            <td>disabled: boolean</td>
+            <td>Disables the toggle slider.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Methods</th>
+            <th>Parameters</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>getMin(): number</td>
+            <td>Returns the min value the slider can have.</td>
+          </tr>
+          <tr>
+            <td>getMax(): number</td>
+            <td>Returns the max value the slider can have.</td>
+          </tr>
+          <tr>
+            <td>getStep(): number</td>
+            <td>Returns the slider step value.</td>
+          </tr>
+          <tr>
+            <td>getValue(): number</td>
+            <td>Returns the current value of the slider.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Events</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              change(source: MdcSlider, value: number)
+            </td>
+            <td>Broadcast when slider value is changed and committed by way of a user event, e.g. when a user stops dragging the slider or changes the value using the arrow keys.</td>
+          </tr>
+          <tr>
+            <td>
+              input(source: MdcSlider, value: number)
+            </td>
+            <td>Broadcasts when slider value is changed by way of a user event, e.g. when a user is dragging the slider or changing the value using the arrow keys.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h2>Sass Mixins</h2>
+    To customize the colors of any part of the slider, use the following mixins.
+    <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-slider#sass-mixins"
+     target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
+
+    <h2>Basic Usage</h2>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-slider"
+     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
+  </div>
+
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Continuous Slider - ngModel</h3>
+    <mdc-slider #democontinous [min]="continuousMin" [max]="continuousMax" [value]="50"
+     (input)="onInput($event)" (change)="onChange($event)" ngModel #demoContinousModel="ngModel"></mdc-slider>
+    <mdc-text-field [(ngModel)]="continuousMin" label="Min" type="number"></mdc-text-field>
+    <mdc-text-field [(ngModel)]="continuousMax" label="Max" type="number"></mdc-text-field>
+    <div class="demo-content--row">
+      <button mdc-button (click)="democontinous.disabled = !democontinous.disabled">Disabled: {{democontinous.disabled ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoContinousModel.reset()">Reset Model</button>
+    </div>
+    <p>Dirty: {{ demoContinousModel.dirty }}</p>
+    <p>Touched: {{ demoContinousModel.touched }}</p>
+    <p>ngModel Value: {{ demoContinousModel.value }}</p>
+    <p>Value from input event: {{continuousInputEventValue}}</p>
+    <p>Value from change event: {{continuousChangeEventValue}}</p>
+  </div>
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Discrete Slider</h3>
+    <mdc-slider #demodiscrete [min]="discreteMin" [max]="discreteMax" [discrete]="true" [value]="50"
+      (input)="discreteInputEventValue = $event.value" (change)="discreteChangeEventValue = $event.value"></mdc-slider>
+    <mdc-text-field [(ngModel)]="discreteMin" label="Min" type="number"></mdc-text-field>
+    <mdc-text-field [(ngModel)]="discreteMax" label="Max" type="number"></mdc-text-field>
+    <div class="demo-content--row">
+      <button mdc-button (click)="demodiscrete.disabled = !demodiscrete.disabled">Disabled: {{demodiscrete.disabled ? 'On' : 'Off'}}</button>
+    </div>
+    <p>Slider value: {{demodiscrete.value}}</p>
+    <p>Value from input event: {{discreteInputEventValue}}</p>
+    <p>Value from change event: {{discreteChangeEventValue}}</p>
+  </div>
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Discrete Slider with markers</h3>
+      <mdc-slider #demomarkers [min]="dmMin" [max]="dmMax" [step]="dmStep" ngModel #demoMarkerModel="ngModel"
+       [discrete]="true" [markers]="true" [value]="20"
+       (input)="markersInputEventValue = $event.value" (change)="markersChangeEventValue = $event.value"></mdc-slider>
+    <mdc-text-field [(ngModel)]="dmMin" label="Min" type="number"></mdc-text-field>
+    <mdc-text-field [(ngModel)]="dmMax" label="Max" type="number"></mdc-text-field>
+    <mdc-text-field [(ngModel)]="dmStep" label="Step" type="number"></mdc-text-field>
+    <div class="demo-content--row">
+      <button mdc-button (click)="demomarkers.disabled = !demomarkers.disabled">Disabled: {{demomarkers.disabled ? 'On' : 'Off'}}</button>
+    </div>
+    <p>ngModel Value: {{demoMarkerModel.value}}</p>
+    <p>Value from input event: {{markersInputEventValue}}</p>
+    <p>Value from change event: {{markersChangeEventValue}}</p>
+  </div>
+
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Custom colors</h3>
+    <mdc-slider [discrete]="true" [markers]="true" class="demo-slider--custom"></mdc-slider>
+  </div>
+</div>

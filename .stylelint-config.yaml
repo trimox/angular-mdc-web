@@ -3,7 +3,7 @@ ignoreFiles:
   - node_modules/**/*
   - dist/**/*
   - build/**/*
-  - src/demo-app/**/*
+  - demos/**/*
   - src/theme/material-components-web/**/*
 plugins:
   - stylelint-selector-bem-pattern

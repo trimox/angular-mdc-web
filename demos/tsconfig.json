@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "declaration": false,
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "lib": ["es2017", "dom"],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "typeRoots": ["../node_modules/@types"],
+    "rootDir": "..",
+    "baseUrl": ".",
+    "paths": {
+      "@angular-mdc/web/*": ["../src/lib/*"],
+      "@angular-mdc/web": ["../src/lib/public-api.ts"],
+      "@angular-mdc/theme/*": ["../src/theme/*"],
+      "@angular-mdc/theme": ["../src/theme/material.scss"]
+    }
+  },
+  "files": [
+    "./main.ts"
+  ]
+}

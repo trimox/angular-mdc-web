@@ -2,14 +2,11 @@ dist: trusty
 language: node_js
 sudo: required
 node_js:
-  - '10.2.1'
+  - '10.7.0'
 
 branches:
   only:
     - master
-
-before_install:
-  - npm i -g npm@6.1.0
 
 cache:
   directories:

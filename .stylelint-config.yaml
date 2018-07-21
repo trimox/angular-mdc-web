@@ -2,9 +2,8 @@ extends: stylelint-config-standard
 ignoreFiles:
   - node_modules/**/*
   - dist/**/*
-  - build/**/*
   - demos/**/*
-  - src/theme/material-components-web/**/*
+  - packages/material-components-web/scss/**/*
 plugins:
   - stylelint-selector-bem-pattern
   - stylelint-scss

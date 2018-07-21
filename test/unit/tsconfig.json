@@ -13,13 +13,13 @@
     "emitDecoratorMetadata": true,
     "typeRoots": ["../../node_modules/@types"],
     "rootDirs": [
-      "./src",
+      "./packages",
       "./test"
     ],
     "baseUrl": ".",
     "paths": {
-      "@angular-mdc/web/*": ["../../src/lib/*"],
-      "@angular-mdc/web": ["../../src/lib/public-api.ts"]
+      "@angular-mdc/web/*": ["../../packages/*"],
+      "@angular-mdc/web": ["../../packages/public-api.ts"]
     }
   }
 }

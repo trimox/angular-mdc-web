@@ -7,5 +7,5 @@ export const mdcPackage = new BuildPackage('web');
 // components can still be imported through `@angular-mdc/web`.
 mdcPackage.exportsSecondaryEntryPointsAtRoot = true;
 
-// To avoid refactoring of the project the mdc package will map to the source path `lib/`.
-mdcPackage.sourceDir = join(buildConfig.packagesDir, 'lib');
+// To avoid refactoring of the project the mdc package will map to the source path `packages/`.
+mdcPackage.sourceDir = buildConfig.packagesDir;

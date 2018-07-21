@@ -4,7 +4,8 @@ npm-debug.log
 /typings
 /publish
 /dist
-/src
+/packages
+/demos
 
 #ignore files added by travis ci script
 google-chrome-stable_current*

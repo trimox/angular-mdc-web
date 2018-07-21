@@ -1,6 +1,6 @@
 {
   "name": "@angular-mdc/web",
-  "description": "Angular Material Design Components",
+  "description": "Material Web Components for Angular",
   "homepage": "https://github.com/trimox/angular-mdc-web",
   "bugs": "https://github.com/trimox/angular-mdc-web/issues",
   "repository": {
@@ -25,8 +25,8 @@
     "@angular-mdc/theme": "0.37.2"
   },
   "peerDependencies": {
-    "@angular/core": ">=6.0.0",
-    "@angular/common": ">=6.0.0"
+    "@angular/core": "0.0.0-NG",
+    "@angular/common": "0.0.0-NG"
   },
   "sideEffects": false
 }

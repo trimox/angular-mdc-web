@@ -7,7 +7,7 @@ export const dashCaseToCamelCase =
   (str: string) => str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 
 /** List of potential secondary entry-points for the Angular MDC package. */
-const mdcSecondaryEntryPoints = getSubdirectoryNames(join(buildConfig.packagesDir, 'lib'));
+const mdcSecondaryEntryPoints = getSubdirectoryNames(buildConfig.packagesDir);
 
 /** Object with all Angular MDC entry points in the format of Rollup globals. */
 const rollupMdcEntryPoints = mdcSecondaryEntryPoints.reduce((globals: any, entryPoint: string) => {

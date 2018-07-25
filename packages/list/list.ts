@@ -125,6 +125,13 @@ export class MdcList implements AfterContentInit, OnDestroy {
   }
   private _multiple: boolean;
 
+  @Input()
+  get selection(): boolean { return this._selection; }
+  set selection(value: boolean) {
+    this.setSelection(value);
+  }
+  private _selection: boolean;
+
   @HostBinding('class.mdc-list') isHostClass = true;
   @HostBinding('attr.role') role: string = 'list';
   @HostBinding('attr.aria-orientation') ariaOrientation: string = 'vertical';
@@ -209,6 +216,10 @@ export class MdcList implements AfterContentInit, OnDestroy {
     this.optionSelectionChanges.pipe(
       takeUntil(merge(this._destroy, this._listItems.changes))
     ).subscribe(event => {
+      event.source.selected = this.selection;
+      if (!this.selection && this.interactive) {
+        event.source.ripple.handleBlur();
+      }
       this.selectionChange.emit(new MdcListItemChange(this, event.source));
     });
 
@@ -255,6 +266,11 @@ export class MdcList implements AfterContentInit, OnDestroy {
 
   setMultiple(multiple: boolean): void {
     this._multiple = toBoolean(multiple);
+    this._changeDetectorRef.markForCheck();
+  }
+
+  setSelection(selection: boolean): void {
+    this._selection = toBoolean(selection);
     this._changeDetectorRef.markForCheck();
   }
 

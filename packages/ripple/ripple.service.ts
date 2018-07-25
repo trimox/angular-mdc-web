@@ -53,7 +53,9 @@ export class MdcRipple {
     activate(event: any): void,
     deactivate(event: any): void,
     layout(): void,
-    setUnbounded(unbounded: boolean): void
+    setUnbounded(unbounded: boolean): void,
+    handleFocus(): void,
+    handleBlur(): void
   };
 
   constructor(
@@ -98,6 +100,14 @@ export class MdcRipple {
 
   layout(): void {
     this._foundation.layout();
+  }
+
+  handleFocus(): void {
+    this._foundation.handleFocus();
+  }
+
+  handleBlur(): void {
+    this._foundation.handleBlur();
   }
 
   /**

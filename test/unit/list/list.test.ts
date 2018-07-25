@@ -78,10 +78,20 @@ describe('MdcListModule', () => {
     });
 
     it('#should be selected', () => {
-      testComponent.listitem.elementRef.nativeElement.click();
+      testComponent.selection = true;
+      fixture.detectChanges();
       testComponent.listitem.elementRef.nativeElement.click();
       fixture.detectChanges();
       expect(testComponent.listitem.selected).toBe(true);
+    });
+
+    it('#should clear all selected', () => {
+      testComponent.selection = true;
+      fixture.detectChanges();
+      testComponent.listitem.elementRef.nativeElement.click();
+      fixture.detectChanges();
+      testInstance.clearSelected();
+      expect(testComponent.listitem.selected).toBe(false);
     });
 
     it('#should handle keydown', () => {
@@ -122,7 +132,7 @@ describe('MdcListModule', () => {
   template: `
     <mdc-list-group #group>
       <mdc-list-group-subheader>Grouped Lists</mdc-list-group-subheader>
-      <mdc-list [dense]="isDense" [border]="isBordered" [lines]="lines"
+      <mdc-list [dense]="isDense" [border]="isBordered" [lines]="lines" [selection]="selection"
        [avatar]="isAvatar" [interactive]="isInteractive" [multiple]="multiple">
         <mdc-list-item #listitem mdcListItemGraphic [selected]="isItemSelected">Test
           <mdc-icon mdcListItemMeta>info</mdc-icon>
@@ -151,6 +161,7 @@ class SimpleList {
   isInset: boolean = false;
   isPadded: boolean = false;
   multiple: boolean = false;
+  selection: boolean;
 
   @ViewChild('divider') divider: MdcListDivider;
   @ViewChild('listitem') listitem: MdcListItem;

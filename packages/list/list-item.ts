@@ -101,11 +101,10 @@ export class MdcListItem implements OnDestroy {
   @HostBinding('tabindex') tabIndex: number = -1;
   @HostBinding('attr.role') role: string = 'listitem';
   @HostBinding('class.mdc-list-item--selected') get classSelected(): string {
-    return this.selected && this.ripple.isAttached() ? 'mdc-list-item--selected' : '';
+    return this.selected ? 'mdc-list-item--selected' : '';
   }
 
   @HostListener('click') onclick() {
-    this.setSelected(!this.selected);
     this._emitChangeEvent();
   }
 

@@ -38,11 +38,12 @@ export class MdcSnackbar implements OnDestroy {
       this.dismiss();
     }
 
+    config = this._applyConfigDefaults(config);
     this._openedSnackbarRef
       = new MdcSnackbarRef<MdcSnackbarComponent>(this._portalService.createComponentRef(MdcSnackbarComponent).instance);
 
     this._openedSnackbarRef.componentInstance.data = { message, actionText };
-    this._openedSnackbarRef.componentInstance.config = _applyConfigDefaults(config);
+    this._openedSnackbarRef.componentInstance.config = config;
 
     this._snackbarSubscription = this._openedSnackbarRef.componentInstance.dismissed
       .pipe(takeUntil(this._destroy))
@@ -67,13 +68,13 @@ export class MdcSnackbar implements OnDestroy {
       this._openedSnackbarRef = null;
     }
   }
-}
 
-/**
- * Applies default options to the snackbar config.
- * @param config The configuration to which the defaults will be applied.
- * @returns The new configuration object with defaults applied.
- */
-function _applyConfigDefaults(config?: MdcSnackbarConfig): MdcSnackbarConfig {
-  return { ...new MdcSnackbarConfig(), ...config };
+  /**
+   * Applies default options to the snackbar config.
+   * @param config The configuration to which the defaults will be applied.
+   * @returns The new configuration object with defaults applied.
+   */
+  private _applyConfigDefaults(config?: MdcSnackbarConfig): MdcSnackbarConfig {
+    return { ...new MdcSnackbarConfig(), ...config };
+  }
 }

@@ -1,3 +1,23 @@
+<a name="0.37.3"></a>
+## [0.37.3](https://github.com/trimox/angular-mdc-web/compare/v0.37.2...v0.37.3) (2018-07-26)
+
+
+### Bug Fixes
+
+* **list:** `multiple` prop should not clear selections ([#1151](https://github.com/trimox/angular-mdc-web/issues/1151)) ([ba8efce](https://github.com/trimox/angular-mdc-web/commit/ba8efce)), closes [#1152](https://github.com/trimox/angular-mdc-web/issues/1152)
+
+
+### Features
+
+* **button:** Coerce data-bound string values to boolean ([#1129](https://github.com/trimox/angular-mdc-web/issues/1129)) ([88308f4](https://github.com/trimox/angular-mdc-web/commit/88308f4))
+* Coerce data-bound string values to boolean ([#1130](https://github.com/trimox/angular-mdc-web/issues/1130)) ([c1c2383](https://github.com/trimox/angular-mdc-web/commit/c1c2383))
+* **list:** Add `selection` variant ([#1153](https://github.com/trimox/angular-mdc-web/issues/1153)) ([94e5e96](https://github.com/trimox/angular-mdc-web/commit/94e5e96)), closes [#1138](https://github.com/trimox/angular-mdc-web/issues/1138)
+* **list:** Add property secondaryText for mdc-list-item-text ([#1128](https://github.com/trimox/angular-mdc-web/issues/1128)) ([c660fed](https://github.com/trimox/angular-mdc-web/commit/c660fed)), closes [#1127](https://github.com/trimox/angular-mdc-web/issues/1127)
+
+BREAKING CHANGES:
+- Added  `selection: boolean` property to `mdc-list`; enables whether or not the list items are selectable. Default is false.
+
+
 <a name="0.37.2"></a>
 ## [0.37.2](https://github.com/trimox/angular-mdc-web/compare/v0.37.1...v0.37.2) (2018-07-18)
 

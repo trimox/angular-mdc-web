@@ -98,9 +98,21 @@ export class MdcList implements AfterContentInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
-  @Input() dense: boolean = false;
   @Input() lines: number = 1;
-  @Input() border: boolean = false;
+
+  @Input()
+  get dense(): boolean { return this._dense; }
+  set dense(value: boolean) {
+    this._dense = toBoolean(value);
+  }
+  private _dense: boolean;
+
+  @Input()
+  get border(): boolean { return this._border; }
+  set border(value: boolean) {
+    this._border = toBoolean(value);
+  }
+  private _border: boolean;
 
   @Input()
   get avatar(): boolean { return this._avatar; }

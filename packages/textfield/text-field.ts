@@ -110,14 +110,14 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   set box(value: boolean) {
     this.setBox(value);
   }
-  protected _box: boolean = true;
+  protected _box: boolean;
 
   @Input()
   get outline(): boolean { return this._outline; }
   set outline(value: boolean) {
     this.setOutline(value);
   }
-  protected _outline: boolean = false;
+  protected _outline: boolean;
 
   @Input()
   get disabled(): boolean { return this._disabled; }
@@ -131,14 +131,14 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   set required(value: boolean) {
     this.setRequired(value);
   }
-  private _required: boolean = false;
+  private _required: boolean;
 
   @Input()
   get focused(): boolean { return this._focused; }
   set focused(value: boolean) {
     this._focused = toBoolean(value);
   }
-  private _focused: boolean = false;
+  private _focused: boolean;
 
   @Input()
   get fullwidth(): boolean { return this._fullwidth; }
@@ -320,6 +320,8 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   }
 
   ngAfterContentInit(): void {
+    this.box = !this.outline;
+
     this._foundation = new MDCTextFieldFoundation(this._mdcAdapter, this._getFoundationMap());
     this._foundation.init();
 
@@ -440,8 +442,8 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   setBox(box: boolean): void {
     this._box = toBoolean(box);
 
-    if (this._outline && box) {
-      this._outline = false;
+    if (this.outline && box) {
+      this.outline = false;
     }
     this._box ? this._ripple.attachTo(this._getHostElement(), false, this._getInputElement()) :
       this._ripple.destroy();
@@ -453,8 +455,8 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   setOutline(outline: boolean): void {
     this._outline = toBoolean(outline);
 
-    if (outline && this._box) {
-      this._box = false;
+    if (outline && this.box) {
+      this.box = false;
     }
 
     if (this.outline && this.value) {

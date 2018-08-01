@@ -10,9 +10,10 @@ import {
   HostBinding,
   Input,
   OnDestroy,
+  Optional,
   Output,
   QueryList,
-  Renderer2,
+  Self,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
@@ -20,7 +21,11 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { startWith, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
-import { EventRegistry, isBrowser, toBoolean } from '@angular-mdc/web/common';
+import {
+  EventRegistry,
+  isBrowser,
+  toBoolean
+} from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
 import { MdcNotchedOutline } from '@angular-mdc/web/notched-outline';
@@ -38,6 +43,7 @@ export const MDC_SELECT_CONTROL_VALUE_ACCESSOR: any = {
 
 export class MdcSelectChange {
   constructor(
+    public source: MdcSelect,
     public index: number,
     public value: any) { }
 }
@@ -49,7 +55,7 @@ let nextUniqueId = 0;
   selector: 'mdc-select',
   exportAs: 'mdcSelect',
   host: {
-    '[id]': 'id',
+    '[id]': 'id'
   },
   template: `
   <select #input
@@ -57,7 +63,7 @@ let nextUniqueId = 0;
    (blur)="onBlur()"
    (change)="onChange($event)"
    (focus)="onFocus()">
-    <ng-content #options></ng-content>
+    <ng-content #option></ng-content>
   </select>
   <label mdcFloatingLabel [attr.for]="id">{{hasFloatingLabel() ? placeholder : ''}}</label>
   <mdc-line-ripple *ngIf="!outlined"></mdc-line-ripple>
@@ -127,11 +133,35 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   }
   private _autosize: boolean = true;
 
-  @Output() readonly change: EventEmitter<MdcSelectChange> = new EventEmitter<MdcSelectChange>();
+  @Input()
+  get compareWith() { return this._compareWith; }
+  set compareWith(fn: (o1: any, o2: any) => boolean) {
+    this._compareWith = fn;
+    // A different comparator means the selection could change.
+    this._initializeSelection();
+  }
+  private _compareWith = (o1: any, o2: any) => o1 === o2;
+
+  /** Value of the select control. */
+  @Input()
+  get value(): any { return this._value; }
+  set value(newValue: any) {
+    if (newValue !== this._value) {
+      this.writeValue(newValue);
+      this._value = newValue;
+    }
+  }
+  private _value: any;
 
   /** Event emitted when the selected value has been changed by the user. */
   @Output() readonly selectionChange: EventEmitter<MdcSelectChange> =
     new EventEmitter<MdcSelectChange>();
+
+  /**
+   * Event that emits whenever the raw value of the select changes. This is here primarily
+   * to facilitate the two-way binding for the `value` input.
+   */
+  @Output() readonly valueChange: EventEmitter<{ index: number, value: any }> = new EventEmitter<any>();
 
   @HostBinding('class.mdc-select') isHostClass = true;
   @HostBinding('tabindex') tabIndex: number = 0;
@@ -147,7 +177,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   @ViewChild('input') inputEl: ElementRef;
   @ViewChild(MdcNotchedOutline) _notchedOutline: MdcNotchedOutline;
 
-  @ContentChildren('options') options: QueryList<HTMLOptionElement>;
+  @ContentChildren('option', { descendants: true }) options: QueryList<HTMLOptionElement>;
 
   /** View -> model callback called when value changes */
   _onChange: (value: any) => void = () => { };
@@ -156,8 +186,8 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   _onTouched = () => { };
 
   private _mdcAdapter: MDCSelectAdapter = {
-    addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
-    removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
+    addClass: (className: string) => this._getHostElement().classList.add(className),
+    removeClass: (className: string) => this._getHostElement().classList.remove(className),
     hasClass: (className: string) => this._getHostElement().classList.contains(className),
     floatLabel: (shouldFloat: boolean) => this._selectLabel.float(shouldFloat),
     activateBottomLine: () => {
@@ -176,7 +206,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
     getSelectedIndex: () => this._getInputElement().selectedIndex,
     setSelectedIndex: (index: number) => this._getInputElement().selectedIndex = index,
     getValue: () => this._getInputElement().value,
-    setValue: (value: string) => this._getInputElement().value = value,
+    setValue: (value: any) => this._getInputElement().value = value,
     isRtl: () => getComputedStyle(this._getHostElement()).direction === 'rtl',
     hasLabel: () => !!this._selectLabel,
     getLabelWidth: () => this._selectLabel.getWidth(),
@@ -196,7 +226,6 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    private _renderer: Renderer2,
     public elementRef: ElementRef,
     private _ripple: MdcRipple,
     private _registry: EventRegistry) {
@@ -209,9 +238,12 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
     this._foundation.init();
 
     this.options.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
+      if (this._value) {
+        this._initializeSelection();
+      }
+
       Promise.resolve().then(() => {
         this._selectLabel.float(this.getValue());
-
         if (this.autosize) {
           this._setWidth();
         }
@@ -228,11 +260,11 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   }
 
   writeValue(value: any): void {
-    if (value !== this._getInputElement().value) {
-      this.setValue(value, false);
-    }
-    this.change.emit(new MdcSelectChange(this._getInputElement().selectedIndex, value));
-    this._initializeSelection(value);
+    setTimeout(() => {
+      if (this.options && value !== this.getValue()) {
+        this.setSelectionByValue(value, false);
+      }
+    });
   }
 
   registerOnChange(fn: (value: any) => void): void {
@@ -244,8 +276,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   }
 
   onChange(event: Event): void {
-    this.setValue((<any>event.target).value, true);
-    this.selectionChange.emit(new MdcSelectChange(this._getInputElement().selectedIndex, this.getValue()));
+    this.setSelectionByValue((<any>event.target).value, true);
     event.stopPropagation();
   }
 
@@ -256,27 +287,58 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   }
 
   onFocus(): void {
-    this._onTouched();
+    if (!this.disabled) {
+      this._onTouched();
+    }
   }
 
-  private _initializeSelection(value: any): void {
+  private _initializeSelection(): void {
     // Defer setting the value in order to avoid the "Expression
     // has changed after it was checked" errors from Angular.
     Promise.resolve().then(() => {
-      this.setValue(value, false);
+      this.setSelectionByValue(this._value, false);
     });
   }
 
-  setValue(newValue: any, isUserInput: boolean = true): void {
-    if (this.disabled) {
-      return;
+  /**
+   * Sets the selected option based on a value. If no option can be
+   * found with the designated value, the select trigger is cleared.
+   */
+  setSelectionByValue(value: any, isUserInput: boolean = true): void {
+    const correspondingOption = this._selectValue(value);
+
+    this._value = value;
+
+    this._propagateChanges();
+    if (isUserInput) {
+      this._onChange(value);
     }
 
-    this._foundation.setValue(newValue);
-    if (isUserInput) {
-      this._onChange(newValue);
-    }
-    this._selectLabel.float(newValue);
+    this._changeDetectorRef.markForCheck();
+  }
+
+  private _selectValue(value: any): HTMLOptionElement | undefined {
+    const correspondingOption = this.options.find((option: HTMLOptionElement) => {
+      try {
+        return option.value != null && this._compareWith(option.value, value);
+      } catch {
+        return false;
+      }
+    });
+
+    return correspondingOption;
+  }
+
+  /** Emits change event to set the model value. */
+  private _propagateChanges(fallbackValue?: any): void {
+    let valueToEmit: any = null;
+
+    valueToEmit = this._value ? this._value : fallbackValue;
+
+    this.valueChange.emit({ index: this.getSelectedIndex(), value: valueToEmit });
+    this._foundation.setValue(valueToEmit);
+
+    this.selectionChange.emit(new MdcSelectChange(this, this.getSelectedIndex(), valueToEmit));
 
     this._changeDetectorRef.markForCheck();
   }
@@ -363,17 +425,17 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   private _setWidth() {
     if (this.options && this.placeholder) {
       const labelLength = this._selectLabel.elementRef.nativeElement.textContent.length;
-      this._renderer.setStyle(this._getHostElement(), 'width', `${labelLength}rem`);
+      this._getHostElement().style.setProperty('width', `${labelLength}rem`);
     }
   }
 
   /** Retrieves the select input element. */
-  private _getInputElement() {
+  private _getInputElement(): HTMLSelectElement {
     return this.inputEl.nativeElement;
   }
 
   /** Retrieves the DOM element of the component host. */
-  private _getHostElement() {
+  private _getHostElement(): HTMLElement {
     return this.elementRef.nativeElement;
   }
 }

@@ -41,7 +41,7 @@
             <td>Text shown if no value has been selected.</td>
           </tr>
           <tr>
-            <td>value: string</td>
+            <td>value: any</td>
             <td>Sets the selected item by value.</td>
           </tr>
           <tr>
@@ -91,6 +91,10 @@
             <td>Returns the index of the currently selected option. Returns -1 if no option is currently selected.</td>
           </tr>
           <tr>
+            <td>setSelectionByValue(value: any)</td>
+            <td>Set selection to the passed value.</td>
+          </tr>
+          <tr>
             <td>isDisabled(): boolean</td>
             <td>Returns whether or not the select is disabled.</td>
           </tr>
@@ -106,13 +110,13 @@
         <tbody>
           <tr>
             <td>
-              change(index: number, value: string)
+              valueChange(index: number, value: string)
             </td>
             <td>Event emitted on any value change.</td>
           </tr>
           <tr>
             <td>
-              selectionChange(index: number, value: string)
+              selectionChange(source: MdcSelect, index: number, value: string)
             </td>
             <td>Event emitted if user changed the value.</td>
           </tr>
@@ -125,7 +129,7 @@
   </div>
 
   <div class="demo-content">
-    <h3 class="demo-content__headline">Fruit</h3>
+    <h3 class="demo-content__headline">Simple</h3>
     <mdc-select placeholder="Simple Select">
       <option value="" disabled selected></option>
       <option value="apple">Apple</option>
@@ -143,10 +147,20 @@
   </div>
 
   <div class="demo-content">
-    <h3 class="demo-content__headline">Select with ngModel </h3>
+    <h1 mdcHeadline6>Select using compareWith</h1>
+    <mdc-select [(ngModel)]="currentFoodObject" [compareWith]="compareFn" (selectionChange)="onSelectionChangeTest($event)">
+      <option *ngFor="let food of foods" [value]="food" [disabled]="food.disabled">
+        {{ food.viewValue }}
+      </option>
+    </mdc-select>
+    <p> Value: {{ currentFoodObject | json}} </p>
+  </div>
+
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Select with ngModel</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="demoSelectModel.reset()">Clear Selection</button>
-      <button mdc-button (click)="select.setValue('fruit-3')">Select Fruit</button>
+      <button mdc-button (click)="select.setSelectionByValue('fruit-3')">Select Fruit</button>
       <button mdc-button (click)="select.setDisabled(!select.isDisabled())">Disabled: {{select.isDisabled() ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="select.box = !select.box">Box: {{select.box ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="select.outlined = !select.outlined">Outlined: {{select.outlined ? 'On' : 'Off'}}</button>
@@ -156,7 +170,7 @@
       <mdc-select #select placeholder="Favorite food" ngModel #demoSelectModel="ngModel" name="food"
        (change)="onChange($event)" (selectionChange)="onSelectionChange($event)">
         <option *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
-          {{food.description}}
+          {{food.viewValue}}
         </option>
       </mdc-select>
     </form>
@@ -170,7 +184,8 @@
     <h3 class="demo-content__headline">Select with FormControl</h3>
     <div class="demo-content--row">
       <button mdc-button (click)="foodControl.reset()">Reset Selection</button>
-      <button mdc-button (click)="foodControl.setValue('pizza-1')">Select Pizza</button>
+      <button mdc-button (click)="select2.setSelectionByValue('pizza-1')">Select Pizza</button>
+      <button mdc-button (click)="foodControl.setValue('pizza-1')">Set Form Value</button>
       <button mdc-button (click)="select2.setDisabled(!select2.isDisabled())">Disabled: {{select2.isDisabled() ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="select2.box = !select2.box">Box style: {{select2.box ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="select2.outlined = !select2.outlined">Outlined: {{select2.outlined ? 'On' : 'Off'}}</button>
@@ -178,7 +193,7 @@
     </div>
     <mdc-select #select2 placeholder="Favorite food" [formControl]="foodControl">
       <option *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
-        {{food.description}}
+        {{food.viewValue}}
       </option>
     </mdc-select>
     <p>Value: {{ foodControl.value }}</p>

@@ -53,7 +53,7 @@ npm test # Runs karma, and then runs coverage enforcement checks a single time.
 
 ## <a name="build"></a> Building Angular MDC
 ```
-npm run build # Builds Angular MDC inside of dist/
+npm run build:release # Builds Angular MDC inside of dist/
 ```
 
 ## <a name="code-style"></a> Code Style

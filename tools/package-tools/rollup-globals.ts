@@ -37,7 +37,6 @@ export const rollupGlobals = {
   '@material/floating-label': 'mdc.floating-label',
   '@material/form-field': 'mdc.form-field',
   '@material/icon-button': 'mdc.icon-button',
-  '@material/icon-toggle': 'mdc.icon-toggle',
   '@material/line-ripple': 'mdc.line-ripple',
   '@material/linear-progress': 'mdc.linear-progress',
   '@material/list': 'mdc.list',

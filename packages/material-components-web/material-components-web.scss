@@ -10,7 +10,6 @@
 @import "scss/form-field/mdc-form-field";
 @import "scss/grid-list/mdc-grid-list";
 @import "scss/icon-button/mdc-icon-button";
-@import "scss/icon-toggle/mdc-icon-toggle";
 @import "scss/image-list/mdc-image-list";
 @import "scss/layout-grid/mdc-layout-grid";
 @import "scss/line-ripple/mdc-line-ripple";
@@ -25,10 +24,12 @@
 @import "scss/slider/mdc-slider";
 @import "scss/snackbar/mdc-snackbar";
 @import "scss/switch/mdc-switch";
-@import "scss/tabs/mdc-tabs";
+@import "scss/tab/mdc-tab";
+@import "scss/tab-bar/mdc-tab-bar";
+@import "scss/tab-indicator/mdc-tab-indicator";
+@import "scss/tab-scroller/mdc-tab-scroller";
 @import "scss/textfield/mdc-text-field";
 @import "scss/theme/mdc-theme";
-@import "scss/toolbar/mdc-toolbar";
 @import "scss/top-app-bar/mdc-top-app-bar";
 @import "scss/typography/mdc-typography";
 @import "scss/theme/color-palette";

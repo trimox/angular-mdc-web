@@ -26,11 +26,8 @@ import { ShapeDemo } from './components/shape-demo/shape-demo';
 import { SliderDemo } from './components/slider-demo/slider-demo';
 import { SnackbarDemo } from './components/snackbar-demo/snackbar-demo';
 import { SwitchDemo } from './components/switch-demo/switch-demo';
-import { TabDemo } from './components/tab-demo';
 import { TextFieldDemo } from './components/textfield-demo/textfield-demo';
 import { TypographyDemo } from './components/typography-demo/typography-demo';
-
-import { TABS_DEMO_ROUTES } from './components/tab-demo';
 
 export const DEMO_ROUTES = [
   AppBarDemo,
@@ -61,7 +58,6 @@ export const DEMO_ROUTES = [
   SnackbarDemo,
   SnackbarDemo,
   SwitchDemo,
-  TabDemo,
   TextFieldDemo,
   TypographyDemo
 ];
@@ -94,7 +90,6 @@ export const APP_ROUTES: Routes = [
   { path: 'shape-demo', component: ShapeDemo },
   { path: 'snackbar-demo', component: SnackbarDemo },
   { path: 'switch-demo', component: SwitchDemo },
-  { path: 'tab-demo', component: TabDemo, children: TABS_DEMO_ROUTES },
   { path: 'textfield-demo', component: TextFieldDemo },
   { path: 'typography-demo', component: TypographyDemo },
   { path: '**', redirectTo: 'home' }

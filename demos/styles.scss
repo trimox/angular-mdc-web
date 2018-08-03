@@ -301,40 +301,6 @@ body {
 }
 
 //
-// Demo toolbar-with-tabs
-//
-
-.demo-toolbar--with-tab-bar {
-  .mdc-tab:not(.mdc-tab--active) {
-    @include mdc-tab-ink-color(rgba(mdc-theme-prop-value(mdc-theme-prop-value(on-primary)), 0.54));
-  }
-
-  .mdc-tab--active,
-  .mdc-tab:hover {
-    @include mdc-tab-ink-color(on-primary);
-  }
-}
-
-.demo__toolbar-tabs--dark {
-  @include mdc-toolbar-fill-color(black);
-}
-
-.demo__toolbar-tabs--indigo {
-  @include mdc-toolbar-fill-color($material-color-indigo-500);
-}
-
-.demo-tab-bar--indigo {
-  .mdc-tab:not(.mdc-tab--active) {
-    @include mdc-tab-ink-color(rgba(mdc-theme-prop-value(white), 0.54));
-  }
-
-  .mdc-tab--active,
-  .mdc-tab:hover {
-    @include mdc-tab-ink-color(white);
-  }
-}
-
-//
 // mdc-content
 //
 
@@ -625,17 +591,6 @@ body {
   @include mdc-theme-prop(color, $color);
 }
 
-//
-// Switch
-//
-
-.demo-switch--custom {
-  $color: $material-color-red-500;
-
-  @include mdc-switch-track-color($color);
-  @include mdc-switch-knob-color($color);
-  @include mdc-switch-focus-indicator-color($color);
-}
 
 //
 // Button

@@ -52,7 +52,6 @@ export const rollupGlobals = {
   '@material/textfield': 'mdc.textfield',
   '@material/textfield/helper-text': 'mdc.textfield.helpertext',
   '@material/textfield/icon': 'mdc.textfield.icon',
-  '@material/toolbar': 'mdc.toolbar',
   '@material/top-app-bar': 'mdc.top-app-bar',
 
   'focus-trap': 'focus-trap',

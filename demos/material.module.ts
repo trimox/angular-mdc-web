@@ -26,8 +26,7 @@ import {
   MdcSwitchModule,
   MdcTextFieldModule,
   MdcThemeModule,
-  MdcToolbarModule,
-  MdcTypographyModule,
+  MdcTypographyModule
 } from '@angular-mdc/web';
 
 @NgModule({
@@ -58,8 +57,7 @@ import {
     MdcSwitchModule,
     MdcTextFieldModule,
     MdcThemeModule,
-    MdcToolbarModule,
-    MdcTypographyModule,
+    MdcTypographyModule
   ]
 })
 export class DemoMaterialModule { }

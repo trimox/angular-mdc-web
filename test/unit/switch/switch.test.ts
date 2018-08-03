@@ -34,50 +34,53 @@ describe('MdcSwitch', () => {
       switchNativeElement = switchDebugElement.nativeElement;
       switchInstance = switchDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
-      inputElement = switchInstance.inputEl.nativeElement;
     });
 
     it('#should change native element checked when check programmatically', () => {
-      expect(inputElement.checked).toBe(false);
-
       switchInstance.checked = true;
       fixture.detectChanges();
 
-      expect(inputElement.checked).toBe(true);
+      expect(switchInstance.inputElement.nativeElement.checked).toBe(true);
     });
 
     it('#should correctly update the checked property', () => {
-      expect(switchInstance.checked).toBeFalsy();
-
       testComponent.slideChecked = true;
       fixture.detectChanges();
 
-      expect(inputElement.checked).toBeTruthy();
+      expect(switchInstance.inputElement.nativeElement.checked).toBeTruthy();
+    });
+
+    it('#should not update the checked value', () => {
+      testComponent.isDisabled = true;
+      fixture.detectChanges();
+
+      switchInstance.setChecked(true);
+      fixture.detectChanges();
+
+      expect(switchInstance.inputElement.nativeElement.checked).toBeFalsy();
     });
 
     it('#should add and remove disabled state', () => {
       expect(switchInstance.disabled).toBe(false);
-      expect(inputElement.tabIndex).toBe(0);
+      expect(switchInstance.inputElement.nativeElement.tabIndex).toBe(0);
       fixture.detectChanges();
 
       switchInstance.setDisabled(true);
       fixture.detectChanges();
-      expect(inputElement.disabled).toBe(true);
+      expect(switchInstance.inputElement.nativeElement.disabled).toBe(true);
     });
 
     it('#should not toggle `checked` state upon interation while disabled', () => {
       testComponent.isDisabled = true;
       fixture.detectChanges();
 
-      inputElement.click();
+      switchInstance.inputElement.nativeElement.click();
       expect(switchInstance.checked).toBe(false);
-      expect(switchInstance.isChecked()).toBe(false);
-      expect(switchInstance.isDisabled()).toBe(true);
     });
 
     it('#should preserve the user-provided id', () => {
       expect(switchNativeElement.id).toBe('simple-switch');
-      expect(inputElement.id).toBe('simple-switch-input');
+      expect(switchInstance.inputElement.nativeElement.id).toBe('simple-switch-input');
     });
 
     it('#should generate a unique id for the switch input if no id is set', () => {
@@ -85,34 +88,33 @@ describe('MdcSwitch', () => {
       fixture.detectChanges();
 
       expect(switchInstance.inputId).toMatch(/mdc-switch-\d+/);
-      expect(inputElement.id).toBe(switchInstance.inputId);
+      expect(switchInstance.inputElement.nativeElement.id).toBe(switchInstance.inputId);
     });
 
     it('#should focus on underlying input element when focus() is called', () => {
-      expect(document.activeElement).not.toBe(inputElement);
+      expect(document.activeElement).not.toBe(switchInstance.inputElement.nativeElement);
 
       switchInstance.focus();
       fixture.detectChanges();
 
-      expect(document.activeElement).toBe(inputElement);
+      expect(document.activeElement).toBe(switchInstance.inputElement.nativeElement);
     });
 
     it('#should forward the tabIndex to the underlying input', () => {
       fixture.detectChanges();
 
-      expect(inputElement.tabIndex).toBe(0);
+      expect(switchInstance.inputElement.nativeElement.tabIndex).toBe(0);
 
       testComponent.slideTabindex = 4;
       fixture.detectChanges();
 
-      expect(inputElement.tabIndex).toBe(4);
+      expect(switchInstance.inputElement.nativeElement.tabIndex).toBe(4);
     });
 
     describe('with ngModel', () => {
       let switchDebugElement: DebugElement;
       let switchNativeElement: HTMLElement;
       let switchInstance: MdcSwitch;
-      let inputElement: HTMLInputElement;
 
       beforeEach(() => {
         fixture = TestBed.createComponent(SwitchWithFormDirectives);
@@ -121,7 +123,6 @@ describe('MdcSwitch', () => {
         switchDebugElement = fixture.debugElement.query(By.directive(MdcSwitch));
         switchNativeElement = switchDebugElement.nativeElement;
         switchInstance = switchDebugElement.componentInstance;
-        inputElement = <HTMLInputElement>switchNativeElement.querySelector('input');
       });
 
       it('#should be in pristine, untouched, and valid states initially', fakeAsync(() => {
@@ -133,20 +134,17 @@ describe('MdcSwitch', () => {
         expect(ngModel.valid).toBe(true);
         expect(ngModel.pristine).toBe(true);
         expect(ngModel.touched).toBe(false);
-
-        // TODO(trimox): test that `touched` and `pristine` state are modified appropriately.
-        // This is currently blocked on issues with async() and fakeAsync().
       }));
 
       it('#should toggle checked state on click', () => {
         expect(switchInstance.checked).toBe(false);
 
-        inputElement.click();
+        switchInstance.inputElement.nativeElement.click();
         fixture.detectChanges();
 
         expect(switchInstance.checked).toBe(true);
 
-        inputElement.click();
+        switchInstance.inputElement.nativeElement.click();
         fixture.detectChanges();
 
         expect(switchInstance.checked).toBe(false);

@@ -25,7 +25,7 @@ import { toBoolean } from '@angular-mdc/web/common';
 import { MdcListItem, MdcListSelectionChange } from './list-item';
 
 import { MDCListAdapter } from '@material/list/adapter';
-import { MDCListFoundation } from '@material/list/foundation';
+import { MDCListFoundation } from '@material/list';
 
 /** Change event that is being fired whenever the selected state of an option changes. */
 export class MdcListItemChange {

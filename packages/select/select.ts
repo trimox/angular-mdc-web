@@ -8,6 +8,7 @@ import {
   EventEmitter,
   forwardRef,
   HostBinding,
+  HostListener,
   Input,
   OnDestroy,
   Optional,
@@ -188,7 +189,6 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   private _mdcAdapter: MDCSelectAdapter = {
     addClass: (className: string) => this._getHostElement().classList.add(className),
     removeClass: (className: string) => this._getHostElement().classList.remove(className),
-    hasClass: (className: string) => this._getHostElement().classList.contains(className),
     floatLabel: (shouldFloat: boolean) => this._selectLabel.float(shouldFloat),
     activateBottomLine: () => {
       if (this._lineRipple) {
@@ -200,13 +200,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
         this._lineRipple.deactivate();
       }
     },
-    setDisabled: (disabled: boolean) => this._getInputElement().disabled = disabled,
-    registerInteractionHandler: (type: string, handler: EventListener) => this._registry.listen(type, handler, this._getInputElement()),
-    deregisterInteractionHandler: (type: string, handler: EventListener) => this._registry.unlisten(type, handler),
-    getSelectedIndex: () => this._getInputElement().selectedIndex,
-    setSelectedIndex: (index: number) => this._getInputElement().selectedIndex = index,
     getValue: () => this._getInputElement().value,
-    setValue: (value: any) => this._getInputElement().value = value,
     isRtl: () => getComputedStyle(this._getHostElement()).direction === 'rtl',
     hasLabel: () => !!this._selectLabel,
     getLabelWidth: () => this._selectLabel.getWidth(),
@@ -216,12 +210,11 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   };
 
   private _foundation: {
-    init(): void,
-    destroy(): void,
-    setValue(value: any): void,
-    setSelectedIndex(index: number): void,
-    setDisabled(disabled: boolean): void,
-    notchOutline(openNotch: boolean): void
+    updateDisabledStyle(disabled: boolean): void,
+    notchOutline(openNotch: boolean): void,
+    handleChange(): void,
+    handleFocus(): void,
+    handleBlur(): void
   } = new MDCSelectFoundation(this._mdcAdapter);
 
   constructor(
@@ -235,8 +228,6 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   }
 
   ngAfterContentInit(): void {
-    this._foundation.init();
-
     this.options.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
       if (this._value) {
         this._initializeSelection();
@@ -256,12 +247,11 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
     this._destroy.complete();
 
     this._ripple.destroy();
-    this._foundation.destroy();
   }
 
   writeValue(value: any): void {
     setTimeout(() => {
-      if (this.options && value !== this.getValue()) {
+      if (value !== this.getValue()) {
         this.setSelectionByValue(value, false);
       }
     });
@@ -282,12 +272,14 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
 
   onBlur(): void {
     if (!this.disabled) {
+      this._foundation.handleBlur();
       this._onTouched();
     }
   }
 
   onFocus(): void {
     if (!this.disabled) {
+      this._foundation.handleFocus();
       this._onTouched();
     }
   }
@@ -336,7 +328,8 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
     valueToEmit = this._value ? this._value : fallbackValue;
 
     this.valueChange.emit({ index: this.getSelectedIndex(), value: valueToEmit });
-    this._foundation.setValue(valueToEmit);
+    this._getInputElement().value = valueToEmit;
+    this._foundation.handleChange();
 
     this.selectionChange.emit(new MdcSelectChange(this, this.getSelectedIndex(), valueToEmit));
 
@@ -366,7 +359,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   // Implemented as part of ControlValueAccessor.
   setDisabledState(disabled: boolean) {
     this._disabled = toBoolean(disabled);
-    this._foundation.setDisabled(disabled);
+    this._foundation.updateDisabledStyle(disabled);
 
     this._changeDetectorRef.markForCheck();
   }

@@ -7,6 +7,7 @@ import {
   EventEmitter,
   forwardRef,
   HostBinding,
+  HostListener,
   Input,
   OnDestroy,
   Output,
@@ -30,10 +31,7 @@ export const MDC_ICON_BUTTON_CONTROL_VALUE_ACCESSOR: Provider = {
 /** Change event object emitted by MdcIconButton. */
 export class MdcIconButtonChange {
   constructor(
-    /** The MdcIconButton that emits the event. */
     public source: MdcIconButton,
-
-    /** The value assigned to the MdcIconButton. */
     public value: any) { }
 }
 
@@ -49,8 +47,8 @@ let nextUniqueId = 0;
   },
   providers: [
     MDC_ICON_BUTTON_CONTROL_VALUE_ACCESSOR,
-    MdcRipple,
     EventRegistry,
+    MdcRipple
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
@@ -124,6 +122,10 @@ export class MdcIconButton implements AfterViewInit, OnDestroy {
     return this.secondary ? 'ng-mdc-icon-button--secondary' : '';
   }
 
+  @HostListener('click') onclick() {
+    this._foundation.handleClick();
+  }
+
   _onChange: (value: any) => void = () => { };
   _onTouched = () => { };
 
@@ -134,10 +136,9 @@ export class MdcIconButton implements AfterViewInit, OnDestroy {
     removeClass: (className: string) =>
       this._getIconInnerSelector() ? this._getIconInnerSelector().classList.remove(className) :
         this._getHostElement().classList.remove(className),
-    registerInteractionHandler: (type: string, handler: EventListener) => this._registry.listen(type, handler, this._getHostElement()),
-    deregisterInteractionHandler: (type: string, handler: EventListener) => this._registry.unlisten(type, handler),
     setText: (text: string) =>
-      this._getIconInnerSelector() ? this._getIconInnerSelector().textContent = text : this._getHostElement().textContent = text,
+      this._getIconInnerSelector() ? this._getIconInnerSelector().textContent = text :
+        this._getHostElement().textContent = text,
     getAttr: (name: string) => this._getHostElement().getAttribute(name),
     setAttr: (name: string, value: string) => this._getHostElement().setAttribute(name, value),
     notifyChange: (evtData: { isOn: boolean }) => {
@@ -151,7 +152,8 @@ export class MdcIconButton implements AfterViewInit, OnDestroy {
     destroy(): void,
     toggle(isOn: boolean): void,
     refreshToggleData(): void,
-    isOn(): boolean
+    isOn(): boolean,
+    handleClick(): void
   } = new MDCIconButtonToggleFoundation(this._mdcAdapter);
 
   constructor(

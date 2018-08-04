@@ -29,6 +29,7 @@ export * from '@angular-mdc/web/slider';
 export * from '@angular-mdc/web/snackbar';
 export * from '@angular-mdc/web/switch';
 export * from '@angular-mdc/web/tab-indicator';
+export * from '@angular-mdc/web/tab-scroller';
 export * from '@angular-mdc/web/textfield';
 export * from '@angular-mdc/web/theme';
 export * from '@angular-mdc/web/typography';

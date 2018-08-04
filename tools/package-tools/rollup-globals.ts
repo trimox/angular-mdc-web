@@ -50,6 +50,7 @@ export const rollupGlobals = {
   '@material/slider': 'mdc.slider',
   '@material/snackbar': 'mdc.snackbar',
   '@material/tab-indicator': 'mdc.tab-indicator',
+  '@material/tab-scroller': 'mdc.tab-scroller',
   '@material/textfield': 'mdc.textfield',
   '@material/textfield/helper-text': 'mdc.textfield.helpertext',
   '@material/textfield/icon': 'mdc.textfield.icon',

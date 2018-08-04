@@ -141,6 +141,7 @@
           "snackbar",
           "switch",
           "tab-indicator",
+          "tab-scroller",
           "text-field",
           "theme",
           "typography",

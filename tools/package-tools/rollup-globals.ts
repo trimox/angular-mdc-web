@@ -49,6 +49,7 @@ export const rollupGlobals = {
   '@material/select': 'mdc.select',
   '@material/slider': 'mdc.slider',
   '@material/snackbar': 'mdc.snackbar',
+  '@material/tab-indicator': 'mdc.tab-indicator',
   '@material/textfield': 'mdc.textfield',
   '@material/textfield/helper-text': 'mdc.textfield.helpertext',
   '@material/textfield/icon': 'mdc.textfield.icon',

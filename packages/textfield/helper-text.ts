@@ -88,13 +88,13 @@ export class MdcTextFieldHelperText implements OnInit, OnDestroy {
   /** Sets the persistency of the helper text. */
   setPersistent(persistent: boolean): void {
     this._persistent = toBoolean(persistent);
-    this.foundation.setPersistent(persistent);
+    this.foundation.setPersistent(this.persistent);
   }
 
   /** True to make the helper text act as an error validation message. */
   setValidation(validation: boolean): void {
     this._validation = toBoolean(validation);
-    this.foundation.setValidation(validation);
+    this.foundation.setValidation(this.validation);
   }
 
   /** Retrieves the DOM element of the component host. */

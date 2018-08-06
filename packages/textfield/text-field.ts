@@ -545,9 +545,9 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
 
   // Implemented as part of ControlValueAccessor.
   setDisabledState(isDisabled: boolean) {
-    this._disabled = isDisabled;
+    this._disabled = toBoolean(isDisabled);
 
-    setTimeout(() => this._foundation.setDisabled(isDisabled));
+    setTimeout(() => this._foundation.setDisabled(this.disabled));
 
     if (this.focused) {
       this.focused = false;

@@ -17,7 +17,7 @@ import { EventRegistry, toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcTabIndicator } from '@angular-mdc/web/tab-indicator';
 
-import { MDCTabAdapter, MDCTabDimensions } from '@material/tab/adapter';
+import { MDCTabAdapter } from '@material/tab/adapter';
 import { MDCTabFoundation } from '@material/tab';
 
 export interface MdcTabInteractedEvent {
@@ -174,7 +174,7 @@ export class MdcTab implements AfterViewInit, OnDestroy {
     return this._foundation.computeIndicatorClientRect();
   }
 
-  computeDimensions(): MDCTabDimensions {
+  computeDimensions(): any {
     return this._foundation.computeDimensions();
   }
 

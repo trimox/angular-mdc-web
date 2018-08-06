@@ -172,6 +172,11 @@ export class MdcList implements AfterContentInit, OnDestroy {
   @HostListener('focusout', ['$event']) onfocusout(evt: FocusEvent) {
     this._foundation.handleFocusOut(evt);
   }
+  @HostListener('click') onclick() {
+    if (!this.selection) { return; }
+
+    this._foundation.handleClick();
+  }
 
   @ContentChildren(MdcListItem, { descendants: true }) _listItems: QueryList<MdcListItem>;
 
@@ -181,9 +186,28 @@ export class MdcList implements AfterContentInit, OnDestroy {
 
   private _mdcAdapter: MDCListAdapter = {
     getListItemCount: () => this._listItems.length,
-    getFocusedElementIndex: () => this._listItems.toArray().findIndex((_) => _.getListItemElement() === document.activeElement),
+    getFocusedElementIndex: () =>
+      this._listItems.toArray().findIndex((_) => _.elementRef.nativeElement === document.activeElement),
     getListItemIndex: (node: Element) => this._listItems.toArray().findIndex((_) => _.getListItemElement() === node),
-    focusItemAtIndex: (ndx: number) => this._listItems.toArray()[ndx].getListItemElement().focus(),
+    setAttributeForElementIndex: (index: number, attr: string, value: string) =>
+      this._listItems.toArray()[index].getListItemElement().setAttribute(attr, value),
+    removeAttributeForElementIndex: (index: number, attr: string) =>
+      this._listItems.toArray()[index].getListItemElement().removeAttribute(attr),
+    addClassForElementIndex: (index: number, className: string) =>
+      this._listItems.toArray()[index].getListItemElement().classList.add(className),
+    removeClassForElementIndex: (index: number, className: string) =>
+      this._listItems.toArray()[index].getListItemElement().classList.remove(className),
+    isListItem: (target: HTMLElement) => target.classList.contains('mdc-list-item'),
+    focusItemAtIndex: (index: number) => this._listItems.toArray()[index].getListItemElement().focus(),
+    isElementFocusable: (ele: ElementRef) => {
+      if (!ele) { return false; }
+
+      let matches = Element.prototype.matches;
+      if (!matches) { // IE uses a different name for the same functionality
+        matches = Element.prototype.msMatchesSelector;
+      }
+      return matches.call(ele, 'button:not(:disabled), a');
+    },
     setTabIndexForListItemChildren: (listItemIndex, tabIndexValue) => {
       const listItemChildren = [].slice.call(this._listItems.toArray()[listItemIndex].getListItemElement()
         .querySelectorAll('button:not(:disabled), a'));
@@ -196,13 +220,16 @@ export class MdcList implements AfterContentInit, OnDestroy {
     destroy(): void,
     setVerticalOrientation(vertical: boolean): void,
     setWrapFocus(wrapFocus: boolean): void,
+    handleClick(): void,
     handleKeydown(evt: KeyboardEvent): void,
     handleFocusIn(evt: FocusEvent): void,
     handleFocusOut(evt: FocusEvent): void,
     focusNextElement(index: number): void,
     focusPrevElement(index: number): void,
     focusFirstElement(): void,
-    focusLastElement(): void
+    focusLastElement(): void,
+    setSelectedIndex(index: number): void,
+    setSingleSelection(isSingleSelectionList: boolean): void
   } = new MDCListFoundation(this._mdcAdapter);
 
   constructor(
@@ -229,6 +256,7 @@ export class MdcList implements AfterContentInit, OnDestroy {
       takeUntil(merge(this._destroy, this._listItems.changes))
     ).subscribe(event => {
       event.source.selected = this.selection;
+
       if (!this.selection && this.interactive) {
         event.source.ripple.handleBlur();
       }
@@ -283,6 +311,12 @@ export class MdcList implements AfterContentInit, OnDestroy {
 
   setSelection(selection: boolean): void {
     this._selection = toBoolean(selection);
+    this._foundation.setSingleSelection(this.selection);
+
+    if (this.getSelectedIndex() > -1) {
+      this.setSelectedIndex(this.getSelectedIndex());
+    }
+
     this._changeDetectorRef.markForCheck();
   }
 
@@ -296,5 +330,28 @@ export class MdcList implements AfterContentInit, OnDestroy {
         option.setSelected(false);
       }
     });
+  }
+
+  setSelectedIndex(index: number): void {
+    this._foundation.setSelectedIndex(index);
+  }
+
+  getSelectedIndex(): number {
+    if (!this._listItems) { return -1; }
+
+    return this._listItems.toArray().findIndex((_) => _.selected);
+  }
+
+  focusFirstElement(): void {
+    this._foundation.focusFirstElement();
+  }
+
+  focusLastElement(): void {
+    this._foundation.focusLastElement();
+  }
+
+  /** Retrieves the DOM element of the component host. */
+  private _getHostElement(): HTMLElement {
+    return this.elementRef.nativeElement;
   }
 }

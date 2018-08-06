@@ -86,6 +86,22 @@
             <td>clearSelected(skip?: MdcListItem)</td>
             <td>Clear all selected items, and optionally skip mdc-item-item.</td>
           </tr>
+          <tr>
+            <td>setSelectedIndex(index: number)</td>
+            <td>Sets the currently selected list item.</td>
+          </tr>
+          <tr>
+            <td>getSelectedIndex(): number</td>
+            <td>Returns the currently selected item index.</td>
+          </tr>
+          <tr>
+            <td>focusFirstElement()</td>
+            <td>Sets focus to the first element in a list.</td>
+          </tr>
+          <tr>
+            <td>focusLastElement()</td>
+            <td>Sets focus to the last element in a list.</td>
+          </tr>
         </tbody>
       </table>
       <table>
@@ -211,7 +227,7 @@
     </div>
     <mdc-list-group>
       <h3 mdcListGroupSubheader>Folders</h3>
-      <mdc-list #custom [lines]="2" [avatar]="true" class="demo-list--custom">
+      <mdc-list #custom [lines]="2" avatar class="demo-list--custom">
         <mdc-list-item>
           <mdc-icon mdcListItemGraphic>folder</mdc-icon>
           <mdc-list-item-text secondaryText="Jan 9, 2015">Photos</mdc-list-item-text>

@@ -85,6 +85,18 @@ describe('MdcListModule', () => {
       expect(testComponent.listitem.selected).toBe(true);
     });
 
+    it('#first list item should be focused', () => {
+      testInstance.focusFirstElement();
+      fixture.detectChanges();
+      expect(document.activeElement === testComponent.listitem.elementRef.nativeElement).toBe(true);
+    });
+
+    it('#last list item should be focused', () => {
+      testInstance.focusLastElement();
+      fixture.detectChanges();
+      expect(document.activeElement === testComponent.lastItem.elementRef.nativeElement).toBe(true);
+    });
+
     it('#should clear all selected', () => {
       testComponent.selection = true;
       fixture.detectChanges();
@@ -141,7 +153,7 @@ describe('MdcListModule', () => {
           <mdc-icon mdcListItemMeta>info</mdc-icon>
         </mdc-list-item>
         <mdc-list-divider #divider [padded]="isPadded" [inset]="isInset"></mdc-list-divider>
-        <mdc-list-item>
+        <mdc-list-item #lastitem>
           <mdc-list-item-text>
           Single-line item
           <mdc-list-item-secondary>Secondary text</mdc-list-item-secondary>
@@ -165,5 +177,6 @@ class SimpleList {
 
   @ViewChild('divider') divider: MdcListDivider;
   @ViewChild('listitem') listitem: MdcListItem;
+  @ViewChild('lastitem') lastItem: MdcListItem;
   @ViewChild('group') group: MdcListGroup;
 }

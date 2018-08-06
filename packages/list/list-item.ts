@@ -51,9 +51,7 @@ export class MdcListItemMeta {
   exportAs: 'mdcListItemText',
   template: `
   <ng-container>
-    <span class="mdc-list-item__primary-text">
-      <ng-content></ng-content>
-    </span>
+    <span class="mdc-list-item__primary-text"><ng-content></ng-content></span>
     <span class="mdc-list-item__secondary-text" *ngIf="secondaryText">{{secondaryText}}</span>
   </ng-container>
   `,

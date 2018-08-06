@@ -1,5 +1,5 @@
 import {
-  AfterViewInit,
+  AfterContentInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -21,49 +21,50 @@ import {
 @Component({
   moduleId: module.id,
   selector: '[mdcTabIndicator], mdc-tab-indicator',
+  exportAs: 'MdcTabIndicator',
   template: `
   <span #content class="mdc-tab-indicator__content">
-    <ng-content></ng-content>
+    <ng-container *ngIf="icon">{{icon}}</ng-container>
   </span>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   providers: [EventRegistry]
 })
-export class MdcTabIndicator implements AfterViewInit {
+export class MdcTabIndicator implements AfterContentInit {
   private _isFoundationInit: boolean;
+  private _allowTransitionEnd: boolean;
 
   @Input()
   get active(): boolean { return this._active; }
   set active(value: boolean) {
-    this._active = toBoolean(value);
-    this.initFoundation();
+    if (this._active !== value) {
+      this._allowTransitionEnd = true;
+
+      this._active = toBoolean(value);
+      this._changeDetectorRef.markForCheck();
+
+      this._active ? this.activate(this.computeContentClientRect()) :
+        this.deactivate();
+    }
   }
-  private _active: boolean = true;
+  private _active: boolean;
 
   @Input()
   get fade(): boolean { return this._fade; }
   set fade(value: boolean) {
     this._fade = toBoolean(value);
-    this.initFoundation();
+    this._initFoundation();
   }
   private _fade: boolean;
 
   @Input()
-  get underline(): boolean { return this._underline; }
-  set underline(value: boolean) {
-    this._underline = toBoolean(value);
-    this._initContentClass();
+  get icon(): string { return this._icon; }
+  set icon(value: string) {
+    this._icon = value;
+    this._updateContentClasses();
   }
-  private _underline: boolean = true;
-
-  @Input()
-  get icon(): boolean { return this._icon; }
-  set icon(value: boolean) {
-    this._icon = toBoolean(value);
-    this._initContentClass();
-  }
-  private _icon: boolean;
+  private _icon: string;
 
   @HostBinding('class.mdc-tab-indicator') isHostClass = true;
   @HostBinding('class.mdc-tab-indicator--active') get classActive(): string {
@@ -74,6 +75,9 @@ export class MdcTabIndicator implements AfterViewInit {
   }
 
   @HostListener('transitionend') ontransitionend() {
+    if (!this._allowTransitionEnd) { return; }
+
+    this._allowTransitionEnd = false;
     this._foundation.handleTransitionEnd();
   }
 
@@ -82,18 +86,16 @@ export class MdcTabIndicator implements AfterViewInit {
   private _mdcAdapter: MDCTabIndicatorAdapter = {
     addClass: (className: string) => this._getHostElement().classList.add(className),
     removeClass: (className: string) => this._getHostElement().classList.remove(className),
-    registerEventHandler: (evtType: string, handler: EventListener) =>
-      this._registry.listen(evtType, handler, this._getHostElement()),
-    deregisterEventHandler: (evtType: string, handler: EventListener) => this._registry.unlisten(evtType, handler),
     computeContentClientRect: () => this.content.nativeElement.getBoundingClientRect(),
-    setContentStyleProperty: (prop, value) => this.content.nativeElement.style.setProperty(prop, value)
+    setContentStyleProperty: (propName: string, value: string) => this.content.nativeElement.style.setProperty(propName, value)
   };
 
   private _foundation: {
-    handleTransitionEnd(): void,
+    init(): void,
     computeContentClientRect(): ClientRect,
     activate(previousIndicatorClientRect: ClientRect): void,
-    deactivate(): void
+    deactivate(): void,
+    handleTransitionEnd(): void
   };
 
   constructor(
@@ -101,10 +103,10 @@ export class MdcTabIndicator implements AfterViewInit {
     public elementRef: ElementRef,
     private _registry: EventRegistry) { }
 
-  ngAfterViewInit(): void {
+  ngAfterContentInit(): void {
     if (!this._isFoundationInit) {
-      this.initFoundation();
-      this._initContentClass();
+      this._initFoundation();
+      this._updateContentClasses();
     }
   }
 
@@ -116,30 +118,33 @@ export class MdcTabIndicator implements AfterViewInit {
     this._foundation.deactivate();
   }
 
-  computeContentClientRect(): void {
-    this._foundation.computeContentClientRect();
+  computeContentClientRect(): ClientRect {
+    return this._foundation.computeContentClientRect();
   }
 
-  initFoundation(): void {
+  private _initFoundation(): void {
     if (this.fade) {
       this._foundation = new MDCFadingTabIndicatorFoundation(this._mdcAdapter);
     } else {
       this._foundation = new MDCSlidingTabIndicatorFoundation(this._mdcAdapter);
     }
 
+    this._foundation.init();
     this._isFoundationInit = true;
     this._changeDetectorRef.markForCheck();
   }
 
-  private _initContentClass() {
+  private _updateContentClasses() {
     this.content.nativeElement.classList.remove('mdc-tab-indicator__content--underline');
     this.content.nativeElement.classList.remove('mdc-tab-indicator__content--icon');
 
-    if (this.underline) {
-      this.content.nativeElement.classList.add('mdc-tab-indicator__content--underline');
-    } else {
+    if (this.icon) {
       this.content.nativeElement.classList.add('mdc-tab-indicator__content--icon');
+      this.content.nativeElement.classList.add('material-icons');
+    } else {
+      this.content.nativeElement.classList.add('mdc-tab-indicator__content--underline');
     }
+    this._changeDetectorRef.markForCheck();
   }
 
   /** Retrieves the DOM element of the component host. */

@@ -24,6 +24,7 @@ import {
   MdcSliderModule,
   MdcSnackbarModule,
   MdcSwitchModule,
+  MdcTabBarModule,
   MdcTextFieldModule,
   MdcThemeModule,
   MdcTypographyModule
@@ -55,6 +56,7 @@ import {
     MdcSliderModule,
     MdcSnackbarModule,
     MdcSwitchModule,
+    MdcTabBarModule,
     MdcTextFieldModule,
     MdcThemeModule,
     MdcTypographyModule

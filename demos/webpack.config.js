@@ -4,7 +4,7 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  devtool: 'eval-source-map',
+  devtool: 'inline-source-map',
   context: path.resolve(__dirname, './'),
   entry: {
     'polyfills': './polyfills.ts',
@@ -12,6 +12,7 @@ module.exports = {
   },
   devServer: {
     contentBase: './demos',
+    historyApiFallback: true,
     port: 4000,
     inline: true
   },
@@ -35,6 +36,12 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+          // Mark files inside `@angular/core` as using SystemJS style dynamic imports.
+          // Removing this will cause deprecation warnings to appear.
+          test: /[\/\\]@angular[\/\\]core[\/\\].+\.js$/,
+          parser: { system: true },
+      },
       {
         test: /\.ts$/,
         use: [

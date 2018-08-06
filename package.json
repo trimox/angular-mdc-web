@@ -140,6 +140,8 @@
           "slider",
           "snackbar",
           "switch",
+          "tab",
+          "tab-bar",
           "tab-indicator",
           "tab-scroller",
           "text-field",

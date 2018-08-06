@@ -21,6 +21,7 @@ export type MdcTabScrollerAlignment = 'start' | 'center' | 'end';
 @Component({
   moduleId: module.id,
   selector: '[mdcTabScroller], mdc-tab-scroller',
+  exportAs: 'MdcTabScroller',
   template: `
   <div #area class="mdc-tab-scroller__scroll-area">
     <div #content class="mdc-tab-scroller__scroll-content">
@@ -34,11 +35,11 @@ export type MdcTabScrollerAlignment = 'start' | 'center' | 'end';
 })
 export class MdcTabScroller implements AfterViewInit, OnDestroy {
   @Input()
-  get icon(): MdcTabScrollerAlignment { return this._align; }
+  get align(): MdcTabScrollerAlignment { return this._align; }
   set align(value: MdcTabScrollerAlignment) {
     this.setAlign(value);
   }
-  private _align: MdcTabScrollerAlignment = 'start';
+  private _align: MdcTabScrollerAlignment;
 
   @HostBinding('class.mdc-tab-scroller') isHostClass = true;
 
@@ -101,10 +102,11 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
   }
 
   setAlign(align: MdcTabScrollerAlignment): void {
-    this.content.nativeElement.classList.remove(`mdc-tab-scroller--align-${this._align}`);
+    this._getHostElement().classList.remove(`mdc-tab-scroller--align-${this._align}`);
+
     this._align = align;
     if (align) {
-      this.content.nativeElement.classList.add(`mdc-tab-scroller--align-${align}`);
+      this._getHostElement().classList.add(`mdc-tab-scroller--align-${align}`);
     }
 
     this._changeDetectorRef.markForCheck();
@@ -112,7 +114,6 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
 
   /**
    * Returns the current visual scroll position
-   * @return {number}
    */
   getScrollPosition(): number {
     return this._foundation.getScrollPosition();
@@ -120,7 +121,6 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
 
   /**
    * Returns the width of the scroll content
-   * @return {number}
    */
   getScrollContentWidth(): number {
     return this.content.nativeElement.offsetWidth;
@@ -128,7 +128,6 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
 
   /**
    * Increments the scroll value by the given amount
-   * @param {number} scrollXIncrement The pixel value by which to increment the scroll value
    */
   incrementScroll(scrollXIncrement: number) {
     this._foundation.incrementScroll(scrollXIncrement);
@@ -136,7 +135,6 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
 
   /**
    * Scrolls to the given pixel position
-   * @param {number} scrollX The pixel value to scroll to
    */
   scrollTo(scrollX: number) {
     this._foundation.scrollTo(scrollX);

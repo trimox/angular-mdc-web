@@ -23,7 +23,6 @@ export const rollupGlobals = {
   '@angular/common': 'ng.common',
   '@angular/forms': 'ng.forms',
   '@angular/common/http': 'ng.common.http',
-  '@angular/router': 'ng.router',
   '@angular/platform-browser': 'ng.platformBrowser',
   '@angular/platform-browser-dynamic': 'ng.platformBrowserDynamic',
 
@@ -49,6 +48,8 @@ export const rollupGlobals = {
   '@material/select': 'mdc.select',
   '@material/slider': 'mdc.slider',
   '@material/snackbar': 'mdc.snackbar',
+  '@material/tab': 'mdc.tab',
+  '@material/tab-bar': 'mdc.tab-bar',
   '@material/tab-indicator': 'mdc.tab-indicator',
   '@material/tab-scroller': 'mdc.tab-scroller',
   '@material/textfield': 'mdc.textfield',

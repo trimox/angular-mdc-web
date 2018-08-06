@@ -39,7 +39,7 @@ let nextUniqueId = 0;
 
 @Component({
   moduleId: module.id,
-  selector: 'button[mdcIconButton], a[mdcIconButton]',
+  selector: '[mdc-icon-button], button[mdcIconButton], a[mdcIconButton]',
   exportAs: 'mdcIconButton',
   template: '<ng-content></ng-content>',
   host: {

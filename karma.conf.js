@@ -1,4 +1,4 @@
-const webpackConfig = require('./test/unit/webpack.test.js');
+const webpackConfig = require('./test/webpack.test.js');
 
 module.exports = function(config) {
   config.set({
@@ -9,10 +9,10 @@ module.exports = function(config) {
       'text/x-typescript': ['ts','tsx']
     },
     files: [
-      'test/unit/index.ts',
+      'test/index.ts',
     ],
     preprocessors: {
-      'test/unit/index.ts': ['webpack']
+      'test/index.ts': ['webpack']
     },
     coverageReporter: {
       dir: 'coverage',

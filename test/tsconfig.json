@@ -11,15 +11,15 @@
     ],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "typeRoots": ["../../node_modules/@types"],
+    "typeRoots": ["../node_modules/@types"],
     "rootDirs": [
       "./packages",
       "./test"
     ],
     "baseUrl": ".",
     "paths": {
-      "@angular-mdc/web/*": ["../../packages/*"],
-      "@angular-mdc/web": ["../../packages/public-api.ts"]
+      "@angular-mdc/web/*": ["../packages/*"],
+      "@angular-mdc/web": ["../packages/public-api.ts"]
     }
   }
 }

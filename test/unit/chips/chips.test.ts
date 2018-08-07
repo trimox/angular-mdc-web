@@ -6,8 +6,7 @@ import {
   MdcChipsModule,
   MdcChip,
   MdcChipSet,
-  MdcChipEvent,
-  MdcChipSelectionEvent
+  MdcChipInteractionEvent
 } from '@angular-mdc/web';
 
 describe('Chips', () => {
@@ -73,7 +72,7 @@ describe('Chips', () => {
 
       testInstance.remove();
       fixture.detectChanges();
-      expect(testComponent.chipRemove).toHaveBeenCalledWith({ chip: testInstance });
+      expect(testComponent.chipRemove).toHaveBeenCalledWith({ detail: { chip: testInstance } });
     });
 
     it('handles focus event', () => {
@@ -195,8 +194,8 @@ class ChipTest {
   primary: boolean = false;
   secondary: boolean = false;
 
-  chipFocus: (event?: MdcChipEvent) => void = () => { };
-  chipDestroy: (event?: MdcChipEvent) => void = () => { };
-  chipSelectionChange: (event?: MdcChipSelectionEvent) => void = () => { };
-  chipRemove: (event?: MdcChipEvent) => void = () => { };
+  chipFocus: (event?: MdcChipInteractionEvent) => void = () => { };
+  chipDestroy: (event?: MdcChipInteractionEvent) => void = () => { };
+  chipSelectionChange: (event?: MdcChipInteractionEvent) => void = () => { };
+  chipRemove: (event?: MdcChipInteractionEvent) => void = () => { };
 }

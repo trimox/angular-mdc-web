@@ -18,7 +18,7 @@ import { startWith, switchMap, take, takeUntil } from 'rxjs/operators';
 
 import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
 
-import { MdcChip, MdcChipIcon, MdcChipText, MdcChipSelectionEvent } from './chip';
+import { MdcChip, MdcChipIcon, MdcChipText, MdcChipInteractionEvent } from './chip';
 
 import { MDCChipInteractionEventType } from '@material/chips/chip/foundation';
 
@@ -82,7 +82,7 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
   @ContentChildren(MdcChip) chips: QueryList<MdcChip>;
 
   /** Combined stream of all of the chip change events. */
-  readonly chipSelectionChanges: Observable<MdcChipSelectionEvent> = defer(() => {
+  readonly chipSelectionChanges: Observable<MdcChipInteractionEvent> = defer(() => {
     if (this.chips) {
       return merge(...this.chips.map(chip => chip.selectionChange));
     }
@@ -94,9 +94,6 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
 
   private _mdcAdapter: MDCChipSetAdapter = {
     hasClass: (className: string) => this._getHostElement().classList.contains(className),
-    registerInteractionHandler: (evtType: string, handler: MDCChipInteractionEventType) =>
-      this._registry.listen(evtType, handler, this._getHostElement()),
-    deregisterInteractionHandler: (evtType: string, handler: MDCChipInteractionEventType) => this._registry.unlisten(evtType, handler),
     removeChip: (chip: MdcChip) => {
       const index = this.chips.toArray().indexOf(chip);
       this.chips.toArray().splice(index, 1);
@@ -108,6 +105,8 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
     destroy(): void,
     select(chipFoundation: any): void,
     deselect(chipFoundation: any): void
+    handleChipInteraction(evt: any): void,
+    handleChipRemoval(evt: any): void
   } = new MDCChipSetFoundation(this._mdcAdapter);
 
   constructor(
@@ -119,18 +118,8 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
   ngAfterContentInit(): void {
     this.chipSelectionChanges.pipe(
       takeUntil(merge(this._destroy, this.chips.changes))
-    ).subscribe(event => {
-      if (!this.filter) {
-        this.chips.forEach(chip => {
-          if (chip.selected && chip !== event.source) {
-            chip.setSelected(!chip.selected);
-          }
-        });
-      }
-
-      if (this.choice || this.filter) {
-        event.source.setSelected(!event.source.selected);
-      }
+    ).subscribe((event: MdcChipInteractionEvent) => {
+      this._foundation.handleChipInteraction(event);
     });
 
     this.chips.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {

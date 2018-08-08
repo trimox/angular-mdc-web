@@ -13,7 +13,7 @@ import {
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
-import { defer, merge, Observable, Subject } from 'rxjs';
+import { defer, merge, Observable, Subject, Subscription } from 'rxjs';
 import { startWith, switchMap, take, takeUntil } from 'rxjs/operators';
 
 import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
@@ -37,6 +37,9 @@ import { MDCChipSetFoundation } from '@material/chips/chip-set';
 export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
+
+  /** Subscription to remove changes in chips. */
+  private _chipRemoveSubscription: Subscription | null;
 
   /**
   * Indicates that the chips in the set are choice chips, which allow a single selection from a set of options.
@@ -81,6 +84,11 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
 
   @ContentChildren(MdcChip) chips: QueryList<MdcChip>;
 
+  /** Combined stream of all of the child chips' remove change events. */
+  get chipRemoveChanges(): Observable<MdcChipInteractionEvent> {
+    return merge(...this.chips.map(chip => chip.removed));
+  }
+
   /** Combined stream of all of the chip change events. */
   readonly chipSelectionChanges: Observable<MdcChipInteractionEvent> = defer(() => {
     if (this.chips) {
@@ -120,6 +128,10 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
       takeUntil(merge(this._destroy, this.chips.changes))
     ).subscribe((event: MdcChipInteractionEvent) => {
       this._foundation.handleChipInteraction(event);
+    });
+
+    this._chipRemoveSubscription = this.chipRemoveChanges.subscribe((event: MdcChipInteractionEvent) => {
+      this._foundation.handleChipRemoval(event);
     });
 
     this.chips.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {

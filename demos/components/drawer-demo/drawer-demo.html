@@ -204,7 +204,7 @@
     <h3 class="demo-content__headline">Temporary Drawer</h3>
     <button mdc-button (click)="temporary.open()">Open</button>
     <button mdc-button (click)="temporary.closeOnClick = !temporary.closeOnClick">Close on Click: {{temporary.closeOnClick ? 'true' : 'false'}}</button>
-    <mdc-drawer #temporary drawer='temporary' [fixedAdjustElement]="demoTemporaryContent" class="demo-drawer--custom">
+    <mdc-drawer #temporary drawer='temporary' class="demo-drawer--custom">
       <mdc-drawer-header>
         <mdc-drawer-header-content>
           Header goes here

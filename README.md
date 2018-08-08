@@ -55,7 +55,7 @@ Developed using Google Material Components [foundations and adapters](https://gi
 | slider | Available | [View](https://trimox.github.io/angular-mdc-web/#/slider-demo) |
 | snackbar | Available | [View](https://trimox.github.io/angular-mdc-web/#/snackbar-demo) |
 | switch | Available | [View](https://trimox.github.io/angular-mdc-web/#/switch-demo) |
-| tabs | Available | [View](https://trimox.github.io/angular-mdc-web/#/tab-demo) |
+| tabs | Available | [View](https://trimox.github.io/angular-mdc-web/#/tabs-demo) |
 | textfield | Available | [View](https://trimox.github.io/angular-mdc-web/#/textfield-demo) |
 | theme | Available | [View](https://trimox.github.io/angular-mdc-web/#/theme-demo) |
 | typography | Available | [View](https://trimox.github.io/angular-mdc-web/#/typography-demo) |

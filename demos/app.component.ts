@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this._router.events.subscribe(event => {
-      if (this._router.url !== '/' && !this._router.url.includes('/tab-demo')) {
+      if (this._router.url !== '/') {
         if (event instanceof NavigationEnd) {
           // (<any>window).ga('set', 'page', event.urlAfterRedirects);
           // (<any>window).ga('send', 'pageview');

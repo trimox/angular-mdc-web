@@ -276,7 +276,7 @@ export class MdcChip implements AfterContentInit, OnDestroy {
     beginExit(): void,
     handleInteraction(evt: Event): void,
     handleTransitionEnd(evt: Event): void,
-    handleTrailingIconInteraction(evt: Event)
+    handleTrailingIconInteraction(evt: Event): void,
   } = new MDCChipFoundation(this._mdcAdapter);
 
   constructor(

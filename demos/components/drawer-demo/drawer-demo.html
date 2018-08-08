@@ -168,212 +168,114 @@
 
   <div class="demo-content">
     <h3 class="demo-content__headline">Permanent Drawer</h3>
-    <div class="demo-content__drawer demo-content__drawer--row">
-      <mdc-drawer drawer='permanent'>
-        <mdc-drawer-spacer></mdc-drawer-spacer>
-        <mdc-drawer-content>
-          <mdc-list-group>
-            <mdc-list>
-              <mdc-list-item>
-                <mdc-icon mdcListItemGraphic>home</mdc-icon>Home
-              </mdc-list-item>
-              <mdc-list-item>
-                <mdc-icon mdcListItemGraphic>star</mdc-icon>Star
-              </mdc-list-item>
-              <mdc-list-item>
-                <mdc-icon mdcListItemGraphic>send</mdc-icon>Sent Mail
-              </mdc-list-item>
-              <mdc-list-item>
-                <mdc-icon mdcListItemGraphic>drafts</mdc-icon>Drafts
-              </mdc-list-item>
-              <mdc-list-divider></mdc-list-divider>
-              <mdc-list-item>
-                <mdc-icon mdcListItemGraphic>email</mdc-icon>All Mail
-              </mdc-list-item>
-              <mdc-list-item>
-                <mdc-icon mdcListItemGraphic>delete</mdc-icon>Trash
-              </mdc-list-item>
-              <mdc-list-item>
-                <mdc-icon mdcListItemGraphic>report</mdc-icon>Spam
-              </mdc-list-item>
-            </mdc-list>
-          </mdc-list-group>
-        </mdc-drawer-content>
-      </mdc-drawer>
-      <div class="demo-content__drawer--column">
-<!--         <mdc-toolbar>
-          <mdc-toolbar-row>
-            <mdc-toolbar-section [alignStart]="true">
-              <mdc-toolbar-title>App Layout</mdc-toolbar-title>
-            </mdc-toolbar-section>
-            <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
-              <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>file_download</a>
-              <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>print</a>
-              <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>more_vert</a>
-            </mdc-toolbar-section>
-          </mdc-toolbar-row>
-        </mdc-toolbar>
- -->        Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an legere iriure blandit. Veri iisque accusamus an pri.
-      </div>
-    </div>
-  </div>
-
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Permanent Drawer - Below</h3>
-    <div class="demo-content__drawer">
-<!--       <mdc-toolbar>
-        <mdc-toolbar-row>
-          <mdc-toolbar-section [alignStart]="true">
-            <mdc-toolbar-title>App Layout</mdc-toolbar-title>
-          </mdc-toolbar-section>
-          <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
-            <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>file_download</a>
-            <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>print</a>
-            <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>more_vert</a>
-          </mdc-toolbar-section>
-        </mdc-toolbar-row>
-      </mdc-toolbar>
- -->      <div class="demo-content__drawer--row">
-        <mdc-drawer drawer='permanent'>
-          <mdc-drawer-content>
-            <mdc-list-group>
-              <mdc-list>
-                <mdc-list-item>
-                  <mdc-icon mdcListItemGraphic>home</mdc-icon>Home
-                </mdc-list-item>
-                <mdc-list-item>
-                  <mdc-icon mdcListItemGraphic>star</mdc-icon>Star
-                </mdc-list-item>
-                <mdc-list-item>
-                  <mdc-icon mdcListItemGraphic>send</mdc-icon>Sent Mail
-                </mdc-list-item>
-                <mdc-list-item>
-                  <mdc-icon mdcListItemGraphic>drafts</mdc-icon>Drafts
-                </mdc-list-item>
-                <mdc-list-divider></mdc-list-divider>
-                <mdc-list-item>
-                  <mdc-icon mdcListItemGraphic>email</mdc-icon>All Mail
-                </mdc-list-item>
-                <mdc-list-item>
-                  <mdc-icon mdcListItemGraphic>delete</mdc-icon>Trash
-                </mdc-list-item>
-                <mdc-list-item>
-                  <mdc-icon mdcListItemGraphic>report</mdc-icon>Spam
-                </mdc-list-item>
-              </mdc-list>
-            </mdc-list-group>
-          </mdc-drawer-content>
-        </mdc-drawer>
-        Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an legere iriure blandit. Veri iisque accusamus an pri.
-      </div>
-    </div>
+    <mdc-drawer drawer='permanent'>
+      <mdc-drawer-content>
+        <mdc-list-group>
+          <mdc-list>
+            <a mdc-list-item href="#/drawer-demo">
+              <mdc-icon mdcListItemGraphic>home</mdc-icon>Home
+            </a>
+            <a mdc-list-item href="#/drawer-demo">
+              <mdc-icon mdcListItemGraphic>star</mdc-icon>Star
+            </a>
+            <a mdc-list-item href="#/drawer-demo">
+              <mdc-icon mdcListItemGraphic>send</mdc-icon>Sent Mail
+            </a>
+            <a mdc-list-item href="#/drawer-demo">
+              <mdc-icon mdcListItemGraphic>drafts</mdc-icon>Drafts
+            </a>
+            <mdc-list-divider></mdc-list-divider>
+            <a mdc-list-item href="#/drawer-demo">
+              <mdc-icon mdcListItemGraphic>email</mdc-icon>All Mail
+            </a>
+            <a mdc-list-item href="#/drawer-demo">
+              <mdc-icon mdcListItemGraphic>delete</mdc-icon>Trash
+            </a>
+            <a mdc-list-item href="#/drawer-demo">
+              <mdc-icon mdcListItemGraphic>report</mdc-icon>Spam
+            </a>
+          </mdc-list>
+        </mdc-list-group>
+      </mdc-drawer-content>
+    </mdc-drawer>
   </div>
 
   <div class="demo-content">
     <h3 class="demo-content__headline">Temporary Drawer</h3>
+    <button mdc-button (click)="temporary.open()">Open</button>
     <button mdc-button (click)="temporary.closeOnClick = !temporary.closeOnClick">Close on Click: {{temporary.closeOnClick ? 'true' : 'false'}}</button>
-    <div class="demo-content__drawer demo-content__drawer--temporary">
-      <mdc-drawer #temporary drawer='temporary' [fixedAdjustElement]="demoTemporaryContent" class="demo-drawer--custom">
-        <mdc-drawer-header>
-          <mdc-drawer-header-content>
-            Header goes here
-          </mdc-drawer-header-content>
-        </mdc-drawer-header>
-        <mdc-drawer-content>
-          <mdc-list-group>
-            <mdc-list>
-              <mdc-list-item>
-                <mdc-icon mdcListItemGraphic>home</mdc-icon>Home
-              </mdc-list-item>
-              <mdc-list-item>
-                <mdc-icon mdcListItemGraphic>star</mdc-icon>Star
-              </mdc-list-item>
-              <mdc-list-item>
-                <mdc-icon mdcListItemGraphic>send</mdc-icon>Sent Mail
-              </mdc-list-item>
-              <mdc-list-item>
-                <mdc-icon mdcListItemGraphic>drafts</mdc-icon>Drafts
-              </mdc-list-item>
-              <mdc-list-divider></mdc-list-divider>
-              <mdc-list-item>
-                <mdc-icon mdcListItemGraphic>email</mdc-icon>All Mail
-              </mdc-list-item>
-              <mdc-list-item>
-                <mdc-icon mdcListItemGraphic>delete</mdc-icon>Trash
-              </mdc-list-item>
-              <mdc-list-item>
-                <mdc-icon mdcListItemGraphic>report</mdc-icon>Spam
-              </mdc-list-item>
-            </mdc-list>
-          </mdc-list-group>
-        </mdc-drawer-content>
-      </mdc-drawer>
-      <div #demoTemporaryContent>
-<!--         <mdc-toolbar>
-          <mdc-toolbar-row>
-            <mdc-toolbar-section [alignStart]="true">
-              <mdc-icon mdc-toolbar-menu-icon (click)="temporary.open()">menu</mdc-icon>
-              <mdc-toolbar-title>Mobile Layout</mdc-toolbar-title>
-            </mdc-toolbar-section>
-            <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
-              <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>file_download</a>
-              <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>print</a>
-              <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>more_vert</a>
-            </mdc-toolbar-section>
-          </mdc-toolbar-row>
-        </mdc-toolbar>
- -->        Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an legere iriure blandit. Veri iisque accusamus an pri.
-      </div>
-    </div>
+    <mdc-drawer #temporary drawer='temporary' [fixedAdjustElement]="demoTemporaryContent" class="demo-drawer--custom">
+      <mdc-drawer-header>
+        <mdc-drawer-header-content>
+          Header goes here
+        </mdc-drawer-header-content>
+      </mdc-drawer-header>
+      <mdc-drawer-content>
+        <mdc-list-group>
+          <mdc-list>
+            <a mdc-list-item href="#/drawer-demo">
+              <mdc-icon mdcListItemGraphic>home</mdc-icon>Home
+            </a>
+            <a mdc-list-item href="#/drawer-demo">
+              <mdc-icon mdcListItemGraphic>star</mdc-icon>Star
+            </a>
+            <a mdc-list-item href="#/drawer-demo">
+              <mdc-icon mdcListItemGraphic>send</mdc-icon>Sent Mail
+            </a>
+            <a mdc-list-item href="#/drawer-demo">
+              <mdc-icon mdcListItemGraphic>drafts</mdc-icon>Drafts
+            </a>
+            <mdc-list-divider></mdc-list-divider>
+            <a mdc-list-item href="#/drawer-demo">
+              <mdc-icon mdcListItemGraphic>email</mdc-icon>All Mail
+            </a>
+            <a mdc-list-item href="#/drawer-demo">
+              <mdc-icon mdcListItemGraphic>delete</mdc-icon>Trash
+            </a>
+            <a mdc-list-item href="#/drawer-demo">
+              <mdc-icon mdcListItemGraphic>report</mdc-icon>Spam
+            </a>
+          </mdc-list>
+        </mdc-list-group>
+      </mdc-drawer-content>
+    </mdc-drawer>
   </div>
 
   <div class="demo-content">
     <h3 class="demo-content__headline">Persistent Drawer</h3>
+    <button mdc-button (click)="persistent.open()">Open</button>
     <div class="demo-content__drawer demo-content__drawer--persistent">
       <mdc-drawer #persistent drawer='persistent'>
         <mdc-drawer-spacer></mdc-drawer-spacer>
         <mdc-list-group>
           <mdc-list>
-            <mdc-list-item>
+            <a mdc-list-item href="#/drawer-demo">
               <mdc-icon mdcListItemGraphic>home</mdc-icon>Home
-            </mdc-list-item>
-            <mdc-list-item>
+            </a>
+            <a mdc-list-item href="#/drawer-demo">
               <mdc-icon mdcListItemGraphic>star</mdc-icon>Star
-            </mdc-list-item>
-            <mdc-list-item>
+            </a>
+            <a mdc-list-item href="#/drawer-demo">
               <mdc-icon mdcListItemGraphic>send</mdc-icon>Sent Mail
-            </mdc-list-item>
-            <mdc-list-item>
+            </a>
+            <a mdc-list-item href="#/drawer-demo">
               <mdc-icon mdcListItemGraphic>drafts</mdc-icon>Drafts
-            </mdc-list-item>
+            </a>
             <mdc-list-divider></mdc-list-divider>
-            <mdc-list-item>
+            <a mdc-list-item href="#/drawer-demo">
               <mdc-icon mdcListItemGraphic>email</mdc-icon>All Mail
-            </mdc-list-item>
-            <mdc-list-item>
+            </a>
+            <a mdc-list-item href="#/drawer-demo">
               <mdc-icon mdcListItemGraphic>delete</mdc-icon>Trash
-            </mdc-list-item>
-            <mdc-list-item>
+            </a>
+            <a mdc-list-item href="#/drawer-demo">
               <mdc-icon mdcListItemGraphic>report</mdc-icon>Spam
-            </mdc-list-item>
+            </a>
           </mdc-list>
         </mdc-list-group>
       </mdc-drawer>
       <div>
-<!--         <mdc-toolbar>
-          <mdc-toolbar-row>
-            <mdc-toolbar-section [alignStart]="true">
-              <mdc-icon mdc-toolbar-menu-icon (click)="persistent.open()">menu</mdc-icon>
-              <mdc-toolbar-title>Simple Layout</mdc-toolbar-title>
-            </mdc-toolbar-section>
-            <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="true">
-              <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>file_download</a>
-              <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>print</a>
-              <a href="#/drawer-demo" mdcRipple mdc-toolbar-icon material-icon>more_vert</a>
-            </mdc-toolbar-section>
-          </mdc-toolbar-row>
-        </mdc-toolbar>
- -->        Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an legere iriure blandit. Veri iisque accusamus an pri.
+        Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an legere iriure blandit. Veri iisque accusamus an pri.
       </div>
     </div>
   </div>

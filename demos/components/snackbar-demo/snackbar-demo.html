@@ -115,27 +115,29 @@
 
   <div class="demo-content">
     <div class="demo-content--row">
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="multiline"></mdc-checkbox>
-        <label>Multiline</label>
-      </mdc-form-field>
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="actionOnBottom" [disabled]="!multiline"></mdc-checkbox>
-        <label>Action on Bottom (requires multiline)</label>
-      </mdc-form-field>
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="alignStart"></mdc-checkbox>
-        <label>Start align (desktop only)</label>
-      </mdc-form-field>
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="dismissOnAction"></mdc-checkbox>
-        <label>Dismiss on Action Click</label>
-      </mdc-form-field>
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="focusAction"></mdc-checkbox>
-        <label>Focus on Action button</label>
-      </mdc-form-field>
+      <div class="demo-content--column">
+        <mdc-form-field>
+          <mdc-checkbox [(ngModel)]="multiline"></mdc-checkbox>
+          <label>Multiline</label>
+        </mdc-form-field>
+        <mdc-form-field>
+          <mdc-checkbox [(ngModel)]="actionOnBottom" [disabled]="!multiline"></mdc-checkbox>
+          <label>Action on Bottom (requires multiline)</label>
+        </mdc-form-field>
+        <mdc-form-field>
+          <mdc-checkbox [(ngModel)]="alignStart"></mdc-checkbox>
+          <label>Start align (desktop only)</label>
+        </mdc-form-field>
+        <mdc-form-field>
+          <mdc-checkbox [(ngModel)]="dismissOnAction"></mdc-checkbox>
+          <label>Dismiss on Action Click</label>
+        </mdc-form-field>
+        <mdc-form-field>
+          <mdc-checkbox [(ngModel)]="focusAction"></mdc-checkbox>
+          <label>Focus on Action button</label>
+        </mdc-form-field>
+      </div>
     </div>
-    <button mdc-button [primary]="true" [raised]="true" (click)="show()">Show Snackbar</button>
+    <button mdc-button primary raised (click)="show()">Show Snackbar</button>
   </div>
 </div>

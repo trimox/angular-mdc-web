@@ -81,11 +81,11 @@ body {
   max-width: 1000px;
 
   @media (min-width: 1000px) {
-    padding: 0 5px 50px 70px;
+    padding: 0 5px 0 70px;
   }
 
   @media (max-width: 999px) {
-    padding: 0 8px 50px 15px;
+    padding: 0 8px 0 15px;
   }
 }
 

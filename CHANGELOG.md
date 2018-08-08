@@ -1,3 +1,41 @@
+<a name="0.38.0"></a>
+# [0.38.0](https://github.com/trimox/angular-mdc-web/compare/v0.37.3...v0.38.0) (2018-08-08)
+
+
+### Bug Fixes
+
+* **chips:** Should use foundation handleChipRemoval method ([#1185](https://github.com/trimox/angular-mdc-web/issues/1185)) ([c930820](https://github.com/trimox/angular-mdc-web/commit/c930820))
+* **list:** Coerce border and dense string values to boolean ([#1163](https://github.com/trimox/angular-mdc-web/issues/1163)) ([17bbdf3](https://github.com/trimox/angular-mdc-web/commit/17bbdf3))
+* **text-field:** Coerce disabled, persistent and validation strings to boolean ([#1182](https://github.com/trimox/angular-mdc-web/issues/1182)) ([992031a](https://github.com/trimox/angular-mdc-web/commit/992031a))
+* **text-field:** Should set outline if value is coerced ([#1161](https://github.com/trimox/angular-mdc-web/issues/1161)) ([8467030](https://github.com/trimox/angular-mdc-web/commit/8467030))
+
+
+### Features
+
+* **icon-button:** Add additional selector `mdc-icon-button` ([#1178](https://github.com/trimox/angular-mdc-web/issues/1178)) ([bf5278f](https://github.com/trimox/angular-mdc-web/commit/bf5278f))
+* **icon-toggle:** Remove deprecated mdc-icon-toggle component ([#1166](https://github.com/trimox/angular-mdc-web/issues/1166)) ([8cd4d69](https://github.com/trimox/angular-mdc-web/commit/8cd4d69))
+* **list:** Add single selection ([#1179](https://github.com/trimox/angular-mdc-web/issues/1179)) ([00ad94c](https://github.com/trimox/angular-mdc-web/commit/00ad94c)), closes [#1084](https://github.com/trimox/angular-mdc-web/issues/1084)
+* **list:** Updated two-line list to use typography baseline to match spec ([#1177](https://github.com/trimox/angular-mdc-web/issues/1177)) ([be1b1b7](https://github.com/trimox/angular-mdc-web/commit/be1b1b7))
+* **switch:** Update MDC Switch to new Material spec ([#1171](https://github.com/trimox/angular-mdc-web/issues/1171)) ([4635a1e](https://github.com/trimox/angular-mdc-web/commit/4635a1e)), closes [#1170](https://github.com/trimox/angular-mdc-web/issues/1170)
+* **tabs:** Remove deprecated mdc-tabs ([#1165](https://github.com/trimox/angular-mdc-web/issues/1165)) ([f538d43](https://github.com/trimox/angular-mdc-web/commit/f538d43)), closes [#1115](https://github.com/trimox/angular-mdc-web/issues/1115) [#1105](https://github.com/trimox/angular-mdc-web/issues/1105)
+* **toolbar:** Remove deprecated mdc-toolbar component ([#1167](https://github.com/trimox/angular-mdc-web/issues/1167)) ([ba4f50b](https://github.com/trimox/angular-mdc-web/commit/ba4f50b)), closes [#1124](https://github.com/trimox/angular-mdc-web/issues/1124) [#1114](https://github.com/trimox/angular-mdc-web/issues/1114)
+* Implement MdcOption and MdcSelectionModel ([#1156](https://github.com/trimox/angular-mdc-web/issues/1156)) ([f1f039b](https://github.com/trimox/angular-mdc-web/commit/f1f039b)), closes [#1155](https://github.com/trimox/angular-mdc-web/issues/1155)
+* Implement MDC Tab Indicator ([#1172](https://github.com/trimox/angular-mdc-web/issues/1172)) ([c1c1569](https://github.com/trimox/angular-mdc-web/commit/c1c1569)), closes [#1117](https://github.com/trimox/angular-mdc-web/issues/1117)
+* Implement MDC Tab Scroller ([#1174](https://github.com/trimox/angular-mdc-web/issues/1174)) ([985eddb](https://github.com/trimox/angular-mdc-web/commit/985eddb)), closes [#1116](https://github.com/trimox/angular-mdc-web/issues/1116)
+* Implement MDC Tab-Bar + Tab ([#1176](https://github.com/trimox/angular-mdc-web/issues/1176)) ([a3d3995](https://github.com/trimox/angular-mdc-web/commit/a3d3995)), closes [#1118](https://github.com/trimox/angular-mdc-web/issues/1118) [#1119](https://github.com/trimox/angular-mdc-web/issues/1119)
+* Update material-components-web dependency to v0.38.0 ([#1164](https://github.com/trimox/angular-mdc-web/issues/1164)) ([d26519c](https://github.com/trimox/angular-mdc-web/commit/d26519c)), closes [#1162](https://github.com/trimox/angular-mdc-web/issues/1162)
+
+
+### BREAKING CHANGES
+
+* **toolbar:** mdc-toolbar is deprecated and no longer bundled. You are encouraged to use the new mdc-app-bar package.
+* **icon-toggle:** mdc-icon-toggle is deprecated and no longer bundled. You are encouraged to use the new mdc-icon-button package.
+* **tabs:** mdc-tabs is deprecated and no longer bundled. You are encouraged to use the new mdc-tab / mdc-tab-bar / mdc-tab-scroller / mdc-tab-indicator package(s) by importing MdcTabBarModule. Please see documentation for implementation.
+* **select:** Removed `setValue(value: any)`, please use `setSelectionByValue(value: any)` instead.
+* Added `source` argument for `selectionChange(source: MdcSelect, index: number, value: string)`
+
+
+
 <a name="0.37.3"></a>
 ## [0.37.3](https://github.com/trimox/angular-mdc-web/compare/v0.37.2...v0.37.3) (2018-07-26)
 

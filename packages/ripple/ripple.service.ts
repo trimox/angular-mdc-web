@@ -2,7 +2,7 @@ import {
   ElementRef,
   Injectable
 } from '@angular/core';
-import { isBrowser, EventRegistry } from '@angular-mdc/web/common';
+import { isBrowser } from '@angular-mdc/web/common';
 
 import { MDCRippleAdapter } from '@material/ripple/adapter';
 import { MDCRippleFoundation, util } from '@material/ripple';
@@ -12,31 +12,39 @@ export class MdcRipple {
   private _root: any;
   private _interactionElement: HTMLElement;
   private _unbounded: boolean = false;
-  private _surfaceActive: boolean = false;
 
   private _mdcAdapter: MDCRippleAdapter = {
     browserSupportsCssVars: () => (typeof window !== 'undefined') ? util.supportsCssVariables(window) : false,
     isUnbounded: () => this._unbounded,
-    isSurfaceActive: () => this.isSurfaceActive(),
+    isSurfaceActive: () => this._root[util.getMatchesProperty(HTMLElement.prototype)](':active'),
     isSurfaceDisabled: () => this.isSurfaceDisabled(),
     addClass: (className: string) => this._root.classList.add(className),
     removeClass: (className: string) => this._root.classList.remove(className),
     containsEventTarget: (target: EventTarget) => this._root.contains(target),
-    registerInteractionHandler: (evtType: string, handler: EventListener) =>
-      this._registry.listen(evtType, handler,
-        this._interactionElement ? this._interactionElement : this._root, util.applyPassive()),
-    deregisterInteractionHandler: (evtType: string, handler: EventListener) =>
-      this._registry.unlisten(evtType, handler),
-    registerDocumentInteractionHandler: (evtType: string, handler: EventListener) =>
-      this._registry.listen(evtType, handler, document, util.applyPassive()),
-    deregisterDocumentInteractionHandler: (evtType: string, handler: EventListener) =>
-      this._registry.unlisten(evtType, handler),
-    registerResizeHandler: (handler: EventListener) => {
-      if (isBrowser()) {
-        this._registry.listen('resize', handler, window);
+    registerInteractionHandler: (evtType: string, handler: EventListener) => {
+      if (this._interactionElement) {
+        this._interactionElement.addEventListener(evtType, handler, util.applyPassive());
+      } else {
+        this._root.addEventListener(evtType, handler, util.applyPassive());
       }
     },
-    deregisterResizeHandler: (handler: EventListener) => this._registry.unlisten('resize', handler),
+    deregisterInteractionHandler: (evtType: string, handler: EventListener) => {
+      if (this._interactionElement) {
+        this._interactionElement.removeEventListener(evtType, handler, util.applyPassive());
+      } else {
+        this._root.removeEventListener(evtType, handler, util.applyPassive());
+      }
+    },
+    registerDocumentInteractionHandler: (evtType: string, handler: EventListener) =>
+      document.documentElement.addEventListener(evtType, handler, util.applyPassive()),
+    deregisterDocumentInteractionHandler: (evtType: string, handler: EventListener) =>
+      document.documentElement.removeEventListener(evtType, handler, util.applyPassive()),
+    registerResizeHandler: (handler: EventListener) => {
+      if (isBrowser()) {
+        window.addEventListener('resize', handler);
+      }
+    },
+    deregisterResizeHandler: (handler: EventListener) => window.removeEventListener('resize', handler),
     updateCssVariable: (varName: string, value: string) => this._root.style.setProperty(varName, value),
     computeBoundingRect: () => this._root.getBoundingClientRect(),
     getWindowPageOffset: () => {
@@ -58,9 +66,7 @@ export class MdcRipple {
     handleBlur(): void
   };
 
-  constructor(
-    protected _registry: EventRegistry,
-    protected elementRef: ElementRef) { }
+  constructor(protected elementRef: ElementRef) { }
 
   attachTo(root: any, unbounded: boolean = false, interactionElement?: HTMLElement) {
     this._root = root;
@@ -110,21 +116,9 @@ export class MdcRipple {
     this._foundation.handleBlur();
   }
 
-  /**
-   * @deprecated
-   * @deletion-target in-tracker
-   */
-  setSurfaceActive(active: boolean): void {
-    this._surfaceActive = active;
-  }
-
   isSurfaceDisabled(): boolean {
     return this._interactionElement ? this._interactionElement.attributes.getNamedItem('disabled') ? true : false :
       this._root.attributes.getNamedItem('disabled') ? true : false;
-  }
-
-  isSurfaceActive(): boolean {
-    return this._surfaceActive || this._root[util.getMatchesProperty(HTMLElement.prototype)](':active');
   }
 
   isAttached(): boolean {

@@ -76,8 +76,16 @@
         </thead>
         <tbody>
           <tr>
-            <td>selectionChange: MdcChipSelectionChange</td>
+            <td>selectionChange: MdcChipInteractionEvent</td>
             <td>Emitted when the chip is selected or deselected.</td>
+          </tr>
+          <tr>
+            <td>removed: MdcChipInteractionEvent</td>
+            <td>Emitted when a chip is removed from a set.</td>
+          </tr>
+          <tr>
+            <td>trailingIconInteraction: void</td>
+            <td>Emitted when a chip trailing icon is interacted with.</td>
           </tr>
         </tbody>
       </table>
@@ -137,11 +145,19 @@
     <h3 class="demo-content__headline">Input Chips</h3>
     <div class="demo-content--row">
       <mdc-chip-set #inputchipset [input]="true">
-        <mdc-chip label="Jane Smith">
+        <mdc-chip label="Alice">
           <mdc-chip-icon leading>face</mdc-chip-icon>
           <mdc-chip-icon trailing>cancel</mdc-chip-icon>
         </mdc-chip>
-        <mdc-chip label='James Bond'>
+        <mdc-chip label="Bob">
+          <mdc-chip-icon leading>face</mdc-chip-icon>
+          <mdc-chip-icon trailing>cancel</mdc-chip-icon>
+        </mdc-chip>
+        <mdc-chip label='Charlie'>
+          <mdc-chip-icon leading>face</mdc-chip-icon>
+          <mdc-chip-icon trailing>cancel</mdc-chip-icon>
+        </mdc-chip>
+        <mdc-chip label='David'>
           <mdc-chip-icon leading>face</mdc-chip-icon>
           <mdc-chip-icon trailing>cancel</mdc-chip-icon>
         </mdc-chip>

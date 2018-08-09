@@ -233,7 +233,9 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
   }
 
   ngOnDestroy(): void {
-    this._foundation.destroy();
+    if (this._foundation) {
+      this._foundation.destroy();
+    }
   }
 
   writeValue(value: any): void {

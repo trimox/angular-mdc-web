@@ -5,6 +5,7 @@ import {
   HostBinding,
   Input
 } from '@angular/core';
+import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcButton } from '@angular-mdc/web/button';
 
@@ -75,9 +76,26 @@ export class MdcDialogFooter {
   providers: [MdcRipple]
 })
 export class MdcDialogButton extends MdcButton {
-  @Input() accept: boolean;
-  @Input() cancel: boolean;
-  @Input() action: boolean;
+  @Input()
+  get accept(): boolean { return this._accept; }
+  set accept(value: boolean) {
+    this._accept = toBoolean(value);
+  }
+  private _accept: boolean;
+
+  @Input()
+  get cancel(): boolean { return this._cancel; }
+  set cancel(value: boolean) {
+    this._cancel = toBoolean(value);
+  }
+  private _cancel: boolean;
+
+  @Input()
+  get action(): boolean { return this._action; }
+  set action(value: boolean) {
+    this._action = toBoolean(value);
+  }
+  private _action: boolean;
 
   @HostBinding('class.mdc-dialog__footer__button') isFooterButton = true;
   @HostBinding('class.mdc-dialog__action') get classAction(): string {

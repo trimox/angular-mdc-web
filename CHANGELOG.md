@@ -1,3 +1,23 @@
+<a name="0.38.1"></a>
+## [0.38.1](https://github.com/trimox/angular-mdc-web/compare/v0.38.0...v0.38.1) (2018-08-11)
+
+
+### Bug Fixes
+
+* **chips:** Add return value type to handleTrailingIconInteraction ([#1189](https://github.com/trimox/angular-mdc-web/issues/1189)) ([c2b16ed](https://github.com/trimox/angular-mdc-web/commit/c2b16ed))
+* **chips:** Fix event interactions and selections + improvements ([#1196](https://github.com/trimox/angular-mdc-web/issues/1196)) ([f0d812f](https://github.com/trimox/angular-mdc-web/commit/f0d812f)), closes [#1195](https://github.com/trimox/angular-mdc-web/issues/1195)
+* **demos:** Add alternate color example for mdc-switch ([#1187](https://github.com/trimox/angular-mdc-web/issues/1187)) ([cf038b1](https://github.com/trimox/angular-mdc-web/commit/cf038b1))
+* **dialog:** Coerce accept, cancel and action props to boolean ([#1192](https://github.com/trimox/angular-mdc-web/issues/1192)) ([9448a5e](https://github.com/trimox/angular-mdc-web/commit/9448a5e))
+* **slider:** Null check before calling destroy ([#1191](https://github.com/trimox/angular-mdc-web/issues/1191)) ([ca40ad6](https://github.com/trimox/angular-mdc-web/commit/ca40ad6)), closes [#1190](https://github.com/trimox/angular-mdc-web/issues/1190)
+
+
+### Features
+
+* **ripple:** Remove usage of EventRegistry ([#1194](https://github.com/trimox/angular-mdc-web/issues/1194)) ([18b00bc](https://github.com/trimox/angular-mdc-web/commit/18b00bc))
+* **snackbar:** Use ChangeDetectionStrategy.OnPush + refactoring ([#1199](https://github.com/trimox/angular-mdc-web/issues/1199)) ([d5bc071](https://github.com/trimox/angular-mdc-web/commit/d5bc071))
+
+
+
 <a name="0.38.0"></a>
 # [0.38.0](https://github.com/trimox/angular-mdc-web/compare/v0.37.3...v0.38.0) (2018-08-08)
 

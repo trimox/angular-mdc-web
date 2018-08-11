@@ -15,11 +15,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
-import {
-  isBrowser,
-  EventRegistry,
-  ESCAPE
-} from '@angular-mdc/web/common';
+import { isBrowser, ESCAPE } from '@angular-mdc/web/common';
 
 import {
   MdcDialogBody,
@@ -44,7 +40,6 @@ import { MDCDialogFoundation, util } from '@material/dialog';
     '[attr.aria-label]': 'config?.ariaLabel',
     '[attr.aria-describedby]': 'config?.ariaDescribedBy || null',
   },
-  providers: [EventRegistry],
   encapsulation: ViewEncapsulation.None
 })
 export class MdcDialogComponent implements AfterContentInit, OnDestroy {
@@ -98,29 +93,31 @@ export class MdcDialogComponent implements AfterContentInit, OnDestroy {
           this.cancel();
         }
       };
-      this._registry.listen(evt, handler, this._getHostElement());
+      this._getHostElement().addEventListener(evt, handler);
     },
-    deregisterInteractionHandler: (evt: string, handler: EventListener) => this._registry.unlisten(evt, handler),
+    deregisterInteractionHandler: (evt: string, handler: EventListener) =>
+      this._getHostElement().removeEventListener(evt, handler),
     registerSurfaceInteractionHandler: (evt: string, handler: EventListener) =>
-      this._registry.listen(evt, handler, this._surface.elementRef.nativeElement),
-    deregisterSurfaceInteractionHandler: (evt: string, handler: EventListener) => this._registry.unlisten(evt, handler),
+      this._getSurfaceElement().addEventListener(evt, handler),
+    deregisterSurfaceInteractionHandler: (evt: string, handler: EventListener) =>
+      this._getSurfaceElement().removeEventListener(evt, handler),
     registerDocumentKeydownHandler: (handler: EventListener) => {
       if (!isBrowser()) { return; }
 
       const escapeToClose = this.config ? this.config.escapeToClose : this.escapeToClose;
-
       handler = escapeToClose ? handler : this._onKeyDown;
-      this._registry.listen('keydown', handler, document);
+      document.addEventListener('keydown', handler);
     },
     deregisterDocumentKeydownHandler: (handler: EventListener) => {
       if (!isBrowser()) { return; }
 
       const escapeToClose = this.config ? this.config.escapeToClose : this.escapeToClose;
-      this._registry.unlisten('keydown', escapeToClose ? handler : this._onKeyDown);
+      document.removeEventListener('keydown', escapeToClose ? handler : this._onKeyDown);
     },
     registerTransitionEndHandler: (handler: EventListener) =>
-      this._registry.listen('transitionend', handler, this._surface.elementRef.nativeElement),
-    deregisterTransitionEndHandler: (handler: EventListener) => this._registry.unlisten('transitionend', handler),
+      this._getSurfaceElement().addEventListener('transitionend', handler),
+    deregisterTransitionEndHandler: (handler: EventListener) =>
+      this._getSurfaceElement().removeEventListener('transitionend', handler),
     notifyAccept: () => {
       this._accept.emit();
       this._closeDialogRef();
@@ -139,7 +136,7 @@ export class MdcDialogComponent implements AfterContentInit, OnDestroy {
         this._focusTrap.deactivate();
       }
     },
-    isDialog: (el: Element) => this._surface ? el === this._surface.elementRef.nativeElement : false
+    isDialog: (el: Element) => this._surface ? el === this._getSurfaceElement() : false
   };
 
   private _foundation: {
@@ -154,7 +151,6 @@ export class MdcDialogComponent implements AfterContentInit, OnDestroy {
 
   constructor(
     public elementRef: ElementRef,
-    private _registry: EventRegistry,
     @Optional() @SkipSelf() public dialogRef: MdcDialogRef<any>) { }
 
   ngAfterContentInit(): void {
@@ -230,6 +226,11 @@ export class MdcDialogComponent implements AfterContentInit, OnDestroy {
     if (ESCAPE === event.keyCode) {
       event.stopPropagation();
     }
+  }
+
+  /** Retrieves the DOM element of the surface element. */
+  private _getSurfaceElement(): HTMLElement {
+    return this._surface.elementRef.nativeElement;
   }
 
   /** Retrieves the DOM element of the component host. */

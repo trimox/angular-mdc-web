@@ -329,7 +329,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
       Promise.resolve().then(() => {
         this._icons.forEach(icon => {
           icon.elementRef.nativeElement.classList.add('mdc-text-field__icon');
-          if (icon.isLeading() || icon.isTrailing()) {
+          if (icon.leading || icon.trailing) {
             this._iconFoundation = new MDCTextFieldIconFoundation(this._mdcIconAdapter);
             icon.foundation = this._iconFoundation;
           }
@@ -536,11 +536,11 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   }
 
   getLeadingIcon(): MdcIcon | undefined {
-    return this._icons.find((_: MdcIcon) => _.isLeading());
+    return this._icons.find((_: MdcIcon) => _.leading);
   }
 
   getTrailingIcon(): MdcIcon | undefined {
-    return this._icons.find((_: MdcIcon) => _.isTrailing());
+    return this._icons.find((_: MdcIcon) => _.trailing);
   }
 
   // Implemented as part of ControlValueAccessor.

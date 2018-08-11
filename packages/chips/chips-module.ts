@@ -16,7 +16,6 @@ export const CHIP_DECLARATIONS = [
 @NgModule({
   imports: [CommonModule, MdcIconModule],
   exports: CHIP_DECLARATIONS,
-  declarations: CHIP_DECLARATIONS,
-  entryComponents: [MdcChip, MdcChipText, MdcChipIcon]
+  declarations: CHIP_DECLARATIONS
 })
 export class MdcChipsModule { }

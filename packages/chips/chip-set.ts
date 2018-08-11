@@ -5,25 +5,31 @@ import {
   Component,
   ContentChildren,
   ElementRef,
+  EventEmitter,
   HostBinding,
   Input,
   NgZone,
   OnDestroy,
   OnInit,
+  Output,
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
 import { defer, merge, Observable, Subject, Subscription } from 'rxjs';
 import { startWith, switchMap, take, takeUntil } from 'rxjs/operators';
 
-import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
+import { toBoolean } from '@angular-mdc/web/common';
 
-import { MdcChip, MdcChipIcon, MdcChipText, MdcChipInteractionEvent } from './chip';
-
-import { MDCChipInteractionEventType } from '@material/chips/chip/foundation';
+import { MdcChip, MdcChipInteractionEvent } from './chip';
 
 import { MDCChipSetAdapter } from '@material/chips/chip-set/adapter';
 import { MDCChipSetFoundation } from '@material/chips/chip-set';
+
+export class MdcChipSetChange {
+  constructor(
+    public source: MdcChipSet,
+    public value: any) { }
+}
 
 @Component({
   moduleId: module.id,
@@ -31,8 +37,7 @@ import { MDCChipSetFoundation } from '@material/chips/chip-set';
   exportAs: 'mdcChipSet',
   template: `<ng-content></ng-content>`,
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [EventRegistry]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
@@ -70,6 +75,9 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
     this.setInput(value);
   }
   private _input: boolean = false;
+
+  @Output() readonly change: EventEmitter<MdcChipSetChange> =
+    new EventEmitter<MdcChipSetChange>();
 
   @HostBinding('class.mdc-chip-set') isHostClass = true;
   @HostBinding('class.mdc-chip-set--choice') get classChoice(): string {
@@ -120,32 +128,31 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _ngZone: NgZone,
-    public elementRef: ElementRef,
-    private _registry: EventRegistry) { }
+    public elementRef: ElementRef) { }
 
   ngAfterContentInit(): void {
-    this.chipSelectionChanges.pipe(
-      takeUntil(merge(this._destroy, this.chips.changes))
-    ).subscribe((event: MdcChipInteractionEvent) => {
-      this._foundation.handleChipInteraction(event);
-    });
+    this.chipSelectionChanges
+      .pipe(takeUntil(merge(this._destroy, this.chips.changes)))
+      .subscribe((event: MdcChipInteractionEvent) => {
+        this._foundation.handleChipInteraction(event);
+        event.detail.chip.selected = !event.detail.chip.selected;
+
+        this.change.emit(new MdcChipSetChange(this, event.detail.chip));
+      });
 
     this._chipRemoveSubscription = this.chipRemoveChanges.subscribe((event: MdcChipInteractionEvent) => {
       this._foundation.handleChipRemoval(event);
-    });
-
-    this.chips.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
-      Promise.resolve().then(() => {
-        this.chips.forEach(chip => {
-          chip.filter = this.filter;
-        });
-      });
     });
   }
 
   ngOnDestroy(): void {
     this._destroy.next();
     this._destroy.complete();
+
+    if (this._chipRemoveSubscription) {
+      this._chipRemoveSubscription.unsubscribe();
+    }
+
     this._foundation.destroy();
   }
 
@@ -160,11 +167,23 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
 
   setFilter(filter: boolean): void {
     this._filter = toBoolean(filter);
+
+    Promise.resolve().then(() => {
+      this.chips.forEach((chip: MdcChip) => {
+        chip.filter = this.filter;
+      });
+    });
     this._changeDetectorRef.markForCheck();
   }
 
   setInput(input: boolean): void {
     this._input = toBoolean(input);
+
+    Promise.resolve().then(() => {
+      this.chips.forEach((chip: MdcChip) => {
+        chip.removable = true;
+      });
+    });
     this._changeDetectorRef.markForCheck();
   }
 

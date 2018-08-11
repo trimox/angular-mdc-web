@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ViewChild } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -6,7 +6,9 @@ import {
   MdcChipsModule,
   MdcChip,
   MdcChipSet,
-  MdcChipInteractionEvent
+  MdcChipInteractionEvent,
+  MdcIcon,
+  MdcChipSetChange
 } from '@angular-mdc/web';
 
 describe('Chips', () => {
@@ -41,21 +43,11 @@ describe('Chips', () => {
     });
 
     it('#should have leading icon', () => {
-      expect(testInstance.icons.first.isLeading()).toBe(true);
+      expect(testInstance.leadingIcon).toBeDefined();
     });
 
     it('#should have trailing icon', () => {
-      expect(testInstance.icons.last.isTrailing()).toBe(true);
-    });
-
-    it('emits destroy on destruction', () => {
-      spyOn(testComponent, 'chipDestroy').and.callThrough();
-
-      // Force a destroy callback
-      testComponent.shouldShow = false;
-      fixture.detectChanges();
-
-      expect(testComponent.chipDestroy).toHaveBeenCalledTimes(1);
+      expect(testInstance.icons.last.trailing).toBe(true);
     });
 
     it('should make disabled chips non-focusable', () => {
@@ -67,12 +59,20 @@ describe('Chips', () => {
       expect(testNativeElement.getAttribute('tabIndex')).toBeFalsy();
     });
 
-    it('allows removal', () => {
-      spyOn(testComponent, 'chipRemove');
+    it('should emit icon click event', () => {
+      spyOn(testComponent, 'iconInteraction');
 
-      testInstance.remove();
+      testComponent.trailingIcon.elementRef.nativeElement.click();
       fixture.detectChanges();
-      expect(testComponent.chipRemove).toHaveBeenCalledWith({ detail: { chip: testInstance } });
+      expect(testComponent.iconInteraction).toHaveBeenCalledTimes(1);
+    });
+
+    it('should emit removed event', () => {
+      spyOn(testComponent, 'chipRemoved');
+
+      testComponent.trailingIcon.elementRef.nativeElement.click();
+      fixture.detectChanges();
+      expect(testComponent.chipRemoved).toHaveBeenCalledTimes(1);
     });
 
     it('handles focus event', () => {
@@ -91,20 +91,9 @@ describe('Chips', () => {
       expect(testInstance.selected).toBeUndefined();
     });
 
-    it('is selected', () => {
-      testInstance.selected = true;
-      fixture.detectChanges();
-      expect(testInstance.selected).toBe(true);
-      expect(testInstance.isSelected()).toBe(true);
-    });
-
     it('is removable', () => {
       testComponent.removable = false;
       fixture.detectChanges();
-    });
-
-    it('expect leading chip icon to not be undefined', () => {
-      expect(testInstance.getLeadingIcon()).toBeDefined();
     });
 
     it('#should apply primary class modifier', () => {
@@ -165,18 +154,17 @@ describe('Chips', () => {
 
 @Component({
   template: `
-  <mdc-chip-set [choice]="choice" [filter]="filter" [input]="input">
-    <mdc-chip *ngIf="shouldShow"
+  <mdc-chip-set [choice]="choice" [filter]="filter" [input]="input" (change)="onChipSetChange($event)">
+    <mdc-chip
     [disabled]="disabled"
     [primary]="primary"
     [secondary]="secondary"
-    (focus)="chipFocus($event)"
+    (trailingIconInteraction)="iconInteraction()"
     (selectionChange)="chipSelectionChange($event)"
-    (removed)="chipRemove($event)"
-    (destroyed)="chipDestroy($event)">
+    (removed)="chipRemoved($event)">
       <mdc-chip-icon leading>face</mdc-chip-icon>
       <mdc-chip-text>Get Directions</mdc-chip-text>
-      <mdc-chip-icon trailing>more_vert</mdc-chip-icon>
+      <mdc-chip-icon #trailingIcon trailing>more_vert</mdc-chip-icon>
     </mdc-chip>
     <mdc-chip [removable]="removable">
       <mdc-chip-text>Get Weather</mdc-chip-text>
@@ -186,7 +174,6 @@ describe('Chips', () => {
 })
 class ChipTest {
   removable: boolean;
-  shouldShow: boolean = true;
   disabled: boolean = false;
   choice: boolean = false;
   filter: boolean = false;
@@ -194,8 +181,10 @@ class ChipTest {
   primary: boolean = false;
   secondary: boolean = false;
 
-  chipFocus: (event?: MdcChipInteractionEvent) => void = () => { };
-  chipDestroy: (event?: MdcChipInteractionEvent) => void = () => { };
+  @ViewChild('trailingIcon') trailingIcon: MdcIcon;
+
+  onChipSetChange: (event?: MdcChipSetChange) => void = () => { };
   chipSelectionChange: (event?: MdcChipInteractionEvent) => void = () => { };
-  chipRemove: (event?: MdcChipInteractionEvent) => void = () => { };
+  chipRemoved: (event?: MdcChipInteractionEvent) => void = () => { };
+  iconInteraction: () => void = () => { };
 }

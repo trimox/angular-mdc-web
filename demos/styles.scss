@@ -765,3 +765,14 @@ body {
 
   @include mdc-switch-toggled-on-color($color);
 }
+
+//
+// Chips
+//
+
+.custom-chip-secondary {
+  @include mdc-chip-fill-color(white);
+  @include mdc-chip-ink-color($mdc-theme-secondary);
+  @include mdc-chip-selected-ink-color($mdc-theme-secondary);
+  @include mdc-chip-outline(2px, solid, $mdc-theme-secondary);
+}

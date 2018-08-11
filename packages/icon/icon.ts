@@ -134,25 +134,17 @@ export class MdcIcon implements OnInit {
   }
 
   /**
-     * Cleans up a value to be used as a fontIcon or fontSet.
-     * Since the value ends up being assigned as a CSS class, we
-     * have to trim the value and omit space-separated values.
-     */
+   * Cleans up a value to be used as a fontIcon or fontSet.
+   * Since the value ends up being assigned as a CSS class, we
+   * have to trim the value and omit space-separated values.
+   */
   private _cleanupFontValue(value: string) {
     return typeof value === 'string' ? value.trim().split(' ')[0] : value;
   }
 
   /** Retrieves the DOM element of the component host. */
-  protected _getHostElement() {
+  protected _getHostElement(): HTMLElement {
     return this.elementRef.nativeElement;
-  }
-
-  isLeading(): boolean {
-    return this.leading;
-  }
-
-  isTrailing(): boolean {
-    return this.trailing;
   }
 
   setIcon(content: string): void {

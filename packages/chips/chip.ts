@@ -22,8 +22,7 @@ import { startWith, switchMap, take, takeUntil } from 'rxjs/operators';
 
 import {
   toBoolean,
-  isBrowser,
-  EventRegistry
+  isBrowser
 } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcIcon } from '@angular-mdc/web/icon';
@@ -49,6 +48,7 @@ let nextUniqueId = 0;
   selector: 'mdc-chip-icon, [mdc-chip-icon], [mdcChipIcon]',
   template: '<ng-content></ng-content>',
   exportAs: 'mdcChipIcon',
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcChipIcon extends MdcIcon {
@@ -67,6 +67,9 @@ export class MdcChipIcon extends MdcIcon {
   @HostListener('click', ['$event']) onclick(evt: Event) {
     this.iconInteraction.emit({ source: this, event: evt });
   }
+  @HostListener('keydown', ['$event']) onkeydown(evt: KeyboardEvent) {
+    this.iconInteraction.emit({ source: this, event: evt });
+  }
 }
 
 @Component({
@@ -79,7 +82,9 @@ export class MdcChipIcon extends MdcIcon {
       <path class="mdc-chip__checkmark-path" fill="none" stroke="black" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
     </svg>
   </div>
-  `
+  `,
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcChipCheckmark { }
 
@@ -104,17 +109,22 @@ export class MdcChipText {
   },
   exportAs: 'mdcChip',
   template: `
-  <ng-content *ngIf="isLeadingIconVisibile()" select="mdc-chip-icon[leading]"></ng-content>
-  <mdc-chip-checkmark *ngIf="filter"></mdc-chip-checkmark>
+  <ng-container [ngSwitch]="filter">
+    <ng-container [ngSwitch]="selected" *ngSwitchCase="true">
+      <mdc-chip-checkmark *ngSwitchCase="true"></mdc-chip-checkmark>
+      <ng-container *ngSwitchDefault>
+        <ng-container *ngTemplateOutlet="leadingIcon"></ng-container>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngTemplateOutlet="leadingIcon"></ng-container>
+  </ng-container>
+  <ng-template #leadingIcon><ng-content select="mdc-chip-icon[leading]"></ng-content></ng-template>
   <div class="mdc-chip__text" *ngIf="label">{{label}}</div>
   <ng-content></ng-content>
   `,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    MdcRipple,
-    EventRegistry
-  ]
+  providers: [MdcRipple]
 })
 export class MdcChip implements AfterContentInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
@@ -122,34 +132,41 @@ export class MdcChip implements AfterContentInit, OnDestroy {
 
   private _id = `mdc-chip-${nextUniqueId++}`;
 
+  /** The unique ID of the option. */
+  get id(): string { return this._id; }
+
+  get leadingIcon(): MdcIcon | undefined {
+    return this.icons ? this.icons.find((_: MdcChipIcon) => _.leading) : undefined;
+  }
+
   @Input() label: string;
 
   get selected(): boolean { return this._selected; }
   set selected(value: boolean) {
     this.setSelected(value);
   }
-  protected _selected: boolean;
+  private _selected: boolean;
 
   get filter(): boolean { return this._filter; }
   set filter(value: boolean) {
     this._filter = toBoolean(value);
     this._changeDetectorRef.markForCheck();
   }
-  protected _filter: boolean;
+  private _filter: boolean;
 
   @Input()
   get primary(): boolean { return this._primary; }
   set primary(value: boolean) {
     this.setPrimary(value);
   }
-  protected _primary: boolean;
+  private _primary: boolean;
 
   @Input()
   get secondary(): boolean { return this._secondary; }
   set secondary(value: boolean) {
     this.setSecondary(value);
   }
-  protected _secondary: boolean;
+  private _secondary: boolean;
 
   /**
     * Determines whether or not the chip displays the remove styling and emits (removed) events.
@@ -157,15 +174,11 @@ export class MdcChip implements AfterContentInit, OnDestroy {
   @Input()
   get removable(): boolean { return this._removable; }
   set removable(value: boolean) {
-    this.setRemovable(value);
+    this._removable = toBoolean(value);
+    this.foundation.setShouldRemoveOnTrailingIconClick(this._removable);
+    this._changeDetectorRef.markForCheck();
   }
-  protected _removable: boolean = true;
-
-  /** Whether the chip has focus. */
-  _hasFocus: boolean = false;
-
-  /** The unique ID of the option. */
-  get id(): string { return this._id; }
+  private _removable: boolean;
 
   /** Whether the chip is disabled. */
   @Input()
@@ -173,16 +186,7 @@ export class MdcChip implements AfterContentInit, OnDestroy {
   set disabled(value: boolean) {
     this._disabled = toBoolean(value);
   }
-  protected _disabled: boolean;
-
-  /** Emits when the chip is focused. */
-  readonly _onFocus = new Subject<MdcChipInteractionEvent>();
-
-  /** Emits when the chip is blured. */
-  readonly _onBlur = new Subject<MdcChipInteractionEvent>();
-
-  /** Emitted when the chip is destroyed. */
-  @Output() readonly destroyed: EventEmitter<MdcChipInteractionEvent> = new EventEmitter<MdcChipInteractionEvent>();
+  private _disabled: boolean;
 
   /** Emitted when the chip is selected or deselected. */
   @Output() readonly selectionChange: EventEmitter<MdcChipInteractionEvent> = new EventEmitter<MdcChipInteractionEvent>();
@@ -204,19 +208,13 @@ export class MdcChip implements AfterContentInit, OnDestroy {
     return this.secondary ? 'ng-mdc-chip--secondary' : '';
   }
 
-  @HostListener('focus') onfocus() {
-    this._hasFocus = true;
-  }
-  @HostListener('blur') onblur() {
-    this._blur();
-  }
   @HostListener('transitionend', ['$event']) ontransitionend(evt: Event) {
     this.foundation.handleTransitionEnd(evt);
   }
   @HostListener('click', ['$event']) onclick(evt: Event) {
     this.foundation.handleInteraction(evt);
   }
-  @HostListener('onkeydown', ['$event']) onkeydown(evt: Event) {
+  @HostListener('keydown', ['$event']) onkeydown(evt: KeyboardEvent) {
     this.foundation.handleInteraction(evt);
   }
 
@@ -239,15 +237,13 @@ export class MdcChip implements AfterContentInit, OnDestroy {
     removeClass: (className: string) => this._getHostElement().classList.remove(className),
     hasClass: (className: string) => this._getHostElement().classList.contains(className),
     addClassToLeadingIcon: (className: string) => {
-      const leadingIcon = this.getLeadingIcon();
-      if (leadingIcon) {
-        leadingIcon.elementRef.nativeElement.classList.add(className);
+      if (this.leadingIcon) {
+        this.leadingIcon.elementRef.nativeElement.classList.add(className);
       }
     },
     removeClassFromLeadingIcon: (className: string) => {
-      const leadingIcon = this.getLeadingIcon();
-      if (leadingIcon) {
-        leadingIcon.elementRef.nativeElement.classList.remove(className);
+      if (this.leadingIcon) {
+        this.leadingIcon.elementRef.nativeElement.classList.remove(className);
       }
     },
     eventTargetHasClass: (target: HTMLElement, className: string) => target.classList.contains(className),
@@ -273,49 +269,45 @@ export class MdcChip implements AfterContentInit, OnDestroy {
     setSelected(selected: boolean): void,
     isSelected(): boolean,
     setShouldRemoveOnTrailingIconClick(shouldRemove: boolean): void,
-    beginExit(): void,
     handleInteraction(evt: Event): void,
     handleTransitionEnd(evt: Event): void,
-    handleTrailingIconInteraction(evt: Event): void,
+    handleTrailingIconInteraction(evt: Event): void
   } = new MDCChipFoundation(this._mdcAdapter);
 
   constructor(
     private _ngZone: NgZone,
     private _changeDetectorRef: ChangeDetectorRef,
     private _ripple: MdcRipple,
-    public elementRef: ElementRef,
-    private _registry: EventRegistry) { }
+    public elementRef: ElementRef) { }
 
   ngAfterContentInit(): void {
     this._ripple.attachTo(this._getHostElement());
+
     this.foundation.init();
 
     this.chipIconInteractions.pipe(
       takeUntil(merge(this._destroy, this.icons.changes))
     ).subscribe((event: MdcIconInteraction) => {
-      if (event.source.isTrailing()) {
+      if (event.source.trailing) {
         this.foundation.handleTrailingIconInteraction(event.event);
+        this.removed.emit({ detail: { chip: this } });
       }
     });
   }
 
   ngOnDestroy(): void {
-    if (!this.removable) {
-      this.foundation.beginExit();
-    }
-
     this._destroy.next();
     this._destroy.complete();
 
     this._ripple.destroy();
-    this.destroyed.emit({ detail: { chip: this } });
-    this.foundation.destroy();
+
+    if (this.foundation) {
+      this.foundation.destroy();
+    }
   }
 
   setSelected(selected: boolean): void {
     this._selected = toBoolean(selected);
-    this.foundation.setSelected(selected);
-
     this._changeDetectorRef.markForCheck();
   }
 
@@ -339,49 +331,18 @@ export class MdcChip implements AfterContentInit, OnDestroy {
     this._secondary = toBoolean(secondary);
   }
 
-  setRemovable(removable: boolean): void {
-    this._removable = toBoolean(removable);
-    this.foundation.setShouldRemoveOnTrailingIconClick(removable);
-    this._changeDetectorRef.markForCheck();
-  }
-
   /** Allows for programmatic focusing of the chip. */
   focus(): void {
     this._getHostElement().focus();
-    this._onFocus.next({ detail: { chip: this } });
-  }
-
-  /**
-   * Allows for programmatic removal of the chip. Called by the MdcChipSet when the DELETE or
-   * BACKSPACE keys are pressed.
-   *
-   * Informs any listeners of the removal request. Does not remove the chip from the DOM.
-   */
-  remove(): void {
-    this.removed.emit({ detail: { chip: this } });
-  }
-
-  isLeadingIconVisibile(): boolean {
-    return this.filter && this.selected ? false : true;
-  }
-
-  getLeadingIcon(): MdcChipIcon | undefined {
-    if (this.icons) {
-      return this.icons.find((_: MdcChipIcon) => _.isLeading());
-    }
-  }
-
-  private _blur(): void {
-    this._onBlur.next({ detail: { chip: this } });
-  }
-
-  /** Retrieves the DOM element of the component host. */
-  protected _getHostElement(): HTMLElement {
-    return this.elementRef.nativeElement;
   }
 
   /** Emits the selection change event. */
   private _emitSelectionChangeEvent(): void {
     this.selectionChange.emit({ detail: { chip: this } });
+  }
+
+  /** Retrieves the DOM element of the component host. */
+  protected _getHostElement(): HTMLElement {
+    return this.elementRef.nativeElement;
   }
 }

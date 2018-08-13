@@ -10,8 +10,6 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { EventRegistry } from '@angular-mdc/web/common';
-
 import { MDCTabScrollerAdapter } from '@material/tab-scroller/adapter';
 import { MDCTabScrollerFoundation, util } from '@material/tab-scroller';
 
@@ -30,8 +28,7 @@ export type MdcTabScrollerAlignment = 'start' | 'center' | 'end';
   </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  providers: [EventRegistry]
+  encapsulation: ViewEncapsulation.None
 })
 export class MdcTabScroller implements AfterViewInit, OnDestroy {
   @Input()
@@ -78,27 +75,28 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    public elementRef: ElementRef,
-    private _registry: EventRegistry) { }
+    public elementRef: ElementRef) { }
 
   ngAfterViewInit(): void {
     this._foundation.init();
 
-    this._registry.listen('wheel', this._foundation.handleInteraction, this.area.nativeElement);
-    this._registry.listen('touchstart', this._foundation.handleInteraction, this.area.nativeElement);
-    this._registry.listen('pointerdown', this._foundation.handleInteraction, this.area.nativeElement);
-    this._registry.listen('mousedown', this._foundation.handleInteraction, this.area.nativeElement);
-    this._registry.listen('keydown', this._foundation.handleInteraction, this.area.nativeElement);
-    this._registry.listen('transitionend', this._foundation.handleTransitionEnd, this.content.nativeElement);
+    this._getScrollArea().addEventListener('wheel', this._foundation.handleInteraction);
+    this._getScrollArea().addEventListener('touchstart', this._foundation.handleInteraction);
+    this._getScrollArea().addEventListener('pointerdown', this._foundation.handleInteraction);
+    this._getScrollArea().addEventListener('mousedown', this._foundation.handleInteraction);
+    this._getScrollArea().addEventListener('keydown', this._foundation.handleInteraction);
+
+    this._getScrollContent().addEventListener('transitionend', this._foundation.handleTransitionEnd);
   }
 
   ngOnDestroy(): void {
-    this._registry.unlisten('wheel', this._foundation.handleInteraction);
-    this._registry.unlisten('touchstart', this._foundation.handleInteraction);
-    this._registry.unlisten('pointerdown', this._foundation.handleInteraction);
-    this._registry.unlisten('mousedown', this._foundation.handleInteraction);
-    this._registry.unlisten('keydown', this._foundation.handleInteraction);
-    this._registry.unlisten('transitionend', this._foundation.handleTransitionEnd);
+    this._getScrollArea().removeEventListener('wheel', this._foundation.handleInteraction);
+    this._getScrollArea().removeEventListener('touchstart', this._foundation.handleInteraction);
+    this._getScrollArea().removeEventListener('pointerdown', this._foundation.handleInteraction);
+    this._getScrollArea().removeEventListener('mousedown', this._foundation.handleInteraction);
+    this._getScrollArea().removeEventListener('keydown', this._foundation.handleInteraction);
+
+    this._getScrollContent().removeEventListener('transitionend', this._foundation.handleTransitionEnd);
   }
 
   setAlign(align: MdcTabScrollerAlignment): void {
@@ -138,6 +136,14 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
    */
   scrollTo(scrollX: number) {
     this._foundation.scrollTo(scrollX);
+  }
+
+  private _getScrollArea(): HTMLElement {
+    return this.area.nativeElement;
+  }
+
+  private _getScrollContent(): HTMLElement {
+    return this.content.nativeElement;
   }
 
   /** Retrieves the DOM element of the component host. */

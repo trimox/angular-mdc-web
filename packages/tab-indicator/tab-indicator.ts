@@ -10,7 +10,7 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { EventRegistry, toBoolean } from '@angular-mdc/web/common';
+import { toBoolean } from '@angular-mdc/web/common';
 
 import { MDCTabIndicatorAdapter } from '@material/tab-indicator/adapter';
 import {
@@ -28,8 +28,7 @@ import {
   </span>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  providers: [EventRegistry]
+  encapsulation: ViewEncapsulation.None
 })
 export class MdcTabIndicator implements AfterContentInit {
   private _isFoundationInit: boolean;
@@ -100,8 +99,7 @@ export class MdcTabIndicator implements AfterContentInit {
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    public elementRef: ElementRef,
-    private _registry: EventRegistry) { }
+    public elementRef: ElementRef) { }
 
   ngAfterContentInit(): void {
     if (!this._isFoundationInit) {

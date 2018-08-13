@@ -7,18 +7,36 @@ import {
   ElementRef,
   EventEmitter,
   HostBinding,
+  Inject,
+  InjectionToken,
   Input,
   OnDestroy,
+  Optional,
   Output,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { EventRegistry, toBoolean } from '@angular-mdc/web/common';
+import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcTabIndicator } from '@angular-mdc/web/tab-indicator';
 
 import { MDCTabAdapter } from '@material/tab/adapter';
 import { MDCTabFoundation } from '@material/tab';
+
+/**
+ * Describes a parent MdcTabBar component.
+ * Contains properties that MdcTab can inherit.
+ */
+export interface MdcTabBarParentComponent {
+  activateTab(index: number): void;
+  getTabIndex(tab: MdcTab): number;
+}
+
+/**
+ * Injection token used to provide the parent MdcTabBar component to MdcTab.
+ */
+export const MDC_TAB_BAR_PARENT_COMPONENT =
+  new InjectionToken<MdcTabBarParentComponent>('MDC_TAB_BAR_PARENT_COMPONENT');
 
 export interface MdcTabInteractedEvent {
   detail: {
@@ -60,10 +78,7 @@ export class MdcTabIcon {
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  providers: [
-    MdcRipple,
-    EventRegistry
-  ]
+  providers: [MdcRipple]
 })
 export class MdcTab implements AfterViewInit, OnDestroy {
   @Input() label: string;
@@ -135,7 +150,7 @@ export class MdcTab implements AfterViewInit, OnDestroy {
     private _changeDetectorRef: ChangeDetectorRef,
     private _ripple: MdcRipple,
     public elementRef: ElementRef,
-    private _registry: EventRegistry) { }
+    @Optional() @Inject(MDC_TAB_BAR_PARENT_COMPONENT) private _parent: MdcTabBarParentComponent) { }
 
   ngAfterViewInit(): void {
     this._foundation.init();
@@ -176,6 +191,10 @@ export class MdcTab implements AfterViewInit, OnDestroy {
 
   computeDimensions(): any {
     return this._foundation.computeDimensions();
+  }
+
+  getTabBarParent(): MdcTabBarParentComponent {
+    return this._parent;
   }
 
   /** Retrieves the DOM element of the component host. */

@@ -19,10 +19,10 @@ import {
 import { defer, merge, Observable, Subject } from 'rxjs';
 import { startWith, switchMap, take, takeUntil } from 'rxjs/operators';
 
-import { EventRegistry, toBoolean } from '@angular-mdc/web/common';
+import { toBoolean } from '@angular-mdc/web/common';
 import { MdcTabScroller, MdcTabScrollerAlignment } from '@angular-mdc/web/tab-scroller';
 import { MdcTabIndicator } from '@angular-mdc/web/tab-indicator';
-import { MdcTab, MdcTabInteractedEvent } from '@angular-mdc/web/tab';
+import { MdcTab, MdcTabInteractedEvent, MDC_TAB_BAR_PARENT_COMPONENT } from '@angular-mdc/web/tab';
 
 import { MDCTabBarAdapter } from '@material/tab-bar/adapter';
 import { MDCTabBarFoundation } from '@material/tab-bar';
@@ -41,7 +41,7 @@ export class MdcTabActivatedEvent {
   template: `<ng-content></ng-content>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  providers: [EventRegistry]
+  providers: [{ provide: MDC_TAB_BAR_PARENT_COMPONENT, useExisting: MdcTabBar }]
 })
 export class MdcTabBar implements AfterContentInit, OnDestroy {
   @Input()
@@ -134,8 +134,7 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _ngZone: NgZone,
-    public elementRef: ElementRef,
-    private _registry: EventRegistry) { }
+    public elementRef: ElementRef) { }
 
   ngAfterContentInit(): void {
     this.tabs.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
@@ -243,6 +242,13 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
 
   getActiveTab(): MdcTab | undefined {
     return this.tabs.toArray().find((_) => _.active);
+  }
+
+  /**
+   * Returns an index for given tab
+   */
+  getTabIndex(tab: MdcTab): number {
+    return this.tabs.toArray().indexOf(tab);
   }
 
   /** Retrieves the DOM element of the component host. */

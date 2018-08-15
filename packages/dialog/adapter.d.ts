@@ -10,8 +10,6 @@ export interface MDCDialogAdapter {
   deregisterSurfaceInteractionHandler: (evt: string, handler: EventListener) => void;
   registerDocumentKeydownHandler: (handler: EventListener) => void;
   deregisterDocumentKeydownHandler: (handler: EventListener) => void;
-  registerTransitionEndHandler: (handler: EventListener) => void;
-  deregisterTransitionEndHandler: (handler: EventListener) => void;
   notifyAccept: () => void;
   notifyCancel: () => void;
   trapFocusOnSurface: () => void;

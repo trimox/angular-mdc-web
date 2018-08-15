@@ -114,10 +114,6 @@ export class MdcDialogComponent implements AfterContentInit, OnDestroy {
       const escapeToClose = this.config ? this.config.escapeToClose : this.escapeToClose;
       document.removeEventListener('keydown', escapeToClose ? handler : this._onKeyDown);
     },
-    registerTransitionEndHandler: (handler: EventListener) =>
-      this._getSurfaceElement().addEventListener('transitionend', handler),
-    deregisterTransitionEndHandler: (handler: EventListener) =>
-      this._getSurfaceElement().removeEventListener('transitionend', handler),
     notifyAccept: () => {
       this._accept.emit();
       this._closeDialogRef();

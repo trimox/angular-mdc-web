@@ -33,7 +33,7 @@ import { MdcNotchedOutline } from '@angular-mdc/web/notched-outline';
 import { MdcFloatingLabel } from '@angular-mdc/web/floating-label';
 import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
 
-import { MDCSelectAdapter } from './adapter';
+import { MDCSelectAdapter } from '@material/select/adapter';
 import { MDCSelectFoundation } from '@material/select';
 
 export const MDC_SELECT_CONTROL_VALUE_ACCESSOR: any = {
@@ -189,6 +189,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   private _mdcAdapter: MDCSelectAdapter = {
     addClass: (className: string) => this._getHostElement().classList.add(className),
     removeClass: (className: string) => this._getHostElement().classList.remove(className),
+    hasClass: (className) => this._getHostElement().classList.contains(className),
     floatLabel: (shouldFloat: boolean) => this._selectLabel.float(shouldFloat),
     activateBottomLine: () => {
       if (this._lineRipple) {

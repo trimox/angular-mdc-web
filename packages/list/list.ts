@@ -208,9 +208,9 @@ export class MdcList implements AfterContentInit, OnDestroy {
       }
       return matches.call(ele, 'button:not(:disabled), a');
     },
-    setTabIndexForListItemChildren: (listItemIndex, tabIndexValue) => {
+    setTabIndexForListItemChildren: (listItemIndex: number, tabIndexValue: number) => {
       const listItemChildren = [].slice.call(this._listItems.toArray()[listItemIndex].getListItemElement()
-        .querySelectorAll('button:not(:disabled), a'));
+        .querySelectorAll('.mdc-list-item button:not(:disabled), .mdc-list-item a'));
       listItemChildren.forEach((ele) => ele.setAttribute('tabindex', tabIndexValue));
     }
   };

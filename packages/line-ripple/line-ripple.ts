@@ -5,14 +5,12 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core';
-import { EventRegistry } from '@angular-mdc/web/common';
 
 import { MDCLineRippleAdapter } from '@material/line-ripple/adapter';
 import { MDCLineRippleFoundation } from '@material/line-ripple';
 
 @Directive({
-  selector: '[mdcLineRipple], mdc-line-ripple',
-  providers: [EventRegistry]
+  selector: '[mdcLineRipple], mdc-line-ripple'
 })
 export class MdcLineRipple implements OnInit, OnDestroy {
   @HostBinding('class.mdc-line-ripple') isHostClass = true;
@@ -23,8 +21,9 @@ export class MdcLineRipple implements OnInit, OnDestroy {
     hasClass: (className: string) => this._getHostElement().classList.contains(className),
     setStyle: (propertyName: string, value: string) => this._getHostElement().style.setProperty(propertyName, value),
     registerEventHandler: (evtType: string, handler: EventListener) =>
-      this._registry.listen(evtType, handler, this._getHostElement()),
-    deregisterEventHandler: (evtType: string, handler: EventListener) => this._registry.unlisten(evtType, handler)
+      this._getHostElement().addEventListener(evtType, handler),
+    deregisterEventHandler: (evtType: string, handler: EventListener) =>
+      this._getHostElement().removeEventListener(evtType, handler)
   };
 
   foundation: {
@@ -35,9 +34,7 @@ export class MdcLineRipple implements OnInit, OnDestroy {
     setRippleCenter(xCoordinate: number): void
   } = new MDCLineRippleFoundation(this._mdcAdapter);
 
-  constructor(
-    public elementRef: ElementRef,
-    private _registry: EventRegistry) { }
+  constructor(public elementRef: ElementRef) { }
 
   ngOnInit(): void {
     this.foundation.init();
@@ -60,7 +57,7 @@ export class MdcLineRipple implements OnInit, OnDestroy {
   /**
    * Sets the transform origin given a user's click location.
    * The `rippleCenter` is the x-coordinate of the middle of the ripple.
-  */
+   */
   setRippleCenter(xCoordinate: number): void {
     this.foundation.setRippleCenter(xCoordinate);
   }

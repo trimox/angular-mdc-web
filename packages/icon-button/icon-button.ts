@@ -16,7 +16,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { EventRegistry, toBoolean } from '@angular-mdc/web/common';
+import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
 import { MDCIconButtonToggleAdapter } from '@material/icon-button/adapter';
@@ -47,7 +47,6 @@ let nextUniqueId = 0;
   },
   providers: [
     MDC_ICON_BUTTON_CONTROL_VALUE_ACCESSOR,
-    EventRegistry,
     MdcRipple
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -159,8 +158,7 @@ export class MdcIconButton implements AfterViewInit, OnDestroy {
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef,
-    public ripple: MdcRipple,
-    private _registry: EventRegistry) { }
+    public ripple: MdcRipple) { }
 
   ngAfterViewInit(): void {
     this._foundation.init();
@@ -221,7 +219,7 @@ export class MdcIconButton implements AfterViewInit, OnDestroy {
       this._getHostElement().setAttribute('data-toggle-off-content', iconOff);
     } else {
       this._getHostElement().removeAttribute('data-toggle-off-content');
-      this._getHostElement().setAttribute('data-toggle-on-class', iconOff);
+      this._getHostElement().setAttribute('data-toggle-off-class', iconOff);
     }
     this._foundation.refreshToggleData();
   }

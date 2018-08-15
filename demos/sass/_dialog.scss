@@ -1,0 +1,17 @@
+//
+// Dialog
+//
+
+.mdc-dialog.demo-dialog {
+  @media (max-width: 599px) {
+    &__surface {
+      width: calc(100% - 30px);
+    }
+  }
+
+  @media (min-width: 600px) {
+    &__surface {
+      width: auto;
+    }
+  }
+}

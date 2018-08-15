@@ -1,0 +1,27 @@
+//
+// Drawer
+//
+
+.demo-drawer--cursor-pointer {
+  .mdc-list-item {
+    cursor: pointer;
+  }
+}
+
+.demo-drawer--custom {
+  @include mdc-drawer-ink-color(#fff);
+}
+
+.demo-content__drawer {
+  border: 1px solid rgba(0, 0, 0, .1);
+  overflow-x: auto;
+
+  &--persistent {
+    display: flex;
+    height: 55vh;
+
+    .mdc-drawer--persistent:not(.mdc-drawer--open) {
+      display: none;
+    }
+  }
+}

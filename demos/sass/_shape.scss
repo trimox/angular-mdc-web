@@ -1,0 +1,57 @@
+//
+// Shape
+//
+
+.demo-two-corner-container {
+  @include mdc-shape-angled-corner($mdc-theme-background, $mdc-button-height / 4, 0);
+}
+
+.demo-four-corner-container {
+  margin: 0 8px;
+  @include mdc-shape-angled-corner($mdc-theme-background, $mdc-button-height / 4 + 1);
+}
+
+.demo-two-corner-container--outlined,
+.demo-four-corner-container--outlined {
+  @include mdc-shape-angled-corner-outline(2px, $mdc-theme-primary);
+}
+
+.demo-shape-card-container {
+  @include mdc-shape-angled-corner($mdc-theme-background, 24px, 4px);
+  @include mdc-shape-angled-corner-outline($mdc-card-outline-width, $mdc-card-outline-color);
+}
+
+.demo-shape-card {
+  @include mdc-card-corner-radius(24px 4px);
+
+  @include mdc-rtl {
+    @include mdc-card-corner-radius(4px 24px);
+  }
+}
+
+.demo-shape-card--row {
+  display: flex;
+}
+
+.demo-shape-card__media {
+  background-image: url(https://material-components-web.appspot.com/images/1-1.jpg);
+
+  width: 110px;
+  border-top-left-radius: inherit;
+
+  @include mdc-rtl {
+    border-top-left-radius: 0;
+    border-top-right-radius: inherit;
+  }
+}
+
+.demo-shape-card__info {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 16px;
+}
+
+.demo-shape-fab-container {
+  margin: 0 8px;
+  @include mdc-shape-angled-corner($mdc-theme-background, 56px / 2);
+}

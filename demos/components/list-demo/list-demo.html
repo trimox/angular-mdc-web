@@ -1,444 +1,405 @@
-<div class="demo-page">
-  <div class="markdown-body">
-    <h1>Lists</h1>
-    Lists are continuous, vertical indexes of text or images.
-    <h2>References</h2>
-    <ul>
-      <li><a mdc-button href="https://material.io/guidelines/components/lists.html"
-        target="_blank" rel="noopener noreferrer">Material Design guidelines: Lists</a>
-      </li>
-      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-list/README.md"
-        target="_blank" rel="noopener noreferrer">Material Components Web</a>
-      </li>
-    </ul>
-    <h2>Import</h2>
-    <pre><code><![CDATA[import { MdcListModule } from '@angular-mdc/web';]]></code></pre>
+<div class="demo-layout__column demo-layout--center">
+  <div class="demo-page">
+    <div class="markdown-body">
+      <h1>Lists</h1>
+      Lists are continuous, vertical indexes of text or images.
+      <h2>References</h2>
+      <ul>
+        <li><a mdc-button href="https://material.io/guidelines/components/lists.html"
+          target="_blank" rel="noopener noreferrer">Material Design guidelines: Lists</a>
+        </li>
+        <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-list/README.md"
+          target="_blank" rel="noopener noreferrer">Material Components Web</a>
+        </li>
+      </ul>
+      <h2>Import</h2>
+      <p class="docs-api-module-import"><![CDATA[import { MdcListModule } from '@angular-mdc/web';]]></p>
 
-    <h2>Design & API Documentation</h2>
-    <div class="docs-api">
-      <h3>mdc-list-group, [mdcListGroup]</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>Optional, wrapper around two or more mdc-list elements to be grouped together.</td>
-          </tr>
-        </tbody>
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th>Properties</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>subheader: string</td>
-            <td>Optional, heading text displayed above each list in a group.</td>
-          </tr>
-        </tbody>
-      </table>
+      <h2>Design & API Documentation</h2>
+      <div class="docs-api">
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdc-list-group</span>
+        </p>
+        <table>
+          <tbody>
+            <tr>
+              <td>Optional, wrapper around two or more mdc-list elements to be grouped together.</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Properties</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>subheader: string</td>
+              <td>Optional, heading text displayed above each list in a group.</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <h3>mdc-list-group-subheader, [mdcListGroupSubheader]</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>Optional, heading text displayed above each list in a group.</td>
-          </tr>
-        </tbody>
-      </table>
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdc-list-group-subheader</span>
+        </p>
+        <table>
+          <tbody>
+            <tr>
+              <td>Optional, heading text displayed above each list in a group.</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <h3>mdc-list</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Properties</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>dense: boolean</td>
-            <td>Increases the density of the list, making it appear more compact.</td>
-          </tr>
-          <tr>
-            <td>lines: number</td>
-            <td>Increases the height of the row to give it greater visual separation from adjacent rows.
-            (For two line list, use 2. Default is 1)</td>
-          </tr>
-          <tr>
-            <td>avatar: boolean</td>
-            <td>Configures the leading tiles of each row to display images instead of icons.</td>
-          </tr>
-          <tr>
-            <td>border: boolean</td>
-            <td>Sets a border around each list item.</td>
-          </tr>
-          <tr>
-            <td>selection: boolean</td>
-            <td>Enables whether or not the list items are selectable. Default is false.</td>
-          </tr>
-          <tr>
-            <td>interactive: boolean</td>
-            <td>List items receive styles for hover, focus, and press states (including the ripple). Default is true.</td>
-          </tr>
-        </tbody>
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th>Methods</th>
-            <th>Parameters</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>clearSelected(skip?: MdcListItem)</td>
-            <td>Clear all selected items, and optionally skip mdc-item-item.</td>
-          </tr>
-          <tr>
-            <td>setSelectedIndex(index: number)</td>
-            <td>Sets the currently selected list item.</td>
-          </tr>
-          <tr>
-            <td>getSelectedIndex(): number</td>
-            <td>Returns the currently selected item index.</td>
-          </tr>
-          <tr>
-            <td>focusFirstElement()</td>
-            <td>Sets focus to the first element in a list.</td>
-          </tr>
-          <tr>
-            <td>focusLastElement()</td>
-            <td>Sets focus to the last element in a list.</td>
-          </tr>
-        </tbody>
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th>Event</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>selectionChange: MdcListItemChange</td>
-            <td>Change event that is being fired whenever the selected state of an option changes.</td>
-          </tr>
-        </tbody>
-      </table>
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdc-list</span>
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Properties</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>dense: boolean</td>
+              <td>Increases the density of the list, making it appear more compact.</td>
+            </tr>
+            <tr>
+              <td>lines: number</td>
+              <td>Increases the height of the row to give it greater visual separation from adjacent rows.
+              (For two line list, use 2. Default is 1)</td>
+            </tr>
+            <tr>
+              <td>avatar: boolean</td>
+              <td>Configures the leading tiles of each row to display images instead of icons.</td>
+            </tr>
+            <tr>
+              <td>border: boolean</td>
+              <td>Sets a border around each list item.</td>
+            </tr>
+            <tr>
+              <td>selection: boolean</td>
+              <td>Enables whether or not the list items are selectable. Default is false.</td>
+            </tr>
+            <tr>
+              <td>interactive: boolean</td>
+              <td>List items receive styles for hover, focus, and press states (including the ripple). Default is true.</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Methods</th>
+              <th>Parameters</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>clearSelected(skip?: MdcListItem)</td>
+              <td>Clear all selected items, and optionally skip mdc-item-item.</td>
+            </tr>
+            <tr>
+              <td>setSelectedIndex(index: number)</td>
+              <td>Sets the currently selected list item.</td>
+            </tr>
+            <tr>
+              <td>getSelectedIndex(): number</td>
+              <td>Returns the currently selected item index.</td>
+            </tr>
+            <tr>
+              <td>focusFirstElement()</td>
+              <td>Sets focus to the first element in a list.</td>
+            </tr>
+            <tr>
+              <td>focusLastElement()</td>
+              <td>Sets focus to the last element in a list.</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>selectionChange: MdcListItemChange</td>
+              <td>Change event that is being fired whenever the selected state of an option changes.</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <h3>mdc-list-item</h3>
-      <h3 class="small-margin">a[mdc-list-item]</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Properties</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>selected: boolean</td>
-            <td>Whether or not the item is selected.</td>
-          </tr>
-        </tbody>
-      </table>
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdc-list-item</span>
+          <span class="docs-api-class-selector-name">a[mdc-list-item]</span>
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Properties</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>selected: boolean</td>
+              <td>Whether or not the item is selected.</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <h3>[mdcListItemGraphic]</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>The first tile in the row. Typically an icon or image.</td>
-          </tr>
-        </tbody>
-      </table>
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdcListItemGraphic</span>
+        </p>
+        <table>
+          <tbody>
+            <tr>
+              <td>The first tile in the row. Typically an icon or image.</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <h3>[mdcListItemMeta]</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>The last tile in the row. Typically small text, icon or image.</td>
-          </tr>
-        </tbody>
-      </table>
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdcListItemMeta</span>
+        </p>
+        <table>
+          <tbody>
+            <tr>
+              <td>The last tile in the row. Typically small text, icon or image.</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <h3>mdc-list-item-text, [mdcListItemText]</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>Primary text for the row (displayed as the middle tile)</td>
-          </tr>
-        </tbody>
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th>Properties</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>secondaryText: string</td>
-            <td>Optional secondary text for the list item. Displayed below the primary text.</td>
-          </tr>
-        </tbody>
-      </table>
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdc-list-item-text</span>
+        </p>
+        <table>
+          <tbody>
+            <tr>
+              <td>Primary text for the row (displayed as the middle tile)</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Properties</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>secondaryText: string</td>
+              <td>Optional secondary text for the list item. Displayed below the primary text.</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <h3>mdc-list-item-secondary, [mdcListItemSecondary]</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>Secondary text for the list item. Displayed below the primary text.</td>
-          </tr>
-        </tbody>
-      </table>
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdc-list-item-secondary</span>
+        </p>
+        <table>
+          <tbody>
+            <tr>
+              <td>Secondary text for the list item. Displayed below the primary text.</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <h3>mdc-list-divider</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Properties</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>inset: boolean</td>
-            <td>Increases the leading margin of the divider so that it does not intersect the avatar column.</td>
-          </tr>
-          <tr>
-            <td>padded: boolean</td>
-            <td>To make a divider match the padding of list items.</td>
-          </tr>
-        </tbody>
-      </table>
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdc-list-divider</span>
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Properties</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>inset: boolean</td>
+              <td>Increases the leading margin of the divider so that it does not intersect the avatar column.</td>
+            </tr>
+            <tr>
+              <td>padded: boolean</td>
+              <td>To make a divider match the padding of list items.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h2>Sass Mixins</h2>
+      To customize the list ink colors, use the following mixins.
+      <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-list#sass-mixins"
+       target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
+
+      <h2>Basic Usage</h2>
+      <a mdc-button href="https://stackblitz.com/edit/angular-mdc-list"
+       target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
     </div>
-    <h2>Sass Mixins</h2>
-    To customize the list ink colors, use the following mixins.
-    <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-list#sass-mixins"
-     target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
 
-    <h2>Basic Usage</h2>
-    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-list"
-     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
-  </div>
-
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Custom</h3>
-    <div class="demo-content--row">
-      <button mdc-button (click)="custom.border = !custom.border">Border: {{custom.border ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="custom.dense = !custom.dense">Dense: {{custom.dense ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="custom.selection = !custom.selection">Selection: {{custom.selection ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="custom.interactive = !custom.interactive">Interactive: {{custom.interactive ? 'On' : 'Off'}}</button>
-    </div>
-    <mdc-list-group subheader="Folders">
-      <mdc-list #custom [lines]="2" avatar class="demo-list--custom">
-        <mdc-list-item>
-          <mdc-icon mdcListItemGraphic>folder</mdc-icon>
-          <mdc-list-item-text secondaryText="Jan 9, 2015">Photos</mdc-list-item-text>
-          <a href="#" mdcListItemMeta mdcIcon
-            aria-label="View more information" title="More info"
-            onclick="event.preventDefault();">info</a>
+    <div class="demo-content">
+      <h3 class="demo-content__headline">Custom</h3>
+      <div class="demo-layout__row">
+        <button mdc-button (click)="custom.border = !custom.border">Border: {{custom.border ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="custom.dense = !custom.dense">Dense: {{custom.dense ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="custom.selection = !custom.selection">Selection: {{custom.selection ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="custom.interactive = !custom.interactive">Interactive: {{custom.interactive ? 'On' : 'Off'}}</button>
+      </div>
+      <mdc-list-group subheader="Folders">
+        <mdc-list #custom [lines]="2" avatar class="demo-list--custom">
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic>folder</mdc-icon>
+            <mdc-list-item-text secondaryText="Jan 9, 2015">Photos</mdc-list-item-text>
+            <a href="#" mdcListItemMeta mdcIcon
+              aria-label="View more information" title="More info"
+              onclick="event.preventDefault();">info</a>
+            </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic>folder</mdc-icon>
+            <mdc-list-item-text secondaryText="Jan 17, 2015">Recipes</mdc-list-item-text>
+            <a href="#" mdcListItemMeta mdcIcon
+              aria-label="View more information" title="More info"
+              onclick="event.preventDefault();">info</a>
           </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic>folder</mdc-icon>
+            <mdc-list-item-text secondaryText="Jan 28, 2015">Work</mdc-list-item-text>
+            <a href="#" mdcListItemMeta mdcIcon
+              aria-label="View more information" title="More info"
+              onclick="event.preventDefault();">info</a>
+          </mdc-list-item>
+          <mdc-list-divider inset></mdc-list-divider>
+          <h3 mdcListGroupSubheader>Files</h3>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic>insert_drive_file</mdc-icon>
+            <mdc-list-item-text>Vacation Itinerary
+              <mdc-list-item-secondary>Jan 10, 2015</mdc-list-item-secondary>
+            </mdc-list-item-text>
+            <a href="#" mdcListItemMeta mdcIcon
+              aria-label="View more information" title="More info"
+              onclick="event.preventDefault();">info</a>
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic>insert_drive_file</mdc-icon>
+            <mdc-list-item-text>Kitchen Remodel
+              <mdc-list-item-secondary>Jan 20, 2015</mdc-list-item-secondary>
+            </mdc-list-item-text>
+            <a href="#" mdcListItemMeta mdcIcon
+              aria-label="View more information" title="More info"
+              onclick="event.preventDefault();">info</a>
+          </mdc-list-item>
+        </mdc-list>
+      </mdc-list-group>
+    </div>
+
+    <div class="demo-content">
+      <h3 class="demo-content__headline">Single-Line</h3>
+      <div class="demo-layout__row">
+        <button mdc-button (click)="singleline.border = !singleline.border">Border: {{singleline.border ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="singleline.dense = !singleline.dense">Dense: {{singleline.dense ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="singleline.selection = !singleline.selection">Selection: {{singleline.selection ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="singleline.interactive = !singleline.interactive">Interactive: {{singleline.interactive ? 'On' : 'Off'}}</button>
+      </div>
+      <mdc-list #singleline>
+        <mdc-list-item>Single-line item</mdc-list-item>
+        <mdc-list-item>Single-line item</mdc-list-item>
+        <mdc-list-item>Single-line item</mdc-list-item>
+      </mdc-list>
+    </div>
+
+    <div class="demo-content">
+      <h3 class="demo-content__headline">Two-line</h3>
+      <div class="demo-layout__row">
+        <button mdc-button (click)="twoline.border = !twoline.border">Border: {{twoline.border ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="twoline.dense = !twoline.dense">Dense: {{twoline.dense ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="twoline.selection = !twoline.selection">Selection: {{twoline.selection ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="twoline.interactive = !twoline.interactive">Interactive: {{twoline.interactive ? 'On' : 'Off'}}</button>
+      </div>
+      <mdc-list #twoline [lines]="2">
         <mdc-list-item>
-          <mdc-icon mdcListItemGraphic>folder</mdc-icon>
-          <mdc-list-item-text secondaryText="Jan 17, 2015">Recipes</mdc-list-item-text>
-          <a href="#" mdcListItemMeta mdcIcon
-            aria-label="View more information" title="More info"
-            onclick="event.preventDefault();">info</a>
+          <mdc-list-item-text secondaryText="Secondary text">Single-line item</mdc-list-item-text>
         </mdc-list-item>
         <mdc-list-item>
-          <mdc-icon mdcListItemGraphic>folder</mdc-icon>
-          <mdc-list-item-text secondaryText="Jan 28, 2015">Work</mdc-list-item-text>
-          <a href="#" mdcListItemMeta mdcIcon
-            aria-label="View more information" title="More info"
-            onclick="event.preventDefault();">info</a>
-        </mdc-list-item>
-        <mdc-list-divider inset></mdc-list-divider>
-        <h3 mdcListGroupSubheader>Files</h3>
-        <mdc-list-item>
-          <mdc-icon mdcListItemGraphic>insert_drive_file</mdc-icon>
-          <mdc-list-item-text>Vacation Itinerary
-            <mdc-list-item-secondary>Jan 10, 2015</mdc-list-item-secondary>
-          </mdc-list-item-text>
-          <a href="#" mdcListItemMeta mdcIcon
-            aria-label="View more information" title="More info"
-            onclick="event.preventDefault();">info</a>
+          <mdc-list-item-text secondaryText="Secondary text">Single-line item</mdc-list-item-text>
         </mdc-list-item>
         <mdc-list-item>
-          <mdc-icon mdcListItemGraphic>insert_drive_file</mdc-icon>
-          <mdc-list-item-text>Kitchen Remodel
-            <mdc-list-item-secondary>Jan 20, 2015</mdc-list-item-secondary>
-          </mdc-list-item-text>
-          <a href="#" mdcListItemMeta mdcIcon
-            aria-label="View more information" title="More info"
-            onclick="event.preventDefault();">info</a>
+          <mdc-list-item-text secondaryText="Secondary text">Single-line item</mdc-list-item-text>
         </mdc-list-item>
       </mdc-list>
-    </mdc-list-group>
-  </div>
-
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Single-Line</h3>
-    <div class="demo-content--row">
-      <button mdc-button (click)="singleline.border = !singleline.border">Border: {{singleline.border ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="singleline.dense = !singleline.dense">Dense: {{singleline.dense ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="singleline.selection = !singleline.selection">Selection: {{singleline.selection ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="singleline.interactive = !singleline.interactive">Interactive: {{singleline.interactive ? 'On' : 'Off'}}</button>
     </div>
-    <mdc-list #singleline>
-      <mdc-list-item>Single-line item</mdc-list-item>
-      <mdc-list-item>Single-line item</mdc-list-item>
-      <mdc-list-item>Single-line item</mdc-list-item>
-    </mdc-list>
-  </div>
 
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Two-line</h3>
-    <div class="demo-content--row">
-      <button mdc-button (click)="twoline.border = !twoline.border">Border: {{twoline.border ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="twoline.dense = !twoline.dense">Dense: {{twoline.dense ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="twoline.selection = !twoline.selection">Selection: {{twoline.selection ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="twoline.interactive = !twoline.interactive">Interactive: {{twoline.interactive ? 'On' : 'Off'}}</button>
+    <div class="demo-content">
+      <h3 class="demo-content__headline">Start Graphic</h3>
+      <div class="demo-layout__row">
+        <button mdc-button (click)="startgraphic.border = !startgraphic.border">Border: {{startgraphic.border ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="startgraphic.dense = !startgraphic.dense">Dense: {{startgraphic.dense ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="startgraphic.selection = !startgraphic.selection">Selection: {{startgraphic.selection ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="startgraphic.interactive = !startgraphic.interactive">Interactive: {{startgraphic.interactive ? 'On' : 'Off'}}</button>
+      </div>
+      <mdc-list #startgraphic>
+        <mdc-list-item>
+          <mdc-icon mdcListItemGraphic>network_wifi</mdc-icon>
+          <mdc-list-item-text>Wi-Fi</mdc-list-item-text>
+        </mdc-list-item>
+        <mdc-list-item>
+          <mdc-icon mdcListItemGraphic>bluetooth</mdc-icon>
+          <mdc-list-item-text>Bluetooth</mdc-list-item-text>
+        </mdc-list-item>
+        <mdc-list-item>
+          <mdc-icon mdcListItemGraphic>data_usage</mdc-icon>
+          <mdc-list-item-text>Data Usage</mdc-list-item-text>
+        </mdc-list-item>
+      </mdc-list>
     </div>
-    <mdc-list #twoline [lines]="2">
-      <mdc-list-item>
-        <mdc-list-item-text secondaryText="Secondary text">Single-line item</mdc-list-item-text>
-      </mdc-list-item>
-      <mdc-list-item>
-        <mdc-list-item-text secondaryText="Secondary text">Single-line item</mdc-list-item-text>
-      </mdc-list-item>
-      <mdc-list-item>
-        <mdc-list-item-text secondaryText="Secondary text">Single-line item</mdc-list-item-text>
-      </mdc-list-item>
-    </mdc-list>
-  </div>
 
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Start Graphic</h3>
-    <div class="demo-content--row">
-      <button mdc-button (click)="startgraphic.border = !startgraphic.border">Border: {{startgraphic.border ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="startgraphic.dense = !startgraphic.dense">Dense: {{startgraphic.dense ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="startgraphic.selection = !startgraphic.selection">Selection: {{startgraphic.selection ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="startgraphic.interactive = !startgraphic.interactive">Interactive: {{startgraphic.interactive ? 'On' : 'Off'}}</button>
+    <div class="demo-content">
+      <h3 class="demo-content__headline">End Meta</h3>
+      <div class="demo-layout__row">
+        <button mdc-button (click)="endmeta.border = !endmeta.border">Border: {{endmeta.border ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="endmeta.dense = !endmeta.dense">Dense: {{endmeta.dense ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="endmeta.interactive = !endmeta.interactive">Interactive: {{endmeta.interactive ? 'On' : 'Off'}}</button>
+      </div>
+      <mdc-list #endmeta>
+        <mdc-list-item>
+          <mdc-list-item-text>Wi-Fi</mdc-list-item-text>
+          <mdc-icon mdcListItemMeta>info</mdc-icon>
+        </mdc-list-item>
+        <mdc-list-item>
+          <mdc-list-item-text>Bluetooth</mdc-list-item-text>
+          <mdc-icon mdcListItemMeta>info</mdc-icon>
+        </mdc-list-item>
+        <mdc-list-item>
+          <mdc-list-item-text>Data Usage</mdc-list-item-text>
+          <mdc-icon mdcListItemMeta>info</mdc-icon>
+        </mdc-list-item>
+      </mdc-list>
     </div>
-    <mdc-list #startgraphic>
-      <mdc-list-item>
-        <mdc-icon mdcListItemGraphic>network_wifi</mdc-icon>
-        <mdc-list-item-text>Wi-Fi</mdc-list-item-text>
-      </mdc-list-item>
-      <mdc-list-item>
-        <mdc-icon mdcListItemGraphic>bluetooth</mdc-icon>
-        <mdc-list-item-text>Bluetooth</mdc-list-item-text>
-      </mdc-list-item>
-      <mdc-list-item>
-        <mdc-icon mdcListItemGraphic>data_usage</mdc-icon>
-        <mdc-list-item-text>Data Usage</mdc-list-item-text>
-      </mdc-list-item>
-    </mdc-list>
-  </div>
 
-  <div class="demo-content">
-    <h3 class="demo-content__headline">End Meta</h3>
-    <div class="demo-content--row">
-      <button mdc-button (click)="endmeta.border = !endmeta.border">Border: {{endmeta.border ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="endmeta.dense = !endmeta.dense">Dense: {{endmeta.dense ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="endmeta.interactive = !endmeta.interactive">Interactive: {{endmeta.interactive ? 'On' : 'Off'}}</button>
-    </div>
-    <mdc-list #endmeta>
-      <mdc-list-item>
-        <mdc-list-item-text>Wi-Fi</mdc-list-item-text>
-        <mdc-icon mdcListItemMeta>info</mdc-icon>
-      </mdc-list-item>
-      <mdc-list-item>
-        <mdc-list-item-text>Bluetooth</mdc-list-item-text>
-        <mdc-icon mdcListItemMeta>info</mdc-icon>
-      </mdc-list-item>
-      <mdc-list-item>
-        <mdc-list-item-text>Data Usage</mdc-list-item-text>
-        <mdc-icon mdcListItemMeta>info</mdc-icon>
-      </mdc-list-item>
-    </mdc-list>
-  </div>
-
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Start and End Graphic/Meta Detail</h3>
-    <div class="demo-content--row">
-      <button mdc-button (click)="startend.border = !startend.border">Border: {{startend.border ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="startend.dense = !startend.dense">Dense: {{startend.dense ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="startend.interactive = !startend.interactive">Interactive: {{startend.interactive ? 'On' : 'Off'}}</button>
-    </div>
-    <mdc-list #startend>
-      <mdc-list-item>
-        <mdc-icon mdcListItemGraphic>network_wifi</mdc-icon>Wi-Fi
-        <mdc-icon mdcListItemMeta>info</mdc-icon>
-      </mdc-list-item>
-      <mdc-list-item>
-        <mdc-icon mdcListItemGraphic>bluetooth</mdc-icon>Bluetooth
-        <mdc-icon mdcListItemMeta>info</mdc-icon>
-      </mdc-list-item>
-      <mdc-list-item>
-        <mdc-icon mdcListItemGraphic>data_usage</mdc-icon>Data Usage
-        <mdc-icon mdcListItemMeta>info</mdc-icon>
-      </mdc-list-item>
-    </mdc-list>
-  </div>
-
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Checkbox List</h3>
-    <div class="demo-content--row">
-      <button mdc-button (click)="checkboxes.border = !checkboxes.border">Border: {{checkboxes.border ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="checkboxes.dense = !checkboxes.dense">Dense: {{checkboxes.dense ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="checkboxes.selection = !checkboxes.selection">Selection: {{checkboxes.selection ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="checkboxes.interactive = !checkboxes.interactive">Interactive: {{checkboxes.interactive ? 'On' : 'Off'}}</button>
-    </div>
-    <mdc-list #checkboxes>
-      <mdc-list-item (click)="checkbox1.toggle()">
-        Single-line item
-        <mdc-checkbox #checkbox1 mdcListItemMeta></mdc-checkbox>
-      </mdc-list-item>
-      <mdc-list-item (click)="checkbox2.toggle()">
-        Single-line item
-        <mdc-checkbox #checkbox2 mdcListItemMeta></mdc-checkbox>
-      </mdc-list-item>
-      <mdc-list-item (click)="checkbox3.toggle()">
-        Single-line item
-        <mdc-checkbox #checkbox3 mdcListItemMeta></mdc-checkbox>
-      </mdc-list-item>
-    </mdc-list>
-  </div>
-
- <div class="demo-content">
-    <h3 class="demo-content__headline">Avatars</h3>
-    <div class="demo-content--row">
-      <button mdc-button (click)="avatar.border = !avatar.border">Border: {{avatar.border ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="avatar.dense = !avatar.dense">Dense: {{avatar.dense ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="avatar.interactive = !avatar.interactive">Interactive: {{avatar.interactive ? 'On' : 'Off'}}</button>
-    </div>
-    <mdc-list #avatar>
-      <mdc-list-item>
-        <mdc-icon mdcListItemGraphic>person</mdc-icon>Single-line item
-      </mdc-list-item>
-      <mdc-list-item>
-        <mdc-icon mdcListItemGraphic>person</mdc-icon>Single-line item
-      </mdc-list-item>
-      <mdc-list-item>
-        <mdc-icon mdcListItemGraphic>person</mdc-icon>Single-line item
-      </mdc-list-item>
-    </mdc-list>
-  </div>
-
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Group Lists</h3>
-    <div class="demo-content--row">
-      <button mdc-button (click)="divider.inset = !divider.inset">Divider Inset: {{divider.inset ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="divider.padded = !divider.padded">Divider Padded: {{divider.padded ? 'On' : 'Off'}}</button>
-    </div>
-    <mdc-list-group subheader="First Group">
-      <mdc-list>
+    <div class="demo-content">
+      <h3 class="demo-content__headline">Start and End Graphic/Meta Detail</h3>
+      <div class="demo-layout__row">
+        <button mdc-button (click)="startend.border = !startend.border">Border: {{startend.border ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="startend.dense = !startend.dense">Dense: {{startend.dense ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="startend.interactive = !startend.interactive">Interactive: {{startend.interactive ? 'On' : 'Off'}}</button>
+      </div>
+      <mdc-list #startend>
         <mdc-list-item>
           <mdc-icon mdcListItemGraphic>network_wifi</mdc-icon>Wi-Fi
           <mdc-icon mdcListItemMeta>info</mdc-icon>
@@ -452,9 +413,40 @@
           <mdc-icon mdcListItemMeta>info</mdc-icon>
         </mdc-list-item>
       </mdc-list>
-      <mdc-list-divider #divider></mdc-list-divider>
-      <h3 mdcListGroupSubheader>Second Group</h3>
-      <mdc-list [avatar]="true">
+    </div>
+
+    <div class="demo-content">
+      <h3 class="demo-content__headline">Checkbox List</h3>
+      <div class="demo-layout__row">
+        <button mdc-button (click)="checkboxes.border = !checkboxes.border">Border: {{checkboxes.border ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="checkboxes.dense = !checkboxes.dense">Dense: {{checkboxes.dense ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="checkboxes.selection = !checkboxes.selection">Selection: {{checkboxes.selection ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="checkboxes.interactive = !checkboxes.interactive">Interactive: {{checkboxes.interactive ? 'On' : 'Off'}}</button>
+      </div>
+      <mdc-list #checkboxes>
+        <mdc-list-item (click)="checkbox1.toggle()">
+          Single-line item
+          <mdc-checkbox #checkbox1 mdcListItemMeta></mdc-checkbox>
+        </mdc-list-item>
+        <mdc-list-item (click)="checkbox2.toggle()">
+          Single-line item
+          <mdc-checkbox #checkbox2 mdcListItemMeta></mdc-checkbox>
+        </mdc-list-item>
+        <mdc-list-item (click)="checkbox3.toggle()">
+          Single-line item
+          <mdc-checkbox #checkbox3 mdcListItemMeta></mdc-checkbox>
+        </mdc-list-item>
+      </mdc-list>
+    </div>
+
+   <div class="demo-content">
+      <h3 class="demo-content__headline">Avatars</h3>
+      <div class="demo-layout__row">
+        <button mdc-button (click)="avatar.border = !avatar.border">Border: {{avatar.border ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="avatar.dense = !avatar.dense">Dense: {{avatar.dense ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="avatar.interactive = !avatar.interactive">Interactive: {{avatar.interactive ? 'On' : 'Off'}}</button>
+      </div>
+      <mdc-list #avatar>
         <mdc-list-item>
           <mdc-icon mdcListItemGraphic>person</mdc-icon>Single-line item
         </mdc-list-item>
@@ -465,6 +457,43 @@
           <mdc-icon mdcListItemGraphic>person</mdc-icon>Single-line item
         </mdc-list-item>
       </mdc-list>
-    </mdc-list-group>
+    </div>
+
+    <div class="demo-content">
+      <h3 class="demo-content__headline">Group Lists</h3>
+      <div class="demo-layout__row">
+        <button mdc-button (click)="divider.inset = !divider.inset">Divider Inset: {{divider.inset ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="divider.padded = !divider.padded">Divider Padded: {{divider.padded ? 'On' : 'Off'}}</button>
+      </div>
+      <mdc-list-group subheader="First Group">
+        <mdc-list>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic>network_wifi</mdc-icon>Wi-Fi
+            <mdc-icon mdcListItemMeta>info</mdc-icon>
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic>bluetooth</mdc-icon>Bluetooth
+            <mdc-icon mdcListItemMeta>info</mdc-icon>
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic>data_usage</mdc-icon>Data Usage
+            <mdc-icon mdcListItemMeta>info</mdc-icon>
+          </mdc-list-item>
+        </mdc-list>
+        <mdc-list-divider #divider></mdc-list-divider>
+        <h3 mdcListGroupSubheader>Second Group</h3>
+        <mdc-list [avatar]="true">
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic>person</mdc-icon>Single-line item
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic>person</mdc-icon>Single-line item
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic>person</mdc-icon>Single-line item
+          </mdc-list-item>
+        </mdc-list>
+      </mdc-list-group>
+    </div>
   </div>
 </div>

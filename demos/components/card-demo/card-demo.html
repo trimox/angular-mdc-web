@@ -1,228 +1,264 @@
-<div class="demo-page">
-  <div class="markdown-body">
-    <h1>Cards</h1>
-    MDC Card is a component that implements the Material Design card component, and makes it available to developers as a set of CSS classes.
-    <h2>References</h2>
-    <ul>
-      <li><a mdc-button href="https://material.io/design/components/cards.html"
-        target="_blank" rel="noopener noreferrer">Material Design guidelines: Cards</a>
-      </li>
-      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-card/README.md"
-        target="_blank" rel="noopener noreferrer">Material Components Web</a>
-      </li>
-    </ul>
-    <h2>Import</h2>
-    <pre><code><![CDATA[import { MdcCardModule } from '@angular-mdc/web';]]></code></pre>
+<div class="demo-layout__column demo-layout--center">
+  <div class="demo-page">
+    <div class="markdown-body">
+      <h1>Cards</h1>
+      MDC Card is a component that implements the Material Design card component, and makes it available to developers as a set of CSS classes.
+      <h2>References</h2>
+      <ul>
+        <li><a mdc-button href="https://material.io/design/components/cards.html"
+          target="_blank" rel="noopener noreferrer">Material Design guidelines: Cards</a>
+        </li>
+        <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-card/README.md"
+          target="_blank" rel="noopener noreferrer">Material Components Web</a>
+        </li>
+      </ul>
+      <h2>Import</h2>
+      <p class="docs-api-module-import"><![CDATA[import { MdcCardModule } from '@angular-mdc/web';]]></p>
 
-    <h2>Design & API Documentation</h2>
-    <div class="docs-api">
-      <h3>mdc-card</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Properties</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>outlined: boolean</td>
-            <td>Removes the shadow and displays a hairline stroke instead.</td>
-          </tr>
-        </tbody>
-      </table>
+      <h2>Design & API Documentation</h2>
+      <div class="docs-api">
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdc-card</span>
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Properties</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>outlined: boolean</td>
+              <td>Removes the shadow and displays a hairline stroke instead.</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <h3>mdc-card-primary-action, mdcCardPrimaryAction</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>The main tappable area of the card. Typically contains most (or all) card content except mdc-card-actions. Only applicable to cards that have a primary action that the main surface should trigger.</td>
-          </tr>
-        </tbody>
-      </table>
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdc-card-primary-action</span>
+          <span class="docs-api-class-selector-name">mdcCardPrimaryAction</span>
+        </p>
+        <table>
+          <tbody>
+            <tr>
+              <td>The main tappable area of the card. Typically contains most (or all) card content except mdc-card-actions.
+              Only applicable to cards that have a primary action that the main surface should trigger.</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <h3>mdc-card-media, mdcCardMedia</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Properties</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>square: boolean</td>
-            <td>Automatically scales the media area's height to equal its width.</td>
-          </tr>
-          <tr>
-            <td>wide: boolean</td>
-            <td>Automatically scales the media area's height according to its width, maintaining a 16:9 aspect ratio.</td>
-          </tr>
-        </tbody>
-      </table>
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdc-card-media</span>
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Properties</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>square: boolean</td>
+              <td>Automatically scales the media area's height to equal its width.</td>
+            </tr>
+            <tr>
+              <td>wide: boolean</td>
+              <td>Automatically scales the media area's height according to its width, maintaining a 16:9 aspect ratio.</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <h3>mdc-card-media-content, mdcCardMediaContent</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>An absolutely-positioned box the same size as the media area, for displaying a title or icon on top of the background-image</td>
-          </tr>
-        </tbody>
-      </table>
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdc-card-media-content</span>
+        </p>
+        <table>
+          <tbody>
+            <tr>
+              <td>An absolutely-positioned box the same size as the media area, for displaying a title or icon on top of the background-image</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <h3>mdc-card-actions, mdcCardActions</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Properties</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>fullBleed: boolean</td>
-            <td>Removes the action area's padding and causes its only child (an mdc-card__action element) to consume 100% of the action area's width.</td>
-          </tr>
-          <tr>
-            <td>icons: boolean</td>
-            <td>A group of supplemental action icons, displayed on the right side of the card (in LTR), adjacent to mdc-card-action buttons</td>
-          </tr>
-          <tr>
-            <td>buttons: boolean</td>
-            <td>A group of action buttons, displayed on the left side of the card (in LTR), adjacent to mdc-card-action icons</td>
-          </tr>
-        </tbody>
-      </table>
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdc-card-actions</span>
+          <span class="docs-api-class-selector-name">mdcCardActions</span>
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Properties</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>fullBleed: boolean</td>
+              <td>Removes the action area's padding and causes its only child (an mdc-card__action element) to consume 100% of the action area's width.</td>
+            </tr>
+            <tr>
+              <td>icons: boolean</td>
+              <td>A group of supplemental action icons, displayed on the right side of the card (in LTR), adjacent to mdc-card-action buttons</td>
+            </tr>
+            <tr>
+              <td>buttons: boolean</td>
+              <td>A group of action buttons, displayed on the left side of the card (in LTR), adjacent to mdc-card-action icons</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <h3>mdc-card-action-icons, mdcCardActionIcons</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>A group of supplemental action icons, displayed on the right side of the card (in LTR), adjacent to mdc-card-action buttons</td>
-          </tr>
-        </tbody>
-      </table>
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdc-card-action-icons</span>
+          <span class="docs-api-class-selector-name">mdcCardActionIcons</span>
+        </p>
+        <table>
+          <tbody>
+            <tr>
+              <td>A group of supplemental action icons, displayed on the right side of the card (in LTR), adjacent to mdc-card-action buttons</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <h3>mdc-card-action-buttons, mdcCardActionButtons</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>A group of action buttons, displayed on the left side of the card (in LTR), adjacent to mdc-card-action icons</td>
-          </tr>
-        </tbody>
-      </table>
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdc-card-action-buttons</span>
+          <span class="docs-api-class-selector-name">mdcCardActionButtons</span>
+        </p>
+        <table>
+          <tbody>
+            <tr>
+              <td>A group of action buttons, displayed on the left side of the card (in LTR), adjacent to mdc-card-action icons</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <h3>mdcCardAction</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>An individual action button or icon. Provide either `icon` or `button`. (e.g.: mdcCardAction="icon" or mdcCardAction="button")</td>
-          </tr>
-        </tbody>
-      </table>
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdcCardAction</span>
+        </p>
+        <table>
+          <tbody>
+            <tr>
+              <td>An individual action button or icon.</td>
+            </tr>
+            <tr>
+              <td>
+                <span mdcSubtitle2>Example: mdcCardAction="icon" or mdcCardAction="button"</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h2>Sass Mixins</h2>
+      To customize the colors, radius and more, use the following mixins.
+      <p><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-card/README.md#sass-mixins"
+       target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
+
+      <h2>Basic Usage</h2>
+      <a mdc-button href="https://stackblitz.com/edit/angular-mdc-card"
+       target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
     </div>
-    <h2>Sass Mixins</h2>
-    To customize the colors, radius and more, use the following mixins.
-    <p><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-card/README.md#sass-mixins"
-     target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
 
-    <h2>Basic Usage</h2>
-    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-card"
-     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
-  </div>
-
-  <mdc-card class="demo-card">
-    <mdc-card-primary-action mdc-ripple>
-      <mdc-card-media class="demo-card__media--16-9" [wide]="true"></mdc-card-media>
-      <div class="demo-card__primary">
-        <h2 class="demo-card__title" mdcHeadline6>Our Changing Planet</h2>
-        <h3 class="demo-card__subtitle" mdcSubtitle2>by Kurt Wagner</h3>
-      </div>
-      <div class="demo-card__secondary" mdcBody2>
-        Visit ten places on our planet that are undergoing the biggest changes today.
-      </div>
-    </mdc-card-primary-action>
-    <mdc-card-actions>
-      <mdc-card-action-buttons>
-        <button mdc-button mdcCardAction="button">Read</button>
-        <button mdc-button mdcCardAction="button">Bookmark</button>
-      </mdc-card-action-buttons>
-      <mdc-card-action-icons>
-        <button mdcIconButton mdcCardAction="icon" iconOn="favorite" iconOff="favorite_border"></button>
-        <mdc-icon mdcCardAction="icon" mdcRipple>share</mdc-icon>
-        <mdc-icon mdcCardAction="icon" mdcRipple>more_vert</mdc-icon>
-      </mdc-card-action-icons>
-    </mdc-card-actions>
-  </mdc-card>
-
-  <mdc-card [outlined]="true" class="demo-card">
-    <div class="demo-card-article-group-heading" mdcSubtitle2>Headlines</div>
-    <mdc-list-divider></mdc-list-divider>
-    <mdc-ripple class="demo-card-article">
-      <h2 class="demo-card-article__title" mdcHeadline5>Copper on the rise</h2>
-      <p class="demo-card-article__snippet" mdcBody2>
-        Copper price soars amid global market optimism and increased demand.
-      </p>
-    </mdc-ripple>
-    <mdc-list-divider></mdc-list-divider>
-    <mdc-ripple class="demo-card-article">
-      <h2 class="demo-card-article__title" mdcHeadline5>U.S. tech startups rebound</h2>
-      <p class="demo-card-article__snippet" mdcBody2>
-        Favorable business conditions have allowed startups to secure more fundraising deals compared to last year.
-      </p>
-    </mdc-ripple>
-    <mdc-list-divider></mdc-list-divider>
-    <mdc-ripple class="demo-card-article">
-      <h2 class="demo-card-article__title" mdcHeadline5>Asia's clean energy ambitions</h2>
-      <p class="demo-card-article__snippet" mdcBody2>
-        China plans to invest billions of dollars for the development of over 300 clean energy projects in Southeast Asia.
-      </p>
-    </mdc-ripple>
-    <mdc-list-divider></mdc-list-divider>
-    <mdc-card-actions [fullBleed]="true">
-      <button mdc-button mdcCardAction="button">
-          All Business Headlines
-          <mdc-icon>arrow_forward</mdc-icon>
-        </button>
-    </mdc-card-actions>
-  </mdc-card>
-
-  <mdc-card class="demo-card demo-card--photo">
-    <mdc-card-primary-action mdc-ripple>
-      <mdc-card-media [square]="true" class="demo-card__media">
-        <mdc-card-media-content class="demo-card__media-content--with-title">
-          <div class="demo-card__media-title" mdcSubtitle2>Vacation Photos</div>
-        </mdc-card-media-content>
-      </mdc-card-media>
-    </mdc-card-primary-action>
-    <mdc-card-actions [icons]="true">
-      <button mdcIconButton mdcCardAction="icon" iconOn="favorite" iconOff="favorite_border"></button>
-      <button mdcIconButton mdcCardAction="icon" iconOn="bookmark" iconOff="bookmark_border"></button>
-      <mdc-icon mdcCardAction="icon" mdcRipple>share</mdc-icon>
-    </mdc-card-actions>
-  </mdc-card>
-
-  <mdc-card class="demo-card demo-card--music">
-    <mdc-card-primary-action mdc-ripple>
-      <div class="demo-card__music-row">
-        <mdc-card-media [square]="true" class="demo-card__media demo-card__media--music"></mdc-card-media>
-        <div class="demo-card__music-info">
-          <div class="demo-card__music-title" mdcHeadline5>Title</div>
-          <div class="demo-card__music-artist" mdcBody2>Under the Grave</div>
-          <div class="demo-card__music-year" mdcBody2>(2016)</div>
+    <mdc-card class="demo-card">
+      <mdc-card-primary-action mdc-ripple>
+        <mdc-card-media class="demo-card__media--16-9" [wide]="true"></mdc-card-media>
+        <div class="demo-card__primary">
+          <h2 class="demo-card__title" mdcHeadline6>Our Changing Planet</h2>
+          <h3 class="demo-card__subtitle" mdcSubtitle2>by Kurt Wagner</h3>
         </div>
-      </div>
-    </mdc-card-primary-action>
-    <mdc-list-divider></mdc-list-divider>
-    <mdc-card-actions>
-      <mdc-card-action-buttons class="demo-card__action-buttons--text-only">Rate album</mdc-card-action-buttons>
-      <mdc-card-action-icons>
-        <button mdcIconButton mdcCardAction="icon" iconOn="star" iconOff="star_border"></button>
-        <button mdcIconButton mdcCardAction="icon" iconOn="star" iconOff="star_border"></button>
-        <button mdcIconButton mdcCardAction="icon" iconOn="star" iconOff="star_border"></button>
-        <button mdcIconButton mdcCardAction="icon" iconOn="star" iconOff="star_border"></button>
-        <button mdcIconButton mdcCardAction="icon" iconOn="star" iconOff="star_border"></button>
-      </mdc-card-action-icons>
-    </mdc-card-actions>
-  </mdc-card>
+        <div class="demo-card__secondary" mdcBody2>
+          Visit ten places on our planet that are undergoing the biggest changes today.
+        </div>
+      </mdc-card-primary-action>
+      <mdc-card-actions>
+        <mdc-card-action-buttons>
+          <button mdc-button mdcCardAction="button">Read</button>
+          <button mdc-button mdcCardAction="button">Bookmark</button>
+        </mdc-card-action-buttons>
+        <mdc-card-action-icons>
+          <button mdcIconButton mdcCardAction="icon" iconOn="favorite" iconOff="favorite_border"></button>
+          <mdc-icon mdcCardAction="icon" mdcRipple>share</mdc-icon>
+          <mdc-icon mdcCardAction="icon" mdcRipple>more_vert</mdc-icon>
+        </mdc-card-action-icons>
+      </mdc-card-actions>
+    </mdc-card>
+
+    <mdc-card [outlined]="true" class="demo-card">
+      <div class="demo-card-article-group-heading" mdcSubtitle2>Headlines</div>
+      <mdc-list-divider></mdc-list-divider>
+      <mdc-ripple class="demo-card-article">
+        <h2 class="demo-card-article__title" mdcHeadline5>Copper on the rise</h2>
+        <p class="demo-card-article__snippet" mdcBody2>
+          Copper price soars amid global market optimism and increased demand.
+        </p>
+      </mdc-ripple>
+      <mdc-list-divider></mdc-list-divider>
+      <mdc-ripple class="demo-card-article">
+        <h2 class="demo-card-article__title" mdcHeadline5>U.S. tech startups rebound</h2>
+        <p class="demo-card-article__snippet" mdcBody2>
+          Favorable business conditions have allowed startups to secure more fundraising deals compared to last year.
+        </p>
+      </mdc-ripple>
+      <mdc-list-divider></mdc-list-divider>
+      <mdc-ripple class="demo-card-article">
+        <h2 class="demo-card-article__title" mdcHeadline5>Asia's clean energy ambitions</h2>
+        <p class="demo-card-article__snippet" mdcBody2>
+          China plans to invest billions of dollars for the development of over 300 clean energy projects in Southeast Asia.
+        </p>
+      </mdc-ripple>
+      <mdc-list-divider></mdc-list-divider>
+      <mdc-card-actions [fullBleed]="true">
+        <button mdc-button mdcCardAction="button">
+            All Business Headlines
+            <mdc-icon>arrow_forward</mdc-icon>
+          </button>
+      </mdc-card-actions>
+    </mdc-card>
+
+    <mdc-card class="demo-card demo-card--photo">
+      <mdc-card-primary-action mdc-ripple>
+        <mdc-card-media [square]="true" class="demo-card__media">
+          <mdc-card-media-content class="demo-card__media-content--with-title">
+            <div class="demo-card__media-title" mdcSubtitle2>Vacation Photos</div>
+          </mdc-card-media-content>
+        </mdc-card-media>
+      </mdc-card-primary-action>
+      <mdc-card-actions [icons]="true">
+        <button mdcIconButton mdcCardAction="icon" iconOn="favorite" iconOff="favorite_border"></button>
+        <button mdcIconButton mdcCardAction="icon" iconOn="bookmark" iconOff="bookmark_border"></button>
+        <mdc-icon mdcCardAction="icon" mdcRipple>share</mdc-icon>
+      </mdc-card-actions>
+    </mdc-card>
+
+    <mdc-card class="demo-card demo-card--music">
+      <mdc-card-primary-action mdc-ripple>
+        <div class="demo-card__music-row">
+          <mdc-card-media [square]="true" class="demo-card__media demo-card__media--music"></mdc-card-media>
+          <div class="demo-card__music-info">
+            <div class="demo-card__music-title" mdcHeadline5>Title</div>
+            <div class="demo-card__music-artist" mdcBody2>Under the Grave</div>
+            <div class="demo-card__music-year" mdcBody2>(2016)</div>
+          </div>
+        </div>
+      </mdc-card-primary-action>
+      <mdc-list-divider></mdc-list-divider>
+      <mdc-card-actions>
+        <mdc-card-action-buttons class="demo-card__action-buttons--text-only">Rate album</mdc-card-action-buttons>
+        <mdc-card-action-icons>
+          <button mdcIconButton mdcCardAction="icon" iconOn="star" iconOff="star_border"></button>
+          <button mdcIconButton mdcCardAction="icon" iconOn="star" iconOff="star_border"></button>
+          <button mdcIconButton mdcCardAction="icon" iconOn="star" iconOff="star_border"></button>
+          <button mdcIconButton mdcCardAction="icon" iconOn="star" iconOff="star_border"></button>
+          <button mdcIconButton mdcCardAction="icon" iconOn="star" iconOff="star_border"></button>
+        </mdc-card-action-icons>
+      </mdc-card-actions>
+    </mdc-card>
+  </div>
 </div>

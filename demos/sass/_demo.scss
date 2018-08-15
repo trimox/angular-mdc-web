@@ -1,0 +1,88 @@
+//
+// Demo Landing
+//
+
+.demo-landing {
+  @include mdc-theme-prop(color, $color-white);
+  @include mdc-theme-prop(background-color, $color-rally);
+
+  height: 40vh;
+
+  &__title {
+    @include mdc-typography(headline2);
+
+    margin-top: 20px;
+    margin-bottom: 0;
+
+    @media (max-width: 699px) {
+      font-size: 8vw;
+    }
+  }
+
+  &__caption {
+    @include mdc-typography(headline4);
+
+    margin-top: 20px;
+    margin-bottom: 0;
+
+    @media (max-width: 699px) {
+      font-size: 6vw;
+      margin: 0;
+    }
+  }
+
+  &__subtitle {
+    @include mdc-typography(body1);
+    @include mdc-theme-prop(color, text-secondary-on-background);
+
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  &__version {
+    @include mdc-typography(caption);
+
+    margin: 8px;
+  }
+}
+
+//
+// Demo page
+//
+
+.demo-page {
+  @media (min-width: 1111px) {
+    @include mdc-rtl-reflexive-box(margin, left, $mdc-permanent-drawer-width);
+  }
+
+  width: 1000px;
+  padding-bottom: 45px;
+
+  @media (max-width: 999px) {
+    padding-left: 8px;
+  }
+}
+
+//
+// Demo content
+//
+
+.demo-content {
+  border: 1px solid rgba(0, 0, 0, .1);
+  padding: 15px;
+  margin: 15px 15px 15px 0;
+
+  p:not(.mdc-text-field-helper-text) {
+    @include mdc-typography(body2);
+  }
+
+  &__headline {
+    @include mdc-typography(headline6);
+
+    margin-top: .1em;
+    margin-bottom: .3em;
+  }
+}

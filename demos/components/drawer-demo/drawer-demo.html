@@ -1,281 +1,293 @@
-<div class="demo-page">
-  <div class="markdown-body">
-    <h1>Drawers</h1>
-    Navigation drawers provide access to destinations in your app.
-    <h2>References</h2>
-    <ul>
-      <li><a mdc-button href="https://material.io/design/components/navigation-drawer.html"
-        target="_blank" rel="noopener noreferrer">Material Design guidelines: Navigation Drawer</a>
-      </li>
-      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-drawer/README.md"
-        target="_blank" rel="noopener noreferrer">Material Components Web</a>
-      </li>
-    </ul>
-    <h2>Import</h2>
-    <pre><code><![CDATA[import { MdcDrawerModule } from '@angular-mdc/web';]]></code></pre>
+<div class="demo-layout__column demo-layout--center">
+  <div class="demo-page">
+    <div class="markdown-body">
+      <h1>Drawers</h1>
+      Navigation drawers provide access to destinations in your app.
+      <h2>References</h2>
+      <ul>
+        <li><a mdc-button href="https://material.io/design/components/navigation-drawer.html"
+          target="_blank" rel="noopener noreferrer">Material Design guidelines: Navigation Drawer</a>
+        </li>
+        <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-drawer/README.md"
+          target="_blank" rel="noopener noreferrer">Material Components Web</a>
+        </li>
+      </ul>
+      <h2>Import</h2>
+      <p class="docs-api-module-import"><![CDATA[import { MdcDrawerModule } from '@angular-mdc/web';]]></p>
 
-    <h2>Design & API Documentation</h2>
-    <div class="docs-api">
-      <h3>mdc-drawer</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Properties</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>drawer: string</td>
-            <td>Set the drawer implementation. (Default is 'permanent')
-              <pre>Valid values: 'permanent' | 'persistent' | 'temporary'</pre>
-            </td>
-          </tr>
-          <tr>
-            <td>fixed: boolean</td>
-            <td>Makes permanent drawer fixed on top and have persistent elevation.
-            <pre>* Permanent drawer only</pre></td>
-          </tr>
-          <tr>
-            <td>fixedAdjustElement: any</td>
-            <td>Reference to a drawer's attached body element. Default is document.body.</td>
-          </tr>
-          <tr>
-            <td>closeOnClick: boolean</td>
-            <td>If false, clicking on the drawer will not close it. Default is true.
-            <pre>* Temporary drawer only</pre></td>
-          </tr>
-        </tbody>
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th>Methods</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>open()</td>
-            <td>Opens the drawer.</td>
-          </tr>
-          <tr>
-            <td>close()</td>
-            <td>Closes the drawer.</td>
-          </tr>
-          <tr>
-            <td>isOpen(): boolean</td>
-            <td>Returns whether or not the drawer is open.</td>
-          </tr>
-          <tr>
-            <td>isDrawerPermanent(): boolean</td>
-            <td>Returns whether or not the drawer is permanent.</td>
-          </tr>
-          <tr>
-            <td>isDrawerTemporary(): boolean</td>
-            <td>Returns whether or not the drawer is temporary.</td>
-          </tr>
-          <tr>
-            <td>isDrawerPersistent(): boolean</td>
-            <td>Returns whether or not the drawer is persistent.</td>
-          </tr>
-        </tbody>
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th>Events</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>opened()</td>
-            <td>Event dispatched on drawer open.</td>
-          </tr>
-          <tr>
-            <td>closed()</td>
-            <td>Event dispatched on drawer close.</td>
-          </tr>
-        </tbody>
-      </table>
+      <h2>Design & API Documentation</h2>
+      <div class="docs-api">
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdc-drawer</span>
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Properties</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>drawer: string</td>
+              <td>Set the drawer implementation. (Default is 'permanent')
+                <pre>Valid values: 'permanent' | 'persistent' | 'temporary'</pre>
+              </td>
+            </tr>
+            <tr>
+              <td>fixed: boolean</td>
+              <td>Makes permanent drawer fixed on top and have persistent elevation.
+              <pre>* Permanent drawer only</pre></td>
+            </tr>
+            <tr>
+              <td>fixedAdjustElement: any</td>
+              <td>Reference to a drawer's attached body element. Default is document.body.</td>
+            </tr>
+            <tr>
+              <td>closeOnClick: boolean</td>
+              <td>If false, clicking on the drawer will not close it. Default is true.
+              <pre>* Temporary drawer only</pre></td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Methods</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>open()</td>
+              <td>Opens the drawer.</td>
+            </tr>
+            <tr>
+              <td>close()</td>
+              <td>Closes the drawer.</td>
+            </tr>
+            <tr>
+              <td>isOpen(): boolean</td>
+              <td>Returns whether or not the drawer is open.</td>
+            </tr>
+            <tr>
+              <td>isDrawerPermanent(): boolean</td>
+              <td>Returns whether or not the drawer is permanent.</td>
+            </tr>
+            <tr>
+              <td>isDrawerTemporary(): boolean</td>
+              <td>Returns whether or not the drawer is temporary.</td>
+            </tr>
+            <tr>
+              <td>isDrawerPersistent(): boolean</td>
+              <td>Returns whether or not the drawer is persistent.</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Events</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>opened()</td>
+              <td>Event dispatched on drawer open.</td>
+            </tr>
+            <tr>
+              <td>closed()</td>
+              <td>Event dispatched on drawer close.</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <h3>mdc-drawer-spacer</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>Optional. Add to provide the matching amount of space for toolbar.</td>
-          </tr>
-        </tbody>
-      </table>
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdc-drawer-spacer</span>
+        </p>
+        <table>
+          <tbody>
+            <tr>
+              <td>Optional. Add to provide the matching amount of space for toolbar.</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <h3>mdc-drawer-header</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>Optional. Add to create a 16:9 drawer header.</td>
-          </tr>
-        </tbody>
-      </table>
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdc-drawer-header</span>
+        </p>
+        <table>
+          <tbody>
+            <tr>
+              <td>Optional. Add to create a 16:9 drawer header.</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <h3>mdc-drawer-header-content</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>Optional. Use to add content inside mdc-drawer-header.</td>
-          </tr>
-        </tbody>
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th>Properties</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>primary: boolean</td>
-            <td>If true, sets mdc-theme--primary-bg and mdc-theme--text-primary-on-primary on mdc-drawer-header-content. Default is true.
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th>Child Directives</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>mdc-drawer-content</td>
-            <td>Optional. Should be set on the list of items inside the drawer.</td>
-          </tr>
-        </tbody>
-      </table>
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdc-drawer-header-content</span>
+        </p>
+        <table>
+          <tbody>
+            <tr>
+              <td>Optional. Use to add content inside mdc-drawer-header.</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Properties</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>primary: boolean</td>
+              <td>If true, sets mdc-theme--primary-bg and mdc-theme--text-primary-on-primary on mdc-drawer-header-content. Default is true.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdc-drawer-content</span>
+        </p>
+        <table>
+          <tbody>
+            <tr>
+              <td>Optional. Should be set on the list of items inside the drawer.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h2>Sass Mixins</h2>
+      To customize the colors of any part of the drawer, use the following mixins.
+      <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-drawer#sass-mixins"
+       target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
+
+      <h2>Basic Usage</h2>
+      <a mdc-button href="https://stackblitz.com/edit/angular-mdc-drawer"
+       target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
     </div>
-    <h2>Sass Mixins</h2>
-    To customize the colors of any part of the drawer, use the following mixins.
-    <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-drawer#sass-mixins"
-     target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
 
-    <h2>Basic Usage</h2>
-    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-drawer"
-     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
-  </div>
-
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Permanent Drawer</h3>
-    <mdc-drawer drawer='permanent'>
-      <mdc-drawer-content>
-        <mdc-list-group>
-          <mdc-list>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>home</mdc-icon>Home
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>star</mdc-icon>Star
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>send</mdc-icon>Sent Mail
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>drafts</mdc-icon>Drafts
-            </a>
-            <mdc-list-divider></mdc-list-divider>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>email</mdc-icon>All Mail
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>delete</mdc-icon>Trash
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>report</mdc-icon>Spam
-            </a>
-          </mdc-list>
-        </mdc-list-group>
-      </mdc-drawer-content>
-    </mdc-drawer>
-  </div>
-
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Temporary Drawer</h3>
-    <button mdc-button (click)="temporary.open()">Open</button>
-    <button mdc-button (click)="temporary.closeOnClick = !temporary.closeOnClick">Close on Click: {{temporary.closeOnClick ? 'true' : 'false'}}</button>
-    <mdc-drawer #temporary drawer='temporary' class="demo-drawer--custom">
-      <mdc-drawer-header>
-        <mdc-drawer-header-content>
-          Header goes here
-        </mdc-drawer-header-content>
-      </mdc-drawer-header>
-      <mdc-drawer-content>
-        <mdc-list-group>
-          <mdc-list>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>home</mdc-icon>Home
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>star</mdc-icon>Star
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>send</mdc-icon>Sent Mail
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>drafts</mdc-icon>Drafts
-            </a>
-            <mdc-list-divider></mdc-list-divider>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>email</mdc-icon>All Mail
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>delete</mdc-icon>Trash
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>report</mdc-icon>Spam
-            </a>
-          </mdc-list>
-        </mdc-list-group>
-      </mdc-drawer-content>
-    </mdc-drawer>
-  </div>
-
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Persistent Drawer</h3>
-    <button mdc-button (click)="persistent.open()">Open</button>
-    <div class="demo-content__drawer demo-content__drawer--persistent">
-      <mdc-drawer #persistent drawer='persistent'>
-        <mdc-drawer-spacer></mdc-drawer-spacer>
-        <mdc-list-group>
-          <mdc-list>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>home</mdc-icon>Home
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>star</mdc-icon>Star
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>send</mdc-icon>Sent Mail
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>drafts</mdc-icon>Drafts
-            </a>
-            <mdc-list-divider></mdc-list-divider>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>email</mdc-icon>All Mail
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>delete</mdc-icon>Trash
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>report</mdc-icon>Spam
-            </a>
-          </mdc-list>
-        </mdc-list-group>
+    <div class="demo-content">
+      <h3 class="demo-content__headline">Permanent Drawer</h3>
+      <mdc-drawer drawer='permanent'>
+        <mdc-drawer-content>
+          <mdc-list-group>
+            <mdc-list>
+              <a mdc-list-item href="#/drawer-demo">
+                <mdc-icon mdcListItemGraphic>home</mdc-icon>Home
+              </a>
+              <a mdc-list-item href="#/drawer-demo">
+                <mdc-icon mdcListItemGraphic>star</mdc-icon>Star
+              </a>
+              <a mdc-list-item href="#/drawer-demo">
+                <mdc-icon mdcListItemGraphic>send</mdc-icon>Sent Mail
+              </a>
+              <a mdc-list-item href="#/drawer-demo">
+                <mdc-icon mdcListItemGraphic>drafts</mdc-icon>Drafts
+              </a>
+              <mdc-list-divider></mdc-list-divider>
+              <a mdc-list-item href="#/drawer-demo">
+                <mdc-icon mdcListItemGraphic>email</mdc-icon>All Mail
+              </a>
+              <a mdc-list-item href="#/drawer-demo">
+                <mdc-icon mdcListItemGraphic>delete</mdc-icon>Trash
+              </a>
+              <a mdc-list-item href="#/drawer-demo">
+                <mdc-icon mdcListItemGraphic>report</mdc-icon>Spam
+              </a>
+            </mdc-list>
+          </mdc-list-group>
+        </mdc-drawer-content>
       </mdc-drawer>
-      <div>
-        Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an legere iriure blandit. Veri iisque accusamus an pri.
+    </div>
+
+    <div class="demo-content">
+      <h3 class="demo-content__headline">Temporary Drawer</h3>
+      <button mdc-button (click)="temporary.open()">Open</button>
+      <button mdc-button (click)="temporary.closeOnClick = !temporary.closeOnClick">Close on Click: {{temporary.closeOnClick ? 'true' : 'false'}}</button>
+      <mdc-drawer #temporary drawer='temporary' class="demo-drawer--custom">
+        <mdc-drawer-header>
+          <mdc-drawer-header-content>
+            Header goes here
+          </mdc-drawer-header-content>
+        </mdc-drawer-header>
+        <mdc-drawer-content>
+          <mdc-list-group>
+            <mdc-list>
+              <a mdc-list-item href="#/drawer-demo">
+                <mdc-icon mdcListItemGraphic>home</mdc-icon>Home
+              </a>
+              <a mdc-list-item href="#/drawer-demo">
+                <mdc-icon mdcListItemGraphic>star</mdc-icon>Star
+              </a>
+              <a mdc-list-item href="#/drawer-demo">
+                <mdc-icon mdcListItemGraphic>send</mdc-icon>Sent Mail
+              </a>
+              <a mdc-list-item href="#/drawer-demo">
+                <mdc-icon mdcListItemGraphic>drafts</mdc-icon>Drafts
+              </a>
+              <mdc-list-divider></mdc-list-divider>
+              <a mdc-list-item href="#/drawer-demo">
+                <mdc-icon mdcListItemGraphic>email</mdc-icon>All Mail
+              </a>
+              <a mdc-list-item href="#/drawer-demo">
+                <mdc-icon mdcListItemGraphic>delete</mdc-icon>Trash
+              </a>
+              <a mdc-list-item href="#/drawer-demo">
+                <mdc-icon mdcListItemGraphic>report</mdc-icon>Spam
+              </a>
+            </mdc-list>
+          </mdc-list-group>
+        </mdc-drawer-content>
+      </mdc-drawer>
+    </div>
+
+    <div class="demo-content">
+      <h3 class="demo-content__headline">Persistent Drawer</h3>
+      <button mdc-button (click)="persistent.open()">Open</button>
+      <div class="demo-content__drawer demo-content__drawer--persistent">
+        <mdc-drawer #persistent drawer='persistent'>
+          <mdc-drawer-spacer></mdc-drawer-spacer>
+          <mdc-list-group>
+            <mdc-list>
+              <a mdc-list-item href="#/drawer-demo">
+                <mdc-icon mdcListItemGraphic>home</mdc-icon>Home
+              </a>
+              <a mdc-list-item href="#/drawer-demo">
+                <mdc-icon mdcListItemGraphic>star</mdc-icon>Star
+              </a>
+              <a mdc-list-item href="#/drawer-demo">
+                <mdc-icon mdcListItemGraphic>send</mdc-icon>Sent Mail
+              </a>
+              <a mdc-list-item href="#/drawer-demo">
+                <mdc-icon mdcListItemGraphic>drafts</mdc-icon>Drafts
+              </a>
+              <mdc-list-divider></mdc-list-divider>
+              <a mdc-list-item href="#/drawer-demo">
+                <mdc-icon mdcListItemGraphic>email</mdc-icon>All Mail
+              </a>
+              <a mdc-list-item href="#/drawer-demo">
+                <mdc-icon mdcListItemGraphic>delete</mdc-icon>Trash
+              </a>
+              <a mdc-list-item href="#/drawer-demo">
+                <mdc-icon mdcListItemGraphic>report</mdc-icon>Spam
+              </a>
+            </mdc-list>
+          </mdc-list-group>
+        </mdc-drawer>
+        <div>
+          Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an legere iriure blandit. Veri iisque accusamus an pri.
+        </div>
       </div>
     </div>
   </div>

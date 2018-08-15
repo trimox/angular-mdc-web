@@ -22,7 +22,10 @@ import { APP_ROUTES, DEMO_ROUTES } from './routes';
     ReactiveFormsModule,
     DemoMaterialModule,
     DialogExampleModule,
-    RouterModule.forRoot(APP_ROUTES, { useHash: true, enableTracing: false })
+    RouterModule.forRoot(APP_ROUTES, {
+      useHash: true,
+      enableTracing: false
+    })
   ],
   declarations: [
     AppComponent,

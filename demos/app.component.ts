@@ -5,7 +5,7 @@ import { Router, NavigationEnd } from '@angular/router';
   selector: 'app-root',
   template: '<app-layout></app-layout>',
   encapsulation: ViewEncapsulation.None,
-  styleUrls: ['./styles.scss']
+  styleUrls: ['./sass/app.scss']
 })
 export class AppComponent implements OnInit {
   constructor(private _router: Router) { }

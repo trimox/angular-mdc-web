@@ -13,6 +13,8 @@ export class AppLayout implements OnInit {
   inputVisible: boolean;
   listVisible: boolean;
 
+  mobile: boolean;
+
   navigationLinks = [
     { name: 'App Bar', route: 'app-bar-demo', icon: 'remove' },
     { name: 'Card', route: 'card-demo', icon: 'credit_card' },
@@ -73,5 +75,9 @@ export class AppLayout implements OnInit {
         }
       }
     });
+
+    if (window.screen.width <= 1200) {
+      this.mobile = true;
+    }
   }
 }

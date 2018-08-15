@@ -1,0 +1,22 @@
+//
+// Image List
+//
+
+.standard-image-list {
+  @include mdc-image-list-aspect(1.5); // Images are 3:2
+  @include mdc-image-list-standard-columns(5);
+}
+
+.masonry-image-list {
+  @include mdc-image-list-masonry-columns(5);
+}
+
+@media (max-width: 599px) {
+  .standard-image-list {
+    @include mdc-image-list-standard-columns(3);
+  }
+
+  .masonry-image-list {
+    @include mdc-image-list-masonry-columns(3);
+  }
+}

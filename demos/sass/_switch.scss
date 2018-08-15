@@ -1,0 +1,9 @@
+//
+// Switch
+//
+
+.demo-switch--custom {
+  $color: $material-color-red-500;
+
+  @include mdc-switch-toggled-on-color($color);
+}

@@ -1,74 +1,79 @@
-<div class="demo-page">
-  <div class="markdown-body">
-    <h1>Ripple</h1>
-    Ripple provides components (or any element) with a material "ink ripple" interaction effect.
-    <h2>References</h2>
-    <ul>
-      <li><a mdc-button href="https://material.io/design/interaction/states.html"
-        target="_blank" rel="noopener noreferrer">Material Design guidelines: Ripple</a>
-      </li>
-      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-ripple/README.md"
-        target="_blank" rel="noopener noreferrer">Material Components Web</a>
-      </li>
-    </ul>
-    <h2>Import</h2>
-    <pre><code><![CDATA[import { MdcRippleModule } from '@angular-mdc/web';]]></code></pre>
+<div class="demo-layout__column demo-layout--center">
+  <div class="demo-page">
+    <div class="markdown-body">
+      <h1>Ripple</h1>
+      Ripple provides components (or any element) with a material "ink ripple" interaction effect.
+      <h2>References</h2>
+      <ul>
+        <li><a mdc-button href="https://material.io/design/interaction/states.html"
+          target="_blank" rel="noopener noreferrer">Material Design guidelines: Ripple</a>
+        </li>
+        <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-ripple/README.md"
+          target="_blank" rel="noopener noreferrer">Material Components Web</a>
+        </li>
+      </ul>
+      <h2>Import</h2>
+      <p class="docs-api-module-import"><![CDATA[import { MdcRippleModule } from '@angular-mdc/web';]]></p>
 
-    <h2>Design & API Documentation</h2>
-    <div class="docs-api">
-      <h3>mdc-ripple</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Properties</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>ripple: <a href="https://github.com/trimox/angular-mdc-web/blob/master/packages/ripple/ripple.service.ts"
-             target="_blank" rel="noopener noreferrer">MdcRipple</a></td>
-            <td>Use ripple methods.</td>
-          </tr>
-          <tr>
-            <td>primary: boolean</td>
-            <td>Colors the ripple with the primary theme color.</td>
-          </tr>
-          <tr>
-            <td>secondary: boolean</td>
-            <td>Colors the ripple with the secondary theme color.</td>
-          </tr>
-          <tr>
-            <td>disabled: boolean</td>
-            <td>Disable the ripple ink.</td>
-          </tr>
-          <tr>
-            <td>unbounded: boolean</td>
-            <td>Whether or not the ripple is unbounded (e.g.: checkbox or radio buttons).</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <h2>Sass Mixins</h2>
-    To customize the ripple, use the following mixins.
-    <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-ripple#sass-apis"
-     target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
-
-    <h2>Basic Usage</h2>
-    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-ripple"
-     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
-  </div>
-
-  <div class="demo-content">
-    <div class="demo-content--row">
-      <button mdc-button (click)="demoripple.primary = !demoripple.primary">Primary Color: {{demoripple.primary ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="demoripple.secondary = !demoripple.secondary">Secondary Color: {{demoripple.secondary ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="demoripple.disabled = !demoripple.disabled">Disabled: {{demoripple.disabled ? 'On' : 'Off'}}</button>
-    </div>
-    <mdc-ripple #demoripple [attachTo]="demodiv">
-      <div style="height: 200px; width: 100%;" class="demo-content--center" #demodiv>
-        Click me
+      <h2>Design & API Documentation</h2>
+      <div class="docs-api">
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdc-ripple</span>
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Properties</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ripple: <a href="https://github.com/trimox/angular-mdc-web/blob/master/packages/ripple/ripple.service.ts"
+               target="_blank" rel="noopener noreferrer">MdcRipple</a></td>
+              <td>Use ripple methods.</td>
+            </tr>
+            <tr>
+              <td>primary: boolean</td>
+              <td>Colors the ripple with the primary theme color.</td>
+            </tr>
+            <tr>
+              <td>secondary: boolean</td>
+              <td>Colors the ripple with the secondary theme color.</td>
+            </tr>
+            <tr>
+              <td>disabled: boolean</td>
+              <td>Disable the ripple ink.</td>
+            </tr>
+            <tr>
+              <td>unbounded: boolean</td>
+              <td>Whether or not the ripple is unbounded (e.g.: checkbox or radio buttons).</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </mdc-ripple>
+      <h2>Sass Mixins</h2>
+      To customize the ripple, use the following mixins.
+      <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-ripple#sass-apis"
+       target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
+
+      <h2>Basic Usage</h2>
+      <a mdc-button href="https://stackblitz.com/edit/angular-mdc-ripple"
+       target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
+    </div>
+
+    <div class="demo-content">
+      <div class="demo-layout__row">
+        <button mdc-button (click)="demoripple.primary = !demoripple.primary">Primary Color: {{demoripple.primary ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="demoripple.secondary = !demoripple.secondary">Secondary Color: {{demoripple.secondary ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="demoripple.disabled = !demoripple.disabled">Disabled: {{demoripple.disabled ? 'On' : 'Off'}}</button>
+      </div>
+      <mdc-ripple #demoripple [attachTo]="demodiv">
+        <div style="height: 200px; width: 100%;" class="demo-layout--center" #demodiv>
+          Click me
+        </div>
+      </mdc-ripple>
+    </div>
   </div>
 </div>

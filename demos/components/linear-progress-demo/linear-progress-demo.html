@@ -1,104 +1,109 @@
-<div class="demo-page">
-  <div class="markdown-body">
-    <h1>Linear Progress</h1>
-    The MDC Linear Progress component is a spec-aligned linear progress indicator component adhering to the Material Design progress & activity requirements.
-    <h2>References</h2>
-    <ul>
-      <li><a mdc-button href="https://material.io/guidelines/components/progress-activity.html"
-        target="_blank" rel="noopener noreferrer">Material Design guidelines: Progress Activity</a>
-      </li>
-      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-linear-progress/README.md"
-        target="_blank" rel="noopener noreferrer">Material Components Web</a>
-      </li>
-    </ul>
-    <h2>Import</h2>
-    <pre><code><![CDATA[import { MdcLinearProgressModule } from '@angular-mdc/web';]]></code></pre>
+<div class="demo-layout__column demo-layout--center">
+  <div class="demo-page">
+    <div class="markdown-body">
+      <h1>Linear Progress</h1>
+      The MDC Linear Progress component is a spec-aligned linear progress indicator component adhering to the Material Design progress & activity requirements.
+      <h2>References</h2>
+      <ul>
+        <li><a mdc-button href="https://material.io/guidelines/components/progress-activity.html"
+          target="_blank" rel="noopener noreferrer">Material Design guidelines: Progress Activity</a>
+        </li>
+        <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-linear-progress/README.md"
+          target="_blank" rel="noopener noreferrer">Material Components Web</a>
+        </li>
+      </ul>
+      <h2>Import</h2>
+      <p class="docs-api-module-import"><![CDATA[import { MdcLinearProgressModule } from '@angular-mdc/web';]]></p>
 
-    <h2>Design & API Documentation</h2>
-    <div class="docs-api">
-      <h3>mdc-linear-progress</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Properties</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>determinate: boolean</td>
-            <td>Puts the linear progress indicator in an determinate or indeterminate state.</td>
-          </tr>
-          <tr>
-            <td>reversed: boolean</td>
-            <td>Reverses the direction of the linear progress indicator.</td>
-          </tr>
-          <tr>
-            <td>secondary: boolean</td>
-            <td>Colors the button with the secondary theme color.</td>
-          </tr>
-          <tr>
-            <td>closed: boolean</td>
-            <td>Hides the linear progress indicator.</td>
-          </tr>
-          <tr>
-            <td>progress: number</td>
-            <td>Sets the progress bar to this value. Value should be between [0, 1].</td>
-          </tr>
-          <tr>
-            <td>buffer: number</td>
-            <td>Sets the buffer bar to this value. Value should be between [0, 1].</td>
-          </tr>
-        </tbody>
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th>Methods</th>
-            <th>Parameters</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>open()</td>
-            <td>Puts the component in the open state.</td>
-          </tr>
-          <tr>
-            <td>close()</td>
-            <td>Puts the component in the closed state.</td>
-          </tr>
-        </tbody>
-      </table>
+      <h2>Design & API Documentation</h2>
+      <div class="docs-api">
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdc-linear-progress</span>
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Properties</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>determinate: boolean</td>
+              <td>Puts the linear progress indicator in an determinate or indeterminate state.</td>
+            </tr>
+            <tr>
+              <td>reversed: boolean</td>
+              <td>Reverses the direction of the linear progress indicator.</td>
+            </tr>
+            <tr>
+              <td>secondary: boolean</td>
+              <td>Colors the button with the secondary theme color.</td>
+            </tr>
+            <tr>
+              <td>closed: boolean</td>
+              <td>Hides the linear progress indicator.</td>
+            </tr>
+            <tr>
+              <td>progress: number</td>
+              <td>Sets the progress bar to this value. Value should be between [0, 1].</td>
+            </tr>
+            <tr>
+              <td>buffer: number</td>
+              <td>Sets the buffer bar to this value. Value should be between [0, 1].</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Methods</th>
+              <th>Parameters</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>open()</td>
+              <td>Puts the component in the open state.</td>
+            </tr>
+            <tr>
+              <td>close()</td>
+              <td>Puts the component in the closed state.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h2>Sass Mixins</h2>
+      To customize the colors of any part of the linear progress, use the following mixins.
+      <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-linear-progress#sass-mixins"
+       target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
+
+      <h2>Basic Usage</h2>
+      <a mdc-button href="https://stackblitz.com/edit/angular-mdc-linear-progress"
+       target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
     </div>
-    <h2>Sass Mixins</h2>
-    To customize the colors of any part of the linear progress, use the following mixins.
-    <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-linear-progress#sass-mixins"
-     target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
 
-    <h2>Basic Usage</h2>
-    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-linear-progress"
-     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
-  </div>
-
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Indeterminate Progress</h3>
-    <div class="demo-content--row">
-      <button mdc-button (click)="lp.setReverse(!lp.reversed)">Reverse</button>
-      <button mdc-button (click)="lp.closed = !lp.closed">Open/Close</button>
-      <button mdc-button (click)="lp.secondary = !lp.secondary">{{lp.secondary ? 'Primary' : 'Secondary'}} Color</button>
-      <button mdc-button (click)="alternateColors(lp)">Alternate Colors</button>
+    <div class="demo-content">
+      <h3 class="demo-content__headline">Indeterminate Progress</h3>
+      <div class="demo-layout__row demo-layout__row-with-button">
+        <button mdc-button (click)="lp.setReverse(!lp.reversed)">Reverse</button>
+        <button mdc-button (click)="lp.closed = !lp.closed">Open/Close</button>
+        <button mdc-button (click)="lp.secondary = !lp.secondary">{{lp.secondary ? 'Primary' : 'Secondary'}} Color</button>
+        <button mdc-button (click)="alternateColors(lp)">Alternate Colors</button>
+      </div>
+      <mdc-linear-progress #lp></mdc-linear-progress>
     </div>
-    <mdc-linear-progress #lp></mdc-linear-progress>
-  </div>
 
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Determinate Progress</h3>
-    <div class="demo-content--row">
-      <button mdc-button (click)="deter.setReverse(!deter.reversed)">Reverse</button>
-      <button mdc-button (click)="deter.closed = !deter.closed">Open/Close</button>
-      <button mdc-button (click)="deter.secondary = !deter.secondary">{{deter.secondary ? 'Primary' : 'Secondary'}} Color</button>
-      <button mdc-button (click)="alternateColors(deter)">Alternate Colors</button>
+    <div class="demo-content">
+      <h3 class="demo-content__headline">Determinate Progress</h3>
+      <div class="demo-layout__row demo-layout__row-with-button">
+        <button mdc-button (click)="deter.setReverse(!deter.reversed)">Reverse</button>
+        <button mdc-button (click)="deter.closed = !deter.closed">Open/Close</button>
+        <button mdc-button (click)="deter.secondary = !deter.secondary">{{deter.secondary ? 'Primary' : 'Secondary'}} Color</button>
+        <button mdc-button (click)="alternateColors(deter)">Alternate Colors</button>
+      </div>
+      <mdc-linear-progress #deter [determinate]="true" [progress]="0.5" [buffer]="0.75" [secondary]="true"></mdc-linear-progress>
     </div>
-    <mdc-linear-progress #deter [determinate]="true" [progress]="0.5" [buffer]="0.75" [secondary]="true"></mdc-linear-progress>
   </div>
 </div>

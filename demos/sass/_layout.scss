@@ -1,0 +1,47 @@
+//
+// Row
+//
+
+.demo-layout__row {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.demo-layout__row--no-wrap {
+  display: flex;
+  flex-direction: row;
+}
+
+.demo-layout__row-with-button {
+  .mdc-button, .mdc-fab {
+    margin: 12px;
+  }
+}
+
+//
+// Column
+//
+
+.demo-layout__column {
+  display: flex;
+  flex-direction: column;
+}
+
+//
+// Modifiers
+//
+
+.demo-layout--start {
+  align-self: flex-start;
+}
+
+.demo-layout--end {
+  align-self: flex-end;
+}
+
+.demo-layout--center {
+  display: flex;
+  align-content: flex-end;
+  align-items: center;
+  justify-content: center;
+}

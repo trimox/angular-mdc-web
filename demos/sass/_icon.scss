@@ -1,0 +1,9 @@
+//
+// Icon
+//
+
+.demo-icon-custom-colors {
+  $color: $material-color-orange-500;
+
+  @include mdc-theme-prop(color, $color);
+}

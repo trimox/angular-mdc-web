@@ -1,148 +1,153 @@
-<div class="demo-page">
-  <div class="markdown-body">
-    <h1>Radio buttons</h1>
-    Radio buttons allow the user to select one option from a set.
-    <h2>References</h2>
-    <ul>
-      <li><a mdc-button href="https://material.io/design/components/selection-controls.html#radio-buttons"
-        target="_blank" rel="noopener noreferrer">Material Design guidelines: Radio buttons</a>
-      </li>
-      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-radio/README.md"
-        target="_blank" rel="noopener noreferrer">Material Components Web</a>
-      </li>
-    </ul>
-    <h2>Import</h2>
-    <pre><code><![CDATA[import { MdcFormFieldModule, MdcRadioModule } from '@angular-mdc/web';]]></code></pre>
+<div class="demo-layout__column demo-layout--center">
+  <div class="demo-page">
+    <div class="markdown-body">
+      <h1>Radio buttons</h1>
+      Radio buttons allow the user to select one option from a set.
+      <h2>References</h2>
+      <ul>
+        <li><a mdc-button href="https://material.io/design/components/selection-controls.html#radio-buttons"
+          target="_blank" rel="noopener noreferrer">Material Design guidelines: Radio buttons</a>
+        </li>
+        <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-radio/README.md"
+          target="_blank" rel="noopener noreferrer">Material Components Web</a>
+        </li>
+      </ul>
+      <h2>Import</h2>
+      <p class="docs-api-module-import"><![CDATA[import { MdcRadioModule } from '@angular-mdc/web';]]></p>
 
-    <h2>Design & API Documentation</h2>
-    <div class="docs-api">
-      <h3>mdc-radio</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Properties</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>id: string</td>
-            <td>Unique Id of the radio button (auto generated if not supplied).</td>
-          </tr>
-          <tr>
-            <td>name: string</td>
-            <td>Name of the radio button group.</td>
-          </tr>
-          <tr>
-            <td>value: any</td>
-            <td>Value of the radio button.</td>
-          </tr>
-          <tr>
-            <td>tabIndex: number</td>
-            <td>Set the underlying tab index of the radio button. (Default: 0)</td>
-          </tr>
-          <tr>
-            <td>ariaLabel: string</td>
-            <td>Used to set the 'aria-label' attribute on the underlying input element.</td>
-          </tr>
-          <tr>
-            <td>ariaLabelledby: string</td>
-            <td>The 'aria-labelledby' attribute takes precedence as the element's text alternative.</td>
-          </tr>
-          <tr>
-            <td>checked: boolean</td>
-            <td>Use to verify the checked value.</td>
-          </tr>
-          <tr>
-            <td>disabled: boolean</td>
-            <td>Disables the component.</td>
-          </tr>
-        </tbody>
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th>Methods</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>focus()</td>
-            <td>Set focus to the radio button.</td>
-          </tr>
-          <tr>
-            <td>isChecked(): boolean</td>
-            <td>Returns whether or not the native input control is checked.</td>
-          </tr>
-          <tr>
-            <td>isDisabled(): boolean</td>
-            <td>Returns whether or not the native input control is disabled.</td>
-          </tr>
-          <tr>
-            <td>getValue(): any</td>
-            <td>Returns the value of native input control.</td>
-          </tr>
-        </tbody>
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th>Event</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>change(source: MdcRadio, value: any, checked: boolean)</td>
-            <td>Event dispatched on value change.</td>
-          </tr>
-        </tbody>
-      </table>
+      <h2>Design & API Documentation</h2>
+      <div class="docs-api">
+        <p>
+          <span class="docs-api-class-selector-label">Selector:</span>
+          <span class="docs-api-class-selector-name">mdc-radio</span>
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Properties</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id: string</td>
+              <td>Unique Id of the radio button (auto generated if not supplied).</td>
+            </tr>
+            <tr>
+              <td>name: string</td>
+              <td>Name of the radio button group.</td>
+            </tr>
+            <tr>
+              <td>value: any</td>
+              <td>Value of the radio button.</td>
+            </tr>
+            <tr>
+              <td>tabIndex: number</td>
+              <td>Set the underlying tab index of the radio button. (Default: 0)</td>
+            </tr>
+            <tr>
+              <td>ariaLabel: string</td>
+              <td>Used to set the 'aria-label' attribute on the underlying input element.</td>
+            </tr>
+            <tr>
+              <td>ariaLabelledby: string</td>
+              <td>The 'aria-labelledby' attribute takes precedence as the element's text alternative.</td>
+            </tr>
+            <tr>
+              <td>checked: boolean</td>
+              <td>Use to verify the checked value.</td>
+            </tr>
+            <tr>
+              <td>disabled: boolean</td>
+              <td>Disables the component.</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Methods</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>focus()</td>
+              <td>Set focus to the radio button.</td>
+            </tr>
+            <tr>
+              <td>isChecked(): boolean</td>
+              <td>Returns whether or not the native input control is checked.</td>
+            </tr>
+            <tr>
+              <td>isDisabled(): boolean</td>
+              <td>Returns whether or not the native input control is disabled.</td>
+            </tr>
+            <tr>
+              <td>getValue(): any</td>
+              <td>Returns the value of native input control.</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>change(source: MdcRadio, value: any, checked: boolean)</td>
+              <td>Event dispatched on value change.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h2>Sass Mixins</h2>
+      To customize the colors of any part of the radio button, use the following mixins.
+      <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-radio#sass-mixins"
+       target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
+
+      <h2>Basic Usage</h2>
+      <a mdc-button href="https://stackblitz.com/edit/angular-mdc-radio-buttons"
+       target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
     </div>
-    <h2>Sass Mixins</h2>
-    To customize the colors of any part of the radio button, use the following mixins.
-    <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-radio#sass-mixins"
-     target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
 
-    <h2>Basic Usage</h2>
-    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-radio-buttons"
-     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
-  </div>
-
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Radio Button - NgModel Form</h3>
-    <div class="demo-content--row">
-      <button mdc-button (click)="resetModel(demoForm)">Reset model</button>
+    <div class="demo-content">
+      <h3 class="demo-content__headline">Radio Button - NgModel Form</h3>
+      <div class="demo-layout__row">
+        <button mdc-button (click)="resetModel(demoForm)">Reset model</button>
+      </div>
+      <form #demoForm="ngForm" id="demoForm">
+        <mdc-form-field>
+          <mdc-radio #demoRadioApple ngModel name="radioGroup" value="apple" (change)="onChange($event)"></mdc-radio>
+          <label>Apple</label>
+        </mdc-form-field>
+        <mdc-form-field>
+          <mdc-radio #demoRadioBanana ngModel name="radioGroup" value="banana" (change)="onChange($event)"></mdc-radio>
+          <label>Banana</label>
+        </mdc-form-field>
+        <mdc-form-field>
+          <mdc-radio #demoRadioMango ngModel name="radioGroup" value="mango" (change)="onChange($event)"></mdc-radio>
+          <label>Mango</label>
+        </mdc-form-field>
+      </form>
+      <p>Dirty: {{ demoForm.dirty }}</p>
+      <p>Touched: {{ demoForm.touched }}</p>
+      <p>Value: {{ favoriteFruit }}</p>
     </div>
-    <form #demoForm="ngForm" id="demoForm">
-      <mdc-form-field>
-        <mdc-radio #demoRadioApple ngModel name="radioGroup" value="apple" (change)="onChange($event)"></mdc-radio>
-        <label>Apple</label>
-      </mdc-form-field>
-      <mdc-form-field>
-        <mdc-radio #demoRadioBanana ngModel name="radioGroup" value="banana" (change)="onChange($event)"></mdc-radio>
-        <label>Banana</label>
-      </mdc-form-field>
-      <mdc-form-field>
-        <mdc-radio #demoRadioMango ngModel name="radioGroup" value="mango" (change)="onChange($event)"></mdc-radio>
-        <label>Mango</label>
-      </mdc-form-field>
-    </form>
-    <p>Dirty: {{ demoForm.dirty }}</p>
-    <p>Touched: {{ demoForm.touched }}</p>
-    <p>Value: {{ favoriteFruit }}</p>
-  </div>
 
-  <div class="demo-content">
-    <div class="demo-content--row">
-      <button mdc-button (click)="demoformfield.alignEnd = !demoformfield.alignEnd">RTL: {{demoformfield.alignEnd ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="demoradio1.disabled = !demoradio1.disabled">Disabled: {{demoradio1.disabled ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="alternateColors(demoradio1)">Alternate Colors</button>
+    <div class="demo-content">
+      <div class="demo-layout__row">
+        <button mdc-button (click)="demoformfield.alignEnd = !demoformfield.alignEnd">RTL: {{demoformfield.alignEnd ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="demoradio1.disabled = !demoradio1.disabled">Disabled: {{demoradio1.disabled ? 'On' : 'Off'}}</button>
+        <button mdc-button (click)="alternateColors(demoradio1)">Alternate Colors</button>
+      </div>
+      <mdc-form-field #demoformfield>
+        <mdc-radio #demoradio1></mdc-radio>
+        <label>Radio Example</label>
+      </mdc-form-field>
     </div>
-    <mdc-form-field #demoformfield>
-      <mdc-radio #demoradio1></mdc-radio>
-      <label>Radio Example</label>
-    </mdc-form-field>
   </div>
 </div>

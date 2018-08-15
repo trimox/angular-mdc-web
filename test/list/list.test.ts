@@ -145,7 +145,7 @@ describe('MdcListModule', () => {
     <mdc-list-group #group>
       <mdc-list-group-subheader>Grouped Lists</mdc-list-group-subheader>
       <mdc-list [dense]="isDense" [border]="isBordered" [lines]="lines" [selection]="selection"
-       [avatar]="isAvatar" [interactive]="isInteractive" [multiple]="multiple">
+       [avatar]="isAvatar" [interactive]="isInteractive">
         <mdc-list-item #listitem mdcListItemGraphic [selected]="isItemSelected">Test
           <mdc-icon mdcListItemMeta>info</mdc-icon>
         </mdc-list-item>
@@ -172,7 +172,6 @@ class SimpleList {
   isItemSelected: boolean = true;
   isInset: boolean = false;
   isPadded: boolean = false;
-  multiple: boolean = false;
   selection: boolean;
 
   @ViewChild('divider') divider: MdcListDivider;

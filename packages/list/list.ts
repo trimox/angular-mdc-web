@@ -110,13 +110,6 @@ export class MdcList implements AfterContentInit, OnDestroy {
   private _interactive: boolean = true;
 
   @Input()
-  get multiple(): boolean { return this._multiple; }
-  set multiple(value: boolean) {
-    this.setMultiple(value);
-  }
-  private _multiple: boolean;
-
-  @Input()
   get selection(): boolean { return this._selection; }
   set selection(value: boolean) {
     this.setSelection(value);
@@ -245,10 +238,7 @@ export class MdcList implements AfterContentInit, OnDestroy {
     this._listItems.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
       Promise.resolve().then(() => {
         this.setInteractive(this.interactive);
-
-        if (!this.multiple) {
-          this._resetOptions();
-        }
+        this._resetOptions();
       });
     });
   }
@@ -265,9 +255,7 @@ export class MdcList implements AfterContentInit, OnDestroy {
     this.optionSelectionChanges
       .pipe(takeUntil(changedOrDestroyed)
       ).subscribe(event => {
-        if (!this.multiple) {
-          this.clearSelected(event.source);
-        }
+        this.clearSelected(event.source);
       });
   }
 
@@ -281,11 +269,6 @@ export class MdcList implements AfterContentInit, OnDestroy {
     this._listItems.forEach(option => {
       option.setInteractive(value);
     });
-  }
-
-  setMultiple(multiple: boolean): void {
-    this._multiple = toBoolean(multiple);
-    this._changeDetectorRef.markForCheck();
   }
 
   setSelection(selection: boolean): void {

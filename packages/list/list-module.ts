@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { MdcListDivider } from './list-divider';
 import {
   MdcList,
-  MdcListDivider,
   MdcListGroup,
   MdcListGroupSubheader
 } from './list';
@@ -24,7 +24,7 @@ const LIST_DECLARATIONS = [
   MdcListItemGraphic,
   MdcListItemMeta,
   MdcListItemSecondary,
-  MdcListItemText,
+  MdcListItemText
 ];
 
 @NgModule({

@@ -67,36 +67,6 @@ export class MdcListGroupSubheader {
 
 @Component({
   moduleId: module.id,
-  selector: '[mdcListDivider], mdc-list-divider',
-  exportAs: 'mdcListDivider',
-  template: '<div #divider class="mdc-list-divider" role="seperator"></div>',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
-})
-export class MdcListDivider {
-  @Input()
-  get inset(): boolean { return this._inset; }
-  set inset(value: boolean) {
-    this._inset = toBoolean(value);
-    this._inset ? this._divider.nativeElement.classList.add('mdc-list-divider--inset')
-      : this._divider.nativeElement.classList.remove('mdc-list-divider--inset');
-  }
-  private _inset: boolean = false;
-
-  @Input()
-  get padded(): boolean { return this._padded; }
-  set padded(value: boolean) {
-    this._padded = toBoolean(value);
-    this._padded ? this._divider.nativeElement.classList.add('mdc-list-divider--padded')
-      : this._divider.nativeElement.classList.remove('mdc-list-divider--padded');
-  }
-  private _padded: boolean = false;
-
-  @ViewChild('divider') _divider: ElementRef;
-}
-
-@Component({
-  moduleId: module.id,
   selector: 'mdc-list',
   exportAs: 'mdcList',
   template: '<ng-content></ng-content>',

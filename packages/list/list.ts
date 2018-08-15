@@ -36,11 +36,20 @@ export class MdcListItemChange {
     public option: MdcListItem) { }
 }
 
-@Directive({
+@Component({
+  moduleId: module.id,
   selector: '[mdcListGroup], mdc-list-group',
   exportAs: 'mdcListGroup',
+  template: `
+  <h3 class="mdc-list-group__subheader" *ngIf="subheader">{{subheader}}</h3>
+  <ng-content></ng-content>
+  `,
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcListGroup {
+  @Input() subheader: string;
+
   @HostBinding('class.mdc-list-group') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }

@@ -20,7 +20,21 @@
       <table>
         <tbody>
           <tr>
-            <td>Wraps one or more mdc-list and/or mdc-list-divider elements.</td>
+            <td>Optional, wrapper around two or more mdc-list elements to be grouped together.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>subheader: string</td>
+            <td>Optional, heading text displayed above each list in a group.</td>
           </tr>
         </tbody>
       </table>
@@ -29,7 +43,7 @@
       <table>
         <tbody>
           <tr>
-            <td>Heading text displayed above each list in a group.</td>
+            <td>Optional, heading text displayed above each list in a group.</td>
           </tr>
         </tbody>
       </table>
@@ -225,8 +239,7 @@
       <button mdc-button (click)="custom.selection = !custom.selection">Selection: {{custom.selection ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="custom.interactive = !custom.interactive">Interactive: {{custom.interactive ? 'On' : 'Off'}}</button>
     </div>
-    <mdc-list-group>
-      <h3 mdcListGroupSubheader>Folders</h3>
+    <mdc-list-group subheader="Folders">
       <mdc-list #custom [lines]="2" avatar class="demo-list--custom">
         <mdc-list-item>
           <mdc-icon mdcListItemGraphic>folder</mdc-icon>
@@ -453,8 +466,7 @@
       <button mdc-button (click)="divider.inset = !divider.inset">Divider Inset: {{divider.inset ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="divider.padded = !divider.padded">Divider Padded: {{divider.padded ? 'On' : 'Off'}}</button>
     </div>
-    <mdc-list-group>
-      <h3 mdcListGroupSubheader>First Group</h3>
+    <mdc-list-group subheader="First Group">
       <mdc-list>
         <mdc-list-item>
           <mdc-icon mdcListItemGraphic>network_wifi</mdc-icon>Wi-Fi

@@ -52,19 +52,19 @@ export class TextFieldDemo {
     if (!input.isTextarea()) {
       const demoTextField = 'demo-text-field-custom-colors';
 
-      input.hasClass(demoTextField) ?
+      input.elementRef.nativeElement.classList.contains(demoTextField) ?
         this._renderer.removeClass(input.elementRef.nativeElement, demoTextField)
         : this._renderer.addClass(input.elementRef.nativeElement, demoTextField);
     } else if (input.isTextarea()) {
       const demoTextarea = 'demo-textarea';
 
-      input.hasClass(demoTextarea) ?
+      input.elementRef.nativeElement.classList.contains(demoTextarea) ?
         this._renderer.removeClass(input.elementRef.nativeElement, demoTextarea)
         : this._renderer.addClass(input.elementRef.nativeElement, demoTextarea);
     } else {
       const demoFullwidth = 'demo-fullwidth-input';
 
-      input.hasClass(demoFullwidth) ?
+      input.elementRef.nativeElement.classList.contains(demoFullwidth) ?
         this._renderer.removeClass(input.elementRef.nativeElement, demoFullwidth)
         : this._renderer.addClass(input.elementRef.nativeElement, demoFullwidth);
     }

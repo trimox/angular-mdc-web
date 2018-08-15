@@ -94,13 +94,6 @@ describe('MdcTextField', () => {
       tick();
     }));
 
-    it('#should float label', fakeAsync(() => {
-      testComponent.myModel = 'testing';
-      fixture.detectChanges();
-      tick();
-      expect(textFieldInstance.shouldFloat()).toBe(true);
-    }));
-
     it('#should not be empty', fakeAsync(() => {
       textFieldInstance.setValue('newvalue');
       fixture.detectChanges();
@@ -110,16 +103,9 @@ describe('MdcTextField', () => {
       expect(textFieldInstance.empty).toBe(false);
     }));
 
-    it('#should remove invalid styling', () => {
-      textFieldInstance.setValid(false);
-      fixture.detectChanges();
-      expect(textFieldInstance.hasClass('mdc-text-field--invalid')).toBe(true);
-    });
-
     it('#should set validity based on input element validity', () => {
       textFieldInstance.setValid(true);
       fixture.detectChanges();
-      expect(textFieldInstance.hasClass('mdc-text-field--invalid')).toBe(false);
       expect(textFieldInstance.valid).toBe(true);
     });
 

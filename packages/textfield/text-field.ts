@@ -23,7 +23,6 @@ import { Subject } from 'rxjs';
 import {
   toBoolean,
   isBrowser,
-  EventRegistry,
   toNumber
 } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
@@ -72,8 +71,7 @@ let nextUniqueId = 0;
   `,
   providers: [
     MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR,
-    MdcRipple,
-    EventRegistry
+    MdcRipple
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -213,12 +211,13 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     removeClass: (className: string) => this._getHostElement().classList.remove(className),
     hasClass: (className: string) => this._getHostElement().classList.contains(className),
     registerTextFieldInteractionHandler: (evtType: string, handler: EventListener) =>
-      this._registry.listen(evtType, handler, this._getInputElement()),
+      this._getHostElement().addEventListener(evtType, handler),
     deregisterTextFieldInteractionHandler: (evtType: string, handler: EventListener) =>
-      this._registry.unlisten(evtType, handler),
+      this._getHostElement().removeEventListener(evtType, handler),
     registerInputInteractionHandler: (evtType: string, handler: EventListener) =>
-      this._registry.listen(evtType, handler, this._getInputElement()),
-    deregisterInputInteractionHandler: (evtType: string, handler: EventListener) => this._registry.unlisten(evtType, handler),
+      this._getInputElement().addEventListener(evtType, handler),
+    deregisterInputInteractionHandler: (evtType: string, handler: EventListener) =>
+      this._getInputElement().removeEventListener(evtType, handler),
     isFocused: () => this._focused,
     isRtl: () => this.direction === 'rtl',
     activateLineRipple: () => {
@@ -270,8 +269,9 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     removeAttr: (attr: string) => this._icons.first.elementRef.nativeElement.removeAttribute(attr),
     setContent: (content: string) => this._icons.first.elementRef.nativeElement.textContent = content,
     registerInteractionHandler: (evtType: string, handler: EventListener) =>
-      this._registry.listen(evtType, handler, this._icons.first.elementRef.nativeElement),
-    deregisterInteractionHandler: (evtType: string, handler: EventListener) => this._registry.unlisten(evtType, handler),
+      this._icons.first.elementRef.nativeElement.addEventListener(evtType, handler),
+    deregisterInteractionHandler: (evtType: string, handler: EventListener) =>
+      this._icons.first.elementRef.nativeElement.removeEventListener(evtType, handler),
     notifyIconAction: () => this.iconAction.emit(true)
   };
 
@@ -288,8 +288,6 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     setHelperTextContent(content: string): void,
     notchOutline(openNotch: boolean): void,
     getValue(): any,
-    shouldFloat: boolean,
-    shouldShake: boolean,
     setIconAriaLabel(label: string): void,
     setIconContent(content: string): void
   } = new MDCTextFieldFoundation(this._mdcAdapter);
@@ -312,8 +310,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   constructor(
     protected _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef,
-    protected _ripple: MdcRipple,
-    protected _registry: EventRegistry) {
+    protected _ripple: MdcRipple) {
 
     // Force setter to be called in case id was not specified.
     this.id = this.id;
@@ -400,10 +397,6 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     }, 0);
 
     this._changeDetectorRef.markForCheck();
-  }
-
-  shouldFloat(): boolean {
-    return this._foundation.shouldFloat;
   }
 
   isDisabled(): boolean {
@@ -560,15 +553,11 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     this._changeDetectorRef.markForCheck();
   }
 
-  hasClass(className: string): boolean {
-    return this._getHostElement().classList.contains(className);
-  }
-
   private _hasIcons(): boolean {
     return this._icons && this._icons.length > 0;
   }
 
-  private _getInputElement() {
+  private _getInputElement(): HTMLInputElement {
     return this._input.nativeElement;
   }
 

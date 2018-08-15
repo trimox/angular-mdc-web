@@ -3,12 +3,12 @@ import {
   Component,
   forwardRef,
   HostBinding,
-  Input
+  Input,
+  ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { MdcRipple } from '@angular-mdc/web/ripple';
-import { EventRegistry } from '@angular-mdc/web/common';
 import { MdcTextField } from './text-field';
 
 export const MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
@@ -36,10 +36,10 @@ export const MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
   `,
   providers: [
     MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR,
-    MdcRipple,
-    EventRegistry
+    MdcRipple
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class MdcTextarea extends MdcTextField {
   @Input() rows: number;

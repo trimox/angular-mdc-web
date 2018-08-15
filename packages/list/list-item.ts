@@ -13,7 +13,7 @@ import {
   Output,
   ViewEncapsulation
 } from '@angular/core';
-import { EventRegistry, toBoolean } from '@angular-mdc/web/common';
+import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
 /** Change event that is fired whenever the selected state of an option changes. */
@@ -86,10 +86,7 @@ export class MdcListItemSecondary {
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    EventRegistry,
-    MdcRipple
-  ]
+  providers: [MdcRipple]
 })
 export class MdcListItem implements OnDestroy {
   private _id = `mdc-list-item-${uniqueIdCounter++}`;

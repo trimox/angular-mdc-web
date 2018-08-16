@@ -16,7 +16,6 @@ export class AppComponent implements OnInit {
         if (event instanceof NavigationEnd) {
           // (<any>window).ga('set', 'page', event.urlAfterRedirects);
           // (<any>window).ga('send', 'pageview');
-          window.scrollTo(0, 0);
         }
       }
     });

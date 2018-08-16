@@ -10,14 +10,13 @@ import {
   HostBinding,
   HostListener,
   Input,
-  NgZone,
   OnDestroy,
   Output,
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
-import { defer, merge, Observable, Subject } from 'rxjs';
-import { startWith, switchMap, take, takeUntil } from 'rxjs/operators';
+import { merge, Observable, Subscription } from 'rxjs';
+import { startWith } from 'rxjs/operators';
 
 import { toBoolean } from '@angular-mdc/web/common';
 import { MdcTabScroller, MdcTabScrollerAlignment } from '@angular-mdc/web/tab-scroller';
@@ -79,9 +78,6 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
   }
   private _iconIndicator: string;
 
-  /** Emits whenever the component is destroyed. */
-  private _destroy = new Subject<void>();
-
   @Output() readonly activated: EventEmitter<MdcTabActivatedEvent> =
     new EventEmitter<MdcTabActivatedEvent>();
 
@@ -95,16 +91,16 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
   @ContentChild(MdcTabScroller) tabScroller: MdcTabScroller;
   @ContentChildren(MdcTab, { descendants: true }) tabs: QueryList<MdcTab>;
 
-  /** Combined stream of all of the tab interaction events. */
-  readonly tabInteractions: Observable<MdcTabInteractedEvent> = defer(() => {
-    if (this.tabs) {
-      return merge(...this.tabs.map(tab => tab.interacted));
-    }
+  /** Subscription to changes in tabs. */
+  private _changeSubscription: Subscription;
 
-    return this._ngZone.onStable
-      .asObservable()
-      .pipe(take(1), switchMap(() => this.tabInteractions));
-  });
+  /** Subscription to interaction events in tabs. */
+  private _tabInteractionSubscription: Subscription | null;
+
+  /** Combined stream of all of the tab interaction events. */
+  get tabInteractions(): Observable<MdcTabInteractedEvent> {
+    return merge(...this.tabs.map(tab => tab.interacted));
+  }
 
   private _mdcAdapter: MDCTabBarAdapter = {
     scrollTo: (scrollX: number) => this.tabScroller.scrollTo(scrollX),
@@ -133,30 +129,46 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    private _ngZone: NgZone,
     public elementRef: ElementRef) { }
 
   ngAfterContentInit(): void {
-    this.tabs.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
-      this._foundation.init();
+    this._foundation.init();
+
+    // When the list changes, re-subscribe
+    this._changeSubscription = this.tabs.changes.pipe(startWith(null)).subscribe(() => {
+      this._resetTabs();
       this._initializeSelection();
     });
+  }
 
-    // Subscribe to changes in the amount of tabs, in order to be
-    // able to re-render the content as new tabs are added or removed.
-    this.tabInteractions.pipe(
-      takeUntil(merge(this._destroy, this.tabs.changes))
-    ).subscribe(event => {
+  ngOnDestroy(): void {
+    if (this._changeSubscription) {
+      this._changeSubscription.unsubscribe();
+    }
+
+    this._dropSubscriptions();
+  }
+
+  private _resetTabs() {
+    this._dropSubscriptions();
+    this._listenToTabInteraction();
+  }
+
+  private _dropSubscriptions() {
+    if (this._tabInteractionSubscription) {
+      this._tabInteractionSubscription.unsubscribe();
+      this._tabInteractionSubscription = null;
+    }
+  }
+
+  /** Listens to interaction events on each tab. */
+  private _listenToTabInteraction(): void {
+    this._tabInteractionSubscription = this.tabInteractions.subscribe(event => {
       this.getActiveTab()!.tabIndicator.active = false;
 
       event.detail.tab.tabIndicator.active = true;
       this._foundation.handleTabInteraction(event);
     });
-  }
-
-  ngOnDestroy(): void {
-    this._destroy.next();
-    this._destroy.complete();
   }
 
   private _initializeSelection(): void {

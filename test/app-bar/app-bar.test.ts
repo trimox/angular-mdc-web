@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 
 import {
   MdcAppBarModule,
-  MdcAppBar,
+  MdcAppBar
 } from '@angular-mdc/web';
 
 describe('MdcAppBar', () => {
@@ -59,25 +59,25 @@ describe('MdcAppBar', () => {
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short')).toBe(true);
     });
 
-    it('#should apply mdc-top-app-bar--short-collapsed class based on property', () => {
-      testComponent.shortCollapsed = true;
-      fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short-collapsed')).toBe(true);
-    });
-
     it('#should apply mdc-top-app-bar--prominent class based on property', () => {
+      testComponent.short = true;
+      fixture.detectChanges();
       testComponent.prominent = true;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--prominent')).toBe(true);
     });
 
     it('#should apply mdc-top-app-bar--dense class based on property', () => {
+      testComponent.short = true;
+      fixture.detectChanges();
       testComponent.dense = true;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--dense')).toBe(true);
     });
 
     it('#should apply mdc-top-app-bar--fixed class based on property', () => {
+      testComponent.short = true;
+      fixture.detectChanges();
       testComponent.fixed = true;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--fixed')).toBe(true);
@@ -109,9 +109,9 @@ describe('MdcAppBar', () => {
   `,
 })
 class SimpleTest {
-  fixed: boolean = false;
-  short: boolean = true;
-  shortCollapsed: boolean = false;
-  prominent: boolean = false;
-  dense: boolean = false;
+  fixed: boolean;
+  short: boolean;
+  shortCollapsed: boolean;
+  prominent: boolean;
+  dense: boolean;
 }

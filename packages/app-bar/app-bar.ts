@@ -18,7 +18,7 @@ import {
 import { takeUntil, startWith } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
-import { EventRegistry, isBrowser, toBoolean } from '@angular-mdc/web/common';
+import { isBrowser, toBoolean } from '@angular-mdc/web/common';
 
 import {
   MdcAppBarActionItem,
@@ -41,7 +41,6 @@ export class MdcAppBarNavSelected {
   selector: '[mdc-app-bar], mdc-app-bar',
   template: '<ng-content></ng-content>',
   exportAs: 'mdcAppBar',
-  providers: [EventRegistry],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
@@ -58,7 +57,7 @@ export class MdcAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
       this.setFixed(value);
     }
   }
-  protected _fixed: boolean;
+  private _fixed: boolean;
 
   @Input()
   get prominent(): boolean { return this._prominent; }
@@ -67,7 +66,7 @@ export class MdcAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
       this.setProminent(value);
     }
   }
-  protected _prominent: boolean;
+  private _prominent: boolean;
 
   @Input()
   get short(): boolean { return this._short; }
@@ -76,7 +75,7 @@ export class MdcAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
       this.setShort(value);
     }
   }
-  protected _short: boolean;
+  private _short: boolean;
 
   @Input()
   get shortCollapsed(): boolean { return this._shortCollapsed; }
@@ -85,7 +84,7 @@ export class MdcAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
       this.setShortCollapsed(value);
     }
   }
-  protected _shortCollapsed: boolean;
+  private _shortCollapsed: boolean;
 
   @Input()
   get dense(): boolean { return this._dense; }
@@ -94,7 +93,7 @@ export class MdcAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
       this.setDense(value);
     }
   }
-  protected _dense: boolean;
+  private _dense: boolean;
 
   @Input()
   get fixedAdjustElement(): HTMLElement { return this._fixedAdjustElement; }
@@ -103,7 +102,7 @@ export class MdcAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
       this.setFixedAdjustElement(element);
     }
   }
-  protected _fixedAdjustElement: HTMLElement;
+  private _fixedAdjustElement: HTMLElement;
 
   /** Event emitted when the navigation icon is selected. */
   @Output() navigationSelected: EventEmitter<MdcAppBarNavSelected> = new EventEmitter<MdcAppBarNavSelected>();
@@ -140,22 +139,22 @@ export class MdcAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
     registerScrollHandler: (handler: EventListener) => {
       if (!isBrowser()) { return; }
 
-      this._registry.listen('scroll', handler, window);
+      window.addEventListener('scroll', handler);
     },
     deregisterScrollHandler: (handler: EventListener) => {
       if (!isBrowser()) { return; }
 
-      this._registry.unlisten('scroll', handler);
+      window.removeEventListener('scroll', handler);
     },
     registerResizeHandler: (handler: EventListener) => {
       if (!isBrowser()) { return; }
 
-      this._registry.listen('resize', handler, window);
+      window.addEventListener('resize', handler);
     },
     deregisterResizeHandler: (handler: EventListener) => {
       if (!isBrowser()) { return; }
 
-      this._registry.unlisten('resize', handler);
+      window.removeEventListener('resize', handler);
     },
     getViewportScrollY: () => {
       if (!isBrowser()) { return 0; }
@@ -172,8 +171,7 @@ export class MdcAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    public elementRef: ElementRef,
-    private _registry: EventRegistry) { }
+    public elementRef: ElementRef) { }
 
   ngAfterContentInit(): void {
     this.actions.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
@@ -194,7 +192,9 @@ export class MdcAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
     this._destroy.next();
     this._destroy.complete();
 
-    this._foundation.destroy();
+    if (this._foundation) {
+      this._foundation.destroy();
+    }
   }
 
   setFixedAdjustElement(element: HTMLElement): void {
@@ -272,23 +272,27 @@ export class MdcAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
   }
 
   initializeFoundation(): void {
-    this._foundation.destroy();
+    setTimeout(() => {
+      this._foundation.destroy();
 
-    this._getHostElement().style.top = '0px';
-    this._resetFixedShort();
+      this._getHostElement().style.top = '0px';
+      this._resetFixedShort();
 
-    if (this.short) {
-      this._foundation = new MDCShortTopAppBarFoundation(this._mdcAdapter);
-    } else if (this.fixed) {
-      this._foundation = new MDCFixedTopAppBarFoundation(this._mdcAdapter);
-    } else {
-      this._foundation = new MDCTopAppBarFoundation(this._mdcAdapter);
-    }
+      if (this.short) {
+        this._foundation = new MDCShortTopAppBarFoundation(this._mdcAdapter);
+      } else if (this.fixed) {
+        this._foundation = new MDCFixedTopAppBarFoundation(this._mdcAdapter);
+      } else {
+        this._foundation = new MDCTopAppBarFoundation(this._mdcAdapter);
+      }
 
-    this._foundation.init();
-    this._isFoundationInit = true;
+      this._foundation.init();
+      this._isFoundationInit = true;
 
-    this._initAppBar();
+      this._initAppBar();
+
+      this._changeDetectorRef.markForCheck();
+    }, 20);
   }
 
   private _resetFixedShort(): void {

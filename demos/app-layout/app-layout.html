@@ -1,7 +1,7 @@
 <mdc-app-bar class="demo-top-app-bar" #appbar fixed [fixedAdjustElement]="mainContent">
   <mdc-app-bar-row>
     <mdc-app-bar-section align="start" title="Angular MDC">
-      <mdc-icon mdcAppBarNavIcon (click)="appdrawer.open()" *ngIf="mobile">menu</mdc-icon>
+      <mdc-icon mdcAppBarNavIcon (click)="appdrawer.open()" *ngIf="isScreenSmall() || appbar.isCollapsed()">menu</mdc-icon>
     </mdc-app-bar-section>
     <mdc-app-bar-section align="end">
       <a mdcAppBarActionItem href="https://github.com/trimox/angular-mdc-web" alt="GitHub" target="_blank" rel="noopener noreferrer">
@@ -14,7 +14,7 @@
 </mdc-app-bar>
 
 <div #mainContent>
-  <mdc-drawer #appdrawer="mdcDrawer" [drawer]="mobile ? 'temporary' : 'permanent'" fixed class="demo-drawer--cursor-pointer">
+  <mdc-drawer #appdrawer="mdcDrawer" [drawer]="isScreenSmall() || appbar.isCollapsed() ? 'temporary' : 'permanent'" fixed class="demo-drawer">
     <mdc-drawer-content>
       <mdc-list-group>
         <mdc-list>
@@ -69,7 +69,7 @@
   <router-outlet></router-outlet>
 </div>
 
-<div class="demo-app-bar-control-container demo-layout__row-with-button" #demoAppBar>
+<div class="demo-app-bar-control-container demo-layout__row-with-button" #demoAppBarControls>
   <div class="demo-layout__row">
     <button mdc-button (click)="appbar.fixed = !appbar.fixed">Fixed: {{appbar.fixed ? 'On' : 'Off'}}</button>
     <button mdc-button (click)="appbar.prominent = !appbar.prominent">Promient: {{appbar.prominent ? 'On' : 'Off'}}</button>

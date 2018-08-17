@@ -1,145 +1,143 @@
-<div class="demo-layout__column demo-layout--center">
-  <div class="demo-page">
-    <div class="markdown-body">
-      <h1>Snackbars</h1>
-      Snackbars provide brief messages about app processes at the bottom of the screen.
-      <h2>References</h2>
-      <ul>
-        <li><a mdc-button href="https://material.io/design/components/snackbars.html"
-          target="_blank" rel="noopener noreferrer">Material Design guidelines: Snackbars</a>
-        </li>
-        <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-snackbar/README.md"
-          target="_blank" rel="noopener noreferrer">Material Components Web</a>
-        </li>
-      </ul>
-      <h2>Import</h2>
-      <p class="docs-api-module-import"><![CDATA[import { MdcSnackbarModule } from '@angular-mdc/web';]]></p>
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Snackbars</h1>
+    Snackbars provide brief messages about app processes at the bottom of the screen.
+    <h2>References</h2>
+    <ul>
+      <li><a mdc-button href="https://material.io/design/components/snackbars.html"
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Snackbars</a>
+      </li>
+      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-snackbar/README.md"
+        target="_blank" rel="noopener noreferrer">Material Components Web</a>
+      </li>
+    </ul>
+    <h2>Import</h2>
+    <p class="docs-api-module-import"><![CDATA[import { MdcSnackbarModule } from '@angular-mdc/web';]]></p>
 
-      <h2>Design & API Documentation</h2>
-      <div class="docs-api">
-        <table>
-          <thead>
-            <tr>
-              <th>Service</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>MdcSnackbar</td>
-            </tr>
-          </tbody>
-        </table>
-        <table>
-          <thead>
-            <tr>
-              <th>Methods</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>show(message: string)</td>
-              <td>Show snackbar message.</td>
-            </tr>
-            <tr>
-              <td>show(message: string, action: string)</td>
-              <td>Show snackbar message and action.</td>
-            </tr>
-            <tr>
-              <td><pre><![CDATA[show(
-      message: string,
-      action: string,
-      {
-        config
-      })
-    ]]></pre></td>
-              <td>
-    <pre><![CDATA[config {
-      timeout?: number = 2750;
-      actionHandler?: Function;
-      multiline?: boolean = false;
-      actionOnBottom?: boolean = false;
-      align?: string = 'center';
-      dismissOnAction?: boolean = true;
-      focusAction?: boolean = false;
-    }]]></pre>
-              </td>
-            </tr>
-            <tr>
-              <td>afterDismissed</td>
-              <td>Gets an observable that is notified when the snackbar is finished closing.</td>
-            </tr>
-          </tbody>
-        </table>
-        <table>
-          <thead>
-            <tr>
-              <th>Config</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>timeout: number (Default 2750)</td>
-              <td>The amount of time in milliseconds to show the snackbar.</td>
-            </tr>
-            <tr>
-              <td>actionHandler: Function</td>
-              <td>The function to execute when the action is clicked.</td>
-            </tr>
-            <tr>
-              <td>multiline: boolean</td>
-              <td>Whether to show the snackbar with space for multiple lines of text.</td>
-            </tr>
-            <tr>
-              <td>actionOnBottom: boolean</td>
-              <td>Whether to show the action below the multiple lines of text.</td>
-            </tr>
-            <tr>
-              <td>align: string (Default 'center')</td>
-              <td>Alignment of the snackbar on screen. Valid values - 'start' | 'center'</td>
-            </tr>
-            <tr>
-              <td>dismissOnAction: boolean</td>
-              <td>Dismisses snackbar when action button is clicked.</td>
-            </tr>
-            <tr>
-              <td>focusAction: boolean</td>
-              <td>Sets focus to the action button.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <h2>Basic Usage</h2>
-      <a mdc-button href="https://stackblitz.com/edit/angular-mdc-snackbar"
-       target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
+    <h2>Design & API Documentation</h2>
+    <div class="docs-api">
+      <table>
+        <thead>
+          <tr>
+            <th>Service</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MdcSnackbar</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Methods</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>show(message: string)</td>
+            <td>Show snackbar message.</td>
+          </tr>
+          <tr>
+            <td>show(message: string, action: string)</td>
+            <td>Show snackbar message and action.</td>
+          </tr>
+          <tr>
+            <td><pre><![CDATA[show(
+    message: string,
+    action: string,
+    {
+      config
+    })
+  ]]></pre></td>
+            <td>
+  <pre><![CDATA[config {
+    timeout?: number = 2750;
+    actionHandler?: Function;
+    multiline?: boolean = false;
+    actionOnBottom?: boolean = false;
+    align?: string = 'center';
+    dismissOnAction?: boolean = true;
+    focusAction?: boolean = false;
+  }]]></pre>
+            </td>
+          </tr>
+          <tr>
+            <td>afterDismissed</td>
+            <td>Gets an observable that is notified when the snackbar is finished closing.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Config</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>timeout: number (Default 2750)</td>
+            <td>The amount of time in milliseconds to show the snackbar.</td>
+          </tr>
+          <tr>
+            <td>actionHandler: Function</td>
+            <td>The function to execute when the action is clicked.</td>
+          </tr>
+          <tr>
+            <td>multiline: boolean</td>
+            <td>Whether to show the snackbar with space for multiple lines of text.</td>
+          </tr>
+          <tr>
+            <td>actionOnBottom: boolean</td>
+            <td>Whether to show the action below the multiple lines of text.</td>
+          </tr>
+          <tr>
+            <td>align: string (Default 'center')</td>
+            <td>Alignment of the snackbar on screen. Valid values - 'start' | 'center'</td>
+          </tr>
+          <tr>
+            <td>dismissOnAction: boolean</td>
+            <td>Dismisses snackbar when action button is clicked.</td>
+          </tr>
+          <tr>
+            <td>focusAction: boolean</td>
+            <td>Sets focus to the action button.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+    <h2>Basic Usage</h2>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-snackbar"
+     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
+  </div>
 
-    <div class="demo-content">
-      <div class="demo-layout__row">
-        <div class="demo-layout__column">
-          <mdc-form-field>
-            <mdc-checkbox [(ngModel)]="multiline"></mdc-checkbox>
-            <label>Multiline</label>
-          </mdc-form-field>
-          <mdc-form-field>
-            <mdc-checkbox [(ngModel)]="actionOnBottom" [disabled]="!multiline"></mdc-checkbox>
-            <label>Action on Bottom (requires multiline)</label>
-          </mdc-form-field>
-          <mdc-form-field>
-            <mdc-checkbox [(ngModel)]="alignStart"></mdc-checkbox>
-            <label>Start align (desktop only)</label>
-          </mdc-form-field>
-          <mdc-form-field>
-            <mdc-checkbox [(ngModel)]="dismissOnAction"></mdc-checkbox>
-            <label>Dismiss on Action Click</label>
-          </mdc-form-field>
-          <mdc-form-field>
-            <mdc-checkbox [(ngModel)]="focusAction"></mdc-checkbox>
-            <label>Focus on Action button</label>
-          </mdc-form-field>
-        </div>
+  <div class="demo-content">
+    <div class="demo-layout__row">
+      <div class="demo-layout__column">
+        <mdc-form-field>
+          <mdc-checkbox [(ngModel)]="multiline"></mdc-checkbox>
+          <label>Multiline</label>
+        </mdc-form-field>
+        <mdc-form-field>
+          <mdc-checkbox [(ngModel)]="actionOnBottom" [disabled]="!multiline"></mdc-checkbox>
+          <label>Action on Bottom (requires multiline)</label>
+        </mdc-form-field>
+        <mdc-form-field>
+          <mdc-checkbox [(ngModel)]="alignStart"></mdc-checkbox>
+          <label>Start align (desktop only)</label>
+        </mdc-form-field>
+        <mdc-form-field>
+          <mdc-checkbox [(ngModel)]="dismissOnAction"></mdc-checkbox>
+          <label>Dismiss on Action Click</label>
+        </mdc-form-field>
+        <mdc-form-field>
+          <mdc-checkbox [(ngModel)]="focusAction"></mdc-checkbox>
+          <label>Focus on Action button</label>
+        </mdc-form-field>
       </div>
-      <button mdc-button primary raised (click)="show()">Show Snackbar</button>
     </div>
+    <button mdc-button primary raised (click)="show()">Show Snackbar</button>
   </div>
 </div>

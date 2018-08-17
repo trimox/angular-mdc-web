@@ -2,9 +2,14 @@
 // Drawer
 //
 
-.demo-drawer--cursor-pointer {
+.demo-drawer {
   .mdc-list-item {
     cursor: pointer;
+  }
+
+  @media (min-width: 1240px) {
+    height: 94vh;
+    padding-bottom: 40px;
   }
 }
 

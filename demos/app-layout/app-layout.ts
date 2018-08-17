@@ -1,5 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, NgZone, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { filter, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+
+const SMALL_WIDTH_BREAKPOINT = 1240;
 
 import { MdcAppBar } from '@angular-mdc/web';
 
@@ -7,13 +11,19 @@ import { MdcAppBar } from '@angular-mdc/web';
   selector: 'app-layout',
   templateUrl: './app-layout.html'
 })
-export class AppLayout implements OnInit {
+export class AppLayout implements OnInit, OnDestroy {
+  /** Emits whenever the component is destroyed. */
+  private _destroy = new Subject<void>();
+
+  private _mediaMatcher: MediaQueryList = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
+
+  @ViewChild('demoAppBarControls') demoAppBarControls;
+  @ViewChild(MdcAppBar) appBar: MdcAppBar;
+
   startVisible: boolean;
   buttonVisible: boolean;
   inputVisible: boolean;
   listVisible: boolean;
-
-  mobile: boolean;
 
   navigationLinks = [
     { name: 'App Bar', route: 'app-bar-demo', icon: 'remove' },
@@ -59,25 +69,32 @@ export class AppLayout implements OnInit {
     { name: 'Angular CLI', route: 'cli-guide' }
   ];
 
-  @ViewChild('appbar') appbar: MdcAppBar;
-  @ViewChild('demoAppBar') demoAppBar: ElementRef;
+  constructor(
+    private _router: Router,
+    private _ngZone: NgZone) {
+    this._mediaMatcher.addListener(mql => this._ngZone.run(() => this._mediaMatcher = mql));
+  }
 
-  constructor(private _router: Router) { }
+  isScreenSmall(): boolean {
+    return this._mediaMatcher.matches;
+  }
 
-  ngOnInit() {
-    this._router.events.subscribe(event => {
-      if (this._router.url.includes('/app-bar-demo')) {
-        if (event instanceof NavigationEnd) {
-          this.demoAppBar.nativeElement.style.display = 'block';
+  ngOnInit(): void {
+    this._router.events
+      .pipe(takeUntil(this._destroy),
+        filter(event => event instanceof NavigationEnd))
+      .subscribe(_ => {
+        if (this._router.url.includes('/app-bar-demo')) {
+          this.demoAppBarControls.nativeElement.style.display = 'block';
         } else {
-          this.demoAppBar.nativeElement.style.display = 'none';
-          this.appbar.fixed = true;
+          this.demoAppBarControls.nativeElement.style.display = 'none';
+          this.appBar.fixed = true; // reset to fixed after navigation off app-bar demo
         }
-      }
-    });
+      });
+  }
 
-    if (window.screen.width <= 1200) {
-      this.mobile = true;
-    }
+  ngOnDestroy(): void {
+    this._destroy.next();
+    this._destroy.complete();
   }
 }

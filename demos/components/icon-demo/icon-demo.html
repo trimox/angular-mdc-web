@@ -1,119 +1,117 @@
-<div class="demo-layout__column demo-layout--center">
-  <div class="demo-page">
-    <div class="markdown-body">
-      <h1>Icons</h1>
-      Material icons use geometric shapes to visually represent core ideas, capabilities, or topics.
-      <h2>References</h2>
-      <ul>
-        <li><a mdc-button href="https://material.io/guidelines/style/icons.html"
-          target="_blank" rel="noopener noreferrer">Material Design guidelines: Icons</a>
-        </li>
-      </ul>
-      <h2>Import</h2>
-      <p class="docs-api-module-import"><![CDATA[import { MdcIconModule } from '@angular-mdc/web';]]></p>
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Icons</h1>
+    Material icons use geometric shapes to visually represent core ideas, capabilities, or topics.
+    <h2>References</h2>
+    <ul>
+      <li><a mdc-button href="https://material.io/guidelines/style/icons.html"
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Icons</a>
+      </li>
+    </ul>
+    <h2>Import</h2>
+    <p class="docs-api-module-import"><![CDATA[import { MdcIconModule } from '@angular-mdc/web';]]></p>
 
-      <h2>Design & API Documentation</h2>
-      <div class="docs-api">
-        <p>
-          <span class="docs-api-class-selector-label">Selector:</span>
-          <span class="docs-api-class-selector-name">mdc-icon</span>
-          <span class="docs-api-class-selector-name">mdcIcon</span>
-          <span class="docs-api-class-selector-name">a[mdc-icon]</span>
-        </p>
-        <h3>mdc-icon, a[mdcIcon], mdcIcon</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Properties</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>fontSet: string</td>
-              <td>Font set that the icon is a part of.</td>
-            </tr>
-            <tr>
-              <td>fontIcon: string</td>
-              <td>Name of an icon within a font set.</td>
-            </tr>
-            <tr>
-              <td>fontSize: number</td>
-              <td>The size of the icon. If no size is specified, the default of 24px is used.</td>
-            </tr>
-            <tr>
-              <td>clickable: boolean</td>
-              <td>Whether or not icon can be interacted with.</td>
-            </tr>
-          </tbody>
-        </table>
-        <table>
-          <thead>
-            <tr>
-              <th>Methods</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>setIcon(content: string)</td>
-              <td>Set the content of the icon.</td>
-            </tr>
-            <tr>
-              <td>getIcon(): string</td>
-              <td>Get the content of the icon.</td>
-            </tr>
-            <tr>
-              <td>setFontSize(value: number)</td>
-              <td>Set the font size value.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <h2>Sass Mixins</h2>
-      Example for an alternate icon color.
-       <pre><![CDATA[
-  .demo-icon-custom-colors {
-    $color: $material-color-orange-500;
-
-    @include mdc-theme-prop(color, $color);
-  }]]></pre>
-
-      <h2>Basic Usage</h2>
-      <a mdc-button href="https://stackblitz.com/edit/angular-mdc-icon"
-       target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
+    <h2>Design & API Documentation</h2>
+    <div class="docs-api">
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdc-icon</span>
+        <span class="docs-api-class-selector-name">mdcIcon</span>
+        <span class="docs-api-class-selector-name">a[mdc-icon]</span>
+      </p>
+      <h3>mdc-icon, a[mdcIcon], mdcIcon</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>fontSet: string</td>
+            <td>Font set that the icon is a part of.</td>
+          </tr>
+          <tr>
+            <td>fontIcon: string</td>
+            <td>Name of an icon within a font set.</td>
+          </tr>
+          <tr>
+            <td>fontSize: number</td>
+            <td>The size of the icon. If no size is specified, the default of 24px is used.</td>
+          </tr>
+          <tr>
+            <td>clickable: boolean</td>
+            <td>Whether or not icon can be interacted with.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Methods</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>setIcon(content: string)</td>
+            <td>Set the content of the icon.</td>
+          </tr>
+          <tr>
+            <td>getIcon(): string</td>
+            <td>Get the content of the icon.</td>
+          </tr>
+          <tr>
+            <td>setFontSize(value: number)</td>
+            <td>Set the font size value.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+    <h2>Sass Mixins</h2>
+    Example for an alternate icon color.
+     <pre><![CDATA[
+.demo-icon-custom-colors {
+  $color: $material-color-orange-500;
 
-    <div class="demo-content">
-      <h3 class="demo-content__headline">Material icons (default)</h3>
-      <div class="demo-layout__row">
-        <button mdc-button (click)="alternateColors(demoicon)">Alternate Colors</button>
-      </div>
-      <mdc-icon #demoicon>home</mdc-icon>
-    </div>
+  @include mdc-theme-prop(color, $color);
+}]]></pre>
 
-    <div class="demo-content">
-      <h3 class="demo-content__headline">Font Size adjusted</h3>
-      <div class="demo-layout__row">
-        <button mdc-button (click)="alternateColors(demosize)">Alternate Colors</button>
-      </div>
-      <mdc-icon #demosize [fontSize]="48">home</mdc-icon>
-    </div>
+    <h2>Basic Usage</h2>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-icon"
+     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
+  </div>
 
-    <div class="demo-content">
-      <h3 class="demo-content__headline">Using Font Awesome</h3>
-      <div class="demo-layout__row">
-        <button mdc-button (click)="alternateColors(demofa)">Alternate Colors</button>
-      </div>
-      <mdc-icon #demofa fontSet="fa" fontIcon="fa-camera"></mdc-icon>
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Material icons (default)</h3>
+    <div class="demo-layout__row">
+      <button mdc-button (click)="alternateColors(demoicon)">Alternate Colors</button>
     </div>
+    <mdc-icon #demoicon>home</mdc-icon>
+  </div>
 
-    <div class="demo-content">
-      <h3 class="demo-content__headline">Using Font Awesome w/size modifier</h3>
-      <div class="demo-layout__row">
-        <button mdc-button (click)="alternateColors(fasize)">Alternate Colors</button>
-      </div>
-      <mdc-icon #fasize fontSet="fa" fontIcon="fa-map fa-4x"></mdc-icon>
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Font Size adjusted</h3>
+    <div class="demo-layout__row">
+      <button mdc-button (click)="alternateColors(demosize)">Alternate Colors</button>
     </div>
+    <mdc-icon #demosize [fontSize]="48">home</mdc-icon>
+  </div>
+
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Using Font Awesome</h3>
+    <div class="demo-layout__row">
+      <button mdc-button (click)="alternateColors(demofa)">Alternate Colors</button>
+    </div>
+    <mdc-icon #demofa fontSet="fa" fontIcon="fa-camera"></mdc-icon>
+  </div>
+
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Using Font Awesome w/size modifier</h3>
+    <div class="demo-layout__row">
+      <button mdc-button (click)="alternateColors(fasize)">Alternate Colors</button>
+    </div>
+    <mdc-icon #fasize fontSet="fa" fontIcon="fa-map fa-4x"></mdc-icon>
   </div>
 </div>

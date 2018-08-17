@@ -1,175 +1,173 @@
-<div class="demo-layout__column demo-layout--center">
-  <div class="demo-page">
-    <div class="markdown-body">
-      <h1>App Bar</h1>
-      MDC App Bar acts as a container for items such as application title, navigation icon, and action items.
-      <h2>References</h2>
-      <ul>
-        <li><a mdc-button href="https://material.io/design/components/app-bars-top.html"
-          target="_blank" rel="noopener noreferrer">Material Design guidelines: Top App Bar</a>
-        </li>
-        <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-top-app-bar/README.md"
-          target="_blank" rel="noopener noreferrer">Material Components Web</a>
-        </li>
-      </ul>
-      <h2>Import</h2>
-      <p class="docs-api-module-import"><![CDATA[import { MdcAppBarModule } from '@angular-mdc/web';]]></p>
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>App Bar</h1>
+    MDC App Bar acts as a container for items such as application title, navigation icon, and action items.
+    <h2>References</h2>
+    <ul>
+      <li><a mdc-button href="https://material.io/design/components/app-bars-top.html"
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Top App Bar</a>
+      </li>
+      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-top-app-bar/README.md"
+        target="_blank" rel="noopener noreferrer">Material Components Web</a>
+      </li>
+    </ul>
+    <h2>Import</h2>
+    <p class="docs-api-module-import"><![CDATA[import { MdcAppBarModule } from '@angular-mdc/web';]]></p>
 
-      <h2>Design & API Documentation</h2>
-      <div class="docs-api">
-        <p>
-          <span class="docs-api-class-selector-label">Selector:</span>
-          <span class="docs-api-class-selector-name">mdc-app-bar</span>
-        </p>
-        <table>
-          <thead>
-            <tr>
-              <th>Properties</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>fixed: boolean</td>
-              <td>Style the app bar as a fixed top app bar.</td>
-            </tr>
-            <tr>
-              <td>short: boolean</td>
-              <td>Style the app bar as a short app bar. Short top app bars should only be used with one action item.</td>
-            </tr>
-            <tr>
-              <td>prominent: boolean</td>
-              <td>Enables prominent variant.</td>
-            </tr>
-            <tr>
-              <td>dense: boolean</td>
-              <td>Enables dense variant.</td>
-            </tr>
-            <tr>
-              <td>shortCollapsed: boolean</td>
-              <td>Set the short app bar to always collapsed.</td>
-            </tr>
-            <tr>
-              <td>fixedAdjustElement: any</td>
-              <td>If set, scroll event listener is attached to element object.</td>
-            </tr>
-          </tbody>
-        </table>
-        <table>
-          <thead>
-            <tr>
-              <th>Methods</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>isCollapsed: boolean</td>
-              <td>Whether or not the app bar is in a collapsed state.</td>
-            </tr>
-          </tbody>
-        </table>
-        <table>
-          <thead>
-            <tr>
-              <th>Events</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>navigationSelected: MdcAppBarNavSelected</td>
-              <td>Emitted when the app bar navigation menu icon is selected.</td>
-            </tr>
-          </tbody>
-        </table>
+    <h2>Design & API Documentation</h2>
+    <div class="docs-api">
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdc-app-bar</span>
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>fixed: boolean</td>
+            <td>Style the app bar as a fixed top app bar.</td>
+          </tr>
+          <tr>
+            <td>short: boolean</td>
+            <td>Style the app bar as a short app bar. Short top app bars should only be used with one action item.</td>
+          </tr>
+          <tr>
+            <td>prominent: boolean</td>
+            <td>Enables prominent variant.</td>
+          </tr>
+          <tr>
+            <td>dense: boolean</td>
+            <td>Enables dense variant.</td>
+          </tr>
+          <tr>
+            <td>shortCollapsed: boolean</td>
+            <td>Set the short app bar to always collapsed.</td>
+          </tr>
+          <tr>
+            <td>fixedAdjustElement: any</td>
+            <td>If set, scroll event listener is attached to element object.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Methods</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>isCollapsed: boolean</td>
+            <td>Whether or not the app bar is in a collapsed state.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Events</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>navigationSelected: MdcAppBarNavSelected</td>
+            <td>Emitted when the app bar navigation menu icon is selected.</td>
+          </tr>
+        </tbody>
+      </table>
 
-        <p>
-          <span class="docs-api-class-selector-label">Selector:</span>
-          <span class="docs-api-class-selector-name">mdc-app-bar-row</span>
-        </p>
-        <table>
-          <tbody>
-            <tr>
-              <td>A one-line row to add app bar sections.</td>
-            </tr>
-          </tbody>
-        </table>
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdc-app-bar-row</span>
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>A one-line row to add app bar sections.</td>
+          </tr>
+        </tbody>
+      </table>
 
-        <p>
-          <span class="docs-api-class-selector-label">Selector:</span>
-          <span class="docs-api-class-selector-name">mdc-app-bar-section</span>
-        </p>
-        <table>
-          <tbody>
-            <tr>
-              <td>A content area for navigation or actions.</td>
-            </tr>
-          </tbody>
-        </table>
-        <table>
-          <thead>
-            <tr>
-              <th>Properties</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>title: string</td>
-              <td>Optional. The text used to describe the app or section.</td>
-            </tr>
-            <tr>
-              <td>align: string</td>
-              <td>Align section to either 'start' or 'end' of row.
-    <pre>Valid values are 'start' | 'end'</pre></td>
-            </tr>
-          </tbody>
-        </table>
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdc-app-bar-section</span>
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>A content area for navigation or actions.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>title: string</td>
+            <td>Optional. The text used to describe the app or section.</td>
+          </tr>
+          <tr>
+            <td>align: string</td>
+            <td>Align section to either 'start' or 'end' of row.
+  <pre>Valid values are 'start' | 'end'</pre></td>
+          </tr>
+        </tbody>
+      </table>
 
-        <p>
-          <span class="docs-api-class-selector-label">Selector:</span>
-          <span class="docs-api-class-selector-name">mdc-app-bar-title</span>
-        </p>
-        <table>
-          <tbody>
-            <tr>
-              <td>Optional. The text used to describe the app or section.</td>
-            </tr>
-          </tbody>
-        </table>
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdc-app-bar-title</span>
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>Optional. The text used to describe the app or section.</td>
+          </tr>
+        </tbody>
+      </table>
 
-        <p>
-          <span class="docs-api-class-selector-label">Selector:</span>
-          <span class="docs-api-class-selector-name">mdc-icon[mdcAppBarNavIcon]</span>
-        </p>
-        <table>
-          <tbody>
-            <tr>
-              <td>Left most icon of app bar used for navigation.</td>
-            </tr>
-          </tbody>
-        </table>
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdc-icon[mdcAppBarNavIcon]</span>
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>Left most icon of app bar used for navigation.</td>
+          </tr>
+        </tbody>
+      </table>
 
-        <p>
-          <span class="docs-api-class-selector-label">Selector:</span>
-          <span class="docs-api-class-selector-name">mdc-icon[mdcAppBarActionItem]</span>
-        </p>
-        <table>
-          <tbody>
-            <tr>
-              <td>Top app bars can accommodate multiple action items on opposite side of navigation icon.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <h2>Sass Mixins</h2>
-      To customize the colors of any part of the app bar, use the following mixins.
-      <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-top-app-bar#sass-mixins"
-       target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
-
-      <h2>Basic Usage</h2>
-      <a mdc-button href="https://stackblitz.com/edit/angular-mdc-app-bar" target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdc-icon[mdcAppBarActionItem]</span>
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>Top app bars can accommodate multiple action items on opposite side of navigation icon.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+    <h2>Sass Mixins</h2>
+    To customize the colors of any part of the app bar, use the following mixins.
+    <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-top-app-bar#sass-mixins"
+     target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
+
+    <h2>Basic Usage</h2>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-app-bar" target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
   </div>
 </div>

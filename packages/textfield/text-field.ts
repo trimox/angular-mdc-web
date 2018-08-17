@@ -435,7 +435,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   setBox(box: boolean): void {
     this._box = toBoolean(box);
 
-    if (this.outline && box) {
+    if (this.outline && this.box) {
       this.outline = false;
     }
     this._box ? this._ripple.attachTo(this._getHostElement(), false, this._getInputElement()) :
@@ -448,7 +448,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   setOutline(outline: boolean): void {
     this._outline = toBoolean(outline);
 
-    if (outline && this.box) {
+    if (this.outline && this.box) {
       this.box = false;
     }
 

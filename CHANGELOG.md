@@ -1,3 +1,36 @@
+<a name="0.38.2"></a>
+## [0.38.2](https://github.com/trimox/angular-mdc-web/compare/v0.38.1...v0.38.2) (2018-08-17)
+
+
+### Bug Fixes
+
+* **app-bar:** Execute prominent app-bar following timeout ([#1229](https://github.com/trimox/angular-mdc-web/issues/1229)) ([f8a3eb6](https://github.com/trimox/angular-mdc-web/commit/f8a3eb6)), closes [#1226](https://github.com/trimox/angular-mdc-web/issues/1226)
+* **tab-bar:** Should reset subscriptions listening for tab changes ([#1225](https://github.com/trimox/angular-mdc-web/issues/1225)) ([ea09759](https://github.com/trimox/angular-mdc-web/commit/ea09759)), closes [#1223](https://github.com/trimox/angular-mdc-web/issues/1223)
+* **text-field:** Should compare using coerced value ([#1231](https://github.com/trimox/angular-mdc-web/issues/1231)) ([f40759f](https://github.com/trimox/angular-mdc-web/commit/f40759f))
+
+
+### Features
+
+* Bump material-components-web to v0.38.2 ([#1207](https://github.com/trimox/angular-mdc-web/issues/1207)) ([2b198b1](https://github.com/trimox/angular-mdc-web/commit/2b198b1))
+* **app-bar:** Add isCollapsed() for checking collapsed state ([#1230](https://github.com/trimox/angular-mdc-web/issues/1230)) ([f29cb70](https://github.com/trimox/angular-mdc-web/commit/f29cb70))
+* **checkbox:** Re-export MdcFormFieldModule ([#1208](https://github.com/trimox/angular-mdc-web/issues/1208)) ([df1094c](https://github.com/trimox/angular-mdc-web/commit/df1094c))
+* **fab:** Re-export MdcIconModule ([#1217](https://github.com/trimox/angular-mdc-web/issues/1217)) ([06e2fde](https://github.com/trimox/angular-mdc-web/commit/06e2fde))
+* **icon-button:** Re-export MdcIconModule ([#1216](https://github.com/trimox/angular-mdc-web/issues/1216)) ([a33c8e7](https://github.com/trimox/angular-mdc-web/commit/a33c8e7))
+* **list:** Add `subheader` prop for mdc-list-group ([#1211](https://github.com/trimox/angular-mdc-web/issues/1211)) ([8f00ebd](https://github.com/trimox/angular-mdc-web/commit/8f00ebd))
+* **list:** Remove deprecated `multiple` property ([#1221](https://github.com/trimox/angular-mdc-web/issues/1221)) ([be2fa23](https://github.com/trimox/angular-mdc-web/commit/be2fa23))
+* **radio:** Re-export MdcFormFieldModule ([#1210](https://github.com/trimox/angular-mdc-web/issues/1210)) ([7377d1b](https://github.com/trimox/angular-mdc-web/commit/7377d1b))
+* **switch:** Re-export MdcFormFieldModule ([#1209](https://github.com/trimox/angular-mdc-web/issues/1209)) ([e061e64](https://github.com/trimox/angular-mdc-web/commit/e061e64))
+* **tab:** Injection token to provide MdcTabBar interface ([#1204](https://github.com/trimox/angular-mdc-web/issues/1204)) ([a0ed4d2](https://github.com/trimox/angular-mdc-web/commit/a0ed4d2))
+
+### How to handle browser refresh with Tabs
+View a StackBlitz example: https://github.com/trimox/angular-mdc-web/issues/1206
+
+### BREAKING CHANGES
+
+* **list:** Removed `multiple: boolean` from mdc-list. Please update your code accordingly.
+
+
+
 <a name="0.38.1"></a>
 ## [0.38.1](https://github.com/trimox/angular-mdc-web/compare/v0.38.0...v0.38.1) (2018-08-11)
 

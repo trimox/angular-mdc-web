@@ -82,6 +82,7 @@ describe('MdcAppBar', () => {
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--fixed')).toBe(true);
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short')).toBe(false);
+      expect(testInstance.isCollapsed()).toBe(false);
     });
   });
 });

@@ -271,6 +271,11 @@ export class MdcAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
     }
   }
 
+  isCollapsed(): boolean {
+    return this._getHostElement().classList.contains('mdc-top-app-bar--short-collapsed') ||
+      this._getHostElement().classList.contains('mdc-top-app-bar--short-collapsed');
+  }
+
   initializeFoundation(): void {
     setTimeout(() => {
       this._foundation.destroy();

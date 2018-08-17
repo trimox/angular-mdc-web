@@ -10,7 +10,7 @@ import {
   OnDestroy,
   ViewEncapsulation
 } from '@angular/core';
-import { EventRegistry, toBoolean } from '@angular-mdc/web/common';
+import { toBoolean } from '@angular-mdc/web/common';
 
 import { MdcFormFieldControl } from './form-field-control';
 import { MDCFormFieldAdapter } from '@material/form-field/adapter';
@@ -21,17 +21,16 @@ import { MDCFormFieldFoundation } from '@material/form-field';
   selector: 'mdc-form-field',
   exportAs: 'mdcFormField',
   template: '<ng-content></ng-content>',
-  providers: [EventRegistry],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcFormField implements AfterContentInit, OnDestroy {
-  private _label: any;
+  private _label: HTMLElement;
 
   @Input()
   get alignEnd(): boolean { return this._alignEnd; }
   set alignEnd(value: boolean) {
-    this.setAlignEnd(value);
+    this._alignEnd = toBoolean(value);
   }
   private _alignEnd: boolean;
 
@@ -43,8 +42,8 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
   @ContentChild(MdcFormFieldControl) input: MdcFormFieldControl<any>;
 
   private _mdcAdapter: MDCFormFieldAdapter = {
-    registerInteractionHandler: (type: string, handler: EventListener) => this._registry.listen(type, handler, this._label),
-    deregisterInteractionHandler: (type: string, handler: EventListener) => this._registry.unlisten(type, handler),
+    registerInteractionHandler: (type: string, handler: EventListener) => this._label.addEventListener(type, handler),
+    deregisterInteractionHandler: (type: string, handler: EventListener) => this._label.removeEventListener(type, handler),
     activateInputRipple: () => {
       if (this.input && this.input.ripple) {
         this.input.ripple.activate();
@@ -64,21 +63,22 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    public elementRef: ElementRef,
-    private _registry: EventRegistry) { }
+    public elementRef: ElementRef) { }
 
   ngAfterContentInit(): void {
     if (this.input) {
-      const label = this.input.elementRef.nativeElement;
+      const formControl = this.input.elementRef.nativeElement;
 
-      if (label.nextSibling.tagName === 'LABEL') {
-        this._label = label.nextSibling;
-        this._label.setAttribute('for', this.input.inputId);
+      if (formControl.nextElementSibling) {
+        if (formControl.nextElementSibling.tagName === 'LABEL') {
+          this._label = formControl.nextElementSibling;
 
-        this._foundation = new MDCFormFieldFoundation(this._mdcAdapter);
-        this._foundation.init();
+          this._label.setAttribute('for', this.input.inputId);
 
-        this._changeDetectorRef.markForCheck();
+          this._foundation = new MDCFormFieldFoundation(this._mdcAdapter);
+          this._foundation.init();
+          this._changeDetectorRef.markForCheck();
+        }
       }
     }
   }
@@ -89,20 +89,11 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
     }
   }
 
-  setAlignEnd(alignEnd: boolean): void {
-    this._alignEnd = toBoolean(alignEnd);
-    this._changeDetectorRef.markForCheck();
-  }
-
   setInput(input: any): void {
     if (this.input !== input) {
       this.input = input;
 
       this._changeDetectorRef.markForCheck();
     }
-  }
-
-  isAlignEnd(): boolean {
-    return this.alignEnd;
   }
 }

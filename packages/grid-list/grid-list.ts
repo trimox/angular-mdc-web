@@ -21,8 +21,7 @@ import { Subject } from 'rxjs';
 import {
   isBrowser,
   toNumber,
-  toBoolean,
-  EventRegistry
+  toBoolean
 } from '@angular-mdc/web/common';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
@@ -115,7 +114,6 @@ export class MdcGridListTiles {
     <ng-content></ng-content>
   </mdc-grid-list-tiles>
   `,
-  providers: [EventRegistry],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -179,12 +177,12 @@ export class MdcGridList implements AfterViewInit, AfterContentInit, OnDestroy {
       this._renderer.setStyle(this.gridListTiles.elementRef.nativeElement, property, value),
     registerResizeHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.listen('resize', handler, window);
+        window.addEventListener('resize', handler);
       }
     },
     deregisterResizeHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.unlisten('resize', handler);
+        window.removeEventListener('resize', handler);
       }
     }
   };
@@ -198,8 +196,7 @@ export class MdcGridList implements AfterViewInit, AfterContentInit, OnDestroy {
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _renderer: Renderer2,
-    public elementRef: ElementRef,
-    private _registry: EventRegistry) { }
+    public elementRef: ElementRef) { }
 
   ngAfterViewInit(): void {
     this._foundation = new MDCGridListFoundation(this._mdcAdapter);
@@ -264,7 +261,7 @@ export class MdcGridList implements AfterViewInit, AfterContentInit, OnDestroy {
   }
 
   /** Retrieves the DOM element of the component host. */
-  private _getHostElement() {
+  private _getHostElement(): HTMLElement {
     return this.elementRef.nativeElement;
   }
 

@@ -31,14 +31,14 @@ export class MdcCardMedia {
   @Input()
   get square(): boolean { return this._square; }
   set square(value: boolean) {
-    this.setSquare(value);
+    this._square = toBoolean(value);
   }
   private _square: boolean;
 
   @Input()
   get wide(): boolean { return this._wide; }
   set wide(value: boolean) {
-    this.setWide(value);
+    this._wide = toBoolean(value);
   }
   private _wide: boolean;
 
@@ -51,14 +51,6 @@ export class MdcCardMedia {
   }
 
   constructor(public elementRef: ElementRef) { }
-
-  setWide(wide: boolean): void {
-    this._wide = toBoolean(wide);
-  }
-
-  setSquare(square: boolean): void {
-    this._square = toBoolean(square);
-  }
 }
 
 @Directive({
@@ -175,7 +167,7 @@ export class MdcCard {
   @Input()
   get outlined(): boolean { return this._outlined; }
   set outlined(value: boolean) {
-    this.setOutlined(value);
+    this._outlined = toBoolean(value);
   }
   private _outlined: boolean;
 
@@ -185,8 +177,4 @@ export class MdcCard {
   }
 
   constructor(public elementRef: ElementRef) { }
-
-  setOutlined(outlined: boolean): void {
-    this._outlined = toBoolean(outlined);
-  }
 }

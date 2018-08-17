@@ -10,7 +10,7 @@ import {
   OnDestroy,
   ViewEncapsulation
 } from '@angular/core';
-import { EventRegistry, toBoolean } from '@angular-mdc/web/common';
+import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
@@ -19,10 +19,7 @@ import { MdcIcon } from '@angular-mdc/web/icon';
   exportAs: 'mdcButton',
   selector: 'button[mdc-button], a[mdc-button]',
   template: '<ng-content></ng-content>',
-  providers: [
-    MdcRipple,
-    EventRegistry
-  ],
+  providers: [MdcRipple],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -30,7 +27,7 @@ export class MdcButton implements AfterContentInit, OnDestroy {
   @Input()
   get raised(): boolean { return this._raised; }
   set raised(value: boolean) {
-    this.setRaised(value);
+    this._raised = toBoolean(value);
   }
   protected _raised: boolean = false;
 
@@ -44,7 +41,7 @@ export class MdcButton implements AfterContentInit, OnDestroy {
   @Input()
   get dense(): boolean { return this._dense; }
   set dense(value: boolean) {
-    this.setDense(value);
+    this._dense = toBoolean(value);
   }
   protected _dense: boolean = false;
 
@@ -58,14 +55,14 @@ export class MdcButton implements AfterContentInit, OnDestroy {
   @Input()
   get unelevated(): boolean { return this._unelevated; }
   set unelevated(value: boolean) {
-    this.setUnelevated(value);
+    this._unelevated = toBoolean(value);
   }
   protected _unelevated: boolean = false;
 
   @Input()
   get outlined(): boolean { return this._outlined; }
   set outlined(value: boolean) {
-    this.setOutlined(value);
+    this._outlined = toBoolean(value);
   }
   protected _outlined: boolean = false;
 
@@ -134,14 +131,6 @@ export class MdcButton implements AfterContentInit, OnDestroy {
     }
   }
 
-  setRaised(raised: boolean): void {
-    this._raised = toBoolean(raised);
-  }
-
-  setDense(dense: boolean): void {
-    this._dense = toBoolean(dense);
-  }
-
   setPrimary(primary: boolean): void {
     this._primary = toBoolean(primary);
 
@@ -156,14 +145,6 @@ export class MdcButton implements AfterContentInit, OnDestroy {
     if (secondary) {
       this.setPrimary(false);
     }
-  }
-
-  setUnelevated(unelevated: boolean): void {
-    this._unelevated = toBoolean(unelevated);
-  }
-
-  setOutlined(outlined: boolean): void {
-    this._outlined = toBoolean(outlined);
   }
 
   setIcon(icon: any): void {

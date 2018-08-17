@@ -50,17 +50,16 @@ describe('MdcFormField', () => {
     });
 
     it('#should contain mdc-form-field--align-end css class', () => {
-      testComponent.isAlignEnd = true;
+      testComponent.alignEnd = true;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList).toContain('mdc-form-field--align-end');
-      expect(testInstance.isAlignEnd()).toBe(true);
     });
   });
 });
 
 @Component({
   template: `
-    <mdc-form-field [alignEnd]="isAlignEnd">
+    <mdc-form-field [alignEnd]="alignEnd">
       <mdc-checkbox></mdc-checkbox>
       <label>My label</label>
     </mdc-form-field>
@@ -75,5 +74,5 @@ describe('MdcFormField', () => {
   `,
 })
 class SimpleTest {
-  isAlignEnd: boolean = false;
+  alignEnd: boolean = false;
 }

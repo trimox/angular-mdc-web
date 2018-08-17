@@ -8,14 +8,10 @@ import {
   HostBinding,
   Input,
   OnDestroy,
-  Renderer2,
   ViewEncapsulation
 } from '@angular/core';
 
-import {
-  toBoolean,
-  EventRegistry
-} from '@angular-mdc/web/common';
+import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
@@ -28,10 +24,7 @@ export type FabPosition = 'bottom-left' | 'bottom-right' | null;
   <ng-content></ng-content>
   <span class="mdc-fab__label" *ngIf="label">{{label}}</span>
   `,
-  providers: [
-    MdcRipple,
-    EventRegistry
-  ],
+  providers: [MdcRipple],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -39,7 +32,7 @@ export class MdcFab implements AfterContentInit, OnDestroy {
   @Input()
   get mini(): boolean { return this._mini; }
   set mini(value: boolean) {
-    this.setMini(value);
+    this._mini = toBoolean(value);
   }
   private _mini: boolean;
 
@@ -53,7 +46,7 @@ export class MdcFab implements AfterContentInit, OnDestroy {
   @Input()
   get extended(): boolean { return this._extended; }
   set extended(value: boolean) {
-    this.setExtended(value);
+    this._extended = toBoolean(value);
   }
   private _extended: boolean;
 
@@ -82,13 +75,12 @@ export class MdcFab implements AfterContentInit, OnDestroy {
 
   constructor(
     private _changeDetectionRef: ChangeDetectorRef,
-    private _renderer: Renderer2,
     public elementRef: ElementRef,
     private _ripple: MdcRipple) { }
 
   ngAfterContentInit(): void {
     if (this.fabIcon) {
-      this._renderer.addClass(this.fabIcon.elementRef.nativeElement, 'mdc-fab__icon');
+      this.fabIcon.elementRef.nativeElement.classList.add('mdc-fab__icon');
     }
     this._ripple.attachTo(this._getHostElement());
   }
@@ -97,27 +89,18 @@ export class MdcFab implements AfterContentInit, OnDestroy {
     this._ripple.destroy();
   }
 
-  setMini(mini: boolean): void {
-    this._mini = toBoolean(mini);
-    this._changeDetectionRef.markForCheck();
-  }
-
   setExited(exited: boolean): void {
     this._exited = toBoolean(exited);
     this.tabIndex = exited ? -1 : this.tabIndex;
     this._changeDetectionRef.markForCheck();
   }
 
-  setExtended(extended: boolean): void {
-    this._extended = toBoolean(extended);
-  }
-
   setPosition(position: string): void {
-    this._renderer.removeClass(this._getHostElement(), `mdc-fab--${this._position}`);
+    this._getHostElement().classList.remove(`mdc-fab--${this._position}`);
     this._position = position;
 
     if (this.position) {
-      this._renderer.addClass(this._getHostElement(), `mdc-fab--${position}`);
+      this._getHostElement().classList.add(`mdc-fab--${position}`);
     }
   }
 
@@ -130,7 +113,7 @@ export class MdcFab implements AfterContentInit, OnDestroy {
     this._getHostElement().focus();
   }
 
-  private _getHostElement() {
+  private _getHostElement(): HTMLElement {
     return this.elementRef.nativeElement;
   }
 }

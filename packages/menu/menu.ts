@@ -15,7 +15,7 @@ import {
   Renderer2,
   ViewChild,
 } from '@angular/core';
-import { isBrowser, toBoolean, EventRegistry } from '@angular-mdc/web/common';
+import { isBrowser, toBoolean } from '@angular-mdc/web/common';
 
 import { MDCMenuAdapter } from '@material/menu/adapter';
 import { getTransformPropertyName } from '@material/menu/util';
@@ -116,7 +116,6 @@ export class MdcMenuItem {
     <ng-content></ng-content>
   </mdc-menu-items>
   `,
-  providers: [EventRegistry],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcMenu implements AfterViewInit, OnDestroy {
@@ -178,10 +177,10 @@ export class MdcMenu implements AfterViewInit, OnDestroy {
       };
     },
     getNumberOfItems: () => this.options ? this.options.length : 0,
-    registerInteractionHandler: (type: string, handler: EventListener) => this._registry.listen(type, handler, this._getHostElement()),
-    deregisterInteractionHandler: (type: string, handler: EventListener) => this._registry.unlisten(type, handler),
-    registerBodyClickHandler: (handler: EventListener) => this._registry.listen('click', handler, document.body),
-    deregisterBodyClickHandler: (handler: EventListener) => this._registry.unlisten('click', handler),
+    registerInteractionHandler: (type: string, handler: EventListener) => this._getHostElement().addEventListener(type, handler),
+    deregisterInteractionHandler: (type: string, handler: EventListener) => this._getHostElement().removeEventListener(type, handler),
+    registerBodyClickHandler: (handler: EventListener) => document.body.addEventListener('click', handler),
+    deregisterBodyClickHandler: (handler: EventListener) => document.body.removeEventListener('click', handler),
     getIndexForEventTarget: (target: EventTarget) => this.options.toArray().findIndex((_) => _.elementRef.nativeElement === target),
     notifySelected: (evtData: { index: number }) =>
       this.select.emit(new MdcMenuChange(evtData.index, this.options.toArray()[evtData.index])),
@@ -240,8 +239,7 @@ export class MdcMenu implements AfterViewInit, OnDestroy {
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _renderer: Renderer2,
-    public elementRef: ElementRef,
-    private _registry: EventRegistry) { }
+    public elementRef: ElementRef) { }
 
   ngAfterViewInit(): void {
     this._foundation.init();
@@ -332,7 +330,7 @@ export class MdcMenu implements AfterViewInit, OnDestroy {
   }
 
   /** Retrieves the DOM element of the component host. */
-  private _getHostElement() {
+  private _getHostElement(): HTMLElement {
     return this.elementRef.nativeElement;
   }
 }

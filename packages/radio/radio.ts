@@ -16,7 +16,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, RadioControlValueAccessor } from '@angular/forms';
-import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
+import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcFormFieldControl } from '@angular-mdc/web/form-field';
 
@@ -73,7 +73,6 @@ export class MdcRadioChange {
   providers: [
     MDC_RADIO_CONTROL_VALUE_ACCESSOR,
     MdcRipple,
-    EventRegistry,
     [{ provide: MdcFormFieldControl, useExisting: MdcRadio }]
   ]
 })

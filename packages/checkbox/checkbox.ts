@@ -14,7 +14,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { isBrowser, EventRegistry, toBoolean } from '@angular-mdc/web/common';
+import { isBrowser, toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcFormFieldControl } from '@angular-mdc/web/form-field';
 
@@ -81,7 +81,6 @@ export const MDC_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
   providers: [
     MDC_CHECKBOX_CONTROL_VALUE_ACCESSOR,
     MdcRipple,
-    EventRegistry,
     [{ provide: MdcFormFieldControl, useExisting: MdcCheckbox }]
   ],
   encapsulation: ViewEncapsulation.None,
@@ -97,16 +96,16 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
     removeNativeControlAttr: (attr: string) => this._getInputElement().removeAttribute(attr),
     registerAnimationEndHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.listen(getCorrectEventName(window, 'animationend'), handler, this._getHostElement());
+        this._getHostElement().addEventListener(getCorrectEventName(window, 'animationend'), handler);
       }
     },
     deregisterAnimationEndHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.unlisten(getCorrectEventName(window, 'animationend'), handler);
+        this._getHostElement().removeEventListener(getCorrectEventName(window, 'animationend'), handler);
       }
     },
-    registerChangeHandler: (handler: EventListener) => this._registry.listen('change', handler, this._getInputElement()),
-    deregisterChangeHandler: (handler: EventListener) => this._registry.unlisten('change', handler),
+    registerChangeHandler: (handler: EventListener) => this._getHostElement().addEventListener('change', handler),
+    deregisterChangeHandler: (handler: EventListener) => this._getHostElement().removeEventListener('change', handler),
     getNativeControl: () => this._getInputElement(),
     forceLayout: () => this._getHostElement().offsetWidth,
     isAttachedToDOM: () => !!this.inputEl
@@ -191,8 +190,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef,
-    public ripple: MdcRipple,
-    private _registry: EventRegistry) { }
+    public ripple: MdcRipple) { }
 
   ngAfterViewInit(): void {
     this._foundation.init();
@@ -245,11 +243,11 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
   }
 
   /**
-     * Event handler for checkbox input element.
-     * Toggles checked state if element is not disabled.
-     * Do not toggle on (change) event since IE doesn't fire change event when
-     * indeterminate checkbox is clicked.
-     */
+   * Event handler for checkbox input element.
+   * Toggles checked state if element is not disabled.
+   * Do not toggle on (change) event since IE doesn't fire change event when
+   * indeterminate checkbox is clicked.
+   */
   _onInputClick(evt: Event) {
     evt.stopPropagation();
 
@@ -262,12 +260,10 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
   setIndeterminate(indeterminate: boolean): void {
     if (this.disabled) { return; }
 
-    const previousValue = this.indeterminate;
-
     this._indeterminate = toBoolean(indeterminate);
-    this._foundation.setIndeterminate(indeterminate);
-    this.indeterminateChange.emit({ source: this, indeterminate: indeterminate });
-    if (!indeterminate && !this.indeterminateToChecked) {
+    this._foundation.setIndeterminate(this.indeterminate);
+    this.indeterminateChange.emit({ source: this, indeterminate: this.indeterminate });
+    if (!this.indeterminate && !this.indeterminateToChecked) {
       this._checked = false;
     }
 

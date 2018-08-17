@@ -8,8 +8,6 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import { EventRegistry } from '@angular-mdc/web/common';
-
 import { MDCFloatingLabelAdapter } from '@material/floating-label/adapter';
 import { MDCFloatingLabelFoundation } from '@material/floating-label';
 
@@ -17,7 +15,6 @@ import { MDCFloatingLabelFoundation } from '@material/floating-label';
   selector: 'label[mdcFloatingLabel], mdc-floating-label',
   template: '<ng-content></ng-content>',
   exportAs: 'mdcFloatingLabel',
-  providers: [EventRegistry],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
@@ -29,8 +26,9 @@ export class MdcFloatingLabel implements OnInit, OnDestroy {
     removeClass: (className: string) => this._getHostElement().classList.remove(className),
     getWidth: () => this._getHostElement().offsetWidth,
     registerInteractionHandler: (evtType: string, handler: EventListener) =>
-      this._registry.listen(evtType, handler, this._getHostElement()),
-    deregisterInteractionHandler: (evtType: string, handler: EventListener) => this._registry.unlisten(evtType, handler),
+      this._getHostElement().addEventListener(evtType, handler),
+    deregisterInteractionHandler: (evtType: string, handler: EventListener) =>
+      this._getHostElement().removeEventListener(evtType, handler)
   };
 
   foundation: {
@@ -42,8 +40,7 @@ export class MdcFloatingLabel implements OnInit, OnDestroy {
   } = new MDCFloatingLabelFoundation(this._mdcAdapter);
 
   constructor(
-    public elementRef: ElementRef,
-    private _registry: EventRegistry) { }
+    public elementRef: ElementRef) { }
 
   ngOnInit(): void {
     this.foundation.init();

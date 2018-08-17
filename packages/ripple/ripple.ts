@@ -11,17 +11,14 @@ import {
   OnDestroy,
   Renderer2
 } from '@angular/core';
-import { toBoolean, EventRegistry } from '@angular-mdc/web/common';
+import { toBoolean } from '@angular-mdc/web/common';
 
 import { MdcRipple } from './ripple.service';
 
 @Component({
   selector: 'mdc-ripple, [mdc-ripple]',
   template: '<ng-content></ng-content>',
-  providers: [
-    MdcRipple,
-    EventRegistry
-  ],
+  providers: [MdcRipple],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcRippleComponent implements AfterContentInit, OnDestroy {
@@ -123,10 +120,7 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
 
 @Directive({
   selector: '[mdcRipple]',
-  providers: [
-    MdcRipple,
-    EventRegistry
-  ]
+  providers: [MdcRipple]
 })
 export class MdcRippleDirective extends MdcRippleComponent {
   constructor(

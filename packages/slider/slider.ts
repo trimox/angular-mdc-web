@@ -16,7 +16,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { toNumber, toBoolean, isBrowser, EventRegistry } from '@angular-mdc/web/common';
+import { toNumber, toBoolean, isBrowser } from '@angular-mdc/web/common';
 
 import { MDCSliderAdapter } from '@material/slider/adapter';
 import { MDCSliderFoundation } from '@material/slider';
@@ -52,10 +52,7 @@ export class MdcSliderChange {
       <div class="mdc-slider__focus-ring"></div>
     </div>
   `,
-  providers: [
-    MDC_SLIDER_CONTROL_VALUE_ACCESSOR,
-    EventRegistry,
-  ],
+  providers: [MDC_SLIDER_CONTROL_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
@@ -145,27 +142,27 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
     computeBoundingRect: () => this._getHostElement().getBoundingClientRect(),
     getTabIndex: () => this._getHostElement().tabIndex,
     registerInteractionHandler: (type: string, handler: EventListener) =>
-      this._registry.listen(type, handler, this._getHostElement()),
-    deregisterInteractionHandler: (type: string, handler: EventListener) => this._registry.unlisten(type, handler),
+      this._getHostElement().addEventListener(type, handler),
+    deregisterInteractionHandler: (type: string, handler: EventListener) => this._getHostElement().removeEventListener(type, handler),
     registerThumbContainerInteractionHandler: (type: string, handler: EventListener) => {
       if (this.thumbContainer) {
-        this._registry.listen(type, handler, this.thumbContainer.nativeElement);
+        this.thumbContainer.nativeElement.addEventListener(type, handler);
       }
     },
     deregisterThumbContainerInteractionHandler: (type: string, handler: EventListener) =>
-      this._registry.unlisten(type, handler),
+      this.thumbContainer.nativeElement.removeEventListener(type, handler),
     registerBodyInteractionHandler: (type: string, handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.listen(type, handler, document.body);
+        document.body.addEventListener(type, handler);
       }
     },
-    deregisterBodyInteractionHandler: (type: string, handler: EventListener) => this._registry.unlisten(type, handler),
+    deregisterBodyInteractionHandler: (type: string, handler: EventListener) => document.body.removeEventListener(type, handler),
     registerResizeHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.listen('resize', handler, window);
+        window.addEventListener('resize', handler);
       }
     },
-    deregisterResizeHandler: (handler: EventListener) => this._registry.unlisten('resize', handler),
+    deregisterResizeHandler: (handler: EventListener) => window.removeEventListener('resize', handler),
     notifyInput: () => {
       this.input.emit(new MdcSliderChange(this, this.getValue()));
       this._onTouched();
@@ -217,8 +214,7 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _renderer: Renderer2,
-    public elementRef: ElementRef,
-    private _registry: EventRegistry) { }
+    public elementRef: ElementRef) { }
 
   ngAfterViewInit(): void {
     this._foundation = new MDCSliderFoundation(this._mdcAdapter);
@@ -337,7 +333,7 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
   }
 
   /** Retrieves the DOM element of the component host. */
-  private _getHostElement() {
+  private _getHostElement(): HTMLElement {
     return this.elementRef.nativeElement;
   }
 }

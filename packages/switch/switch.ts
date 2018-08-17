@@ -15,7 +15,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { EventRegistry, toBoolean } from '@angular-mdc/web/common';
+import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
 import { MdcFormFieldControl } from '@angular-mdc/web/form-field';
@@ -70,7 +70,6 @@ let nextUniqueId = 0;
   providers: [
     MDC_SWITCH_CONTROL_VALUE_ACCESSOR,
     [{ provide: MdcFormFieldControl, useExisting: MdcSwitch }],
-    EventRegistry,
     MdcRipple
   ]
 })
@@ -135,7 +134,6 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, OnDes
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _ripple: MdcRipple,
-    private _registry: EventRegistry,
     public elementRef: ElementRef) { }
 
   ngAfterViewInit(): void {

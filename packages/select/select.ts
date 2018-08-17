@@ -23,7 +23,6 @@ import { startWith, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import {
-  EventRegistry,
   isBrowser,
   toBoolean
 } from '@angular-mdc/web/common';
@@ -72,7 +71,6 @@ let nextUniqueId = 0;
   `,
   providers: [
     MDC_SELECT_CONTROL_VALUE_ACCESSOR,
-    EventRegistry,
     MdcRipple
   ],
   encapsulation: ViewEncapsulation.None,
@@ -221,8 +219,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef,
-    private _ripple: MdcRipple,
-    private _registry: EventRegistry) {
+    private _ripple: MdcRipple) {
 
     // Force setter to be called in case id was not specified.
     this.id = this.id;

@@ -12,7 +12,7 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { isBrowser, EventRegistry, toBoolean } from '@angular-mdc/web/common';
+import { isBrowser, toBoolean } from '@angular-mdc/web/common';
 
 import { MdcDrawerNavigation } from './drawer.directives';
 import { MDCDrawerAdapter } from './adapter';
@@ -33,7 +33,6 @@ export type MdcDrawerType = 'persistent' | 'permanent' | 'temporary';
     <ng-content></ng-content>
   </mdc-drawer-navigation>
   `,
-  providers: [EventRegistry],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
@@ -94,26 +93,29 @@ export class MdcDrawer implements OnDestroy {
     eventTargetHasClass: (target: HTMLElement, className: string) => target.classList.contains(className),
     hasNecessaryDom: () => !!this.drawerNav,
     registerInteractionHandler: (evt: string, handler: EventListener) =>
-      this._registry.listen(util.remapEvent(evt), handler, this._getHostElement(), util.applyPassive()),
-    deregisterInteractionHandler: (evt: string, handler: EventListener) => this._registry.unlisten(evt, handler),
+      this._getHostElement().addEventListener(util.remapEvent(evt), handler, util.applyPassive()),
+    deregisterInteractionHandler: (evt: string, handler: EventListener) =>
+      this._getHostElement().removeEventListener(evt, handler, util.applyPassive()),
     registerDrawerInteractionHandler: (evt: string, handler: EventListener) => {
       if (this.drawerElement) {
-        this._registry.listen(util.remapEvent(evt), handler, this.drawerElement.nativeElement);
+        this.drawerElement.nativeElement.addEventListener(util.remapEvent(evt), handler);
       }
     },
-    deregisterDrawerInteractionHandler: (evt: string, handler: EventListener) => this._registry.unlisten(evt, handler),
+    deregisterDrawerInteractionHandler: (evt: string, handler: EventListener) =>
+      this.drawerElement.nativeElement.removeEventListener(evt, handler),
     registerTransitionEndHandler: (handler: EventListener) => {
       if (this.drawerElement) {
-        this._registry.listen('transitionend', handler, this.drawerElement.nativeElement);
+        this.drawerElement.nativeElement.addEventListener('transitionend', handler);
       }
     },
-    deregisterTransitionEndHandler: (handler: EventListener) => this._registry.unlisten('transitionend', handler),
+    deregisterTransitionEndHandler: (handler: EventListener) =>
+      this.drawerElement.nativeElement.removeEventListener('transitionend', handler),
     registerDocumentKeydownHandler: (handler: EventListener) => {
       if (isBrowser()) {
-        this._registry.listen('keydown', handler, document);
+        document.addEventListener('keydown', handler);
       }
     },
-    deregisterDocumentKeydownHandler: (handler: EventListener) => this._registry.unlisten('keydown', handler),
+    deregisterDocumentKeydownHandler: (handler: EventListener) => document.removeEventListener('keydown', handler),
     getDrawerWidth: () => this._getHostElement().offsetWidth,
     setTranslateX: (value) => {
       if (this.drawerNav) {
@@ -150,8 +152,7 @@ export class MdcDrawer implements OnDestroy {
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     public renderer: Renderer2,
-    public elementRef: ElementRef,
-    private _registry: EventRegistry) {
+    public elementRef: ElementRef) {
 
     this._initializeFoundation(this._drawer);
   }
@@ -168,13 +169,13 @@ export class MdcDrawer implements OnDestroy {
     this._initializeFoundation(drawer);
 
     if (drawer === 'temporary') {
-      this._registry.listen('click', () => {
+      this.drawerElement.nativeElement.addEventListener('click', () => {
         if (this.closeOnClick) {
           this._foundation.close();
         }
-      }, this.drawerElement.nativeElement);
+      });
     } else if (drawer === 'temporary') {
-      this._registry.unlisten('click', () => {
+      this.drawerElement.nativeElement.removeEventListener('click', () => {
         if (this.closeOnClick) {
           this._foundation.close();
         }
@@ -255,11 +256,11 @@ export class MdcDrawer implements OnDestroy {
     }
   }
 
-  getDrawerWidth(): any {
+  getDrawerWidth(): number {
     return this._foundation ? this._mdcAdapter.getDrawerWidth() : this._getHostElement().offsetWidth;
   }
 
-  private _getHostElement() {
+  private _getHostElement(): HTMLElement {
     return this.elementRef.nativeElement;
   }
 }

@@ -104,8 +104,8 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
         this._getHostElement().removeEventListener(getCorrectEventName(window, 'animationend'), handler);
       }
     },
-    registerChangeHandler: (handler: EventListener) => this._getHostElement().addEventListener('change', handler),
-    deregisterChangeHandler: (handler: EventListener) => this._getHostElement().removeEventListener('change', handler),
+    registerChangeHandler: (handler: EventListener) => this._getInputElement().addEventListener('change', handler),
+    deregisterChangeHandler: (handler: EventListener) => this._getInputElement().removeEventListener('change', handler),
     getNativeControl: () => this._getInputElement(),
     forceLayout: () => this._getHostElement().offsetWidth,
     isAttachedToDOM: () => !!this.inputEl

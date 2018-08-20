@@ -64,7 +64,7 @@
 //
 
 .demo-page {
-  width: 1000px;
+  max-width: 1000px;
   padding-bottom: 45px;
 
   @media (min-width: 1240px) {

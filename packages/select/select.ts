@@ -364,10 +364,11 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
 
   /** Styles the select as a box. */
   setBox(box: boolean): void {
-    if (box && this._outlined) {
+    this._box = toBoolean(box);
+
+    if (this.box && this._outlined) {
       this.setOutlined(false);
     }
-    this._box = toBoolean(box);
 
     this.box ? this._ripple.attachTo(this._getHostElement(), false, this._getInputElement()) :
       this._ripple.destroy();
@@ -377,10 +378,11 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
 
   /** Styles the select style to outlined. */
   setOutlined(outlined: boolean): void {
-    if (outlined && this._box) {
+    this._outlined = toBoolean(outlined);
+
+    if (this.outlined && this._box) {
       this.setBox(false);
     }
-    this._outlined = toBoolean(outlined);
 
     setTimeout(() => {
       if (this.getValue() && this._outlined) {

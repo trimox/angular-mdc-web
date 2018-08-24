@@ -10,6 +10,9 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+import { fromEvent, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 import { MDCTabScrollerAdapter } from '@material/tab-scroller/adapter';
 import { MDCTabScrollerFoundation, util } from '@material/tab-scroller';
 
@@ -31,6 +34,9 @@ export type MdcTabScrollerAlignment = 'start' | 'center' | 'end';
   encapsulation: ViewEncapsulation.None
 })
 export class MdcTabScroller implements AfterViewInit, OnDestroy {
+  /** Emits whenever the component is destroyed. */
+  private _destroy = new Subject<void>();
+
   @Input()
   get align(): MdcTabScrollerAlignment { return this._align; }
   set align(value: MdcTabScrollerAlignment) {
@@ -80,23 +86,12 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this._foundation.init();
 
-    this._getScrollArea().addEventListener('wheel', this._foundation.handleInteraction);
-    this._getScrollArea().addEventListener('touchstart', this._foundation.handleInteraction);
-    this._getScrollArea().addEventListener('pointerdown', this._foundation.handleInteraction);
-    this._getScrollArea().addEventListener('mousedown', this._foundation.handleInteraction);
-    this._getScrollArea().addEventListener('keydown', this._foundation.handleInteraction);
-
-    this._getScrollContent().addEventListener('transitionend', this._foundation.handleTransitionEnd);
+    this._loadListeners();
   }
 
   ngOnDestroy(): void {
-    this._getScrollArea().removeEventListener('wheel', this._foundation.handleInteraction);
-    this._getScrollArea().removeEventListener('touchstart', this._foundation.handleInteraction);
-    this._getScrollArea().removeEventListener('pointerdown', this._foundation.handleInteraction);
-    this._getScrollArea().removeEventListener('mousedown', this._foundation.handleInteraction);
-    this._getScrollArea().removeEventListener('keydown', this._foundation.handleInteraction);
-
-    this._getScrollContent().removeEventListener('transitionend', this._foundation.handleTransitionEnd);
+    this._destroy.next();
+    this._destroy.complete();
   }
 
   setAlign(align: MdcTabScrollerAlignment): void {
@@ -136,6 +131,22 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
    */
   scrollTo(scrollX: number) {
     this._foundation.scrollTo(scrollX);
+  }
+
+  private _loadListeners() {
+    fromEvent(this._getScrollArea(), 'wheel').pipe(takeUntil(this._destroy))
+      .subscribe(() => this._foundation.handleInteraction());
+    fromEvent(this._getScrollArea(), 'touchstart').pipe(takeUntil(this._destroy))
+      .subscribe(() => this._foundation.handleInteraction());
+    fromEvent(this._getScrollArea(), 'pointerdown').pipe(takeUntil(this._destroy))
+      .subscribe(() => this._foundation.handleInteraction());
+    fromEvent(this._getScrollArea(), 'mousedown').pipe(takeUntil(this._destroy))
+      .subscribe(() => this._foundation.handleInteraction());
+    fromEvent(this._getScrollArea(), 'keydown').pipe(takeUntil(this._destroy))
+      .subscribe(() => this._foundation.handleInteraction());
+
+    fromEvent(this._getScrollContent(), 'transitionend').pipe(takeUntil(this._destroy))
+      .subscribe((evt) => this._foundation.handleTransitionEnd(evt));
   }
 
   private _getScrollArea(): HTMLElement {

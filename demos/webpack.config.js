@@ -4,7 +4,7 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  devtool: 'inline-source-map',
+  devtool: 'eval-source-map',
   context: path.resolve(__dirname, './'),
   entry: {
     'polyfills': './polyfills.ts',
@@ -46,11 +46,6 @@ module.exports = {
         test: /\.ts$/,
         use: [
           {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env']
-            }
-          }, {
             loader: 'ts-loader'
           }, {
             loader: 'angular2-template-loader'

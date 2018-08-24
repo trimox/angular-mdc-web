@@ -80,7 +80,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
-  protected _uid = `mdc-input-${nextUniqueId++}`;
+  private _uid = `mdc-input-${nextUniqueId++}`;
 
   private _useCustomValidity: boolean;
 
@@ -93,7 +93,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   @Input()
   get id(): string { return this._id; }
   set id(value: string) { this._id = value || this._uid; }
-  protected _id: string;
+  private _id: string;
 
   /** Input type of the element. */
   @Input()
@@ -101,28 +101,21 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   set type(value: string) {
     this._type = value || 'text';
   }
-  protected _type = 'text';
+  private _type = 'text';
 
   @Input()
-  get box(): boolean { return this._box; }
-  set box(value: boolean) {
-    this.setBox(value);
+  get outlined(): boolean { return this._outlined; }
+  set outlined(value: boolean) {
+    this.setOutlined(value);
   }
-  protected _box: boolean;
-
-  @Input()
-  get outline(): boolean { return this._outline; }
-  set outline(value: boolean) {
-    this.setOutline(value);
-  }
-  protected _outline: boolean;
+  private _outlined: boolean;
 
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this.setDisabled(value);
   }
-  protected _disabled: boolean;
+  private _disabled: boolean;
 
   @Input()
   get required(): boolean { return this._required; }
@@ -167,7 +160,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
       this.setValue(newValue);
     }
   }
-  protected _value: string;
+  private _value: string;
 
   get valid(): boolean {
     return this._useCustomValidity ? this._foundation.isValid() :
@@ -184,9 +177,6 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   @Output() blur = new EventEmitter<string>();
 
   @HostBinding('class.mdc-text-field') isHostClass = true;
-  @HostBinding('class.mdc-text-field--box') get classBox(): string {
-    return this.box && !this.isTextarea() && !this.fullwidth ? 'mdc-text-field--box' : '';
-  }
   @HostBinding('class.mdc-text-field--dense') get classDense(): string {
     return this.dense ? 'mdc-text-field--dense' : '';
   }
@@ -197,7 +187,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     return this._focused ? 'mdc-text-field--focused' : '';
   }
   @HostBinding('class.mdc-text-field--outlined') get classOutlined(): string {
-    return this.outline ? 'mdc-text-field--outlined' : '';
+    return this.outlined ? 'mdc-text-field--outlined' : '';
   }
 
   @ViewChild('input') _input: ElementRef;
@@ -317,8 +307,6 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   }
 
   ngAfterContentInit(): void {
-    this.box = !this.outline;
-
     this._foundation = new MDCTextFieldFoundation(this._mdcAdapter, this._getFoundationMap());
     this._foundation.init();
 
@@ -431,28 +419,11 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     this._changeDetectorRef.markForCheck();
   }
 
-  /** Styles the text field as a box text field. */
-  setBox(box: boolean): void {
-    this._box = toBoolean(box);
-
-    if (this.outline && this.box) {
-      this.outline = false;
-    }
-    this._box ? this._ripple.attachTo(this._getHostElement(), false, this._getInputElement()) :
-      this._ripple.destroy();
-
-    this._changeDetectorRef.markForCheck();
-  }
-
   /** Styles the text field as an outlined text field. */
-  setOutline(outline: boolean): void {
-    this._outline = toBoolean(outline);
+  setOutlined(outline: boolean): void {
+    this._outlined = toBoolean(outline);
 
-    if (this.outline && this.box) {
-      this.box = false;
-    }
-
-    if (this.outline && this.value) {
+    if (this.outlined && this.value) {
       setTimeout(() => {
         this._foundation.notchOutline(this.value);
       });

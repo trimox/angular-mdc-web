@@ -57,22 +57,10 @@ describe('MdcTextField', () => {
       expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--fullwidth')).toBe(true);
     });
 
-    it('#should apply class outline', () => {
-      testComponent.box = true;
-      fixture.detectChanges();
-
-      testComponent.outline = true;
+    it('#should apply class outlined', () => {
+      testComponent.outlined = true;
       fixture.detectChanges();
       expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--outlined')).toBe(true);
-      expect(textFieldInstance.box).toBe(false);
-    });
-
-    it('#should apply class box', () => {
-      testComponent.outline = true;
-      fixture.detectChanges();
-      testComponent.box = true;
-      fixture.detectChanges();
-      expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--box')).toBe(true);
     });
 
     it('#should not be disabled', () => {
@@ -214,9 +202,8 @@ describe('MdcTextField', () => {
       [type]="myType"
       [tabIndex]="1"
       [dense]="isDense"
-      [outline]="outline"
+      [outlined]="outlined"
       [fullwidth]="isFullwidth"
-      [box]="box"
       [required]="required"
       [focused]="isFocused"
       [disabled]="disabled"
@@ -239,9 +226,8 @@ class SimpleTextfield {
   isDense: boolean = false;
   isFocused: boolean = false;
   isFullwidth: boolean = false;
-  outline: boolean = false;
+  outlined: boolean = false;
   required: boolean = false;
-  box: boolean = false;
 
   onBlur(event: any) { }
 }

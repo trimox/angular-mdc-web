@@ -12,7 +12,7 @@ import { MdcTextarea } from './textarea';
 const TEXTFIELD_DECLARATIONS = [
   MdcTextarea,
   MdcTextField,
-  MdcTextFieldHelperText,
+  MdcTextFieldHelperText
 ];
 
 @NgModule({
@@ -23,6 +23,6 @@ const TEXTFIELD_DECLARATIONS = [
     MdcNotchedOutlineModule
   ],
   exports: TEXTFIELD_DECLARATIONS,
-  declarations: TEXTFIELD_DECLARATIONS,
+  declarations: TEXTFIELD_DECLARATIONS
 })
 export class MdcTextFieldModule { }

@@ -128,9 +128,9 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   @Input()
   get autosize(): boolean { return this._autosize; }
   set autosize(value: boolean) {
-    this._autosize = value;
+    this._autosize = toBoolean(value);
   }
-  private _autosize: boolean = true;
+  private _autosize: boolean;
 
   @Input()
   get compareWith() { return this._compareWith; }

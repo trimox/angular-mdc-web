@@ -32,19 +32,15 @@ import {
 })
 export class MdcTabIndicator implements AfterContentInit {
   private _isFoundationInit: boolean;
-  private _allowTransitionEnd: boolean;
 
   @Input()
   get active(): boolean { return this._active; }
   set active(value: boolean) {
     if (this._active !== value) {
-      this._allowTransitionEnd = true;
-
       this._active = toBoolean(value);
       this._changeDetectorRef.markForCheck();
 
-      this._active ? this.activate(this.computeContentClientRect()) :
-        this.deactivate();
+      this._active ? this.activate(this.computeContentClientRect()) : this.deactivate();
     }
   }
   private _active: boolean;
@@ -73,13 +69,6 @@ export class MdcTabIndicator implements AfterContentInit {
     return this.fade ? 'mdc-tab-indicator--fade' : '';
   }
 
-  @HostListener('transitionend') ontransitionend() {
-    if (!this._allowTransitionEnd) { return; }
-
-    this._allowTransitionEnd = false;
-    this._foundation.handleTransitionEnd();
-  }
-
   @ViewChild('content') content: ElementRef;
 
   private _mdcAdapter: MDCTabIndicatorAdapter = {
@@ -93,8 +82,7 @@ export class MdcTabIndicator implements AfterContentInit {
     init(): void,
     computeContentClientRect(): ClientRect,
     activate(previousIndicatorClientRect: ClientRect): void,
-    deactivate(): void,
-    handleTransitionEnd(): void
+    deactivate(): void
   };
 
   constructor(

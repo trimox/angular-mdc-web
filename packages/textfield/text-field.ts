@@ -420,8 +420,8 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   }
 
   /** Styles the text field as an outlined text field. */
-  setOutlined(outline: boolean): void {
-    this._outlined = toBoolean(outline);
+  setOutlined(outlined: boolean): void {
+    this._outlined = toBoolean(outlined);
 
     if (this.outlined && this.value) {
       setTimeout(() => {

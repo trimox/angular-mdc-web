@@ -15,6 +15,9 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { fromEvent, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
@@ -74,6 +77,9 @@ let nextUniqueId = 0;
   ]
 })
 export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, OnDestroy {
+  /** Emits whenever the component is destroyed. */
+  private _destroy = new Subject<void>();
+
   private _uniqueId: string = `mdc-switch-${++nextUniqueId}`;
 
   readonly componentInstance = MdcSwitch;
@@ -99,6 +105,9 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, OnDes
   @Output() readonly change: EventEmitter<MdcSwitchChange> = new EventEmitter<MdcSwitchChange>();
 
   @HostBinding('class.mdc-switch') isHostClass = true;
+  @HostBinding('class.mdc-switch--checked') get classChecked(): string {
+    return this.checked ? 'mdc-switch--checked' : '';
+  }
   @HostBinding('class.mdc-switch--disabled') get classDisabled(): string {
     return this.disabled ? 'mdc-switch--disabled' : '';
   }
@@ -116,19 +125,15 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, OnDes
   private _mdcAdapter: MDCSwitchAdapter = {
     addClass: (className: string) => this._getHostElement().classList.add(className),
     removeClass: (className: string) => this._getHostElement().classList.remove(className),
-    setNativeControlChecked: (checked: boolean) => this.inputElement.nativeElement.checked = checked,
-    isNativeControlChecked: () => this.inputElement.nativeElement.checked,
-    setNativeControlDisabled: (disabled: boolean) => this.inputElement.nativeElement.disabled = disabled,
-    isNativeControlDisabled: () => this.inputElement.nativeElement.disabled
+    setNativeControlChecked: (checked: boolean) => this._getInputElement().checked = checked,
+    setNativeControlDisabled: (disabled: boolean) => this._getInputElement().disabled = disabled
   };
 
   private _foundation: {
     init(): void,
-    isChecked(): boolean,
     setChecked(checked: boolean): void,
     setDisabled(disabled: boolean): void,
-    isDisabled(): boolean,
-    handleChange(): void
+    handleChange(evt: Event): void
   } = new MDCSwitchFoundation(this._mdcAdapter);
 
   constructor(
@@ -138,17 +143,22 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, OnDes
 
   ngAfterViewInit(): void {
     this._foundation.init();
-    this._ripple.attachTo(this._getHostElement(), true, this.inputElement.nativeElement);
+    this._ripple.attachTo(this._getHostElement(), true, this._getInputElement());
+
+    this._loadListeners();
   }
 
   ngOnDestroy(): void {
     this._ripple.destroy();
+
+    this._destroy.next();
+    this._destroy.complete();
   }
 
   onChange(evt: Event): void {
     evt.stopPropagation();
 
-    this.setChecked(this.inputElement.nativeElement.checked);
+    this.setChecked(this._getInputElement().checked);
   }
 
   onInputClick(evt: Event): void {
@@ -200,6 +210,16 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, OnDes
 
   focus(): void {
     this.inputElement.nativeElement.focus();
+  }
+
+  private _loadListeners() {
+    fromEvent(this._getInputElement(), 'change').pipe(takeUntil(this._destroy))
+      .subscribe((evt) => this._foundation.handleChange(evt));
+  }
+
+  /** Retrieves the DOM element of the component input. */
+  private _getInputElement(): HTMLInputElement {
+    return this.inputElement.nativeElement;
   }
 
   /** Retrieves the DOM element of the component host. */

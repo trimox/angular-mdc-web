@@ -141,11 +141,11 @@ export class MdcChip implements AfterContentInit, OnDestroy {
 
   @Input() label: string;
 
-  get selected(): boolean { return this._selected; }
+  get selected(): boolean { return this._foundation.isSelected(); }
   set selected(value: boolean) {
-    this.setSelected(value);
+    this._foundation.setSelected(toBoolean(value));
+    this._changeDetectorRef.markForCheck();
   }
-  private _selected: boolean;
 
   get filter(): boolean { return this._filter; }
   set filter(value: boolean) {
@@ -175,7 +175,7 @@ export class MdcChip implements AfterContentInit, OnDestroy {
   get removable(): boolean { return this._removable; }
   set removable(value: boolean) {
     this._removable = toBoolean(value);
-    this.foundation.setShouldRemoveOnTrailingIconClick(this._removable);
+    this._foundation.setShouldRemoveOnTrailingIconClick(this._removable);
     this._changeDetectorRef.markForCheck();
   }
   private _removable: boolean;
@@ -209,13 +209,13 @@ export class MdcChip implements AfterContentInit, OnDestroy {
   }
 
   @HostListener('transitionend', ['$event']) ontransitionend(evt: Event) {
-    this.foundation.handleTransitionEnd(evt);
+    this._foundation.handleTransitionEnd(evt);
   }
   @HostListener('click', ['$event']) onclick(evt: Event) {
-    this.foundation.handleInteraction(evt);
+    this._foundation.handleInteraction(evt);
   }
   @HostListener('keydown', ['$event']) onkeydown(evt: KeyboardEvent) {
-    this.foundation.handleInteraction(evt);
+    this._foundation.handleInteraction(evt);
   }
 
   @ContentChild(MdcChipText) chipText: MdcChipText;
@@ -258,12 +258,7 @@ export class MdcChip implements AfterContentInit, OnDestroy {
     setStyleProperty: (propertyName: string, value: string) => this._getHostElement().style.setProperty(propertyName, value)
   };
 
-  /**
-   * @deprecated
-   * @update-target v0.38.1+
-   * Make private once chips pass id to chip-set
-   */
-  foundation: {
+  private _foundation: {
     init(): void,
     destroy(): void,
     setSelected(selected: boolean): void,
@@ -283,13 +278,13 @@ export class MdcChip implements AfterContentInit, OnDestroy {
   ngAfterContentInit(): void {
     this._ripple.attachTo(this._getHostElement());
 
-    this.foundation.init();
+    this._foundation.init();
 
     this.chipIconInteractions.pipe(
       takeUntil(merge(this._destroy, this.icons.changes))
     ).subscribe((event: MdcIconInteraction) => {
       if (event.source.trailing) {
-        this.foundation.handleTrailingIconInteraction(event.event);
+        this._foundation.handleTrailingIconInteraction(event.event);
         this.removed.emit({ detail: { chip: this } });
       }
     });
@@ -301,18 +296,9 @@ export class MdcChip implements AfterContentInit, OnDestroy {
 
     this._ripple.destroy();
 
-    if (this.foundation) {
-      this.foundation.destroy();
+    if (this._foundation) {
+      this._foundation.destroy();
     }
-  }
-
-  setSelected(selected: boolean): void {
-    this._selected = toBoolean(selected);
-    this._changeDetectorRef.markForCheck();
-  }
-
-  isSelected(): boolean {
-    return this.foundation.isSelected();
   }
 
   setPrimary(primary: boolean): void {

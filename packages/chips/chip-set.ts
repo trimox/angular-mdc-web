@@ -110,17 +110,25 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
 
   private _mdcAdapter: MDCChipSetAdapter = {
     hasClass: (className: string) => this._getHostElement().classList.contains(className),
-    removeChip: (chip: MdcChip) => {
-      const index = this.chips.toArray().indexOf(chip);
+    removeChip: (chipId: string) => {
+      const index = this._findChipIndex(chipId);
       this.chips.toArray().splice(index, 1);
+    },
+    setSelected: (chipId: string, selected: boolean) => {
+      const chip = this._findChip(chipId);
+      if (chip) {
+        chip.selected = selected;
+      }
     }
   };
 
   private _foundation: {
     init(): void,
     destroy(): void,
-    select(chipFoundation: any): void,
-    deselect(chipFoundation: any): void
+    getSelectedChipIds(): string[],
+    toggleSelect(chipId: string): void,
+    select(chipId: string): void,
+    deselect(chipId: string): void
     handleChipInteraction(evt: any): void,
     handleChipRemoval(evt: any): void
   } = new MDCChipSetFoundation(this._mdcAdapter);
@@ -185,6 +193,14 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
       });
     });
     this._changeDetectorRef.markForCheck();
+  }
+
+  private _findChip(chipId: string): MdcChip | undefined {
+    return this.chips.find((_) => _.id === chipId);
+  }
+
+  private _findChipIndex(chipId: string): number {
+    return this.chips.toArray().findIndex((_) => _.id === chipId);
   }
 
   /** Retrieves the DOM element of the component host. */

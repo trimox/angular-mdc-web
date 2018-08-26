@@ -88,7 +88,7 @@ describe('Chips', () => {
     });
 
     it('is selected', () => {
-      expect(testInstance.selected).toBeUndefined();
+      expect(testInstance.selected).toBe(false);
     });
 
     it('is removable', () => {

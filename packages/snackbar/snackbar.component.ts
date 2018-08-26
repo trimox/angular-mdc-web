@@ -75,6 +75,7 @@ export class MdcSnackbarComponent implements AfterViewInit, OnInit, OnDestroy {
       }
     },
     setFocus: () => this._getActionButton().focus(),
+    isFocused: () => isBrowser() ? document.activeElement === this._getActionButton() : false,
     visibilityIsHidden: () => isBrowser() ? document.hidden : false,
     registerCapturedBlurHandler: (handler: EventListener) => {
       if (this.actionButton) {

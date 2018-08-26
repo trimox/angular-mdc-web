@@ -8,6 +8,7 @@ export interface MDCSnackbarAdapter {
   setMessageText: (message: string) => void;
   setActionText: (actionText: string) => void;
   setFocus: () => void;
+  isFocused: () => boolean;
   visibilityIsHidden: () => boolean;
   registerCapturedBlurHandler: (handler: EventListener) => void;
   deregisterCapturedBlurHandler: (handler: EventListener) => void;

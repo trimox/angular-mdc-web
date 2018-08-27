@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import {
-  MdcAppBarModule,
   MdcButtonModule,
   MdcCardModule,
   MdcCheckboxModule,
@@ -10,8 +9,8 @@ import {
   MdcElevationModule,
   MdcFabModule,
   MdcGridListModule,
-  MdcIconModule,
   MdcIconButtonModule,
+  MdcIconModule,
   MdcImageListModule,
   MdcLinearProgressModule,
   MdcListModule,
@@ -26,12 +25,12 @@ import {
   MdcTabBarModule,
   MdcTextFieldModule,
   MdcThemeModule,
+  MdcTopAppBarModule,
   MdcTypographyModule
 } from '@angular-mdc/web';
 
 @NgModule({
   exports: [
-    MdcAppBarModule,
     MdcButtonModule,
     MdcCardModule,
     MdcCheckboxModule,
@@ -41,8 +40,8 @@ import {
     MdcElevationModule,
     MdcFabModule,
     MdcGridListModule,
-    MdcIconModule,
     MdcIconButtonModule,
+    MdcIconModule,
     MdcImageListModule,
     MdcLinearProgressModule,
     MdcListModule,
@@ -57,6 +56,7 @@ import {
     MdcTabBarModule,
     MdcTextFieldModule,
     MdcThemeModule,
+    MdcTopAppBarModule,
     MdcTypographyModule
   ]
 })

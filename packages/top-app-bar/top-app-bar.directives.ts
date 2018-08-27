@@ -9,10 +9,10 @@ import {
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
 @Directive({
-  selector: 'mdc-app-bar-row, [mdcAppBarRow]',
-  exportAs: 'mdcAppBarRow'
+  selector: 'mdc-top-app-bar-row, [mdcTopAppBarRow]',
+  exportAs: 'mdcTopAppBarRow'
 })
-export class MdcAppBarRow {
+export class MdcTopAppBarRow {
   @HostBinding('class.mdc-top-app-bar__row') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }
@@ -20,15 +20,15 @@ export class MdcAppBarRow {
 
 @Component({
   moduleId: module.id,
-  selector: 'mdc-app-bar-section, [mdcAppBarSection]',
-  exportAs: 'mdcAppBarSection',
+  selector: 'mdc-top-app-bar-section, [mdcTopAppBarSection]',
+  exportAs: 'mdcTopAppBarSection',
   template: `
   <ng-content></ng-content>
   <span class="mdc-top-app-bar__title" *ngIf="title">{{title}}</span>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcAppBarSection {
+export class MdcTopAppBarSection {
   @Input() title: string;
   @Input() align: string;
 
@@ -45,11 +45,11 @@ export class MdcAppBarSection {
 }
 
 @Directive({
-  selector: 'mdc-icon[mdcAppBarActionItem], [mdcAppBarActionItem], mdc-app-bar-action-item',
-  exportAs: 'mdcAppBarActionItem',
+  selector: 'mdc-icon[mdcTopAppBarActionItem], [mdcTopAppBarActionItem], mdc-top-app-bar-action-item',
+  exportAs: 'mdcTopAppBarActionItem',
   providers: [MdcRipple]
 })
-export class MdcAppBarActionItem {
+export class MdcTopAppBarActionItem {
   @HostBinding('attr.role') role: string = 'button';
   @HostBinding('class.mdc-top-app-bar__action-item') isHostClass = true;
 
@@ -62,11 +62,11 @@ export class MdcAppBarActionItem {
 }
 
 @Directive({
-  selector: 'mdc-icon[mdcAppBarNavIcon], [mdcAppBarNavIcon], mdc-icon[mdcAppBarNavigationIcon]',
-  exportAs: 'mdcAppBarNavigationIcon',
+  selector: 'mdc-icon[mdcTopAppBarNavIcon], [mdcTopAppBarNavIcon], mdc-icon[mdcTopAppBarNavigationIcon]',
+  exportAs: 'mdcTopAppBarNavigationIcon',
   providers: [MdcRipple]
 })
-export class MdcAppBarNavigationIcon {
+export class MdcTopAppBarNavigationIcon {
   @HostBinding('attr.role') role: string = 'button';
   @HostBinding('class.mdc-top-app-bar__navigation-icon') isHostClass = true;
 
@@ -84,10 +84,10 @@ export class MdcAppBarNavigationIcon {
 }
 
 @Directive({
-  selector: 'mdc-app-bar-title, [mdcAppBarTitle]',
-  exportAs: 'mdcAppBarTitle'
+  selector: 'mdc-top-app-bar-title, [mdcTopAppBarTitle]',
+  exportAs: 'mdcTopAppBarTitle'
 })
-export class MdcAppBarTitle {
+export class MdcTopAppBarTitle {
   @HostBinding('class.mdc-top-app-bar__title') isHostClass = true;
 
   constructor(public elementRef: ElementRef) { }

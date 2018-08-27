@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 
-import { AppBarDemo } from './components/app-bar/app-bar-demo';
 import { ButtonDemo } from './components/button-demo/button-demo';
 import { CardDemo } from './components/card-demo/card-demo';
 import { CheckboxDemo } from './components/checkbox-demo/checkbox-demo';
@@ -28,10 +27,11 @@ import { SnackbarDemo } from './components/snackbar-demo/snackbar-demo';
 import { SwitchDemo } from './components/switch-demo/switch-demo';
 import { TabsDemo } from './components/tabs-demo/tabs-demo';
 import { TextFieldDemo } from './components/textfield-demo/textfield-demo';
+import { TopAppBarDemo } from './components/top-app-bar-demo/top-app-bar-demo';
 import { TypographyDemo } from './components/typography-demo/typography-demo';
 
 export const DEMO_ROUTES = [
-  AppBarDemo,
+  TopAppBarDemo,
   ButtonDemo,
   CardDemo,
   CheckboxDemo,
@@ -65,7 +65,6 @@ export const DEMO_ROUTES = [
 ];
 
 export const APP_ROUTES: Routes = [
-  { path: 'app-bar-demo', component: AppBarDemo },
   { path: 'button-demo', component: ButtonDemo },
   { path: 'card-demo', component: CardDemo },
   { path: 'checkbox-demo', component: CheckboxDemo },
@@ -94,6 +93,7 @@ export const APP_ROUTES: Routes = [
   { path: 'switch-demo', component: SwitchDemo },
   { path: 'tabs-demo', component: TabsDemo },
   { path: 'textfield-demo', component: TextFieldDemo },
+  { path: 'top-app-bar-demo', component: TopAppBarDemo },
   { path: 'typography-demo', component: TypographyDemo },
   { path: '**', redirectTo: 'home' }
 ];

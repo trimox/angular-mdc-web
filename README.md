@@ -31,7 +31,6 @@ Developed using Google Material Components [foundations and adapters](https://gi
 
 | Component  | Status  | Demo |
 | ---------- | ------- | :------: |
-| app-bar | Available | [View](https://trimox.github.io/angular-mdc-web/#/app-bar-demo) |
 | button | Available | [View](https://trimox.github.io/angular-mdc-web/#/button-demo) |
 | card | Available | [View](https://trimox.github.io/angular-mdc-web/#/card-demo) |
 | checkbox | Available | [View](https://trimox.github.io/angular-mdc-web/#/checkbox-demo) |
@@ -58,6 +57,7 @@ Developed using Google Material Components [foundations and adapters](https://gi
 | tabs | Available | [View](https://trimox.github.io/angular-mdc-web/#/tabs-demo) |
 | textfield | Available | [View](https://trimox.github.io/angular-mdc-web/#/textfield-demo) |
 | theme | Available | [View](https://trimox.github.io/angular-mdc-web/#/theme-demo) |
+| top-app-bar | Available | [View](https://trimox.github.io/angular-mdc-web/#/top-app-bar-demo) |
 | typography | Available | [View](https://trimox.github.io/angular-mdc-web/#/typography-demo) |
 
 ## Browser Support

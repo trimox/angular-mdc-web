@@ -1,7 +1,7 @@
 <div class="demo-page">
   <div class="markdown-body">
-    <h1>App Bar</h1>
-    MDC App Bar acts as a container for items such as application title, navigation icon, and action items.
+    <h1>Top App Bar</h1>
+    The top app bar displays information and actions relating to the current screen.
     <h2>References</h2>
     <ul>
       <li><a mdc-button href="https://material.io/design/components/app-bars-top.html"
@@ -12,13 +12,13 @@
       </li>
     </ul>
     <h2>Import</h2>
-    <p class="docs-api-module-import"><![CDATA[import { MdcAppBarModule } from '@angular-mdc/web';]]></p>
+    <p class="docs-api-module-import"><![CDATA[import { MdcTopAppBarModule } from '@angular-mdc/web';]]></p>
 
     <h2>Design & API Documentation</h2>
     <div class="docs-api">
       <p>
         <span class="docs-api-class-selector-label">Selector:</span>
-        <span class="docs-api-class-selector-name">mdc-app-bar</span>
+        <span class="docs-api-class-selector-name">mdc-top-app-bar</span>
       </p>
       <table>
         <thead>
@@ -52,6 +52,10 @@
             <td>fixedAdjustElement: any</td>
             <td>If set, scroll event listener is attached to element object.</td>
           </tr>
+          <tr>
+            <td>scrollTarget: target: Element | Window</td>
+            <td>Sets scroll target to different DOM node (default is window).</td>
+          </tr>
         </tbody>
       </table>
       <table>
@@ -77,15 +81,16 @@
         </thead>
         <tbody>
           <tr>
-            <td>navigationSelected: MdcAppBarNavSelected</td>
-            <td>Emitted when the app bar navigation menu icon is selected.</td>
+            <td>navigationSelected: MdcTopAppBarNavSelected</td>
+            <td>Emitted when the top app bar navigation menu icon is selected.</td>
           </tr>
         </tbody>
       </table>
 
       <p>
         <span class="docs-api-class-selector-label">Selector:</span>
-        <span class="docs-api-class-selector-name">mdc-app-bar-row</span>
+        <span class="docs-api-class-selector-name">mdc-top-app-bar-row</span>
+        <span class="docs-api-class-selector-name">mdcTopAppBarRow</span>
       </p>
       <table>
         <tbody>
@@ -97,7 +102,8 @@
 
       <p>
         <span class="docs-api-class-selector-label">Selector:</span>
-        <span class="docs-api-class-selector-name">mdc-app-bar-section</span>
+        <span class="docs-api-class-selector-name">mdc-top-app-bar-section</span>
+        <span class="docs-api-class-selector-name">mdcTopAppBarSection</span>
       </p>
       <table>
         <tbody>
@@ -119,16 +125,16 @@
             <td>Optional. The text used to describe the app or section.</td>
           </tr>
           <tr>
-            <td>align: string</td>
-            <td>Align section to either 'start' or 'end' of row.
-  <pre>Valid values are 'start' | 'end'</pre></td>
+            <td>align: string = 'start' | 'end'</td>
+            <td>Align section to either 'start' or 'end' of row.</td>
           </tr>
         </tbody>
       </table>
 
       <p>
         <span class="docs-api-class-selector-label">Selector:</span>
-        <span class="docs-api-class-selector-name">mdc-app-bar-title</span>
+        <span class="docs-api-class-selector-name">mdc-top-app-bar-title</span>
+        <span class="docs-api-class-selector-name">mdcTopAppBarTitle</span>
       </p>
       <table>
         <tbody>
@@ -140,7 +146,7 @@
 
       <p>
         <span class="docs-api-class-selector-label">Selector:</span>
-        <span class="docs-api-class-selector-name">mdc-icon[mdcAppBarNavIcon]</span>
+        <span class="docs-api-class-selector-name">mdc-icon[mdcTopAppBarNavIcon]</span>
       </p>
       <table>
         <tbody>
@@ -152,7 +158,7 @@
 
       <p>
         <span class="docs-api-class-selector-label">Selector:</span>
-        <span class="docs-api-class-selector-name">mdc-icon[mdcAppBarActionItem]</span>
+        <span class="docs-api-class-selector-name">mdc-icon[mdcTopAppBarActionItem]</span>
       </p>
       <table>
         <tbody>

@@ -3,16 +3,16 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import {
-  MdcAppBarModule,
-  MdcAppBar
+  MdcTopAppBarModule,
+  MdcTopAppBar
 } from '@angular-mdc/web';
 
-describe('MdcAppBar', () => {
+describe('MdcTopAppBar', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MdcAppBarModule],
+      imports: [MdcTopAppBarModule],
       declarations: [SimpleTest]
     });
     TestBed.compileComponents();
@@ -21,14 +21,14 @@ describe('MdcAppBar', () => {
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;
     let testNativeElement: HTMLElement;
-    let testInstance: MdcAppBar;
+    let testInstance: MdcTopAppBar;
     let testComponent: SimpleTest;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SimpleTest);
       fixture.detectChanges();
 
-      testDebugElement = fixture.debugElement.query(By.directive(MdcAppBar));
+      testDebugElement = fixture.debugElement.query(By.directive(MdcTopAppBar));
       testNativeElement = testDebugElement.nativeElement;
       testInstance = testDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
@@ -89,23 +89,23 @@ describe('MdcAppBar', () => {
 
 @Component({
   template: `
-    <mdc-app-bar
+    <mdc-top-app-bar
       [fixed]="fixed"
       [fixedAdjustElement]="testcontent"
       [short]="short"
       [dense]="dense"
       [prominent]="prominent"
       [shortCollapsed]="shortCollapsed">
-      <mdc-app-bar-row>
-        <mdc-app-bar-section align="start">
-          <mdc-icon mdcAppBarNavigationIcon>menu</mdc-icon>
-          <mdc-app-bar-title>Title</mdc-app-bar-title>
-        </mdc-app-bar-section>
-        <mdc-app-bar-section align="end">
-          <mdc-icon mdcAppBarActionItem>file_download</mdc-icon>
-        </mdc-app-bar-section>
-      </mdc-app-bar-row>
-    </mdc-app-bar>
+      <mdc-top-app-bar-row>
+        <mdc-top-app-bar-section align="start">
+          <mdc-icon mdcTopAppBarNavigationIcon>menu</mdc-icon>
+          <mdc-top-app-bar-title>Title</mdc-top-app-bar-title>
+        </mdc-top-app-bar-section>
+        <mdc-top-app-bar-section align="end">
+          <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
+        </mdc-top-app-bar-section>
+      </mdc-top-app-bar-row>
+    </mdc-top-app-bar>
     <div #testcontent></div>
   `,
 })

@@ -1,5 +1,4 @@
 export * from './version';
-export * from '@angular-mdc/web/app-bar';
 export * from '@angular-mdc/web/button';
 export * from '@angular-mdc/web/card';
 export * from '@angular-mdc/web/checkbox';
@@ -34,4 +33,5 @@ export * from '@angular-mdc/web/tab-indicator';
 export * from '@angular-mdc/web/tab-scroller';
 export * from '@angular-mdc/web/textfield';
 export * from '@angular-mdc/web/theme';
+export * from '@angular-mdc/web/top-app-bar';
 export * from '@angular-mdc/web/typography';

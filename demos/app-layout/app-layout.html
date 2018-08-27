@@ -1,21 +1,20 @@
-<mdc-app-bar class="demo-top-app-bar" #appbar fixed [fixedAdjustElement]="mainContent">
-  <mdc-app-bar-row>
-    <mdc-app-bar-section align="start" title="Angular MDC">
-      <mdc-icon mdcAppBarNavIcon (click)="appdrawer.open()" *ngIf="isScreenSmall() || appbar.isCollapsed()">menu</mdc-icon>
-    </mdc-app-bar-section>
-    <mdc-app-bar-section align="end">
-      <a mdcAppBarActionItem href="https://github.com/trimox/angular-mdc-web" alt="GitHub" target="_blank" rel="noopener noreferrer">
+<mdc-top-app-bar class="demo-top-app-bar" #topAppBar fixed [fixedAdjustElement]="mainContent">
+  <mdc-top-app-bar-row>
+    <mdc-top-app-bar-section align="start" title="Angular MDC">
+      <mdc-icon mdcTopAppBarNavIcon (click)="appdrawer.open()" *ngIf="isScreenSmall() || topAppBar.isCollapsed()">menu</mdc-icon>
+    </mdc-top-app-bar-section>
+    <mdc-top-app-bar-section align="end">
+      <a mdcTopAppBarActionItem href="https://github.com/trimox/angular-mdc-web" alt="GitHub" target="_blank" rel="noopener noreferrer">
         <mdc-icon>
           <img src="https://trimox.github.io/angular-mdc-web/assets/github-circle-white-transparent.svg" height="24" />
         </mdc-icon>
       </a>
-    </mdc-app-bar-section>
-  </mdc-app-bar-row>
-</mdc-app-bar>
+    </mdc-top-app-bar-section>
+  </mdc-top-app-bar-row>
+</mdc-top-app-bar>
 
 <div #mainContent>
-  <mdc-drawer #appdrawer="mdcDrawer" [drawer]="isScreenSmall() || appbar.isCollapsed() ? 'temporary' : 'permanent'"
-   [closeOnClick]="false" fixed class="demo-drawer">
+  <mdc-drawer #appdrawer="mdcDrawer" [drawer]="isScreenSmall() || topAppBar.isCollapsed() ? 'dismissible' : 'permanent'">
     <mdc-drawer-content>
       <mdc-list-group>
         <mdc-list>
@@ -70,14 +69,14 @@
   <router-outlet></router-outlet>
 </div>
 
-<div class="demo-app-bar-control-container demo-layout__row-with-button" #demoAppBarControls>
+<div class="demo-app-bar-control-container demo-layout__row-with-button" #demoTopAppBarControls>
   <div class="demo-layout__row">
-    <button mdc-button (click)="appbar.fixed = !appbar.fixed">Fixed: {{appbar.fixed ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="appbar.prominent = !appbar.prominent">Promient: {{appbar.prominent ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="appbar.dense = !appbar.dense">Dense: {{appbar.dense ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="topAppBar.fixed = !topAppBar.fixed">Fixed: {{topAppBar.fixed ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="topAppBar.prominent = !topAppBar.prominent">Promient: {{topAppBar.prominent ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="topAppBar.dense = !topAppBar.dense">Dense: {{topAppBar.dense ? 'On' : 'Off'}}</button>
   </div>
   <div class="demo-layout__row">
-    <button mdc-button (click)="appbar.short = !appbar.short">Short: {{appbar.short ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="appbar.shortCollapsed = !appbar.shortCollapsed">Short Collapsed: {{appbar.shortCollapsed ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="topAppBar.short = !topAppBar.short">Short: {{topAppBar.short ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="topAppBar.shortCollapsed = !topAppBar.shortCollapsed">Short Collapsed: {{topAppBar.shortCollapsed ? 'On' : 'Off'}}</button>
   </div>
 </div>

@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 
 const SMALL_WIDTH_BREAKPOINT = 1240;
 
-import { MdcAppBar } from '@angular-mdc/web';
+import { MdcTopAppBar } from '@angular-mdc/web';
 
 @Component({
   selector: 'app-layout',
@@ -17,8 +17,8 @@ export class AppLayout implements OnInit, OnDestroy {
 
   private _mediaMatcher: MediaQueryList = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
 
-  @ViewChild('demoAppBarControls') demoAppBarControls;
-  @ViewChild(MdcAppBar) appBar: MdcAppBar;
+  @ViewChild('demoTopAppBarControls') demoTopAppBarControls;
+  @ViewChild('topAppBar') topAppBar: MdcTopAppBar;
 
   startVisible: boolean;
   buttonVisible: boolean;
@@ -26,7 +26,6 @@ export class AppLayout implements OnInit, OnDestroy {
   listVisible: boolean;
 
   navigationLinks = [
-    { name: 'App Bar', route: 'app-bar-demo', icon: 'remove' },
     { name: 'Card', route: 'card-demo', icon: 'credit_card' },
     { name: 'Chips', route: 'chips-demo', icon: 'indeterminate_check_box' },
     { name: 'Dialog', route: 'dialog-demo', icon: 'question_answer' },
@@ -39,6 +38,7 @@ export class AppLayout implements OnInit, OnDestroy {
     { name: 'Snackbar', route: 'snackbar-demo', icon: 'info_outline' },
     { name: 'Shape', route: 'shape-demo', icon: 'transform' },
     { name: 'Tabs', route: 'tabs-demo', icon: 'tab' },
+    { name: 'Top App Bar', route: 'top-app-bar-demo', icon: 'remove' },
     { name: 'Typography', route: 'typography-demo', 'icon': 'title' }
   ];
 
@@ -84,11 +84,11 @@ export class AppLayout implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy),
         filter(event => event instanceof NavigationEnd))
       .subscribe(_ => {
-        if (this._router.url.includes('/app-bar-demo')) {
-          this.demoAppBarControls.nativeElement.style.display = 'block';
+        if (this._router.url.includes('/top-app-bar-demo')) {
+          this.demoTopAppBarControls.nativeElement.style.display = 'block';
         } else {
-          this.demoAppBarControls.nativeElement.style.display = 'none';
-          this.appBar.fixed = true; // reset to fixed after navigation off app-bar demo
+          this.demoTopAppBarControls.nativeElement.style.display = 'none';
+          this.topAppBar.fixed = true; // reset to fixed after navigation off top-app-bar demo
         }
       });
   }

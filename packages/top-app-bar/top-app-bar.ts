@@ -21,9 +21,9 @@ import { Subject } from 'rxjs';
 import { isBrowser, toBoolean } from '@angular-mdc/web/common';
 
 import {
-  MdcAppBarActionItem,
-  MdcAppBarNavigationIcon,
-} from './app-bar.directives';
+  MdcTopAppBarActionItem,
+  MdcTopAppBarNavigationIcon,
+} from './top-app-bar.directives';
 import { MDCTopAppBarAdapter } from '@material/top-app-bar/adapter';
 import {
   MDCTopAppBarFoundation,
@@ -31,20 +31,20 @@ import {
   MDCFixedTopAppBarFoundation
 } from '@material/top-app-bar';
 
-/** Event object emitted by MdcAppBar navigation icon selected. */
-export class MdcAppBarNavSelected {
+/** Event object emitted by MdcTopAppBar navigation icon selected. */
+export class MdcTopAppBarNavSelected {
   constructor(
-    public source: MdcAppBar) { }
+    public source: MdcTopAppBar) { }
 }
 
 @Component({
-  selector: '[mdc-app-bar], mdc-app-bar',
+  selector: 'mdc-top-app-bar, [mdc-top-app-bar]',
   template: '<ng-content></ng-content>',
-  exportAs: 'mdcAppBar',
+  exportAs: 'mdcTopAppBar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class MdcAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
+export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
@@ -104,8 +104,16 @@ export class MdcAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
   }
   private _fixedAdjustElement: HTMLElement;
 
+  @Input()
+  get scrollTarget(): Element | Window { return this._scrollTarget; }
+  set scrollTarget(target: Element | Window) {
+    this._scrollTarget = target || window;
+  }
+  private _scrollTarget: Element | Window = window;
+
   /** Event emitted when the navigation icon is selected. */
-  @Output() navigationSelected: EventEmitter<MdcAppBarNavSelected> = new EventEmitter<MdcAppBarNavSelected>();
+  @Output() readonly navigationSelected: EventEmitter<MdcTopAppBarNavSelected> =
+    new EventEmitter<MdcTopAppBarNavSelected>();
 
   @HostBinding('class.mdc-top-app-bar') isHostClass = true;
   @HostBinding('class.mdc-top-app-bar--prominent') get classProminent(): string {
@@ -121,8 +129,8 @@ export class MdcAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
     return this.fixed ? 'mdc-top-app-bar--fixed' : '';
   }
 
-  @ContentChild(MdcAppBarNavigationIcon) navigationIcon: MdcAppBarNavigationIcon;
-  @ContentChildren(MdcAppBarActionItem, { descendants: true }) actions: QueryList<MdcAppBarActionItem>;
+  @ContentChild(MdcTopAppBarNavigationIcon) navigationIcon: MdcTopAppBarNavigationIcon;
+  @ContentChildren(MdcTopAppBarActionItem, { descendants: true }) actions: QueryList<MdcTopAppBarActionItem>;
 
   private _mdcAdapter: MDCTopAppBarAdapter = {
     hasClass: (className: string) => this._getHostElement().classList.contains(className),
@@ -139,12 +147,12 @@ export class MdcAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
     registerScrollHandler: (handler: EventListener) => {
       if (!isBrowser()) { return; }
 
-      window.addEventListener('scroll', handler);
+      this._scrollTarget.addEventListener('scroll', handler);
     },
     deregisterScrollHandler: (handler: EventListener) => {
       if (!isBrowser()) { return; }
 
-      window.removeEventListener('scroll', handler);
+      this._scrollTarget.removeEventListener('scroll', handler);
     },
     registerResizeHandler: (handler: EventListener) => {
       if (!isBrowser()) { return; }
@@ -159,14 +167,16 @@ export class MdcAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
     getViewportScrollY: () => {
       if (!isBrowser()) { return 0; }
 
-      return window.pageYOffset;
+      return this._scrollTarget[this._scrollTarget === window ? 'pageYOffset' : 'scrollTop'];
     },
     getTotalActionItems: () => this.actions ? this.actions.length : 0
   };
 
   private _foundation: {
     init(): void,
-    destroy(): void
+    destroy(): void,
+    initScrollHandler(): void,
+    destroyScrollHandler(): void
   } = new MDCTopAppBarFoundation(this._mdcAdapter);
 
   constructor(
@@ -199,7 +209,7 @@ export class MdcAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
 
   setFixedAdjustElement(element: HTMLElement): void {
     this._fixedAdjustElement = element;
-    this._initAppBar();
+    this._initTopAppBar();
   }
 
   /** Sets the top app bar to fixed or not. */
@@ -294,10 +304,16 @@ export class MdcAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
       this._foundation.init();
       this._isFoundationInit = true;
 
-      this._initAppBar();
+      this._initTopAppBar();
 
       this._changeDetectorRef.markForCheck();
     }, 20);
+  }
+
+  setScrollTarget(target: any): void {
+    this._foundation.destroyScrollHandler();
+    this._scrollTarget = target;
+    this._foundation.initScrollHandler();
   }
 
   private _resetFixedShort(): void {
@@ -306,7 +322,7 @@ export class MdcAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
     this._getHostElement().classList.remove('mdc-top-app-bar--fixed-scrolled');
   }
 
-  private _initAppBar(): void {
+  private _initTopAppBar(): void {
     if (!this.fixed) {
       this._getHostElement().classList.remove('mdc-top-app-bar--fixed-scrolled');
     }

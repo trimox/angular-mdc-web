@@ -114,15 +114,19 @@ export class MdcListItem implements OnDestroy {
   @Input()
   get selected(): boolean { return this._selected; }
   set selected(value: boolean) {
-    this.setSelected(value);
+    this._selected = toBoolean(value);
+    this._changeDetector.markForCheck();
   }
   private _selected: boolean;
 
-  /** Sets the selected state of the option. */
-  setSelected(selected: boolean): void {
-    this._selected = toBoolean(selected);
+  /** Whether the option is activated. */
+  @Input()
+  get activated(): boolean { return this._activated; }
+  set activated(value: boolean) {
+    this._activated = toBoolean(value);
     this._changeDetector.markForCheck();
   }
+  private _activated: boolean;
 
   constructor(
     public ripple: MdcRipple,
@@ -135,6 +139,10 @@ export class MdcListItem implements OnDestroy {
 
   setInteractive(interactive: boolean): void {
     interactive ? this.ripple.attachTo(this.getListItemElement()) : this.ripple.destroy();
+  }
+
+  focus(): void {
+    this.getListItemElement().focus();
   }
 
   getListItemElement(): HTMLElement {

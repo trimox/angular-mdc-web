@@ -116,9 +116,18 @@ export class MdcList implements AfterContentInit, OnDestroy {
   }
   private _selection: boolean;
 
+  @Input()
+  get wrapFocus(): boolean { return this._wrapFocus; }
+  set wrapFocus(value: boolean) {
+    this._wrapFocus = toBoolean(value);
+    this._foundation.setWrapFocus(this._wrapFocus);
+  }
+  private _wrapFocus: boolean;
+
   @HostBinding('class.mdc-list') isHostClass = true;
   @HostBinding('attr.role') role: string = 'list';
   @HostBinding('attr.aria-orientation') ariaOrientation: string = 'vertical';
+  @HostBinding('attr.aria-hidden') ariaHidden: boolean = false;
   @HostBinding('class.mdc-list--dense') get classDense(): string {
     return this.dense ? 'mdc-list--dense' : '';
   }
@@ -160,7 +169,6 @@ export class MdcList implements AfterContentInit, OnDestroy {
     getListItemCount: () => this._listItems.length,
     getFocusedElementIndex: () =>
       this._listItems.toArray().findIndex((_) => _.elementRef.nativeElement === document.activeElement),
-    getListItemIndex: (node: Element) => this._listItems.toArray().findIndex((_) => _.getListItemElement() === node),
     setAttributeForElementIndex: (index: number, attr: string, value: string) =>
       this._listItems.toArray()[index].getListItemElement().setAttribute(attr, value),
     removeAttributeForElementIndex: (index: number, attr: string) =>
@@ -169,21 +177,18 @@ export class MdcList implements AfterContentInit, OnDestroy {
       this._listItems.toArray()[index].getListItemElement().classList.add(className),
     removeClassForElementIndex: (index: number, className: string) =>
       this._listItems.toArray()[index].getListItemElement().classList.remove(className),
-    isListItem: (target: HTMLElement) => target.classList.contains('mdc-list-item'),
     focusItemAtIndex: (index: number) => this._listItems.toArray()[index].getListItemElement().focus(),
-    isElementFocusable: (ele: ElementRef) => {
-      if (!ele) { return false; }
-
-      let matches = Element.prototype.matches;
-      if (!matches) { // IE uses a different name for the same functionality
-        matches = Element.prototype.msMatchesSelector;
-      }
-      return matches.call(ele, 'button:not(:disabled), a');
-    },
     setTabIndexForListItemChildren: (listItemIndex: number, tabIndexValue: number) => {
       const listItemChildren = [].slice.call(this._listItems.toArray()[listItemIndex].getListItemElement()
         .querySelectorAll('.mdc-list-item button:not(:disabled), .mdc-list-item a'));
       listItemChildren.forEach((ele) => ele.setAttribute('tabindex', tabIndexValue));
+    },
+    followHref: (index: number) => {
+      const listItem = this._listItems.toArray()[index];
+
+      if (listItem && listItem.elementRef.nativeElement.href) {
+        listItem.getListItemElement().click();
+      }
     }
   };
 
@@ -289,7 +294,7 @@ export class MdcList implements AfterContentInit, OnDestroy {
 
     this._listItems.forEach(option => {
       if (option !== skip) {
-        option.setSelected(false);
+        option.selected = false;
       }
     });
   }

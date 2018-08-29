@@ -35,30 +35,6 @@
             <td>Sets the toggle state to the provided value.</td>
           </tr>
           <tr>
-            <td>iconOn: string</td>
-            <td>Set icon as content when toggled on.</td>
-          </tr>
-          <tr>
-            <td>iconOff: string</td>
-            <td>Set icon as content when toggled off.</td>
-          </tr>
-          <tr>
-            <td>labelOn: string</td>
-            <td>Set "aria-label" attribute when toggled on.</td>
-          </tr>
-          <tr>
-            <td>labelOff: string</td>
-            <td>Set "aria-label" attribute when toggled off.</td>
-          </tr>
-          <tr>
-            <td>primary: boolean</td>
-            <td>Colors the button with the primary theme color.</td>
-          </tr>
-          <tr>
-            <td>secondary: boolean</td>
-            <td>Colors the button with the secondary theme color.</td>
-          </tr>
-          <tr>
             <td>disabled: boolean</td>
             <td>Disables the icon button.</td>
           </tr>
@@ -73,16 +49,8 @@
         </thead>
         <tbody>
           <tr>
-            <td>toggle(isOn: boolean)</td>
+            <td>toggle(isOn?: boolean)</td>
             <td>Toggles the icon toggle state. If an argument is given, will toggle on if true, off if false.</td>
-          </tr>
-          <tr>
-            <td>refreshToggleData()</td>
-            <td>Allow's developers to refresh toggle data if needed.</td>
-          </tr>
-          <tr>
-            <td>isOn()</td>
-            <td>Returns true if the button is toggled on, false otherwise.</td>
           </tr>
         </tbody>
       </table>
@@ -100,6 +68,19 @@
           </tr>
         </tbody>
       </table>
+
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdcIcon[mdcIconOn]</span>
+        <span class="docs-api-class-selector-name">mdcIconOn</span>
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>Apply to an mdc-icon, and is used to indicate the toggle button icon representing the "on" icon.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <h2>Sass Mixins</h2>
     To customize an icon button's color and properties, you can use the following mixins.
@@ -114,25 +95,23 @@
   <div class="demo-content">
     <h3 class="demo-content__headline">Using NgModel Form</h3>
     <div class="demo-layout__row">
-      <button mdc-button (click)="demoiconbutton.primary = !demoiconbutton.primary">Primary Color: {{demoiconbutton.primary ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="demoiconbutton.secondary = !demoiconbutton.secondary">Secondary Color: {{demoiconbutton.secondary ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoiconbutton.disabled = !demoiconbutton.disabled">Disabled: {{demoiconbutton.disabled ? 'On' : 'Off'}}</button>
     </div>
     <form #demoForm="ngForm" id="demoForm">
       <button mdcIconButton name="demoiconbutton" #demoiconbutton
-       ngModel #demoIconButtonModel="ngModel"
-       iconOn="favorite" iconOff="favorite_border"
-       labelOn="Add to Favorites" labelOff="Remove from Favorites"></button>
+       ngModel #demoIconButtonModel="ngModel">
+        <mdc-icon mdcIconOn>favorite</mdc-icon>
+        <mdc-icon>favorite_border</mdc-icon>
+       </button>
     </form>
     <p>Value: {{ demoIconButtonModel.value }}</p>
   </div>
 
   <div class="demo-content">
     <h3 class="demo-content__headline">Using Font Awesome</h3>
-    <button mdcIconButton
-      iconOn="fa-star" iconOff="fa-star-o"
-      labelOn="Star this item" labelOff="Unstar this item">
-      <i class="fa fa-star" aria-hidden="true"></i>
+    <button mdcIconButton>
+      <mdc-icon fontSet="fa" fontIcon="fa-star" mdcIconOn></mdc-icon>
+      <mdc-icon fontSet="fa" fontIcon="fa-star-o"></mdc-icon>
     </button>
   </div>
 
@@ -141,6 +120,40 @@
     <div class="demo-layout__row">
       <button mdc-button (click)="demoiconbutton3.on = !demoiconbutton3.on">Icon: {{demoiconbutton3.on ? 'On' : 'Off'}}</button>
     </div>
-    <button mdcIconButton #demoiconbutton3 iconOn="favorite" iconOff="favorite_border" labelOn="Add to Favorites" labelOff="Remove from Favorites"></button>
+    <button mdcIconButton #demoiconbutton3 [on]="true">
+      <mdc-icon mdcIconOn>favorite</mdc-icon>
+      <mdc-icon>favorite_border</mdc-icon>
+    </button>
+  </div>
+
+  <div class="demo-content">
+    <h3 class="demo-content__headline">SVG Icon</h3>
+    Coming soon.
+<!--     <button mdcIconButton>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" mdcIconOn>
+        <path d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"></path>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path>
+      </svg>
+    </button>
+ -->  </div>
+
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Custom Themes</h3>
+    <button mdcIconButton class="demo-icon-button-custom">
+      <mdc-icon mdcIconOn>favorite</mdc-icon>
+      <mdc-icon>favorite_border</mdc-icon>
+    </button>
+    <button mdcIconButton class="demo-icon-button-primary">
+      <mdc-icon mdcIconOn>favorite</mdc-icon>
+      <mdc-icon>favorite_border</mdc-icon>
+    </button>
+    <button mdcIconButton class="demo-icon-button-secondary">
+      <mdc-icon mdcIconOn>favorite</mdc-icon>
+      <mdc-icon>favorite_border</mdc-icon>
+    </button>
   </div>
 </div>

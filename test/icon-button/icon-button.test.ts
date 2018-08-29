@@ -40,17 +40,6 @@ describe('MdcIconButton', () => {
         .toContain('mdc-icon-button', 'Expected buttons to have mdc-icon-button');
       expect(buttonInstance.isHostClass).toBe(true);
     });
-    it('#should apply primary class', () => {
-      testComponent.primary = true;
-      fixture.detectChanges();
-      expect(buttonNativeElement.classList.contains('ng-mdc-icon-button--primary')).toBe(true);
-    });
-
-    it('#should apply secondary class', () => {
-      testComponent.secondary = true;
-      fixture.detectChanges();
-      expect(buttonNativeElement.classList.contains('ng-mdc-icon-button--secondary')).toBe(true);
-    });
 
     it('#should set disabled to true', () => {
       testComponent.disabled = true;
@@ -61,28 +50,13 @@ describe('MdcIconButton', () => {
     it('#should set toggle state to true', () => {
       buttonInstance.toggle(true);
       fixture.detectChanges();
-      expect(buttonInstance.isOn()).toBe(true);
-    });
-
-    it('#should set value to false', () => {
-      testComponent.myModel = false;
-      buttonInstance.refreshToggleData();
-      fixture.detectChanges();
-      expect(buttonInstance.isOn()).toBe(false);
+      expect(buttonInstance.on).toBe(true);
     });
 
     it('#should handle click event', () => {
       buttonNativeElement.click();
       fixture.detectChanges();
       expect(testComponent.clickCount).toBe(1);
-    });
-
-    it('iconOn should be set to favorite', () => {
-      expect(buttonInstance.iconOn).toBe('favorite');
-    });
-
-    it('iconOff should be set to favorite_border', () => {
-      expect(buttonInstance.iconOff).toBe('favorite_border');
     });
 
     it('#should stop propagation if disabled', () => {
@@ -123,7 +97,6 @@ describe('MdcIconButton', () => {
     it('#should set button toggle state', () => {
       testComponent.isOn = false;
       fixture.detectChanges();
-      expect(buttonInstance.isOn()).toBe(false);
       expect(buttonInstance.on).toBe(false);
     });
   });
@@ -134,20 +107,16 @@ describe('MdcIconButton', () => {
     <button mdcIconButton [(ngModel)]="myModel"
       [id]="buttonId"
       [disabled]="disabled"
-      (click)="increment()"
-      [primary]="primary"
-      [secondary]="secondary"
-      iconOn="favorite" iconOff="favorite_border"
-      labelOn="Add to Favorites" labelOff="Remove from Favorites">
+      (click)="increment()">
+      <mdc-icon mdcIconOn>favorite</mdc-icon>
+      <mdc-icon>favorite_border</mdc-icon>
     </button>
-  `,
+ `,
 })
 class SimpleButton {
   buttonId: string | null = 'simple-button';
   myModel: boolean = true;
   disabled: boolean = false;
-  primary: boolean = false;
-  secondary: boolean = false;
 
   clickCount: number = 0;
 
@@ -158,11 +127,9 @@ class SimpleButton {
 
 @Component({
   template: `
-    <button mdcIconButton
-      [on]="isOn"
-      iconOn="favorite" iconOff="favorite_border"
-      labelOn="Add to Favorites" labelOff="Remove from Favorites">
-      <i class="fa fa-star" aria-hidden="true"></i>
+    <button mdcIconButton [on]="isOn">
+      <mdc-icon fontSet="fa" fontIcon="fa-star" mdcIconOn></mdc-icon>
+      <mdc-icon fontSet="fa" fontIcon="fa-star-o"></mdc-icon>
     </button>
   `,
 })

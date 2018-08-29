@@ -1,14 +1,22 @@
 import { NgModule } from '@angular/core';
 
 import { MdcIconModule } from '@angular-mdc/web/icon';
-import { MdcIconButton } from './icon-button';
+import {
+  MdcIconButton,
+  MdcIconOn
+} from './icon-button';
+
+const ICON_BUTTON_DECLARATIONS = [
+  MdcIconButton,
+  MdcIconOn
+];
 
 @NgModule({
   imports: [MdcIconModule],
   exports: [
-    MdcIconButton,
+    ICON_BUTTON_DECLARATIONS,
     MdcIconModule
   ],
-  declarations: [MdcIconButton]
+  declarations: ICON_BUTTON_DECLARATIONS
 })
 export class MdcIconButtonModule { }

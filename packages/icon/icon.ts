@@ -92,7 +92,7 @@ export class MdcIcon implements OnInit {
   }
 
   private _updateFontIconClasses(): void {
-    const el: HTMLElement = this._getHostElement();
+    const el: HTMLElement = this.getHostElement();
 
     const fontSetClass = this.fontSet ? this.fontSet : this._getDefaultFontSetClass();
 
@@ -143,17 +143,17 @@ export class MdcIcon implements OnInit {
   }
 
   /** Retrieves the DOM element of the component host. */
-  protected _getHostElement(): HTMLElement {
+  getHostElement(): HTMLElement {
     return this.elementRef.nativeElement;
   }
 
   setIcon(content: string): void {
-    this.fontIcon ? this.fontIcon = content : this._getHostElement().textContent = content;
+    this.fontIcon ? this.fontIcon = content : this.getHostElement().textContent = content;
     this._changeDetectorRef.markForCheck();
   }
 
   getIcon(): string {
-    return this.fontIcon ? this.fontIcon : this._getHostElement().textContent;
+    return this.fontIcon ? this.fontIcon : this.getHostElement().textContent;
   }
 
   setFontSize(value: number): void {
@@ -166,13 +166,13 @@ export class MdcIcon implements OnInit {
     this._clickable = toBoolean(clickable);
 
     if (this.clickable) {
-      this._renderer.setAttribute(this._getHostElement(), 'tabindex', '0');
-      this._renderer.addClass(this._getHostElement(), 'ng-mdc-icon--clickable');
-      this._renderer.setAttribute(this._getHostElement(), 'role', 'button');
+      this._renderer.setAttribute(this.getHostElement(), 'tabindex', '0');
+      this._renderer.addClass(this.getHostElement(), 'ng-mdc-icon--clickable');
+      this._renderer.setAttribute(this.getHostElement(), 'role', 'button');
     } else {
-      this._renderer.setAttribute(this._getHostElement(), 'tabindex', '-1');
-      this._renderer.removeClass(this._getHostElement(), 'ng-mdc-icon--clickable');
-      this._renderer.removeAttribute(this._getHostElement(), 'role');
+      this._renderer.setAttribute(this.getHostElement(), 'tabindex', '-1');
+      this._renderer.removeClass(this.getHostElement(), 'ng-mdc-icon--clickable');
+      this._renderer.removeAttribute(this.getHostElement(), 'role');
     }
   }
 }

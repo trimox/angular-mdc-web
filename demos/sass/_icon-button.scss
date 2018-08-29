@@ -1,0 +1,15 @@
+.demo-icon-button-custom {
+  @include mdc-icon-button-ink-color(#de442c);
+  @include mdc-states-base-color(#de442c);
+  @include mdc-states-hover-opacity(.09);
+  @include mdc-states-focus-opacity(.26);
+  @include mdc-states-press-opacity(.35);
+}
+
+.demo-icon-button-primary {
+  @include mdc-icon-button-ink-color($mdc-theme-primary);
+}
+
+.demo-icon-button-secondary {
+  @include mdc-icon-button-ink-color($mdc-theme-secondary);
+}

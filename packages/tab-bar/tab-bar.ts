@@ -18,7 +18,7 @@ import {
 import { merge, Observable, Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
-import { toBoolean } from '@angular-mdc/web/common';
+import { toBoolean, isBrowser } from '@angular-mdc/web/common';
 import { MdcTabScroller, MdcTabScrollerAlignment } from '@angular-mdc/web/tab-scroller';
 import { MdcTabIndicator } from '@angular-mdc/web/tab-indicator';
 import { MdcTab, MdcTabInteractedEvent, MDC_TAB_BAR_PARENT_COMPONENT } from '@angular-mdc/web/tab';
@@ -109,11 +109,16 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
     getScrollContentWidth: () => this.tabScroller.getScrollContentWidth(),
     getOffsetWidth: () => this._getHostElement().offsetWidth,
     isRTL: () => window.getComputedStyle(this._getHostElement()).getPropertyValue('direction') === 'rtl',
+    setActiveTab: (index) => this._foundation.activateTab(index),
     activateTabAtIndex: (index: number, clientRect: ClientRect) => this.tabs.toArray()[index].activate(clientRect),
     deactivateTabAtIndex: (index: number) => this.tabs.toArray()[index > -1 ? index : 0].deactivate(),
-    getTabIndicatorClientRectAtIndex: (index: number) => this.tabs.toArray()[index > -1 ? index : 0].computeIndicatorClientRect(),
+    focusTabAtIndex: (index: number) => this.tabs.toArray()[index].focus(),
+    getTabIndicatorClientRectAtIndex: (index: number) =>
+      this.tabs.toArray()[index > -1 ? index : 0].computeIndicatorClientRect(),
     getTabDimensionsAtIndex: (index: number) => this.tabs.toArray()[index].computeDimensions(),
-    getActiveTabIndex: () => this.tabs.toArray().findIndex((_) => _.active),
+    getPreviousActiveTabIndex: () => this.tabs.toArray().findIndex((_) => _.active),
+    getFocusedTabIndex: () =>
+      isBrowser ? this.tabs.toArray().findIndex((tab) => tab.elementRef.nativeElement === document.activeElement) : -1,
     getIndexOfTab: (tabToFind: MdcTab) => this.tabs.toArray().indexOf(tabToFind),
     getTabListLength: () => this.tabs.length,
     notifyTabActivated: (index: number) => this.activated.emit({ source: this, index: index, tab: this.tabs.toArray()[index] })
@@ -124,7 +129,8 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
     activateTab(index: number): void,
     handleKeyDown(evt: KeyboardEvent): void,
     handleTabInteraction(evt: MdcTabInteractedEvent): void,
-    scrollIntoView(index: number): void
+    scrollIntoView(index: number): void,
+    setUseAutomaticActivation(useAutomaticActivation: boolean): void
   } = new MDCTabBarFoundation(this._mdcAdapter);
 
   constructor(
@@ -177,6 +183,8 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
     Promise.resolve().then(() => {
       if (!this.tabs.find((_) => _.active)) {
         this.activateTab(0);
+      } else {
+        this.scrollIntoView(this.getActiveTabIndex());
       }
     });
   }
@@ -232,6 +240,10 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
       });
     });
     this._changeDetectorRef.markForCheck();
+  }
+
+  setUseAutomaticActivation(useAutomaticActivation: boolean): void {
+    this._foundation.setUseAutomaticActivation(toBoolean(useAutomaticActivation));
   }
 
   /**

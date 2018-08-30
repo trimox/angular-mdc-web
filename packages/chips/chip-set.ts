@@ -195,6 +195,18 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
     this._changeDetectorRef.markForCheck();
   }
 
+  getSelectedChipIds(): string[] {
+    return this._foundation.getSelectedChipIds();
+  }
+
+  select(chipId: string): void {
+    this._foundation.select(chipId);
+  }
+
+  deselect(chipId: string): void {
+    this._foundation.deselect(chipId);
+  }
+
   private _findChip(chipId: string): MdcChip | undefined {
     return this.chips.find((_) => _.id === chipId);
   }

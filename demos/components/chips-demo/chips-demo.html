@@ -45,6 +45,28 @@
       <table>
         <thead>
           <tr>
+            <th>Methods</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>getSelectedChipIds(): string[]</td>
+            <td>Returns an array of the IDs of all selected chips.</td>
+          </tr>
+          <tr>
+            <td>select(chipId: string): void</td>
+            <td>Selects the chip with the given id. Deselects all other chips if the chip set is of the choice variant.</td>
+          </tr>
+          <tr>
+            <td>deselect(chipId: string): void</td>
+            <td>Deselects the chip with the given id.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
             <th>Events</th>
             <th>Description</th>
           </tr>

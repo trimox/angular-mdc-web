@@ -128,7 +128,6 @@ export class MdcTab implements AfterViewInit, OnDestroy {
     hasClass: (className: string) => this._getHostElement().classList.contains(className),
     activateIndicator: (previousIndicatorClientRect: ClientRect) => this.tabIndicator.activate(previousIndicatorClientRect),
     deactivateIndicator: () => this.tabIndicator.deactivate(),
-    computeIndicatorClientRect: () => this.tabIndicator.computeContentClientRect(),
     notifyInteracted: () => this.interacted.emit({ detail: { tab: this } }),
     getOffsetLeft: () => this._getHostElement().offsetLeft,
     getOffsetWidth: () => this._getHostElement().offsetWidth,
@@ -186,7 +185,7 @@ export class MdcTab implements AfterViewInit, OnDestroy {
    * Returns the indicator's client rect
    */
   computeIndicatorClientRect(): ClientRect {
-    return this._foundation.computeIndicatorClientRect();
+    return this.tabIndicator.computeContentClientRect();
   }
 
   computeDimensions(): any {
@@ -195,6 +194,10 @@ export class MdcTab implements AfterViewInit, OnDestroy {
 
   getTabBarParent(): MdcTabBarParentComponent {
     return this._parent;
+  }
+
+  focus(): void {
+    this._getHostElement().focus();
   }
 
   /** Retrieves the DOM element of the component host. */

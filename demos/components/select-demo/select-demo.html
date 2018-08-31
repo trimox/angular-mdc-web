@@ -170,7 +170,7 @@
       <button mdc-button (click)="select.floatingLabel = !select.floatingLabel">Floating Label: {{select.floatingLabel ? 'On' : 'Off'}}</button>
     </div>
     <form #demoSelectForm="ngForm" id="demoSelectForm">
-      <mdc-select #select placeholder="Favorite food" ngModel #demoSelectModel="ngModel" name="food"
+      <mdc-select #select placeholder="Favorite food" ngModel #demoSelectModel="ngModel" name="food" outlined
        (change)="onChange($event)" (selectionChange)="onSelectionChange($event)">
         <option *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
           {{food.viewValue}}

@@ -8,7 +8,6 @@ import {
   EventEmitter,
   forwardRef,
   HostBinding,
-  HostListener,
   Input,
   OnDestroy,
   Optional,
@@ -19,8 +18,8 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { startWith, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { merge, fromEvent, Subject, Subscription, Observable } from 'rxjs';
+import { map, startWith, takeUntil } from 'rxjs/operators';
 
 import {
   isBrowser,
@@ -48,6 +47,11 @@ export class MdcSelectChange {
     public value: any) { }
 }
 
+const LINE_RIPPLE_EVENTS = [
+  'mousedown',
+  'touchstart'
+];
+
 let nextUniqueId = 0;
 
 @Component({
@@ -55,7 +59,8 @@ let nextUniqueId = 0;
   selector: 'mdc-select',
   exportAs: 'mdcSelect',
   host: {
-    '[id]': 'id'
+    '[id]': 'id',
+    'class': 'mdc-select',
   },
   template: `
   <select #input
@@ -114,7 +119,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
       this.setBox(value);
     }
   }
-  private _box: boolean = true;
+  private _box: boolean;
 
   @Input()
   get outlined(): boolean { return this._outlined; }
@@ -123,7 +128,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
       this.setOutlined(value);
     }
   }
-  private _outlined: boolean = false;
+  private _outlined: boolean;
 
   @Input()
   get autosize(): boolean { return this._autosize; }
@@ -162,7 +167,6 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
    */
   @Output() readonly valueChange: EventEmitter<{ index: number, value: any }> = new EventEmitter<any>();
 
-  @HostBinding('class.mdc-select') isHostClass = true;
   @HostBinding('tabindex') tabIndex: number = 0;
   @HostBinding('class.mdc-select--box') get classBox(): string {
     return this.box ? 'mdc-select--box' : '';
@@ -184,6 +188,13 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   /** View -> model callback called when select has been touched */
   _onTouched = () => { };
 
+  private _lineRippleEventsSubscription: Subscription;
+
+  /** Combined stream of all of the line ripple events. */
+  get lineRippleEvents(): Observable<any> {
+    return merge(...LINE_RIPPLE_EVENTS.map(evt => fromEvent(this._getInputElement(), evt)));
+  }
+
   private _mdcAdapter: MDCSelectAdapter = {
     addClass: (className: string) => this._getHostElement().classList.add(className),
     removeClass: (className: string) => this._getHostElement().classList.remove(className),
@@ -202,7 +213,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
     getValue: () => this._getInputElement().value,
     isRtl: () => getComputedStyle(this._getHostElement()).direction === 'rtl',
     hasLabel: () => !!this._selectLabel,
-    getLabelWidth: () => this._selectLabel.getWidth(),
+    getLabelWidth: () => this._selectLabel ? this._selectLabel.getWidth() : 0,
     hasOutline: () => !!this._notchedOutline,
     notchOutline: (labelWidth: number, isRtl: boolean) => this._notchedOutline.notch(labelWidth, isRtl),
     closeOutline: () => this._notchedOutline.closeNotch()
@@ -232,6 +243,10 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
       }
 
       Promise.resolve().then(() => {
+        if (!this.outlined && !this.box) {
+          this.box = true;
+        }
+
         this._selectLabel.float(this.getValue());
         if (this.autosize) {
           this._setWidth();
@@ -243,6 +258,10 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   ngOnDestroy(): void {
     this._destroy.next();
     this._destroy.complete();
+
+    if (this._lineRippleEventsSubscription) {
+      this._lineRippleEventsSubscription.unsubscribe();
+    }
 
     this._ripple.destroy();
   }
@@ -373,6 +392,14 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
     this.box ? this._ripple.attachTo(this._getHostElement(), false, this._getInputElement()) :
       this._ripple.destroy();
 
+    if (this.box) {
+      this._lineRippleEventsSubscription = this.lineRippleEvents.pipe().subscribe((evt) => {
+        this._setTransformOrigin_(evt);
+      });
+    } else if (this._lineRippleEventsSubscription) {
+      this._lineRippleEventsSubscription.unsubscribe();
+    }
+
     this._changeDetectorRef.markForCheck();
   }
 
@@ -393,7 +420,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
     this._changeDetectorRef.markForCheck();
   }
 
-  setFloatingLabel(floatingLabel: boolean) {
+  setFloatingLabel(floatingLabel: boolean): void {
     this._floatingLabel = toBoolean(floatingLabel);
 
     setTimeout(() => {
@@ -415,7 +442,18 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
     return this._floatingLabel || !this.getValue();
   }
 
-  private _setWidth() {
+  /**
+   * Sets the line ripple's transform origin, so that the line ripple activate
+   * animation will animate out from the user's click location. */
+  private _setTransformOrigin_(evt: any): void {
+    const targetClientRect = evt.target.getBoundingClientRect();
+    const xCoordinate = evt.clientX;
+    const normalizedX = xCoordinate - targetClientRect.left;
+
+    this._lineRipple.setRippleCenter(normalizedX);
+  }
+
+  private _setWidth(): void {
     if (this.options && this.placeholder) {
       const labelLength = this._selectLabel.elementRef.nativeElement.textContent.length;
       this._getHostElement().style.setProperty('width', `${labelLength}rem`);

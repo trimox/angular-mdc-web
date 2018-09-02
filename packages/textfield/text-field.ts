@@ -152,6 +152,15 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   }
   private _helperText: MdcTextFieldHelperText;
 
+  /** Enables or disables the use of native validation. Use this for custom validation. */
+  @Input()
+  get nativeValidation(): boolean { return this._nativeValidation; }
+  set nativeValidation(value: boolean) {
+    this._foundation.setUseNativeValidation(toBoolean(value));
+  }
+  private _nativeValidation: boolean;
+
+
   /** The input element's value. */
   @Input()
   get value(): any { return this._value; }
@@ -279,7 +288,8 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     notchOutline(openNotch: boolean): void,
     getValue(): any,
     setIconAriaLabel(label: string): void,
-    setIconContent(content: string): void
+    setIconContent(content: string): void,
+    setUseNativeValidation(useNativeValidation: boolean): void
   } = new MDCTextFieldFoundation(this._mdcAdapter);
 
   private _iconFoundation: {

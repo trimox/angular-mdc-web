@@ -207,6 +207,7 @@ describe('MdcTextField', () => {
       [required]="required"
       [focused]="isFocused"
       [disabled]="disabled"
+      [nativeValidation]="nativeValidation"
       [helperText]="userHelper"
       (blur)="onBlur($event)">
       <mdc-icon leading>person</mdc-icon>
@@ -228,6 +229,7 @@ class SimpleTextfield {
   isFullwidth: boolean = false;
   outlined: boolean = false;
   required: boolean = false;
+  nativeValidation: boolean;
 
   onBlur(event: any) { }
 }

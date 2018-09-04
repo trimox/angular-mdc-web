@@ -16,7 +16,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { toNumber, toBoolean, isBrowser } from '@angular-mdc/web/common';
+import { toNumber, toBoolean, Platform } from '@angular-mdc/web/common';
 
 import { MDCSliderAdapter } from '@material/slider/adapter';
 import { MDCSliderFoundation } from '@material/slider';
@@ -152,17 +152,25 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
     deregisterThumbContainerInteractionHandler: (type: string, handler: EventListener) =>
       this.thumbContainer.nativeElement.removeEventListener(type, handler),
     registerBodyInteractionHandler: (type: string, handler: EventListener) => {
-      if (isBrowser()) {
-        document.body.addEventListener(type, handler);
-      }
+      if (!this._platform.isBrowser) { return; }
+
+      document.body.addEventListener(type, handler);
     },
-    deregisterBodyInteractionHandler: (type: string, handler: EventListener) => document.body.removeEventListener(type, handler),
+    deregisterBodyInteractionHandler: (type: string, handler: EventListener) => {
+      if (!this._platform.isBrowser) { return; }
+
+      document.body.removeEventListener(type, handler);
+    },
     registerResizeHandler: (handler: EventListener) => {
-      if (isBrowser()) {
-        window.addEventListener('resize', handler);
-      }
+      if (!this._platform.isBrowser) { return; }
+
+      window.addEventListener('resize', handler);
     },
-    deregisterResizeHandler: (handler: EventListener) => window.removeEventListener('resize', handler),
+    deregisterResizeHandler: (handler: EventListener) => {
+      if (!this._platform.isBrowser) { return; }
+
+      window.removeEventListener('resize', handler);
+    },
     notifyInput: () => {
       this.input.emit(new MdcSliderChange(this, this.getValue()));
       this._onTouched();
@@ -212,6 +220,7 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
   };
 
   constructor(
+    private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
     private _renderer: Renderer2,
     public elementRef: ElementRef) { }

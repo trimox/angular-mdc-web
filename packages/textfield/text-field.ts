@@ -22,7 +22,7 @@ import { Subject } from 'rxjs';
 
 import {
   toBoolean,
-  isBrowser,
+  Platform,
   toNumber
 } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';

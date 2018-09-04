@@ -19,7 +19,7 @@ import { startWith, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import {
-  isBrowser,
+  Platform,
   toNumber,
   toBoolean
 } from '@angular-mdc/web/common';
@@ -176,12 +176,12 @@ export class MdcGridList implements AfterViewInit, AfterContentInit, OnDestroy {
     setStyleForTilesElement: (property: string, value: string) =>
       this._renderer.setStyle(this.gridListTiles.elementRef.nativeElement, property, value),
     registerResizeHandler: (handler: EventListener) => {
-      if (isBrowser()) {
+      if (this._platform.isBrowser) {
         window.addEventListener('resize', handler);
       }
     },
     deregisterResizeHandler: (handler: EventListener) => {
-      if (isBrowser()) {
+      if (this._platform.isBrowser) {
         window.removeEventListener('resize', handler);
       }
     }
@@ -194,6 +194,7 @@ export class MdcGridList implements AfterViewInit, AfterContentInit, OnDestroy {
   };
 
   constructor(
+    private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
     private _renderer: Renderer2,
     public elementRef: ElementRef) { }

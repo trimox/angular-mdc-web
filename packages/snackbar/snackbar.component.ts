@@ -12,7 +12,7 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { isBrowser } from '@angular-mdc/web/common';
+import { Platform } from '@angular-mdc/web/common';
 
 import { MdcSnackbarConfig } from './snackbar-config';
 import { MDCSnackbarAdapter } from './adapter';
@@ -75,8 +75,8 @@ export class MdcSnackbarComponent implements AfterViewInit, OnInit, OnDestroy {
       }
     },
     setFocus: () => this._getActionButton().focus(),
-    isFocused: () => isBrowser() ? document.activeElement === this._getActionButton() : false,
-    visibilityIsHidden: () => isBrowser() ? document.hidden : false,
+    isFocused: () => this._platform.isBrowser ? document.activeElement === this._getActionButton() : false,
+    visibilityIsHidden: () => this._platform.isBrowser ? document.hidden : false,
     registerCapturedBlurHandler: (handler: EventListener) => {
       if (this.actionButton) {
         this._getActionButton().addEventListener('blur', handler, true);
@@ -84,18 +84,25 @@ export class MdcSnackbarComponent implements AfterViewInit, OnInit, OnDestroy {
     },
     deregisterCapturedBlurHandler: (handler: EventListener) => this._getActionButton().removeEventListener('blur', handler, true),
     registerVisibilityChangeHandler: (handler: EventListener) => {
-      if (isBrowser()) {
-        document.addEventListener('visibilitychange', handler);
-      }
+      if (!this._platform.isBrowser) { return; }
+
+      document.addEventListener('visibilitychange', handler);
     },
-    deregisterVisibilityChangeHandler: (handler: EventListener) => document.removeEventListener('visibilitychange', handler),
+    deregisterVisibilityChangeHandler: (handler: EventListener) => {
+      if (!this._platform.isBrowser) { return; }
+
+      document.removeEventListener('visibilitychange', handler);
+    },
     registerCapturedInteractionHandler: (evtType: string, handler: EventListener) => {
-      if (isBrowser()) {
-        document.body.addEventListener(evtType, handler, true);
-      }
+      if (!this._platform.isBrowser) { return; }
+
+      document.body.addEventListener(evtType, handler, true);
     },
-    deregisterCapturedInteractionHandler: (evtType: string, handler: EventListener) =>
-      document.body.removeEventListener(evtType, handler, true),
+    deregisterCapturedInteractionHandler: (evtType: string, handler: EventListener) => {
+      if (!this._platform.isBrowser) { return; }
+
+      document.body.removeEventListener(evtType, handler, true);
+    },
     registerActionClickHandler: (handler: EventListener) => {
       if (this.actionButton) {
         this._getActionButton().addEventListener('click', handler);
@@ -103,12 +110,12 @@ export class MdcSnackbarComponent implements AfterViewInit, OnInit, OnDestroy {
     },
     deregisterActionClickHandler: (handler: EventListener) => this._getActionButton().removeEventListener('click', handler),
     registerTransitionEndHandler: (handler: EventListener) => {
-      if (isBrowser()) {
+      if (this._platform.isBrowser) {
         this._getHostElement().addEventListener(getCorrectEventName(window, 'transitionend'), handler);
       }
     },
     deregisterTransitionEndHandler: (handler: EventListener) => {
-      if (isBrowser()) {
+      if (this._platform.isBrowser) {
         this._getHostElement().removeEventListener(getCorrectEventName(window, 'transitionend'), handler);
       }
     },
@@ -123,7 +130,9 @@ export class MdcSnackbarComponent implements AfterViewInit, OnInit, OnDestroy {
     show(data: any): void
   } = new MDCSnackbarFoundation(this._mdcAdapter);
 
-  constructor(public elementRef: ElementRef) { }
+  constructor(
+    private _platform: Platform,
+    public elementRef: ElementRef) { }
 
   ngOnInit(): void {
     this._getHostElement().style.setProperty('display', 'none');

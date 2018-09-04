@@ -15,7 +15,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
-import { isBrowser, ESCAPE } from '@angular-mdc/web/common';
+import { Platform, ESCAPE } from '@angular-mdc/web/common';
 
 import {
   MdcDialogBody,
@@ -73,12 +73,12 @@ export class MdcDialogComponent implements AfterContentInit, OnDestroy {
     addClass: (className: string) => this._getHostElement().classList.add(className),
     removeClass: (className: string) => this._getHostElement().classList.remove(className),
     addBodyClass: (className: string) => {
-      if (isBrowser()) {
+      if (this._platform.isBrowser) {
         document.body.classList.add(className);
       }
     },
     removeBodyClass: (className: string) => {
-      if (isBrowser()) {
+      if (this._platform.isBrowser) {
         document.body.classList.remove(className);
       }
     },
@@ -102,14 +102,14 @@ export class MdcDialogComponent implements AfterContentInit, OnDestroy {
     deregisterSurfaceInteractionHandler: (evt: string, handler: EventListener) =>
       this._getSurfaceElement().removeEventListener(evt, handler),
     registerDocumentKeydownHandler: (handler: EventListener) => {
-      if (!isBrowser()) { return; }
+      if (!this._platform.isBrowser) { return; }
 
       const escapeToClose = this.config ? this.config.escapeToClose : this.escapeToClose;
       handler = escapeToClose ? handler : this._onKeyDown;
       document.addEventListener('keydown', handler);
     },
     deregisterDocumentKeydownHandler: (handler: EventListener) => {
-      if (!isBrowser()) { return; }
+      if (!this._platform.isBrowser) { return; }
 
       const escapeToClose = this.config ? this.config.escapeToClose : this.escapeToClose;
       document.removeEventListener('keydown', escapeToClose ? handler : this._onKeyDown);
@@ -146,6 +146,7 @@ export class MdcDialogComponent implements AfterContentInit, OnDestroy {
   } = new MDCDialogFoundation(this._mdcAdapter);
 
   constructor(
+    private _platform: Platform,
     public elementRef: ElementRef,
     @Optional() @SkipSelf() public dialogRef: MdcDialogRef<any>) { }
 
@@ -180,7 +181,7 @@ export class MdcDialogComponent implements AfterContentInit, OnDestroy {
 
     const focusedEl = this._actions.find((_) => _.accept);
 
-    if (isBrowser()) {
+    if (this._platform.isBrowser) {
       this._focusTrap = util.createFocusTrapInstance(this._surface.elementRef.nativeElement, {
         initialFocus: focusedEl ? focusedEl.getHostElement() : this._getHostElement(),
         clickOutsideDeactivates: this.config ? this.config.clickOutsideToClose : this.clickOutsideToClose,

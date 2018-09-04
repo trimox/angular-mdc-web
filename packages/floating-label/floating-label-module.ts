@@ -4,6 +4,6 @@ import { MdcFloatingLabel } from './floating-label';
 
 @NgModule({
   exports: [MdcFloatingLabel],
-  declarations: [MdcFloatingLabel],
+  declarations: [MdcFloatingLabel]
 })
 export class MdcFloatingLabelModule { }

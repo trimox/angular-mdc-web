@@ -22,7 +22,7 @@ import { startWith, switchMap, take, takeUntil } from 'rxjs/operators';
 
 import {
   toBoolean,
-  isBrowser
+  Platform
 } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcIcon } from '@angular-mdc/web/icon';
@@ -251,7 +251,7 @@ export class MdcChip implements AfterContentInit, OnDestroy {
     notifyTrailingIconInteraction: () => this.trailingIconInteraction.emit(),
     notifyRemoval: () => this.removed.emit({ detail: { chip: this } }),
     getComputedStyleValue: (propertyName: string) => {
-      if (isBrowser()) {
+      if (this._platform.isBrowser) {
         window.getComputedStyle(this._getHostElement()).getPropertyValue(propertyName);
       }
     },
@@ -261,6 +261,7 @@ export class MdcChip implements AfterContentInit, OnDestroy {
   private _foundation: {
     init(): void,
     destroy(): void,
+    beginExit(): void,
     setSelected(selected: boolean): void,
     isSelected(): boolean,
     setShouldRemoveOnTrailingIconClick(shouldRemove: boolean): void,
@@ -270,6 +271,7 @@ export class MdcChip implements AfterContentInit, OnDestroy {
   } = new MDCChipFoundation(this._mdcAdapter);
 
   constructor(
+    private _platform: Platform,
     private _ngZone: NgZone,
     private _changeDetectorRef: ChangeDetectorRef,
     private _ripple: MdcRipple,

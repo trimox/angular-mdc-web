@@ -7,6 +7,8 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+import { Platform } from '@angular-mdc/web/common';
+
 import { MDCNotchedOutlineAdapter } from '@material/notched-outline/adapter';
 import { MDCNotchedOutlineFoundation } from '@material/notched-outline';
 
@@ -37,7 +39,7 @@ export class MdcNotchedOutline implements OnInit, OnDestroy {
     removeClass: (className: string) => this._notchOutline.nativeElement.classList.remove(className),
     setOutlinePathAttr: (value: string) => this._svgpath.nativeElement.setAttribute('d', value),
     getIdleOutlineStyleValue: (propertyName: string) =>
-      window.getComputedStyle(this._notchIdle.nativeElement).getPropertyValue(propertyName)
+      this._platform.isBrowser ? window.getComputedStyle(this._notchIdle.nativeElement).getPropertyValue(propertyName) : ''
   };
 
   _foundation: {
@@ -47,7 +49,9 @@ export class MdcNotchedOutline implements OnInit, OnDestroy {
     closeNotch(): void
   } = new MDCNotchedOutlineFoundation(this._mdcAdapter);
 
-  constructor(public elementRef: ElementRef) { }
+  constructor(
+    private _platform: Platform,
+    public elementRef: ElementRef) { }
 
   ngOnInit(): void {
     this._foundation.init();
@@ -57,17 +61,13 @@ export class MdcNotchedOutline implements OnInit, OnDestroy {
     this._foundation.destroy();
   }
 
-  /**
-   * Updates outline selectors and SVG path to open notch.
-   */
+  /** Updates outline selectors and SVG path to open notch. */
   notch(notchWidth: number, isRtl: boolean): void {
     this._foundation.notch(notchWidth, isRtl);
   }
 
-  /**
-   * Updates the outline selectors to close notch and return it to idle state.
-   */
-  closeNotch() {
+  /** Updates the outline selectors to close notch and return it to idle state. */
+  closeNotch(): void {
     this._foundation.closeNotch();
   }
 }

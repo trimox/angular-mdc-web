@@ -18,7 +18,7 @@ import {
 import { takeUntil, startWith } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
-import { isBrowser, toBoolean } from '@angular-mdc/web/common';
+import { Platform, toBoolean } from '@angular-mdc/web/common';
 
 import {
   MdcTopAppBarActionItem,
@@ -145,27 +145,27 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
     getTopAppBarHeight: () => this._getHostElement().clientHeight,
     notifyNavigationIconClicked: () => this.navigationSelected.emit({ source: this }),
     registerScrollHandler: (handler: EventListener) => {
-      if (!isBrowser()) { return; }
+      if (!this._platform.isBrowser) { return; }
 
       this._scrollTarget.addEventListener('scroll', handler);
     },
     deregisterScrollHandler: (handler: EventListener) => {
-      if (!isBrowser()) { return; }
+      if (!this._platform.isBrowser) { return; }
 
       this._scrollTarget.removeEventListener('scroll', handler);
     },
     registerResizeHandler: (handler: EventListener) => {
-      if (!isBrowser()) { return; }
+      if (!this._platform.isBrowser) { return; }
 
       window.addEventListener('resize', handler);
     },
     deregisterResizeHandler: (handler: EventListener) => {
-      if (!isBrowser()) { return; }
+      if (!this._platform.isBrowser) { return; }
 
       window.removeEventListener('resize', handler);
     },
     getViewportScrollY: () => {
-      if (!isBrowser()) { return 0; }
+      if (!this._platform.isBrowser) { return 0; }
 
       return this._scrollTarget[this._scrollTarget === window ? 'pageYOffset' : 'scrollTop'];
     },
@@ -180,6 +180,7 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
   } = new MDCTopAppBarFoundation(this._mdcAdapter);
 
   constructor(
+    private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef) { }
 
@@ -365,7 +366,7 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
   }
 
   private _getScrollOffset(): number {
-    return window.pageYOffset;
+    return this._platform.isBrowser ? window.pageYOffset : 0;
   }
 
   /** Retrieves the DOM element of the component host. */

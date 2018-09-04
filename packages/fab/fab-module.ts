@@ -13,6 +13,6 @@ import { MdcFab } from './fab';
     MdcIconModule,
     MdcFab
   ],
-  declarations: [MdcFab],
+  declarations: [MdcFab]
 })
 export class MdcFabModule { }

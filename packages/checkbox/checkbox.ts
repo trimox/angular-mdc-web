@@ -6,8 +6,8 @@ import {
   ElementRef,
   EventEmitter,
   forwardRef,
-  HostBinding,
   Input,
+  NgZone,
   OnDestroy,
   Output,
   ViewChild,
@@ -17,7 +17,7 @@ import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { isBrowser, toBoolean } from '@angular-mdc/web/common';
+import { Platform, toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcFormFieldControl } from '@angular-mdc/web/form-field';
 
@@ -54,6 +54,7 @@ export const MDC_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
   exportAs: 'mdcCheckbox',
   host: {
     '[id]': 'id',
+    'class': 'mdc-checkbox'
   },
   template: `
   <input type="checkbox"
@@ -174,7 +175,6 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
   @Output() readonly indeterminateChange: EventEmitter<MdcIndeterminateChange>
     = new EventEmitter<MdcIndeterminateChange>();
 
-  @HostBinding('class.mdc-checkbox') isHostClass = true;
   @ViewChild('input') inputEl: ElementRef;
 
   /** View -> model callback called when value changes */
@@ -184,15 +184,15 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
   _onTouched = () => { };
 
   constructor(
+    private _platform: Platform,
+    private _ngZone: NgZone,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef,
     public ripple: MdcRipple) { }
 
   ngAfterViewInit(): void {
     this._foundation.init();
-
     this.ripple.attachTo(this._getHostElement(), true, this.inputEl.nativeElement);
-
     this._loadListeners();
   }
 
@@ -308,9 +308,10 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
   }
 
   private _loadListeners(): void {
-    fromEvent(window, getCorrectEventName(window, 'animationend'))
-      .pipe(takeUntil(this._destroy))
-      .subscribe(() => this._foundation.handleAnimationEnd());
+    this._ngZone.runOutsideAngular(() =>
+      fromEvent(window, getCorrectEventName(window, 'animationend'))
+        .pipe(takeUntil(this._destroy))
+        .subscribe(() => this._ngZone.run(() => this._foundation.handleAnimationEnd())));
   }
 
   /** Retrieves the DOM element of the input. */

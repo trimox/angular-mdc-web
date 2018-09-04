@@ -84,7 +84,7 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
   setUnbounded(unbounded: boolean): void {
     this._unbounded = unbounded;
 
-    if (this.ripple.isAttached()) {
+    if (this.ripple.attached) {
       this.ripple.setUnbounded(unbounded);
     }
     this._changeDetectorRef.markForCheck();

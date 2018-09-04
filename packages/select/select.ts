@@ -21,10 +21,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { merge, fromEvent, Subject, Subscription, Observable } from 'rxjs';
 import { map, startWith, takeUntil } from 'rxjs/operators';
 
-import {
-  isBrowser,
-  toBoolean
-} from '@angular-mdc/web/common';
+import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
 import { MdcNotchedOutline } from '@angular-mdc/web/notched-outline';

@@ -13,6 +13,8 @@ import {
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import { Platform } from '@angular-mdc/web/common';
+
 import { MDCTabScrollerAdapter } from '@material/tab-scroller/adapter';
 import { MDCTabScrollerFoundation, util } from '@material/tab-scroller';
 
@@ -59,14 +61,15 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
     addScrollAreaClass: (className: string) => this.area.nativeElement.classList.add(className),
     setScrollAreaStyleProperty: (propName: string, value: string) => this.area.nativeElement.style.setProperty(propName, value),
     setScrollContentStyleProperty: (propName: string, value: string) => this.content.nativeElement.style.setProperty(propName, value),
-    getScrollContentStyleValue: (propName: string) => window.getComputedStyle(this.content.nativeElement).getPropertyValue(propName),
+    getScrollContentStyleValue: (propName: string) =>
+      this._platform.isBrowser ? window.getComputedStyle(this.content.nativeElement).getPropertyValue(propName) : '',
     setScrollAreaScrollLeft: (scrollX: number) => this.area.nativeElement.scrollLeft = scrollX,
     getScrollAreaScrollLeft: () => this.area.nativeElement.scrollLeft,
     getScrollContentOffsetWidth: () => this.content.nativeElement.offsetWidth,
     getScrollAreaOffsetWidth: () => this.area.nativeElement.offsetWidth,
     computeScrollAreaClientRect: () => this.area.nativeElement.getBoundingClientRect(),
     computeScrollContentClientRect: () => this.content.nativeElement.getBoundingClientRect(),
-    computeHorizontalScrollbarHeight: () => util.computeHorizontalScrollbarHeight(document)
+    computeHorizontalScrollbarHeight: () => this._platform.isBrowser ? util.computeHorizontalScrollbarHeight(document) : 0
   };
 
   private _foundation: {
@@ -80,6 +83,7 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
   } = new MDCTabScrollerFoundation(this._mdcAdapter);
 
   constructor(
+    private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef) { }
 
@@ -129,7 +133,7 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
   /**
    * Scrolls to the given pixel position
    */
-  scrollTo(scrollX: number) {
+  scrollTo(scrollX: number): void {
     this._foundation.scrollTo(scrollX);
   }
 

@@ -18,7 +18,7 @@ import {
 import { merge, Observable, Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
-import { toBoolean, isBrowser } from '@angular-mdc/web/common';
+import { toBoolean, Platform } from '@angular-mdc/web/common';
 import { MdcTabScroller, MdcTabScrollerAlignment } from '@angular-mdc/web/tab-scroller';
 import { MdcTabIndicator } from '@angular-mdc/web/tab-indicator';
 import { MdcTab, MdcTabInteractedEvent, MDC_TAB_BAR_PARENT_COMPONENT } from '@angular-mdc/web/tab';
@@ -108,7 +108,7 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
     getScrollPosition: () => this.tabScroller.getScrollPosition(),
     getScrollContentWidth: () => this.tabScroller.getScrollContentWidth(),
     getOffsetWidth: () => this._getHostElement().offsetWidth,
-    isRTL: () => window.getComputedStyle(this._getHostElement()).getPropertyValue('direction') === 'rtl',
+    isRTL: () => this._platform.isBrowser ? window.getComputedStyle(this._getHostElement()).getPropertyValue('direction') === 'rtl' : false,
     setActiveTab: (index) => this._foundation.activateTab(index),
     activateTabAtIndex: (index: number, clientRect: ClientRect) => this.tabs.toArray()[index].activate(clientRect),
     deactivateTabAtIndex: (index: number) => this.tabs.toArray()[index > -1 ? index : 0].deactivate(),
@@ -118,7 +118,7 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
     getTabDimensionsAtIndex: (index: number) => this.tabs.toArray()[index].computeDimensions(),
     getPreviousActiveTabIndex: () => this.tabs.toArray().findIndex((_) => _.active),
     getFocusedTabIndex: () =>
-      isBrowser ? this.tabs.toArray().findIndex((tab) => tab.elementRef.nativeElement === document.activeElement) : -1,
+      this._platform.isBrowser ? this.tabs.toArray().findIndex((tab) => tab.elementRef.nativeElement === document.activeElement) : -1,
     getIndexOfTab: (tabToFind: MdcTab) => this.tabs.toArray().indexOf(tabToFind),
     getTabListLength: () => this.tabs.length,
     notifyTabActivated: (index: number) => this.activated.emit({ source: this, index: index, tab: this.tabs.toArray()[index] })
@@ -134,6 +134,7 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
   } = new MDCTabBarFoundation(this._mdcAdapter);
 
   constructor(
+    private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef) { }
 

@@ -4,6 +4,6 @@ import { MdcNotchedOutline } from './notched-outline';
 
 @NgModule({
   exports: [MdcNotchedOutline],
-  declarations: [MdcNotchedOutline],
+  declarations: [MdcNotchedOutline]
 })
 export class MdcNotchedOutlineModule { }

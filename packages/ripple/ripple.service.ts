@@ -2,7 +2,7 @@ import {
   ElementRef,
   Injectable
 } from '@angular/core';
-import { isBrowser } from '@angular-mdc/web/common';
+import { Platform } from '@angular-mdc/web/common';
 
 import { MDCRippleAdapter } from '@material/ripple/adapter';
 import { MDCRippleFoundation, util } from '@material/ripple';
@@ -35,16 +35,26 @@ export class MdcRipple {
         this._root.removeEventListener(evtType, handler, util.applyPassive());
       }
     },
-    registerDocumentInteractionHandler: (evtType: string, handler: EventListener) =>
-      document.documentElement.addEventListener(evtType, handler, util.applyPassive()),
-    deregisterDocumentInteractionHandler: (evtType: string, handler: EventListener) =>
-      document.documentElement.removeEventListener(evtType, handler, util.applyPassive()),
-    registerResizeHandler: (handler: EventListener) => {
-      if (isBrowser()) {
-        window.addEventListener('resize', handler);
-      }
+    registerDocumentInteractionHandler: (evtType: string, handler: EventListener) => {
+      if (!this._platform.isBrowser) { return; }
+
+      document.documentElement.addEventListener(evtType, handler, util.applyPassive());
     },
-    deregisterResizeHandler: (handler: EventListener) => window.removeEventListener('resize', handler),
+    deregisterDocumentInteractionHandler: (evtType: string, handler: EventListener) => {
+      if (!this._platform.isBrowser) { return; }
+
+      document.documentElement.removeEventListener(evtType, handler, util.applyPassive());
+    },
+    registerResizeHandler: (handler: EventListener) => {
+      if (!this._platform.isBrowser) { return; }
+
+      window.addEventListener('resize', handler);
+    },
+    deregisterResizeHandler: (handler: EventListener) => {
+      if (!this._platform.isBrowser) { return; }
+
+      window.removeEventListener('resize', handler);
+    },
     updateCssVariable: (varName: string, value: string) => this._root.style.setProperty(varName, value),
     computeBoundingRect: () => this._root.getBoundingClientRect(),
     getWindowPageOffset: () => {
@@ -64,9 +74,11 @@ export class MdcRipple {
     setUnbounded(unbounded: boolean): void,
     handleFocus(): void,
     handleBlur(): void
-  };
+  } | MDCRippleFoundation | null;
 
-  constructor(protected elementRef: ElementRef) { }
+  constructor(
+    private _platform: Platform,
+    protected elementRef: ElementRef) { }
 
   attachTo(root: any, unbounded: boolean = false, interactionElement?: HTMLElement) {
     this._root = root;
@@ -121,7 +133,5 @@ export class MdcRipple {
       this._root.attributes.getNamedItem('disabled') ? true : false;
   }
 
-  isAttached(): boolean {
-    return !!this._foundation;
-  }
+  readonly attached: boolean = !!this._foundation;
 }

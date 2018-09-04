@@ -8,7 +8,6 @@ import {
   ElementRef,
   EventEmitter,
   HostBinding,
-  HostListener,
   Input,
   NgZone,
   OnDestroy,
@@ -17,7 +16,7 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { defer, merge, Observable, Subject } from 'rxjs';
+import { fromEvent, defer, merge, Observable, Subject, Subscription } from 'rxjs';
 import { filter, startWith, switchMap, take, takeUntil } from 'rxjs/operators';
 
 import { toBoolean } from '@angular-mdc/web/common';
@@ -40,6 +39,9 @@ export class MdcListItemChange {
   moduleId: module.id,
   selector: '[mdcListGroup], mdc-list-group',
   exportAs: 'mdcListGroup',
+  host: {
+    'class': 'mdc-list-group'
+  },
   template: `
   <h3 class="mdc-list-group__subheader" *ngIf="subheader">{{subheader}}</h3>
   <ng-content></ng-content>
@@ -50,18 +52,17 @@ export class MdcListItemChange {
 export class MdcListGroup {
   @Input() subheader: string;
 
-  @HostBinding('class.mdc-list-group') isHostClass = true;
-
   constructor(public elementRef: ElementRef) { }
 }
 
 @Directive({
   selector: '[mdcListGroupSubheader], mdc-list-group-subheader',
   exportAs: 'mdcListGroupSubheader',
+  host: {
+    'class': 'mdc-list-group__subheader'
+  }
 })
 export class MdcListGroupSubheader {
-  @HostBinding('class.mdc-list-group__subheader') isHostClass = true;
-
   constructor(public elementRef: ElementRef) { }
 }
 
@@ -69,6 +70,14 @@ export class MdcListGroupSubheader {
   moduleId: module.id,
   selector: 'mdc-list',
   exportAs: 'mdcList',
+  host: {
+    'class': 'mdc-list',
+    '[class.mdc-list--dense]': 'dense',
+    '[class.mdc-list--avatar-list]': 'avatar',
+    '[class.ng-mdc-list--border]': 'border',
+    '[class.mdc-list--non-interactive]': '!interactive',
+    '[class.mdc-list--two-line]': 'lines === 2'
+  },
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -124,40 +133,11 @@ export class MdcList implements AfterContentInit, OnDestroy {
   }
   private _wrapFocus: boolean;
 
-  @HostBinding('class.mdc-list') isHostClass = true;
   @HostBinding('attr.role') role: string = 'list';
   @HostBinding('attr.aria-orientation') ariaOrientation: string = 'vertical';
   @HostBinding('attr.aria-hidden') ariaHidden: boolean = false;
-  @HostBinding('class.mdc-list--dense') get classDense(): string {
-    return this.dense ? 'mdc-list--dense' : '';
-  }
-  @HostBinding('class.mdc-list--two-line') get classLines(): string {
-    return this.lines === 2 ? 'mdc-list--two-line' : '';
-  }
-  @HostBinding('class.mdc-list--avatar-list') get classAvatar(): string {
-    return this.avatar ? 'mdc-list--avatar-list' : '';
-  }
-  @HostBinding('class.ng-mdc-list--border') get classBorder(): string {
-    return this.border ? 'ng-mdc-list--border' : '';
-  }
-  @HostBinding('class.mdc-list--non-interactive') get classInteractive(): string {
-    return !this.interactive ? 'mdc-list--non-interactive' : '';
-  }
 
-  @HostListener('keydown', ['$event']) onkeydown(evt: KeyboardEvent) {
-    this._foundation.handleKeydown(evt);
-  }
-  @HostListener('focusin', ['$event']) onfocusin(evt: FocusEvent) {
-    this._foundation.handleFocusIn(evt);
-  }
-  @HostListener('focusout', ['$event']) onfocusout(evt: FocusEvent) {
-    this._foundation.handleFocusOut(evt);
-  }
-  @HostListener('click') onclick() {
-    if (!this.selection) { return; }
-
-    this._foundation.handleClick();
-  }
+  private _clickSubscription: Subscription;
 
   @ContentChildren(MdcListItem, { descendants: true }) _listItems: QueryList<MdcListItem>;
 
@@ -198,9 +178,9 @@ export class MdcList implements AfterContentInit, OnDestroy {
     setVerticalOrientation(vertical: boolean): void,
     setWrapFocus(wrapFocus: boolean): void,
     handleClick(): void,
-    handleKeydown(evt: KeyboardEvent): void,
-    handleFocusIn(evt: FocusEvent): void,
-    handleFocusOut(evt: FocusEvent): void,
+    handleKeydown(evt: Event, isRootListItem: boolean, listItemIndex: number): void,
+    handleFocusIn(evt: Event, listItemIndex: number): void,
+    handleFocusOut(evt: Event, listItemIndex: number): void,
     focusNextElement(index: number): void,
     focusPrevElement(index: number): void,
     focusFirstElement(): void,
@@ -246,22 +226,46 @@ export class MdcList implements AfterContentInit, OnDestroy {
         this._resetOptions();
       });
     });
+
+    this._loadListeners();
   }
 
   ngOnDestroy(): void {
     this._destroy.next();
     this._destroy.complete();
+
+    if (this._clickSubscription) {
+      this._clickSubscription.unsubscribe();
+    }
   }
 
-  /** Drops current option subscriptions and IDs and resets from scratch. */
-  private _resetOptions(): void {
-    const changedOrDestroyed = merge(this._listItems.changes, this._destroy);
+  private _loadListeners() {
+    this._ngZone.runOutsideAngular(() =>
+      fromEvent(this._getHostElement(), 'keydown').pipe(takeUntil(this._destroy))
+        .subscribe((evt) => this._ngZone.run(() => {
+          const index = this._getListItemIndex(evt);
+          if (index >= 0 && evt.target) {
+            this._foundation.handleKeydown(evt, (<any>evt.target).classList.contains('.mdc-list-item'), index);
+          }
+        })));
 
-    this.optionSelectionChanges
-      .pipe(takeUntil(changedOrDestroyed)
-      ).subscribe(event => {
-        this.clearSelected(event.source);
-      });
+    this._ngZone.runOutsideAngular(() =>
+      fromEvent(this._getHostElement(), 'focusin').pipe(takeUntil(this._destroy))
+        .subscribe((evt) => this._ngZone.run(() => {
+          const index = this._getListItemIndex(evt);
+          if (index >= 0) {
+            this._foundation.handleFocusIn(evt, index);
+          }
+        })));
+
+    this._ngZone.runOutsideAngular(() =>
+      fromEvent(this._getHostElement(), 'focusout').pipe(takeUntil(this._destroy))
+        .subscribe((evt) => this._ngZone.run(() => {
+          const index = this._getListItemIndex(evt);
+          if (index >= 0) {
+            this._foundation.handleFocusOut(evt, index);
+          }
+        })));
   }
 
   setInteractive(value: boolean): void {
@@ -279,6 +283,14 @@ export class MdcList implements AfterContentInit, OnDestroy {
   setSelection(selection: boolean): void {
     this._selection = toBoolean(selection);
     this._foundation.setSingleSelection(this.selection);
+
+    if (this.selection) {
+      this._clickSubscription = this._ngZone.runOutsideAngular(() =>
+        fromEvent(document.body, 'click')
+          .subscribe(() => this._ngZone.run(() => this._foundation.handleClick())));
+    } else if (this._clickSubscription) {
+      this._clickSubscription.unsubscribe();
+    }
 
     if (this.getSelectedIndex() > -1) {
       this.setSelectedIndex(this.getSelectedIndex());
@@ -315,6 +327,21 @@ export class MdcList implements AfterContentInit, OnDestroy {
 
   focusLastElement(): void {
     this._foundation.focusLastElement();
+  }
+
+  /** Drops current option subscriptions and IDs and resets from scratch. */
+  private _resetOptions(): void {
+    const changedOrDestroyed = merge(this._listItems.changes, this._destroy);
+
+    this.optionSelectionChanges
+      .pipe(takeUntil(changedOrDestroyed)
+      ).subscribe(event => {
+        this.clearSelected(event.source);
+      });
+  }
+
+  private _getListItemIndex(evt: Event) {
+    return this._listItems.toArray().findIndex((_) => _.getListItemElement() === evt.target);
   }
 
   /** Retrieves the DOM element of the component host. */

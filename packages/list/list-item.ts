@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -7,12 +8,15 @@ import {
   ElementRef,
   EventEmitter,
   HostBinding,
-  HostListener,
   Input,
+  NgZone,
   OnDestroy,
   Output,
   ViewEncapsulation
 } from '@angular/core';
+import { fromEvent, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
@@ -27,21 +31,24 @@ let uniqueIdCounter = 0;
 @Directive({
   selector: '[mdcListItemGraphic], mdc-list-item-graphic',
   exportAs: 'mdcListItemGraphic',
+  host: {
+    'role': 'presentation',
+    'class': 'mdc-list-item__graphic',
+    '[attr.aria-hidden]': 'true'
+  }
 })
 export class MdcListItemGraphic {
-  @HostBinding('class.mdc-list-item__graphic') isHostClass = true;
-  @HostBinding('attr.aria-hidden') ariaHidden: string = 'true';
-
   constructor(public elementRef: ElementRef) { }
 }
 
 @Directive({
   selector: '[mdcListItemMeta], mdc-list-item-meta',
   exportAs: 'mdcListItemMeta',
+  host: {
+    'class': 'mdc-list-item__meta'
+  }
 })
 export class MdcListItemMeta {
-  @HostBinding('class.mdc-list-item__meta') isHostClass = true;
-
   constructor(public elementRef: ElementRef) { }
 }
 
@@ -49,6 +56,9 @@ export class MdcListItemMeta {
   moduleId: module.id,
   selector: '[mdcListItemText], mdc-list-item-text',
   exportAs: 'mdcListItemText',
+  host: {
+    'class': 'mdc-list-item__text'
+  },
   template: `
   <ng-container>
     <span class="mdc-list-item__primary-text"><ng-content></ng-content></span>
@@ -61,18 +71,17 @@ export class MdcListItemMeta {
 export class MdcListItemText {
   @Input() secondaryText: string;
 
-  @HostBinding('class.mdc-list-item__text') isHostClass = true;
-
   constructor(public elementRef: ElementRef) { }
 }
 
 @Directive({
   selector: '[mdcListItemSecondary], mdc-list-item-secondary',
   exportAs: 'mdcListItemSecondary',
+  host: {
+    'class': 'mdc-list-item__secondary-text'
+  }
 })
 export class MdcListItemSecondary {
-  @HostBinding('class.mdc-list-item__secondary-text') isHostClass = true;
-
   constructor(public elementRef: ElementRef) { }
 }
 
@@ -82,28 +91,26 @@ export class MdcListItemSecondary {
   exportAs: 'mdcListItem',
   host: {
     '[id]': 'id',
+    'class': 'mdc-list-item',
+    '[class.mdc-list-item--selected]': 'selected',
+    '[class.mdc-list-item--activated]': 'activated'
   },
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [MdcRipple]
 })
-export class MdcListItem implements OnDestroy {
+export class MdcListItem implements AfterViewInit, OnDestroy {
+  /** Emits whenever the component is destroyed. */
+  private _destroy = new Subject<void>();
+
   private _id = `mdc-list-item-${uniqueIdCounter++}`;
 
   /** The unique ID of the option. */
   get id(): string { return this._id; }
 
-  @HostBinding('class.mdc-list-item') isHostClass = true;
   @HostBinding('tabindex') tabIndex: number = -1;
   @HostBinding('attr.role') role: string = 'listitem';
-  @HostBinding('class.mdc-list-item--selected') get classSelected(): string {
-    return this.selected ? 'mdc-list-item--selected' : '';
-  }
-
-  @HostListener('click') onclick() {
-    this._emitChangeEvent();
-  }
 
   @Output() readonly selectionChange: EventEmitter<MdcListSelectionChange>
     = new EventEmitter<MdcListSelectionChange>();
@@ -115,7 +122,7 @@ export class MdcListItem implements OnDestroy {
   get selected(): boolean { return this._selected; }
   set selected(value: boolean) {
     this._selected = toBoolean(value);
-    this._changeDetector.markForCheck();
+    this._changeDetectorRef.markForCheck();
   }
   private _selected: boolean;
 
@@ -124,17 +131,25 @@ export class MdcListItem implements OnDestroy {
   get activated(): boolean { return this._activated; }
   set activated(value: boolean) {
     this._activated = toBoolean(value);
-    this._changeDetector.markForCheck();
+    this._changeDetectorRef.markForCheck();
   }
   private _activated: boolean;
 
   constructor(
+    private _ngZone: NgZone,
     public ripple: MdcRipple,
-    private _changeDetector: ChangeDetectorRef,
+    private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef) { }
+
+  ngAfterViewInit(): void {
+    this._loadListeners();
+  }
 
   ngOnDestroy(): void {
     this.ripple.destroy();
+
+    this._destroy.next();
+    this._destroy.complete();
   }
 
   setInteractive(interactive: boolean): void {
@@ -147,6 +162,12 @@ export class MdcListItem implements OnDestroy {
 
   getListItemElement(): HTMLElement {
     return this.elementRef.nativeElement;
+  }
+
+  private _loadListeners() {
+    this._ngZone.runOutsideAngular(() =>
+      fromEvent(this.getListItemElement(), 'click').pipe(takeUntil(this._destroy))
+        .subscribe(() => this._ngZone.run(() => this._emitChangeEvent())));
   }
 
   /** Emits a change event if the selected state of an option changed. */

@@ -91,6 +91,10 @@
             <td>interactive: boolean</td>
             <td>List items receive styles for hover, focus, and press states (including the ripple). Default is true.</td>
           </tr>
+          <tr>
+            <td>wrapFocus: boolean</td>
+            <td>Sets the list to allow the up arrow on the first element to focus the last element of the list and vice versa.</td>
+          </tr>
         </tbody>
       </table>
       <table>
@@ -354,16 +358,13 @@
     </div>
     <mdc-list #startgraphic>
       <mdc-list-item>
-        <mdc-icon mdcListItemGraphic>network_wifi</mdc-icon>
-        <mdc-list-item-text>Wi-Fi</mdc-list-item-text>
+        <mdc-icon mdcListItemGraphic>network_wifi</mdc-icon>Wi-Fi
       </mdc-list-item>
       <mdc-list-item>
-        <mdc-icon mdcListItemGraphic>bluetooth</mdc-icon>
-        <mdc-list-item-text>Bluetooth</mdc-list-item-text>
+        <mdc-icon mdcListItemGraphic>bluetooth</mdc-icon>Bluetooth
       </mdc-list-item>
       <mdc-list-item>
-        <mdc-icon mdcListItemGraphic>data_usage</mdc-icon>
-        <mdc-list-item-text>Data Usage</mdc-list-item-text>
+        <mdc-icon mdcListItemGraphic>data_usage</mdc-icon>Data Usage
       </mdc-list-item>
     </mdc-list>
   </div>
@@ -376,16 +377,13 @@
       <button mdc-button (click)="endmeta.interactive = !endmeta.interactive">Interactive: {{endmeta.interactive ? 'On' : 'Off'}}</button>
     </div>
     <mdc-list #endmeta>
-      <mdc-list-item>
-        <mdc-list-item-text>Wi-Fi</mdc-list-item-text>
+      <mdc-list-item>Wi-Fi
         <mdc-icon mdcListItemMeta>info</mdc-icon>
       </mdc-list-item>
-      <mdc-list-item>
-        <mdc-list-item-text>Bluetooth</mdc-list-item-text>
+      <mdc-list-item>Bluetooth
         <mdc-icon mdcListItemMeta>info</mdc-icon>
       </mdc-list-item>
-      <mdc-list-item>
-        <mdc-list-item-text>Data Usage</mdc-list-item-text>
+      <mdc-list-item>Data Usage
         <mdc-icon mdcListItemMeta>info</mdc-icon>
       </mdc-list-item>
     </mdc-list>

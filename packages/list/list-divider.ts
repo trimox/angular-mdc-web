@@ -1,9 +1,7 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ElementRef,
-  HostBinding,
   Input,
   ViewEncapsulation
 } from '@angular/core';
@@ -14,6 +12,12 @@ import { toBoolean } from '@angular-mdc/web/common';
   moduleId: module.id,
   selector: '[mdcListDivider], mdc-list-divider',
   exportAs: 'mdcListDivider',
+  host: {
+    'role': 'separator',
+    'class': 'mdc-list-divider',
+    '[class.mdc-list-divider--inset]': 'inset',
+    '[class.mdc-list-divider--padded]': 'padded'
+  },
   template: '',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -32,16 +36,6 @@ export class MdcListDivider {
     this._padded = toBoolean(value);
   }
   private _padded: boolean;
-
-  @HostBinding('class.mdc-list-divider') isHostClass = true;
-  @HostBinding('attr.role') role: string = 'seperator';
-
-  @HostBinding('class.mdc-list-divider--inset') get classInset(): string {
-    return this.inset ? 'mdc-list-divider--inset' : '';
-  }
-  @HostBinding('class.mdc-list-divider--padded') get classPadded(): string {
-    return this.padded ? 'mdc-list-divider--padded' : '';
-  }
 
   constructor(public elementRef: ElementRef) { }
 }

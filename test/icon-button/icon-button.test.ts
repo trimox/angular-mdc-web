@@ -38,7 +38,6 @@ describe('MdcIconButton', () => {
     it('#should have mdc-icon-button by default', () => {
       expect(buttonDebugElement.nativeElement.classList)
         .toContain('mdc-icon-button', 'Expected buttons to have mdc-icon-button');
-      expect(buttonInstance.isHostClass).toBe(true);
     });
 
     it('#should set disabled to true', () => {

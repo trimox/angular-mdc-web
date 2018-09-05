@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import {
-  MdcMaterialIcons, MdcThemeModule
+  MdcIconModule, MdcMaterialIcons
 } from '@angular-mdc/web';
 
 describe('MdcMaterialIcon', () => {
@@ -11,12 +11,8 @@ describe('MdcMaterialIcon', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MdcThemeModule,
-      ],
-      declarations: [
-        SimpleTest,
-      ]
+      imports: [MdcIconModule],
+      declarations: [SimpleTest]
     });
     TestBed.compileComponents();
   }));

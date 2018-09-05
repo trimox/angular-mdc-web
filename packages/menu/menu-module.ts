@@ -1,25 +1,25 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
+import { MdcMenuSurfaceModule } from '@angular-mdc/web/menu-surface';
 
 import {
   MdcMenu,
-  MdcMenuAnchor,
-  MdcMenuDivider,
-  MdcMenuItem,
-  MdcMenuItems,
+  MdcMenuSelectionGroup,
+  MdcMenuSelectionGroupIcon
 } from './menu';
 
 const MENU_DECLARATIONS = [
   MdcMenu,
-  MdcMenuAnchor,
-  MdcMenuDivider,
-  MdcMenuItem,
-  MdcMenuItems,
+  MdcMenuSelectionGroup,
+  MdcMenuSelectionGroupIcon
 ];
 
 @NgModule({
-  imports: [CommonModule],
-  exports: [MENU_DECLARATIONS],
-  declarations: [MENU_DECLARATIONS],
+  imports: [MdcMenuSurfaceModule],
+  exports: [
+    ...MENU_DECLARATIONS,
+    MdcMenuSurfaceModule
+  ],
+  declarations: [MENU_DECLARATIONS]
 })
 export class MdcMenuModule { }

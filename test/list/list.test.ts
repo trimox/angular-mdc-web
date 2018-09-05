@@ -54,7 +54,7 @@ describe('MdcListModule', () => {
     });
 
     it('#should apply class two-line', () => {
-      testComponent;
+      testComponent.twoLine = true;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-list--two-line')).toBe(true);
     });
@@ -95,15 +95,6 @@ describe('MdcListModule', () => {
       testInstance.focusLastElement();
       fixture.detectChanges();
       expect(document.activeElement === testComponent.lastItem.elementRef.nativeElement).toBe(true);
-    });
-
-    it('#should clear all selected', () => {
-      testComponent.singleSelection = true;
-      fixture.detectChanges();
-      testComponent.listitem.elementRef.nativeElement.click();
-      fixture.detectChanges();
-      testInstance.clearSelected();
-      expect(testComponent.listitem.selected).toBe(false);
     });
 
     it('#should handle keydown', () => {

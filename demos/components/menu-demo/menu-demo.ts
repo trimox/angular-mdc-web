@@ -1,25 +1,34 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormControl, ReactiveFormsModule, FormGroup, NgForm, Validators } from '@angular/forms';
 
-import { MdcRadioChange, MdcMenu, MdcMenuItem } from '@angular-mdc/web';
+import { MdcRadioChange, MdcMenu, MdcListItem } from '@angular-mdc/web';
 
 @Component({
-  selector: 'menu-demo',
   templateUrl: './menu-demo.html'
 })
 export class MenuDemo {
-  selectedIndex = -1;
+  menuItems = [
+    { label: "Flights" },
+    { label: "Hotel" },
+    { label: "Favorites" }
+  ];
+
+  lastSelection: number;
 
   @ViewChild('demomenu') demoMenu: MdcMenu;
 
-  handleMenuSelect(event: { index: number, item: MdcMenuItem }) {
-    console.log(event);
-    this.selectedIndex = event.index;
+  onMenuSelect(event: { index: number, item: MdcListItem }) {
+    this.lastSelection = event.index;
+  }
+
+  addItem(): void {
+    this.menuItems.push({
+      label: "New Item"
+    });
   }
 
   onRadioChange(evt: MdcRadioChange): void {
     if (evt.value) {
-      this.demoMenu.setAnchorCorner(evt.value);
+      this.demoMenu.anchorCorner = evt.value;
     }
   }
 }

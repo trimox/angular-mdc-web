@@ -1,336 +1,257 @@
 import {
-  AfterViewInit,
+  AfterContentInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ContentChild,
   ContentChildren,
   Directive,
   ElementRef,
   EventEmitter,
-  HostBinding,
   Input,
+  NgZone,
   OnDestroy,
   Output,
   QueryList,
-  Renderer2,
   ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
-import { isBrowser, toBoolean } from '@angular-mdc/web/common';
+import { Subscription, Observable } from 'rxjs';
+import { startWith } from 'rxjs/operators';
+
+import { Platform, toBoolean } from '@angular-mdc/web/common';
+import { MdcList, MdcListItem } from '@angular-mdc/web/list';
+import {
+  Anchor,
+  MdcMenuSurfaceAnchor,
+  MdcMenuSurfaceBase,
+  MdcMenuSurfaceOpenedEvent
+} from '@angular-mdc/web/menu-surface';
 
 import { MDCMenuAdapter } from '@material/menu/adapter';
-import { getTransformPropertyName } from '@material/menu/util';
 import { MDCMenuFoundation, Corner } from '@material/menu';
 
-export type MdcMenuAnchorCorner = 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end';
-
-export class MdcMenuChange {
+export class MdcMenuSelectedEvent {
   constructor(
     public index: number,
-    public source: MdcMenuItem) { }
+    public source: MdcListItem) { }
 }
 
 let nextUniqueId = 0;
-let uniqueIdCounter = 0;
 
 @Component({
   moduleId: module.id,
-  selector: '[mdc-menu-anchor], [mdcMenuAnchor], mdc-menu-anchor',
-  exportAs: 'mdcMenuAnchor',
-  template: '<ng-content></ng-content>'
-})
-export class MdcMenuAnchor {
-  @HostBinding('class.mdc-menu-anchor') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Component({
-  moduleId: module.id,
-  selector: '[mdc-menu-divider], mdc-menu-divider',
-  exportAs: 'mdcMenuDivider',
-  template: '<div class="mdc-list-divider" role="seperator"></div>',
-})
-export class MdcMenuDivider {
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: 'mdc-menu-items',
-  exportAs: 'mdcMenuItems'
-})
-export class MdcMenuItems {
-  @HostBinding('class.mdc-list') isHostClass = true;
-  @HostBinding('class.mdc-menu__items') isSelectClass = true;
-  @HostBinding('attr.role') role: string = 'menu';
-  @HostBinding('attr.aria-hidden') ariaHidden: string = 'true';
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Component({
-  moduleId: module.id,
-  selector: 'mdc-menu-item',
-  exportAs: 'mdcMenuItem',
+  selector: '[mdcMenuSelectionGroup], mdc-menu-selection-group',
   host: {
-    '[id]': 'id',
-    '[attr.tabindex]': '_getTabIndex()',
+    'class': 'mdc-menu__selection-group'
   },
+  exportAs: 'mdcMenuSelectionGroup',
   template: '<ng-content></ng-content>',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  encapsulation: ViewEncapsulation.None
 })
-export class MdcMenuItem {
-  @Input() id: string = `mdc-menu-item-${uniqueIdCounter++}`;
-  @Input() label: string;
+export class MdcMenuSelectionGroup {
+  constructor(public elementRef: ElementRef) { }
+}
 
-  @Input()
-  get disabled() { return this._disabled; }
-  set disabled(value: boolean) {
-    this._disabled = toBoolean(value);
-    value ? this._renderer.setAttribute(this.elementRef.nativeElement, 'aria-disabled', 'true')
-      : this._renderer.removeAttribute(this.elementRef.nativeElement, 'aria-disabled');
-  }
-  private _disabled: boolean = false;
-
-  @HostBinding('class.mdc-list-item') isHostClass = true;
-  @HostBinding('attr.role') role: string = 'menuitem';
-
-  constructor(
-    private _renderer: Renderer2,
-    public elementRef: ElementRef) { }
-
-  /** Used to set the `tabindex`. */
-  _getTabIndex(): string {
-    return this.disabled ? '-1' : '0';
-  }
+@Component({
+  moduleId: module.id,
+  selector: '[mdcMenuSelectionGroupIcon], mdc-menu-selection-group-icon',
+  host: {
+    'class': 'mdc-menu__selection-group-icon'
+  },
+  exportAs: 'mdcMenuSelectionGroupIcon',
+  template: '<ng-content></ng-content>',
+  encapsulation: ViewEncapsulation.None
+})
+export class MdcMenuSelectionGroupIcon {
+  constructor(public elementRef: ElementRef) { }
 }
 
 @Component({
   moduleId: module.id,
   selector: 'mdc-menu',
+  exportAs: 'mdcMenu',
   host: {
     '[id]': 'id',
+    '[tabIndex]': 'tabIndex',
+    'class': 'mdc-menu',
+    '[class.mdc-menu-surface]': 'true',
+    '(click)': 'menuClick($event)',
+    '(keydown)': 'menuKeydown($event)',
   },
-  exportAs: 'mdcMenu',
-  template: `
-  <mdc-menu-items>
-    <ng-content></ng-content>
-  </mdc-menu-items>
-  `,
+  template: '<ng-content></ng-content>',
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcMenu implements AfterViewInit, OnDestroy {
+export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnDestroy {
   private _uniqueId: string = `mdc-menu-${++nextUniqueId}`;
-  private _previousFocus: any;
 
   @Input() id: string = this._uniqueId;
 
-  @Input() anchor: MdcMenuAnchor;
+  @Input()
+  get anchor(): any { return this._anchor; }
+  set anchor(element: any) {
+    this._anchor = element;
+    this.setMenuSurfaceAnchorElement(element);
+  }
+  private _anchor: any;
 
   @Input()
-  get anchorCorner(): string { return this._anchorCorner; }
-  set anchorCorner(value: string) {
+  get anchorCorner(): Anchor { return this._anchorCorner; }
+  set anchorCorner(value: Anchor) {
+    this._anchorCorner = value;
     this.setAnchorCorner(value);
+    this._changeDetectorRef.markForCheck();
   }
-  private _anchorCorner: string = 'top-start';
-
-  @Input()
-  get rememberSelection(): boolean { return this._rememberSelection; }
-  set rememberSelection(value: boolean) {
-    this.setRememberSelection(value);
-  }
-  private _rememberSelection: boolean = false;
+  private _anchorCorner: Anchor;
 
   @Input()
   get quickOpen(): boolean { return this._quickOpen; }
   set quickOpen(value: boolean) {
-    this.setQuickOpen(value);
+    this._quickOpen = toBoolean(value);
+    this.setQuickOpen(this._quickOpen);
+    this._changeDetectorRef.markForCheck();
   }
-  private _quickOpen: boolean = false;
+  private _quickOpen: boolean;
 
-  @Output() readonly cancel: EventEmitter<void> = new EventEmitter<void>();
-  @Output() readonly select: EventEmitter<MdcMenuChange> = new EventEmitter<MdcMenuChange>();
+  @Input()
+  get fixed(): boolean { return this._fixed; }
+  set fixed(value: boolean) {
+    this._fixed = toBoolean(value);
+    this.setFixedPosition(this._fixed);
+    this._changeDetectorRef.markForCheck();
+  }
+  private _fixed: boolean;
 
-  @HostBinding('class.mdc-menu') isHostClass = true;
-  @HostBinding('tabindex') tabindex: number = -1;
+  /** Tabindex of the menu. */
+  @Input() tabIndex: number = -1;
 
-  @ViewChild(MdcMenuItems) menuContainer: MdcMenuItems;
-  @ContentChildren(MdcMenuItem) options: QueryList<MdcMenuItem>;
+  @Output() readonly selected: EventEmitter<MdcMenuSelectedEvent> =
+    new EventEmitter<MdcMenuSelectedEvent>();
 
-  private _mdcAdapter: MDCMenuAdapter = {
-    addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
-    removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
-    hasClass: (className: string) => this._getHostElement().classList.contains(className),
-    hasNecessaryDom: () => this.menuContainer,
-    getAttributeForEventTarget: (target: any, attributeName: string) => target.getAttribute(attributeName),
-    getInnerDimensions: () => {
-      return {
-        width: this.menuContainer.elementRef.nativeElement.offsetWidth,
-        height: this.menuContainer.elementRef.nativeElement.offsetHeight
-      };
+  @ContentChild(MdcList) _list: MdcList;
+  @ContentChildren(MdcListItem, { descendants: true }) _listItems: QueryList<MdcListItem>;
+
+  private _openedSubscription: Subscription;
+  private _closedSubscription: Subscription;
+
+  /** Subscription to changes in list items. */
+  private _changeSubscription: Subscription;
+
+  private _mdcMenuAdapter: MDCMenuAdapter = {
+    addClassToElementAtIndex: (index: number, className: string) => {
+      this._listItems.toArray()[index].getListItemElement().classList.add(className);
     },
-    hasAnchor: () => this.anchor,
-    getAnchorDimensions: () => this.anchor.elementRef.nativeElement.getBoundingClientRect(),
-    getWindowDimensions: () => {
-      return {
-        width: isBrowser() ? window.innerWidth : 0,
-        height: isBrowser() ? window.innerHeight : 0
-      };
+    removeClassFromElementAtIndex: (index: number, className: string) => {
+      this._listItems.toArray()[index].getListItemElement().classList.remove(className);
     },
-    getNumberOfItems: () => this.options ? this.options.length : 0,
-    registerInteractionHandler: (type: string, handler: EventListener) => this._getHostElement().addEventListener(type, handler),
-    deregisterInteractionHandler: (type: string, handler: EventListener) => this._getHostElement().removeEventListener(type, handler),
-    registerBodyClickHandler: (handler: EventListener) => document.body.addEventListener('click', handler),
-    deregisterBodyClickHandler: (handler: EventListener) => document.body.removeEventListener('click', handler),
-    getIndexForEventTarget: (target: EventTarget) => this.options.toArray().findIndex((_) => _.elementRef.nativeElement === target),
+    addAttributeToElementAtIndex: (index: number, attr: string, value: string) => {
+      this._listItems.toArray()[index].getListItemElement().setAttribute(attr, value);
+    },
+    removeAttributeFromElementAtIndex: (index: number, attr: string) => {
+      this._listItems.toArray()[index].getListItemElement().removeAttribute(attr);
+    },
+    elementContainsClass: (element: HTMLElement, className: string) => element.classList.contains(className),
+    closeSurface: () => this.setOpen(false),
+    getElementIndex: (element: HTMLElement) => this._listItems.toArray().findIndex((_) => _.getListItemElement() === element),
+    getParentElement: (element: HTMLElement) => element.parentElement,
+    getSelectedElementIndex: (selectionGroup: MdcMenuSelectionGroup) => {
+      return this._listItems.toArray().indexOf(selectionGroup.elementRef.nativeElement.querySelector('mdc-menu-item--selected'));
+    },
     notifySelected: (evtData: { index: number }) =>
-      this.select.emit(new MdcMenuChange(evtData.index, this.options.toArray()[evtData.index])),
-    notifyCancel: () => this.cancel.emit(),
-    saveFocus: () => {
-      if (isBrowser()) {
-        this._previousFocus = document.activeElement;
-      }
+      this.selected.emit(new MdcMenuSelectedEvent(evtData.index, this._listItems.toArray()[evtData.index])),
+    getCheckboxAtIndex: (index: number) => {
+      return this._listItems.toArray()[index].getListItemElement().querySelector('input[type="checkbox"]');
     },
-    restoreFocus: () => {
-      if (this._previousFocus) {
-        this._previousFocus.focus();
-      }
-    },
-    isFocused: () => document.activeElement === this._getHostElement(),
-    focus: () => this._getHostElement().focus(),
-    getFocusedItemIndex: () => this.options.toArray().map(_ => _.elementRef.nativeElement).indexOf(document.activeElement),
-    focusItemAtIndex: (index: number) => this.options.toArray()[index].elementRef.nativeElement.focus(),
-    isRtl: () => getComputedStyle(this._getHostElement()).getPropertyValue('direction') === 'rtl',
-    setTransformOrigin: (origin: string) => {
-      if (isBrowser()) {
-        this._renderer.setStyle(this._getHostElement(), `${getTransformPropertyName(window)}-origin`, origin);
-      }
-    },
-    setPosition: (position: { left: string, right: string, top: string, bottom: string }) => {
-      position.left ? this._setStyle('left', position.left) : this._setStyle('left');
-      position.right ? this._setStyle('right', position.right) : this._setStyle('right');
-      position.top ? this._setStyle('top', position.top) : this._setStyle('top');
-      position.bottom ? this._setStyle('bottom', position.bottom) : this._setStyle('bottom');
-    },
-    setMaxHeight: (height: string) => this._renderer.setStyle(this._getHostElement(), 'maxHeight', height),
-    setAttrForOptionAtIndex: (index: number, attr: string, value: string) =>
-      this._renderer.setAttribute(this.options.toArray()[index].elementRef.nativeElement, attr, value),
-    rmAttrForOptionAtIndex: (index: number, attr: string) =>
-      this._renderer.removeAttribute(this.options.toArray()[index].elementRef.nativeElement, attr),
-    addClassForOptionAtIndex: (index: number, className: string) =>
-      this._renderer.addClass(this.options.toArray()[index].elementRef.nativeElement, className),
-    rmClassForOptionAtIndex: (index: number, className: string) =>
-      this._renderer.removeClass(this.options.toArray()[index].elementRef.nativeElement, className),
+    toggleCheckbox: (checkBox: HTMLInputElement) => {
+      if (!this.platform.isBrowser) { return; }
+
+      checkBox.checked = !checkBox.checked;
+      const event = document.createEvent('Event');
+      event.initEvent('change', false, true);
+      checkBox.dispatchEvent(event);
+    }
   };
 
-  private _foundation: {
-    init(): void,
+  private _menuFoundation: {
     destroy(): void,
-    open(): void,
-    close(evt?: Event): void,
-    isOpen(): boolean,
-    setAnchorCorner(corner: Corner): void,
-    setAnchorMargin(): void,
-    setQuickOpen(quickOpen: boolean): void,
-    setRememberSelection(rememberSelection: boolean): void,
-    setSelectedIndex(index: number): void,
-    getSelectedIndex(): number
-  } = new MDCMenuFoundation(this._mdcAdapter);
+    handleKeydown(evt: KeyboardEvent): void,
+    handleClick(evt: Event): void
+  } = new MDCMenuFoundation(this._mdcMenuAdapter);
 
   constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
-    private _renderer: Renderer2,
-    public elementRef: ElementRef) { }
+    protected platform: Platform,
+    protected _changeDetectorRef: ChangeDetectorRef,
+    protected ngZone: NgZone,
+    public elementRef: ElementRef) {
 
-  ngAfterViewInit(): void {
-    this._foundation.init();
+    super(platform, ngZone, elementRef);
+  }
+
+  ngAfterContentInit(): void {
+    this._initList();
+
+    // When the list items change, re-subscribe
+    this._changeSubscription = this._listItems.changes.pipe(startWith(null)).subscribe(() => {
+      this._listItems.forEach(item => {
+        item.setRole('menuitem');
+      });
+    });
+
+    this._openedSubscription = this.opened.subscribe(() => {
+      this.registerBodyCick();
+
+      if (this._list) {
+        this._list.focusFirstElement();
+      }
+    });
+
+    this._closedSubscription = this.closed.subscribe(() => {
+      this.deregisterBodyClick();
+    });
+
+    this.initMenuSurface();
   }
 
   ngOnDestroy(): void {
-    this._foundation.destroy();
-  }
-
-  setRememberSelection(rememberSelection: boolean): void {
-    this._rememberSelection = toBoolean(rememberSelection);
-    this._foundation.setRememberSelection(rememberSelection);
-
-    this._changeDetectorRef.markForCheck();
-  }
-
-  setSelectedIndex(index: number): void {
-    this._foundation.setSelectedIndex(index);
-  }
-
-  getSelectedIndex(): number {
-    return this._foundation.getSelectedIndex();
-  }
-
-  setAnchorCorner(value: string): void {
-    this._anchorCorner = value;
-    if (this._foundation) {
-      const corner = this._parseAnchorCorner(value);
-      this._foundation.setAnchorCorner(corner);
+    if (this._changeSubscription) {
+      this._changeSubscription.unsubscribe();
+    }
+    if (this._openedSubscription) {
+      this._openedSubscription.unsubscribe();
+    }
+    if (this._closedSubscription) {
+      this._closedSubscription.unsubscribe();
     }
 
-    this._changeDetectorRef.markForCheck();
+    this.destroyMenuSurface();
+    this._menuFoundation.destroy();
   }
 
-  setQuickOpen(quickOpen: boolean): void {
-    this._quickOpen = toBoolean(quickOpen);
-    this._foundation.setQuickOpen(quickOpen);
+  private _initList(): void {
+    if (!this._list) { return; }
 
-    this._changeDetectorRef.markForCheck();
-  }
-
-  setMaxHeight(height: string): void {
-    this._mdcAdapter.setMaxHeight(height);
-  }
-
-  isOpen(): boolean {
-    return this._foundation.isOpen();
+    this._list.setRole('menu');
+    this._list.wrapFocus = true;
   }
 
   open(): void {
-    if (!this.isOpen()) {
-      this._foundation.open();
-    }
-  }
-
-  toggle(): void {
-    this.isOpen() ? this.close() : this.open();
+    this.setOpen(true);
   }
 
   close(): void {
-    this._foundation.close();
+    this.setOpen(false);
+  }
+
+  menuClick(evt: Event): void {
+    this._menuFoundation.handleClick(evt);
+  }
+
+  menuKeydown(evt: KeyboardEvent): void {
+    this._menuFoundation.handleKeydown(evt);
   }
 
   focus(): void {
     this._getHostElement().focus();
-  }
-
-  private _setStyle(anchorPoint: string, position?: string): void {
-    position ? this._renderer.setStyle(this._getHostElement(), anchorPoint, position)
-      : this._renderer.removeStyle(this._getHostElement(), anchorPoint);
-  }
-
-  private _parseAnchorCorner(value: string): Corner {
-    switch (value) {
-      case 'top-end': {
-        return Corner.TOP_END;
-      }
-      case 'bottom-start': {
-        return Corner.BOTTOM_START;
-      }
-      case 'bottom-end': {
-        return Corner.BOTTOM_END;
-      }
-      default: {
-        return Corner.TOP_START;
-      }
-    }
-  }
-
-  /** Retrieves the DOM element of the component host. */
-  private _getHostElement(): HTMLElement {
-    return this.elementRef.nativeElement;
   }
 }

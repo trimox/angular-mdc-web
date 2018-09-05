@@ -1,7 +1,7 @@
 <div class="demo-page">
   <div class="markdown-body">
     <h1>Menus</h1>
-    The MDC Menu component is a spec-aligned menu component adhering to the Material Design menu specification.
+    Menus display a list of choices on temporary surfaces.
     <h2>References</h2>
     <ul>
       <li><a mdc-button href="https://material.io/guidelines/components/menus.html"
@@ -34,13 +34,9 @@
           </tr>
           <tr>
             <td>anchorCorner: string</td>
-            <td>Override the opening point of the menu. (default: top-start)
-              <pre>Values: 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end'</pre>
+            <td>Override the opening point of the menu. (default: topStart)
+              <p>Values: 'bottomEnd' | 'bottomLeft' | 'bottomRight' | 'bottomStart' | 'topEnd' | 'topLeft' | 'topRight' | 'topStart'</p>
             </td>
-          </tr>
-          <tr>
-            <td>rememberSelection: boolean</td>
-            <td>Whether or not previous selection is focused upon menu open. (Default is false)</td>
           </tr>
           <tr>
             <td>quickOpen: boolean</td>
@@ -48,7 +44,11 @@
           </tr>
           <tr>
             <td>anchor: MdcMenuAnchor</td>
-            <td>Parent element to automatically anchor to when opened.</td>
+            <td>Used to indicate which element the menu should be anchored to.</td>
+          </tr>
+          <tr>
+            <td>fixed: boolean</td>
+            <td>Used to indicate that the menu is using fixed positioning.</td>
           </tr>
         </tbody>
       </table>
@@ -74,24 +74,8 @@
             <td>Closes the menu.</td>
           </tr>
           <tr>
-            <td>toggle()</td>
-            <td>Open or close the menu.</td>
-          </tr>
-          <tr>
             <td>focus()</td>
             <td>Set focus to the menu element.</td>
-          </tr>
-          <tr>
-            <td>getSelectedIndex(): number</td>
-            <td>Returns the selected item index.</td>
-          </tr>
-          <tr>
-            <td>setSelectedIndex(index: number)</td>
-            <td>Index of the item to set as selected.</td>
-          </tr>
-          <tr>
-            <td>setMaxHeight(height: string)</td>
-            <td>Sets max-height style for the menu element.</td>
           </tr>
         </tbody>
       </table>
@@ -105,11 +89,7 @@
         </thead>
         <tbody>
           <tr>
-            <td>cancel()</td>
-            <td>Dispatches an event that the menu closed with no selection made.</td>
-          </tr>
-          <tr>
-            <td>select(item: MdcMenuItem, index: number)</td>
+            <td>selected(item: MdcMenuItem, index: number)</td>
             <td>Dispatches an event that a menu item has been selected.</td>
           </tr>
         </tbody>
@@ -117,51 +97,12 @@
 
       <p>
         <span class="docs-api-class-selector-label">Selector:</span>
-        <span class="docs-api-class-selector-name">mdc-menu-item</span>
-      </p>
-      <table>
-        <thead>
-          <tr>
-            <th>Properties</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>id: string</td>
-            <td>The unique ID of the option.</td>
-          </tr>
-          <tr>
-            <td>label: string</td>
-            <td>The displayed label of the option.</td>
-          </tr>
-          <tr>
-            <td>disabled: boolean</td>
-            <td>Disable selection of the select item.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <p>
-        <span class="docs-api-class-selector-label">Selector:</span>
-        <span class="docs-api-class-selector-name">mdc-menu-anchor</span>
+        <span class="docs-api-class-selector-name">mdcMenuSurfaceAnchor</span>
       </p>
       <table>
         <tbody>
           <tr>
             <td>Use to anchor a menu to an element.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <p>
-        <span class="docs-api-class-selector-label">Selector:</span>
-        <span class="docs-api-class-selector-name">mdc-menu-divider</span>
-      </p>
-      <table>
-        <tbody>
-          <tr>
-            <td>Draws a line at the bottom of the menu item.</td>
           </tr>
         </tbody>
       </table>
@@ -171,45 +112,42 @@
      target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
   </div>
 
-  <div class="demo-content" style="margin-bottom: 100px;">
+  <div class="demo-content">
     <div class="demo-layout__row">
-      <button mdc-button (click)="demomenu.toggle()">Toggle</button>
-      <button mdc-button (click)="demomenu.rememberSelection = !demomenu.rememberSelection">Remember Selection: {{demomenu.rememberSelection ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demomenu.quickOpen = !demomenu.quickOpen">Quick Open: {{demomenu.quickOpen ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demomenu.fixed = !demomenu.fixed">Fixed: {{demomenu.fixed ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="addItem()">Add Item</button>
     </div>
     <div class="demo-layout__row">
       <mdc-form-field>
-        <mdc-radio value="top-start" name="radioGroup" (change)="onRadioChange($event)"></mdc-radio>
+        <mdc-radio value="topStart" name="radioGroup" (change)="onRadioChange($event)"></mdc-radio>
         <label>Top start</label>
       </mdc-form-field>
       <mdc-form-field>
-        <mdc-radio value="top-end" name="radioGroup" (change)="onRadioChange($event)"></mdc-radio>
+        <mdc-radio value="topEnd" name="radioGroup" (change)="onRadioChange($event)"></mdc-radio>
         <label>Top end</label>
       </mdc-form-field>
       <mdc-form-field>
-        <mdc-radio value="bottom-start" name="radioGroup" (change)="onRadioChange($event)"></mdc-radio>
+        <mdc-radio value="bottomStart" name="radioGroup" (change)="onRadioChange($event)"></mdc-radio>
         <label>Bottom start</label>
       </mdc-form-field>
       <mdc-form-field>
-        <mdc-radio value="bottom-end" name="radioGroup" (change)="onRadioChange($event)"></mdc-radio>
+        <mdc-radio value="bottomEnd" name="radioGroup" (change)="onRadioChange($event)"></mdc-radio>
         <label>Bottom end</label>
       </mdc-form-field>
     </div>
 
-    <mdc-menu-anchor #demoanchor>
+    <div mdcMenuSurfaceAnchor #demoanchor>
       <button mdc-button [raised]="true" (click)="demomenu.open()">
         Open Menu
       </button>
-      <mdc-menu #demomenu (select)="handleMenuSelect($event)" [anchor]="demoanchor">
-        <mdc-menu-item id="0">Item 1</mdc-menu-item>
-        <mdc-menu-item id="1" [disabled]="true">Item 2</mdc-menu-item>
-        <mdc-menu-item id="2">Item 3</mdc-menu-item>
-        <mdc-menu-divider></mdc-menu-divider>
-        <mdc-menu-item id="3">Item 4</mdc-menu-item>
+      <mdc-menu #demomenu (selected)="onMenuSelect($event)" [anchor]="demoanchor">
+        <mdc-list>
+          <mdc-list-item *ngFor="let item of menuItems">{{item.label}}</mdc-list-item>
+        </mdc-list>
       </mdc-menu>
-    </mdc-menu-anchor>
-
-    <p>Selected index: {{selectedIndex}}</p>
+    </div>
+    <p>Selected index: {{lastSelection}}</p>
     <p>Anchor corner: {{demomenu.anchorCorner}}</p>
   </div>
 </div>

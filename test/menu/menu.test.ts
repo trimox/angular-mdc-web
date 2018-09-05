@@ -2,14 +2,14 @@ import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MdcMenu, MdcMenuModule } from '@angular-mdc/web';
+import { MdcMenu, MdcMenuModule, MdcListModule } from '@angular-mdc/web';
 
 describe('MdcMenu', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MdcMenuModule],
+      imports: [MdcMenuModule, MdcListModule],
       declarations: [
         MenuTest,
       ]
@@ -31,49 +31,11 @@ describe('MdcMenu', () => {
       testComponent = fixture.debugElement.componentInstance;
     });
 
-    it('#should have mdc-menu by default', () => {
-      expect(testDebugElement.nativeElement.classList)
-        .toContain('mdc-menu', 'Expected to have mdc-menu');
-    });
-
-    it('#should be closed', () => {
-      testInstance.close();
-      fixture.detectChanges();
-      expect(testInstance.isOpen()).toBe(false);
-    });
-
-    it('#should be open', () => {
-      testInstance.open();
-      fixture.detectChanges();
-      expect(testInstance.isOpen()).toBe(true);
-    });
-
-    it('#should be toggled open', () => {
-      testInstance.toggle();
-      fixture.detectChanges();
-      expect(testInstance.isOpen()).toBe(true);
-    });
-
-    it('#should be toggled closed', () => {
-      testInstance.open();
-      testInstance.toggle();
-      fixture.detectChanges();
-      expect(testInstance.isOpen()).toBe(false);
-    });
-
     it('#should have focus', () => {
       expect(document.activeElement).not.toBe(testDebugElement.nativeElement);
-
       testInstance.focus();
       fixture.detectChanges();
-
       expect(document.activeElement).toBe(testDebugElement.nativeElement);
-    });
-
-    it('#menu item should be enabled', () => {
-      testComponent.isDisabled = false;
-      fixture.detectChanges();
-      expect(testInstance.options.toArray()[1].disabled).toBe(false);
     });
 
     it('#menu should quick open', () => {
@@ -82,71 +44,41 @@ describe('MdcMenu', () => {
       expect(testInstance.quickOpen).toBe(true);
     });
 
-    it('#menu should remember selection', () => {
-      testComponent.rememberSelection = true;
-      fixture.detectChanges();
-      expect(testInstance.rememberSelection).toBe(true);
-    });
-
-    it('#menu should not remember selection', () => {
-      testComponent.rememberSelection = false;
-      fixture.detectChanges();
-      expect(testInstance.rememberSelection).toBe(false);
-    });
-
     it('#menu should set anchor corner', () => {
-      testComponent.anchorCorner = 'top-end';
+      testComponent.anchorCorner = 'topEnd';
       fixture.detectChanges();
-      expect(testInstance.anchorCorner).toBe('top-end');
+      expect(testInstance.anchorCorner).toBe('topEnd');
 
-      testComponent.anchorCorner = 'bottom-end';
+      testComponent.anchorCorner = 'bottomEnd';
       fixture.detectChanges();
-      expect(testInstance.anchorCorner).toBe('bottom-end');
+      expect(testInstance.anchorCorner).toBe('bottomEnd');
 
-      testComponent.anchorCorner = 'bottom-start';
+      testComponent.anchorCorner = 'bottomStart';
       fixture.detectChanges();
-      expect(testInstance.anchorCorner).toBe('bottom-start');
+      expect(testInstance.anchorCorner).toBe('bottomStart');
     });
 
     it('#should handle click event', () => {
       testDebugElement.nativeElement.click();
-    });
-
-    it('#should get selected index', () => {
-      testInstance.setSelectedIndex(2);
-      fixture.detectChanges();
-      expect(testInstance.getSelectedIndex()).toBe(2);
-    });
-
-    it('#should set max height of menu list', () => {
-      testInstance.setMaxHeight('200');
-      fixture.detectChanges();
-      expect(testDebugElement.styles.maxHeight).toBe('200');
     });
   });
 });
 
 @Component({
   template: `
-    <mdc-menu-anchor #testanchor>
-      <mdc-menu [anchorCorner]="anchorCorner" (select)="handleSelect($event)" [anchor]="testanchor"
-      (cancel)="handleCancel($event)" [quickOpen]="quickOpen" [rememberSelection]="rememberSelection">
-        <mdc-menu-item id="0">Item 1</mdc-menu-item>
-        <mdc-menu-item id="1" [disabled]="isDisabled">Item 2</mdc-menu-item>
-        <mdc-menu-item id="2">Item 3</mdc-menu-item>
-        <mdc-menu-divider></mdc-menu-divider>
-        <mdc-menu-item id="3">Item 4</mdc-menu-item>
+    <div mdcMenuSurfaceAnchor #testanchor>
+      <mdc-menu [anchorCorner]="anchorCorner" (select)="handleSelect($event)" [anchor]="testanchor" [quickOpen]="quickOpen">
+        <mdc-list>
+          <mdc-list-item>Item 1</mdc-list-item>
+          <mdc-list-item>Item 2</mdc-list-item>
+        </mdc-list>
       </mdc-menu>
-    </mdc-menu-anchor>
+    </div>
   `,
 })
 class MenuTest {
-  anchorCorner: string = 'top-start';
-  isDisabled: boolean = true;
-  selectedIndex: number = -1;
-  quickOpen: boolean = false;
-  rememberSelection: boolean = false;
+  anchorCorner: string = 'topStart';
+  quickOpen: boolean;
 
   handleSelect(event) { }
-  handleCancel(event) { }
 }

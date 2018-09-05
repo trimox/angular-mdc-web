@@ -16,6 +16,9 @@ Incorporating [Google Material Components](https://github.com/material-component
 *  [Contributing](https://github.com/trimox/angular-mdc-web/blob/master/CONTRIBUTING.md)
 *  [Developer guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/developer.md)
 
+> Note: Angular MDC follow semver and is still in version 0.x, which means it is regularly subject to
+> breaking changes. A list of changes is always available in the [CHANGELOG](./CHANGELOG.md).
+
 ## Install Angular MDC
 ```
 npm i @angular-mdc/web

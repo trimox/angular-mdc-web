@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   forwardRef,
-  HostBinding,
   Input,
   ViewEncapsulation
 } from '@angular/core';
@@ -21,6 +20,11 @@ export const MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
   moduleId: module.id,
   selector: 'mdc-textarea',
   exportAs: 'mdcTextarea',
+  host: {
+    'class': 'mdc-text-field',
+    '[class.mdc-text-field--textarea]': 'true',
+    '[class.mdc-text-field--dense]': 'dense',
+  },
   template: `
   <textarea #input class="mdc-text-field__input"
     [id]="id"
@@ -44,5 +48,4 @@ export const MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
 export class MdcTextarea extends MdcTextField {
   @Input() rows: number;
   @Input() cols: number;
-  @HostBinding('class.mdc-text-field--textarea') isHostClass = true;
 }

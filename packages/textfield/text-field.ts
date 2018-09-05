@@ -8,7 +8,6 @@ import {
   ElementRef,
   EventEmitter,
   forwardRef,
-  HostBinding,
   Input,
   OnDestroy,
   Output,
@@ -22,7 +21,6 @@ import { Subject } from 'rxjs';
 
 import {
   toBoolean,
-  Platform,
   toNumber
 } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
@@ -51,6 +49,13 @@ let nextUniqueId = 0;
   moduleId: module.id,
   selector: 'mdc-text-field',
   exportAs: 'mdcTextField',
+  host: {
+    'class': 'mdc-text-field',
+    '[class.mdc-text-field--outlined]': 'outlined',
+    '[class.mdc-text-field--focused]': 'focused',
+    '[class.mdc-text-field--dense]': 'dense',
+    '[class.mdc-text-field--fullwidth]': 'fullwidth'
+  },
   template: `
   <ng-content select="mdc-icon[leading]"></ng-content>
   <input #input class="mdc-text-field__input"
@@ -66,8 +71,8 @@ let nextUniqueId = 0;
     (input)="onInput($event.target.value)" />
     <ng-content></ng-content>
     <label mdcFloatingLabel [attr.for]="id" *ngIf="!placeholder">{{label}}</label>
-    <mdc-line-ripple *ngIf="!outline"></mdc-line-ripple>
-    <mdc-notched-outline *ngIf="outline"></mdc-notched-outline>
+    <mdc-line-ripple *ngIf="!outlined"></mdc-line-ripple>
+    <mdc-notched-outline *ngIf="outlined"></mdc-notched-outline>
   `,
   providers: [
     MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR,
@@ -156,9 +161,10 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   @Input()
   get nativeValidation(): boolean { return this._nativeValidation; }
   set nativeValidation(value: boolean) {
-    this._foundation.setUseNativeValidation(toBoolean(value));
+    this._nativeValidation = toBoolean(value);
+    this._foundation.setUseNativeValidation(this._nativeValidation);
   }
-  private _nativeValidation: boolean;
+  private _nativeValidation: boolean = true;
 
 
   /** The input element's value. */
@@ -176,34 +182,24 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
       (this._getInputElement() as HTMLInputElement).validity.valid;
   }
 
-  /** Whether the control is empty. */
-  get empty(): boolean {
-    return !this._getInputElement().value && !this.isBadInput();
-  }
-
   @Output() iconAction = new EventEmitter<boolean>();
   @Output() change = new EventEmitter<string>();
   @Output() blur = new EventEmitter<string>();
-
-  @HostBinding('class.mdc-text-field') isHostClass = true;
-  @HostBinding('class.mdc-text-field--dense') get classDense(): string {
-    return this.dense ? 'mdc-text-field--dense' : '';
-  }
-  @HostBinding('class.mdc-text-field--fullwidth') get classFullwidth(): string {
-    return this.fullwidth ? 'mdc-text-field--fullwidth' : '';
-  }
-  @HostBinding('class.mdc-text-field--focused') get classFocused(): string {
-    return this._focused ? 'mdc-text-field--focused' : '';
-  }
-  @HostBinding('class.mdc-text-field--outlined') get classOutlined(): string {
-    return this.outlined ? 'mdc-text-field--outlined' : '';
-  }
 
   @ViewChild('input') _input: ElementRef;
   @ViewChild(MdcFloatingLabel) _floatingLabel: MdcFloatingLabel;
   @ViewChild(MdcLineRipple) _lineRipple: MdcLineRipple;
   @ViewChild(MdcNotchedOutline) _notchedOutline: MdcNotchedOutline;
   @ContentChildren(MdcIcon) _icons: QueryList<MdcIcon>;
+
+  /** Whether the control is empty. */
+  // readonly empty: boolean = !this._getInputElement().value && !this.isBadInput();
+  get empty(): boolean {
+    return !this._getInputElement().value && !this.isBadInput();
+  }
+
+  /** Determines if the component host is a textarea. */
+  readonly textarea: boolean = this._getHostElement().nodeName.toLowerCase() === 'mdc-textarea';
 
   private _mdcAdapter: MDCTextFieldAdapter = {
     addClass: (className: string) => this._getHostElement().classList.add(className),
@@ -236,9 +232,9 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     },
     shakeLabel: (shouldShake: boolean) => this._floatingLabel.shake(shouldShake),
     floatLabel: (shouldFloat: boolean) => this._floatingLabel.float(shouldFloat),
-    hasLabel: () => !!this._floatingLabel,
-    getLabelWidth: () => this._floatingLabel.getWidth(),
-    hasOutline: () => !!this._notchedOutline,
+    hasLabel: () => this._floatingLabel,
+    getLabelWidth: () => this._floatingLabel ? this._floatingLabel.getWidth() : 0,
+    hasOutline: () => this._notchedOutline,
     notchOutline: (labelWidth: number, isRtl: boolean) => this._notchedOutline.notch(labelWidth, isRtl),
     closeOutline: () => this._notchedOutline.closeNotch(),
     registerValidationAttributeChangeHandler: (handler: (whitelist: Array<string>) => void) => {
@@ -308,9 +304,9 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   _onTouched = () => { };
 
   constructor(
-    protected _changeDetectorRef: ChangeDetectorRef,
+    private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef,
-    protected _ripple: MdcRipple) {
+    private _ripple: MdcRipple) {
 
     // Force setter to be called in case id was not specified.
     this.id = this.id;
@@ -333,6 +329,8 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
         this.updateIconState();
       });
     });
+
+    this._initRipple();
   }
 
   ngOnDestroy(): void {
@@ -397,10 +395,6 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     this._changeDetectorRef.markForCheck();
   }
 
-  isDisabled(): boolean {
-    return this._foundation.isDisabled();
-  }
-
   isBadInput(): boolean {
     const validity = this._getInputElement().validity;
     return validity && validity.badInput;
@@ -418,11 +412,6 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     this._foundation.setValid(isValid);
   }
 
-  /** Determines if the component host is a textarea. */
-  isTextarea(): boolean {
-    return this._getHostElement().nodeName.toLowerCase() === 'mdc-textarea';
-  }
-
   /** Sets the text-field required or not. */
   setRequired(required: boolean): void {
     this._required = toBoolean(required);
@@ -438,6 +427,8 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
         this._foundation.notchOutline(this.value);
       });
     }
+
+    this._initRipple();
 
     this._changeDetectorRef.markForCheck();
   }
@@ -462,11 +453,6 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   setHelperText(helperText: MdcTextFieldHelperText): void {
     this._helperText = helperText;
     this._changeDetectorRef.markForCheck();
-  }
-
-  /** True if the Text Field is required. */
-  isRequired(): boolean {
-    return this.required;
   }
 
   selectAll(): void {
@@ -532,6 +518,16 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     }
 
     this._changeDetectorRef.markForCheck();
+  }
+
+  private _initRipple(): void {
+    if (!this._getInputElement()) { return; }
+
+    if (!this._ripple.attached && !this.outlined && !this.textarea) {
+      this._ripple.attachTo(this._getHostElement(), false, this._getInputElement());
+    } else {
+      this._ripple.destroy();
+    }
   }
 
   private _hasIcons(): boolean {

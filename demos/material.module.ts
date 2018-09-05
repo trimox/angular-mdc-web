@@ -24,7 +24,6 @@ import {
   MdcSwitchModule,
   MdcTabBarModule,
   MdcTextFieldModule,
-  MdcThemeModule,
   MdcTopAppBarModule,
   MdcTypographyModule
 } from '@angular-mdc/web';
@@ -55,7 +54,6 @@ import {
     MdcSwitchModule,
     MdcTabBarModule,
     MdcTextFieldModule,
-    MdcThemeModule,
     MdcTopAppBarModule,
     MdcTypographyModule
   ]

@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  HostBinding,
   OnDestroy,
   OnInit,
   ViewEncapsulation
@@ -15,12 +14,13 @@ import { MDCFloatingLabelFoundation } from '@material/floating-label';
   selector: 'label[mdcFloatingLabel], mdc-floating-label',
   template: '<ng-content></ng-content>',
   exportAs: 'mdcFloatingLabel',
+  host: {
+    'class': 'mdc-floating-label'
+  },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 export class MdcFloatingLabel implements OnInit, OnDestroy {
-  @HostBinding('class.mdc-floating-label') isHostClass = true;
-
   private _mdcAdapter: MDCFloatingLabelAdapter = {
     addClass: (className: string) => this._getHostElement().classList.add(className),
     removeClass: (className: string) => this._getHostElement().classList.remove(className),
@@ -39,8 +39,7 @@ export class MdcFloatingLabel implements OnInit, OnDestroy {
     float(shouldFloat: boolean): void
   } = new MDCFloatingLabelFoundation(this._mdcAdapter);
 
-  constructor(
-    public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef) { }
 
   ngOnInit(): void {
     this.foundation.init();

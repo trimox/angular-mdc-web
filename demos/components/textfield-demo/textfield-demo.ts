@@ -4,7 +4,6 @@ import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MdcTextField, MdcIcon } from '@angular-mdc/web';
 
 @Component({
-  selector: 'textfield-demo',
   templateUrl: './textfield-demo.html'
 })
 export class TextFieldDemo {
@@ -49,13 +48,13 @@ export class TextFieldDemo {
   }
 
   alternateColors(input: MdcTextField) {
-    if (!input.isTextarea()) {
+    if (!input.textarea) {
       const demoTextField = 'demo-text-field-custom-colors';
 
       input.elementRef.nativeElement.classList.contains(demoTextField) ?
         this._renderer.removeClass(input.elementRef.nativeElement, demoTextField)
         : this._renderer.addClass(input.elementRef.nativeElement, demoTextField);
-    } else if (input.isTextarea()) {
+    } else if (input.textarea) {
       const demoTextarea = 'demo-textarea';
 
       input.elementRef.nativeElement.classList.contains(demoTextarea) ?

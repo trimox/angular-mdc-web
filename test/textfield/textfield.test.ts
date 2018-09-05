@@ -64,13 +64,13 @@ describe('MdcTextField', () => {
     });
 
     it('#should not be disabled', () => {
-      expect(textFieldInstance.isDisabled()).toBe(false);
+      expect(textFieldInstance.disabled).toBe(false);
     });
 
     it('#should be disabled', () => {
       testComponent.disabled = true;
       fixture.detectChanges();
-      expect(textFieldInstance.isDisabled()).toBe(true);
+      expect(textFieldInstance.disabled).toBe(true);
     });
 
     it('#should have value of testing', fakeAsync(() => {
@@ -130,14 +130,14 @@ describe('MdcTextField', () => {
     });
 
     it('#should set validation to true', () => {
-      textFieldInstance.helperText.setValidation(true);
+      textFieldInstance.helperText.validation = true;
       fixture.detectChanges();
       expect(textFieldInstance.helperText.validation).toBe(true);
       expect(textFieldInstance.isBadInput()).toBe(false);
     });
 
     it('#should set persistent to true', () => {
-      textFieldInstance.helperText.setPersistent(true);
+      textFieldInstance.helperText.persistent = true;
       fixture.detectChanges();
       expect(textFieldInstance.helperText.persistent).toBe(true);
     });
@@ -146,7 +146,7 @@ describe('MdcTextField', () => {
       testComponent.required = true;
       fixture.detectChanges();
       expect(textFieldInstance.required).toBe(true);
-      expect(textFieldInstance.isRequired()).toBe(true);
+      expect(textFieldInstance.required).toBe(true);
     });
 
     it('#should set style shake to true', () => {

@@ -1,7 +1,6 @@
 import {
   Directive,
   ElementRef,
-  HostBinding,
   Input,
   OnDestroy,
   OnInit
@@ -13,7 +12,13 @@ import { MDCTextFieldHelperTextFoundation } from '@material/textfield/helper-tex
 
 @Directive({
   selector: '[mdcTextFieldHelperText], mdc-text-field-helper-text',
-  exportAs: 'mdcHelperText'
+  exportAs: 'mdcHelperText',
+  host: {
+    'class': 'mdc-text-field-helper-text',
+    '[class.mdc-text-field-helper-text--persistent]': 'persistent',
+    '[class.mdc-text-field-helper-text--validation-msg]': 'validation',
+    '[attr.aria-hidden]': 'true'
+  }
 })
 export class MdcTextFieldHelperText implements OnInit, OnDestroy {
   @Input() id: string;
@@ -21,25 +26,18 @@ export class MdcTextFieldHelperText implements OnInit, OnDestroy {
   @Input()
   get persistent(): boolean { return this._persistent; }
   set persistent(value: boolean) {
-    this.setPersistent(value);
+    this._persistent = toBoolean(value);
+    this.foundation.setPersistent(this.persistent);
   }
   private _persistent: boolean;
 
   @Input()
   get validation(): boolean { return this._validation; }
   set validation(value: boolean) {
-    this.setValidation(value);
+    this._validation = toBoolean(value);
+    this.foundation.setValidation(this.validation);
   }
   private _validation: boolean;
-
-  @HostBinding('class.mdc-text-field-helper-text') isHostClass = true;
-  @HostBinding('attr.aria-hidden') ariaHidden: string = 'true';
-  @HostBinding('class.mdc-text-field-helper-text--persistent') get classPersistent(): string {
-    return this.persistent ? 'mdc-text-field-helper-text--persistent' : '';
-  }
-  @HostBinding('class.mdc-text-field-helper-text--validation-msg') get classValidation(): string {
-    return this.validation ? 'mdc-text-field-helper-text--validation-msg' : '';
-  }
 
   private _mdcAdapter: MDCTextFieldHelperTextAdapter = {
     addClass: (className: string) => this._getHostElement().classList.add(className),
@@ -83,18 +81,6 @@ export class MdcTextFieldHelperText implements OnInit, OnDestroy {
   /** Makes the helper text visible to the screen reader. */
   showToScreenReader(): void {
     this.foundation.showToScreenReader();
-  }
-
-  /** Sets the persistency of the helper text. */
-  setPersistent(persistent: boolean): void {
-    this._persistent = toBoolean(persistent);
-    this.foundation.setPersistent(this.persistent);
-  }
-
-  /** True to make the helper text act as an error validation message. */
-  setValidation(validation: boolean): void {
-    this._validation = toBoolean(validation);
-    this.foundation.setValidation(this.validation);
   }
 
   /** Retrieves the DOM element of the component host. */

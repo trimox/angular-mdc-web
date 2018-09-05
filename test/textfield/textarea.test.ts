@@ -44,7 +44,7 @@ describe('MdcTextarea', () => {
     });
 
     it('#should equal textarea', () => {
-      expect(textFieldInstance.isTextarea()).toBe(true);
+      expect(textFieldInstance.textarea).toBe(true);
     });
   });
 });

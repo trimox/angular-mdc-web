@@ -81,6 +81,10 @@
             <td>Set or unset focus on the input element.</td>
           </tr>
           <tr>
+            <td>nativeValidation: boolean</td>
+            <td>Sets whether to check native HTML validity state (true, default) or custom validity state when updating styles (false).</td>
+          </tr>
+          <tr>
             <td>direction: string</td>
             <td>Support for right-to-left (RTL). (Default is ltr)
               <pre>Values: 'ltr' | 'rtl'</pre>
@@ -109,16 +113,8 @@
             <td>Returns input bad input validity value.</td>
           </tr>
           <tr>
-            <td>isDisabled(): boolean</td>
-            <td>Returns whether or not the input is disabled.</td>
-          </tr>
-          <tr>
             <td>focus()</td>
             <td>Sets focus to the input.</td>
-          </tr>
-          <tr>
-            <td>updateIconState()</td>
-            <td>Update the state of class modifiers that display an icon.</td>
           </tr>
           <tr>
             <td>selectAll()</td>
@@ -129,16 +125,12 @@
             <td>Sets the content of the helper text.</td>
           </tr>
           <tr>
-            <td>isRequired(): boolean</td>
-            <td>True if the Text Field is required.</td>
-          </tr>
-          <tr>
             <td>getValue(): string</td>
             <td>The value of the input Element.</td>
           </tr>
           <tr>
-            <td>isTextarea(): boolean</td>
-            <td>Whether or not the input is textarea.</td>
+            <td>textarea(): boolean</td>
+            <td>Returns whether or not the input is textarea.</td>
           </tr>
           <tr>
             <td>setHelperText(helperText: MdcTextFieldHelperText)</td>
@@ -240,10 +232,6 @@
             <td>cols: number</td>
             <td>Number of columns for this textarea.</td>
           </tr>
-          <tr>
-            <td>focused: boolean</td>
-            <td>Set or unset focus on the input element.</td>
-          </tr>
         </tbody>
       </table>
     </div>
@@ -264,12 +252,13 @@
       <button mdc-button (click)="demoformInput.dense = !demoformInput.dense">Dense: {{demoformInput.dense ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoformInput.disabled = !demoformInput.disabled">Disabled: {{demoformInput.disabled ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoformInput.required = !demoformInput.required">Required: {{demoformInput.required ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoformInput.nativeValidation = !demoformInput.nativeValidation">Use native validation: {{demoformInput.nativeValidation ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoformInput.selectAll()">Select All</button>
       <button mdc-button (click)="alternateColors(demoformInput)">Alternate Colors</button>
     </div>
     <form [formGroup]="demoForm" id="demoForm" (ngSubmit)="submitForm()">
-      <mdc-text-field #demoformInput formControlName="userName" label="Username" maxlength="10" [helperText]="demoformHelper" [required]="true"></mdc-text-field>
-      <mdc-text-field-helper-text #demoformHelper="mdcHelperText" validation persistent>
+      <mdc-text-field #demoformInput formControlName="userName" label="Username" maxlength="10" [helperText]="demoformHelper" required></mdc-text-field>
+      <mdc-text-field-helper-text #demoformHelper="mdcHelperText" validation>
         <span *ngIf="demoForm.controls['userName'].errors?.required">Username is required</span>
       </mdc-text-field-helper-text>
     </form>

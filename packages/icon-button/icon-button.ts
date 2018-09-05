@@ -8,9 +8,8 @@ import {
   ElementRef,
   EventEmitter,
   forwardRef,
-  HostBinding,
-  HostListener,
   Input,
+  NgZone,
   OnDestroy,
   Output,
   Provider,
@@ -18,8 +17,8 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { startWith } from 'rxjs/operators';
+import { fromEvent, Subject, Subscription } from 'rxjs';
+import { takeUntil, startWith } from 'rxjs/operators';
 
 import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
@@ -43,10 +42,13 @@ export class MdcIconButtonChange {
 
 let nextUniqueId = 0;
 
-@Directive({ selector: '[mdcIconOn]' })
-export class MdcIconOn {
-  @HostBinding('class.mdc-icon-button__icon--on') isHostClass = true;
-}
+@Directive({
+  selector: '[mdcIconOn]',
+  host: {
+    'class': 'mdc-icon-button__icon--on'
+  }
+})
+export class MdcIconOn { }
 
 @Component({
   moduleId: module.id,
@@ -55,6 +57,9 @@ export class MdcIconOn {
   template: '<ng-content></ng-content>',
   host: {
     '[id]': 'id',
+    'class': 'mdc-icon-button',
+    '[class.mdc-icon-button--on]': 'on',
+    'attr.aria-pressed': 'false'
   },
   providers: [
     MDC_ICON_BUTTON_CONTROL_VALUE_ACCESSOR,
@@ -64,6 +69,9 @@ export class MdcIconOn {
   encapsulation: ViewEncapsulation.None
 })
 export class MdcIconButton implements AfterContentInit, OnDestroy {
+  /** Emits whenever the component is destroyed. */
+  private _destroy = new Subject<void>();
+
   private _uniqueId: string = `mdc-icon-button-${++nextUniqueId}`;
 
   @Input() id: string = this._uniqueId;
@@ -87,18 +95,6 @@ export class MdcIconButton implements AfterContentInit, OnDestroy {
 
   @Output() readonly change: EventEmitter<MdcIconButtonChange> =
     new EventEmitter<MdcIconButtonChange>();
-
-  @HostBinding('class.mdc-icon-button') isHostClass = true;
-  @HostBinding('attr.aria-pressed') ariaPressed: string = 'false';
-
-  @HostBinding('class.mdc-icon-button--on') get classOn(): string {
-    return this.on ? 'mdc-icon-button--on' : '';
-  }
-
-  @HostListener('click') onclick() {
-    this.on = !this.on;
-    this._foundation.handleClick();
-  }
 
   @ContentChildren(MdcIcon, { descendants: true }) icons: QueryList<MdcIcon>;
 
@@ -128,6 +124,7 @@ export class MdcIconButton implements AfterContentInit, OnDestroy {
   } = new MDCIconButtonToggleFoundation(this._mdcAdapter);
 
   constructor(
+    private _ngZone: NgZone,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef,
     public ripple: MdcRipple) { }
@@ -144,9 +141,21 @@ export class MdcIconButton implements AfterContentInit, OnDestroy {
     this._changeSubscription = this.icons.changes.pipe(startWith(null)).subscribe(() => {
       this.icons.forEach(icon => icon.getHostElement().classList.add('mdc-icon-button__icon'));
     });
+
+    this._ngZone.runOutsideAngular(() =>
+      fromEvent<MouseEvent>(this._getHostElement(), 'click').pipe(takeUntil(this._destroy))
+        .subscribe(() => this._ngZone.run(() => {
+          if (this.icons.length === 1) { return; }
+
+          this.on = !this.on;
+          this._foundation.handleClick();
+        })));
   }
 
   ngOnDestroy(): void {
+    this._destroy.next();
+    this._destroy.complete();
+
     if (this._changeSubscription) {
       this._changeSubscription.unsubscribe();
     }

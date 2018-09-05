@@ -7,16 +7,15 @@ import {
   ContentChildren,
   ElementRef,
   EventEmitter,
-  HostBinding,
-  HostListener,
   Input,
+  NgZone,
   OnDestroy,
   Output,
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
-import { merge, Observable, Subscription } from 'rxjs';
-import { startWith } from 'rxjs/operators';
+import { fromEvent, merge, Observable, Subscription, Subject } from 'rxjs';
+import { startWith, takeUntil } from 'rxjs/operators';
 
 import { toBoolean, Platform } from '@angular-mdc/web/common';
 import { MdcTabScroller, MdcTabScrollerAlignment } from '@angular-mdc/web/tab-scroller';
@@ -37,12 +36,19 @@ export class MdcTabActivatedEvent {
   moduleId: module.id,
   selector: '[mdcTabBar], mdc-tab-bar',
   exportAs: 'MdcTabBar',
+  host: {
+    'role': 'tablist',
+    'class': 'mdc-tab-bar'
+  },
   template: `<ng-content></ng-content>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   providers: [{ provide: MDC_TAB_BAR_PARENT_COMPONENT, useExisting: MdcTabBar }]
 })
 export class MdcTabBar implements AfterContentInit, OnDestroy {
+  /** Emits whenever the component is destroyed. */
+  private _destroy = new Subject<void>();
+
   @Input()
   get fade(): boolean { return this._fade; }
   set fade(value: boolean) {
@@ -78,15 +84,17 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
   }
   private _iconIndicator: string;
 
+  @Input()
+  get automaticActivation(): boolean { return this._automaticActivation; }
+  set automaticActivation(value: boolean) {
+    this._automaticActivation = toBoolean(value);
+    this._foundation.setUseAutomaticActivation(this._automaticActivation);
+    this._changeDetectorRef.markForCheck();
+  }
+  private _automaticActivation: boolean;
+
   @Output() readonly activated: EventEmitter<MdcTabActivatedEvent> =
     new EventEmitter<MdcTabActivatedEvent>();
-
-  @HostBinding('class.mdc-tab-bar') isHostClass = true;
-  @HostBinding('attr.role') role: string = 'tab';
-
-  @HostListener('keydown', ['$event']) onkeydown(evt: KeyboardEvent) {
-    this._foundation.handleKeyDown(evt);
-  }
 
   @ContentChild(MdcTabScroller) tabScroller: MdcTabScroller;
   @ContentChildren(MdcTab, { descendants: true }) tabs: QueryList<MdcTab>;
@@ -134,6 +142,7 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
   } = new MDCTabBarFoundation(this._mdcAdapter);
 
   constructor(
+    private _ngZone: NgZone,
     private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef) { }
@@ -146,9 +155,16 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
       this._resetTabs();
       this._initializeSelection();
     });
+
+    this._ngZone.runOutsideAngular(() =>
+      fromEvent<KeyboardEvent>(this._getHostElement(), 'keydown').pipe(takeUntil(this._destroy))
+        .subscribe((evt) => this._ngZone.run(() => this._foundation.handleKeyDown(evt))));
   }
 
   ngOnDestroy(): void {
+    this._destroy.next();
+    this._destroy.complete();
+
     if (this._changeSubscription) {
       this._changeSubscription.unsubscribe();
     }
@@ -156,12 +172,12 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
     this._dropSubscriptions();
   }
 
-  private _resetTabs() {
+  private _resetTabs(): void {
     this._dropSubscriptions();
     this._listenToTabInteraction();
   }
 
-  private _dropSubscriptions() {
+  private _dropSubscriptions(): void {
     if (this._tabInteractionSubscription) {
       this._tabInteractionSubscription.unsubscribe();
       this._tabInteractionSubscription = null;
@@ -241,10 +257,6 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
       });
     });
     this._changeDetectorRef.markForCheck();
-  }
-
-  setUseAutomaticActivation(useAutomaticActivation: boolean): void {
-    this._foundation.setUseAutomaticActivation(toBoolean(useAutomaticActivation));
   }
 
   /**

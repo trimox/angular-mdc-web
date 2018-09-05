@@ -1,21 +1,24 @@
 import {
-  AfterViewInit,
+  AfterContentInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Directive,
   ElementRef,
   EventEmitter,
-  HostBinding,
   Inject,
   InjectionToken,
   Input,
+  NgZone,
   OnDestroy,
   Optional,
   Output,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+import { fromEvent, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcTabIndicator } from '@angular-mdc/web/tab-indicator';
@@ -45,20 +48,22 @@ export interface MdcTabInteractedEvent {
 }
 
 @Directive({
-  selector: 'mdc-tab-label, [mdcTabLabel]'
+  selector: 'mdc-tab-label, [mdcTabLabel]',
+  host: {
+    'class': 'mdc-tab__text-label'
+  }
 })
 export class MdcTabLabel {
-  @HostBinding('class.mdc-tab__text-label') isHostClass = true;
-
   constructor(public elementRef: ElementRef) { }
 }
 
 @Directive({
-  selector: 'mdc-tab-icon, [mdcTabIcon]'
+  selector: 'mdc-tab-icon, [mdcTabIcon]',
+  host: {
+    'class': 'mdc-tab__icon'
+  }
 })
 export class MdcTabIcon {
-  @HostBinding('class.mdc-tab__icon') isHostClass = true;
-
   constructor(public elementRef: ElementRef) { }
 }
 
@@ -66,21 +71,37 @@ export class MdcTabIcon {
   moduleId: module.id,
   selector: '[mdcTab], mdc-tab',
   exportAs: 'MdcTab',
+  host: {
+    'role': 'tab',
+    'class': 'mdc-tab',
+    '[class.mdc-tab--active]': 'active',
+    '[class.mdc-tab--stacked]': 'stacked',
+    '[class.mdc-tab--min-width]': 'fixed'
+  },
   template: `
   <div #content class="mdc-tab__content">
     <mdc-icon class="mdc-tab__icon" *ngIf="icon">{{icon}}</mdc-icon>
     <ng-content select="mdc-icon"></ng-content>
     <span class="mdc-tab__text-label" *ngIf="label">{{label}}</span>
     <ng-content></ng-content>
+    <ng-container *ngIf="fixed">
+      <ng-container *ngTemplateOutlet="indicator"></ng-container>
+    </ng-container>
   </div>
-  <mdc-tab-indicator></mdc-tab-indicator>
+  <ng-container *ngIf="!fixed">
+    <ng-container *ngTemplateOutlet="indicator"></ng-container>
+  </ng-container>
+  <ng-template #indicator><mdc-tab-indicator></mdc-tab-indicator></ng-template>
   <div #ripplesurface class="mdc-tab__ripple"></div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   providers: [MdcRipple]
 })
-export class MdcTab implements AfterViewInit, OnDestroy {
+export class MdcTab implements AfterContentInit, OnDestroy {
+  /** Emits whenever the component is destroyed. */
+  private _destroy = new Subject<void>();
+
   @Input() label: string;
   @Input() icon: string;
 
@@ -103,26 +124,12 @@ export class MdcTab implements AfterViewInit, OnDestroy {
   @Output() readonly interacted: EventEmitter<MdcTabInteractedEvent> =
     new EventEmitter<MdcTabInteractedEvent>();
 
-  @HostBinding('class.mdc-tab') isHostClass = true;
-  @HostBinding('attr.role') role: string = 'tab';
-  @HostBinding('class.mdc-tab--active') get classActive(): string {
-    return this.active ? 'mdc-tab--active' : '';
-  }
-  @HostBinding('class.mdc-tab--stacked') get classStacked(): string {
-    return this.stacked ? 'mdc-tab--stacked' : '';
-  }
-  @HostBinding('class.mdc-tab--min-width') get classFixed(): string {
-    return this.fixed ? 'mdc-tab--min-width' : '';
-  }
-
-  @ViewChild(MdcTabIndicator) tabIndicator: MdcTabIndicator;
   @ViewChild('content') content: ElementRef;
   @ViewChild('ripplesurface') rippleSurface: ElementRef;
+  @ViewChild(MdcTabIndicator) tabIndicator: MdcTabIndicator;
 
   private _mdcAdapter: MDCTabAdapter = {
     setAttr: (attr: string, value: string) => this._getHostElement().setAttribute(attr, value),
-    registerEventHandler: (evtType: string, handler: EventListener) => this._getHostElement().addEventListener(evtType, handler),
-    deregisterEventHandler: (evtType: string, handler: EventListener) => this._getHostElement().removeEventListener(evtType, handler),
     addClass: (className: string) => this._getHostElement().classList.add(className),
     removeClass: (className: string) => this._getHostElement().classList.remove(className),
     hasClass: (className: string) => this._getHostElement().classList.contains(className),
@@ -141,49 +148,49 @@ export class MdcTab implements AfterViewInit, OnDestroy {
     isActive(): boolean,
     activate(previousIndicatorClientRect: ClientRect): void,
     deactivate(): void,
-    computeIndicatorClientRect(): ClientRect,
-    computeDimensions(): void
+    computeDimensions(): void,
+    handleClick(): void
   } = new MDCTabFoundation(this._mdcAdapter);
 
   constructor(
+    private _ngZone: NgZone,
     private _changeDetectorRef: ChangeDetectorRef,
     private _ripple: MdcRipple,
     public elementRef: ElementRef,
     @Optional() @Inject(MDC_TAB_BAR_PARENT_COMPONENT) private _parent: MdcTabBarParentComponent) { }
 
-  ngAfterViewInit(): void {
+  ngAfterContentInit(): void {
     this._foundation.init();
-    this._ripple.attachTo(this.rippleSurface.nativeElement, false);
+    this._ripple.attachTo(this.rippleSurface.nativeElement);
+
+    this._ngZone.runOutsideAngular(() =>
+      fromEvent<MouseEvent>(this._getHostElement(), 'click').pipe(takeUntil(this._destroy))
+        .subscribe(() => this._ngZone.run(() => this._foundation.handleClick())));
   }
 
   ngOnDestroy(): void {
+    this._destroy.next();
+    this._destroy.complete();
+
     this._ripple.destroy();
   }
 
-  /**
-   * Getter for the active state of the tab
-   */
+  /** Getter for the active state of the tab */
   get active(): boolean {
     return this._foundation.isActive();
   }
 
-  /**
-   * Activates the tab
-   */
+  /** Activates the tab */
   activate(computeIndicatorClientRect: ClientRect): void {
     this._foundation.activate(computeIndicatorClientRect);
   }
 
-  /**
-   * Deactivates the tab
-   */
+  /** Deactivates the tab */
   deactivate(): void {
     this._foundation.deactivate();
   }
 
-  /**
-   * Returns the indicator's client rect
-   */
+  /** Returns the indicator's client rect */
   computeIndicatorClientRect(): ClientRect {
     return this.tabIndicator.computeContentClientRect();
   }

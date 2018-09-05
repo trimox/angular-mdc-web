@@ -4,14 +4,13 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  HostBinding,
   Input,
   OnDestroy,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { fromEvent, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { merge, fromEvent, Subject, Subscription, Observable } from 'rxjs';
+import { map, startWith, takeUntil } from 'rxjs/operators';
 
 import { Platform } from '@angular-mdc/web/common';
 
@@ -21,10 +20,21 @@ import { MDCTabScrollerFoundation, util } from '@material/tab-scroller';
 /** Possible alignments for tab scroller content. */
 export type MdcTabScrollerAlignment = 'start' | 'center' | 'end';
 
+const SCROLLER_EVENTS = [
+  'keydown',
+  'mousedown',
+  'pointerdown',
+  'touchstart',
+  'wheel'
+];
+
 @Component({
   moduleId: module.id,
   selector: '[mdcTabScroller], mdc-tab-scroller',
   exportAs: 'MdcTabScroller',
+  host: {
+    'class': 'mdc-tab-scroller'
+  },
   template: `
   <div #area class="mdc-tab-scroller__scroll-area">
     <div #content class="mdc-tab-scroller__scroll-content">
@@ -46,10 +56,15 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
   }
   private _align: MdcTabScrollerAlignment;
 
-  @HostBinding('class.mdc-tab-scroller') isHostClass = true;
-
   @ViewChild('area') area: ElementRef;
   @ViewChild('content') content: ElementRef;
+
+  private _scrollAreaEventsSubscription: Subscription;
+
+  /** Combined stream of all of the scroll area events. */
+  get scrollAreaEvents(): Observable<any> {
+    return merge(...SCROLLER_EVENTS.map(evt => fromEvent(this._getScrollArea(), evt)));
+  }
 
   private _mdcAdapter: MDCTabScrollerAdapter = {
     eventTargetMatchesSelector: (evtTarget: EventTarget, selector: string) => {
@@ -96,6 +111,10 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this._destroy.next();
     this._destroy.complete();
+
+    if (this._scrollAreaEventsSubscription) {
+      this._scrollAreaEventsSubscription.unsubscribe();
+    }
   }
 
   setAlign(align: MdcTabScrollerAlignment): void {
@@ -109,47 +128,31 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
     this._changeDetectorRef.markForCheck();
   }
 
-  /**
-   * Returns the current visual scroll position
-   */
+  /** Returns the current visual scroll position */
   getScrollPosition(): number {
     return this._foundation.getScrollPosition();
   }
 
-  /**
-   * Returns the width of the scroll content
-   */
+  /** Returns the width of the scroll content */
   getScrollContentWidth(): number {
     return this.content.nativeElement.offsetWidth;
   }
 
-  /**
-   * Increments the scroll value by the given amount
-   */
+  /** Increments the scroll value by the given amount */
   incrementScroll(scrollXIncrement: number) {
     this._foundation.incrementScroll(scrollXIncrement);
   }
 
-  /**
-   * Scrolls to the given pixel position
-   */
+  /** Scrolls to the given pixel position */
   scrollTo(scrollX: number): void {
     this._foundation.scrollTo(scrollX);
   }
 
-  private _loadListeners() {
-    fromEvent(this._getScrollArea(), 'wheel').pipe(takeUntil(this._destroy))
-      .subscribe(() => this._foundation.handleInteraction());
-    fromEvent(this._getScrollArea(), 'touchstart').pipe(takeUntil(this._destroy))
-      .subscribe(() => this._foundation.handleInteraction());
-    fromEvent(this._getScrollArea(), 'pointerdown').pipe(takeUntil(this._destroy))
-      .subscribe(() => this._foundation.handleInteraction());
-    fromEvent(this._getScrollArea(), 'mousedown').pipe(takeUntil(this._destroy))
-      .subscribe(() => this._foundation.handleInteraction());
-    fromEvent(this._getScrollArea(), 'keydown').pipe(takeUntil(this._destroy))
+  private _loadListeners(): void {
+    this._scrollAreaEventsSubscription = this.scrollAreaEvents.pipe()
       .subscribe(() => this._foundation.handleInteraction());
 
-    fromEvent(this._getScrollContent(), 'transitionend').pipe(takeUntil(this._destroy))
+    fromEvent<TransitionEvent>(this._getScrollContent(), 'transitionend').pipe(takeUntil(this._destroy))
       .subscribe((evt) => this._foundation.handleTransitionEnd(evt));
   }
 

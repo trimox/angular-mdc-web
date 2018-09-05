@@ -315,8 +315,9 @@
       <button mdc-button (click)="demoScrollingTabBar2.setFade(!demoScrollingTabBar2.fade)">Fade: {{demoScrollingTabBar2.fade ? 'On' : 'Off'}}</button>
     </div>
     <div class="demo-scrolling-tabs__row">
-      <button mdc-icon-button iconOn="keyboard_arrow_left" iconOff="keyboard_arrow_left"
-       (click)="demoScrollingScroller2.incrementScroll(-55)"></button>
+      <button mdc-icon-button (click)="demoScrollingScroller2.incrementScroll(-65)">
+         <mdc-icon>keyboard_arrow_left</mdc-icon>
+       </button>
       <mdc-tab-bar #demoScrollingTabBar2>
         <mdc-tab-scroller #demoScrollingScroller2>
           <mdc-tab label="Favorites" icon="favorite"></mdc-tab>
@@ -331,8 +332,9 @@
           <mdc-tab label="Account" icon="account_box"></mdc-tab>
         </mdc-tab-scroller>
       </mdc-tab-bar>
-      <button mdc-icon-button iconOn="keyboard_arrow_right" iconOff="keyboard_arrow_right"
-       (click)="demoScrollingScroller2.incrementScroll(55)"></button>
+      <button mdc-icon-button (click)="demoScrollingScroller2.incrementScroll(65)">
+         <mdc-icon>keyboard_arrow_right</mdc-icon>
+       </button>
     </div>
   </div>
 </div>

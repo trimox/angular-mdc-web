@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { MdcTabActivatedEvent } from '@angular-mdc/web';
 
 @Component({
-  selector: 'tabs-demo',
   templateUrl: './tabs-demo.html'
 })
 export class TabsDemo {

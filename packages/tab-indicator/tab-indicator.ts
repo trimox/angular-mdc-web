@@ -4,8 +4,6 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  HostBinding,
-  HostListener,
   Input,
   ViewChild,
   ViewEncapsulation
@@ -22,6 +20,11 @@ import {
   moduleId: module.id,
   selector: '[mdcTabIndicator], mdc-tab-indicator',
   exportAs: 'MdcTabIndicator',
+  host: {
+    'class': 'mdc-tab-indicator',
+    '[class.mdc-tab-indicator--active]': 'active',
+    '[class.mdc-tab-indicator--fade]': 'fade'
+  },
   template: `
   <span #content class="mdc-tab-indicator__content">
     <ng-container *ngIf="icon">{{icon}}</ng-container>
@@ -60,14 +63,6 @@ export class MdcTabIndicator implements AfterContentInit {
     this._updateContentClasses();
   }
   private _icon: string;
-
-  @HostBinding('class.mdc-tab-indicator') isHostClass = true;
-  @HostBinding('class.mdc-tab-indicator--active') get classActive(): string {
-    return this.active ? 'mdc-tab-indicator--active' : '';
-  }
-  @HostBinding('class.mdc-tab-indicator--fade') get classFade(): string {
-    return this.fade ? 'mdc-tab-indicator--fade' : '';
-  }
 
   @ViewChild('content') content: ElementRef;
 

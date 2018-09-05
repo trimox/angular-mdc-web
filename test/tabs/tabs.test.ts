@@ -86,7 +86,7 @@ describe('MDC Tabs', () => {
 @Component({
   template: `
   <mdc-tab-bar [stacked]="stacked" [fixed]="fixed" [fade]="fade" [align]="align"
-    (activated)="handleActivatedTab($event)">
+    [automaticActivation]="automaticActivation" (activated)="handleActivatedTab($event)">
     <mdc-tab-scroller>
       <mdc-tab label="Flights" icon="airplanemode_active"></mdc-tab>
       <mdc-tab label="Hotel" icon="hotel"></mdc-tab>
@@ -104,6 +104,7 @@ class SimpleTest {
   stacked: boolean;
   fade: boolean;
   align: MdcTabScrollerAlignment;
+  automaticActivation: boolean;
 
   handleActivatedTab(event: { index: number, tab: MdcTab }) { }
 }

@@ -117,7 +117,7 @@ export class MdcTab implements AfterContentInit, OnDestroy {
   get fixed(): boolean { return this._fixed; }
   set fixed(value: boolean) {
     this._fixed = toBoolean(value);
-    this._changeDetectorRef.markForCheck();
+    this._changeDetectorRef.detectChanges();
   }
   private _fixed: boolean;
 

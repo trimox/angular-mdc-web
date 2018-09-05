@@ -152,7 +152,7 @@ export class MdcIcon implements OnInit {
     this._changeDetectorRef.markForCheck();
   }
 
-  getIcon(): string {
+  getIcon(): string | null {
     return this.fontIcon ? this.fontIcon : this.getHostElement().textContent;
   }
 

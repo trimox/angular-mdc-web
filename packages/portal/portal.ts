@@ -37,7 +37,7 @@ export abstract class Portal<T> {
     const host = this._attachedHost;
 
     this._attachedHost = null;
-    host.detach();
+    host!.detach();
   }
 
   /** Whether this portal is attached to a host. */

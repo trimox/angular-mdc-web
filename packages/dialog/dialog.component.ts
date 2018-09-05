@@ -105,7 +105,7 @@ export class MdcDialogComponent implements AfterContentInit, OnDestroy {
       if (!this._platform.isBrowser) { return; }
 
       const escapeToClose = this.config ? this.config.escapeToClose : this.escapeToClose;
-      handler = escapeToClose ? handler : this._onKeyDown;
+      handler = escapeToClose ? handler : (() => this._onKeyDown);
       document.addEventListener('keydown', handler);
     },
     deregisterDocumentKeydownHandler: (handler: EventListener) => {

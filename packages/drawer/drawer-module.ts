@@ -1,26 +1,21 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import {
-  MdcDrawerContent,
-  MdcDrawerHeader,
-  MdcDrawerHeaderContent,
-  MdcDrawerNavigation,
-  MdcDrawerSpacer,
-} from './drawer.directives';
-
-import { MdcDrawer } from './drawer';
-
-const DRAWER_COMPONENTS = [
   MdcDrawer,
   MdcDrawerContent,
-  MdcDrawerHeader,
-  MdcDrawerHeaderContent,
-  MdcDrawerNavigation,
-  MdcDrawerSpacer,
+  MdcDrawerHeader
+} from './drawer';
+
+const DRAWER_DECLARATIONS = [
+  MdcDrawer,
+  MdcDrawerContent,
+  MdcDrawerHeader
 ];
 
 @NgModule({
-  exports: DRAWER_COMPONENTS,
-  declarations: DRAWER_COMPONENTS,
+  imports: [CommonModule],
+  exports: [DRAWER_DECLARATIONS],
+  declarations: [DRAWER_DECLARATIONS]
 })
 export class MdcDrawerModule { }

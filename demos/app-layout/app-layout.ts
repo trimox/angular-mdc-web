@@ -88,7 +88,11 @@ export class AppLayout implements OnInit, OnDestroy {
           this.demoTopAppBarControls.nativeElement.style.display = 'block';
         } else {
           this.demoTopAppBarControls.nativeElement.style.display = 'none';
-          this.topAppBar.fixed = true; // reset to fixed after navigation off top-app-bar demo
+
+          // reset to fixed after navigation away from top-app-bar demo
+          this.topAppBar.fixed = true;
+          this.topAppBar.prominent = false;
+          this.topAppBar.dense = false;
         }
       });
   }

@@ -14,7 +14,7 @@
 </mdc-top-app-bar>
 
 <div #mainContent>
-  <mdc-drawer #appdrawer="mdcDrawer" [drawer]="isScreenSmall() || topAppBar.isCollapsed() ? 'dismissible' : 'permanent'">
+  <mdc-drawer #appdrawer="mdcDrawer" [drawer]="isScreenSmall() || topAppBar.isCollapsed() ? 'modal' : 'permanent'" class="demo-drawer--fixed">
     <mdc-drawer-content>
       <mdc-list-group>
         <mdc-list>

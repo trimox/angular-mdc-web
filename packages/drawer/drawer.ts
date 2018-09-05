@@ -1,53 +1,98 @@
 import {
+  AfterContentInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ContentChild,
+  ContentChildren,
+  Directive,
   ElementRef,
   EventEmitter,
-  HostBinding,
   Input,
+  NgZone,
   OnDestroy,
   Output,
-  Renderer2,
-  ViewChild,
+  QueryList,
   ViewEncapsulation
 } from '@angular/core';
-import { isBrowser, toBoolean } from '@angular-mdc/web/common';
+import { Subscription, fromEvent, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
-import { MdcDrawerNavigation } from './drawer.directives';
-import { MDCDrawerAdapter } from './adapter';
-import { MDCTemporaryDrawerFoundation, MDCPersistentDrawerFoundation, util } from '@material/drawer';
+import { Platform, toBoolean } from '@angular-mdc/web/common';
+import { MdcList, MdcListItem } from '@angular-mdc/web/list';
 
-export const FOCUSABLE_ELEMENTS =
-  'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), ' +
-  'button:not([disabled]), iframe, object, embed, [tabindex], [contenteditable]';
+// Workaround for focus-trap upstream export issue
+import { util } from '@material/dialog';
 
-export type MdcDrawerType = 'persistent' | 'permanent' | 'temporary';
+import { MDCDrawerAdapter } from '@material/drawer/adapter';
+import {
+  MDCDismissibleDrawerFoundation,
+  MDCModalDrawerFoundation
+} from '@material/drawer';
+
+export type MdcDrawerType = 'permanent' | 'dismissible' | 'modal';
+
+@Component({
+  moduleId: module.id,
+  selector: 'mdc-drawer-header',
+  template: `
+  <ng-content></ng-content>
+  <h3 class="mdc-drawer__title" *ngIf="title">{{title}}</h3>
+  <h6 class="mdc-drawer__subtitle" *ngIf="subtitle">{{subtitle}}</h6>
+  `,
+  host: {
+    'class': 'mdc-drawer__header'
+  },
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
+})
+export class MdcDrawerHeader {
+  @Input() title: string;
+  @Input() subtitle: string;
+
+  constructor(public elementRef: ElementRef) { }
+}
+
+@Directive({
+  selector: 'mdc-drawer-content, [mdcDrawerContent]',
+  host: {
+    'class': 'mdc-drawer__content'
+  }
+})
+export class MdcDrawerContent { }
 
 @Component({
   moduleId: module.id,
   selector: 'mdc-drawer',
   exportAs: 'mdcDrawer',
-  template: `
-  <mdc-drawer-navigation>
-    <ng-content></ng-content>
-  </mdc-drawer-navigation>
-  `,
+  host: {
+    'role': 'navigation',
+    'class': 'mdc-drawer'
+  },
+  template: `<ng-content></ng-content>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class MdcDrawer implements OnDestroy {
-  @Input()
-  get fixed(): boolean { return this._fixed; }
-  set fixed(value: boolean) {
-    this.setFixed(value);
-  }
-  private _fixed: boolean = false;
+export class MdcDrawer implements AfterContentInit, OnDestroy {
+  /** Emits whenever the component is destroyed. */
+  private _destroy = new Subject<void>();
+
+  private _foundationInitialized: boolean;
+  private _previousFocus: Element | null;
+  private _scrimElement: Element | null;
+
+  private _focusTrap: {
+    activate(): void,
+    deactivate(): void
+  };
 
   @Input()
   get drawer(): string { return this._drawer; }
   set drawer(drawer: string) {
-    this.setDrawer(drawer);
+    if (this._drawer !== drawer) {
+      this._foundationInitialized = false;
+      this.setDrawer(drawer);
+    }
   }
   private _drawer = 'permanent';
 
@@ -58,206 +103,197 @@ export class MdcDrawer implements OnDestroy {
   }
   private _fixedAdjustElement: any;
 
-  @Input() closeOnClick: boolean = true;
+  @Output() readonly opened: EventEmitter<void> = new EventEmitter<void>();
+  @Output() readonly closed: EventEmitter<void> = new EventEmitter<void>();
 
-  private get drawerElement(): ElementRef {
-    return this.drawerNav && this.drawerNav.elementRef;
-  }
+  @ContentChild(MdcList) list: MdcList;
+  @ContentChildren(MdcListItem, { descendants: true }) listItems: QueryList<MdcListItem>;
 
-  @Output() opened: EventEmitter<void> = new EventEmitter<void>();
-  @Output() closed: EventEmitter<void> = new EventEmitter<void>();
+  private _scrimSubscription: Subscription | null;
 
-  @HostBinding('class.mdc-drawer') isHostClass = true;
-  @HostBinding('attr.role') role: string = 'navigation';
-  @HostBinding('class.ng-mdc-drawer--fixed') get classFixed(): string {
-    return this.fixed && this.isDrawerPermanent() ? 'ng-mdc-drawer--fixed' : '';
-  }
-  @ViewChild(MdcDrawerNavigation) drawerNav: MdcDrawerNavigation;
+  get modal(): boolean { return this.drawer === 'modal'; }
+  get dismissible(): boolean { return this.drawer === 'dismissible'; }
+  get permanent(): boolean { return this.drawer === 'permanent'; }
 
   private _mdcAdapter: MDCDrawerAdapter = {
-    addClass: (className: string) => this.renderer.addClass(this._getHostElement(), className),
-    removeClass: (className: string) => this.renderer.removeClass(this._getHostElement(), className),
+    addClass: (className: string) => this._getHostElement().classList.add(className),
+    removeClass: (className: string) => this._getHostElement().classList.remove(className),
     hasClass: (className: string) => this._getHostElement().classList.contains(className),
-    addBodyClass: (className: string) => {
-      if (isBrowser()) {
-        this.renderer.addClass(this.fixedAdjustElement
-          ? this.fixedAdjustElement : document.body, className);
+    elementHasClass: (element: Element, className: string) => element.classList.contains(className),
+    computeBoundingRect: () => this._getHostElement().getBoundingClientRect(),
+    saveFocus: () => this._previousFocus = this._platform.isBrowser ? document.activeElement : null,
+    restoreFocus: () => {
+      if (!this._platform.isBrowser) { return; }
+
+      const previousFocus = this._previousFocus && (<any>this._previousFocus).focus;
+      if (this._getHostElement().contains(document.activeElement) && previousFocus) {
+        (<any>this._previousFocus).focus();
       }
     },
-    removeBodyClass: (className: string) => {
-      if (isBrowser()) {
-        this.renderer.removeClass(this.fixedAdjustElement
-          ? this.fixedAdjustElement : document.body, className);
+    focusActiveNavigationItem: () => {
+      if (!this._platform.isBrowser) { return; }
+
+      const activeNavItemEl = this.listItems.find((_) => _.activated);
+      if (activeNavItemEl) {
+        (<MdcListItem>activeNavItemEl).focus();
       }
     },
-    eventTargetHasClass: (target: HTMLElement, className: string) => target.classList.contains(className),
-    hasNecessaryDom: () => !!this.drawerNav,
-    registerInteractionHandler: (evt: string, handler: EventListener) =>
-      this._getHostElement().addEventListener(util.remapEvent(evt), handler, util.applyPassive()),
-    deregisterInteractionHandler: (evt: string, handler: EventListener) =>
-      this._getHostElement().removeEventListener(evt, handler, util.applyPassive()),
-    registerDrawerInteractionHandler: (evt: string, handler: EventListener) => {
-      if (this.drawerElement) {
-        this.drawerElement.nativeElement.addEventListener(util.remapEvent(evt), handler);
-      }
-    },
-    deregisterDrawerInteractionHandler: (evt: string, handler: EventListener) =>
-      this.drawerElement.nativeElement.removeEventListener(evt, handler),
-    registerTransitionEndHandler: (handler: EventListener) => {
-      if (this.drawerElement) {
-        this.drawerElement.nativeElement.addEventListener('transitionend', handler);
-      }
-    },
-    deregisterTransitionEndHandler: (handler: EventListener) =>
-      this.drawerElement.nativeElement.removeEventListener('transitionend', handler),
-    registerDocumentKeydownHandler: (handler: EventListener) => {
-      if (isBrowser()) {
-        document.addEventListener('keydown', handler);
-      }
-    },
-    deregisterDocumentKeydownHandler: (handler: EventListener) => document.removeEventListener('keydown', handler),
-    getDrawerWidth: () => this._getHostElement().offsetWidth,
-    setTranslateX: (value) => {
-      if (this.drawerNav) {
-        this.renderer.setProperty(this.drawerNav.elementRef, util.getTransformPropertyName(),
-          value === null ? null : `translateX(${value}px)`);
-      }
-    },
-    updateCssVariable: (value: string) => {
-      if (util.supportsCssCustomProperties()) {
-        this.renderer.setStyle(this._getHostElement(), '--mdc-temporary-drawer-opacity', value);
-      }
-    },
-    getFocusableElements: () =>
-      this.drawerNav ? this.drawerNav.elementRef.nativeElement.querySelectorAll(FOCUSABLE_ELEMENTS) : null,
-    saveElementTabState: (el: Element) => util.saveElementTabState(el),
-    restoreElementTabState: (el: Element) => util.restoreElementTabState(el),
-    makeElementUntabbable: (el: Element) => this.renderer.setAttribute(el, 'tabindex', '-1'),
-    notifyOpen: () => this.opened.emit(),
     notifyClose: () => this.closed.emit(),
-    isRtl: () => getComputedStyle(this._getHostElement()).direction === 'rtl',
-    isDrawer: (el) => {
-      return this.drawerNav ? el === this.drawerNav.elementRef.nativeElement : false;
+    notifyOpen: () => this.opened.emit(),
+    trapFocus: () => {
+      if (this._focusTrap) {
+        this._focusTrap.activate();
+      }
+    },
+    releaseFocus: () => {
+      if (this._focusTrap) {
+        this._focusTrap.deactivate();
+      }
     }
   };
 
   private _foundation: {
-    init(): void,
-    destroy(): void,
     open(): void,
     close(): void,
-    isOpen(): boolean
-  };
+    isOpen(): boolean,
+    handleKeydown(evt: KeyboardEvent): void,
+    handleTransitionEnd(evt: TransitionEvent): void,
+    handleScrimClick(): void
+  } | MDCDismissibleDrawerFoundation | MDCModalDrawerFoundation | null;
 
   constructor(
+    private _platform: Platform,
+    private _ngZone: NgZone,
     private _changeDetectorRef: ChangeDetectorRef,
-    public renderer: Renderer2,
-    public elementRef: ElementRef) {
+    public elementRef: ElementRef) { }
 
-    this._initializeFoundation(this._drawer);
+  ngAfterContentInit(): void {
+    if (!this._foundationInitialized) {
+      this._initFoundation();
+    }
   }
 
   ngOnDestroy(): void {
-    if (this._foundation) {
-      this._foundation.destroy();
+    this._unloadListeners();
+  }
+
+  private _loadListeners() {
+    if (!this._destroy) {
+      this._destroy = new Subject<void>();
+    }
+
+    if (this.modal) {
+      if (this._platform.isBrowser) {
+        this._scrimElement = document.createElement('div');
+        this._scrimElement.classList.add('mdc-drawer-scrim');
+        this._getHostElement().insertAdjacentElement('afterend', this._scrimElement);
+
+        this._ngZone.runOutsideAngular(() =>
+          this._scrimSubscription = fromEvent<MouseEvent>(this._scrimElement!, 'click')
+            .subscribe(() => this._ngZone.run(() => this._foundation.handleScrimClick())));
+
+        this._focusTrap = util.createFocusTrapInstance(this._getHostElement(), {
+          clickOutsideDeactivates: true,
+          initialFocus: false, // Navigation drawer handles focusing on active nav item.
+          escapeDeactivates: false, // Navigation drawer handles ESC.
+          returnFocusOnDeactivate: false, // Navigation drawer handles restore focus.
+        });
+      }
+    } else {
+      if (this._scrimElement) {
+        this._scrimElement.remove();
+      }
+    }
+
+    this._ngZone.runOutsideAngular(() =>
+      fromEvent<KeyboardEvent>(this._getHostElement(), 'keydown').pipe(takeUntil(this._destroy))
+        .subscribe((evt) => this._ngZone.run(() => this._foundation.handleKeydown(evt))));
+
+    this._ngZone.runOutsideAngular(() =>
+      fromEvent<TransitionEvent>(this._getHostElement(), 'transitionend').pipe(takeUntil(this._destroy))
+        .subscribe((evt) => this._ngZone.run(() => this._foundation.handleTransitionEnd(evt))));
+  }
+
+  private _unloadListeners(): void {
+    this._destroy.next();
+    this._destroy.complete();
+
+    if (this._scrimSubscription) {
+      this._scrimSubscription.unsubscribe();
     }
   }
 
-  setDrawer(drawer: string): void {
-    this._drawer = drawer ? drawer : 'permanent';
+  private _initFoundation(): void {
+    if (this._foundationInitialized) { return; }
 
-    this._initializeFoundation(drawer);
+    this._initListType();
 
-    if (drawer === 'temporary') {
-      this.drawerElement.nativeElement.addEventListener('click', () => {
-        if (this.closeOnClick) {
-          this._foundation.close();
-        }
-      });
-    } else if (drawer === 'temporary') {
-      this.drawerElement.nativeElement.removeEventListener('click', () => {
-        if (this.closeOnClick) {
-          this._foundation.close();
-        }
-      });
+    this._unloadListeners();
+    this._removeDrawerModifierClass();
+
+    if (this.modal) {
+      this._foundation = new MDCModalDrawerFoundation(this._mdcAdapter);
+    } else {
+      this._foundation = new MDCDismissibleDrawerFoundation(this._mdcAdapter);
     }
+
+    if (!this.permanent) {
+      this._getHostElement().classList.add(`mdc-drawer--${this.drawer}`);
+    }
+
+    this._loadListeners();
+    this._foundationInitialized = true;
+
     this._changeDetectorRef.markForCheck();
+  }
+
+  private _initListType(): void {
+    this.list.wrapFocus = true;
+    this.list.singleSelection = true;
+  }
+
+  setDrawer(drawer: string = 'permanent'): void {
+    if (this._drawer !== drawer) {
+      this._drawer = drawer;
+
+      this._initFoundation();
+      this._changeDetectorRef.markForCheck();
+    }
   }
 
   setFixedAdjustElement(element: any): void {
     this._fixedAdjustElement = element;
 
     if (element) {
-      this.renderer.setStyle(this._getHostElement(), 'position', 'absolute');
+      this._getHostElement().style.setProperty('position', 'absolute');
     } else {
-      this.renderer.removeStyle(this._getHostElement(), 'position');
+      this._getHostElement().style.removeProperty('position');
     }
 
     this._changeDetectorRef.markForCheck();
-  }
-
-  setFixed(fixed: boolean): void {
-    this._fixed = toBoolean(fixed);
-    this._changeDetectorRef.markForCheck();
-  }
-
-  isDrawerPermanent(): boolean {
-    return this._drawer === 'permanent';
-  }
-
-  isDrawerTemporary(): boolean {
-    return this._drawer === 'temporary';
-  }
-
-  isDrawerPersistent(): boolean {
-    return this._drawer === 'persistent';
-  }
-
-  private _initializeFoundation(drawer: string): void {
-    this._removeDrawerModifierClass();
-    this.renderer.addClass(this._getHostElement(), `mdc-drawer--${drawer}`);
-
-    if (!this.isDrawerPermanent()) {
-      if (drawer === 'temporary') {
-        this._foundation = new MDCTemporaryDrawerFoundation(this._mdcAdapter);
-      } else if (drawer === 'persistent') {
-        this._foundation = new MDCPersistentDrawerFoundation(this._mdcAdapter);
-      }
-
-      this._foundation.init();
-    } else {
-      if (this._foundation) {
-        this._foundation.destroy();
-      }
-    }
-  }
-
-  private _removeDrawerModifierClass(): void {
-    this.renderer.removeClass(this._getHostElement(), 'mdc-drawer--temporary');
-    this.renderer.removeClass(this._getHostElement(), 'mdc-drawer--persistent');
-    this.renderer.removeClass(this._getHostElement(), 'mdc-drawer--permanent');
-  }
-
-  isOpen(): boolean {
-    if (this.isDrawerPermanent()) { return true; }
-
-    return this._foundation.isOpen();
   }
 
   open(): void {
-    if (this._foundation) {
-      this.isOpen() ? this._foundation.close() : this._foundation.open();
-    }
+    if (this.permanent) { return; }
+
+    this._foundation.open();
   }
 
+  // Function to close the drawer.
   close(): void {
-    if (this._foundation) {
-      this._foundation.close();
-    }
+    if (this.permanent) { return; }
+
+    this._foundation.close();
   }
 
-  getDrawerWidth(): number {
-    return this._foundation ? this._mdcAdapter.getDrawerWidth() : this._getHostElement().offsetWidth;
+  // Returns true if drawer is in open state.
+  isOpen(): boolean {
+    return this.permanent ? true : this._foundation.isOpen();
+  }
+
+  private _removeDrawerModifierClass(): void {
+    this._getHostElement().classList.remove('mdc-drawer--modal');
+    this._getHostElement().classList.remove('mdc-drawer--dismissible');
   }
 
   private _getHostElement(): HTMLElement {

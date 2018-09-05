@@ -7,7 +7,6 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
-  HostBinding,
   Input,
   NgZone,
   OnDestroy,
@@ -90,10 +89,13 @@ export class MdcListItemSecondary {
   selector: 'mdc-list-item, a[mdc-list-item]',
   exportAs: 'mdcListItem',
   host: {
+    'role': 'listitem',
     '[id]': 'id',
+    '[tabIndex]': 'tabIndex',
     'class': 'mdc-list-item',
     '[class.mdc-list-item--selected]': 'selected',
-    '[class.mdc-list-item--activated]': 'activated'
+    '[class.mdc-list-item--activated]': 'activated',
+    '[class.mdc-list-item--disabled]': 'disabled'
   },
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
@@ -108,9 +110,6 @@ export class MdcListItem implements AfterViewInit, OnDestroy {
 
   /** The unique ID of the option. */
   get id(): string { return this._id; }
-
-  @HostBinding('tabindex') tabIndex: number = -1;
-  @HostBinding('attr.role') role: string = 'listitem';
 
   @Output() readonly selectionChange: EventEmitter<MdcListSelectionChange>
     = new EventEmitter<MdcListSelectionChange>();
@@ -135,6 +134,17 @@ export class MdcListItem implements AfterViewInit, OnDestroy {
   }
   private _activated: boolean;
 
+  /** Whether the option is disabled. */
+  @Input()
+  get disabled(): boolean { return this._disabled; }
+  set disabled(value: boolean) {
+    this._disabled = toBoolean(value);
+    this._changeDetectorRef.markForCheck();
+  }
+  private _disabled: boolean;
+
+  @Input() tabIndex: number = -1;
+
   constructor(
     private _ngZone: NgZone,
     public ripple: MdcRipple,
@@ -158,6 +168,10 @@ export class MdcListItem implements AfterViewInit, OnDestroy {
 
   focus(): void {
     this.getListItemElement().focus();
+  }
+
+  setRole(role: string): void {
+    this.getListItemElement().setAttribute('role', role);
   }
 
   getListItemElement(): HTMLElement {

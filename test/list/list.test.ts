@@ -54,7 +54,7 @@ describe('MdcListModule', () => {
     });
 
     it('#should apply class two-line', () => {
-      testComponent.lines = 2;
+      testComponent;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-list--two-line')).toBe(true);
     });
@@ -78,7 +78,7 @@ describe('MdcListModule', () => {
     });
 
     it('#should be selected', () => {
-      testComponent.selection = true;
+      testComponent.singleSelection = true;
       fixture.detectChanges();
       testComponent.listitem.elementRef.nativeElement.click();
       fixture.detectChanges();
@@ -98,7 +98,7 @@ describe('MdcListModule', () => {
     });
 
     it('#should clear all selected', () => {
-      testComponent.selection = true;
+      testComponent.singleSelection = true;
       fixture.detectChanges();
       testComponent.listitem.elementRef.nativeElement.click();
       fixture.detectChanges();
@@ -144,7 +144,7 @@ describe('MdcListModule', () => {
   template: `
     <mdc-list-group #group>
       <mdc-list-group-subheader>Grouped Lists</mdc-list-group-subheader>
-      <mdc-list [dense]="isDense" [border]="isBordered" [lines]="lines" [selection]="selection"
+      <mdc-list [dense]="isDense" [border]="isBordered" [twoLine]="twoLine" [singleSelection]="singleSelection"
        [avatar]="isAvatar" [interactive]="isInteractive">
         <mdc-list-item #listitem mdcListItemGraphic [selected]="isItemSelected">Test
           <mdc-icon mdcListItemMeta>info</mdc-icon>
@@ -166,13 +166,13 @@ describe('MdcListModule', () => {
 class SimpleList {
   isDense: boolean = false;
   isBordered: boolean = false;
-  lines: number = 1;
+  twoLine: boolean;
   isAvatar: boolean = false;
   isInteractive: boolean = true;
   isItemSelected: boolean = true;
   isInset: boolean = false;
   isPadded: boolean = false;
-  selection: boolean;
+  singleSelection: boolean;
 
   @ViewChild('divider') divider: MdcListDivider;
   @ViewChild('listitem') listitem: MdcListItem;

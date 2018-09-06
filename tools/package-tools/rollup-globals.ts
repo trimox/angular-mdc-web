@@ -42,6 +42,7 @@ export const rollupGlobals = {
   '@material/menu': 'mdc.menu',
   '@material/menu-surface': 'mdc.menu-surface',
   '@material/menu-surface/util': 'mdc.menu-surface.util',
+  '@material/menu-surface/constants': 'mdc.menu-surface.constants',
   '@material/notched-outline': 'mdc.notched-outline',
   '@material/grid-list': 'mdc.grid-list',
   '@material/radio': 'mdc.radio',
@@ -75,7 +76,6 @@ export const rollupExternals = {
   '@angular/common': 'ng.common',
   '@angular/forms': 'ng.forms',
   '@angular/common/http': 'ng.common.http',
-  '@angular/router': 'ng.router',
   '@angular/platform-browser': 'ng.platformBrowser',
   '@angular/platform-browser-dynamic': 'ng.platformBrowserDynamic',
 

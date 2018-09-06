@@ -12,8 +12,8 @@ import { Platform, toBoolean } from '@angular-mdc/web/common';
 
 import { MDCMenuSurfaceAdapter } from '@material/menu-surface/adapter';
 import { getTransformPropertyName } from '@material/menu-surface/util';
-import { MDCMenuSurfaceFoundation, AnchorMargin } from '@material/menu-surface';
 import { Corner, strings } from '@material/menu-surface/constants';
+import { MDCMenuSurfaceFoundation } from '@material/menu-surface';
 
 export interface MdcMenuSurfaceOpenedEvent {
   detail: string;
@@ -146,13 +146,13 @@ export class MdcMenuSurfaceBase {
     close(): void,
     isOpen(): boolean,
     setAnchorCorner(corner: Corner): void,
-    setAnchorMargin(margin: AnchorMargin): void,
+    setAnchorMargin(margin: { top: number, right: number, bottom: number, left: number }): void,
     setIsHoisted(isHoisted: boolean): void,
     setFixedPosition(isFixedPosition: boolean): void,
     setAbsolutePosition(x: number, y: number): void,
     setQuickOpen(quickOpen: boolean): void,
-    handleBodyClick(evt: Event): void,
-    handleKeydown(evt: Event): void
+    handleBodyClick(evt: MouseEvent): void,
+    handleKeydown(evt: KeyboardEvent): void
   } = new MDCMenuSurfaceFoundation(this._mdcMenuSurfaceAdapter);
 
   constructor(
@@ -227,7 +227,7 @@ export class MdcMenuSurfaceBase {
     this._foundation.setAnchorCorner(cornerBit);
   }
 
-  protected setAnchorMargin(margin: AnchorMargin): void {
+  protected setAnchorMargin(margin: { top: number, right: number, bottom: number, left: number }): void {
     this._foundation.setAnchorMargin(margin);
   }
 

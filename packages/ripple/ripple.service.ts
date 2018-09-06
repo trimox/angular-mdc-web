@@ -74,7 +74,7 @@ export class MdcRipple {
     setUnbounded(unbounded: boolean): void,
     handleFocus(): void,
     handleBlur(): void
-  } | MDCRippleFoundation | null;
+  } | any;
 
   constructor(
     private _platform: Platform,

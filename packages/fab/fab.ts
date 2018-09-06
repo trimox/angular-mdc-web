@@ -10,7 +10,6 @@ import {
   OnDestroy,
   ViewEncapsulation
 } from '@angular/core';
-
 import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcIcon } from '@angular-mdc/web/icon';
@@ -22,6 +21,7 @@ export type FabPosition = 'bottom-left' | 'bottom-right' | null;
   selector: 'button[mdc-fab], a[mdc-fab]',
   template: `
   <ng-content></ng-content>
+  <mdc-icon class="mdc-fab__icon" *ngIf="icon">{{icon}}</mdc-icon>
   <span class="mdc-fab__label" *ngIf="label">{{label}}</span>
   `,
   providers: [MdcRipple],
@@ -58,6 +58,7 @@ export class MdcFab implements AfterContentInit, OnDestroy {
   private _position: string;
 
   @Input() label: string;
+  @Input() icon: string | null;
   @Input('attr.tabindex') tabIndex: number = 0;
 
   @HostBinding('class.mdc-fab') isHostClass = true;

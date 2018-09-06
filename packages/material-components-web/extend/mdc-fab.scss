@@ -15,11 +15,13 @@
   position: fixed;
   bottom: 1rem;
   left: 1rem;
+  z-index: 6;
 }
 
 @media (min-width: 1024px) {
   .mdc-fab--bottom-left {
     bottom: 1.5rem;
     left: 1.5rem;
+    z-index: 6;
   }
 }

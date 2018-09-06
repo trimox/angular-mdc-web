@@ -5,7 +5,6 @@ import {
   Component,
   ContentChild,
   ElementRef,
-  HostBinding,
   Input,
   OnDestroy,
   ViewEncapsulation
@@ -20,6 +19,10 @@ import { MDCFormFieldFoundation } from '@material/form-field';
   moduleId: module.id,
   selector: 'mdc-form-field',
   exportAs: 'mdcFormField',
+  host: {
+    'class': 'mdc-form-field',
+    '[class.mdc-form-field--align-end]': 'alignEnd'
+  },
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -33,11 +36,6 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
     this._alignEnd = toBoolean(value);
   }
   private _alignEnd: boolean;
-
-  @HostBinding('class.mdc-form-field') isHostClass = true;
-  @HostBinding('class.mdc-form-field--align-end') get classAlignEnd(): string {
-    return this.alignEnd ? 'mdc-form-field--align-end' : '';
-  }
 
   @ContentChild(MdcFormFieldControl) input: MdcFormFieldControl<any>;
 

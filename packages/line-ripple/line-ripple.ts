@@ -1,7 +1,6 @@
 import {
   Directive,
   ElementRef,
-  HostBinding,
   OnDestroy,
   OnInit
 } from '@angular/core';
@@ -10,11 +9,12 @@ import { MDCLineRippleAdapter } from '@material/line-ripple/adapter';
 import { MDCLineRippleFoundation } from '@material/line-ripple';
 
 @Directive({
-  selector: '[mdcLineRipple], mdc-line-ripple'
+  selector: '[mdcLineRipple], mdc-line-ripple',
+  host: {
+    'class': 'mdc-line-ripple'
+  }
 })
 export class MdcLineRipple implements OnInit, OnDestroy {
-  @HostBinding('class.mdc-line-ripple') isHostClass = true;
-
   private _mdcAdapter: MDCLineRippleAdapter = {
     addClass: (className: string) => this._getHostElement().classList.add(className),
     removeClass: (className: string) => this._getHostElement().classList.remove(className),

@@ -308,6 +308,8 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
   }
 
   private _loadListeners(): void {
+    if (!this._platform.isBrowser) { return; }
+
     this._ngZone.runOutsideAngular(() =>
       fromEvent(window, getCorrectEventName(window, 'animationend'))
         .pipe(takeUntil(this._destroy))

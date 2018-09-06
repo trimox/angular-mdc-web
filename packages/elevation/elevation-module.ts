@@ -4,6 +4,6 @@ import { MdcElevation } from './elevation';
 
 @NgModule({
   exports: [MdcElevation],
-  declarations: [MdcElevation],
+  declarations: [MdcElevation]
 })
 export class MdcElevationModule { }

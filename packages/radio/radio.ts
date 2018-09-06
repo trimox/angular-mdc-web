@@ -6,7 +6,6 @@ import {
   ElementRef,
   EventEmitter,
   forwardRef,
-  HostBinding,
   Input,
   OnDestroy,
   Output,
@@ -47,6 +46,7 @@ export class MdcRadioChange {
   selector: 'mdc-radio',
   host: {
     '[id]': 'id',
+    'class': 'mdc-radio'
   },
   template:
     `
@@ -111,7 +111,6 @@ export class MdcRadio implements AfterViewInit, OnDestroy, MdcFormFieldControl<a
   private _disabled: boolean = false;
 
   @Output() readonly change: EventEmitter<MdcRadioChange> = new EventEmitter<MdcRadioChange>();
-  @HostBinding('class.mdc-radio') isHostClass = true;
   @ViewChild('inputEl') inputEl: ElementRef;
 
   private _mdcAdapter: MDCRadioAdapter = {
@@ -182,17 +181,17 @@ export class MdcRadio implements AfterViewInit, OnDestroy, MdcFormFieldControl<a
 
   setDisabledState(disabled: boolean): void {
     this._disabled = toBoolean(disabled);
-    this._foundation.setDisabled(disabled);
+    this._foundation.setDisabled(this._disabled);
     this._changeDetectorRef.markForCheck();
   }
 
   setChecked(checked: boolean): void {
     this._checked = toBoolean(checked);
-    if (checked) {
+    if (this._checked) {
       this._onChange(this.checked);
     }
 
-    if (checked || checked == null) {
+    if (!checked == null) {
       this.change.emit(new MdcRadioChange(this, this.getValue(), this.checked));
     }
 

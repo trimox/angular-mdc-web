@@ -6,7 +6,6 @@ import {
   ElementRef,
   EventEmitter,
   forwardRef,
-  HostBinding,
   Input,
   OnDestroy,
   Output,
@@ -48,6 +47,10 @@ let nextUniqueId = 0;
   selector: 'mdc-switch',
   host: {
     '[id]': 'id',
+    '[tabIndex]': 'tabIndex',
+    'class': 'mdc-switch',
+    '[class.mdc-switch--checked]': 'checked',
+    '[class.mdc-switch--disabled]': 'disabled'
   },
   template: `
   <div class="mdc-switch__track"></div>
@@ -77,9 +80,6 @@ let nextUniqueId = 0;
   ]
 })
 export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, OnDestroy {
-  /** Emits whenever the component is destroyed. */
-  private _destroy = new Subject<void>();
-
   private _uniqueId: string = `mdc-switch-${++nextUniqueId}`;
 
   readonly componentInstance = MdcSwitch;
@@ -92,25 +92,17 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, OnDes
   set checked(value: boolean) {
     this.setChecked(value);
   }
-  private _checked: boolean = false;
+  private _checked: boolean;
 
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this.setDisabledState(value);
   }
-  private _disabled: boolean = false;
+  private _disabled: boolean;
 
   @Input() tabIndex: number = 0;
   @Output() readonly change: EventEmitter<MdcSwitchChange> = new EventEmitter<MdcSwitchChange>();
-
-  @HostBinding('class.mdc-switch') isHostClass = true;
-  @HostBinding('class.mdc-switch--checked') get classChecked(): string {
-    return this.checked ? 'mdc-switch--checked' : '';
-  }
-  @HostBinding('class.mdc-switch--disabled') get classDisabled(): string {
-    return this.disabled ? 'mdc-switch--disabled' : '';
-  }
 
   @ViewChild('input') inputElement: ElementRef;
 
@@ -144,20 +136,16 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, OnDes
   ngAfterViewInit(): void {
     this._foundation.init();
     this._ripple.attachTo(this._getHostElement(), true, this._getInputElement());
-
-    this._loadListeners();
   }
 
   ngOnDestroy(): void {
     this._ripple.destroy();
-
-    this._destroy.next();
-    this._destroy.complete();
   }
 
   onChange(evt: Event): void {
     evt.stopPropagation();
 
+    this._foundation.handleChange(evt);
     this.setChecked(this._getInputElement().checked);
   }
 
@@ -210,11 +198,6 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, OnDes
 
   focus(): void {
     this.inputElement.nativeElement.focus();
-  }
-
-  private _loadListeners() {
-    fromEvent(this._getInputElement(), 'change').pipe(takeUntil(this._destroy))
-      .subscribe((evt) => this._foundation.handleChange(evt));
   }
 
   /** Retrieves the DOM element of the component input. */

@@ -4,6 +4,6 @@ import { MdcLineRipple } from './line-ripple';
 
 @NgModule({
   exports: [MdcLineRipple],
-  declarations: [MdcLineRipple],
+  declarations: [MdcLineRipple]
 })
 export class MdcLineRippleModule { }

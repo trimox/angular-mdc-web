@@ -44,14 +44,14 @@ describe('MdcSwitch', () => {
     });
 
     it('#should correctly update the checked property', () => {
-      testComponent.slideChecked = true;
+      testComponent.checked = true;
       fixture.detectChanges();
 
       expect(switchInstance.inputElement.nativeElement.checked).toBeTruthy();
     });
 
     it('#should not update the checked value', () => {
-      testComponent.isDisabled = true;
+      testComponent.disabled = true;
       fixture.detectChanges();
 
       switchInstance.setChecked(true);
@@ -71,7 +71,7 @@ describe('MdcSwitch', () => {
     });
 
     it('#should not toggle `checked` state upon interation while disabled', () => {
-      testComponent.isDisabled = true;
+      testComponent.disabled = true;
       fixture.detectChanges();
 
       switchInstance.inputElement.nativeElement.click();
@@ -137,16 +137,12 @@ describe('MdcSwitch', () => {
       }));
 
       it('#should toggle checked state on click', () => {
-        expect(switchInstance.checked).toBe(false);
-
         switchInstance.inputElement.nativeElement.click();
         fixture.detectChanges();
-
         expect(switchInstance.checked).toBe(true);
-
+        
         switchInstance.inputElement.nativeElement.click();
         fixture.detectChanges();
-
         expect(switchInstance.checked).toBe(false);
       });
     });
@@ -159,16 +155,16 @@ describe('MdcSwitch', () => {
     <mdc-switch
       [id]="switchId"
       (click)="onSlideClick($event)"
-      [checked]="slideChecked"
+      [checked]="checked"
       [tabIndex]="slideTabindex"
-      [disabled]="isDisabled">
+      [disabled]="disabled">
     </mdc-switch>
   `,
 })
 class SingleSwitch {
   switchId: string | null = 'simple-switch';
-  isDisabled: boolean = false;
-  slideChecked: boolean = false;
+  disabled: boolean;
+  checked: boolean;
   slideTabindex: number;
   switchValue: string = 'single_switch';
 

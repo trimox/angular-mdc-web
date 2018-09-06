@@ -9,6 +9,6 @@ import { MdcSwitch } from './switch';
     MdcFormFieldModule,
     MdcSwitch
   ],
-  declarations: [MdcSwitch],
+  declarations: [MdcSwitch]
 })
 export class MdcSwitchModule { }

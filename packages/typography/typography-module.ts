@@ -36,6 +36,6 @@ const TYPOGRAPHY_DECLARATIONS = [
 
 @NgModule({
   exports: TYPOGRAPHY_DECLARATIONS,
-  declarations: TYPOGRAPHY_DECLARATIONS,
+  declarations: TYPOGRAPHY_DECLARATIONS
 })
 export class MdcTypographyModule { }

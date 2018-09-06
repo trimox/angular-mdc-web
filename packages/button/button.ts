@@ -4,12 +4,14 @@ import {
   Component,
   ContentChild,
   ElementRef,
-  HostBinding,
-  HostListener,
   Input,
+  NgZone,
   OnDestroy,
   ViewEncapsulation
 } from '@angular/core';
+import { fromEvent, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcIcon } from '@angular-mdc/web/icon';
@@ -18,12 +20,25 @@ import { MdcIcon } from '@angular-mdc/web/icon';
   moduleId: module.id,
   exportAs: 'mdcButton',
   selector: 'button[mdc-button], a[mdc-button]',
+  host: {
+    '[tabIndex]': 'disabled ? -1 : 0',
+    'class': 'mdc-button',
+    '[class.ng-mdc-button--primary]': 'primary',
+    '[class.ng-mdc-button--secondary]': 'secondary',
+    '[class.mdc-button--raised]': 'raised',
+    '[class.mdc-button--dense]': 'dense',
+    '[class.mdc-button--unelevated]': 'unelevated',
+    '[class.mdc-button--outlined]': 'outlined'
+  },
   template: '<ng-content></ng-content>',
   providers: [MdcRipple],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcButton implements AfterContentInit, OnDestroy {
+  /** Emits whenever the component is destroyed. */
+  private _destroy = new Subject<void>();
+
   @Input()
   get raised(): boolean { return this._raised; }
   set raised(value: boolean) {
@@ -80,42 +95,25 @@ export class MdcButton implements AfterContentInit, OnDestroy {
   }
   protected _disabled: boolean = false;
 
-  @HostBinding('tabindex') get tabindex(): number {
-    return this.disabled ? -1 : 0;
-  }
-  @HostBinding('class.mdc-button') isHostClass = true;
-  @HostBinding('class.mdc-button--raised') get classRaised(): string {
-    return this.raised ? 'mdc-button--raised' : '';
-  }
-  @HostBinding('class.ng-mdc-button--primary') get classPrimary(): string {
-    return this.primary ? 'ng-mdc-button--primary' : '';
-  }
-  @HostBinding('class.ng-mdc-button--secondary') get classSecondary(): string {
-    return this.secondary ? 'ng-mdc-button--secondary' : '';
-  }
-  @HostBinding('class.mdc-button--dense') get classDense(): string {
-    return this.dense ? 'mdc-button--dense' : '';
-  }
-  @HostBinding('class.mdc-button--unelevated') get classUnelevated(): string {
-    return this.unelevated ? 'mdc-button--unelevated' : '';
-  }
-  @HostBinding('class.mdc-button--outlined') get classOutlined(): string {
-    return this.outlined ? 'mdc-button--outlined' : '';
-  }
-  @HostListener('click', ['$event']) onclick(evt: Event) {
-    this._onClick(evt);
-  }
   @ContentChild(MdcIcon) buttonIcon: MdcIcon;
 
   constructor(
+    protected _ngZone: NgZone,
     protected _elementRef: ElementRef,
     protected _ripple: MdcRipple) { }
 
   ngAfterContentInit(): void {
     this._ripple.attachTo(this.getHostElement());
+
+    this._ngZone.runOutsideAngular(() =>
+      fromEvent<MouseEvent>(this.getHostElement(), 'click').pipe(takeUntil(this._destroy))
+        .subscribe((evt) => this._ngZone.run(() => this._onClick(evt))));
   }
 
   ngOnDestroy(): void {
+    this._destroy.next();
+    this._destroy.complete();
+
     this._ripple.destroy();
   }
 

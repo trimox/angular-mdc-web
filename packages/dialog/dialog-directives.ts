@@ -73,6 +73,16 @@ export class MdcDialogFooter {
 
 @Directive({
   selector: 'button[mdc-dialog-button], a[mdc-dialog-button]',
+  host: {
+    '[tabIndex]': 'disabled ? -1 : 0',
+    'class': 'mdc-button',
+    '[class.ng-mdc-button--primary]': 'primary',
+    '[class.ng-mdc-button--secondary]': 'secondary',
+    '[class.mdc-button--raised]': 'raised',
+    '[class.mdc-button--dense]': 'dense',
+    '[class.mdc-button--unelevated]': 'unelevated',
+    '[class.mdc-button--outlined]': 'outlined'
+  },
   providers: [MdcRipple]
 })
 export class MdcDialogButton extends MdcButton {

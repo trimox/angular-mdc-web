@@ -7,7 +7,6 @@ import {
   ElementRef,
   EventEmitter,
   forwardRef,
-  HostBinding,
   Input,
   OnDestroy,
   Optional,
@@ -57,7 +56,10 @@ let nextUniqueId = 0;
   exportAs: 'mdcSelect',
   host: {
     '[id]': 'id',
+    '[tabIndex]': 'tabIndex',
     'class': 'mdc-select',
+    '[class.mdc-select--box]': 'box',
+    '[class.mdc-select--outlined]': 'outlined'
   },
   template: `
   <select #input
@@ -164,14 +166,6 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
    */
   @Output() readonly valueChange: EventEmitter<{ index: number, value: any }> = new EventEmitter<any>();
 
-  @HostBinding('tabindex') tabIndex: number = 0;
-  @HostBinding('class.mdc-select--box') get classBox(): string {
-    return this.box ? 'mdc-select--box' : '';
-  }
-  @HostBinding('class.mdc-select--outlined') get classOutlined(): string {
-    return this.outlined ? 'mdc-select--outlined' : '';
-  }
-
   @ViewChild(MdcFloatingLabel) _selectLabel: MdcFloatingLabel;
   @ViewChild(MdcLineRipple) _lineRipple: MdcLineRipple;
   @ViewChild('input') inputEl: ElementRef;
@@ -195,7 +189,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   private _mdcAdapter: MDCSelectAdapter = {
     addClass: (className: string) => this._getHostElement().classList.add(className),
     removeClass: (className: string) => this._getHostElement().classList.remove(className),
-    hasClass: (className) => this._getHostElement().classList.contains(className),
+    hasClass: (className: string) => this._getHostElement().classList.contains(className),
     floatLabel: (shouldFloat: boolean) => this._selectLabel.float(shouldFloat),
     activateBottomLine: () => {
       if (this._lineRipple) {

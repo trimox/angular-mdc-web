@@ -8,7 +8,6 @@ import {
   ContentChildren,
   ElementRef,
   EventEmitter,
-  HostBinding,
   Input,
   OnDestroy,
   Output,
@@ -39,8 +38,15 @@ export class MdcTopAppBarNavSelected {
 
 @Component({
   selector: 'mdc-top-app-bar, [mdc-top-app-bar]',
-  template: '<ng-content></ng-content>',
   exportAs: 'mdcTopAppBar',
+  host: {
+    'class': 'mdc-top-app-bar',
+    '[class.mdc-top-app-bar--prominent]': 'prominent',
+    '[class.mdc-top-app-bar--dense]': 'dense',
+    '[class.mdc-top-app-bar--short]': 'short',
+    '[class.mdc-top-app-bar--fixed]': 'fixed'
+  },
+  template: '<ng-content></ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
@@ -114,20 +120,6 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
   /** Event emitted when the navigation icon is selected. */
   @Output() readonly navigationSelected: EventEmitter<MdcTopAppBarNavSelected> =
     new EventEmitter<MdcTopAppBarNavSelected>();
-
-  @HostBinding('class.mdc-top-app-bar') isHostClass = true;
-  @HostBinding('class.mdc-top-app-bar--prominent') get classProminent(): string {
-    return this.prominent ? 'mdc-top-app-bar--prominent' : '';
-  }
-  @HostBinding('class.mdc-top-app-bar--dense') get classDense(): string {
-    return this.dense ? 'mdc-top-app-bar--dense' : '';
-  }
-  @HostBinding('class.mdc-top-app-bar--short') get classShort(): string {
-    return this.short ? 'mdc-top-app-bar--short' : '';
-  }
-  @HostBinding('class.mdc-top-app-bar--fixed') get classFixed(): string {
-    return this.fixed ? 'mdc-top-app-bar--fixed' : '';
-  }
 
   @ContentChild(MdcTopAppBarNavigationIcon) navigationIcon: MdcTopAppBarNavigationIcon;
   @ContentChildren(MdcTopAppBarActionItem, { descendants: true }) actions: QueryList<MdcTopAppBarActionItem>;

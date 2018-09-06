@@ -54,7 +54,10 @@ export class MdcIconOn { }
   moduleId: module.id,
   selector: '[mdc-icon-button], button[mdcIconButton], a[mdcIconButton]',
   exportAs: 'mdcIconButton',
-  template: '<ng-content></ng-content>',
+  template: `
+  <mdc-icon *ngIf="icon">{{icon}}</mdc-icon>
+  <ng-content></ng-content>`
+  ,
   host: {
     '[id]': 'id',
     'class': 'mdc-icon-button',
@@ -78,6 +81,7 @@ export class MdcIconButton implements AfterContentInit, OnDestroy {
   get inputId(): string { return `${this.id || this._uniqueId}`; }
 
   @Input() name: string | null = null;
+  @Input() icon: string | null = null;
 
   @Input()
   get on(): boolean { return this._on; }

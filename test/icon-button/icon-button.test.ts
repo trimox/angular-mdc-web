@@ -14,6 +14,7 @@ describe('MdcIconButton', () => {
       declarations: [
         SimpleButton,
         IconButtonToggle,
+        SingleStateIconButton
       ]
     });
     TestBed.compileComponents();
@@ -135,3 +136,8 @@ class SimpleButton {
 class IconButtonToggle {
   isOn: boolean = true;
 }
+
+@Component({
+  template: `<button mdcIconButton icon='favorite'></button>`,
+})
+class SingleStateIconButton { }

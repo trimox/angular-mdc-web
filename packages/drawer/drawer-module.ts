@@ -3,14 +3,20 @@ import { CommonModule } from '@angular/common';
 
 import {
   MdcDrawer,
+  MdcDrawerAppContent,
   MdcDrawerContent,
-  MdcDrawerHeader
+  MdcDrawerHeader,
+  MdcDrawerSubtitle,
+  MdcDrawerTitle
 } from './drawer';
 
 const DRAWER_DECLARATIONS = [
   MdcDrawer,
+  MdcDrawerAppContent,
   MdcDrawerContent,
-  MdcDrawerHeader
+  MdcDrawerHeader,
+  MdcDrawerSubtitle,
+  MdcDrawerTitle
 ];
 
 @NgModule({

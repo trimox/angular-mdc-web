@@ -3,7 +3,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ContentChild,
   ContentChildren,
   Directive,
   ElementRef,
@@ -16,7 +15,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { Subscription, fromEvent, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { startWith, takeUntil } from 'rxjs/operators';
 
 import { Platform, toBoolean } from '@angular-mdc/web/common';
 import { MdcList, MdcListItem } from '@angular-mdc/web/list';
@@ -54,12 +53,36 @@ export class MdcDrawerHeader {
 }
 
 @Directive({
+  selector: '[mdcDrawerTitle]',
+  host: {
+    'class': 'mdc-drawer__title'
+  }
+})
+export class MdcDrawerTitle { }
+
+@Directive({
+  selector: '[mdcDrawerSubtitle]',
+  host: {
+    'class': 'mdc-drawer__subtitle'
+  }
+})
+export class MdcDrawerSubtitle { }
+
+@Directive({
   selector: 'mdc-drawer-content, [mdcDrawerContent]',
   host: {
     'class': 'mdc-drawer__content'
   }
 })
 export class MdcDrawerContent { }
+
+@Directive({
+  selector: 'mdc-drawer-app-content, [mdcDrawerAppContent]',
+  host: {
+    'class': 'mdc-drawer-app-content'
+  }
+})
+export class MdcDrawerAppContent { }
 
 @Component({
   moduleId: module.id,
@@ -94,7 +117,7 @@ export class MdcDrawer implements AfterContentInit, OnDestroy {
       this.setDrawer(drawer);
     }
   }
-  private _drawer = 'permanent';
+  private _drawer: string = 'permanent';
 
   @Input()
   get fixedAdjustElement(): any { return this._fixedAdjustElement; }
@@ -106,10 +129,13 @@ export class MdcDrawer implements AfterContentInit, OnDestroy {
   @Output() readonly opened: EventEmitter<void> = new EventEmitter<void>();
   @Output() readonly closed: EventEmitter<void> = new EventEmitter<void>();
 
-  @ContentChild(MdcList) list: MdcList;
-  @ContentChildren(MdcListItem, { descendants: true }) listItems: QueryList<MdcListItem>;
+  @ContentChildren(MdcList, { descendants: true }) _list: QueryList<MdcList>;
+  @ContentChildren(MdcListItem, { descendants: true }) _listItems: QueryList<MdcListItem>;
 
   private _scrimSubscription: Subscription | null;
+
+  /** Subscription to a list. */
+  private _listSubscription: Subscription;
 
   get modal(): boolean { return this.drawer === 'modal'; }
   get dismissible(): boolean { return this.drawer === 'dismissible'; }
@@ -133,9 +159,9 @@ export class MdcDrawer implements AfterContentInit, OnDestroy {
     focusActiveNavigationItem: () => {
       if (!this._platform.isBrowser) { return; }
 
-      const activeNavItemEl = this.listItems.find((_) => _.activated);
+      const activeNavItemEl = this._listItems.find((_: MdcListItem) => _.activated);
       if (activeNavItemEl) {
-        (<MdcListItem>activeNavItemEl).focus();
+        activeNavItemEl.focus();
       }
     },
     notifyClose: () => this.closed.emit(),
@@ -159,7 +185,7 @@ export class MdcDrawer implements AfterContentInit, OnDestroy {
     handleKeydown(evt: KeyboardEvent): void,
     handleTransitionEnd(evt: TransitionEvent): void,
     handleScrimClick(): void
-  } | MDCDismissibleDrawerFoundation | MDCModalDrawerFoundation | null;
+  } = new MDCDismissibleDrawerFoundation(this._mdcAdapter);
 
   constructor(
     private _platform: Platform,
@@ -168,6 +194,10 @@ export class MdcDrawer implements AfterContentInit, OnDestroy {
     public elementRef: ElementRef) { }
 
   ngAfterContentInit(): void {
+    this._listSubscription = this._list.changes.pipe(startWith(null)).subscribe(() => {
+      this._initListType();
+    });
+
     if (!this._foundationInitialized) {
       this._initFoundation();
     }
@@ -175,13 +205,13 @@ export class MdcDrawer implements AfterContentInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._unloadListeners();
+
+    if (this._listSubscription) {
+      this._listSubscription.unsubscribe();
+    }
   }
 
   private _loadListeners() {
-    if (!this._destroy) {
-      this._destroy = new Subject<void>();
-    }
-
     if (this.modal) {
       if (this._platform.isBrowser) {
         this._scrimElement = document.createElement('div');
@@ -226,9 +256,7 @@ export class MdcDrawer implements AfterContentInit, OnDestroy {
   private _initFoundation(): void {
     if (this._foundationInitialized) { return; }
 
-    this._initListType();
-
-    this._unloadListeners();
+    this._foundationInitialized = true;
     this._removeDrawerModifierClass();
 
     if (this.modal) {
@@ -242,22 +270,20 @@ export class MdcDrawer implements AfterContentInit, OnDestroy {
     }
 
     this._loadListeners();
-    this._foundationInitialized = true;
-
     this._changeDetectorRef.markForCheck();
   }
 
   private _initListType(): void {
-    this.list.wrapFocus = true;
-    this.list.singleSelection = true;
+    if (this._list) {
+      this._list.first.singleSelection = true;
+      this._list.first.wrapFocus = true;
+    }
   }
 
   setDrawer(drawer: string = 'permanent'): void {
-    if (this._drawer !== drawer) {
+    if (this.drawer !== drawer) {
       this._drawer = drawer;
-
       this._initFoundation();
-      this._changeDetectorRef.markForCheck();
     }
   }
 
@@ -274,21 +300,17 @@ export class MdcDrawer implements AfterContentInit, OnDestroy {
   }
 
   open(): void {
-    if (this.permanent) { return; }
-
     this._foundation.open();
   }
 
   // Function to close the drawer.
   close(): void {
-    if (this.permanent) { return; }
-
     this._foundation.close();
   }
 
   // Returns true if drawer is in open state.
   isOpen(): boolean {
-    return this.permanent ? true : this._foundation.isOpen();
+    return this._foundation.isOpen();
   }
 
   private _removeDrawerModifierClass(): void {

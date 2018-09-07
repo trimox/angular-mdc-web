@@ -1,3 +1,68 @@
+<a name="0.39.0"></a>
+# [0.39.0](https://github.com/trimox/angular-mdc-web/compare/v0.38.2...v0.39.0) (2018-09-07)
+
+
+### Bug Fixes
+
+* **list:** Should correctly listen and handle async changes
+* **checkbox:** Should listen on input element for change ([#1233](https://github.com/trimox/angular-mdc-web/issues/1233)) ([7cb5ec1](https://github.com/trimox/angular-mdc-web/commit/7cb5ec1))
+* **demos:** Cleanup and fixes for outlined change ([#1257](https://github.com/trimox/angular-mdc-web/issues/1257)) ([9fba0ff](https://github.com/trimox/angular-mdc-web/commit/9fba0ff))
+* **select:** Default autosize to false and coerce string value ([#1244](https://github.com/trimox/angular-mdc-web/issues/1244)) ([99414ad](https://github.com/trimox/angular-mdc-web/commit/99414ad)), closes [#1241](https://github.com/trimox/angular-mdc-web/issues/1241)
+* **select:** Only add line ripple listeners when line ripple is present ([#1274](https://github.com/trimox/angular-mdc-web/issues/1274)) ([8164c53](https://github.com/trimox/angular-mdc-web/commit/8164c53))
+* **select:** Should display outlined with coerced value ([#1238](https://github.com/trimox/angular-mdc-web/issues/1238)) ([2da3857](https://github.com/trimox/angular-mdc-web/commit/2da3857)), closes [#1237](https://github.com/trimox/angular-mdc-web/issues/1237)
+* **snackbar:** Doesn't close while other element is focused ([#1242](https://github.com/trimox/angular-mdc-web/issues/1242)) ([9f2f912](https://github.com/trimox/angular-mdc-web/commit/9f2f912))
+* **tab:** Fixed width indicator should be same width as content ([#1285](https://github.com/trimox/angular-mdc-web/issues/1285)) ([4ad5780](https://github.com/trimox/angular-mdc-web/commit/4ad5780)), closes [#1236](https://github.com/trimox/angular-mdc-web/issues/1236)
+* **tab-bar:** Adds new MDC adapter methods ([#1270](https://github.com/trimox/angular-mdc-web/issues/1270)) ([c3ea7fe](https://github.com/trimox/angular-mdc-web/commit/c3ea7fe))
+* Use directive configurations + clean-up ([#1295](https://github.com/trimox/angular-mdc-web/issues/1295)) ([ec0393e](https://github.com/trimox/angular-mdc-web/commit/ec0393e))
+
+
+### Features
+
+* **checkbox:** Move component specific logic out of foundation ([#1273](https://github.com/trimox/angular-mdc-web/issues/1273)) ([fa46240](https://github.com/trimox/angular-mdc-web/commit/fa46240))
+* **chips:** Add select, deselect and getSelectedChipIds methods ([#1254](https://github.com/trimox/angular-mdc-web/issues/1254)) ([db60366](https://github.com/trimox/angular-mdc-web/commit/db60366)), closes [#1252](https://github.com/trimox/angular-mdc-web/issues/1252)
+* **chips:** Pass chip ids instead of foundations in events ([#1253](https://github.com/trimox/angular-mdc-web/issues/1253)) ([79471a8](https://github.com/trimox/angular-mdc-web/commit/79471a8))
+* **drawer:** Add optional selectors + refactoring ([#1292](https://github.com/trimox/angular-mdc-web/issues/1292)) ([6dd62d0](https://github.com/trimox/angular-mdc-web/commit/6dd62d0))
+* **drawer:** Improved navigation drawer ([#1279](https://github.com/trimox/angular-mdc-web/issues/1279)) ([0400ea8](https://github.com/trimox/angular-mdc-web/commit/0400ea8)), closes [#1255](https://github.com/trimox/angular-mdc-web/issues/1255)
+* **fab:** Add icon property ([#1294](https://github.com/trimox/angular-mdc-web/issues/1294)) ([a638359](https://github.com/trimox/angular-mdc-web/commit/a638359))
+* **icon-button:** Add `icon` prop for non-toggling icon ([#1289](https://github.com/trimox/angular-mdc-web/issues/1289)) ([4c14d31](https://github.com/trimox/angular-mdc-web/commit/4c14d31))
+* **icon-button:** Improved MDC Icon Button ([#1265](https://github.com/trimox/angular-mdc-web/issues/1265)) ([f58160f](https://github.com/trimox/angular-mdc-web/commit/f58160f)), closes [#1245](https://github.com/trimox/angular-mdc-web/issues/1245)
+* **list:** Add wrapFocus property ([#1269](https://github.com/trimox/angular-mdc-web/issues/1269)) ([2ccdae4](https://github.com/trimox/angular-mdc-web/commit/2ccdae4))
+* **switch:** Move component specific logic out of foundation ([#1246](https://github.com/trimox/angular-mdc-web/issues/1246)) ([757f696](https://github.com/trimox/angular-mdc-web/commit/757f696))
+* **tab:** Add focus() method ([#1271](https://github.com/trimox/angular-mdc-web/issues/1271)) ([ebe3939](https://github.com/trimox/angular-mdc-web/commit/ebe3939))
+* **tab-indicator:** Remove transitionend event handling ([#1243](https://github.com/trimox/angular-mdc-web/issues/1243)) ([5c49274](https://github.com/trimox/angular-mdc-web/commit/5c49274))
+* Implement platform detection service ([#1277](https://github.com/trimox/angular-mdc-web/issues/1277)) ([a72f550](https://github.com/trimox/angular-mdc-web/commit/a72f550))
+* Move [materialIcons] selector to MdcIconModule ([#1281](https://github.com/trimox/angular-mdc-web/issues/1281)) ([23b6285](https://github.com/trimox/angular-mdc-web/commit/23b6285))
+* Implement MDC Menu Surface, improved Menu ([#1280](https://github.com/trimox/angular-mdc-web/issues/1280)) ([4f3f0cc](https://github.com/trimox/angular-mdc-web/commit/4f3f0cc)), closes [#1255](https://github.com/trimox/angular-mdc-web/issues/1255)
+* **text-field:** Add `nativeValidation` to enable/disable custom validity ([#1258](https://github.com/trimox/angular-mdc-web/issues/1258)) ([f7c4f49](https://github.com/trimox/angular-mdc-web/commit/f7c4f49)), closes [#1256](https://github.com/trimox/angular-mdc-web/issues/1256)
+* **text-field:** Remove `box` property and make box variant new default ([#1247](https://github.com/trimox/angular-mdc-web/issues/1247)) ([e2edbe3](https://github.com/trimox/angular-mdc-web/commit/e2edbe3)), closes [#1049](https://github.com/trimox/angular-mdc-web/issues/1049)
+* **text-field:** Rename property `outline` to `outlined` ([#1249](https://github.com/trimox/angular-mdc-web/issues/1249)) ([c181cee](https://github.com/trimox/angular-mdc-web/commit/c181cee))
+* **top-app-bar:** Implement MDC Top App Bar ([#1261](https://github.com/trimox/angular-mdc-web/issues/1261)) ([1a3f979](https://github.com/trimox/angular-mdc-web/commit/1a3f979)), closes [#1260](https://github.com/trimox/angular-mdc-web/issues/1260)
+* **list:** Add `singleSelection` property
+* **list:** Add `disabled` property for list item
+* **list:** Add `useActivatedClass` property
+* **list:** Add `useSelectedClass` property
+* **list:** Add `verticalOrientation` property
+* Update material-components-web to v0.39.1 ([#1275](https://github.com/trimox/angular-mdc-web/issues/1275)) ([b88dad6](https://github.com/trimox/angular-mdc-web/commit/b88dad6))
+
+
+### BREAKING CHANGES
+
+* **drawer:** Drawer has new DOM structure, mixins and properties. Please reference documentation for implementation details.
+* **icon-button:** Icon Button has new DOM structure, mixins and properties. Please reference documentation for implementation details.
+* **menu:** Menu has new DOM structure, mixins and properties. Please reference documentation for implementation details.
+* **top-app-bar:** Insert `top` prefix  for all existing selectors (e.g.: `mdc-app-bar` to `mdc-top-app-bar`)
+* **text-field:** Removes the margin-top from the mdc-text-field container. This can cause a UI to shift/change.
+* **text-field:** Removes `box` property and makes box the new default style.
+* **text-field:** Property `outline` was renamed to `outlined`.
+* **text-field:** Setting the validity state using setValid no longer ignores native input validation. New API `nativeValidation` is introduced to enable / disable native validation for custom validity.
+* **list:** Removed `selection` property. Please use `singleSelection` instead.
+* **list:** Removed `lines` property. Please use `twoLine: boolean` to increase the height of a row.
+* **list:** Removed `clearSelected` method.
+* Removed `MdcThemeModule`. Import `MdcIconModule` to use `[materialIcons]` directive if needed.
+* **select:** Property `autosize` defaults to false, please update your code accordingly.
+
+
+
 <a name="0.38.2"></a>
 ## [0.38.2](https://github.com/trimox/angular-mdc-web/compare/v0.38.1...v0.38.2) (2018-08-17)
 

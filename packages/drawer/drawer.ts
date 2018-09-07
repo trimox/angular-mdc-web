@@ -274,12 +274,10 @@ export class MdcDrawer implements AfterContentInit, OnDestroy {
   }
 
   private _initListType(): void {
-    setTimeout(() => {
-      if (this._list.length > 0) {
-        this._list.first.singleSelection = true;
-        this._list.first.wrapFocus = true;
-      }
-    });
+    if (this._list.length > 0) {
+      this._list.first.singleSelection = true;
+      this._list.first.wrapFocus = true;
+    }
   }
 
   setDrawer(drawer: string = 'permanent'): void {

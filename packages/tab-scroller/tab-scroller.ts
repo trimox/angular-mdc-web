@@ -90,7 +90,7 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
   private _foundation: {
     init(): void,
     handleInteraction(): void,
-    handleTransitionEnd(evt: Event): void,
+    handleTransitionEnd(evt: TransitionEvent): void,
     getScrollPosition(): number,
     offsetWidth(): number,
     incrementScroll(scrollXIncrement: number): void,

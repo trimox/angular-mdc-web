@@ -198,10 +198,12 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
     // Defer setting the value in order to avoid the "Expression
     // has changed after it was checked" errors from Angular.
     Promise.resolve().then(() => {
-      if (!this.tabs.find((_) => _.active)) {
-        this.activateTab(0);
-      } else {
+      if (this.tabs.find((_) => _.active)) {
         this.scrollIntoView(this.getActiveTabIndex());
+      } else {
+        setTimeout(() => {
+          this.activateTab(0);
+        });
       }
     });
   }

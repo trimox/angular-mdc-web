@@ -56,7 +56,6 @@ let nextUniqueId = 0;
   exportAs: 'mdcSelect',
   host: {
     '[id]': 'id',
-    '[tabIndex]': 'tabIndex',
     'class': 'mdc-select',
     '[class.mdc-select--box]': 'box',
     '[class.mdc-select--outlined]': 'outlined'

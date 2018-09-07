@@ -2,7 +2,7 @@ import { NgModule, } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MdcIconModule } from '@angular-mdc/web/icon';
-import { MdcFab } from './fab';
+import { MdcFab, MdcFabLabel } from './fab';
 
 @NgModule({
   imports: [
@@ -11,8 +11,9 @@ import { MdcFab } from './fab';
   ],
   exports: [
     MdcIconModule,
-    MdcFab
+    MdcFab,
+    MdcFabLabel
   ],
-  declarations: [MdcFab]
+  declarations: [MdcFab, MdcFabLabel]
 })
 export class MdcFabModule { }

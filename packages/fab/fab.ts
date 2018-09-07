@@ -4,6 +4,7 @@ import {
   ChangeDetectorRef,
   Component,
   ContentChild,
+  Directive,
   ElementRef,
   HostBinding,
   Input,
@@ -15,6 +16,14 @@ import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
 export type FabPosition = 'bottom-left' | 'bottom-right' | null;
+
+@Directive({
+  selector: 'mdc-fab-label, [mdcFabLabel]',
+  host: {
+    'class': 'mdc-fab__label'
+  }
+})
+export class MdcFabLabel { }
 
 @Component({
   moduleId: module.id,

@@ -7,7 +7,7 @@ import { MdcRadio, MdcRadioChange, MdcRadioGroup } from '@angular-mdc/web';
   templateUrl: './radio-demo.html'
 })
 export class RadioDemo {
-  favoriteFruit: string;
+  favoriteSeason: string;
   seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
 
   alternateColors(input: MdcRadio) {

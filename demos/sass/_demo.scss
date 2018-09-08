@@ -61,8 +61,12 @@
 
 .demo-drawer--fixed {
   position: fixed;
-  height: 100vh;
+  height: 94vh;
   overflow-y: auto;
+
+  @media (min-width: 1240px) {
+    height: 94vh;
+  }
 
   .mdc-list-item {
     cursor: pointer;

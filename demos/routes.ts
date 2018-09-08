@@ -10,7 +10,6 @@ import { ElevationDemo } from './components/elevation-demo/elevation-demo';
 import { FabDemo } from './components/fab-demo/fab-demo';
 import { FormFieldDemo } from './components/form-field-demo/form-field-demo';
 import { GettingStarted, CliGuide } from './getting-started';
-import { GridListDemo } from './components/grid-list-demo/grid-list-demo';
 import { Home } from './home/home';
 import { IconButtonDemo } from './components/icon-button-demo/icon-button-demo';
 import { IconDemo } from './components/icon-demo/icon-demo';
@@ -43,7 +42,6 @@ export const DEMO_ROUTES = [
   FabDemo,
   FormFieldDemo,
   GettingStarted,
-  GridListDemo,
   Home,
   IconDemo,
   IconButtonDemo,
@@ -76,7 +74,6 @@ export const APP_ROUTES: Routes = [
   { path: 'fab-demo', component: FabDemo },
   { path: 'form-field-demo', component: FormFieldDemo },
   { path: 'getting-started', component: GettingStarted },
-  { path: 'grid-list-demo', component: GridListDemo },
   { path: 'home', component: Home, pathMatch: 'full' },
   { path: 'icon-demo', component: IconDemo },
   { path: 'icon-button-demo', component: IconButtonDemo },

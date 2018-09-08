@@ -1,32 +1,26 @@
-//
-// Drawer
-//
-
-.demo-drawer {
-  .mdc-list-item {
-    cursor: pointer;
-  }
-
-  @media (min-width: 1240px) {
-    height: 94vh;
-    padding-bottom: 40px;
-  }
-}
-
 .demo-drawer--custom {
-  @include mdc-drawer-ink-color(#fff);
+  @include mdc-drawer-border-color(lightblue);
+  @include mdc-drawer-subtitle-ink-color(darkolivegreen);
+  @include mdc-drawer-surface-fill-color(pink);
+  @include mdc-drawer-item-icon-ink-color(darkolivegreen);
+  @include mdc-drawer-title-ink-color(darkolivegreen);
+  @include mdc-drawer-activated-overlay-color(darkcyan);
+  @include mdc-drawer-item-text-ink-color(darkolivegreen);
+  @include mdc-drawer-item-activated-text-ink-color(darkcyan);
+  @include mdc-drawer-item-activated-icon-ink-color(darkcyan);
 }
 
-.demo-content__drawer {
-  border: 1px solid rgba(0, 0, 0, .1);
-  overflow-x: auto;
+.demo-drawer--accessible {
+  @include mdc-drawer-fill-color-accessible(darkcyan);
+  @include mdc-drawer-activated-overlay-color(pink);
+  @include mdc-drawer-item-activated-text-ink-color(pink);
+  @include mdc-drawer-item-activated-icon-ink-color(pink);
+}
 
-  &--persistent {
-    display: flex;
-    height: 55vh;
+.demo-drawer-dismissible {
+  position: inherit;
+}
 
-    .mdc-drawer--persistent:not(.mdc-drawer--open) {
-      display: none;
-    }
-  }
+.demo-drawer-modal {
+  position: relative;
 }

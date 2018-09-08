@@ -1,14 +1,10 @@
-//
-// Demo Landing
-//
-
 .demo-landing {
-  @media (min-width: 1240px) {
-    @include mdc-rtl-reflexive-box(margin, left, $mdc-permanent-drawer-width);
-  }
-
   @include mdc-theme-prop(color, $color-white);
   @include mdc-theme-prop(background-color, $color-rally);
+
+  @media (min-width: 1240px) {
+    @include mdc-rtl-reflexive-box(margin, left, $mdc-drawer-width);
+  }
 
   height: 40vh;
 
@@ -37,7 +33,7 @@
 
   &__secondary {
     @media (min-width: 1240px) {
-      @include mdc-rtl-reflexive-box(margin, left, $mdc-permanent-drawer-width);
+      @include mdc-rtl-reflexive-box(margin, left, $mdc-drawer-width);
     }
   }
 
@@ -60,6 +56,20 @@
 }
 
 //
+// Demo mdc-drawer
+//
+
+.demo-drawer--fixed {
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+
+  .mdc-list-item {
+    cursor: pointer;
+  }
+}
+
+//
 // Demo page
 //
 
@@ -68,7 +78,7 @@
   padding-bottom: 45px;
 
   @media (min-width: 1240px) {
-    @include mdc-rtl-reflexive-box(margin, left, $mdc-permanent-drawer-width);
+    @include mdc-rtl-reflexive-box(margin, left, $mdc-drawer-width);
     padding-left: 20px;
   }
 
@@ -85,10 +95,6 @@
   border: 1px solid rgba(0, 0, 0, .1);
   padding: 15px;
   margin: 15px 15px 15px 0;
-
-  p:not(.mdc-text-field-helper-text) {
-    @include mdc-typography(body2);
-  }
 
   &__headline {
     @include mdc-typography(headline6);

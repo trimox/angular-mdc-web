@@ -53,6 +53,10 @@
             <td>position: string</td>
             <td>Set the fab absolute position. <pre>Valid values: 'bottom-left' | 'bottom-right'</pre></td>
           </tr>
+          <tr>
+            <td>icon: string</td>
+            <td>Optional. Apply a Material Icon.</td>
+          </tr>
         </tbody>
       </table>
       <table>
@@ -161,8 +165,6 @@
       <button mdc-button (click)="demofabposition.position = 'bottom-right'">Bottom Right</button>
       <button mdc-button (click)="demofabposition.mini = !demofabposition.mini">Mini: {{demofabposition.mini ? 'On' : 'Off'}}</button>
     </div>
-    <button #demofabposition mdc-fab position='bottom-right'>
-      <mdc-icon>add</mdc-icon>
-    </button>
+    <button #demofabposition mdc-fab position='bottom-right' icon="add"></button>
   </div>
 </div>

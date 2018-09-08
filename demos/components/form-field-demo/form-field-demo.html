@@ -40,8 +40,8 @@
         </thead>
         <tbody>
           <tr>
-            <td>setInput(input: string)</td>
-            <td>Gets and sets the form field input.</td>
+            <td>setInput(input: any)</td>
+            <td>Gets and sets the form field's associated input element.</td>
           </tr>
         </tbody>
       </table>
@@ -55,7 +55,7 @@
   <div class="demo-content">
     <h3 class="demo-content__headline">Checkbox</h3>
     <div class="demo-layout__row">
-      <button mdc-button (click)="demofield.alignEnd = !demofield.isAlignEnd()">Align End: {{demofield.alignEnd ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demofield.alignEnd = !demofield.alignEnd">Align End: {{demofield.alignEnd ? 'On' : 'Off'}}</button>
     </div>
 
     <mdc-form-field #demofield>
@@ -67,7 +67,7 @@
   <div class="demo-content">
     <h3 class="demo-content__headline">Radio</h3>
     <div class="demo-layout__row">
-      <button mdc-button (click)="formfieldradio.setAlignEnd(!formfieldradio.alignEnd)">Align End: {{formfieldradio.alignEnd ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="formfieldradio.alignEnd = !formfieldradio.alignEnd">Align End: {{formfieldradio.alignEnd ? 'On' : 'Off'}}</button>
     </div>
 
     <mdc-form-field #formfieldradio>
@@ -79,7 +79,7 @@
   <div class="demo-content">
     <h3 class="demo-content__headline">Switch</h3>
     <div class="demo-layout__row">
-      <button mdc-button (click)="demoformswitch.setAlignEnd(!demoformswitch.alignEnd)">Align End: {{demoformswitch.alignEnd ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoformswitch.alignEnd = !demoformswitch.alignEnd">Align End: {{demoformswitch.alignEnd ? 'On' : 'Off'}}</button>
     </div>
 
     <mdc-form-field #demoformswitch>

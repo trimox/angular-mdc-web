@@ -114,6 +114,18 @@
   </div>
 
   <div class="demo-content">
+    <div class="demo-layout__row">
+      <button mdc-button (click)="demoformfield.alignEnd = !demoformfield.alignEnd">RTL: {{demoformfield.alignEnd ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoradio1.disabled = !demoradio1.disabled">Disabled: {{demoradio1.disabled ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="alternateColors(demoradio1)">Alternate Colors</button>
+    </div>
+    <mdc-form-field #demoformfield>
+      <mdc-radio #demoradio1></mdc-radio>
+      <label>Radio Button</label>
+    </mdc-form-field>
+  </div>
+
+  <div class="demo-content">
     <h3 class="demo-content__headline">Radio Button - NgModel Form</h3>
     <div class="demo-layout__row">
       <button mdc-button (click)="resetModel(demoForm)">Reset model</button>
@@ -135,17 +147,5 @@
     <p>Dirty: {{ demoForm.dirty }}</p>
     <p>Touched: {{ demoForm.touched }}</p>
     <p>Value: {{ favoriteFruit }}</p>
-  </div>
-
-  <div class="demo-content">
-    <div class="demo-layout__row">
-      <button mdc-button (click)="demoformfield.alignEnd = !demoformfield.alignEnd">RTL: {{demoformfield.alignEnd ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="demoradio1.disabled = !demoradio1.disabled">Disabled: {{demoradio1.disabled ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="alternateColors(demoradio1)">Alternate Colors</button>
-    </div>
-    <mdc-form-field #demoformfield>
-      <mdc-radio #demoradio1></mdc-radio>
-      <label>Radio Example</label>
-    </mdc-form-field>
   </div>
 </div>

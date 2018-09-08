@@ -9,7 +9,8 @@ export class MenuDemo {
   menuItems = [
     { label: "Flights" },
     { label: "Hotel" },
-    { label: "Favorites" }
+    { label: "Favorites" },
+    { label: "Review Activity"}
   ];
 
   lastSelection: number;

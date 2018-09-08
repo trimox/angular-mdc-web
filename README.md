@@ -16,7 +16,7 @@ Incorporating [Google Material Components](https://github.com/material-component
 *  [Contributing](https://github.com/trimox/angular-mdc-web/blob/master/CONTRIBUTING.md)
 *  [Developer guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/developer.md)
 
-> Note: Angular MDC follow semver and is still in version 0.x, which means it is regularly subject to
+> Note: Angular MDC follows semver and is still in version 0.x, which means it is regularly subject to
 > breaking changes. A list of changes is always available in the [CHANGELOG](./CHANGELOG.md).
 
 ## Install Angular MDC
@@ -43,7 +43,6 @@ Developed using Google Material Components [foundations and adapters](https://gi
 | elevation | Available | [View](https://trimox.github.io/angular-mdc-web/#/elevation-demo) |
 | fab | Available | [View](https://trimox.github.io/angular-mdc-web/#/fab-demo) |
 | form-field | Available | [View](https://trimox.github.io/angular-mdc-web/#/form-field-demo) |
-| grid-list | Available | [View](https://trimox.github.io/angular-mdc-web/#/grid-list-demo) |
 | icon | Available | [View](https://trimox.github.io/angular-mdc-web/#/icon-demo) |
 | icon-button | Available | [View](https://trimox.github.io/angular-mdc-web/#/icon-button-demo) |
 | image-list | Available | [View](https://trimox.github.io/angular-mdc-web/#/image-list-demo) |

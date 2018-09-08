@@ -60,7 +60,6 @@ export class AppLayout implements OnInit, OnDestroy {
 
   listRoutes = [
     { name: 'List', route: 'list-demo' },
-    { name: 'Grid List', route: 'grid-list-demo' },
     { name: 'Image List', route: 'image-list-demo' }
   ];
 

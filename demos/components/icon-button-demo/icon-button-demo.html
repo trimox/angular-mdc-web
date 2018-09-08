@@ -38,6 +38,10 @@
             <td>disabled: boolean</td>
             <td>Disables the icon button.</td>
           </tr>
+          <tr>
+            <td>icon: string</td>
+            <td>Optional. Set a Material Icon for a non-toggle icon button.</td>
+          </tr>
         </tbody>
       </table>
       <table>
@@ -142,13 +146,9 @@
  -->  </div>
 
   <div class="demo-content">
-    <h3 class="demo-content__headline">State - always off</h3>
-    <button mdc-icon-button>
-      <mdc-icon>keyboard_arrow_left</mdc-icon>
-    </button>
-    <button mdc-icon-button>
-      <mdc-icon>keyboard_arrow_right</mdc-icon>
-    </button>
+    <h3 class="demo-content__headline">Single State</h3>
+    <button mdc-icon-button icon="keyboard_arrow_left"></button>
+    <button mdc-icon-button icon="keyboard_arrow_right"></button>
   </div>
 
 

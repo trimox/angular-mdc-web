@@ -30,23 +30,13 @@
         <tbody>
           <tr>
             <td>drawer: string</td>
-            <td>Set the drawer implementation. (Default is 'permanent')
-              <pre>Valid values: 'permanent' | 'persistent' | 'temporary'</pre>
+            <td>Set the drawer implementation.
+              <p>Valid values: 'permanent' | 'dismissible' | 'modal'</p>
             </td>
           </tr>
           <tr>
-            <td>fixed: boolean</td>
-            <td>Makes permanent drawer fixed on top and have persistent elevation.
-            <pre>* Permanent drawer only</pre></td>
-          </tr>
-          <tr>
             <td>fixedAdjustElement: any</td>
-            <td>Reference to a drawer's attached body element. Default is document.body.</td>
-          </tr>
-          <tr>
-            <td>closeOnClick: boolean</td>
-            <td>If false, clicking on the drawer will not close it. Default is true.
-            <pre>* Temporary drawer only</pre></td>
+            <td>Optional. Reference to a drawer's attached body element.</td>
           </tr>
         </tbody>
       </table>
@@ -69,18 +59,6 @@
           <tr>
             <td>isOpen(): boolean</td>
             <td>Returns whether or not the drawer is open.</td>
-          </tr>
-          <tr>
-            <td>isDrawerPermanent(): boolean</td>
-            <td>Returns whether or not the drawer is permanent.</td>
-          </tr>
-          <tr>
-            <td>isDrawerTemporary(): boolean</td>
-            <td>Returns whether or not the drawer is temporary.</td>
-          </tr>
-          <tr>
-            <td>isDrawerPersistent(): boolean</td>
-            <td>Returns whether or not the drawer is persistent.</td>
           </tr>
         </tbody>
       </table>
@@ -105,51 +83,48 @@
 
       <p>
         <span class="docs-api-class-selector-label">Selector:</span>
-        <span class="docs-api-class-selector-name">mdc-drawer-spacer</span>
-      </p>
-      <table>
-        <tbody>
-          <tr>
-            <td>Optional. Add to provide the matching amount of space for toolbar.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <p>
-        <span class="docs-api-class-selector-label">Selector:</span>
         <span class="docs-api-class-selector-name">mdc-drawer-header</span>
       </p>
       <table>
         <tbody>
           <tr>
-            <td>Optional. Add to create a 16:9 drawer header.</td>
+            <td>Optional. Non-scrollable element that exists at the top of the drawer.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <tbody>
+          <tr>
+            <td>title: string</td>
+            <td>Optional. Title text element of the drawer.</td>
+          </tr>
+          <tr>
+            <td>subtitle: string</td>
+            <td>Optional. Subtitle text element of the drawer.</td>
           </tr>
         </tbody>
       </table>
 
       <p>
         <span class="docs-api-class-selector-label">Selector:</span>
-        <span class="docs-api-class-selector-name">mdc-drawer-header-content</span>
+        <span class="docs-api-class-selector-name">mdcDrawerTitle</span>
       </p>
       <table>
         <tbody>
           <tr>
-            <td>Optional. Use to add content inside mdc-drawer-header.</td>
+            <td>Optional. Title text element of the drawer.</td>
           </tr>
         </tbody>
       </table>
+
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdcDrawerSubtitle</span>
+      </p>
       <table>
-        <thead>
-          <tr>
-            <th>Properties</th>
-            <th>Description</th>
-          </tr>
-        </thead>
         <tbody>
           <tr>
-            <td>primary: boolean</td>
-            <td>If true, sets mdc-theme--primary-bg and mdc-theme--text-primary-on-primary on mdc-drawer-header-content. Default is true.
-            </td>
+            <td>Optional. Subtitle text element of the drawer.</td>
           </tr>
         </tbody>
       </table>
@@ -161,7 +136,7 @@
       <table>
         <tbody>
           <tr>
-            <td>Optional. Should be set on the list of items inside the drawer.</td>
+            <td>Scrollable content area of the drawer.</td>
           </tr>
         </tbody>
       </table>
@@ -177,116 +152,50 @@
   </div>
 
   <div class="demo-content">
-    <h3 class="demo-content__headline">Permanent Drawer</h3>
-    <mdc-drawer drawer='permanent'>
+    <h3 class="demo-content__headline">Permanent</h3>
+    <mdc-drawer drawer="permanent">
       <mdc-drawer-content>
-        <mdc-list-group>
-          <mdc-list>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>home</mdc-icon>Home
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>star</mdc-icon>Star
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>send</mdc-icon>Sent Mail
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>drafts</mdc-icon>Drafts
-            </a>
-            <mdc-list-divider></mdc-list-divider>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>email</mdc-icon>All Mail
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>delete</mdc-icon>Trash
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>report</mdc-icon>Spam
-            </a>
-          </mdc-list>
-        </mdc-list-group>
+        <mdc-list useActivatedClass>
+          <mdc-list-item *ngFor="let item of destinations">
+            <mdc-icon mdcListItemGraphic *ngIf="item.icon">{{item.icon}}</mdc-icon>{{item.label}}
+          </mdc-list-item>
+        </mdc-list>
       </mdc-drawer-content>
     </mdc-drawer>
   </div>
 
   <div class="demo-content">
-    <h3 class="demo-content__headline">Temporary Drawer</h3>
-    <button mdc-button (click)="temporary.open()">Open</button>
-    <button mdc-button (click)="temporary.closeOnClick = !temporary.closeOnClick">Close on Click: {{temporary.closeOnClick ? 'true' : 'false'}}</button>
-    <mdc-drawer #temporary drawer='temporary' class="demo-drawer--custom">
-      <mdc-drawer-header>
-        <mdc-drawer-header-content>
-          Header goes here
-        </mdc-drawer-header-content>
-      </mdc-drawer-header>
-      <mdc-drawer-content>
-        <mdc-list-group>
-          <mdc-list>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>home</mdc-icon>Home
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>star</mdc-icon>Star
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>send</mdc-icon>Sent Mail
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>drafts</mdc-icon>Drafts
-            </a>
-            <mdc-list-divider></mdc-list-divider>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>email</mdc-icon>All Mail
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>delete</mdc-icon>Trash
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>report</mdc-icon>Spam
-            </a>
-          </mdc-list>
-        </mdc-list-group>
-      </mdc-drawer-content>
-    </mdc-drawer>
-  </div>
-
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Persistent Drawer</h3>
-    <button mdc-button (click)="persistent.open()">Open</button>
-    <div class="demo-content__drawer demo-content__drawer--persistent">
-      <mdc-drawer #persistent drawer='persistent'>
-        <mdc-drawer-spacer></mdc-drawer-spacer>
-        <mdc-list-group>
-          <mdc-list>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>home</mdc-icon>Home
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>star</mdc-icon>Star
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>send</mdc-icon>Sent Mail
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>drafts</mdc-icon>Drafts
-            </a>
-            <mdc-list-divider></mdc-list-divider>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>email</mdc-icon>All Mail
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>delete</mdc-icon>Trash
-            </a>
-            <a mdc-list-item href="#/drawer-demo">
-              <mdc-icon mdcListItemGraphic>report</mdc-icon>Spam
-            </a>
-          </mdc-list>
-        </mdc-list-group>
-      </mdc-drawer>
-      <div>
-        Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an legere iriure blandit. Veri iisque accusamus an pri.
-      </div>
+    <h3 class="demo-content__headline">Dismissible</h3>
+    <div class="demo-layout__row">
+      <button mdc-button (click)="demoDismissible.open()">Open</button>
+      <button mdc-button (click)="demoDismissible.close()">Close</button>
     </div>
+
+    <mdc-drawer drawer="dismissible" #demoDismissible class="demo-drawer-dismissible">
+      <mdc-drawer-content>
+        <mdc-list useActivatedClass>
+          <mdc-list-item *ngFor="let item of destinations">
+            <mdc-icon mdcListItemGraphic *ngIf="item.icon">{{item.icon}}</mdc-icon>{{item.label}}
+          </mdc-list-item>
+        </mdc-list>
+      </mdc-drawer-content>
+    </mdc-drawer>
+  </div>
+
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Modal</h3>
+    <div class="demo-layout__row">
+      <button mdc-button (click)="demoModal.open()">Open</button>
+    </div>
+
+    <mdc-drawer drawer="modal" #demoModal class="demo-drawer-modal">
+      <mdc-drawer-content>
+        <mdc-list useActivatedClass>
+          <mdc-list-item *ngFor="let item of destinations">
+            <mdc-icon mdcListItemGraphic *ngIf="item.icon">{{item.icon}}</mdc-icon>{{item.label}}
+          </mdc-list-item>
+        </mdc-list>
+      </mdc-drawer-content>
+    </mdc-drawer>
   </div>
 </div>

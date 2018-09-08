@@ -24,7 +24,8 @@ import { APP_ROUTES, DEMO_ROUTES } from './routes';
     DialogExampleModule,
     RouterModule.forRoot(APP_ROUTES, {
       useHash: true,
-      enableTracing: false
+      enableTracing: false,
+      scrollPositionRestoration: 'enabled'
     })
   ],
   declarations: [

@@ -47,8 +47,7 @@
           <tr>
             <td>align: string</td>
             <td>Sets the elements inside the scroll content element to be aligned to the start, center or end of the scroll content element.
-<pre>Valid values: 'start' | 'center' | 'end'
-* Only for Fixed Tabs.</pre></td>
+<p>Valid values: 'start' | 'center' | 'end' * Only for Fixed Tabs.</p></td>
           </tr>
         </tbody>
       </table>
@@ -315,9 +314,7 @@
       <button mdc-button (click)="demoScrollingTabBar2.setFade(!demoScrollingTabBar2.fade)">Fade: {{demoScrollingTabBar2.fade ? 'On' : 'Off'}}</button>
     </div>
     <div class="demo-scrolling-tabs__row">
-      <button mdc-icon-button (click)="demoScrollingScroller2.incrementScroll(-65)">
-         <mdc-icon>keyboard_arrow_left</mdc-icon>
-       </button>
+      <button mdc-icon-button (click)="demoScrollingScroller2.incrementScroll(-65)" icon="keyboard_arrow_left"></button>
       <mdc-tab-bar #demoScrollingTabBar2>
         <mdc-tab-scroller #demoScrollingScroller2>
           <mdc-tab label="Favorites" icon="favorite"></mdc-tab>
@@ -332,9 +329,7 @@
           <mdc-tab label="Account" icon="account_box"></mdc-tab>
         </mdc-tab-scroller>
       </mdc-tab-bar>
-      <button mdc-icon-button (click)="demoScrollingScroller2.incrementScroll(65)">
-         <mdc-icon>keyboard_arrow_right</mdc-icon>
-       </button>
+      <button mdc-icon-button (click)="demoScrollingScroller2.incrementScroll(65)" icon="keyboard_arrow_right"></button>
     </div>
   </div>
 </div>

@@ -19,7 +19,7 @@ import {
 @Component({
   moduleId: module.id,
   selector: '[mdcTabIndicator], mdc-tab-indicator',
-  exportAs: 'MdcTabIndicator',
+  exportAs: 'mdcTabIndicator',
   host: {
     'class': 'mdc-tab-indicator',
     '[class.mdc-tab-indicator--active]': 'active',

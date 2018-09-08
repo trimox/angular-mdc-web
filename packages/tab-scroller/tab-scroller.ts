@@ -31,7 +31,7 @@ const SCROLLER_EVENTS = [
 @Component({
   moduleId: module.id,
   selector: '[mdcTabScroller], mdc-tab-scroller',
-  exportAs: 'MdcTabScroller',
+  exportAs: 'mdcTabScroller',
   host: {
     'class': 'mdc-tab-scroller'
   },

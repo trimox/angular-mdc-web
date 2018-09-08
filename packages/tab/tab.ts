@@ -70,7 +70,7 @@ export class MdcTabIcon {
 @Component({
   moduleId: module.id,
   selector: '[mdcTab], mdc-tab',
-  exportAs: 'MdcTab',
+  exportAs: 'mdcTab',
   host: {
     'role': 'tab',
     'class': 'mdc-tab',

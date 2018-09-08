@@ -35,7 +35,7 @@ export class MdcTabActivatedEvent {
 @Component({
   moduleId: module.id,
   selector: '[mdcTabBar], mdc-tab-bar',
-  exportAs: 'MdcTabBar',
+  exportAs: 'mdcTabBar',
   host: {
     'role': 'tablist',
     'class': 'mdc-tab-bar'

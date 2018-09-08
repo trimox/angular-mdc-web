@@ -18,6 +18,55 @@
     <div class="docs-api">
       <p>
         <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdc-radio-group</span>
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>name: string</td>
+            <td>Name of the radio button group.</td>
+          </tr>
+          <tr>
+            <td>required: boolean</td>
+            <td>Whether the radio group is required.</td>
+          </tr>
+          <tr>
+            <td>disabled: boolean</td>
+            <td>Whether the radio group is disabled.</td>
+          </tr>
+          <tr>
+            <td>selected: MdcRadio | null</td>
+            <td>The currently selected radio button. If set to a new radio button, the radio group value will be updated to match the new selected button.</td>
+          </tr>
+          <tr>
+            <td>value: any</td>
+            <td>Value for the radio-group. Should equal the value of the selected radio button if there is a corresponding radio button with a matching value. If there is not such a corresponding radio button, this value persists to be applied in case a new radio button is added with a matching value.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>change(source: MdcRadio, value: any)</td>
+            <td>Event emitted when the group value changes. Change events are only emitted when the value changes due to user interaction with a radio button.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
         <span class="docs-api-class-selector-name">mdc-radio</span>
       </p>
       <table>
@@ -34,15 +83,11 @@
           </tr>
           <tr>
             <td>name: string</td>
-            <td>Name of the radio button group.</td>
+            <td>Name of the radio button.</td>
           </tr>
           <tr>
             <td>value: any</td>
             <td>Value of the radio button.</td>
-          </tr>
-          <tr>
-            <td>tabIndex: number</td>
-            <td>Set the underlying tab index of the radio button. (Default: 0)</td>
           </tr>
           <tr>
             <td>ariaLabel: string</td>
@@ -60,6 +105,10 @@
             <td>disabled: boolean</td>
             <td>Disables the component.</td>
           </tr>
+          <tr>
+            <td>required: boolean</td>
+            <td>Whether the radio button is required.</td>
+          </tr>
         </tbody>
       </table>
       <table>
@@ -74,18 +123,6 @@
             <td>focus()</td>
             <td>Set focus to the radio button.</td>
           </tr>
-          <tr>
-            <td>isChecked(): boolean</td>
-            <td>Returns whether or not the native input control is checked.</td>
-          </tr>
-          <tr>
-            <td>isDisabled(): boolean</td>
-            <td>Returns whether or not the native input control is disabled.</td>
-          </tr>
-          <tr>
-            <td>getValue(): any</td>
-            <td>Returns the value of native input control.</td>
-          </tr>
         </tbody>
       </table>
       <table>
@@ -97,8 +134,8 @@
         </thead>
         <tbody>
           <tr>
-            <td>change(source: MdcRadio, value: any, checked: boolean)</td>
-            <td>Event dispatched on value change.</td>
+            <td>change(source: MdcRadio, value: any)</td>
+            <td>Event emitted when the group value changes. Change events are only emitted when the value changes due to user interaction with a radio button.</td>
           </tr>
         </tbody>
       </table>
@@ -126,26 +163,16 @@
   </div>
 
   <div class="demo-content">
-    <h3 class="demo-content__headline">Radio Button - NgModel Form</h3>
+    <h3 class="demo-content__headline">Radio Group</h3>
     <div class="demo-layout__row">
-      <button mdc-button (click)="resetModel(demoForm)">Reset model</button>
+      <button mdc-button (click)="demoRadioGroup.disabled = !demoRadioGroup.disabled">Disabled: {{demoRadioGroup.disabled ? 'On' : 'Off'}}</button>
     </div>
-    <form #demoForm="ngForm" id="demoForm">
-      <mdc-form-field>
-        <mdc-radio #demoRadioApple ngModel name="radioGroup" value="apple" (change)="onChange($event)"></mdc-radio>
-        <label>Apple</label>
+    <mdc-radio-group #demoRadioGroup [(ngModel)]="favoriteSeason">
+      <mdc-form-field *ngFor="let season of seasons">
+        <mdc-radio [value]="season"></mdc-radio>
+        <label>{{season}}</label>
       </mdc-form-field>
-      <mdc-form-field>
-        <mdc-radio #demoRadioBanana ngModel name="radioGroup" value="banana" (change)="onChange($event)"></mdc-radio>
-        <label>Banana</label>
-      </mdc-form-field>
-      <mdc-form-field>
-        <mdc-radio #demoRadioMango ngModel name="radioGroup" value="mango" (change)="onChange($event)"></mdc-radio>
-        <label>Mango</label>
-      </mdc-form-field>
-    </form>
-    <p>Dirty: {{ demoForm.dirty }}</p>
-    <p>Touched: {{ demoForm.touched }}</p>
-    <p>Value: {{ favoriteFruit }}</p>
+    </mdc-radio-group>
+    <p>Your favorite season is: {{favoriteSeason}}</p>
   </div>
 </div>

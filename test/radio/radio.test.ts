@@ -1,9 +1,9 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ViewChild } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed } from '@angular/core/testing';
 import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { MdcRadio, MdcRadioModule } from '@angular-mdc/web';
+import { MdcRadio, MdcRadioGroup, MdcRadioModule } from '@angular-mdc/web';
 
 describe('MdcRadio', () => {
   let fixture: ComponentFixture<any>;
@@ -37,7 +37,7 @@ describe('MdcRadio', () => {
       radioNativeElement = radioDebugElement.nativeElement;
       radioInstance = radioDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
-      inputElement = radioInstance.inputEl.nativeElement;
+      inputElement = radioInstance.input.nativeElement;
     });
 
     it('#should change native element checked when check programmatically', () => {
@@ -53,7 +53,7 @@ describe('MdcRadio', () => {
       inputElement.click();
       fixture.detectChanges();
 
-      expect(radioInstance.isChecked()).toBe(true);
+      expect(radioInstance.checked).toBe(true);
     });
 
     it('#should add and remove disabled state', () => {
@@ -61,7 +61,6 @@ describe('MdcRadio', () => {
       expect(radioNativeElement.classList).not.toContain('mdc-radio--disabled');
       expect(inputElement.tabIndex).toBe(0);
       expect(inputElement.disabled).toBe(false);
-      expect(radioInstance.isDisabled()).toBe(false);
 
       testComponent.isDisabled = true;
       fixture.detectChanges();
@@ -84,7 +83,7 @@ describe('MdcRadio', () => {
       fixture.detectChanges();
 
       inputElement.click();
-      expect(radioInstance.checked).toBe(undefined);
+      expect(radioInstance.checked).toBe(false);
     });
 
     it('#should preserve the user-provided id', () => {
@@ -228,7 +227,7 @@ describe('MdcRadio', () => {
         inputElement.click();
         fixture.detectChanges();
 
-        expect(radioInstance.isChecked()).toBe(true);
+        expect(radioInstance.checked).toBe(true);
       });
     });
   });
@@ -237,16 +236,22 @@ describe('MdcRadio', () => {
 /** Simple component for testing. */
 @Component({
   template: `
-    <mdc-radio
-      [id]="radioId"
-      [value]="radioValue"
-      [disabled]="isDisabled">
-    </mdc-radio>
+    <mdc-radio-group #radioGroup [(ngModel)]="isGood" name="simpleRadioGroup" required [disabled]="false">
+      <mdc-radio
+        [id]="radioId"
+        [value]="radioValue"
+        [required]="required"
+        [disabled]="isDisabled"></mdc-radio>
+    </mdc-radio-group>
   `,
 })
 class SingleRadio {
+  @ViewChild('radioGroup') radioGroup: MdcRadioGroup;
+
+  isGood: boolean = false;
   radioId: string | null = 'simple-radio';
   isDisabled: boolean = false;
+  required: boolean = false;
   radioValue: string = 'single_radio';
 }
 
@@ -278,9 +283,9 @@ class RadioWithTabIndex {
 /** Simple component for testing with ngModel in a form. */
 @Component({
   template: `
-    <form>
-      <mdc-radio name="cb" [(ngModel)]="isGood">Be good</mdc-radio>
-    </form>
+    <mdc-radio-group [(ngModel)]="isGood">
+      <mdc-radio name="cb">Be good</mdc-radio>
+    </mdc-radio-group>
   `,
 })
 class RadioWithFormDirectives {

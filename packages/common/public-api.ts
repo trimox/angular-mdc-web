@@ -5,3 +5,4 @@ export * from './option';
 export * from './option-module';
 export * from './platform';
 export * from './selection';
+export * from './unique-selection-dispatcher';

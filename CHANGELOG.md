@@ -1,3 +1,20 @@
+<a name="0.39.1"></a>
+## [0.39.1](https://github.com/trimox/angular-mdc-web/compare/v0.39.0...v0.39.1) (2018-09-08)
+
+
+### Bug Fixes
+
+* **drawer:** Remove setTimeout during list init ([#1299](https://github.com/trimox/angular-mdc-web/issues/1299)) ([913c416](https://github.com/trimox/angular-mdc-web/commit/913c416))
+* **tab:** Use camelCase for `exportAs` ([#1303](https://github.com/trimox/angular-mdc-web/issues/1303)) ([d703ceb](https://github.com/trimox/angular-mdc-web/commit/d703ceb))
+* **tab-bar:** Should defer setting active tab on load ([#1298](https://github.com/trimox/angular-mdc-web/issues/1298)) ([dedc959](https://github.com/trimox/angular-mdc-web/commit/dedc959))
+
+
+### Features
+
+* **radio:** Improved Radio with new Radio Group ([#1302](https://github.com/trimox/angular-mdc-web/issues/1302)) ([0341432](https://github.com/trimox/angular-mdc-web/commit/0341432)), closes [#1300](https://github.com/trimox/angular-mdc-web/issues/1300) [#952](https://github.com/trimox/angular-mdc-web/issues/952)
+
+
+
 <a name="0.39.0"></a>
 # [0.39.0](https://github.com/trimox/angular-mdc-web/compare/v0.38.2...v0.39.0) (2018-09-07)
 

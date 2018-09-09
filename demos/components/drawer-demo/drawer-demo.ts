@@ -26,10 +26,11 @@ export class DrawerDemo {
     {
       label: 'Drafts',
       icon: 'drafts'
-    },
-    {
-      label: 'Family',
-      icon: 'bookmark'
     }
   ];
+
+  alternateColors(input: any, className: string) {
+    input.elementRef.nativeElement.classList.contains(className) ? input.elementRef.nativeElement.classList.remove(className) :
+      input.elementRef.nativeElement.classList.add(className);
+  }
 }

@@ -1,7 +1,3 @@
-//
-// Chips
-//
-
 .custom-chip-secondary {
   @include mdc-chip-fill-color(white);
   @include mdc-chip-ink-color($mdc-theme-secondary);

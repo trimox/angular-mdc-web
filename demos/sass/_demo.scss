@@ -61,12 +61,9 @@
 
 .demo-drawer--fixed {
   position: fixed;
-  height: 94vh;
   overflow-y: auto;
-
-  @media (min-width: 1240px) {
-    height: 94vh;
-  }
+  top: auto;
+  height: calc(100vh - 64px);
 
   .mdc-list-item {
     cursor: pointer;
@@ -78,11 +75,11 @@
 //
 
 .demo-page {
-  max-width: 1000px;
   padding-bottom: 45px;
 
   @media (min-width: 1240px) {
     @include mdc-rtl-reflexive-box(margin, left, $mdc-drawer-width);
+
     padding-left: 20px;
   }
 
@@ -96,9 +93,16 @@
 //
 
 .demo-content {
-  border: 1px solid rgba(0, 0, 0, .1);
-  padding: 15px;
-  margin: 15px 15px 15px 0;
+  border: 1px solid rgba(0, 0, 0, .15);
+  border-radius: .75rem;
+  margin: 1.5rem;
+  padding: 1rem;
+  background-color: $color-white;
+  max-width: calc(100% - 17rem);
+
+  @media (max-width: 1239px) {
+    max-width: calc(100% - 3rem);
+  }
 
   &__headline {
     @include mdc-typography(headline6);

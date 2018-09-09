@@ -1,7 +1,7 @@
 .demo-drawer--custom {
   @include mdc-drawer-border-color(lightblue);
   @include mdc-drawer-subtitle-ink-color(darkolivegreen);
-  @include mdc-drawer-surface-fill-color(pink);
+  @include mdc-drawer-surface-fill-color(black);
   @include mdc-drawer-item-icon-ink-color(darkolivegreen);
   @include mdc-drawer-title-ink-color(darkolivegreen);
   @include mdc-drawer-activated-overlay-color(darkcyan);
@@ -17,10 +17,18 @@
   @include mdc-drawer-item-activated-icon-ink-color(pink);
 }
 
-.demo-drawer-dismissible {
-  position: inherit;
+.demo-drawer-app {
+  border: 1px solid rgba(0, 0, 0, .15);
+  min-height: 16.7rem;
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
+
+  .mdc-drawer-scrim, .mdc-drawer--modal {
+    position: absolute;
+  }
 }
 
-.demo-drawer-modal {
-  position: relative;
+.demo-drawer-app-content {
+  padding: 16px;
 }

@@ -9,8 +9,7 @@ import { DemoMaterialModule } from './material.module';
 import { DialogExampleModule } from './components/dialog-demo/dialog-example.module';
 
 import { AppComponent } from './app.component';
-
-import { AppLayout } from './app-layout/app-layout';
+import { AppLayout } from './app-layout';
 
 import { APP_ROUTES, DEMO_ROUTES } from './routes';
 

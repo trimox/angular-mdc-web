@@ -1,7 +1,3 @@
-//
-// Button
-//
-
 .mdc-button.big-round-corner-button {
   @include mdc-button-corner-radius(8px);
 }

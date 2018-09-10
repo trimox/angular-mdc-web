@@ -11,22 +11,10 @@ export interface Destination {
 })
 export class DrawerDemo {
   destinations = [
-    {
-      label: 'Inbox',
-      icon: 'inbox'
-    },
-    {
-      label: 'Star',
-      icon: 'star'
-    },
-    {
-      label: 'Sent Mail',
-      icon: 'send'
-    },
-    {
-      label: 'Drafts',
-      icon: 'drafts'
-    }
+    { label: 'Inbox', icon: 'inbox' },
+    { label: 'Star', icon: 'star' },
+    { label: 'Sent Mail', icon: 'send' },
+    { label: 'Drafts', icon: 'drafts' }
   ];
 
   alternateColors(input: any, className: string) {

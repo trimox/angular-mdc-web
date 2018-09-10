@@ -159,7 +159,7 @@ export class MdcDrawer implements AfterContentInit, OnDestroy {
     focusActiveNavigationItem: () => {
       if (!this._platform.isBrowser) { return; }
 
-      const activeNavItemEl = this._listItems.find((_: MdcListItem) => _.activated);
+      const activeNavItemEl = this._listItems.find((_: MdcListItem) => _.activated || _.selected);
       if (activeNavItemEl) {
         activeNavItemEl.focus();
       }

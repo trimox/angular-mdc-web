@@ -80,7 +80,10 @@ describe('MdcListModule', () => {
     it('#should be selected', () => {
       testComponent.singleSelection = true;
       fixture.detectChanges();
-      testComponent.listitem.elementRef.nativeElement.click();
+
+      const event: Event = new MouseEvent('click');
+      testDebugElement.nativeElement.dispatchEvent(event);
+
       fixture.detectChanges();
       expect(testComponent.listitem.selected).toBe(true);
     });

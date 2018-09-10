@@ -274,6 +274,13 @@ export class MdcList implements AfterContentInit, OnDestroy {
   /** Listens to selected events on each list item. */
   private _listenForListItemSelection(): void {
     this._listItemSelectionSubscription = this.listItemSelections.subscribe(event => {
+      if (this.singleSelection) {
+        this._listItems.filter((_) => _.activated || _.selected).forEach((_) => {
+          _.selected = false;
+          _.activated = false;
+        });
+      }
+
       if (this.useActivatedClass) {
         event.source.activated = true;
       } else if (this.useSelectedClass) {

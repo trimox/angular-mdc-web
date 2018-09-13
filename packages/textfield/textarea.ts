@@ -32,6 +32,7 @@ export const MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
     [cols]="cols"
     [tabindex]="tabIndex"
     [attr.maxlength]="maxlength"
+    [attr.minlength]="minlength"
     [disabled]="disabled"
     [required]="required"
     (blur)="onBlur()"

@@ -73,8 +73,24 @@
             <td>Tab index of the text element.</td>
           </tr>
           <tr>
+            <td>pattern: string</td>
+            <td>Regular expression that the control's value is checked against.</td>
+          </tr>
+          <tr>
             <td>maxlength: number</td>
             <td>Maxlength of characters allowed to be entered.</td>
+          </tr>
+          <tr>
+            <td>minlength: number</td>
+            <td>Specifies the minimum number of characters that the user can enter.</td>
+          </tr>
+          <tr>
+            <td>max: number</td>
+            <td>The maximum numeric value for the input.</td>
+          </tr>
+          <tr>
+            <td>min: number</td>
+            <td>The minimum numeric value for this input, which must not be greater than its maximum (max attribute) value.</td>
           </tr>
           <tr>
             <td>focused: boolean</td>
@@ -285,7 +301,7 @@
     </div>
     <form #demoWeightForm="ngForm" id="demoWeightForm" (ngSubmit)="submitWeightForm(demoWeightForm)">
       <mdc-text-field #demoweight type="number" name="demoweight" label="Weight" ngModel #demoWeightModel="ngModel"
-       [required]="true" [helperText]="weightHelper"></mdc-text-field>
+       required [helperText]="weightHelper"></mdc-text-field>
       <mdc-text-field-helper-text #weightHelper="mdcHelperText" validation>
         <span *ngIf="!demoweight?.value">Weight is required</span>
       </mdc-text-field-helper-text>
@@ -311,8 +327,7 @@
       <button mdc-button (click)="demousername.selectAll()">Select All</button>
       <button mdc-button (click)="alternateColors(demousername)">Alternate Colors</button>
     </div>
-    <mdc-text-field #demousername label="Username" [value]="username" outlined
-     [helperText]="userHelper" [required]="true"></mdc-text-field>
+    <mdc-text-field #demousername label="Username" [value]="username" outlined [helperText]="userHelper" required></mdc-text-field>
     <p mdcTextFieldHelperText #userHelper="mdcHelperText" validation>
       <span *ngIf="!demousername?.value">Username is required</span>
     </p>

@@ -63,8 +63,12 @@ let nextUniqueId = 0;
     [type]="type"
     [tabindex]="tabIndex"
     [disabled]="disabled"
+    [attr.pattern]="pattern ? pattern : null"
     [attr.placeholder]="placeholder"
     [attr.maxlength]="maxlength"
+    [attr.minlength]="minlength"
+    [attr.max]="max"
+    [attr.min]="min"
     [required]="required"
     (focus)="onFocus()"
     (blur)="onBlur()"
@@ -91,6 +95,10 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
 
   @Input() label: string;
   @Input() maxlength: number;
+  @Input() minlength: number;
+  @Input() pattern: string;
+  @Input() max: number;
+  @Input() min: number;
   @Input() placeholder: string;
   @Input() tabIndex: number = 0;
   @Input() direction: 'ltr' | 'rtl' = 'ltr';

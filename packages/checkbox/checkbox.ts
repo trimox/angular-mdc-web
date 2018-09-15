@@ -244,15 +244,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
     evt.stopPropagation();
   }
 
-  /**
-   * Event handler for checkbox input element.
-   * Toggles checked state if element is not disabled.
-   * Do not toggle on (change) event since IE doesn't fire change event when
-   * indeterminate checkbox is clicked.
-   */
   _onInputClick(evt: Event) {
-    evt.stopPropagation();
-
     if (this.disabled) { return; }
 
     this.toggle();
@@ -303,7 +295,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
 
   setDisabledState(disabled: boolean): void {
     this._disabled = toBoolean(disabled);
-    this._foundation.setDisabled(disabled);
+    this._foundation.setDisabled(this.disabled);
     this._changeDetectorRef.markForCheck();
   }
 

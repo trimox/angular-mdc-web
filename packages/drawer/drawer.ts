@@ -1,5 +1,5 @@
 import {
-  AfterContentInit,
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -96,7 +96,7 @@ export class MdcDrawerAppContent { }
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class MdcDrawer implements AfterContentInit, OnDestroy {
+export class MdcDrawer implements AfterViewInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
@@ -193,7 +193,7 @@ export class MdcDrawer implements AfterContentInit, OnDestroy {
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef) { }
 
-  ngAfterContentInit(): void {
+  ngAfterViewInit(): void {
     this._listSubscription = this._list.changes.pipe(startWith(null)).subscribe(() => {
       this._initListType();
     });
@@ -211,7 +211,7 @@ export class MdcDrawer implements AfterContentInit, OnDestroy {
     }
   }
 
-  private _loadListeners() {
+  private _loadListeners(): void {
     if (this.modal) {
       if (this._platform.isBrowser) {
         this._scrimElement = document.createElement('div');

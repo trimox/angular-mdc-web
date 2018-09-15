@@ -35,6 +35,11 @@ export class MdcListItemChange {
     public option: MdcListItem) { }
 }
 
+export const FOCUSABLE_CHILD_ELEMENTS =
+  `.mdc-list-item button:not(:disabled), .mdc-list-item a,
+  .mdc-list-item input[type="radio"]:not(:disabled),
+  .mdc-list-item input[type="checkbox"]:not(:disabled)`;
+
 @Component({
   moduleId: module.id,
   selector: '[mdcListGroup], mdc-list-group',
@@ -203,7 +208,7 @@ export class MdcList implements AfterViewInit, OnDestroy {
     focusItemAtIndex: (index: number) => this._listItems.toArray()[index].getListItemElement().focus(),
     setTabIndexForListItemChildren: (listItemIndex: number, tabIndexValue: number) => {
       const listItemChildren = [].slice.call(this._listItems.toArray()[listItemIndex].getListItemElement()
-        .querySelectorAll('.mdc-list-item button:not(:disabled), .mdc-list-item a'));
+        .querySelectorAll(FOCUSABLE_CHILD_ELEMENTS));
       listItemChildren.forEach((ele) => ele.setAttribute('tabindex', tabIndexValue));
     },
     followHref: (index: number) => {

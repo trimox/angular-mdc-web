@@ -3,15 +3,14 @@ import { Component } from '@angular/core';
 import { MdcSnackbar } from '@angular-mdc/web';
 
 @Component({
-  selector: 'snackbar-demo',
   templateUrl: './snackbar-demo.html',
 })
 export class SnackbarDemo {
   message = 'Message sent';
   action = 'Undo';
   multiline = false;
-  dismissOnAction: boolean = true;
-  alignStart: boolean;
+  dismissOnAction = true;
+  align: string;
   focusAction = false;
   actionOnBottom = false;
 
@@ -19,7 +18,7 @@ export class SnackbarDemo {
 
   show() {
     const snackbarRef = this.snackbar.show(this.message, this.action, {
-      align: this.alignStart ? 'start' : '',
+      align: this.align,
       multiline: this.multiline,
       dismissOnAction: this.dismissOnAction,
       focusAction: this.focusAction,

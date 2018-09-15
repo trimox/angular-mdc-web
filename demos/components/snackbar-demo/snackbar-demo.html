@@ -94,8 +94,8 @@
             <td>Whether to show the action below the multiple lines of text.</td>
           </tr>
           <tr>
-            <td>align: string (Default 'center')</td>
-            <td>Alignment of the snackbar on screen. Valid values - 'start' | 'center'</td>
+            <td>align: string</td>
+            <td>Alignment of the snackbar on screen. Valid values - 'start' | 'center' | 'end'</td>
           </tr>
           <tr>
             <td>dismissOnAction: boolean</td>
@@ -125,8 +125,12 @@
           <label>Action on Bottom (requires multiline)</label>
         </mdc-form-field>
         <mdc-form-field>
-          <mdc-checkbox [(ngModel)]="alignStart"></mdc-checkbox>
+          <mdc-checkbox (click)="align = 'start'"></mdc-checkbox>
           <label>Start align (desktop only)</label>
+        </mdc-form-field>
+        <mdc-form-field>
+          <mdc-checkbox (click)="align = 'end'"></mdc-checkbox>
+          <label>RTL (end) (desktop only)</label>
         </mdc-form-field>
         <mdc-form-field>
           <mdc-checkbox [(ngModel)]="dismissOnAction"></mdc-checkbox>

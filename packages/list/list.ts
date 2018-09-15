@@ -1,5 +1,5 @@
 import {
-  AfterContentInit,
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -83,7 +83,7 @@ export class MdcListGroupSubheader {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcList implements AfterContentInit, OnDestroy {
+export class MdcList implements AfterViewInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
@@ -238,7 +238,7 @@ export class MdcList implements AfterContentInit, OnDestroy {
     private _ngZone: NgZone,
     public elementRef: ElementRef) { }
 
-  ngAfterContentInit(): void {
+  ngAfterViewInit(): void {
     this._foundation.init();
 
     // When list items change, re-subscribe

@@ -69,7 +69,7 @@ export const MDC_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
     [checked]="checked"
     [attr.value]="checked"
     [indeterminate]="indeterminate"
-    (change)="onChange($event)"
+    (change)="onChange()"
     (click)="_onInputClick($event)"/>
   <div class="mdc-checkbox__background">
     <svg class="mdc-checkbox__checkmark"
@@ -239,12 +239,12 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
     this._onChange(this.checked);
   }
 
-  onChange(evt: Event): void {
+  onChange(): void {
     this._foundation.handleChange();
-    evt.stopPropagation();
   }
 
   _onInputClick(evt: Event) {
+    evt.stopPropagation();
     if (this.disabled) { return; }
 
     this.toggle();

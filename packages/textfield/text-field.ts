@@ -69,6 +69,8 @@ let nextUniqueId = 0;
     [attr.minlength]="minlength"
     [attr.max]="max"
     [attr.min]="min"
+    [attr.size]="size"
+    [attr.step]="step"
     [required]="required"
     (focus)="onFocus()"
     (blur)="onBlur()"
@@ -99,6 +101,8 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   @Input() pattern: string;
   @Input() max: number;
   @Input() min: number;
+  @Input() size: number;
+  @Input() step: number;
   @Input() placeholder: string;
   @Input() tabIndex: number = 0;
   @Input() direction: 'ltr' | 'rtl' = 'ltr';

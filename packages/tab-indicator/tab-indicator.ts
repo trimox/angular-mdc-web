@@ -1,5 +1,5 @@
 import {
-  AfterContentInit,
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -33,16 +33,15 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class MdcTabIndicator implements AfterContentInit {
+export class MdcTabIndicator implements AfterViewInit {
   private _isFoundationInit: boolean;
 
   @Input()
   get active(): boolean { return this._active; }
   set active(value: boolean) {
-    if (this._active !== value) {
-      this._active = toBoolean(value);
-      this._changeDetectorRef.markForCheck();
-
+    const newValue = toBoolean(value);
+    if (this._active !== newValue) {
+      this._active = toBoolean(newValue);
       this._active ? this.activate(this.computeContentClientRect()) : this.deactivate();
     }
   }
@@ -84,7 +83,7 @@ export class MdcTabIndicator implements AfterContentInit {
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef) { }
 
-  ngAfterContentInit(): void {
+  ngAfterViewInit(): void {
     if (!this._isFoundationInit) {
       this._initFoundation();
       this._updateContentClasses();
@@ -115,7 +114,7 @@ export class MdcTabIndicator implements AfterContentInit {
     this._changeDetectorRef.markForCheck();
   }
 
-  private _updateContentClasses() {
+  private _updateContentClasses(): void {
     this.content.nativeElement.classList.remove('mdc-tab-indicator__content--underline');
     this.content.nativeElement.classList.remove('mdc-tab-indicator__content--icon');
 

@@ -1,5 +1,4 @@
 import {
-  AfterContentInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -11,6 +10,7 @@ import {
   Input,
   NgZone,
   OnDestroy,
+  OnInit,
   Optional,
   Output,
   ViewChild,
@@ -98,7 +98,7 @@ export class MdcTabIcon {
   encapsulation: ViewEncapsulation.None,
   providers: [MdcRipple]
 })
-export class MdcTab implements AfterContentInit, OnDestroy {
+export class MdcTab implements OnInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
@@ -159,13 +159,17 @@ export class MdcTab implements AfterContentInit, OnDestroy {
     public elementRef: ElementRef,
     @Optional() @Inject(MDC_TAB_BAR_PARENT_COMPONENT) private _parent: MdcTabBarParentComponent) { }
 
-  ngAfterContentInit(): void {
+  ngOnInit(): void {
     this._foundation.init();
     this._ripple.attachTo(this.rippleSurface.nativeElement);
 
     this._ngZone.runOutsideAngular(() =>
       fromEvent<MouseEvent>(this._getHostElement(), 'click').pipe(takeUntil(this._destroy))
-        .subscribe(() => this._ngZone.run(() => this._foundation.handleClick())));
+        .subscribe(() => this._ngZone.run(() => {
+          if (!this.active) {
+            this._foundation.handleClick();
+          }
+        })));
   }
 
   ngOnDestroy(): void {

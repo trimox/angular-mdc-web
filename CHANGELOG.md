@@ -1,3 +1,24 @@
+<a name="0.39.3"></a>
+## [0.39.3](https://github.com/trimox/angular-mdc-web/compare/v0.39.1...v0.39.3) (2018-09-16)
+
+
+### Bug Fixes
+
+* **checkbox:** Remove unused event ([#1330](https://github.com/trimox/angular-mdc-web/issues/1330)) ([842c92d](https://github.com/trimox/angular-mdc-web/commit/842c92d))
+* **checkbox:** Should not stopPropagation for click event ([#1328](https://github.com/trimox/angular-mdc-web/issues/1328)) ([462fe0b](https://github.com/trimox/angular-mdc-web/commit/462fe0b)), closes [#1326](https://github.com/trimox/angular-mdc-web/issues/1326)
+* **drawer:** Deduplication of activated/selected classes ([#1308](https://github.com/trimox/angular-mdc-web/issues/1308)) ([b15b209](https://github.com/trimox/angular-mdc-web/commit/b15b209))
+
+
+### Features
+
+* Upgrade to material-components-web v0.39.3 ([#1312](https://github.com/trimox/angular-mdc-web/issues/1312)) ([c534af3](https://github.com/trimox/angular-mdc-web/commit/c534af3))
+* **snackbar:** Add RTL support ([#1329](https://github.com/trimox/angular-mdc-web/issues/1329)) ([6dbcc1b](https://github.com/trimox/angular-mdc-web/commit/6dbcc1b)), closes [#1327](https://github.com/trimox/angular-mdc-web/issues/1327)
+* **tab-bar:** Add activeTabIndex ([#1314](https://github.com/trimox/angular-mdc-web/issues/1314)) ([d718efd](https://github.com/trimox/angular-mdc-web/commit/d718efd)), closes [#1311](https://github.com/trimox/angular-mdc-web/issues/1311)
+* **text-field:** Add pattern, minlength, max and min ([#1313](https://github.com/trimox/angular-mdc-web/issues/1313)) ([413f4a4](https://github.com/trimox/angular-mdc-web/commit/413f4a4)), closes [#1309](https://github.com/trimox/angular-mdc-web/issues/1309)
+* **text-field:** Add size and step properties ([#1318](https://github.com/trimox/angular-mdc-web/issues/1318)) ([bf950a5](https://github.com/trimox/angular-mdc-web/commit/bf950a5)), closes [#1320](https://github.com/trimox/angular-mdc-web/issues/1320) [#1315](https://github.com/trimox/angular-mdc-web/issues/1315)
+
+
+
 <a name="0.39.1"></a>
 ## [0.39.1](https://github.com/trimox/angular-mdc-web/compare/v0.39.0...v0.39.1) (2018-09-08)
 

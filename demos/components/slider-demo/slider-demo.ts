@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { MdcSliderChange } from '@angular-mdc/web';
 
 @Component({
-  selector: 'slider-demo',
   templateUrl: './slider-demo.html'
 })
 export class SliderDemo {

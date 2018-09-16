@@ -6,7 +6,6 @@ import {
   ElementRef,
   EventEmitter,
   forwardRef,
-  HostBinding,
   Input,
   OnDestroy,
   Output,
@@ -37,6 +36,12 @@ export class MdcSliderChange {
   moduleId: module.id,
   selector: 'mdc-slider',
   exportAs: 'mdcSlider',
+  host: {
+    'role': 'slider',
+    'class': 'mdc-slider',
+    '[class.mdc-slider--discrete]': 'discrete',
+    '[class.mdc-slider--display-markers]': 'markers && discrete'
+  },
   template: `
     <div class="mdc-slider__track-container">
       <div #track class="mdc-slider__track"></div>
@@ -63,16 +68,16 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
   @Input()
   get discrete(): boolean { return this._discrete; }
   set discrete(value: boolean) {
-    this.setDiscrete(value);
+    this._discrete = toBoolean(value);
   }
-  private _discrete: boolean = false;
+  private _discrete: boolean;
 
   @Input()
   get markers(): boolean { return this._markers; }
   set markers(value: boolean) {
-    this.setMarkers(value);
+    this._markers = toBoolean(value);
   }
-  private _markers: boolean = false;
+  private _markers: boolean;
 
   @Input()
   get min(): number { return this._min; }
@@ -112,17 +117,8 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
   @Output() readonly change: EventEmitter<MdcSliderChange> = new EventEmitter<MdcSliderChange>();
   @Output() readonly input: EventEmitter<MdcSliderChange> = new EventEmitter<MdcSliderChange>();
 
-  @HostBinding('class.mdc-slider') isHostClass = true;
-  @HostBinding('attr.role') role: string = 'slider';
-  @HostBinding('class.mdc-slider--discrete') get classDiscrete(): string {
-    return this.discrete ? 'mdc-slider--discrete' : '';
-  }
-  @HostBinding('class.mdc-slider--display-markers') get classDisplayMarkers(): string {
-    return this.markers && this.discrete ? 'mdc-slider--display-markers' : '';
-  }
-
-  @ViewChild('thumbcontainer') thumbContainer: ElementRef;
-  @ViewChild('track') track: ElementRef;
+  @ViewChild('thumbcontainer') thumbContainer: ElementRef<HTMLElement>;
+  @ViewChild('track') track: ElementRef<HTMLElement>;
   @ViewChild('pin') pinValueMarker: ElementRef;
   @ViewChild('markercontainer') trackMarkerContainer: ElementRef;
 
@@ -134,11 +130,11 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
 
   private _mdcAdapter: MDCSliderAdapter = {
     hasClass: (className: string) => this._getHostElement().classList.contains(className),
-    addClass: (className: string) => this._renderer.addClass(this._getHostElement(), className),
-    removeClass: (className: string) => this._renderer.removeClass(this._getHostElement(), className),
+    addClass: (className: string) => this._getHostElement().classList.add(className),
+    removeClass: (className: string) => this._getHostElement().classList.remove(className),
     getAttribute: (name: string) => this._getHostElement().getAttribute(name),
-    setAttribute: (name: string, value: string) => this._renderer.setAttribute(this._getHostElement(), name, value),
-    removeAttribute: (name: string) => this._renderer.removeAttribute(this._getHostElement(), name),
+    setAttribute: (name: string, value: string) => this._getHostElement().setAttribute(name, value),
+    removeAttribute: (name: string) => this._getHostElement().removeAttribute(name),
     computeBoundingRect: () => this._getHostElement().getBoundingClientRect(),
     getTabIndex: () => this._getHostElement().tabIndex,
     registerInteractionHandler: (type: string, handler: EventListener) =>
@@ -180,9 +176,9 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
       this.setValue(this.getValue());
     },
     setThumbContainerStyleProperty: (propertyName: string, value: string) =>
-      this._renderer.setStyle(this.thumbContainer.nativeElement, propertyName, value),
+      this.thumbContainer.nativeElement.style.setProperty(propertyName, value),
     setTrackStyleProperty: (propertyName: string, value: string) =>
-      this._renderer.setStyle(this.track.nativeElement, propertyName, value),
+      this.track.nativeElement.style.setProperty(propertyName, value),
     setMarkerValue: (value: number) => this.pinValueMarker.nativeElement.innerText = value,
     appendTrackMarkers: (numMarkers: number) => {
       for (let i = 0; i < numMarkers; i++) {
@@ -198,7 +194,7 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
       }
     },
     setLastTrackMarkersStyleProperty: (propertyName: string, value: string) =>
-      this._renderer.setStyle(this.trackMarkerContainer.nativeElement.lastChild, propertyName, value),
+      this.trackMarkerContainer.nativeElement.lastChild.style.setProperty(propertyName, value),
     isRTL: () => getComputedStyle(this._getHostElement()).direction === 'rtl'
   };
 
@@ -257,14 +253,6 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
 
   registerOnTouched(fn: () => any): void {
     this._onTouched = fn;
-  }
-
-  setDiscrete(discrete: boolean): void {
-    this._discrete = toBoolean(discrete);
-  }
-
-  setMarkers(markers: boolean): void {
-    this._markers = toBoolean(markers);
   }
 
   setValue(value: number): void {
@@ -337,7 +325,7 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
     this._disabled = toBoolean(disabled);
 
     if (!this._foundation) { return; }
-    this._foundation.setDisabled(disabled);
+    this._foundation.setDisabled(this.disabled);
     this._changeDetectorRef.markForCheck();
   }
 

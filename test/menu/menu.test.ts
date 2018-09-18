@@ -31,6 +31,12 @@ describe('MdcMenu', () => {
       testComponent = fixture.debugElement.componentInstance;
     });
 
+    it('#menu should open', () => {
+      testComponent.open = true;
+      fixture.detectChanges();
+      expect(testInstance.open).toBe(true);
+    });
+
     it('#should have focus', () => {
       expect(document.activeElement).not.toBe(testDebugElement.nativeElement);
       testInstance.focus();
@@ -67,7 +73,7 @@ describe('MdcMenu', () => {
 @Component({
   template: `
     <div mdcMenuSurfaceAnchor #testanchor>
-      <mdc-menu [anchorCorner]="anchorCorner" (select)="handleSelect($event)" [anchor]="testanchor" [quickOpen]="quickOpen"
+      <mdc-menu [open]="open" [anchorCorner]="anchorCorner" (select)="handleSelect($event)" [anchor]="testanchor" [quickOpen]="quickOpen"
         [absolutePosition]="{ x: 5, y: 2}" fixed="fixed" [anchorMargin]="{top: 0, right: 0, bottom: 0, left: 0}">
         <mdc-list>
           <mdc-list-item>Item 1</mdc-list-item>
@@ -78,6 +84,7 @@ describe('MdcMenu', () => {
   `,
 })
 class MenuTest {
+  open: boolean;
   anchorCorner: string = 'topStart';
   quickOpen: boolean;
   fixed: boolean;

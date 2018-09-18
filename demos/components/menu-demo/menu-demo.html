@@ -33,6 +33,10 @@
             <td>Unique Id of the menu (auto generated if not supplied).</td>
           </tr>
           <tr>
+            <td>open: boolean</td>
+            <td>Opens or closes the menu.</td>
+          </tr>
+          <tr>
             <td>anchorCorner: string</td>
             <td>Override the opening point of the menu. (default: topStart)
               <p>Values: 'bottomEnd' | 'bottomLeft' | 'bottomRight' | 'bottomStart' | 'topEnd' | 'topLeft' | 'topRight' | 'topStart'</p>
@@ -70,24 +74,15 @@
         </thead>
         <tbody>
           <tr>
-            <td>open()</td>
-            <td>Opens the menu.</td>
-          </tr>
-          <tr>
             <td>isOpen(): boolean</td>
             <td>Returns whether or not the menu is open.</td>
           </tr>
           <tr>
-            <td>close()</td>
-            <td>Closes the menu.</td>
-          </tr>
-          <tr>
             <td>focus()</td>
-            <td>Set focus to the menu element.</td>
+            <td>Set focus to the menu.</td>
           </tr>
         </tbody>
       </table>
-
       <table>
         <thead>
           <tr>
@@ -152,7 +147,7 @@
     </div>
 
     <div mdcMenuSurfaceAnchor #demoanchor>
-      <button mdc-button [raised]="true" (click)="demomenu.open()">
+      <button mdc-button [raised]="true" (click)="demomenu.open = !demomenu.open">
         Open Menu
       </button>
       <mdc-menu #demomenu (selected)="onMenuSelect($event)" [anchor]="demoanchor"

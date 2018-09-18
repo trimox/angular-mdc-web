@@ -66,7 +66,7 @@ export class MdcMenuSelectionGroup {
   encapsulation: ViewEncapsulation.None
 })
 export class MdcMenuSelectionGroupIcon {
-  constructor(public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
 }
 
 @Component({
@@ -89,6 +89,15 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
   private _uniqueId: string = `mdc-menu-${++nextUniqueId}`;
 
   @Input() id: string = this._uniqueId;
+
+  @Input()
+  get open(): boolean { return this.isOpen(); }
+  set open(value: boolean) {
+    this._open = toBoolean(value);
+    this.setOpen(this._open);
+    this._changeDetectorRef.markForCheck();
+  }
+  private _open: boolean;
 
   @Input()
   get anchor(): any { return this._anchor; }
@@ -191,14 +200,14 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
   private _menuFoundation: {
     destroy(): void,
     handleKeydown(evt: KeyboardEvent): void,
-    handleClick(evt: Event): void
+    handleClick(evt: MouseEvent): void
   } = new MDCMenuFoundation(this._mdcMenuAdapter);
 
   constructor(
     protected platform: Platform,
     protected _changeDetectorRef: ChangeDetectorRef,
     protected ngZone: NgZone,
-    public elementRef: ElementRef) {
+    public elementRef: ElementRef<HTMLElement>) {
 
     super(platform, ngZone, elementRef);
   }
@@ -250,15 +259,7 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
     this._list.wrapFocus = true;
   }
 
-  open(): void {
-    this.setOpen(true);
-  }
-
-  close(): void {
-    this.setOpen(false);
-  }
-
-  menuClick(evt: Event): void {
+  menuClick(evt: MouseEvent): void {
     this._menuFoundation.handleClick(evt);
   }
 

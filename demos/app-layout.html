@@ -1,7 +1,7 @@
 <mdc-top-app-bar class="demo-top-app-bar" #topAppBar fixed [fixedAdjustElement]="mainContent">
   <mdc-top-app-bar-row>
     <mdc-top-app-bar-section align="start" title="Angular MDC">
-      <mdc-icon mdcTopAppBarNavIcon (click)="appdrawer.open()" *ngIf="isScreenSmall() || topAppBar.isCollapsed()">menu</mdc-icon>
+      <mdc-icon mdcTopAppBarNavIcon (click)="appdrawer.open = !appdrawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()">menu</mdc-icon>
     </mdc-top-app-bar-section>
     <mdc-top-app-bar-section align="end">
       <a mdcTopAppBarActionItem href="https://github.com/trimox/angular-mdc-web" alt="GitHub" target="_blank" rel="noopener noreferrer">

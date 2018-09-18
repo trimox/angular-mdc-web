@@ -35,30 +35,12 @@
             </td>
           </tr>
           <tr>
+            <td>open: boolean</td>
+            <td>Opens or closes the drawer.</td>
+          </tr>
+          <tr>
             <td>fixedAdjustElement: any</td>
             <td>Optional. Reference to a drawer's attached body element.</td>
-          </tr>
-        </tbody>
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th>Methods</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>open()</td>
-            <td>Opens the drawer.</td>
-          </tr>
-          <tr>
-            <td>close()</td>
-            <td>Closes the drawer.</td>
-          </tr>
-          <tr>
-            <td>isOpen(): boolean</td>
-            <td>Returns whether or not the drawer is open.</td>
           </tr>
         </tbody>
       </table>
@@ -210,8 +192,7 @@
       </div>
     </div>
     <div class="demo-layout__row">
-      <button mdc-button (click)="demoDismissible.open()">Open</button>
-      <button mdc-button (click)="demoDismissible.close()">Close</button>
+      <button mdc-button (click)="demoDismissible.open = !demoDismissible.open">Open/Close</button>
       <button mdc-button (click)="alternateColors(demoDismissible, 'demo-drawer--custom')">Custom Colors</button>
       <button mdc-button (click)="alternateColors(demoDismissible, 'demo-drawer--accessible')">Accessible Colors</button>
     </div>
@@ -220,7 +201,7 @@
   <div class="demo-content">
     <h3 class="demo-content__headline">Modal</h3>
     <div class="demo-layout__row--no-wrap demo-drawer-app">
-      <mdc-drawer drawer="modal" #demoModal>
+      <mdc-drawer drawer="modal" #demoModal open>
         <mdc-drawer-header>
           <h3 mdcDrawerTitle>Drawer Title</h3>
           <h6 mdcDrawerSubtitle>Subtitle</h6>
@@ -238,7 +219,7 @@
       </div>
     </div>
     <div class="demo-layout__row">
-      <button mdc-button (click)="demoModal.open()">Open</button>
+      <button mdc-button (click)="demoModal.open = !demoModal.open">Open</button>
       <button mdc-button (click)="alternateColors(demoModal, 'demo-drawer--custom')">Custom Colors</button>
       <button mdc-button (click)="alternateColors(demoModal, 'demo-drawer--accessible')">Accessible Colors</button>
     </div>

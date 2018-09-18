@@ -39,25 +39,32 @@ describe('MdcDrawer', () => {
     it('#should set dismissible', () => {
       testComponent.drawer = 'dismissible';
       fixture.detectChanges();
+      expect(testInstance.dismissible).toBe(true);
 
-      testInstance.close();
+      testInstance.open = false;
       fixture.detectChanges();
-      expect(testInstance.isOpen()).toBe(false);
+      expect(testInstance.open).toBe(false);
+    });
+
+    it('#should set permanent if empty', () => {
+      testComponent.drawer = null;
+      fixture.detectChanges();
+      expect(testInstance.permanent).toBe(true);
     });
 
     it('#should set modal', () => {
       testComponent.drawer = 'modal';
       fixture.detectChanges();
 
-      testInstance.open();
+      testInstance.open = true;
       fixture.detectChanges();
-      expect(testInstance.isOpen()).toBe(true);
+      expect(testInstance.open).toBe(true);
     });
 
     it('#should be open', () => {
-      testInstance.open();
+      testInstance.open = true;
       fixture.detectChanges();
-      expect(testInstance.isOpen()).toBe(true);
+      expect(testInstance.open).toBe(true);
     });
 
     it('#should be closed after click', () => {
@@ -66,14 +73,14 @@ describe('MdcDrawer', () => {
 
       testDebugElement.nativeElement.click();
       fixture.detectChanges();
-      expect(testInstance.isOpen()).toBe(false);
+      expect(testInstance.open).toBe(false);
     });
   });
 });
 
 @Component({
   template: `
-  <mdc-drawer [drawer]="drawer" [fixedAdjustElement]="testcontent">
+  <mdc-drawer [drawer]="drawer" [open]="open" [fixedAdjustElement]="testcontent">
     <mdc-drawer-header title='Test' subtitle='Testing'>
     </mdc-drawer-header>
     <mdc-drawer-content>
@@ -112,4 +119,5 @@ describe('MdcDrawer', () => {
 })
 class SimpleTest {
   drawer: string = 'permanent';
+  open: boolean;
 }

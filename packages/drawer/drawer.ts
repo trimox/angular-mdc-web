@@ -110,6 +110,19 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
   };
 
   @Input()
+  get open(): boolean { return this._foundation.isOpen(); }
+  set open(value: boolean) {
+    this._open = toBoolean(value);
+    if (this._open) {
+      this._foundation.open();
+    } else {
+      this._foundation.close();
+    }
+    this._changeDetectorRef.markForCheck();
+  }
+  private _open: boolean;
+
+  @Input()
   get drawer(): string { return this._drawer; }
   set drawer(drawer: string) {
     if (this._drawer !== drawer) {
@@ -280,7 +293,11 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
     }
   }
 
-  setDrawer(drawer: string = 'permanent'): void {
+  setDrawer(drawer: string): void {
+    if (!drawer) {
+      drawer = 'permanent';
+    }
+
     if (this.drawer !== drawer) {
       this._drawer = drawer;
       this._initFoundation();
@@ -297,20 +314,6 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
     }
 
     this._changeDetectorRef.markForCheck();
-  }
-
-  open(): void {
-    this._foundation.open();
-  }
-
-  // Function to close the drawer.
-  close(): void {
-    this._foundation.close();
-  }
-
-  // Returns true if drawer is in open state.
-  isOpen(): boolean {
-    return this._foundation.isOpen();
   }
 
   private _removeDrawerModifierClass(): void {

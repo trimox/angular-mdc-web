@@ -19,6 +19,13 @@ export interface MdcMenuSurfaceOpenedEvent {
   detail: string;
 }
 
+export interface AnchorMargin {
+  top: number;
+  right: number;
+  bottom: number;
+  left: number;
+}
+
 export interface AbsolutePosition {
   x: number;
   y: number;
@@ -151,7 +158,7 @@ export class MdcMenuSurfaceBase {
     close(): void,
     isOpen(): boolean,
     setAnchorCorner(corner: Corner): void,
-    setAnchorMargin(margin: { top: number, right: number, bottom: number, left: number }): void,
+    setAnchorMargin(margin: AnchorMargin): void,
     setIsHoisted(isHoisted: boolean): void,
     setFixedPosition(isFixedPosition: boolean): void,
     setAbsolutePosition(x: number, y: number): void,
@@ -232,7 +239,7 @@ export class MdcMenuSurfaceBase {
     this._foundation.setAnchorCorner(cornerBit);
   }
 
-  protected setAnchorMargin(margin: { top: number, right: number, bottom: number, left: number }): void {
+  protected setAnchorMargin(margin: AnchorMargin): void {
     this._foundation.setAnchorMargin(margin);
   }
 

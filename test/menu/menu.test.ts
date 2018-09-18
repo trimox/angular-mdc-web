@@ -68,7 +68,7 @@ describe('MdcMenu', () => {
   template: `
     <div mdcMenuSurfaceAnchor #testanchor>
       <mdc-menu [anchorCorner]="anchorCorner" (select)="handleSelect($event)" [anchor]="testanchor" [quickOpen]="quickOpen"
-        [absolutePosition]="{ x: 5, y: 2}" fixed="fixed">
+        [absolutePosition]="{ x: 5, y: 2}" fixed="fixed" [anchorMargin]="{top: 0, right: 0, bottom: 0, left: 0}">
         <mdc-list>
           <mdc-list-item>Item 1</mdc-list-item>
           <mdc-list-item>Item 2</mdc-list-item>

@@ -39,6 +39,10 @@
             </td>
           </tr>
           <tr>
+            <td>anchorMargin: AnchorMargin</td>
+            <td>Sets the distance from the anchor point that the menu surface should be shown.</td>
+          </tr>
+          <tr>
             <td>absolutePosition: AbsolutePosition</td>
             <td>Sets the absolute x/y position of the menu. Should only be used when the menu is hoisted or using fixed positioning.</td>
           </tr>
@@ -123,6 +127,12 @@
       <button mdc-button (click)="addItem()">Add Item</button>
     </div>
     <div class="demo-layout__row">
+      <mdc-text-field #marginTop label="Top - anchor margin" type="number" value=0></mdc-text-field>
+      <mdc-text-field #marginBottom label="Bottom - anchor margin" type="number" value=0></mdc-text-field>
+      <mdc-text-field #marginLeft label="Left - anchor margin" type="number" value=0></mdc-text-field>
+      <mdc-text-field #marginRight label="Right - anchor margin" type="number" value=0></mdc-text-field>
+    </div>
+    <div class="demo-layout__row">
       <mdc-form-field>
         <mdc-radio value="topStart" name="radioGroup" (change)="onRadioChange($event)"></mdc-radio>
         <label>Top start</label>
@@ -145,7 +155,8 @@
       <button mdc-button [raised]="true" (click)="demomenu.open()">
         Open Menu
       </button>
-      <mdc-menu #demomenu (selected)="onMenuSelect($event)" [anchor]="demoanchor">
+      <mdc-menu #demomenu (selected)="onMenuSelect($event)" [anchor]="demoanchor"
+       [anchorMargin]="{ top: marginTop.value, bottom: marginBottom.value, left: marginLeft.value, right: marginRight.value }">
         <mdc-list>
           <mdc-list-item *ngFor="let item of menuItems">{{item.label}}</mdc-list-item>
         </mdc-list>

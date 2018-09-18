@@ -24,6 +24,7 @@ import { MdcList, MdcListItem } from '@angular-mdc/web/list';
 import {
   AbsolutePosition,
   Anchor,
+  AnchorMargin,
   MdcMenuSurfaceAnchor,
   MdcMenuSurfaceBase,
   MdcMenuSurfaceOpenedEvent
@@ -123,6 +124,15 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
     this._changeDetectorRef.markForCheck();
   }
   private _fixed: boolean;
+
+  @Input()
+  get anchorMargin(): AnchorMargin { return this._anchorMargin; }
+  set anchorMargin(value: AnchorMargin) {
+    this._anchorMargin = value;
+    this.setAnchorMargin(this._anchorMargin);
+    this._changeDetectorRef.markForCheck();
+  }
+  private _anchorMargin: AnchorMargin;
 
   @Input()
   get absolutePosition(): AbsolutePosition { return this._absolutePosition; }

@@ -31,7 +31,7 @@ import { MDCChipAdapter } from '@material/chips/chip/adapter';
 import { MDCChipFoundation } from '@material/chips/chip';
 
 export interface MdcIconInteraction {
-  source: MdcIcon;
+  source: MdcChipIcon;
   event: Event;
 }
 
@@ -52,6 +52,20 @@ let nextUniqueId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcChipIcon extends MdcIcon {
+  @Input()
+  get leading(): boolean { return this._leading; }
+  set leading(value: boolean) {
+    this._leading = toBoolean(value);
+  }
+  private _leading: boolean;
+
+  @Input()
+  get trailing(): boolean { return this._trailing; }
+  set trailing(value: boolean) {
+    this._trailing = toBoolean(value);
+  }
+  private _trailing: boolean;
+
   @Output() readonly iconInteraction: EventEmitter<MdcIconInteraction> =
     new EventEmitter<MdcIconInteraction>();
 

@@ -38,21 +38,6 @@ describe('MdcIcon', () => {
     it('#should have material-icons', () => {
       expect(testDebugElement.nativeElement.classList).toContain('material-icons');
     });
-    it('#should have font size of 50', () => {
-      testComponent.mySize = 50;
-      fixture.detectChanges();
-      expect(testDebugElement.nativeElement.style.fontSize).toBe('50px');
-
-      testComponent.mySize = 30;
-      fixture.detectChanges();
-      expect(testDebugElement.nativeElement.style.fontSize).toBe('30px');
-    });
-
-    it('#should have font size of 24', () => {
-      testComponent.mySize = null;
-      fixture.detectChanges();
-      expect(testDebugElement.nativeElement.style.fontSize).toBe('24px');
-    });
 
     it('#should have text content of face', () => {
       testInstance.setIcon('face');
@@ -66,10 +51,8 @@ describe('MdcIcon', () => {
       testInstance.fontIcon = 'cake';
       fixture.detectChanges();
       testInstance.setIcon('ambulance');
-      testInstance.setFontSize(12);
       fixture.detectChanges();
       expect(testInstance.getIcon()).toBe('ambulance');
-      testInstance.setFontSize(22);
       fixture.detectChanges();
     });
   });
@@ -96,12 +79,11 @@ describe('MdcIcon', () => {
 
 @Component({
   template: `
-    <mdc-icon [fontSize]="mySize" [clickable]="clickable">{{myIcon}}</mdc-icon>
+    <mdc-icon [clickable]="clickable">{{myIcon}}</mdc-icon>
   `,
 })
 class SimpleTest {
   myIcon: string = 'home';
-  mySize: number = 24;
   clickable: boolean;
 }
 
@@ -109,7 +91,6 @@ class SimpleTest {
   template: `
     <button mdc-fab>
       <mdc-icon 
-        fontSize="fontSize"
        fontSet="fontSet"
        fontIcon="fontIcon"></mdc-icon>
     </button>
@@ -118,5 +99,4 @@ class SimpleTest {
 class FontAwesomeTest {
   fontSet: string = 'fa';
   fontIcon: string = 'fa-keyboard-o';
-  fontSize: number;
 }

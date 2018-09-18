@@ -37,10 +37,6 @@
             <td>Name of an icon within a font set.</td>
           </tr>
           <tr>
-            <td>fontSize: number</td>
-            <td>The size of the icon. If no size is specified, the default of 24px is used.</td>
-          </tr>
-          <tr>
             <td>clickable: boolean</td>
             <td>Whether or not icon can be interacted with.</td>
           </tr>
@@ -61,10 +57,6 @@
           <tr>
             <td>getIcon(): string</td>
             <td>Get the content of the icon.</td>
-          </tr>
-          <tr>
-            <td>setFontSize(value: number)</td>
-            <td>Set the font size value.</td>
           </tr>
         </tbody>
       </table>
@@ -92,26 +84,10 @@
   </div>
 
   <div class="demo-content">
-    <h3 class="demo-content__headline">Font Size adjusted</h3>
-    <div class="demo-layout__row">
-      <button mdc-button (click)="alternateColors(demosize)">Alternate Colors</button>
-    </div>
-    <mdc-icon #demosize [fontSize]="48">home</mdc-icon>
-  </div>
-
-  <div class="demo-content">
     <h3 class="demo-content__headline">Using Font Awesome</h3>
     <div class="demo-layout__row">
       <button mdc-button (click)="alternateColors(demofa)">Alternate Colors</button>
     </div>
     <mdc-icon #demofa fontSet="fa" fontIcon="fa-camera"></mdc-icon>
-  </div>
-
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Using Font Awesome w/size modifier</h3>
-    <div class="demo-layout__row">
-      <button mdc-button (click)="alternateColors(fasize)">Alternate Colors</button>
-    </div>
-    <mdc-icon #fasize fontSet="fa" fontIcon="fa-map fa-4x"></mdc-icon>
   </div>
 </div>

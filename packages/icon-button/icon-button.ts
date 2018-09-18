@@ -143,7 +143,11 @@ export class MdcIconButton implements AfterContentInit, OnDestroy {
 
     // When the icons change, re-subscribe
     this._changeSubscription = this.icons.changes.pipe(startWith(null)).subscribe(() => {
-      this.icons.forEach(icon => icon.getHostElement().classList.add('mdc-icon-button__icon'));
+      this.icons.forEach((icon: MdcIcon) => {
+        icon.elementRef.nativeElement.classList.add('mdc-icon-button__icon');
+        icon.tabIndex = null;
+        icon.role = null;
+      });
     });
 
     this._ngZone.runOutsideAngular(() =>

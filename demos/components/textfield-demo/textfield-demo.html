@@ -34,7 +34,7 @@
           </tr>
           <tr>
             <td>type: string = 'text'</td>
-            <td>Input type of textfield (e.g. email, password, url).</td>
+            <td>Input type of textfield (e.g.: email, password, date, color).</td>
           </tr>
           <tr>
             <td>name: string</td>
@@ -69,6 +69,18 @@
             <td>Whether the element is required.</td>
           </tr>
           <tr>
+            <td>useNativeValidation: boolean</td>
+            <td>Sets whether to check native HTML validity state (true, default) or custom validity state when updating styles (false).</td>
+          </tr>
+          <tr>
+            <td>valid: boolean</td>
+            <td>Updates input validity styling using passed value.</td>
+          </tr>
+          <tr>
+            <td>empty: boolean</td>
+            <td>Returns whether the control is empty.</td>
+          </tr>
+          <tr>
             <td>tabIndex: number</td>
             <td>Tab index of the text element.</td>
           </tr>
@@ -93,22 +105,16 @@
             <td>The minimum numeric value for this input, which must not be greater than its maximum (max attribute) value.</td>
           </tr>
           <tr>
-            <td>focused: boolean</td>
-            <td>Set or unset focus on the input element.</td>
+            <td>step: number</td>
+            <td>Works with the min and max attributes to limit the increments at which a numeric or date-time value can be set.</td>
           </tr>
           <tr>
-            <td>nativeValidation: boolean</td>
-            <td>Sets whether to check native HTML validity state (true, default) or custom validity state when updating styles (false).</td>
+            <td>size: number</td>
+            <td>The initial size of the control.</td>
           </tr>
           <tr>
-            <td>direction: string</td>
-            <td>Support for right-to-left (RTL). (Default is ltr)
-              <pre>Values: 'ltr' | 'rtl'</pre>
-            </td>
-          </tr>
-          <tr>
-            <td>helperText: string</td>
-            <td>Reference to input's mdc-text-field-helper-text directive</td>
+            <td>helperText: MdcTextFieldHelperText</td>
+            <td>Reference to input's MdcTextFieldHelperText directive</td>
           </tr>
         </tbody>
       </table>
@@ -121,12 +127,8 @@
         </thead>
         <tbody>
           <tr>
-            <td>setValid(value?: boolean)</td>
-            <td>Updates input validity using passed value, or if left empty checking the validity of the input.</td>
-          </tr>
-          <tr>
             <td>isBadInput(): boolean</td>
-            <td>Returns input bad input validity value.</td>
+            <td>Returns the bad input validity value.</td>
           </tr>
           <tr>
             <td>focus()</td>
@@ -134,31 +136,7 @@
           </tr>
           <tr>
             <td>selectAll()</td>
-            <td>Selects all of the input's content.</td>
-          </tr>
-          <tr>
-            <td>setHelperTextContent(content: string)</td>
-            <td>Sets the content of the helper text.</td>
-          </tr>
-          <tr>
-            <td>getValue(): string</td>
-            <td>The value of the input Element.</td>
-          </tr>
-          <tr>
-            <td>textarea(): boolean</td>
-            <td>Returns whether or not the input is textarea.</td>
-          </tr>
-          <tr>
-            <td>setHelperText(helperText: MdcTextFieldHelperText)</td>
-            <td>Reference to input's mdc-text-field-helper-text directive</td>
-          </tr>
-          <tr>
-            <td>setIconAriaLabel(label: string)</td>
-            <td>Sets the aria label of the icon.</td>
-          </tr>
-          <tr>
-            <td>setIconContent(content: string)</td>
-            <td>Sets the text content of the icon.</td>
+            <td>Selects all of the input text content.</td>
           </tr>
         </tbody>
       </table>
@@ -206,24 +184,23 @@
 
       <p>
         <span class="docs-api-class-selector-label">Selector:</span>
-        <span class="docs-api-class-selector-name">mdc-icon[leading]</span>
-        <span class="docs-api-class-selector-name">mdc-icon[trailing]</span>
+        <span class="docs-api-class-selector-name">mdc-icon[mdcTextFieldIcon]</span>
       </p>
       <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
         <tbody>
           <tr>
-            <td>mdc-icon[leading]</td>
-            <td>Add a leading icon to the textfield.
-              <pre>Example: <![CDATA[<mdc-icon leading>person</mdc-icon>]]></pre></td>
+            <td>leading: boolean</td>
+            <td>Styles the text field as a text field with a leading icon.</td>
           </tr>
           <tr>
-            <td>mdc-icon[trailing]</td>
-            <td>Add a trailing icon to the textfield.
-              <pre>Example: <![CDATA[<mdc-icon trailing>person</mdc-icon>]]></pre></td>
-          </tr>
-          <tr>
-            <td>clickable: boolean</td>
-            <td>Whether or not the icon is clickable.</td>
+            <td>trailing: boolean</td>
+            <td>Styles the text field as a text field with a trailing icon.</td>
           </tr>
         </tbody>
       </table>
@@ -332,7 +309,7 @@
       <span *ngIf="!demousername?.value">Username is required</span>
     </p>
     <button mdc-button (click)="resetTextFieldValue(demousername)">Reset value</button>
-    <p>Value: {{demousername.getValue()}}</p>
+    <p>Value: {{demousername.value}}</p>
   </div>
 
   <div class="demo-content">
@@ -354,16 +331,15 @@
       <button mdc-button (click)="changeOutlinedIcon(outlinedicon, leadingicon)">Change Icon</button>
     </div>
     <mdc-text-field #outlinedicon outlined label="Event date">
-      <mdc-icon leading #leadingicon>event</mdc-icon>
+      <mdc-icon mdcTextFieldIcon leading #leadingicon>event</mdc-icon>
     </mdc-text-field>
 
     <div class="demo-layout__row">
       <button mdc-button (click)="trailingicon.clickable = !trailingicon.clickable">Clickable Icon: {{trailingicon.clickable ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="alternateColors(outlinedtrailing)">Alternate Colors</button>
-      <button mdc-button (click)="changeOutlinedIcon(outlinedtrailing)">Change Icon</button>
     </div>
     <mdc-text-field #outlinedtrailing outlined label="Event date">
-      <mdc-icon trailing #trailingicon>event</mdc-icon>
+      <mdc-icon mdcTextFieldIcon trailing #trailingicon>event</mdc-icon>
     </mdc-text-field>
   </div>
   <div class="demo-content">
@@ -373,8 +349,13 @@
   </div>
 
   <div class="demo-content">
-    <h3 class="demo-content__headline">Password</h3>
-    <mdc-text-field type="password" label="Password" required></mdc-text-field>
+    <h3 class="demo-content__headline">Date / Time / Color / Password</h3>
+    <div class="demo-layout__row">
+      <mdc-text-field type="date" label="Birthday" outlined></mdc-text-field>
+      <mdc-text-field type="time" label="Time" outlined></mdc-text-field>
+      <mdc-text-field type="password" label="Password" required outlined></mdc-text-field>
+      <mdc-text-field type="color" label="Color" style="width: 6rem" outlined></mdc-text-field>
+    </div>
   </div>
 
   <div class="demo-content">

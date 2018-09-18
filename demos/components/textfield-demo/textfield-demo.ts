@@ -26,13 +26,8 @@ export class TextFieldDemo {
     console.log(this.demoForm);
 
     if (!this.demoForm.valid) {
-      if (!this.demoformInput.valid) {
-        this.demoformInput.setValid(false);
-      }
       return;
     }
-
-    this.demoformInput.setValid(true);
   }
 
   submitWeightForm(f: NgForm) {
@@ -70,6 +65,6 @@ export class TextFieldDemo {
   }
 
   changeOutlinedIcon(textField: MdcTextField, icon?: MdcIcon) {
-    icon ? icon.setIcon('face') : textField.setIconContent('cake');
+    icon ? icon.setIcon('face') : textField.leadingIcon.setIcon('cake');
   }
 }

@@ -78,7 +78,7 @@ describe('MdcTextField', () => {
       fixture.detectChanges();
       tick();
 
-      expect(textFieldInstance.getValue()).toBe('testing');
+      expect(textFieldInstance.value).toBe('testing');
       tick();
     }));
 
@@ -87,12 +87,12 @@ describe('MdcTextField', () => {
       fixture.detectChanges();
       tick();
 
-      expect(textFieldInstance.getValue()).toBe('newvalue');
+      expect(textFieldInstance.value).toBe('newvalue');
       expect(textFieldInstance.empty).toBe(false);
     }));
 
     it('#should set validity based on input element validity', () => {
-      textFieldInstance.setValid(true);
+      textFieldInstance.valid = true;
       fixture.detectChanges();
       expect(textFieldInstance.valid).toBe(true);
     });
@@ -119,14 +119,6 @@ describe('MdcTextField', () => {
 
     it('#should turn on validation errors', () => {
       expect(textFieldInstance.helperText.setValidity(true));
-    });
-
-    it('#should activate focus', () => {
-      expect(textFieldInstance.activateFocus());
-    });
-
-    it('#should deactivate focus', () => {
-      expect(textFieldInstance.deactivateFocus());
     });
 
     it('#should set validation to true', () => {
@@ -183,12 +175,16 @@ describe('MdcTextField', () => {
       fixture.detectChanges();
     });
 
+    it('expect leading icon foundation to be defined', () => {
+      expect(textFieldInstance.leadingIcon.iconTextFoundation).toBeDefined();
+    });
+
     it('expect leading icon to be defined', () => {
-      expect(textFieldInstance.getLeadingIcon()).toBeDefined();
+      expect(textFieldInstance.leadingIcon).toBeDefined();
     });
 
     it('expect trailing icon to be defined', () => {
-      expect(textFieldInstance.getTrailingIcon()).toBeDefined();
+      expect(textFieldInstance.trailingIcon).toBeDefined();
     });
   });
 });
@@ -205,13 +201,12 @@ describe('MdcTextField', () => {
       [outlined]="outlined"
       [fullwidth]="isFullwidth"
       [required]="required"
-      [focused]="isFocused"
       [disabled]="disabled"
-      [nativeValidation]="nativeValidation"
+      [useNativeValidation]="useNativeValidation"
       [helperText]="userHelper"
       (blur)="onBlur($event)">
-      <mdc-icon leading>person</mdc-icon>
-      <mdc-icon trailing>person</mdc-icon>
+      <mdc-icon mdcTextFieldIcon leading>person</mdc-icon>
+      <mdc-icon mdcTextFieldIcon trailing>person</mdc-icon>
     </mdc-text-field>
     <p mdcTextFieldHelperText
       #userHelper="mdcHelperText"
@@ -225,11 +220,10 @@ class SimpleTextfield {
   myType: string = 'text';
   disabled: boolean = false;
   isDense: boolean = false;
-  isFocused: boolean = false;
   isFullwidth: boolean = false;
   outlined: boolean = false;
   required: boolean = false;
-  nativeValidation: boolean;
+  useNativeValidation: boolean;
 
   onBlur(event: any) { }
 }

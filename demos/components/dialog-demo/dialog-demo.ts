@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { MdcDialog, MdcDialogComponent, MdcDialogRef, MdcTextField } from '@angular-mdc/web';
+import { MdcDialog, MdcDialogComponent, MdcDialogRef } from '@angular-mdc/web';
 
 @Component({
   templateUrl: './dialog-demo.html',
@@ -166,7 +166,6 @@ export class DialogNoFooterExample {
 })
 export class DialogFormExample implements OnInit {
   userForm: FormGroup;
-  @ViewChild('input') input: MdcTextField;
 
   constructor(public dialogRef: MdcDialogRef<DialogFormExample>) { }
 
@@ -180,9 +179,6 @@ export class DialogFormExample implements OnInit {
 
   updateForm() {
     if (!this.userForm.valid) {
-      if (!this.input.valid) {
-        this.input.setValid(false);
-      }
       return;
     }
     this.dialogRef.close();

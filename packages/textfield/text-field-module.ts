@@ -8,11 +8,13 @@ import { MdcNotchedOutlineModule } from '@angular-mdc/web/notched-outline';
 import { MdcTextFieldHelperText } from './helper-text';
 import { MdcTextField } from './text-field';
 import { MdcTextarea } from './textarea';
+import { MdcTextFieldIcon } from './text-field-icon';
 
 const TEXTFIELD_DECLARATIONS = [
   MdcTextarea,
   MdcTextField,
-  MdcTextFieldHelperText
+  MdcTextFieldHelperText,
+  MdcTextFieldIcon
 ];
 
 @NgModule({

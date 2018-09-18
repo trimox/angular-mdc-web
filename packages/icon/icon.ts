@@ -6,7 +6,6 @@ import {
   ElementRef,
   Input,
   OnInit,
-  Renderer2,
   ViewEncapsulation
 } from '@angular/core';
 import { toBoolean } from '@angular-mdc/web/common';
@@ -16,7 +15,10 @@ import { toBoolean } from '@angular-mdc/web/common';
   selector: 'mdc-icon, [mdcIcon]',
   exportAs: 'mdcIcon',
   host: {
-    'class': 'ng-mdc-icon'
+    '[attr.role]': 'role',
+    '[attr.tabindex]': 'tabIndex',
+    'class': 'ng-mdc-icon',
+    '[class.ng-mdc-icon--clickable]': 'clickable'
   },
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
@@ -26,7 +28,12 @@ export class MdcIcon implements OnInit {
   private _defaultFontSetClass = 'material-icons';
   private _previousFontSetClass: string;
   private _previousFontIconClass: string;
-  private _previousFontSize: number | null;
+
+  @Input() role: string | null = 'img';
+  @Input() tabIndex: number | null;
+
+  /** Name of the icon in the SVG icon set. */
+  @Input() svgIcon: string;
 
   /** Font set that the icon is a part of. */
   @Input()
@@ -47,85 +54,93 @@ export class MdcIcon implements OnInit {
   protected _fontIcon: string;
 
   @Input()
-  get fontSize(): number { return this._fontSize; }
-  set fontSize(value: number) {
-    this.setFontSize(value);
-  }
-  protected _fontSize: number;
-
-  @Input()
-  get leading(): boolean { return this._leading; }
-  set leading(value: boolean) {
-    this._leading = toBoolean(value);
-  }
-  protected _leading: boolean;
-
-  @Input()
-  get trailing(): boolean { return this._trailing; }
-  set trailing(value: boolean) {
-    this._trailing = toBoolean(value);
-  }
-  protected _trailing: boolean;
-
-  @Input()
   get clickable(): boolean { return this._clickable; }
   set clickable(value: boolean) {
     this.setClickable(value);
   }
   protected _clickable: boolean;
 
-  public foundation: any;
-
   constructor(
     protected _changeDetectorRef: ChangeDetectorRef,
-    protected _renderer: Renderer2,
-    public elementRef: ElementRef,
+    public elementRef: ElementRef<HTMLElement>,
     @Attribute('aria-hidden') protected ariaHidden: string) {
 
     if (!ariaHidden) {
-      _renderer.setAttribute(elementRef.nativeElement, 'aria-hidden', 'true');
+      this._getHostElement().setAttribute('aria-hidden', 'true');
     }
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this._updateFontIconClasses();
   }
 
+  setIcon(content: string): void {
+    this.fontIcon ? this.fontIcon = content : this._getHostElement().textContent = content;
+    this._changeDetectorRef.markForCheck();
+  }
+
+  getIcon(): string | null {
+    return this.fontIcon ? this.fontIcon : this._getHostElement().textContent;
+  }
+
+  setClickable(clickable: boolean): void {
+    this._clickable = toBoolean(clickable);
+
+    if (this.clickable) {
+      this.tabIndex = 0;
+      this.role = 'button';
+    } else {
+      this.tabIndex = null;
+      this.role = null;
+    }
+  }
+
+  /** Splits an svgIcon binding value into its icon set and icon name components. */
+  private _splitIconName(iconName: string): [string, string] {
+    if (!iconName) {
+      return ['', ''];
+    }
+    const parts = iconName.split(':');
+    switch (parts.length) {
+      case 1: return ['', parts[0]]; // Use default namespace.
+      case 2: return <[string, string]>parts;
+      default: throw Error(`Invalid icon name: "${iconName}"`);
+    }
+  }
+
+  private _usingFontIcon(): boolean {
+    return !this.svgIcon;
+  }
+
   private _updateFontIconClasses(): void {
-    const el: HTMLElement = this.getHostElement();
+    if (!this._usingFontIcon()) {
+      return;
+    }
+
+    const el: HTMLElement = this._getHostElement();
 
     const fontSetClass = this.fontSet ? this.fontSet : this._getDefaultFontSetClass();
 
     if (fontSetClass !== this._previousFontSetClass) {
       if (this._previousFontSetClass) {
-        this._renderer.removeClass(el, this._previousFontSetClass);
+        this._getHostElement().classList.remove(this._previousFontSetClass);
       }
       if (fontSetClass) {
-        this._renderer.addClass(el, fontSetClass);
+        this._getHostElement().classList.add(fontSetClass);
       }
       this._previousFontSetClass = fontSetClass;
     }
 
     if (this.fontIcon !== this._previousFontIconClass) {
       if (this._previousFontIconClass) {
-        this._renderer.removeClass(el, this._previousFontIconClass);
+        this._getHostElement().classList.remove(this._previousFontIconClass);
       }
       if (this.fontIcon) {
         for (const iconClass of this.fontIcon.split(' ')) {
-          this._renderer.addClass(el, iconClass);
+          this._getHostElement().classList.add(iconClass);
         }
       }
       this._previousFontIconClass = this.fontIcon;
-    }
-
-    if (this.fontSize !== this._previousFontSize) {
-      if (this._previousFontSize) {
-        this._renderer.removeStyle(el, `font-size: ${this.fontSize}px`);
-      }
-      if (this.fontSize) {
-        this._renderer.setStyle(el, 'font-size', `${this.fontSize}px`);
-      }
-      this._previousFontSize = this.fontSize;
     }
   }
 
@@ -143,36 +158,7 @@ export class MdcIcon implements OnInit {
   }
 
   /** Retrieves the DOM element of the component host. */
-  getHostElement(): HTMLElement {
+  protected _getHostElement(): HTMLElement {
     return this.elementRef.nativeElement;
-  }
-
-  setIcon(content: string): void {
-    this.fontIcon ? this.fontIcon = content : this.getHostElement().textContent = content;
-    this._changeDetectorRef.markForCheck();
-  }
-
-  getIcon(): string | null {
-    return this.fontIcon ? this.fontIcon : this.getHostElement().textContent;
-  }
-
-  setFontSize(value: number): void {
-    this._fontSize = value;
-    this._updateFontIconClasses();
-    this._changeDetectorRef.markForCheck();
-  }
-
-  setClickable(clickable: boolean): void {
-    this._clickable = toBoolean(clickable);
-
-    if (this.clickable) {
-      this._renderer.setAttribute(this.getHostElement(), 'tabindex', '0');
-      this._renderer.addClass(this.getHostElement(), 'ng-mdc-icon--clickable');
-      this._renderer.setAttribute(this.getHostElement(), 'role', 'button');
-    } else {
-      this._renderer.setAttribute(this.getHostElement(), 'tabindex', '-1');
-      this._renderer.removeClass(this.getHostElement(), 'ng-mdc-icon--clickable');
-      this._renderer.removeAttribute(this.getHostElement(), 'role');
-    }
   }
 }

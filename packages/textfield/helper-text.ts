@@ -27,7 +27,7 @@ export class MdcTextFieldHelperText implements OnInit, OnDestroy {
   get persistent(): boolean { return this._persistent; }
   set persistent(value: boolean) {
     this._persistent = toBoolean(value);
-    this.foundation.setPersistent(this.persistent);
+    this._foundation.setPersistent(this.persistent);
   }
   private _persistent: boolean;
 
@@ -35,7 +35,7 @@ export class MdcTextFieldHelperText implements OnInit, OnDestroy {
   get validation(): boolean { return this._validation; }
   set validation(value: boolean) {
     this._validation = toBoolean(value);
-    this.foundation.setValidation(this.validation);
+    this._foundation.setValidation(this.validation);
   }
   private _validation: boolean;
 
@@ -48,7 +48,7 @@ export class MdcTextFieldHelperText implements OnInit, OnDestroy {
     setContent: (content: string) => this._getHostElement().textContent = content
   };
 
-  foundation: {
+  private _foundation: {
     init(): void,
     destroy(): void,
     setContent(content: string): void,
@@ -61,26 +61,30 @@ export class MdcTextFieldHelperText implements OnInit, OnDestroy {
   constructor(public elementRef: ElementRef) { }
 
   ngOnInit(): void {
-    this.foundation.init();
+    this._foundation.init();
   }
 
   ngOnDestroy(): void {
-    this.foundation.destroy();
+    this._foundation.destroy();
   }
 
   /** Sets the content of the helper text field. */
   setContent(content: string): void {
-    this.foundation.setContent(content);
+    this._foundation.setContent(content);
   }
 
   /** Sets the validity of the helper text based on the input validity. */
   setValidity(validity: boolean): void {
-    this.foundation.setValidity(validity);
+    this._foundation.setValidity(validity);
   }
 
   /** Makes the helper text visible to the screen reader. */
   showToScreenReader(): void {
-    this.foundation.showToScreenReader();
+    this._foundation.showToScreenReader();
+  }
+
+  get helperTextFoundation(): MDCTextFieldHelperTextFoundation {
+    return this._foundation;
   }
 
   /** Retrieves the DOM element of the component host. */

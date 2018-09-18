@@ -1,9 +1,10 @@
 import {
-  Directive,
+  Component,
   ElementRef,
   EventEmitter,
   NgZone,
-  Output
+  Output,
+  ViewEncapsulation
 } from '@angular/core';
 import { fromEvent, Subject, Subscription } from 'rxjs';
 import { startWith, takeUntil } from 'rxjs/operators';
@@ -45,14 +46,17 @@ const ANCHOR_CORNER_MAP = {
   topStart: 'TOP_START'
 };
 
-@Directive({
-  selector: '[mdcMenuSurfaceAnchor], [mdc-menu-surface-anchor]',
+@Component({
+  moduleId: module.id,
+  selector: '[mdcMenuSurfaceAnchor], mdc-menu-surface-anchor',
   host: {
     'class': 'mdc-menu-surface--anchor'
-  }
+  },
+  template: '<ng-content></ng-content>',
+  encapsulation: ViewEncapsulation.None
 })
 export class MdcMenuSurfaceAnchor {
-  constructor(public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
 }
 
 export class MdcMenuSurfaceBase {
@@ -170,12 +174,12 @@ export class MdcMenuSurfaceBase {
   constructor(
     protected platform: Platform,
     protected ngZone: NgZone,
-    protected elementRef: ElementRef) { }
+    protected elementRef: ElementRef<HTMLElement>) { }
 
   protected initMenuSurface(): void {
     this._loadListeners();
 
-    if (!this._anchorElement && this._getHostElement().parentElement) {
+    if (this._getHostElement().parentElement) {
       this._anchorElement = this._getHostElement().parentElement;
     }
   }

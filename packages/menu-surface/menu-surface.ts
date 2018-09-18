@@ -19,6 +19,11 @@ export interface MdcMenuSurfaceOpenedEvent {
   detail: string;
 }
 
+export interface AbsolutePosition {
+  x: number;
+  y: number;
+}
+
 export type Anchor = 'bottomEnd' | 'bottomLeft' | 'bottomRight' |
   'bottomStart' | 'topEnd' | 'topLeft' | 'topRight' | 'topStart';
 

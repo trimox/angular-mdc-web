@@ -22,6 +22,7 @@ import { startWith } from 'rxjs/operators';
 import { Platform, toBoolean } from '@angular-mdc/web/common';
 import { MdcList, MdcListItem } from '@angular-mdc/web/list';
 import {
+  AbsolutePosition,
   Anchor,
   MdcMenuSurfaceAnchor,
   MdcMenuSurfaceBase,
@@ -123,6 +124,15 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
   }
   private _fixed: boolean;
 
+  @Input()
+  get absolutePosition(): AbsolutePosition { return this._absolutePosition; }
+  set absolutePosition(value: AbsolutePosition) {
+    this._absolutePosition = value;
+    this.setAbsolutePosition(value.x, value.y);
+    this._changeDetectorRef.markForCheck();
+  }
+  private _absolutePosition: AbsolutePosition;
+
   /** Tabindex of the menu. */
   @Input() tabIndex: number = -1;
 
@@ -139,18 +149,14 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
   private _changeSubscription: Subscription;
 
   private _mdcMenuAdapter: MDCMenuAdapter = {
-    addClassToElementAtIndex: (index: number, className: string) => {
-      this._listItems.toArray()[index].getListItemElement().classList.add(className);
-    },
-    removeClassFromElementAtIndex: (index: number, className: string) => {
-      this._listItems.toArray()[index].getListItemElement().classList.remove(className);
-    },
-    addAttributeToElementAtIndex: (index: number, attr: string, value: string) => {
-      this._listItems.toArray()[index].getListItemElement().setAttribute(attr, value);
-    },
-    removeAttributeFromElementAtIndex: (index: number, attr: string) => {
-      this._listItems.toArray()[index].getListItemElement().removeAttribute(attr);
-    },
+    addClassToElementAtIndex: (index: number, className: string) =>
+      this._listItems.toArray()[index].getListItemElement().classList.add(className),
+    removeClassFromElementAtIndex: (index: number, className: string) =>
+      this._listItems.toArray()[index].getListItemElement().classList.remove(className),
+    addAttributeToElementAtIndex: (index: number, attr: string, value: string) =>
+      this._listItems.toArray()[index].getListItemElement().setAttribute(attr, value),
+    removeAttributeFromElementAtIndex: (index: number, attr: string) =>
+      this._listItems.toArray()[index].getListItemElement().removeAttribute(attr),
     elementContainsClass: (element: HTMLElement, className: string) => element.classList.contains(className),
     closeSurface: () => this.setOpen(false),
     getElementIndex: (element: HTMLElement) => this._listItems.toArray().findIndex((_) => _.getListItemElement() === element),
@@ -160,9 +166,8 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
     },
     notifySelected: (evtData: { index: number }) =>
       this.selected.emit(new MdcMenuSelectedEvent(evtData.index, this._listItems.toArray()[evtData.index])),
-    getCheckboxAtIndex: (index: number) => {
-      return this._listItems.toArray()[index].getListItemElement().querySelector('input[type="checkbox"]');
-    },
+    getCheckboxAtIndex: (index: number) =>
+      this._listItems.toArray()[index].getListItemElement().querySelector('input[type="checkbox"]'),
     toggleCheckbox: (checkBox: HTMLInputElement) => {
       if (!this.platform.isBrowser) { return; }
 

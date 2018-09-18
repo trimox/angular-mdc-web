@@ -67,7 +67,8 @@ describe('MdcMenu', () => {
 @Component({
   template: `
     <div mdcMenuSurfaceAnchor #testanchor>
-      <mdc-menu [anchorCorner]="anchorCorner" (select)="handleSelect($event)" [anchor]="testanchor" [quickOpen]="quickOpen">
+      <mdc-menu [anchorCorner]="anchorCorner" (select)="handleSelect($event)" [anchor]="testanchor" [quickOpen]="quickOpen"
+        [absolutePosition]="{ x: 5, y: 2}" fixed="fixed">
         <mdc-list>
           <mdc-list-item>Item 1</mdc-list-item>
           <mdc-list-item>Item 2</mdc-list-item>
@@ -79,6 +80,7 @@ describe('MdcMenu', () => {
 class MenuTest {
   anchorCorner: string = 'topStart';
   quickOpen: boolean;
+  fixed: boolean;
 
   handleSelect(event) { }
 }

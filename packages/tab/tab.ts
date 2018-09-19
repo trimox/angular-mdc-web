@@ -109,7 +109,6 @@ export class MdcTab implements OnInit, OnDestroy {
   get stacked(): boolean { return this._stacked; }
   set stacked(value: boolean) {
     this._stacked = toBoolean(value);
-    this._changeDetectorRef.markForCheck();
   }
   private _stacked: boolean;
 

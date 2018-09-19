@@ -1,16 +1,16 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   Input,
+  NgZone,
   OnDestroy,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 import { merge, fromEvent, Subject, Subscription, Observable } from 'rxjs';
-import { map, startWith, takeUntil } from 'rxjs/operators';
+import { map, filter, startWith, takeUntil } from 'rxjs/operators';
 
 import { Platform } from '@angular-mdc/web/common';
 
@@ -98,9 +98,9 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
   } = new MDCTabScrollerFoundation(this._mdcAdapter);
 
   constructor(
+    private _ngZone: NgZone,
     private _platform: Platform,
-    private _changeDetectorRef: ChangeDetectorRef,
-    public elementRef: ElementRef) { }
+    public elementRef: ElementRef<HTMLElement>) { }
 
   ngAfterViewInit(): void {
     this._foundation.init();
@@ -124,8 +124,6 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
     if (align) {
       this._getHostElement().classList.add(`mdc-tab-scroller--align-${align}`);
     }
-
-    this._changeDetectorRef.markForCheck();
   }
 
   /** Returns the current visual scroll position */
@@ -152,8 +150,11 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
     this._scrollAreaEventsSubscription = this.scrollAreaEvents.pipe()
       .subscribe(() => this._foundation.handleInteraction());
 
-    fromEvent<TransitionEvent>(this._getScrollContent(), 'transitionend').pipe(takeUntil(this._destroy))
-      .subscribe((evt) => this._foundation.handleTransitionEnd(evt));
+    this._ngZone.runOutsideAngular(() =>
+      fromEvent<TransitionEvent>(this._getScrollContent(), 'transitionend')
+        .pipe(takeUntil(this._destroy), filter((e: TransitionEvent) =>
+          e.target === this._getScrollContent()))
+        .subscribe(evt => this._ngZone.run(() => this._foundation.handleTransitionEnd(evt))));
   }
 
   private _getScrollArea(): HTMLElement {

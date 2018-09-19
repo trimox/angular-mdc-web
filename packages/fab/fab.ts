@@ -6,7 +6,6 @@ import {
   ContentChild,
   Directive,
   ElementRef,
-  HostBinding,
   Input,
   OnDestroy,
   ViewEncapsulation
@@ -15,7 +14,10 @@ import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
-export type FabPosition = 'bottom-left' | 'bottom-right' | null;
+const FAB_POSITION = {
+  bottomLeft: 'bottom-left',
+  bottomRight: 'bottom-right',
+};
 
 @Directive({
   selector: 'mdc-fab-label, [mdcFabLabel]',
@@ -28,6 +30,13 @@ export class MdcFabLabel { }
 @Component({
   moduleId: module.id,
   selector: 'button[mdc-fab], a[mdc-fab]',
+  host: {
+    '[attr.tabindex]': 'exited ? -1 : 0',
+    'class': 'mdc-fab',
+    '[class.mdc-fab--mini]': 'mini',
+    '[class.mdc-fab--exited]': 'exited',
+    '[class.mdc-fab--extended]': 'extended'
+  },
   template: `
   <ng-content></ng-content>
   <mdc-icon class="mdc-fab__icon" *ngIf="icon">{{icon}}</mdc-icon>
@@ -68,24 +77,12 @@ export class MdcFab implements AfterContentInit, OnDestroy {
 
   @Input() label: string;
   @Input() icon: string | null;
-  @Input('attr.tabindex') tabIndex: number = 0;
-
-  @HostBinding('class.mdc-fab') isHostClass = true;
-  @HostBinding('class.mdc-fab--mini') get classMini(): string {
-    return this.mini ? 'mdc-fab--mini' : '';
-  }
-  @HostBinding('class.mdc-fab--exited') get classExited(): string {
-    return this.exited ? 'mdc-fab--exited' : '';
-  }
-  @HostBinding('class.mdc-fab--extended') get classExtended(): string {
-    return this.extended ? 'mdc-fab--extended' : '';
-  }
 
   @ContentChild(MdcIcon) fabIcon: MdcIcon;
 
   constructor(
     private _changeDetectionRef: ChangeDetectorRef,
-    public elementRef: ElementRef,
+    public elementRef: ElementRef<HTMLElement>,
     private _ripple: MdcRipple) { }
 
   ngAfterContentInit(): void {
@@ -101,21 +98,20 @@ export class MdcFab implements AfterContentInit, OnDestroy {
 
   setExited(exited: boolean): void {
     this._exited = toBoolean(exited);
-    this.tabIndex = exited ? -1 : this.tabIndex;
     this._changeDetectionRef.markForCheck();
   }
 
   setPosition(position: string): void {
-    this._getHostElement().classList.remove(`mdc-fab--${this._position}`);
+    this._getHostElement().classList.remove(`ng-mdc-fab--${FAB_POSITION[this._position]}`);
     this._position = position;
 
     if (this.position) {
-      this._getHostElement().classList.add(`mdc-fab--${position}`);
+      this._getHostElement().classList.add(`ng-mdc-fab--${FAB_POSITION[position]}`);
     }
   }
 
   toggleExited(exited?: boolean): void {
-    this._exited = exited != null ? exited : !this._exited;
+    this._exited = exited ? exited : !this._exited;
   }
 
   /** Focuses the button. */

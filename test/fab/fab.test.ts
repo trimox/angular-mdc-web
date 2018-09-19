@@ -36,7 +36,6 @@ describe('MdcFab', () => {
     it('#should have mdc-fab by default', () => {
       expect(buttonDebugElement.nativeElement.classList)
         .toContain('mdc-fab', 'Expected buttons to have mdc-fab');
-      expect(buttonInstance.isHostClass).toBe(true);
     });
 
     it('#should apply class mini', () => {
@@ -76,33 +75,29 @@ describe('MdcFab', () => {
       expect(testComponent.clickCount).toBe(1);
     });
 
-    it('#should preserve any given tabIndex', () => {
-      expect(buttonDebugElement.nativeElement.tabIndex).toBe(2);
-    });
-
-    it('#should apply class `bottom-left`', () => {
-      testComponent.myPosition = 'bottom-left';
+    it('#should apply class `bottomLeft`', () => {
+      testComponent.myPosition = 'bottomLeft';
       fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.classList.contains('mdc-fab--bottom-left')).toBe(true);
+      expect(buttonDebugElement.nativeElement.classList.contains('ng-mdc-fab--bottom-left')).toBe(true);
     });
 
     it('#should apply class `bottom-right`', () => {
-      testComponent.myPosition = 'bottom-right';
+      testComponent.myPosition = 'bottomRight';
       fixture.detectChanges();
 
-      expect(buttonInstance.position).toBe('bottom-right');
-      expect(buttonDebugElement.nativeElement.classList.contains('mdc-fab--bottom-right')).toBe(true);
+      expect(buttonInstance.position).toBe('bottomRight');
+      expect(buttonDebugElement.nativeElement.classList.contains('ng-mdc-fab--bottom-right')).toBe(true);
     });
 
-    it('#should remove class `bottom-right`', () => {
-      testComponent.myPosition = 'bottom-right';
+    it('#should remove class `bottomRight`', () => {
+      testComponent.myPosition = 'bottomRight';
       fixture.detectChanges();
 
-      expect(buttonInstance.position).toBe('bottom-right');
+      expect(buttonInstance.position).toBe('bottomRight');
 
       testComponent.myPosition = '';
       fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.classList.contains('mdc-fab--bottom-right')).toBe(false);
+      expect(buttonDebugElement.nativeElement.classList.contains('ng-mdc-fab--bottom-right')).toBe(false);
     });
 
     it('#should focus on button when focus() is called', () => {
@@ -128,7 +123,6 @@ describe('MdcFab', () => {
   template: `
     <button mdc-fab
       (click)="increment()"
-      [tabIndex]="customTabIndex"
       [exited]="isExited"
       [position]="myPosition"
       [extended]="extended"
@@ -142,8 +136,7 @@ class SimpleButton {
   extended: boolean;
   isExited: boolean = false;
   clickCount: number = 0;
-  customTabIndex: number = 2;
-  myPosition: string = 'bottom-left';
+  myPosition: string = 'bottomLeft';
 
   increment() {
     this.clickCount++;

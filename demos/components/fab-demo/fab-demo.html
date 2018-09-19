@@ -46,12 +46,9 @@
             <td>Optional, for the text label. Applicable only for Extended FAB.</td>
           </tr>
           <tr>
-            <td>tabIndex: number</td>
-            <td>Set the tabindex of the button. (Default: 0).</td>
-          </tr>
-          <tr>
             <td>position: string</td>
-            <td>Set the fab absolute position. <pre>Valid values: 'bottom-left' | 'bottom-right'</pre></td>
+            <td>Set the fab absolute position.
+            <p>Valid values: 'bottomLeft' | 'bottomRight'</p></td>
           </tr>
           <tr>
             <td>icon: string</td>
@@ -161,10 +158,10 @@
   <div class="demo-content">
     <h3 class="demo-content__headline">Absolute Positioning</h3>
     <div class="demo-layout__row">
-      <button mdc-button (click)="demofabposition.position = 'bottom-left'">Bottom Left</button>
-      <button mdc-button (click)="demofabposition.position = 'bottom-right'">Bottom Right</button>
+      <button mdc-button (click)="demofabposition.position = 'bottomLeft'">Bottom Left</button>
+      <button mdc-button (click)="demofabposition.position = 'bottomRight'">Bottom Right</button>
       <button mdc-button (click)="demofabposition.mini = !demofabposition.mini">Mini: {{demofabposition.mini ? 'On' : 'Off'}}</button>
     </div>
-    <button #demofabposition mdc-fab position='bottom-right' icon="add"></button>
+    <button #demofabposition mdc-fab position='bottomRight' icon="add"></button>
   </div>
 </div>

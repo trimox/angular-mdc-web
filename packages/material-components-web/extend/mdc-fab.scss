@@ -1,27 +1,25 @@
-.mdc-fab--bottom-right {
+.ng-mdc-fab--bottom-right {
   position: fixed;
   right: 1rem;
   bottom: 1rem;
 }
 
 @media (min-width: 1024px) {
-  .mdc-fab--bottom-right {
+  .ng-mdc-fab--bottom-right {
     right: 1.5rem;
     bottom: 1.5rem;
   }
 }
 
-.mdc-fab--bottom-left {
+.ng-mdc-fab--bottom-left {
   position: fixed;
   bottom: 1rem;
   left: 1rem;
-  z-index: 6;
 }
 
 @media (min-width: 1024px) {
-  .mdc-fab--bottom-left {
+  .ng-mdc-fab--bottom-left {
     bottom: 1.5rem;
     left: 1.5rem;
-    z-index: 6;
   }
 }

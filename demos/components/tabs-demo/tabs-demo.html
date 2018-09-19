@@ -42,7 +42,7 @@
           </tr>
           <tr>
             <td>activeTabIndex: number</td>
-            <td>Set the active tab by index.</td>
+            <td>Set the active tab by index. (Default is 0). Set to -1 for no initially selected tab.</td>
           </tr>
           <tr>
             <td>iconIndicator: string</td>
@@ -212,25 +212,27 @@
     <div class="demo-layout__row demo-layout__row-with-button">
       <button mdc-button primary (click)="addTab()">Add Tab</button>
       <button mdc-button (click)="demoTabBar.useAutomaticActivation = !demoTabBar.useAutomaticActivation">Automatic Activation: {{demoTabBar.useAutomaticActivation ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoTabBar.activateTab(2)">Activate Tab(3)</button>
     </div>
-    <mdc-tab-bar (activated)="logTab($event)" [activeTabIndex]="1">
+    <mdc-tab-bar #demoTabBar (activated)="logTab($event)" [activeTabIndex]="1" useAutomaticActivation>
       <mdc-tab-scroller>
         <mdc-tab *ngFor="let tab of tabs" [label]="tab.label" [icon]="tab.icon">
         </mdc-tab>
       </mdc-tab-scroller>
     </mdc-tab-bar>
-    <p>Last activated tab: {{ lastTab }}</p>
+    <p>Activated tab: {{ demoTabBar.activeTabIndex }}</p>
   </div>
 
   <div class="demo-content">
-    <h3 class="demo-content__headline">Tabs</h3>
-    <mdc-tab-bar [activeTabIndex]="1">
+    <h3 class="demo-content__headline">Tabs (no initial selection)</h3>
+    <mdc-tab-bar #demoTabIndex [activeTabIndex]="-1">
       <mdc-tab-scroller>
         <mdc-tab label="Flights"></mdc-tab>
         <mdc-tab label="Hotel"></mdc-tab>
         <mdc-tab label="Favorites"></mdc-tab>
       </mdc-tab-scroller>
     </mdc-tab-bar>
+    <p>Activated tab: {{ demoTabIndex.activeTabIndex }}</p>
   </div>
 
   <div class="demo-content">

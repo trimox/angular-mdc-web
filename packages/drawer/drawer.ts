@@ -15,7 +15,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { Subscription, fromEvent, Subject } from 'rxjs';
-import { startWith, takeUntil } from 'rxjs/operators';
+import { startWith, takeUntil, filter } from 'rxjs/operators';
 
 import { Platform, toBoolean } from '@angular-mdc/web/common';
 import { MdcList, MdcListItem } from '@angular-mdc/web/list';
@@ -250,11 +250,13 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
 
     this._ngZone.runOutsideAngular(() =>
       fromEvent<KeyboardEvent>(this._getHostElement(), 'keydown').pipe(takeUntil(this._destroy))
-        .subscribe((evt) => this._ngZone.run(() => this._foundation.handleKeydown(evt))));
+        .subscribe(evt => this._ngZone.run(() => this._foundation.handleKeydown(evt))));
 
     this._ngZone.runOutsideAngular(() =>
-      fromEvent<TransitionEvent>(this._getHostElement(), 'transitionend').pipe(takeUntil(this._destroy))
-        .subscribe((evt) => this._ngZone.run(() => this._foundation.handleTransitionEnd(evt))));
+      fromEvent<TransitionEvent>(this._getHostElement(), 'transitionend')
+        .pipe(takeUntil(this._destroy), filter((e: TransitionEvent) =>
+          e.target === this._getHostElement()))
+        .subscribe(evt => this._ngZone.run(() => this._foundation.handleTransitionEnd(evt))));
   }
 
   private _unloadListeners(): void {

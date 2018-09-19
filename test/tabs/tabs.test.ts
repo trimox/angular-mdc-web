@@ -71,11 +71,19 @@ describe('MDC Tabs', () => {
       expect(testInstance.tabs.toArray()[0].tabIndicator.fade).toBe(true);
     }));
 
+    it('#should turn on automatic activation behavior', fakeAsync(() => {
+      testComponent.useAutomaticActivation = true;
+      fixture.detectChanges();
+      tick(1000);
+      expect(testInstance.useAutomaticActivation).toBe(true);
+    }));
+
     it('#should set active tab', fakeAsync(() => {
       testComponent.activeTabIndex = 1;
       fixture.detectChanges();
       tick(1000);
       expect(testInstance.getActiveTabIndex()).toBe(1);
+      expect(testInstance.getActiveTab()).toBeDefined();
     }));
 
     it('#should set alignment to end', fakeAsync(() => {
@@ -93,7 +101,7 @@ describe('MDC Tabs', () => {
 @Component({
   template: `
   <mdc-tab-bar [stacked]="stacked" [fixed]="fixed" [fade]="fade" [align]="align" [activeTabIndex]="activeTabIndex"
-    [automaticActivation]="automaticActivation" (activated)="handleActivatedTab($event)">
+    [useAutomaticActivation]="useAutomaticActivation" [iconIndicator]="iconIndicator" (activated)="handleActivatedTab($event)">
     <mdc-tab-scroller>
       <mdc-tab label="Flights" icon="airplanemode_active"></mdc-tab>
       <mdc-tab label="Hotel" icon="hotel"></mdc-tab>
@@ -111,8 +119,9 @@ class SimpleTest {
   stacked: boolean;
   fade: boolean;
   align: MdcTabScrollerAlignment;
-  automaticActivation: boolean;
+  useAutomaticActivation: boolean;
   activeTabIndex: number;
+  iconIndicator: string;
 
   handleActivatedTab(event: { index: number, tab: MdcTab }) { }
 }

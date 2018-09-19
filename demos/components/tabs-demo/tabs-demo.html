@@ -46,7 +46,11 @@
           </tr>
           <tr>
             <td>iconIndicator: string</td>
-            <td>Denotes an icon to use as a tab indicator.</td>
+            <td>A material icon to display in the center of the tab.</td>
+          </tr>
+          <tr>
+            <td>useAutomaticActivation: boolean</td>
+            <td>If true, permits using movement keys to switch tabs.</td>
           </tr>
           <tr>
             <td>align: string</td>
@@ -207,6 +211,7 @@
     <h3 class="demo-content__headline">Dynamic Tabs</h3>
     <div class="demo-layout__row demo-layout__row-with-button">
       <button mdc-button primary (click)="addTab()">Add Tab</button>
+      <button mdc-button (click)="demoTabBar.useAutomaticActivation = !demoTabBar.useAutomaticActivation">Automatic Activation: {{demoTabBar.useAutomaticActivation ? 'On' : 'Off'}}</button>
     </div>
     <mdc-tab-bar (activated)="logTab($event)" [activeTabIndex]="1">
       <mdc-tab-scroller>
@@ -278,6 +283,7 @@
       <button mdc-button (click)="demoFixedTabsTabBar.setAlign('end')">Align End</button>
       <button mdc-button (click)="demoFixedTabsTabBar.setStacked(!demoFixedTabsTabBar.stacked)">Stacked: {{demoFixedTabsTabBar.stacked ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoFixedTabsTabBar.setFade(!demoFixedTabsTabBar.fade)">Fade: {{demoFixedTabsTabBar.fade ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoFixedTabsTabBar.useAutomaticActivation = !demoFixedTabsTabBar.useAutomaticActivation">Automatic Activation: {{demoFixedTabsTabBar.useAutomaticActivation ? 'On' : 'Off'}}</button>
     </div>
     <mdc-tab-bar #demoFixedTabsTabBar fixed>
       <mdc-tab-scroller>

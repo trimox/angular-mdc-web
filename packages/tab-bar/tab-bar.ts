@@ -40,7 +40,7 @@ export class MdcTabActivatedEvent {
     'role': 'tablist',
     'class': 'mdc-tab-bar'
   },
-  template: `<ng-content></ng-content>`,
+  template: '<ng-content></ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   providers: [{ provide: MDC_TAB_BAR_PARENT_COMPONENT, useExisting: MdcTabBar }]
@@ -85,13 +85,12 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
   private _iconIndicator: string;
 
   @Input()
-  get automaticActivation(): boolean { return this._automaticActivation; }
-  set automaticActivation(value: boolean) {
-    this._automaticActivation = toBoolean(value);
-    this._foundation.setUseAutomaticActivation(this._automaticActivation);
-    this._changeDetectorRef.markForCheck();
+  get useAutomaticActivation(): boolean { return this._useAutomaticActivation; }
+  set useAutomaticActivation(value: boolean) {
+    this._useAutomaticActivation = toBoolean(value);
+    this._foundation.setUseAutomaticActivation(this._useAutomaticActivation);
   }
-  private _automaticActivation: boolean;
+  private _useAutomaticActivation: boolean;
 
   @Input()
   get activeTabIndex(): number { return this._activeTabIndex; }

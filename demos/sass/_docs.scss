@@ -34,8 +34,13 @@
 
 .markdown-body {
   line-height: 1.5;
+  padding-left: 10px;
   word-wrap: break-word;
-  margin-top: 0 !important;
+  max-width: calc(70% - 17rem);
+
+  @media (max-width: 1239px) {
+    max-width: calc(100% - 3rem);
+  }
 
   h1 {
     @include mdc-typography(headline4);
@@ -90,14 +95,13 @@
 //
 
 .docs-api table {
-  margin: 0 12px 7px 0;
   border: 1px solid #eee;
   border-collapse: collapse;
   border-spacing: 0;
 
   td, th {
     border: 1px solid #eee;
-    padding: 12px 12px 12px 24px;
+    padding: 12px;
   }
 
   td:first-child, th:first-child {

@@ -6,7 +6,8 @@ import {
   MdcCardModule,
   MdcCard,
   MdcCardMedia,
-  MdcCardMediaContent
+  MdcCardMediaContent,
+  MdcIconModule
 } from '@angular-mdc/web';
 
 describe('MdcCard', () => {
@@ -14,7 +15,7 @@ describe('MdcCard', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MdcCardModule],
+      imports: [MdcCardModule, MdcIconModule],
       declarations: [SimpleTest]
     });
     TestBed.compileComponents();
@@ -68,6 +69,15 @@ describe('MdcCard', () => {
           <button mdc-button mdcCardAction="button">Action 2</button>
         </mdc-card-action-buttons>
       </mdc-card-actions>
+      <mdc-card-action-icons>
+        <button mdcIconButton mdcCardAction="icon">
+          <mdc-icon mdcIconOn>favorite</mdc-icon>
+          <mdc-icon>favorite_border</mdc-icon>
+        </button>
+        <mdc-icon mdcCardAction="icon" mdcRipple>share</mdc-icon>
+        <mdc-icon mdcCardAction="icon" mdcRipple>more_vert</mdc-icon>
+        <mdc-icon mdcCardAction mdcRipple>share</mdc-icon>
+      </mdc-card-action-icons>
     </mdc-card>
   `,
 })

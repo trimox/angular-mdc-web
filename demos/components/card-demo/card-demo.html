@@ -101,14 +101,6 @@
             <td>fullBleed: boolean</td>
             <td>Removes the action area's padding and causes its only child (an mdc-card__action element) to consume 100% of the action area's width.</td>
           </tr>
-          <tr>
-            <td>icons: boolean</td>
-            <td>A group of supplemental action icons, displayed on the right side of the card (in LTR), adjacent to mdc-card-action buttons</td>
-          </tr>
-          <tr>
-            <td>buttons: boolean</td>
-            <td>A group of action buttons, displayed on the left side of the card (in LTR), adjacent to mdc-card-action icons</td>
-          </tr>
         </tbody>
       </table>
 
@@ -149,7 +141,7 @@
           </tr>
           <tr>
             <td>
-              <span mdcSubtitle2>Example: mdcCardAction="icon" or mdcCardAction="button"</span>
+              <span mdcSubtitle2>Usage: mdcCardAction="icon" or mdcCardAction="button"</span>
             </td>
           </tr>
         </tbody>
@@ -166,8 +158,8 @@
   </div>
 
   <mdc-card class="demo-card">
-    <mdc-card-primary-action mdc-ripple>
-      <mdc-card-media class="demo-card__media--16-9" [wide]="true"></mdc-card-media>
+    <mdc-card-primary-action>
+      <mdc-card-media class="demo-card__media--16-9" wide></mdc-card-media>
       <div class="demo-card__primary">
         <h2 class="demo-card__title" mdcHeadline6>Our Changing Planet</h2>
         <h3 class="demo-card__subtitle" mdcSubtitle2>by Kurt Wagner</h3>
@@ -192,7 +184,7 @@
     </mdc-card-actions>
   </mdc-card>
 
-  <mdc-card [outlined]="true" class="demo-card">
+  <mdc-card class="demo-card" outlined>
     <div class="demo-card-article-group-heading" mdcSubtitle2>Headlines</div>
     <mdc-list-divider></mdc-list-divider>
     <mdc-ripple class="demo-card-article">
@@ -216,7 +208,7 @@
       </p>
     </mdc-ripple>
     <mdc-list-divider></mdc-list-divider>
-    <mdc-card-actions [fullBleed]="true">
+    <mdc-card-actions fullBleed>
       <button mdc-button mdcCardAction="button">
           All Business Headlines
           <mdc-icon>arrow_forward</mdc-icon>
@@ -225,30 +217,32 @@
   </mdc-card>
 
   <mdc-card class="demo-card demo-card--photo">
-    <mdc-card-primary-action mdc-ripple>
-      <mdc-card-media [square]="true" class="demo-card__media">
+    <mdc-card-primary-action>
+      <mdc-card-media square class="demo-card__media">
         <mdc-card-media-content class="demo-card__media-content--with-title">
           <div class="demo-card__media-title" mdcSubtitle2>Vacation Photos</div>
         </mdc-card-media-content>
       </mdc-card-media>
     </mdc-card-primary-action>
-    <mdc-card-actions [icons]="true">
-        <button mdcIconButton mdcCardAction="icon">
-          <mdc-icon mdcIconOn>favorite</mdc-icon>
-          <mdc-icon>favorite_border</mdc-icon>
-        </button>
-        <button mdcIconButton mdcCardAction="icon">
-          <mdc-icon mdcIconOn>bookmark</mdc-icon>
-          <mdc-icon>bookmark_border</mdc-icon>
-        </button>
-      <mdc-icon mdcCardAction="icon" mdcRipple>share</mdc-icon>
+    <mdc-card-actions>
+      <mdc-card-action-icons>
+          <button mdcIconButton mdcCardAction="icon">
+            <mdc-icon mdcIconOn>favorite</mdc-icon>
+            <mdc-icon>favorite_border</mdc-icon>
+          </button>
+          <button mdcIconButton mdcCardAction="icon">
+            <mdc-icon mdcIconOn>bookmark</mdc-icon>
+            <mdc-icon>bookmark_border</mdc-icon>
+          </button>
+        <mdc-icon mdcCardAction="icon" mdcRipple>share</mdc-icon>
+      </mdc-card-action-icons>
     </mdc-card-actions>
   </mdc-card>
 
   <mdc-card class="demo-card demo-card--music">
-    <mdc-card-primary-action mdc-ripple>
+    <mdc-card-primary-action>
       <div class="demo-card__music-row">
-        <mdc-card-media [square]="true" class="demo-card__media demo-card__media--music"></mdc-card-media>
+        <mdc-card-media square class="demo-card__media demo-card__media--music"></mdc-card-media>
         <div class="demo-card__music-info">
           <div class="demo-card__music-title" mdcHeadline5>Title</div>
           <div class="demo-card__music-artist" mdcBody2>Under the Grave</div>

@@ -63,7 +63,7 @@
   position: fixed;
   overflow-y: auto;
   top: auto;
-  height: calc(100vh - 54px);
+  padding-bottom: 64px;
 
   .mdc-list-item {
     cursor: pointer;
@@ -75,8 +75,6 @@
 //
 
 .demo-page {
-  display: inline-flex;
-  flex-direction: column;
   padding-bottom: 45px;
 
   @media (min-width: 1240px) {
@@ -96,6 +94,11 @@
   margin: 1.5rem;
   padding: 1rem;
   background-color: $color-white;
+  max-width: calc(70% - 17rem);
+
+  @media (max-width: 1239px) {
+    max-width: calc(100% - 3rem);
+  }
 
   &__headline {
     @include mdc-typography(headline6);

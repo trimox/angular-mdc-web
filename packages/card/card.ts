@@ -3,27 +3,34 @@ import {
   Component,
   Directive,
   ElementRef,
-  HostBinding,
   Input,
+  OnDestroy,
   ViewEncapsulation
 } from '@angular/core';
 import { toBoolean } from '@angular-mdc/web/common';
+import { MdcRipple } from '@angular-mdc/web/ripple';
 
 @Directive({
   selector: 'mdc-card-media-content, [mdcCardMediaContent]',
-  exportAs: 'mdcCardMediaContent'
+  exportAs: 'mdcCardMediaContent',
+  host: {
+    'class': 'mdc-card__media-content',
+  }
 })
 export class MdcCardMediaContent {
-  @HostBinding('class.mdc-card__media-content') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
 }
 
 @Component({
   moduleId: module.id,
   selector: 'mdc-card-media, [mdcCardMedia]',
-  template: '<ng-content></ng-content>',
   exportAs: 'mdcCardMedia',
+  host: {
+    'class': 'mdc-card__media',
+    '[class.mdc-card__media--square]': 'square',
+    '[class.mdc-card__media--16-9]': 'wide'
+  },
+  template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -42,25 +49,32 @@ export class MdcCardMedia {
   }
   private _wide: boolean;
 
-  @HostBinding('class.mdc-card__media') isHostClass = true;
-  @HostBinding('class.mdc-card__media--square') get classSquare() {
-    return this.square ? 'mdc-card__media--square' : '';
-  }
-  @HostBinding('class.mdc-card__media--16-9') get classWide() {
-    return this._wide ? 'mdc-card__media--16-9' : '';
-  }
-
-  constructor(public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
 }
 
-@Directive({
+@Component({
+  moduleId: module.id,
   selector: 'mdc-card-primary-action, [mdcCardPrimaryAction]',
-  exportAs: 'mdcCardPrimaryAction'
+  exportAs: 'mdcCardPrimaryAction',
+  host: {
+    'class': 'mdc-card__primary-action'
+  },
+  template: '<ng-content></ng-content>',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [MdcRipple]
 })
-export class MdcCardPrimaryAction {
-  @HostBinding('class.mdc-card__primary-action') isHostClass = true;
+export class MdcCardPrimaryAction implements OnDestroy {
+  constructor(
+    private _ripple: MdcRipple,
+    public elementRef: ElementRef<HTMLElement>) {
 
-  constructor(public elementRef: ElementRef) { }
+    this._ripple.attachTo(this.elementRef.nativeElement);
+  }
+
+  ngOnDestroy(): void {
+    this._ripple.destroy();
+  }
 }
 
 @Component({
@@ -68,6 +82,11 @@ export class MdcCardPrimaryAction {
   selector: 'mdc-card-actions, [mdcCardActions]',
   template: '<ng-content></ng-content>',
   exportAs: 'mdcCardActions',
+  host: {
+    'class': 'mdc-card__actions',
+    '[class.mdc-card__actions--full-bleed]': 'fullBleed',
+    '[class.mdc-card__media--16-9]': 'wide'
+  },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -79,56 +98,36 @@ export class MdcCardActions {
   }
   private _fullBleed: boolean;
 
-  @Input()
-  get buttons(): boolean { return this._buttons; }
-  set buttons(value: boolean) {
-    this._buttons = toBoolean(value);
-  }
-  private _buttons: boolean;
-
-  @Input()
-  get icons(): boolean { return this._icons; }
-  set icons(value: boolean) {
-    this._icons = toBoolean(value);
-  }
-  private _icons: boolean;
-
-  @HostBinding('class.mdc-card__actions') isHostClass = true;
-  @HostBinding('class.mdc-card__actions--full-bleed') get classFullBleed() {
-    return this.fullBleed ? 'mdc-card__actions--full-bleed' : '';
-  }
-  @HostBinding('class.mdc-card__action-buttons') get classActionButtons() {
-    return this.buttons ? 'mdc-card__action-buttons' : '';
-  }
-  @HostBinding('class.mdc-card__action-icons') get classActionIcons() {
-    return this.icons ? 'mdc-card__action-icons' : '';
-  }
-
-  constructor(public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
 }
 
 @Directive({
   selector: 'mdc-card-action-buttons, [mdcCardActionButtons]',
-  exportAs: 'mdcCardActionButtons'
+  exportAs: 'mdcCardActionButtons',
+  host: {
+    'class': 'mdc-card__action-buttons'
+  }
 })
 export class MdcCardActionButtons {
-  @HostBinding('class.mdc-card__action-buttons') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
 }
 
 @Directive({
   selector: 'mdc-card-action-icons, [mdcCardActionIcons]',
-  exportAs: 'mdcCardActionIcons'
+  exportAs: 'mdcCardActionIcons',
+  host: {
+    'class': 'mdc-card__action-icons'
+  }
 })
 export class MdcCardActionIcons {
-  @HostBinding('class.mdc-card__action-icons') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
 }
 
 @Directive({
-  selector: '[mdcCardAction]'
+  selector: '[mdcCardAction]',
+  host: {
+    'class': 'mdc-card__action'
+  }
 })
 export class MdcCardAction {
   @Input('mdcCardAction')
@@ -139,27 +138,30 @@ export class MdcCardAction {
     if (!action) { return; }
 
     if (action === 'button') {
+      this.elementRef.nativeElement.classList.remove('mdc-card__action--icon');
       this.elementRef.nativeElement.classList.add('mdc-card__action--button');
     } else if (action === 'icon') {
+      this.elementRef.nativeElement.classList.remove('mdc-card__action--button');
       this.elementRef.nativeElement.classList.add('mdc-card__action--icon');
       this.elementRef.nativeElement.setAttribute('tabIndex', '0');
       this.elementRef.nativeElement.setAttribute('role', 'button');
     }
-
     this._action = action;
   }
-  _action: string;
+  private _action: string;
 
-  @HostBinding('class.mdc-card__action') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
 }
 
 @Component({
   moduleId: module.id,
-  selector: 'mdc-card, [mdc-card]',
-  template: '<ng-content></ng-content>',
+  selector: 'mdc-card',
   exportAs: 'mdcCard',
+  host: {
+    'class': 'mdc-card',
+    '[class.mdc-card--outlined]': 'outlined'
+  },
+  template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -171,10 +173,5 @@ export class MdcCard {
   }
   private _outlined: boolean;
 
-  @HostBinding('class.mdc-card') isHostClass = true;
-  @HostBinding('class.mdc-card--outlined') get classOutlined() {
-    return this.outlined ? 'mdc-card--outlined' : '';
-  }
-
-  constructor(public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
 }

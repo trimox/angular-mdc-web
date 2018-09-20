@@ -84,8 +84,7 @@ export class MdcCardPrimaryAction implements OnDestroy {
   exportAs: 'mdcCardActions',
   host: {
     'class': 'mdc-card__actions',
-    '[class.mdc-card__actions--full-bleed]': 'fullBleed',
-    '[class.mdc-card__media--16-9]': 'wide'
+    '[class.mdc-card__actions--full-bleed]': 'fullBleed'
   },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush

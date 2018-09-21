@@ -1,5 +1,6 @@
 import {
-  AfterContentInit,
+  AfterViewInit,
+  Attribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -7,7 +8,6 @@ import {
   ContentChildren,
   ElementRef,
   EventEmitter,
-  HostListener,
   Input,
   NgZone,
   OnDestroy,
@@ -15,8 +15,8 @@ import {
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
-import { defer, merge, Observable, Subject } from 'rxjs';
-import { startWith, switchMap, take, takeUntil } from 'rxjs/operators';
+import { fromEvent, defer, merge, Observable, Subject, Subscription } from 'rxjs';
+import { startWith, filter, switchMap, take, takeUntil } from 'rxjs/operators';
 
 import {
   toBoolean,
@@ -28,16 +28,16 @@ import { MdcIcon } from '@angular-mdc/web/icon';
 import { MDCChipAdapter } from '@material/chips/chip/adapter';
 import { MDCChipFoundation } from '@material/chips/chip';
 
-export interface MdcIconInteraction {
-  source: MdcChipIcon;
-  event: Event;
-}
-
 export interface MdcChipInteractionEvent {
   detail: {
     chip: MdcChip;
   };
 }
+
+const CHIP_INTERACTION_EVENTS = [
+  'keydown',
+  'click'
+];
 
 let nextUniqueId = 0;
 
@@ -69,14 +69,14 @@ export class MdcChipIcon extends MdcIcon {
   }
   private _trailing: boolean;
 
-  @Output() readonly iconInteraction: EventEmitter<MdcIconInteraction> =
-    new EventEmitter<MdcIconInteraction>();
+  constructor(
+    @Attribute('aria-hidden') ariaHidden: string,
+    public elementRef: ElementRef) {
+    super(elementRef, ariaHidden);
 
-  @HostListener('click', ['$event']) onclick(evt: Event) {
-    this.iconInteraction.emit({ source: this, event: evt });
-  }
-  @HostListener('keydown', ['$event']) onkeydown(evt: KeyboardEvent) {
-    this.iconInteraction.emit({ source: this, event: evt });
+    if (!ariaHidden) {
+      this._getHostElement().setAttribute('aria-hidden', 'true');
+    }
   }
 }
 
@@ -140,7 +140,7 @@ export class MdcChipText {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [MdcRipple]
 })
-export class MdcChip implements AfterContentInit, OnDestroy {
+export class MdcChip implements AfterViewInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
@@ -149,7 +149,7 @@ export class MdcChip implements AfterContentInit, OnDestroy {
   /** The unique ID of the option. */
   get id(): string { return this._id; }
 
-  get leadingIcon(): MdcIcon | undefined {
+  get leadingIcon(): MdcChipIcon | undefined {
     return this.icons ? this.icons.find((_: MdcChipIcon) => _.leading) : undefined;
   }
 
@@ -203,37 +203,34 @@ export class MdcChip implements AfterContentInit, OnDestroy {
   private _disabled: boolean;
 
   /** Emitted when the chip is selected or deselected. */
-  @Output() readonly selectionChange: EventEmitter<MdcChipInteractionEvent> = new EventEmitter<MdcChipInteractionEvent>();
+  @Output() readonly selectionChange: EventEmitter<MdcChipInteractionEvent> =
+    new EventEmitter<MdcChipInteractionEvent>();
 
   /** Emitted when the chip icon is interacted with. */
-  @Output() readonly trailingIconInteraction: EventEmitter<void> = new EventEmitter<void>();
+  @Output() readonly trailingIconInteraction: EventEmitter<void> =
+    new EventEmitter<void>();
 
   /** Emitted when a chip is to be removed. */
-  @Output() readonly removed: EventEmitter<MdcChipInteractionEvent> = new EventEmitter<MdcChipInteractionEvent>();
+  @Output() readonly removed: EventEmitter<MdcChipInteractionEvent> =
+    new EventEmitter<MdcChipInteractionEvent>();
 
-  @HostListener('transitionend', ['$event']) ontransitionend(evt: Event) {
-    this._foundation.handleTransitionEnd(evt);
+  private _chipInteractionEventSubscription: Subscription;
+  private _chipIconInteractionEventSubscription: Subscription;
+
+  /** Combined stream of all of the chip interaction events. */
+  get chipInteractionEvents(): Observable<any> {
+    return merge(...CHIP_INTERACTION_EVENTS.map(evt => fromEvent(this._getHostElement(), evt)));
   }
-  @HostListener('click', ['$event']) onclick(evt: Event) {
-    this._foundation.handleInteraction(evt);
-  }
-  @HostListener('keydown', ['$event']) onkeydown(evt: KeyboardEvent) {
-    this._foundation.handleInteraction(evt);
+
+  /** Combined stream of all of the chip icon events. */
+  get chipIconInteractionEvents(): Observable<any> | undefined {
+    const icon = this.icons.toArray().find(_ => _.trailing);
+    if (!icon) { return; }
+    return merge(...CHIP_INTERACTION_EVENTS.map(evt => fromEvent(icon.elementRef.nativeElement, evt)));
   }
 
   @ContentChild(MdcChipText) chipText: MdcChipText;
   @ContentChildren(MdcChipIcon, { descendants: true }) icons: QueryList<MdcChipIcon>;
-
-  /** Combined stream of all of the icon events. */
-  readonly chipIconInteractions: Observable<MdcIconInteraction> = defer(() => {
-    if (this.icons) {
-      return merge(...this.icons.map(icon => icon.iconInteraction));
-    }
-
-    return this._ngZone.onStable
-      .asObservable()
-      .pipe(take(1), switchMap(() => this.chipIconInteractions));
-  });
 
   private _mdcAdapter: MDCChipAdapter = {
     addClass: (className: string) => this._getHostElement().classList.add(className),
@@ -269,7 +266,7 @@ export class MdcChip implements AfterContentInit, OnDestroy {
     isSelected(): boolean,
     setShouldRemoveOnTrailingIconClick(shouldRemove: boolean): void,
     handleInteraction(evt: Event): void,
-    handleTransitionEnd(evt: Event): void,
+    handleTransitionEnd(evt: TransitionEvent): void,
     handleTrailingIconInteraction(evt: Event): void
   } = new MDCChipFoundation(this._mdcAdapter);
 
@@ -280,30 +277,48 @@ export class MdcChip implements AfterContentInit, OnDestroy {
     private _ripple: MdcRipple,
     public elementRef: ElementRef<HTMLElement>) { }
 
-  ngAfterContentInit(): void {
+  ngAfterViewInit(): void {
     this._ripple.attachTo(this._getHostElement());
-
     this._foundation.init();
 
-    this.chipIconInteractions.pipe(
-      takeUntil(merge(this._destroy, this.icons.changes))
-    ).subscribe((event: MdcIconInteraction) => {
-      if (event.source.trailing) {
-        this._foundation.handleTrailingIconInteraction(event.event);
-        this.removed.emit({ detail: { chip: this } });
-      }
-    });
+    this._loadListeners();
   }
 
   ngOnDestroy(): void {
     this._destroy.next();
     this._destroy.complete();
 
+    if (this._chipInteractionEventSubscription) {
+      this._chipInteractionEventSubscription.unsubscribe();
+    }
+    if (this._chipIconInteractionEventSubscription) {
+      this._chipIconInteractionEventSubscription.unsubscribe();
+    }
+
     this._ripple.destroy();
 
     if (this._foundation) {
       this._foundation.destroy();
     }
+  }
+
+  private _loadListeners(): void {
+    this._chipInteractionEventSubscription = this.chipInteractionEvents.pipe()
+      .subscribe(evt => this._foundation.handleInteraction(evt));
+
+    if (this.chipIconInteractionEvents) {
+      this._chipIconInteractionEventSubscription = this.chipIconInteractionEvents.pipe()
+        .subscribe(evt => {
+          this._foundation.handleTrailingIconInteraction(evt);
+          this.removed.emit({ detail: { chip: this } });
+        });
+    }
+
+    this._ngZone.runOutsideAngular(() =>
+      fromEvent<TransitionEvent>(this._getHostElement(), 'transitionend')
+        .pipe(takeUntil(this._destroy), filter((e: TransitionEvent) =>
+          e.target === this._getHostElement()))
+        .subscribe(evt => this._ngZone.run(() => this._foundation.handleTransitionEnd(evt))));
   }
 
   setPrimary(primary: boolean): void {

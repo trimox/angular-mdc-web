@@ -1,7 +1,6 @@
 import {
   Attribute,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   Input,
@@ -61,9 +60,8 @@ export class MdcIcon implements OnInit {
   protected _clickable: boolean;
 
   constructor(
-    protected _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef<HTMLElement>,
-    @Attribute('aria-hidden') protected ariaHidden: string) {
+    @Attribute('aria-hidden') ariaHidden: string) {
 
     if (!ariaHidden) {
       this._getHostElement().setAttribute('aria-hidden', 'true');
@@ -76,7 +74,6 @@ export class MdcIcon implements OnInit {
 
   setIcon(content: string): void {
     this.fontIcon ? this.fontIcon = content : this._getHostElement().textContent = content;
-    this._changeDetectorRef.markForCheck();
   }
 
   getIcon(): string | null {

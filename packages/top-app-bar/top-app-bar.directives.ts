@@ -3,7 +3,8 @@ import {
   Component,
   Directive,
   ElementRef,
-  Input
+  Input,
+  OnDestroy
 } from '@angular/core';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
@@ -50,12 +51,16 @@ export class MdcTopAppBarSection {
   },
   providers: [MdcRipple]
 })
-export class MdcTopAppBarActionItem {
+export class MdcTopAppBarActionItem implements OnDestroy {
   constructor(
     public elementRef: ElementRef<HTMLElement>,
     private _ripple: MdcRipple) {
 
     _ripple.attachTo(this.elementRef.nativeElement, true);
+  }
+
+  ngOnDestroy(): void {
+    this._ripple.destroy();
   }
 }
 
@@ -68,7 +73,7 @@ export class MdcTopAppBarActionItem {
   },
   providers: [MdcRipple]
 })
-export class MdcTopAppBarNavigationIcon {
+export class MdcTopAppBarNavigationIcon implements OnDestroy {
   constructor(
     public elementRef: ElementRef<HTMLElement>,
     private _ripple: MdcRipple) {
@@ -79,6 +84,10 @@ export class MdcTopAppBarNavigationIcon {
   /** Retrieves the DOM element of the directive. */
   getHostElement() {
     return this.elementRef.nativeElement;
+  }
+
+  ngOnDestroy(): void {
+    this._ripple.destroy();
   }
 }
 

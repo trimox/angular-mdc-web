@@ -6,7 +6,6 @@ import {
   ContentChildren,
   ElementRef,
   EventEmitter,
-  HostBinding,
   Input,
   NgZone,
   OnDestroy,
@@ -35,7 +34,13 @@ export class MdcChipSetChange {
   moduleId: module.id,
   selector: 'mdc-chip-set',
   exportAs: 'mdcChipSet',
-  template: `<ng-content></ng-content>`,
+  host: {
+    'class': 'mdc-chip-set',
+    '[class.mdc-chip-set--choice]': 'choice',
+    '[class.mdc-chip-set--filter]': 'filter',
+    '[class.mdc-chip-set--input]': 'input'
+  },
+  template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -54,7 +59,7 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
   set choice(value: boolean) {
     this.setChoice(value);
   }
-  private _choice: boolean = false;
+  private _choice: boolean;
 
   /**
   * Indicates that the chips in the set are filter chips, which allow multiple selection from a set of options.
@@ -64,7 +69,7 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
   set filter(value: boolean) {
     this.setFilter(value);
   }
-  private _filter: boolean = false;
+  private _filter: boolean;
 
   /**
   * Indicates that the chips in the set are input chips, which enable user input by converting text into chips.
@@ -74,21 +79,10 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
   set input(value: boolean) {
     this.setInput(value);
   }
-  private _input: boolean = false;
+  private _input: boolean;
 
   @Output() readonly change: EventEmitter<MdcChipSetChange> =
     new EventEmitter<MdcChipSetChange>();
-
-  @HostBinding('class.mdc-chip-set') isHostClass = true;
-  @HostBinding('class.mdc-chip-set--choice') get classChoice(): string {
-    return this.choice ? 'mdc-chip-set--choice' : '';
-  }
-  @HostBinding('class.mdc-chip-set--filter') get classFilter(): string {
-    return this.filter ? 'mdc-chip-set--filter' : '';
-  }
-  @HostBinding('class.mdc-chip-set--input') get classInput(): string {
-    return this.input ? 'mdc-chip-set--input' : '';
-  }
 
   @ContentChildren(MdcChip) chips: QueryList<MdcChip>;
 
@@ -136,7 +130,7 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _ngZone: NgZone,
-    public elementRef: ElementRef) { }
+    public elementRef: ElementRef<HTMLElement>) { }
 
   ngAfterContentInit(): void {
     this.chipSelectionChanges

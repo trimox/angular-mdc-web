@@ -5,10 +5,8 @@ import {
   Component,
   ContentChild,
   ContentChildren,
-  Directive,
   ElementRef,
   EventEmitter,
-  HostBinding,
   HostListener,
   Input,
   NgZone,
@@ -46,8 +44,13 @@ let nextUniqueId = 0;
 @Component({
   moduleId: module.id,
   selector: 'mdc-chip-icon, [mdc-chip-icon], [mdcChipIcon]',
-  template: '<ng-content></ng-content>',
   exportAs: 'mdcChipIcon',
+  host: {
+    'class': 'mdc-chip__icon',
+    '[class.mdc-chip__icon--leading]': 'leading',
+    '[class.mdc-chip__icon--trailing]': 'trailing'
+  },
+  template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -68,15 +71,6 @@ export class MdcChipIcon extends MdcIcon {
 
   @Output() readonly iconInteraction: EventEmitter<MdcIconInteraction> =
     new EventEmitter<MdcIconInteraction>();
-
-  @HostBinding('class.mdc-chip__icon') isHostClass = true;
-  @HostBinding('class.mdc-chip__icon--leading') get classIconLeading(): string {
-    return this.leading ? 'mdc-chip__icon--leading' : '';
-  }
-  @HostBinding('class.mdc-chip__icon--trailing') get classIconTrailing(): string {
-    this.setClickable(this.trailing);
-    return this.trailing ? 'mdc-chip__icon--trailing' : '';
-  }
 
   @HostListener('click', ['$event']) onclick(evt: Event) {
     this.iconInteraction.emit({ source: this, event: evt });
@@ -106,22 +100,28 @@ export class MdcChipCheckmark { }
   moduleId: module.id,
   selector: 'mdc-chip-text, [mdcChipText]',
   exportAs: 'mdcChipText',
+  host: {
+    'class': 'mdc-chip__text'
+  },
   template: '<ng-content></ng-content>',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcChipText {
-  @HostBinding('class.mdc-chip__text') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
 }
 
 @Component({
   moduleId: module.id,
   selector: 'mdc-chip',
-  host: {
-    '[id]': 'id'
-  },
   exportAs: 'mdcChip',
+  host: {
+    '[id]': 'id',
+    '[attr.tabindex]': 'disabled ? null : 0',
+    'class': 'mdc-chip',
+    '[class.ng-mdc-chip--primary]': 'primary',
+    '[class.ng-mdc-chip--secondary]': 'secondary'
+  },
   template: `
   <ng-container [ngSwitch]="filter">
     <ng-container [ngSwitch]="selected" *ngSwitchCase="true">
@@ -211,17 +211,6 @@ export class MdcChip implements AfterContentInit, OnDestroy {
   /** Emitted when a chip is to be removed. */
   @Output() readonly removed: EventEmitter<MdcChipInteractionEvent> = new EventEmitter<MdcChipInteractionEvent>();
 
-  @HostBinding('class.mdc-chip') isHostClass = true;
-  @HostBinding('attr.tabindex') get tabindex(): number | null {
-    return this.disabled ? null : 0;
-  }
-  @HostBinding('class.ng-mdc-chip--primary') get classPrimary(): string {
-    return this.primary ? 'ng-mdc-chip--primary' : '';
-  }
-  @HostBinding('class.ng-mdc-chip--secondary') get classSecondary(): string {
-    return this.secondary ? 'ng-mdc-chip--secondary' : '';
-  }
-
   @HostListener('transitionend', ['$event']) ontransitionend(evt: Event) {
     this._foundation.handleTransitionEnd(evt);
   }
@@ -289,7 +278,7 @@ export class MdcChip implements AfterContentInit, OnDestroy {
     private _ngZone: NgZone,
     private _changeDetectorRef: ChangeDetectorRef,
     private _ripple: MdcRipple,
-    public elementRef: ElementRef) { }
+    public elementRef: ElementRef<HTMLElement>) { }
 
   ngAfterContentInit(): void {
     this._ripple.attachTo(this._getHostElement());

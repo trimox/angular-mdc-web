@@ -59,10 +59,15 @@ describe('MdcLinearProgress', () => {
     });
 
     it('#should apply closed class based on property', () => {
-      testComponent.closed = true;
+      testComponent.open = false;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-linear-progress--closed')).toBe(true);
-      expect(testInstance.closed).toBe(true);
+    });
+
+    it('#should be open', () => {
+      testComponent.open = true;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList.contains('mdc-linear-progress--closed')).toBe(false);
     });
 
     it('#should set buffer to value', () => {
@@ -89,16 +94,6 @@ describe('MdcLinearProgress', () => {
       expect(testDebugElement.nativeElement.classList.contains('mdc-linear-progress--reversed')).toBe(true);
       expect(testInstance.reversed).toBe(true);
     });
-
-    it('#should be closed', () => {
-      testInstance.close();
-      fixture.detectChanges();
-    });
-
-    it('#should be open', () => {
-      testInstance.open();
-      fixture.detectChanges();
-    });
   });
 });
 
@@ -107,7 +102,7 @@ describe('MdcLinearProgress', () => {
     <mdc-linear-progress
       [reversed]="reversed"
       [secondary]="secondary"
-      [closed]="closed"
+      [open]="open"
       [progress]="0.5"
       [buffer]="0.75"
       [determinate]="determinate">
@@ -118,5 +113,5 @@ class SimpleTest {
   reversed: boolean = false;
   secondary: boolean = false;
   determinate: boolean = false;
-  closed: boolean = false;
+  open: boolean;
 }

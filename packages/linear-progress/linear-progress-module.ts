@@ -4,6 +4,6 @@ import { MdcLinearProgress } from './linear-progress';
 
 @NgModule({
   exports: [MdcLinearProgress],
-  declarations: [MdcLinearProgress],
+  declarations: [MdcLinearProgress]
 })
 export class MdcLinearProgressModule { }

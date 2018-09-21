@@ -3,7 +3,6 @@ import { Component, Renderer2 } from '@angular/core';
 import { MdcLinearProgress } from '@angular-mdc/web';
 
 @Component({
-  selector: 'linear-progress-demo',
   templateUrl: './linear-progress-demo.html'
 })
 export class LinearProgressDemo {

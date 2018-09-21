@@ -5,13 +5,9 @@ import {
   ContentChild,
   ElementRef,
   Input,
-  NgZone,
   OnDestroy,
   ViewEncapsulation
 } from '@angular/core';
-import { fromEvent, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-
 import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcIcon } from '@angular-mdc/web/icon';
@@ -28,7 +24,8 @@ import { MdcIcon } from '@angular-mdc/web/icon';
     '[class.mdc-button--raised]': 'raised',
     '[class.mdc-button--dense]': 'dense',
     '[class.mdc-button--unelevated]': 'unelevated',
-    '[class.mdc-button--outlined]': 'outlined'
+    '[class.mdc-button--outlined]': 'outlined',
+    '(click)': 'onClick($event)'
   },
   template: '<ng-content></ng-content>',
   providers: [MdcRipple],
@@ -36,50 +33,47 @@ import { MdcIcon } from '@angular-mdc/web/icon';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcButton implements AfterContentInit, OnDestroy {
-  /** Emits whenever the component is destroyed. */
-  private _destroy = new Subject<void>();
-
   @Input()
   get raised(): boolean { return this._raised; }
   set raised(value: boolean) {
     this._raised = toBoolean(value);
   }
-  protected _raised: boolean = false;
+  protected _raised: boolean;
 
   @Input()
   get primary(): boolean { return this._primary; }
   set primary(value: boolean) {
     this.setPrimary(value);
   }
-  protected _primary: boolean = false;
+  protected _primary: boolean;
 
   @Input()
   get dense(): boolean { return this._dense; }
   set dense(value: boolean) {
     this._dense = toBoolean(value);
   }
-  protected _dense: boolean = false;
+  protected _dense: boolean;
 
   @Input()
   get secondary(): boolean { return this._secondary; }
   set secondary(value: boolean) {
     this.setSecondary(value);
   }
-  protected _secondary: boolean = false;
+  protected _secondary: boolean;
 
   @Input()
   get unelevated(): boolean { return this._unelevated; }
   set unelevated(value: boolean) {
     this._unelevated = toBoolean(value);
   }
-  protected _unelevated: boolean = false;
+  protected _unelevated: boolean;
 
   @Input()
   get outlined(): boolean { return this._outlined; }
   set outlined(value: boolean) {
     this._outlined = toBoolean(value);
   }
-  protected _outlined: boolean = false;
+  protected _outlined: boolean;
 
   @Input()
   get icon(): any { return this._icon; }
@@ -93,34 +87,26 @@ export class MdcButton implements AfterContentInit, OnDestroy {
   set disabled(value: boolean) {
     this.setDisabled(value);
   }
-  protected _disabled: boolean = false;
+  protected _disabled: boolean;
 
   @ContentChild(MdcIcon) buttonIcon: MdcIcon;
 
   constructor(
-    protected _ngZone: NgZone,
-    protected _elementRef: ElementRef,
-    protected _ripple: MdcRipple) { }
+    private _elementRef: ElementRef<HTMLElement>,
+    private _ripple: MdcRipple) { }
 
   ngAfterContentInit(): void {
     this._ripple.attachTo(this.getHostElement());
-
-    this._ngZone.runOutsideAngular(() =>
-      fromEvent<MouseEvent>(this.getHostElement(), 'click').pipe(takeUntil(this._destroy))
-        .subscribe((evt) => this._ngZone.run(() => this._onClick(evt))));
   }
 
   ngOnDestroy(): void {
-    this._destroy.next();
-    this._destroy.complete();
-
     this._ripple.destroy();
   }
 
   setDisabled(disabled: boolean): void {
-    this._disabled = disabled;
+    this._disabled = toBoolean(disabled);
 
-    if (disabled) {
+    if (this._disabled) {
       this.getHostElement().setAttribute('disabled', 'true');
       this.getHostElement().setAttribute('aria-disabled', 'true');
     } else {
@@ -164,7 +150,7 @@ export class MdcButton implements AfterContentInit, OnDestroy {
     return this._elementRef.nativeElement;
   }
 
-  private _onClick(event: Event): void {
+  onClick(event: MouseEvent): void {
     // A disabled button shouldn't apply any actions
     if (this.disabled) {
       event.preventDefault();

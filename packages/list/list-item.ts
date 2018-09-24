@@ -163,7 +163,7 @@ export class MdcListItem implements AfterViewInit, OnDestroy {
   }
 
   setInteractive(interactive: boolean): void {
-    interactive ? this.ripple.attachTo(this.getListItemElement()) : this.ripple.destroy();
+    interactive ? this.ripple.init({ surface: this.getListItemElement() }) : this.ripple.destroy();
   }
 
   focus(): void {

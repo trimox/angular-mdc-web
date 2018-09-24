@@ -14,8 +14,6 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { fromEvent, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
@@ -135,7 +133,7 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, OnDes
 
   ngAfterViewInit(): void {
     this._foundation.init();
-    this._ripple.attachTo(this._getHostElement(), true, this._getInputElement());
+    this._ripple.init({ surface: this._getHostElement(), unbounded: true, activator: this._getInputElement() });
   }
 
   ngOnDestroy(): void {

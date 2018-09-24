@@ -137,7 +137,7 @@ export class MdcIconButton implements AfterContentInit, OnDestroy {
     this._foundation.init();
     this._foundation.toggle(this._on || this._foundation.isOn());
 
-    this.ripple.attachTo(this._getHostElement(), true);
+    this.ripple.init({ surface: this._getHostElement(), unbounded: true });
 
     this._changeDetectorRef.detectChanges();
 

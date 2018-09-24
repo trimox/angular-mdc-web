@@ -278,9 +278,8 @@ export class MdcChip implements AfterViewInit, OnDestroy {
     public elementRef: ElementRef<HTMLElement>) { }
 
   ngAfterViewInit(): void {
-    this._ripple.attachTo(this._getHostElement());
     this._foundation.init();
-
+    this._ripple.init({ surface: this._getHostElement() });
     this._loadListeners();
   }
 

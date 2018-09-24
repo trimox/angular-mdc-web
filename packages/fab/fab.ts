@@ -89,7 +89,7 @@ export class MdcFab implements AfterContentInit, OnDestroy {
     if (this.fabIcon) {
       this.fabIcon.elementRef.nativeElement.classList.add('mdc-fab__icon');
     }
-    this._ripple.attachTo(this._getHostElement());
+    this._ripple.init({ surface: this._getHostElement() });
   }
 
   ngOnDestroy(): void {

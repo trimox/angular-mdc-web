@@ -379,7 +379,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
       this.setOutlined(false);
     }
 
-    this.box ? this._ripple.attachTo(this._getHostElement(), false, this._getInputElement()) :
+    this.box ? this._ripple.init({ surface: this._getHostElement(), activator: this._getInputElement() }) :
       this._ripple.destroy();
 
     if (this.box) {

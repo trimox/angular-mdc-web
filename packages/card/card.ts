@@ -69,7 +69,7 @@ export class MdcCardPrimaryAction implements OnDestroy {
     private _ripple: MdcRipple,
     public elementRef: ElementRef<HTMLElement>) {
 
-    this._ripple.attachTo(this.elementRef.nativeElement);
+    this._ripple.init({ surface: this.elementRef.nativeElement });
   }
 
   ngOnDestroy(): void {

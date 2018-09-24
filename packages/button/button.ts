@@ -96,7 +96,7 @@ export class MdcButton implements AfterContentInit, OnDestroy {
     private _ripple: MdcRipple) { }
 
   ngAfterContentInit(): void {
-    this._ripple.attachTo(this.getHostElement());
+    this._ripple.init({ surface: this.getHostElement() });
   }
 
   ngOnDestroy(): void {

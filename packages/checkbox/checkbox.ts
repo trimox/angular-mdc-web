@@ -192,7 +192,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
 
   ngAfterViewInit(): void {
     this._foundation.init();
-    this.ripple.attachTo(this._getHostElement(), true, this.inputEl.nativeElement);
+    this.ripple.init({ surface: this._getHostElement(), unbounded: true, activator: this._getInputElement() });
     this._loadListeners();
   }
 

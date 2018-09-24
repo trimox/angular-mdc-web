@@ -53,7 +53,7 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this._disabled = toBoolean(value);
-    this._disabled ? this.ripple.destroy() : this.ripple.init();
+    this._disabled ? this.ripple.destroy() : this.ripple.init({ surface: this._getHostElement() });
   }
   private _disabled: boolean;
 
@@ -83,9 +83,8 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
 
   setUnbounded(unbounded: boolean): void {
     this._unbounded = unbounded;
-
-    if (this.ripple.attached) {
-      this.ripple.setUnbounded(unbounded);
+    if (this.ripple.initialized) {
+      this.setUnbounded(this._unbounded);
     }
     this._changeDetectorRef.markForCheck();
   }
@@ -94,7 +93,7 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
     this._attachTo = element;
     this._renderer.addClass(this.attachTo, 'mdc-ripple-surface');
 
-    this.ripple.attachTo(element, this.unbounded);
+    this.ripple.init({ surface: element, unbounded: this.unbounded });
     this.setUnbounded(unbounded ? unbounded : this.unbounded);
 
     this._changeDetectorRef.markForCheck();

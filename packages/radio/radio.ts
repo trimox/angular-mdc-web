@@ -189,7 +189,7 @@ export class MdcRadio implements AfterViewInit, OnInit, OnDestroy, MdcFormFieldC
 
   ngAfterViewInit(): void {
     this._foundation.init();
-    this.ripple.attachTo(this._getHostElement(), true, this._getInputElement());
+    this.ripple.init({ surface: this._getHostElement(), unbounded: true, activator: this._getInputElement() });
   }
 
   ngOnDestroy(): void {

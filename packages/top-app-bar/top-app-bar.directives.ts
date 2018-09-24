@@ -56,7 +56,7 @@ export class MdcTopAppBarActionItem implements OnDestroy {
     public elementRef: ElementRef<HTMLElement>,
     private _ripple: MdcRipple) {
 
-    _ripple.attachTo(this.elementRef.nativeElement, true);
+    this._ripple.init({ surface: this.elementRef.nativeElement, unbounded: true });
   }
 
   ngOnDestroy(): void {
@@ -78,7 +78,7 @@ export class MdcTopAppBarNavigationIcon implements OnDestroy {
     public elementRef: ElementRef<HTMLElement>,
     private _ripple: MdcRipple) {
 
-    _ripple.attachTo(this.getHostElement(), true);
+    _ripple.init({ surface: this.elementRef.nativeElement, unbounded: true });
   }
 
   /** Retrieves the DOM element of the directive. */

@@ -160,7 +160,15 @@ export class MdcTab implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._foundation.init();
-    this._ripple.attachTo(this.rippleSurface.nativeElement);
+
+    const rippleAdapter = Object.assign(this._ripple.createAdapter({ surface: this._getHostElement() }), {
+      addClass: (className: string) => this.rippleSurface.nativeElement.classList.add(className),
+      removeClass: (className: string) => this.rippleSurface.nativeElement.classList.remove(className),
+      updateCssVariable: (varName: string, value: string) =>
+        this.rippleSurface.nativeElement.style.setProperty(varName, value),
+    });
+
+    this._ripple.init({ surface: this._getHostElement() }, rippleAdapter);
 
     this._ngZone.runOutsideAngular(() =>
       fromEvent<MouseEvent>(this._getHostElement(), 'click').pipe(takeUntil(this._destroy))

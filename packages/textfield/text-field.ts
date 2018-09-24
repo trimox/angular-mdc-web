@@ -17,6 +17,8 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
+import { util } from '@material/ripple';
+
 import {
   Platform,
   toBoolean,
@@ -412,8 +414,17 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   private _initRipple(): void {
     if (!this._getInputElement()) { return; }
 
-    if (!this._ripple.attached && !this.outlined && !this.textarea) {
-      this._ripple.attachTo(this._getHostElement(), false, this._getInputElement());
+    const MATCHES = util.getMatchesProperty(HTMLElement.prototype);
+    if (!this._ripple.initialized && !this.outlined && !this.textarea) {
+      const rippleAdapter = Object.assign(this._ripple.createAdapter({
+        surface: this.elementRef.nativeElement,
+        activator: this._getInputElement()
+      }), { isSurfaceActive: () => this._getInputElement()[MATCHES](':active') });
+
+      this._ripple.init({
+        surface: this.elementRef.nativeElement,
+        activator: this._getInputElement()
+      }, rippleAdapter);
     } else {
       this._ripple.destroy();
     }

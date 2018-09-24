@@ -44,12 +44,12 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
     deregisterInteractionHandler: (type: string, handler: EventListener) => this._label.removeEventListener(type, handler),
     activateInputRipple: () => {
       if (this.input && this.input.ripple) {
-        this.input.ripple.activate();
+        this.input.ripple.activateRipple();
       }
     },
     deactivateInputRipple: () => {
       if (this.input && this.input.ripple) {
-        this.input.ripple.deactivate();
+        this.input.ripple.deactivateRipple();
       }
     }
   };

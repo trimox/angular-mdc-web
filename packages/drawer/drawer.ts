@@ -20,10 +20,9 @@ import { startWith, takeUntil, filter } from 'rxjs/operators';
 import { Platform, toBoolean } from '@angular-mdc/web/common';
 import { MdcList, MdcListItem } from '@angular-mdc/web/list';
 
-// Workaround for focus-trap upstream export issue
-import { util } from '@material/dialog';
+import createFocusTrap from 'focus-trap';
 
-import { MDCDrawerAdapter } from '@material/drawer/adapter';
+import { createFocusTrapInstance } from '@material/drawer/util';
 import {
   MDCDismissibleDrawerFoundation,
   MDCModalDrawerFoundation
@@ -49,7 +48,7 @@ export class MdcDrawerHeader {
   @Input() title: string;
   @Input() subtitle: string;
 
-  constructor(public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
 }
 
 @Directive({
@@ -100,14 +99,12 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
-  private _foundationInitialized: boolean;
+  private _initialized: boolean;
   private _previousFocus: Element | null;
   private _scrimElement: Element | null;
 
-  private _focusTrap: {
-    activate(): void,
-    deactivate(): void
-  };
+  private _focusTrapFactory = createFocusTrap;
+  private _focusTrap: any;
 
   @Input()
   get open(): boolean { return this._foundation.isOpen(); }
@@ -126,7 +123,7 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
   get drawer(): string { return this._drawer; }
   set drawer(drawer: string) {
     if (this._drawer !== drawer) {
-      this._foundationInitialized = false;
+      this._initialized = false;
       this.setDrawer(drawer);
     }
   }
@@ -154,42 +151,44 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
   get dismissible(): boolean { return this.drawer === 'dismissible'; }
   get permanent(): boolean { return this.drawer === 'permanent'; }
 
-  private _mdcAdapter: MDCDrawerAdapter = {
-    addClass: (className: string) => this._getHostElement().classList.add(className),
-    removeClass: (className: string) => this._getHostElement().classList.remove(className),
-    hasClass: (className: string) => this._getHostElement().classList.contains(className),
-    elementHasClass: (element: Element, className: string) => element.classList.contains(className),
-    computeBoundingRect: () => this._getHostElement().getBoundingClientRect(),
-    saveFocus: () => this._previousFocus = this._platform.isBrowser ? document.activeElement : null,
-    restoreFocus: () => {
-      if (!this._platform.isBrowser) { return; }
+  createAdapter() {
+    return {
+      addClass: (className: string) => this._getHostElement().classList.add(className),
+      removeClass: (className: string) => this._getHostElement().classList.remove(className),
+      hasClass: (className: string) => this._getHostElement().classList.contains(className),
+      elementHasClass: (element: Element, className: string) => element.classList.contains(className),
+      computeBoundingRect: () => this._getHostElement().getBoundingClientRect(),
+      saveFocus: () => this._previousFocus = this._platform.isBrowser ? document.activeElement : null,
+      restoreFocus: () => {
+        if (!this._platform.isBrowser) { return; }
 
-      const previousFocus = this._previousFocus && (<any>this._previousFocus).focus;
-      if (this._getHostElement().contains(document.activeElement) && previousFocus) {
-        (<any>this._previousFocus).focus();
-      }
-    },
-    focusActiveNavigationItem: () => {
-      if (!this._platform.isBrowser) { return; }
+        const previousFocus = this._previousFocus && (<any>this._previousFocus).focus;
+        if (this._getHostElement().contains(document.activeElement) && previousFocus) {
+          (<any>this._previousFocus).focus();
+        }
+      },
+      focusActiveNavigationItem: () => {
+        if (!this._platform.isBrowser) { return; }
 
-      const activeNavItemEl = this._listItems.find((_: MdcListItem) => _.activated || _.selected);
-      if (activeNavItemEl) {
-        activeNavItemEl.focus();
+        const activeNavItemEl = this._listItems.find((_: MdcListItem) => _.activated || _.selected);
+        if (activeNavItemEl) {
+          activeNavItemEl.focus();
+        }
+      },
+      notifyClose: () => this.closed.emit(),
+      notifyOpen: () => this.opened.emit(),
+      trapFocus: () => {
+        if (this._focusTrap) {
+          this._focusTrap.activate();
+        }
+      },
+      releaseFocus: () => {
+        if (this._focusTrap) {
+          this._focusTrap.deactivate();
+        }
       }
-    },
-    notifyClose: () => this.closed.emit(),
-    notifyOpen: () => this.opened.emit(),
-    trapFocus: () => {
-      if (this._focusTrap) {
-        this._focusTrap.activate();
-      }
-    },
-    releaseFocus: () => {
-      if (this._focusTrap) {
-        this._focusTrap.deactivate();
-      }
-    }
-  };
+    };
+  }
 
   private _foundation: {
     open(): void,
@@ -198,20 +197,20 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
     handleKeydown(evt: KeyboardEvent): void,
     handleTransitionEnd(evt: TransitionEvent): void,
     handleScrimClick(): void
-  } = new MDCDismissibleDrawerFoundation(this._mdcAdapter);
+  } = new MDCDismissibleDrawerFoundation(this.createAdapter());
 
   constructor(
     private _platform: Platform,
     private _ngZone: NgZone,
     private _changeDetectorRef: ChangeDetectorRef,
-    public elementRef: ElementRef) { }
+    public elementRef: ElementRef<HTMLElement>) { }
 
   ngAfterViewInit(): void {
     this._listSubscription = this._list.changes.pipe(startWith(null)).subscribe(() => {
       this._initListType();
     });
 
-    if (!this._foundationInitialized) {
+    if (!this._initialized) {
       this._initFoundation();
     }
   }
@@ -235,12 +234,7 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
           this._scrimSubscription = fromEvent<MouseEvent>(this._scrimElement!, 'click')
             .subscribe(() => this._ngZone.run(() => this._foundation.handleScrimClick())));
 
-        this._focusTrap = util.createFocusTrapInstance(this._getHostElement(), {
-          clickOutsideDeactivates: true,
-          initialFocus: false, // Navigation drawer handles focusing on active nav item.
-          escapeDeactivates: false, // Navigation drawer handles ESC.
-          returnFocusOnDeactivate: false, // Navigation drawer handles restore focus.
-        });
+        this._focusTrapFactory = createFocusTrapInstance(this._getHostElement(), this._focusTrapFactory);
       }
     } else {
       if (this._scrimElement) {
@@ -269,15 +263,15 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
   }
 
   private _initFoundation(): void {
-    if (this._foundationInitialized) { return; }
+    if (this._initialized) { return; }
 
-    this._foundationInitialized = true;
-    this._removeDrawerModifierClass();
+    this._initialized = true;
+    this._removeDrawerModifiers();
 
     if (this.modal) {
-      this._foundation = new MDCModalDrawerFoundation(this._mdcAdapter);
+      this._foundation = new MDCModalDrawerFoundation(this.createAdapter());
     } else {
-      this._foundation = new MDCDismissibleDrawerFoundation(this._mdcAdapter);
+      this._foundation = new MDCDismissibleDrawerFoundation(this.createAdapter());
     }
 
     if (!this.permanent) {
@@ -318,7 +312,7 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
     this._changeDetectorRef.markForCheck();
   }
 
-  private _removeDrawerModifierClass(): void {
+  private _removeDrawerModifiers(): void {
     this._getHostElement().classList.remove('mdc-drawer--modal');
     this._getHostElement().classList.remove('mdc-drawer--dismissible');
   }

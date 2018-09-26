@@ -37,7 +37,7 @@ describe('MdcCheckbox', () => {
       checkboxNativeElement = checkboxDebugElement.nativeElement;
       checkboxInstance = checkboxDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
-      inputElement = checkboxInstance.inputEl.nativeElement;
+      inputElement = checkboxInstance._inputElement.nativeElement;
     });
 
     it('#should change native element checked when check programmatically', () => {
@@ -127,7 +127,6 @@ describe('MdcCheckbox', () => {
       fixture.detectChanges();
 
       expect(inputElement.checked).toBe(true);
-      expect(checkboxInstance.getValue()).toBe('true');
     });
 
     it('#should toggle checked to false', () => {
@@ -137,7 +136,7 @@ describe('MdcCheckbox', () => {
       fixture.detectChanges();
 
       expect(inputElement.checked).toBe(false);
-      expect(checkboxInstance.isDisabled()).toBe(true);
+      expect(checkboxInstance.disabled).toBe(true);
     });
 
     it('#should not set indeterminate to true', () => {
@@ -156,7 +155,6 @@ describe('MdcCheckbox', () => {
       fixture.detectChanges();
 
       expect(inputElement.checked).toBe(true);
-      expect(checkboxInstance.isChecked()).toBe(true);
     });
 
     it('#should set indeterminate to true', () => {

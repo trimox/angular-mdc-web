@@ -14,16 +14,13 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, filter } from 'rxjs/operators';
 
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Platform, toBoolean } from '@angular-mdc/web/common';
-import { MdcRipple } from '@angular-mdc/web/ripple';
+import { MdcRipple, MATCHES } from '@angular-mdc/web/ripple';
 import { MdcFormFieldControl } from '@angular-mdc/web/form-field';
 
-import { getCorrectEventName } from '@material/animation';
-
-import { MDCCheckboxAdapter } from '@material/checkbox/adapter';
 import { MDCCheckboxFoundation } from '@material/checkbox';
 
 let nextUniqueId = 0;
@@ -61,7 +58,7 @@ export const MDC_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
     #input
     class="mdc-checkbox__native-control"
     [id]="inputId"
-    [name]="name"
+    [attr.name]="name"
     [tabIndex]="tabIndex"
     [attr.aria-label]="ariaLabel"
     [attr.aria-labelledby]="ariaLabelledby"
@@ -69,15 +66,13 @@ export const MDC_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
     [checked]="checked"
     [attr.value]="checked"
     [indeterminate]="indeterminate"
-    (change)="onChange()"
-    (click)="_onInputClick($event)"/>
+    (change)="onChange($event)"
+    (click)="_onInputClick()"/>
   <div class="mdc-checkbox__background">
-    <svg class="mdc-checkbox__checkmark"
-      viewBox="0 0 24 24">
+    <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
       <path class="mdc-checkbox__checkmark-path"
             fill="none"
-            stroke="white"
-            d="M1.73,12.91 8.1,19.28 22.79,4.59"></path>
+            d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
     </svg>
     <div class="mdc-checkbox__mixedmark"></div>
   </div>
@@ -96,30 +91,29 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
 
   readonly componentInstance = MdcCheckbox;
 
-  private _mdcAdapter: MDCCheckboxAdapter = {
-    addClass: (className: string) => this._getHostElement().classList.add(className),
-    removeClass: (className: string) => this._getHostElement().classList.remove(className),
-    setNativeControlAttr: (attr: string, value: string) => this._getInputElement().setAttribute(attr, value),
-    removeNativeControlAttr: (attr: string) => this._getInputElement().removeAttribute(attr),
-    getNativeControl: () => this._getInputElement(),
-    forceLayout: () => this._getHostElement().offsetWidth,
-    isAttachedToDOM: () => !!this.inputEl
-  };
+  createAdapter() {
+    return {
+      addClass: (className: string) => this._getHostElement().classList.add(className),
+      removeClass: (className: string) => this._getHostElement().classList.remove(className),
+      setNativeControlAttr: (attr: string, value: string) => this._getInputElement().setAttribute(attr, value),
+      removeNativeControlAttr: (attr: string) => this._getInputElement().removeAttribute(attr),
+      getNativeControl: () => this._getInputElement(),
+      isIndeterminate: () => this.indeterminate,
+      isChecked: () => this.checked,
+      hasNativeControl: () => !!this._inputElement,
+      setNativeControlDisabled: (disabled: boolean) => this._inputElement.nativeElement.disabled = disabled,
+      forceLayout: () => this._getHostElement().offsetWidth,
+      isAttachedToDOM: () => !!this._getInputElement().parentNode
+    };
+  }
 
   private _foundation: {
     init(): void,
     destroy(): void,
-    isChecked(): boolean,
-    setChecked(checked: any): void,
     setDisabled(disabled: boolean): void,
-    isDisabled(): boolean,
-    getValue(): any,
-    setValue(value: any): void,
-    isIndeterminate(): boolean,
-    setIndeterminate(indeterminate: boolean): void,
     handleChange(): void,
     handleAnimationEnd(): void
-  } = new MDCCheckboxFoundation(this._mdcAdapter);
+  } = new MDCCheckboxFoundation(this.createAdapter());
 
   private _uniqueId: string = `mdc-checkbox-${++nextUniqueId}`;
 
@@ -131,14 +125,15 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
   @Input()
   get checked(): boolean { return this._checked; }
   set checked(value: boolean) {
-    this.setChecked(value);
+    this._checked = toBoolean(value);
+    this._changeDetectorRef.markForCheck();
   }
   private _checked: boolean;
 
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
-    this.setDisabled(value);
+    this.setDisabledState(value);
   }
   private _disabled: boolean;
 
@@ -158,7 +153,8 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
   @Input()
   get indeterminateToChecked(): boolean { return this._indeterminateToChecked; }
   set indeterminateToChecked(value: boolean) {
-    this.setIndeterminateToChecked(value);
+    this._indeterminateToChecked = toBoolean(value);
+    this._changeDetectorRef.markForCheck();
   }
   private _indeterminateToChecked: boolean = true;
 
@@ -175,7 +171,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
   @Output() readonly indeterminateChange: EventEmitter<MdcIndeterminateChange>
     = new EventEmitter<MdcIndeterminateChange>();
 
-  @ViewChild('input') inputEl: ElementRef;
+  @ViewChild('input') _inputElement: ElementRef<HTMLInputElement>;
 
   /** View -> model callback called when value changes */
   _onChange: (value: any) => void = () => { };
@@ -192,7 +188,8 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
 
   ngAfterViewInit(): void {
     this._foundation.init();
-    this.ripple.init({ surface: this._getHostElement(), unbounded: true, activator: this._getInputElement() });
+
+    this._initRipple();
     this._loadListeners();
   }
 
@@ -219,7 +216,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
 
   /** Focuses the checkbox. */
   focus(): void {
-    this.inputEl.nativeElement.focus();
+    this._getInputElement().focus();
   }
 
   // Toggles checkbox via user action. When it is indeterminate, toggle
@@ -231,20 +228,19 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
     if (this.indeterminate) {
       this.indeterminate = false;
 
-      this.checked = !this.indeterminateToChecked ? false : true;
+      this._checked = !this.indeterminateToChecked ? false : true;
     } else {
-      this.checked = !this.checked;
+      this._checked = !this.checked;
     }
-    this._foundation.setChecked(this.checked);
     this._onChange(this.checked);
   }
 
-  onChange(): void {
+  onChange(evt: Event): void {
     this._foundation.handleChange();
+    evt.stopPropagation();
   }
 
   _onInputClick(evt: Event) {
-    evt.stopPropagation();
     if (this.disabled) { return; }
 
     this.toggle();
@@ -255,40 +251,10 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
     if (this.disabled) { return; }
 
     this._indeterminate = toBoolean(indeterminate);
-    this._foundation.setIndeterminate(this.indeterminate);
     this.indeterminateChange.emit({ source: this, indeterminate: this.indeterminate });
     if (!this.indeterminate && !this.indeterminateToChecked) {
       this._checked = false;
     }
-
-    this._changeDetectorRef.markForCheck();
-  }
-
-  setIndeterminateToChecked(indeterminateToChecked: boolean): void {
-    this._indeterminateToChecked = toBoolean(indeterminateToChecked);
-    this._changeDetectorRef.markForCheck();
-  }
-
-  /** Sets the checkbox disabled state */
-  setDisabled(disabled: boolean): void {
-    this.setDisabledState(disabled);
-  }
-
-  isChecked(): boolean {
-    return this._foundation.isChecked();
-  }
-
-  isDisabled(): boolean {
-    return this._foundation.isDisabled();
-  }
-
-  getValue(): any {
-    return this._foundation.getValue();
-  }
-
-  setChecked(checked: any): void {
-    this._checked = checked;
-    this._foundation.setValue(checked);
 
     this._changeDetectorRef.markForCheck();
   }
@@ -299,18 +265,34 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
     this._changeDetectorRef.markForCheck();
   }
 
+  private _initRipple(): void {
+    const rippleAdapter = Object.assign(this.ripple.createAdapter({
+      surface: this.elementRef.nativeElement,
+      activator: this._getInputElement()
+    }), {
+        isUnbounded: () => true,
+        isSurfaceActive: () => this._getInputElement()[MATCHES](':active')
+      });
+
+    this.ripple.init({
+      surface: this.elementRef.nativeElement,
+      activator: this._getInputElement()
+    }, rippleAdapter);
+  }
+
   private _loadListeners(): void {
     if (!this._platform.isBrowser) { return; }
 
     this._ngZone.runOutsideAngular(() =>
-      fromEvent(window, getCorrectEventName(window, 'animationend'))
-        .pipe(takeUntil(this._destroy))
+      fromEvent<AnimationEvent>(this._getHostElement(), 'animationend')
+        .pipe(takeUntil(this._destroy), filter((e: AnimationEvent) =>
+          e.target === this._getHostElement()))
         .subscribe(() => this._ngZone.run(() => this._foundation.handleAnimationEnd())));
   }
 
   /** Retrieves the DOM element of the input. */
   private _getInputElement(): HTMLElement {
-    return this.inputEl.nativeElement;
+    return this._inputElement.nativeElement;
   }
 
   /** Retrieves the DOM element of the component host. */

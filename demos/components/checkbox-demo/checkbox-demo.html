@@ -80,20 +80,8 @@
         </thead>
         <tbody>
           <tr>
-            <td>isChecked(): boolean</td>
-            <td>Whether or not input is checked.</td>
-          </tr>
-          <tr>
-            <td>isDisabled(): boolean</td>
-            <td>Whether or not the input is disabled.</td>
-          </tr>
-          <tr>
             <td>focus()</td>
             <td>Use to set focus to the checkbox.</td>
-          </tr>
-          <tr>
-            <td>getValue(): any</td>
-            <td>Returns the input value</td>
           </tr>
           <tr>
             <td>toggle()</td>
@@ -139,11 +127,11 @@
         Indeterminate To Checked: {{demobox.indeterminateToChecked ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demobox.toggle()">Toggle</button>
       <button mdc-button (click)="demofield.alignEnd = !demofield.isAlignEnd()">Align End: {{demofield.alignEnd ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="demobox.setDisabled(!demobox.isDisabled())">Disabled: {{demobox.disabled ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demobox.setDisabled(!demobox.disabled)">Disabled: {{demobox.disabled ? 'On' : 'Off'}}</button>
     </div>
     <mdc-form-field #demofield>
       <mdc-checkbox #demobox (change)="onChange($event)" (indeterminateChange)="onIndeterminateChange($event)"></mdc-checkbox>
-      <label>Checkbox value is {{demobox.isChecked()}}</label>
+      <label>Checkbox value is {{demobox.value}}</label>
     </mdc-form-field>
   </div>
 
@@ -151,7 +139,7 @@
     <h3 class="demo-content__headline">Custom color (stroke, fill, ripple, and focus)</h3>
     <div class="demo-layout__row">
       <button mdc-button (click)="democustomcolor.setIndeterminate(true)">Indeterminate: {{democustomcolor.indeterminate ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="democustomcolor.setDisabled(!democustomcolor.isDisabled())">Disabled: {{democustomcolor.disabled ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="democustomcolor.setDisabled(!democustomcolor.disabled)">Disabled: {{democustomcolor.disabled ? 'On' : 'Off'}}</button>
     </div>
     <mdc-form-field>
       <mdc-checkbox #democustomcolor class="demo-checkbox--custom-all"></mdc-checkbox>
@@ -163,7 +151,7 @@
     <h3 class="demo-content__headline">Custom color (stroke and fill only)</h3>
     <div class="demo-layout__row">
       <button mdc-button (click)="democustomcolor2.setIndeterminate(true)">Indeterminate: {{democustomcolor2.indeterminate ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="democustomcolor2.setDisabled(!democustomcolor2.isDisabled())">Disabled: {{democustomcolor2.disabled ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="democustomcolor2.setDisabled(!democustomcolor2.disabled)">Disabled: {{democustomcolor2.disabled ? 'On' : 'Off'}}</button>
     </div>
     <mdc-form-field>
       <mdc-checkbox #democustomcolor2 class="demo-checkbox--custom-stroke-and-fill"></mdc-checkbox>

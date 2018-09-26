@@ -24,7 +24,6 @@ export * from '@angular-mdc/web/portal';
 export * from '@angular-mdc/web/radio';
 export * from '@angular-mdc/web/ripple';
 export * from '@angular-mdc/web/select';
-export * from '@angular-mdc/web/shape';
 export * from '@angular-mdc/web/slider';
 export * from '@angular-mdc/web/snackbar';
 export * from '@angular-mdc/web/switch';

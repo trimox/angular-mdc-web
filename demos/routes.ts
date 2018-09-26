@@ -20,7 +20,6 @@ import { MenuDemo } from './components/menu-demo/menu-demo';
 import { RadioDemo } from './components/radio-demo/radio-demo';
 import { RippleDemo } from './components/ripple-demo/ripple-demo';
 import { SelectDemo } from './components/select-demo/select-demo';
-import { ShapeDemo } from './components/shape-demo/shape-demo';
 import { SliderDemo } from './components/slider-demo/slider-demo';
 import { SnackbarDemo } from './components/snackbar-demo/snackbar-demo';
 import { SwitchDemo } from './components/switch-demo/switch-demo';
@@ -53,7 +52,6 @@ export const DEMO_ROUTES = [
   RippleDemo,
   SelectDemo,
   SliderDemo,
-  ShapeDemo,
   SnackbarDemo,
   SnackbarDemo,
   SwitchDemo,
@@ -85,7 +83,6 @@ export const APP_ROUTES: Routes = [
   { path: 'ripple-demo', component: RippleDemo },
   { path: 'select-demo', component: SelectDemo },
   { path: 'slider-demo', component: SliderDemo },
-  { path: 'shape-demo', component: ShapeDemo },
   { path: 'snackbar-demo', component: SnackbarDemo },
   { path: 'switch-demo', component: SwitchDemo },
   { path: 'tabs-demo', component: TabsDemo },

@@ -36,7 +36,6 @@ export class AppLayout implements OnInit, OnDestroy {
     { name: 'Menu', route: 'menu-demo', icon: 'menu' },
     { name: 'Ripple', route: 'ripple-demo', icon: 'code' },
     { name: 'Snackbar', route: 'snackbar-demo', icon: 'info_outline' },
-    { name: 'Shape', route: 'shape-demo', icon: 'transform' },
     { name: 'Tabs', route: 'tabs-demo', icon: 'tab' },
     { name: 'Top App Bar', route: 'top-app-bar-demo', icon: 'remove' },
     { name: 'Typography', route: 'typography-demo', 'icon': 'title' }

@@ -4,7 +4,6 @@
 
 // Import Angular MDC after _global.scss
 @import "~@angular-mdc/theme";
-@import "~@angular-mdc/theme/scss/shape/mixins";
 @import "./app-bar";
 @import "./button";
 @import "./cards";
@@ -22,7 +21,6 @@
 @import "./linear-progress";
 @import "./list";
 @import "./radio";
-@import "./shape";
 @import "./slider";
 @import "./switch";
 @import "./tabs";

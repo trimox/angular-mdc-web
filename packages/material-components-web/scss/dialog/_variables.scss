@@ -1,5 +1,5 @@
 //
-// Copyright 2017 Google Inc.
+// Copyright 2018 Google Inc.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,53 +20,19 @@
 // THE SOFTWARE.
 //
 
-@import "../theme/mixins";
-@import "../shape/mixins";
-@import "./variables";
+$mdc-dialog-scrim-color: on-surface;
+$mdc-dialog-title-ink-color: on-surface;
+$mdc-dialog-content-ink-color: on-surface;
+$mdc-dialog-scroll-divider-color: on-surface;
 
-//
-// Public
-//
+$mdc-dialog-scrim-opacity: .32;
+$mdc-dialog-title-ink-opacity: .87;
+$mdc-dialog-content-ink-opacity: .6;
+$mdc-dialog-scroll-divider-opacity: .12;
 
-@mixin mdc-card-fill-color($color) {
-  @include mdc-theme-prop(background-color, $color);
-}
+$mdc-dialog-min-width: 280px;
+$mdc-dialog-max-width: 560px;
+$mdc-dialog-margin: 16px;
+$mdc-dialog-title-bottom-padding: 9px;
 
-@mixin mdc-card-outline($color, $thickness: $mdc-card-outline-width) {
-  border: $thickness solid mdc-theme-prop-value($color);
-}
-
-@mixin mdc-card-shape-radius($radius, $rtl-reflexive: false) {
-  @include mdc-shape-radius($radius, $rtl-reflexive);
-}
-
-@mixin mdc-card-media-aspect-ratio($x, $y) {
-  &::before {
-    // This clever trick brought to you by: http://www.mademyday.de/css-height-equals-width-with-pure-css.html
-    margin-top: percentage($y / $x);
-  }
-}
-
-//
-// Private
-//
-
-@mixin mdc-card-container-layout_ {
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-@mixin mdc-card-actions-layout_($display: flex) {
-  display: $display;
-  flex-direction: row;
-  align-items: center;
-  box-sizing: border-box;
-}
-
-@mixin mdc-card-media-aspect-ratio-base_ {
-  &::before {
-    display: block;
-    content: "";
-  }
-}
+$mdc-dialog-z-index: 7;

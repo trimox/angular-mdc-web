@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'select-demo',
   templateUrl: './select-demo.html'
 })
 export class SelectDemo {
@@ -23,7 +22,7 @@ export class SelectDemo {
   }
 
   constructor() {
-    // this.foodControl.setValue('fruit-3');
+    this.foodControl.setValue('fruit-3');
   }
 
   onChange(event: { index: number, value: any }) {

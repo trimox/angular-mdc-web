@@ -36,10 +36,6 @@ describe('MdcTextField', () => {
       testComponent = fixture.debugElement.componentInstance;
     });
 
-    it('should be created', () => {
-      expect(textFieldInstance).toBeTruthy();
-    });
-
     it('#should have mdc-text-field by default', () => {
       expect(textFieldDebugElement.nativeElement.classList)
         .toContain('mdc-text-field', 'Expected to have mdc-text-field class');
@@ -64,7 +60,7 @@ describe('MdcTextField', () => {
     });
 
     it('#should not be disabled', () => {
-      expect(textFieldInstance.disabled).toBe(false);
+      expect(textFieldInstance.disabled).toBeFalsy();
     });
 
     it('#should be disabled', () => {
@@ -73,40 +69,10 @@ describe('MdcTextField', () => {
       expect(textFieldInstance.disabled).toBe(true);
     });
 
-    it('#should have value of testing', fakeAsync(() => {
-      testComponent.myModel = 'testing';
-      fixture.detectChanges();
-      tick();
-
-      expect(textFieldInstance.value).toBe('testing');
-      tick();
-    }));
-
-    it('#should not be empty', fakeAsync(() => {
-      textFieldInstance.setValue('newvalue');
-      fixture.detectChanges();
-      tick();
-
-      expect(textFieldInstance.value).toBe('newvalue');
-      expect(textFieldInstance.empty).toBe(false);
-    }));
-
     it('#should set validity based on input element validity', () => {
       textFieldInstance.valid = true;
       fixture.detectChanges();
       expect(textFieldInstance.valid).toBe(true);
-    });
-
-    it('#should select all content', () => {
-      expect(textFieldInstance.selectAll());
-    });
-
-    it('#should activate lineRipple', () => {
-      expect(textFieldInstance._lineRipple.activate());
-    });
-
-    it('#should deactivate lineRipple', () => {
-      expect(textFieldInstance._lineRipple.deactivate());
     });
 
     it('#should set helper content', () => {
@@ -137,7 +103,6 @@ describe('MdcTextField', () => {
     it('#should set required to true', () => {
       testComponent.required = true;
       fixture.detectChanges();
-      expect(textFieldInstance.required).toBe(true);
       expect(textFieldInstance.required).toBe(true);
     });
 
@@ -175,14 +140,6 @@ describe('MdcTextField', () => {
       fixture.detectChanges();
     });
 
-    it('expect leading icon foundation to be defined', () => {
-      expect(textFieldInstance.leadingIcon.iconTextFoundation).toBeDefined();
-    });
-
-    it('expect leading icon to be defined', () => {
-      expect(textFieldInstance.leadingIcon).toBeDefined();
-    });
-
     it('expect trailing icon to be defined', () => {
       expect(textFieldInstance.trailingIcon).toBeDefined();
     });
@@ -218,11 +175,11 @@ describe('MdcTextField', () => {
 class SimpleTextfield {
   myModel: string = 'Test';
   myType: string = 'text';
-  disabled: boolean = false;
-  isDense: boolean = false;
-  isFullwidth: boolean = false;
-  outlined: boolean = false;
-  required: boolean = false;
+  disabled: boolean;
+  isDense: boolean;
+  isFullwidth: boolean;
+  outlined: boolean;
+  required: boolean;
   useNativeValidation: boolean;
 
   onBlur(event: any) { }

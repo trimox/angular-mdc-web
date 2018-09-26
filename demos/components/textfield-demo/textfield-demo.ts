@@ -1,4 +1,4 @@
-import { Component, ViewChild, Renderer2 } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 
 import { MdcTextField, MdcIcon } from '@angular-mdc/web';
@@ -7,35 +7,32 @@ import { MdcTextField, MdcIcon } from '@angular-mdc/web';
   templateUrl: './textfield-demo.html'
 })
 export class TextFieldDemo {
-  demoForm: FormGroup;
+  demoForm = new FormGroup({
+    userName: new FormControl(
+      { value: '', disabled: false },
+      [Validators.required])
+  });
+
   updateForm: FormGroup;
   username: string;
   prefilledText: string = 'Prefilled';
 
-  @ViewChild('demoformInput') demoformInput: MdcTextField;
+  constructor(private _renderer: Renderer2) { }
 
-  constructor(
-    private _renderer: Renderer2) {
-
-    this.demoForm = new FormGroup({
-      userName: new FormControl({ value: '', disabled: false }, Validators.required)
-    });
+  onChange(value: any) {
+    console.log(value);
   }
 
   submitForm() {
-    console.log(this.demoForm);
-
     if (!this.demoForm.valid) {
       return;
     }
   }
 
   submitWeightForm(f: NgForm) {
-    console.log(f.value);
-  }
-
-  resetTextFieldValue(input: MdcTextField) {
-    input.setValue(null);
+    if (!f.valid) {
+      return;
+    }
   }
 
   resetWeightModel(f: NgForm) {

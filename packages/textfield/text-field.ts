@@ -1,15 +1,15 @@
 import {
-  AfterViewInit,
+  AfterContentInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ContentChildren,
-  Directive,
   ElementRef,
   EventEmitter,
   forwardRef,
   Input,
   OnDestroy,
+  Optional,
   Output,
   QueryList,
   ViewChild,
@@ -24,7 +24,7 @@ import {
   toBoolean,
   toNumber
 } from '@angular-mdc/web/common';
-import { MdcRipple } from '@angular-mdc/web/ripple';
+import { MdcRipple, MATCHES } from '@angular-mdc/web/ripple';
 import { MdcFloatingLabel } from '@angular-mdc/web/floating-label';
 import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
 import { MdcNotchedOutline } from '@angular-mdc/web/notched-outline';
@@ -49,11 +49,14 @@ let nextUniqueId = 0;
   exportAs: 'mdcTextField',
   host: {
     'class': 'mdc-text-field',
+    '[class.mdc-text-field--disabled]': 'disabled',
     '[class.mdc-text-field--outlined]': 'outlined',
     '[class.mdc-text-field--dense]': 'dense',
     '[class.mdc-text-field--fullwidth]': 'fullwidth',
     '[class.mdc-text-field--with-leading-icon]': 'leadingIcon',
-    '[class.mdc-text-field--with-trailing-icon]': 'trailingIcon'
+    '[class.mdc-text-field--with-trailing-icon]': 'trailingIcon',
+    '(click)': 'onTextFieldInteraction()',
+    '(keydown)': 'onTextFieldInteraction()'
   },
   template: `
   <ng-content *ngIf="leadingIcon"></ng-content>
@@ -71,11 +74,16 @@ let nextUniqueId = 0;
     [attr.size]="size"
     [attr.step]="step"
     [required]="required"
+    [value]="value"
+    (mousedown)="onInputInteraction($event)"
+    (touchstart)="onInputInteraction($event)"
+    (focus)="onFocus()"
+    (change)="onChange($event)"
     (blur)="onBlur()"
     (input)="onInput($event.target.value)" />
     <ng-content></ng-content>
-    <label mdcFloatingLabel [attr.for]="id" *ngIf="!placeholder">{{label}}</label>
-    <mdc-line-ripple *ngIf="!outlined"></mdc-line-ripple>
+    <label mdcFloatingLabel [for]="id" *ngIf="!this.placeholder">{{label}}</label>
+    <mdc-line-ripple *ngIf="useLineRipple"></mdc-line-ripple>
     <mdc-notched-outline *ngIf="outlined"></mdc-notched-outline>
   `,
   providers: [
@@ -85,8 +93,9 @@ let nextUniqueId = 0;
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAccessor {
+export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAccessor {
   private _uid = `mdc-input-${nextUniqueId++}`;
+  private _initialized: boolean = false;
 
   @Input() label: string;
   @Input() maxlength: number;
@@ -96,7 +105,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   @Input() min: number;
   @Input() size: number;
   @Input() step: number;
-  @Input() placeholder: string;
+  @Input() placeholder: string | null = null;
   @Input() tabIndex: number = 0;
 
   @Input()
@@ -122,7 +131,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
-    this.setDisabled(value);
+    this.setDisabledState(value);
   }
   private _disabled: boolean;
 
@@ -137,21 +146,22 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   @Input()
   get fullwidth(): boolean { return this._fullwidth; }
   set fullwidth(value: boolean) {
-    this.setFullwidth(value);
+    this._fullwidth = toBoolean(value);
+    this.placeholder = this.fullwidth ? this.label : '';
   }
   private _fullwidth: boolean;
 
   @Input()
   get dense(): boolean { return this._dense; }
   set dense(value: boolean) {
-    this.setDense(value);
+    this._dense = toBoolean(value);
   }
   private _dense: boolean;
 
   @Input()
   get helperText(): MdcTextFieldHelperText { return this._helperText; }
   set helperText(helperText: MdcTextFieldHelperText) {
-    this.setHelperText(helperText);
+    this._helperText = helperText;
   }
   private _helperText: MdcTextFieldHelperText;
 
@@ -160,69 +170,58 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   get useNativeValidation(): boolean { return this._useNativeValidation; }
   set useNativeValidation(value: boolean) {
     this._useNativeValidation = toBoolean(value);
-    this._foundation.setUseNativeValidation(this._useNativeValidation);
+    if (this._foundation) {
+      this._foundation.setUseNativeValidation(this._useNativeValidation);
+    }
   }
   private _useNativeValidation: boolean = true;
 
-
-  /** The input element's value. */
   @Input()
-  get value(): any { return this._value; }
+  get value(): any { return this._input.nativeElement.value; }
   set value(newValue: any) {
-    if (this._value !== newValue) {
+    if (newValue !== this.value) {
       this.setValue(newValue);
     }
   }
-  private _value: string;
 
   /** Sets the Text Field valid or invalid. */
   @Input()
-  get valid(): boolean { return this._foundation.isValid(); }
+  get valid(): boolean { return this._valid; }
   set valid(value: boolean) {
     this._valid = toBoolean(value);
-    this._foundation.setValid(this._valid);
+    if (this._foundation) {
+      this._foundation.setValid(this._valid);
+    }
   }
   private _valid: boolean;
 
-  @Output() readonly change = new EventEmitter<string>();
-  @Output() readonly blur = new EventEmitter<string>();
+  @Output() readonly change = new EventEmitter<any>();
+  @Output() readonly blur = new EventEmitter<any>();
 
-  @ViewChild('input') _input: ElementRef;
+  @ViewChild('input') _input: ElementRef<HTMLInputElement>;
   @ViewChild(MdcFloatingLabel) _floatingLabel: MdcFloatingLabel;
   @ViewChild(MdcLineRipple) _lineRipple: MdcLineRipple;
   @ViewChild(MdcNotchedOutline) _notchedOutline: MdcNotchedOutline;
   @ContentChildren(MdcTextFieldIcon, { descendants: true }) _icons: QueryList<MdcTextFieldIcon>;
 
-  /** Whether the control is empty. */
-  get empty(): boolean {
-    return !this._getInputElement().value && !this.isBadInput();
-  }
-
-  get focused(): boolean {
-    return this._platform.isBrowser ? document.activeElement === this._getInputElement() : false;
-  }
-
   /** Determines if the component host is a textarea. */
-  readonly textarea: boolean = this._getHostElement().nodeName.toLowerCase() === 'mdc-textarea';
+  get textarea(): boolean { return this._getHostElement().nodeName.toLowerCase() === 'mdc-textarea'; }
+
+  get focused(): boolean { return this._platform.isBrowser ? document.activeElement === this._getInputElement() : false; }
+
+  get leadingIcon(): MdcTextFieldIcon | undefined { return this._icons.find(icon => icon.leading); }
+
+  get trailingIcon(): MdcTextFieldIcon | undefined { return this._icons.find(icon => icon.trailing); }
+
+  get useLineRipple(): boolean { return !this._outlined && !this.textarea; }
 
   private _mdcAdapter: MDCTextFieldAdapter = {
     addClass: (className: string) => this._getHostElement().classList.add(className),
     removeClass: (className: string) => this._getHostElement().classList.remove(className),
     hasClass: (className: string) => this._getHostElement().classList.contains(className),
-    registerTextFieldInteractionHandler: (evtType: string, handler: EventListener) =>
-      this._getHostElement().addEventListener(evtType, handler),
-    deregisterTextFieldInteractionHandler: (evtType: string, handler: EventListener) =>
-      this._getHostElement().removeEventListener(evtType, handler),
-    registerInputInteractionHandler: (evtType: string, handler: EventListener) =>
-      this._getInputElement().addEventListener(evtType, handler),
-    deregisterInputInteractionHandler: (evtType: string, handler: EventListener) =>
-      this._getInputElement().removeEventListener(evtType, handler),
-    isFocused: () => {
-      if (!this._platform.isBrowser) { return false; }
-      return document.activeElement === this._getInputElement();
-    },
-    isRtl: () => this._platform.isBrowser ?
-      window.getComputedStyle(this._getHostElement()).getPropertyValue('direction') === 'rtl' : false,
+    isFocused: () => this._platform.isBrowser ? document.activeElement === this._getInputElement() : false,
+    isRtl: () =>
+      this._platform.isBrowser ? window.getComputedStyle(this._getHostElement()).getPropertyValue('direction') === 'rtl' : false,
     activateLineRipple: () => {
       if (this._lineRipple) {
         this._lineRipple.activate();
@@ -256,22 +255,25 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
         observer.disconnect();
       }
     },
-    getNativeInput: () => this._getInputElement(),
-    helperText: this._helperText ? this.helperText.helperTextFoundation : undefined,
-    icon: this._icons ? this._icons.first.iconTextFoundation : undefined
+    getNativeInput: () => this._getInputElement()
   };
 
   private _foundation: {
     init(): void,
     destroy(): void,
-    isDisabled(): boolean,
     setDisabled(disabled: boolean): void,
     setValid(isValid: boolean): void,
     setValue(value: any): void,
     isValid(): boolean,
+    readonly shouldFloat: boolean,
     notchOutline(openNotch: boolean): void,
-    setUseNativeValidation(useNativeValidation: boolean): void
-  } = new MDCTextFieldFoundation(this._mdcAdapter);
+    setUseNativeValidation(useNativeValidation: boolean): void,
+    setTransformOrigin(evt: Event): void,
+    handleTextFieldInteraction(): void,
+    activateFocus(): void,
+    deactivateFocus(): void,
+    autoCompleteFocus(): void
+  };
 
   /** View -> model callback called when value changes */
   _onChange: (value: any) => void = () => { };
@@ -283,26 +285,124 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef<HTMLElement>,
-    private _ripple: MdcRipple) {
+    @Optional() private _ripple: MdcRipple) {
 
     // Force setter to be called in case id was not specified.
     this.id = this.id;
   }
 
-  ngAfterViewInit(): void {
-    this._foundation = new MDCTextFieldFoundation(this._mdcAdapter);
-    this._foundation.init();
-
-    this._initRipple();
+  ngAfterContentInit(): void {
+    this.init();
+    this._initializeSelection();
   }
 
   ngOnDestroy(): void {
-    this._ripple.destroy();
+    this._destroyTextField();
+  }
+
+  init(): void {
+    Promise.resolve().then(() => {
+      this._initFoundationVariants();
+
+      this._foundation = new MDCTextFieldFoundation(this._mdcAdapter, {
+        helperText: this._helperText ? this.helperText.helperTextFoundation : undefined,
+        icon: this._icons && this._icons.length > 0 ? this._icons.first.iconTextFoundation : undefined
+      });
+      this._foundation.init();
+
+      if (this._icons) {
+        this._icons.forEach(icon => icon.init());
+      }
+
+      if (this._floatingLabel) {
+        setTimeout(() => this._floatingLabel.float(this._foundation.shouldFloat));
+      }
+      this._initialized = true;
+    });
+  }
+
+  private _destroyTextField(): void {
+    if (this._lineRipple) {
+      this._lineRipple.destroy();
+    }
+    if (this._ripple) {
+      this._ripple.destroy();
+    }
+    if (this._icons) {
+      this._icons.forEach(icon => icon.destroy());
+    }
+
     this._foundation.destroy();
   }
 
+  private _reinitialize(): void {
+    if (this._initialized) {
+      this._destroyTextField();
+      this.init();
+    }
+  }
+
+  private _initFoundationVariants(): void {
+    if (!this.fullwidth && !this.textarea) {
+      this._initRipple();
+    }
+    if (!this.textarea && !this._outlined) {
+      setTimeout(() => this._lineRipple.init());
+    }
+
+    this._changeDetectorRef.markForCheck();
+  }
+
+  private _initializeSelection(): void {
+    // Defer setting these values in order to avoid the "Expression
+    // has changed after it was checked" errors from Angular.
+    Promise.resolve().then(() => {
+      if (this._valid) {
+        this._foundation.setValid(this._valid);
+      }
+      this._foundation.setUseNativeValidation(this._useNativeValidation);
+      this._foundation.setDisabled(this._disabled);
+    });
+  }
+
+  onChange(evt: Event): void {
+    const value = (<any>evt.target).value;
+
+    this.change.emit(value);
+    this._foundation.autoCompleteFocus();
+    this._onChange(value);
+    evt.stopPropagation();
+  }
+
+  onTextFieldInteraction(): void {
+    if (this._initialized) {
+      this._foundation.handleTextFieldInteraction();
+    }
+  }
+
+  onInputInteraction(evt: MouseEvent | TouchEvent): void {
+    this._foundation.setTransformOrigin(evt);
+  }
+
+  onInput(value: any): void {
+    this.setValue(value);
+    this._onChange(value);
+  }
+
+  onFocus(): void {
+    if (this._initialized) {
+      this._foundation.activateFocus();
+    }
+  }
+
+  onBlur(): void {
+    this._onTouched();
+    this._foundation.deactivateFocus();
+    this.blur.emit(this.value);
+  }
+
   writeValue(value: any): void {
-    this.setValue(value == null ? '' : value, false);
+    this.setValue(value);
   }
 
   registerOnChange(fn: (value: any) => any): void {
@@ -313,34 +413,21 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     this._onTouched = fn;
   }
 
-  onInput(value: any): void {
-    this.setValue(value);
+  private _valueIsDefined(value: any): boolean {
+    return value !== null && value !== undefined && value.toString().length !== 0;
   }
 
-  onBlur(): void {
-    this._onTouched();
-    this.blur.emit(this.value);
-
-    this._changeDetectorRef.markForCheck();
-  }
-
-  setValue(value: any, isUserInput: boolean = true): void {
-    this._value = this.type === 'number' ?
-      (value === '' ? null : toNumber(value)) : value;
+  setValue(value: any): void {
+    const newValue = this.type === 'number' ? (value === '' ? null : toNumber(value, null)) : value;
 
     setTimeout(() => {
-      this._foundation.setValue(this._value);
+      this._foundation.setValue(newValue ? newValue : null);
 
-      if (isUserInput) {
-        this._onChange(this._value);
-      }
-
-      if (this.required && !this._value) {
+      if (this.required && !this.value) {
         this.required = false;
         setTimeout(() => this.required = true);
       }
-    }, 0);
-
+    });
     this._changeDetectorRef.markForCheck();
   }
 
@@ -357,64 +444,29 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
 
   /** Styles the text field as an outlined text field. */
   setOutlined(outlined: boolean): void {
-    this._outlined = toBoolean(outlined);
+    const newValue = toBoolean(outlined);
 
-    if (this.outlined && this.value) {
-      setTimeout(() => {
-        this._foundation.notchOutline(this.value);
-      });
+    if (newValue !== this._outlined) {
+      this._outlined = toBoolean(outlined);
+      this._reinitialize();
+      setTimeout(() => this._foundation.notchOutline(this._foundation.shouldFloat));
     }
-
-    this._initRipple();
-
-    this._changeDetectorRef.markForCheck();
-  }
-
-  /** Styles the text field as a fullwidth text field. */
-  setFullwidth(fullwidth: boolean): void {
-    this._fullwidth = toBoolean(fullwidth);
-    this.placeholder = this.fullwidth ? this.label : '';
-
-    this._changeDetectorRef.markForCheck();
-  }
-
-  setDense(dense: boolean): void {
-    this._dense = toBoolean(dense);
-    this._changeDetectorRef.markForCheck();
-  }
-
-  setDisabled(disabled: boolean): void {
-    this.setDisabledState(disabled);
-  }
-
-  setHelperText(helperText: MdcTextFieldHelperText): void {
-    this._helperText = helperText;
-    this._changeDetectorRef.markForCheck();
-  }
-
-  selectAll(): void {
-    this._getInputElement().select();
-  }
-
-  get leadingIcon(): MdcTextFieldIcon | undefined {
-    return this._icons.find((icon: MdcTextFieldIcon) => icon.leading);
-  }
-
-  get trailingIcon(): MdcTextFieldIcon | undefined {
-    return this._icons.find((icon: MdcTextFieldIcon) => icon.trailing);
   }
 
   // Implemented as part of ControlValueAccessor.
   setDisabledState(isDisabled: boolean) {
-    this._disabled = toBoolean(isDisabled);
-    setTimeout(() => this._foundation.setDisabled(this.disabled));
+    const newValue = toBoolean(isDisabled);
+
+    if (newValue !== this._disabled) {
+      this._disabled = toBoolean(isDisabled);
+      if (this._foundation) {
+        this._foundation.setDisabled(this._disabled);
+      }
+    }
     this._changeDetectorRef.markForCheck();
   }
 
   private _initRipple(): void {
-    if (!this._getInputElement()) { return; }
-
-    const MATCHES = util.getMatchesProperty(HTMLElement.prototype);
     if (!this._ripple.initialized && !this.outlined && !this.textarea) {
       const rippleAdapter = Object.assign(this._ripple.createAdapter({
         surface: this.elementRef.nativeElement,

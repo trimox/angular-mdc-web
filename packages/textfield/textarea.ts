@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcTextField } from './text-field';
 
 export const MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
@@ -35,14 +34,16 @@ export const MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
     [attr.minlength]="minlength"
     [disabled]="disabled"
     [required]="required"
+    [value]="value"
+    (mousedown)="onInputInteraction($event)"
+    (touchstart)="onInputInteraction($event)"
+    (focus)="onFocus()"
+    (change)="onChange($event)"
     (blur)="onBlur()"
     (input)="onInput($event.target.value)"></textarea>
-    <label mdcFloatingLabel [attr.for]="id">{{label}}</label>
+    <label mdcFloatingLabel [for]="id">{{label}}</label>
   `,
-  providers: [
-    MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR,
-    MdcRipple
-  ],
+  providers: [MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })

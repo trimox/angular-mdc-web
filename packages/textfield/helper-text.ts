@@ -1,9 +1,7 @@
 import {
   Directive,
   ElementRef,
-  Input,
-  OnDestroy,
-  OnInit
+  Input
 } from '@angular/core';
 import { toBoolean } from '@angular-mdc/web/common';
 
@@ -20,7 +18,7 @@ import { MDCTextFieldHelperTextFoundation } from '@material/textfield/helper-tex
     '[attr.aria-hidden]': 'true'
   }
 })
-export class MdcTextFieldHelperText implements OnInit, OnDestroy {
+export class MdcTextFieldHelperText {
   @Input() id: string;
 
   @Input()
@@ -49,8 +47,6 @@ export class MdcTextFieldHelperText implements OnInit, OnDestroy {
   };
 
   private _foundation: {
-    init(): void,
-    destroy(): void,
     setContent(content: string): void,
     showToScreenReader(): boolean,
     setValidity(inputIsValid: boolean): void,
@@ -58,15 +54,7 @@ export class MdcTextFieldHelperText implements OnInit, OnDestroy {
     setValidation(isValidation: boolean): void
   } = new MDCTextFieldHelperTextFoundation(this._mdcAdapter);
 
-  constructor(public elementRef: ElementRef) { }
-
-  ngOnInit(): void {
-    this._foundation.init();
-  }
-
-  ngOnDestroy(): void {
-    this._foundation.destroy();
-  }
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
 
   /** Sets the content of the helper text field. */
   setContent(content: string): void {

@@ -379,14 +379,15 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
       this.setOutlined(false);
     }
 
-    this.box ? this._ripple.init({ surface: this._getHostElement(), activator: this._getInputElement() }) :
-      this._ripple.destroy();
+    this._initRipple();
 
     if (this.box) {
       this._lineRippleEventsSubscription = this.lineRippleEvents.pipe().subscribe((evt) => {
         this._setTransformOrigin_(evt);
       });
+      setTimeout(() => this._lineRipple.init());
     } else if (this._lineRippleEventsSubscription) {
+      this._lineRipple.destroy();
       this._lineRippleEventsSubscription.unsubscribe();
     }
 
@@ -432,6 +433,14 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
     return this._floatingLabel || !this.getValue();
   }
 
+  private _initRipple(): void {
+    if (!this._ripple.initialized && !this.outlined) {
+      this._ripple.init({ surface: this.elementRef.nativeElement });
+    } else {
+      this._ripple.destroy();
+    }
+  }
+
   /**
    * Sets the line ripple's transform origin, so that the line ripple activate
    * animation will animate out from the user's click location. */
@@ -445,8 +454,10 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
 
   private _setWidth(): void {
     if (this.options && this.placeholder) {
-      const labelLength = this._selectLabel.elementRef.nativeElement.textContent.length;
-      this._getHostElement().style.setProperty('width', `${labelLength}rem`);
+      if (this._selectLabel && this._selectLabel.elementRef.nativeElement.textContent) {
+        const labelLength = this._selectLabel.elementRef.nativeElement.textContent.length;
+        this._getHostElement().style.setProperty('width', `${labelLength}rem`);
+      }
     }
   }
 

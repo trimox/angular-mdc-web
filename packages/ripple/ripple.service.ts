@@ -11,7 +11,7 @@ import { Platform, toBoolean } from '@angular-mdc/web/common';
 
 import { MDCRippleFoundation, util } from '@material/ripple';
 
-const MATCHES = util.getMatchesProperty(HTMLElement.prototype);
+export const MATCHES = util.getMatchesProperty(HTMLElement.prototype);
 
 // Activation events registered on the root element of each instance for activation
 const ACTIVATION_EVENT_TYPES = ['touchstart', 'mousedown', 'keydown'];

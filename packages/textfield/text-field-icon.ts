@@ -3,7 +3,6 @@ import {
   EventEmitter,
   Input,
   OnDestroy,
-  OnInit,
   Output
 } from '@angular/core';
 import { toBoolean } from '@angular-mdc/web/common';
@@ -19,7 +18,7 @@ import { MDCTextFieldIconFoundation } from '@material/textfield/icon';
     'class': 'mdc-text-field__icon'
   }
 })
-export class MdcTextFieldIcon extends MdcIcon implements OnInit, OnDestroy {
+export class MdcTextFieldIcon extends MdcIcon implements OnDestroy {
   @Input()
   get leading(): boolean { return this._leading; }
   set leading(value: boolean) {
@@ -55,14 +54,21 @@ export class MdcTextFieldIcon extends MdcIcon implements OnInit, OnDestroy {
     handleInteraction(evt: Event): void,
     setContent(content: string): void,
     setAriaLabel(label: string): void
-  } = new MDCTextFieldIconFoundation(this._mdcIconAdapter);
+  };
 
-  ngOnInit(): void {
+  init(): void {
+    this._foundation = new MDCTextFieldIconFoundation(this._mdcIconAdapter);
     this._foundation.init();
   }
 
+  destroy(): void {
+    if (this._foundation) {
+      this._foundation.destroy();
+    }
+  }
+
   ngOnDestroy(): void {
-    this._foundation.destroy();
+    this.destroy();
   }
 
   get iconTextFoundation(): MDCTextFieldIconFoundation {

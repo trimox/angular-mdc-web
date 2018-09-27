@@ -41,6 +41,7 @@
     "zone.js": "0.8.26"
   },
   "devDependencies": {
+    "@angular/cdk": "^6.4.7",
     "@angular/compiler-cli": "6.1.8",
     "@angular/platform-browser-dynamic": "6.1.8",
     "@angular/router": "6.1.8",

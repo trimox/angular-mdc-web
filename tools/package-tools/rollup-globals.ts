@@ -19,6 +19,7 @@ const rollupMdcEntryPoints = mdcSecondaryEntryPoints.reduce((globals: any, entry
 export const rollupGlobals = {
   'tslib': 'tslib',
 
+  '@angular/cdk': 'ng.cdk',
   '@angular/core': 'ng.core',
   '@angular/common': 'ng.common',
   '@angular/forms': 'ng.forms',
@@ -72,6 +73,7 @@ export const rollupGlobals = {
 export const rollupExternals = {
   'tslib': 'tslib',
 
+  '@angular/cdk': 'ng.cdk',
   '@angular/core': 'ng.core',
   '@angular/common': 'ng.common',
   '@angular/forms': 'ng.forms',

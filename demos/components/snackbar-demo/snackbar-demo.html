@@ -65,7 +65,7 @@
             </td>
           </tr>
           <tr>
-            <td>afterDismissed</td>
+            <td>afterDismiss</td>
             <td>Gets an observable that is notified when the snackbar is finished closing.</td>
           </tr>
         </tbody>
@@ -127,6 +127,10 @@
         <mdc-form-field>
           <mdc-checkbox (click)="align = 'start'"></mdc-checkbox>
           <label>Start align (desktop only)</label>
+        </mdc-form-field>
+        <mdc-form-field>
+          <mdc-checkbox (click)="align = 'center'"></mdc-checkbox>
+          <label>Center align</label>
         </mdc-form-field>
         <mdc-form-field>
           <mdc-checkbox (click)="align = 'end'"></mdc-checkbox>

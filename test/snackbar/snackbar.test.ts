@@ -37,33 +37,24 @@ describe('MdcSnackbar', () => {
     });
 
     it('#should open a simple message with a button', fakeAsync(() => {
+      let dismissCompleteSpy = jasmine.createSpy('dismiss complete spy');
       let snackbarRef = snackbar.show(simpleMessage, simpleActionLabel);
-      fixture.detectChanges();
-      tick(1000);
 
-      snackbarRef.componentInstance.actionButton.nativeElement.click();
+      fixture.detectChanges();
+      snackbarRef.afterDismiss().subscribe(undefined, undefined, dismissCompleteSpy);
+
+      snackbarRef.dismiss();
       fixture.detectChanges();
       flush();
+
+      expect(dismissCompleteSpy).toHaveBeenCalled();
     }));
 
     it('#should open a snackbar with config', () => {
       let snackbarRef = snackbar.show(simpleMessage, simpleActionLabel, { timeout: 3000, align: 'start', focusAction: true });
-      expect(snackbar.isShowing()).toBe(true);
       fixture.detectChanges();
-
       snackbar.dismiss();
-      expect(snackbar.isShowing()).toBe(false);
     });
-
-    it('#should close an open snackbar', fakeAsync(() => {
-      let snackbarRef = snackbar.show(simpleMessage);
-      fixture.detectChanges();
-      tick(1000);
-
-      snackbarRef = snackbar.show(simpleMessage);
-      fixture.detectChanges();
-      flush();
-    }));
   });
 });
 

@@ -30,7 +30,6 @@ import { MdcNotchedOutline } from '@angular-mdc/web/notched-outline';
 import { MdcTextFieldIcon } from './text-field-icon';
 import { MdcTextFieldHelperText } from './helper-text';
 
-import { MDCTextFieldAdapter } from '@material/textfield/adapter';
 import { MDCTextFieldFoundation } from '@material/textfield';
 
 export const MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR: any = {
@@ -213,48 +212,50 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
 
   get useLineRipple(): boolean { return !this._outlined && !this.textarea; }
 
-  private _mdcAdapter: MDCTextFieldAdapter = {
-    addClass: (className: string) => this._getHostElement().classList.add(className),
-    removeClass: (className: string) => this._getHostElement().classList.remove(className),
-    hasClass: (className: string) => this._getHostElement().classList.contains(className),
-    isFocused: () => this._platform.isBrowser ? document.activeElement === this._getInputElement() : false,
-    isRtl: () =>
-      this._platform.isBrowser ? window.getComputedStyle(this._getHostElement()).getPropertyValue('direction') === 'rtl' : false,
-    activateLineRipple: () => {
-      if (this._lineRipple) {
-        this._lineRipple.activate();
-      }
-    },
-    deactivateLineRipple: () => {
-      if (this._lineRipple) {
-        this._lineRipple.deactivate();
-      }
-    },
-    setLineRippleTransformOrigin: (normalizedX: number) => {
-      if (this._lineRipple) {
-        this._lineRipple.setRippleCenter(normalizedX);
-      }
-    },
-    shakeLabel: (shouldShake: boolean) => this._floatingLabel.shake(shouldShake),
-    floatLabel: (shouldFloat: boolean) => this._floatingLabel.float(shouldFloat),
-    hasLabel: () => this._floatingLabel,
-    getLabelWidth: () => this._floatingLabel ? this._floatingLabel.getWidth() : 0,
-    hasOutline: () => this._notchedOutline,
-    notchOutline: (labelWidth: number, isRtl: boolean) => this._notchedOutline.notch(labelWidth, isRtl),
-    closeOutline: () => this._notchedOutline.closeNotch(),
-    registerValidationAttributeChangeHandler: (handler: (whitelist: Array<string>) => void) => {
-      const getAttributesList = (mutationsList) => mutationsList.map((mutation) => mutation.attributeName);
-      const observer = new MutationObserver((mutationsList) => handler(getAttributesList(mutationsList)));
-      observer.observe(this._getInputElement(), { attributes: true });
-      return observer;
-    },
-    deregisterValidationAttributeChangeHandler: (observer: MutationObserver) => {
-      if (observer) {
-        observer.disconnect();
-      }
-    },
-    getNativeInput: () => this._getInputElement()
-  };
+  createAdapter() {
+    return {
+      addClass: (className: string) => this._getHostElement().classList.add(className),
+      removeClass: (className: string) => this._getHostElement().classList.remove(className),
+      hasClass: (className: string) => this._getHostElement().classList.contains(className),
+      isFocused: () => this._platform.isBrowser ? document.activeElement === this._getInputElement() : false,
+      isRtl: () =>
+        this._platform.isBrowser ? window.getComputedStyle(this._getHostElement()).getPropertyValue('direction') === 'rtl' : false,
+      activateLineRipple: () => {
+        if (this._lineRipple) {
+          this._lineRipple.activate();
+        }
+      },
+      deactivateLineRipple: () => {
+        if (this._lineRipple) {
+          this._lineRipple.deactivate();
+        }
+      },
+      setLineRippleTransformOrigin: (normalizedX: number) => {
+        if (this._lineRipple) {
+          this._lineRipple.setRippleCenter(normalizedX);
+        }
+      },
+      shakeLabel: (shouldShake: boolean) => this._floatingLabel.shake(shouldShake),
+      floatLabel: (shouldFloat: boolean) => this._floatingLabel.float(shouldFloat),
+      hasLabel: () => this._floatingLabel,
+      getLabelWidth: () => this._floatingLabel ? this._floatingLabel.getWidth() : 0,
+      hasOutline: () => this._notchedOutline,
+      notchOutline: (labelWidth: number, isRtl: boolean) => this._notchedOutline.notch(labelWidth, isRtl),
+      closeOutline: () => this._notchedOutline.closeNotch(),
+      registerValidationAttributeChangeHandler: (handler: (whitelist: Array<string>) => void) => {
+        const getAttributesList = (mutationsList) => mutationsList.map((mutation) => mutation.attributeName);
+        const observer = new MutationObserver((mutationsList) => handler(getAttributesList(mutationsList)));
+        observer.observe(this._getInputElement(), { attributes: true });
+        return observer;
+      },
+      deregisterValidationAttributeChangeHandler: (observer: MutationObserver) => {
+        if (observer) {
+          observer.disconnect();
+        }
+      },
+      getNativeInput: () => this._getInputElement()
+    };
+  }
 
   private _foundation: {
     init(): void,
@@ -302,9 +303,10 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     Promise.resolve().then(() => {
       this._initFoundationVariants();
 
-      this._foundation = new MDCTextFieldFoundation(this._mdcAdapter, {
+      this._foundation = new MDCTextFieldFoundation(this.createAdapter(), {
         helperText: this._helperText ? this.helperText.helperTextFoundation : undefined,
-        icon: this._icons && this._icons.length > 0 ? this._icons.first.iconTextFoundation : undefined
+        leadingIcon: this._icons.some(_ => _.leading) ? this._icons.first.iconTextFoundation : undefined,
+        trailingIcon: this._icons.some(_ => _.trailing) ? this._icons.last.iconTextFoundation : undefined
       });
       this._foundation.init();
 
@@ -445,7 +447,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     const newValue = toBoolean(outlined);
 
     if (newValue !== this._outlined) {
-      this._outlined = toBoolean(outlined);
+      this._outlined = toBoolean(newValue);
       this._reinitialize();
       setTimeout(() => this._foundation.notchOutline(this._foundation.shouldFloat));
     }

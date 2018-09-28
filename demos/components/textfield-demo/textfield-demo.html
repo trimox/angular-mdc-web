@@ -302,14 +302,25 @@
   </div>
 
   <div class="demo-content">
-    <h3 class="demo-content__headline">Outlined Text Field</h3>
+    <h3 class="demo-content__headline">Leading and Trailing Icons</h3>
+    <div class="demo-layout__row">
+      <button mdc-button (click)="bothIcons.outlined = !bothIcons.outlined">Outlined: {{bothIcons.outlined ? 'On' : 'Off'}}</button>
+    </div>
+    <mdc-text-field #bothIcons label="Phone number">
+      <mdc-icon mdcTextFieldIcon leading>phone</mdc-icon>
+      <mdc-icon mdcTextFieldIcon trailing>event</mdc-icon>
+    </mdc-text-field>
+  </div>
+
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Examples</h3>
     <div class="demo-layout__row">
       <button mdc-button (click)="outlined.disabled = !outlined.disabled">Disabled: {{outlined.disabled ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="outlined.required = !outlined.required">Required: {{outlined.required ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="outlined.dense = !outlined.dense">Dense: {{outlined.dense ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="alternateColors(outlined)">Alternate Colors</button>
     </div>
-    <mdc-text-field #outlined outlined label="Your name"></mdc-text-field>
+    <mdc-text-field #outlined label="Your name"></mdc-text-field>
 
     <div class="demo-layout__row">
       <button mdc-button (click)="outlinedicon.disabled = !outlinedicon.disabled">Disabled: {{outlinedicon.disabled ? 'On' : 'Off'}}</button>
@@ -331,6 +342,7 @@
       <mdc-icon mdcTextFieldIcon trailing #trailingicon>event</mdc-icon>
     </mdc-text-field>
   </div>
+
   <div class="demo-content">
     <h3 class="demo-content__headline">Prefilled via ngModel</h3>
     <mdc-text-field [(ngModel)]="prefilledText" label="Username"></mdc-text-field>

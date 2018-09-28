@@ -30,7 +30,6 @@ import {
   MdcMenuSurfaceOpenedEvent
 } from '@angular-mdc/web/menu-surface';
 
-import { MDCMenuAdapter } from '@material/menu/adapter';
 import { MDCMenuFoundation, Corner } from '@material/menu';
 
 export class MdcMenuSelectedEvent {
@@ -167,41 +166,43 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
   /** Subscription to changes in list items. */
   private _changeSubscription: Subscription;
 
-  private _mdcMenuAdapter: MDCMenuAdapter = {
-    addClassToElementAtIndex: (index: number, className: string) =>
-      this._listItems.toArray()[index].getListItemElement().classList.add(className),
-    removeClassFromElementAtIndex: (index: number, className: string) =>
-      this._listItems.toArray()[index].getListItemElement().classList.remove(className),
-    addAttributeToElementAtIndex: (index: number, attr: string, value: string) =>
-      this._listItems.toArray()[index].getListItemElement().setAttribute(attr, value),
-    removeAttributeFromElementAtIndex: (index: number, attr: string) =>
-      this._listItems.toArray()[index].getListItemElement().removeAttribute(attr),
-    elementContainsClass: (element: HTMLElement, className: string) => element.classList.contains(className),
-    closeSurface: () => this.setOpen(false),
-    getElementIndex: (element: HTMLElement) => this._listItems.toArray().findIndex((_) => _.getListItemElement() === element),
-    getParentElement: (element: HTMLElement) => element.parentElement,
-    getSelectedElementIndex: (selectionGroup: MdcMenuSelectionGroup) => {
-      return this._listItems.toArray().indexOf(selectionGroup.elementRef.nativeElement.querySelector('mdc-menu-item--selected'));
-    },
-    notifySelected: (evtData: { index: number }) =>
-      this.selected.emit(new MdcMenuSelectedEvent(evtData.index, this._listItems.toArray()[evtData.index])),
-    getCheckboxAtIndex: (index: number) =>
-      this._listItems.toArray()[index].getListItemElement().querySelector('input[type="checkbox"]'),
-    toggleCheckbox: (checkBox: HTMLInputElement) => {
-      if (!this.platform.isBrowser) { return; }
+  createAdapter() {
+    return {
+      addClassToElementAtIndex: (index: number, className: string) =>
+        this._listItems.toArray()[index].getListItemElement().classList.add(className),
+      removeClassFromElementAtIndex: (index: number, className: string) =>
+        this._listItems.toArray()[index].getListItemElement().classList.remove(className),
+      addAttributeToElementAtIndex: (index: number, attr: string, value: string) =>
+        this._listItems.toArray()[index].getListItemElement().setAttribute(attr, value),
+      removeAttributeFromElementAtIndex: (index: number, attr: string) =>
+        this._listItems.toArray()[index].getListItemElement().removeAttribute(attr),
+      elementContainsClass: (element: HTMLElement, className: string) => element.classList.contains(className),
+      closeSurface: () => this.setOpen(false),
+      getElementIndex: (element: HTMLElement) => this._listItems.toArray().findIndex((_) => _.getListItemElement() === element),
+      getParentElement: (element: HTMLElement) => element.parentElement,
+      getSelectedElementIndex: (selectionGroup: MdcMenuSelectionGroup) => {
+        return this._listItems.toArray().indexOf(selectionGroup.elementRef.nativeElement.querySelector('mdc-menu-item--selected'));
+      },
+      notifySelected: (evtData: { index: number }) =>
+        this.selected.emit(new MdcMenuSelectedEvent(evtData.index, this._listItems.toArray()[evtData.index])),
+      getCheckboxAtIndex: (index: number) =>
+        this._listItems.toArray()[index].getListItemElement().querySelector('input[type="checkbox"]'),
+      toggleCheckbox: (checkBox: HTMLInputElement) => {
+        if (!this.platform.isBrowser) { return; }
 
-      checkBox.checked = !checkBox.checked;
-      const event = document.createEvent('Event');
-      event.initEvent('change', false, true);
-      checkBox.dispatchEvent(event);
-    }
-  };
+        checkBox.checked = !checkBox.checked;
+        const event = document.createEvent('Event');
+        event.initEvent('change', false, true);
+        checkBox.dispatchEvent(event);
+      }
+    };
+  }
 
   private _menuFoundation: {
     destroy(): void,
     handleKeydown(evt: KeyboardEvent): void,
     handleClick(evt: MouseEvent): void
-  } = new MDCMenuFoundation(this._mdcMenuAdapter);
+  } = new MDCMenuFoundation(this.createAdapter());
 
   constructor(
     protected platform: Platform,

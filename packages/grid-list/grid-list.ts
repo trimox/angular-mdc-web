@@ -25,7 +25,6 @@ import {
 } from '@angular-mdc/web/common';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
-import { MDCGridListAdapter } from './adapter';
 import { MDCGridListFoundation } from '@material/grid-list';
 
 const MDC_VALID_ASPECTS = [
@@ -166,26 +165,28 @@ export class MdcGridList implements AfterViewInit, AfterContentInit, OnDestroy {
     return this.icons.length > 0 && this.iconAlign === 'end' ? 'mdc-grid-list--with-icon-align-end' : '';
   }
 
-  private _mdcAdapter: MDCGridListAdapter = {
-    getOffsetWidth: () => this._getHostElement().offsetWidth,
-    getNumberOfTiles: () => this.tiles.length,
-    getOffsetWidthForTileAtIndex: (index: number) => {
-      const tile = this.getTile(index);
-      return tile ? tile.elementRef.nativeElement.offsetWidth : 0;
-    },
-    setStyleForTilesElement: (property: string, value: string) =>
-      this._renderer.setStyle(this.gridListTiles.elementRef.nativeElement, property, value),
-    registerResizeHandler: (handler: EventListener) => {
-      if (this._platform.isBrowser) {
-        window.addEventListener('resize', handler);
+  createAdapter() {
+    return {
+      getOffsetWidth: () => this._getHostElement().offsetWidth,
+      getNumberOfTiles: () => this.tiles.length,
+      getOffsetWidthForTileAtIndex: (index: number) => {
+        const tile = this.getTile(index);
+        return tile ? tile.elementRef.nativeElement.offsetWidth : 0;
+      },
+      setStyleForTilesElement: (property: string, value: string) =>
+        this._renderer.setStyle(this.gridListTiles.elementRef.nativeElement, property, value),
+      registerResizeHandler: (handler: EventListener) => {
+        if (this._platform.isBrowser) {
+          window.addEventListener('resize', handler);
+        }
+      },
+      deregisterResizeHandler: (handler: EventListener) => {
+        if (this._platform.isBrowser) {
+          window.removeEventListener('resize', handler);
+        }
       }
-    },
-    deregisterResizeHandler: (handler: EventListener) => {
-      if (this._platform.isBrowser) {
-        window.removeEventListener('resize', handler);
-      }
-    }
-  };
+    };
+  }
 
   private _foundation: {
     init(): void,
@@ -200,7 +201,7 @@ export class MdcGridList implements AfterViewInit, AfterContentInit, OnDestroy {
     public elementRef: ElementRef) { }
 
   ngAfterViewInit(): void {
-    this._foundation = new MDCGridListFoundation(this._mdcAdapter);
+    this._foundation = new MDCGridListFoundation(this.createAdapter());
     this._foundation.init();
 
     this.setAspect(this.aspect);

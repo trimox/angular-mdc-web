@@ -25,7 +25,6 @@ import {
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
-import { MDCChipAdapter } from '@material/chips/chip/adapter';
 import { MDCChipFoundation } from '@material/chips/chip';
 
 export interface MdcChipInteractionEvent {
@@ -232,31 +231,33 @@ export class MdcChip implements AfterViewInit, OnDestroy {
   @ContentChild(MdcChipText) chipText: MdcChipText;
   @ContentChildren(MdcChipIcon, { descendants: true }) icons: QueryList<MdcChipIcon>;
 
-  private _mdcAdapter: MDCChipAdapter = {
-    addClass: (className: string) => this._getHostElement().classList.add(className),
-    removeClass: (className: string) => this._getHostElement().classList.remove(className),
-    hasClass: (className: string) => this._getHostElement().classList.contains(className),
-    addClassToLeadingIcon: (className: string) => {
-      if (this.leadingIcon) {
-        this.leadingIcon.elementRef.nativeElement.classList.add(className);
-      }
-    },
-    removeClassFromLeadingIcon: (className: string) => {
-      if (this.leadingIcon) {
-        this.leadingIcon.elementRef.nativeElement.classList.remove(className);
-      }
-    },
-    eventTargetHasClass: (target: HTMLElement, className: string) => target.classList.contains(className),
-    notifyInteraction: () => this._emitSelectionChangeEvent(),
-    notifyTrailingIconInteraction: () => this.trailingIconInteraction.emit(),
-    notifyRemoval: () => this.removed.emit({ detail: { chip: this } }),
-    getComputedStyleValue: (propertyName: string) => {
-      if (this._platform.isBrowser) {
-        window.getComputedStyle(this._getHostElement()).getPropertyValue(propertyName);
-      }
-    },
-    setStyleProperty: (propertyName: string, value: string) => this._getHostElement().style.setProperty(propertyName, value)
-  };
+  createAdapter() {
+    return {
+      addClass: (className: string) => this._getHostElement().classList.add(className),
+      removeClass: (className: string) => this._getHostElement().classList.remove(className),
+      hasClass: (className: string) => this._getHostElement().classList.contains(className),
+      addClassToLeadingIcon: (className: string) => {
+        if (this.leadingIcon) {
+          this.leadingIcon.elementRef.nativeElement.classList.add(className);
+        }
+      },
+      removeClassFromLeadingIcon: (className: string) => {
+        if (this.leadingIcon) {
+          this.leadingIcon.elementRef.nativeElement.classList.remove(className);
+        }
+      },
+      eventTargetHasClass: (target: HTMLElement, className: string) => target.classList.contains(className),
+      notifyInteraction: () => this._emitSelectionChangeEvent(),
+      notifyTrailingIconInteraction: () => this.trailingIconInteraction.emit(),
+      notifyRemoval: () => this.removed.emit({ detail: { chip: this } }),
+      getComputedStyleValue: (propertyName: string) => {
+        if (this._platform.isBrowser) {
+          window.getComputedStyle(this._getHostElement()).getPropertyValue(propertyName);
+        }
+      },
+      setStyleProperty: (propertyName: string, value: string) => this._getHostElement().style.setProperty(propertyName, value)
+    };
+  }
 
   private _foundation: {
     init(): void,
@@ -268,7 +269,7 @@ export class MdcChip implements AfterViewInit, OnDestroy {
     handleInteraction(evt: Event): void,
     handleTransitionEnd(evt: TransitionEvent): void,
     handleTrailingIconInteraction(evt: Event): void
-  } = new MDCChipFoundation(this._mdcAdapter);
+  } = new MDCChipFoundation(this.createAdapter());
 
   constructor(
     private _platform: Platform,

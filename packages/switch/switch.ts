@@ -20,7 +20,6 @@ import { MdcRipple } from '@angular-mdc/web/ripple';
 
 import { MdcFormFieldControl } from '@angular-mdc/web/form-field';
 
-import { MDCSwitchAdapter } from '@material/switch/adapter';
 import { MDCSwitchFoundation } from '@material/switch';
 
 export const MDC_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
@@ -112,24 +111,26 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, OnDes
 
   get inputId(): string { return `${this.id || this._uniqueId}-input`; }
 
-  private _mdcAdapter: MDCSwitchAdapter = {
-    addClass: (className: string) => this._getHostElement().classList.add(className),
-    removeClass: (className: string) => this._getHostElement().classList.remove(className),
-    setNativeControlChecked: (checked: boolean) => this._getInputElement().checked = checked,
-    setNativeControlDisabled: (disabled: boolean) => this._getInputElement().disabled = disabled
-  };
+  createAdapter() {
+    return {
+      addClass: (className: string) => this._getHostElement().classList.add(className),
+      removeClass: (className: string) => this._getHostElement().classList.remove(className),
+      setNativeControlChecked: (checked: boolean) => this._getInputElement().checked = checked,
+      setNativeControlDisabled: (disabled: boolean) => this._getInputElement().disabled = disabled
+    };
+  }
 
   private _foundation: {
     init(): void,
     setChecked(checked: boolean): void,
     setDisabled(disabled: boolean): void,
     handleChange(evt: Event): void
-  } = new MDCSwitchFoundation(this._mdcAdapter);
+  } = new MDCSwitchFoundation(this.createAdapter());
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _ripple: MdcRipple,
-    public elementRef: ElementRef) { }
+    public elementRef: ElementRef<HTMLElement>) { }
 
   ngAfterViewInit(): void {
     this._foundation.init();

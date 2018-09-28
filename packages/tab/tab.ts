@@ -23,7 +23,6 @@ import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcTabIndicator } from '@angular-mdc/web/tab-indicator';
 
-import { MDCTabAdapter } from '@material/tab/adapter';
 import { MDCTabFoundation } from '@material/tab';
 
 /**
@@ -127,20 +126,22 @@ export class MdcTab implements OnInit, OnDestroy {
   @ViewChild('ripplesurface') rippleSurface: ElementRef;
   @ViewChild(MdcTabIndicator) tabIndicator: MdcTabIndicator;
 
-  private _mdcAdapter: MDCTabAdapter = {
-    setAttr: (attr: string, value: string) => this._getHostElement().setAttribute(attr, value),
-    addClass: (className: string) => this._getHostElement().classList.add(className),
-    removeClass: (className: string) => this._getHostElement().classList.remove(className),
-    hasClass: (className: string) => this._getHostElement().classList.contains(className),
-    activateIndicator: (previousIndicatorClientRect: ClientRect) => this.tabIndicator.activate(previousIndicatorClientRect),
-    deactivateIndicator: () => this.tabIndicator.deactivate(),
-    notifyInteracted: () => this.interacted.emit({ detail: { tab: this } }),
-    getOffsetLeft: () => this._getHostElement().offsetLeft,
-    getOffsetWidth: () => this._getHostElement().offsetWidth,
-    getContentOffsetLeft: () => this.content.nativeElement.offsetLeft,
-    getContentOffsetWidth: () => this.content.nativeElement.offsetWidth,
-    focus: () => this._getHostElement().focus()
-  };
+  createAdapter() {
+    return {
+      setAttr: (attr: string, value: string) => this._getHostElement().setAttribute(attr, value),
+      addClass: (className: string) => this._getHostElement().classList.add(className),
+      removeClass: (className: string) => this._getHostElement().classList.remove(className),
+      hasClass: (className: string) => this._getHostElement().classList.contains(className),
+      activateIndicator: (previousIndicatorClientRect: ClientRect) => this.tabIndicator.activate(previousIndicatorClientRect),
+      deactivateIndicator: () => this.tabIndicator.deactivate(),
+      notifyInteracted: () => this.interacted.emit({ detail: { tab: this } }),
+      getOffsetLeft: () => this._getHostElement().offsetLeft,
+      getOffsetWidth: () => this._getHostElement().offsetWidth,
+      getContentOffsetLeft: () => this.content.nativeElement.offsetLeft,
+      getContentOffsetWidth: () => this.content.nativeElement.offsetWidth,
+      focus: () => this._getHostElement().focus()
+    };
+  }
 
   private _foundation: {
     init(): void,
@@ -149,13 +150,13 @@ export class MdcTab implements OnInit, OnDestroy {
     deactivate(): void,
     computeDimensions(): void,
     handleClick(): void
-  } = new MDCTabFoundation(this._mdcAdapter);
+  } = new MDCTabFoundation(this.createAdapter());
 
   constructor(
     private _ngZone: NgZone,
     private _changeDetectorRef: ChangeDetectorRef,
     private _ripple: MdcRipple,
-    public elementRef: ElementRef,
+    public elementRef: ElementRef<HTMLElement>,
     @Optional() @Inject(MDC_TAB_BAR_PARENT_COMPONENT) private _parent: MdcTabBarParentComponent) { }
 
   ngOnInit(): void {

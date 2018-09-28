@@ -7,7 +7,6 @@ import {
 import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
-import { MDCLineRippleAdapter } from '@material/line-ripple/adapter';
 import { MDCLineRippleFoundation } from '@material/line-ripple';
 
 @Directive({
@@ -21,19 +20,21 @@ export class MdcLineRipple implements OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
-  private _mdcAdapter: MDCLineRippleAdapter = {
-    addClass: (className: string) => this._getHostElement().classList.add(className),
-    removeClass: (className: string) => this._getHostElement().classList.remove(className),
-    hasClass: (className: string) => this._getHostElement().classList.contains(className),
-    setStyle: (propertyName: string, value: string) => this._getHostElement().style.setProperty(propertyName, value)
-  };
+  createAdapter() {
+    return {
+      addClass: (className: string) => this._getHostElement().classList.add(className),
+      removeClass: (className: string) => this._getHostElement().classList.remove(className),
+      hasClass: (className: string) => this._getHostElement().classList.contains(className),
+      setStyle: (propertyName: string, value: string) => this._getHostElement().style.setProperty(propertyName, value)
+    };
+  }
 
   private _foundation: {
     activate(): void,
     deactivate(): void,
     setRippleCenter(xCoordinate: number): void,
     handleTransitionEnd(evt: TransitionEvent): void
-  } = new MDCLineRippleFoundation(this._mdcAdapter);
+  } = new MDCLineRippleFoundation(this.createAdapter());
 
   constructor(
     private _ngZone: NgZone,

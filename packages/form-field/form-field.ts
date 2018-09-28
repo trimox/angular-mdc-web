@@ -12,7 +12,6 @@ import {
 import { toBoolean } from '@angular-mdc/web/common';
 
 import { MdcFormFieldControl } from './form-field-control';
-import { MDCFormFieldAdapter } from '@material/form-field/adapter';
 import { MDCFormFieldFoundation } from '@material/form-field';
 
 @Component({
@@ -39,20 +38,22 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
 
   @ContentChild(MdcFormFieldControl) input: MdcFormFieldControl<any>;
 
-  private _mdcAdapter: MDCFormFieldAdapter = {
-    registerInteractionHandler: (type: string, handler: EventListener) => this._label.addEventListener(type, handler),
-    deregisterInteractionHandler: (type: string, handler: EventListener) => this._label.removeEventListener(type, handler),
-    activateInputRipple: () => {
-      if (this.input && this.input.ripple) {
-        this.input.ripple.activateRipple();
+  createAdapter() {
+    return {
+      registerInteractionHandler: (type: string, handler: EventListener) => this._label.addEventListener(type, handler),
+      deregisterInteractionHandler: (type: string, handler: EventListener) => this._label.removeEventListener(type, handler),
+      activateInputRipple: () => {
+        if (this.input && this.input.ripple) {
+          this.input.ripple.activateRipple();
+        }
+      },
+      deactivateInputRipple: () => {
+        if (this.input && this.input.ripple) {
+          this.input.ripple.deactivateRipple();
+        }
       }
-    },
-    deactivateInputRipple: () => {
-      if (this.input && this.input.ripple) {
-        this.input.ripple.deactivateRipple();
-      }
-    }
-  };
+    };
+  }
 
   private _foundation: {
     init(): void,
@@ -61,7 +62,7 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    public elementRef: ElementRef) { }
+    public elementRef: ElementRef<HTMLElement>) { }
 
   ngAfterContentInit(): void {
     if (this.input) {
@@ -73,7 +74,7 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
 
           this._label.setAttribute('for', this.input.inputId);
 
-          this._foundation = new MDCFormFieldFoundation(this._mdcAdapter);
+          this._foundation = new MDCFormFieldFoundation(this.createAdapter());
           this._foundation.init();
           this._changeDetectorRef.markForCheck();
         }

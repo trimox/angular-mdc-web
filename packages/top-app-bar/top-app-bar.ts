@@ -23,7 +23,6 @@ import {
   MdcTopAppBarActionItem,
   MdcTopAppBarNavigationIcon,
 } from './top-app-bar.directives';
-import { MDCTopAppBarAdapter } from '@material/top-app-bar/adapter';
 import {
   MDCTopAppBarFoundation,
   MDCShortTopAppBarFoundation,
@@ -124,52 +123,54 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
   @ContentChild(MdcTopAppBarNavigationIcon) navigationIcon: MdcTopAppBarNavigationIcon;
   @ContentChildren(MdcTopAppBarActionItem, { descendants: true }) actions: QueryList<MdcTopAppBarActionItem>;
 
-  private _mdcAdapter: MDCTopAppBarAdapter = {
-    hasClass: (className: string) => this._getHostElement().classList.contains(className),
-    addClass: (className: string) => this._getHostElement().classList.add(className),
-    removeClass: (className: string) => {
-      if (className === 'mdc-top-app-bar--short-collapsed' && this.shortCollapsed) {
-        return;
-      }
-      this._getHostElement().classList.remove(className);
-    },
-    setStyle: (property: string, value: string) => this._getHostElement().style.setProperty(property, value),
-    getTopAppBarHeight: () => this._getHostElement().clientHeight,
-    notifyNavigationIconClicked: () => this.navigationSelected.emit({ source: this }),
-    registerScrollHandler: (handler: EventListener) => {
-      if (!this._platform.isBrowser) { return; }
+  createAdapter() {
+    return {
+      hasClass: (className: string) => this._getHostElement().classList.contains(className),
+      addClass: (className: string) => this._getHostElement().classList.add(className),
+      removeClass: (className: string) => {
+        if (className === 'mdc-top-app-bar--short-collapsed' && this.shortCollapsed) {
+          return;
+        }
+        this._getHostElement().classList.remove(className);
+      },
+      setStyle: (property: string, value: string) => this._getHostElement().style.setProperty(property, value),
+      getTopAppBarHeight: () => this._getHostElement().clientHeight,
+      notifyNavigationIconClicked: () => this.navigationSelected.emit({ source: this }),
+      registerScrollHandler: (handler: EventListener) => {
+        if (!this._platform.isBrowser) { return; }
 
-      this._scrollTarget.addEventListener('scroll', handler);
-    },
-    deregisterScrollHandler: (handler: EventListener) => {
-      if (!this._platform.isBrowser) { return; }
+        this._scrollTarget.addEventListener('scroll', handler);
+      },
+      deregisterScrollHandler: (handler: EventListener) => {
+        if (!this._platform.isBrowser) { return; }
 
-      this._scrollTarget.removeEventListener('scroll', handler);
-    },
-    registerResizeHandler: (handler: EventListener) => {
-      if (!this._platform.isBrowser) { return; }
+        this._scrollTarget.removeEventListener('scroll', handler);
+      },
+      registerResizeHandler: (handler: EventListener) => {
+        if (!this._platform.isBrowser) { return; }
 
-      window.addEventListener('resize', handler);
-    },
-    deregisterResizeHandler: (handler: EventListener) => {
-      if (!this._platform.isBrowser) { return; }
+        window.addEventListener('resize', handler);
+      },
+      deregisterResizeHandler: (handler: EventListener) => {
+        if (!this._platform.isBrowser) { return; }
 
-      window.removeEventListener('resize', handler);
-    },
-    getViewportScrollY: () => {
-      if (!this._platform.isBrowser) { return 0; }
+        window.removeEventListener('resize', handler);
+      },
+      getViewportScrollY: () => {
+        if (!this._platform.isBrowser) { return 0; }
 
-      return this._scrollTarget[this._scrollTarget === window ? 'pageYOffset' : 'scrollTop'];
-    },
-    getTotalActionItems: () => this.actions ? this.actions.length : 0
-  };
+        return this._scrollTarget[this._scrollTarget === window ? 'pageYOffset' : 'scrollTop'];
+      },
+      getTotalActionItems: () => this.actions ? this.actions.length : 0
+    };
+  }
 
   private _foundation: {
     init(): void,
     destroy(): void,
     initScrollHandler(): void,
     destroyScrollHandler(): void
-  } = new MDCTopAppBarFoundation(this._mdcAdapter);
+  } = new MDCTopAppBarFoundation(this.createAdapter());
 
   constructor(
     private _platform: Platform,
@@ -179,8 +180,9 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
   ngAfterContentInit(): void {
     this.actions.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
       if (this.short) {
-        this.actions.length > 0 && this.short ? this._mdcAdapter.addClass('mdc-top-app-bar--short-has-action-item')
-          : this._mdcAdapter.removeClass('mdc-top-app-bar--short-has-action-item');
+        this.actions.length > 0 && this.short ?
+          this._getHostElement().classList.add('mdc-top-app-bar--short-has-action-item')
+          : this._getHostElement().classList.remove('mdc-top-app-bar--short-has-action-item');
       }
     });
   }
@@ -287,11 +289,11 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
       this._resetFixedShort();
 
       if (this.short) {
-        this._foundation = new MDCShortTopAppBarFoundation(this._mdcAdapter);
+        this._foundation = new MDCShortTopAppBarFoundation(this.createAdapter());
       } else if (this.fixed) {
-        this._foundation = new MDCFixedTopAppBarFoundation(this._mdcAdapter);
+        this._foundation = new MDCFixedTopAppBarFoundation(this.createAdapter());
       } else {
-        this._foundation = new MDCTopAppBarFoundation(this._mdcAdapter);
+        this._foundation = new MDCTopAppBarFoundation(this.createAdapter());
       }
 
       this._foundation.init();

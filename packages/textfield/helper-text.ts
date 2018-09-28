@@ -5,7 +5,6 @@ import {
 } from '@angular/core';
 import { toBoolean } from '@angular-mdc/web/common';
 
-import { MDCTextFieldHelperTextAdapter } from '@material/textfield/helper-text/adapter';
 import { MDCTextFieldHelperTextFoundation } from '@material/textfield/helper-text';
 
 @Directive({
@@ -37,14 +36,16 @@ export class MdcTextFieldHelperText {
   }
   private _validation: boolean;
 
-  private _mdcAdapter: MDCTextFieldHelperTextAdapter = {
-    addClass: (className: string) => this._getHostElement().classList.add(className),
-    removeClass: (className: string) => this._getHostElement().classList.remove(className),
-    hasClass: (className: string) => this._getHostElement().classList.contains(className),
-    setAttr: (attr: string, value: string) => this._getHostElement().setAttribute(attr, value),
-    removeAttr: (attr: string) => this._getHostElement().removeAttribute(attr),
-    setContent: (content: string) => this._getHostElement().textContent = content
-  };
+  createAdapter() {
+    return {
+      addClass: (className: string) => this._getHostElement().classList.add(className),
+      removeClass: (className: string) => this._getHostElement().classList.remove(className),
+      hasClass: (className: string) => this._getHostElement().classList.contains(className),
+      setAttr: (attr: string, value: string) => this._getHostElement().setAttribute(attr, value),
+      removeAttr: (attr: string) => this._getHostElement().removeAttribute(attr),
+      setContent: (content: string) => this._getHostElement().textContent = content
+    };
+  }
 
   private _foundation: {
     setContent(content: string): void,
@@ -52,7 +53,7 @@ export class MdcTextFieldHelperText {
     setValidity(inputIsValid: boolean): void,
     setPersistent(isPersistent: boolean): void,
     setValidation(isValidation: boolean): void
-  } = new MDCTextFieldHelperTextFoundation(this._mdcAdapter);
+  } = new MDCTextFieldHelperTextFoundation(this.createAdapter());
 
   constructor(public elementRef: ElementRef<HTMLElement>) { }
 

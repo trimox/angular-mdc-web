@@ -9,7 +9,6 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { toBoolean, toNumber } from '@angular-mdc/web/common';
-import { MDCLinearProgressAdapter } from './adapter';
 
 import { MDCLinearProgressFoundation } from '@material/linear-progress';
 
@@ -77,14 +76,16 @@ export class MdcLinearProgress implements AfterViewInit, OnDestroy {
   }
   private _buffer: number;
 
-  private _mdcAdapter: MDCLinearProgressAdapter = {
-    addClass: (className: string) => this._getHostElement().classList.add(className),
-    getPrimaryBar: () => this._getHostElement().querySelector('.mdc-linear-progress__primary-bar'),
-    getBuffer: () => this._getHostElement().querySelector('.mdc-linear-progress__buffer'),
-    hasClass: (className: string) => this._getHostElement().classList.contains(className),
-    removeClass: (className: string) => this._getHostElement().classList.remove(className),
-    setStyle: (el: HTMLElement, styleProperty: string, value: string) => el.style.setProperty(styleProperty, value)
-  };
+  createAdapter() {
+    return {
+      addClass: (className: string) => this._getHostElement().classList.add(className),
+      getPrimaryBar: () => this._getHostElement().querySelector('.mdc-linear-progress__primary-bar'),
+      getBuffer: () => this._getHostElement().querySelector('.mdc-linear-progress__buffer'),
+      hasClass: (className: string) => this._getHostElement().classList.contains(className),
+      removeClass: (className: string) => this._getHostElement().classList.remove(className),
+      setStyle: (el: HTMLElement, styleProperty: string, value: string) => el.style.setProperty(styleProperty, value)
+    };
+  }
 
   private _foundation: {
     init(): void,
@@ -95,7 +96,7 @@ export class MdcLinearProgress implements AfterViewInit, OnDestroy {
     setDeterminate(value: boolean): void,
     open(): void,
     close(): void
-  } = new MDCLinearProgressFoundation(this._mdcAdapter);
+  } = new MDCLinearProgressFoundation(this.createAdapter());
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,

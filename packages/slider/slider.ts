@@ -17,7 +17,6 @@ import {
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { toNumber, toBoolean, Platform } from '@angular-mdc/web/common';
 
-import { MDCSliderAdapter } from '@material/slider/adapter';
 import { MDCSliderFoundation } from '@material/slider';
 
 export const MDC_SLIDER_CONTROL_VALUE_ACCESSOR: Provider = {
@@ -128,75 +127,77 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
   /** View -> model callback called when radio has been touched */
   _onTouched = () => { };
 
-  private _mdcAdapter: MDCSliderAdapter = {
-    hasClass: (className: string) => this._getHostElement().classList.contains(className),
-    addClass: (className: string) => this._getHostElement().classList.add(className),
-    removeClass: (className: string) => this._getHostElement().classList.remove(className),
-    getAttribute: (name: string) => this._getHostElement().getAttribute(name),
-    setAttribute: (name: string, value: string) => this._getHostElement().setAttribute(name, value),
-    removeAttribute: (name: string) => this._getHostElement().removeAttribute(name),
-    computeBoundingRect: () => this._getHostElement().getBoundingClientRect(),
-    getTabIndex: () => this._getHostElement().tabIndex,
-    registerInteractionHandler: (type: string, handler: EventListener) =>
-      this._getHostElement().addEventListener(type, handler),
-    deregisterInteractionHandler: (type: string, handler: EventListener) => this._getHostElement().removeEventListener(type, handler),
-    registerThumbContainerInteractionHandler: (type: string, handler: EventListener) => {
-      if (this.thumbContainer) {
-        this.thumbContainer.nativeElement.addEventListener(type, handler);
-      }
-    },
-    deregisterThumbContainerInteractionHandler: (type: string, handler: EventListener) =>
-      this.thumbContainer.nativeElement.removeEventListener(type, handler),
-    registerBodyInteractionHandler: (type: string, handler: EventListener) => {
-      if (!this._platform.isBrowser) { return; }
+  createAdapter() {
+    return {
+      hasClass: (className: string) => this._getHostElement().classList.contains(className),
+      addClass: (className: string) => this._getHostElement().classList.add(className),
+      removeClass: (className: string) => this._getHostElement().classList.remove(className),
+      getAttribute: (name: string) => this._getHostElement().getAttribute(name),
+      setAttribute: (name: string, value: string) => this._getHostElement().setAttribute(name, value),
+      removeAttribute: (name: string) => this._getHostElement().removeAttribute(name),
+      computeBoundingRect: () => this._getHostElement().getBoundingClientRect(),
+      getTabIndex: () => this._getHostElement().tabIndex,
+      registerInteractionHandler: (type: string, handler: EventListener) =>
+        this._getHostElement().addEventListener(type, handler),
+      deregisterInteractionHandler: (type: string, handler: EventListener) => this._getHostElement().removeEventListener(type, handler),
+      registerThumbContainerInteractionHandler: (type: string, handler: EventListener) => {
+        if (this.thumbContainer) {
+          this.thumbContainer.nativeElement.addEventListener(type, handler);
+        }
+      },
+      deregisterThumbContainerInteractionHandler: (type: string, handler: EventListener) =>
+        this.thumbContainer.nativeElement.removeEventListener(type, handler),
+      registerBodyInteractionHandler: (type: string, handler: EventListener) => {
+        if (!this._platform.isBrowser) { return; }
 
-      document.body.addEventListener(type, handler);
-    },
-    deregisterBodyInteractionHandler: (type: string, handler: EventListener) => {
-      if (!this._platform.isBrowser) { return; }
+        document.body.addEventListener(type, handler);
+      },
+      deregisterBodyInteractionHandler: (type: string, handler: EventListener) => {
+        if (!this._platform.isBrowser) { return; }
 
-      document.body.removeEventListener(type, handler);
-    },
-    registerResizeHandler: (handler: EventListener) => {
-      if (!this._platform.isBrowser) { return; }
+        document.body.removeEventListener(type, handler);
+      },
+      registerResizeHandler: (handler: EventListener) => {
+        if (!this._platform.isBrowser) { return; }
 
-      window.addEventListener('resize', handler);
-    },
-    deregisterResizeHandler: (handler: EventListener) => {
-      if (!this._platform.isBrowser) { return; }
+        window.addEventListener('resize', handler);
+      },
+      deregisterResizeHandler: (handler: EventListener) => {
+        if (!this._platform.isBrowser) { return; }
 
-      window.removeEventListener('resize', handler);
-    },
-    notifyInput: () => {
-      this.input.emit(new MdcSliderChange(this, this.getValue()));
-      this._onTouched();
-    },
-    notifyChange: () => {
-      this.change.emit(new MdcSliderChange(this, this.getValue()));
-      this.setValue(this.getValue());
-    },
-    setThumbContainerStyleProperty: (propertyName: string, value: string) =>
-      this.thumbContainer.nativeElement.style.setProperty(propertyName, value),
-    setTrackStyleProperty: (propertyName: string, value: string) =>
-      this.track.nativeElement.style.setProperty(propertyName, value),
-    setMarkerValue: (value: number) => this.pinValueMarker.nativeElement.innerText = value,
-    appendTrackMarkers: (numMarkers: number) => {
-      for (let i = 0; i < numMarkers; i++) {
-        const marker = this._renderer.createElement('div');
-        this._renderer.addClass(marker, 'mdc-slider__track-marker');
-        this._renderer.appendChild(this.trackMarkerContainer.nativeElement, marker);
-      }
-    },
-    removeTrackMarkers: () => {
-      while (this.trackMarkerContainer.nativeElement.firstChild) {
-        this._renderer.removeChild(this.trackMarkerContainer.nativeElement,
-          this.trackMarkerContainer.nativeElement.firstChild);
-      }
-    },
-    setLastTrackMarkersStyleProperty: (propertyName: string, value: string) =>
-      this.trackMarkerContainer.nativeElement.lastChild.style.setProperty(propertyName, value),
-    isRTL: () => getComputedStyle(this._getHostElement()).direction === 'rtl'
-  };
+        window.removeEventListener('resize', handler);
+      },
+      notifyInput: () => {
+        this.input.emit(new MdcSliderChange(this, this.getValue()));
+        this._onTouched();
+      },
+      notifyChange: () => {
+        this.change.emit(new MdcSliderChange(this, this.getValue()));
+        this.setValue(this.getValue());
+      },
+      setThumbContainerStyleProperty: (propertyName: string, value: string) =>
+        this.thumbContainer.nativeElement.style.setProperty(propertyName, value),
+      setTrackStyleProperty: (propertyName: string, value: string) =>
+        this.track.nativeElement.style.setProperty(propertyName, value),
+      setMarkerValue: (value: number) => this.pinValueMarker.nativeElement.innerText = value,
+      appendTrackMarkers: (numMarkers: number) => {
+        for (let i = 0; i < numMarkers; i++) {
+          const marker = this._renderer.createElement('div');
+          this._renderer.addClass(marker, 'mdc-slider__track-marker');
+          this._renderer.appendChild(this.trackMarkerContainer.nativeElement, marker);
+        }
+      },
+      removeTrackMarkers: () => {
+        while (this.trackMarkerContainer.nativeElement.firstChild) {
+          this._renderer.removeChild(this.trackMarkerContainer.nativeElement,
+            this.trackMarkerContainer.nativeElement.firstChild);
+        }
+      },
+      setLastTrackMarkersStyleProperty: (propertyName: string, value: string) =>
+        this.trackMarkerContainer.nativeElement.lastChild.style.setProperty(propertyName, value),
+      isRTL: () => getComputedStyle(this._getHostElement()).direction === 'rtl'
+    };
+  }
 
   private _foundation: {
     init(): void,
@@ -222,7 +223,7 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
     public elementRef: ElementRef) { }
 
   ngAfterViewInit(): void {
-    this._foundation = new MDCSliderFoundation(this._mdcAdapter);
+    this._foundation = new MDCSliderFoundation(this.createAdapter());
     this._foundation.init();
 
     this.setMin(this.min);

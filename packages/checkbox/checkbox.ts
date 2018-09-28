@@ -240,7 +240,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
     evt.stopPropagation();
   }
 
-  _onInputClick(evt: Event) {
+  _onInputClick() {
     if (this.disabled) { return; }
 
     this.toggle();

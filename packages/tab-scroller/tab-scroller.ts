@@ -14,7 +14,6 @@ import { map, filter, startWith, takeUntil } from 'rxjs/operators';
 
 import { Platform } from '@angular-mdc/web/common';
 
-import { MDCTabScrollerAdapter } from '@material/tab-scroller/adapter';
 import { MDCTabScrollerFoundation, util } from '@material/tab-scroller';
 
 /** Possible alignments for tab scroller content. */
@@ -66,26 +65,28 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
     return merge(...SCROLLER_EVENTS.map(evt => fromEvent(this._getScrollArea(), evt)));
   }
 
-  private _mdcAdapter: MDCTabScrollerAdapter = {
-    eventTargetMatchesSelector: (evtTarget: EventTarget, selector: string) => {
-      const MATCHES = util.getMatchesProperty(HTMLElement.prototype);
-      return evtTarget[MATCHES](selector);
-    },
-    addClass: (className: string) => this._getHostElement().classList.add(className),
-    removeClass: (className: string) => this._getHostElement().classList.remove(className),
-    addScrollAreaClass: (className: string) => this.area.nativeElement.classList.add(className),
-    setScrollAreaStyleProperty: (propName: string, value: string) => this.area.nativeElement.style.setProperty(propName, value),
-    setScrollContentStyleProperty: (propName: string, value: string) => this.content.nativeElement.style.setProperty(propName, value),
-    getScrollContentStyleValue: (propName: string) =>
-      this._platform.isBrowser ? window.getComputedStyle(this.content.nativeElement).getPropertyValue(propName) : '',
-    setScrollAreaScrollLeft: (scrollX: number) => this.area.nativeElement.scrollLeft = scrollX,
-    getScrollAreaScrollLeft: () => this.area.nativeElement.scrollLeft,
-    getScrollContentOffsetWidth: () => this.content.nativeElement.offsetWidth,
-    getScrollAreaOffsetWidth: () => this.area.nativeElement.offsetWidth,
-    computeScrollAreaClientRect: () => this.area.nativeElement.getBoundingClientRect(),
-    computeScrollContentClientRect: () => this.content.nativeElement.getBoundingClientRect(),
-    computeHorizontalScrollbarHeight: () => this._platform.isBrowser ? util.computeHorizontalScrollbarHeight(document) : 0
-  };
+  createAdapter() {
+    return {
+      eventTargetMatchesSelector: (evtTarget: EventTarget, selector: string) => {
+        const MATCHES = util.getMatchesProperty(HTMLElement.prototype);
+        return evtTarget[MATCHES](selector);
+      },
+      addClass: (className: string) => this._getHostElement().classList.add(className),
+      removeClass: (className: string) => this._getHostElement().classList.remove(className),
+      addScrollAreaClass: (className: string) => this.area.nativeElement.classList.add(className),
+      setScrollAreaStyleProperty: (propName: string, value: string) => this.area.nativeElement.style.setProperty(propName, value),
+      setScrollContentStyleProperty: (propName: string, value: string) => this.content.nativeElement.style.setProperty(propName, value),
+      getScrollContentStyleValue: (propName: string) =>
+        this._platform.isBrowser ? window.getComputedStyle(this.content.nativeElement).getPropertyValue(propName) : '',
+      setScrollAreaScrollLeft: (scrollX: number) => this.area.nativeElement.scrollLeft = scrollX,
+      getScrollAreaScrollLeft: () => this.area.nativeElement.scrollLeft,
+      getScrollContentOffsetWidth: () => this.content.nativeElement.offsetWidth,
+      getScrollAreaOffsetWidth: () => this.area.nativeElement.offsetWidth,
+      computeScrollAreaClientRect: () => this.area.nativeElement.getBoundingClientRect(),
+      computeScrollContentClientRect: () => this.content.nativeElement.getBoundingClientRect(),
+      computeHorizontalScrollbarHeight: () => this._platform.isBrowser ? util.computeHorizontalScrollbarHeight(document) : 0
+    };
+  }
 
   private _foundation: {
     init(): void,
@@ -95,7 +96,7 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
     offsetWidth(): number,
     incrementScroll(scrollXIncrement: number): void,
     scrollTo(scrollX: number): number
-  } = new MDCTabScrollerFoundation(this._mdcAdapter);
+  } = new MDCTabScrollerFoundation(this.createAdapter());
 
   constructor(
     private _ngZone: NgZone,

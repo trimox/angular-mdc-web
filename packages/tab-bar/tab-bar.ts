@@ -21,7 +21,6 @@ import { MdcTabScroller, MdcTabScrollerAlignment } from '@angular-mdc/web/tab-sc
 import { MdcTabIndicator } from '@angular-mdc/web/tab-indicator';
 import { MdcTab, MdcTabInteractedEvent, MDC_TAB_BAR_PARENT_COMPONENT } from '@angular-mdc/web/tab';
 
-import { MDCTabBarAdapter } from '@material/tab-bar/adapter';
 import { MDCTabBarFoundation } from '@material/tab-bar';
 
 export class MdcTabActivatedEvent {
@@ -118,39 +117,42 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
     return merge(...this.tabs.map(tab => tab.interacted));
   }
 
-  private _mdcAdapter: MDCTabBarAdapter = {
-    scrollTo: (scrollX: number) => this.tabScroller.scrollTo(scrollX),
-    incrementScroll: (scrollXIncrement: number) => this.tabScroller.incrementScroll(scrollXIncrement),
-    getScrollPosition: () => this.tabScroller.getScrollPosition(),
-    getScrollContentWidth: () => this.tabScroller.getScrollContentWidth(),
-    getOffsetWidth: () => this._getHostElement().offsetWidth,
-    isRTL: () => this._platform.isBrowser ? window.getComputedStyle(this._getHostElement()).getPropertyValue('direction') === 'rtl' : false,
-    setActiveTab: (index: number) => this.activateTab(index),
-    activateTabAtIndex: (index: number, clientRect: ClientRect) => {
-      if (this._indexIsInRange(index)) {
-        this.tabs.toArray()[index].activate(clientRect);
-      }
-    },
-    deactivateTabAtIndex: (index: number) => {
-      if (this._indexIsInRange(index)) {
-        this.tabs.toArray()[index].deactivate();
-      }
-    },
-    focusTabAtIndex: (index: number) => this.tabs.toArray()[index].focus(),
-    getTabIndicatorClientRectAtIndex: (previousActiveIndex: number) => {
-      if (!this._indexIsInRange(previousActiveIndex)) {
-        previousActiveIndex = this.activeTabIndex;
-      }
-      return this.tabs.toArray()[previousActiveIndex].computeIndicatorClientRect();
-    },
-    getTabDimensionsAtIndex: (index: number) => this.tabs.toArray()[index].computeDimensions(),
-    getPreviousActiveTabIndex: () => this.tabs.toArray().findIndex((_) => _.active),
-    getFocusedTabIndex: () =>
-      this._platform.isBrowser ? this.tabs.toArray().findIndex(tab => tab.elementRef.nativeElement === document.activeElement) : -1,
-    getIndexOfTab: (tabToFind: MdcTab) => this.tabs.toArray().indexOf(tabToFind),
-    getTabListLength: () => this.tabs.length,
-    notifyTabActivated: (index: number) => this.activated.emit({ source: this, index: index, tab: this.tabs.toArray()[index] })
-  };
+  createAdapter() {
+    return {
+      scrollTo: (scrollX: number) => this.tabScroller.scrollTo(scrollX),
+      incrementScroll: (scrollXIncrement: number) => this.tabScroller.incrementScroll(scrollXIncrement),
+      getScrollPosition: () => this.tabScroller.getScrollPosition(),
+      getScrollContentWidth: () => this.tabScroller.getScrollContentWidth(),
+      getOffsetWidth: () => this._getHostElement().offsetWidth,
+      isRTL: () => this._platform.isBrowser ?
+        window.getComputedStyle(this._getHostElement()).getPropertyValue('direction') === 'rtl' : false,
+      setActiveTab: (index: number) => this.activateTab(index),
+      activateTabAtIndex: (index: number, clientRect: ClientRect) => {
+        if (this._indexIsInRange(index)) {
+          this.tabs.toArray()[index].activate(clientRect);
+        }
+      },
+      deactivateTabAtIndex: (index: number) => {
+        if (this._indexIsInRange(index)) {
+          this.tabs.toArray()[index].deactivate();
+        }
+      },
+      focusTabAtIndex: (index: number) => this.tabs.toArray()[index].focus(),
+      getTabIndicatorClientRectAtIndex: (previousActiveIndex: number) => {
+        if (!this._indexIsInRange(previousActiveIndex)) {
+          previousActiveIndex = this.activeTabIndex;
+        }
+        return this.tabs.toArray()[previousActiveIndex].computeIndicatorClientRect();
+      },
+      getTabDimensionsAtIndex: (index: number) => this.tabs.toArray()[index].computeDimensions(),
+      getPreviousActiveTabIndex: () => this.tabs.toArray().findIndex((_) => _.active),
+      getFocusedTabIndex: () =>
+        this._platform.isBrowser ? this.tabs.toArray().findIndex(tab => tab.elementRef.nativeElement === document.activeElement) : -1,
+      getIndexOfTab: (tabToFind: MdcTab) => this.tabs.toArray().indexOf(tabToFind),
+      getTabListLength: () => this.tabs.length,
+      notifyTabActivated: (index: number) => this.activated.emit({ source: this, index: index, tab: this.tabs.toArray()[index] })
+    };
+  }
 
   private _foundation: {
     init(): void,
@@ -159,7 +161,7 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
     handleTabInteraction(evt: MdcTabInteractedEvent): void,
     scrollIntoView(index: number): void,
     setUseAutomaticActivation(useAutomaticActivation: boolean): void
-  } = new MDCTabBarFoundation(this._mdcAdapter);
+  } = new MDCTabBarFoundation(this.createAdapter());
 
   constructor(
     private _ngZone: NgZone,

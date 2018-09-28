@@ -21,7 +21,6 @@ import { toBoolean } from '@angular-mdc/web/common';
 
 import { MdcChip, MdcChipInteractionEvent } from './chip';
 
-import { MDCChipSetAdapter } from '@material/chips/chip-set/adapter';
 import { MDCChipSetFoundation } from '@material/chips/chip-set';
 
 export class MdcChipSetChange {
@@ -102,19 +101,21 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
       .pipe(take(1), switchMap(() => this.chipSelectionChanges));
   });
 
-  private _mdcAdapter: MDCChipSetAdapter = {
-    hasClass: (className: string) => this._getHostElement().classList.contains(className),
-    removeChip: (chipId: string) => {
-      const index = this._findChipIndex(chipId);
-      this.chips.toArray().splice(index, 1);
-    },
-    setSelected: (chipId: string, selected: boolean) => {
-      const chip = this._findChip(chipId);
-      if (chip) {
-        chip.selected = selected;
+  createAdapter() {
+    return {
+      hasClass: (className: string) => this._getHostElement().classList.contains(className),
+      removeChip: (chipId: string) => {
+        const index = this._findChipIndex(chipId);
+        this.chips.toArray().splice(index, 1);
+      },
+      setSelected: (chipId: string, selected: boolean) => {
+        const chip = this._findChip(chipId);
+        if (chip) {
+          chip.selected = selected;
+        }
       }
-    }
-  };
+    };
+  }
 
   private _foundation: {
     init(): void,
@@ -125,7 +126,7 @@ export class MdcChipSet implements AfterContentInit, OnInit, OnDestroy {
     deselect(chipId: string): void
     handleChipInteraction(evt: any): void,
     handleChipRemoval(evt: any): void
-  } = new MDCChipSetFoundation(this._mdcAdapter);
+  } = new MDCChipSetFoundation(this.createAdapter());
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,

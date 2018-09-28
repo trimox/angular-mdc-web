@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { Platform } from '@angular-mdc/web/common';
 
-import { MDCNotchedOutlineAdapter } from '@material/notched-outline/adapter';
 import { MDCNotchedOutlineFoundation } from '@material/notched-outline';
 
 @Component({
@@ -30,20 +29,22 @@ export class MdcNotchedOutline {
   @ViewChild('svgpath') _svgpath: ElementRef;
   @ViewChild('notchIdle') _notchIdle: ElementRef<HTMLElement>;
 
-  private _mdcAdapter: MDCNotchedOutlineAdapter = {
-    getWidth: () => this._notchOutline.nativeElement.offsetWidth,
-    getHeight: () => this._notchOutline.nativeElement.offsetHeight,
-    addClass: (className: string) => this._notchOutline.nativeElement.classList.add(className),
-    removeClass: (className: string) => this._notchOutline.nativeElement.classList.remove(className),
-    setOutlinePathAttr: (value: string) => this._svgpath.nativeElement.setAttribute('d', value),
-    getIdleOutlineStyleValue: (propertyName: string) =>
-      this._platform.isBrowser ? window.getComputedStyle(this._notchIdle.nativeElement).getPropertyValue(propertyName) : ''
-  };
+  createAdapter() {
+    return {
+      getWidth: () => this._notchOutline.nativeElement.offsetWidth,
+      getHeight: () => this._notchOutline.nativeElement.offsetHeight,
+      addClass: (className: string) => this._notchOutline.nativeElement.classList.add(className),
+      removeClass: (className: string) => this._notchOutline.nativeElement.classList.remove(className),
+      setOutlinePathAttr: (value: string) => this._svgpath.nativeElement.setAttribute('d', value),
+      getIdleOutlineStyleValue: (propertyName: string) =>
+        this._platform.isBrowser ? window.getComputedStyle(this._notchIdle.nativeElement).getPropertyValue(propertyName) : ''
+    };
+  }
 
   private _foundation: {
     notch(notchWidth: number, isRtl: boolean): void,
     closeNotch(): void
-  } = new MDCNotchedOutlineFoundation(this._mdcAdapter);
+  } = new MDCNotchedOutlineFoundation(this.createAdapter());
 
   constructor(
     private _platform: Platform,

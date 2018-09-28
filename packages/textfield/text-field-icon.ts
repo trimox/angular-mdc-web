@@ -8,7 +8,6 @@ import {
 import { toBoolean } from '@angular-mdc/web/common';
 
 import { MdcIcon } from '@angular-mdc/web/icon';
-import { MDCTextFieldIconAdapter } from '@material/textfield/icon/adapter';
 import { MDCTextFieldIconFoundation } from '@material/textfield/icon';
 
 @Directive({
@@ -35,17 +34,19 @@ export class MdcTextFieldIcon extends MdcIcon implements OnDestroy {
 
   @Output() readonly iconAction = new EventEmitter<void>();
 
-  private _mdcIconAdapter: MDCTextFieldIconAdapter = {
-    getAttr: (attr: string) => this._getHostElement().getAttribute(attr),
-    setAttr: (attr: string, value: string) => this._getHostElement().setAttribute(attr, value),
-    removeAttr: (attr: string) => this._getHostElement().removeAttribute(attr),
-    setContent: (content: string) => this._getHostElement().textContent = content,
-    registerInteractionHandler: (evtType: string, handler: EventListener) =>
-      this._getHostElement().addEventListener(evtType, handler),
-    deregisterInteractionHandler: (evtType: string, handler: EventListener) =>
-      this._getHostElement().removeEventListener(evtType, handler),
-    notifyIconAction: () => this.iconAction.emit()
-  };
+  createAdapter() {
+    return {
+      getAttr: (attr: string) => this._getHostElement().getAttribute(attr),
+      setAttr: (attr: string, value: string) => this._getHostElement().setAttribute(attr, value),
+      removeAttr: (attr: string) => this._getHostElement().removeAttribute(attr),
+      setContent: (content: string) => this._getHostElement().textContent = content,
+      registerInteractionHandler: (evtType: string, handler: EventListener) =>
+        this._getHostElement().addEventListener(evtType, handler),
+      deregisterInteractionHandler: (evtType: string, handler: EventListener) =>
+        this._getHostElement().removeEventListener(evtType, handler),
+      notifyIconAction: () => this.iconAction.emit()
+    };
+  }
 
   private _foundation: {
     init(): void,
@@ -57,7 +58,7 @@ export class MdcTextFieldIcon extends MdcIcon implements OnDestroy {
   };
 
   init(): void {
-    this._foundation = new MDCTextFieldIconFoundation(this._mdcIconAdapter);
+    this._foundation = new MDCTextFieldIconFoundation(this.createAdapter());
     this._foundation.init();
   }
 

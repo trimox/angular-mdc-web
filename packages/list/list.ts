@@ -23,7 +23,7 @@ import { toBoolean } from '@angular-mdc/web/common';
 
 import { MdcListItem, MdcListSelectionChange } from './list-item';
 
-import { MDCListAdapter } from '@material/list/adapter';
+import { strings } from '@material/list/constants';
 import { MDCListFoundation } from '@material/list';
 
 /** Change event that is being fired whenever the selected state of an option changes. */
@@ -34,11 +34,6 @@ export class MdcListItemChange {
     /** Reference to the option that has been changed. */
     public option: MdcListItem) { }
 }
-
-export const FOCUSABLE_CHILD_ELEMENTS =
-  `.mdc-list-item button:not(:disabled), .mdc-list-item a,
-  .mdc-list-item input[type="radio"]:not(:disabled),
-  .mdc-list-item input[type="checkbox"]:not(:disabled)`;
 
 @Component({
   moduleId: module.id,
@@ -193,32 +188,51 @@ export class MdcList implements AfterViewInit, OnDestroy {
     return merge(...this._listItems.map(item => item.selectionChange));
   }
 
-  private _mdcAdapter: MDCListAdapter = {
-    getListItemCount: () => this._listItems.length,
-    getFocusedElementIndex: () =>
-      this._listItems.toArray().findIndex((_) => _.elementRef.nativeElement === document.activeElement),
-    setAttributeForElementIndex: (index: number, attr: string, value: string) =>
-      this._listItems.toArray()[index].getListItemElement().setAttribute(attr, value),
-    removeAttributeForElementIndex: (index: number, attr: string) =>
-      this._listItems.toArray()[index].getListItemElement().removeAttribute(attr),
-    addClassForElementIndex: (index: number, className: string) =>
-      this._listItems.toArray()[index].getListItemElement().classList.add(className),
-    removeClassForElementIndex: (index: number, className: string) =>
-      this._listItems.toArray()[index].getListItemElement().classList.remove(className),
-    focusItemAtIndex: (index: number) => this._listItems.toArray()[index].getListItemElement().focus(),
-    setTabIndexForListItemChildren: (listItemIndex: number, tabIndexValue: number) => {
-      const listItemChildren = [].slice.call(this._listItems.toArray()[listItemIndex].getListItemElement()
-        .querySelectorAll(FOCUSABLE_CHILD_ELEMENTS));
-      listItemChildren.forEach((ele) => ele.setAttribute('tabindex', tabIndexValue));
-    },
-    followHref: (index: number) => {
-      const listItem = this._listItems.toArray()[index];
+  createAdapter() {
+    return {
+      getListItemCount: () => this._listItems.length,
+      getFocusedElementIndex: () =>
+        this._listItems.toArray().findIndex((_) => _.elementRef.nativeElement === document.activeElement),
+      setAttributeForElementIndex: (index: number, attr: string, value: string) =>
+        this._listItems.toArray()[index].getListItemElement().setAttribute(attr, value),
+      removeAttributeForElementIndex: (index: number, attr: string) =>
+        this._listItems.toArray()[index].getListItemElement().removeAttribute(attr),
+      addClassForElementIndex: (index: number, className: string) =>
+        this._listItems.toArray()[index].getListItemElement().classList.add(className),
+      removeClassForElementIndex: (index: number, className: string) =>
+        this._listItems.toArray()[index].getListItemElement().classList.remove(className),
+      focusItemAtIndex: (index: number) => this._listItems.toArray()[index].getListItemElement().focus(),
+      setTabIndexForListItemChildren: (listItemIndex: number, tabIndexValue: number) => {
+        const listItemChildren = [].slice.call(this._listItems.toArray()[listItemIndex].getListItemElement()
+          .querySelectorAll(strings.CHILD_ELEMENTS_TO_TOGGLE_TABINDEX));
+        listItemChildren.forEach(ele => ele.setAttribute('tabindex', tabIndexValue));
+      },
+      followHref: (index: number) => {
+        const listItem = this._listItems.toArray()[index];
 
-      if (listItem && listItem.elementRef.nativeElement.href) {
-        listItem.getListItemElement().click();
-      }
-    }
-  };
+        if (listItem && listItem.elementRef.nativeElement.href) {
+          listItem.getListItemElement().click();
+        }
+      },
+      toggleCheckbox: (index: number) => {
+        let checkboxOrRadioExists = false;
+        const listItem = this._listItems[index];
+        const elementsToToggle =
+          [].slice.call(listItem.querySelectorAll(strings.CHECKBOX_RADIO_SELECTOR));
+        elementsToToggle.forEach((element) => {
+          const event = document.createEvent('Event');
+          event.initEvent('change', true, true);
+
+          if (!element.checked || element.type !== 'radio') {
+            element.checked = !element.checked;
+            element.dispatchEvent(event);
+          }
+          checkboxOrRadioExists = true;
+        });
+        return checkboxOrRadioExists;
+      },
+    };
+  }
 
   private _foundation: {
     init(): void,
@@ -236,7 +250,7 @@ export class MdcList implements AfterViewInit, OnDestroy {
     setSelectedIndex(index: number): void,
     setSingleSelection(isSingleSelectionList: boolean): void,
     setUseActivatedClass(useActivated: boolean): void
-  } = new MDCListFoundation(this._mdcAdapter);
+  } = new MDCListFoundation(this.createAdapter());
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,

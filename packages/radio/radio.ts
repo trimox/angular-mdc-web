@@ -19,7 +19,6 @@ import { toBoolean, UniqueSelectionDispatcher } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcFormFieldControl } from '@angular-mdc/web/form-field';
 
-import { MDCRadioAdapter } from '@material/radio/adapter';
 import { MDCRadioFoundation } from '@material/radio';
 
 /**
@@ -146,11 +145,13 @@ export class MdcRadio implements AfterViewInit, OnInit, OnDestroy, MdcFormFieldC
   /** Unregister function for _radioDispatcher */
   private _removeUniqueSelectionListener: () => void = () => { };
 
-  private _mdcAdapter: MDCRadioAdapter = {
-    addClass: (className: string) => this._getHostElement().classList.add(className),
-    removeClass: (className: string) => this._getHostElement().classList.remove(className),
-    getNativeControl: () => this._getInputElement()
-  };
+  createAdapter() {
+    return {
+      addClass: (className: string) => this._getHostElement().classList.add(className),
+      removeClass: (className: string) => this._getHostElement().classList.remove(className),
+      getNativeControl: () => this._getInputElement()
+    };
+  }
 
   private _foundation: {
     init(): void,
@@ -161,7 +162,7 @@ export class MdcRadio implements AfterViewInit, OnInit, OnDestroy, MdcFormFieldC
     isDisabled(): boolean,
     getValue(): any,
     setValue(value: any): void
-  } = new MDCRadioFoundation(this._mdcAdapter);
+  } = new MDCRadioFoundation(this.createAdapter());
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,

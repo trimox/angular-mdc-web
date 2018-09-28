@@ -10,7 +10,6 @@ import {
 } from '@angular/core';
 import { toBoolean } from '@angular-mdc/web/common';
 
-import { MDCTabIndicatorAdapter } from '@material/tab-indicator/adapter';
 import {
   MDCSlidingTabIndicatorFoundation,
   MDCFadingTabIndicatorFoundation
@@ -65,12 +64,14 @@ export class MdcTabIndicator implements AfterViewInit {
 
   @ViewChild('content') content: ElementRef;
 
-  private _mdcAdapter: MDCTabIndicatorAdapter = {
-    addClass: (className: string) => this._getHostElement().classList.add(className),
-    removeClass: (className: string) => this._getHostElement().classList.remove(className),
-    computeContentClientRect: () => this.content.nativeElement.getBoundingClientRect(),
-    setContentStyleProperty: (propName: string, value: string) => this.content.nativeElement.style.setProperty(propName, value)
-  };
+  createAdapter() {
+    return {
+      addClass: (className: string) => this._getHostElement().classList.add(className),
+      removeClass: (className: string) => this._getHostElement().classList.remove(className),
+      computeContentClientRect: () => this.content.nativeElement.getBoundingClientRect(),
+      setContentStyleProperty: (propName: string, value: string) => this.content.nativeElement.style.setProperty(propName, value)
+    };
+  }
 
   private _foundation: {
     init(): void,
@@ -81,7 +82,7 @@ export class MdcTabIndicator implements AfterViewInit {
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    public elementRef: ElementRef) { }
+    public elementRef: ElementRef<HTMLElement>) { }
 
   ngAfterViewInit(): void {
     if (!this._isFoundationInit) {
@@ -104,9 +105,9 @@ export class MdcTabIndicator implements AfterViewInit {
 
   private _initFoundation(): void {
     if (this.fade) {
-      this._foundation = new MDCFadingTabIndicatorFoundation(this._mdcAdapter);
+      this._foundation = new MDCFadingTabIndicatorFoundation(this.createAdapter());
     } else {
-      this._foundation = new MDCSlidingTabIndicatorFoundation(this._mdcAdapter);
+      this._foundation = new MDCSlidingTabIndicatorFoundation(this.createAdapter());
     }
 
     this._foundation.init();

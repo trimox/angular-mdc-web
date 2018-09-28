@@ -10,7 +10,6 @@ import {
 import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
-import { MDCFloatingLabelAdapter } from '@material/floating-label/adapter';
 import { MDCFloatingLabelFoundation } from '@material/floating-label';
 
 @Directive({
@@ -27,11 +26,13 @@ export class MdcFloatingLabel implements AfterContentInit, OnDestroy {
 
   @Input() for: string;
 
-  private _mdcAdapter: MDCFloatingLabelAdapter = {
-    addClass: (className: string) => this._getHostElement().classList.add(className),
-    removeClass: (className: string) => this._getHostElement().classList.remove(className),
-    getWidth: () => this._getHostElement().offsetWidth
-  };
+  createAdapter() {
+    return {
+      addClass: (className: string) => this._getHostElement().classList.add(className),
+      removeClass: (className: string) => this._getHostElement().classList.remove(className),
+      getWidth: () => this._getHostElement().offsetWidth
+    };
+  }
 
   private _foundation: {
     getWidth(): number,
@@ -45,7 +46,7 @@ export class MdcFloatingLabel implements AfterContentInit, OnDestroy {
     public elementRef: ElementRef<HTMLElement>) { }
 
   ngAfterContentInit(): void {
-    this._foundation = new MDCFloatingLabelFoundation(this._mdcAdapter);
+    this._foundation = new MDCFloatingLabelFoundation(this.createAdapter());
     this._loadListeners();
   }
 

@@ -11,7 +11,6 @@ import { startWith, takeUntil } from 'rxjs/operators';
 
 import { Platform, toBoolean } from '@angular-mdc/web/common';
 
-import { MDCMenuSurfaceAdapter } from '@material/menu-surface/adapter';
 import { getTransformPropertyName } from '@material/menu-surface/util';
 import { Corner, strings } from '@material/menu-surface/constants';
 import { MDCMenuSurfaceFoundation } from '@material/menu-surface';
@@ -77,84 +76,86 @@ export class MdcMenuSurfaceBase {
   /** Subscription to interaction events in menu-surface. */
   private _openedMenuSubscription: Subscription;
 
-  private _mdcMenuSurfaceAdapter: MDCMenuSurfaceAdapter = {
-    addClass: (className: string) => this._getHostElement().classList.add(className),
-    removeClass: (className: string) => this._getHostElement().classList.remove(className),
-    hasClass: (className: string) => this._getHostElement().classList.contains(className),
-    hasAnchor: () => this._anchorElement,
-    notifyClose: () => this.closed.emit(),
-    notifyOpen: () => this.opened.emit(),
-    isElementInContainer: (el: Element) => this._getHostElement() === el || this._getHostElement().contains(el),
-    isRtl: () => getComputedStyle(this._getHostElement()).getPropertyValue('direction') === 'rtl',
-    setTransformOrigin: (origin: string) => {
-      this._getHostElement().style[`${getTransformPropertyName(window)}-origin`] = origin;
-    },
-    isFocused: () => this.platform.isBrowser ? document.activeElement === this._getHostElement() : false,
-    saveFocus: () => {
-      if (!this.platform.isBrowser) { return; }
-      this._previousFocus = document.activeElement;
-    },
-    restoreFocus: () => {
-      if (!this.platform.isBrowser) { return; }
+  createSurfaceAdapter() {
+    return {
+      addClass: (className: string) => this._getHostElement().classList.add(className),
+      removeClass: (className: string) => this._getHostElement().classList.remove(className),
+      hasClass: (className: string) => this._getHostElement().classList.contains(className),
+      hasAnchor: () => this._anchorElement,
+      notifyClose: () => this.closed.emit(),
+      notifyOpen: () => this.opened.emit(),
+      isElementInContainer: (el: Element) => this._getHostElement() === el || this._getHostElement().contains(el),
+      isRtl: () => getComputedStyle(this._getHostElement()).getPropertyValue('direction') === 'rtl',
+      setTransformOrigin: (origin: string) => {
+        this._getHostElement().style[`${getTransformPropertyName(window)}-origin`] = origin;
+      },
+      isFocused: () => this.platform.isBrowser ? document.activeElement === this._getHostElement() : false,
+      saveFocus: () => {
+        if (!this.platform.isBrowser) { return; }
+        this._previousFocus = document.activeElement;
+      },
+      restoreFocus: () => {
+        if (!this.platform.isBrowser) { return; }
 
-      if (this._getHostElement().contains(document.activeElement)) {
-        if (this._previousFocus && (<any>this._previousFocus).focus) {
-          (<any>this._previousFocus).focus();
+        if (this._getHostElement().contains(document.activeElement)) {
+          if (this._previousFocus && (<any>this._previousFocus).focus) {
+            (<any>this._previousFocus).focus();
+          }
         }
-      }
-    },
-    isFirstElementFocused: () => {
-      if (!this.platform.isBrowser) { return false; }
-      return this._firstFocusableElement && this._firstFocusableElement === document.activeElement;
-    },
-    isLastElementFocused: () => {
-      if (!this.platform.isBrowser) { return false; }
-      return this._lastFocusableElement && this._lastFocusableElement === document.activeElement;
-    },
-    focusFirstElement: () => {
-      if (!this.platform.isBrowser) { return; }
+      },
+      isFirstElementFocused: () => {
+        if (!this.platform.isBrowser) { return false; }
+        return this._firstFocusableElement && this._firstFocusableElement === document.activeElement;
+      },
+      isLastElementFocused: () => {
+        if (!this.platform.isBrowser) { return false; }
+        return this._lastFocusableElement && this._lastFocusableElement === document.activeElement;
+      },
+      focusFirstElement: () => {
+        if (!this.platform.isBrowser) { return; }
 
-      if (this._firstFocusableElement) {
-        (<any>this._firstFocusableElement).focus();
-      }
-    },
-    focusLastElement: () => {
-      if (!this.platform.isBrowser) { return; }
+        if (this._firstFocusableElement) {
+          (<any>this._firstFocusableElement).focus();
+        }
+      },
+      focusLastElement: () => {
+        if (!this.platform.isBrowser) { return; }
 
-      if (this._lastFocusableElement) {
-        (<any>this._lastFocusableElement).focus();
-      }
-    },
-    getInnerDimensions: () => {
-      return { width: this._getHostElement().offsetWidth, height: this._getHostElement().offsetHeight };
-    },
-    getAnchorDimensions: () => this._anchorElement && this._anchorElement.getBoundingClientRect(),
-    getWindowDimensions: () => {
-      return {
-        width: this.platform.isBrowser ? window.innerWidth : 0,
-        height: this.platform.isBrowser ? window.innerHeight : 0
-      };
-    },
-    getBodyDimensions: () => {
-      return {
-        width: this.platform.isBrowser ? document.body.clientWidth : 0,
-        height: this.platform.isBrowser ? document.body.clientHeight : 0
-      };
-    },
-    getWindowScroll: () => {
-      return {
-        x: this.platform.isBrowser ? window.pageXOffset : 0,
-        y: this.platform.isBrowser ? window.pageYOffset : 0
-      };
-    },
-    setPosition: (position: { left: string, right: string, top: string, bottom: string }) => {
-      this._getHostElement().style.left = 'left' in position ? position.left : null;
-      this._getHostElement().style.right = 'right' in position ? position.right : null;
-      this._getHostElement().style.top = 'top' in position ? position.top : null;
-      this._getHostElement().style.bottom = 'bottom' in position ? position.bottom : null;
-    },
-    setMaxHeight: (height: string) => this._getHostElement().style.maxHeight = height
-  };
+        if (this._lastFocusableElement) {
+          (<any>this._lastFocusableElement).focus();
+        }
+      },
+      getInnerDimensions: () => {
+        return { width: this._getHostElement().offsetWidth, height: this._getHostElement().offsetHeight };
+      },
+      getAnchorDimensions: () => this._anchorElement && this._anchorElement.getBoundingClientRect(),
+      getWindowDimensions: () => {
+        return {
+          width: this.platform.isBrowser ? window.innerWidth : 0,
+          height: this.platform.isBrowser ? window.innerHeight : 0
+        };
+      },
+      getBodyDimensions: () => {
+        return {
+          width: this.platform.isBrowser ? document.body.clientWidth : 0,
+          height: this.platform.isBrowser ? document.body.clientHeight : 0
+        };
+      },
+      getWindowScroll: () => {
+        return {
+          x: this.platform.isBrowser ? window.pageXOffset : 0,
+          y: this.platform.isBrowser ? window.pageYOffset : 0
+        };
+      },
+      setPosition: (position: { left: string, right: string, top: string, bottom: string }) => {
+        this._getHostElement().style.left = 'left' in position ? position.left : null;
+        this._getHostElement().style.right = 'right' in position ? position.right : null;
+        this._getHostElement().style.top = 'top' in position ? position.top : null;
+        this._getHostElement().style.bottom = 'bottom' in position ? position.bottom : null;
+      },
+      setMaxHeight: (height: string) => this._getHostElement().style.maxHeight = height
+    };
+  }
 
   private _foundation: {
     destroy(): void,
@@ -169,7 +170,7 @@ export class MdcMenuSurfaceBase {
     setQuickOpen(quickOpen: boolean): void,
     handleBodyClick(evt: MouseEvent): void,
     handleKeydown(evt: KeyboardEvent): void
-  } = new MDCMenuSurfaceFoundation(this._mdcMenuSurfaceAdapter);
+  } = new MDCMenuSurfaceFoundation(this.createSurfaceAdapter());
 
   constructor(
     protected platform: Platform,

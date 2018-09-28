@@ -24,7 +24,6 @@ import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
-import { MDCIconButtonToggleAdapter } from '@material/icon-button/adapter';
 import { MDCIconButtonToggleFoundation } from '@material/icon-button';
 
 export const MDC_ICON_BUTTON_CONTROL_VALUE_ACCESSOR: Provider = {
@@ -108,16 +107,18 @@ export class MdcIconButton implements AfterContentInit, OnDestroy {
   _onChange: (value: any) => void = () => { };
   _onTouched = () => { };
 
-  private _mdcAdapter: MDCIconButtonToggleAdapter = {
-    addClass: (className: string) => this._getHostElement().classList.add(className),
-    removeClass: (className: string) => this._getHostElement().classList.remove(className),
-    hasClass: (className: string) => this._getHostElement().classList.contains(className),
-    setAttr: (name: string, value: string) => this._getHostElement().setAttribute(name, value),
-    notifyChange: (evtData: { isOn: boolean }) => {
-      this.change.emit(new MdcIconButtonChange(this, evtData.isOn));
-      this._onChange(this._foundation.isOn());
-    }
-  };
+  createAdapter() {
+    return {
+      addClass: (className: string) => this._getHostElement().classList.add(className),
+      removeClass: (className: string) => this._getHostElement().classList.remove(className),
+      hasClass: (className: string) => this._getHostElement().classList.contains(className),
+      setAttr: (name: string, value: string) => this._getHostElement().setAttribute(name, value),
+      notifyChange: (evtData: { isOn: boolean }) => {
+        this.change.emit(new MdcIconButtonChange(this, evtData.isOn));
+        this._onChange(this._foundation.isOn());
+      }
+    };
+  }
 
   private _foundation: {
     init(): void,
@@ -125,12 +126,12 @@ export class MdcIconButton implements AfterContentInit, OnDestroy {
     toggle(isOn: boolean): void,
     isOn(): boolean,
     handleClick(): void
-  } = new MDCIconButtonToggleFoundation(this._mdcAdapter);
+  } = new MDCIconButtonToggleFoundation(this.createAdapter());
 
   constructor(
     private _ngZone: NgZone,
     private _changeDetectorRef: ChangeDetectorRef,
-    public elementRef: ElementRef,
+    public elementRef: ElementRef<HTMLElement>,
     public ripple: MdcRipple) { }
 
   ngAfterContentInit(): void {

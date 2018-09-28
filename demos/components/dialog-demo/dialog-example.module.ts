@@ -4,11 +4,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DemoMaterialModule } from '../../material.module';
 
 import {
-  DialogAlertExample,
-  DialogScrollingExample,
-  DialogSimpleExample,
-  DialogNoFooterExample,
-  DialogFormExample
+  DialogAlert,
+  DialogConfirmation,
+  DialogScrollable,
+  DialogSimple
 } from './dialog-demo';
 
 @NgModule({
@@ -17,18 +16,16 @@ import {
     DemoMaterialModule
   ],
   declarations: [
-    DialogAlertExample,
-    DialogScrollingExample,
-    DialogSimpleExample,
-    DialogNoFooterExample,
-    DialogFormExample
+    DialogAlert,
+    DialogConfirmation,
+    DialogScrollable,
+    DialogSimple
   ],
   entryComponents: [
-    DialogAlertExample,
-    DialogSimpleExample,
-    DialogScrollingExample,
-    DialogNoFooterExample,
-    DialogFormExample
+    DialogAlert,
+    DialogConfirmation,
+    DialogScrollable,
+    DialogSimple
   ]
 })
 export class DialogExampleModule { }

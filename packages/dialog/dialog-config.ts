@@ -1,12 +1,6 @@
 import { ViewContainerRef } from '@angular/core';
 
-import { ComponentType } from '@angular-mdc/web/portal';
-import { MdcDialogContainer } from './dialog-container';
-
 export class MdcDialogConfig<D = any> {
-  /** Component to use as the container for the dialog. */
-  containerComponent?: ComponentType<MdcDialogContainer>;
-
   viewContainerRef?: ViewContainerRef;
 
   /** ID for the dialog. If omitted, a unique one will be generated. */
@@ -24,8 +18,11 @@ export class MdcDialogConfig<D = any> {
   /** Whether the user can click outside to close the dialog */
   clickOutsideToClose?: boolean = true;
 
-  /** Whether the dialog has a backdrop. */
-  backdrop?: boolean = true;
+  /** Applied automatically when the dialog has overflowing content to warrant scrolling. */
+  scrollable?: boolean = true;
+
+  /** Applied automatically when the dialog's action buttons can't fit on a single line and must be stacked. */
+  buttonsStacked?: boolean = true;
 
   /** Data to be injected into the dialog content. */
   data?: D | null = null;

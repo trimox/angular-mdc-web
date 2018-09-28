@@ -1,120 +1,117 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   Directive,
   ElementRef,
-  HostBinding,
-  Input
+  Input,
+  ViewEncapsulation
 } from '@angular/core';
+
+import { MdcButton } from '@angular-mdc/web/button';
 import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
-import { MdcButton } from '@angular-mdc/web/button';
+
+@Directive({
+  selector: '[mdcDialogAction]',
+})
+export class MdcDialogAction {
+  @Input('mdcDialogAction')
+  get action(): string { return this._action; }
+  set action(action: string) {
+    // If the directive is set without a name (updated programatically), then this setter will
+    // trigger with an empty string and should not overwrite the programatically set value.
+    if (!action) { return; }
+
+    this._action = action;
+    this.elementRef.nativeElement.setAttribute('data-mdc-dialog-action', this._action);
+  }
+  private _action: string;
+
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
+}
+
+@Directive({
+  selector: 'mdc-dialog-scrim',
+  host: { 'class': 'mdc-dialog__scrim' }
+})
+export class MdcDialogScrim {
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
+}
+
+@Directive({
+  selector: '[mdcDialogContainer], mdc-dialog-container',
+  host: { 'class': 'mdc-dialog__container' }
+})
+export class MdcDialogContainer {
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
+}
 
 @Directive({
   selector: '[mdcDialogSurface], mdc-dialog-surface',
-  exportAs: 'mdcDialogSurface'
+  host: { 'class': 'mdc-dialog__surface' }
 })
 export class MdcDialogSurface {
-  @HostBinding('class.mdc-dialog__surface') isHostClass = true;
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
+}
 
-  constructor(public elementRef: ElementRef) { }
+@Directive({
+  selector: '[mdcDialogTitle], mdc-dialog-title',
+  host: { 'class': 'mdc-dialog__title' }
+})
+export class MdcDialogTitle {
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
+}
+
+@Directive({
+  selector: '[mdcDialogContent], mdc-dialog-content',
+  host: { 'class': 'mdc-dialog__content' }
+})
+export class MdcDialogContent {
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
 }
 
 @Component({
   moduleId: module.id,
-  selector: '[mdcDialogHeader], mdc-dialog-header',
-  exportAs: 'mdcDialogHeader',
-  template: `
-  <ng-content></ng-content>
-  <h2 class="mdc-dialog__header__title" *ngIf="title">{{title}}</h2>
-  `
-})
-export class MdcDialogHeader {
-  @Input() title: string;
-
-  @HostBinding('class.mdc-dialog__header') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: '[mdcDialogHeaderTitle], mdc-dialog-header-title',
-  exportAs: 'mdcDialogHeaderTitle'
-})
-export class MdcDialogHeaderTitle {
-  @HostBinding('class.mdc-dialog__header__title') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: '[mdcDialogBody], mdc-dialog-body',
-  exportAs: 'mdcDialogBody'
-})
-export class MdcDialogBody {
-  @Input() scrollable: boolean = false;
-
-  @HostBinding('class.mdc-dialog__body') isHostClass = true;
-  @HostBinding('class.mdc-dialog__body--scrollable') get classScrollable(): string {
-    return this.scrollable ? 'mdc-dialog__body--scrollable' : '';
-  }
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: '[mdcDialogFooter], mdc-dialog-footer',
-  exportAs: 'mdcDialogFooter'
-})
-export class MdcDialogFooter {
-  @HostBinding('class.mdc-dialog__footer') isHostClass = true;
-
-  constructor(public elementRef: ElementRef) { }
-}
-
-@Directive({
-  selector: 'button[mdc-dialog-button], a[mdc-dialog-button]',
+  selector: 'mdc-dialog-actions, [mdcDialogActions]',
+  template: '<ng-content></ng-content>',
+  exportAs: 'mdcDialogActions',
   host: {
-    '[tabIndex]': 'disabled ? -1 : 0',
-    'class': 'mdc-button',
-    '[class.ng-mdc-button--primary]': 'primary',
-    '[class.ng-mdc-button--secondary]': 'secondary',
-    '[class.mdc-button--raised]': 'raised',
-    '[class.mdc-button--dense]': 'dense',
-    '[class.mdc-button--unelevated]': 'unelevated',
-    '[class.mdc-button--outlined]': 'outlined'
+    'class': 'mdc-dialog__actions',
+    '[class.mdc-dialog--stacked]': 'stacked'
   },
-  providers: [MdcRipple]
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class MdcDialogActions {
+  @Input()
+  get stacked(): boolean { return this._stacked; }
+  set stacked(value: boolean) {
+    this._stacked = toBoolean(value);
+  }
+  private _stacked: boolean;
+
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
+}
+
+@Component({
+  moduleId: module.id,
+  selector: '[mdcDialogButton]',
+  exportAs: 'mdcDialogButton',
+  host: {
+    'class': 'mdc-dialog__buton',
+    '[class.mdc-button]': 'true',
+    '[class.mdc-dialog__button--default]': 'default'
+  },
+  template: '<ng-content></ng-content>',
+  providers: [MdcRipple],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcDialogButton extends MdcButton {
   @Input()
-  get accept(): boolean { return this._accept; }
-  set accept(value: boolean) {
-    this._accept = toBoolean(value);
+  get default(): boolean { return this._default; }
+  set default(value: boolean) {
+    this._default = toBoolean(value);
   }
-  private _accept: boolean;
-
-  @Input()
-  get cancel(): boolean { return this._cancel; }
-  set cancel(value: boolean) {
-    this._cancel = toBoolean(value);
-  }
-  private _cancel: boolean;
-
-  @Input()
-  get action(): boolean { return this._action; }
-  set action(value: boolean) {
-    this._action = toBoolean(value);
-  }
-  private _action: boolean;
-
-  @HostBinding('class.mdc-dialog__footer__button') isFooterButton = true;
-  @HostBinding('class.mdc-dialog__action') get classAction(): string {
-    return this.action ? 'mdc-dialog__action' : '';
-  }
-  @HostBinding('class.mdc-dialog__footer__button--accept') get classAccept(): string {
-    return this.accept ? 'mdc-dialog__footer__button--accept' : '';
-  }
-  @HostBinding('class.mdc-dialog__footer__button--cancel') get classCancel(): string {
-    return this.cancel ? 'mdc-dialog__footer__button--cancel' : '';
-  }
+  private _default: boolean;
 }

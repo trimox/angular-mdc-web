@@ -1,7 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject } from '@angular/core';
 
-import { MdcDialog, MdcDialogComponent, MdcDialogRef } from '@angular-mdc/web';
+import { MdcDialog, MdcDialogRef, MDC_DIALOG_DATA } from '@angular-mdc/web';
+
+export interface DialogData {
+  animal: string;
+  name: string;
+}
 
 @Component({
   templateUrl: './dialog-demo.html',
@@ -9,15 +13,15 @@ import { MdcDialog, MdcDialogComponent, MdcDialogRef } from '@angular-mdc/web';
 export class DialogDemo {
   escapeToClose: boolean = true;
   clickOutsideToClose: boolean = true;
-  backdrop: boolean = true;
 
   constructor(public dialog: MdcDialog) { }
 
-  openSimple() {
-    const dialogRef = this.dialog.open(DialogSimpleExample, {
+  openAlert() {
+    const dialogRef = this.dialog.open(DialogAlert, {
       escapeToClose: this.escapeToClose,
       clickOutsideToClose: this.clickOutsideToClose,
-      backdrop: this.backdrop
+      buttonsStacked: false,
+      id: 'my-dialog'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -25,36 +29,33 @@ export class DialogDemo {
     });
   }
 
-  openScrolling() {
-    const dialogRef = this.dialog.open(DialogScrollingExample, {
+  openSimple() {
+    const dialogRef = this.dialog.open(DialogSimple, {
       escapeToClose: this.escapeToClose,
-      clickOutsideToClose: this.clickOutsideToClose,
-      backdrop: this.backdrop
+      clickOutsideToClose: this.clickOutsideToClose
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
     });
   }
 
-  openAlert() {
-    const dialogRef = this.dialog.open(DialogAlertExample, {
+  openConfirmation() {
+    const dialogRef = this.dialog.open(DialogConfirmation, {
       escapeToClose: this.escapeToClose,
-      clickOutsideToClose: this.clickOutsideToClose,
-      backdrop: this.backdrop
+      clickOutsideToClose: this.clickOutsideToClose
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
     });
   }
 
-  openNoFooter() {
-    const dialogRef = this.dialog.open(DialogNoFooterExample, {
+  openScrollable(scrollable: boolean = true) {
+    const dialogRef = this.dialog.open(DialogScrollable, {
       escapeToClose: this.escapeToClose,
       clickOutsideToClose: this.clickOutsideToClose,
-      backdrop: this.backdrop
-    });
-  }
-
-  openForm() {
-    const dialogRef = this.dialog.open(DialogFormExample, {
-      escapeToClose: this.escapeToClose,
-      clickOutsideToClose: this.clickOutsideToClose,
-      backdrop: this.backdrop,
-      data: {userName: 'austin'}
+      scrollable: scrollable
     });
   }
 }
@@ -62,21 +63,48 @@ export class DialogDemo {
 @Component({
   template: `
   <mdc-dialog>
-    <mdc-dialog-surface>
-      <mdc-dialog-header title="Use Google's location service?"></mdc-dialog-header>
-      <mdc-dialog-body>
-        Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
-      </mdc-dialog-body>
-      <mdc-dialog-footer>
-        <button mdc-dialog-button [cancel]="true">Decline</button>
-        <button mdc-dialog-button [accept]="true" (click)="closeDialog()">Accept</button>
-      </mdc-dialog-footer>
-    </mdc-dialog-surface>
+    <mdc-dialog-container>
+      <mdc-dialog-surface>
+        <mdc-dialog-title>Discard draft?</mdc-dialog-title>
+        <mdc-dialog-actions>
+          <button mdcDialogButton mdcDialogAction="close">Cancel</button>
+          <button mdcDialogButton mdcDialogAction="accept">Discard</button>
+        </mdc-dialog-actions>
+      </mdc-dialog-surface>
+    </mdc-dialog-container>
   </mdc-dialog>
   `,
 })
-export class DialogSimpleExample {
-  constructor(public dialogRef: MdcDialogRef<DialogSimpleExample>) { }
+export class DialogAlert {
+  constructor(public dialogRef: MdcDialogRef<DialogAlert>) { }
+}
+
+@Component({
+  template: `
+  <mdc-dialog>
+    <mdc-dialog-container>
+      <mdc-dialog-surface>
+        <mdc-dialog-title>Select an account</mdc-dialog-title>
+        <mdc-dialog-content>
+          <mdc-list avatar>
+            <mdc-list-item mdcDialogAction="close">
+              <mdc-icon mdcListItemGraphic>person</mdc-icon>username@gmail.com
+            </mdc-list-item>
+            <mdc-list-item (click)="closeDialog()">
+              <mdc-icon mdcListItemGraphic>person</mdc-icon>user02@gmail.com
+            </mdc-list-item>
+            <mdc-list-item (click)="closeDialog()">
+              <mdc-icon mdcListItemGraphic>add</mdc-icon>add account
+            </mdc-list-item>
+          </mdc-list>
+        </mdc-dialog-content>
+      </mdc-dialog-surface>
+    </mdc-dialog-container>
+  </mdc-dialog>
+  `,
+})
+export class DialogSimple {
+  constructor(public dialogRef: MdcDialogRef<DialogSimple>) { }
 
   closeDialog(): void {
     this.dialogRef.close('Pizza');
@@ -84,103 +112,62 @@ export class DialogSimpleExample {
 }
 
 @Component({
-  templateUrl: 'dialog-scrolling-example.html',
+  template: `
+  <mdc-dialog>
+    <mdc-dialog-container>
+      <mdc-dialog-surface>
+        <mdc-dialog-title>Read my novel?</mdc-dialog-title>
+        <mdc-dialog-content>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Necessitatibus, incidunt. Debitis, repudiandae dignissimos et quam velit autem mollitia tenetur, eligendi rerum repellendus, explicabo ad aperiam vel ipsam! Exercitationem, voluptates molestiae.
+
+          Iusto reiciendis mollitia ab commodi. Animi maiores nesciunt officia enim corrupti officiis consequuntur vel, consectetur eveniet ad dolorum reprehenderit similique qui deleniti ut sed explicabo id error at. Laudantium, excepturi!
+          </p>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Necessitatibus, incidunt. Debitis, repudiandae dignissimos et quam velit autem mollitia tenetur, eligendi rerum repellendus, explicabo ad aperiam vel ipsam! Exercitationem, voluptates molestiae.
+
+          Iusto reiciendis mollitia ab commodi. Animi maiores nesciunt officia enim corrupti officiis consequuntur vel, consectetur eveniet ad dolorum reprehenderit similique qui deleniti ut sed explicabo id error at. Laudantium, excepturi!
+          </p>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Necessitatibus, incidunt. Debitis, repudiandae dignissimos et quam velit autem mollitia tenetur, eligendi rerum repellendus, explicabo ad aperiam vel ipsam! Exercitationem, voluptates molestiae.
+
+          Iusto reiciendis mollitia ab commodi. Animi maiores nesciunt officia enim corrupti officiis consequuntur vel, consectetur eveniet ad dolorum reprehenderit similique qui deleniti ut sed explicabo id error at. Laudantium, excepturi!
+          </p>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Necessitatibus, incidunt. Debitis, repudiandae dignissimos et quam velit autem mollitia tenetur, eligendi rerum repellendus, explicabo ad aperiam vel ipsam! Exercitationem, voluptates molestiae.
+
+          Iusto reiciendis mollitia ab commodi. Animi maiores nesciunt officia enim corrupti officiis consequuntur vel, consectetur eveniet ad dolorum reprehenderit similique qui deleniti ut sed explicabo id error at. Laudantium, excepturi!
+          </p>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Necessitatibus, incidunt. Debitis, repudiandae dignissimos et quam velit autem mollitia tenetur, eligendi rerum repellendus, explicabo ad aperiam vel ipsam! Exercitationem, voluptates molestiae.
+
+          Iusto reiciendis mollitia ab commodi. Animi maiores nesciunt officia enim corrupti officiis consequuntur vel, consectetur eveniet ad dolorum reprehenderit similique qui deleniti ut sed explicabo id error at. Laudantium, excepturi!
+          </p>
+        </mdc-dialog-content>
+        <mdc-dialog-actions>
+          <button mdcDialogButton mdcDialogAction="close">Decline</button>
+          <button mdcDialogButton mdcDialogAction="accept">Accept</button>
+        </mdc-dialog-actions>
+      </mdc-dialog-surface>
+    </mdc-dialog-container>
+  </mdc-dialog>
+  `
 })
-export class DialogScrollingExample {
-  constructor(public dialogRef: MdcDialogRef<DialogScrollingExample>) { }
+export class DialogScrollable {
+  constructor(public dialogRef: MdcDialogRef<DialogScrollable>) { }
 }
 
 @Component({
   template: `
   <mdc-dialog>
-    <mdc-dialog-surface>
-      <mdc-dialog-header title='Discard draft?'></mdc-dialog-header>
-      <mdc-dialog-footer>
-        <button mdc-dialog-button [cancel]="true">Cancel</button>
-        <button mdc-dialog-button [action]="true" [accept]="true">Discard</button>
-      </mdc-dialog-footer>
-    </mdc-dialog-surface>
+    <mdc-dialog-container>
+      <mdc-dialog-surface>
+        <mdc-dialog-title>Phone ringtone</mdc-dialog-title>
+        <mdc-dialog-actions>
+          <button mdcDialogButton mdcDialogAction="close">Cancel</button>
+          <button mdcDialogButton default mdcDialogAction="accept">Ok</button>
+        </mdc-dialog-actions>
+      </mdc-dialog-surface>
+    </mdc-dialog-container>
   </mdc-dialog>
   `,
 })
-export class DialogAlertExample {
-  constructor(public dialogRef: MdcDialogRef<DialogAlertExample>) { }
-}
-
-@Component({
-  template: `
-  <mdc-dialog>
-    <mdc-dialog-surface>
-      <mdc-dialog-header>
-        <mdc-dialog-header-title>
-          Set backup account
-        </mdc-dialog-header-title>
-      </mdc-dialog-header>
-      <mdc-dialog-body>
-        <mdc-list [avatar]="true">
-          <mdc-list-item (click)="closeDialog()">
-            <mdc-icon mdcListItemGraphic>person</mdc-icon>username@gmail.com
-          </mdc-list-item>
-          <mdc-list-item (click)="closeDialog()">
-            <mdc-icon mdcListItemGraphic>person</mdc-icon>user02@gmail.com
-          </mdc-list-item>
-          <mdc-list-item (click)="closeDialog()">
-            <mdc-icon mdcListItemGraphic>add</mdc-icon>add account
-          </mdc-list-item>
-        </mdc-list>
-      </mdc-dialog-body>
-    </mdc-dialog-surface>
-  </mdc-dialog>
-  `,
-})
-export class DialogNoFooterExample {
-  constructor(public dialogRef: MdcDialogRef<DialogNoFooterExample>) { }
-
-  closeDialog() {
-    this.dialogRef.close();
-  }
-}
-
-@Component({
-  template: `
-  <mdc-dialog>
-    <mdc-dialog-surface>
-      <mdc-dialog-header>
-        <mdc-dialog-header-title>
-          Profile
-        </mdc-dialog-header-title>
-      </mdc-dialog-header>
-      <mdc-dialog-body>
-        <form [formGroup]="userForm" id="userForm" (ngSubmit)="updateForm()">
-          <mdc-text-field #input formControlName="username" label="Username" [required]="true"></mdc-text-field>
-          <mdc-text-field-helper-text [validation]="true" [persistent]="false">Username is required</mdc-text-field-helper-text>
-        </form>
-      </mdc-dialog-body>
-      <mdc-dialog-footer>
-        <button mdc-dialog-button [cancel]="true">Cancel</button>
-        <button mdc-dialog-button [action]="true" form="userForm">Update</button>
-      </mdc-dialog-footer>
-    </mdc-dialog-surface>
-  </mdc-dialog>
-  `,
-})
-export class DialogFormExample implements OnInit {
-  userForm: FormGroup;
-
-  constructor(public dialogRef: MdcDialogRef<DialogFormExample>) { }
-
-  ngOnInit() {
-    this.userForm = new FormGroup({
-      username: new FormControl({ value: this.dialogRef.data.userName, disabled: false }, Validators.required)
-    });
-    // this.userForm.controls['username'].setValue('Sample name');
-    // this.userForm.controls['username'].disable();
-  }
-
-  updateForm() {
-    if (!this.userForm.valid) {
-      return;
-    }
-    this.dialogRef.close();
-  }
+export class DialogConfirmation {
+  constructor(public dialogRef: MdcDialogRef<DialogConfirmation>,
+    @Inject(MDC_DIALOG_DATA) public data: DialogData) { }
 }

@@ -16,7 +16,6 @@
 
     <h2>Design & API Documentation</h2>
     <div class="docs-api">
-
       <h3>mdc-dialog</h3>
       <table>
         <tbody>
@@ -26,23 +25,53 @@
         </tbody>
       </table>
 
+      <h3>mdc-dialog-container, mdcDialogContainer</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>Mandatory. Wrapper element needed to ensure flexbox behavior in IE 11.</td>
+          </tr>
+        </tbody>
+      </table>
+
       <h3>mdc-dialog-surface, mdcDialogSurface</h3>
       <table>
         <tbody>
           <tr>
-            <td>Defines the dialog surface area. (required)</td>
+            <td>Mandatory. The bounding box for the dialog's content.</td>
           </tr>
         </tbody>
       </table>
 
-      <h3>mdc-dialog-header, mdcDialogHeader</h3>
+      <h3>mdc-dialog-title, mdcDialogTitle</h3>
       <table>
         <tbody>
           <tr>
-            <td>Defines the header content block.</td>
+            <td>Optional. Brief summary of the dialog's purpose.</td>
           </tr>
         </tbody>
       </table>
+
+      <h3>mdc-dialog-content, mdcDialogContent</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>Optional. Primary content area. May contain a list, a form, or prose.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>mdc-dialog-actions, mdcDialogActions</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>Optional. Footer area containing the dialog's action buttons.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>button[mdcDialogButton]</h3>
+      <h3>a[mdcDialogButton]</h3>
       <table>
         <thead>
           <tr>
@@ -52,79 +81,8 @@
         </thead>
         <tbody>
           <tr>
-            <td>title: string</td>
-            <td>Briefly describes the type of choice being made.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>mdc-dialog-header-title, mdcDialogHeaderTitle</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>Briefly describes the type of choice being made.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>mdc-dialog-body, mdcDialogBody</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>Body content typically consists of text and/or UI control elements.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>mdc-dialog-footer, mdcDialogFooter</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>Place mdc-dialog-button's inside the footer.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Events</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>accept</td>
-            <td>Broadcast when a user accepts the dialog.</td>
-          </tr>
-          <tr>
-            <td>cancel</td>
-            <td>Broadcast when a user cancels the dialog.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>button[mdc-dialog-button]</h3>
-      <h3>a[mdc-dialog-button]</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Properties</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>accept: boolean</td>
-            <td>Closes the dialog and emits an accept() event.</td>
-          </tr>
-          <tr>
-            <td>cancel: boolean</td>
-            <td>Closes the dialog and emits an cancel() event.</td>
-          </tr>
-          <tr>
-            <td>action: boolean</td>
-            <td>Apply contrasting secondary color to button.</td>
+            <td>default: boolean</td>
+            <td>Indicats that this action button represents the default action.</td>
           </tr>
         </tbody>
       </table>
@@ -151,12 +109,13 @@
     <pre>open(myDialogComponent)
 
 open(myDialogComponent, {{"{
-  clickOutsideToClose?: boolean,
-  escapeToClose?: boolean,
-  backdrop?: boolean,
   id?: string,
   ariaDescribedBy?: string,
   ariaLabel?: string,
+  clickOutsideToClose?: boolean,
+  escapeToClose?: boolean,
+  scrollable?: boolean,
+  buttonsStacked?: boolean,
   data?: any
 }"}})></pre></td>
             <td>Opens the dialog with optional configuration.</td>
@@ -166,6 +125,10 @@ open(myDialogComponent, {{"{
             <td>Closes the dialog with optional returned result.</td>
           </tr>
         </tbody>
+          <tr>
+            <td>afterDismiss: Observable<pre>R | undefined></pre></td>
+            <td>Gets an observable that is notified when the snackbar is finished closing.</td>
+          </tr>
       </table>
 
       <table>
@@ -197,8 +160,12 @@ open(myDialogComponent, {{"{
             <td>Enable or disable close on escape key (Default: true).</td>
           </tr>
           <tr>
-            <td>backdrop: boolean</td>
-            <td>Show or hide the dialog backdrop.</td>
+            <td>scrollable: boolean</td>
+            <td>Applied automatically when the dialog has overflowing content to warrant scrolling.</td>
+          </tr>
+          <tr>
+            <td>buttonsStacked: boolean</td>
+            <td>Enable or disable the stacking of action buttons, if they can't fit on a single line.</td>
           </tr>
           <tr>
             <td>data: any</td>
@@ -207,145 +174,115 @@ open(myDialogComponent, {{"{
         </tbody>
       </table>
     </div>
+    <h2>Sass Mixins</h2>
+    To customize the colors of any part of the dialog, use the following mixins.
+    <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-dialog#sass-mixins"
+     target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
+
     <h2>Basic Usage</h2>
     <a mdc-button href="https://stackblitz.com/edit/angular-mdc-dialog"
      target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
+  </div>
 
-  <h3>Dialog Service</h3>
   <div class="demo-content">
-    <mdc-form-field>
-      <mdc-checkbox [(ngModel)]="escapeToClose"></mdc-checkbox>
-      <label>Escape Key Closes</label>
-    </mdc-form-field>
-    <mdc-form-field>
-      <mdc-checkbox [(ngModel)]="clickOutsideToClose"></mdc-checkbox>
-      <label>Click or Touch Outside Closes</label>
-    </mdc-form-field>
-    <mdc-form-field>
-      <mdc-checkbox [(ngModel)]="backdrop"></mdc-checkbox>
-      <label>Backdrop</label>
-    </mdc-form-field>
-    <div class="demo-layout__row demo-layout__row-with-button">
-      <button mdc-button (click)="openSimple()">Simple Dialog</button>
-      <button mdc-button (click)="openScrolling()">Scrolling Dialog</button>
-      <button mdc-button (click)="openAlert()">Alert Dialog</button>
-      <button mdc-button (click)="openNoFooter()">No Footer Dialog</button>
-      <button mdc-button (click)="openForm()">Form Dialog</button>
+    <h3 class="demo-content__headline">Dialog service</h3>
+    <div class="demo-layout__row">
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="escapeToClose"></mdc-checkbox>
+        <label>Escape Key Closes</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="clickOutsideToClose"></mdc-checkbox>
+        <label>Click or Touch Outside Closes</label>
+      </mdc-form-field>
+    </div>
+    <div class="demo-layout__row">
+      <button mdc-button (click)="openAlert()">Alert</button>
+      <button mdc-button (click)="openSimple()">Simple</button>
+      <button mdc-button (click)="openConfirmation()">Confirmation</button>
+      <button mdc-button (click)="openScrollable(true)">Scrollable</button>
     </div>
   </div>
 
-  A dialog is opened by calling the <code class="docs-markdown-code">open</code> method with a component to be loaded and an optional config object. The <code class="docs-markdown-code">open</code> method will return an instance of <code class="docs-markdown-code">MdcDialogRef</code>:
-  <pre>
-let dialogRef = dialog.open(UserProfileComponent, {{"{
-  clickOutsideToClose: 'true',
-  escapeToClose: 'true',
-}"}});
-</pre>
-
-The <code class="docs-markdown-code">MdcDialogRef</code> provides a handle on the opened dialog. It can be used to close the dialog and to receive notification when the dialog has been closed.
-<pre>
-dialogRef.afterClosed().subscribe(result => {{"{
-  console.log(`Dialog result: ${result}`); // Pizza!
-}"}});
-
-dialogRef.close('Pizza!');
-</pre>
-
-Components created via <code class="docs-markdown-code">MdcDialog</code> can inject <code class="docs-markdown-code">MdcDialogRef</code> and use it to close the dialog in which they are contained. When closing, an optional result value can be provided. This result value is forwarded as the result of the <code class="docs-markdown-code">afterClosed</code> promise.
-<pre>
-@Component({{"{/* ... */}"}})
-export class YourDialog {{"{
-  constructor(public dialogRef: MdcDialogRef<![CDATA[<YourDialog>]]>) { }
-
-  closeDialog() {
-    this.dialogRef.close('Pizza!');
-  }
-}"}}
-</pre>
-
-  <h3>Sharing data with the Dialog component</h3>
-  If you want to share data with your dialog, you can use the <code class="docs-markdown-code">data</code> option to pass information to the dialog component.
-<pre>
-let dialogRef = dialog.open(YourDialog, {{"{
-  data: { userName: 'austin' },
-}"}});
-</pre>
-
-To access the data in your dialog component.
-<pre>
-<![CDATA[
-import { Component, Inject } from '@angular/core';
-import { MdcDialogRef } from '@angular-mdc/web';
-@Component({
-  // ...
-})
-export class YourDialog {
-  constructor(public dialogRef: MdcDialogRef<YourDialog>) {
-    userName: string = this.dialogRef.data.userName;
-  }
-}]]>
-</pre>
-
-    <h3>Configuring dialog content via entryComponents</h3>
-    <p mdcBody2>Because <code class="docs-markdown-code">MdcDialog</code> instantiates components at run-time, the Angular compiler needs extra information to create the necessary
-      ComponentFactory for your dialog content component.</p>
-    <p mdcBody2>For any component loaded into a dialog, you must include your component
-      class in the list of <code class="docs-markdown-code">entryComponents</code> in your NgModule definition so that the Angular compiler knows to create the ComponentFactory.</p>
-<pre>
-<![CDATA[
-@NgModule({
-  imports: [
-    // ...
-    MdcDialogModule
-  ],
-
-  declarations: [
-    AppComponent,
-    ExampleDialogComponent
-  ],
-
-  entryComponents: [
-    ExampleDialogComponent
-  ],
-
-  providers: [],
-  bootstrap: [AppComponent]
-})
-export class AppModule {}]]>
-</pre>
-
-  <h3>Declarative Dialog (not a service)</h3>
-<pre>
-<![CDATA[
-<mdc-dialog [escapeToClose]="true" [clickOutsideToClose]="true" [backdrop]="true">
-  <mdc-dialog-surface>
-    <mdc-dialog-header title="Use Google's location service?"></mdc-dialog-header>
-    <mdc-dialog-body>
-      Let Google help apps determine location.
-    </mdc-dialog-body>
-    <mdc-dialog-footer>
-      <button mdc-dialog-button [cancel]="true">Decline</button>
-      <button mdc-dialog-button [accept]="true">Accept</button>
-    </mdc-dialog-footer>
-  </mdc-dialog-surface>
-</mdc-dialog>]]>
-</pre>
-
   <div class="demo-content">
-    <button mdc-button (click)="declarativeDialog.show()">Open Declarative Dialog</button>
-  </div>
+    <h3 class="demo-content__headline">Usage</h3>
+    A dialog is opened by calling the <code class="docs-markdown-code">open</code> method with a component to be loaded and an optional config object. The <code class="docs-markdown-code">open</code> method will return an instance of <code class="docs-markdown-code">MdcDialogRef</code>:
+    <pre>
+  let dialogRef = dialog.open(UserProfileComponent, {{"{
+    clickOutsideToClose: 'true',
+    escapeToClose: 'true',
+  }"}});
+  </pre>
 
-  <mdc-dialog #declarativeDialog [escapeToClose]="escapeToClose" [clickOutsideToClose]="clickOutsideToClose" [backdrop]="backdrop">
-    <mdc-dialog-surface>
-      <mdc-dialog-header title="Use Google's location service?"></mdc-dialog-header>
-      <mdc-dialog-body>
-        Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
-      </mdc-dialog-body>
-      <mdc-dialog-footer>
-        <button mdc-dialog-button [cancel]="true">Decline</button>
-        <button mdc-dialog-button [accept]="true">Accept</button>
-      </mdc-dialog-footer>
-    </mdc-dialog-surface>
-  </mdc-dialog>
-</div>
+  The <code class="docs-markdown-code">MdcDialogRef</code> provides a handle on the opened dialog. It can be used to close the dialog and to receive notification when the dialog has been closed.
+  <pre>
+  dialogRef.afterClosed().subscribe(result => {{"{
+    console.log(`Dialog result: ${result}`); // Pizza!
+  }"}});
+
+  dialogRef.close('Pizza!');
+  </pre>
+
+  <p>Components created via <code class="docs-markdown-code">MdcDialog</code> can inject <code class="docs-markdown-code">MdcDialogRef</code> and use it to close the dialog in which they are contained. When closing, an optional result value can be provided. This result value is forwarded as the result of the <code class="docs-markdown-code">afterClosed</code> promise.</p>
+  <pre>
+  @Component({{"{/* ... */}"}})
+  export class YourDialog {{"{
+    constructor(public dialogRef: MdcDialogRef<![CDATA[<YourDialog>]]>) { }
+
+    closeDialog() {
+      this.dialogRef.close('Pizza!');
+    }
+  }"}}
+  </pre>
+
+    <h3 class="demo-content__headline">Sharing data with the Dialog component</h3>
+    If you want to share data with your dialog, you can use the <code class="docs-markdown-code">data</code> option to pass information to the dialog component.
+  <pre>
+  let dialogRef = dialog.open(YourDialog, {{"{
+    data: {name: this.name, animal: this.animal}
+  }"}});
+  </pre>
+
+  To access the data in your dialog component.
+  <pre>
+  <![CDATA[
+  import { Component, Inject } from '@angular/core';
+  import { MdcDialogRef } from '@angular-mdc/web';
+  @Component({
+    // ...
+  })
+  export class YourDialog {
+    constructor(public dialogRef: MdcDialogRef<YourDialog>) {
+      userName: string = this.dialogRef.data.userName;
+    }
+  }]]>
+  </pre>
+
+      <h3 class="demo-content__headline">Configuring dialog content via entryComponents</h3>
+      <p mdcBody2>Because <code class="docs-markdown-code">MdcDialog</code> instantiates components at run-time, the Angular compiler needs extra information to create the necessary
+        ComponentFactory for your dialog content component.</p>
+      <p mdcBody2>For any component loaded into a dialog, you must include your component
+        class in the list of <code class="docs-markdown-code">entryComponents</code> in your NgModule definition so that the Angular compiler knows to create the ComponentFactory.</p>
+  <pre>
+  <![CDATA[
+  @NgModule({
+    imports: [
+      // ...
+      MdcDialogModule
+    ],
+
+    declarations: [
+      AppComponent,
+      ExampleDialogComponent
+    ],
+
+    entryComponents: [
+      ExampleDialogComponent
+    ],
+
+    providers: [],
+    bootstrap: [AppComponent]
+  })
+  export class AppModule {}]]>
+  </pre>
 </div>

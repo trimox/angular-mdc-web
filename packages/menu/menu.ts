@@ -178,23 +178,13 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
         this._listItems.toArray()[index].getListItemElement().removeAttribute(attr),
       elementContainsClass: (element: HTMLElement, className: string) => element.classList.contains(className),
       closeSurface: () => this.setOpen(false),
-      getElementIndex: (element: HTMLElement) => this._listItems.toArray().findIndex((_) => _.getListItemElement() === element),
+      getElementIndex: (element: HTMLElement) => this._listItems.toArray().findIndex(_ => _.getListItemElement() === element),
       getParentElement: (element: HTMLElement) => element.parentElement,
       getSelectedElementIndex: (selectionGroup: MdcMenuSelectionGroup) => {
         return this._listItems.toArray().indexOf(selectionGroup.elementRef.nativeElement.querySelector('mdc-menu-item--selected'));
       },
       notifySelected: (evtData: { index: number }) =>
-        this.selected.emit(new MdcMenuSelectedEvent(evtData.index, this._listItems.toArray()[evtData.index])),
-      getCheckboxAtIndex: (index: number) =>
-        this._listItems.toArray()[index].getListItemElement().querySelector('input[type="checkbox"]'),
-      toggleCheckbox: (checkBox: HTMLInputElement) => {
-        if (!this.platform.isBrowser) { return; }
-
-        checkBox.checked = !checkBox.checked;
-        const event = document.createEvent('Event');
-        event.initEvent('change', false, true);
-        checkBox.dispatchEvent(event);
-      }
+        this.selected.emit(new MdcMenuSelectedEvent(evtData.index, this._listItems.toArray()[evtData.index]))
     };
   }
 
@@ -218,9 +208,7 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
 
     // When the list items change, re-subscribe
     this._changeSubscription = this._listItems.changes.pipe(startWith(null)).subscribe(() => {
-      this._listItems.forEach(item => {
-        item.setRole('menuitem');
-      });
+      this._listItems.forEach(item => item.setRole('menuitem'));
     });
 
     this._openedSubscription = this.opened.subscribe(() => {

@@ -52,7 +52,6 @@ describe('MdcSelectModule', () => {
       testComponent.disabled = true;
       fixture.detectChanges();
       expect(testInstance.disabled).toBe(true);
-      expect(testInstance.isDisabled()).toBe(true);
     });
 
     it('#should set floatingLabel to false', () => {
@@ -112,21 +111,9 @@ describe('MdcSelectModule', () => {
     });
 
     it('#should apply class outlined', () => {
-      testComponent.box = true;
-      fixture.detectChanges();
-
       testComponent.outlined = true;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-select--outlined')).toBe(true);
-    });
-
-    it('#should apply class box', () => {
-      testComponent.outlined = true;
-      fixture.detectChanges();
-
-      testComponent.box = true;
-      fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList.contains('mdc-select--box')).toBe(true);
     });
 
     it('#should set value to tacos-2', fakeAsync(() => {
@@ -178,7 +165,7 @@ class SimpleTest {
 @Component({
   template: `
   <mdc-select placeholder="Favorite food" [formControl]="foodControl" [autosize]="false"
-   [box]="box" [outlined]="outlined" (blur)="handleBlur()">
+   [outlined]="outlined" (blur)="handleBlur()">
     <option *ngFor="let food of foods" [value]="food.value" disabled="food.disabled">
       {{food.description}}
     </option>
@@ -187,7 +174,6 @@ class SimpleTest {
 })
 class SelectFormControl {
   foodControl = new FormControl();
-  box: boolean;
   outlined: boolean;
 
   foods = [

@@ -27,7 +27,6 @@ import { MdcNotchedOutline } from '@angular-mdc/web/notched-outline';
 import { MdcFloatingLabel } from '@angular-mdc/web/floating-label';
 import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
 
-import { MDCSelectAdapter } from '@material/select/adapter';
 import { MDCSelectFoundation } from '@material/select';
 
 export const MDC_SELECT_CONTROL_VALUE_ACCESSOR: any = {
@@ -57,7 +56,6 @@ let nextUniqueId = 0;
   host: {
     '[id]': 'id',
     'class': 'mdc-select',
-    '[class.mdc-select--box]': 'box',
     '[class.mdc-select--outlined]': 'outlined'
   },
   template: `
@@ -68,7 +66,7 @@ let nextUniqueId = 0;
    (focus)="onFocus()">
     <ng-content #option></ng-content>
   </select>
-  <label mdcFloatingLabel [attr.for]="id">{{hasFloatingLabel() ? placeholder : ''}}</label>
+  <label mdcFloatingLabel [for]="id">{{_shouldHideFloatingLabel() ? '' : placeholder}}</label>
   <mdc-line-ripple *ngIf="!outlined"></mdc-line-ripple>
   <mdc-notched-outline *ngIf="outlined"></mdc-notched-outline>
   `,
@@ -83,6 +81,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
+  private _initialized: boolean = false;
   private _uniqueId: string = `mdc-select-${++nextUniqueId}`;
 
   @Input() id: string = this._uniqueId;
@@ -99,7 +98,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
-    this.setDisabled(value);
+    this.setDisabledState(value);
   }
   private _disabled: boolean;
 
@@ -109,15 +108,6 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
     this.setFloatingLabel(value);
   }
   private _floatingLabel: boolean = true;
-
-  @Input()
-  get box(): boolean { return this._box; }
-  set box(value: boolean) {
-    if (value !== this._box) {
-      this.setBox(value);
-    }
-  }
-  private _box: boolean;
 
   @Input()
   get outlined(): boolean { return this._outlined; }
@@ -178,36 +168,38 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   /** View -> model callback called when select has been touched */
   _onTouched = () => { };
 
-  private _lineRippleEventsSubscription: Subscription;
+  private _lineRippleSubscription: Subscription;
 
   /** Combined stream of all of the line ripple events. */
   get lineRippleEvents(): Observable<any> {
     return merge(...LINE_RIPPLE_EVENTS.map(evt => fromEvent(this._getInputElement(), evt)));
   }
 
-  private _mdcAdapter: MDCSelectAdapter = {
-    addClass: (className: string) => this._getHostElement().classList.add(className),
-    removeClass: (className: string) => this._getHostElement().classList.remove(className),
-    hasClass: (className: string) => this._getHostElement().classList.contains(className),
-    floatLabel: (shouldFloat: boolean) => this._selectLabel.float(shouldFloat),
-    activateBottomLine: () => {
-      if (this._lineRipple) {
-        this._lineRipple.activate();
-      }
-    },
-    deactivateBottomLine: () => {
-      if (this._lineRipple) {
-        this._lineRipple.deactivate();
-      }
-    },
-    getValue: () => this._getInputElement().value,
-    isRtl: () => getComputedStyle(this._getHostElement()).direction === 'rtl',
-    hasLabel: () => !!this._selectLabel,
-    getLabelWidth: () => this._selectLabel ? this._selectLabel.getWidth() : 0,
-    hasOutline: () => !!this._notchedOutline,
-    notchOutline: (labelWidth: number, isRtl: boolean) => this._notchedOutline.notch(labelWidth, isRtl),
-    closeOutline: () => this._notchedOutline.closeNotch()
-  };
+  createAdapter() {
+    return {
+      addClass: (className: string) => this._getHostElement().classList.add(className),
+      removeClass: (className: string) => this._getHostElement().classList.remove(className),
+      hasClass: (className: string) => this._getHostElement().classList.contains(className),
+      floatLabel: (shouldFloat: boolean) => this._selectLabel.float(shouldFloat),
+      activateBottomLine: () => {
+        if (this._lineRipple) {
+          this._lineRipple.activate();
+        }
+      },
+      deactivateBottomLine: () => {
+        if (this._lineRipple) {
+          this._lineRipple.deactivate();
+        }
+      },
+      getValue: () => this._getInputElement().value,
+      isRtl: () => getComputedStyle(this._getHostElement()).direction === 'rtl',
+      hasLabel: () => !!this._selectLabel,
+      getLabelWidth: () => this._selectLabel ? this._selectLabel.getWidth() : 0,
+      hasOutline: () => !!this._notchedOutline,
+      notchOutline: (labelWidth: number, isRtl: boolean) => this._notchedOutline.notch(labelWidth, isRtl),
+      closeOutline: () => this._notchedOutline.closeNotch()
+    };
+  }
 
   private _foundation: {
     updateDisabledStyle(disabled: boolean): void,
@@ -215,7 +207,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
     handleChange(): void,
     handleFocus(): void,
     handleBlur(): void
-  } = new MDCSelectFoundation(this._mdcAdapter);
+  };
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
@@ -227,16 +219,15 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   }
 
   ngAfterContentInit(): void {
+    this._foundation = new MDCSelectFoundation(this.createAdapter());
+    this.init();
+
     this.options.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
       if (this._value) {
         this._initializeSelection();
       }
 
       Promise.resolve().then(() => {
-        if (!this.outlined && !this.box) {
-          this.box = true;
-        }
-
         this._selectLabel.float(this.getValue());
         if (this.autosize) {
           this._setWidth();
@@ -245,15 +236,48 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
     });
   }
 
-  ngOnDestroy(): void {
+  init(): void {
+    this._initFoundationVariants();
+    this._initialized = true;
+  }
+
+  private _destroySelect(): void {
     this._destroy.next();
     this._destroy.complete();
 
-    if (this._lineRippleEventsSubscription) {
-      this._lineRippleEventsSubscription.unsubscribe();
+    if (this._lineRipple) {
+      this._lineRipple.destroy();
     }
+    if (this._lineRippleSubscription) {
+      this._lineRippleSubscription.unsubscribe();
+    }
+    if (this._ripple) {
+      this._ripple.destroy();
+    }
+  }
 
-    this._ripple.destroy();
+  ngOnDestroy(): void {
+    this._destroySelect();
+  }
+
+  private _reinitialize(): void {
+    if (this._initialized) {
+      this._destroySelect();
+      this.init();
+    }
+  }
+
+  private _initFoundationVariants(): void {
+    Promise.resolve().then(() => {
+      this._initRipple();
+
+      if (!this._outlined) {
+        setTimeout(() => this._lineRipple.init());
+        this._lineRippleSubscription = this.lineRippleEvents.pipe().subscribe(evt => this._setTransformOrigin_(evt));
+      }
+
+      this._changeDetectorRef.markForCheck();
+    });
   }
 
   writeValue(value: any): void {
@@ -355,60 +379,23 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
     return this._getInputElement().selectedIndex;
   }
 
-  isDisabled(): boolean {
-    return this.disabled;
-  }
-
-  setDisabled(disabled: boolean): void {
-    this.setDisabledState(disabled);
-  }
-
   // Implemented as part of ControlValueAccessor.
   setDisabledState(disabled: boolean) {
     this._disabled = toBoolean(disabled);
-    this._foundation.updateDisabledStyle(disabled);
-
-    this._changeDetectorRef.markForCheck();
-  }
-
-  /** Styles the select as a box. */
-  setBox(box: boolean): void {
-    this._box = toBoolean(box);
-
-    if (this.box && this._outlined) {
-      this.setOutlined(false);
-    }
-
-    this._initRipple();
-
-    if (this.box) {
-      this._lineRippleEventsSubscription = this.lineRippleEvents.pipe().subscribe((evt) => {
-        this._setTransformOrigin_(evt);
-      });
-      setTimeout(() => this._lineRipple.init());
-    } else if (this._lineRippleEventsSubscription) {
-      this._lineRipple.destroy();
-      this._lineRippleEventsSubscription.unsubscribe();
-    }
+    setTimeout(() => this._foundation.updateDisabledStyle(disabled));
 
     this._changeDetectorRef.markForCheck();
   }
 
   /** Styles the select style to outlined. */
   setOutlined(outlined: boolean): void {
-    this._outlined = toBoolean(outlined);
+    const newValue = toBoolean(outlined);
 
-    if (this.outlined && this._box) {
-      this.setBox(false);
+    if (newValue !== this._outlined) {
+      this._outlined = toBoolean(newValue);
+      this._reinitialize();
+      setTimeout(() => this._foundation.notchOutline(this._shouldFloatLabel()));
     }
-
-    setTimeout(() => {
-      if (this.getValue() && this._outlined) {
-        this._foundation.notchOutline(this.hasFloatingLabel());
-      }
-    });
-
-    this._changeDetectorRef.markForCheck();
   }
 
   setFloatingLabel(floatingLabel: boolean): void {
@@ -416,7 +403,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
 
     setTimeout(() => {
       if (this.outlined && this.getValue()) {
-        this._foundation.notchOutline(floatingLabel);
+        this._foundation.notchOutline(this._floatingLabel);
       }
     });
 
@@ -429,13 +416,20 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
     }
   }
 
-  hasFloatingLabel(): boolean {
-    return this._floatingLabel || !this.getValue();
+  _shouldHideFloatingLabel(): boolean {
+    return !this._floatingLabel && this.getValue();
+  }
+
+  private _shouldFloatLabel(): boolean {
+    return this._floatingLabel && this.getValue();
   }
 
   private _initRipple(): void {
     if (!this._ripple.initialized && !this.outlined) {
-      this._ripple.init({ surface: this.elementRef.nativeElement });
+      this._ripple.init({
+        surface: this._getHostElement(),
+        activator: this._getInputElement()
+      });
     } else {
       this._ripple.destroy();
     }

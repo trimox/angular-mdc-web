@@ -60,10 +60,6 @@
             <td>Whether or not to show or hide a floating placeholder.</td>
           </tr>
           <tr>
-            <td>box: boolean</td>
-            <td>Styles the select as a box select. (Default is true)</td>
-          </tr>
-          <tr>
             <td>outlined: boolean</td>
             <td>Styles the select as an outlined select.</td>
           </tr>
@@ -96,10 +92,6 @@
           <tr>
             <td>setSelectionByValue(value: any)</td>
             <td>Set selection to the passed value.</td>
-          </tr>
-          <tr>
-            <td>isDisabled(): boolean</td>
-            <td>Returns whether or not the select is disabled.</td>
           </tr>
         </tbody>
       </table>
@@ -164,8 +156,7 @@
     <div class="demo-layout__row">
       <button mdc-button (click)="demoSelectModel.reset()">Clear Selection</button>
       <button mdc-button (click)="select.setSelectionByValue('fruit-3')">Select Fruit</button>
-      <button mdc-button (click)="select.setDisabled(!select.isDisabled())">Disabled: {{select.isDisabled() ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="select.box = !select.box">Box: {{select.box ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="select.disabled = !select.disabled">Disabled: {{select.disabled ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="select.outlined = !select.outlined">Outlined: {{select.outlined ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="select.floatingLabel = !select.floatingLabel">Floating Label: {{select.floatingLabel ? 'On' : 'Off'}}</button>
     </div>
@@ -189,8 +180,7 @@
       <button mdc-button (click)="foodControl.reset()">Reset Selection</button>
       <button mdc-button (click)="select2.setSelectionByValue('pizza-1')">Select Pizza</button>
       <button mdc-button (click)="foodControl.setValue('pizza-1')">Set Form Value</button>
-      <button mdc-button (click)="select2.setDisabled(!select2.isDisabled())">Disabled: {{select2.isDisabled() ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="select2.box = !select2.box">Box style: {{select2.box ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="select2.disabled = !select2.disabled">Disabled: {{select2.disabled ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="select2.outlined = !select2.outlined">Outlined: {{select2.outlined ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="select2.floatingLabel = !select2.floatingLabel">Floating Label: {{select2.floatingLabel ? 'On' : 'Off'}}</button>
     </div>

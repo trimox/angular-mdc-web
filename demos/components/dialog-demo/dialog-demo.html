@@ -16,77 +16,6 @@
 
     <h2>Design & API Documentation</h2>
     <div class="docs-api">
-      <h3>mdc-dialog</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>Defines the dialog. (required)</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>mdc-dialog-container, mdcDialogContainer</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>Mandatory. Wrapper element needed to ensure flexbox behavior in IE 11.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>mdc-dialog-surface, mdcDialogSurface</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>Mandatory. The bounding box for the dialog's content.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>mdc-dialog-title, mdcDialogTitle</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>Optional. Brief summary of the dialog's purpose.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>mdc-dialog-content, mdcDialogContent</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>Optional. Primary content area. May contain a list, a form, or prose.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>mdc-dialog-actions, mdcDialogActions</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>Optional. Footer area containing the dialog's action buttons.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>button[mdcDialogButton]</h3>
-      <h3>a[mdcDialogButton]</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Properties</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>default: boolean</td>
-            <td>Indicats that this action button represents the default action.</td>
-          </tr>
-        </tbody>
-      </table>
-
       <table>
         <thead>
           <tr>
@@ -126,7 +55,7 @@ open(myDialogComponent, {{"{
           </tr>
         </tbody>
           <tr>
-            <td>afterDismiss: Observable<pre>R | undefined></pre></td>
+            <td>afterDismiss: Observable<pre>R | undefined</pre></td>
             <td>Gets an observable that is notified when the snackbar is finished closing.</td>
           </tr>
       </table>
@@ -170,6 +99,116 @@ open(myDialogComponent, {{"{
           <tr>
             <td>data: any</td>
             <td>Data that can be assigned inside child component.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdc-dialog</span>
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>Mandatory. The root DOM element containing the surface and the container.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdc-dialog-container</span>
+        <span class="docs-api-class-selector-name">mdcDialogContainer</span>
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>Mandatory. Wrapper element needed to ensure flexbox behavior in IE 11.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdc-dialog-surface</span>
+        <span class="docs-api-class-selector-name">mdcDialogSurface</span>
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>Mandatory. The bounding box for the dialog's content.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdc-dialog-title</span>
+        <span class="docs-api-class-selector-name">mdcDialogTitle</span>
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>Optional. Brief summary of the dialog's purpose.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdc-dialog-content</span>
+        <span class="docs-api-class-selector-name">mdcDialogContent</span>
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>Optional. Primary content area. May contain a list, a form, or prose.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdc-dialog-actions</span>
+        <span class="docs-api-class-selector-name">mdcDialogActions</span>
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>Optional. Footer area containing the dialog's action buttons.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">button[mdcDialogButton]</span>
+        <span class="docs-api-class-selector-name">a[mdcDialogButton]</span>
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>default: boolean</td>
+            <td>Indicates that this action button represents the default action.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdcDialogAction="close"</span>
+        <span class="docs-api-class-selector-name">mdcDialogAction="accept"</span>
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>Optional. Any element within a dialog may include the <code class="docs-markdown-code">mdcDialogAction</code> directive.</td>
           </tr>
         </tbody>
       </table>

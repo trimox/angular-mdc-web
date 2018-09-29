@@ -19,7 +19,7 @@ import {
 import { fromEvent, merge, Observable, Subject, Subscription } from 'rxjs';
 import { startWith, takeUntil } from 'rxjs/operators';
 
-import { toBoolean } from '@angular-mdc/web/common';
+import { toBoolean, Platform } from '@angular-mdc/web/common';
 
 import { MdcListItem, MdcListSelectionChange } from './list-item';
 
@@ -191,8 +191,10 @@ export class MdcList implements AfterViewInit, OnDestroy {
   createAdapter() {
     return {
       getListItemCount: () => this._listItems.length,
-      getFocusedElementIndex: () =>
-        this._listItems.toArray().findIndex((_) => _.elementRef.nativeElement === document.activeElement),
+      getFocusedElementIndex: () => {
+        if (!this._platform.isBrowser) { return -1; }
+        this._listItems.toArray().findIndex(_ => _.elementRef.nativeElement === document.activeElement);
+      },
       setAttributeForElementIndex: (index: number, attr: string, value: string) =>
         this._listItems.toArray()[index].getListItemElement().setAttribute(attr, value),
       removeAttributeForElementIndex: (index: number, attr: string) =>
@@ -253,6 +255,7 @@ export class MdcList implements AfterViewInit, OnDestroy {
   } = new MDCListFoundation(this.createAdapter());
 
   constructor(
+    private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
     private _ngZone: NgZone,
     public elementRef: ElementRef) { }

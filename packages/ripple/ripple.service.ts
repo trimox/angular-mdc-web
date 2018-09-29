@@ -62,12 +62,12 @@ export class MdcRipple implements OnDestroy {
       addClass: (className: string) => config.surface.classList.add(className),
       removeClass: (className: string) => config.surface.classList.remove(className),
       registerDocumentInteractionHandler: (evtType: string, handler: EventListener) => {
-        if (!this._platform.isBrowser) { return; }
+        if (!this._platform.isBrowser || !document.documentElement) { return; }
 
         document.documentElement.addEventListener(evtType, handler, util.applyPassive());
       },
       deregisterDocumentInteractionHandler: (evtType: string, handler: EventListener) => {
-        if (!this._platform.isBrowser) { return; }
+        if (!this._platform.isBrowser || !document.documentElement) { return; }
 
         document.documentElement.removeEventListener(evtType, handler, util.applyPassive());
       },
@@ -106,6 +106,8 @@ export class MdcRipple implements OnDestroy {
     private _elementRef: ElementRef<HTMLElement>) { }
 
   init(config: MdcRippleConfig, adapter?: any) {
+    if (!this._platform.isBrowser) { return; }
+
     this._rippleConfig = config;
     this._foundation = new MDCRippleFoundation(adapter ? adapter : this.createAdapter(config));
     this._loadListeners();
@@ -115,6 +117,8 @@ export class MdcRipple implements OnDestroy {
   }
 
   destroy(): void {
+    if (!this._platform.isBrowser) { return; }
+
     this._destroy.next();
     this._destroy.complete();
 

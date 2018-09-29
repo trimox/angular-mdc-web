@@ -224,22 +224,18 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
   }
 
   private _loadListeners(): void {
-    if (this.modal) {
-      if (this._platform.isBrowser) {
-        this._scrimElement = document.createElement('div');
-        this._scrimElement.classList.add('mdc-drawer-scrim');
-        this._getHostElement().insertAdjacentElement('afterend', this._scrimElement);
+    if (this.modal && this._platform.isBrowser) {
+      this._scrimElement = document.createElement('div');
+      this._scrimElement.classList.add('mdc-drawer-scrim');
+      this._getHostElement().insertAdjacentElement('afterend', this._scrimElement);
 
-        this._ngZone.runOutsideAngular(() =>
-          this._scrimSubscription = fromEvent<MouseEvent>(this._scrimElement!, 'click')
-            .subscribe(() => this._ngZone.run(() => this._foundation.handleScrimClick())));
+      this._ngZone.runOutsideAngular(() =>
+        this._scrimSubscription = fromEvent<MouseEvent>(this._scrimElement!, 'click')
+          .subscribe(() => this._ngZone.run(() => this._foundation.handleScrimClick())));
 
-        this._focusTrapFactory = createFocusTrapInstance(this._getHostElement(), this._focusTrapFactory);
-      }
-    } else {
-      if (this._scrimElement) {
-        this._scrimElement.remove();
-      }
+      this._focusTrapFactory = createFocusTrapInstance(this._getHostElement(), this._focusTrapFactory);
+    } else if (this._scrimElement) {
+      this._scrimElement.remove();
     }
 
     this._ngZone.runOutsideAngular(() =>

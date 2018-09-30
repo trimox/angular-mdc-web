@@ -441,17 +441,17 @@
       <button mdc-button (click)="checkboxes.interactive = !checkboxes.interactive">Interactive: {{checkboxes.interactive ? 'On' : 'Off'}}</button>
     </div>
     <mdc-list #checkboxes>
-      <mdc-list-item (click)="checkbox1.toggle()">
+      <mdc-list-item>
         Single-line item
-        <mdc-checkbox #checkbox1 mdcListItemMeta></mdc-checkbox>
+        <mdc-checkbox mdcListItemMeta></mdc-checkbox>
       </mdc-list-item>
-      <mdc-list-item (click)="checkbox2.toggle()">
+      <mdc-list-item>
         Single-line item
-        <mdc-checkbox #checkbox2 mdcListItemMeta></mdc-checkbox>
+        <mdc-checkbox mdcListItemMeta></mdc-checkbox>
       </mdc-list-item>
-      <mdc-list-item (click)="checkbox3.toggle()">
+      <mdc-list-item>
         Single-line item
-        <mdc-checkbox #checkbox3 mdcListItemMeta></mdc-checkbox>
+        <mdc-checkbox mdcListItemMeta></mdc-checkbox>
       </mdc-list-item>
     </mdc-list>
   </div>

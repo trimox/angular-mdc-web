@@ -21,7 +21,7 @@ import { Platform, toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple, MATCHES } from '@angular-mdc/web/ripple';
 import { MdcFormFieldControl } from '@angular-mdc/web/form-field';
 
-import { MDCCheckboxFoundation } from '@material/checkbox';
+import { MDCCheckboxFoundation } from '@material/checkbox/index';
 
 let nextUniqueId = 0;
 
@@ -64,10 +64,10 @@ export const MDC_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
     [attr.aria-labelledby]="ariaLabelledby"
     [disabled]="disabled"
     [checked]="checked"
-    [attr.value]="checked"
+    [attr.value]="value"
     [indeterminate]="indeterminate"
-    (change)="onChange($event)"
-    (click)="_onInputClick()"/>
+    (change)="onInteraction($event)"
+    (click)="_onInputClick($event)"/>
   <div class="mdc-checkbox__background">
     <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
       <path class="mdc-checkbox__checkmark-path"
@@ -100,10 +100,10 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
       getNativeControl: () => this._getInputElement(),
       isIndeterminate: () => this.indeterminate,
       isChecked: () => this.checked,
-      hasNativeControl: () => !!this._inputElement,
+      hasNativeControl: () => true,
       setNativeControlDisabled: (disabled: boolean) => this._inputElement.nativeElement.disabled = disabled,
       forceLayout: () => this._getHostElement().offsetWidth,
-      isAttachedToDOM: () => !!this._getInputElement().parentNode
+      isAttachedToDOM: () => true
     };
   }
 
@@ -136,6 +136,9 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
     this.setDisabledState(value);
   }
   private _disabled: boolean;
+
+  /** The value attribute of the native input element */
+  @Input() value: string;
 
   /// Alternative state of the checkbox, not user set-able state. Between
   /// [checked] and [indeterminate], only one can be true, though both can be
@@ -202,7 +205,6 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
   }
 
   writeValue(value: any): void {
-    if (value == null) { return; }
     this.checked = !!value;
   }
 
@@ -235,16 +237,20 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
     this._onChange(this.checked);
   }
 
-  onChange(evt: Event): void {
+  onInteraction(evt: Event): void {
+    if (this.disabled) { return; }
+
     this._foundation.handleChange();
+    this.toggle();
+
+    this.change.emit(new MdcCheckboxChange(this, this.checked));
     evt.stopPropagation();
   }
 
-  _onInputClick() {
-    if (this.disabled) { return; }
-
-    this.toggle();
-    this.change.emit(new MdcCheckboxChange(this, this.checked));
+  _onInputClick(evt: Event) {
+    // We have to stop propagation for click events on the visual hidden input element.
+    // Preventing bubbling for the second event will solve that issue.
+    evt.stopPropagation();
   }
 
   setIndeterminate(indeterminate: boolean): void {
@@ -261,7 +267,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
 
   setDisabledState(disabled: boolean): void {
     this._disabled = toBoolean(disabled);
-    this._foundation.setDisabled(this.disabled);
+    this._foundation.setDisabled(this._disabled);
     this._changeDetectorRef.markForCheck();
   }
 

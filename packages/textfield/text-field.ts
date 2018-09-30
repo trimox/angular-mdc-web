@@ -468,15 +468,12 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
 
   private _initRipple(): void {
     if (!this._ripple.initialized && !this.outlined && !this.textarea) {
-      const rippleAdapter = Object.assign(this._ripple.createAdapter({
-        surface: this.elementRef.nativeElement,
-        activator: this._getInputElement()
-      }), { isSurfaceActive: () => this._getInputElement()[MATCHES](':active') });
-
       this._ripple.init({
         surface: this.elementRef.nativeElement,
         activator: this._getInputElement()
-      }, rippleAdapter);
+      }, Object.assign(this._ripple.createAdapter(), {
+        isSurfaceActive: () => this._getInputElement()[MATCHES](':active')
+      }));
     } else {
       this._ripple.destroy();
     }

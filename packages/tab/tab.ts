@@ -23,7 +23,7 @@ import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcTabIndicator } from '@angular-mdc/web/tab-indicator';
 
-import { MDCTabFoundation } from '@material/tab';
+import { MDCTabFoundation } from '@material/tab/index';
 
 /**
  * Describes a parent MdcTabBar component.
@@ -32,6 +32,13 @@ import { MDCTabFoundation } from '@material/tab';
 export interface MdcTabBarParentComponent {
   activateTab(index: number): void;
   getTabIndex(tab: MdcTab): number;
+}
+
+interface TabDimensions {
+  rootLeft: number;
+  rootRight: number;
+  contentLeft: number;
+  contentRight: number;
 }
 
 /**
@@ -148,7 +155,7 @@ export class MdcTab implements OnInit, OnDestroy {
     isActive(): boolean,
     activate(previousIndicatorClientRect: ClientRect): void,
     deactivate(): void,
-    computeDimensions(): void,
+    computeDimensions(): TabDimensions,
     handleClick(): void
   } = new MDCTabFoundation(this.createAdapter());
 
@@ -161,23 +168,8 @@ export class MdcTab implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._foundation.init();
-
-    const rippleAdapter = Object.assign(this._ripple.createAdapter({ surface: this._getHostElement() }), {
-      addClass: (className: string) => this.rippleSurface.nativeElement.classList.add(className),
-      removeClass: (className: string) => this.rippleSurface.nativeElement.classList.remove(className),
-      updateCssVariable: (varName: string, value: string) =>
-        this.rippleSurface.nativeElement.style.setProperty(varName, value),
-    });
-
-    this._ripple.init({ surface: this._getHostElement() }, rippleAdapter);
-
-    this._ngZone.runOutsideAngular(() =>
-      fromEvent<MouseEvent>(this._getHostElement(), 'click').pipe(takeUntil(this._destroy))
-        .subscribe(() => this._ngZone.run(() => {
-          if (!this.active) {
-            this._foundation.handleClick();
-          }
-        })));
+    this._initRipple();
+    this._loadListeners();
   }
 
   ngOnDestroy(): void {
@@ -207,7 +199,7 @@ export class MdcTab implements OnInit, OnDestroy {
     return this.tabIndicator.computeContentClientRect();
   }
 
-  computeDimensions(): any {
+  computeDimensions(): TabDimensions {
     return this._foundation.computeDimensions();
   }
 
@@ -217,6 +209,27 @@ export class MdcTab implements OnInit, OnDestroy {
 
   focus(): void {
     this._getHostElement().focus();
+  }
+
+  private _initRipple(): void {
+    this._ripple.init({
+      surface: this._getHostElement()
+    }, Object.assign(this._ripple.createAdapter(), {
+      addClass: (className: string) => this.rippleSurface.nativeElement.classList.add(className),
+      removeClass: (className: string) => this.rippleSurface.nativeElement.classList.remove(className),
+      updateCssVariable: (varName: string, value: string) =>
+        this.rippleSurface.nativeElement.style.setProperty(varName, value),
+    }));
+  }
+
+  private _loadListeners(): void {
+    this._ngZone.runOutsideAngular(() =>
+      fromEvent<MouseEvent>(this._getHostElement(), 'click').pipe(takeUntil(this._destroy))
+        .subscribe(() => this._ngZone.run(() => {
+          if (!this.active) {
+            this._foundation.handleClick();
+          }
+        })));
   }
 
   /** Retrieves the DOM element of the component host. */

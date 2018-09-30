@@ -266,18 +266,14 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
   }
 
   private _initRipple(): void {
-    const rippleAdapter = Object.assign(this.ripple.createAdapter({
-      surface: this.elementRef.nativeElement,
-      activator: this._getInputElement()
-    }), {
-        isUnbounded: () => true,
-        isSurfaceActive: () => this._getInputElement()[MATCHES](':active')
-      });
-
     this.ripple.init({
       surface: this.elementRef.nativeElement,
       activator: this._getInputElement()
-    }, rippleAdapter);
+    }, Object.assign(this.ripple.createAdapter(), {
+      isUnbounded: () => true,
+      isSurfaceActive: () => this._getInputElement()[MATCHES](':active'),
+      isSurfaceDisabled: () => this._disabled
+    }));
   }
 
   private _loadListeners(): void {

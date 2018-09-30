@@ -9,9 +9,14 @@ import { takeUntil } from 'rxjs/operators';
 
 import { Platform, toBoolean } from '@angular-mdc/web/common';
 
-import { MDCRippleFoundation, util } from '@material/ripple';
+import {
+  applyPassive,
+  getMatchesProperty,
+  supportsCssVariables
+} from '@material/ripple/util';
+import { MDCRippleFoundation } from '@material/ripple/index';
 
-export const MATCHES = util.getMatchesProperty(HTMLElement.prototype);
+export const MATCHES = getMatchesProperty(HTMLElement.prototype);
 
 // Activation events registered on the root element of each instance for activation
 const ACTIVATION_EVENT_TYPES = ['touchstart', 'mousedown', 'keydown'];
@@ -53,23 +58,24 @@ export class MdcRipple implements OnDestroy {
       fromEvent(this._rippleConfig.activator ? this._rippleConfig.activator : this._rippleConfig.surface, evt)));
   }
 
-  createAdapter(config: MdcRippleConfig) {
+  createAdapter() {
     return {
-      browserSupportsCssVars: () => this._platform.isBrowser ? util.supportsCssVariables(window) : false,
-      isUnbounded: () => config.unbounded,
-      isSurfaceActive: () => config.activator ? config.activator[MATCHES](':active') : config.surface[MATCHES](':active'),
-      isSurfaceDisabled: () => config.disabled,
-      addClass: (className: string) => config.surface.classList.add(className),
-      removeClass: (className: string) => config.surface.classList.remove(className),
+      browserSupportsCssVars: () => this._platform.isBrowser ? supportsCssVariables(window) : false,
+      isUnbounded: () => this._rippleConfig.unbounded,
+      isSurfaceActive: () => this._rippleConfig.activator ?
+        this._rippleConfig.activator[MATCHES](':active') : this._rippleConfig.surface[MATCHES](':active'),
+      isSurfaceDisabled: () => this._rippleConfig.disabled,
+      addClass: (className: string) => this._rippleConfig.surface.classList.add(className),
+      removeClass: (className: string) => this._rippleConfig.surface.classList.remove(className),
       registerDocumentInteractionHandler: (evtType: string, handler: EventListener) => {
         if (!this._platform.isBrowser || !document.documentElement) { return; }
 
-        document.documentElement.addEventListener(evtType, handler, util.applyPassive());
+        document.documentElement.addEventListener(evtType, handler, applyPassive());
       },
       deregisterDocumentInteractionHandler: (evtType: string, handler: EventListener) => {
         if (!this._platform.isBrowser || !document.documentElement) { return; }
 
-        document.documentElement.removeEventListener(evtType, handler, util.applyPassive());
+        document.documentElement.removeEventListener(evtType, handler, applyPassive());
       },
       registerResizeHandler: (handler: EventListener) => {
         if (!this._platform.isBrowser) { return; }
@@ -81,8 +87,8 @@ export class MdcRipple implements OnDestroy {
 
         window.removeEventListener('resize', handler);
       },
-      updateCssVariable: (varName: string, value: string) => config.surface.style.setProperty(varName, value),
-      computeBoundingRect: () => config.surface.getBoundingClientRect(),
+      updateCssVariable: (varName: string, value: string) => this._rippleConfig.surface.style.setProperty(varName, value),
+      computeBoundingRect: () => this._rippleConfig.surface.getBoundingClientRect(),
       getWindowPageOffset: () => ({
         x: this._platform.isBrowser ? window.pageXOffset : 0,
         y: this._platform.isBrowser ? window.pageYOffset : 0
@@ -109,7 +115,7 @@ export class MdcRipple implements OnDestroy {
     if (!this._platform.isBrowser) { return; }
 
     this._rippleConfig = config;
-    this._foundation = new MDCRippleFoundation(adapter ? adapter : this.createAdapter(config));
+    this._foundation = new MDCRippleFoundation(adapter || this.createAdapter());
     this._loadListeners();
 
     this._foundation.init();

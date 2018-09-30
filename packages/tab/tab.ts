@@ -34,13 +34,6 @@ export interface MdcTabBarParentComponent {
   getTabIndex(tab: MdcTab): number;
 }
 
-interface TabDimensions {
-  rootLeft: number;
-  rootRight: number;
-  contentLeft: number;
-  contentRight: number;
-}
-
 /**
  * Injection token used to provide the parent MdcTabBar component to MdcTab.
  */
@@ -55,9 +48,7 @@ export interface MdcTabInteractedEvent {
 
 @Directive({
   selector: 'mdc-tab-label, [mdcTabLabel]',
-  host: {
-    'class': 'mdc-tab__text-label'
-  }
+  host: { 'class': 'mdc-tab__text-label' }
 })
 export class MdcTabLabel {
   constructor(public elementRef: ElementRef) { }
@@ -65,9 +56,7 @@ export class MdcTabLabel {
 
 @Directive({
   selector: 'mdc-tab-icon, [mdcTabIcon]',
-  host: {
-    'class': 'mdc-tab__icon'
-  }
+  host: { 'class': 'mdc-tab__icon' }
 })
 export class MdcTabIcon {
   constructor(public elementRef: ElementRef) { }
@@ -155,7 +144,7 @@ export class MdcTab implements OnInit, OnDestroy {
     isActive(): boolean,
     activate(previousIndicatorClientRect: ClientRect): void,
     deactivate(): void,
-    computeDimensions(): TabDimensions,
+    computeDimensions(): any,
     handleClick(): void
   } = new MDCTabFoundation(this.createAdapter());
 
@@ -199,7 +188,7 @@ export class MdcTab implements OnInit, OnDestroy {
     return this.tabIndicator.computeContentClientRect();
   }
 
-  computeDimensions(): TabDimensions {
+  computeDimensions(): any {
     return this._foundation.computeDimensions();
   }
 

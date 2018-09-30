@@ -2,7 +2,7 @@ import { join } from 'path';
 import { writeFileSync, readFileSync } from 'fs';
 import { sync as glob } from 'glob';
 import { BuildPackage } from './build-package';
-import { ngcCompile } from './ngc-compile';
+import { tsCompile } from './ts-compile';
 
 /** Incrementing ID counter. */
 let nextId = 0;
@@ -18,7 +18,7 @@ export async function compileEntryPoint(buildPackage: BuildPackage, tsconfigName
     ngcFlags.push('--outDir', es5OutputPath, '--target', 'ES5');
   }
 
-  return ngcCompile(ngcFlags).catch(() => {
+  return tsCompile('ngc', ngcFlags).catch(() => {
     const error = `Failed to compile ${secondaryEntryPoint} using ${entryPointTsconfigPath}`;
     console.error(error);
     return Promise.reject(error);

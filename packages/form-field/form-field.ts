@@ -12,7 +12,7 @@ import {
 import { toBoolean } from '@angular-mdc/web/common';
 
 import { MdcFormFieldControl } from './form-field-control';
-import { MDCFormFieldFoundation } from '@material/form-field';
+import { MDCFormFieldFoundation } from '@material/form-field/index';
 
 @Component({
   moduleId: module.id,
@@ -85,14 +85,6 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
   ngOnDestroy(): void {
     if (this._foundation) {
       this._foundation.destroy();
-    }
-  }
-
-  setInput(input: any): void {
-    if (this.input !== input) {
-      this.input = input;
-
-      this._changeDetectorRef.markForCheck();
     }
   }
 }

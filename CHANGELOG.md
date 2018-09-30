@@ -1,3 +1,69 @@
+<a name="0.40.0"></a>
+# [0.40.0](https://github.com/trimox/angular-mdc-web/compare/v0.39.3...v0.40.0) (2018-09-30)
+
+
+### Bug Fixes
+
+* **card:** Remove erroneous directive config line ([b69198d](https://github.com/trimox/angular-mdc-web/commit/b69198d))
+* **checkbox:** Prevent bubbling for second event ([#1385](https://github.com/trimox/angular-mdc-web/issues/1385)) ([870d360](https://github.com/trimox/angular-mdc-web/commit/870d360))
+* **chips:** Use rxjs for event listening ([#1358](https://github.com/trimox/angular-mdc-web/issues/1358)) ([cbd01b8](https://github.com/trimox/angular-mdc-web/commit/cbd01b8))
+* **drawer:** Fix focus-trap import and use factory ([#1370](https://github.com/trimox/angular-mdc-web/issues/1370)) ([6007f89](https://github.com/trimox/angular-mdc-web/commit/6007f89)), closes [#1369](https://github.com/trimox/angular-mdc-web/issues/1369)
+* **drawer:** Run transitionend listener outside angular with filter ([#1349](https://github.com/trimox/angular-mdc-web/issues/1349)) ([79eb2fb](https://github.com/trimox/angular-mdc-web/commit/79eb2fb))
+* **select:** Set transform origin for line ripple ([#1386](https://github.com/trimox/angular-mdc-web/issues/1386)) ([b1c5242](https://github.com/trimox/angular-mdc-web/commit/b1c5242))
+* **tab-scroller:** Should run outside angular, and filter on transitionend ([#1346](https://github.com/trimox/angular-mdc-web/issues/1346)) ([91c6956](https://github.com/trimox/angular-mdc-web/commit/91c6956))
+* **top-app-bar:** Should destroy ripple ([#1355](https://github.com/trimox/angular-mdc-web/issues/1355)) ([aff2c87](https://github.com/trimox/angular-mdc-web/commit/aff2c87))
+
+
+### Features
+
+* **card:** Improvements ([#1352](https://github.com/trimox/angular-mdc-web/issues/1352)) ([aad3d5b](https://github.com/trimox/angular-mdc-web/commit/aad3d5b))
+* **checkbox:** Remove foundation getters/setters + improvements ([#1368](https://github.com/trimox/angular-mdc-web/issues/1368)) ([4e0e833](https://github.com/trimox/angular-mdc-web/commit/4e0e833))
+* **dialog:** Improved MDC Dialog ([#1374](https://github.com/trimox/angular-mdc-web/issues/1374)) ([d2a28b3](https://github.com/trimox/angular-mdc-web/commit/d2a28b3)), closes [#1341](https://github.com/trimox/angular-mdc-web/issues/1341) [#1272](https://github.com/trimox/angular-mdc-web/issues/1272)
+* **drawer:** Replace open() and close() with open: boolean ([#1340](https://github.com/trimox/angular-mdc-web/issues/1340)) ([0c81dd4](https://github.com/trimox/angular-mdc-web/commit/0c81dd4)), closes [#1307](https://github.com/trimox/angular-mdc-web/issues/1307)
+* **fab:** Position values renamed to bottomLeft and bottomRight ([#1350](https://github.com/trimox/angular-mdc-web/issues/1350)) ([fdb90ec](https://github.com/trimox/angular-mdc-web/commit/fdb90ec))
+* **form-field:** Remove unneeded setInput method ([#1383](https://github.com/trimox/angular-mdc-web/issues/1383)) ([a7ec92b](https://github.com/trimox/angular-mdc-web/commit/a7ec92b))
+* **linear-progress:** Improvements ([#1356](https://github.com/trimox/angular-mdc-web/issues/1356)) ([1ccc860](https://github.com/trimox/angular-mdc-web/commit/1ccc860))
+* **list:** Toggle radio checkbox ([#1379](https://github.com/trimox/angular-mdc-web/issues/1379)) ([67848b1](https://github.com/trimox/angular-mdc-web/commit/67848b1))
+* **menu:** Add absolutePosition property ([#1336](https://github.com/trimox/angular-mdc-web/issues/1336)) ([8b104e0](https://github.com/trimox/angular-mdc-web/commit/8b104e0)), closes [#1333](https://github.com/trimox/angular-mdc-web/issues/1333)
+* **menu:** Add additional selector for menu anchor ([#1339](https://github.com/trimox/angular-mdc-web/issues/1339)) ([e263bd2](https://github.com/trimox/angular-mdc-web/commit/e263bd2))
+* **menu:** Add anchorMargin property ([#1337](https://github.com/trimox/angular-mdc-web/issues/1337)) ([217c3f5](https://github.com/trimox/angular-mdc-web/commit/217c3f5)), closes [#1334](https://github.com/trimox/angular-mdc-web/issues/1334)
+* **menu:** Replace open() and close() with open: boolean ([#1338](https://github.com/trimox/angular-mdc-web/issues/1338)) ([7267143](https://github.com/trimox/angular-mdc-web/commit/7267143)), closes [#1335](https://github.com/trimox/angular-mdc-web/issues/1335)
+* **ripple:** Improved Ripple ([#1362](https://github.com/trimox/angular-mdc-web/issues/1362)) ([2230ff2](https://github.com/trimox/angular-mdc-web/commit/2230ff2))
+* **select:** Remove the non-box variant of select ([#1378](https://github.com/trimox/angular-mdc-web/issues/1378)) ([5214c33](https://github.com/trimox/angular-mdc-web/commit/5214c33)), closes [#1048](https://github.com/trimox/angular-mdc-web/issues/1048)
+* **snackbar:** Use [@angular](https://github.com/angular)/cdk portals package ([#1371](https://github.com/trimox/angular-mdc-web/issues/1371)) ([25dc369](https://github.com/trimox/angular-mdc-web/commit/25dc369)), closes [#1173](https://github.com/trimox/angular-mdc-web/issues/1173)
+* **tab-bar:** Always honor the activeTabIndex property ([#1348](https://github.com/trimox/angular-mdc-web/issues/1348)) ([5225436](https://github.com/trimox/angular-mdc-web/commit/5225436)), closes [#1342](https://github.com/trimox/angular-mdc-web/issues/1342)
+* **tab-bar:** Support for manual and automatic activation behavior ([#1347](https://github.com/trimox/angular-mdc-web/issues/1347)) ([ff6dd64](https://github.com/trimox/angular-mdc-web/commit/ff6dd64)), closes [#1344](https://github.com/trimox/angular-mdc-web/issues/1344)
+* **text-field:** Add support for leading/trailing icons at the same time ([#1376](https://github.com/trimox/angular-mdc-web/issues/1376)) ([2512f03](https://github.com/trimox/angular-mdc-web/commit/2512f03)), closes [#1351](https://github.com/trimox/angular-mdc-web/issues/1351)
+* **text-field:** New mdcTextFieldIcon + improvements ([#1320](https://github.com/trimox/angular-mdc-web/issues/1320)) ([3299486](https://github.com/trimox/angular-mdc-web/commit/3299486)), closes [#1322](https://github.com/trimox/angular-mdc-web/issues/1322) [#1325](https://github.com/trimox/angular-mdc-web/issues/1325)
+* JeetChaudhari adds SSR support ([#1381](https://github.com/trimox/angular-mdc-web/issues/1381)) ([090d197](https://github.com/trimox/angular-mdc-web/commit/090d197)), closes [#1268](https://github.com/trimox/angular-mdc-web/issues/1268)
+* Upgrade to material-components-web v0.40.0 ([#1367](https://github.com/trimox/angular-mdc-web/issues/1367)) ([5ec1ec4](https://github.com/trimox/angular-mdc-web/commit/5ec1ec4)), closes [#1366](https://github.com/trimox/angular-mdc-web/issues/1366)
+
+### Performance Improvements
+
+* **text-field:** Performance improvements ([#1364](https://github.com/trimox/angular-mdc-web/issues/1364)) ([dcd8f06](https://github.com/trimox/angular-mdc-web/commit/dcd8f06))
+
+
+### BREAKING CHANGES
+
+* **dialog:** MDCDialog has been reimplemented to support more use cases, so APIs and the DOM structure have changed. See the updated documentation for more information.
+* MDC Shape package has been removed and replaced with mixins implementing the Shape system. This system implements only rounded corners to provide a straightforward CSS-only solution. Replaced all *-corner-radius component mixins with *-shape-radius mixins to integrate with Shape system.
+* **linear-progress:** Please reference updated documentation for implementation details.
+* **card:** `MdcRipple` is now automatically injected into `mdc-card-primary-action`, so just remove previous `mdc-ripple` directives applied manually.
+* **card:** Removed `icons: boolean` from `mdc-card-actions`. Please update your code to use `mdc-card-action-icons`.
+* **card:** Removed `buttons: boolean` from `mdc-card-actions`. Please update your code to use `mdc-card-action-buttons`.
+* **fab:** Position values renamed to `bottomLeft` and `bottomRight`.
+* **drawer:** Removed `open()` and `close()` methods. Please update your code to use `open: boolean`.
+* **drawer:** Removed `isOpen()` method. Please use `open: boolean`
+* **text-field:** Use directive `mdcTextFieldIcon` on an `mdc-icon` inside an `mdc-text-field`.
+* **text-field:** Renamed `nativeValidation` to `useNativeValidation`
+* **text-field:** Removed `getValue()` method, please update your code to use `value`.
+* **text-field:** Removed `setValid()` method, please update your code to use `valid`.
+* **text-field:** Removed `focused` property, this is now handled by the foundation.
+* **text-field:** Removed `setHelperTextContent()` property.
+* **menu:** Removed `open()` and `close()` methods. Please update your code to use `open: boolean`.
+
+
+
 <a name="0.39.3"></a>
 ## [0.39.3](https://github.com/trimox/angular-mdc-web/compare/v0.39.1...v0.39.3) (2018-09-16)
 

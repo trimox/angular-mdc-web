@@ -178,9 +178,9 @@ export class MdcListItem implements AfterViewInit, OnDestroy {
     return this.elementRef.nativeElement;
   }
 
-  private _loadListeners() {
+  private _loadListeners(): void {
     this._ngZone.runOutsideAngular(() =>
-      fromEvent(this.getListItemElement(), 'click').pipe(takeUntil(this._destroy))
+      fromEvent<MouseEvent>(this.getListItemElement(), 'click').pipe(takeUntil(this._destroy))
         .subscribe(() => this._ngZone.run(() => this._emitChangeEvent())));
   }
 

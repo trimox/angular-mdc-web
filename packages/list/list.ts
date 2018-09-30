@@ -7,7 +7,6 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
-  HostBinding,
   Input,
   NgZone,
   OnDestroy,
@@ -24,7 +23,8 @@ import { toBoolean, Platform } from '@angular-mdc/web/common';
 import { MdcListItem, MdcListSelectionChange } from './list-item';
 
 import { strings } from '@material/list/constants';
-import { MDCListFoundation } from '@material/list';
+import { matches } from '@material/dom/ponyfill';
+import { MDCListFoundation } from '@material/list/index';
 
 /** Change event that is being fired whenever the selected state of an option changes. */
 export class MdcListItemChange {
@@ -73,6 +73,7 @@ export class MdcListGroupSubheader {
   host: {
     'role': 'list',
     'class': 'mdc-list',
+    '[attr.aria-orientation]': 'verticalOrientation ? "vertical" : "horizontal"',
     '[class.mdc-list--dense]': 'dense',
     '[class.mdc-list--avatar-list]': 'avatar',
     '[class.ng-mdc-list--border]': 'border',
@@ -166,11 +167,6 @@ export class MdcList implements AfterViewInit, OnDestroy {
   }
   private _wrapFocus: boolean;
 
-  @HostBinding('attr.aria-orientation') ariaOrientation: string = 'vertical';
-  @HostBinding('attr.aria-hidden') ariaHidden: boolean = false;
-
-  private _clickSubscription: Subscription;
-
   @ContentChildren(MdcListItem, { descendants: true }) _listItems: QueryList<MdcListItem>;
 
   /** Emits a change event whenever the selected state of an option changes. */
@@ -192,8 +188,8 @@ export class MdcList implements AfterViewInit, OnDestroy {
     return {
       getListItemCount: () => this._listItems.length,
       getFocusedElementIndex: () => {
-        if (!this._platform.isBrowser) { return -1; }
-        this._listItems.toArray().findIndex(_ => _.elementRef.nativeElement === document.activeElement);
+        if (!this._platform.isBrowser && !document.activeElement) { return -1; }
+        return this._listItems.toArray().findIndex(_ => _.getListItemElement() === document.activeElement) || -1;
       },
       setAttributeForElementIndex: (index: number, attr: string, value: string) =>
         this._listItems.toArray()[index].getListItemElement().setAttribute(attr, value),
@@ -218,10 +214,9 @@ export class MdcList implements AfterViewInit, OnDestroy {
       },
       toggleCheckbox: (index: number) => {
         let checkboxOrRadioExists = false;
-        const listItem = this._listItems[index];
-        const elementsToToggle =
-          [].slice.call(listItem.querySelectorAll(strings.CHECKBOX_RADIO_SELECTOR));
-        elementsToToggle.forEach((element) => {
+        const listItem = this._listItems.toArray()[index];
+        const elementsToToggle = [].slice.call(listItem.getListItemElement().querySelectorAll(strings.CHECKBOX_RADIO_SELECTOR));
+        elementsToToggle.forEach(element => {
           const event = document.createEvent('Event');
           event.initEvent('change', true, true);
 
@@ -241,7 +236,7 @@ export class MdcList implements AfterViewInit, OnDestroy {
     destroy(): void,
     setVerticalOrientation(vertical: boolean): void,
     setWrapFocus(wrapFocus: boolean): void,
-    handleClick(): void,
+    handleClick(index: number, toggleCheckbox: boolean): void,
     handleKeydown(evt: KeyboardEvent, isRootListItem: boolean, listItemIndex: number): void,
     handleFocusIn(evt: FocusEvent, listItemIndex: number): void,
     handleFocusOut(evt: FocusEvent, listItemIndex: number): void,
@@ -276,9 +271,9 @@ export class MdcList implements AfterViewInit, OnDestroy {
     this._destroy.next();
     this._destroy.complete();
 
-    if (this._clickSubscription) {
-      this._clickSubscription.unsubscribe();
-    }
+    this._dropSubscriptions();
+
+    this._foundation.destroy();
   }
 
   private _resetListItems() {
@@ -297,7 +292,7 @@ export class MdcList implements AfterViewInit, OnDestroy {
   private _listenForListItemSelection(): void {
     this._listItemSelectionSubscription = this.listItemSelections.subscribe(event => {
       if (this.singleSelection) {
-        this._listItems.filter((_) => _.activated || _.selected).forEach((_) => {
+        this._listItems.filter(_ => _.activated || _.selected).forEach((_) => {
           _.selected = false;
           _.activated = false;
         });
@@ -316,35 +311,6 @@ export class MdcList implements AfterViewInit, OnDestroy {
     });
   }
 
-  private _loadListeners(): void {
-    this._ngZone.runOutsideAngular(() =>
-      fromEvent<KeyboardEvent>(this._getHostElement(), 'keydown').pipe(takeUntil(this._destroy))
-        .subscribe((evt) => this._ngZone.run(() => {
-          const index = this._getListItemIndex(evt);
-          if (index >= 0 && evt.target) {
-            this._foundation.handleKeydown(evt, (<any>evt.target).classList.contains('mdc-list-item'), index);
-          }
-        })));
-
-    this._ngZone.runOutsideAngular(() =>
-      fromEvent<FocusEvent>(this._getHostElement(), 'focusin').pipe(takeUntil(this._destroy))
-        .subscribe((evt) => this._ngZone.run(() => {
-          const index = this._getListItemIndex(evt);
-          if (index >= 0) {
-            this._foundation.handleFocusIn(evt, index);
-          }
-        })));
-
-    this._ngZone.runOutsideAngular(() =>
-      fromEvent<FocusEvent>(this._getHostElement(), 'focusout').pipe(takeUntil(this._destroy))
-        .subscribe((evt) => this._ngZone.run(() => {
-          const index = this._getListItemIndex(evt);
-          if (index >= 0) {
-            this._foundation.handleFocusOut(evt, index);
-          }
-        })));
-  }
-
   setInteractive(value: boolean): void {
     this._interactive = toBoolean(value);
 
@@ -357,15 +323,7 @@ export class MdcList implements AfterViewInit, OnDestroy {
 
   setSingleSelection(singleSelection: boolean): void {
     this._singleSelection = toBoolean(singleSelection);
-    this._foundation.setSingleSelection(this.singleSelection);
-
-    if (this.singleSelection) {
-      this._clickSubscription = this._ngZone.runOutsideAngular(() =>
-        fromEvent(document.body, 'click')
-          .subscribe(() => this._ngZone.run(() => this._foundation.handleClick())));
-    } else if (this._clickSubscription) {
-      this._clickSubscription.unsubscribe();
-    }
+    this._foundation.setSingleSelection(this._singleSelection);
 
     if (this.getSelectedIndex() > -1) {
       this.setSelectedIndex(this.getSelectedIndex());
@@ -381,7 +339,7 @@ export class MdcList implements AfterViewInit, OnDestroy {
   getSelectedIndex(): number {
     if (!this._listItems) { return -1; }
 
-    return this._listItems.toArray().findIndex((_) => _.selected || _.activated);
+    return this._listItems.toArray().findIndex(_ => _.selected || _.activated);
   }
 
   focusFirstElement(): void {
@@ -396,8 +354,49 @@ export class MdcList implements AfterViewInit, OnDestroy {
     this._getHostElement().setAttribute('role', role);
   }
 
-  private _getListItemIndex(evt: Event) {
-    return this._listItems.toArray().findIndex((_) => _.getListItemElement() === evt.target);
+  private _loadListeners(): void {
+    this._ngZone.runOutsideAngular(() =>
+      fromEvent<MouseEvent>(this._getHostElement(), 'click').pipe(takeUntil(this._destroy))
+        .subscribe(evt => this._ngZone.run(() => this._handleClickEvent(evt))));
+
+    this._ngZone.runOutsideAngular(() =>
+      fromEvent<KeyboardEvent>(this._getHostElement(), 'keydown').pipe(takeUntil(this._destroy))
+        .subscribe(evt => this._ngZone.run(() => {
+          const index = this._getListItemIndex(evt);
+          if (index >= 0 && evt.target) {
+            this._foundation.handleKeydown(evt, (<any>evt.target).classList.contains('mdc-list-item'), index);
+          }
+        })));
+
+    this._ngZone.runOutsideAngular(() =>
+      fromEvent<FocusEvent>(this._getHostElement(), 'focusin').pipe(takeUntil(this._destroy))
+        .subscribe(evt => this._ngZone.run(() => {
+          const index = this._getListItemIndex(evt);
+          if (index >= 0) {
+            this._foundation.handleFocusIn(evt, index);
+          }
+        })));
+
+    this._ngZone.runOutsideAngular(() =>
+      fromEvent<FocusEvent>(this._getHostElement(), 'focusout').pipe(takeUntil(this._destroy))
+        .subscribe(evt => this._ngZone.run(() => {
+          const index = this._getListItemIndex(evt);
+          if (index >= 0) {
+            this._foundation.handleFocusOut(evt, index);
+          }
+        })));
+  }
+
+  private _handleClickEvent(evt: MouseEvent): void {
+    const index = this._getListItemIndex(evt);
+
+    // Toggle the checkbox only if it's not the target of the event, or the checkbox will have 2 change events.
+    const toggleCheckbox = !matches((evt.target), strings.CHECKBOX_RADIO_SELECTOR);
+    this._foundation.handleClick(index, toggleCheckbox);
+  }
+
+  private _getListItemIndex(evt: Event): number {
+    return this._listItems.toArray().findIndex(_ => _.getListItemElement() === evt.target);
   }
 
   /** Retrieves the DOM element of the component host. */

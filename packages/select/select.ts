@@ -171,8 +171,8 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   private _lineRippleSubscription: Subscription;
 
   /** Combined stream of all of the line ripple events. */
-  get lineRippleEvents(): Observable<any> {
-    return merge(...LINE_RIPPLE_EVENTS.map(evt => fromEvent(this._getInputElement(), evt)));
+  get lineRippleEvents(): Observable<Event> {
+    return merge<Event>(...LINE_RIPPLE_EVENTS.map(evt => fromEvent(this._getInputElement(), evt)));
   }
 
   createAdapter() {
@@ -270,11 +270,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   private _initFoundationVariants(): void {
     Promise.resolve().then(() => {
       this._initRipple();
-
-      if (!this._outlined) {
-        setTimeout(() => this._lineRipple.init());
-        this._lineRippleSubscription = this.lineRippleEvents.pipe().subscribe(evt => this._setTransformOrigin_(evt));
-      }
+      this._initLineRipple();
 
       this._changeDetectorRef.markForCheck();
     });
@@ -382,7 +378,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   // Implemented as part of ControlValueAccessor.
   setDisabledState(disabled: boolean) {
     this._disabled = toBoolean(disabled);
-    setTimeout(() => this._foundation.updateDisabledStyle(disabled));
+    setTimeout(() => this._foundation.updateDisabledStyle(this._disabled));
 
     this._changeDetectorRef.markForCheck();
   }
@@ -435,12 +431,27 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
     }
   }
 
+  private _initLineRipple(): void {
+    if (this._outlined) { return; }
+    setTimeout(() => this._lineRipple.init());
+
+    this._lineRippleSubscription = this.lineRippleEvents.pipe()
+      .subscribe((evt: MouseEvent | TouchEvent) => {
+        if (evt instanceof MouseEvent) {
+          this._setRippleCenter(evt.clientX, evt.target!);
+        } else {
+          const clientX = evt.touches[0] && evt.touches[0].clientX;
+          this._setRippleCenter(clientX, evt.target!);
+        }
+      });
+  }
+
   /**
    * Sets the line ripple's transform origin, so that the line ripple activate
    * animation will animate out from the user's click location. */
-  private _setTransformOrigin_(evt: any): void {
-    const targetClientRect = evt.target.getBoundingClientRect();
-    const xCoordinate = evt.clientX;
+  private _setRippleCenter(clientX: number, target: EventTarget): void {
+    const targetClientRect = (<HTMLElement>target).getBoundingClientRect();
+    const xCoordinate = clientX;
     const normalizedX = xCoordinate - targetClientRect.left;
 
     this._lineRipple.setRippleCenter(normalizedX);

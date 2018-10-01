@@ -19,7 +19,7 @@ import { toBoolean, UniqueSelectionDispatcher } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcFormFieldControl } from '@angular-mdc/web/form-field';
 
-import { MDCRadioFoundation } from '@material/radio';
+import { MDCRadioFoundation } from '@material/radio/index';
 
 /**
  * Describes a parent MdcRadioGroup component.
@@ -190,7 +190,7 @@ export class MdcRadio implements AfterViewInit, OnInit, OnDestroy, MdcFormFieldC
 
   ngAfterViewInit(): void {
     this._foundation.init();
-    this.ripple.init({ surface: this._getHostElement(), unbounded: true, activator: this._getInputElement() });
+    this._initRipple();
   }
 
   ngOnDestroy(): void {
@@ -266,6 +266,17 @@ export class MdcRadio implements AfterViewInit, OnInit, OnDestroy, MdcFormFieldC
 
   markForCheck(): void {
     this._changeDetectorRef.markForCheck();
+  }
+
+  private _initRipple(): void {
+    this.ripple.init({
+      surface: this._getHostElement(),
+      activator: this._getInputElement()
+    }, Object.assign(this.ripple.createAdapter(), {
+      isUnbounded: () => true,
+      isSurfaceActive: () => false,
+      isSurfaceDisabled: () => this._disabled
+    }));
   }
 
   /** Dispatch change event with current value. */

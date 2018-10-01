@@ -208,7 +208,7 @@ export class MdcRadioGroup implements AfterContentInit, ControlValueAccessor {
    * @param isDisabled Whether the control should be disabled.
    */
   setDisabledState(isDisabled: boolean) {
-    this.disabled = isDisabled;
+    this.disabled = toBoolean(isDisabled);
     this._changeDetectorRef.markForCheck();
   }
 

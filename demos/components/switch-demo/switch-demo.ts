@@ -4,7 +4,6 @@ import { FormControl, ReactiveFormsModule, FormGroup, NgForm, Validators } from 
 import { MdcSwitch } from '@angular-mdc/web';
 
 @Component({
-  selector: 'switch-demo',
   templateUrl: './switch-demo.html'
 })
 export class SwitchDemo {

@@ -175,4 +175,20 @@
     </mdc-radio-group>
     <p>Your favorite season is: {{favoriteSeason}}</p>
   </div>
+
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Radio Group - Reactive forms</h3>
+    <div class="demo-layout__row">
+      <button mdc-button (click)="demoRadioReactive.disabled = !demoRadioReactive.disabled">Disabled: {{demoRadioReactive.disabled ? 'On' : 'Off'}}</button>
+    </div>
+    <form [formGroup]="form">
+      <mdc-radio-group #demoRadioReactive formControlName="season">
+        <mdc-form-field *ngFor="let season of seasons">
+          <mdc-radio [value]="season"></mdc-radio>
+          <label>{{season}}</label>
+        </mdc-form-field>
+      </mdc-radio-group>
+    </form>
+    <p>Your favorite season is: {{form.controls['season'].value}}</p>
+  </div>
 </div>

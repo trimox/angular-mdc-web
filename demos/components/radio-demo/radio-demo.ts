@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 import { MdcRadio, MdcRadioChange, MdcRadioGroup } from '@angular-mdc/web';
 
@@ -8,6 +9,10 @@ import { MdcRadio, MdcRadioChange, MdcRadioGroup } from '@angular-mdc/web';
 export class RadioDemo {
   favoriteSeason: string;
   seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
+
+  form = new FormGroup({
+    season: new FormControl(''),
+  });
 
   alternateColors(input: MdcRadio) {
     const demoInput = 'demo-radio--custom';

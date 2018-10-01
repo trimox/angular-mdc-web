@@ -74,8 +74,11 @@ export class MdcSnackbarComponent implements AfterViewInit, OnDestroy {
           this._getActionButton().addEventListener('blur', handler, true);
         }
       },
-      deregisterCapturedBlurHandler: (handler: EventListener) =>
-        this._getActionButton().removeEventListener('blur', handler, true),
+      deregisterCapturedBlurHandler: (handler: EventListener) => {
+        if (this.actionButton) {
+          this._getActionButton().removeEventListener('blur', handler, true);
+        }
+      },
       registerVisibilityChangeHandler: (handler: EventListener) => {
         if (!this._platform.isBrowser) { return; }
 
@@ -101,7 +104,11 @@ export class MdcSnackbarComponent implements AfterViewInit, OnDestroy {
           this._getActionButton().addEventListener('click', handler);
         }
       },
-      deregisterActionClickHandler: (handler: EventListener) => this._getActionButton().removeEventListener('click', handler),
+      deregisterActionClickHandler: (handler: EventListener) => {
+        if (this.actionButton) {
+          this._getActionButton().removeEventListener('click', handler);
+        }
+      },
       registerTransitionEndHandler: (handler: EventListener) => {
         if (this._platform.isBrowser) {
           this._getHostElement().addEventListener(getCorrectEventName(window, 'transitionend'), handler);
@@ -152,7 +159,7 @@ export class MdcSnackbarComponent implements AfterViewInit, OnDestroy {
     setTimeout(() => {
       this._foundation.show({ ...config.data, ...config });
 
-      if (config.focusAction && this._getActionButton()) {
+      if (this.actionButton && config.focusAction && this._getActionButton()) {
         this._getActionButton().focus();
       }
     }, 10);

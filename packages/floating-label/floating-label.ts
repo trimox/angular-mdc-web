@@ -10,7 +10,7 @@ import {
 import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
-import { MDCFloatingLabelFoundation } from '@material/floating-label';
+import { MDCFloatingLabelFoundation } from '@material/floating-label/index';
 
 @Directive({
   selector: 'label[mdcFloatingLabel], mdc-floating-label',
@@ -78,7 +78,7 @@ export class MdcFloatingLabel implements AfterContentInit, OnDestroy {
         .subscribe(() => this._ngZone.run(() => this._foundation.handleShakeAnimationEnd_())));
   }
 
-  get floatingLabelFoundation(): MDCFloatingLabelFoundation {
+  get floatingLabelFoundation(): any {
     return this._foundation;
   }
 

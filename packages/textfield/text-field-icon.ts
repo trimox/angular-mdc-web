@@ -72,7 +72,7 @@ export class MdcTextFieldIcon extends MdcIcon implements OnDestroy {
     this.destroy();
   }
 
-  get iconTextFoundation(): MDCTextFieldIconFoundation {
+  get iconTextFoundation(): any {
     return this._foundation;
   }
 }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OverlayModule } from '@angular/cdk/overlay';
-import { PortalModule } from '@angular/cdk/portal';
+import { OverlayModule } from '@angular-mdc/web/overlay';
+import { PortalModule } from '@angular-mdc/web/portal';
 import { MdcButtonModule } from '@angular-mdc/web/button';
 
 import { MdcSnackbarComponent } from './snackbar.component';

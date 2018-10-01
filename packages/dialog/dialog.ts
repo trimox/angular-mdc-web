@@ -12,16 +12,14 @@ import { Observable, Subject, defer } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import {
   Overlay,
-  OverlayConfig,
-  OverlayContainer,
   OverlayRef
-} from '@angular/cdk/overlay';
+} from '@angular-mdc/web/overlay';
 import {
   ComponentPortal,
   ComponentType,
   PortalInjector,
   TemplatePortal
-} from '@angular/cdk/portal';
+} from '@angular-mdc/web/portal';
 
 import { MdcDialogRef } from './dialog-ref';
 import { MdcDialogPortal } from './dialog-portal';
@@ -68,8 +66,7 @@ export class MdcDialog implements OnDestroy {
     private _overlay: Overlay,
     private _injector: Injector,
     @Optional() @Inject(MDC_DIALOG_DEFAULT_OPTIONS) private _defaultOptions,
-    @Optional() @SkipSelf() private _parentDialog: MdcDialog,
-    private _overlayContainer: OverlayContainer) { }
+    @Optional() @SkipSelf() private _parentDialog: MdcDialog) { }
 
   /**
    * Opens a modal dialog containing the given template.
@@ -93,11 +90,6 @@ export class MdcDialog implements OnDestroy {
       dialogContainer,
       overlayRef,
       config);
-
-    // If this is the first dialog that we're opening, hide all the non-overlay content.
-    if (!this.openDialogs.length) {
-      this._hideNonDialogContentFromAssistiveTechnology();
-    }
 
     this.openDialogs.push(dialogRef);
     dialogRef.afterClosed().subscribe(() => this._removeOpenDialog(dialogRef));
@@ -235,31 +227,6 @@ export class MdcDialog implements OnDestroy {
 
         this._ariaHiddenElements.clear();
         this._afterAllClosed.next();
-      }
-    }
-  }
-
-  /** Hides all of the content that isn't an overlay from assistive technology. */
-  private _hideNonDialogContentFromAssistiveTechnology(): void {
-    const overlayContainer = this._overlayContainer.getContainerElement();
-
-    // Ensure that the overlay container is attached to the DOM.
-    if (!overlayContainer.parentElement) {
-      return;
-    }
-
-    const siblings = overlayContainer.parentElement.children;
-
-    for (let i = siblings.length - 1; i > -1; i--) {
-      const sibling = siblings[i];
-
-      if (sibling !== overlayContainer &&
-        sibling.nodeName !== 'SCRIPT' &&
-        sibling.nodeName !== 'STYLE' &&
-        !sibling.hasAttribute('aria-live')) {
-
-        this._ariaHiddenElements.set(sibling, sibling.getAttribute('aria-hidden'));
-        sibling.setAttribute('aria-hidden', 'true');
       }
     }
   }

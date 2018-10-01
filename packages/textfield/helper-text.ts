@@ -72,7 +72,7 @@ export class MdcTextFieldHelperText {
     this._foundation.showToScreenReader();
   }
 
-  get helperTextFoundation(): MDCTextFieldHelperTextFoundation {
+  get helperTextFoundation(): any {
     return this._foundation;
   }
 

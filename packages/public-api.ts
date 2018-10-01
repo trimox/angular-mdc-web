@@ -20,6 +20,8 @@ export * from '@angular-mdc/web/list';
 export * from '@angular-mdc/web/menu';
 export * from '@angular-mdc/web/menu-surface';
 export * from '@angular-mdc/web/notched-outline';
+export * from '@angular-mdc/web/overlay';
+export * from '@angular-mdc/web/portal';
 export * from '@angular-mdc/web/radio';
 export * from '@angular-mdc/web/ripple';
 export * from '@angular-mdc/web/select';

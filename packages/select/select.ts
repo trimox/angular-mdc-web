@@ -171,8 +171,8 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   private _lineRippleSubscription: Subscription;
 
   /** Combined stream of all of the line ripple events. */
-  get lineRippleEvents(): Observable<Event> {
-    return merge<Event>(...LINE_RIPPLE_EVENTS.map(evt => fromEvent(this._getInputElement(), evt)));
+  get lineRippleEvents(): Observable<any> {
+    return merge(...LINE_RIPPLE_EVENTS.map(evt => fromEvent(this._getInputElement(), evt)));
   }
 
   createAdapter() {

@@ -151,6 +151,8 @@ export class PackageBundler {
       }));
     }
 
+    bundleOptions.plugins.push(minify());
+
     // For UMD bundles, we need to adjust the `external` bundle option in order to include
     // all necessary code in the bundle.
     if (config.format === 'umd') {

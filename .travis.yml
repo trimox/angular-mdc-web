@@ -9,11 +9,12 @@ branches:
     - master
 
 cache:
+  yarn: true
   directories:
     - ./node_modules
 
 install:
-  - npm ci
+  - yarn
 
 script:
   - export CHROME_BIN=chromium-browser

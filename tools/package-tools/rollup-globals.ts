@@ -19,7 +19,6 @@ const rollupMdcEntryPoints = mdcSecondaryEntryPoints.reduce((globals: any, entry
 export const rollupGlobals = {
   'tslib': 'tslib',
 
-  '@angular/cdk': 'ng.cdk',
   '@angular/core': 'ng.core',
   '@angular/common': 'ng.common',
   '@angular/forms': 'ng.forms',
@@ -29,6 +28,7 @@ export const rollupGlobals = {
 
   // Some packages are not really needed for the UMD bundles, but for the missingRollupGlobals rule.
   '@angular-mdc/web': 'ng.web',
+
   '@material/animation': 'mdc.animation',
   '@material/checkbox': 'mdc.checkbox',
   '@material/chips': 'mdc.chips',
@@ -65,15 +65,14 @@ export const rollupGlobals = {
   // Include secondary entry-points of the mdc packages
   ...rollupMdcEntryPoints,
 
-  'rxjs': 'Rx',
-  'rxjs/operators': 'Rx.operators',
+  'rxjs': 'rxjs',
+  'rxjs/operators': 'rxjs.operators',
 };
 
 /** Map of externals that are used inside of the different packages. */
 export const rollupExternals = {
   'tslib': 'tslib',
 
-  '@angular/cdk': 'ng.cdk',
   '@angular/core': 'ng.core',
   '@angular/common': 'ng.common',
   '@angular/forms': 'ng.forms',
@@ -86,6 +85,6 @@ export const rollupExternals = {
   // Include secondary entry-points of the mdc packages
   ...rollupMdcEntryPoints,
 
-  'rxjs': 'Rx',
-  'rxjs/operators': 'Rx.operators',
+  'rxjs': 'rxjs',
+  'rxjs/operators': 'rxjs.operators',
 };

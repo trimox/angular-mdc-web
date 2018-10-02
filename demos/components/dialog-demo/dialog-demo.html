@@ -286,13 +286,14 @@ open(myDialogComponent, {{"{
   <pre>
   <![CDATA[
   import { Component, Inject } from '@angular/core';
-  import { MdcDialogRef } from '@angular-mdc/web';
+  import { MdcDialogRef, MDC_DIALOG_DATA } from '@angular-mdc/web';
   @Component({
     // ...
   })
   export class YourDialog {
-    constructor(public dialogRef: MdcDialogRef<YourDialog>) {
-      userName: string = this.dialogRef.data.userName;
+    constructor(public dialogRef: MdcDialogRef<YourDialog>,
+      @Inject(MDC_DIALOG_DATA) public data: DialogData) {
+      userName: string = data.name;
     }
   }]]>
   </pre>

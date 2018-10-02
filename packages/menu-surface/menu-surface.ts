@@ -274,14 +274,14 @@ export class MdcMenuSurfaceBase {
   private _loadListeners(): void {
     this.ngZone.runOutsideAngular(() =>
       fromEvent<KeyboardEvent>(this._getHostElement(), 'keydown').pipe(takeUntil(this._destroy))
-        .subscribe((evt) => this.ngZone.run(() => this._foundation.handleKeydown(evt))));
+        .subscribe(evt => this.ngZone.run(() => this._foundation.handleKeydown(evt))));
   }
 
   protected registerBodyCick(): void {
     this._openedMenuSubscription =
       this.ngZone.runOutsideAngular(() =>
         fromEvent<MouseEvent>(document.body, 'click')
-          .subscribe((evt) => this.ngZone.run(() => this._foundation.handleBodyClick(evt))));
+          .subscribe(evt => this.ngZone.run(() => this._foundation.handleBodyClick(evt))));
   }
 
   protected deregisterBodyClick(): void {

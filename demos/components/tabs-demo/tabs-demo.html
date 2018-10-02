@@ -87,6 +87,10 @@
             <td>getTabIndex(tab: MdcTab): number</td>
             <td>Returns the MdcTab index for given tab.</td>
           </tr>
+          <tr>
+            <td>disableTab(index: number, disabled: boolean)</td>
+            <td>Control whether or not the tab is in a disable state.</td>
+          </tr>
         </tbody>
       </table>
       <table>
@@ -151,6 +155,10 @@
             <td>icon: string</td>
             <td>Optional. Indicates a leading icon in the tab.</td>
           </tr>
+          <tr>
+            <td>disabled: boolean</td>
+            <td>Optional. Control the disabled state of the tab.</td>
+          </tr>
         </tbody>
       </table>
       <table>
@@ -213,6 +221,7 @@
       <button mdc-button primary (click)="addTab()">Add Tab</button>
       <button mdc-button (click)="demoTabBar.useAutomaticActivation = !demoTabBar.useAutomaticActivation">Automatic Activation: {{demoTabBar.useAutomaticActivation ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoTabBar.activateTab(2)">Activate Tab(3)</button>
+      <button mdc-button (click)="demoTabBar.disableTab(1, true)">Disable Tab(2)</button>
     </div>
     <mdc-tab-bar #demoTabBar (activated)="logTab($event)" [activeTabIndex]="1" useAutomaticActivation>
       <mdc-tab-scroller>

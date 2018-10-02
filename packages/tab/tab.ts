@@ -71,7 +71,8 @@ export class MdcTabIcon {
     'class': 'mdc-tab',
     '[class.mdc-tab--active]': 'active',
     '[class.mdc-tab--stacked]': 'stacked',
-    '[class.mdc-tab--min-width]': 'fixed'
+    '[class.mdc-tab--min-width]': 'fixed',
+    '[class.ng-mdc-tab--disabled]': 'disabled'
   },
   template: `
   <div #content class="mdc-tab__content">
@@ -114,6 +115,14 @@ export class MdcTab implements OnInit, OnDestroy {
     this._changeDetectorRef.detectChanges();
   }
   private _fixed: boolean;
+
+  @Input()
+  get disabled(): boolean { return this._disabled; }
+  set disabled(value: boolean) {
+    this._disabled = toBoolean(value);
+    this._changeDetectorRef.detectChanges();
+  }
+  private _disabled: boolean;
 
   @Output() readonly interacted: EventEmitter<MdcTabInteractedEvent> =
     new EventEmitter<MdcTabInteractedEvent>();
@@ -215,7 +224,7 @@ export class MdcTab implements OnInit, OnDestroy {
     this._ngZone.runOutsideAngular(() =>
       fromEvent<MouseEvent>(this._getHostElement(), 'click').pipe(takeUntil(this._destroy))
         .subscribe(() => this._ngZone.run(() => {
-          if (!this.active) {
+          if (!this.active && !this._disabled) {
             this._foundation.handleClick();
           }
         })));

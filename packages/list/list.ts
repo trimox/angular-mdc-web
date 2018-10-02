@@ -259,10 +259,11 @@ export class MdcList implements AfterViewInit, OnDestroy {
     this._foundation.init();
 
     // When list items change, re-subscribe
-    this._changeSubscription = this._listItems.changes.pipe(startWith(null)).subscribe(() => {
-      this._resetListItems();
-      this.setInteractive(this.interactive);
-    });
+    this._changeSubscription = this._listItems.changes.pipe(startWith(null))
+      .subscribe(() => {
+        this._resetListItems();
+        this.setInteractive(this.interactive);
+      });
 
     this._loadListeners();
   }
@@ -292,10 +293,11 @@ export class MdcList implements AfterViewInit, OnDestroy {
   private _listenForListItemSelection(): void {
     this._listItemSelectionSubscription = this.listItemSelections.subscribe(event => {
       if (this.singleSelection) {
-        this._listItems.filter(_ => _.activated || _.selected).forEach((_) => {
-          _.selected = false;
-          _.activated = false;
-        });
+        this._listItems.filter(_ => _.activated || _.selected)
+          .forEach(_ => {
+            _.selected = false;
+            _.activated = false;
+          });
       }
 
       if (this.useActivatedClass) {

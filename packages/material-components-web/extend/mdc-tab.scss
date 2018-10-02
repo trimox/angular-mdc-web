@@ -1,0 +1,11 @@
+.ng-mdc-tab--disabled {
+  @include mdc-tab-text-label-color(rgba(black, .3));
+  @include mdc-tab-icon-color(rgba(black, .3));
+
+  .mdc-tab-indicator {
+    @include mdc-tab-indicator-underline-color(rgba(black, .3));
+  }
+
+  cursor: default;
+  pointer-events: none;
+}

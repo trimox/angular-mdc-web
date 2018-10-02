@@ -21,7 +21,7 @@ import { MdcTabScroller, MdcTabScrollerAlignment } from '@angular-mdc/web/tab-sc
 import { MdcTabIndicator } from '@angular-mdc/web/tab-indicator';
 import { MdcTab, MdcTabInteractedEvent, MDC_TAB_BAR_PARENT_COMPONENT } from '@angular-mdc/web/tab';
 
-import { MDCTabBarFoundation } from '@material/tab-bar';
+import { MDCTabBarFoundation } from '@material/tab-bar/index';
 
 export class MdcTabActivatedEvent {
   constructor(
@@ -294,6 +294,13 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
   /** Returns an index for given tab */
   getTabIndex(tab: MdcTab): number {
     return this.tabs.toArray().indexOf(tab);
+  }
+
+  /** Disable or enable the tab at the given index */
+  disableTab(index: number, disabled: boolean): void {
+    if (!this.tabs) { return; }
+
+    this.tabs.toArray()[index].disabled = toBoolean(disabled);
   }
 
   private _indexIsInRange(index: number): boolean {

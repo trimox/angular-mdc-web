@@ -1,3 +1,21 @@
+<a name="0.40.1"></a>
+## [0.40.1](https://github.com/trimox/angular-mdc-web/compare/v0.40.0...v0.40.1) (2018-10-02)
+
+
+### Bug Fixes
+
+* **portal:** Define attached host for portals when attach to hosts ([#1391](https://github.com/trimox/angular-mdc-web/issues/1391)) ([3a52dc1](https://github.com/trimox/angular-mdc-web/commit/3a52dc1))
+* **radio:** Should not show ripple if disabled ([#1394](https://github.com/trimox/angular-mdc-web/issues/1394)) ([7b5fc3a](https://github.com/trimox/angular-mdc-web/commit/7b5fc3a))
+* **snackbar:** Should check if action button exists ([#1390](https://github.com/trimox/angular-mdc-web/issues/1390)) ([31bac8e](https://github.com/trimox/angular-mdc-web/commit/31bac8e))
+
+
+### Features
+
+* **tab:** Add disabled property ([#1395](https://github.com/trimox/angular-mdc-web/issues/1395)) ([dd31b85](https://github.com/trimox/angular-mdc-web/commit/dd31b85)), closes [#1392](https://github.com/trimox/angular-mdc-web/issues/1392)
+* **text-field:** Add autocomplete property ([#1396](https://github.com/trimox/angular-mdc-web/issues/1396)) ([3bc4135](https://github.com/trimox/angular-mdc-web/commit/3bc4135)), closes [#1393](https://github.com/trimox/angular-mdc-web/issues/1393)
+
+
+
 <a name="0.40.0"></a>
 # [0.40.0](https://github.com/trimox/angular-mdc-web/compare/v0.39.3...v0.40.0) (2018-09-30)
 

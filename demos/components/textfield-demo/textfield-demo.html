@@ -81,6 +81,10 @@
             <td>Returns whether the control is empty.</td>
           </tr>
           <tr>
+            <td>autocomplete: string</td>
+            <td>Indicates if the input can be automatically completed by the browser, usually by remembering previous values the user has entered.</td>
+          </tr>
+          <tr>
             <td>tabIndex: number</td>
             <td>Tab index of the text element.</td>
           </tr>
@@ -306,7 +310,7 @@
     <div class="demo-layout__row">
       <button mdc-button (click)="bothIcons.outlined = !bothIcons.outlined">Outlined: {{bothIcons.outlined ? 'On' : 'Off'}}</button>
     </div>
-    <mdc-text-field #bothIcons label="Phone number">
+    <mdc-text-field autocomplete="tel" type="tel" #bothIcons label="Phone number">
       <mdc-icon mdcTextFieldIcon leading>phone</mdc-icon>
       <mdc-icon mdcTextFieldIcon trailing>event</mdc-icon>
     </mdc-text-field>

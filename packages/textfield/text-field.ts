@@ -62,7 +62,8 @@ let nextUniqueId = 0;
     [type]="type"
     [tabindex]="tabIndex"
     [disabled]="disabled"
-    [attr.pattern]="pattern ? pattern : null"
+    [attr.autocomplete]="autocomplete"
+    [attr.pattern]="pattern"
     [attr.placeholder]="placeholder"
     [attr.maxlength]="maxlength"
     [attr.minlength]="minlength"
@@ -98,6 +99,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   @Input() maxlength: number;
   @Input() minlength: number;
   @Input() pattern: string;
+  @Input() autocomplete: string;
   @Input() max: number;
   @Input() min: number;
   @Input() size: number;

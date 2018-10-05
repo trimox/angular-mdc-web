@@ -67,7 +67,7 @@ export class MdcSnackbarComponent implements AfterViewInit, OnDestroy {
         }
       },
       setFocus: () => this._getActionButton().focus(),
-      isFocused: () => this._platform.isBrowser ? document.activeElement === this._getActionButton() : false,
+      isFocused: () => this._platform.isBrowser ? document.activeElement! === this._getActionButton() : false,
       visibilityIsHidden: () => this._platform.isBrowser ? document.hidden : false,
       registerCapturedBlurHandler: (handler: EventListener) => {
         if (this.actionButton) {
@@ -92,12 +92,12 @@ export class MdcSnackbarComponent implements AfterViewInit, OnDestroy {
       registerCapturedInteractionHandler: (evtType: string, handler: EventListener) => {
         if (!this._platform.isBrowser) { return; }
 
-        document.body.addEventListener(evtType, handler, true);
+        document.body!.addEventListener(evtType, handler, true);
       },
       deregisterCapturedInteractionHandler: (evtType: string, handler: EventListener) => {
         if (!this._platform.isBrowser) { return; }
 
-        document.body.removeEventListener(evtType, handler, true);
+        document.body!.removeEventListener(evtType, handler, true);
       },
       registerActionClickHandler: (handler: EventListener) => {
         if (this.actionButton) {

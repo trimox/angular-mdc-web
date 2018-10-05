@@ -158,12 +158,12 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
       hasClass: (className: string) => this._getHostElement().classList.contains(className),
       elementHasClass: (element: Element, className: string) => element.classList.contains(className),
       computeBoundingRect: () => this._getHostElement().getBoundingClientRect(),
-      saveFocus: () => this._previousFocus = this._platform.isBrowser ? document.activeElement : null,
+      saveFocus: () => this._previousFocus = this._platform.isBrowser ? document.activeElement! : null,
       restoreFocus: () => {
         if (!this._platform.isBrowser) { return; }
 
         const previousFocus = this._previousFocus && (<any>this._previousFocus).focus;
-        if (this._getHostElement().contains(document.activeElement) && previousFocus) {
+        if (this._getHostElement().contains(document.activeElement!) && previousFocus) {
           (<any>this._previousFocus).focus();
         }
       },

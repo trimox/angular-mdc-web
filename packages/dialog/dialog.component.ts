@@ -96,12 +96,12 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
       hasClass: (className: string) => this._getDialog().classList.contains(className),
       addBodyClass: (className: string) => {
         if (this._platform.isBrowser) {
-          document.body.classList.add(className);
+          document.body!.classList.add(className);
         }
       },
       removeBodyClass: (className: string) => {
         if (this._platform.isBrowser) {
-          document.body.classList.remove(className);
+          document.body!.classList.remove(className);
         }
       },
       eventTargetMatches: (target: EventTarget, selector: string) => matches(target, selector),

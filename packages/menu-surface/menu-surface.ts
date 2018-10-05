@@ -89,15 +89,15 @@ export class MdcMenuSurfaceBase {
       setTransformOrigin: (origin: string) => {
         this._getHostElement().style[`${getTransformPropertyName(window)}-origin`] = origin;
       },
-      isFocused: () => this.platform.isBrowser ? document.activeElement === this._getHostElement() : false,
+      isFocused: () => this.platform.isBrowser ? document.activeElement! === this._getHostElement() : false,
       saveFocus: () => {
         if (!this.platform.isBrowser) { return; }
-        this._previousFocus = document.activeElement;
+        this._previousFocus = document.activeElement!;
       },
       restoreFocus: () => {
         if (!this.platform.isBrowser) { return; }
 
-        if (this._getHostElement().contains(document.activeElement)) {
+        if (this._getHostElement().contains(document.activeElement!)) {
           if (this._previousFocus && (<any>this._previousFocus).focus) {
             (<any>this._previousFocus).focus();
           }
@@ -105,11 +105,11 @@ export class MdcMenuSurfaceBase {
       },
       isFirstElementFocused: () => {
         if (!this.platform.isBrowser) { return false; }
-        return this._firstFocusableElement && this._firstFocusableElement === document.activeElement;
+        return this._firstFocusableElement && this._firstFocusableElement === document.activeElement!;
       },
       isLastElementFocused: () => {
         if (!this.platform.isBrowser) { return false; }
-        return this._lastFocusableElement && this._lastFocusableElement === document.activeElement;
+        return this._lastFocusableElement && this._lastFocusableElement === document.activeElement!;
       },
       focusFirstElement: () => {
         if (!this.platform.isBrowser) { return; }
@@ -137,8 +137,8 @@ export class MdcMenuSurfaceBase {
       },
       getBodyDimensions: () => {
         return {
-          width: this.platform.isBrowser ? document.body.clientWidth : 0,
-          height: this.platform.isBrowser ? document.body.clientHeight : 0
+          width: this.platform.isBrowser ? document.body!.clientWidth : 0,
+          height: this.platform.isBrowser ? document.body!.clientHeight : 0
         };
       },
       getWindowScroll: () => {
@@ -220,7 +220,7 @@ export class MdcMenuSurfaceBase {
 
     const parentEl = this._getHostElement().parentElement;
     if (parentEl) {
-      document.body.appendChild(parentEl.removeChild(this._getHostElement()));
+      document.body!.appendChild(parentEl.removeChild(this._getHostElement()));
       this.setIsHoisted(true);
     }
   }
@@ -280,7 +280,7 @@ export class MdcMenuSurfaceBase {
   protected registerBodyCick(): void {
     this._openedMenuSubscription =
       this.ngZone.runOutsideAngular(() =>
-        fromEvent<MouseEvent>(document.body, 'click')
+        fromEvent<MouseEvent>(document.body!, 'click')
           .subscribe(evt => this.ngZone.run(() => this._foundation.handleBodyClick(evt))));
   }
 

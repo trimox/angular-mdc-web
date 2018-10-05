@@ -48,7 +48,7 @@ export class OverlayContainer implements OnDestroy {
     const container = this._document.createElement('div');
 
     container.classList.add('cdk-overlay-container');
-    this._document.body.appendChild(container);
+    this._document.body!.appendChild(container);
     this._containerElement = container;
   }
 }

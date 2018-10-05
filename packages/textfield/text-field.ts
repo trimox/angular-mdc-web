@@ -206,7 +206,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   /** Determines if the component host is a textarea. */
   get textarea(): boolean { return this._getHostElement().nodeName.toLowerCase() === 'mdc-textarea'; }
 
-  get focused(): boolean { return this._platform.isBrowser ? document.activeElement === this._getInputElement() : false; }
+  get focused(): boolean { return this._platform.isBrowser ? document.activeElement! === this._getInputElement() : false; }
 
   get leadingIcon(): MdcTextFieldIcon | undefined { return this._icons.find(icon => icon.leading); }
 
@@ -219,7 +219,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
       hasClass: (className: string) => this._getHostElement().classList.contains(className),
-      isFocused: () => this._platform.isBrowser ? document.activeElement === this._getInputElement() : false,
+      isFocused: () => this._platform.isBrowser ? document.activeElement! === this._getInputElement() : false,
       isRtl: () =>
         this._platform.isBrowser ? window.getComputedStyle(this._getHostElement()).getPropertyValue('direction') === 'rtl' : false,
       activateLineRipple: () => {

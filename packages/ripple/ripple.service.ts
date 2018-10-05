@@ -68,14 +68,14 @@ export class MdcRipple implements OnDestroy {
       addClass: (className: string) => this._rippleConfig.surface.classList.add(className),
       removeClass: (className: string) => this._rippleConfig.surface.classList.remove(className),
       registerDocumentInteractionHandler: (evtType: string, handler: EventListener) => {
-        if (!this._platform.isBrowser || !document.documentElement) { return; }
+        if (!this._platform.isBrowser) { return; }
 
-        document.documentElement.addEventListener(evtType, handler, applyPassive());
+        document.documentElement!.addEventListener(evtType, handler, applyPassive());
       },
       deregisterDocumentInteractionHandler: (evtType: string, handler: EventListener) => {
-        if (!this._platform.isBrowser || !document.documentElement) { return; }
+        if (!this._platform.isBrowser) { return; }
 
-        document.documentElement.removeEventListener(evtType, handler, applyPassive());
+        document.documentElement!.removeEventListener(evtType, handler, applyPassive());
       },
       registerResizeHandler: (handler: EventListener) => {
         if (!this._platform.isBrowser) { return; }

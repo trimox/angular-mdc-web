@@ -188,8 +188,8 @@ export class MdcList implements AfterViewInit, OnDestroy {
     return {
       getListItemCount: () => this._listItems.length,
       getFocusedElementIndex: () => {
-        if (!this._platform.isBrowser && !document.activeElement) { return -1; }
-        return this._listItems.toArray().findIndex(_ => _.getListItemElement() === document.activeElement) || -1;
+        if (!this._platform.isBrowser && document.activeElement!) { return -1; }
+        return this._listItems.toArray().findIndex(_ => _.getListItemElement() === document.activeElement!) || -1;
       },
       setAttributeForElementIndex: (index: number, attr: string, value: string) =>
         this._listItems.toArray()[index].getListItemElement().setAttribute(attr, value),

@@ -1,6 +1,6 @@
-dist: trusty
 language: node_js
-sudo: required
+dist: trusty
+sudo: false
 node_js:
   - '10.7.0'
 

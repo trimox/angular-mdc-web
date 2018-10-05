@@ -2,6 +2,13 @@ const webpackConfig = require('./test/webpack.test.js');
 
 module.exports = function(config) {
   config.set({
+    plugins: [
+      require('karma-jasmine'),
+      require('karma-chrome-launcher'),
+      require('karma-coverage'),
+      require('karma-webpack')
+    ],
+    basePath: '',
     webpack: webpackConfig,
     frameworks: ['jasmine'],
     reporters: ['dots', 'coverage'],
@@ -30,7 +37,17 @@ module.exports = function(config) {
     browserNoActivityTimeout: 120000,
     captureTimeout: 240000,
     colors: true,
+    concurrency: Infinity,
     logLevel: config.LOG_INFO,
-    browsers: ['ChromeHeadless'],
+    browsers: ['ChromeHeadlessCI'],
+    customLaunchers: {
+      "ChromeHeadlessCI": {
+        "base": "ChromeHeadless",
+        "flags": [
+          "--window-size=1024,768",
+          "--no-sandbox"
+        ]
+      }
+    }
   });
 };

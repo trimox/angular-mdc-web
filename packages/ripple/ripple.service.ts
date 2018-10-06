@@ -16,8 +16,6 @@ import {
 } from '@material/ripple/util';
 import { MDCRippleFoundation } from '@material/ripple/index';
 
-export const MATCHES = getMatchesProperty(HTMLElement.prototype);
-
 // Activation events registered on the root element of each instance for activation
 const ACTIVATION_EVENT_TYPES = ['touchstart', 'mousedown', 'keydown'];
 
@@ -62,8 +60,13 @@ export class MdcRipple implements OnDestroy {
     return {
       browserSupportsCssVars: () => this._platform.isBrowser ? supportsCssVariables(window) : false,
       isUnbounded: () => this._rippleConfig.unbounded,
-      isSurfaceActive: () => this._rippleConfig.activator ?
-        this._rippleConfig.activator[MATCHES](':active') : this._rippleConfig.surface[MATCHES](':active'),
+      isSurfaceActive: () => {
+        if (!this._platform.isBrowser) { return false; }
+
+        const MATCHES = getMatchesProperty(HTMLElement.prototype);
+        return this._rippleConfig.activator ? this._rippleConfig.activator[MATCHES](':active') :
+          this._rippleConfig.surface[MATCHES](':active');
+      },
       isSurfaceDisabled: () => this._rippleConfig.disabled,
       addClass: (className: string) => this._rippleConfig.surface.classList.add(className),
       removeClass: (className: string) => this._rippleConfig.surface.classList.remove(className),

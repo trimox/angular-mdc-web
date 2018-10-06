@@ -22,7 +22,7 @@ import {
   toBoolean,
   toNumber
 } from '@angular-mdc/web/common';
-import { MdcRipple, MATCHES } from '@angular-mdc/web/ripple';
+import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcFloatingLabel } from '@angular-mdc/web/floating-label';
 import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
 import { MdcNotchedOutline } from '@angular-mdc/web/notched-outline';
@@ -30,7 +30,7 @@ import { MdcNotchedOutline } from '@angular-mdc/web/notched-outline';
 import { MdcTextFieldIcon } from './text-field-icon';
 import { MdcTextFieldHelperText } from './helper-text';
 
-import { MDCTextFieldFoundation } from '@material/textfield';
+import { MDCTextFieldFoundation } from '@material/textfield/index';
 
 export const MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -473,9 +473,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
       this._ripple.init({
         surface: this.elementRef.nativeElement,
         activator: this._getInputElement()
-      }, Object.assign(this._ripple.createAdapter(), {
-        isSurfaceActive: () => this._getInputElement()[MATCHES](':active')
-      }));
+      });
     } else {
       this._ripple.destroy();
     }

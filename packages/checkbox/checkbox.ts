@@ -18,7 +18,7 @@ import { takeUntil, filter } from 'rxjs/operators';
 
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Platform, toBoolean } from '@angular-mdc/web/common';
-import { MdcRipple, MATCHES } from '@angular-mdc/web/ripple';
+import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcFormFieldControl } from '@angular-mdc/web/form-field';
 
 import { MDCCheckboxFoundation } from '@material/checkbox/index';
@@ -277,7 +277,6 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
       activator: this._getInputElement()
     }, Object.assign(this.ripple.createAdapter(), {
       isUnbounded: () => true,
-      isSurfaceActive: () => this._getInputElement()[MATCHES](':active'),
       isSurfaceDisabled: () => this._disabled
     }));
   }

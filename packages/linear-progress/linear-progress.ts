@@ -1,16 +1,16 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
   Input,
   OnDestroy,
+  OnInit,
   ViewEncapsulation
 } from '@angular/core';
 import { toBoolean, toNumber } from '@angular-mdc/web/common';
 
-import { MDCLinearProgressFoundation } from '@material/linear-progress';
+import { MDCLinearProgressFoundation } from '@material/linear-progress/index';
 
 @Component({
   moduleId: module.id,
@@ -35,7 +35,7 @@ import { MDCLinearProgressFoundation } from '@material/linear-progress';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcLinearProgress implements AfterViewInit, OnDestroy {
+export class MdcLinearProgress implements OnInit, OnDestroy {
   @Input()
   get open(): boolean { return this._open; }
   set open(value: boolean) {
@@ -49,14 +49,18 @@ export class MdcLinearProgress implements AfterViewInit, OnDestroy {
   @Input()
   get determinate(): boolean { return this._determinate; }
   set determinate(value: boolean) {
-    this.setDeterminate(value);
+    this._determinate = toBoolean(value);
+    this._foundation.setDeterminate(this._determinate);
+    this._changeDetectorRef.markForCheck();
   }
   private _determinate: boolean;
 
   @Input()
   get reversed(): boolean { return this._reversed; }
   set reversed(value: boolean) {
-    this.setReverse(value);
+    this._reversed = toBoolean(value);
+    this._foundation.setReverse(this._reversed);
+    this._changeDetectorRef.markForCheck();
   }
   private _reversed: boolean;
 
@@ -65,14 +69,18 @@ export class MdcLinearProgress implements AfterViewInit, OnDestroy {
   @Input()
   get progress(): number { return this._progress; }
   set progress(value: number) {
-    this.setProgress(value);
+    this._progress = toNumber(value);
+    this._foundation.setProgress(this._progress);
+    this._changeDetectorRef.markForCheck();
   }
   private _progress: number;
 
   @Input()
   get buffer(): number { return this._buffer; }
   set buffer(value: number) {
-    this.setBuffer(value);
+    this._buffer = toNumber(value);
+    this._foundation.setBuffer(this._buffer);
+    this._changeDetectorRef.markForCheck();
   }
   private _buffer: number;
 
@@ -102,40 +110,12 @@ export class MdcLinearProgress implements AfterViewInit, OnDestroy {
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef<HTMLElement>) { }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this._foundation.init();
   }
 
   ngOnDestroy(): void {
     this._foundation.destroy();
-  }
-
-  setProgress(progress: number): void {
-    this._progress = toNumber(progress);
-    this._foundation.setProgress(this._progress);
-
-    this._changeDetectorRef.markForCheck();
-  }
-
-  setBuffer(buffer: number): void {
-    this._buffer = toNumber(buffer);
-    this._foundation.setBuffer(this._buffer);
-
-    this._changeDetectorRef.markForCheck();
-  }
-
-  setReverse(reverse: boolean): void {
-    this._reversed = toBoolean(reverse);
-    this._foundation.setReverse(this._reversed);
-
-    this._changeDetectorRef.markForCheck();
-  }
-
-  setDeterminate(determinate: boolean): void {
-    this._determinate = toBoolean(determinate);
-    this._foundation.setDeterminate(this._determinate);
-
-    this._changeDetectorRef.markForCheck();
   }
 
   /** Retrieves the DOM element of the component host. */

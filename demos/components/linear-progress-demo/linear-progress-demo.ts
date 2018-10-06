@@ -1,4 +1,4 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { MdcLinearProgress } from '@angular-mdc/web';
 
@@ -6,13 +6,11 @@ import { MdcLinearProgress } from '@angular-mdc/web';
   templateUrl: './linear-progress-demo.html'
 })
 export class LinearProgressDemo {
-  constructor(private _renderer: Renderer2) { }
-
   alternateColors(input: MdcLinearProgress) {
     const demoInput = 'demo-linear-progress--custom';
 
     input.elementRef.nativeElement.classList.contains(demoInput) ?
-      this._renderer.removeClass(input.elementRef.nativeElement, demoInput)
-      : this._renderer.addClass(input.elementRef.nativeElement, demoInput);
+      input.elementRef.nativeElement.classList.remove(demoInput)
+      : input.elementRef.nativeElement.classList.add(demoInput);
   }
 }

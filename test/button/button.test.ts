@@ -13,7 +13,7 @@ describe('MdcButton', () => {
       declarations: [
         SimpleButton,
         HrefButton,
-        IconButton,
+        SimpleButtonWithIcon
       ]
     });
     TestBed.compileComponents();
@@ -153,14 +153,14 @@ describe('MdcButton', () => {
   });
 
   // Icon button tests
-  describe('mdc-icon-button', () => {
+  describe('mdc-button with icon', () => {
     let buttonDebugElement: DebugElement;
     let buttonNativeElement: HTMLElement;
     let buttonInstance: MdcIcon;
-    let testComponent: IconButton;
+    let testComponent: SimpleButtonWithIcon;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(IconButton);
+      fixture = TestBed.createComponent(SimpleButtonWithIcon);
       fixture.detectChanges();
 
       buttonDebugElement = fixture.debugElement.query(By.directive(MdcIcon));
@@ -216,15 +216,12 @@ class HrefButton {
   isDisabled: boolean = false;
 }
 
-/** icon button. */
 @Component({
   template: `
-    <button mdc-button [icon]="icon">
+    <button mdc-button>
       <mdc-icon>search</mdc-icon>
       Search
     </button>
   `,
 })
-class IconButton {
-  icon: boolean = true;
-}
+class SimpleButtonWithIcon { }

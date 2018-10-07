@@ -1,11 +1,11 @@
 import {
-  AfterContentInit,
   ChangeDetectionStrategy,
   Component,
   ContentChild,
   ElementRef,
   Input,
   OnDestroy,
+  OnInit,
   ViewEncapsulation
 } from '@angular/core';
 import { toBoolean } from '@angular-mdc/web/common';
@@ -32,7 +32,7 @@ import { MdcIcon } from '@angular-mdc/web/icon';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcButton implements AfterContentInit, OnDestroy {
+export class MdcButton implements OnInit, OnDestroy {
   @Input()
   get raised(): boolean { return this._raised; }
   set raised(value: boolean) {
@@ -76,26 +76,23 @@ export class MdcButton implements AfterContentInit, OnDestroy {
   protected _outlined: boolean;
 
   @Input()
-  get icon(): any { return this._icon; }
-  set icon(value: any) {
-    this.setIcon(value);
-  }
-  protected _icon: any;
-
-  @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this.setDisabled(value);
   }
   protected _disabled: boolean;
 
-  @ContentChild(MdcIcon) buttonIcon: MdcIcon;
+  @ContentChild(MdcIcon) _icon: MdcIcon;
 
   constructor(
-    private _elementRef: ElementRef<HTMLElement>,
+    public elementRef: ElementRef<HTMLElement>,
     private _ripple: MdcRipple) { }
 
-  ngAfterContentInit(): void {
+  ngOnInit(): void {
+    if (this._icon) {
+      this._icon.elementRef.nativeElement.classList.add('mdc-button__icon');
+    }
+
     this._ripple.init({ surface: this.getHostElement() });
   }
 
@@ -118,7 +115,7 @@ export class MdcButton implements AfterContentInit, OnDestroy {
   setPrimary(primary: boolean): void {
     this._primary = toBoolean(primary);
 
-    if (primary) {
+    if (this._primary) {
       this.setSecondary(false);
     }
   }
@@ -126,18 +123,8 @@ export class MdcButton implements AfterContentInit, OnDestroy {
   setSecondary(secondary: boolean): void {
     this._secondary = toBoolean(secondary);
 
-    if (secondary) {
+    if (this._secondary) {
       this.setPrimary(false);
-    }
-  }
-
-  setIcon(icon: any): void {
-    this._icon = icon;
-
-    if (this.buttonIcon) {
-      this.buttonIcon.elementRef.nativeElement.classList.add('mdc-button__icon');
-    } else if (icon) {
-      this.icon.classList.add('mdc-button__icon');
     }
   }
 
@@ -147,7 +134,7 @@ export class MdcButton implements AfterContentInit, OnDestroy {
   }
 
   getHostElement(): HTMLElement {
-    return this._elementRef.nativeElement;
+    return this.elementRef.nativeElement;
   }
 
   onClick(event: MouseEvent): void {

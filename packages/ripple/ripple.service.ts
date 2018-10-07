@@ -47,13 +47,13 @@ export class MdcRipple implements OnDestroy {
   /** Combined stream of all of the activation events. */
   get activationEvents(): Observable<any> {
     return merge(...ACTIVATION_EVENT_TYPES.map(evt =>
-      fromEvent(this._rippleConfig.activator ? this._rippleConfig.activator : this._rippleConfig.surface, evt)));
+      fromEvent(this._rippleConfig.activator ? this._rippleConfig.activator : this._rippleConfig.surface, evt, applyPassive())));
   }
 
   /** Combined stream of all of the de-activation events. */
   get pointerDeactivationEvents(): Observable<any> {
     return merge(...POINTER_DEACTIVATION_EVENT_TYPES.map(evt =>
-      fromEvent(this._rippleConfig.activator ? this._rippleConfig.activator : this._rippleConfig.surface, evt)));
+      fromEvent(this._rippleConfig.activator ? this._rippleConfig.activator : this._rippleConfig.surface, evt, applyPassive())));
   }
 
   createAdapter() {

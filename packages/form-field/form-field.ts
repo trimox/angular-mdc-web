@@ -1,18 +1,21 @@
 import {
-  AfterContentInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ContentChild,
   ElementRef,
   Input,
+  NgZone,
   OnDestroy,
+  OnInit,
   ViewEncapsulation
 } from '@angular/core';
+import { fromEvent, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 import { toBoolean } from '@angular-mdc/web/common';
 
 import { MdcFormFieldControl } from './form-field-control';
-import { MDCFormFieldFoundation } from '@material/form-field/index';
 
 @Component({
   moduleId: module.id,
@@ -26,8 +29,11 @@ import { MDCFormFieldFoundation } from '@material/form-field/index';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcFormField implements AfterContentInit, OnDestroy {
-  private _label: HTMLElement;
+export class MdcFormField implements OnInit, OnDestroy {
+  /** Emits whenever the component is destroyed. */
+  private _destroy = new Subject<void>();
+
+  public label: HTMLElement;
 
   @Input()
   get alignEnd(): boolean { return this._alignEnd; }
@@ -38,53 +44,40 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
 
   @ContentChild(MdcFormFieldControl) input: MdcFormFieldControl<any>;
 
-  createAdapter() {
-    return {
-      registerInteractionHandler: (type: string, handler: EventListener) => this._label.addEventListener(type, handler),
-      deregisterInteractionHandler: (type: string, handler: EventListener) => this._label.removeEventListener(type, handler),
-      activateInputRipple: () => {
-        if (this.input && this.input.ripple) {
-          this.input.ripple.activateRipple();
-        }
-      },
-      deactivateInputRipple: () => {
-        if (this.input && this.input.ripple) {
-          this.input.ripple.deactivateRipple();
-        }
-      }
-    };
-  }
-
-  private _foundation: {
-    init(): void,
-    destroy(): void
-  };
-
   constructor(
+    private _ngZone: NgZone,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef<HTMLElement>) { }
 
-  ngAfterContentInit(): void {
+  ngOnInit(): void {
     if (this.input) {
       const formControl = this.input.elementRef.nativeElement;
 
       if (formControl.nextElementSibling) {
         if (formControl.nextElementSibling.tagName === 'LABEL') {
-          this._label = formControl.nextElementSibling;
+          this.label = formControl.nextElementSibling;
+          this.label.setAttribute('for', this.input.inputId);
 
-          this._label.setAttribute('for', this.input.inputId);
-
-          this._foundation = new MDCFormFieldFoundation(this.createAdapter());
-          this._foundation.init();
-          this._changeDetectorRef.markForCheck();
+          this._loadListeners();
         }
       }
     }
   }
 
   ngOnDestroy(): void {
-    if (this._foundation) {
-      this._foundation.destroy();
-    }
+    this._destroy.next();
+    this._destroy.complete();
+  }
+
+  private _loadListeners(): void {
+    this._ngZone.runOutsideAngular(() =>
+      fromEvent<MouseEvent>(this.label, 'click').pipe(takeUntil(this._destroy))
+        .subscribe(() => this._ngZone.run(() => {
+          this.input.ripple!.activateRipple();
+
+          if (typeof requestAnimationFrame !== 'undefined') {
+            requestAnimationFrame(() => this.input.ripple!.deactivateRipple());
+          }
+        })));
   }
 }

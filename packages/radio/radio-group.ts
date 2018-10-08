@@ -56,6 +56,8 @@ export class MdcRadioGroup implements AfterContentInit, ControlValueAccessor {
   /** Whether the `value` has been set to its initial value. */
   private _isInitialized: boolean = false;
 
+  @ContentChildren(forwardRef(() => MdcRadio), { descendants: true }) _radios: QueryList<MdcRadio>;
+
   /** Name of the radio button group. All radio buttons inside this group will use this name. */
   @Input()
   get name(): string { return this._name; }
@@ -127,11 +129,9 @@ export class MdcRadioGroup implements AfterContentInit, ControlValueAccessor {
   @Output() readonly change: EventEmitter<MdcRadioChange> =
     new EventEmitter<MdcRadioChange>();
 
-  @ContentChildren(MdcRadio, { descendants: true }) _radios: QueryList<MdcRadio>;
-
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    public elementRef: ElementRef) { }
+    public elementRef: ElementRef<HTMLElement>) { }
 
   ngAfterContentInit(): void {
     this._isInitialized = true;
@@ -148,6 +148,7 @@ export class MdcRadioGroup implements AfterContentInit, ControlValueAccessor {
       this._radios.forEach(radio => {
         radio.name = this.name;
       });
+      this._markRadiosForCheck();
     }
   }
 

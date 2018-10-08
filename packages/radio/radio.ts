@@ -9,7 +9,6 @@ import {
   InjectionToken,
   Input,
   OnDestroy,
-  OnInit,
   Optional,
   Output,
   ViewChild,
@@ -60,7 +59,8 @@ export class MdcRadioChange {
   host: {
     '[id]': 'id',
     'class': 'mdc-radio',
-    '(focus)': 'input.nativeElement.focus()'
+    '(focus)': 'input.nativeElement.focus()',
+    '[attr.tabindex]': 'null'
   },
   template: `
   <input type="radio"
@@ -71,10 +71,10 @@ export class MdcRadioChange {
     [tabIndex]="tabIndex"
     [attr.aria-label]="ariaLabel"
     [attr.aria-labelledby]="ariaLabelledby"
+    [attr.aria-describedby]="ariaDescribedby"
     [disabled]="disabled"
     [required]="required"
     [checked]="checked"
-    [attr.value]="value"
     (click)="onInputClick($event)"
     (change)="onInputChange($event)" />
     <div class="mdc-radio__background">
@@ -89,9 +89,7 @@ export class MdcRadioChange {
     [{ provide: MdcFormFieldControl, useExisting: MdcRadio }]
   ]
 })
-export class MdcRadio implements AfterViewInit, OnInit, OnDestroy, MdcFormFieldControl<any> {
-  readonly componentInstance = MdcRadio;
-
+export class MdcRadio implements AfterViewInit, OnDestroy, MdcFormFieldControl<any> {
   private _uniqueId: string = `mdc-radio-${++nextUniqueId}`;
 
   /** The unique ID for the radio button. */
@@ -101,8 +99,12 @@ export class MdcRadio implements AfterViewInit, OnInit, OnDestroy, MdcFormFieldC
   @Input() name: string;
 
   @Input() tabIndex: number = 0;
-  @Input('aria-label') ariaLabel: string = '';
-  @Input('aria-labelledby') ariaLabelledby: string | null = null;
+
+  @Input('aria-label') ariaLabel: string;
+  @Input('aria-labelledby') ariaLabelledby: string;
+
+  /** The 'aria-describedby' attribute is read after the element's label and field type. */
+  @Input('aria-describedby') ariaDescribedby: string;
 
   get inputId(): string { return `${this.id || this._uniqueId}-input`; }
 
@@ -166,7 +168,7 @@ export class MdcRadio implements AfterViewInit, OnInit, OnDestroy, MdcFormFieldC
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    public elementRef: ElementRef,
+    public elementRef: ElementRef<HTMLElement>,
     public ripple: MdcRipple,
     private _radioDispatcher: UniqueSelectionDispatcher,
     @Optional() @Inject(MDC_RADIO_GROUP_PARENT_COMPONENT) public radioGroup: MdcRadioGroupParentComponent) {
@@ -179,18 +181,19 @@ export class MdcRadio implements AfterViewInit, OnInit, OnDestroy, MdcFormFieldC
       });
   }
 
-  ngOnInit() {
-    if (this.radioGroup) {
-      // If the radio is inside a radio group, determine if it should be checked
-      this.checked = this.radioGroup.value === this._value;
-      // Copy name from parent radio group
-      this.name = this.radioGroup.name;
-    }
-  }
-
   ngAfterViewInit(): void {
     this._foundation.init();
     this._initRipple();
+
+    if (this.radioGroup) {
+      Promise.resolve().then(() => {
+        // If the radio is inside a radio group, determine if it should be checked
+        this.checked = this.radioGroup.value === this._value;
+        // Copy name from parent radio group
+        this.name = this.radioGroup.name;
+        this._changeDetectorRef.markForCheck();
+      });
+    }
   }
 
   ngOnDestroy(): void {

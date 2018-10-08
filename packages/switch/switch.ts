@@ -51,7 +51,7 @@ let nextUniqueId = 0;
   },
   template: `
   <div class="mdc-switch__track"></div>
-  <div class="mdc-switch__thumb-underlay">
+  <div #thumbUnderlay class="mdc-switch__thumb-underlay">
     <div class="mdc-switch__thumb">
       <input type="checkbox"
         #input
@@ -79,8 +79,6 @@ let nextUniqueId = 0;
 export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, OnDestroy {
   private _uniqueId: string = `mdc-switch-${++nextUniqueId}`;
 
-  readonly componentInstance = MdcSwitch;
-
   @Input() id: string = this._uniqueId;
   @Input() name: string | null = null;
 
@@ -98,10 +96,14 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, OnDes
   }
   private _disabled: boolean;
 
+  /** The value attribute of the native input element */
+  @Input() value: string;
+
   @Input() tabIndex: number = 0;
   @Output() readonly change: EventEmitter<MdcSwitchChange> = new EventEmitter<MdcSwitchChange>();
 
-  @ViewChild('input') inputElement: ElementRef;
+  @ViewChild('input') inputElement: ElementRef<HTMLInputElement>;
+  @ViewChild('thumbUnderlay') thumbUnderlay: ElementRef<HTMLElement>;
 
   /** View -> model callback called when value changes */
   _onChange: (value: any) => void = () => { };
@@ -129,16 +131,19 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, OnDes
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    private _ripple: MdcRipple,
+    public ripple: MdcRipple,
     public elementRef: ElementRef<HTMLElement>) { }
 
   ngAfterViewInit(): void {
     this._foundation.init();
-    this._ripple.init({ surface: this._getHostElement(), unbounded: true, activator: this._getInputElement() });
+    this.ripple.init({
+      surface: this.thumbUnderlay.nativeElement,
+      unbounded: true
+    });
   }
 
   ngOnDestroy(): void {
-    this._ripple.destroy();
+    this.ripple.destroy();
   }
 
   onChange(evt: Event): void {

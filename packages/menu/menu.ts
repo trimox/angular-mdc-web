@@ -19,7 +19,7 @@ import {
 import { Subscription, Observable } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
-import { Platform, toBoolean } from '@angular-mdc/web/common';
+import { Platform, toBoolean, toNumber } from '@angular-mdc/web/common';
 import { MdcList, MdcListItem } from '@angular-mdc/web/list';
 import {
   AbsolutePosition,
@@ -30,7 +30,7 @@ import {
   MdcMenuSurfaceOpenedEvent
 } from '@angular-mdc/web/menu-surface';
 
-import { MDCMenuFoundation, Corner } from '@material/menu';
+import { MDCMenuFoundation, Corner } from '@material/menu/index';
 
 export class MdcMenuSelectedEvent {
   constructor(
@@ -134,6 +134,18 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
   private _fixed: boolean;
 
   @Input()
+  get hoistToBody(): boolean { return this._hoistToBody; }
+  set hoistToBody(value: boolean) {
+    this._hoistToBody = toBoolean(value);
+    if (this._hoistToBody) {
+      this.setHoistMenuToBody();
+    }
+    this.setIsHoisted(this._hoistToBody);
+    this._changeDetectorRef.markForCheck();
+  }
+  private _hoistToBody: boolean;
+
+  @Input()
   get anchorMargin(): AnchorMargin { return this._anchorMargin; }
   set anchorMargin(value: AnchorMargin) {
     this._anchorMargin = value;
@@ -146,7 +158,7 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
   get absolutePosition(): AbsolutePosition { return this._absolutePosition; }
   set absolutePosition(value: AbsolutePosition) {
     this._absolutePosition = value;
-    this.setAbsolutePosition(value.x, value.y);
+    this.setAbsolutePosition(toNumber(value.x), toNumber(value.y));
     this._changeDetectorRef.markForCheck();
   }
   private _absolutePosition: AbsolutePosition;

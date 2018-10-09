@@ -110,11 +110,11 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
   private _fixedAdjustElement: HTMLElement;
 
   @Input()
-  get scrollTarget(): Element | Window { return this._scrollTarget; }
-  set scrollTarget(target: Element | Window) {
-    this._scrollTarget = target || window;
+  get scrollTarget(): any { return this._scrollTarget; }
+  set scrollTarget(target: any) {
+    this._scrollTarget = target;
   }
-  private _scrollTarget: Element | Window = window;
+  private _scrollTarget: any = this._platform.isBrowser ? window : undefined;
 
   /** Event emitted when the navigation icon is selected. */
   @Output() readonly navigationSelected: EventEmitter<MdcTopAppBarNavSelected> =

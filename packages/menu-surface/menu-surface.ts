@@ -1,5 +1,5 @@
 import {
-  Component,
+  Directive,
   ElementRef,
   EventEmitter,
   NgZone,
@@ -13,17 +13,17 @@ import { Platform, toBoolean } from '@angular-mdc/web/common';
 
 import { getTransformPropertyName } from '@material/menu-surface/util';
 import { Corner, strings } from '@material/menu-surface/constants';
-import { MDCMenuSurfaceFoundation } from '@material/menu-surface';
+import { MDCMenuSurfaceFoundation } from '@material/menu-surface/index';
 
 export interface MdcMenuSurfaceOpenedEvent {
   detail: string;
 }
 
 export interface AnchorMargin {
-  top: number;
-  right: number;
-  bottom: number;
-  left: number;
+  top?: number;
+  right?: number;
+  bottom?: number;
+  left?: number;
 }
 
 export interface AbsolutePosition {
@@ -45,14 +45,9 @@ const ANCHOR_CORNER_MAP = {
   topStart: 'TOP_START'
 };
 
-@Component({
-  moduleId: module.id,
+@Directive({
   selector: '[mdcMenuSurfaceAnchor], mdc-menu-surface-anchor',
-  host: {
-    'class': 'mdc-menu-surface--anchor'
-  },
-  template: '<ng-content></ng-content>',
-  encapsulation: ViewEncapsulation.None
+  host: { 'class': 'mdc-menu-surface--anchor' }
 })
 export class MdcMenuSurfaceAnchor {
   constructor(public elementRef: ElementRef<HTMLElement>) { }
@@ -244,8 +239,8 @@ export class MdcMenuSurfaceBase {
     this._foundation.setAnchorCorner(cornerBit);
   }
 
-  protected setAnchorMargin(margin: AnchorMargin): void {
-    this._foundation.setAnchorMargin(margin);
+  protected setAnchorMargin(anchorMargin: AnchorMargin): void {
+    this._foundation.setAnchorMargin(anchorMargin);
   }
 
   protected setQuickOpen(quickOpen: boolean): void {

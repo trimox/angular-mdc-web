@@ -19,15 +19,12 @@ Development Server
   - Fast, modern development environment (incremental compilation, source maps, live reloading, etc.)
 
 ## <a name="setup"></a> Setup your development environment
-You'll need a recent version of nodejs.
-```
-npm i npm@latest -g
-```
-Once node is installed, simply clone our repo (or your fork of it) and install developer dependencies.
+You'll need a recent version of nodejs and yarn.
+Once ready, simply clone our repo (or your fork of it) and install developer dependencies.
 ```
 git clone https://github.com/trimox/angular-mdc-web.git  # or a path to your fork
 cd angular-mdc-web
-npm i # Install developer dependencies
+yarn # Install developer dependencies
 ```
 
 ## <a name="dev-server"></a> Running the development server
@@ -53,7 +50,7 @@ npm test # Runs karma, and then runs coverage enforcement checks a single time.
 
 ## <a name="build"></a> Building Angular MDC
 ```
-npm run build:release # Builds Angular MDC inside of dist/
+npm run build:release # Builds Angular MDC inside of dist/releases/web
 ```
 
 ## <a name="code-style"></a> Code Style

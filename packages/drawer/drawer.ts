@@ -91,7 +91,7 @@ export class MdcDrawerAppContent { }
     'role': 'navigation',
     'class': 'mdc-drawer'
   },
-  template: `<ng-content></ng-content>`,
+  template: '<ng-content></ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
@@ -107,7 +107,7 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
   private _focusTrap: any;
 
   @Input()
-  get open(): boolean { return this._foundation.isOpen(); }
+  get open(): boolean { return this._open; }
   set open(value: boolean) {
     this._open = toBoolean(value);
     if (this._open) {
@@ -195,8 +195,7 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
     close(): void,
     isOpen(): boolean,
     handleKeydown(evt: KeyboardEvent): void,
-    handleTransitionEnd(evt: TransitionEvent): void,
-    handleScrimClick(): void
+    handleTransitionEnd(evt: TransitionEvent): void
   } = new MDCDismissibleDrawerFoundation(this.createAdapter());
 
   constructor(
@@ -231,7 +230,7 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
 
       this._ngZone.runOutsideAngular(() =>
         this._scrimSubscription = fromEvent<MouseEvent>(this._scrimElement!, 'click')
-          .subscribe(() => this._ngZone.run(() => this._foundation.handleScrimClick())));
+          .subscribe(() => this._ngZone.run(() => this.open = false)));
 
       this._focusTrapFactory = createFocusTrapInstance(this._getHostElement(), this._focusTrapFactory);
     } else if (this._scrimElement) {

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'image-list-demo',
   templateUrl: './image-list-demo.html',
 })
 export class ImageListDemo {

@@ -105,7 +105,6 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
         }
       },
       eventTargetMatches: (target: EventTarget, selector: string) => matches(target, selector),
-      computeBoundingRect: () => this._getDialog().getBoundingClientRect(),
       trapFocus: () => {
         if (this._focusTrap) {
           this._focusTrap.activate();

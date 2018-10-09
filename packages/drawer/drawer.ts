@@ -157,7 +157,6 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
       hasClass: (className: string) => this._getHostElement().classList.contains(className),
       elementHasClass: (element: Element, className: string) => element.classList.contains(className),
-      computeBoundingRect: () => this._getHostElement().getBoundingClientRect(),
       saveFocus: () => this._previousFocus = this._platform.isBrowser ? document.activeElement! : null,
       restoreFocus: () => {
         if (!this._platform.isBrowser) { return; }
@@ -191,6 +190,7 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
   }
 
   private _foundation: {
+    destroy(): void,
     open(): void,
     close(): void,
     isOpen(): boolean,
@@ -219,6 +219,10 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
 
     if (this._listSubscription) {
       this._listSubscription.unsubscribe();
+    }
+
+    if (this._foundation) {
+      this._foundation.destroy();
     }
   }
 

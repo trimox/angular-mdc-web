@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'elevation-demo',
   templateUrl: './elevation-demo.html'
 })
 export class ElevationDemo {

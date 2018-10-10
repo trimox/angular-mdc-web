@@ -152,11 +152,6 @@ export class MdcRipple implements OnDestroy {
     this._ngZone.runOutsideAngular(() => this._foundation.deactivate(event));
   }
 
-  setUnbounded(unbounded: boolean): void {
-    const newValue = toBoolean(unbounded);
-    this._foundation.setUnbounded(newValue);
-  }
-
   handleFocus(): void {
     this._ngZone.runOutsideAngular(() => this._foundation.handleFocus());
   }

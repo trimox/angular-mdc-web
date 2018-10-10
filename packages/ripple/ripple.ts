@@ -1,15 +1,12 @@
 import {
   AfterContentInit,
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Directive,
   ElementRef,
   Input,
-  NgZone,
-  OnDestroy,
-  Renderer2
+  OnDestroy
 } from '@angular/core';
 import { toBoolean } from '@angular-mdc/web/common';
 
@@ -27,88 +24,68 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
   }
 
   @Input()
-  get attachTo(): any { return this._attachTo; }
-  set attachTo(element: any) {
-    if (this._attachTo !== element) {
-      this.setAttachTo(element);
-    }
+  get attachTo(): HTMLElement { return this._attachTo; }
+  set attachTo(element: HTMLElement) {
+    this._attachTo.classList.remove('mdc-ripple-surface');
+    this._attachTo = element;
+    this._attachTo.classList.add('mdc-ripple-surface');
   }
-  protected _attachTo: any;
+  private _attachTo: HTMLElement = this._getHostElement();
 
   @Input()
   get primary(): boolean { return this._primary; }
   set primary(value: boolean) {
-    this.setPrimary(value);
+    this._primary = toBoolean(value);
+    this._primary ? this.attachTo.classList.add('mdc-ripple-surface--primary')
+      : this.attachTo.classList.remove('mdc-ripple-surface--primary');
   }
-  protected _primary: boolean;
+  private _primary: boolean;
 
   @Input()
   get secondary(): boolean { return this._secondary; }
   set secondary(value: boolean) {
-    this.setSecondary(value);
+    this._secondary = toBoolean(value);
+    this._secondary ? this.attachTo.classList.add('mdc-ripple-surface--accent')
+      : this.attachTo.classList.remove('mdc-ripple-surface--accent');
   }
-  protected _secondary: boolean;
+  private _secondary: boolean;
 
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this._disabled = toBoolean(value);
-    this._disabled ? this.ripple.destroy() : this.ripple.init({ surface: this._getHostElement() });
   }
   private _disabled: boolean;
 
   @Input()
   get unbounded(): boolean { return this._unbounded; }
   set unbounded(value: boolean) {
-    this.setUnbounded(value);
+    this._unbounded = toBoolean(value);
   }
   protected _unbounded: boolean = false;
 
   constructor(
-    private _ngZone: NgZone,
-    protected _changeDetectorRef: ChangeDetectorRef,
-    protected _ripple: MdcRipple,
-    protected _renderer: Renderer2,
-    protected elementRef: ElementRef) { }
+    private _changeDetectorRef: ChangeDetectorRef,
+    private _ripple: MdcRipple,
+    public elementRef: ElementRef<HTMLElement>) { }
 
   ngAfterContentInit(): void {
-    this._ngZone.runOutsideAngular(() => setTimeout(() => {
-      this.setAttachTo(this.attachTo ? this.attachTo : this._getHostElement());
-    }, 10));
+    this._initRipple();
   }
 
   ngOnDestroy(): void {
     this.ripple.destroy();
   }
 
-  setUnbounded(unbounded: boolean): void {
-    this._unbounded = unbounded;
-    if (this.ripple.initialized) {
-      this.setUnbounded(this._unbounded);
-    }
-    this._changeDetectorRef.markForCheck();
-  }
-
-  setAttachTo(element: any, unbounded?: boolean): void {
-    this._attachTo = element;
-    this._renderer.addClass(this.attachTo, 'mdc-ripple-surface');
-
-    this.ripple.init({ surface: element, unbounded: this.unbounded });
-    this.setUnbounded(unbounded ? unbounded : this.unbounded);
+  private _initRipple(): void {
+    this.ripple.init({
+      surface: this._attachTo
+    }, Object.assign(this.ripple.createAdapter(), {
+      isUnbounded: () => this._unbounded,
+      isSurfaceDisabled: () => this._disabled
+    }));
 
     this._changeDetectorRef.markForCheck();
-  }
-
-  setPrimary(primary: boolean): void {
-    this._primary = toBoolean(primary);
-    this._primary ? this._renderer.addClass(this.attachTo, 'mdc-ripple-surface--primary')
-      : this._renderer.removeClass(this.attachTo, 'mdc-ripple-surface--primary');
-  }
-
-  setSecondary(secondary: boolean): void {
-    this._secondary = toBoolean(secondary);
-    this._secondary ? this._renderer.addClass(this.attachTo, 'mdc-ripple-surface--accent')
-      : this._renderer.removeClass(this.attachTo, 'mdc-ripple-surface--accent');
   }
 
   /** Retrieves the DOM element of the component host. */
@@ -123,15 +100,13 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
 })
 export class MdcRippleDirective extends MdcRippleComponent {
   constructor(
-    _ngZone: NgZone,
     _changeDetectorRef: ChangeDetectorRef,
     _ripple: MdcRipple,
-    _renderer: Renderer2,
     elementRef: ElementRef) {
 
-    super(_ngZone, _changeDetectorRef, _ripple, _renderer, elementRef);
+    super(_changeDetectorRef, _ripple, elementRef);
 
-    this._renderer.setAttribute(this.elementRef.nativeElement, 'data-mdc-ripple-is-unbounded', '');
-    this.setUnbounded(true);
+    this._unbounded = true;
+    this.elementRef.nativeElement.setAttribute('data-mdc-ripple-is-unbounded', '');
   }
 }

@@ -273,6 +273,9 @@ export class MdcList implements AfterViewInit, OnDestroy {
     this._destroy.complete();
 
     this._dropSubscriptions();
+    if (this._changeSubscription) {
+      this._changeSubscription.unsubscribe();
+    }
 
     this._foundation.destroy();
   }

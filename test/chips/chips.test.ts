@@ -1,12 +1,15 @@
 import { Component, DebugElement, ViewChild } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import {
   MdcChipsModule,
   MdcChip,
   MdcChipSet,
+  MdcChipRemovedEvent,
+  MdcChipIcon,
   MdcChipInteractionEvent,
+  MdcChipSelectionEvent,
   MdcIcon,
   MdcChipSetChange
 } from '@angular-mdc/web';
@@ -69,6 +72,8 @@ describe('Chips', () => {
 
     it('should emit removed event', () => {
       spyOn(testComponent, 'chipRemoved');
+      testComponent.filter = true;
+      fixture.detectChanges();
 
       testComponent.trailingIcon.elementRef.nativeElement.click();
       fixture.detectChanges();
@@ -85,10 +90,6 @@ describe('Chips', () => {
     it('handles click event', () => {
       testNativeElement.click();
       fixture.detectChanges();
-    });
-
-    it('is selected', () => {
-      expect(testInstance.selected).toBe(false);
     });
 
     it('is removable', () => {
@@ -149,6 +150,40 @@ describe('Chips', () => {
       expect(testDebugElement.nativeElement.classList.contains('mdc-chip-set--input')).toBe(true);
       expect(testInstance.input).toBe(true);
     });
+
+    it('#should have selected chip ids defined', fakeAsync(() => {
+      testInstance.choice = true;
+      fixture.detectChanges();
+      flush();
+
+      testInstance.select('newsChip');
+      fixture.detectChanges();
+      flush();
+
+      expect(testInstance.getSelectedChipIds()).toBeDefined();
+    }));
+
+    it('#should select a chip, and select another chip', fakeAsync(() => {
+      testInstance.select('newsChip');
+      fixture.detectChanges();
+      flush();
+
+      testInstance.select('removableChip');
+      fixture.detectChanges();
+      flush();
+    }));
+
+    it('#should select chip', fakeAsync(() => {
+      testInstance.select('newsChip');
+      fixture.detectChanges();
+      flush();
+    }));
+
+    it('#should de-select chip', fakeAsync(() => {
+      testInstance.deselect('newsChip');
+      fixture.detectChanges();
+      flush();
+    }));
   });
 });
 
@@ -156,35 +191,39 @@ describe('Chips', () => {
   template: `
   <mdc-chip-set [choice]="choice" [filter]="filter" [input]="input" (change)="onChipSetChange($event)">
     <mdc-chip
-    [disabled]="disabled"
-    [primary]="primary"
-    [secondary]="secondary"
-    (trailingIconInteraction)="iconInteraction()"
-    (selectionChange)="chipSelectionChange($event)"
-    (removed)="chipRemoved($event)">
+      [disabled]="disabled"
+      [removable]="removable"
+      [primary]="primary"
+      [secondary]="secondary"
+      (trailingIconInteraction)="iconInteraction()"
+      (selectionChange)="chipSelectionChange($event)"
+      (removed)="chipRemoved($event)">
       <mdc-chip-icon leading>face</mdc-chip-icon>
       <mdc-chip-text>Get Directions</mdc-chip-text>
       <mdc-chip-icon #trailingIcon trailing>more_vert</mdc-chip-icon>
     </mdc-chip>
-    <mdc-chip [removable]="removable">
+    <mdc-chip id="removableChip" [removable]="removable">
       <mdc-chip-text>Get Weather</mdc-chip-text>
+    </mdc-chip>
+    <mdc-chip id="newsChip">
+      <mdc-chip-text>Get News</mdc-chip-text>
     </mdc-chip>
   </mdc-chip-set>
   `,
 })
 class ChipTest {
-  removable: boolean;
-  disabled: boolean = false;
-  choice: boolean = false;
-  filter: boolean = false;
-  input: boolean = false;
-  primary: boolean = false;
-  secondary: boolean = false;
+  removable: boolean = true;
+  disabled: boolean;
+  choice: boolean;
+  filter: boolean;
+  input: boolean;
+  primary: boolean;
+  secondary: boolean;
 
   @ViewChild('trailingIcon') trailingIcon: MdcIcon;
 
   onChipSetChange: (event?: MdcChipSetChange) => void = () => { };
-  chipSelectionChange: (event?: MdcChipInteractionEvent) => void = () => { };
-  chipRemoved: (event?: MdcChipInteractionEvent) => void = () => { };
+  chipSelectionChange: (event?: MdcChipSelectionEvent) => void = () => { };
+  chipRemoved: (event?: MdcChipRemovedEvent) => void = () => { };
   iconInteraction: () => void = () => { };
 }

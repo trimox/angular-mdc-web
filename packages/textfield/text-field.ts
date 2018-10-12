@@ -169,28 +169,25 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   get useNativeValidation(): boolean { return this._useNativeValidation; }
   set useNativeValidation(value: boolean) {
     this._useNativeValidation = toBoolean(value);
-    if (this._foundation) {
-      this._foundation.setUseNativeValidation(this._useNativeValidation);
-    }
+    this._foundation.setUseNativeValidation(this._useNativeValidation);
   }
   private _useNativeValidation: boolean = true;
 
   @Input()
-  get value(): any { return this._input.nativeElement.value; }
+  get value(): any { return this._value; }
   set value(newValue: any) {
     if (newValue !== this.value) {
       this.setValue(newValue);
     }
   }
+  private _value: any;
 
   /** Sets the Text Field valid or invalid. */
   @Input()
   get valid(): boolean { return this._valid; }
   set valid(value: boolean) {
     this._valid = toBoolean(value);
-    if (this._foundation) {
-      this._foundation.setValid(this._valid);
-    }
+    this._foundation.setValid(this._valid);
   }
   private _valid: boolean;
 
@@ -274,7 +271,9 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     activateFocus(): void,
     deactivateFocus(): void,
     autoCompleteFocus(): void
-  };
+  } = new MDCTextFieldFoundation(this.createAdapter(), {
+    helperText: this._helperText ? this.helperText.helperTextFoundation : undefined
+  });
 
   /** View -> model callback called when value changes */
   _onChange: (value: any) => void = () => { };
@@ -302,25 +301,13 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   }
 
   init(): void {
-    Promise.resolve().then(() => {
-      this._initFoundationVariants();
+    this._initFoundationVariants();
+    this._foundation.init();
 
-      this._foundation = new MDCTextFieldFoundation(this.createAdapter(), {
-        helperText: this._helperText ? this.helperText.helperTextFoundation : undefined,
-        leadingIcon: this._icons.some(_ => _.leading) ? this._icons.first.iconTextFoundation : undefined,
-        trailingIcon: this._icons.some(_ => _.trailing) ? this._icons.last.iconTextFoundation : undefined
-      });
-      this._foundation.init();
-
-      if (this._icons) {
-        this._icons.forEach(icon => icon.init());
-      }
-
-      if (this._floatingLabel) {
-        setTimeout(() => this._floatingLabel.float(this._foundation.shouldFloat));
-      }
-      this._initialized = true;
-    });
+    if (this._floatingLabel) {
+      setTimeout(() => this._floatingLabel.float(this._foundation.shouldFloat), 0);
+    }
+    this._initialized = true;
   }
 
   private _destroyTextField(): void {
@@ -330,10 +317,6 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     if (this._ripple) {
       this._ripple.destroy();
     }
-    if (this._icons) {
-      this._icons.forEach(icon => icon.destroy());
-    }
-
     this._foundation.destroy();
   }
 
@@ -349,7 +332,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
       this._initRipple();
     }
     if (!this.textarea && !this._outlined) {
-      setTimeout(() => this._lineRipple.init());
+      setTimeout(() => this._lineRipple.init(), 0);
     }
 
     this._changeDetectorRef.markForCheck();
@@ -359,6 +342,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     // Defer setting these values in order to avoid the "Expression
     // has changed after it was checked" errors from Angular.
     Promise.resolve().then(() => {
+      this.setValue(this._value);
       if (this._valid) {
         this._foundation.setValid(this._valid);
       }
@@ -421,6 +405,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
 
   setValue(value: any): void {
     const newValue = this.type === 'number' ? (value === '' ? null : toNumber(value, null)) : value;
+    this._value = newValue;
 
     setTimeout(() => {
       this._foundation.setValue(newValue ? newValue : null);
@@ -461,9 +446,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
 
     if (newValue !== this._disabled) {
       this._disabled = toBoolean(isDisabled);
-      if (this._foundation) {
-        this._foundation.setDisabled(this._disabled);
-      }
+      this._foundation.setDisabled(this._disabled);
     }
     this._changeDetectorRef.markForCheck();
   }

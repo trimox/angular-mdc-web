@@ -1,23 +1,16 @@
 import {
   Directive,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  Output
+  Input
 } from '@angular/core';
 import { toBoolean } from '@angular-mdc/web/common';
-
 import { MdcIcon } from '@angular-mdc/web/icon';
-import { MDCTextFieldIconFoundation } from '@material/textfield/icon';
 
 @Directive({
   selector: '[mdcTextFieldIcon]',
   exportAs: 'mdcTextFieldIcon',
-  host: {
-    'class': 'mdc-text-field__icon'
-  }
+  host: { 'class': 'mdc-text-field__icon' }
 })
-export class MdcTextFieldIcon extends MdcIcon implements OnDestroy {
+export class MdcTextFieldIcon extends MdcIcon {
   @Input()
   get leading(): boolean { return this._leading; }
   set leading(value: boolean) {
@@ -31,48 +24,4 @@ export class MdcTextFieldIcon extends MdcIcon implements OnDestroy {
     this._trailing = toBoolean(value);
   }
   private _trailing: boolean;
-
-  @Output() readonly iconAction = new EventEmitter<void>();
-
-  createAdapter() {
-    return {
-      getAttr: (attr: string) => this._getHostElement().getAttribute(attr),
-      setAttr: (attr: string, value: string) => this._getHostElement().setAttribute(attr, value),
-      removeAttr: (attr: string) => this._getHostElement().removeAttribute(attr),
-      setContent: (content: string) => this._getHostElement().textContent = content,
-      registerInteractionHandler: (evtType: string, handler: EventListener) =>
-        this._getHostElement().addEventListener(evtType, handler),
-      deregisterInteractionHandler: (evtType: string, handler: EventListener) =>
-        this._getHostElement().removeEventListener(evtType, handler),
-      notifyIconAction: () => this.iconAction.emit()
-    };
-  }
-
-  private _foundation: {
-    init(): void,
-    destroy(): void,
-    setDisabled(disabled: boolean): void,
-    handleInteraction(evt: Event): void,
-    setContent(content: string): void,
-    setAriaLabel(label: string): void
-  };
-
-  init(): void {
-    this._foundation = new MDCTextFieldIconFoundation(this.createAdapter());
-    this._foundation.init();
-  }
-
-  destroy(): void {
-    if (this._foundation) {
-      this._foundation.destroy();
-    }
-  }
-
-  ngOnDestroy(): void {
-    this.destroy();
-  }
-
-  get iconTextFoundation(): any {
-    return this._foundation;
-  }
 }

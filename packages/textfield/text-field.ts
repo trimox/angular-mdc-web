@@ -470,9 +470,11 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
 
   /** Recomputes the outline SVG path for the outline element. */
   layout(): void {
-    setTimeout(() => {
-      this._foundation.notchOutline(this._foundation.shouldFloat);
-      this._floatingLabel.float(this._foundation.shouldFloat);
+    Promise.resolve().then(() => {
+      setTimeout(() => {
+        this._foundation.notchOutline(this._foundation.shouldFloat);
+        this._floatingLabel.float(this._foundation.shouldFloat);
+      }, 5);
     });
   }
 

@@ -26,7 +26,7 @@ import { createFocusTrapInstance } from '@material/drawer/util';
 import {
   MDCDismissibleDrawerFoundation,
   MDCModalDrawerFoundation
-} from '@material/drawer';
+} from '@material/drawer/index';
 
 export type MdcDrawerType = 'permanent' | 'dismissible' | 'modal';
 
@@ -103,7 +103,7 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
   private _previousFocus: Element | null;
   private _scrimElement: Element | null;
 
-  private _focusTrapFactory = createFocusTrap;
+  private _focusTrapFactory: any;
   private _focusTrap: any;
 
   @Input()
@@ -228,6 +228,8 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
 
   private _loadListeners(): void {
     if (this.modal && this._platform.isBrowser) {
+      this._focusTrapFactory = createFocusTrap;
+
       this._scrimElement = document.createElement('div');
       this._scrimElement.classList.add('mdc-drawer-scrim');
       this._getHostElement().insertAdjacentElement('afterend', this._scrimElement);
@@ -238,6 +240,9 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
 
       this._focusTrapFactory = createFocusTrapInstance(this._getHostElement(), this._focusTrapFactory);
     } else if (this._scrimElement) {
+      if (this._scrimSubscription) {
+        this._scrimSubscription.unsubscribe();
+      }
       this._scrimElement.remove();
     }
 

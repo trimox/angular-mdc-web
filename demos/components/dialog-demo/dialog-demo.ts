@@ -87,7 +87,7 @@ export class DialogAlert {
         <mdc-dialog-title>Select an account</mdc-dialog-title>
         <mdc-dialog-content>
           <mdc-list avatar>
-            <mdc-list-item mdcDialogAction="close">
+            <mdc-list-item mdcDialogAction="close" [tabIndex]="0">
               <mdc-icon mdcListItemGraphic>person</mdc-icon>username@gmail.com
             </mdc-list-item>
             <mdc-list-item (click)="closeDialog()">

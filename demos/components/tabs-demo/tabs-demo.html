@@ -217,7 +217,7 @@
 
   <div class="demo-content">
     <h3 class="demo-content__headline">Dynamic Tabs</h3>
-    <div class="demo-layout__row demo-layout__row-with-button">
+    <div class="demo-layout__row">
       <button mdc-button primary (click)="addTab()">Add Tab</button>
       <button mdc-button (click)="demoTabBar.useAutomaticActivation = !demoTabBar.useAutomaticActivation">Automatic Activation: {{demoTabBar.useAutomaticActivation ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoTabBar.activateTab(2)">Activate Tab(3)</button>
@@ -246,7 +246,7 @@
 
   <div class="demo-content">
     <h3 class="demo-content__headline">Tabs with icons next to label</h3>
-    <div class="demo-layout__row demo-layout__row-with-button">
+    <div class="demo-layout__row">
       <button mdc-button (click)="demoTabBarDefault.setFade(!demoTabBarDefault.fade)">Fade: {{demoTabBarDefault.fade ? 'On' : 'Off'}}</button>
     </div>
     <mdc-tab-bar #demoTabBarDefault>
@@ -263,7 +263,7 @@
 
   <div class="demo-content">
     <h3 class="demo-content__headline">Tabs with stacked label and icon</h3>
-    <div class="demo-layout__row demo-layout__row-with-button">
+    <div class="demo-layout__row">
       <button mdc-button (click)="demoStackedTabBar.setFade(!demoStackedTabBar.fade)">Fade: {{demoStackedTabBar.fade ? 'On' : 'Off'}}</button>
     </div>
     <mdc-tab-bar #demoStackedTabBar stacked>
@@ -288,7 +288,7 @@
 
   <div class="demo-content">
     <h3 class="demo-content__headline">Fixed Tabs</h3>
-    <div class="demo-layout__row demo-layout__row-with-button">
+    <div class="demo-layout__row">
       <button mdc-button (click)="demoFixedTabsTabBar.setAlign('start')">Align Start</button>
       <button mdc-button (click)="demoFixedTabsTabBar.setAlign('center')">Align Center</button>
       <button mdc-button (click)="demoFixedTabsTabBar.setAlign('end')">Align End</button>
@@ -307,7 +307,7 @@
 
   <div class="demo-content">
     <h3 class="demo-content__headline">Scrolling Tabs (mobile)</h3>
-    <div class="demo-layout__row demo-layout__row-with-button">
+    <div class="demo-layout__row">
       <button mdc-button (click)="demoScrollingTabBar1.scrollIntoView(0)">Scroll Start</button>
       <button mdc-button (click)="demoScrollingTabBar1.scrollIntoView(7)">Scroll End</button>
       <button mdc-button (click)="demoScrollingTabBar1.activateTab(5)">Activate Hotel</button>
@@ -330,7 +330,7 @@
 
   <div class="demo-content">
     <h3 class="demo-content__headline">Scrolling Tabs with Scroll Buttons</h3>
-    <div class="demo-layout__row demo-layout__row-with-button">
+    <div class="demo-layout__row">
       <button mdc-button (click)="demoScrollingTabBar2.setStacked(!demoScrollingTabBar2.stacked)">Stacked: {{demoScrollingTabBar2.stacked ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoScrollingTabBar2.setFade(!demoScrollingTabBar2.fade)">Fade: {{demoScrollingTabBar2.fade ? 'On' : 'Off'}}</button>
     </div>

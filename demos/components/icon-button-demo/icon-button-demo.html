@@ -97,6 +97,23 @@
   </div>
 
   <div class="demo-content">
+    <h3 class="demo-content__headline">Icon Button</h3>
+    <button mdc-icon-button icon="keyboard_arrow_left"></button>
+    <button mdc-icon-button icon="keyboard_arrow_right"></button>
+    <button mdcIconButton>
+      <mdc-icon>favorite</mdc-icon>
+    </button>
+  </div>
+
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Using Font Awesome</h3>
+    <button mdcIconButton>
+      <mdc-icon fontSet="fa" fontIcon="fa-star" mdcIconOn></mdc-icon>
+      <mdc-icon fontSet="fa" fontIcon="fa-star-o"></mdc-icon>
+    </button>
+  </div>
+
+  <div class="demo-content">
     <h3 class="demo-content__headline">Using NgModel Form</h3>
     <div class="demo-layout__row">
       <button mdc-button (click)="demoiconbutton.disabled = !demoiconbutton.disabled">Disabled: {{demoiconbutton.disabled ? 'On' : 'Off'}}</button>
@@ -109,14 +126,6 @@
        </button>
     </form>
     <p>Value: {{ demoIconButtonModel.value }}</p>
-  </div>
-
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Using Font Awesome</h3>
-    <button mdcIconButton>
-      <mdc-icon fontSet="fa" fontIcon="fa-star" mdcIconOn></mdc-icon>
-      <mdc-icon fontSet="fa" fontIcon="fa-star-o"></mdc-icon>
-    </button>
   </div>
 
   <div class="demo-content">
@@ -144,16 +153,6 @@
       </svg>
     </button>
  -->  </div>
-
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Non toggle</h3>
-    <button mdc-icon-button icon="keyboard_arrow_left"></button>
-    <button mdc-icon-button icon="keyboard_arrow_right"></button>
-    <button mdcIconButton>
-      <mdc-icon>favorite</mdc-icon>
-    </button>
-  </div>
-
 
   <div class="demo-content">
     <h3 class="demo-content__headline">Custom Themes</h3>

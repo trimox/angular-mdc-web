@@ -7,16 +7,14 @@
   flex-flow: row wrap;
 }
 
+.demo-layout__row > * {
+  margin-right: 24px;
+  margin-top: 12px;
+}
+
 .demo-layout__row--no-wrap {
   display: flex;
   flex-direction: row;
-}
-
-.demo-layout__row-with-button {
-  .mdc-button, .mdc-fab {
-    margin-right: 6px;
-    margin-bottom: 6px;
-  }
 }
 
 //

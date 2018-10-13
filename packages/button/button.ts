@@ -33,6 +33,9 @@ import { MdcIcon } from '@angular-mdc/web/icon';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcButton implements OnInit, OnDestroy {
+  /** Deprecated - will be removed soon */
+  @Input() icon: any;
+
   @Input()
   get raised(): boolean { return this._raised; }
   set raised(value: boolean) {
@@ -43,7 +46,7 @@ export class MdcButton implements OnInit, OnDestroy {
   @Input()
   get primary(): boolean { return this._primary; }
   set primary(value: boolean) {
-    this.setPrimary(value);
+    this._primary = toBoolean(value);
   }
   protected _primary: boolean;
 
@@ -57,7 +60,7 @@ export class MdcButton implements OnInit, OnDestroy {
   @Input()
   get secondary(): boolean { return this._secondary; }
   set secondary(value: boolean) {
-    this.setSecondary(value);
+    this._secondary = toBoolean(value);
   }
   protected _secondary: boolean;
 
@@ -109,22 +112,6 @@ export class MdcButton implements OnInit, OnDestroy {
     } else {
       this.getHostElement().removeAttribute('disabled');
       this.getHostElement().removeAttribute('aria-disabled');
-    }
-  }
-
-  setPrimary(primary: boolean): void {
-    this._primary = toBoolean(primary);
-
-    if (this._primary) {
-      this.setSecondary(false);
-    }
-  }
-
-  setSecondary(secondary: boolean): void {
-    this._secondary = toBoolean(secondary);
-
-    if (this._secondary) {
-      this.setPrimary(false);
     }
   }
 

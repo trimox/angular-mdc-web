@@ -178,24 +178,24 @@ describe('MdcTextField', () => {
       expect(textFieldInstance.type).toBe('text');
     }));
 
-    it('handles blur event', () => {
+    it('handles blur event', fakeAsync(() => {
       textFieldNativeElement.blur();
       fixture.detectChanges();
-    });
+    }));
 
-    it('handles focus event', () => {
+    it('handles focus event', fakeAsync(() => {
       textFieldNativeElement.focus();
       fixture.detectChanges();
-    });
+    }));
 
-    it('handles click event', () => {
+    it('handles click event', fakeAsync(() => {
       textFieldNativeElement.click();
       fixture.detectChanges();
-    });
+    }));
 
-    it('expect trailing icon to be defined', () => {
+    it('expect trailing icon to be defined', fakeAsync(() => {
       expect(textFieldInstance.trailingIcon).toBeDefined();
-    });
+    }));
   });
 
   describe('basic behaviors', () => {

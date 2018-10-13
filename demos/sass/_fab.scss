@@ -1,7 +1,3 @@
-//
-// FAB
-//
-
 .mdc-fab.red800Fab {
   @include mdc-fab-accessible($material-color-red-800);
 }
@@ -20,6 +16,12 @@
 
 .demo-fab-extended-fluid {
   @include mdc-fab-extended-fluid;
+}
 
-  margin: 16px 0;
+.demo-fab-shaped--one {
+  @include mdc-fab-shape-radius(28px 0);
+}
+
+.demo-fab-shaped--two {
+  @include mdc-fab-shape-radius(8px);
 }

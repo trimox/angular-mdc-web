@@ -50,7 +50,7 @@ export class MdcTypographySubtitle1 { }
 
 @Directive({
   selector: '[mdcSubtitle2], [mdc-typography-subheading1]',
-  host: { 'class': 'mdc-typography--subheading1' }
+  host: { 'class': 'mdc-typography--subtitle2' }
 })
 export class MdcTypographySubtitle2 { }
 

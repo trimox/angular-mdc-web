@@ -1,3 +1,37 @@
+<a name="0.40.2"></a>
+## [0.40.2](https://github.com/trimox/angular-mdc-web/compare/v0.40.1...v0.40.2) (2018-10-13)
+
+
+### Bug Fixes
+
+* **drawer:** Set open to false after scrim click ([#1422](https://github.com/trimox/angular-mdc-web/issues/1422)) ([a3da1f1](https://github.com/trimox/angular-mdc-web/commit/a3da1f1))
+* **image-list:** Remove HostBindings ([#1437](https://github.com/trimox/angular-mdc-web/issues/1437)) ([511087b](https://github.com/trimox/angular-mdc-web/commit/511087b))
+* **list:** Should unsubscribe from _changeSubscription ([#1428](https://github.com/trimox/angular-mdc-web/issues/1428)) ([f05f729](https://github.com/trimox/angular-mdc-web/commit/f05f729))
+* **radio:** Set radio name from group name ([#1416](https://github.com/trimox/angular-mdc-web/issues/1416)) ([4d12ff4](https://github.com/trimox/angular-mdc-web/commit/4d12ff4))
+* **ripple:** Add SSR check ([#1405](https://github.com/trimox/angular-mdc-web/issues/1405)) ([c280aed](https://github.com/trimox/angular-mdc-web/commit/c280aed)), closes [#1401](https://github.com/trimox/angular-mdc-web/issues/1401)
+* **switch:** Apply ripple to thumb underlay ([#1414](https://github.com/trimox/angular-mdc-web/issues/1414)) ([0763ad2](https://github.com/trimox/angular-mdc-web/commit/0763ad2))
+* **text-field:** Resolve promise inside layout() ([#1434](https://github.com/trimox/angular-mdc-web/issues/1434)) ([8dc5e6b](https://github.com/trimox/angular-mdc-web/commit/8dc5e6b))
+* **top-app-bar:** Should check if browser when setting scrollTarget ([#1420](https://github.com/trimox/angular-mdc-web/issues/1420)) ([66509b8](https://github.com/trimox/angular-mdc-web/commit/66509b8)), closes [#1419](https://github.com/trimox/angular-mdc-web/issues/1419)
+* **typography:** Remove HostBinding ([#1433](https://github.com/trimox/angular-mdc-web/issues/1433)) ([3aa1c7e](https://github.com/trimox/angular-mdc-web/commit/3aa1c7e))
+
+
+### Features
+
+* Upgrade to material-components-web v0.40.1 ([#1425](https://github.com/trimox/angular-mdc-web/issues/1425)) ([a358689](https://github.com/trimox/angular-mdc-web/commit/a358689)), closes [#1424](https://github.com/trimox/angular-mdc-web/issues/1424)
+* **button:** Remove unneeded icon property ([#1412](https://github.com/trimox/angular-mdc-web/issues/1412)) ([e12f6c6](https://github.com/trimox/angular-mdc-web/commit/e12f6c6)), closes [#1175](https://github.com/trimox/angular-mdc-web/issues/1175) [#1409](https://github.com/trimox/angular-mdc-web/issues/1409)
+* **chip:** Improved chip and chip-set ([#1430](https://github.com/trimox/angular-mdc-web/issues/1430)) ([4929e8b](https://github.com/trimox/angular-mdc-web/commit/4929e8b))
+* **form-field:** Replace MDC foundation/adapter logic ([#1415](https://github.com/trimox/angular-mdc-web/issues/1415)) ([ccac367](https://github.com/trimox/angular-mdc-web/commit/ccac367)), closes [#1323](https://github.com/trimox/angular-mdc-web/issues/1323)
+* **menu:** Add hoistToBody option ([#1417](https://github.com/trimox/angular-mdc-web/issues/1417)) ([4fc14e1](https://github.com/trimox/angular-mdc-web/commit/4fc14e1))
+* **menu-surface:** Convert mdcMenuSurfaceAnchor to directive ([#1418](https://github.com/trimox/angular-mdc-web/issues/1418)) ([a52d535](https://github.com/trimox/angular-mdc-web/commit/a52d535))
+* **ripple:** Use passive listeners for mouse and touch events ([#1413](https://github.com/trimox/angular-mdc-web/issues/1413)) ([00b2e36](https://github.com/trimox/angular-mdc-web/commit/00b2e36)), closes [#1411](https://github.com/trimox/angular-mdc-web/issues/1411)
+
+
+### Performance Improvements
+
+* **text-field:** Speed and refactoring of foundation classes ([#1431](https://github.com/trimox/angular-mdc-web/issues/1431)) ([f8677f1](https://github.com/trimox/angular-mdc-web/commit/f8677f1))
+
+
+
 <a name="0.40.1"></a>
 ## [0.40.1](https://github.com/trimox/angular-mdc-web/compare/v0.40.0...v0.40.1) (2018-10-02)
 

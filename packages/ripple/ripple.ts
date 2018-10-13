@@ -26,9 +26,13 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
   @Input()
   get attachTo(): HTMLElement { return this._attachTo; }
   set attachTo(element: HTMLElement) {
-    this._attachTo.classList.remove('mdc-ripple-surface');
+    if (this._attachTo) {
+      this._attachTo.classList.remove('mdc-ripple-surface');
+    }
     this._attachTo = element;
-    this._attachTo.classList.add('mdc-ripple-surface');
+    if (this._attachTo) {
+      this._attachTo.classList.add('mdc-ripple-surface');
+    }
   }
   private _attachTo: HTMLElement = this._getHostElement();
 

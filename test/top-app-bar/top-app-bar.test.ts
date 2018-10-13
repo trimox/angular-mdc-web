@@ -1,19 +1,30 @@
 import { Component, DebugElement } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+import { dispatchKeyboardEvent } from '../testing/dispatch-events';
+
 import {
+  DOWN_ARROW,
+  Platform,
   MdcTopAppBarModule,
   MdcTopAppBar
 } from '@angular-mdc/web';
 
 describe('MdcTopAppBar', () => {
   let fixture: ComponentFixture<any>;
+  let platform: { isBrowser: boolean };
 
   beforeEach(async(() => {
+    // Set the default Platform override that can be updated before component creation.
+    platform = { isBrowser: true };
+
     TestBed.configureTestingModule({
       imports: [MdcTopAppBarModule],
-      declarations: [SimpleTest]
+      declarations: [SimpleTest],
+      providers: [
+        { provide: Platform, useFactory: () => platform }
+      ]
     });
     TestBed.compileComponents();
   }));
@@ -36,13 +47,17 @@ describe('MdcTopAppBar', () => {
 
     it('#should have mdc-top-app-bar by default', () => {
       expect(testDebugElement.nativeElement.classList).toContain('mdc-top-app-bar');
+      expect(testInstance.scrollTarget).toBeUndefined();
     });
 
-    it('#should apply mdc-top-app-bar--short class based on property', () => {
+    it('#should apply mdc-top-app-bar--short class based on property', fakeAsync(() => {
       testComponent.short = true;
       fixture.detectChanges();
+      flush();
+
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short')).toBe(true);
-    });
+      expect(testInstance.fixedAdjustElement.classList.contains('mdc-top-app-bar--short-fixed-adjust')).toBe(true);
+    }));
 
     it('#should remove mdc-top-app-bar--short class based on property', () => {
       testComponent.short = false;
@@ -67,6 +82,15 @@ describe('MdcTopAppBar', () => {
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--prominent')).toBe(true);
     });
 
+    it('#should apply prominent and dense class based on property', () => {
+      testComponent.dense = true;
+      fixture.detectChanges();
+      testComponent.prominent = true;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--prominent')).toBe(true);
+      expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--dense')).toBe(true);
+    });
+
     it('#should apply mdc-top-app-bar--dense class based on property', () => {
       testComponent.short = true;
       fixture.detectChanges();
@@ -83,6 +107,14 @@ describe('MdcTopAppBar', () => {
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--fixed')).toBe(true);
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short')).toBe(false);
       expect(testInstance.isCollapsed()).toBe(false);
+
+      dispatchKeyboardEvent(window.document, 'keydown', DOWN_ARROW);
+      fixture.detectChanges();
+    });
+
+    it('#should run even if platform is not a browser', () => {
+      platform.isBrowser = false;
+      fixture.detectChanges();
     });
   });
 });
@@ -93,6 +125,7 @@ describe('MdcTopAppBar', () => {
       [fixed]="fixed"
       [fixedAdjustElement]="testcontent"
       [short]="short"
+      [scrollTarget]="scrollTarget"
       [dense]="dense"
       [prominent]="prominent"
       [shortCollapsed]="shortCollapsed">
@@ -115,4 +148,5 @@ class SimpleTest {
   shortCollapsed: boolean;
   prominent: boolean;
   dense: boolean;
+  scrollTarget: any;
 }

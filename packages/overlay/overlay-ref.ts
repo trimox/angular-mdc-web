@@ -9,7 +9,7 @@
 import { ComponentPortal, Portal, PortalOutlet, TemplatePortal } from '@angular-mdc/web/portal';
 import { ComponentRef, EmbeddedViewRef, NgZone } from '@angular/core';
 import { Location } from '@angular/common';
-import { Observable, Subject, merge, SubscriptionLike, Subscription } from 'rxjs';
+import { Observable, Subject, merge, SubscriptionLike, Subscription, Observer } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { OverlayConfig } from './overlay-config';
 import { coerceCssPixelValue, coerceArray } from '@angular-mdc/web/common';
@@ -37,15 +37,16 @@ export class OverlayRef implements PortalOutlet, OverlayReference {
    */
   private _previousHostParent: HTMLElement;
 
-  private _keydownEventsObservable: Observable<KeyboardEvent> = Observable.create(observer => {
-    const subscription = this._keydownEvents.subscribe(observer);
-    this._keydownEventSubscriptions++;
+  private _keydownEventsObservable: Observable<KeyboardEvent> =
+    Observable.create((observer: Observer<KeyboardEvent>) => {
+      const subscription = this._keydownEvents.subscribe(observer);
+      this._keydownEventSubscriptions++;
 
-    return () => {
-      subscription.unsubscribe();
-      this._keydownEventSubscriptions--;
-    };
-  });
+      return () => {
+        subscription.unsubscribe();
+        this._keydownEventSubscriptions--;
+      };
+    });
 
   /** Stream of keydown events dispatched to this overlay. */
   _keydownEvents = new Subject<KeyboardEvent>();

@@ -3,7 +3,7 @@
     "declaration": false,
     "sourceMap": true,
     "target": "es5",
-    "module": "commonjs",
+    "module": "es2015",
     "moduleResolution": "node",
     "lib":[
       "es2017",
@@ -12,14 +12,20 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "typeRoots": ["../node_modules/@types"],
-    "rootDirs": [
-      "./packages",
-      "./test"
+    "types": [
+      "jasmine",
+      "node"
     ],
     "baseUrl": ".",
     "paths": {
       "@angular-mdc/web/*": ["../packages/*"],
       "@angular-mdc/web": ["../packages/public-api.ts"]
     }
-  }
+  },
+  "files": [
+    "test.ts"
+  ],
+  "include": [
+    "**/*.test.ts"
+  ]
 }

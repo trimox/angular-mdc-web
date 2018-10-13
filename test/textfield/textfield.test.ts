@@ -1,9 +1,16 @@
 import { Component, DebugElement } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed, tick, flush } from '@angular/core/testing';
 import { FormControl, FormsModule, NgModel } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import {
+  dispatchTouchEvent,
+  dispatchKeyboardEvent
+} from '../testing/dispatch-events';
+
+import {
+  A,
+  Platform,
   MdcTextField,
   MdcTextFieldModule,
   MdcIconModule
@@ -11,11 +18,16 @@ import {
 
 describe('MdcTextField', () => {
   let fixture: ComponentFixture<any>;
+  let platform: { isBrowser: boolean };
 
   beforeEach(async(() => {
+    // Set the default Platform override that can be updated before component creation.
+    platform = { isBrowser: true };
+
     TestBed.configureTestingModule({
       imports: [MdcTextFieldModule, MdcIconModule, FormsModule],
-      declarations: [SimpleTextfield]
+      declarations: [SimpleTextfield, TextFieldTestWithValue],
+      providers: [{ provide: Platform, useFactory: () => platform }]
     });
     TestBed.compileComponents();
   }));
@@ -29,7 +41,7 @@ describe('MdcTextField', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(SimpleTextfield);
       fixture.detectChanges();
-      fixture.whenStable();
+
       textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextField));
       textFieldNativeElement = textFieldDebugElement.nativeElement;
       textFieldInstance = textFieldDebugElement.componentInstance;
@@ -41,42 +53,70 @@ describe('MdcTextField', () => {
         .toContain('mdc-text-field', 'Expected to have mdc-text-field class');
     });
 
-    it('#should apply class dense on property', () => {
+    it('#should apply class dense on property', fakeAsync(() => {
       testComponent.isDense = true;
       fixture.detectChanges();
+      flush();
       expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--dense')).toBe(true);
-    });
+    }));
 
-    it('#should apply class fullwidth on property', () => {
+    it('#should apply class fullwidth on property', fakeAsync(() => {
       testComponent.isFullwidth = true;
       fixture.detectChanges();
+      flush();
       expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--fullwidth')).toBe(true);
-    });
+    }));
 
-    it('#should apply class outlined', () => {
+    it('#should apply class outlined', fakeAsync(() => {
+      testComponent.outlined = true;
+      fixture.detectChanges();
+      flush();
+      expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--outlined')).toBe(true);
+    }));
+
+    it('#should apply class outlined and not set it again', fakeAsync(() => {
+      testComponent.outlined = true;
+      fixture.detectChanges();
+      flush();
+      expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--outlined')).toBe(true);
+
       testComponent.outlined = true;
       fixture.detectChanges();
       expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--outlined')).toBe(true);
-    });
+    }));
 
-    it('#should not be disabled', () => {
+    it('#should not be disabled', fakeAsync(() => {
       expect(textFieldInstance.disabled).toBeFalsy();
-    });
+    }));
 
-    it('#should be disabled', () => {
+    it('#should be disabled', fakeAsync(() => {
       testComponent.disabled = true;
       fixture.detectChanges();
-      expect(textFieldInstance.disabled).toBe(true);
-    });
+      flush();
 
-    it('#should set validity based on input element validity', () => {
+      expect(textFieldInstance.disabled).toBe(true);
+    }));
+
+    it('#should set validity based on input element validity', fakeAsync(() => {
       textFieldInstance.valid = true;
       fixture.detectChanges();
+      flush();
+
       expect(textFieldInstance.valid).toBe(true);
+    }));
+
+    it('#should set helper content', fakeAsync(() => {
+      expect(textFieldInstance.helperText.setContent('test'));
+    }));
+
+    it('#should call onInput', () => {
+      expect(textFieldInstance.onInput('test'));
+      fixture.detectChanges();
     });
 
-    it('#should set helper content', () => {
-      expect(textFieldInstance.helperText.setContent('test'));
+    it('#should call onBlur', () => {
+      expect(textFieldInstance.onBlur());
+      fixture.detectChanges();
     });
 
     it('#should show to screen reader', () => {
@@ -94,36 +134,49 @@ describe('MdcTextField', () => {
       expect(textFieldInstance.isBadInput()).toBe(false);
     });
 
-    it('#should set persistent to true', () => {
+    it('#should set persistent to true', fakeAsync(() => {
       textFieldInstance.helperText.persistent = true;
       fixture.detectChanges();
       expect(textFieldInstance.helperText.persistent).toBe(true);
-    });
+    }));
 
-    it('#should set required to true', () => {
+    it('#should set required to true', fakeAsync(() => {
       testComponent.required = true;
       fixture.detectChanges();
-      expect(textFieldInstance.required).toBe(true);
-    });
+      flush();
 
-    it('#should set style shake to true', () => {
+      expect(textFieldInstance.required).toBe(true);
+    }));
+
+    it('#should set useNativeValidation to true', fakeAsync(() => {
+      testComponent.useNativeValidation = true;
+      fixture.detectChanges();
+      flush();
+
+      expect(textFieldInstance.useNativeValidation).toBe(true);
+    }));
+
+    it('#should set style shake to true', fakeAsync(() => {
       expect(textFieldInstance._floatingLabel.shake(true));
       fixture.detectChanges();
-    });
+    }));
 
-    it('#should focus on underlying input element when focus() is called', () => {
+    it('#should focus on underlying input element when focus() is called', fakeAsync(() => {
       expect(document.activeElement).not.toBe(textFieldInstance._input.nativeElement);
       textFieldInstance.focus();
       fixture.detectChanges();
+      flush();
 
       expect(document.activeElement).toBe(textFieldInstance._input.nativeElement);
-    });
+    }));
 
-    it('change type', () => {
+    it('change type', fakeAsync(() => {
       testComponent.myType = '';
       fixture.detectChanges();
+      flush();
+
       expect(textFieldInstance.type).toBe('text');
-    });
+    }));
 
     it('handles blur event', () => {
       textFieldNativeElement.blur();
@@ -144,9 +197,56 @@ describe('MdcTextField', () => {
       expect(textFieldInstance.trailingIcon).toBeDefined();
     });
   });
+
+  describe('basic behaviors', () => {
+    let textFieldDebugElement: DebugElement;
+    let textFieldNativeElement: HTMLElement;
+    let testInstance: MdcTextField;
+    let testComponent: TextFieldTestWithValue;
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(TextFieldTestWithValue);
+      fixture.detectChanges();
+
+      textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextField));
+      textFieldNativeElement = textFieldDebugElement.nativeElement;
+      testInstance = textFieldDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+    });
+
+    it('#should set value to foo', fakeAsync(() => {
+      testInstance.value = 'foo';
+      fixture.detectChanges();
+      flush();
+
+      expect(testInstance.value).toBe('foo');
+    }));
+
+    it('#should check for browser', fakeAsync(() => {
+      platform.isBrowser = false;
+      expect(testInstance.focused).toBe(false);
+    }));
+
+    it('#should handle touch event', fakeAsync(() => {
+      expect(testInstance.focused).toBe(false);
+      testInstance._input.nativeElement.focus();
+      fixture.detectChanges();
+
+      dispatchKeyboardEvent(testInstance._input.nativeElement, 'keyup', A);
+      fixture.detectChanges();
+
+      dispatchTouchEvent(testInstance._input.nativeElement, 'touchstart');
+      fixture.detectChanges();
+      flush();
+
+      expect(testInstance.focused).toBe(true);
+
+      document.body.focus();
+      fixture.detectChanges();
+    }));
+  });
 });
 
-/** Simple component for testing. */
 @Component({
   template: `
     <mdc-text-field
@@ -156,6 +256,7 @@ describe('MdcTextField', () => {
       [tabIndex]="1"
       [dense]="isDense"
       [outlined]="outlined"
+      [value]="value"
       [fullwidth]="isFullwidth"
       [required]="required"
       [disabled]="disabled"
@@ -180,7 +281,19 @@ class SimpleTextfield {
   isFullwidth: boolean;
   outlined: boolean;
   required: boolean;
-  useNativeValidation: boolean;
+  useNativeValidation: boolean = false;
 
   onBlur(event: any) { }
+}
+
+@Component({
+  template: `
+    <mdc-text-field
+      label="Username"
+      [value]="value">
+    </mdc-text-field>
+  `,
+})
+class TextFieldTestWithValue {
+  value: string = 'test';
 }

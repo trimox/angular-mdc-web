@@ -131,7 +131,7 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
         this._buttons.toArray().reverse();
         this._buttons.forEach(button => button.getHostElement().parentElement!.appendChild(button.getHostElement()));
       },
-      notifyOpened: () => this.dialogRef.afterOpened(),
+      notifyOpened: () => this.dialogRef.opened(),
       notifyClosed: (action: string) => this._closeDialogByRef(action)
     };
   }

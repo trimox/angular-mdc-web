@@ -1,19 +1,30 @@
 import { Component, DebugElement, ViewChild } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+import { dispatchMouseEvent } from '../testing/dispatch-events';
+
 import {
+  Platform,
   MdcRippleModule,
   MdcRippleComponent,
+  MdcRippleDirective
 } from '@angular-mdc/web';
 
 describe('MdcRippleComponent', () => {
   let fixture: ComponentFixture<any>;
+  let platform: { isBrowser: boolean };
 
   beforeEach(async(() => {
+    // Set the default Platform override that can be updated before component creation.
+    platform = { isBrowser: true };
+
     TestBed.configureTestingModule({
       imports: [MdcRippleModule],
-      declarations: [SimpleTest]
+      declarations: [SimpleTest, SimpleRippleTest],
+      providers: [
+        { provide: Platform, useFactory: () => platform }
+      ]
     });
     TestBed.compileComponents();
   }));
@@ -47,12 +58,72 @@ describe('MdcRippleComponent', () => {
       expect(testComponent.demodiv.nativeElement.classList.contains('mdc-ripple-surface--accent')).toBe(true);
       expect(testInstance.secondary).toBe(true);
     });
+
+    it('#should be disabled', () => {
+      testComponent.disabled = true;
+      fixture.detectChanges();
+
+      expect(testInstance.disabled).toBe(true);
+
+      dispatchMouseEvent(testComponent.demodiv.nativeElement, 'mousedown');
+      fixture.detectChanges();
+    });
+
+    it('#should be unbounded', () => {
+      testComponent.unbounded = true;
+      fixture.detectChanges();
+      expect(testInstance.unbounded).toBe(true);
+    });
+
+    it('#should not do some ripple functions', () => {
+      platform.isBrowser = false;
+      fixture.detectChanges();
+
+      dispatchMouseEvent(testComponent.demodiv.nativeElement, 'mousedown');
+      fixture.detectChanges();
+
+      dispatchMouseEvent(testComponent.demodiv.nativeElement, 'mouseup');
+      fixture.detectChanges();
+    });
+
+    it('#should have null attachTo', fakeAsync(() => {
+      testInstance.attachTo = null;
+      fixture.detectChanges();
+      flush();
+
+      testInstance.attachTo = testComponent.demodiv.nativeElement;
+      fixture.detectChanges();
+      flush();
+    }));
+  });
+
+  describe('basic behaviors', () => {
+    let testDebugElement: DebugElement;
+    let testNativeElement: HTMLElement;
+    let testInstance: MdcRippleDirective;
+    let testComponent: SimpleRippleTest;
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(SimpleRippleTest);
+      fixture.detectChanges();
+
+      testDebugElement = fixture.debugElement.query(By.directive(MdcRippleDirective));
+      testNativeElement = testDebugElement.nativeElement;
+      testInstance = testDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+    });
+
+    it('#should have data attribute is-unbounded', fakeAsync(() => {
+      fixture.detectChanges();
+      flush();
+      expect(testNativeElement.getAttribute('data-mdc-ripple-is-unbounded')).toBeDefined();
+    }));
   });
 });
 
 @Component({
   template: `
-  <mdc-ripple #demoripple [unbounded]="true" [primary]="primary" [secondary]="secondary"
+  <mdc-ripple #demoripple [unbounded]="unbounded" [primary]="primary" [secondary]="secondary"
    [attachTo]="demodiv" [disabled]="disabled">
     <div #demodiv>
       Click me
@@ -65,4 +136,12 @@ class SimpleTest {
   primary: boolean;
   secondary: boolean;
   disabled: boolean;
+  unbounded: boolean;
 }
+
+@Component({
+  template: `
+  <div mdcRipple></div>
+  `
+})
+class SimpleRippleTest { }

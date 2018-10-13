@@ -7,6 +7,7 @@ import {
   MdcCard,
   MdcCardMedia,
   MdcCardMediaContent,
+  MdcCardAction,
   MdcIconModule
 } from '@angular-mdc/web';
 
@@ -27,6 +28,9 @@ describe('MdcCard', () => {
     let testInstance: MdcCard;
     let testComponent: SimpleTest;
 
+    let testActionButtonDebugElement: DebugElement;
+    let testActionButtonInstance: MdcCardAction;
+
     let testDebugMediaElement: DebugElement;
 
     beforeEach(() => {
@@ -34,6 +38,10 @@ describe('MdcCard', () => {
       fixture.detectChanges();
 
       testDebugElement = fixture.debugElement.query(By.directive(MdcCard));
+
+      testActionButtonDebugElement = fixture.debugElement.query(By.directive(MdcCardAction));
+      testActionButtonInstance = testActionButtonDebugElement.injector.get<MdcCardAction>(MdcCardAction);
+
       testNativeElement = testDebugElement.nativeElement;
       testInstance = testDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
@@ -50,6 +58,12 @@ describe('MdcCard', () => {
       fixture.detectChanges();
       expect(testDebugMediaElement.nativeElement.classList.contains('mdc-card__media--16-9')).toBe(true);
     });
+
+    it('#should set action button to button', () => {
+      testComponent.cardAction = 'button';
+      fixture.detectChanges();
+      expect(testActionButtonInstance.action).toBe('button');
+    });
   });
 });
 
@@ -65,7 +79,6 @@ describe('MdcCard', () => {
       </mdc-card-primary-action>
       <mdc-card-actions [fullBleed]="fullBleed">
         <mdc-card-action-buttons>
-          <button mdc-button mdcCardAction="button">Action 1</button>
           <button mdc-button mdcCardAction="button">Action 2</button>
         </mdc-card-action-buttons>
       </mdc-card-actions>
@@ -75,7 +88,6 @@ describe('MdcCard', () => {
           <mdc-icon>favorite_border</mdc-icon>
         </button>
         <mdc-icon mdcCardAction="icon" mdcRipple>share</mdc-icon>
-        <mdc-icon mdcCardAction="icon" mdcRipple>more_vert</mdc-icon>
         <mdc-icon mdcCardAction mdcRipple>share</mdc-icon>
       </mdc-card-action-icons>
     </mdc-card>
@@ -86,4 +98,5 @@ class SimpleTest {
   square: boolean = true;
   wide: boolean = false;
   fullBleed: boolean = true;
+  cardAction: string = 'button';
 }

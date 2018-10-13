@@ -8,6 +8,7 @@ import {
   EventEmitter,
   forwardRef,
   Input,
+  NgZone,
   OnDestroy,
   Optional,
   Output,
@@ -154,6 +155,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   get dense(): boolean { return this._dense; }
   set dense(value: boolean) {
     this._dense = toBoolean(value);
+    this.layout();
   }
   private _dense: boolean;
 
@@ -212,13 +214,43 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   get useLineRipple(): boolean { return !this._outlined && !this.textarea; }
 
   createAdapter() {
-    return {
+    return Object.assign({
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
       hasClass: (className: string) => this._getHostElement().classList.contains(className),
       isFocused: () => this._platform.isBrowser ? document.activeElement! === this._getInputElement() : false,
       isRtl: () =>
         this._platform.isBrowser ? window.getComputedStyle(this._getHostElement()).getPropertyValue('direction') === 'rtl' : false,
+      registerValidationAttributeChangeHandler: (handler: (whitelist: Array<string>) => void) => {
+        const getAttributesList = (mutationsList) => mutationsList.map((mutation) => mutation.attributeName);
+        const observer = new MutationObserver((mutationsList) => handler(getAttributesList(mutationsList)));
+        observer.observe(this._getInputElement(), { attributes: true });
+        return observer;
+      },
+      deregisterValidationAttributeChangeHandler: (observer: MutationObserver) => {
+        if (observer) {
+          observer.disconnect();
+        }
+      },
+      getNativeInput: () => this._getInputElement()
+    },
+      this._getLabelAdapterMethods(),
+      this._getLineRippleAdapterMethods(),
+      this._getOutlineAdapterMethods()
+    );
+  }
+
+  private _getLabelAdapterMethods() {
+    return {
+      shakeLabel: (shouldShake: boolean) => this._floatingLabel.shake(shouldShake),
+      floatLabel: (shouldFloat: boolean) => this._floatingLabel.float(shouldFloat),
+      hasLabel: () => this._floatingLabel,
+      getLabelWidth: () => this._floatingLabel ? this._floatingLabel.getWidth() : 0
+    };
+  }
+
+  private _getLineRippleAdapterMethods() {
+    return {
       activateLineRipple: () => {
         if (this._lineRipple) {
           this._lineRipple.activate();
@@ -233,26 +265,22 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
         if (this._lineRipple) {
           this._lineRipple.setRippleCenter(normalizedX);
         }
-      },
-      shakeLabel: (shouldShake: boolean) => this._floatingLabel.shake(shouldShake),
-      floatLabel: (shouldFloat: boolean) => this._floatingLabel.float(shouldFloat),
-      hasLabel: () => this._floatingLabel,
-      getLabelWidth: () => this._floatingLabel ? this._floatingLabel.getWidth() : 0,
+      }
+    };
+  }
+
+  private _getOutlineAdapterMethods() {
+    return {
       hasOutline: () => this._notchedOutline,
       notchOutline: (labelWidth: number, isRtl: boolean) => this._notchedOutline.notch(labelWidth, isRtl),
-      closeOutline: () => this._notchedOutline.closeNotch(),
-      registerValidationAttributeChangeHandler: (handler: (whitelist: Array<string>) => void) => {
-        const getAttributesList = (mutationsList) => mutationsList.map((mutation) => mutation.attributeName);
-        const observer = new MutationObserver((mutationsList) => handler(getAttributesList(mutationsList)));
-        observer.observe(this._getInputElement(), { attributes: true });
-        return observer;
-      },
-      deregisterValidationAttributeChangeHandler: (observer: MutationObserver) => {
-        if (observer) {
-          observer.disconnect();
-        }
-      },
-      getNativeInput: () => this._getInputElement()
+      closeOutline: () => this._notchedOutline.closeNotch()
+    };
+  }
+
+  /** Returns a map of all subcomponents to subfoundations.*/
+  private _getFoundationMap() {
+    return {
+      helperText: this._helperText || undefined
     };
   }
 
@@ -271,9 +299,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     activateFocus(): void,
     deactivateFocus(): void,
     autoCompleteFocus(): void
-  } = new MDCTextFieldFoundation(this.createAdapter(), {
-    helperText: this._helperText ? this.helperText.helperTextFoundation : undefined
-  });
+  } = new MDCTextFieldFoundation();
 
   /** View -> model callback called when value changes */
   _onChange: (value: any) => void = () => { };
@@ -282,6 +308,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   _onTouched = () => { };
 
   constructor(
+    private _ngZone: NgZone,
     private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef<HTMLElement>,
@@ -301,13 +328,14 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   }
 
   init(): void {
-    this._initFoundationVariants();
-    this._foundation.init();
+    this._foundation = new MDCTextFieldFoundation(this.createAdapter(),
+      this._getFoundationMap());
 
-    if (this._floatingLabel) {
-      setTimeout(() => this._floatingLabel.float(this._foundation.shouldFloat), 0);
-    }
+    this._initRipple();
+    this._foundation.init();
     this._initialized = true;
+
+    this._changeDetectorRef.markForCheck();
   }
 
   private _destroyTextField(): void {
@@ -325,17 +353,6 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
       this._destroyTextField();
       this.init();
     }
-  }
-
-  private _initFoundationVariants(): void {
-    if (!this.fullwidth && !this.textarea) {
-      this._initRipple();
-    }
-    if (!this.textarea && !this._outlined) {
-      setTimeout(() => this._lineRipple.init(), 0);
-    }
-
-    this._changeDetectorRef.markForCheck();
   }
 
   private _initializeSelection(): void {
@@ -436,11 +453,11 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     if (newValue !== this._outlined) {
       this._outlined = toBoolean(newValue);
       this._reinitialize();
-      setTimeout(() => this._foundation.notchOutline(this._foundation.shouldFloat));
+      this.layout();
     }
   }
 
-  // Implemented as part of ControlValueAccessor.
+  /** Implemented as part of ControlValueAccessor. */
   setDisabledState(isDisabled: boolean) {
     const newValue = toBoolean(isDisabled);
 
@@ -451,8 +468,18 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     this._changeDetectorRef.markForCheck();
   }
 
+  /** Recomputes the outline SVG path for the outline element. */
+  layout(): void {
+    setTimeout(() => {
+      this._foundation.notchOutline(this._foundation.shouldFloat);
+      this._floatingLabel.float(this._foundation.shouldFloat);
+    });
+  }
+
   private _initRipple(): void {
-    if (!this._ripple.initialized && !this.outlined && !this.textarea) {
+    if (!this._ripple || this._ripple.initialized) { return; }
+
+    if (!this.fullwidth && !this.outlined && !this.textarea) {
       this._ripple.init({
         surface: this.elementRef.nativeElement,
         activator: this._getInputElement()

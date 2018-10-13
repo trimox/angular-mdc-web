@@ -9,8 +9,10 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
-import { async, fakeAsync, ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { async, fakeAsync, ComponentFixture, TestBed, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
+import { dispatchKeyboardEvent, dispatchFakeEvent, dispatchMouseEvent, dispatchTouchEvent } from '../testing/dispatch-events';
 
 import { MdcSelectModule, MdcSelect } from '@angular-mdc/web';
 
@@ -90,6 +92,18 @@ describe('MdcSelectModule', () => {
       fixture.detectChanges();
       expect(testInstance.getSelectedIndex()).toBe(-1);
     });
+
+    it('#should handle mouse events', fakeAsync(() => {
+      dispatchMouseEvent(testInstance.inputEl.nativeElement, 'mousedown');
+      fixture.detectChanges();
+      flush();
+    }));
+
+    it('#should handle touch events', fakeAsync(() => {
+      dispatchTouchEvent(testInstance.inputEl.nativeElement, 'touchstart');
+      fixture.detectChanges();
+      flush();
+    }));
   });
 
   describe('form control basic behaviors', () => {
@@ -118,7 +132,7 @@ describe('MdcSelectModule', () => {
 
     it('#should set value to tacos-2', fakeAsync(() => {
       testComponent.foodControl.setValue('tacos-2');
-      tick();
+      flush();
 
       expect(testInstance.getValue()).toBe('tacos-2');
     }));

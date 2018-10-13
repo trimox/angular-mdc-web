@@ -104,7 +104,6 @@ export class MdcRipple implements OnDestroy {
     destroy(): void,
     activate(event?: Event): void,
     deactivate(event?: Event): void,
-    setUnbounded(unbounded: boolean): void,
     handleFocus(): void,
     handleBlur(): void
   };

@@ -433,8 +433,6 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
 
   private _initLineRipple(): void {
     if (this._outlined) { return; }
-    setTimeout(() => this._lineRipple.init());
-
     this._lineRippleSubscription = this.lineRippleEvents.pipe()
       .subscribe((evt: MouseEvent | TouchEvent) => {
         if (evt instanceof MouseEvent) {

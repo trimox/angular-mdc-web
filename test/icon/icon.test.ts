@@ -45,6 +45,12 @@ describe('MdcIcon', () => {
       expect(testInstance.getIcon()).toBe('face');
     });
 
+    it('#should have text content of face', () => {
+      testComponent.clickable = true;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.getAttribute('role')).toBe('button');
+    });
+
     it('#should have font size of 12', () => {
       testInstance.fontSet = 'fa';
       fixture.detectChanges();

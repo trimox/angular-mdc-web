@@ -1,6 +1,8 @@
 import { Component, DebugElement } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
+import { dispatchFakeEvent } from '../testing/dispatch-events';
 
 import {
   MdcFormField,
@@ -54,6 +56,12 @@ describe('MdcFormField', () => {
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList).toContain('mdc-form-field--align-end');
     });
+
+    it('#should activate ripple on input', fakeAsync(() => {
+      dispatchFakeEvent(testInstance.label, 'click');
+      fixture.detectChanges();
+      flush();
+    }));
   });
 });
 
@@ -71,6 +79,14 @@ describe('MdcFormField', () => {
       <mdc-switch></mdc-switch>
       <label>My label</label>
     </mdc-form-field>
+    <mdc-form-field>
+      <mdc-switch></mdc-switch>
+    </mdc-form-field>
+    <mdc-form-field>
+      <mdc-switch></mdc-switch>
+      <span>not a label</span>
+    </mdc-form-field>
+    <mdc-form-field></mdc-form-field>
   `,
 })
 class SimpleTest {

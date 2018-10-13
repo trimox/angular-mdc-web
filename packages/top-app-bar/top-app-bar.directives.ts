@@ -81,11 +81,6 @@ export class MdcTopAppBarNavigationIcon implements OnDestroy {
     _ripple.init({ surface: this.elementRef.nativeElement, unbounded: true });
   }
 
-  /** Retrieves the DOM element of the directive. */
-  getHostElement() {
-    return this.elementRef.nativeElement;
-  }
-
   ngOnDestroy(): void {
     this._ripple.destroy();
   }

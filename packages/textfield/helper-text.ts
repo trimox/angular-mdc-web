@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { toBoolean } from '@angular-mdc/web/common';
 
-import { MDCTextFieldHelperTextFoundation } from '@material/textfield/helper-text';
+import { MDCTextFieldHelperTextFoundation } from '@material/textfield/helper-text/index';
 
 @Directive({
   selector: '[mdcTextFieldHelperText], mdc-text-field-helper-text',
@@ -70,10 +70,6 @@ export class MdcTextFieldHelperText {
   /** Makes the helper text visible to the screen reader. */
   showToScreenReader(): void {
     this._foundation.showToScreenReader();
-  }
-
-  get helperTextFoundation(): any {
-    return this._foundation;
   }
 
   /** Retrieves the DOM element of the component host. */

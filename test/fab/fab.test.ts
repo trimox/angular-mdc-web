@@ -12,6 +12,7 @@ describe('MdcFab', () => {
       imports: [MdcFabModule, MdcIconModule],
       declarations: [
         SimpleButton,
+        SimpleFabButton
       ]
     });
     TestBed.compileComponents();
@@ -116,9 +117,30 @@ describe('MdcFab', () => {
       expect(testComponent.clickCount).toBe(1);
     });
   });
+
+  describe('button[mdc-fab]', () => {
+    let buttonDebugElement: DebugElement;
+    let buttonNativeElement: HTMLButtonElement;
+    let buttonInstance: MdcFab;
+    let testComponent: SimpleFabButton;
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(SimpleFabButton);
+      fixture.detectChanges();
+
+      buttonDebugElement = fixture.debugElement.query(By.directive(MdcFab));
+      buttonNativeElement = buttonDebugElement.nativeElement;
+      buttonInstance = buttonDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+    });
+
+    it('#should have mdc-fab by default', () => {
+      expect(buttonDebugElement.nativeElement.classList)
+        .toContain('mdc-fab', 'Expected buttons to have mdc-fab');
+    });
+  });
 });
 
-/** Simple component for testing. */
 @Component({
   template: `
     <button mdc-fab
@@ -142,3 +164,10 @@ class SimpleButton {
     this.clickCount++;
   }
 }
+
+@Component({
+  template: `
+    <button mdc-fab [icon]="favorite"></button>
+  `,
+})
+class SimpleFabButton { }

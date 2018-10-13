@@ -92,11 +92,15 @@ export class MdcTabIndicator implements AfterViewInit {
   }
 
   activate(previousIndicatorClientRect: ClientRect): void {
-    this._foundation.activate(previousIndicatorClientRect);
+    if (this._foundation) {
+      this._foundation.activate(previousIndicatorClientRect);
+    }
   }
 
   deactivate(): void {
-    this._foundation.deactivate();
+    if (this._foundation) {
+      this._foundation.deactivate();
+    }
   }
 
   computeContentClientRect(): ClientRect {

@@ -143,8 +143,7 @@ export class MdcTab implements OnInit, OnDestroy {
       getOffsetLeft: () => this._getHostElement().offsetLeft,
       getOffsetWidth: () => this._getHostElement().offsetWidth,
       getContentOffsetLeft: () => this.content.nativeElement.offsetLeft,
-      getContentOffsetWidth: () => this.content.nativeElement.offsetWidth,
-      focus: () => this._getHostElement().focus()
+      getContentOffsetWidth: () => this.content.nativeElement.offsetWidth
     };
   }
 

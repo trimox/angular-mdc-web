@@ -6,6 +6,7 @@ import {
   MdcListItem,
   MdcListGroup,
   MdcListDivider,
+  MdcCheckboxModule,
   MdcListModule,
   MdcIconModule,
 } from '@angular-mdc/web';
@@ -15,7 +16,7 @@ describe('MdcListModule', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MdcListModule, MdcIconModule],
+      imports: [MdcListModule, MdcIconModule, MdcCheckboxModule],
       declarations: [
         SimpleList,
       ]
@@ -86,6 +87,7 @@ describe('MdcListModule', () => {
 
       fixture.detectChanges();
       expect(testComponent.listitem.selected).toBe(true);
+      expect(testInstance.singleSelection).toBe(true);
     });
 
     it('#first list item should be focused', () => {
@@ -131,6 +133,29 @@ describe('MdcListModule', () => {
       fixture.detectChanges();
       expect(testInstance.interactive).toBe(false);
     });
+
+    it('#should have wrap focus true', () => {
+      testComponent.wrapFocus = true;
+      fixture.detectChanges();
+      expect(testInstance.wrapFocus).toBe(true);
+    });
+
+    it('#should handle list item click', () => {
+      const listItemDebugElement = fixture.debugElement.query(By.directive(MdcListItem));
+      const listItemInstance = listItemDebugElement.injector.get<MdcListItem>(MdcListItem);
+
+      listItemInstance.getListItemElement().click();
+      fixture.detectChanges();
+    });
+
+    it('#should set focus to list item', () => {
+      const listItemDebugElement = fixture.debugElement.query(By.directive(MdcListItem));
+      const listItemInstance = listItemDebugElement.injector.get<MdcListItem>(MdcListItem);
+
+      listItemInstance.focus();
+      fixture.detectChanges();
+      expect(document.activeElement).toBe(listItemDebugElement.nativeElement, 'Expected focus to be on list item');
+    });
   });
 });
 
@@ -138,15 +163,19 @@ describe('MdcListModule', () => {
   template: `
     <mdc-list-group #group>
       <mdc-list-group-subheader>Grouped Lists</mdc-list-group-subheader>
-      <mdc-list [dense]="isDense" [border]="isBordered" [twoLine]="twoLine" [singleSelection]="singleSelection"
-       [avatar]="isAvatar" [interactive]="isInteractive">
-        <mdc-list-item #listitem mdcListItemGraphic [selected]="isItemSelected">Test
+      <mdc-list [dense]="isDense" [border]="isBordered" [wrapFocus]="wrapFocus" [twoLine]="twoLine" [singleSelection]="singleSelection"
+       [avatar]="isAvatar" [interactive]="isInteractive" useSelectedClass [verticalOrientation]="verticalOrientation">
+        <mdc-list-item #listitem mdcListItemGraphic [selected]="isItemSelected" [disabled]="false">Test
           <mdc-icon mdcListItemMeta>info</mdc-icon>
         </mdc-list-item>
         <mdc-list-item mdcListItemGraphic>Test
           <mdc-icon mdcListItemMeta>info</mdc-icon>
         </mdc-list-item>
         <mdc-list-divider #divider [padded]="isPadded" [inset]="isInset"></mdc-list-divider>
+        <mdc-list-item>
+          Single-line item
+          <mdc-checkbox mdcListItemMeta></mdc-checkbox>
+        </mdc-list-item>
         <mdc-list-item #lastitem>
           <mdc-list-item-text>
           Single-line item
@@ -167,6 +196,8 @@ class SimpleList {
   isInset: boolean = false;
   isPadded: boolean = false;
   singleSelection: boolean;
+  verticalOrientation: boolean;
+  wrapFocus: boolean;
 
   @ViewChild('divider') divider: MdcListDivider;
   @ViewChild('listitem') listitem: MdcListItem;

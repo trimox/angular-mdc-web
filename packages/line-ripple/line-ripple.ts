@@ -2,21 +2,20 @@ import {
   Directive,
   ElementRef,
   NgZone,
-  OnDestroy
+  OnDestroy,
+  OnInit
 } from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
-import { MDCLineRippleFoundation } from '@material/line-ripple';
+import { MDCLineRippleFoundation } from '@material/line-ripple/index';
 
 @Directive({
   selector: '[mdcLineRipple], mdc-line-ripple',
   exportAs: 'mdcLineRipple',
-  host: {
-    'class': 'mdc-line-ripple'
-  }
+  host: { 'class': 'mdc-line-ripple' }
 })
-export class MdcLineRipple implements OnDestroy {
+export class MdcLineRipple implements OnInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
@@ -40,7 +39,7 @@ export class MdcLineRipple implements OnDestroy {
     private _ngZone: NgZone,
     public elementRef: ElementRef<HTMLElement>) { }
 
-  init(): void {
+  ngOnInit(): void {
     this._loadListeners();
   }
 

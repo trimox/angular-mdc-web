@@ -78,10 +78,6 @@ export class MdcFloatingLabel implements AfterContentInit, OnDestroy {
         .subscribe(() => this._ngZone.run(() => this._foundation.handleShakeAnimationEnd_())));
   }
 
-  get floatingLabelFoundation(): any {
-    return this._foundation;
-  }
-
   /** Retrieves the DOM element of the component host. */
   private _getHostElement(): HTMLElement {
     return this.elementRef.nativeElement;

@@ -108,9 +108,10 @@ export class MdcSnackbar implements OnDestroy {
       this._snackBarRefAtThisLevel.dismiss();
     }
   }
+
   /**
-    * Attaches the snackbar container component to the overlay.
-    */
+   * Attaches the snackbar container component to the overlay.
+   */
   private _attachSnackbarContainer(overlayRef: OverlayRef,
     config: MdcSnackbarConfig): MdcSnackbarContainer {
 

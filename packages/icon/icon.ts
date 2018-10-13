@@ -31,9 +31,6 @@ export class MdcIcon implements OnInit {
   @Input() role: string | null = 'img';
   @Input() tabIndex: number | null;
 
-  /** Name of the icon in the SVG icon set. */
-  @Input() svgIcon: string;
-
   /** Font set that the icon is a part of. */
   @Input()
   get fontSet(): string { return this._fontSet; }
@@ -92,28 +89,7 @@ export class MdcIcon implements OnInit {
     }
   }
 
-  /** Splits an svgIcon binding value into its icon set and icon name components. */
-  private _splitIconName(iconName: string): [string, string] {
-    if (!iconName) {
-      return ['', ''];
-    }
-    const parts = iconName.split(':');
-    switch (parts.length) {
-      case 1: return ['', parts[0]]; // Use default namespace.
-      case 2: return <[string, string]>parts;
-      default: throw Error(`Invalid icon name: "${iconName}"`);
-    }
-  }
-
-  private _usingFontIcon(): boolean {
-    return !this.svgIcon;
-  }
-
   private _updateFontIconClasses(): void {
-    if (!this._usingFontIcon()) {
-      return;
-    }
-
     const el: HTMLElement = this._getHostElement();
 
     const fontSetClass = this.fontSet ? this.fontSet : this._getDefaultFontSetClass();

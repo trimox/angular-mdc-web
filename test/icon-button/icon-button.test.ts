@@ -53,6 +53,13 @@ describe('MdcIconButton', () => {
       expect(buttonInstance.on).toBe(true);
     });
 
+    it('#should set toggle state to true', () => {
+      buttonInstance.toggle();
+      buttonNativeElement.focus();
+      fixture.detectChanges();
+      expect(buttonInstance.on).toBe(true);
+    });
+
     it('#should handle click event', () => {
       buttonNativeElement.click();
       fixture.detectChanges();
@@ -100,6 +107,28 @@ describe('MdcIconButton', () => {
       expect(buttonInstance.on).toBe(false);
     });
   });
+
+  describe('Non toggle icon button behaviors', () => {
+    let buttonDebugElement: DebugElement;
+    let buttonNativeElement: HTMLButtonElement;
+    let buttonInstance: MdcIconButton;
+    let testComponent: SingleStateIconButton;
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(SingleStateIconButton);
+      fixture.detectChanges();
+
+      buttonDebugElement = fixture.debugElement.query(By.directive(MdcIconButton));
+      buttonNativeElement = buttonDebugElement.nativeElement;
+      buttonInstance = buttonDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+    });
+
+    it('#should handle click event', () => {
+      buttonNativeElement.click();
+      fixture.detectChanges();
+    });
+  });
 });
 
 @Component({
@@ -138,6 +167,9 @@ class IconButtonToggle {
 }
 
 @Component({
-  template: `<button mdcIconButton icon='favorite'></button>`,
+  template: `
+  <button mdcIconButton>
+    <mdc-icon>favorite</mdc-icon>
+  </button>`,
 })
 class SingleStateIconButton { }

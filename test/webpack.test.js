@@ -3,11 +3,8 @@ const webpack = require('webpack');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   devtool: 'inline-source-map',
-  performance: {
-    hints: false
-  },
   plugins: [
     // Workaround for angular/angular#1158
     new webpack.ContextReplacementPlugin(
@@ -26,26 +23,30 @@ module.exports = {
   module: {
     rules: [
       {
-          // Mark files inside `@angular/core` as using SystemJS style dynamic imports.
-          // Removing this will cause deprecation warnings to appear.
-          test: /[\/\\]@angular[\/\\]core[\/\\].+\.js$/,
-          parser: { system: true },
+        // Mark files inside `@angular/core` as using SystemJS style dynamic imports.
+        // Removing this will cause deprecation warnings to appear.
+        test: /[\/\\]@angular[\/\\]core[\/\\].+\.js$/,
+        parser: { system: true },
       },
       {
         test: /\.ts$/,
-        loader: 'ts-loader'
-      }, {
-        loader: 'string-replace-loader',
-          query: {
-            search: 'moduleId: module.id,',
-            replace: '',
-            flags: 'g'
-          }
-        },
+        loader: 'ts-loader?silent=true',
+        exclude: /node_modules/
+      },
       {
+        loader: 'string-replace-loader',
+        query: {
+          search: 'moduleId: module.id,',
+          replace: '',
+          flags: 'g'
+        }
+      },
+      {
+        test: /\.(js|ts)$/,
+        loader: 'istanbul-instrumenter-loader',
+        options: { esModules: true },
         enforce: 'post',
-        test: /\.(js|ts)$/, loader: 'sourcemap-istanbul-instrumenter-loader?force-sourcemap=true',
-        include: path.resolve('packages/')
+        exclude: /(node_modules|grid-list|testing|portal|overlay|\.test\.ts$)/
       }
     ]
   }

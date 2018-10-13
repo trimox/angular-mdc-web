@@ -1,6 +1,5 @@
 import {
   AfterViewInit,
-  Attribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -82,17 +81,6 @@ export class MdcChipIcon extends MdcIcon {
     this._trailing = toBoolean(value);
   }
   private _trailing: boolean;
-
-  constructor(
-    @Attribute('aria-hidden') ariaHidden: string,
-    public elementRef: ElementRef) {
-
-    super(elementRef, ariaHidden);
-
-    if (!ariaHidden) {
-      this._getHostElement().setAttribute('aria-hidden', 'true');
-    }
-  }
 }
 
 @Component({

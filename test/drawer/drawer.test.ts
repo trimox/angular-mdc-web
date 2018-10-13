@@ -1,11 +1,16 @@
-import { Component, DebugElement } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, ElementRef, DebugElement, ViewChild } from '@angular/core';
+import { async, ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+import { dispatchFakeEvent, dispatchKeyboardEvent } from '../testing/dispatch-events';
+
 import {
+  TAB,
+  DOWN_ARROW,
   MdcDrawerModule,
   MdcListModule,
   MdcIconModule,
+  MdcListItem,
   MdcDrawer
 } from '@angular-mdc/web';
 
@@ -52,14 +57,23 @@ describe('MdcDrawer', () => {
       expect(testInstance.permanent).toBe(true);
     });
 
-    it('#should set modal', () => {
+    it('#should set modal', fakeAsync(() => {
+      const listItemDebugElement = fixture.debugElement.query(By.directive(MdcListItem));
+      const listItemInstance = listItemDebugElement.injector.get<MdcListItem>(MdcListItem);
+
       testComponent.drawer = 'modal';
       fixture.detectChanges();
+      flush();
 
       testInstance.open = true;
       fixture.detectChanges();
+      flush();
+
       expect(testInstance.open).toBe(true);
-    });
+      listItemInstance.getListItemElement().click();
+      fixture.detectChanges();
+      flush();
+    }));
 
     it('#should be open', () => {
       testInstance.open = true;
@@ -67,25 +81,76 @@ describe('MdcDrawer', () => {
       expect(testInstance.open).toBe(true);
     });
 
-    it('#should be closed after click', () => {
-      testComponent.drawer = 'temporary';
+    it('#should have fixed adjust element', () => {
+      expect(testInstance.fixedAdjustElement).toBeDefined();
+    });
+
+    it('#should not have fixed adjust element', () => {
+      testInstance.fixedAdjustElement = null;
+      fixture.detectChanges()
+      expect(testInstance.fixedAdjustElement).toBeNull();
+    });
+
+    it('#should be closed after clicking document', fakeAsync(() => {
+      testComponent.drawer = 'modal';
+      testComponent.open = true;
+      fixture.detectChanges();
+      tick(500);
+
+      const drawerScrim = document.body.querySelector('.mdc-drawer-scrim');
+
+      dispatchFakeEvent(drawerScrim, 'click');
+      fixture.detectChanges();
+      flush();
+
+      expect(testInstance.open).toBe(false);
+
+      testComponent.drawer = 'permanent';
+      testComponent.open = true;
+      fixture.detectChanges();
+    }));
+
+    it('#should handle list item click', fakeAsync(() => {
+      testComponent.open = true;
+      fixture.detectChanges();
+      tick(500);
+
+      const listItemDebugElement = fixture.debugElement.query(By.directive(MdcListItem));
+      const listItemInstance = listItemDebugElement.injector.get<MdcListItem>(MdcListItem);
+
+      listItemInstance.getListItemElement().click();
+      fixture.detectChanges();
+    }));
+
+    it('#should handle list item keydown', fakeAsync(() => {
+      testComponent.open = true;
+      fixture.detectChanges();
+      tick(500);
+
+      const listItemDebugElement = fixture.debugElement.query(By.directive(MdcListItem));
+      const listItemInstance = listItemDebugElement.injector.get<MdcListItem>(MdcListItem);
+
+      listItemInstance.focus();
       fixture.detectChanges();
 
-      testDebugElement.nativeElement.click();
+      dispatchKeyboardEvent(listItemInstance.getListItemElement(), 'keydown', DOWN_ARROW);
       fixture.detectChanges();
-      expect(testInstance.open).toBe(false);
-    });
+
+      dispatchKeyboardEvent(listItemInstance.getListItemElement(), 'keydown', TAB);
+      fixture.detectChanges();
+    }));
   });
 });
 
 @Component({
   template: `
-  <mdc-drawer [drawer]="drawer" [open]="open" [fixedAdjustElement]="testcontent">
+  <button (click)="testDrawer.open = !testDrawer.open" #openButton></button>
+  <mdc-drawer #testDrawer [drawer]="drawer" [open]="open" [fixedAdjustElement]="testcontent">
     <mdc-drawer-header title='Test' subtitle='Testing'>
     </mdc-drawer-header>
     <mdc-drawer-content>
       <mdc-list-group>
-        <mdc-list>
+        <mdc-list useActivatedClass>
           <mdc-list-item>
             <mdc-icon mdc-list-item-start>home</mdc-icon>Home
           </mdc-list-item>
@@ -120,4 +185,7 @@ describe('MdcDrawer', () => {
 class SimpleTest {
   drawer: string = 'permanent';
   open: boolean;
+
+  @ViewChild('testcontent') testContent;
+  @ViewChild('openButton') openButton: ElementRef<HTMLButtonElement>;
 }

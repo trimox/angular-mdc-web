@@ -196,7 +196,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   @Output() readonly change = new EventEmitter<any>();
   @Output() readonly blur = new EventEmitter<any>();
 
-  @ViewChild('input') _input: ElementRef<HTMLInputElement>;
+  @ViewChild('input') _input: ElementRef<HTMLInputElement | HTMLTextAreaElement>;
   @ViewChild(MdcFloatingLabel) _floatingLabel: MdcFloatingLabel;
   @ViewChild(MdcLineRipple) _lineRipple: MdcLineRipple;
   @ViewChild(MdcNotchedOutline) _notchedOutline: MdcNotchedOutline;
@@ -222,12 +222,16 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
       isRtl: () =>
         this._platform.isBrowser ? window.getComputedStyle(this._getHostElement()).getPropertyValue('direction') === 'rtl' : false,
       registerValidationAttributeChangeHandler: (handler: (whitelist: Array<string>) => void) => {
+        if (!this._platform.isBrowser) { return; }
+
         const getAttributesList = (mutationsList) => mutationsList.map((mutation) => mutation.attributeName);
         const observer = new MutationObserver((mutationsList) => handler(getAttributesList(mutationsList)));
         observer.observe(this._getInputElement(), { attributes: true });
         return observer;
       },
       deregisterValidationAttributeChangeHandler: (observer: MutationObserver) => {
+        if (!this._platform.isBrowser) { return; }
+
         if (observer) {
           observer.disconnect();
         }
@@ -491,7 +495,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     }
   }
 
-  private _getInputElement(): HTMLInputElement {
+  private _getInputElement(): HTMLInputElement | HTMLTextAreaElement {
     return this._input.nativeElement;
   }
 

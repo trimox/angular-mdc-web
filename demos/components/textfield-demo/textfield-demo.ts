@@ -9,7 +9,7 @@ import { MdcTextField, MdcIcon } from '@angular-mdc/web';
 export class TextFieldDemo {
   demoForm = new FormGroup({
     userName: new FormControl(
-      { value: 'test', disabled: false }, [Validators.required])
+      { value: '', disabled: false }, [Validators.required])
   });
 
   updateForm: FormGroup;

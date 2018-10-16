@@ -124,7 +124,13 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   @Input()
   get outlined(): boolean { return this._outlined; }
   set outlined(value: boolean) {
-    this.setOutlined(value);
+    const newValue = toBoolean(value);
+
+    if (newValue !== this._outlined) {
+      this._outlined = toBoolean(newValue);
+      this._reinitialize();
+      this.layout();
+    }
   }
   private _outlined: boolean;
 
@@ -178,11 +184,9 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   @Input()
   get value(): any { return this._value; }
   set value(newValue: any) {
-    if (newValue !== this.value) {
-      this.setValue(newValue);
-    }
+    this.setValue(newValue);
   }
-  private _value: any;
+  private _value: any = null;
 
   /** Sets the Text Field valid or invalid. */
   @Input()
@@ -213,7 +217,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
 
   get useLineRipple(): boolean { return !this._outlined && !this.textarea; }
 
-  createAdapter() {
+  private _createAdapter() {
     return Object.assign({
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
@@ -328,7 +332,6 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
 
   ngAfterContentInit(): void {
     this.init();
-    this._initializeSelection();
   }
 
   ngOnDestroy(): void {
@@ -336,8 +339,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   }
 
   init(): void {
-    this._foundation = new MDCTextFieldFoundation(this.createAdapter(),
-      this._getFoundationMap());
+    this._foundation = new MDCTextFieldFoundation(this._createAdapter(), this._getFoundationMap());
 
     this._initRipple();
     this._foundation.init();
@@ -361,19 +363,6 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
       this._destroyTextField();
       this.init();
     }
-  }
-
-  private _initializeSelection(): void {
-    // Defer setting these values in order to avoid the "Expression
-    // has changed after it was checked" errors from Angular.
-    Promise.resolve().then(() => {
-      this.setValue(this._value);
-      if (this._valid) {
-        this._foundation.setValid(this._valid);
-      }
-      this._foundation.setUseNativeValidation(this._useNativeValidation);
-      this._foundation.setDisabled(this._disabled);
-    });
   }
 
   onChange(evt: Event): void {
@@ -424,22 +413,20 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     this._onTouched = fn;
   }
 
-  private _valueIsDefined(value: any): boolean {
-    return value !== null && value !== undefined && value.toString().length !== 0;
-  }
-
   setValue(value: any): void {
-    const newValue = this.type === 'number' ? (value === '' ? null : toNumber(value, null)) : value;
-    this._value = newValue;
+    const newValue = this.type === 'number' ? toNumber(value, null) : value;
+    if (newValue === this._value) { return; }
+
+    this._value = newValue ? newValue : null;
+    this._foundation.setValue(this._value);
 
     setTimeout(() => {
-      this._foundation.setValue(newValue ? newValue : null);
-
       if (this.required && !this.value) {
         this.required = false;
         setTimeout(() => this.required = true);
       }
     });
+
     this._changeDetectorRef.markForCheck();
   }
 
@@ -451,17 +438,6 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   focus(): void {
     if (!this.disabled) {
       this._getInputElement().focus();
-    }
-  }
-
-  /** Styles the text field as an outlined text field. */
-  setOutlined(outlined: boolean): void {
-    const newValue = toBoolean(outlined);
-
-    if (newValue !== this._outlined) {
-      this._outlined = toBoolean(newValue);
-      this._reinitialize();
-      this.layout();
     }
   }
 
@@ -480,8 +456,13 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   layout(): void {
     Promise.resolve().then(() => {
       setTimeout(() => {
-        this._foundation.notchOutline(this._foundation.shouldFloat);
-        this._floatingLabel.float(this._foundation.shouldFloat);
+        if (this._notchedOutline) {
+          this._foundation.notchOutline(this._foundation.shouldFloat);
+        }
+
+        if (this._floatingLabel) {
+          this._floatingLabel.float(this._foundation.shouldFloat);
+        }
       }, 5);
     });
   }

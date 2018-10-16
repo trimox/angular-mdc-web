@@ -236,7 +236,11 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
           observer.disconnect();
         }
       },
-      getNativeInput: () => this._getInputElement()
+      getNativeInput: () => {
+        if (!this._platform.isBrowser) { return; }
+
+        return this._getInputElement();
+      }
     },
       this._getLabelAdapterMethods(),
       this._getLineRippleAdapterMethods(),

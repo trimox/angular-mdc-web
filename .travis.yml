@@ -1,6 +1,11 @@
 language: node_js
+
+# Force Travis CI to run jobs in VMs instead of Docker containers.
+# - https://blog.travis-ci.com/2018-10-04-combining-linux-infrastructures
+# - https://docs.travis-ci.com/user/reference/trusty/#fully-virtualized-via-sudo-required
+sudo: required
+
 dist: trusty
-sudo: false
 node_js:
   - '10.7.0'
 

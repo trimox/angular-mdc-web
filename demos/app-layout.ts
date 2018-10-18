@@ -21,45 +21,34 @@ export class AppLayout implements OnInit, OnDestroy {
   @ViewChild('topAppBar') topAppBar: MdcTopAppBar;
 
   startVisible: boolean;
-  buttonVisible: boolean;
-  inputVisible: boolean;
-  listVisible: boolean;
 
   navigationLinks = [
-    { name: 'Card', route: 'card-demo', icon: 'credit_card' },
-    { name: 'Chips', route: 'chips-demo', icon: 'indeterminate_check_box' },
-    { name: 'Dialog', route: 'dialog-demo', icon: 'question_answer' },
-    { name: 'Drawer', route: 'drawer-demo', icon: 'code' },
-    { name: 'Elevation', route: 'elevation-demo', icon: 'filter_none' },
-    { name: 'Icon', route: 'icon-demo', icon: 'star' },
-    { name: 'Linear Progress', route: 'linear-progress-demo', icon: 'compare_arrows' },
-    { name: 'Menu', route: 'menu-demo', icon: 'menu' },
-    { name: 'Ripple', route: 'ripple-demo', icon: 'code' },
-    { name: 'Snackbar', route: 'snackbar-demo', icon: 'info_outline' },
-    { name: 'Tabs', route: 'tabs-demo', icon: 'tab' },
-    { name: 'Top App Bar', route: 'top-app-bar-demo', icon: 'remove' },
-    { name: 'Typography', route: 'typography-demo', 'icon': 'title' }
-  ];
-
-  inputRoutes = [
+    { name: 'Button', route: '/button-demo' },
+    { name: 'Card', route: 'card-demo' },
     { name: 'Checkbox', route: 'checkbox-demo' },
+    { name: 'Chips', route: 'chips-demo' },
+    { name: 'Dialog', route: 'dialog-demo' },
+    { name: 'Drawer', route: 'drawer-demo' },
+    { name: 'Elevation', route: 'elevation-demo' },
+    { name: 'FAB', route: '/fab-demo' },
     { name: 'Form Field', route: 'form-field-demo' },
+    { name: 'Icon Button', route: '/icon-button-demo' },
+    { name: 'Icon', route: 'icon-demo' },
+    { name: 'Image List', route: 'image-list-demo' },
+    { name: 'Linear Progress', route: 'linear-progress-demo' },
+    { name: 'List', route: 'list-demo' },
+    { name: 'Menu Surface', route: 'menu-surface-demo' },
+    { name: 'Menu', route: 'menu-demo' },
     { name: 'Radio Buttons', route: 'radio-demo' },
+    { name: 'Ripple', route: 'ripple-demo' },
     { name: 'Select', route: 'select-demo' },
     { name: 'Slider', route: 'slider-demo' },
+    { name: 'Snackbar', route: 'snackbar-demo' },
     { name: 'Switch', route: 'switch-demo' },
-    { name: 'Text Field', route: 'textfield-demo' }
-  ];
-
-  buttonRoutes = [
-    { name: 'Button', route: '/button-demo' },
-    { name: 'FAB', route: '/fab-demo' },
-    { name: 'Icon Button', route: '/icon-button-demo' }
-  ];
-
-  listRoutes = [
-    { name: 'List', route: 'list-demo' },
-    { name: 'Image List', route: 'image-list-demo' }
+    { name: 'Tabs', route: 'tabs-demo' },
+    { name: 'Text Field', route: 'textfield-demo' },
+    { name: 'Top App Bar', route: 'top-app-bar-demo' },
+    { name: 'Typography', route: 'typography-demo' }
   ];
 
   startRoutes = [

@@ -1,7 +1,6 @@
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ContentChild,
   ContentChildren,
@@ -9,28 +8,19 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  NgZone,
   OnDestroy,
   Output,
   QueryList,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
-import { Platform, toBoolean, toNumber } from '@angular-mdc/web/common';
 import { MdcList, MdcListItem } from '@angular-mdc/web/list';
-import {
-  AbsolutePosition,
-  Anchor,
-  AnchorMargin,
-  MdcMenuSurfaceAnchor,
-  MdcMenuSurfaceBase,
-  MdcMenuSurfaceOpenedEvent
-} from '@angular-mdc/web/menu-surface';
+import { MdcMenuSurfaceAbstract } from '@angular-mdc/web/menu-surface';
 
-import { MDCMenuFoundation, Corner } from '@material/menu/index';
+import { MDCMenuFoundation } from '@material/menu/index';
 
 export class MdcMenuSelectedEvent {
   constructor(
@@ -40,29 +30,19 @@ export class MdcMenuSelectedEvent {
 
 let nextUniqueId = 0;
 
-@Component({
-  moduleId: module.id,
+@Directive({
   selector: '[mdcMenuSelectionGroup], mdc-menu-selection-group',
-  host: {
-    'class': 'mdc-menu__selection-group'
-  },
-  exportAs: 'mdcMenuSelectionGroup',
-  template: '<ng-content></ng-content>',
-  encapsulation: ViewEncapsulation.None
+  host: { 'class': 'mdc-menu__selection-group' },
+  exportAs: 'mdcMenuSelectionGroup'
 })
 export class MdcMenuSelectionGroup {
   constructor(public elementRef: ElementRef) { }
 }
 
-@Component({
-  moduleId: module.id,
+@Directive({
   selector: '[mdcMenuSelectionGroupIcon], mdc-menu-selection-group-icon',
-  host: {
-    'class': 'mdc-menu__selection-group-icon'
-  },
-  exportAs: 'mdcMenuSelectionGroupIcon',
-  template: '<ng-content></ng-content>',
-  encapsulation: ViewEncapsulation.None
+  host: { 'class': 'mdc-menu__selection-group-icon' },
+  exportAs: 'mdcMenuSelectionGroupIcon'
 })
 export class MdcMenuSelectionGroupIcon {
   constructor(public elementRef: ElementRef<HTMLElement>) { }
@@ -74,97 +54,19 @@ export class MdcMenuSelectionGroupIcon {
   exportAs: 'mdcMenu',
   host: {
     '[id]': 'id',
-    '[tabIndex]': 'tabIndex',
-    'class': 'mdc-menu',
-    '[class.mdc-menu-surface]': 'true',
-    '(click)': 'menuClick($event)',
-    '(keydown)': 'menuKeydown($event)',
+    'tabindex': '-1',
+    'class': 'mdc-menu mdc-menu-surface',
+    '(click)': 'handleClick($event)',
+    '(keydown)': 'handleKeydown($event)',
   },
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnDestroy {
+export class MdcMenu extends MdcMenuSurfaceAbstract implements AfterContentInit, OnDestroy {
   private _uniqueId: string = `mdc-menu-${++nextUniqueId}`;
 
   @Input() id: string = this._uniqueId;
-
-  @Input()
-  get open(): boolean { return this.isOpen(); }
-  set open(value: boolean) {
-    this._open = toBoolean(value);
-    this.setOpen(this._open);
-    this._changeDetectorRef.markForCheck();
-  }
-  private _open: boolean;
-
-  @Input()
-  get anchor(): any { return this._anchor; }
-  set anchor(element: any) {
-    this._anchor = element;
-    this.setMenuSurfaceAnchorElement(element);
-  }
-  private _anchor: any;
-
-  @Input()
-  get anchorCorner(): Anchor { return this._anchorCorner; }
-  set anchorCorner(value: Anchor) {
-    this._anchorCorner = value;
-    this.setAnchorCorner(value);
-    this._changeDetectorRef.markForCheck();
-  }
-  private _anchorCorner: Anchor;
-
-  @Input()
-  get quickOpen(): boolean { return this._quickOpen; }
-  set quickOpen(value: boolean) {
-    this._quickOpen = toBoolean(value);
-    this.setQuickOpen(this._quickOpen);
-    this._changeDetectorRef.markForCheck();
-  }
-  private _quickOpen: boolean;
-
-  @Input()
-  get fixed(): boolean { return this._fixed; }
-  set fixed(value: boolean) {
-    this._fixed = toBoolean(value);
-    this.setFixedPosition(this._fixed);
-    this._changeDetectorRef.markForCheck();
-  }
-  private _fixed: boolean;
-
-  @Input()
-  get hoistToBody(): boolean { return this._hoistToBody; }
-  set hoistToBody(value: boolean) {
-    this._hoistToBody = toBoolean(value);
-    if (this._hoistToBody) {
-      this.setHoistMenuToBody();
-    }
-    this.setIsHoisted(this._hoistToBody);
-    this._changeDetectorRef.markForCheck();
-  }
-  private _hoistToBody: boolean;
-
-  @Input()
-  get anchorMargin(): AnchorMargin { return this._anchorMargin; }
-  set anchorMargin(value: AnchorMargin) {
-    this._anchorMargin = value;
-    this.setAnchorMargin(this._anchorMargin);
-    this._changeDetectorRef.markForCheck();
-  }
-  private _anchorMargin: AnchorMargin;
-
-  @Input()
-  get absolutePosition(): AbsolutePosition { return this._absolutePosition; }
-  set absolutePosition(value: AbsolutePosition) {
-    this._absolutePosition = value;
-    this.setAbsolutePosition(toNumber(value.x), toNumber(value.y));
-    this._changeDetectorRef.markForCheck();
-  }
-  private _absolutePosition: AbsolutePosition;
-
-  /** Tabindex of the menu. */
-  @Input() tabIndex: number = -1;
 
   @Output() readonly selected: EventEmitter<MdcMenuSelectedEvent> =
     new EventEmitter<MdcMenuSelectedEvent>();
@@ -172,14 +74,14 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
   @ContentChild(MdcList) _list: MdcList;
   @ContentChildren(MdcListItem, { descendants: true }) _listItems: QueryList<MdcListItem>;
 
+  /** Subscription to listen for menu-surface opened event. */
   private _openedSubscription: Subscription;
-  private _closedSubscription: Subscription;
 
   /** Subscription to changes in list items. */
   private _changeSubscription: Subscription;
 
-  createAdapter() {
-    return {
+  private _createAdapter() {
+    return Object.assign({
       addClassToElementAtIndex: (index: number, className: string) =>
         this._listItems.toArray()[index].getListItemElement().classList.add(className),
       removeClassFromElementAtIndex: (index: number, className: string) =>
@@ -189,53 +91,42 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
       removeAttributeFromElementAtIndex: (index: number, attr: string) =>
         this._listItems.toArray()[index].getListItemElement().removeAttribute(attr),
       elementContainsClass: (element: HTMLElement, className: string) => element.classList.contains(className),
-      closeSurface: () => this.setOpen(false),
+      closeSurface: () => {
+        this.open = false;
+        this.setOpen();
+      },
       getElementIndex: (element: HTMLElement) => this._listItems.toArray().findIndex(_ => _.getListItemElement() === element),
       getParentElement: (element: HTMLElement) => element.parentElement,
-      getSelectedElementIndex: (selectionGroup: MdcMenuSelectionGroup) => {
-        return this._listItems.toArray().indexOf(selectionGroup.elementRef.nativeElement.querySelector('mdc-menu-item--selected'));
-      },
+      getSelectedElementIndex: (selectionGroup: MdcMenuSelectionGroup) =>
+        this._listItems.toArray().indexOf(
+          selectionGroup.elementRef.nativeElement.querySelector('mdc-menu-item--selected')),
       notifySelected: (evtData: { index: number }) =>
         this.selected.emit(new MdcMenuSelectedEvent(evtData.index, this._listItems.toArray()[evtData.index]))
-    };
+    });
   }
 
   private _menuFoundation: {
     destroy(): void,
     handleKeydown(evt: KeyboardEvent): void,
     handleClick(evt: MouseEvent): void
-  } = new MDCMenuFoundation(this.createAdapter());
-
-  constructor(
-    protected platform: Platform,
-    protected _changeDetectorRef: ChangeDetectorRef,
-    protected ngZone: NgZone,
-    public elementRef: ElementRef<HTMLElement>) {
-
-    super(platform, ngZone, elementRef);
-  }
+  } = new MDCMenuFoundation(this._createAdapter());
 
   ngAfterContentInit(): void {
+    this.initMenuSurface();
+
     this._initList();
 
     // When the list items change, re-subscribe
-    this._changeSubscription = this._listItems.changes.pipe(startWith(null)).subscribe(() => {
-      this._listItems.forEach(item => item.setRole('menuitem'));
-    });
+    this._changeSubscription = this._listItems.changes.pipe(startWith(null))
+      .subscribe(() => {
+        this._listItems.forEach(item => item.setRole('menuitem'));
+      });
 
     this._openedSubscription = this.opened.subscribe(() => {
-      this.registerBodyCick();
-
       if (this._list) {
         this._list.focusFirstElement();
       }
     });
-
-    this._closedSubscription = this.closed.subscribe(() => {
-      this.deregisterBodyClick();
-    });
-
-    this.initMenuSurface();
   }
 
   ngOnDestroy(): void {
@@ -244,9 +135,6 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
     }
     if (this._openedSubscription) {
       this._openedSubscription.unsubscribe();
-    }
-    if (this._closedSubscription) {
-      this._closedSubscription.unsubscribe();
     }
 
     this.destroyMenuSurface();
@@ -260,11 +148,11 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
     this._list.wrapFocus = true;
   }
 
-  menuClick(evt: MouseEvent): void {
+  handleClick(evt: MouseEvent): void {
     this._menuFoundation.handleClick(evt);
   }
 
-  menuKeydown(evt: KeyboardEvent): void {
+  handleKeydown(evt: KeyboardEvent): void {
     this._menuFoundation.handleKeydown(evt);
   }
 

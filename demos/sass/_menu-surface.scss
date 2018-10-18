@@ -1,0 +1,14 @@
+.demo-menu-surface {
+  padding-bottom: 300px;
+}
+
+.demo-menu-surface--one {
+  @include mdc-menu-surface-shape-radius(4px);
+}
+
+.menu-surface-image-list {
+  @include mdc-image-list-aspect(1.5); // Images are 3:2
+  @include mdc-image-list-standard-columns(1);
+
+  width: 220px;
+}

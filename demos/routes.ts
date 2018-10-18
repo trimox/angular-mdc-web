@@ -17,6 +17,7 @@ import { ImageListDemo } from './components/image-list-demo/image-list-demo';
 import { LinearProgressDemo } from './components/linear-progress-demo/linear-progress-demo';
 import { ListDemo } from './components/list-demo/list-demo';
 import { MenuDemo } from './components/menu-demo/menu-demo';
+import { MenuSurfaceDemo } from './components/menu-surface-demo/menu-surface-demo';
 import { RadioDemo } from './components/radio-demo/radio-demo';
 import { RippleDemo } from './components/ripple-demo/ripple-demo';
 import { SelectDemo } from './components/select-demo/select-demo';
@@ -48,6 +49,7 @@ export const DEMO_ROUTES = [
   LinearProgressDemo,
   ListDemo,
   MenuDemo,
+  MenuSurfaceDemo,
   RadioDemo,
   RippleDemo,
   SelectDemo,
@@ -79,6 +81,7 @@ export const APP_ROUTES: Routes = [
   { path: 'linear-progress-demo', component: LinearProgressDemo },
   { path: 'list-demo', component: ListDemo },
   { path: 'menu-demo', component: MenuDemo },
+  { path: 'menu-surface-demo', component: MenuSurfaceDemo },
   { path: 'radio-demo', component: RadioDemo },
   { path: 'ripple-demo', component: RippleDemo },
   { path: 'select-demo', component: SelectDemo },

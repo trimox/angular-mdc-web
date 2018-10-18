@@ -2,7 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed, flush, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { dispatchFakeEvent, dispatchKeyboardEvent } from '../testing/dispatch-events';
+import { dispatchFakeEvent, dispatchMouseEvent, dispatchKeyboardEvent } from '../testing/dispatch-events';
 
 import {
   TAB,
@@ -67,12 +67,6 @@ describe('MdcMenu', () => {
       expect(testInstance.fixed).toBe(false);
     });
 
-    it('#menu should set hoist to body', () => {
-      testComponent.hoistToBody = true;
-      fixture.detectChanges();
-      expect(testInstance.hoistToBody).toBe(true);
-    });
-
     it('#menu should set anchor corner', () => {
       testComponent.anchorCorner = 'topEnd';
       fixture.detectChanges();
@@ -86,9 +80,8 @@ describe('MdcMenu', () => {
       fixture.detectChanges();
       expect(testInstance.anchorCorner).toBe('bottomStart');
 
-      expect(testInstance.absolutePosition).toBeDefined();
       expect(testInstance.anchorMargin).toBeDefined();
-      expect(testInstance.anchor).toBeDefined();
+      expect(testInstance.anchorElement).toBeDefined();
     });
 
     it('#should handle click event', () => {
@@ -96,12 +89,12 @@ describe('MdcMenu', () => {
       fixture.detectChanges();
     });
 
-    it('#should handle body click event', fakeAsync(() => {
+    it('#should handle window object click event', fakeAsync(() => {
       testComponent.open = true;
       fixture.detectChanges();
       tick(500);
 
-      dispatchFakeEvent(document.body, 'click');
+      dispatchMouseEvent(document, 'click');
       fixture.detectChanges();
       tick(500);
 
@@ -145,9 +138,8 @@ describe('MdcMenu', () => {
 @Component({
   template: `
     <div mdcMenuSurfaceAnchor #testanchor>
-      <mdc-menu [open]="open" [anchorCorner]="anchorCorner" (selected)="handleSelected($event)" [hoistToBody]="hoistToBody"
-       [anchor]="testanchor" [quickOpen]="quickOpen" [absolutePosition]="{ x: 5, y: 2}"
-       [fixed]="fixed" [anchorMargin]="{top: 0, right: 0, bottom: 0, left: 0}">
+      <mdc-menu [open]="open" [anchorCorner]="anchorCorner" (selected)="handleSelected($event)"
+       [anchorElement]="testanchor" [quickOpen]="quickOpen" [fixed]="fixed" [anchorMargin]="{top: 0, right: 0, bottom: 0, left: 0}">
          <mdc-menu-selection-group>
            <div mdcMenuSelectionGroupIcon>
             <mdc-list>
@@ -165,7 +157,6 @@ class MenuTest {
   anchorCorner: string = 'topStart';
   quickOpen: boolean;
   fixed: boolean = true;
-  hoistToBody: boolean;
 
   handleSelected(event: { index: number, source: MdcListItem }) { }
 }

@@ -135,6 +135,10 @@
           <mdc-checkbox #fixed></mdc-checkbox>
           <label>Fixed position menu surface</label>
         </mdc-form-field>
+        <mdc-form-field>
+          <mdc-checkbox #hoistToBody></mdc-checkbox>
+          <label>Hoist to Body</label>
+        </mdc-form-field>
       </div>
     </div>
 
@@ -144,9 +148,11 @@
           Show Menu Surface
         </button>
         <mdc-menu-surface #menuSurface1 class="demo-menu-surface--one"
+         [hoistToBody]="hoistToBody.checked"
          [anchorElement]="menuSurfaceAnchor1"
          [anchorCorner]="menuSurfaceAnchorCorner.value"
-         [quickOpen]="quickOpen.checked" [fixed]="fixed.checked"
+         [quickOpen]="quickOpen.checked"
+         [fixed]="fixed.checked"
          [anchorMargin]="{top: marginTop.value, bottom: marginBottom.value, left: marginLeft.value, right: marginRight.value}">
           <mdc-image-list class="menu-surface-image-list">
             <mdc-image-list-item *ngFor="let i of images">

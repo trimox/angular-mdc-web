@@ -28,6 +28,11 @@ export interface AnchorMargin {
   left?: number;
 }
 
+export interface Coordinates {
+  x: number;
+  y: number;
+}
+
 export type AnchorCorner = 'bottomEnd' | 'bottomStart' | 'topEnd' | 'topStart';
 
 const ANCHOR_CORNER_MAP = {
@@ -87,12 +92,12 @@ export abstract class MdcMenuSurfaceAbstract {
   private _fixed: boolean;
 
   @Input()
-  get coordinates(): { x: number; y: number } { return this._coordinates; }
-  set coordinates(value: { x: number; y: number }) {
+  get coordinates(): Coordinates { return this._coordinates; }
+  set coordinates(value: Coordinates) {
     this._coordinates = value;
-    this._foundation.setAbsolutePosition(toNumber(value.x), toNumber(value.y));
+    this._foundation.setAbsolutePosition(value.x, value.y);
   }
-  private _coordinates: { x: number; y: number };
+  private _coordinates: Coordinates;
 
   @Input()
   get anchorMargin(): AnchorMargin { return this._anchorMargin; }
@@ -267,6 +272,10 @@ export abstract class MdcMenuSurfaceAbstract {
     // add platform check due to use of cancelAnimationFrame inside destroy()
     if (this.platform.isBrowser) {
       this._foundation.destroy();
+    }
+
+    if (this.hoistToBody) {
+      document.body!.removeChild(this._getHostElement());
     }
   }
 

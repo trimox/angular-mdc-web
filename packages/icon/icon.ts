@@ -280,7 +280,7 @@ export class MdcIcon implements AfterViewChecked, OnDestroy, OnChanges, OnInit {
       [this._iconRegistry.classNameForFontAlias(this.fontSet)] :
       this._iconRegistry.getDefaultFontSetClass();
 
-    this._previousFontSetClass.forEach(className => elem.classList.remove(className));
+    this._previousFontSetClass!.forEach(className => elem.classList.remove(className));
     fontSetClasses.forEach(className => elem.classList.add(className));
     this._previousFontSetClass = fontSetClasses;
 

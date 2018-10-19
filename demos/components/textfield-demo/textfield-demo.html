@@ -332,7 +332,6 @@
       <button mdc-button (click)="outlinedicon.dense = !outlinedicon.dense">Dense: {{outlinedicon.dense ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="leadingicon.clickable = !leadingicon.clickable">Clickable Icon: {{leadingicon.clickable ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="alternateColors(outlinedicon)">Alternate Colors</button>
-      <button mdc-button (click)="changeOutlinedIcon(outlinedicon, leadingicon)">Change Icon</button>
     </div>
     <mdc-text-field type="date" #outlinedicon outlined label="Event date">
       <mdc-icon mdcTextFieldIcon leading #leadingicon>event</mdc-icon>

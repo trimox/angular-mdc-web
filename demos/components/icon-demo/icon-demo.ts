@@ -1,11 +1,17 @@
 import { Component } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
-import { MdcIcon } from '@angular-mdc/web';
+import { MdcIcon, MdcIconRegistry } from '@angular-mdc/web';
 
 @Component({
   templateUrl: './icon-demo.html'
 })
 export class IconDemo {
+  constructor(iconRegistry: MdcIconRegistry, sanitizer: DomSanitizer) {
+    iconRegistry.addSvgIcon(
+      'thumbup', sanitizer.bypassSecurityTrustResourceUrl('/assets/thumbup-icon.svg'));
+  }
+
   alternateColors(icon: MdcIcon) {
     const demoIcon = 'demo-icon-custom-colors';
 

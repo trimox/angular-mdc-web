@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 
-import { MdcTextField, MdcIcon } from '@angular-mdc/web';
+import { MdcTextField } from '@angular-mdc/web';
 
 @Component({
   templateUrl: './textfield-demo.html'
@@ -52,9 +52,5 @@ export class TextFieldDemo {
         input.elementRef.nativeElement.classList.remove(demoFullwidth)
         : input.elementRef.nativeElement.classList.add(demoFullwidth);
     }
-  }
-
-  changeOutlinedIcon(textField: MdcTextField, icon?: MdcIcon) {
-    icon ? icon.setIcon('face') : textField.leadingIcon.setIcon('cake');
   }
 }

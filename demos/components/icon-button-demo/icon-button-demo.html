@@ -96,47 +96,49 @@
      target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
   </div>
 
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Icon Button</h3>
-    <button mdc-icon-button icon="keyboard_arrow_left"></button>
-    <button mdc-icon-button icon="keyboard_arrow_right"></button>
-    <button mdcIconButton>
-      <mdc-icon>favorite</mdc-icon>
-    </button>
-  </div>
-
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Using Font Awesome</h3>
-    <button mdcIconButton>
-      <mdc-icon fontSet="fa" fontIcon="fa-star" mdcIconOn></mdc-icon>
-      <mdc-icon fontSet="fa" fontIcon="fa-star-o"></mdc-icon>
-    </button>
-  </div>
-
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Using NgModel Form</h3>
-    <div class="demo-layout__row">
-      <button mdc-button (click)="demoiconbutton.disabled = !demoiconbutton.disabled">Disabled: {{demoiconbutton.disabled ? 'On' : 'Off'}}</button>
+  <div class="demo-layout__row">
+    <div class="demo-content">
+      <h3 class="demo-content__headline">Icon Button</h3>
+      <button mdc-icon-button icon="keyboard_arrow_left"></button>
+      <button mdc-icon-button icon="keyboard_arrow_right"></button>
+      <button mdcIconButton>
+        <mdc-icon>favorite</mdc-icon>
+      </button>
     </div>
-    <form #demoForm="ngForm" id="demoForm">
-      <button mdcIconButton name="demoiconbutton" #demoiconbutton
-       ngModel #demoIconButtonModel="ngModel">
+
+    <div class="demo-content">
+      <h3 class="demo-content__headline">Using Font Awesome</h3>
+      <button mdcIconButton>
+        <mdc-icon fontSet="fa" fontIcon="fa-star" mdcIconOn></mdc-icon>
+        <mdc-icon fontSet="fa" fontIcon="fa-star-o"></mdc-icon>
+      </button>
+    </div>
+
+    <div class="demo-content">
+      <h3 class="demo-content__headline">Using NgModel Form</h3>
+      <div class="demo-layout__row">
+        <button mdc-button (click)="demoiconbutton.disabled = !demoiconbutton.disabled">Disabled: {{demoiconbutton.disabled ? 'On' : 'Off'}}</button>
+      </div>
+      <form #demoForm="ngForm" id="demoForm">
+        <button mdcIconButton name="demoiconbutton" #demoiconbutton
+         ngModel #demoIconButtonModel="ngModel">
+          <mdc-icon mdcIconOn>favorite</mdc-icon>
+          <mdc-icon>favorite_border</mdc-icon>
+         </button>
+      </form>
+      <p>Value: {{ demoIconButtonModel.value }}</p>
+    </div>
+
+    <div class="demo-content">
+      <h3 class="demo-content__headline">Using [on] property</h3>
+      <div class="demo-layout__row">
+        <button mdc-button (click)="demoiconbutton3.on = !demoiconbutton3.on">Icon: {{demoiconbutton3.on ? 'On' : 'Off'}}</button>
+      </div>
+      <button mdcIconButton #demoiconbutton3 [on]="true">
         <mdc-icon mdcIconOn>favorite</mdc-icon>
         <mdc-icon>favorite_border</mdc-icon>
-       </button>
-    </form>
-    <p>Value: {{ demoIconButtonModel.value }}</p>
-  </div>
-
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Using [on] property</h3>
-    <div class="demo-layout__row">
-      <button mdc-button (click)="demoiconbutton3.on = !demoiconbutton3.on">Icon: {{demoiconbutton3.on ? 'On' : 'Off'}}</button>
+      </button>
     </div>
-    <button mdcIconButton #demoiconbutton3 [on]="true">
-      <mdc-icon mdcIconOn>favorite</mdc-icon>
-      <mdc-icon>favorite_border</mdc-icon>
-    </button>
   </div>
 
   <div class="demo-content">

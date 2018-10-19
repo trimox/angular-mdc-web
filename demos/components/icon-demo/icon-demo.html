@@ -37,26 +37,12 @@
             <td>Name of an icon within a font set.</td>
           </tr>
           <tr>
+            <td>svgIcon: string</td>
+            <td>Name of the icon in the SVG icon set.</td>
+          </tr>
+          <tr>
             <td>clickable: boolean</td>
             <td>Whether or not icon can be interacted with.</td>
-          </tr>
-        </tbody>
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th>Methods</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>setIcon(content: string)</td>
-            <td>Set the content of the icon.</td>
-          </tr>
-          <tr>
-            <td>getIcon(): string</td>
-            <td>Get the content of the icon.</td>
           </tr>
         </tbody>
       </table>
@@ -89,5 +75,10 @@
       <button mdc-button (click)="alternateColors(demofa)">Alternate Colors</button>
     </div>
     <mdc-icon #demofa fontSet="fa" fontIcon="fa-camera"></mdc-icon>
+  </div>
+
+  <div class="demo-content">
+    <h3 class="demo-content__headline">SVG Icon</h3>
+    <mdc-icon svgIcon="thumbup"></mdc-icon>
   </div>
 </div>

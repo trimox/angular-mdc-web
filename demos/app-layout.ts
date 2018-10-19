@@ -15,7 +15,7 @@ export class AppLayout implements OnInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
-  private _mediaMatcher: MediaQueryList = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
+  matcher: MediaQueryList;
 
   @ViewChild('demoTopAppBarControls') demoTopAppBarControls;
   @ViewChild('topAppBar') topAppBar: MdcTopAppBar;
@@ -58,15 +58,16 @@ export class AppLayout implements OnInit, OnDestroy {
 
   constructor(
     private _router: Router,
-    private _ngZone: NgZone) {
-    this._mediaMatcher.addListener(mql => this._ngZone.run(() => this._mediaMatcher = mql));
-  }
+    private _ngZone: NgZone) { }
 
   isScreenSmall(): boolean {
-    return this._mediaMatcher.matches;
+    return this.matcher.matches;
   }
 
   ngOnInit(): void {
+    this.matcher = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
+    this.matcher.addListener((event: MediaQueryListEvent) => this._ngZone.run(() => event.matches));
+
     this._router.events
       .pipe(takeUntil(this._destroy),
         filter(event => event instanceof NavigationEnd))

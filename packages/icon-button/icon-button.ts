@@ -24,7 +24,7 @@ import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
-import { MDCIconButtonToggleFoundation } from '@material/icon-button';
+import { MDCIconButtonToggleFoundation } from '@material/icon-button/index';
 
 export const MDC_ICON_BUTTON_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,

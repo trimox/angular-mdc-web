@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { Platform } from '@angular-mdc/web/common';
 
-import { MDCNotchedOutlineFoundation } from '@material/notched-outline';
+import { MDCNotchedOutlineFoundation } from '@material/notched-outline/index';
 
 @Component({
   moduleId: module.id,

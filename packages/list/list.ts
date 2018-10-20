@@ -203,7 +203,7 @@ export class MdcList implements AfterViewInit, OnDestroy {
       setTabIndexForListItemChildren: (listItemIndex: number, tabIndexValue: number) => {
         const listItemChildren = [].slice.call(this._listItems.toArray()[listItemIndex].getListItemElement()
           .querySelectorAll(strings.CHILD_ELEMENTS_TO_TOGGLE_TABINDEX));
-        listItemChildren.forEach(ele => ele.setAttribute('tabindex', tabIndexValue));
+        listItemChildren.forEach((ele: Element) => ele.setAttribute('tabindex', `${tabIndexValue}`));
       },
       followHref: (index: number) => {
         const listItem = this._listItems.toArray()[index];
@@ -216,7 +216,7 @@ export class MdcList implements AfterViewInit, OnDestroy {
         let checkboxOrRadioExists = false;
         const listItem = this._listItems.toArray()[index];
         const elementsToToggle = [].slice.call(listItem.getListItemElement().querySelectorAll(strings.CHECKBOX_RADIO_SELECTOR));
-        elementsToToggle.forEach(element => {
+        elementsToToggle.forEach((element: any) => {
           const event = document.createEvent('Event');
           event.initEvent('change', true, true);
 

@@ -23,8 +23,8 @@ const ACTIVATION_EVENT_TYPES = ['touchstart', 'mousedown', 'keydown'];
 const POINTER_DEACTIVATION_EVENT_TYPES = ['touchend', 'mouseup', 'keyup'];
 
 export class MdcRippleConfig {
-  surface: HTMLElement;
-  activator?: HTMLElement;
+  surface: any;
+  activator?: any;
   unbounded?: boolean;
   disabled?: boolean;
 }

@@ -149,7 +149,7 @@ export abstract class MdcMenuSurfaceAbstract {
       setTransformOrigin: (origin: string) => {
         if (!this.platform.isBrowser) { return; }
 
-        this._getHostElement().style[`${getTransformPropertyName(window)}-origin`] = origin;
+        this._getHostElement().style[`${getTransformPropertyName(window)}-origin` as any] = origin;
       }
     },
       this._getFocusAdaptermethods(),
@@ -242,7 +242,7 @@ export abstract class MdcMenuSurfaceAbstract {
     open(): void,
     close(): void,
     isOpen(): boolean,
-    setAnchorCorner(corner: Corner): void,
+    setAnchorCorner(corner: any): void,
     setAnchorMargin(margin: AnchorMargin): void,
     setIsHoisted(isHoisted: boolean): void,
     setFixedPosition(isFixedPosition: boolean): void,

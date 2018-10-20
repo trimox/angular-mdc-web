@@ -14,6 +14,7 @@
   },
   "requiredAngularVersion": ">=7.0.0",
   "scripts": {
+    "build": "gulp web:build",
     "build:release": "gulp web:build && gulp web:build-release",
     "migrate-mdc-sass": "rimraf packages/material-components-web/scss && node scripts/migrate-mdc-scss.js",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",

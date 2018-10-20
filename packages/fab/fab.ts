@@ -14,16 +14,9 @@ import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
-const FAB_POSITION = {
-  bottomLeft: 'bottom-left',
-  bottomRight: 'bottom-right',
-};
-
 @Directive({
   selector: 'mdc-fab-label, [mdcFabLabel]',
-  host: {
-    'class': 'mdc-fab__label'
-  }
+  host: { 'class': 'mdc-fab__label' }
 })
 export class MdcFabLabel { }
 
@@ -57,7 +50,8 @@ export class MdcFab implements AfterContentInit, OnDestroy {
   @Input()
   get exited(): boolean { return this._exited; }
   set exited(value: boolean) {
-    this.setExited(value);
+    this._exited = toBoolean(value);
+    this._changeDetectionRef.markForCheck();
   }
   private _exited: boolean;
 
@@ -69,11 +63,17 @@ export class MdcFab implements AfterContentInit, OnDestroy {
   private _extended: boolean;
 
   @Input()
-  get position(): string { return this._position; }
-  set position(value: string) {
-    this.setPosition(value);
+  get position(): string | null { return this._position; }
+  set position(value: string | null) {
+    if (this._position) {
+      this._getHostElement().classList.remove(`ng-mdc-fab--${this._convertPosition(this._position)}`);
+    }
+    if (value) {
+      this._getHostElement().classList.add(`ng-mdc-fab--${this._convertPosition(value)}`);
+    }
+    this._position = value;
   }
-  private _position: string;
+  private _position: string | null;
 
   @Input() label: string;
   @Input() icon: string | null;
@@ -92,22 +92,18 @@ export class MdcFab implements AfterContentInit, OnDestroy {
     this._ripple.init({ surface: this._getHostElement() });
   }
 
+  private _convertPosition(position: string): string | null {
+    if (position === 'bottomLeft') {
+      return 'bottom-left';
+    } else if (position === 'bottomRight') {
+      return 'bottom-right';
+    } else {
+      return null;
+    }
+  }
+
   ngOnDestroy(): void {
     this._ripple.destroy();
-  }
-
-  setExited(exited: boolean): void {
-    this._exited = toBoolean(exited);
-    this._changeDetectionRef.markForCheck();
-  }
-
-  setPosition(position: string): void {
-    this._getHostElement().classList.remove(`ng-mdc-fab--${FAB_POSITION[this._position]}`);
-    this._position = position;
-
-    if (this.position) {
-      this._getHostElement().classList.add(`ng-mdc-fab--${FAB_POSITION[position]}`);
-    }
   }
 
   toggleExited(exited?: boolean): void {

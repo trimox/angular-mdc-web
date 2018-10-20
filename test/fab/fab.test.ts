@@ -90,6 +90,14 @@ describe('MdcFab', () => {
       expect(buttonDebugElement.nativeElement.classList.contains('ng-mdc-fab--bottom-right')).toBe(true);
     });
 
+    it('#should store position but not add class', () => {
+      testComponent.myPosition = 'bottom-x';
+      fixture.detectChanges();
+
+      expect(buttonInstance.position).toBe('bottom-x');
+      expect(buttonDebugElement.nativeElement.classList.contains('ng-mdc-fab--bottom-x')).toBe(false);
+    });
+
     it('#should remove class `bottomRight`', () => {
       testComponent.myPosition = 'bottomRight';
       fixture.detectChanges();

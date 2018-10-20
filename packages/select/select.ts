@@ -27,7 +27,7 @@ import { MdcNotchedOutline } from '@angular-mdc/web/notched-outline';
 import { MdcFloatingLabel } from '@angular-mdc/web/floating-label';
 import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
 
-import { MDCSelectFoundation } from '@material/select';
+import { MDCSelectFoundation } from '@material/select/index';
 
 export const MDC_SELECT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

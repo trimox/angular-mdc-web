@@ -13,7 +13,7 @@ import { toBoolean } from '@angular-mdc/web/common';
 import {
   MDCSlidingTabIndicatorFoundation,
   MDCFadingTabIndicatorFoundation
-} from '@material/tab-indicator';
+} from '@material/tab-indicator/index';
 
 @Component({
   moduleId: module.id,

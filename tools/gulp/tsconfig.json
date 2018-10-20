@@ -9,8 +9,8 @@
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "noImplicitThis": true,
-    "noEmitOnError": true,
     "noImplicitAny": true,
+    "noEmitOnError": true,
     "target": "es5",
     "types": [
       "node"

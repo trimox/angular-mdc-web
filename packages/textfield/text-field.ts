@@ -228,7 +228,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
       registerValidationAttributeChangeHandler: (handler: (whitelist: Array<string>) => void) => {
         if (!this._platform.isBrowser) { return; }
 
-        const getAttributesList = (mutationsList) => mutationsList.map((mutation) => mutation.attributeName);
+        const getAttributesList = (mutationsList: any) => mutationsList.map((mutation: any) => mutation.attributeName);
         const observer = new MutationObserver((mutationsList) => handler(getAttributesList(mutationsList)));
         observer.observe(this._getInputElement(), { attributes: true });
         return observer;

@@ -49,7 +49,7 @@ export class MdcDialog implements OnDestroy {
     return this._parentDialog ? this._parentDialog.afterOpened : this._afterOpenedAtThisLevel;
   }
 
-  get _afterAllClosed() {
+  get _afterAllClosed(): Subject<void> {
     const parent = this._parentDialog;
     return parent ? parent._afterAllClosed : this._afterAllClosedAtThisLevel;
   }
@@ -65,7 +65,7 @@ export class MdcDialog implements OnDestroy {
   constructor(
     private _overlay: Overlay,
     private _injector: Injector,
-    @Optional() @Inject(MDC_DIALOG_DEFAULT_OPTIONS) private _defaultOptions,
+    @Optional() @Inject(MDC_DIALOG_DEFAULT_OPTIONS) private _defaultOptions: MdcDialogConfig,
     @Optional() @SkipSelf() private _parentDialog: MdcDialog) { }
 
   /**

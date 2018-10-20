@@ -25,7 +25,7 @@ import {
 } from '@angular-mdc/web/common';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
-import { MDCGridListFoundation } from '@material/grid-list';
+import { MDCGridListFoundation } from '@material/grid-list/index';
 
 const MDC_VALID_ASPECTS = [
   '1x1',

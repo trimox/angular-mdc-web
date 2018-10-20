@@ -14,7 +14,7 @@ import { map, filter, startWith, takeUntil } from 'rxjs/operators';
 
 import { Platform } from '@angular-mdc/web/common';
 
-import { MDCTabScrollerFoundation, util } from '@material/tab-scroller';
+import { MDCTabScrollerFoundation, util } from '@material/tab-scroller/index';
 
 /** Possible alignments for tab scroller content. */
 export type MdcTabScrollerAlignment = 'start' | 'center' | 'end';
@@ -67,7 +67,7 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
 
   createAdapter() {
     return {
-      eventTargetMatchesSelector: (evtTarget: EventTarget, selector: string) => {
+      eventTargetMatchesSelector: (evtTarget: any, selector: string) => {
         const MATCHES = util.getMatchesProperty(HTMLElement.prototype);
         return evtTarget[MATCHES](selector);
       },

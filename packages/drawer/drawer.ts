@@ -221,7 +221,7 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
       this._listSubscription.unsubscribe();
     }
 
-    if (this._foundation) {
+    if (this._foundation && this._platform.isBrowser) {
       this._foundation.destroy();
     }
   }

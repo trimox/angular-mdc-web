@@ -26,6 +26,7 @@ declare module '@material/radio/index';
 declare module '@material/ripple/index';
 declare module '@material/ripple/util';
 declare module '@material/select/index';
+declare module '@material/slider/constants';
 declare module '@material/slider/index';
 declare module '@material/snackbar/index';
 declare module '@material/switch/index';

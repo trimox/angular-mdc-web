@@ -3,6 +3,8 @@ import { async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed } from '@a
 import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
+import { dispatchMouseEvent } from '../testing/dispatch-events';
+
 import { MdcSlider, MdcSliderModule } from '@angular-mdc/web';
 
 describe('MdcSlider', () => {
@@ -11,9 +13,7 @@ describe('MdcSlider', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MdcSliderModule, FormsModule, ReactiveFormsModule],
-      declarations: [
-        SingleSlider,
-      ]
+      declarations: [SingleSlider]
     });
     TestBed.compileComponents();
   }));
@@ -39,12 +39,11 @@ describe('MdcSlider', () => {
         .toContain('mdc-slider', 'Expected to have mdc-slider');
     });
 
-    it('#should apply class mdc-slider--discrete based on property', () => {
+    it('#should apply class mdc-slider--discrete based on property', fakeAsync(() => {
       testComponent.isDiscrete = true;
-      sliderInstance.layout();
       fixture.detectChanges();
       expect(sliderDebugElement.nativeElement.classList.contains('mdc-slider--discrete')).toBe(true);
-    });
+    }));
 
     it('#should NOT apply class mdc-slider--display-markers unless discrete is true', () => {
       testComponent.hasMarkers = true;
@@ -59,24 +58,43 @@ describe('MdcSlider', () => {
       expect(sliderDebugElement.nativeElement.classList.contains('mdc-slider--display-markers')).toBe(true);
     });
 
-    it('#should set step to 2', () => {
-      sliderInstance.setStep(2);
+    it('#should handle document click', () => {
+      dispatchMouseEvent(sliderNativeElement, 'touchstart');
       fixture.detectChanges();
-      expect(sliderInstance.getStep()).toBe(2);
+
+      dispatchMouseEvent(sliderNativeElement, 'touchend');
+      fixture.detectChanges();
+    });
+
+    it('#should set step to 2', () => {
+      sliderInstance.step = 2;
+      fixture.detectChanges();
       expect(sliderInstance.step).toBe(2);
       expect(sliderInstance.value).toBe(10);
     });
 
     it('#should set min to 10', () => {
-      sliderInstance.setMin(10);
+      sliderInstance.min = 10;
       fixture.detectChanges();
-      expect(sliderInstance.getMin()).toBe(10);
+      expect(sliderInstance.min).toBe(10);
+    });
+
+    it('#should NOT set min to 101', () => {
+      sliderInstance.min = 101;
+      fixture.detectChanges();
+      expect(sliderInstance.min).toBeLessThanOrEqual(100);
     });
 
     it('#should set max to 150', () => {
-      sliderInstance.setMax(150);
+      sliderInstance.max = 150;
       fixture.detectChanges();
-      expect(sliderInstance.getMax()).toBe(150);
+      expect(sliderInstance.max).toBe(150);
+    });
+
+    it('#should NOT set max to -1', () => {
+      sliderInstance.max = -1;
+      fixture.detectChanges();
+      expect(sliderInstance.max).toBeGreaterThan(0);
     });
 
     it('#should set disabled to true', () => {
@@ -85,17 +103,17 @@ describe('MdcSlider', () => {
       expect(sliderInstance.disabled).toBe(true);
     });
 
-    it('#should return value of 15', () => {
+    it('#should return value of 15', fakeAsync(() => {
       testComponent.myValue = 15;
       fixture.detectChanges();
-      expect(sliderInstance.getValue()).toBe(15);
-    });
+      expect(sliderInstance.value).toBe(15);
+    }));
 
-    it('#should return value of 15', () => {
+    it('#should return value of 15', fakeAsync(() => {
       sliderInstance.setValue(25);
       fixture.detectChanges();
-      expect(sliderInstance.getValue()).toBe(25);
-    });
+      expect(sliderInstance.value).toBe(25);
+    }));
   });
 });
 
@@ -103,12 +121,11 @@ describe('MdcSlider', () => {
 @Component({
   template: `
     <mdc-slider
-      ngModel #demoMarkerModel="ngModel"
+      [(ngModel)]="myValue"
       [value]="myValue"
       [max]="myMax"
       [min]="myMin"
       [step]="myStep"
-      [tabIndex]="myTabIndex"
       [discrete]="isDiscrete"
       [markers]="hasMarkers"
       [disabled]="isDisabled">
@@ -116,12 +133,11 @@ describe('MdcSlider', () => {
   `,
 })
 class SingleSlider {
-  isDisabled: boolean = false;
-  isDiscrete: boolean = false;
-  hasMarkers: boolean = false;
+  isDisabled: boolean;
+  isDiscrete: boolean;
+  hasMarkers: boolean;
   myValue: number = 10;
   myMax: number = 100;
   myMin: number = 0;
   myStep: number = 0;
-  myTabIndex: number = 0;
 }

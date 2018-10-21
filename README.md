@@ -52,7 +52,6 @@ Developed using Google Material Components [foundations and adapters](https://gi
 | radio | Available | [View](https://trimox.github.io/angular-mdc-web/#/radio-demo) |
 | ripple | Available | [View](https://trimox.github.io/angular-mdc-web/#/ripple-demo) |
 | select | Available | [View](https://trimox.github.io/angular-mdc-web/#/select-demo) |
-| shape | Available | [View](https://trimox.github.io/angular-mdc-web/#/shape-demo) |
 | slider | Available | [View](https://trimox.github.io/angular-mdc-web/#/slider-demo) |
 | snackbar | Available | [View](https://trimox.github.io/angular-mdc-web/#/snackbar-demo) |
 | switch | Available | [View](https://trimox.github.io/angular-mdc-web/#/switch-demo) |

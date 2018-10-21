@@ -139,6 +139,7 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
       },
       focusTabAtIndex: (index: number) => this.tabs.toArray()[index].focus(),
       getTabIndicatorClientRectAtIndex: (previousActiveIndex: number) => {
+        if (!this._platform.isBrowser) { return; }
         if (!this._indexIsInRange(previousActiveIndex)) {
           previousActiveIndex = this.activeTabIndex;
         }

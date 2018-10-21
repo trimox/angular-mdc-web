@@ -6,6 +6,7 @@ import { dispatchFakeEvent, dispatchKeyboardEvent } from '../testing/dispatch-ev
 
 import {
   LEFT_ARROW,
+  Platform,
   MdcTabBarModule,
   MdcIconModule,
   MdcTabIndicatorModule,
@@ -19,11 +20,16 @@ import {
 
 describe('MDC Tabs', () => {
   let fixture: ComponentFixture<any>;
+  let platform: { isBrowser: boolean };
 
   beforeEach(async(() => {
+    // Set the default Platform override that can be updated before component creation.
+    platform = { isBrowser: true };
+
     TestBed.configureTestingModule({
       imports: [MdcTabBarModule, MdcTabIndicatorModule, MdcTabScrollerModule, MdcIconModule],
-      declarations: [SimpleTest, TabIndicatorTest, TabScrollerTest]
+      declarations: [SimpleTest, TabIndicatorTest, TabScrollerTest],
+      providers: [{ provide: Platform, useFactory: () => platform }]
     });
     TestBed.compileComponents();
   }));
@@ -68,6 +74,13 @@ describe('MDC Tabs', () => {
       flush();
     }));
 
+    it('#should scroll into view', fakeAsync(() => {
+      platform.isBrowser = false;
+      testInstance.scrollIntoView(2);
+      fixture.detectChanges();
+      flush();
+    }));
+
     it('#should handle keydown', fakeAsync(() => {
       dispatchKeyboardEvent(testInstance.tabs.toArray()[1].elementRef.nativeElement, 'keydown', LEFT_ARROW);
       fixture.detectChanges();
@@ -106,6 +119,7 @@ describe('MDC Tabs', () => {
     it('#should handle mousedown event', fakeAsync(() => {
       dispatchFakeEvent(testInstance.tabs.toArray()[1].elementRef.nativeElement, 'mousedown');
       fixture.detectChanges();
+      flush();
     }));
 
     it('#should turn on fixed for tabs', fakeAsync(() => {
@@ -165,6 +179,7 @@ describe('MDC Tabs', () => {
     });
 
     it('#should turn on active', fakeAsync(() => {
+      platform.isBrowser = false;
       testComponent.active = true;
       fixture.detectChanges();
       flush();
@@ -207,6 +222,14 @@ describe('MDC Tabs', () => {
     });
 
     it('#should align to start', fakeAsync(() => {
+      testComponent.align = 'start';
+      fixture.detectChanges();
+      flush();
+      expect(testInstance.align).toBe('start');
+    }));
+
+    it('#should align to start even if not browser', fakeAsync(() => {
+      platform.isBrowser = false;
       testComponent.align = 'start';
       fixture.detectChanges();
       flush();

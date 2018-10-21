@@ -65,7 +65,7 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
     return merge(...SCROLLER_EVENTS.map(evt => fromEvent(this._getScrollArea(), evt)));
   }
 
-  createAdapter() {
+  private _createAdapter() {
     return {
       eventTargetMatchesSelector: (evtTarget: any, selector: string) => {
         const MATCHES = util.getMatchesProperty(HTMLElement.prototype);
@@ -74,17 +74,21 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
       addScrollAreaClass: (className: string) => this.area.nativeElement.classList.add(className),
-      setScrollAreaStyleProperty: (propName: string, value: string) => this.area.nativeElement.style.setProperty(propName, value),
-      setScrollContentStyleProperty: (propName: string, value: string) => this.content.nativeElement.style.setProperty(propName, value),
+      setScrollAreaStyleProperty: (propName: string, value: string) =>
+        this.area.nativeElement.style.setProperty(propName, value),
+      setScrollContentStyleProperty: (propName: string, value: string) =>
+        this.content.nativeElement.style.setProperty(propName, value),
       getScrollContentStyleValue: (propName: string) =>
         this._platform.isBrowser ? window.getComputedStyle(this.content.nativeElement).getPropertyValue(propName) : '',
       setScrollAreaScrollLeft: (scrollX: number) => this.area.nativeElement.scrollLeft = scrollX,
       getScrollAreaScrollLeft: () => this.area.nativeElement.scrollLeft,
       getScrollContentOffsetWidth: () => this.content.nativeElement.offsetWidth,
       getScrollAreaOffsetWidth: () => this.area.nativeElement.offsetWidth,
-      computeScrollAreaClientRect: () => this.area.nativeElement.getBoundingClientRect(),
-      computeScrollContentClientRect: () => this.content.nativeElement.getBoundingClientRect(),
-      computeHorizontalScrollbarHeight: () => this._platform.isBrowser ? util.computeHorizontalScrollbarHeight(document) : 0
+      computeScrollAreaClientRect: () =>
+        this._platform.isBrowser ? this.area.nativeElement.getBoundingClientRect() : {},
+      computeScrollContentClientRect: () =>
+        this._platform.isBrowser ? this.content.nativeElement.getBoundingClientRect() : {},
+      computeHorizontalScrollbarHeight: () => util.computeHorizontalScrollbarHeight(document)
     };
   }
 
@@ -96,7 +100,7 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
     offsetWidth(): number,
     incrementScroll(scrollXIncrement: number): void,
     scrollTo(scrollX: number): number
-  } = new MDCTabScrollerFoundation(this.createAdapter());
+  } = new MDCTabScrollerFoundation(this._createAdapter());
 
   constructor(
     private _ngZone: NgZone,
@@ -113,9 +117,7 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
     this._destroy.next();
     this._destroy.complete();
 
-    if (this._scrollAreaEventsSubscription) {
-      this._scrollAreaEventsSubscription.unsubscribe();
-    }
+    this._scrollAreaEventsSubscription.unsubscribe();
   }
 
   setAlign(align: MdcTabScrollerAlignment): void {
@@ -129,6 +131,8 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
 
   /** Returns the current visual scroll position */
   getScrollPosition(): number {
+    if (!this._platform.isBrowser) { return -1; }
+
     return this._foundation.getScrollPosition();
   }
 
@@ -139,6 +143,8 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
 
   /** Increments the scroll value by the given amount */
   incrementScroll(scrollXIncrement: number) {
+    if (!this._platform.isBrowser) { return -1; }
+
     this._foundation.incrementScroll(scrollXIncrement);
   }
 

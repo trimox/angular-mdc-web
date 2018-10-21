@@ -137,7 +137,8 @@ export class MdcTab implements OnInit, OnDestroy {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
       hasClass: (className: string) => this._getHostElement().classList.contains(className),
-      activateIndicator: (previousIndicatorClientRect: ClientRect) => this.tabIndicator.activate(previousIndicatorClientRect),
+      activateIndicator: (previousIndicatorClientRect: ClientRect) =>
+        this.tabIndicator.activate(previousIndicatorClientRect),
       deactivateIndicator: () => this.tabIndicator.deactivate(),
       notifyInteracted: () => this.interacted.emit({ detail: { tab: this } }),
       getOffsetLeft: () => this._getHostElement().offsetLeft,

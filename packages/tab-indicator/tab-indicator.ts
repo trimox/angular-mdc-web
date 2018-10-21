@@ -8,7 +8,7 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { toBoolean } from '@angular-mdc/web/common';
+import { toBoolean, Platform } from '@angular-mdc/web/common';
 
 import {
   MDCSlidingTabIndicatorFoundation,
@@ -62,13 +62,17 @@ export class MdcTabIndicator implements AfterViewInit {
   }
   private _icon: string;
 
-  @ViewChild('content') content: ElementRef;
+  @ViewChild('content') content: ElementRef<HTMLElement>;
 
-  createAdapter() {
+  private _createAdapter() {
     return {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
-      computeContentClientRect: () => this.content.nativeElement.getBoundingClientRect(),
+      computeContentClientRect: () => {
+        if (!this._platform.isBrowser) { return; }
+
+        return this.content.nativeElement.getBoundingClientRect();
+      },
       setContentStyleProperty: (propName: string, value: string) => this.content.nativeElement.style.setProperty(propName, value)
     };
   }
@@ -81,6 +85,7 @@ export class MdcTabIndicator implements AfterViewInit {
   };
 
   constructor(
+    private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef<HTMLElement>) { }
 
@@ -109,9 +114,9 @@ export class MdcTabIndicator implements AfterViewInit {
 
   private _initFoundation(): void {
     if (this.fade) {
-      this._foundation = new MDCFadingTabIndicatorFoundation(this.createAdapter());
+      this._foundation = new MDCFadingTabIndicatorFoundation(this._createAdapter());
     } else {
-      this._foundation = new MDCSlidingTabIndicatorFoundation(this.createAdapter());
+      this._foundation = new MDCSlidingTabIndicatorFoundation(this._createAdapter());
     }
 
     this._foundation.init();

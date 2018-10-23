@@ -276,7 +276,10 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
     if (!this.tabs) { return; }
 
     this.activeTabIndex = index;
-    this._foundation.activateTab(index);
+
+    if (this._platform.isBrowser) {
+      this._foundation.activateTab(index);
+    }
   }
 
   /** Scrolls the tab at the given index into view */

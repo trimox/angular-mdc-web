@@ -144,7 +144,7 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
   /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
   _onTouched: () => any = () => { };
 
-  createAdapter() {
+  private _createAdapter() {
     return {
       hasClass: (className: string) => this._getHostElement().classList.contains(className),
       addClass: (className: string) => this._getHostElement().classList.add(className),
@@ -246,15 +246,17 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
     public elementRef: ElementRef) { }
 
   ngAfterViewInit(): void {
-    this._foundation = new MDCSliderFoundation(this.createAdapter());
-    this._foundation.init();
+    if (this._platform.isBrowser) {
+      this._foundation = new MDCSliderFoundation(this._createAdapter());
+      this._foundation.init();
 
-    this._foundation.setMin(this.min);
-    this._foundation.setMax(this.max);
-    this._foundation.setStep(this.step);
-    this._foundation.setValue(this.value);
+      this._foundation.setMin(this.min);
+      this._foundation.setMax(this.max);
+      this._foundation.setStep(this.step);
+      this._foundation.setValue(this.value);
 
-    this._foundation.setupTrackMarker();
+      this._foundation.setupTrackMarker();
+    }
   }
 
   ngOnDestroy(): void {

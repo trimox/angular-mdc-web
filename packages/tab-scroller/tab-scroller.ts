@@ -88,7 +88,8 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
         this._platform.isBrowser ? this.area.nativeElement.getBoundingClientRect() : {},
       computeScrollContentClientRect: () =>
         this._platform.isBrowser ? this.content.nativeElement.getBoundingClientRect() : {},
-      computeHorizontalScrollbarHeight: () => util.computeHorizontalScrollbarHeight(document)
+      computeHorizontalScrollbarHeight: () =>
+        this._platform.isBrowser ? util.computeHorizontalScrollbarHeight(document) : 0
     };
   }
 

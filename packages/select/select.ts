@@ -20,7 +20,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { merge, fromEvent, Subject, Subscription, Observable } from 'rxjs';
 import { map, startWith, takeUntil } from 'rxjs/operators';
 
-import { toBoolean } from '@angular-mdc/web/common';
+import { toBoolean, Platform } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
 import { MdcNotchedOutline } from '@angular-mdc/web/notched-outline';
@@ -175,7 +175,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
     return merge(...LINE_RIPPLE_EVENTS.map(evt => fromEvent(this._getInputElement(), evt)));
   }
 
-  createAdapter() {
+  private _createAdapter() {
     return {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
@@ -191,7 +191,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
           this._lineRipple.deactivate();
         }
       },
-      getValue: () => this._getInputElement().value,
+      getValue: () => this._platform.isBrowser ? this._getInputElement().value : null,
       isRtl: () => getComputedStyle(this._getHostElement()).direction === 'rtl',
       hasLabel: () => !!this._selectLabel,
       getLabelWidth: () => this._selectLabel ? this._selectLabel.getWidth() : 0,
@@ -210,6 +210,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   };
 
   constructor(
+    private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef,
     private _ripple: MdcRipple) {
@@ -219,7 +220,7 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
   }
 
   ngAfterContentInit(): void {
-    this._foundation = new MDCSelectFoundation(this.createAdapter());
+    this._foundation = new MDCSelectFoundation(this._createAdapter());
     this.init();
 
     this.options.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
@@ -356,7 +357,10 @@ export class MdcSelect implements AfterContentInit, ControlValueAccessor, OnDest
 
     this.valueChange.emit({ index: this.getSelectedIndex(), value: valueToEmit });
     this._getInputElement().value = valueToEmit;
-    this._foundation.handleChange();
+
+    if (this._platform.isBrowser) {
+      this._foundation.handleChange();
+    }
 
     this.selectionChange.emit(new MdcSelectChange(this, this.getSelectedIndex(), valueToEmit));
 

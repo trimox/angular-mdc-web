@@ -53,33 +53,25 @@ export class MdcDrawerHeader {
 
 @Directive({
   selector: '[mdcDrawerTitle]',
-  host: {
-    'class': 'mdc-drawer__title'
-  }
+  host: { 'class': 'mdc-drawer__title' }
 })
 export class MdcDrawerTitle { }
 
 @Directive({
   selector: '[mdcDrawerSubtitle]',
-  host: {
-    'class': 'mdc-drawer__subtitle'
-  }
+  host: { 'class': 'mdc-drawer__subtitle' }
 })
 export class MdcDrawerSubtitle { }
 
 @Directive({
   selector: 'mdc-drawer-content, [mdcDrawerContent]',
-  host: {
-    'class': 'mdc-drawer__content'
-  }
+  host: { 'class': 'mdc-drawer__content' }
 })
 export class MdcDrawerContent { }
 
 @Directive({
   selector: 'mdc-drawer-app-content, [mdcDrawerAppContent]',
-  host: {
-    'class': 'mdc-drawer-app-content'
-  }
+  host: { 'class': 'mdc-drawer-app-content' }
 })
 export class MdcDrawerAppContent { }
 
@@ -110,10 +102,8 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
   get open(): boolean { return this._open; }
   set open(value: boolean) {
     this._open = toBoolean(value);
-    if (this._open) {
-      this._foundation.open();
-    } else {
-      this._foundation.close();
+    if (this._platform.isBrowser) {
+      this._open ? this._foundation.open() : this._foundation.close();
     }
     this._changeDetectorRef.markForCheck();
   }

@@ -33,57 +33,54 @@ import { MdcIcon } from '@angular-mdc/web/icon';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcButton implements OnInit, OnDestroy {
-  /** Deprecated - will be removed soon */
-  @Input() icon: any;
-
   @Input()
   get raised(): boolean { return this._raised; }
   set raised(value: boolean) {
     this._raised = toBoolean(value);
   }
-  protected _raised: boolean;
+  private _raised: boolean;
 
   @Input()
   get primary(): boolean { return this._primary; }
   set primary(value: boolean) {
     this._primary = toBoolean(value);
   }
-  protected _primary: boolean;
+  private _primary: boolean;
 
   @Input()
   get dense(): boolean { return this._dense; }
   set dense(value: boolean) {
     this._dense = toBoolean(value);
   }
-  protected _dense: boolean;
+  private _dense: boolean;
 
   @Input()
   get secondary(): boolean { return this._secondary; }
   set secondary(value: boolean) {
     this._secondary = toBoolean(value);
   }
-  protected _secondary: boolean;
+  private _secondary: boolean;
 
   @Input()
   get unelevated(): boolean { return this._unelevated; }
   set unelevated(value: boolean) {
     this._unelevated = toBoolean(value);
   }
-  protected _unelevated: boolean;
+  private _unelevated: boolean;
 
   @Input()
   get outlined(): boolean { return this._outlined; }
   set outlined(value: boolean) {
     this._outlined = toBoolean(value);
   }
-  protected _outlined: boolean;
+  private _outlined: boolean;
 
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this.setDisabled(value);
   }
-  protected _disabled: boolean;
+  private _disabled: boolean;
 
   @ContentChild(MdcIcon) _icon: MdcIcon;
 

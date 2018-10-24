@@ -48,6 +48,7 @@ Developed using Google Material Components [foundations and adapters](https://gi
 | image-list | Available | [View](https://trimox.github.io/angular-mdc-web/#/image-list-demo) |
 | linear-progress | Available | [View](https://trimox.github.io/angular-mdc-web/#/linear-progress-demo) |
 | list | Available | [View](https://trimox.github.io/angular-mdc-web/#/list-demo) |
+| menu-surface | Available | [View](https://trimox.github.io/angular-mdc-web/#/menu-surface-demo) |
 | menu | Available | [View](https://trimox.github.io/angular-mdc-web/#/menu-demo) |
 | radio | Available | [View](https://trimox.github.io/angular-mdc-web/#/radio-demo) |
 | ripple | Available | [View](https://trimox.github.io/angular-mdc-web/#/ripple-demo) |

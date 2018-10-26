@@ -192,7 +192,7 @@ export class MdcChip implements AfterViewInit, OnDestroy {
     this._foundation.setShouldRemoveOnTrailingIconClick(this._removable);
     this._changeDetectorRef.markForCheck();
   }
-  private _removable: boolean;
+  private _removable: boolean = true;
 
   /** Whether the chip is disabled. */
   @Input()

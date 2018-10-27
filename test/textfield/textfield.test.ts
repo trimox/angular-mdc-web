@@ -109,11 +109,6 @@ describe('MdcTextField', () => {
       expect(textFieldInstance.helperText.setContent('test'));
     }));
 
-    it('#should call onInput', () => {
-      expect(textFieldInstance.onInput('test'));
-      fixture.detectChanges();
-    });
-
     it('#should call onBlur', () => {
       expect(textFieldInstance.onBlur());
       fixture.detectChanges();

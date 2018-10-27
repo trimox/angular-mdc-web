@@ -13,6 +13,7 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+import { Subject } from 'rxjs';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 import { toBoolean } from '@angular-mdc/web/common';
@@ -72,12 +73,14 @@ let nextUniqueId = 0;
   encapsulation: ViewEncapsulation.None,
   providers: [
     MDC_SWITCH_CONTROL_VALUE_ACCESSOR,
-    [{ provide: MdcFormFieldControl, useExisting: MdcSwitch }],
+    { provide: MdcFormFieldControl, useExisting: MdcSwitch },
     MdcRipple
   ]
 })
 export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, OnDestroy {
   private _uniqueId: string = `mdc-switch-${++nextUniqueId}`;
+
+  readonly stateChanges: Subject<void> = new Subject<void>();
 
   @Input() id: string = this._uniqueId;
   @Input() name: string | null = null;

@@ -1,19 +1,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  forwardRef,
   Input,
   ViewEncapsulation
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { MdcTextField } from './text-field';
-
-export const MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => MdcTextarea),
-  multi: true
-};
 
 @Component({
   moduleId: module.id,
@@ -39,11 +31,9 @@ export const MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
     (touchstart)="onInputInteraction($event)"
     (focus)="onFocus()"
     (change)="onChange($event)"
-    (blur)="onBlur()"
-    (input)="onInput($event.target.value)"></textarea>
+    (blur)="onBlur()"></textarea>
     <label mdcFloatingLabel [for]="id">{{label}}</label>
   `,
-  providers: [MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })

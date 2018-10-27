@@ -36,7 +36,7 @@ export class MdcTextFieldHelperText {
   }
   private _validation: boolean;
 
-  createAdapter() {
+  private _createAdapter() {
     return {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
@@ -53,7 +53,7 @@ export class MdcTextFieldHelperText {
     setValidity(inputIsValid: boolean): void,
     setPersistent(isPersistent: boolean): void,
     setValidation(isValidation: boolean): void
-  } = new MDCTextFieldHelperTextFoundation(this.createAdapter());
+  } = new MDCTextFieldHelperTextFoundation(this._createAdapter());
 
   constructor(public elementRef: ElementRef<HTMLElement>) { }
 

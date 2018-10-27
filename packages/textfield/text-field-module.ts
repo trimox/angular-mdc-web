@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { MdcFloatingLabelModule } from '@angular-mdc/web/floating-label';
 import { MdcLineRippleModule } from '@angular-mdc/web/line-ripple';
@@ -20,6 +21,7 @@ const TEXTFIELD_DECLARATIONS = [
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     MdcLineRippleModule,
     MdcFloatingLabelModule,
     MdcNotchedOutlineModule

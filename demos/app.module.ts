@@ -10,6 +10,7 @@ import { DialogExampleModule } from './components/dialog-demo/dialog-example.mod
 
 import { AppComponent } from './app.component';
 import { AppLayout } from './app-layout';
+import { HighlightModule } from 'ngx-highlightjs';
 
 import { APP_ROUTES, DEMO_ROUTES } from './routes';
 
@@ -21,10 +22,12 @@ import { APP_ROUTES, DEMO_ROUTES } from './routes';
     ReactiveFormsModule,
     DemoMaterialModule,
     DialogExampleModule,
+    HighlightModule.forRoot({
+      path: 'assets/highlightjs',
+      theme: 'github'
+    }),
     RouterModule.forRoot(APP_ROUTES, {
-      useHash: true,
-      enableTracing: false,
-      scrollPositionRestoration: 'enabled'
+      useHash: true
     })
   ],
   declarations: [

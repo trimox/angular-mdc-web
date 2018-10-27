@@ -245,9 +245,10 @@
       <button mdc-button (click)="alternateColors(demoformInput)">Alternate Colors</button>
     </div>
     <form [formGroup]="demoForm" id="demoForm" (ngSubmit)="submitForm()">
-      <mdc-text-field #demoformInput formControlName="userName" label="Username" maxlength="10" outlined [helperText]="demoformHelper" required></mdc-text-field>
+      <mdc-text-field #demoformInput formControlName="userName" label="Username" minlength="3" maxlength="10" outlined [helperText]="demoformHelper" required></mdc-text-field>
       <mdc-text-field-helper-text #demoformHelper="mdcHelperText" validation>
-        <span *ngIf="demoForm.errors?.required">Username is required</span>
+        <span *ngIf="demoForm.controls['userName'].errors?.required">Username is required</span>
+        <span *ngIf="demoForm.controls['userName'].errors?.minlength">Username is not long enough</span>
       </mdc-text-field-helper-text>
     </form>
     <div class="demo-layout__row">

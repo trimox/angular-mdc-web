@@ -18,6 +18,7 @@ export class TextFieldDemo {
 
   submitForm() {
     if (!this.demoForm.valid) {
+      this.demoForm.controls['userName'].updateValueAndValidity();
       return;
     }
   }

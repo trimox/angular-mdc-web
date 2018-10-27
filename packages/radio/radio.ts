@@ -14,6 +14,7 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+import { Subject } from 'rxjs';
 import { toBoolean, UniqueSelectionDispatcher } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcFormFieldControl } from '@angular-mdc/web/form-field';
@@ -86,11 +87,13 @@ export class MdcRadioChange {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     MdcRipple,
-    [{ provide: MdcFormFieldControl, useExisting: MdcRadio }]
+    { provide: MdcFormFieldControl, useExisting: MdcRadio }
   ]
 })
 export class MdcRadio implements AfterViewInit, OnDestroy, MdcFormFieldControl<any> {
   private _uniqueId: string = `mdc-radio-${++nextUniqueId}`;
+
+  readonly stateChanges: Subject<void> = new Subject<void>();
 
   /** The unique ID for the radio button. */
   @Input() id: string = this._uniqueId;

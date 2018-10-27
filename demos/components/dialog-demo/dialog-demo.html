@@ -35,9 +35,10 @@
         <tbody>
           <tr>
             <td>
-    <pre>open(myDialogComponent)
+    open(myDialogComponent)
 
-open(myDialogComponent, {{"{
+<pre><code highlight code="
+open(myDialogComponent, {
   id?: string,
   ariaDescribedBy?: string,
   ariaLabel?: string,
@@ -46,7 +47,7 @@ open(myDialogComponent, {{"{
   scrollable?: boolean,
   buttonsStacked?: boolean,
   data?: any
-}"}})></pre></td>
+})"></code></pre></td>
             <td>Opens the dialog with optional configuration.</td>
           </tr>
           <tr>
@@ -246,83 +247,79 @@ open(myDialogComponent, {{"{
   <div class="demo-content">
     <h3 class="demo-content__headline">Usage</h3>
     A dialog is opened by calling the <code class="docs-markdown-code">open</code> method with a component to be loaded and an optional config object. The <code class="docs-markdown-code">open</code> method will return an instance of <code class="docs-markdown-code">MdcDialogRef</code>:
-    <pre>
-  let dialogRef = dialog.open(UserProfileComponent, {{"{
-    clickOutsideToClose: 'true',
-    escapeToClose: 'true',
-  }"}});
-  </pre>
+
+  <pre><code highlight code="let dialogRef = dialog.open(UserProfileComponent, {
+  clickOutsideToClose: 'true',
+  escapeToClose: 'true',
+});"></code></pre>
 
   The <code class="docs-markdown-code">MdcDialogRef</code> provides a handle on the opened dialog. It can be used to close the dialog and to receive notification when the dialog has been closed.
-  <pre>
-  dialogRef.afterClosed().subscribe(result => {{"{
-    console.log(`Dialog result: ${result}`); // Pizza!
-  }"}});
 
-  dialogRef.close('Pizza!');
-  </pre>
+  <pre><code highlight code="dialogRef.afterClosed().subscribe(result => {
+  console.log(`Dialog result: ${result}`);
+});
+
+dialogRef.close('Pizza!');"></code>
+</pre>
 
   <p>Components created via <code class="docs-markdown-code">MdcDialog</code> can inject <code class="docs-markdown-code">MdcDialogRef</code> and use it to close the dialog in which they are contained. When closing, an optional result value can be provided. This result value is forwarded as the result of the <code class="docs-markdown-code">afterClosed</code> promise.</p>
-  <pre>
-  @Component({{"{/* ... */}"}})
-  export class YourDialog {{"{
-    constructor(public dialogRef: MdcDialogRef<![CDATA[<YourDialog>]]>) { }
 
-    closeDialog() {
-      this.dialogRef.close('Pizza!');
-    }
-  }"}}
-  </pre>
+  <pre><code highlight code="
+@Component({/* ... */})
+export class YourDialog {
+  constructor(
+   dialogRef: MdcDialogRef<YourDialog>) { }
+
+  closeDialog() {
+    this.dialogRef.close('Pizza!');
+  }
+}"></code></pre>
 
     <h3 class="demo-content__headline">Sharing data with the Dialog component</h3>
     If you want to share data with your dialog, you can use the <code class="docs-markdown-code">data</code> option to pass information to the dialog component.
-  <pre>
-  let dialogRef = dialog.open(YourDialog, {{"{
-    data: {name: this.name, animal: this.animal}
-  }"}});
-  </pre>
+
+<pre>
+let dialogRef = dialog.open(YourDialog, {{"{
+  data: {name: this.name, animal: this.animal}
+}"}});
+</pre>
 
   To access the data in your dialog component.
-  <pre>
-  <![CDATA[
-  import { Component, Inject } from '@angular/core';
-  import { MdcDialogRef, MDC_DIALOG_DATA } from '@angular-mdc/web';
-  @Component({
-    // ...
-  })
-  export class YourDialog {
-    constructor(public dialogRef: MdcDialogRef<YourDialog>,
-      @Inject(MDC_DIALOG_DATA) public data: DialogData) {
-      userName: string = data.name;
-    }
-  }]]>
-  </pre>
 
+<pre><code highlight code="import { Component, Inject } from '@angular/core';
+import { 
+  MdcDialogRef,
+  MDC_DIALOG_DATA
+} from '@angular-mdc/web';
+
+@Component({
+  // ...
+})
+export class YourDialog {
+  constructor(
+    public dialogRef: MdcDialogRef<YourDialog>,
+    @Inject(MDC_DIALOG_DATA) data: DialogData) {
+    userName: string = data.name;
+  }
+}"></code></pre>
       <h3 class="demo-content__headline">Configuring dialog content via entryComponents</h3>
       <p mdcBody2>Because <code class="docs-markdown-code">MdcDialog</code> instantiates components at run-time, the Angular compiler needs extra information to create the necessary
         ComponentFactory for your dialog content component.</p>
       <p mdcBody2>For any component loaded into a dialog, you must include your component
         class in the list of <code class="docs-markdown-code">entryComponents</code> in your NgModule definition so that the Angular compiler knows to create the ComponentFactory.</p>
-  <pre>
-  <![CDATA[
-  @NgModule({
+  <pre><code highlight code="@NgModule({
     imports: [
       // ...
       MdcDialogModule
     ],
-
     declarations: [
       AppComponent,
       ExampleDialogComponent
     ],
-
     entryComponents: [
       ExampleDialogComponent
     ],
-
-    providers: [],
     bootstrap: [AppComponent]
   })
-  export class AppModule {}]]>
-  </pre>
+  export class AppModule {}"></code></pre>
 </div>

@@ -9,6 +9,7 @@ import {
   Input,
   NgZone,
   OnDestroy,
+  Optional,
   Output,
   ViewChild,
   ViewEncapsulation
@@ -19,7 +20,7 @@ import { takeUntil, filter } from 'rxjs/operators';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Platform, toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
-import { MdcFormFieldControl } from '@angular-mdc/web/form-field';
+import { MdcFormField, MdcFormFieldControl } from '@angular-mdc/web/form-field';
 
 import { MDCCheckboxFoundation } from '@material/checkbox/index';
 
@@ -80,14 +81,17 @@ export const MDC_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
   providers: [
     MDC_CHECKBOX_CONTROL_VALUE_ACCESSOR,
     MdcRipple,
-    [{ provide: MdcFormFieldControl, useExisting: MdcCheckbox }]
+    { provide: MdcFormFieldControl, useExisting: MdcCheckbox }
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestroy, MdcFormFieldControl<any> {
+export class MdcCheckbox implements AfterViewInit, ControlValueAccessor,
+  OnDestroy, MdcFormFieldControl<any> {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
+
+  readonly stateChanges: Subject<void> = new Subject<void>();
 
   createAdapter() {
     return {
@@ -132,6 +136,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this.setDisabledState(value);
+    this.stateChanges.next();
   }
   private _disabled: boolean;
 
@@ -185,7 +190,8 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor, OnDestr
     private _ngZone: NgZone,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef<HTMLElement>,
-    public ripple: MdcRipple) { }
+    public ripple: MdcRipple,
+    @Optional() private _parentFormField: MdcFormField) { }
 
   ngAfterViewInit(): void {
     this._foundation.init();

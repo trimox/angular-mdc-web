@@ -6748,6 +6748,13 @@ next-tick@1:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
+ngx-highlightjs@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/ngx-highlightjs/-/ngx-highlightjs-2.1.1.tgz#f8f19e6b083e375b6b964e91ee233a30a01563a1"
+  integrity sha512-8LpImj51J8372Zztg/SHB5IznPVtujbW/Ner2KJOh1DjO7uph9jFt5AYdvtJrX9WeJ9Su+uuLlbjbSm2NgloKg==
+  dependencies:
+    tslib "^1.9.0"
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"

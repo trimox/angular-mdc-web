@@ -289,7 +289,6 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     setDisabled(disabled: boolean): void,
     setValid(isValid: boolean): void,
     setValue(value: any): void,
-    getValue(): any,
     isValid(): boolean,
     readonly shouldFloat: boolean,
     notchOutline(openNotch: boolean): void,
@@ -330,28 +329,8 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   ngAfterContentInit(): void {
     this.init();
 
-    if (this.ngControl) {
-      this.ngControl.valueChanges!.subscribe(value => {
-        this.setValue(value);
-      });
-
-      this.ngControl.statusChanges!.subscribe(() => {
-        if (this.ngControl.invalid && this.ngControl.touched) {
-          this._foundation.autoCompleteFocus();
-          this._foundation.setValid(false);
-        } else {
-          this._foundation.deactivateFocus();
-          this._foundation.setValid(true);
-        }
-      });
-    }
-
-    this.inputFormControl.valueChanges.subscribe(value => {
-      this.setValue(value);
-    });
-    this.inputFormControl.statusChanges.subscribe(() => {
-      this._handleValidationAttributeChange();
-    });
+    this._listenForNgControlChanges();
+    this._listenForInputElementChanges();
   }
 
   ngOnDestroy(): void {
@@ -385,10 +364,11 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   }
 
   onChange(evt: Event): void {
-    const value = (<any>evt.target).value;
-    this.change.emit(value);
+    const newValue = this.type === 'number' ?
+      toNumber((<any>evt.target).value, null) : (<any>evt.target).value;
 
-    this._onChange(value);
+    this.change.emit(newValue);
+    this._onChange(newValue);
     evt.stopPropagation();
   }
 
@@ -425,7 +405,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     const newValue = this.type === 'number' ? toNumber(value, null) : value;
     if (this._value === newValue) { return; }
 
-    this._value = newValue ? newValue : null;
+    this._value = newValue;
     this._foundation.setValue(this._value);
     this.inputFormControl.setValue(this.value);
 
@@ -456,6 +436,35 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
         }
       }, 5);
     });
+  }
+
+  private _listenForNgControlChanges(): void {
+    if (this.ngControl) {
+      this.ngControl.valueChanges!.subscribe(value => {
+        this.setValue(value);
+      });
+
+      this.ngControl.statusChanges!.subscribe(() => {
+        if (this.ngControl.invalid && this.ngControl.touched) {
+          this._foundation.autoCompleteFocus();
+          this._foundation.setValid(false);
+        } else {
+          this._foundation.deactivateFocus();
+          this._foundation.setValid(true);
+        }
+      });
+    }
+  }
+
+  private _listenForInputElementChanges(): void {
+    if (!this.ngControl) {
+      this.inputFormControl.valueChanges.subscribe(value => {
+        this.setValue(value);
+      });
+      this.inputFormControl.statusChanges.subscribe(() => {
+        this._handleValidationAttributeChange();
+      });
+    }
   }
 
   private _handleValidationAttributeChange(): void {

@@ -20,25 +20,17 @@
 // THE SOFTWARE.
 //
 
-@import "../../animation/functions";
-@import "../../rtl/mixins";
-@import "../variables";
-@import "../mixins";
+@import "./variables";
 
-.mdc-drawer--dismissible {
-  @include mdc-rtl-reflexive-position(left, 0);
+//
+// Returns the notch padded position based on given radius. This is 'x' position where the floating label starts.
+//
+// Examples:
+//
+// mdc-notched-outline-get-notch-padded-position(4px) => 21.2px
+//
+@function mdc-notched-outline-get-notch-padded-position($cornerSize) {
+  $leadingStrokeLength: max(0, $mdc-notched-outline-min-leading-stroke-edge-position - $cornerSize - 1.2);
 
-  display: none;
-  position: absolute;
-  top: 0;
-
-  &.mdc-drawer--open {
-    display: flex;
-  }
-}
-
-.mdc-drawer-app-content {
-  @include mdc-rtl-reflexive-box(margin, left, 0);
-
-  position: relative;
+  @return $cornerSize + $leadingStrokeLength + $mdc-notched-outline-notch-gutter-size + 1.2;
 }

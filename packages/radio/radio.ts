@@ -154,19 +154,14 @@ export class MdcRadio implements AfterViewInit, OnDestroy, MdcFormFieldControl<a
     return {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
-      getNativeControl: () => this._getInputElement()
+      setNativeControlDisabled: (disabled: boolean) => this.disabled = disabled
     };
   }
 
   private _foundation: {
     init(): void,
     destroy(): void,
-    isChecked(): boolean,
-    setChecked(checked: boolean): void,
-    setDisabled(disabled: boolean): void,
-    isDisabled(): boolean,
-    getValue(): any,
-    setValue(value: any): void
+    setDisabled(disabled: boolean): void
   } = new MDCRadioFoundation(this.createAdapter());
 
   constructor(
@@ -232,7 +227,8 @@ export class MdcRadio implements AfterViewInit, OnDestroy, MdcFormFieldControl<a
 
     if (this._checked !== newCheckedState) {
       this._checked = newCheckedState;
-      this._foundation.setChecked(newCheckedState);
+      this._getInputElement().checked = newCheckedState;
+
       if (newCheckedState && this.radioGroup && this.radioGroup.value !== this.value) {
         this.radioGroup.selected = this;
       } else if (!newCheckedState && this.radioGroup && this.radioGroup.value === this.value) {
@@ -253,7 +249,8 @@ export class MdcRadio implements AfterViewInit, OnDestroy, MdcFormFieldControl<a
   setValue(value: any): void {
     if (this._value !== value) {
       this._value = value;
-      this._foundation.setValue(value);
+      this._getInputElement().value = this._value;
+
       if (this.radioGroup !== null) {
         if (!this.checked) {
           // Update checked when the value changed to match the radio group's value

@@ -178,12 +178,6 @@ describe('Chips', () => {
       fixture.detectChanges();
       flush();
     }));
-
-    it('#should de-select chip', fakeAsync(() => {
-      testInstance.deselect('newsChip');
-      fixture.detectChanges();
-      flush();
-    }));
   });
 });
 

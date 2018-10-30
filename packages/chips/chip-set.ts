@@ -142,12 +142,10 @@ export class MdcChipSet implements AfterContentInit, OnDestroy {
     init(): void,
     destroy(): void,
     getSelectedChipIds(): string[],
-    toggleSelect(chipId: string): void,
     select(chipId: string): void,
-    deselect(chipId: string): void
-    handleChipInteraction(evt: any): void,
-    handleChipRemoval(evt: any): void,
-    handleChipSelection(evt: any): void
+    handleChipInteraction(chipId: string): void,
+    handleChipRemoval(chipId: string): void,
+    handleChipSelection(chipId: string): void
   } = new MDCChipSetFoundation(this.createAdapter());
 
   constructor(
@@ -187,10 +185,6 @@ export class MdcChipSet implements AfterContentInit, OnDestroy {
     this._foundation.select(chipId);
   }
 
-  deselect(chipId: string): void {
-    this._foundation.deselect(chipId);
-  }
-
   getChipById(chipId: string): MdcChip | undefined {
     return this.chips.find(_ => _.id === chipId);
   }
@@ -221,19 +215,19 @@ export class MdcChipSet implements AfterContentInit, OnDestroy {
   private _listenForChipSelection(): void {
     this._chipSelectionSubscription = this.chipSelections
       .subscribe((event: MdcChipSelectionEvent) => {
-        this._foundation.handleChipSelection(event);
+        this._foundation.handleChipSelection(event.detail.chipId);
         this.change.emit(new MdcChipSetChange(this, event.detail));
       });
   }
 
   private _listenToChipsInteraction(): void {
     this._chipInteractionSubscription = this.chipInteractions
-      .subscribe((event: MdcChipInteractionEvent) => this._foundation.handleChipInteraction(event));
+      .subscribe((event: MdcChipInteractionEvent) => this._foundation.handleChipInteraction(event.detail.chipId));
   }
 
   private _listenToChipsRemoved(): void {
     this._chipRemoveSubscription = this.chipRemoveChanges
-      .subscribe((event: MdcChipRemovedEvent) => this._foundation.handleChipRemoval(event));
+      .subscribe((event: MdcChipRemovedEvent) => this._foundation.handleChipRemoval(event.detail.chipId));
   }
 
   private _findChipIndex(chipId: string): number {

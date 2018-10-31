@@ -53,6 +53,10 @@
             <td>If true, permits using movement keys to switch tabs.</td>
           </tr>
           <tr>
+            <td>focusOnActivate: boolean</td>
+            <td>Sets whether the tab should focus itself when activated. Defaults to true.</td>
+          </tr>
+          <tr>
             <td>align: string</td>
             <td>Sets the elements inside the scroll content element to be aligned to the start, center or end of the scroll content element.
 <p>Valid values: 'start' | 'center' | 'end' * Only for Fixed Tabs.</p></td>
@@ -247,7 +251,7 @@
   <div class="demo-content">
     <h3 class="demo-content__headline">Tabs with icons next to label</h3>
     <div class="demo-layout__row">
-      <button mdc-button (click)="demoTabBarDefault.setFade(!demoTabBarDefault.fade)">Fade: {{demoTabBarDefault.fade ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoTabBarDefault.fade = !demoTabBarDefault.fade">Fade: {{demoTabBarDefault.fade ? 'On' : 'Off'}}</button>
     </div>
     <mdc-tab-bar #demoTabBarDefault>
       <mdc-tab-scroller>
@@ -264,7 +268,7 @@
   <div class="demo-content">
     <h3 class="demo-content__headline">Tabs with stacked label and icon</h3>
     <div class="demo-layout__row">
-      <button mdc-button (click)="demoStackedTabBar.setFade(!demoStackedTabBar.fade)">Fade: {{demoStackedTabBar.fade ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoStackedTabBar.fade = !demoStackedTabBar.fade">Fade: {{demoStackedTabBar.fade ? 'On' : 'Off'}}</button>
     </div>
     <mdc-tab-bar #demoStackedTabBar stacked>
       <mdc-tab-scroller>
@@ -289,11 +293,11 @@
   <div class="demo-content">
     <h3 class="demo-content__headline">Fixed Tabs</h3>
     <div class="demo-layout__row">
-      <button mdc-button (click)="demoFixedTabsTabBar.setAlign('start')">Align Start</button>
-      <button mdc-button (click)="demoFixedTabsTabBar.setAlign('center')">Align Center</button>
-      <button mdc-button (click)="demoFixedTabsTabBar.setAlign('end')">Align End</button>
-      <button mdc-button (click)="demoFixedTabsTabBar.setStacked(!demoFixedTabsTabBar.stacked)">Stacked: {{demoFixedTabsTabBar.stacked ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="demoFixedTabsTabBar.setFade(!demoFixedTabsTabBar.fade)">Fade: {{demoFixedTabsTabBar.fade ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoFixedTabsTabBar.align = 'start'">Align Start</button>
+      <button mdc-button (click)="demoFixedTabsTabBar.align = 'center'">Align Center</button>
+      <button mdc-button (click)="demoFixedTabsTabBar.align = 'end'">Align End</button>
+      <button mdc-button (click)="demoFixedTabsTabBar.stacked = !demoFixedTabsTabBar.stacked">Stacked: {{demoFixedTabsTabBar.stacked ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoFixedTabsTabBar.fade = !demoFixedTabsTabBar.fade">Fade: {{demoFixedTabsTabBar.fade ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoFixedTabsTabBar.useAutomaticActivation = !demoFixedTabsTabBar.useAutomaticActivation">Automatic Activation: {{demoFixedTabsTabBar.useAutomaticActivation ? 'On' : 'Off'}}</button>
     </div>
     <mdc-tab-bar #demoFixedTabsTabBar fixed>
@@ -311,8 +315,8 @@
       <button mdc-button (click)="demoScrollingTabBar1.scrollIntoView(0)">Scroll Start</button>
       <button mdc-button (click)="demoScrollingTabBar1.scrollIntoView(7)">Scroll End</button>
       <button mdc-button (click)="demoScrollingTabBar1.activateTab(5)">Activate Hotel</button>
-      <button mdc-button (click)="demoScrollingTabBar1.setStacked(!demoScrollingTabBar1.stacked)">Stacked: {{demoScrollingTabBar1.stacked ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="demoScrollingTabBar1.setFade(!demoScrollingTabBar1.fade)">Fade: {{demoScrollingTabBar1.fade ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoScrollingTabBar1.stacked = !demoScrollingTabBar1.stacked">Stacked: {{demoScrollingTabBar1.stacked ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoScrollingTabBar1.fade = !demoScrollingTabBar1.fade">Fade: {{demoScrollingTabBar1.fade ? 'On' : 'Off'}}</button>
     </div>
     <mdc-tab-bar #demoScrollingTabBar1>
       <mdc-tab-scroller>
@@ -331,8 +335,8 @@
   <div class="demo-content">
     <h3 class="demo-content__headline">Scrolling Tabs with Scroll Buttons</h3>
     <div class="demo-layout__row">
-      <button mdc-button (click)="demoScrollingTabBar2.setStacked(!demoScrollingTabBar2.stacked)">Stacked: {{demoScrollingTabBar2.stacked ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="demoScrollingTabBar2.setFade(!demoScrollingTabBar2.fade)">Fade: {{demoScrollingTabBar2.fade ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoScrollingTabBar2.stacked = !demoScrollingTabBar2.stacked">Stacked: {{demoScrollingTabBar2.stacked ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoScrollingTabBar2.fade = !demoScrollingTabBar2.fade">Fade: {{demoScrollingTabBar2.fade ? 'On' : 'Off'}}</button>
     </div>
     <div class="demo-scrolling-tabs__row">
       <button mdc-icon-button (click)="demoScrollingScroller2.incrementScroll(-125)" icon="keyboard_arrow_left"></button>

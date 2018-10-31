@@ -49,8 +49,11 @@ export class MdcTabIndicator implements AfterViewInit {
   @Input()
   get fade(): boolean { return this._fade; }
   set fade(value: boolean) {
-    this._fade = toBoolean(value);
-    this._initFoundation();
+    const newValue = toBoolean(value);
+    if (newValue !== this._fade) {
+      this._fade = newValue;
+      this._initFoundation();
+    }
   }
   private _fade: boolean;
 

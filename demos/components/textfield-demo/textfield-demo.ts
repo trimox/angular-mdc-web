@@ -3,14 +3,24 @@ import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 
 import { MdcTextField } from '@angular-mdc/web';
 
+class Directions {
+  dt: number;
+}
+
 @Component({
   templateUrl: './textfield-demo.html'
 })
 export class TextFieldDemo {
   demoForm = new FormGroup({
     userName: new FormControl(
-      { value: '', disabled: false }, [Validators.required])
+      { value: '', disabled: false },
+      [
+        Validators.required,
+        Validators.minLength(3)
+      ])
   });
+
+  waypoint = new Directions();
 
   updateForm: FormGroup;
   username: string;
@@ -18,9 +28,12 @@ export class TextFieldDemo {
 
   submitForm() {
     if (!this.demoForm.valid) {
-      this.demoForm.controls['userName'].updateValueAndValidity();
       return;
     }
+  }
+
+  submitNumeric() {
+    console.log(this.waypoint)
   }
 
   submitWeightForm(f: NgForm) {

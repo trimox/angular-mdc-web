@@ -12,13 +12,12 @@ import {
   OnDestroy,
   Optional,
   Output,
-  Self,
   QueryList,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 import { Subject } from 'rxjs';
-import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 import {
   Platform,
@@ -35,6 +34,12 @@ import { MdcTextFieldIcon } from './text-field-icon';
 import { MdcTextFieldHelperText } from './helper-text';
 
 import { MDCTextFieldFoundation } from '@material/textfield/index';
+
+export const MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR: any = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => MdcTextField),
+  multi: true
+};
 
 let nextUniqueId = 0;
 
@@ -58,7 +63,6 @@ let nextUniqueId = 0;
   <input #input class="mdc-text-field__input"
     [id]="id"
     [type]="type"
-    [formControl]="inputFormControl"
     [tabindex]="tabIndex"
     [attr.autocomplete]="autocomplete"
     [attr.pattern]="pattern"
@@ -73,6 +77,7 @@ let nextUniqueId = 0;
     (mousedown)="onInputInteraction($event)"
     (touchstart)="onInputInteraction($event)"
     (focus)="onFocus()"
+    (input)="onInput($event.target.value)"
     (change)="onChange($event)"
     (blur)="onBlur()" />
     <ng-content></ng-content>
@@ -82,7 +87,8 @@ let nextUniqueId = 0;
   `,
   providers: [
     MdcRipple,
-    { provide: MdcFormFieldControl, useExisting: MdcTextField },
+    MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR,
+    { provide: MdcFormFieldControl, useExisting: MdcTextField }
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -122,7 +128,6 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   get outlined(): boolean { return this._outlined; }
   set outlined(value: boolean) {
     const newValue = toBoolean(value);
-
     if (newValue !== this._outlined) {
       this._outlined = toBoolean(newValue);
       this._reinitialize();
@@ -182,9 +187,9 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   @Input()
   get value(): any { return this._value; }
   set value(newValue: any) {
-    this.setValue(newValue);
+    this.setValue(newValue, true);
   }
-  private _value: any = null;
+  private _value: any;
 
   /** Sets the Text Field valid or invalid. */
   @Input()
@@ -197,8 +202,6 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
 
   @Output() readonly change = new EventEmitter<any>();
   @Output() readonly blur = new EventEmitter<any>();
-
-  inputFormControl = new FormControl();
 
   @ViewChild('input') _input: ElementRef<HTMLInputElement | HTMLTextAreaElement>;
   @ViewChild(MdcFloatingLabel) _floatingLabel: MdcFloatingLabel;
@@ -235,7 +238,17 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
 
   private _getInputAdapterMethods() {
     return {
-      getNativeInput: () => this._input.nativeElement
+      getNativeInput: () => {
+        return {
+          type: this._type,
+          value: this._value,
+          disabled: this._input.nativeElement.disabled,
+          validity: {
+            valid: this.useNativeValidation ? this._input.nativeElement.validity.valid : !!this._valid,
+            badInput: this._input.nativeElement.validity.badInput
+          }
+        };
+      }
     };
   }
 
@@ -297,8 +310,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     handleTextFieldInteraction(): void,
     activateFocus(): void,
     deactivateFocus(): void,
-    handleValidationAttributeChange(attributesList?: string[]): void,
-    autoCompleteFocus(): void
+    handleValidationAttributeChange(attributesList?: string[]): void
   } = new MDCTextFieldFoundation();
 
   /** View -> model callback called when value changes */
@@ -308,19 +320,12 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   _onTouched = () => { };
 
   constructor(
-    @Optional() private _parentFormField: MdcFormField,
-    @Self() @Optional() public ngControl: NgControl,
     private _ngZone: NgZone,
     private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef<HTMLElement>,
+    @Optional() private _parentFormField: MdcFormField,
     @Optional() private _ripple: MdcRipple) {
-
-    if (this.ngControl) {
-      // Note: we provide the value accessor through here, instead of
-      // the `providers` to avoid running into a circular import.
-      this.ngControl.valueAccessor = this;
-    }
 
     // Force setter to be called in case id was not specified.
     this.id = this.id;
@@ -328,9 +333,6 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
 
   ngAfterContentInit(): void {
     this.init();
-
-    this._listenForNgControlChanges();
-    this._listenForInputElementChanges();
   }
 
   ngOnDestroy(): void {
@@ -357,6 +359,10 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     this._foundation.setTransformOrigin(evt);
   }
 
+  onInput(value: any): void {
+    this.setValue(value, true);
+  }
+
   onFocus(): void {
     if (this._initialized) {
       this._foundation.activateFocus();
@@ -364,11 +370,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   }
 
   onChange(evt: Event): void {
-    const newValue = this.type === 'number' ?
-      toNumber((<any>evt.target).value, null) : (<any>evt.target).value;
-
-    this.change.emit(newValue);
-    this._onChange(newValue);
+    this.setValue((<any>evt.target).value);
     evt.stopPropagation();
   }
 
@@ -390,6 +392,29 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     this._onTouched = fn;
   }
 
+  setValue(value: any, isUserInput?: boolean): void {
+    const newValue = this.type === 'number' ? toNumber(value, null) : value;
+    if (this._value === newValue) {
+      this._handleValidationAttributeChange();
+      return;
+    }
+
+    this._value = newValue ? newValue : null;
+    if (this._getInputElement().value !== this._value) {
+      this._getInputElement().value = this._value;
+    }
+    this._foundation.setValue(this._value);
+
+    if (isUserInput) {
+      this.change.emit(this._value);
+      this._onChange(this._value);
+    }
+
+    // need to run valiation attribute check if input reset
+    this._handleValidationAttributeChange();
+    this._changeDetectorRef.markForCheck();
+  }
+
   isBadInput(): boolean {
     const validity = this._getInputElement().validity;
     return validity && validity.badInput;
@@ -399,17 +424,6 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     if (!this.disabled) {
       this._getInputElement().focus();
     }
-  }
-
-  setValue(value: any): void {
-    const newValue = this.type === 'number' ? toNumber(value, null) : value;
-    if (this._value === newValue) { return; }
-
-    this._value = newValue;
-    this._foundation.setValue(this._value);
-    this.inputFormControl.setValue(this.value);
-
-    this._changeDetectorRef.markForCheck();
   }
 
   /** Implemented as part of ControlValueAccessor. */
@@ -436,35 +450,6 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
         }
       }, 5);
     });
-  }
-
-  private _listenForNgControlChanges(): void {
-    if (this.ngControl) {
-      this.ngControl.valueChanges!.subscribe(value => {
-        this.setValue(value);
-      });
-
-      this.ngControl.statusChanges!.subscribe(() => {
-        if (this.ngControl.invalid && this.ngControl.touched) {
-          this._foundation.autoCompleteFocus();
-          this._foundation.setValid(false);
-        } else {
-          this._foundation.deactivateFocus();
-          this._foundation.setValid(true);
-        }
-      });
-    }
-  }
-
-  private _listenForInputElementChanges(): void {
-    if (!this.ngControl) {
-      this.inputFormControl.valueChanges.subscribe(value => {
-        this.setValue(value);
-      });
-      this.inputFormControl.statusChanges.subscribe(() => {
-        this._handleValidationAttributeChange();
-      });
-    }
   }
 
   private _handleValidationAttributeChange(): void {

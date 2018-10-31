@@ -30,6 +30,7 @@ import { MdcTextField } from './text-field';
     (mousedown)="onInputInteraction($event)"
     (touchstart)="onInputInteraction($event)"
     (focus)="onFocus()"
+    (input)="onInput($event.target.value)"
     (change)="onChange($event)"
     (blur)="onBlur()"></textarea>
     <label mdcFloatingLabel [for]="id">{{label}}</label>

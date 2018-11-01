@@ -8,7 +8,6 @@ import {
   EventEmitter,
   forwardRef,
   Input,
-  NgZone,
   OnDestroy,
   Optional,
   Output,
@@ -16,8 +15,8 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { Subject } from 'rxjs';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { Subject } from 'rxjs';
 
 import {
   Platform,
@@ -82,7 +81,7 @@ let nextUniqueId = 0;
     (blur)="onBlur()" />
     <ng-content></ng-content>
     <label mdcFloatingLabel [for]="id" *ngIf="!this.placeholder">{{label}}</label>
-    <mdc-line-ripple *ngIf="useLineRipple"></mdc-line-ripple>
+    <mdc-line-ripple *ngIf="!this.outlined && !this.textarea"></mdc-line-ripple>
     <mdc-notched-outline *ngIf="outlined"></mdc-notched-outline>
   `,
   providers: [
@@ -209,16 +208,16 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   @ViewChild(MdcNotchedOutline) _notchedOutline: MdcNotchedOutline;
   @ContentChildren(MdcTextFieldIcon, { descendants: true }) _icons: QueryList<MdcTextFieldIcon>;
 
-  /** Determines if the component host is a textarea. */
+  /** View -> model callback called when value changes */
+  _onChange: (value: any) => void = () => { };
+
+  /** View -> model callback called when text field has been touched */
+  _onTouched = () => { };
+
   get textarea(): boolean { return this._getHostElement().nodeName.toLowerCase() === 'mdc-textarea'; }
-
   get focused(): boolean { return this._platform.isBrowser ? document.activeElement! === this._getInputElement() : false; }
-
   get leadingIcon(): MdcTextFieldIcon | undefined { return this._icons.find(icon => icon.leading); }
-
   get trailingIcon(): MdcTextFieldIcon | undefined { return this._icons.find(icon => icon.trailing); }
-
-  get useLineRipple(): boolean { return !this._outlined && !this.textarea; }
 
   private _createAdapter() {
     return Object.assign({
@@ -313,22 +312,19 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     handleValidationAttributeChange(attributesList?: string[]): void
   } = new MDCTextFieldFoundation();
 
-  /** View -> model callback called when value changes */
-  _onChange: (value: any) => void = () => { };
-
-  /** View -> model callback called when text field has been touched */
-  _onTouched = () => { };
-
   constructor(
-    private _ngZone: NgZone,
     private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef<HTMLElement>,
-    @Optional() private _parentFormField: MdcFormField,
-    @Optional() private _ripple: MdcRipple) {
+    @Optional() private _ripple: MdcRipple,
+    @Optional() private _parentFormField: MdcFormField) {
 
     // Force setter to be called in case id was not specified.
     this.id = this.id;
+
+    if (this._parentFormField) {
+      _parentFormField.elementRef.nativeElement.classList.add('ngx-mdc-form-field');
+    }
   }
 
   ngAfterContentInit(): void {

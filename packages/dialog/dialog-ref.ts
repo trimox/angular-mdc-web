@@ -9,7 +9,7 @@ let uniqueId = 0;
 /**  Reference to a dialog dispatched from the MdcDialog service. */
 export class MdcDialogRef<T, R = any> {
   /** The instance of the component in the dialog. */
-  componentInstance: T;
+  componentInstance!: T;
 
   /** Subject for notifying the user that the dialog has finished opening. */
   private readonly _afterOpened = new Subject<void>();

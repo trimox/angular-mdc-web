@@ -21,7 +21,6 @@ import {
 } from '@angular/core';
 import { BasePortalOutlet, ComponentPortal, Portal, TemplatePortal } from './portal';
 
-
 /**
  * Directive version of a `TemplatePortal`. Because the directive *is* a TemplatePortal,
  * the directive instance itself can be attached to a host, enabling declarative use of portals.
@@ -40,7 +39,6 @@ export class CdkPortal extends TemplatePortal {
  * Possible attached references to the CdkPortalOutlet.
  */
 export type CdkPortalOutletAttachedRef = ComponentRef<any> | EmbeddedViewRef<any> | null;
-
 
 /**
  * Directive version of a PortalOutlet. Because the directive *is* a PortalOutlet, portals can be
@@ -92,6 +90,7 @@ export class CdkPortalOutlet extends BasePortalOutlet implements OnInit, OnDestr
     this._attachedPortal = portal;
   }
 
+  /** Emits when a portal is attached to the outlet. */
   @Output() attached: EventEmitter<CdkPortalOutletAttachedRef> =
     new EventEmitter<CdkPortalOutletAttachedRef>();
 
@@ -125,8 +124,8 @@ export class CdkPortalOutlet extends BasePortalOutlet implements OnInit, OnDestr
       portal.viewContainerRef :
       this._viewContainerRef;
 
-    const componentFactory =
-      this._componentFactoryResolver.resolveComponentFactory(portal.component);
+    const resolver = portal.componentFactoryResolver || this._componentFactoryResolver;
+    const componentFactory = resolver.resolveComponentFactory(portal.component);
     const ref = viewContainerRef.createComponent(
       componentFactory, viewContainerRef.length,
       portal.injector || viewContainerRef.injector);

@@ -10,7 +10,7 @@ import { Portal } from '@angular-mdc/web/portal';
 
 /**
  * Basic interface for an overlay. Used to avoid circular type references between
- * `OverlayRef`, `PositionStrategy` and `ScrollStrategy`, and `OverlayConfig`.
+ * `OverlayRef` and `OverlayConfig`.
  * @docs-private
  */
 export interface OverlayReference {
@@ -21,5 +21,4 @@ export interface OverlayReference {
   hostElement: HTMLElement;
   getConfig: () => any;
   hasAttached: () => boolean;
-  updateSize: (config: any) => void;
 }

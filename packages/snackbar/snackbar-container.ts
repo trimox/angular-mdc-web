@@ -35,13 +35,10 @@ export class MdcSnackbarContainer extends BasePortalOutlet implements OnDestroy 
   private _destroyed = false;
 
   /** The portal outlet inside of this container into which the snackbar content will be loaded. */
-  @ViewChild(CdkPortalOutlet) _portalOutlet: CdkPortalOutlet;
+  @ViewChild(CdkPortalOutlet) _portalOutlet!: CdkPortalOutlet;
 
   /** Subject for notifying that the snackbar has exited from view. */
   readonly _onExit: Subject<any> = new Subject();
-
-  /** Subject for notifying that the snackbar has finished entering the view. */
-  readonly _onEnter: Subject<any> = new Subject();
 
   constructor(
     private _ngZone: NgZone,

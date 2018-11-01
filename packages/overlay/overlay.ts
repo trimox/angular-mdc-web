@@ -15,7 +15,7 @@ import {
   Injectable,
   Injector,
   NgZone,
-  Optional,
+  Optional
 } from '@angular/core';
 import { OverlayConfig } from './overlay-config';
 import { OverlayContainer } from './overlay-container';
@@ -72,7 +72,6 @@ export class Overlay {
     const pane = this._document.createElement('div');
 
     pane.id = `cdk-overlay-${nextUniqueId++}`;
-    pane.classList.add('cdk-overlay-pane');
     host.appendChild(pane);
 
     return pane;

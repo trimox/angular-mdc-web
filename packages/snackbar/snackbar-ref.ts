@@ -14,7 +14,7 @@ export interface MdcSnackbarDismiss {
  */
 export class MdcSnackbarRef<T> {
   /** The instance of the component making up the content of the snackbar. */
-  instance: T;
+  instance!: T;
   componentInstance: MdcSnackbarContainer;
 
   /** Whether the snackbar was dismissed using the action button. */

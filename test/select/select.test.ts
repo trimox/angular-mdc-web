@@ -14,7 +14,7 @@ import { By } from '@angular/platform-browser';
 
 import { dispatchKeyboardEvent, dispatchFakeEvent, dispatchMouseEvent, dispatchTouchEvent } from '../testing/dispatch-events';
 
-import { MdcSelectModule, MdcSelect } from '@angular-mdc/web';
+import { DOWN_ARROW, MdcSelectModule, MdcSelect } from '@angular-mdc/web';
 
 describe('MdcSelectModule', () => {
   let fixture: ComponentFixture<any>;
@@ -62,10 +62,30 @@ describe('MdcSelectModule', () => {
       expect(testInstance.floatingLabel).toBe(false);
     });
 
+    it('#should set required to true', () => {
+      testComponent.required = true;
+      fixture.detectChanges();
+      expect(testInstance.required).toBe(true);
+    });
+
+    it('#should set valid to true', () => {
+      testComponent.valid = true;
+      fixture.detectChanges();
+      expect(testInstance.valid).toBe(true);
+    });
+
+    it('#should set helper content', fakeAsync(() => {
+      expect(testInstance.helperText.setContent('test'));
+    }));
+
+    it('#should show to screen reader', () => {
+      expect(testInstance.helperText.showToScreenReader());
+    });
+
     it('#should set outlined and floating label with value', () => {
       testInstance.setSelectionByValue('fruit-3');
-      testInstance.setOutlined(true);
-      testInstance.setFloatingLabel(true);
+      testInstance.outlined = true;
+      testInstance.floatingLabel = true;
       fixture.detectChanges();
 
       expect(testInstance.floatingLabel).toBe(true);
@@ -76,7 +96,7 @@ describe('MdcSelectModule', () => {
     });
 
     it('#should have `Please select` as placeholder text', () => {
-      testInstance.setPlaceholder('Please select');
+      testInstance.placeholder = 'Please select';
       fixture.detectChanges();
       expect(testInstance.placeholder).toMatch('Please select');
     });
@@ -93,17 +113,24 @@ describe('MdcSelectModule', () => {
       expect(testInstance.getSelectedIndex()).toBe(-1);
     });
 
-    it('#should handle mouse events', fakeAsync(() => {
-      dispatchMouseEvent(testInstance.inputEl.nativeElement, 'mousedown');
+    it('#should select fruit-3 by index', () => {
+      testInstance.setSelectedIndex(3);
       fixture.detectChanges();
-      flush();
-    }));
+      expect(testInstance.getValue()).toBe('fruit-3');
+    });
 
-    it('#should handle touch events', fakeAsync(() => {
-      dispatchTouchEvent(testInstance.inputEl.nativeElement, 'touchstart');
+    it('#should handle mouse events', () => {
+      dispatchMouseEvent(testInstance._nativeSelect.nativeElement, 'mousedown');
       fixture.detectChanges();
-      flush();
-    }));
+      testInstance.focus();
+      dispatchKeyboardEvent(testInstance.elementRef.nativeElement, 'keydown', DOWN_ARROW);
+      fixture.detectChanges();
+    });
+
+    it('#should handle touch events', () => {
+      dispatchTouchEvent(testInstance._nativeSelect.nativeElement, 'touchstart');
+      fixture.detectChanges();
+    });
   });
 
   describe('form control basic behaviors', () => {
@@ -141,7 +168,7 @@ describe('MdcSelectModule', () => {
       document.body.focus(); // ensure that focus isn't on the trigger already
       testInstance.focus();
 
-      expect(document.activeElement).toBe(testInstance.inputEl.nativeElement, 'Expected select element to be focused.');
+      expect(document.activeElement).toBe(testInstance._nativeSelect.nativeElement, 'Expected select element to be focused.');
     }));
   });
 });
@@ -149,13 +176,21 @@ describe('MdcSelectModule', () => {
 @Component({
   template: `
     <form #demoSelectForm="ngForm" id="demoSelectForm">
-      <mdc-select #select placeholder="Favorite food" ngModel #demoSelectModel="ngModel" name="food"
-       [disabled]="disabled" [floatingLabel]="floatingLabel"
-       (valueChange)="handleValueChange($event)" (selectionChange)="handleSelectedChange($event)">
-        <option *ngFor="let food of foods" [value]="food.value" disabled="food.disabled">
-          {{food.description}}
-        </option>
-      </mdc-select>
+      <mdc-form-field>
+        <mdc-select #select placeholder="Favorite food" ngModel #demoSelectModel="ngModel" name="food"
+         [disabled]="disabled" [floatingLabel]="floatingLabel" [required]="required" [valid]="valid"
+         [helperText]="testHelper" [value]="testValue"
+         (valueChange)="handleValueChange($event)" (selectionChange)="handleSelectedChange($event)">
+          <option *ngFor="let food of foods" [value]="food.value" disabled="food.disabled">
+            {{food.description}}
+          </option>
+        </mdc-select>
+        <p mdcSelectHelperText
+          #testHelper="mdcSelectHelperText"
+          [validation]="true"
+          [persistent]="false">Meal selection is required
+        </p>
+      </mdc-form-field>
     </form>
   `,
 })
@@ -164,6 +199,9 @@ class SimpleTest {
   disabled: boolean = true;
   floatingLabel: boolean;
   multiple: boolean;
+  required: boolean;
+  valid: boolean;
+  testValue: string;
 
   foods = [
     { value: 'steak-0', description: 'Steak' },
@@ -178,8 +216,8 @@ class SimpleTest {
 
 @Component({
   template: `
-  <mdc-select placeholder="Favorite food" [formControl]="foodControl" [autosize]="false"
-   [outlined]="outlined" (blur)="handleBlur()">
+  <mdc-select placeholder="Favorite food" [formControl]="foodControl" [autosize]="autosize"
+   [outlined]="outlined" (blur)="handleBlur()" [compareWith]="compareFn">
     <option *ngFor="let food of foods" [value]="food.value" disabled="food.disabled">
       {{food.description}}
     </option>
@@ -189,6 +227,11 @@ class SimpleTest {
 class SelectFormControl {
   foodControl = new FormControl();
   outlined: boolean;
+  autosize: boolean = true;
+
+  compareFn(f1: any, f2: any): boolean {
+    return f1 && f2 ? f1.id === f2.id : f1 === f2;
+  }
 
   foods = [
     { value: 'steak-0', description: 'Steak' },

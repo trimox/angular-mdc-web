@@ -1,0 +1,31 @@
+.custom-select-ink-color {
+  @include mdc-select-ink-color(green);
+}
+
+.custom-select-container-fill-color {
+  @include mdc-select-container-fill-color(green);
+}
+
+.custom-select-label-color {
+  @include mdc-select-label-color(green);
+}
+
+.custom-select-bottom-line-color {
+  @include mdc-select-bottom-line-color(green);
+}
+
+.custom-select-shape-radius {
+  @include mdc-select-shape-radius(50%);
+}
+
+.custom-select-outline-color {
+  @include mdc-select-outline-color(green);
+}
+
+.custom-select-outline-shape-radius {
+  @include mdc-select-outline-shape-radius(50%);
+}
+
+.custom-enhanced-select-width {
+  width: 300px;
+}

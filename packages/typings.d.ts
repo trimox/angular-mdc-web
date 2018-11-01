@@ -25,6 +25,8 @@ declare module '@material/notched-outline/index';
 declare module '@material/radio/index';
 declare module '@material/ripple/index';
 declare module '@material/ripple/util';
+declare module '@material/select/constants';
+declare module '@material/select/helper-text/index';
 declare module '@material/select/index';
 declare module '@material/slider/constants';
 declare module '@material/slider/index';

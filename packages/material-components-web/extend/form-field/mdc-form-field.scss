@@ -1,0 +1,30 @@
+@import "./mixins";
+
+.ngx-mdc-form-field {
+  @include mdc-form-field-spacing(12px);
+
+  display: inline-block;
+
+  .mdc-text-field-helper-text:not(.mdc-text-field-helper-text--persistent),
+  .mdc-select-helper-text:not(.mdc-select-helper-text--persistent) {
+    margin-bottom: 11px;
+  }
+}
+
+.ngx-mdc-form-field--flex {
+  display: flex;
+  flex: auto;
+  flex-direction: column;
+}
+
+.ngx-mdc-form-field--start {
+  align-self: flex-start;
+}
+
+.ngx-mdc-form-field--end {
+  margin-left: auto;
+}
+
+.ngx-mdc-form-field--padded {
+  @include mdc-form-field-spacing(20px);
+}

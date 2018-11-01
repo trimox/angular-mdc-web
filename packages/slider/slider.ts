@@ -51,7 +51,10 @@ export class MdcSliderChange {
       <div *ngIf="discrete" class="mdc-slider__pin">
         <span #pin class="mdc-slider__pin-value-marker"></span>
       </div>
-      <svg class="mdc-slider__thumb" width="21" height="21">
+      <svg
+        class="mdc-slider__thumb"
+        width="21" height="21"
+        focusable="false">
         <circle cx="10.5" cy="10.5" r="7.875"></circle>
       </svg>
       <div class="mdc-slider__focus-ring"></div>

@@ -15,7 +15,8 @@ import { MDCNotchedOutlineFoundation } from '@material/notched-outline/index';
   exportAs: 'mdcNotchedOutline',
   template: `
   <div #notchOutline class="mdc-notched-outline">
-    <svg>
+    <svg
+      focusable="false">
       <path #svgpath class="mdc-notched-outline__path"/>
     </svg>
   </div>

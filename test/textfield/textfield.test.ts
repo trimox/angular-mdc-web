@@ -97,6 +97,18 @@ describe('MdcTextField', () => {
       expect(textFieldInstance.disabled).toBe(true);
     }));
 
+    it('#should not be read only', fakeAsync(() => {
+      expect(textFieldInstance.readonly).toBeFalsy();
+    }));
+
+    it('#should be read only', fakeAsync(() => {
+      testComponent.readonly = true;
+      fixture.detectChanges();
+      flush();
+
+      expect(textFieldInstance.readonly).toBe(true);
+    }));
+
     it('#should set validity based on input element validity', fakeAsync(() => {
       textFieldInstance.valid = true;
       fixture.detectChanges();
@@ -254,6 +266,7 @@ describe('MdcTextField', () => {
       [value]="value"
       [fullwidth]="isFullwidth"
       [required]="required"
+      [readonly]="readonly"
       [disabled]="disabled"
       [useNativeValidation]="useNativeValidation"
       [helperText]="userHelper"
@@ -276,6 +289,7 @@ class SimpleTextfield {
   isFullwidth: boolean;
   outlined: boolean;
   required: boolean;
+  readonly: boolean;
   useNativeValidation: boolean = false;
 
   onBlur(event: any) { }

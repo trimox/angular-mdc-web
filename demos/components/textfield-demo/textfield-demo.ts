@@ -33,7 +33,7 @@ export class TextFieldDemo {
   }
 
   submitNumeric() {
-    console.log(this.waypoint)
+    console.log(this.waypoint);
   }
 
   submitWeightForm(f: NgForm) {

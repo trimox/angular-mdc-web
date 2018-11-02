@@ -65,6 +65,10 @@
             <td>Disables the component.</td>
           </tr>
           <tr>
+            <td>readonly: boolean</td>
+            <td>Whether or not the textfield value is editable.</td>
+          </tr>
+          <tr>
             <td>required: boolean</td>
             <td>Whether the element is required.</td>
           </tr>
@@ -241,11 +245,12 @@
       <button mdc-button (click)="demoformInput.dense = !demoformInput.dense">Dense: {{demoformInput.dense ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoformInput.disabled = !demoformInput.disabled">Disabled: {{demoformInput.disabled ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoformInput.required = !demoformInput.required">Required: {{demoformInput.required ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoformInput.readonly = !demoformInput.readonly">Read Only: {{demoformInput.readonly ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoformInput.useNativeValidation = !demoformInput.useNativeValidation">Use native validation: {{demoformInput.useNativeValidation ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="alternateColors(demoformInput)">Alternate Colors</button>
     </div>
     <form [formGroup]="demoForm" id="demoForm" (ngSubmit)="submitForm()">
-      <mdc-text-field #demoformInput formControlName="userName" label="Username" outlined [helperText]="demoformHelper" required minlength="3"></mdc-text-field>
+      <mdc-text-field #demoformInput formControlName="userName" label="Username" outlined [readonly]="readonly" [helperText]="demoformHelper" required minlength="3"></mdc-text-field>
       <mdc-text-field-helper-text #demoformHelper="mdcHelperText" validation>
         <span *ngIf="demoForm.controls['userName'].errors?.required">Username is required</span>
         <span *ngIf="demoForm.controls['userName'].errors?.minlength">Username is not long enough</span>

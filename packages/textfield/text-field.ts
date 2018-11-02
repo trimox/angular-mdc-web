@@ -72,6 +72,7 @@ let nextUniqueId = 0;
     [attr.min]="min"
     [attr.size]="size"
     [attr.step]="step"
+    [readonly]="readonly"
     [required]="required"
     (mousedown)="onInputInteraction($event)"
     (touchstart)="onInputInteraction($event)"
@@ -150,6 +151,13 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     this._handleValidationAttributeChange();
   }
   private _required: boolean;
+
+  @Input()
+  get readonly(): boolean { return this._readonly; }
+  set readonly(value: boolean) {
+    this._readonly = toBoolean(value);
+  }
+  private _readonly: boolean;
 
   @Input()
   get fullwidth(): boolean { return this._fullwidth; }

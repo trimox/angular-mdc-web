@@ -34,7 +34,6 @@ export const MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
     [attr.minlength]="minlength"
     [disabled]="disabled"
     [required]="required"
-    [value]="value"
     (mousedown)="onInputInteraction($event)"
     (touchstart)="onInputInteraction($event)"
     (focus)="onFocus()"

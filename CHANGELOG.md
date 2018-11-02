@@ -1,3 +1,52 @@
+<a name="0.41.0"></a>
+# [0.41.0](https://github.com/trimox/angular-mdc-web/compare/v0.41.0-pre.1...v0.41.0) (2018-11-02)
+
+
+### Bug Fixes
+
+* **chips:** Remove deselect from chip-set ([2167c4b](https://github.com/trimox/angular-mdc-web/commit/2167c4b)), closes [#1499](https://github.com/trimox/angular-mdc-web/issues/1499)
+* **radio:** Remove native control adapter methods ([#1498](https://github.com/trimox/angular-mdc-web/issues/1498)) ([8bec0d9](https://github.com/trimox/angular-mdc-web/commit/8bec0d9)), closes [material-components/material-components-web#3785](https://github.com/material-components/material-components-web/issues/3785)
+* **text-field:** Check value type during change event ([#1496](https://github.com/trimox/angular-mdc-web/issues/1496)) ([cb72bca](https://github.com/trimox/angular-mdc-web/commit/cb72bca)), closes [#773](https://github.com/trimox/angular-mdc-web/issues/773)
+* **text-field:** Fix problems with validation ([#1506](https://github.com/trimox/angular-mdc-web/issues/1506)) ([4dbda25](https://github.com/trimox/angular-mdc-web/commit/4dbda25)), closes [#1504](https://github.com/trimox/angular-mdc-web/issues/1504)
+* **text-field:** textarea should handle click + keydown ([#1507](https://github.com/trimox/angular-mdc-web/issues/1507)) ([f4ac7c8](https://github.com/trimox/angular-mdc-web/commit/f4ac7c8))
+* Set focusable="false" for svg elements ([#1511](https://github.com/trimox/angular-mdc-web/issues/1511)) ([2efd50f](https://github.com/trimox/angular-mdc-web/commit/2efd50f))
+* **chip:** Set default value of removable to be true ([#1489](https://github.com/trimox/angular-mdc-web/issues/1489)) ([89d3182](https://github.com/trimox/angular-mdc-web/commit/89d3182))
+* **drawer:** Add support for SSR ([#1483](https://github.com/trimox/angular-mdc-web/issues/1483)) ([7070730](https://github.com/trimox/angular-mdc-web/commit/7070730)), closes [#1446](https://github.com/trimox/angular-mdc-web/issues/1446)
+* **drawer:** Support server side rendering ([#1471](https://github.com/trimox/angular-mdc-web/issues/1471)) ([bcf085c](https://github.com/trimox/angular-mdc-web/commit/bcf085c)), closes [#1470](https://github.com/trimox/angular-mdc-web/issues/1470)
+* **menu-surface:** Coordinates and destroy hoisted menu ([#1453](https://github.com/trimox/angular-mdc-web/issues/1453)) ([cb0fc3a](https://github.com/trimox/angular-mdc-web/commit/cb0fc3a))
+* **ripple:** Activation should not fire twice ([#1478](https://github.com/trimox/angular-mdc-web/issues/1478)) ([f523b99](https://github.com/trimox/angular-mdc-web/commit/f523b99)), closes [#1466](https://github.com/trimox/angular-mdc-web/issues/1466)
+* **select:** Add support for SSR ([#1481](https://github.com/trimox/angular-mdc-web/issues/1481)) ([7086660](https://github.com/trimox/angular-mdc-web/commit/7086660))
+* **slider:** Add support for SSR ([#1482](https://github.com/trimox/angular-mdc-web/issues/1482)) ([df3a397](https://github.com/trimox/angular-mdc-web/commit/df3a397)), closes [#1446](https://github.com/trimox/angular-mdc-web/issues/1446)
+* **slider:** Support server side rendering ([#1472](https://github.com/trimox/angular-mdc-web/issues/1472)) ([39b1f5d](https://github.com/trimox/angular-mdc-web/commit/39b1f5d))
+* **tab-bar:** Support for SSR ([#1485](https://github.com/trimox/angular-mdc-web/issues/1485)) ([5301962](https://github.com/trimox/angular-mdc-web/commit/5301962))
+* **tab-scroller:** Support server side rendering ([#1475](https://github.com/trimox/angular-mdc-web/issues/1475)) ([79a9aae](https://github.com/trimox/angular-mdc-web/commit/79a9aae)), closes [#1474](https://github.com/trimox/angular-mdc-web/issues/1474)
+* **tab-scroller:** Support SSR ([#1484](https://github.com/trimox/angular-mdc-web/issues/1484)) ([da7c605](https://github.com/trimox/angular-mdc-web/commit/da7c605))
+* **text-field:** Check for SSR inside getNativeInput() ([#1445](https://github.com/trimox/angular-mdc-web/issues/1445)) ([6c1d0e8](https://github.com/trimox/angular-mdc-web/commit/6c1d0e8)), closes [#1441](https://github.com/trimox/angular-mdc-web/issues/1441)
+* **text-field:** Replace MutationObserver + fix validations ([#1494](https://github.com/trimox/angular-mdc-web/issues/1494)) ([dafda96](https://github.com/trimox/angular-mdc-web/commit/dafda96)), closes [#1486](https://github.com/trimox/angular-mdc-web/issues/1486) [#1493](https://github.com/trimox/angular-mdc-web/issues/1493)
+
+
+### Features
+
+* Upgrade to material-components-web v0.41.0 ([b4af0c4](https://github.com/trimox/angular-mdc-web/commit/b4af0c4)), closes [#1495](https://github.com/trimox/angular-mdc-web/issues/1495)
+* **select:** Add helper text, leading icon and more ([#1503](https://github.com/trimox/angular-mdc-web/issues/1503)) ([e54c7dc](https://github.com/trimox/angular-mdc-web/commit/e54c7dc)), closes [#1461](https://github.com/trimox/angular-mdc-web/issues/1461) [#1460](https://github.com/trimox/angular-mdc-web/issues/1460) [#1459](https://github.com/trimox/angular-mdc-web/issues/1459) [#1146](https://github.com/trimox/angular-mdc-web/issues/1146)
+* **slider:** Expose sliderThumb elementRef ([#1516](https://github.com/trimox/angular-mdc-web/issues/1516)) ([acdf1cb](https://github.com/trimox/angular-mdc-web/commit/acdf1cb)), closes [#1510](https://github.com/trimox/angular-mdc-web/issues/1510)
+* **tab-bar:** Add focusOnActivate prop ([#1501](https://github.com/trimox/angular-mdc-web/issues/1501)) ([1b66c3b](https://github.com/trimox/angular-mdc-web/commit/1b66c3b)), closes [#1458](https://github.com/trimox/angular-mdc-web/issues/1458)
+* **button:** Remove deprecated icon property ([#1487](https://github.com/trimox/angular-mdc-web/issues/1487)) ([6e3b071](https://github.com/trimox/angular-mdc-web/commit/6e3b071))
+* **icon:** Add MdcIconRegistry + support SVG ([#1452](https://github.com/trimox/angular-mdc-web/issues/1452)) ([de6ea18](https://github.com/trimox/angular-mdc-web/commit/de6ea18))
+* **menu-surface:** Implement MDC Menu Surface component ([#1451](https://github.com/trimox/angular-mdc-web/issues/1451)) ([e8e6b2e](https://github.com/trimox/angular-mdc-web/commit/e8e6b2e))
+
+### Performance Improvements
+
+* **text-field:** Refactoring for performance ([#1447](https://github.com/trimox/angular-mdc-web/issues/1447)) ([739b8af](https://github.com/trimox/angular-mdc-web/commit/739b8af))
+
+
+### BREAKING CHANGES
+
+* **chips:** Removes deselect() from chip-set. Update your code to use select() for toggling.
+* **button:** Removes the deprecated icon property from button, as it's no longer needed.
+
+
+
 <a name="0.40.2"></a>
 ## [0.40.2](https://github.com/trimox/angular-mdc-web/compare/v0.40.1...v0.40.2) (2018-10-13)
 

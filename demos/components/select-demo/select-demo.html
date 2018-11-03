@@ -134,7 +134,7 @@
     </div>
     <mdc-form-field>
       <mdc-select #native1 required placeholder="Select Meal" autosize [helperText]="fruitHelper">
-        <mdc-icon mdcSelectIcon leading>add</mdc-icon>
+        <mdc-icon mdcSelectIcon>fastfood</mdc-icon>
         <option *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
           {{food.viewValue}}
         </option>
@@ -146,11 +146,19 @@
   </div>
 
   <div class="demo-content">
-    <h3 class="demo-content__headline">Select without placeholder</h3>
-    <mdc-select>
-      <option value="apple">Apple</option>
-      <option value="orange">Orange</option>
-    </mdc-select>
+    <h3 class="demo-content__headline">Select examples</h3>
+    <mdc-form-field>
+      <mdc-select>
+        <option value="apple">Apple</option>
+        <option value="orange">Orange</option>
+      </mdc-select>
+    </mdc-form-field>
+    <mdc-form-field>
+      <mdc-select placeholder="Unit" outlined>
+        <option value="kg">kg</option>
+        <option value="ml">ml</option>
+      </mdc-select>
+    </mdc-form-field>
   </div>
 
   <div class="demo-content">

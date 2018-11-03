@@ -334,6 +334,9 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
     this._initRipple();
     this._initializeSelection();
     this._setWidth();
+
+    // Initially sync floating label
+    this._foundation.handleChange(false);
   }
 
   writeValue(value: any): void {

@@ -9,11 +9,15 @@ import {
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
 @Directive({
+  selector: '[mdcTopAppBarFixedAdjust]',
+  host: { 'class': 'mdc-top-app-bar--fixed-adjust' }
+})
+export class MdcTopAppBarFixedAdjust { }
+
+@Directive({
   selector: 'mdc-top-app-bar-row, [mdcTopAppBarRow]',
   exportAs: 'mdcTopAppBarRow',
-  host: {
-    'class': 'mdc-top-app-bar__row'
-  }
+  host: { 'class': 'mdc-top-app-bar__row' }
 })
 export class MdcTopAppBarRow {
   constructor(public elementRef: ElementRef<HTMLElement>) { }
@@ -89,9 +93,7 @@ export class MdcTopAppBarNavigationIcon implements OnDestroy {
 @Directive({
   selector: 'mdc-top-app-bar-title, [mdcTopAppBarTitle]',
   exportAs: 'mdcTopAppBarTitle',
-  host: {
-    'class': 'mdc-top-app-bar__title'
-  },
+  host: { 'class': 'mdc-top-app-bar__title' },
 })
 export class MdcTopAppBarTitle {
   constructor(public elementRef: ElementRef<HTMLElement>) { }

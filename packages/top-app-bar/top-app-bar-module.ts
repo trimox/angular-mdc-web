@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MdcTopAppBar } from './top-app-bar';
 import {
   MdcTopAppBarActionItem,
+  MdcTopAppBarFixedAdjust,
   MdcTopAppBarNavigationIcon,
   MdcTopAppBarRow,
   MdcTopAppBarSection,
@@ -13,6 +14,7 @@ import {
 const TOP_APP_BAR_DECLARATIONS = [
   MdcTopAppBar,
   MdcTopAppBarActionItem,
+  MdcTopAppBarFixedAdjust,
   MdcTopAppBarNavigationIcon,
   MdcTopAppBarRow,
   MdcTopAppBarSection,

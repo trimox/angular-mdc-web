@@ -147,8 +147,10 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   get required(): boolean { return this._required; }
   set required(value: boolean) {
     this._required = toBoolean(value);
-    this._changeDetectorRef.markForCheck();
-    this._handleValidationAttributeChange();
+    if (this._initialized) {
+      this._changeDetectorRef.markForCheck();
+      this._handleValidationAttributeChange();
+    }
   }
   private _required: boolean;
 
@@ -182,6 +184,15 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
   }
   private _helperText: MdcTextFieldHelperText;
 
+  /** Sets the Text Field valid or invalid. */
+  @Input()
+  get valid(): boolean { return this._valid; }
+  set valid(value: boolean) {
+    this._valid = toBoolean(value);
+    this._foundation.setValid(this._valid);
+  }
+  private _valid: boolean;
+
   /** Enables or disables the use of native validation. Use this for custom validation. */
   @Input()
   get useNativeValidation(): boolean { return this._useNativeValidation; }
@@ -197,15 +208,6 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     this.setValue(newValue, true);
   }
   private _value: any;
-
-  /** Sets the Text Field valid or invalid. */
-  @Input()
-  get valid(): boolean { return this._valid; }
-  set valid(value: boolean) {
-    this._valid = toBoolean(value);
-    this._foundation.setValid(this._valid);
-  }
-  private _valid: boolean;
 
   @Output() readonly change = new EventEmitter<any>();
   @Output() readonly blur = new EventEmitter<any>();
@@ -251,7 +253,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
           value: this._value,
           disabled: this._input.nativeElement.disabled,
           validity: {
-            valid: this.useNativeValidation ? this._input.nativeElement.validity.valid : !!this._valid,
+            valid: this._valid ? this._valid : this._input.nativeElement.validity.valid,
             badInput: this._input.nativeElement.validity.badInput
           }
         };
@@ -309,7 +311,6 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     setDisabled(disabled: boolean): void,
     setValid(isValid: boolean): void,
     setValue(value: any): void,
-    isValid(): boolean,
     readonly shouldFloat: boolean,
     notchOutline(openNotch: boolean): void,
     setUseNativeValidation(useNativeValidation: boolean): void,
@@ -348,9 +349,9 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
 
     this._initRipple();
     this._foundation.init();
-    this._initialized = true;
+    this._checkCustomValidity();
 
-    this._changeDetectorRef.markForCheck();
+    this._initialized = true;
   }
 
   onTextFieldInteraction(): void {
@@ -456,8 +457,23 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     });
   }
 
+  private _checkCustomValidity(): void {
+    Promise.resolve().then(() => {
+      if (this._valid !== undefined) {
+        this._foundation.setValid(this._valid);
+      }
+    });
+  }
+
   private _handleValidationAttributeChange(): void {
-    this._foundation.handleValidationAttributeChange(this._getInputElement().getAttributeNames());
+    Promise.resolve().then(() => {
+      const attributes = this._getInputElement().attributes;
+      const result = new Array(length);
+      for (let i = 0; i < attributes.length; i++) {
+        result[i] = attributes[i].name;
+      }
+      this._foundation.handleValidationAttributeChange(result);
+    });
   }
 
   private _initRipple(): void {

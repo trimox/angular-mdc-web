@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { MdcTextField } from '@angular-mdc/web';
 
@@ -12,12 +12,8 @@ class Directions {
 })
 export class TextFieldDemo {
   demoForm = new FormGroup({
-    userName: new FormControl(
-      { value: '', disabled: false },
-      [
-        Validators.required,
-        Validators.minLength(3)
-      ])
+    username: new FormControl(
+      { value: '', disabled: false }, [Validators.required])
   });
 
   waypoint = new Directions();
@@ -25,26 +21,6 @@ export class TextFieldDemo {
   updateForm: FormGroup;
   username: string;
   prefilledText: string = 'Prefilled';
-
-  submitForm() {
-    if (!this.demoForm.valid) {
-      return;
-    }
-  }
-
-  submitNumeric() {
-    console.log(this.waypoint);
-  }
-
-  submitWeightForm(f: NgForm) {
-    if (!f.valid) {
-      return;
-    }
-  }
-
-  resetWeightModel(f: NgForm) {
-    f.reset();
-  }
 
   alternateColors(input: MdcTextField) {
     if (!input.textarea) {

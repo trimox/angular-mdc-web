@@ -249,18 +249,21 @@
       <button mdc-button (click)="demoformInput.useNativeValidation = !demoformInput.useNativeValidation">Use native validation: {{demoformInput.useNativeValidation ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="alternateColors(demoformInput)">Alternate Colors</button>
     </div>
-    <form [formGroup]="demoForm" id="demoForm" (ngSubmit)="submitForm()">
-      <mdc-text-field #demoformInput formControlName="userName" label="Username" outlined [readonly]="readonly" [helperText]="demoformHelper" required minlength="3"></mdc-text-field>
-      <mdc-text-field-helper-text #demoformHelper="mdcHelperText" validation>
-        <span *ngIf="demoForm.controls['userName'].errors?.required">Username is required</span>
-        <span *ngIf="demoForm.controls['userName'].errors?.minlength">Username is not long enough</span>
-      </mdc-text-field-helper-text>
+    <form [formGroup]="demoForm" id="demoForm">
+      <mdc-form-field>
+        <mdc-text-field #demoformInput formControlName="username" label="Username" outlined [helperText]="demoformHelper" required minlength="3"></mdc-text-field>
+        <mdc-text-field-helper-text #demoformHelper="mdcHelperText" validation>
+          <span *ngIf="demoForm.controls['username'].errors?.required">Username is required</span>
+          <span *ngIf="demoForm.controls['username'].errors?.minlength">Username is not long enough</span>
+        </mdc-text-field-helper-text>
+      </mdc-form-field>
     </form>
     <div class="demo-layout__row">
       <button mdc-button type="submit" [disabled]="!demoForm.valid" form="demoForm">Submit</button>
       <button mdc-button (click)="demoForm.reset()">Reset</button>
-      <button mdc-button (click)="demoForm.controls['userName'].setValue('test')">Set Value</button>
+      <button mdc-button (click)="demoForm.controls['username'].setValue('test')">Set Value</button>
     </div>
+    <p>Control Valid: {{demoForm.controls['username'].valid}}</p>
     <p>Dirty: {{ demoForm.dirty }}</p>
     <p>Valid: {{ demoForm.valid }}</p>
     <p>Pristine: {{ demoForm.pristine }}</p>
@@ -277,16 +280,18 @@
       <button mdc-button (click)="demoweight.required = !demoweight.required">Required: {{demoweight.required ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="alternateColors(demoweight)">Alternate Colors</button>
     </div>
-    <form #demoWeightForm="ngForm" id="demoWeightForm" (ngSubmit)="submitWeightForm(demoWeightForm)">
-      <mdc-text-field #demoweight type="number" name="demoweight" label="Weight" ngModel #demoWeightModel="ngModel"
-       required [helperText]="weightHelper"></mdc-text-field>
-      <mdc-text-field-helper-text #weightHelper="mdcHelperText" validation>
-        <span *ngIf="!demoweight?.value">Weight is required</span>
-      </mdc-text-field-helper-text>
+    <form #demoWeightForm="ngForm" id="demoWeightForm">
+      <mdc-form-field>
+        <mdc-text-field #demoweight type="number" name="demoweight" label="Weight" ngModel #demoWeightModel="ngModel"
+         required [helperText]="weightHelper"></mdc-text-field>
+        <mdc-text-field-helper-text #weightHelper="mdcHelperText" validation>
+          <span *ngIf="!demoweight?.value">Weight is required</span>
+        </mdc-text-field-helper-text>
+      </mdc-form-field>
     </form>
     <div class="demo-layout__row">
-      <button mdc-button type="submit" form="demoWeightForm">Submit</button>
-      <button mdc-button (click)="resetWeightModel(demoWeightForm)">Reset</button>
+      <button mdc-button type="submit" [disabled]="!demoWeightForm.valid" form="demoWeightForm">Submit</button>
+      <button mdc-button (click)="demoWeightForm.reset()">Reset</button>
     </div>
     <p>Dirty: {{ demoWeightModel.dirty }}</p>
     <p>Valid: {{ demoWeightForm.valid }}</p>
@@ -317,10 +322,12 @@
     <div class="demo-layout__row">
       <button mdc-button (click)="bothIcons.outlined = !bothIcons.outlined">Outlined: {{bothIcons.outlined ? 'On' : 'Off'}}</button>
     </div>
-    <mdc-text-field autocomplete="tel" type="tel" #bothIcons label="Phone number">
-      <mdc-icon mdcTextFieldIcon leading>phone</mdc-icon>
-      <mdc-icon mdcTextFieldIcon trailing>event</mdc-icon>
-    </mdc-text-field>
+    <mdc-form-field>
+      <mdc-text-field autocomplete="tel" type="tel" #bothIcons label="Phone number">
+        <mdc-icon mdcTextFieldIcon leading>phone</mdc-icon>
+        <mdc-icon mdcTextFieldIcon trailing>event</mdc-icon>
+      </mdc-text-field>
+    </mdc-form-field>
   </div>
 
   <div class="demo-content">
@@ -356,9 +363,7 @@
   <div class="demo-content">
     <h3 class="demo-content__headline">Numeric with ngModel</h3>
     <mdc-text-field type="number" label="Distance" [(ngModel)]="waypoint.dt"></mdc-text-field>
-    <div class="demo-layout__row">
-      <button mdc-button (click)="submitNumeric()">Submit</button>
-    </div>
+    <p>Model: {{waypoint | json}}</p>
   </div>
 
   <div class="demo-content">
@@ -370,10 +375,18 @@
   <div class="demo-content">
     <h3 class="demo-content__headline">Date / Time / Color / Password</h3>
     <div class="demo-layout__row">
-      <mdc-text-field type="date" label="Birthday" outlined></mdc-text-field>
-      <mdc-text-field type="time" label="Time" outlined></mdc-text-field>
-      <mdc-text-field type="password" label="Password" required outlined></mdc-text-field>
-      <mdc-text-field type="color" label="Color" style="width: 6rem" outlined></mdc-text-field>
+      <mdc-form-field>
+        <mdc-text-field type="date" label="Birthday" outlined></mdc-text-field>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-text-field type="time" label="Time" outlined></mdc-text-field>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-text-field type="password" label="Password" required outlined></mdc-text-field>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-text-field type="color" label="Color" style="width: 6rem" outlined></mdc-text-field>
+      </mdc-form-field>
     </div>
   </div>
 

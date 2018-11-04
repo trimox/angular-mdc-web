@@ -22,7 +22,8 @@
 }
 
 .ngx-mdc-form-field--end {
-  margin-left: auto;
+  flex-grow: 1;
+  align-self: flex-end;
 }
 
 .ngx-mdc-form-field--padded {

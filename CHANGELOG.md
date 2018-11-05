@@ -1,3 +1,23 @@
+<a name="0.41.1"></a>
+## [0.41.1](https://github.com/trimox/angular-mdc-web/compare/v0.41.0...v0.41.1) (2018-11-05)
+
+
+### Bug Fixes
+
+* **form-field:** Correct prototype align end ([#1530](https://github.com/trimox/angular-mdc-web/issues/1530)) ([1168629](https://github.com/trimox/angular-mdc-web/commit/1168629))
+* **select:** Should initially sync floating label ([#1525](https://github.com/trimox/angular-mdc-web/issues/1525)) ([a3ffe19](https://github.com/trimox/angular-mdc-web/commit/a3ffe19)), closes [#1519](https://github.com/trimox/angular-mdc-web/issues/1519)
+* **text-field:** Fix textarea undefined value ([#1524](https://github.com/trimox/angular-mdc-web/issues/1524)) ([0f17998](https://github.com/trimox/angular-mdc-web/commit/0f17998))
+* **text-field:** Respect custom validity property ([#1531](https://github.com/trimox/angular-mdc-web/issues/1531)) ([e97d755](https://github.com/trimox/angular-mdc-web/commit/e97d755)), closes [#1522](https://github.com/trimox/angular-mdc-web/issues/1522) [#1523](https://github.com/trimox/angular-mdc-web/issues/1523) [#1522](https://github.com/trimox/angular-mdc-web/issues/1522)
+
+
+### Features
+
+* **chip:** Add disableRipple property ([#1533](https://github.com/trimox/angular-mdc-web/issues/1533)) ([590b5fa](https://github.com/trimox/angular-mdc-web/commit/590b5fa)), closes [#1521](https://github.com/trimox/angular-mdc-web/issues/1521)
+* **textfield:** Add ability to set field readonly ([#1509](https://github.com/trimox/angular-mdc-web/issues/1509)) ([ae9cfcf](https://github.com/trimox/angular-mdc-web/commit/ae9cfcf))
+* **top-app-bar:** Add mdcTopAppBarFixedAdjust directive ([#1528](https://github.com/trimox/angular-mdc-web/issues/1528)) ([b866c83](https://github.com/trimox/angular-mdc-web/commit/b866c83)), closes [#1527](https://github.com/trimox/angular-mdc-web/issues/1527)
+
+
+
 <a name="0.41.0"></a>
 # [0.41.0](https://github.com/trimox/angular-mdc-web/compare/v0.41.0-pre.1...v0.41.0) (2018-11-02)
 

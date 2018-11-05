@@ -96,6 +96,10 @@
             <td>Sets whether a trailing icon click should trigger exit/removal of the chip. (Default is true)</td>
           </tr>
           <tr>
+            <td>disableRipple: boolean</td>
+            <td>Whether ripples are disabled.</td>
+          </tr>
+          <tr>
             <td>primary: boolean</td>
             <td>Colors selected chip with the primary theme color.</td>
           </tr>
@@ -172,6 +176,7 @@
     <div class="demo-layout__row">
       <button mdc-button (click)="simplechip.primary = !simplechip.primary">Primary: {{simplechip.primary ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="simplechip.secondary = !simplechip.secondary">Secondary: {{simplechip.secondary ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="simplechip.disableRipple = !simplechip.disableRipple">Disable Ripple: {{simplechip.disableRipple ? 'On' : 'Off'}}</button>
     </div>
     <mdc-chip-set>
       <mdc-chip #simplechip>

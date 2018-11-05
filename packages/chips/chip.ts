@@ -205,6 +205,14 @@ export class MdcChip implements AfterViewInit, OnDestroy {
   }
   private _disabled: boolean;
 
+  /** Whether the chip ripple is disabled. */
+  @Input()
+  get disableRipple(): boolean { return this._disableRipple; }
+  set disableRipple(value: boolean) {
+    this._disableRipple = toBoolean(value);
+  }
+  private _disableRipple: boolean;
+
   /** Emitted when the chip is selected or deselected. */
   @Output() readonly selectionChange: EventEmitter<MdcChipSelectionEvent> =
     new EventEmitter<MdcChipSelectionEvent>();
@@ -283,7 +291,11 @@ export class MdcChip implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this._foundation.init();
-    this._ripple.init({ surface: this._getHostElement() });
+    this._ripple.init({
+      surface: this._getHostElement()
+    }, Object.assign(this._ripple.createAdapter(), {
+      isSurfaceDisabled: () => this._disableRipple
+    }));
     this._loadListeners();
   }
 

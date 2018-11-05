@@ -80,6 +80,10 @@ describe('Chips', () => {
       expect(testComponent.chipRemoved).toHaveBeenCalledTimes(1);
     });
 
+    it('expect disableRipple to be true', () => {
+      expect(testInstance.disableRipple).toBeUndefined();
+    });
+
     it('handles focus event', () => {
       testInstance.focus();
       fixture.detectChanges();
@@ -196,7 +200,7 @@ describe('Chips', () => {
       <mdc-chip-text>Get Directions</mdc-chip-text>
       <mdc-chip-icon #trailingIcon trailing>more_vert</mdc-chip-icon>
     </mdc-chip>
-    <mdc-chip id="removableChip" [removable]="removable">
+    <mdc-chip id="removableChip" [removable]="removable" [disableRipple]="disableRipple">
       <mdc-chip-text>Get Weather</mdc-chip-text>
     </mdc-chip>
     <mdc-chip id="newsChip">
@@ -213,6 +217,7 @@ class ChipTest {
   input: boolean;
   primary: boolean;
   secondary: boolean;
+  disableRipple: boolean;
 
   @ViewChild('trailingIcon') trailingIcon: MdcIcon;
 

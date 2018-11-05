@@ -1,0 +1,4 @@
+.test-dialog--form {
+  @include mdc-dialog-min-width(580px);
+  @include mdc-dialog-max-height(650px, 5px);
+}

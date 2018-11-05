@@ -1,4 +1,5 @@
 import { Component, Inject } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { MdcDialog, MdcDialogRef, MDC_DIALOG_DATA } from '@angular-mdc/web';
 
@@ -56,6 +57,14 @@ export class DialogDemo {
       escapeToClose: this.escapeToClose,
       clickOutsideToClose: this.clickOutsideToClose,
       scrollable: scrollable
+    });
+  }
+
+  openForm() {
+    const dialogRef = this.dialog.open(DialogForm, {
+      escapeToClose: this.escapeToClose,
+      clickOutsideToClose: this.clickOutsideToClose,
+      scrollable: true
     });
   }
 }
@@ -158,6 +167,22 @@ export class DialogScrollable {
     <mdc-dialog-container>
       <mdc-dialog-surface>
         <mdc-dialog-title>Phone ringtone</mdc-dialog-title>
+        <mdc-dialog-content>
+          <mdc-list>
+            <mdc-list-item>
+              <mdc-radio mdcListItemGraphic checked></mdc-radio>
+              Never Gonna Give You Up
+            </mdc-list-item>
+            <mdc-list-item>
+              <mdc-radio mdcListItemGraphic></mdc-radio>
+              Hot Cross Buns
+            </mdc-list-item>
+            <mdc-list-item>
+              <mdc-radio mdcListItemGraphic></mdc-radio>
+              None
+            </mdc-list-item>
+          </mdc-list>
+        </mdc-dialog-content>
         <mdc-dialog-actions>
           <button mdcDialogButton mdcDialogAction="close">Cancel</button>
           <button mdcDialogButton default mdcDialogAction="accept">Ok</button>
@@ -170,4 +195,27 @@ export class DialogScrollable {
 export class DialogConfirmation {
   constructor(public dialogRef: MdcDialogRef<DialogConfirmation>,
     @Inject(MDC_DIALOG_DATA) public data: DialogData) { }
+}
+
+@Component({
+  templateUrl: './dialog-form-demo.html'
+})
+export class DialogForm {
+  constructor(public dialogRef: MdcDialogRef<DialogConfirmation>,
+    @Inject(MDC_DIALOG_DATA) public data: DialogData) { }
+
+  profileForm = new FormGroup({
+    first: new FormControl('', Validators.required),
+    last: new FormControl('', Validators.required),
+    middle: new FormControl(),
+    dob: new FormControl('', [
+      Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
+    email: new FormControl('', Validators.email)
+  });
+
+  submit(): void {
+    if(this.profileForm.valid) {
+      this.dialogRef.close();
+    }
+  }
 }

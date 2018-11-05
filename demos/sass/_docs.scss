@@ -36,11 +36,6 @@
   line-height: 1.5;
   padding-left: 10px;
   word-wrap: break-word;
-  max-width: calc(70% - 17rem);
-
-  @media (max-width: 1239px) {
-    max-width: calc(100% - 3rem);
-  }
 
   h1 {
     @include mdc-typography(headline4);

@@ -4,7 +4,6 @@
 
 // Import Angular MDC after _global.scss
 @import "~@angular-mdc/theme";
-@import "./app-bar";
 @import "./button";
 @import "./cards";
 @import "./chips";
@@ -26,3 +25,4 @@
 @import "./switch";
 @import "./tabs";
 @import "./text-field";
+@import "./top-app-bar";

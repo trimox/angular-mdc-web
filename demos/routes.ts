@@ -9,7 +9,7 @@ import { DrawerDemo } from './components/drawer-demo/drawer-demo';
 import { ElevationDemo } from './components/elevation-demo/elevation-demo';
 import { FabDemo } from './components/fab-demo/fab-demo';
 import { FormFieldDemo } from './components/form-field-demo/form-field-demo';
-import { GettingStarted, CliGuide } from './getting-started';
+import { GettingStarted } from './getting-started';
 import { Home } from './home/home';
 import { IconButtonDemo } from './components/icon-button-demo/icon-button-demo';
 import { IconDemo } from './components/icon-demo/icon-demo';
@@ -35,7 +35,6 @@ export const DEMO_ROUTES = [
   CardDemo,
   CheckboxDemo,
   ChipsDemo,
-  CliGuide,
   DialogDemo,
   DrawerDemo,
   ElevationDemo,
@@ -67,7 +66,6 @@ export const APP_ROUTES: Routes = [
   { path: 'card-demo', component: CardDemo },
   { path: 'checkbox-demo', component: CheckboxDemo },
   { path: 'chips-demo', component: ChipsDemo },
-  { path: 'cli-guide', component: CliGuide },
   { path: 'dialog-demo', component: DialogDemo },
   { path: 'drawer-demo', component: DrawerDemo },
   { path: 'elevation-demo', component: ElevationDemo },

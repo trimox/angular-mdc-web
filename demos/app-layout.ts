@@ -52,8 +52,7 @@ export class AppLayout implements OnInit, OnDestroy {
   ];
 
   startRoutes = [
-    { name: 'Installation', route: 'getting-started' },
-    { name: 'Angular CLI', route: 'cli-guide' }
+    { name: 'Installation', route: 'getting-started' }
   ];
 
   constructor(

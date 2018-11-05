@@ -7,6 +7,7 @@ import {
   DialogAlert,
   DialogConfirmation,
   DialogScrollable,
+  DialogForm,
   DialogSimple
 } from './dialog-demo';
 
@@ -18,12 +19,14 @@ import {
   declarations: [
     DialogAlert,
     DialogConfirmation,
+    DialogForm,
     DialogScrollable,
     DialogSimple
   ],
   entryComponents: [
     DialogAlert,
     DialogConfirmation,
+    DialogForm,
     DialogScrollable,
     DialogSimple
   ]

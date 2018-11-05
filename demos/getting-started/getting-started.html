@@ -1,19 +1,43 @@
 <div class="demo-page">
   <div class="markdown-body">
-    <h1>Getting Started</h1>
-    Using Angular CLI? <a [routerLink]="['/cli-guide']">Angular CLI - Getting Started</a>
+    <h1>Getting started</h1>
+    <h2>Step 1: Install Angular CLI</h2>
+    Already have @angular/cli installed? Skip to Step 2.
 
-    <h2>Step 1: Install Angular MDC</h2>
     <h4>npm</h4>
-    <pre>npm i @angular-mdc/web</pre>
+    <pre><code highlight lang="bash">npm i -g @angular/cli</code></pre>
+    <h4>yarn</h4>
+    <pre><code highlight lang="bash">yarn global add @angular/cli</code></pre>
+
+    <h2>Step 2: Create Project</h2>
+    If generating a new project, you need to set default CSS preprocessor to SCSS:
+    <pre><code highlight lang="bash">ng new your-project-name
+  cd PROJECT-NAME</code></pre>
+
+    On existing projects, you need to set default CSS preprocessor to SCSS:
+    <pre><code highlight>ng config schematics.@schematics/angular:component.styleext scss</code></pre>
+
+    <h2>Step 3: Install Angular MDC</h2>
+    <h4>npm</h4>
+    <pre><code highlight lang="bash">npm i @angular-mdc/web</code></pre>
 
     <h4>yarn</h4>
-    <h4><pre>yarn add @angular-mdc/web</pre></h4>
+    <pre><code highlight lang="bash">yarn add @angular-mdc/web</code></pre>
 
-    <h2>Step 2: Import components</h2>
+    <h2>Step 4: Import Angular MDC Sass</h2>
+    Edit src/styles.sass, and insert:
+    <pre><code highlight lang="scss">
+$mdc-theme-primary: #1565c0; // primary color
+$mdc-theme-secondary: #388e3c; // secondary color
+
+@import "~@angular-mdc/theme/material"
+</code></pre>
+
+    <h2>Step 5: Import Components</h2>
     Now just import the NgModule for each component you want to use.
-    <pre><![CDATA[import {
+    <pre><code highlight code="import {
   MdcFabModule,
+  MdcIconModule,
   MdcMenuModule
 } from '@angular-mdc/web';
 
@@ -21,29 +45,21 @@
   ...
   imports: [
      MdcFabModule,
-     MdcIconModule,
+     MdcIconModule
      MdcMenuModule,
      ...
   ],
   ...
   })
-  export class ExampleModule { }]]></pre>
+  export class ExampleModule { }"></code></pre>
 
-    <h2>Step 3: Import Angular MDC Theme</h2>
-    Import the Angular MDC theme into your project Sass:
-    <pre><![CDATA[
-$mdc-theme-primary: #1565c0; // primary color
-$mdc-theme-secondary: #388e3c; // secondary color
+    Open app.component.html and add the following markup:
+    <pre><code highlight code="<button mdc-button raised>My Button</button>
 
-@import "~@angular-mdc/theme/material";]]></pre>
+<button mdc-fab>
+  <mdc-icon>edit</mdc-icon>
+</button>"></code></pre>
 
-    <h2>Step 4: Include Material Design Icons</h2>
-    Add the <a href="https://material.io/icons/" target="_blank" rel="noopener noreferrer">Material Design Icons</a> collection to your index.html.
-    <pre><![CDATA[<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">]]></pre>
-
-    <h2>Step 5: Include Roboto Font</h2>
-    Add the Roboto font with 300, 400 and 500 weights to your index.html.
-
-    <pre><![CDATA[<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">]]></pre>
+    Run `ng serve` to run your application in develop mode, and navigate to http://localhost:4200
   </div>
 </div>

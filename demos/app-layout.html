@@ -1,7 +1,7 @@
-<mdc-top-app-bar class="demo-top-app-bar" #topAppBar fixed [fixedAdjustElement]="mainContent">
+<mdc-top-app-bar class="demo-top-app-bar" #topAppBar fixed>
   <mdc-top-app-bar-row>
     <mdc-top-app-bar-section align="start" title="Angular MDC">
-      <mdc-icon mdcTopAppBarNavIcon (click)="appdrawer.open = !appdrawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()">menu</mdc-icon>
+      <mdc-icon mdcTopAppBarNavIcon (click)="appdrawer.open = !appdrawer.open">menu</mdc-icon>
     </mdc-top-app-bar-section>
     <mdc-top-app-bar-section align="end">
       <a mdcTopAppBarActionItem href="https://github.com/trimox/angular-mdc-web" alt="GitHub" target="_blank" rel="noopener noreferrer">
@@ -13,25 +13,25 @@
   </mdc-top-app-bar-row>
 </mdc-top-app-bar>
 
-<div #mainContent>
-  <mdc-drawer #appdrawer="mdcDrawer" [drawer]="isScreenSmall() || topAppBar.isCollapsed() ? 'modal' : 'permanent'" class="demo-drawer--fixed">
-    <mdc-drawer-content>
-      <mdc-list useActivatedClass>
-        <mdc-list-item [routerLink]="['home']" routerLinkActive #rlaHome="routerLinkActive">Home</mdc-list-item>
-        <mdc-list-divider></mdc-list-divider>
-        <mdc-list-item (click)="startVisible = !startVisible">
-          Getting Started
-          <mdc-icon mdcListItemMeta>keyboard_arrow_{{startVisible ? 'down' : 'right'}}</mdc-icon>
-        </mdc-list-item>
-        <div *ngIf="startVisible">
-          <mdc-list-item *ngFor="let item of startRoutes" [routerLink]="[item.route]" routerLinkActive #rlaCore="routerLinkActive">{{item.name}}</mdc-list-item>
-        </div>
-        <mdc-list-divider></mdc-list-divider>
-        <mdc-list-item *ngFor="let navItem of navigationLinks" [routerLink]="[navItem.route]" routerLinkActive #rla="routerLinkActive">{{navItem.name}}</mdc-list-item>
-      </mdc-list>
-    </mdc-drawer-content>
-  </mdc-drawer>
+<mdc-drawer class="demo-drawer" #appdrawer="mdcDrawer" open [drawer]="isScreenSmall() ? 'modal' : 'dismissible'" mdcTopAppBarFixedAdjust>
+  <mdc-drawer-content>
+    <mdc-list useActivatedClass>
+      <mdc-list-item [routerLink]="['home']" routerLinkActive #rlaHome="routerLinkActive">Home</mdc-list-item>
+      <mdc-list-divider></mdc-list-divider>
+      <mdc-list-item (click)="startVisible = !startVisible">
+        Getting Started
+        <mdc-icon mdcListItemMeta>keyboard_arrow_{{startVisible ? 'down' : 'right'}}</mdc-icon>
+      </mdc-list-item>
+      <div *ngIf="startVisible">
+        <mdc-list-item *ngFor="let item of startRoutes" [routerLink]="[item.route]" routerLinkActive #rlaCore="routerLinkActive">{{item.name}}</mdc-list-item>
+      </div>
+      <mdc-list-divider></mdc-list-divider>
+      <mdc-list-item *ngFor="let navItem of navigationLinks" [routerLink]="[navItem.route]" routerLinkActive #rla="routerLinkActive">{{navItem.name}}</mdc-list-item>
+    </mdc-list>
+  </mdc-drawer-content>
+</mdc-drawer>
 
+<div mdcDrawerAppContent mdcTopAppBarFixedAdjust>
   <router-outlet></router-outlet>
 </div>
 

@@ -1,5 +1,5 @@
 import {
-  AfterContentInit,
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -93,7 +93,7 @@ let nextUniqueId = 0;
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAccessor {
+export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAccessor {
   private _uid = `mdc-input-${nextUniqueId++}`;
   private _initialized: boolean = false;
 
@@ -336,7 +336,7 @@ export class MdcTextField implements AfterContentInit, OnDestroy, ControlValueAc
     }
   }
 
-  ngAfterContentInit(): void {
+  ngAfterViewInit(): void {
     this.init();
   }
 

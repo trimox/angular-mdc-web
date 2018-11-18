@@ -220,6 +220,7 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
       tab.fixed = this._fixed;
       tab.tabIndicator.fade = this._fade;
       tab.tabIndicator.icon = this._iconIndicator;
+      tab.focusOnActivate = this._focusOnActivate;
     });
   }
 

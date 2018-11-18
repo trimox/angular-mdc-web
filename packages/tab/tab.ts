@@ -132,7 +132,11 @@ export class MdcTab implements OnInit, OnDestroy {
   @Input()
   get focusOnActivate(): boolean { return this._focusOnActivate; }
   set focusOnActivate(value: boolean) {
-    this._focusOnActivate = toBoolean(value);
+    const newValue = toBoolean(value);
+    if (newValue !== this._focusOnActivate) {
+      this._focusOnActivate = toBoolean(value);
+      this._foundation.setFocusOnActivate(this._focusOnActivate);
+    }
   }
   private _focusOnActivate: boolean;
 
@@ -168,7 +172,7 @@ export class MdcTab implements OnInit, OnDestroy {
     deactivate(): void,
     computeDimensions(): any,
     handleClick(): void,
-    focusOnActivate(focusOnActivate: boolean): void
+    setFocusOnActivate(focusOnActivate: boolean): void
   } = new MDCTabFoundation(this._createAdapter());
 
   constructor(

@@ -411,8 +411,9 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     this._foundation.setValue(this._value);
 
     if (isUserInput) {
-      this.change.emit(this._value);
+      // Call _onChange before emitting change event
       this._onChange(this._value);
+      this.change.emit(this._value);
     }
 
     // need to run valiation attribute check if input reset

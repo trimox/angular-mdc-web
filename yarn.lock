@@ -680,10 +680,10 @@
     "@material/theme" "^0.41.0"
     "@material/typography" "^0.41.0"
 
-"@material/card@^0.41.0":
-  version "0.41.0"
-  resolved "https://registry.yarnpkg.com/@material/card/-/card-0.41.0.tgz#79f0b529da8a533d4220017ee3c71dd14c272622"
-  integrity sha512-6/NIHuUZkftHoNS/l3JpROrpvI0TqYv4Xq9O1iRnxPmw2hwqvQ70LucE4+bJ+YzVomqYarV2KrtUUPrwSa90Lw==
+"@material/card@^0.41.1":
+  version "0.41.1"
+  resolved "https://registry.yarnpkg.com/@material/card/-/card-0.41.1.tgz#962d282eb0a49c4539cb90efc916df45994a6ceb"
+  integrity sha512-0L3BkkHK9qRXNh9MOK4XkCYHmZcqwLK5gACIWSLDOjEefmifBeahJeDJSYLVHS9KWl43glIGSrpNGjyXs19mCQ==
   dependencies:
     "@material/elevation" "^0.41.0"
     "@material/ripple" "^0.41.0"
@@ -738,10 +738,10 @@
   resolved "https://registry.yarnpkg.com/@material/dom/-/dom-0.41.0.tgz#6756865f97bad4c91ee75e69d769d7cdc25398ae"
   integrity sha512-wOJrMwjPddYXpQFZAIaCLWI3TO/6KU1lxESTBzunni8A4FHQVWhokml5Xt85GqZwmPFeIF2s+D0wfbWyrGBuKQ==
 
-"@material/drawer@^0.41.0":
-  version "0.41.0"
-  resolved "https://registry.yarnpkg.com/@material/drawer/-/drawer-0.41.0.tgz#732bfb33ffed2739b536f83d52bc97564007a0e4"
-  integrity sha512-XMKrr9Ci7z69xwYsT1P/JH/BRccwB+HL9UiYzym8SAfZG/4XtP0b5qw+vYMrIZ/NeF0nOEaE8pNHq2XrUz0csA==
+"@material/drawer@^0.41.1":
+  version "0.41.1"
+  resolved "https://registry.yarnpkg.com/@material/drawer/-/drawer-0.41.1.tgz#abd860424c139a59e0dbd363ff2c16fcd435c55b"
+  integrity sha512-4t9ARGaIg8jpXIqD8hy4kcZ0hsF7y25gk2jNQAYG8ukQuDgbenjydlNFnC+I/eWBVIKqnVBlens+4ZUns+n3hg==
   dependencies:
     "@material/animation" "^0.41.0"
     "@material/base" "^0.41.0"
@@ -6320,21 +6320,21 @@ matchdep@^2.0.0:
     resolve "^1.4.0"
     stack-trace "0.0.10"
 
-material-components-web@^0.41.0:
-  version "0.41.0"
-  resolved "https://registry.yarnpkg.com/material-components-web/-/material-components-web-0.41.0.tgz#6bdeb3324b2c62e69adce41650c4d3391290d1ac"
-  integrity sha512-Cw39oNXkFGsBhOKgWhJMvGpr5IR4l5pPO8lLKh86j5yeCfL9xkIdw9hiKqUXo0cmc5IVAyi1FwoJc+UYp4LFDw==
+material-components-web@^0.41.1:
+  version "0.41.1"
+  resolved "https://registry.yarnpkg.com/material-components-web/-/material-components-web-0.41.1.tgz#74897af7a158c051d2ebf71e7a19b445e240e7af"
+  integrity sha512-/LGHx4GlGeQz7oYWGNU6OJ3lkDSZs7J+2B9jdIkRmTdvAuHJwiZzeDWAywo5s9IOmg2OSmAOdUCcoAkoagYFKg==
   dependencies:
     "@material/animation" "^0.41.0"
     "@material/auto-init" "^0.41.0"
     "@material/base" "^0.41.0"
     "@material/button" "^0.41.0"
-    "@material/card" "^0.41.0"
+    "@material/card" "^0.41.1"
     "@material/checkbox" "^0.41.0"
     "@material/chips" "^0.41.0"
     "@material/dialog" "^0.41.0"
     "@material/dom" "^0.41.0"
-    "@material/drawer" "^0.41.0"
+    "@material/drawer" "^0.41.1"
     "@material/elevation" "^0.41.0"
     "@material/fab" "^0.41.0"
     "@material/floating-label" "^0.41.0"

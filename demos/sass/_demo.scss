@@ -52,6 +52,11 @@
 .demo-page {
   padding-left: 10px;
   padding-bottom: 45px;
+  max-width: calc(70% - 17rem);
+
+  @media (max-width: 1239px) {
+    max-width: calc(100% - 1rem);
+  }
 }
 
 .demo-content {
@@ -59,11 +64,6 @@
   border-radius: .75rem;
   margin: 1.5rem;
   padding: 1rem;
-  max-width: calc(70% - 17rem);
-
-  @media (max-width: 1239px) {
-    max-width: calc(100% - 3rem);
-  }
 
   &__headline {
     @include mdc-typography(headline6);

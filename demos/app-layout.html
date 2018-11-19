@@ -13,7 +13,7 @@
   </mdc-top-app-bar-row>
 </mdc-top-app-bar>
 
-<mdc-drawer class="demo-drawer" #appdrawer="mdcDrawer" open [drawer]="isScreenSmall() ? 'modal' : 'dismissible'" mdcTopAppBarFixedAdjust>
+<mdc-drawer class="demo-drawer" #appdrawer="mdcDrawer" [open]="!isScreenSmall()" [drawer]="isScreenSmall() ? 'modal' : 'dismissible'" mdcTopAppBarFixedAdjust>
   <mdc-drawer-content>
     <mdc-list useActivatedClass>
       <mdc-list-item [routerLink]="['home']" routerLinkActive #rlaHome="routerLinkActive">Home</mdc-list-item>

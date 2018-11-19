@@ -12,7 +12,7 @@
       </li>
     </ul>
     <h2>Import</h2>
-    <p class="docs-api-module-import"><![CDATA[import { MdcDialogModule } from '@angular-mdc/web';]]></p>
+    <pre><code highlight code="import { MdcDialogModule } from '@angular-mdc/web';"></code></pre>
 
     <h2>Design & API Documentation</h2>
     <div class="docs-api">
@@ -35,8 +35,6 @@
         <tbody>
           <tr>
             <td>
-    open(myDialogComponent)
-
 <pre><code highlight code="
 open(myDialogComponent, {
   id?: string,
@@ -209,7 +207,7 @@ open(myDialogComponent, {
       <table>
         <tbody>
           <tr>
-            <td>Optional. Any element within a dialog may include the <code class="docs-markdown-code">mdcDialogAction</code> directive.</td>
+            <td>Optional. Any element within a dialog may include the <pre class="docs-markdown-code">mdcDialogAction</pre> directive.</td>
           </tr>
         </tbody>
       </table>
@@ -241,7 +239,7 @@ open(myDialogComponent, {
       <button mdc-button (click)="openSimple()">Simple</button>
       <button mdc-button (click)="openConfirmation()">Confirmation</button>
       <button mdc-button (click)="openScrollable(true)">Scrollable</button>
-      <button mdc-button (click)="openForm(true)">Form inputs</button>
+      <button mdc-button (click)="openForm()">Form</button>
     </div>
   </div>
 

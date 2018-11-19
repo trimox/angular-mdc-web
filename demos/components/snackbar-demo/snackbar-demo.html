@@ -12,7 +12,7 @@
       </li>
     </ul>
     <h2>Import</h2>
-    <p class="docs-api-module-import"><![CDATA[import { MdcSnackbarModule } from '@angular-mdc/web';]]></p>
+    <pre><code highlight code="import { MdcSnackbarModule } from '@angular-mdc/web';"></code></pre>
 
     <h2>Design & API Documentation</h2>
     <div class="docs-api">
@@ -45,24 +45,18 @@
             <td>Show snackbar message and action.</td>
           </tr>
           <tr>
-            <td><pre><![CDATA[show(
+            <td><pre><code highlight code="show(
     message: string,
     action: string,
     {
-      config
-    })
-  ]]></pre></td>
-            <td>
-  <pre><![CDATA[config {
-    timeout?: number = 2750;
-    actionHandler?: Function;
-    multiline?: boolean = false;
-    actionOnBottom?: boolean = false;
-    align?: string = 'center';
-    dismissOnAction?: boolean = true;
-    focusAction?: boolean = false;
-  }]]></pre>
-            </td>
+      timeout?: number = 2750;
+      actionHandler?: Function;
+      multiline?: boolean = false;
+      actionOnBottom?: boolean = false;
+      align?: string = 'center';
+      dismissOnAction?: boolean = true;
+      focusAction?: boolean = false;
+    });"></code></pre></td>
           </tr>
           <tr>
             <td>afterDismiss</td>

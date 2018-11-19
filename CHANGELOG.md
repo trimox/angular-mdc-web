@@ -1,3 +1,19 @@
+## [0.41.2](https://github.com/trimox/angular-mdc-web/compare/v0.41.1...v0.41.2) (2018-11-19)
+
+
+### Bug Fixes
+
+* **tab-bar:** Fix focusOnActivate ([#1546](https://github.com/trimox/angular-mdc-web/issues/1546)) ([8ca0dbc](https://github.com/trimox/angular-mdc-web/commit/8ca0dbc)), closes [#1536](https://github.com/trimox/angular-mdc-web/issues/1536)
+* **text-field:** Float label if initial value present ([#1545](https://github.com/trimox/angular-mdc-web/issues/1545)) ([dfe33ac](https://github.com/trimox/angular-mdc-web/commit/dfe33ac)), closes [#1534](https://github.com/trimox/angular-mdc-web/issues/1534)
+* **text-field:** Set ControlValueAccessor before change event ([#1547](https://github.com/trimox/angular-mdc-web/issues/1547)) ([b493599](https://github.com/trimox/angular-mdc-web/commit/b493599)), closes [#1541](https://github.com/trimox/angular-mdc-web/issues/1541)
+
+
+### Features
+
+* Upgrade material-components-web to v0.41.1 ([#1544](https://github.com/trimox/angular-mdc-web/issues/1544)) ([5f247cc](https://github.com/trimox/angular-mdc-web/commit/5f247cc)), closes [#1542](https://github.com/trimox/angular-mdc-web/issues/1542)
+
+
+
 <a name="0.41.1"></a>
 ## [0.41.1](https://github.com/trimox/angular-mdc-web/compare/v0.41.0...v0.41.1) (2018-11-05)
 

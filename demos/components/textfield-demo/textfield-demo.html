@@ -253,8 +253,8 @@
       <mdc-form-field>
         <mdc-text-field #demoformInput formControlName="username" label="Username" outlined [helperText]="demoformHelper" required minlength="3"></mdc-text-field>
         <mdc-text-field-helper-text #demoformHelper="mdcHelperText" validation>
-          <span *ngIf="demoForm.controls['username'].errors?.required">Username is required</span>
-          <span *ngIf="demoForm.controls['username'].errors?.minlength">Username is not long enough</span>
+          <span *ngIf="demoForm.controls['username'].hasError('required')">Username is required</span>
+          <span *ngIf="demoForm.controls['username'].hasError('minlength')">Username is not long enough</span>
         </mdc-text-field-helper-text>
       </mdc-form-field>
     </form>

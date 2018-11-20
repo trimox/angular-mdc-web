@@ -173,7 +173,6 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   get dense(): boolean { return this._dense; }
   set dense(value: boolean) {
     this._dense = toBoolean(value);
-    this.layout();
   }
   private _dense: boolean;
 
@@ -445,17 +444,13 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
 
   /** Recomputes the outline SVG path for the outline element. */
   layout(): void {
-    Promise.resolve().then(() => {
-      setTimeout(() => {
-        if (this._notchedOutline) {
-          this._foundation.notchOutline(this._foundation.shouldFloat);
-        }
+    if (this._outlined) {
+      this._foundation.notchOutline(this._foundation.shouldFloat);
+    }
 
-        if (this._floatingLabel) {
-          this._floatingLabel.float(this._foundation.shouldFloat);
-        }
-      }, 5);
-    });
+    if (this._floatingLabel) {
+      this._floatingLabel.float(this._foundation.shouldFloat);
+    }
   }
 
   private _checkCustomValidity(): void {
@@ -504,6 +499,7 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     if (this._initialized) {
       this._destroyTextField();
       this.init();
+      this._changeDetectorRef.markForCheck();
     }
   }
 

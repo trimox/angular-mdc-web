@@ -134,7 +134,7 @@ export class MdcTab implements OnInit, OnDestroy {
   set focusOnActivate(value: boolean) {
     const newValue = toBoolean(value);
     if (newValue !== this._focusOnActivate) {
-      this._focusOnActivate = toBoolean(value);
+      this._focusOnActivate = newValue;
       this._foundation.setFocusOnActivate(this._focusOnActivate);
     }
   }

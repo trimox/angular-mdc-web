@@ -118,7 +118,9 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
     this._destroy.next();
     this._destroy.complete();
 
-    this._scrollAreaEventsSubscription.unsubscribe();
+    if (this._scrollAreaEventsSubscription) {
+      this._scrollAreaEventsSubscription.unsubscribe();
+    }
   }
 
   setAlign(align: MdcTabScrollerAlignment): void {

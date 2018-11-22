@@ -249,7 +249,7 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
 
   private _getNativeSelectAdapterMethods() {
     return {
-      getValue: () => this._nativeSelect.nativeElement.value,
+      getValue: () => this._platform.isBrowser ? this._nativeSelect.nativeElement.value : '',
       setValue: (value: any) => this._nativeSelect.nativeElement.value = value,
       openMenu: () => { },
       closeMenu: () => { },

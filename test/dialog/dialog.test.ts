@@ -2,8 +2,6 @@ import { NgModule, Directive, Component, DebugElement, Injector, TemplateRef, Vi
 import { inject, ComponentFixture, fakeAsync, TestBed, flush, tick, flushMicrotasks } from '@angular/core/testing';
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
-import { By } from '@angular/platform-browser';
-import { Subject } from 'rxjs';
 
 import { dispatchKeyboardEvent, dispatchFakeEvent } from '../testing/dispatch-events';
 
@@ -11,11 +9,7 @@ import {
   ESCAPE,
   DOWN_ARROW,
   MdcDialog,
-  MdcDialogButton,
   MdcDialogModule,
-  MdcDialogComponent,
-  MdcDialogPortal,
-  MDC_DIALOG_DATA,
   MdcDialogRef,
   OverlayContainer
 } from '@angular-mdc/web';
@@ -24,7 +18,6 @@ describe('MdcDialog Service', () => {
   let dialog: MdcDialog;
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
-  let scrolledSubject = new Subject();
 
   let testViewContainerRef: ViewContainerRef;
   let viewContainerFixture: ComponentFixture<ComponentWithChildViewContainer>;
@@ -59,7 +52,7 @@ describe('MdcDialog Service', () => {
   });
 
   it('should open a dialog with a component', () => {
-    let dialogRef = dialog.open(SimpleDialog, {
+    const dialogRef = dialog.open(SimpleDialog, {
       viewContainerRef: testViewContainerRef
     });
 
@@ -80,7 +73,7 @@ describe('MdcDialog Service', () => {
 
     const data = { value: 'Knees' };
 
-    let dialogRef = dialog.open(templateRefFixture.componentInstance.templateRef, { data });
+    const dialogRef = dialog.open(templateRefFixture.componentInstance.templateRef, { data });
 
     viewContainerFixture.detectChanges();
 
@@ -93,7 +86,7 @@ describe('MdcDialog Service', () => {
   });
 
   it('#should open a simple dialog', fakeAsync(() => {
-    let dialogRef = dialog.open(SimpleDialog);
+    const dialogRef = dialog.open(SimpleDialog);
     expect(dialogRef.componentInstance.dialogRef).toBe(dialogRef);
     viewContainerFixture.detectChanges();
     flush();
@@ -105,7 +98,7 @@ describe('MdcDialog Service', () => {
   }));
 
   it('#should close using escape key', fakeAsync(() => {
-    let dialogRef = dialog.open(SimpleDialog);
+    const dialogRef = dialog.open(SimpleDialog);
     viewContainerFixture.detectChanges();
     flush();
 
@@ -115,7 +108,7 @@ describe('MdcDialog Service', () => {
   }));
 
   it('#should open a simple dialog with options', fakeAsync(() => {
-    let dialogRef = dialog.open(SimpleDialog, {
+    const dialogRef = dialog.open(SimpleDialog, {
       clickOutsideToClose: false,
       escapeToClose: false,
       buttonsStacked: false

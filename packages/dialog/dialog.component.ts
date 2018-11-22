@@ -8,21 +8,18 @@ import {
   ElementRef,
   NgZone,
   OnDestroy,
-  OnInit,
   QueryList,
-  ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 import { merge, Observable, fromEvent, Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { Platform, toBoolean, ESCAPE } from '@angular-mdc/web/common';
+import { Platform } from '@angular-mdc/web/common';
 
 import {
   MdcDialogButton,
   MdcDialogContent,
-  MdcDialogSurface,
-  MdcDialogScrim
+  MdcDialogSurface
 } from './dialog-directives';
 import { MdcDialogRef } from './dialog-ref';
 import { MdcDialogConfig } from './dialog-config';
@@ -34,7 +31,7 @@ import {
   isScrollable,
   areTopsMisaligned
 } from '@material/dialog/util';
-import { strings, numbers } from '@material/dialog/constants';
+import { strings } from '@material/dialog/constants';
 import { closest, matches } from '@material/dom/ponyfill';
 import { MDCDialogFoundation } from '@material/dialog/index';
 
@@ -192,6 +189,9 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
 
     if (this._layoutEventSubscription) {
       this._layoutEventSubscription.unsubscribe();
+    }
+    if (this._interactionEventSubscription) {
+      this._interactionEventSubscription.unsubscribe();
     }
 
     if (this._foundation) {

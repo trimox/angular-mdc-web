@@ -250,10 +250,10 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
         return {
           type: this._type,
           value: this._value,
-          disabled: this._input.nativeElement.disabled,
+          disabled: this._disabled,
           validity: {
-            valid: this._valid ? this._valid : this._input.nativeElement.validity.valid,
-            badInput: this._input.nativeElement.validity.badInput
+            valid: this._valid ? this._valid : this._platform.isBrowser ? this._input.nativeElement.validity.valid : true,
+            badInput: this._platform.isBrowser ? this._input.nativeElement.validity.badInput : false
           }
         };
       }
@@ -462,6 +462,8 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   }
 
   private _handleValidationAttributeChange(): void {
+    if (!this._platform.isBrowser) { return; }
+
     Promise.resolve().then(() => {
       const attributes = this._getInputElement().attributes;
       const result = new Array(length);

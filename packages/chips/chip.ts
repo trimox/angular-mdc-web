@@ -259,7 +259,10 @@ export class MdcChip implements AfterViewInit, OnDestroy {
         }
       },
       eventTargetHasClass: (target: HTMLElement, className: string) => target.classList.contains(className),
-      notifyInteraction: () => this._emitSelectionChangeEvent(),
+      notifyInteraction: () => {
+        this.selected = !this.selected;
+        this._emitSelectionChangeEvent();
+      },
       notifyTrailingIconInteraction: () => this.trailingIconInteraction.emit({ detail: { chipId: this.id } }),
       notifyRemoval: () => this.removed.emit({ detail: { chipId: this.id, root: this } }),
       getComputedStyleValue: (propertyName: string) => {
@@ -277,7 +280,7 @@ export class MdcChip implements AfterViewInit, OnDestroy {
     beginExit(): void,
     setSelected(selected: boolean): void,
     setShouldRemoveOnTrailingIconClick(shouldRemove: boolean): void,
-    handleInteraction(evt: Event): void,
+    handleInteraction(evt: KeyboardEvent | MouseEvent): void,
     handleTransitionEnd(evt: TransitionEvent): void,
     handleTrailingIconInteraction(evt: Event): void
   } = new MDCChipFoundation(this.createAdapter());
@@ -319,8 +322,7 @@ export class MdcChip implements AfterViewInit, OnDestroy {
 
   private _loadListeners(): void {
     this._chipInteractionEventSubscription = this.chipInteractionEvents.pipe()
-      .subscribe(evt => {
-        this.selected = !this.selected;
+      .subscribe((evt: KeyboardEvent | MouseEvent) => {
         this._foundation.handleInteraction(evt);
       });
 

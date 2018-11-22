@@ -1,3 +1,23 @@
+## [0.41.3](https://github.com/trimox/angular-mdc-web/compare/v0.41.2...v0.41.3) (2018-11-22)
+
+
+### Bug Fixes
+
+* **chip:** Correct keyboard interaction ([#1561](https://github.com/trimox/angular-mdc-web/issues/1561)) ([7d551c3](https://github.com/trimox/angular-mdc-web/commit/7d551c3)), closes [#1538](https://github.com/trimox/angular-mdc-web/issues/1538)
+* **dialog:** Unsubscribe from interactionEventSubscription ([#1559](https://github.com/trimox/angular-mdc-web/issues/1559)) ([f8f8453](https://github.com/trimox/angular-mdc-web/commit/f8f8453))
+* **list:** Fix font size + placement for avatar graphic ([#1562](https://github.com/trimox/angular-mdc-web/issues/1562)) ([6b16dad](https://github.com/trimox/angular-mdc-web/commit/6b16dad))
+* **select:** Support SSR adapter value check ([#1556](https://github.com/trimox/angular-mdc-web/issues/1556)) ([88652ba](https://github.com/trimox/angular-mdc-web/commit/88652ba)), closes [#1555](https://github.com/trimox/angular-mdc-web/issues/1555)
+* **tab-scroller:** Should unsubscribe on destroy ([#1552](https://github.com/trimox/angular-mdc-web/issues/1552)) ([01ac9e8](https://github.com/trimox/angular-mdc-web/commit/01ac9e8)), closes [#1540](https://github.com/trimox/angular-mdc-web/issues/1540)
+* **text-field:** Detect changes after toggling outlined variant ([#1550](https://github.com/trimox/angular-mdc-web/issues/1550)) ([b09a337](https://github.com/trimox/angular-mdc-web/commit/b09a337))
+* **text-field:** getNativeInput() validity check for SSR ([#1551](https://github.com/trimox/angular-mdc-web/issues/1551)) ([2067442](https://github.com/trimox/angular-mdc-web/commit/2067442)), closes [#1537](https://github.com/trimox/angular-mdc-web/issues/1537)
+
+
+### Features
+
+* **list:** Add focusItemAtIndex ([#1558](https://github.com/trimox/angular-mdc-web/issues/1558)) ([14d0d8e](https://github.com/trimox/angular-mdc-web/commit/14d0d8e)), closes [#1557](https://github.com/trimox/angular-mdc-web/issues/1557)
+
+
+
 ## [0.41.2](https://github.com/trimox/angular-mdc-web/compare/v0.41.1...v0.41.2) (2018-11-19)
 
 

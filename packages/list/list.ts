@@ -199,7 +199,7 @@ export class MdcList implements AfterViewInit, OnDestroy {
         this._listItems.toArray()[index].getListItemElement().classList.add(className),
       removeClassForElementIndex: (index: number, className: string) =>
         this._listItems.toArray()[index].getListItemElement().classList.remove(className),
-      focusItemAtIndex: (index: number) => this._listItems.toArray()[index].getListItemElement().focus(),
+      focusItemAtIndex: (index: number) => this.focusItemAtIndex(index),
       setTabIndexForListItemChildren: (listItemIndex: number, tabIndexValue: number) => {
         const listItemChildren = [].slice.call(this._listItems.toArray()[listItemIndex].getListItemElement()
           .querySelectorAll(strings.CHILD_ELEMENTS_TO_TOGGLE_TABINDEX));
@@ -345,6 +345,10 @@ export class MdcList implements AfterViewInit, OnDestroy {
     if (!this._listItems) { return -1; }
 
     return this._listItems.toArray().findIndex(_ => _.selected || _.activated);
+  }
+
+  focusItemAtIndex(index: number): void {
+    this._listItems.toArray()[index].getListItemElement().focus();
   }
 
   focusFirstElement(): void {

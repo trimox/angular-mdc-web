@@ -148,6 +148,14 @@ describe('MdcListModule', () => {
       fixture.detectChanges();
     });
 
+    it('#should set focus to list item index (0)', () => {
+      const listItemDebugElement = fixture.debugElement.query(By.directive(MdcListItem));
+
+      testInstance.focusItemAtIndex(0);
+      fixture.detectChanges();
+      expect(document.activeElement).toBe(listItemDebugElement.nativeElement, 'Expected focus to be on list item');
+    });
+
     it('#should set focus to list item', () => {
       const listItemDebugElement = fixture.debugElement.query(By.directive(MdcListItem));
       const listItemInstance = listItemDebugElement.injector.get<MdcListItem>(MdcListItem);

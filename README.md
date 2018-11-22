@@ -25,9 +25,7 @@ npm i @angular-mdc/web
 ```
 
 ## <a name="getstarted"></a> Getting started
-Check out our [Getting Started guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md) to begin adopting  Angular MDC in your project.
-
-Using Angular CLI? Try our [Angular CLI - step by step guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/guide-angular-cli.md).
+View our [Getting Started guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md) to begin using  Angular MDC in your project.
 
 ## Material Design Components
 Developed using Google Material Components [foundations and adapters](https://github.com/material-components/material-components-web/blob/master/docs/integrating-into-frameworks.md#the-advanced-approach-using-foundations-and-adapters).
@@ -58,7 +56,6 @@ Developed using Google Material Components [foundations and adapters](https://gi
 | switch | Available | [View](https://trimox.github.io/angular-mdc-web/#/switch-demo) |
 | tabs | Available | [View](https://trimox.github.io/angular-mdc-web/#/tabs-demo) |
 | textfield | Available | [View](https://trimox.github.io/angular-mdc-web/#/textfield-demo) |
-| theme | Available | [View](https://trimox.github.io/angular-mdc-web/#/theme-demo) |
 | top-app-bar | Available | [View](https://trimox.github.io/angular-mdc-web/#/top-app-bar-demo) |
 | typography | Available | [View](https://trimox.github.io/angular-mdc-web/#/typography-demo) |
 

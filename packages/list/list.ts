@@ -12,7 +12,6 @@ import {
   OnDestroy,
   Output,
   QueryList,
-  ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 import { fromEvent, merge, Observable, Subject, Subscription } from 'rxjs';

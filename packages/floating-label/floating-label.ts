@@ -2,7 +2,6 @@ import {
   AfterContentInit,
   Directive,
   ElementRef,
-  EventEmitter,
   Input,
   NgZone,
   OnDestroy

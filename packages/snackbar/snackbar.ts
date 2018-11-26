@@ -10,8 +10,7 @@ import {
   SkipSelf,
   TemplateRef
 } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
-import { Overlay, OverlayConfig, OverlayRef } from '@angular-mdc/web/overlay';
+import { Overlay, OverlayRef } from '@angular-mdc/web/overlay';
 import { ComponentPortal, ComponentType, PortalInjector, TemplatePortal } from '@angular-mdc/web/portal';
 
 import { MdcSnackbarModule } from './snackbar-module';

@@ -10,7 +10,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { merge, fromEvent, Subject, Subscription, Observable } from 'rxjs';
-import { map, filter, startWith, takeUntil } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 
 import { Platform } from '@angular-mdc/web/common';
 

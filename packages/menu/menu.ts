@@ -11,7 +11,6 @@ import {
   OnDestroy,
   Output,
   QueryList,
-  ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 import { Subscription } from 'rxjs';

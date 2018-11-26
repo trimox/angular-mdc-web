@@ -1,4 +1,4 @@
-import { NgModule, Provider } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { PortalModule } from '@angular-mdc/web/portal';
 import { Overlay } from './overlay';
 

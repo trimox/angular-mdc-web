@@ -10,10 +10,7 @@ import { DOCUMENT } from '@angular/common';
 import {
   Inject,
   Injectable,
-  InjectionToken,
-  OnDestroy,
-  Optional,
-  SkipSelf,
+  OnDestroy
 } from '@angular/core';
 
 /** Container inside which all overlays will render. */

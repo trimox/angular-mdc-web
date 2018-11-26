@@ -68,7 +68,7 @@ export class MdcIconOn { }
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class MdcIconButton implements AfterContentInit, OnDestroy {
+export class MdcIconButton implements AfterContentInit, ControlValueAccessor, OnDestroy {
   private _uniqueId: string = `mdc-icon-button-${++nextUniqueId}`;
 
   @Input() id: string = this._uniqueId;

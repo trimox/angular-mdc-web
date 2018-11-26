@@ -8,10 +8,9 @@ import {
   Output
 } from '@angular/core';
 import { fromEvent, Subject, Subscription } from 'rxjs';
-import { startWith, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 
-import { Platform, toBoolean, toNumber } from '@angular-mdc/web/common';
-import { MdcMenuSurfaceAnchor } from './menu-surface-anchor';
+import { Platform, toBoolean } from '@angular-mdc/web/common';
 
 import { getTransformPropertyName } from '@material/menu-surface/util';
 import { Corner, strings } from '@material/menu-surface/constants';

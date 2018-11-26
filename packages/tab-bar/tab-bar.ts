@@ -18,7 +18,6 @@ import { startWith, takeUntil } from 'rxjs/operators';
 
 import { toBoolean, Platform } from '@angular-mdc/web/common';
 import { MdcTabScroller, MdcTabScrollerAlignment } from '@angular-mdc/web/tab-scroller';
-import { MdcTabIndicator } from '@angular-mdc/web/tab-indicator';
 import { MdcTab, MdcTabInteractedEvent, MDC_TAB_BAR_PARENT_COMPONENT } from '@angular-mdc/web/tab';
 
 import { MDCTabBarFoundation } from '@material/tab-bar/index';

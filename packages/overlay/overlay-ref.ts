@@ -10,7 +10,7 @@ import { ComponentPortal, Portal, PortalOutlet, TemplatePortal } from '@angular-
 import { ComponentRef, EmbeddedViewRef, NgZone } from '@angular/core';
 import { Location } from '@angular/common';
 import { Observable, Subject, merge, SubscriptionLike, Subscription, Observer } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { OverlayConfig } from './overlay-config';
 import { OverlayReference } from './overlay-reference';
 

@@ -77,7 +77,7 @@ let nextUniqueId = 0;
     MdcRipple
   ]
 })
-export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, OnDestroy {
+export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, ControlValueAccessor, OnDestroy {
   private _uniqueId: string = `mdc-switch-${++nextUniqueId}`;
 
   readonly stateChanges: Subject<void> = new Subject<void>();

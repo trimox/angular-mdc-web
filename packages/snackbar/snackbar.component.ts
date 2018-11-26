@@ -3,10 +3,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  Input,
   Inject,
   OnDestroy,
-  Output,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';

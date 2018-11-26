@@ -444,13 +444,15 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
 
   /** Recomputes the outline SVG path for the outline element. */
   layout(): void {
-    if (this._outlined) {
-      this._foundation.notchOutline(this._foundation.shouldFloat);
-    }
+    setTimeout(() => {
+      if (this._outlined) {
+        this._foundation.notchOutline(this._foundation.shouldFloat);
+      }
 
-    if (this._floatingLabel) {
-      this._floatingLabel.float(this._foundation.shouldFloat);
-    }
+      if (this._floatingLabel) {
+        this._floatingLabel.float(this._foundation.shouldFloat);
+      }
+    });
   }
 
   private _checkCustomValidity(): void {

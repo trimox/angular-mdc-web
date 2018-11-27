@@ -1,3 +1,14 @@
+## [0.41.4](https://github.com/trimox/angular-mdc-web/compare/v0.41.3...v0.41.4) (2018-11-27)
+
+
+### Bug Fixes
+
+* Remove unneeded component imports ([#1568](https://github.com/trimox/angular-mdc-web/issues/1568)) ([53b8825](https://github.com/trimox/angular-mdc-web/commit/53b8825))
+* **demos:** Replace icon with button icon ([#1564](https://github.com/trimox/angular-mdc-web/issues/1564)) ([1651ad5](https://github.com/trimox/angular-mdc-web/commit/1651ad5)), closes [#1563](https://github.com/trimox/angular-mdc-web/issues/1563)
+* **text-field:** Use setTimeout for recomputing svg path ([#1567](https://github.com/trimox/angular-mdc-web/issues/1567)) ([b4a133c](https://github.com/trimox/angular-mdc-web/commit/b4a133c))
+
+
+
 ## [0.41.3](https://github.com/trimox/angular-mdc-web/compare/v0.41.2...v0.41.3) (2018-11-22)
 
 

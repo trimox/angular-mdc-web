@@ -23,8 +23,8 @@ install:
 
 script:
   - export CHROME_BIN=chromium-browser
-  - npm run lint:ts
-  - npm run test:unit
+  - yarn lint
+  - yarn test
 
 after_success:
   - codecov

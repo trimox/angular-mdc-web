@@ -18,15 +18,13 @@
     "build:release": "gulp web:build && gulp web:build-release",
     "migrate-mdc-sass": "rimraf packages/material-components-web/scss && node scripts/migrate-mdc-scss.js",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "lint": "npm run lint:ts && npm run lint:css",
-    "lint:ts": "tslint 'packages/**/*.ts'",
+    "lint": "tslint 'packages/**/*.ts'",
     "lint:css": "stylelint \"packages/material-components-web/**/*.scss\"",
     "fix:css": "stylelint --fix \"packages/material-components-web/**/*.scss\"",
-    "test": "npm run test:unit",
-    "test:unit": "karma start --single-run",
+    "test": "karma start --single-run",
     "test:watch": "karma start --auto-watch",
     "server": "webpack-dev-server --config demos/webpack.config.js --progress",
-    "start": "npm run server"
+    "start": "server"
   },
   "dependencies": {
     "@angular/common": "^7.1.0",

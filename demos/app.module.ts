@@ -27,7 +27,8 @@ import { APP_ROUTES, DEMO_ROUTES } from './routes';
       theme: 'github'
     }),
     RouterModule.forRoot(APP_ROUTES, {
-      useHash: true
+      useHash: true,
+      scrollPositionRestoration: 'enabled'
     })
   ],
   declarations: [

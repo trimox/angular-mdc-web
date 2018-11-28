@@ -63,7 +63,7 @@ export class MdcChipSet implements AfterContentInit, OnDestroy {
       this.chips.forEach((chip: MdcChip) => chip.choice = this._choice);
     });
   }
-  private _choice: boolean;
+  private _choice: boolean = false;
 
   /**
   * Indicates that the chips in the set are filter chips, which allow multiple selection from a set of options.
@@ -77,7 +77,7 @@ export class MdcChipSet implements AfterContentInit, OnDestroy {
       this.chips.forEach((chip: MdcChip) => chip.filter = this._filter);
     });
   }
-  private _filter: boolean;
+  private _filter: boolean = false;
 
   /**
   * Indicates that the chips in the set are input chips, which enable user input by converting text into chips.
@@ -91,21 +91,21 @@ export class MdcChipSet implements AfterContentInit, OnDestroy {
       this.chips.forEach((chip: MdcChip) => chip.removable = this._input);
     });
   }
-  private _input: boolean;
+  private _input: boolean = false;
 
   @Output() readonly change: EventEmitter<MdcChipSetChange> =
     new EventEmitter<MdcChipSetChange>();
 
-  @ContentChildren(MdcChip, { descendants: true }) chips: QueryList<MdcChip>;
+  @ContentChildren(MdcChip, { descendants: true }) chips!: QueryList<MdcChip>;
 
   /** Subscription to selection events in chips. */
-  private _chipSelectionSubscription: Subscription | null;
+  private _chipSelectionSubscription: Subscription | null = null;
 
   /** Subscription to remove changes in chips. */
-  private _chipRemoveSubscription: Subscription | null;
+  private _chipRemoveSubscription: Subscription | null = null;
 
   /** Subscription to interaction events in chips. */
-  private _chipInteractionSubscription: Subscription | null;
+  private _chipInteractionSubscription: Subscription | null = null;
 
   /** Combined stream of all of the chip selection events. */
   get chipSelections(): Observable<MdcChipSelectionEvent> {

@@ -40,14 +40,14 @@ export class MdcCardMedia {
   set square(value: boolean) {
     this._square = toBoolean(value);
   }
-  private _square: boolean;
+  private _square: boolean = false;
 
   @Input()
   get wide(): boolean { return this._wide; }
   set wide(value: boolean) {
     this._wide = toBoolean(value);
   }
-  private _wide: boolean;
+  private _wide: boolean = false;
 
   constructor(public elementRef: ElementRef<HTMLElement>) { }
 }
@@ -95,7 +95,7 @@ export class MdcCardActions {
   set fullBleed(value: boolean) {
     this._fullBleed = toBoolean(value);
   }
-  private _fullBleed: boolean;
+  private _fullBleed: boolean = false;
 
   constructor(public elementRef: ElementRef<HTMLElement>) { }
 }
@@ -147,7 +147,7 @@ export class MdcCardAction {
     }
     this._action = action;
   }
-  private _action: string;
+  private _action: string = '';
 
   constructor(public elementRef: ElementRef<HTMLElement>) { }
 }
@@ -170,7 +170,7 @@ export class MdcCard {
   set outlined(value: boolean) {
     this._outlined = toBoolean(value);
   }
-  private _outlined: boolean;
+  private _outlined: boolean = false;
 
   constructor(public elementRef: ElementRef<HTMLElement>) { }
 }

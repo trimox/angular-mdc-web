@@ -56,7 +56,7 @@ export class MdcRadioGroup implements AfterContentInit, ControlValueAccessor {
   /** Whether the `value` has been set to its initial value. */
   private _isInitialized: boolean = false;
 
-  @ContentChildren(forwardRef(() => MdcRadio), { descendants: true }) _radios: QueryList<MdcRadio>;
+  @ContentChildren(forwardRef(() => MdcRadio), { descendants: true }) _radios!: QueryList<MdcRadio>;
 
   /** Name of the radio button group. All radio buttons inside this group will use this name. */
   @Input()

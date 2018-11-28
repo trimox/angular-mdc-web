@@ -98,8 +98,8 @@ export class MdcTab implements OnInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
-  @Input() label: string;
-  @Input() icon: string;
+  @Input() label?: string;
+  @Input() icon?: string;
 
   @Input()
   get stacked(): boolean { return this._stacked; }
@@ -127,7 +127,7 @@ export class MdcTab implements OnInit, OnDestroy {
   set disabled(value: boolean) {
     this._disabled = toBoolean(value);
   }
-  private _disabled: boolean;
+  private _disabled: boolean = false;
 
   @Input()
   get focusOnActivate(): boolean { return this._focusOnActivate; }
@@ -138,14 +138,14 @@ export class MdcTab implements OnInit, OnDestroy {
       this._foundation.setFocusOnActivate(this._focusOnActivate);
     }
   }
-  private _focusOnActivate: boolean;
+  private _focusOnActivate: boolean = false;
 
   @Output() readonly interacted: EventEmitter<MdcTabInteractedEvent> =
     new EventEmitter<MdcTabInteractedEvent>();
 
-  @ViewChild('content') content: ElementRef;
-  @ViewChild('ripplesurface') rippleSurface: ElementRef;
-  @ViewChild(MdcTabIndicator) tabIndicator: MdcTabIndicator;
+  @ViewChild('content') content!: ElementRef;
+  @ViewChild('ripplesurface') rippleSurface!: ElementRef;
+  @ViewChild(MdcTabIndicator) tabIndicator!: MdcTabIndicator;
 
   private _createAdapter() {
     return {

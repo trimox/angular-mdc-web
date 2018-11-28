@@ -33,16 +33,16 @@ export class MdcFormField implements OnInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
-  public label: HTMLElement;
+  public label!: HTMLElement;
 
   @Input()
   get alignEnd(): boolean { return this._alignEnd; }
   set alignEnd(value: boolean) {
     this._alignEnd = toBoolean(value);
   }
-  private _alignEnd: boolean;
+  private _alignEnd: boolean = false;
 
-  @ContentChild(MdcFormFieldControl) input: MdcFormFieldControl<any>;
+  @ContentChild(MdcFormFieldControl) input!: MdcFormFieldControl<any>;
 
   constructor(
     private _ngZone: NgZone,

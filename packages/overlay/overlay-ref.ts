@@ -32,7 +32,7 @@ export class OverlayRef implements PortalOutlet, OverlayReference {
    * Reference to the parent of the `_host` at the time it was detached. Used to restore
    * the `_host` to its original position in the DOM when it gets re-attached.
    */
-  private _previousHostParent: HTMLElement;
+  private _previousHostParent: HTMLElement | null = null;
 
   constructor(
     private _portalOutlet: PortalOutlet,

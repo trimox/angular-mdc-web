@@ -18,11 +18,7 @@ import {
 import { startWith, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
-import {
-  Platform,
-  toNumber,
-  toBoolean
-} from '@angular-mdc/web/common';
+import { Platform, toBoolean } from '@angular-mdc/web/common';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
 import { MDCGridListFoundation } from '@material/grid-list/index';
@@ -125,7 +121,7 @@ export class MdcGridList implements AfterViewInit, AfterContentInit, OnDestroy {
   set narrow(value: boolean) {
     this.setNarrow(value);
   }
-  protected _narrow: boolean;
+  protected _narrow: boolean = false;
 
   @Input()
   get header(): boolean { return this._header; }
@@ -146,11 +142,11 @@ export class MdcGridList implements AfterViewInit, AfterContentInit, OnDestroy {
   @Input() iconAlign: 'start' | 'end' = 'start';
 
   @HostBinding('class.mdc-grid-list') isHostClass = true;
-  @ContentChildren(MdcGridTile) tiles: QueryList<MdcGridTile>;
-  @ContentChildren(MdcGridTileSupportText, { descendants: true }) captions: QueryList<MdcGridTileSupportText>;
-  @ContentChildren(MdcIcon, { descendants: true }) icons: QueryList<MdcIcon>;
-  @ContentChildren(MdcGridTilePrimary, { descendants: true }) primaries: QueryList<MdcGridTilePrimary>;
-  @ViewChild(MdcGridListTiles) gridListTiles: MdcGridListTiles;
+  @ContentChildren(MdcGridTile) tiles!: QueryList<MdcGridTile>;
+  @ContentChildren(MdcGridTileSupportText, { descendants: true }) captions!: QueryList<MdcGridTileSupportText>;
+  @ContentChildren(MdcIcon, { descendants: true }) icons!: QueryList<MdcIcon>;
+  @ContentChildren(MdcGridTilePrimary, { descendants: true }) primaries!: QueryList<MdcGridTilePrimary>;
+  @ViewChild(MdcGridListTiles) gridListTiles!: MdcGridListTiles;
 
   @HostBinding('class.mdc-grid-list--tile-gutter-1') get classGutter(): string {
     return this.narrow ? 'mdc-grid-list--tile-gutter-1' : '';
@@ -188,7 +184,7 @@ export class MdcGridList implements AfterViewInit, AfterContentInit, OnDestroy {
     };
   }
 
-  private _foundation: {
+  private _foundation!: {
     init(): void,
     destroy(): void,
     alignCenter(): void

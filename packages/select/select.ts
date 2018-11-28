@@ -102,7 +102,7 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
   @Input() id: string = this._uniqueId;
   @Input() name: string | null = null;
   /** The aria-describedby attribute on the input for improved a11y. */
-  _ariaDescribedby: string;
+  _ariaDescribedby?: string;
 
   /** Placeholder to be shown if no value has been selected. */
   @Input()
@@ -110,14 +110,14 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
   set placeholder(value: string) {
     this._placeholder = value;
   }
-  private _placeholder: string;
+  private _placeholder: string = '';
 
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this.setDisabledState(value);
   }
-  private _disabled: boolean;
+  private _disabled: boolean = false;
 
   @Input()
   get floatingLabel(): boolean { return this._floatingLabel; }
@@ -139,7 +139,7 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
       this._reinitialize();
     }
   }
-  private _outlined: boolean;
+  private _outlined: boolean = false;
 
   @Input()
   get required(): boolean { return this._required; }
@@ -149,24 +149,24 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
       this.valid = true;
     }
   }
-  private _required: boolean;
+  private _required: boolean = false;
 
   @Input()
-  get valid(): boolean { return this._valid; }
-  set valid(value: boolean) {
+  get valid(): boolean | undefined { return this._valid; }
+  set valid(value: boolean | undefined) {
     this._valid = toBoolean(value);
     if (this._foundation) {
       this._foundation.setValid(this._valid);
     }
   }
-  private _valid: boolean;
+  private _valid: boolean | undefined;
 
   @Input()
   get autosize(): boolean { return this._autosize; }
   set autosize(value: boolean) {
     this._autosize = toBoolean(value);
   }
-  private _autosize: boolean;
+  private _autosize: boolean = false;
 
   @Input()
   get compareWith() { return this._compareWith; }
@@ -184,11 +184,11 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
   private _value: any;
 
   @Input()
-  get helperText(): MdcSelectHelperText { return this._helperText; }
-  set helperText(helperText: MdcSelectHelperText) {
+  get helperText(): MdcSelectHelperText | null { return this._helperText; }
+  set helperText(helperText: MdcSelectHelperText | null) {
     this._helperText = helperText;
   }
-  private _helperText: MdcSelectHelperText;
+  private _helperText: MdcSelectHelperText | null = null;
 
   /** Event emitted when the selected value has been changed by the user. */
   @Output() readonly selectionChange: EventEmitter<MdcSelectChange> =
@@ -201,15 +201,14 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
   @Output() readonly valueChange:
     EventEmitter<{ index: number, value: any }> = new EventEmitter<any>();
 
-  @ViewChild(MdcFloatingLabel) _selectLabel: MdcFloatingLabel;
-  @ViewChild(MdcLineRipple) _lineRipple: MdcLineRipple;
-  @ViewChild(MdcNotchedOutline) _notchedOutline: MdcNotchedOutline;
-
-  @ViewChild('nativeInput') _nativeInput: ElementRef<HTMLInputElement>;
-  @ViewChild('nativeSelect') _nativeSelect: ElementRef<HTMLSelectElement>;
-  @ViewChild('selectedText') _selectedText: ElementRef<HTMLElement>;
-  @ContentChild(MdcMenu) _selectMenu: MdcMenu;
-  @ContentChild(MdcSelectIcon) leadingIcon: MdcSelectIcon;
+  @ViewChild(MdcFloatingLabel) _selectLabel!: MdcFloatingLabel;
+  @ViewChild(MdcLineRipple) _lineRipple!: MdcLineRipple;
+  @ViewChild(MdcNotchedOutline) _notchedOutline!: MdcNotchedOutline;
+  @ViewChild('nativeInput') _nativeInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('nativeSelect') _nativeSelect!: ElementRef<HTMLSelectElement>;
+  @ViewChild('selectedText') _selectedText!: ElementRef<HTMLElement>;
+  @ContentChild(MdcMenu) _selectMenu!: MdcMenu;
+  @ContentChild(MdcSelectIcon) leadingIcon!: MdcSelectIcon;
 
   /** View -> model callback called when value changes */
   _onChange: (value: any) => void = () => { };
@@ -285,7 +284,7 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
     };
   }
 
-  private _foundation: {
+  private _foundation!: {
     setSelectedIndex(index: number): void,
     setValue(value: any): void,
     getValue(): any,

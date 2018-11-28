@@ -17,7 +17,7 @@ import { Platform } from '@angular-mdc/web/common';
 import { MDCTabScrollerFoundation, util } from '@material/tab-scroller/index';
 
 /** Possible alignments for tab scroller content. */
-export type MdcTabScrollerAlignment = 'start' | 'center' | 'end';
+export type MdcTabScrollerAlignment = 'start' | 'center' | 'end' | null;
 
 const SCROLLER_EVENTS = [
   'keydown',
@@ -53,12 +53,12 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
   set align(value: MdcTabScrollerAlignment) {
     this.setAlign(value);
   }
-  private _align: MdcTabScrollerAlignment;
+  private _align: MdcTabScrollerAlignment | null = null;
 
-  @ViewChild('area') area: ElementRef;
-  @ViewChild('content') content: ElementRef;
+  @ViewChild('area') area!: ElementRef;
+  @ViewChild('content') content!: ElementRef;
 
-  private _scrollAreaEventsSubscription: Subscription;
+  private _scrollAreaEventsSubscription: Subscription | null = null;
 
   /** Combined stream of all of the scroll area events. */
   get scrollAreaEvents(): Observable<any> {

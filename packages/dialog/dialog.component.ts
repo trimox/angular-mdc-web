@@ -69,12 +69,12 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
 
   config: MdcDialogConfig;
 
-  @ContentChild(MdcDialogSurface) _surface: MdcDialogSurface;
-  @ContentChild(MdcDialogContent) _content: MdcDialogContent;
-  @ContentChildren(MdcDialogButton, { descendants: true }) _buttons: QueryList<MdcDialogButton>;
+  @ContentChild(MdcDialogSurface) _surface!: MdcDialogSurface;
+  @ContentChild(MdcDialogContent) _content!: MdcDialogContent;
+  @ContentChildren(MdcDialogButton, { descendants: true }) _buttons!: QueryList<MdcDialogButton>;
 
-  private _layoutEventSubscription: Subscription;
-  private _interactionEventSubscription: Subscription;
+  private _layoutEventSubscription: Subscription | null = null;
+  private _interactionEventSubscription: Subscription | null = null;
 
   /** Combined stream of all of the dialog layout events. */
   get layoutEvents(): Observable<any> {
@@ -133,7 +133,7 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
     };
   }
 
-  private _foundation: {
+  private _foundation!: {
     init(): void,
     destroy(): void,
     open(): void,

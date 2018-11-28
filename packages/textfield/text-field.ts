@@ -99,22 +99,22 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
 
   readonly stateChanges: Subject<void> = new Subject<void>();
 
-  @Input() label: string;
-  @Input() maxlength: number;
-  @Input() minlength: number;
-  @Input() pattern: string;
-  @Input() autocomplete: string;
-  @Input() max: number;
-  @Input() min: number;
-  @Input() size: number;
-  @Input() step: number;
+  @Input() label: string | null = null;
+  @Input() maxlength?: number;
+  @Input() minlength?: number;
+  @Input() pattern?: string;
+  @Input() autocomplete?: string;
+  @Input() max?: number;
+  @Input() min?: number;
+  @Input() size?: number;
+  @Input() step?: number;
   @Input() placeholder: string | null = null;
   @Input() tabIndex: number = 0;
 
   @Input()
-  get id(): string { return this._id; }
-  set id(value: string) { this._id = value || this._uid; }
-  private _id: string;
+  get id(): string | null { return this._id; }
+  set id(value: string | null) { this._id = value || this._uid; }
+  private _id: string | null = null;
 
   /** Input type of the element. */
   @Input()
@@ -134,14 +134,14 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
       this.layout();
     }
   }
-  private _outlined: boolean;
+  private _outlined: boolean = false;
 
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this.setDisabledState(value);
   }
-  private _disabled: boolean;
+  private _disabled: boolean = false;
 
   @Input()
   get required(): boolean { return this._required; }
@@ -152,14 +152,14 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
       this._handleValidationAttributeChange();
     }
   }
-  private _required: boolean;
+  private _required: boolean = false;
 
   @Input()
   get readonly(): boolean { return this._readonly; }
   set readonly(value: boolean) {
     this._readonly = toBoolean(value);
   }
-  private _readonly: boolean;
+  private _readonly: boolean = false;
 
   @Input()
   get fullwidth(): boolean { return this._fullwidth; }
@@ -167,30 +167,30 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     this._fullwidth = toBoolean(value);
     this.placeholder = this.fullwidth ? this.label : '';
   }
-  private _fullwidth: boolean;
+  private _fullwidth: boolean = false;
 
   @Input()
   get dense(): boolean { return this._dense; }
   set dense(value: boolean) {
     this._dense = toBoolean(value);
   }
-  private _dense: boolean;
+  private _dense: boolean = false;
 
   @Input()
-  get helperText(): MdcTextFieldHelperText { return this._helperText; }
-  set helperText(helperText: MdcTextFieldHelperText) {
+  get helperText(): MdcTextFieldHelperText | null { return this._helperText; }
+  set helperText(helperText: MdcTextFieldHelperText | null) {
     this._helperText = helperText;
   }
-  private _helperText: MdcTextFieldHelperText;
+  private _helperText: MdcTextFieldHelperText | null = null;
 
   /** Sets the Text Field valid or invalid. */
   @Input()
-  get valid(): boolean { return this._valid; }
-  set valid(value: boolean) {
+  get valid(): boolean | undefined { return this._valid; }
+  set valid(value: boolean | undefined) {
     this._valid = toBoolean(value);
     this._foundation.setValid(this._valid);
   }
-  private _valid: boolean;
+  private _valid: boolean | undefined;
 
   /** Enables or disables the use of native validation. Use this for custom validation. */
   @Input()
@@ -211,11 +211,11 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   @Output() readonly change = new EventEmitter<any>();
   @Output() readonly blur = new EventEmitter<any>();
 
-  @ViewChild('input') _input: ElementRef<HTMLInputElement | HTMLTextAreaElement>;
-  @ViewChild(MdcFloatingLabel) _floatingLabel: MdcFloatingLabel;
-  @ViewChild(MdcLineRipple) _lineRipple: MdcLineRipple;
-  @ViewChild(MdcNotchedOutline) _notchedOutline: MdcNotchedOutline;
-  @ContentChildren(MdcTextFieldIcon, { descendants: true }) _icons: QueryList<MdcTextFieldIcon>;
+  @ViewChild('input') _input!: ElementRef<HTMLInputElement | HTMLTextAreaElement>;
+  @ViewChild(MdcFloatingLabel) _floatingLabel!: MdcFloatingLabel;
+  @ViewChild(MdcLineRipple) _lineRipple!: MdcLineRipple;
+  @ViewChild(MdcNotchedOutline) _notchedOutline!: MdcNotchedOutline;
+  @ContentChildren(MdcTextFieldIcon, { descendants: true }) _icons!: QueryList<MdcTextFieldIcon>;
 
   /** View -> model callback called when value changes */
   _onChange: (value: any) => void = () => { };

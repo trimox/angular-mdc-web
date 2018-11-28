@@ -52,7 +52,7 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
     this._fade = toBoolean(value);
     this._syncTabs();
   }
-  private _fade: boolean;
+  private _fade: boolean = false;
 
   @Input()
   get stacked(): boolean { return this._stacked; }
@@ -60,7 +60,7 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
     this._stacked = toBoolean(value);
     this._syncTabs();
   }
-  private _stacked: boolean;
+  private _stacked: boolean = false;
 
   @Input()
   get fixed(): boolean { return this._fixed; }
@@ -68,23 +68,23 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
     this._fixed = toBoolean(value);
     this._syncTabs();
   }
-  private _fixed: boolean;
+  private _fixed: boolean = false;
 
   @Input()
-  get align(): MdcTabScrollerAlignment { return this._align; }
-  set align(value: MdcTabScrollerAlignment) {
+  get align(): MdcTabScrollerAlignment | null { return this._align; }
+  set align(value: MdcTabScrollerAlignment | null) {
     this._align = value || 'start';
     this.tabScroller.align = this.align;
   }
-  private _align: MdcTabScrollerAlignment;
+  private _align: MdcTabScrollerAlignment | null = null;
 
   @Input()
-  get iconIndicator(): string { return this._iconIndicator; }
-  set iconIndicator(value: string) {
+  get iconIndicator(): string | null { return this._iconIndicator; }
+  set iconIndicator(value: string | null) {
     this._iconIndicator = value;
     this._syncTabs();
   }
-  private _iconIndicator: string;
+  private _iconIndicator: string | null = null;
 
   @Input()
   get useAutomaticActivation(): boolean { return this._useAutomaticActivation; }
@@ -92,7 +92,7 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
     this._useAutomaticActivation = toBoolean(value);
     this._foundation.setUseAutomaticActivation(this._useAutomaticActivation);
   }
-  private _useAutomaticActivation: boolean;
+  private _useAutomaticActivation: boolean = false;
 
   @Input()
   get activeTabIndex(): number { return this._activeTabIndex; }
@@ -115,14 +115,14 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
   @Output() readonly activated: EventEmitter<MdcTabActivatedEvent> =
     new EventEmitter<MdcTabActivatedEvent>();
 
-  @ContentChild(MdcTabScroller) tabScroller: MdcTabScroller;
-  @ContentChildren(MdcTab, { descendants: true }) tabs: QueryList<MdcTab>;
+  @ContentChild(MdcTabScroller) tabScroller!: MdcTabScroller;
+  @ContentChildren(MdcTab, { descendants: true }) tabs!: QueryList<MdcTab>;
 
   /** Subscription to changes in tabs. */
-  private _changeSubscription: Subscription;
+  private _changeSubscription: Subscription | null = null;
 
   /** Subscription to interaction events in tabs. */
-  private _tabInteractionSubscription: Subscription | null;
+  private _tabInteractionSubscription: Subscription | null = null;
 
   /** Combined stream of all of the tab interaction events. */
   get tabInteractions(): Observable<MdcTabInteractedEvent> {

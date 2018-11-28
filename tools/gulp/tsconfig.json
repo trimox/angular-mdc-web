@@ -10,6 +10,7 @@
     "strictFunctionTypes": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
+    "strictPropertyInitialization": true,
     "noEmitOnError": true,
     "target": "es5",
     "types": [

@@ -43,7 +43,7 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
     this._primary ? this.attachTo.classList.add('mdc-ripple-surface--primary')
       : this.attachTo.classList.remove('mdc-ripple-surface--primary');
   }
-  private _primary: boolean;
+  private _primary: boolean = false;
 
   @Input()
   get secondary(): boolean { return this._secondary; }
@@ -52,14 +52,14 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
     this._secondary ? this.attachTo.classList.add('mdc-ripple-surface--accent')
       : this.attachTo.classList.remove('mdc-ripple-surface--accent');
   }
-  private _secondary: boolean;
+  private _secondary: boolean = false;
 
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this._disabled = toBoolean(value);
   }
-  private _disabled: boolean;
+  private _disabled: boolean = false;
 
   @Input()
   get unbounded(): boolean { return this._unbounded; }

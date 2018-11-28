@@ -133,7 +133,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor,
     this._checked = toBoolean(value);
     this._changeDetectorRef.markForCheck();
   }
-  private _checked: boolean;
+  private _checked: boolean = false;
 
   @Input()
   get disabled(): boolean { return this._disabled; }
@@ -141,10 +141,10 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor,
     this.setDisabledState(value);
     this.stateChanges.next();
   }
-  private _disabled: boolean;
+  private _disabled: boolean = false;
 
   /** The value attribute of the native input element */
-  @Input() value: string;
+  @Input() value: string | null = null;
 
   /// Alternative state of the checkbox, not user set-able state. Between
   /// [checked] and [indeterminate], only one can be true, though both can be
@@ -155,7 +155,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor,
   set indeterminate(value: boolean) {
     this.setIndeterminate(value);
   }
-  private _indeterminate: boolean;
+  private _indeterminate: boolean = false;
 
   /// Determines the state to go into when [indeterminate] state is toggled.
   /// `true` will go to checked and `false` will go to unchecked.
@@ -180,7 +180,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor,
   @Output() readonly indeterminateChange: EventEmitter<MdcIndeterminateChange>
     = new EventEmitter<MdcIndeterminateChange>();
 
-  @ViewChild('input') _inputElement: ElementRef<HTMLInputElement>;
+  @ViewChild('input') _inputElement!: ElementRef<HTMLInputElement>;
 
   /** View -> model callback called when value changes */
   _onChange: (value: any) => void = () => { };
@@ -215,11 +215,11 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor,
     this.checked = !!value;
   }
 
-  registerOnChange(fn: (value: any) => any): void {
+  registerOnChange(fn: (value: any) => void) {
     this._onChange = fn;
   }
 
-  registerOnTouched(fn: () => any): void {
+  registerOnTouched(fn: any) {
     this._onTouched = fn;
   }
 
@@ -242,6 +242,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor,
       this._checked = !this.checked;
     }
     this._onChange(this.checked);
+    this._changeDetectorRef.markForCheck();
   }
 
   onInteraction(evt: Event): void {

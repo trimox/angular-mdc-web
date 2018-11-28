@@ -47,6 +47,6 @@ export const MDC_TEXTAREA_CONTROL_VALUE_ACCESSOR: any = {
   encapsulation: ViewEncapsulation.None
 })
 export class MdcTextarea extends MdcTextField {
-  @Input() rows: number;
-  @Input() cols: number;
+  @Input() rows?: number;
+  @Input() cols?: number;
 }

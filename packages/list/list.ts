@@ -49,7 +49,7 @@ export class MdcListItemChange {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcListGroup {
-  @Input() subheader: string;
+  @Input() subheader?: string;
 
   constructor(public elementRef: ElementRef) { }
 }
@@ -92,28 +92,28 @@ export class MdcList implements AfterViewInit, OnDestroy {
   set twoLine(value: boolean) {
     this._twoLine = toBoolean(value);
   }
-  private _twoLine: boolean;
+  private _twoLine: boolean = false;
 
   @Input()
   get dense(): boolean { return this._dense; }
   set dense(value: boolean) {
     this._dense = toBoolean(value);
   }
-  private _dense: boolean;
+  private _dense: boolean = false;
 
   @Input()
   get border(): boolean { return this._border; }
   set border(value: boolean) {
     this._border = toBoolean(value);
   }
-  private _border: boolean;
+  private _border: boolean = false;
 
   @Input()
   get avatar(): boolean { return this._avatar; }
   set avatar(value: boolean) {
     this._avatar = toBoolean(value);
   }
-  private _avatar: boolean;
+  private _avatar: boolean = false;
 
   @Input()
   get interactive(): boolean { return this._interactive; }
@@ -129,7 +129,7 @@ export class MdcList implements AfterViewInit, OnDestroy {
   set singleSelection(value: boolean) {
     this.setSingleSelection(value);
   }
-  private _singleSelection: boolean;
+  private _singleSelection: boolean = false;
 
   @Input()
   get useActivatedClass(): boolean { return this._useActivatedClass; }
@@ -138,7 +138,7 @@ export class MdcList implements AfterViewInit, OnDestroy {
     this._foundation.setUseActivatedClass(this._useActivatedClass);
     this._changeDetectorRef.markForCheck();
   }
-  private _useActivatedClass: boolean;
+  private _useActivatedClass: boolean = false;
 
   @Input()
   get useSelectedClass(): boolean { return this._useSelectedClass; }
@@ -146,7 +146,7 @@ export class MdcList implements AfterViewInit, OnDestroy {
     this._useSelectedClass = toBoolean(value);
     this._changeDetectorRef.markForCheck();
   }
-  private _useSelectedClass: boolean;
+  private _useSelectedClass: boolean = false;
 
   @Input()
   get verticalOrientation(): boolean { return this._verticalOrientation; }
@@ -164,19 +164,19 @@ export class MdcList implements AfterViewInit, OnDestroy {
     this._foundation.setWrapFocus(this._wrapFocus);
     this._changeDetectorRef.markForCheck();
   }
-  private _wrapFocus: boolean;
+  private _wrapFocus: boolean = false;
 
-  @ContentChildren(MdcListItem, { descendants: true }) _listItems: QueryList<MdcListItem>;
+  @ContentChildren(MdcListItem, { descendants: true }) _listItems!: QueryList<MdcListItem>;
 
   /** Emits a change event whenever the selected state of an option changes. */
   @Output() readonly selectionChange: EventEmitter<MdcListItemChange> =
     new EventEmitter<MdcListItemChange>();
 
   /** Subscription to changes in list items. */
-  private _changeSubscription: Subscription;
+  private _changeSubscription: Subscription | null = null;
 
   /** Subscription to selection events in list items. */
-  private _listItemSelectionSubscription: Subscription | null;
+  private _listItemSelectionSubscription: Subscription | null = null;
 
   /** Combined stream of all of the list item selection events. */
   get listItemSelections(): Observable<MdcListSelectionChange> {

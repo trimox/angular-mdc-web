@@ -90,23 +90,23 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, Contr
   set checked(value: boolean) {
     this.setChecked(value);
   }
-  private _checked: boolean;
+  private _checked: boolean = false;
 
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this.setDisabledState(value);
   }
-  private _disabled: boolean;
+  private _disabled: boolean = false;
 
   /** The value attribute of the native input element */
-  @Input() value: string;
+  @Input() value: string | null = null;
 
   @Input() tabIndex: number = 0;
   @Output() readonly change: EventEmitter<MdcSwitchChange> = new EventEmitter<MdcSwitchChange>();
 
-  @ViewChild('input') inputElement: ElementRef<HTMLInputElement>;
-  @ViewChild('thumbUnderlay') thumbUnderlay: ElementRef<HTMLElement>;
+  @ViewChild('input') inputElement!: ElementRef<HTMLInputElement>;
+  @ViewChild('thumbUnderlay') thumbUnderlay!: ElementRef<HTMLElement>;
 
   /** View -> model callback called when value changes */
   _onChange: (value: any) => void = () => { };

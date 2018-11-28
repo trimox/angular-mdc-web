@@ -1,6 +1,5 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   Directive,
   ElementRef,
@@ -79,16 +78,14 @@ export class MdcImageList {
   set masonry(value: boolean) {
     this._masonry = toBoolean(value);
   }
-  private _masonry: boolean;
+  private _masonry: boolean = false;
 
   @Input()
   get textProtection(): boolean { return this._textProtection; }
   set textProtection(value: boolean) {
     this._textProtection = toBoolean(value);
   }
-  private _textProtection: boolean;
+  private _textProtection: boolean = false;
 
-  constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
-    public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef) { }
 }

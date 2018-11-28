@@ -70,14 +70,14 @@ export class MdcMenu extends MdcMenuSurfaceAbstract implements AfterContentInit,
   @Output() readonly selected: EventEmitter<MdcMenuSelectedEvent> =
     new EventEmitter<MdcMenuSelectedEvent>();
 
-  @ContentChild(MdcList) _list: MdcList;
-  @ContentChildren(MdcListItem, { descendants: true }) _listItems: QueryList<MdcListItem>;
+  @ContentChild(MdcList) _list!: MdcList;
+  @ContentChildren(MdcListItem, { descendants: true }) _listItems!: QueryList<MdcListItem>;
 
   /** Subscription to listen for menu-surface opened event. */
-  private _openedSubscription: Subscription;
+  private _openedSubscription: Subscription | null = null;
 
   /** Subscription to changes in list items. */
-  private _changeSubscription: Subscription;
+  private _changeSubscription: Subscription | null = null;
 
   private _createAdapter() {
     return Object.assign({

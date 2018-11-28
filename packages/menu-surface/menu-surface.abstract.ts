@@ -45,9 +45,9 @@ export abstract class MdcMenuSurfaceAbstract {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
-  private _previousFocus: Element | null;
-  private _firstFocusableElement: Element;
-  private _lastFocusableElement: Element;
+  private _previousFocus: Element | null = null;
+  private _firstFocusableElement: Element | null = null;
+  private _lastFocusableElement: Element | null = null;
 
   @Input()
   get open(): boolean { return this._open; }
@@ -55,14 +55,14 @@ export abstract class MdcMenuSurfaceAbstract {
     this._open = toBoolean(value);
     this.setOpen();
   }
-  private _open: boolean;
+  private _open: boolean = false;
 
   @Input()
-  get anchorElement(): Element { return this._anchorElement; }
-  set anchorElement(element: Element) {
+  get anchorElement(): Element | null { return this._anchorElement; }
+  set anchorElement(element: Element | null) {
     this._anchorElement = element;
   }
-  private _anchorElement: Element;
+  private _anchorElement: Element | null = null;
 
   @Input()
   get anchorCorner(): AnchorCorner { return this._anchorCorner; }
@@ -70,7 +70,7 @@ export abstract class MdcMenuSurfaceAbstract {
     this._anchorCorner = value || 'topStart';
     this._foundation.setAnchorCorner([ANCHOR_CORNER_MAP[this._anchorCorner]]);
   }
-  private _anchorCorner: AnchorCorner;
+  private _anchorCorner: AnchorCorner = 'topStart';
 
   @Input()
   get quickOpen(): boolean { return this._quickOpen; }
@@ -78,7 +78,7 @@ export abstract class MdcMenuSurfaceAbstract {
     this._quickOpen = toBoolean(value);
     this._foundation.setQuickOpen(this._quickOpen);
   }
-  private _quickOpen: boolean;
+  private _quickOpen: boolean = false;
 
   @Input()
   get fixed(): boolean { return this._fixed; }
@@ -88,7 +88,7 @@ export abstract class MdcMenuSurfaceAbstract {
       this._getHostElement().classList.remove('mdc-menu-surface--fixed');
     this._foundation.setFixedPosition(this._fixed);
   }
-  private _fixed: boolean;
+  private _fixed: boolean = false;
 
   @Input()
   get coordinates(): Coordinates { return this._coordinates; }
@@ -96,7 +96,7 @@ export abstract class MdcMenuSurfaceAbstract {
     this._coordinates = value;
     this._foundation.setAbsolutePosition(value.x, value.y);
   }
-  private _coordinates: Coordinates;
+  private _coordinates: Coordinates = { x: 0, y: 0 };
 
   @Input()
   get anchorMargin(): AnchorMargin { return this._anchorMargin; }
@@ -104,7 +104,7 @@ export abstract class MdcMenuSurfaceAbstract {
     this._anchorMargin = value;
     this._foundation.setAnchorMargin(this._anchorMargin);
   }
-  private _anchorMargin: AnchorMargin;
+  private _anchorMargin: AnchorMargin = {};
 
   @Input()
   get hoistToBody(): boolean { return this._hoistToBody; }
@@ -114,7 +114,7 @@ export abstract class MdcMenuSurfaceAbstract {
       this.setHoistToBody();
     }
   }
-  private _hoistToBody: boolean;
+  private _hoistToBody: boolean = false;
 
   /** Emits an event whenever the menu surface is opened. */
   @Output() readonly opened: EventEmitter<void> = new EventEmitter<void>();
@@ -123,7 +123,7 @@ export abstract class MdcMenuSurfaceAbstract {
   @Output() readonly closed: EventEmitter<void> = new EventEmitter<void>();
 
   /** Subscription to interaction events in menu-surface. */
-  private _windowClickSubscription: Subscription;
+  private _windowClickSubscription: Subscription | null = null;
 
   protected _createSurfaceAdapter() {
     return Object.assign({

@@ -40,8 +40,8 @@ export class MdcTopAppBarRow {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcTopAppBarSection {
-  @Input() title: string;
-  @Input() align: string;
+  @Input() title?: string;
+  @Input() align?: string;
 
   constructor(public elementRef: ElementRef<HTMLElement>) { }
 }

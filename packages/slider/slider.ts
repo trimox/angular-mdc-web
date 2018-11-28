@@ -71,14 +71,14 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
   set discrete(value: boolean) {
     this._discrete = toBoolean(value);
   }
-  private _discrete: boolean;
+  private _discrete: boolean = false;
 
   @Input()
   get markers(): boolean { return this._markers; }
   set markers(value: boolean) {
     this._markers = toBoolean(value);
   }
-  private _markers: boolean;
+  private _markers: boolean = false;
 
   @Input()
   get min(): number { return this._min; }
@@ -137,11 +137,11 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
   @Output() readonly change: EventEmitter<MdcSliderChange> = new EventEmitter<MdcSliderChange>();
   @Output() readonly input: EventEmitter<MdcSliderChange> = new EventEmitter<MdcSliderChange>();
 
-  @ViewChild('thumbcontainer') thumbContainer: ElementRef<HTMLElement>;
-  @ViewChild('sliderThumb') _sliderThumb: ElementRef<HTMLElement>;
-  @ViewChild('track') track: ElementRef<HTMLElement>;
-  @ViewChild('pin') pinValueMarker: ElementRef;
-  @ViewChild('markercontainer') trackMarkerContainer: ElementRef<HTMLElement>;
+  @ViewChild('thumbcontainer') thumbContainer!: ElementRef<HTMLElement>;
+  @ViewChild('sliderThumb') _sliderThumb!: ElementRef<HTMLElement>;
+  @ViewChild('track') track!: ElementRef<HTMLElement>;
+  @ViewChild('pin') pinValueMarker!: ElementRef;
+  @ViewChild('markercontainer') trackMarkerContainer!: ElementRef<HTMLElement>;
 
   /** View -> model callback called when value changes */
   _onChange: (value: any) => void = () => { };
@@ -232,7 +232,7 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
     };
   }
 
-  private _foundation: {
+  private _foundation!: {
     init(): void,
     destroy(): void,
     setDisabled(disabled: boolean): void,

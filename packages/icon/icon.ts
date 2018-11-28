@@ -101,7 +101,7 @@ export class MdcIcon implements AfterViewChecked, OnDestroy, OnChanges, OnInit {
   @Input() svgIcon?: string;
 
   @Input() role: string | null = 'img';
-  @Input() tabIndex: number | null;
+  @Input() tabIndex: number | null = null;
 
   /** Font set that the icon is a part of. */
   @Input()
@@ -132,7 +132,7 @@ export class MdcIcon implements AfterViewChecked, OnDestroy, OnChanges, OnInit {
       this.role = null;
     }
   }
-  private _clickable: boolean;
+  private _clickable: boolean = false;
 
   constructor(
     public elementRef: ElementRef<HTMLElement>,

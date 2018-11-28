@@ -28,13 +28,13 @@ export class MdcRipple implements OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
-  private _initialized: boolean;
+  private _initialized: boolean = false;
   readonly initialized: boolean = this._initialized;
 
-  private _rippleConfig: MdcRippleConfig;
+  private _rippleConfig!: MdcRippleConfig;
 
-  private _focusSubscription: Subscription | null;
-  private _blurSubscription: Subscription | null;
+  private _focusSubscription: Subscription | null = null;
+  private _blurSubscription: Subscription | null = null;
 
   createAdapter() {
     return {
@@ -88,7 +88,7 @@ export class MdcRipple implements OnDestroy {
     };
   }
 
-  protected _foundation: {
+  protected _foundation!: {
     init(): void,
     destroy(): void,
     activate(event?: Event): void,
@@ -99,8 +99,7 @@ export class MdcRipple implements OnDestroy {
 
   constructor(
     private _ngZone: NgZone,
-    private _platform: Platform,
-    private _elementRef: ElementRef<HTMLElement>) { }
+    private _platform: Platform) { }
 
   init(config: MdcRippleConfig, adapter?: any) {
     if (!this._platform.isBrowser) { return; }

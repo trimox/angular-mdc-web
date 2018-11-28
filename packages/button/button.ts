@@ -38,51 +38,51 @@ export class MdcButton implements OnInit, OnDestroy {
   set raised(value: boolean) {
     this._raised = toBoolean(value);
   }
-  private _raised: boolean;
+  private _raised: boolean = false;
 
   @Input()
   get primary(): boolean { return this._primary; }
   set primary(value: boolean) {
     this._primary = toBoolean(value);
   }
-  private _primary: boolean;
+  private _primary: boolean = false;
 
   @Input()
   get dense(): boolean { return this._dense; }
   set dense(value: boolean) {
     this._dense = toBoolean(value);
   }
-  private _dense: boolean;
+  private _dense: boolean = false;
 
   @Input()
   get secondary(): boolean { return this._secondary; }
   set secondary(value: boolean) {
     this._secondary = toBoolean(value);
   }
-  private _secondary: boolean;
+  private _secondary: boolean = false;
 
   @Input()
   get unelevated(): boolean { return this._unelevated; }
   set unelevated(value: boolean) {
     this._unelevated = toBoolean(value);
   }
-  private _unelevated: boolean;
+  private _unelevated: boolean = false;
 
   @Input()
   get outlined(): boolean { return this._outlined; }
   set outlined(value: boolean) {
     this._outlined = toBoolean(value);
   }
-  private _outlined: boolean;
+  private _outlined: boolean = false;
 
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this.setDisabled(value);
   }
-  private _disabled: boolean;
+  private _disabled: boolean = false;
 
-  @ContentChild(MdcIcon) _icon: MdcIcon;
+  @ContentChild(MdcIcon) _icon!: MdcIcon;
 
   constructor(
     public elementRef: ElementRef<HTMLElement>,

@@ -16,12 +16,12 @@ export class MdcTextFieldIcon extends MdcIcon {
   set leading(value: boolean) {
     this._leading = toBoolean(value);
   }
-  private _leading: boolean;
+  private _leading: boolean = false;
 
   @Input()
   get trailing(): boolean { return this._trailing; }
   set trailing(value: boolean) {
     this._trailing = toBoolean(value);
   }
-  private _trailing: boolean;
+  private _trailing: boolean = false;
 }

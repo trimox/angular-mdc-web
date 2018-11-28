@@ -53,7 +53,7 @@ export class MdcLinearProgress implements OnInit, OnDestroy {
     this._foundation.setDeterminate(this._determinate);
     this._changeDetectorRef.markForCheck();
   }
-  private _determinate: boolean;
+  private _determinate: boolean = false;
 
   @Input()
   get reversed(): boolean { return this._reversed; }
@@ -62,9 +62,9 @@ export class MdcLinearProgress implements OnInit, OnDestroy {
     this._foundation.setReverse(this._reversed);
     this._changeDetectorRef.markForCheck();
   }
-  private _reversed: boolean;
+  private _reversed: boolean = false;
 
-  @Input() secondary: boolean;
+  @Input() secondary: boolean = false;
 
   @Input()
   get progress(): number { return this._progress; }
@@ -73,7 +73,7 @@ export class MdcLinearProgress implements OnInit, OnDestroy {
     this._foundation.setProgress(this._progress);
     this._changeDetectorRef.markForCheck();
   }
-  private _progress: number;
+  private _progress: number = 0;
 
   @Input()
   get buffer(): number { return this._buffer; }
@@ -82,7 +82,7 @@ export class MdcLinearProgress implements OnInit, OnDestroy {
     this._foundation.setBuffer(this._buffer);
     this._changeDetectorRef.markForCheck();
   }
-  private _buffer: number;
+  private _buffer: number = 0;
 
   createAdapter() {
     return {

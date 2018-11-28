@@ -80,8 +80,8 @@ describe('Chips', () => {
       expect(testComponent.chipRemoved).toHaveBeenCalledTimes(1);
     });
 
-    it('expect disableRipple to be true', () => {
-      expect(testInstance.disableRipple).toBeUndefined();
+    it('expect disableRipple to be false', () => {
+      expect(testInstance.disableRipple).toBe(false);
     });
 
     it('handles focus event', () => {

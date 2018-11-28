@@ -45,8 +45,8 @@ export type MdcDrawerType = 'permanent' | 'dismissible' | 'modal';
   encapsulation: ViewEncapsulation.None
 })
 export class MdcDrawerHeader {
-  @Input() title: string;
-  @Input() subtitle: string;
+  @Input() title?: string;
+  @Input() subtitle?: string;
 
   constructor(public elementRef: ElementRef<HTMLElement>) { }
 }
@@ -91,9 +91,9 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
-  private _initialized: boolean;
-  private _previousFocus: Element | null;
-  private _scrimElement: Element | null;
+  private _initialized: boolean = false;
+  private _previousFocus: Element | null = null;
+  private _scrimElement: Element | null = null;
 
   private _focusTrapFactory: any;
   private _focusTrap: any;
@@ -107,7 +107,7 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
     }
     this._changeDetectorRef.markForCheck();
   }
-  private _open: boolean;
+  private _open: boolean = false;
 
   @Input()
   get drawer(): string { return this._drawer; }
@@ -129,13 +129,13 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
   @Output() readonly opened: EventEmitter<void> = new EventEmitter<void>();
   @Output() readonly closed: EventEmitter<void> = new EventEmitter<void>();
 
-  @ContentChildren(MdcList, { descendants: true }) _list: QueryList<MdcList>;
-  @ContentChildren(MdcListItem, { descendants: true }) _listItems: QueryList<MdcListItem>;
+  @ContentChildren(MdcList, { descendants: true }) _list!: QueryList<MdcList>;
+  @ContentChildren(MdcListItem, { descendants: true }) _listItems!: QueryList<MdcListItem>;
 
-  private _scrimSubscription: Subscription | null;
+  private _scrimSubscription: Subscription | null = null;
 
   /** Subscription to a list. */
-  private _listSubscription: Subscription;
+  private _listSubscription: Subscription | null = null;
 
   get modal(): boolean { return this.drawer === 'modal'; }
   get dismissible(): boolean { return this.drawer === 'dismissible'; }

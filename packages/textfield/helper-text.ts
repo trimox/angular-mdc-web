@@ -18,7 +18,7 @@ import { MDCTextFieldHelperTextFoundation } from '@material/textfield/helper-tex
   }
 })
 export class MdcTextFieldHelperText {
-  @Input() id: string;
+  @Input() id?: string;
 
   @Input()
   get persistent(): boolean { return this._persistent; }
@@ -26,7 +26,7 @@ export class MdcTextFieldHelperText {
     this._persistent = toBoolean(value);
     this._foundation.setPersistent(this.persistent);
   }
-  private _persistent: boolean;
+  private _persistent: boolean = false;
 
   @Input()
   get validation(): boolean { return this._validation; }
@@ -34,7 +34,7 @@ export class MdcTextFieldHelperText {
     this._validation = toBoolean(value);
     this._foundation.setValidation(this.validation);
   }
-  private _validation: boolean;
+  private _validation: boolean = false;
 
   private _createAdapter() {
     return {

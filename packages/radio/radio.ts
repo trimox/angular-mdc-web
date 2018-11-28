@@ -99,15 +99,15 @@ export class MdcRadio implements AfterViewInit, OnDestroy, MdcFormFieldControl<a
   @Input() id: string = this._uniqueId;
 
   /** Analog to HTML 'name' attribute used to group radios for unique selection. */
-  @Input() name: string;
+  @Input() name!: string;
 
   @Input() tabIndex: number = 0;
 
-  @Input('aria-label') ariaLabel: string;
-  @Input('aria-labelledby') ariaLabelledby: string;
+  @Input('aria-label') ariaLabel?: string;
+  @Input('aria-labelledby') ariaLabelledby?: string;
 
   /** The 'aria-describedby' attribute is read after the element's label and field type. */
-  @Input('aria-describedby') ariaDescribedby: string;
+  @Input('aria-describedby') ariaDescribedby?: string;
 
   get inputId(): string { return `${this.id || this._uniqueId}-input`; }
 
@@ -135,17 +135,17 @@ export class MdcRadio implements AfterViewInit, OnDestroy, MdcFormFieldControl<a
       this._changeDetectorRef.markForCheck();
     }
   }
-  private _disabled: boolean;
+  private _disabled: boolean = false;
 
   @Input()
   get required(): boolean { return this._required || (this.radioGroup && this.radioGroup.required); }
   set required(value: boolean) {
     this._required = toBoolean(value);
   }
-  private _required: boolean;
+  private _required: boolean = false;
 
   @Output() readonly change: EventEmitter<MdcRadioChange> = new EventEmitter<MdcRadioChange>();
-  @ViewChild('input') input: ElementRef<HTMLInputElement>;
+  @ViewChild('input') input!: ElementRef<HTMLInputElement>;
 
   /** Unregister function for _radioDispatcher */
   private _removeUniqueSelectionListener: () => void = () => { };

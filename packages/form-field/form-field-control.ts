@@ -5,20 +5,20 @@ import { MdcRipple } from '@angular-mdc/web/ripple';
 
 export abstract class MdcFormFieldControl<T> {
   /** The value of the control. */
-  value: T | null;
+  value: T | null = null;
 
   /** The element ID for this control. */
-  readonly id: string;
+  readonly id!: string;
 
   /** The element ID for this control's hidden input. */
-  readonly inputId: string;
+  readonly inputId!: string;
 
-  readonly elementRef: ElementRef;
+  readonly elementRef!: ElementRef;
 
   readonly ripple?: MdcRipple;
 
   /**
    * Stream that emits whenever the state of the control changes and needs to run change detection.
    */
-  readonly stateChanges: Observable<void>;
+  readonly stateChanges!: Observable<void>;
 }

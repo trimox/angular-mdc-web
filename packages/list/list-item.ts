@@ -68,7 +68,7 @@ export class MdcListItemMeta {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcListItemText {
-  @Input() secondaryText: string;
+  @Input() secondaryText?: string;
 
   constructor(public elementRef: ElementRef) { }
 }
@@ -114,7 +114,7 @@ export class MdcListItem implements AfterViewInit, OnDestroy {
   @Output() readonly selectionChange: EventEmitter<MdcListSelectionChange>
     = new EventEmitter<MdcListSelectionChange>();
 
-  @ContentChild(MdcListItemGraphic) listItemStart: MdcListItemGraphic;
+  @ContentChild(MdcListItemGraphic) listItemStart!: MdcListItemGraphic;
 
   /** Whether the option is selected. */
   @Input()
@@ -123,7 +123,7 @@ export class MdcListItem implements AfterViewInit, OnDestroy {
     this._selected = toBoolean(value);
     this._changeDetectorRef.markForCheck();
   }
-  private _selected: boolean;
+  private _selected: boolean = false;
 
   /** Whether the option is activated. */
   @Input()
@@ -132,7 +132,7 @@ export class MdcListItem implements AfterViewInit, OnDestroy {
     this._activated = toBoolean(value);
     this._changeDetectorRef.markForCheck();
   }
-  private _activated: boolean;
+  private _activated: boolean = false;
 
   /** Whether the option is disabled. */
   @Input()
@@ -141,7 +141,7 @@ export class MdcListItem implements AfterViewInit, OnDestroy {
     this._disabled = toBoolean(value);
     this._changeDetectorRef.markForCheck();
   }
-  private _disabled: boolean;
+  private _disabled: boolean = false;
 
   @Input() tabIndex: number = -1;
 

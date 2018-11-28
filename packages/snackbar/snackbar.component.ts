@@ -39,8 +39,8 @@ export class MdcSnackbarComponent implements AfterViewInit, OnDestroy {
   /** Data that was injected into the snack bar. */
   data: { message: string, actionText: string };
 
-  @ViewChild('message') message: ElementRef<HTMLElement>;
-  @ViewChild('action') actionButton: ElementRef<HTMLButtonElement>;
+  @ViewChild('message') message!: ElementRef<HTMLElement>;
+  @ViewChild('action') actionButton!: ElementRef<HTMLButtonElement>;
 
   createAdapter() {
     return {

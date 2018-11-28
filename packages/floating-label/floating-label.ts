@@ -23,7 +23,7 @@ export class MdcFloatingLabel implements AfterContentInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
-  @Input() for: string;
+  @Input() for?: string;
 
   createAdapter() {
     return {
@@ -33,7 +33,7 @@ export class MdcFloatingLabel implements AfterContentInit, OnDestroy {
     };
   }
 
-  private _foundation: {
+  private _foundation!: {
     getWidth(): number,
     shake(shouldShake: boolean): void,
     float(shouldFloat: boolean): void,

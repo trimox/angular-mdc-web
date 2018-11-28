@@ -28,14 +28,14 @@ export class MdcListDivider {
   set inset(value: boolean) {
     this._inset = toBoolean(value);
   }
-  private _inset: boolean;
+  private _inset: boolean = false;
 
   @Input()
   get padded(): boolean { return this._padded; }
   set padded(value: boolean) {
     this._padded = toBoolean(value);
   }
-  private _padded: boolean;
+  private _padded: boolean = false;
 
   constructor(public elementRef: ElementRef) { }
 }

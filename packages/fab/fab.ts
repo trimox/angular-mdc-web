@@ -45,7 +45,7 @@ export class MdcFab implements AfterContentInit, OnDestroy {
   set mini(value: boolean) {
     this._mini = toBoolean(value);
   }
-  private _mini: boolean;
+  private _mini: boolean = false;
 
   @Input()
   get exited(): boolean { return this._exited; }
@@ -53,14 +53,14 @@ export class MdcFab implements AfterContentInit, OnDestroy {
     this._exited = toBoolean(value);
     this._changeDetectionRef.markForCheck();
   }
-  private _exited: boolean;
+  private _exited: boolean = false;
 
   @Input()
   get extended(): boolean { return this._extended; }
   set extended(value: boolean) {
     this._extended = toBoolean(value);
   }
-  private _extended: boolean;
+  private _extended: boolean = false;
 
   @Input()
   get position(): string | null { return this._position; }
@@ -73,12 +73,12 @@ export class MdcFab implements AfterContentInit, OnDestroy {
     }
     this._position = value;
   }
-  private _position: string | null;
+  private _position: string | null = null;
 
-  @Input() label: string;
-  @Input() icon: string | null;
+  @Input() label?: string;
+  @Input() icon?: string;
 
-  @ContentChild(MdcIcon) fabIcon: MdcIcon;
+  @ContentChild(MdcIcon) fabIcon!: MdcIcon;
 
   constructor(
     private _changeDetectionRef: ChangeDetectorRef,

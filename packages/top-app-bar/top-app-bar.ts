@@ -53,7 +53,7 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
-  private _isFoundationInit: boolean;
+  private _isFoundationInit: boolean = false;
 
   @Input()
   get fixed(): boolean { return this._fixed; }
@@ -62,7 +62,7 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
       this.setFixed(value);
     }
   }
-  private _fixed: boolean;
+  private _fixed: boolean = false;
 
   @Input()
   get prominent(): boolean { return this._prominent; }
@@ -71,7 +71,7 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
       this.setProminent(value);
     }
   }
-  private _prominent: boolean;
+  private _prominent: boolean = false;
 
   @Input()
   get short(): boolean { return this._short; }
@@ -80,7 +80,7 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
       this.setShort(value);
     }
   }
-  private _short: boolean;
+  private _short: boolean = false;
 
   @Input()
   get shortCollapsed(): boolean { return this._shortCollapsed; }
@@ -89,7 +89,7 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
       this.setShortCollapsed(value);
     }
   }
-  private _shortCollapsed: boolean;
+  private _shortCollapsed: boolean = false;
 
   @Input()
   get dense(): boolean { return this._dense; }
@@ -98,16 +98,16 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
       this.setDense(value);
     }
   }
-  private _dense: boolean;
+  private _dense: boolean = false;
 
   @Input()
-  get fixedAdjustElement(): HTMLElement { return this._fixedAdjustElement; }
-  set fixedAdjustElement(element: HTMLElement) {
+  get fixedAdjustElement(): HTMLElement | null { return this._fixedAdjustElement; }
+  set fixedAdjustElement(element: HTMLElement | null) {
     if (this._fixedAdjustElement !== element) {
       this.setFixedAdjustElement(element);
     }
   }
-  private _fixedAdjustElement: HTMLElement;
+  private _fixedAdjustElement: HTMLElement | null = null;
 
   @Input()
   get scrollTarget(): any { return this._scrollTarget; }
@@ -120,8 +120,8 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
   @Output() readonly navigationSelected: EventEmitter<MdcTopAppBarNavSelected> =
     new EventEmitter<MdcTopAppBarNavSelected>();
 
-  @ContentChild(MdcTopAppBarNavigationIcon) navigationIcon: MdcTopAppBarNavigationIcon;
-  @ContentChildren(MdcTopAppBarActionItem, { descendants: true }) actions: QueryList<MdcTopAppBarActionItem>;
+  @ContentChild(MdcTopAppBarNavigationIcon) navigationIcon!: MdcTopAppBarNavigationIcon;
+  @ContentChildren(MdcTopAppBarActionItem, { descendants: true }) actions!: QueryList<MdcTopAppBarActionItem>;
 
   createAdapter() {
     return {
@@ -202,7 +202,7 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
     }
   }
 
-  setFixedAdjustElement(element: HTMLElement): void {
+  setFixedAdjustElement(element: HTMLElement | null): void {
     this._fixedAdjustElement = element;
     this._initTopAppBar();
   }

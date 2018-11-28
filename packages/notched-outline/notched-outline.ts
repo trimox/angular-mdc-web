@@ -26,9 +26,9 @@ import { MDCNotchedOutlineFoundation } from '@material/notched-outline/index';
   encapsulation: ViewEncapsulation.None
 })
 export class MdcNotchedOutline {
-  @ViewChild('notchOutline') _notchOutline: ElementRef<HTMLElement>;
-  @ViewChild('svgpath') _svgpath: ElementRef;
-  @ViewChild('notchIdle') _notchIdle: ElementRef<HTMLElement>;
+  @ViewChild('notchOutline') _notchOutline!: ElementRef<HTMLElement>;
+  @ViewChild('svgpath') _svgpath!: ElementRef;
+  @ViewChild('notchIdle') _notchIdle!: ElementRef<HTMLElement>;
 
   createAdapter() {
     return {

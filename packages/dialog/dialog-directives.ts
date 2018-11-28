@@ -16,8 +16,8 @@ import { MdcRipple } from '@angular-mdc/web/ripple';
 })
 export class MdcDialogAction {
   @Input('mdcDialogAction')
-  get action(): string { return this._action; }
-  set action(action: string) {
+  get action(): string | null { return this._action; }
+  set action(action: string | null) {
     // If the directive is set without a name (updated programatically), then this setter will
     // trigger with an empty string and should not overwrite the programatically set value.
     if (!action) { return; }
@@ -25,7 +25,7 @@ export class MdcDialogAction {
     this._action = action;
     this.elementRef.nativeElement.setAttribute('data-mdc-dialog-action', this._action);
   }
-  private _action: string;
+  private _action: string | null = null;
 
   constructor(public elementRef: ElementRef<HTMLElement>) { }
 }
@@ -88,7 +88,7 @@ export class MdcDialogActions {
   set stacked(value: boolean) {
     this._stacked = toBoolean(value);
   }
-  private _stacked: boolean;
+  private _stacked: boolean = false;
 
   constructor(public elementRef: ElementRef<HTMLElement>) { }
 }
@@ -113,5 +113,5 @@ export class MdcDialogButton extends MdcButton {
   set default(value: boolean) {
     this._default = toBoolean(value);
   }
-  private _default: boolean;
+  private _default: boolean = false;
 }

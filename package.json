@@ -23,8 +23,7 @@
     "fix:css": "stylelint --fix \"packages/material-components-web/**/*.scss\"",
     "test": "karma start --single-run",
     "test:watch": "karma start --auto-watch",
-    "server": "webpack-dev-server --config demos/webpack.config.js --progress",
-    "start": "server"
+    "start": "webpack-dev-server --config demos/webpack.config.js --progress"
   },
   "dependencies": {
     "@angular/common": "^7.1.0",

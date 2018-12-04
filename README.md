@@ -5,27 +5,22 @@
 [![codecov](https://codecov.io/gh/trimox/angular-mdc-web/branch/master/graph/badge.svg)](https://codecov.io/gh/trimox/angular-mdc-web)
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angular-mdc/Lobby)
 
-[Demo App](https://trimox.github.io/angular-mdc-web/) with API, documentation and examples
+[Demos, documentation and guides](https://trimox.github.io/angular-mdc-web/)
 
 Incorporating [Google Material Components](https://github.com/material-components/material-components-web) for a faithful and accurate representation of Material Design as envisioned on the web platform.
 
 #### Quick Links
 *  [Changelog](https://github.com/trimox/angular-mdc-web/blob/master/CHANGELOG.md)
-*  [Getting Started guides](#getstarted)
-*  [Documentation and examples](https://trimox.github.io/angular-mdc-web/)
+*  [Getting Started Guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md)
+*  [Documentation and demos](https://trimox.github.io/angular-mdc-web/)
 *  [Contributing](https://github.com/trimox/angular-mdc-web/blob/master/CONTRIBUTING.md)
 *  [Developer guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/developer.md)
 
 > Note: Angular MDC follows semver and is still in version 0.x, which means it is regularly subject to
 > breaking changes. A list of changes is always available in the [CHANGELOG](./CHANGELOG.md).
 
-## Install Angular MDC
-```
-npm i @angular-mdc/web
-```
-
 ## <a name="getstarted"></a> Getting started
-View our [Getting Started guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md) to begin using  Angular MDC in your project.
+View our [Getting Started Guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md) to begin using  Angular MDC in your project.
 
 ## Material Design Components
 Developed using Google Material Components [foundations and adapters](https://github.com/material-components/material-components-web/blob/master/docs/integrating-into-frameworks.md#the-advanced-approach-using-foundations-and-adapters).

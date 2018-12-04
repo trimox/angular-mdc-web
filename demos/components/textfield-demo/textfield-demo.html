@@ -12,7 +12,7 @@
       </li>
     </ul>
     <h2>Import</h2>
-    <p class="docs-api-module-import"><![CDATA[import { MdcTextFieldModule } from '@angular-mdc/web';]]></p>
+    <pre><code highlight code="import { MdcTextFieldModule } from '@angular-mdc/web';"></code></pre>
 
     <h2>Design & API Documentation</h2>
     <div class="docs-api">
@@ -241,6 +241,7 @@
   <div class="demo-content">
     <h3 class="demo-content__headline">Text Field - FormControl</h3>
     <div class="demo-layout__row">
+      <button mdc-button (click)="demoForm.controls['username'].markAsTouched()">Mark control as touched</button>
       <button mdc-button (click)="demoformInput.outlined = !demoformInput.outlined">Outlined: {{demoformInput.outlined ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoformInput.dense = !demoformInput.dense">Dense: {{demoformInput.dense ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoformInput.disabled = !demoformInput.disabled">Disabled: {{demoformInput.disabled ? 'On' : 'Off'}}</button>
@@ -249,20 +250,21 @@
       <button mdc-button (click)="demoformInput.useNativeValidation = !demoformInput.useNativeValidation">Use native validation: {{demoformInput.useNativeValidation ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="alternateColors(demoformInput)">Alternate Colors</button>
     </div>
-    <form [formGroup]="demoForm" id="demoForm">
+    <form [formGroup]="demoForm" (ngSubmit)="submitForm()" #formDirective="ngForm">
       <mdc-form-field>
-        <mdc-text-field #demoformInput formControlName="username" label="Username" outlined [helperText]="demoformHelper" required minlength="3"></mdc-text-field>
-        <mdc-text-field-helper-text #demoformHelper="mdcHelperText" validation>
+        <mdc-text-field #demoformInput formControlName="username" label="Username" outlined [helperText]="usernameHelper" required [errorStateMatcher]="matcher"></mdc-text-field>
+        <mdc-text-field-helper-text #usernameHelper="mdcHelperText" validation>
           <span *ngIf="demoForm.controls['username'].hasError('required')">Username is required</span>
           <span *ngIf="demoForm.controls['username'].hasError('minlength')">Username is not long enough</span>
         </mdc-text-field-helper-text>
       </mdc-form-field>
+      <div class="demo-layout__row">
+        <button mdc-button type="submit">Submit</button>
+        <!-- <button mdc-button type="reset">Reset</button> -->
+        <button mdc-button type="button" (click)="resetForm(formDirective)">Reset</button>
+        <button mdc-button type="button" (click)="demoForm.controls['username'].setValue('test')">Set Value</button>
+      </div>
     </form>
-    <div class="demo-layout__row">
-      <button mdc-button type="submit" [disabled]="!demoForm.valid" form="demoForm">Submit</button>
-      <button mdc-button (click)="demoForm.reset()">Reset</button>
-      <button mdc-button (click)="demoForm.controls['username'].setValue('test')">Set Value</button>
-    </div>
     <p>Control Valid: {{demoForm.controls['username'].valid}}</p>
     <p>Dirty: {{ demoForm.dirty }}</p>
     <p>Valid: {{ demoForm.valid }}</p>

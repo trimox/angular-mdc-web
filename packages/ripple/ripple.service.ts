@@ -1,5 +1,4 @@
 import {
-  ElementRef,
   Injectable,
   OnDestroy,
   NgZone
@@ -7,7 +6,7 @@ import {
 import { fromEvent, Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { Platform, toBoolean } from '@angular-mdc/web/common';
+import { Platform } from '@angular-mdc/web/common';
 
 import {
   applyPassive,

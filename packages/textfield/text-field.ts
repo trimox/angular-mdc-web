@@ -6,39 +6,47 @@ import {
   ContentChildren,
   ElementRef,
   EventEmitter,
-  forwardRef,
+  DoCheck,
   Input,
   OnDestroy,
   Optional,
   Output,
+  Self,
   QueryList,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 
-import {
-  Platform,
-  toBoolean,
-  toNumber
-} from '@angular-mdc/web/common';
+import { Platform, toBoolean, toNumber } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcFloatingLabel } from '@angular-mdc/web/floating-label';
 import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
 import { MdcNotchedOutline } from '@angular-mdc/web/notched-outline';
-import { MdcFormField, MdcFormFieldControl } from '@angular-mdc/web/form-field';
+import {
+  MdcFormField,
+  MdcFormFieldControl,
+  ErrorStateMatcher,
+  CanUpdateErrorState,
+  CanUpdateErrorStateCtor,
+  mixinErrorState
+} from '@angular-mdc/web/form-field';
 
 import { MdcTextFieldIcon } from './text-field-icon';
 import { MdcTextFieldHelperText } from './helper-text';
 
 import { MDCTextFieldFoundation } from '@material/textfield/index';
 
-export const MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => MdcTextField),
-  multi: true
-};
+export class MdcTextFieldBase {
+  constructor(
+    public _defaultErrorStateMatcher: ErrorStateMatcher,
+    public _parentForm: NgForm,
+    public _parentFormGroup: FormGroupDirective,
+    public ngControl: NgControl) { }
+}
+
+export const _MdcTextFieldMixinBase: CanUpdateErrorStateCtor & typeof MdcTextFieldBase =
+  mixinErrorState(MdcTextFieldBase);
 
 let nextUniqueId = 0;
 
@@ -54,6 +62,7 @@ let nextUniqueId = 0;
     '[class.mdc-text-field--fullwidth]': 'fullwidth',
     '[class.mdc-text-field--with-leading-icon]': 'leadingIcon',
     '[class.mdc-text-field--with-trailing-icon]': 'trailingIcon',
+    '[class.mdc-text-field--invalid]': 'errorState',
     '(click)': 'onTextFieldInteraction()',
     '(keydown)': 'onTextFieldInteraction()'
   },
@@ -63,6 +72,7 @@ let nextUniqueId = 0;
     [id]="id"
     [type]="type"
     [tabindex]="tabIndex"
+    [attr.aria-invalid]="errorState"
     [attr.autocomplete]="autocomplete"
     [attr.pattern]="pattern"
     [attr.placeholder]="placeholder"
@@ -87,17 +97,15 @@ let nextUniqueId = 0;
   `,
   providers: [
     MdcRipple,
-    MDC_TEXTFIELD_CONTROL_VALUE_ACCESSOR,
     { provide: MdcFormFieldControl, useExisting: MdcTextField }
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAccessor {
+export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewInit, DoCheck,
+  OnDestroy, ControlValueAccessor, MdcFormFieldControl<any>, CanUpdateErrorState {
   private _uid = `mdc-input-${nextUniqueId++}`;
   private _initialized: boolean = false;
-
-  readonly stateChanges: Subject<void> = new Subject<void>();
 
   @Input() label: string | null = null;
   @Input() maxlength?: number;
@@ -112,9 +120,9 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   @Input() tabIndex: number = 0;
 
   @Input()
-  get id(): string | null { return this._id; }
-  set id(value: string | null) { this._id = value || this._uid; }
-  private _id: string | null = null;
+  get id(): string { return this._id; }
+  set id(value: string) { this._id = value || this._uid; }
+  private _id = '';
 
   /** Input type of the element. */
   @Input()
@@ -204,9 +212,16 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   @Input()
   get value(): any { return this._value; }
   set value(newValue: any) {
-    this.setValue(newValue, true);
+    if (!this._initialized) {
+      this._initializeValue();
+    } else {
+      this.setValue(newValue, true);
+    }
   }
   private _value: any;
+
+  /** An object used to control when error messages are shown. */
+  @Input() errorStateMatcher?: ErrorStateMatcher;
 
   @Output() readonly change = new EventEmitter<any>();
   @Output() readonly blur = new EventEmitter<any>();
@@ -321,11 +336,23 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
   } = new MDCTextFieldFoundation();
 
   constructor(
+    public _defaultErrorStateMatcher: ErrorStateMatcher,
     private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef<HTMLElement>,
+    @Optional() private _parentFormField: MdcFormField,
     @Optional() private _ripple: MdcRipple,
-    @Optional() private _parentFormField: MdcFormField) {
+    @Self() @Optional() public ngControl: NgControl,
+    @Optional() _parentForm: NgForm,
+    @Optional() _parentFormGroup: FormGroupDirective) {
+
+    super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
+
+    if (this.ngControl) {
+      // Note: we provide the value accessor through here, instead of
+      // the `providers` to avoid running into a circular import.
+      this.ngControl.valueAccessor = this;
+    }
 
     // Force setter to be called in case id was not specified.
     this.id = this.id;
@@ -341,6 +368,15 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
 
   ngOnDestroy(): void {
     this._destroyTextField();
+  }
+
+  ngDoCheck() {
+    if (this.ngControl) {
+      // We need to re-evaluate this on every change detection cycle, because there are some
+      // error triggers that we can't subscribe to (e.g. parent form submissions). This means
+      // that whatever logic is in here has to be super lean or we risk destroying the performance.
+      this.updateErrorState();
+    }
   }
 
   init(): void {
@@ -392,8 +428,16 @@ export class MdcTextField implements AfterViewInit, OnDestroy, ControlValueAcces
     this._onChange = fn;
   }
 
-  registerOnTouched(fn: () => any): void {
+  registerOnTouched(fn: () => {}): void {
     this._onTouched = fn;
+  }
+
+  private _initializeValue(): void {
+    // Defer setting the value in order to avoid the "Expression
+    // has changed after it was checked" errors from Angular.
+    Promise.resolve().then(() => {
+      this.setValue(this.ngControl ? this.ngControl.value : this._value);
+    });
   }
 
   setValue(value: any, isUserInput?: boolean): void {

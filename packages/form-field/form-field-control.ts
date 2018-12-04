@@ -11,7 +11,7 @@ export abstract class MdcFormFieldControl<T> {
   readonly id!: string;
 
   /** The element ID for this control's hidden input. */
-  readonly inputId!: string;
+  readonly inputId?: string;
 
   readonly elementRef!: ElementRef;
 

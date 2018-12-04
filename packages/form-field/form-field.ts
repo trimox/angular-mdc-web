@@ -1,8 +1,11 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ContentChild,
+  ContentChildren,
+  QueryList,
   ElementRef,
   Input,
   NgZone,
@@ -16,6 +19,7 @@ import { takeUntil } from 'rxjs/operators';
 import { toBoolean } from '@angular-mdc/web/common';
 
 import { MdcFormFieldControl } from './form-field-control';
+import { MdcHelperTextBase } from './helper-text';
 
 @Component({
   moduleId: module.id,
@@ -29,7 +33,7 @@ import { MdcFormFieldControl } from './form-field-control';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcFormField implements OnInit, OnDestroy {
+export class MdcFormField implements AfterViewInit, OnInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
@@ -42,21 +46,26 @@ export class MdcFormField implements OnInit, OnDestroy {
   }
   private _alignEnd: boolean = false;
 
-  @ContentChild(MdcFormFieldControl) input!: MdcFormFieldControl<any>;
+  @ContentChild(MdcFormFieldControl) _control!: MdcFormFieldControl<any>;
+  @ContentChildren(MdcHelperTextBase) _assistiveElements!: QueryList<MdcHelperTextBase>;
 
   constructor(
     private _ngZone: NgZone,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef<HTMLElement>) { }
 
+  ngAfterViewInit(): void {
+    this._changeDetectorRef.detectChanges();
+  }
+
   ngOnInit(): void {
-    if (this.input) {
-      const formControl = this.input.elementRef.nativeElement;
+    if (this._control) {
+      const formControl = this._control.elementRef.nativeElement;
 
       if (formControl.nextElementSibling) {
         if (formControl.nextElementSibling.tagName === 'LABEL') {
           this.label = formControl.nextElementSibling;
-          this.label.setAttribute('for', this.input.inputId);
+          this.label.setAttribute('for', this._control.inputId || '');
 
           this._loadListeners();
         }
@@ -73,10 +82,10 @@ export class MdcFormField implements OnInit, OnDestroy {
     this._ngZone.runOutsideAngular(() =>
       fromEvent<MouseEvent>(this.label, 'click').pipe(takeUntil(this._destroy))
         .subscribe(() => this._ngZone.run(() => {
-          this.input.ripple!.activateRipple();
+          this._control.ripple!.activateRipple();
 
           if (typeof requestAnimationFrame !== 'undefined') {
-            requestAnimationFrame(() => this.input.ripple!.deactivateRipple());
+            requestAnimationFrame(() => this._control.ripple!.deactivateRipple());
           }
         })));
   }

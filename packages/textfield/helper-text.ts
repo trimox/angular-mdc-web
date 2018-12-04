@@ -6,6 +6,7 @@ import {
 import { toBoolean } from '@angular-mdc/web/common';
 
 import { MDCTextFieldHelperTextFoundation } from '@material/textfield/helper-text/index';
+import { MdcHelperTextBase } from '@angular-mdc/web/form-field';
 
 @Directive({
   selector: '[mdcTextFieldHelperText], mdc-text-field-helper-text',
@@ -17,9 +18,7 @@ import { MDCTextFieldHelperTextFoundation } from '@material/textfield/helper-tex
     '[attr.aria-hidden]': 'true'
   }
 })
-export class MdcTextFieldHelperText {
-  @Input() id?: string;
-
+export class MdcTextFieldHelperText extends MdcHelperTextBase {
   @Input()
   get persistent(): boolean { return this._persistent; }
   set persistent(value: boolean) {
@@ -38,12 +37,12 @@ export class MdcTextFieldHelperText {
 
   private _createAdapter() {
     return {
-      addClass: (className: string) => this._getHostElement().classList.add(className),
-      removeClass: (className: string) => this._getHostElement().classList.remove(className),
-      hasClass: (className: string) => this._getHostElement().classList.contains(className),
-      setAttr: (attr: string, value: string) => this._getHostElement().setAttribute(attr, value),
-      removeAttr: (attr: string) => this._getHostElement().removeAttribute(attr),
-      setContent: (content: string) => this._getHostElement().textContent = content
+      addClass: (className: string) => this.getHostElement().classList.add(className),
+      removeClass: (className: string) => this.getHostElement().classList.remove(className),
+      hasClass: (className: string) => this.getHostElement().classList.contains(className),
+      setAttr: (attr: string, value: string) => this.getHostElement().setAttribute(attr, value),
+      removeAttr: (attr: string) => this.getHostElement().removeAttribute(attr),
+      setContent: (content: string) => this.getHostElement().textContent = content
     };
   }
 
@@ -55,7 +54,9 @@ export class MdcTextFieldHelperText {
     setValidation(isValidation: boolean): void
   } = new MDCTextFieldHelperTextFoundation(this._createAdapter());
 
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {
+    super(elementRef);
+  }
 
   /** Sets the content of the helper text field. */
   setContent(content: string): void {
@@ -70,10 +71,5 @@ export class MdcTextFieldHelperText {
   /** Makes the helper text visible to the screen reader. */
   showToScreenReader(): void {
     this._foundation.showToScreenReader();
-  }
-
-  /** Retrieves the DOM element of the component host. */
-  private _getHostElement(): HTMLElement {
-    return this.elementRef.nativeElement;
   }
 }

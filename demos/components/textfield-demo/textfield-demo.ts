@@ -1,7 +1,14 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 
-import { MdcTextField } from '@angular-mdc/web';
+import { MdcTextField, ErrorStateMatcher } from '@angular-mdc/web';
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    return !!(control && control.invalid && (control.touched || (form && form.submitted)));
+  }
+}
 
 class Directions {
   dt: number;
@@ -13,14 +20,32 @@ class Directions {
 export class TextFieldDemo {
   demoForm = new FormGroup({
     username: new FormControl(
-      { value: '', disabled: false }, [Validators.required])
+      { value: '', disabled: false },
+      [
+        Validators.required,
+        Validators.minLength(3)
+      ])
   });
+
+  matcher = new MyErrorStateMatcher();
 
   waypoint = new Directions();
 
   updateForm: FormGroup;
   username: string;
   prefilledText: string = 'Prefilled';
+
+  submitForm() {
+    console.log(this.demoForm);
+    if (this.demoForm.invalid) {
+      return;
+    }
+  }
+
+  resetForm(formDirective: FormGroupDirective) {
+    formDirective.resetForm();
+    this.demoForm.reset();
+  }
 
   alternateColors(input: MdcTextField) {
     if (!input.textarea) {

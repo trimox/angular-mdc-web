@@ -14,8 +14,7 @@ import { MdcHelperTextBase } from '@angular-mdc/web/form-field';
   host: {
     'class': 'mdc-select-helper-text',
     '[class.mdc-select-helper-text--persistent]': 'persistent',
-    '[class.mdc-select-helper-text--validation-msg]': 'validation',
-    '[attr.aria-hidden]': 'true'
+    '[class.mdc-select-helper-text--validation-msg]': 'validation'
   }
 })
 export class MdcSelectHelperText extends MdcHelperTextBase {

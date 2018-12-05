@@ -19,7 +19,7 @@ export class MdcLineRipple implements OnInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
-  createAdapter() {
+  private _createAdapter() {
     return {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
@@ -33,7 +33,7 @@ export class MdcLineRipple implements OnInit, OnDestroy {
     deactivate(): void,
     setRippleCenter(xCoordinate: number): void,
     handleTransitionEnd(evt: TransitionEvent): void
-  } = new MDCLineRippleFoundation(this.createAdapter());
+  } = new MDCLineRippleFoundation(this._createAdapter());
 
   constructor(
     private _ngZone: NgZone,

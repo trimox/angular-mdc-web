@@ -91,9 +91,9 @@ let nextUniqueId = 0;
     (change)="onChange($event)"
     (blur)="onBlur()" />
     <ng-content></ng-content>
-    <label mdcFloatingLabel [for]="id" *ngIf="!this.placeholder">{{label}}</label>
+    <label mdcFloatingLabel [for]="id" *ngIf="!this.placeholder && !outlined">{{label}}</label>
     <mdc-line-ripple *ngIf="!this.outlined && !this.textarea"></mdc-line-ripple>
-    <mdc-notched-outline *ngIf="outlined"></mdc-notched-outline>
+    <mdc-notched-outline *ngIf="outlined" [label]="label" [for]="id"></mdc-notched-outline>
   `,
   providers: [
     MdcRipple,
@@ -138,7 +138,6 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     const newValue = toBoolean(value);
     if (newValue !== this._outlined) {
       this._outlined = toBoolean(newValue);
-      this._reinitialize();
       this.layout();
     }
   }
@@ -227,9 +226,9 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   @Output() readonly blur = new EventEmitter<any>();
 
   @ViewChild('input') _input!: ElementRef<HTMLInputElement | HTMLTextAreaElement>;
-  @ViewChild(MdcFloatingLabel) _floatingLabel!: MdcFloatingLabel;
   @ViewChild(MdcLineRipple) _lineRipple!: MdcLineRipple;
   @ViewChild(MdcNotchedOutline) _notchedOutline!: MdcNotchedOutline;
+  @ViewChild(MdcFloatingLabel) _floatingLabel!: MdcFloatingLabel;
   @ContentChildren(MdcTextFieldIcon, { descendants: true }) _icons!: QueryList<MdcTextFieldIcon>;
 
   /** View -> model callback called when value changes */
@@ -248,9 +247,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
       hasClass: (className: string) => this._getHostElement().classList.contains(className),
-      isFocused: () => this._platform.isBrowser ? document.activeElement! === this._getInputElement() : false,
-      isRtl: () =>
-        this._platform.isBrowser ? window.getComputedStyle(this._getHostElement()).getPropertyValue('direction') === 'rtl' : false
+      isFocused: () => this._platform.isBrowser ? document.activeElement! === this._getInputElement() : false
     },
       this._getInputAdapterMethods(),
       this._getLabelAdapterMethods(),
@@ -267,7 +264,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
           value: this._value,
           disabled: this._disabled,
           validity: {
-            valid: this._valid ? this._valid : this._platform.isBrowser ? this._input.nativeElement.validity.valid : true,
+            valid: this._hasErrorState(),
             badInput: this._platform.isBrowser ? this._input.nativeElement.validity.badInput : false
           }
         };
@@ -277,10 +274,10 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
 
   private _getLabelAdapterMethods() {
     return {
-      shakeLabel: (shouldShake: boolean) => this._floatingLabel.shake(shouldShake),
-      floatLabel: (shouldFloat: boolean) => this._floatingLabel.float(shouldFloat),
-      hasLabel: () => this._floatingLabel,
-      getLabelWidth: () => this._floatingLabel ? this._floatingLabel.getWidth() : 0
+      shakeLabel: (shouldShake: boolean) => this._getFloatingLabel().shake(shouldShake),
+      floatLabel: (shouldFloat: boolean) => this._getFloatingLabel().float(shouldFloat),
+      hasLabel: () => this._hasFloatingLabel(),
+      getLabelWidth: () => this._hasFloatingLabel() ? this._getFloatingLabel().getWidth() : 0
     };
   }
 
@@ -307,7 +304,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   private _getOutlineAdapterMethods() {
     return {
       hasOutline: () => this._notchedOutline,
-      notchOutline: (labelWidth: number, isRtl: boolean) => this._notchedOutline.notch(labelWidth, isRtl),
+      notchOutline: (labelWidth: number) => this._notchedOutline.notch(labelWidth),
       closeOutline: () => this._notchedOutline.closeNotch()
     };
   }
@@ -328,7 +325,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     readonly shouldFloat: boolean,
     notchOutline(openNotch: boolean): void,
     setUseNativeValidation(useNativeValidation: boolean): void,
-    setTransformOrigin(evt: Event): void,
+    setTransformOrigin(evt: Event | TouchEvent): void,
     handleTextFieldInteraction(): void,
     activateFocus(): void,
     deactivateFocus(): void,
@@ -336,10 +333,10 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   } = new MDCTextFieldFoundation();
 
   constructor(
-    public _defaultErrorStateMatcher: ErrorStateMatcher,
     private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef<HTMLElement>,
+    public _defaultErrorStateMatcher: ErrorStateMatcher,
     @Optional() private _parentFormField: MdcFormField,
     @Optional() private _ripple: MdcRipple,
     @Self() @Optional() public ngControl: NgControl,
@@ -367,10 +364,10 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   }
 
   ngOnDestroy(): void {
-    this._destroyTextField();
+    this._destroy();
   }
 
-  ngDoCheck() {
+  ngDoCheck(): void {
     if (this.ngControl) {
       // We need to re-evaluate this on every change detection cycle, because there are some
       // error triggers that we can't subscribe to (e.g. parent form submissions). This means
@@ -475,6 +472,22 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     }
   }
 
+  /** Initializes Text Field's internal state based on the environment state */
+  private layout(): void {
+    this._destroy();
+    this.init();
+    this._changeDetectorRef.markForCheck();
+
+    setTimeout(() => {
+      if (this._outlined) {
+        this._foundation.notchOutline(this._foundation.shouldFloat);
+      }
+      if (this._hasFloatingLabel()) {
+        this._getFloatingLabel().float(this._foundation.shouldFloat);
+      }
+    });
+  }
+
   /** Implemented as part of ControlValueAccessor. */
   setDisabledState(isDisabled: boolean) {
     const newValue = toBoolean(isDisabled);
@@ -484,19 +497,6 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
       this._foundation.setDisabled(this._disabled);
     }
     this._changeDetectorRef.markForCheck();
-  }
-
-  /** Recomputes the outline SVG path for the outline element. */
-  layout(): void {
-    setTimeout(() => {
-      if (this._outlined) {
-        this._foundation.notchOutline(this._foundation.shouldFloat);
-      }
-
-      if (this._floatingLabel) {
-        this._floatingLabel.float(this._foundation.shouldFloat);
-      }
-    });
   }
 
   private _checkCustomValidity(): void {
@@ -533,7 +533,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     }
   }
 
-  private _destroyTextField(): void {
+  private _destroy(): void {
     if (this._lineRipple) {
       this._lineRipple.destroy();
     }
@@ -543,12 +543,21 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     this._foundation.destroy();
   }
 
-  private _reinitialize(): void {
-    if (this._initialized) {
-      this._destroyTextField();
-      this.init();
-      this._changeDetectorRef.markForCheck();
+  private _hasErrorState(): boolean {
+    if (this.ngControl) {
+      return !this.errorState;
     }
+
+    return this._valid ? this._valid : this._platform.isBrowser ?
+      this._input.nativeElement.validity.valid : true;
+  }
+
+  private _hasFloatingLabel(): boolean {
+    return this.label && (this._floatingLabel || this._notchedOutline) ? true : false;
+  }
+
+  private _getFloatingLabel(): MdcFloatingLabel {
+    return this._floatingLabel || this._notchedOutline.floatingLabel;
   }
 
   private _getInputElement(): HTMLInputElement | HTMLTextAreaElement {

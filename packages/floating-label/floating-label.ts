@@ -25,7 +25,7 @@ export class MdcFloatingLabel implements AfterContentInit, OnDestroy {
 
   @Input() for?: string;
 
-  createAdapter() {
+  private _createAdapter() {
     return {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
@@ -45,7 +45,7 @@ export class MdcFloatingLabel implements AfterContentInit, OnDestroy {
     public elementRef: ElementRef<HTMLElement>) { }
 
   ngAfterContentInit(): void {
-    this._foundation = new MDCFloatingLabelFoundation(this.createAdapter());
+    this._foundation = new MDCFloatingLabelFoundation(this._createAdapter());
     this._loadListeners();
   }
 

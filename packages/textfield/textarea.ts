@@ -15,6 +15,7 @@ import { MdcTextField } from './text-field';
     'class': 'mdc-text-field',
     '[class.mdc-text-field--textarea]': 'true',
     '[class.mdc-text-field--dense]': 'dense',
+    '[class.mdc-text-field--invalid]': 'errorState'
   },
   template: `
   <textarea #input class="mdc-text-field__input"
@@ -33,7 +34,7 @@ import { MdcTextField } from './text-field';
     (input)="onInput($event.target.value)"
     (change)="onChange($event)"
     (blur)="onBlur()"></textarea>
-    <label mdcFloatingLabel [for]="id">{{label}}</label>
+  <mdc-notched-outline [label]="label" [for]="id"></mdc-notched-outline>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None

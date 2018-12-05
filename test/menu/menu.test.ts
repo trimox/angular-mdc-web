@@ -67,6 +67,12 @@ describe('MdcMenu', () => {
       expect(testInstance.fixed).toBe(false);
     });
 
+    it('#menu should set wrapFocus', () => {
+      testComponent.wrapFocus = true;
+      fixture.detectChanges();
+      expect(testInstance.fixed).toBe(true);
+    });
+
     it('#menu should set anchor corner', () => {
       testComponent.anchorCorner = 'topEnd';
       fixture.detectChanges();
@@ -139,7 +145,9 @@ describe('MdcMenu', () => {
   template: `
     <div mdcMenuSurfaceAnchor #testanchor>
       <mdc-menu [open]="open" [anchorCorner]="anchorCorner" (selected)="handleSelected($event)"
-       [anchorElement]="testanchor" [quickOpen]="quickOpen" [fixed]="fixed" [anchorMargin]="{top: 0, right: 0, bottom: 0, left: 0}">
+        [wrapFocus]="wrapFocus"
+        [anchorElement]="testanchor" [quickOpen]="quickOpen" [fixed]="fixed"
+        [anchorMargin]="{top: 0, right: 0, bottom: 0, left: 0}">
          <mdc-menu-selection-group>
            <div mdcMenuSelectionGroupIcon>
             <mdc-list>
@@ -157,6 +165,7 @@ class MenuTest {
   anchorCorner: string = 'topStart';
   quickOpen: boolean;
   fixed: boolean = true;
+  wrapFocus: boolean;
 
   handleSelected(event: { index: number, source: MdcListItem }) { }
 }

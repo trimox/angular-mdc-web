@@ -58,6 +58,10 @@
             <td>fixed: boolean</td>
             <td>Used to indicate that the menu is using fixed positioning.</td>
           </tr>
+          <tr>
+            <td>wrapFocus: boolean</td>
+            <td>Sets the list to allow the up arrow on the first element to focus the last element of the list and vice versa.</td>
+          </tr>
         </tbody>
       </table>
 
@@ -146,6 +150,10 @@
           <mdc-checkbox #fixed></mdc-checkbox>
           <label>Fixed position menu</label>
         </mdc-form-field>
+        <mdc-form-field>
+          <mdc-checkbox #wrapFocus></mdc-checkbox>
+          <label>Wrap Focus</label>
+        </mdc-form-field>
       </div>
     </div>
 
@@ -157,7 +165,9 @@
         <mdc-menu #demomenu (selected)="onMenuSelect($event)"
          [anchorElement]="demoAnchor"
          [anchorCorner]="menuSurfaceAnchorCorner.value"
-         [quickOpen]="quickOpen.checked" [fixed]="fixed.checked"
+         [quickOpen]="quickOpen.checked"
+         [fixed]="fixed.checked"
+         [wrapFocus]="wrapFocus.checked"
          [anchorMargin]="{top: marginTop.value, bottom: marginBottom.value, left: marginLeft.value, right: marginRight.value}">
           <mdc-list>
             <mdc-list-item *ngFor="let item of menuItems">{{item.label}}</mdc-list-item>

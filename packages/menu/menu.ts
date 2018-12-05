@@ -16,6 +16,7 @@ import {
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
+import { toBoolean } from '@angular-mdc/web/common';
 import { MdcList, MdcListItem } from '@angular-mdc/web/list';
 import { MdcMenuSurfaceAbstract } from '@angular-mdc/web/menu-surface';
 
@@ -66,6 +67,17 @@ export class MdcMenu extends MdcMenuSurfaceAbstract implements AfterContentInit,
   private _uniqueId: string = `mdc-menu-${++nextUniqueId}`;
 
   @Input() id: string = this._uniqueId;
+
+  @Input()
+  get wrapFocus(): boolean { return this._wrapFocus; }
+  set wrapFocus(value: boolean) {
+    const newValue = toBoolean(value);
+    if (newValue !== this._wrapFocus) {
+      this._wrapFocus = toBoolean(value);
+      this._list.wrapFocus = newValue;
+    }
+  }
+  private _wrapFocus: boolean = false;
 
   @Output() readonly selected: EventEmitter<MdcMenuSelectedEvent> =
     new EventEmitter<MdcMenuSelectedEvent>();
@@ -144,7 +156,7 @@ export class MdcMenu extends MdcMenuSurfaceAbstract implements AfterContentInit,
     if (!this._list) { return; }
 
     this._list.setRole('menu');
-    this._list.wrapFocus = true;
+    this._list.wrapFocus = this._wrapFocus;
   }
 
   handleClick(evt: MouseEvent): void {

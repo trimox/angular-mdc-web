@@ -9,10 +9,10 @@ export class MenuDemo {
   corners: string[] = ['topStart', 'topEnd', 'bottomStart', 'bottomEnd'];
 
   menuItems = [
-    { label: "Flights" },
-    { label: "Hotel" },
-    { label: "Favorites" },
-    { label: "Review Activity"}
+    { label: 'Flights' },
+    { label: 'Hotel' },
+    { label: 'Favorites' },
+    { label: 'Review Activity'}
   ];
 
   lastSelection: number;
@@ -23,7 +23,7 @@ export class MenuDemo {
 
   addItem(): void {
     this.menuItems.push({
-      label: "New Item"
+      label: 'New Item'
     });
   }
 }

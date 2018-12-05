@@ -11,21 +11,16 @@
   }
 }
 
-.ngx-mdc-form-field--flex {
+.ngx-mdc-form-field--fluid {
   display: flex;
   flex: auto;
   flex-direction: column;
 }
 
-.ngx-mdc-form-field--start {
+.ngx-mdc-form-field--position-start {
   align-self: flex-start;
 }
 
-.ngx-mdc-form-field--end {
-  flex-grow: 1;
-  align-self: flex-end;
-}
-
-.ngx-mdc-form-field--padded {
-  @include mdc-form-field-spacing(20px);
+.ngx-mdc-form-field--position-end {
+  margin-left: auto;
 }

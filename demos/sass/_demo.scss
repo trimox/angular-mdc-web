@@ -76,6 +76,7 @@
 .demo-top-app-bar {
   @include mdc-top-app-bar-fill-color($color-rally);
 
+  // only apply this style if below top app bar
   z-index: 7;
 }
 

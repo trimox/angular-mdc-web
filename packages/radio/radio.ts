@@ -14,10 +14,9 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { Subject } from 'rxjs';
 import { toBoolean, UniqueSelectionDispatcher } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
-import { MdcFormFieldControl } from '@angular-mdc/web/form-field';
+import { MdcFormField, MdcFormFieldControl } from '@angular-mdc/web/form-field';
 
 import { MDCRadioFoundation } from '@material/radio/index';
 
@@ -93,8 +92,6 @@ export class MdcRadioChange {
 export class MdcRadio implements AfterViewInit, OnDestroy, MdcFormFieldControl<any> {
   private _uniqueId: string = `mdc-radio-${++nextUniqueId}`;
 
-  readonly stateChanges: Subject<void> = new Subject<void>();
-
   /** The unique ID for the radio button. */
   @Input() id: string = this._uniqueId;
 
@@ -150,7 +147,7 @@ export class MdcRadio implements AfterViewInit, OnDestroy, MdcFormFieldControl<a
   /** Unregister function for _radioDispatcher */
   private _removeUniqueSelectionListener: () => void = () => { };
 
-  createAdapter() {
+  private _createAdapter() {
     return {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
@@ -162,14 +159,19 @@ export class MdcRadio implements AfterViewInit, OnDestroy, MdcFormFieldControl<a
     init(): void,
     destroy(): void,
     setDisabled(disabled: boolean): void
-  } = new MDCRadioFoundation(this.createAdapter());
+  } = new MDCRadioFoundation(this._createAdapter());
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef<HTMLElement>,
     public ripple: MdcRipple,
     private _radioDispatcher: UniqueSelectionDispatcher,
-    @Optional() @Inject(MDC_RADIO_GROUP_PARENT_COMPONENT) public radioGroup: MdcRadioGroupParentComponent) {
+    @Optional() @Inject(MDC_RADIO_GROUP_PARENT_COMPONENT) public radioGroup: MdcRadioGroupParentComponent,
+    @Optional() private _parentFormField: MdcFormField) {
+
+    if (this._parentFormField) {
+      _parentFormField.elementRef.nativeElement.classList.add('mdc-form-field');
+    }
 
     this._removeUniqueSelectionListener =
       _radioDispatcher.listen((id: string, name: string) => {

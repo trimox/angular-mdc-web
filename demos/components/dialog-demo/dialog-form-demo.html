@@ -3,12 +3,12 @@
     <mdc-dialog-surface>
       <mdc-dialog-title>Create profile</mdc-dialog-title>
       <mdc-dialog-content>
-        <form [formGroup]="profileForm" (ngSubmit)="submit()" autocomplete="off" class="demo-layout__column">
-          <mdc-form-field>
+        <form [formGroup]="profileForm" id="profileForm" (ngSubmit)="submit()" autocomplete="off" class="demo-layout__column">
+          <mdc-form-field fluid>
             <mdc-text-field formControlName="first" label="First name" outlined required></mdc-text-field>
             <p mdcTextFieldHelperText persistent validation>*Required</p>
           </mdc-form-field>
-          <mdc-form-field>
+          <mdc-form-field fluid>
             <mdc-text-field formControlName="last" label="Last name" outlined required></mdc-text-field>
             <p mdcTextFieldHelperText persistent validation>*Required</p>
           </mdc-form-field>
@@ -19,17 +19,17 @@
             <mdc-form-field>
               <mdc-text-field formControlName="dob" label="Birthdate" outlined type="date"
                required [helperText]="birthDateHelper"></mdc-text-field>
-              <p mdcTextFieldHelperText #birthDateHelper="mdcHelperText" persistent validation>*Required</p>
+              <p mdcTextFieldHelperText #birthDateHelper="mdcHelperText" validation>*Required</p>
             </mdc-form-field>
           </div>
-          <mdc-form-field>
+          <mdc-form-field fluid>
             <mdc-text-field type="email" formControlName="email" label="Email" maxlength="254" outlined></mdc-text-field>
           </mdc-form-field>
         </form>
       </mdc-dialog-content>
       <mdc-dialog-actions>
         <button mdcDialogButton mdcDialogAction="close">Cancel</button>
-        <button mdcDialogButton type="submit" form="profileForm">Create</button>
+        <button mdcDialogButton form="profileForm">Create</button>
       </mdc-dialog-actions>
     </mdc-dialog-surface>
   </mdc-dialog-container>

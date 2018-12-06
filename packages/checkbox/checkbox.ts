@@ -94,8 +94,6 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor,
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
-  readonly stateChanges: Subject<void> = new Subject<void>();
-
   createAdapter() {
     return {
       addClass: (className: string) => this._getHostElement().classList.add(className),
@@ -139,7 +137,6 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor,
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this.setDisabledState(value);
-    this.stateChanges.next();
   }
   private _disabled: boolean = false;
 

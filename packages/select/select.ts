@@ -97,8 +97,6 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
   private _initialized: boolean = false;
   private _uniqueId: string = `mdc-select-${++nextUniqueId}`;
 
-  readonly stateChanges: Subject<void> = new Subject<void>();
-
   @Input() id: string = this._uniqueId;
   @Input() name: string | null = null;
   /** The aria-describedby attribute on the input for improved a11y. */
@@ -230,7 +228,6 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
       hasClass: (className: string) => this._getHostElement().classList.contains(className),
-      isRtl: () => getComputedStyle(this._getHostElement()).direction === 'rtl',
       setRippleCenter: (normalizedX: number) => this._lineRipple && this._lineRipple.setRippleCenter(normalizedX),
       activateBottomLine: () => {
         if (this._lineRipple) {
@@ -265,7 +262,7 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
   private _getOutlineAdapterMethods() {
     return {
       hasOutline: () => !!this._notchedOutline,
-      notchOutline: (labelWidth: number, isRtl: boolean) => this._notchedOutline.notch(labelWidth, isRtl),
+      notchOutline: (labelWidth: number) => this._notchedOutline.notch(labelWidth),
       closeOutline: () => this._notchedOutline.closeNotch()
     };
   }

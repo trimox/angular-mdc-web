@@ -7,19 +7,19 @@ import {
   EventEmitter,
   forwardRef,
   Input,
+  Optional,
   OnDestroy,
   Output,
   Provider,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { Subject } from 'rxjs';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
-import { MdcFormFieldControl } from '@angular-mdc/web/form-field';
+import { MdcFormField, MdcFormFieldControl } from '@angular-mdc/web/form-field';
 
 import { MDCSwitchFoundation } from '@material/switch/index';
 
@@ -80,8 +80,6 @@ let nextUniqueId = 0;
 export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, ControlValueAccessor, OnDestroy {
   private _uniqueId: string = `mdc-switch-${++nextUniqueId}`;
 
-  readonly stateChanges: Subject<void> = new Subject<void>();
-
   @Input() id: string = this._uniqueId;
   @Input() name: string | null = null;
 
@@ -116,7 +114,7 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, Contr
 
   get inputId(): string { return `${this.id || this._uniqueId}-input`; }
 
-  createAdapter() {
+  private _createAdapter() {
     return {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
@@ -130,12 +128,18 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, Contr
     setChecked(checked: boolean): void,
     setDisabled(disabled: boolean): void,
     handleChange(evt: Event): void
-  } = new MDCSwitchFoundation(this.createAdapter());
+  } = new MDCSwitchFoundation(this._createAdapter());
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     public ripple: MdcRipple,
-    public elementRef: ElementRef<HTMLElement>) { }
+    public elementRef: ElementRef<HTMLElement>,
+    @Optional() private _parentFormField: MdcFormField) {
+
+    if (this._parentFormField) {
+      _parentFormField.elementRef.nativeElement.classList.add('mdc-form-field');
+    }
+  }
 
   ngAfterViewInit(): void {
     this._foundation.init();

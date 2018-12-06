@@ -1,7 +1,5 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ContentChild,
   ContentChildren,
@@ -26,18 +24,25 @@ import { MdcHelperTextBase } from './helper-text';
   selector: 'mdc-form-field',
   exportAs: 'mdcFormField',
   host: {
-    'class': 'mdc-form-field',
+    '[class.ngx-mdc-form-field--fluid]': 'fluid',
     '[class.mdc-form-field--align-end]': 'alignEnd'
   },
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcFormField implements AfterViewInit, OnInit, OnDestroy {
+export class MdcFormField implements OnInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
   public label!: HTMLElement;
+
+  @Input()
+  get fluid(): boolean { return this._fluid; }
+  set fluid(value: boolean) {
+    this._fluid = toBoolean(value);
+  }
+  private _fluid: boolean = false;
 
   @Input()
   get alignEnd(): boolean { return this._alignEnd; }
@@ -51,12 +56,7 @@ export class MdcFormField implements AfterViewInit, OnInit, OnDestroy {
 
   constructor(
     private _ngZone: NgZone,
-    private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef<HTMLElement>) { }
-
-  ngAfterViewInit(): void {
-    this._changeDetectorRef.detectChanges();
-  }
 
   ngOnInit(): void {
     if (this._control) {

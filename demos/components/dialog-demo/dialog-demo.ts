@@ -214,8 +214,10 @@ export class DialogForm {
   });
 
   submit(): void {
-    if(this.profileForm.valid) {
-      this.dialogRef.close();
+    if (this.profileForm.invalid) {
+      return;
     }
+
+    this.dialogRef.close();
   }
 }

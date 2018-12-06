@@ -46,15 +46,16 @@ describe('MdcFormField', () => {
       testComponent = fixture.debugElement.componentInstance;
     });
 
-    it('#should have mdc-form-field by default', () => {
-      expect(testDebugElement.nativeElement.classList)
-        .toContain('mdc-form-field', 'Expected to have mdc-form-field');
-    });
-
-    it('#should contain mdc-form-field--align-end css class', () => {
+    it('#should contain mdc-form-field--align-end class', () => {
       testComponent.alignEnd = true;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList).toContain('mdc-form-field--align-end');
+    });
+
+    it('#should contain ngx-mdc-form-field--fluid class', () => {
+      testComponent.fluid = true;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList).toContain('ngx-mdc-form-field--fluid');
     });
 
     it('#should activate ripple on input', fakeAsync(() => {
@@ -67,7 +68,7 @@ describe('MdcFormField', () => {
 
 @Component({
   template: `
-    <mdc-form-field [alignEnd]="alignEnd">
+    <mdc-form-field [alignEnd]="alignEnd" [fluid]="fluid">
       <mdc-checkbox></mdc-checkbox>
       <label>My label</label>
     </mdc-form-field>
@@ -91,4 +92,5 @@ describe('MdcFormField', () => {
 })
 class SimpleTest {
   alignEnd: boolean = false;
+  fluid: boolean;
 }

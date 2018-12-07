@@ -56,10 +56,10 @@ describe('MdcSelectModule', () => {
       expect(testInstance.disabled).toBe(true);
     });
 
-    it('#should set floatingLabel to false', () => {
-      testComponent.floatingLabel = false;
+    it('#should set floatLabel to false', () => {
+      testComponent.floatLabel = false;
       fixture.detectChanges();
-      expect(testInstance.floatingLabel).toBe(false);
+      expect(testInstance.floatLabel).toBe(false);
     });
 
     it('#should set required to true', () => {
@@ -85,10 +85,10 @@ describe('MdcSelectModule', () => {
     it('#should set outlined and floating label with value', () => {
       testInstance.setSelectionByValue('fruit-3');
       testInstance.outlined = true;
-      testInstance.floatingLabel = true;
+      testInstance.floatLabel = true;
       fixture.detectChanges();
 
-      expect(testInstance.floatingLabel).toBe(true);
+      expect(testInstance.floatLabel).toBe(true);
     });
 
     it('#should generate a unique id for the select if no id is set', () => {
@@ -178,7 +178,7 @@ describe('MdcSelectModule', () => {
     <form #demoSelectForm="ngForm" id="demoSelectForm">
       <mdc-form-field>
         <mdc-select #select placeholder="Favorite food" ngModel #demoSelectModel="ngModel" name="food"
-         [disabled]="disabled" [floatingLabel]="floatingLabel" [required]="required" [valid]="valid"
+         [disabled]="disabled" [floatLabel]="floatLabel" [required]="required" [valid]="valid"
          [helperText]="testHelper" [value]="testValue"
          (valueChange)="handleValueChange($event)" (selectionChange)="handleSelectedChange($event)">
           <option *ngFor="let food of foods" [value]="food.value" disabled="food.disabled">
@@ -197,7 +197,7 @@ describe('MdcSelectModule', () => {
 class SimpleTest {
   myPlaceholder: string = 'Favorite food';
   disabled: boolean = true;
-  floatingLabel: boolean;
+  floatLabel: boolean;
   multiple: boolean;
   required: boolean;
   valid: boolean;

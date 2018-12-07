@@ -26,6 +26,7 @@ import { MdcFloatingLabel } from '@angular-mdc/web/floating-label';
 import { MdcMenu } from '@angular-mdc/web/menu';
 import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
 import { MdcFormField, MdcFormFieldControl } from '@angular-mdc/web/form-field';
+import { MdcList, MdcListItem } from '@angular-mdc/web/list';
 
 import { MdcSelectIcon } from './select-icon';
 import { MdcSelectHelperText } from './helper-text';
@@ -58,6 +59,7 @@ let nextUniqueId = 0;
     '[class.mdc-select--disabled]': 'disabled',
     '[class.mdc-select--outlined]': 'outlined',
     '[class.mdc-select--required]': 'required',
+    '[class.mdc-select--invalid]': 'valid',
     '[class.mdc-select--with-leading-icon]': 'leadingIcon',
   },
   template: `
@@ -78,9 +80,9 @@ let nextUniqueId = 0;
    (focus)="onFocus()">
     <ng-content></ng-content>
   </select>
-  <label mdcFloatingLabel [for]="id">{{_floatingLabelValue()}}</label>
+  <label mdcFloatingLabel *ngIf="!outlined" [for]="id">{{_floatingLabelValue()}}</label>
   <mdc-line-ripple *ngIf="!outlined"></mdc-line-ripple>
-  <mdc-notched-outline *ngIf="outlined"></mdc-notched-outline>
+  <mdc-notched-outline *ngIf="outlined" [label]="_floatingLabelValue()" [for]="id"></mdc-notched-outline>
   `,
   providers: [
     MdcRipple,
@@ -118,15 +120,15 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
   private _disabled: boolean = false;
 
   @Input()
-  get floatingLabel(): boolean { return this._floatingLabel; }
-  set floatingLabel(value: boolean) {
-    this._floatingLabel = toBoolean(value);
+  get floatLabel(): boolean { return this._floatLabel; }
+  set floatLabel(value: boolean) {
+    this._floatLabel = toBoolean(value);
     if (this.outlined && this.getValue()) {
-      this._foundation.notchOutline(this._floatingLabel);
+      this._foundation.notchOutline(this._floatLabel);
     }
     this._changeDetectorRef.markForCheck();
   }
-  private _floatingLabel: boolean = true;
+  private _floatLabel: boolean = true;
 
   @Input()
   get outlined(): boolean { return this._outlined; }
@@ -199,7 +201,7 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
   @Output() readonly valueChange:
     EventEmitter<{ index: number, value: any }> = new EventEmitter<any>();
 
-  @ViewChild(MdcFloatingLabel) _selectLabel!: MdcFloatingLabel;
+  @ViewChild(MdcFloatingLabel) _floatingLabel!: MdcFloatingLabel;
   @ViewChild(MdcLineRipple) _lineRipple!: MdcLineRipple;
   @ViewChild(MdcNotchedOutline) _notchedOutline!: MdcNotchedOutline;
   @ViewChild('nativeInput') _nativeInput!: ElementRef<HTMLInputElement>;
@@ -207,6 +209,8 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
   @ViewChild('selectedText') _selectedText!: ElementRef<HTMLElement>;
   @ContentChild(MdcMenu) _selectMenu!: MdcMenu;
   @ContentChild(MdcSelectIcon) leadingIcon!: MdcSelectIcon;
+  @ContentChild(MdcList) _list!: MdcList;
+  @ContentChildren(MdcListItem, { descendants: true }) _listItems!: QueryList<MdcListItem>;
 
   /** View -> model callback called when value changes */
   _onChange: (value: any) => void = () => { };
@@ -216,7 +220,7 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
 
   private _createAdapter() {
     return Object.assign(
-      this._getNativeSelectAdapterMethods(),
+      this._list ? this._getEnhancedSelectAdapterMethods() : this._getNativeSelectAdapterMethods(),
       this._getCommonAdapterMethods(),
       this._getOutlineAdapterMethods(),
       this._getLabelAdapterMethods()
@@ -259,6 +263,60 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
     };
   }
 
+  private _getEnhancedSelectAdapterMethods() {
+    return {
+      // getValue: () => {
+      //   const listItem = this.menuElement_.querySelector(strings.SELECTED_ITEM_SELECTOR);
+      //   if (listItem && listItem.hasAttribute(strings.ENHANCED_VALUE_ATTR)) {
+      //     return listItem.getAttribute(strings.ENHANCED_VALUE_ATTR);
+      //   }
+      //   return '';
+      // },
+      // setValue: (value: any) => {
+      //   const element =
+      //     /** @type {HTMLElement} */ (this.menuElement_.querySelector(`[${strings.ENHANCED_VALUE_ATTR}="${value}"]`));
+      //   this.setEnhancedSelectedIndex_(element ? this.menu_.items.indexOf(element) : -1);
+      // },
+      // openMenu: () => {
+      //   if (this.menu_ && !this.menu_.open) {
+      //     this.menu_.open = true;
+      //     this.menuOpened_ = true;
+      //     this.selectedText_.setAttribute('aria-expanded', 'true');
+      //   }
+      // },
+      // closeMenu: () => {
+      //   if (this.menu_ && this.menu_.open) {
+      //     this.menu_.open = false;
+      //   }
+      // },
+      // isMenuOpen: () => this.menu_ && this.menuOpened_,
+      // setSelectedIndex: (index) => {
+      //   this.setEnhancedSelectedIndex_(index);
+      // },
+      // setDisabled: (isDisabled: boolean) => {
+      //   this.selectedText_.setAttribute('tabindex', isDisabled ? '-1' : '0');
+      //   this.selectedText_.setAttribute('aria-disabled', isDisabled.toString());
+      //   if (this.hiddenInput_) {
+      //     this.hiddenInput_.disabled = isDisabled;
+      //   }
+      // },
+      // checkValidity: () => {
+      //   const classList = this.root_.classList;
+      //   if (classList.contains(cssClasses.REQUIRED) && !classList.contains(cssClasses.DISABLED)) {
+      //     // See notes for required attribute under https://www.w3.org/TR/html52/sec-forms.html#the-select-element
+      //     // TL;DR: Invalid if no index is selected, or if the first index is selected and has an empty value.
+      //     return this.selectedIndex !== -1 && (this.selectedIndex !== 0 || this.value);
+      //   } else {
+      //     return true;
+      //   }
+      // },
+      // setValid: (isValid: boolean) => {
+      //   this._selectedText.nativeElement.setAttribute('aria-invalid', (!isValid).toString());
+      //   this._valid = isValid;
+      // }
+    };
+  }
+
   private _getOutlineAdapterMethods() {
     return {
       hasOutline: () => !!this._notchedOutline,
@@ -269,8 +327,8 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
 
   private _getLabelAdapterMethods() {
     return {
-      floatLabel: (shouldFloat: boolean) => this._selectLabel.float(shouldFloat),
-      getLabelWidth: () => this._selectLabel ? this._selectLabel.getWidth() : 0
+      floatLabel: (shouldFloat: boolean) => this._getFloatingLabel().float(shouldFloat),
+      getLabelWidth: () => this._hasFloatingLabel() ? this._getFloatingLabel().getWidth() : 0
     };
   }
 
@@ -416,7 +474,7 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
   }
 
   _floatingLabelValue(): string {
-    return !this._floatingLabel && this.getValue() ? '' : this.placeholder;
+    return !this._hasFloatingLabel() && this.getValue() ? '' : this.placeholder;
   }
 
   private _initializeSelection(): void {
@@ -458,6 +516,14 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
     }
   }
 
+  private _hasFloatingLabel(): boolean {
+    return this.placeholder && (this._floatingLabel || this._notchedOutline) ? true : false;
+  }
+
+  private _getFloatingLabel(): MdcFloatingLabel {
+    return this._floatingLabel || this._notchedOutline.floatingLabel;
+  }
+
   /**
    * Calculates where the line ripple should start based on the x coordinate within the component.
    */
@@ -473,8 +539,8 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
   private _setWidth(): void {
     if (!this.autosize) { return; }
 
-    if (this._selectLabel && this._selectLabel.elementRef.nativeElement.textContent) {
-      const labelLength = this._selectLabel.elementRef.nativeElement.textContent.length;
+    if (this._getFloatingLabel() && this._getFloatingLabel().elementRef.nativeElement.textContent) {
+      const labelLength = this._getFloatingLabel().elementRef.nativeElement.textContent!.length;
       this._getHostElement().style.setProperty('width', `${labelLength}rem`);
     }
   }

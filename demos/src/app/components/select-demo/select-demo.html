@@ -56,7 +56,7 @@
             <td>Set the underlying tab index of the select. (Default is 0)</td>
           </tr>
           <tr>
-            <td>floatingLabel: boolean</td>
+            <td>floatLabel: boolean</td>
             <td>Whether or not to show or hide a floating placeholder.</td>
           </tr>
           <tr>
@@ -129,7 +129,7 @@
       <button mdc-button (click)="native1.outlined = !native1.outlined">Outlined: {{native1.outlined ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="native1.required = !native1.required">Required: {{native1.required ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="native1.disabled = !native1.disabled">Disabled: {{native1.disabled ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="native1.floatingLabel = !native1.floatingLabel">Floating Label: {{native1.floatingLabel ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="native1.floatLabel = !native1.floatLabel">Float Label: {{native1.floatLabel ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="native1.setSelectedIndex(2)">Set Index (2)</button>
     </div>
     <mdc-form-field>
@@ -179,7 +179,7 @@
       <button mdc-button (click)="select.outlined = !select.outlined">Outlined: {{select.outlined ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="select.required = !select.required">Required: {{select.required ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="select.disabled = !select.disabled">Disabled: {{select.disabled ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="select.floatingLabel = !select.floatingLabel">Floating Label: {{select.floatingLabel ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="select.floatLabel = !select.floatLabel">Float Label: {{select.floatLabel ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="demoSelectModel.reset()">Clear Selection</button>
       <button mdc-button (click)="select.setSelectionByValue('fruit-3')">Select Fruit</button>
       <button mdc-button (click)="select.setSelectedIndex(4)">Set Index (4)</button>
@@ -204,7 +204,7 @@
       <button mdc-button (click)="select2.outlined = !select2.outlined">Outlined: {{select2.outlined ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="select2.required = !select2.required">Required: {{select2.required ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="select2.disabled = !select2.disabled">Disabled: {{select2.disabled ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="select2.floatingLabel = !select2.floatingLabel">Floating Label: {{select2.floatingLabel ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="select2.floatLabel = !select2.floatLabel">Float Label: {{select2.floatLabel ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="foodControl.reset()">Reset Selection</button>
       <button mdc-button (click)="select2.setSelectionByValue('pizza-1')">Select Pizza</button>
       <button mdc-button (click)="foodControl.setValue('pizza-1')">Set Form Value</button>

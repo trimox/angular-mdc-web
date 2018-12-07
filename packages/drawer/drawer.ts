@@ -141,7 +141,7 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
   get dismissible(): boolean { return this.drawer === 'dismissible'; }
   get permanent(): boolean { return this.drawer === 'permanent'; }
 
-  createAdapter() {
+  private _createAdapter() {
     return {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
@@ -186,7 +186,7 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
     isOpen(): boolean,
     handleKeydown(evt: KeyboardEvent): void,
     handleTransitionEnd(evt: TransitionEvent): void
-  } = new MDCDismissibleDrawerFoundation(this.createAdapter());
+  } = new MDCDismissibleDrawerFoundation(this._createAdapter());
 
   constructor(
     private _platform: Platform,
@@ -263,9 +263,9 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
     this._removeDrawerModifiers();
 
     if (this.modal) {
-      this._foundation = new MDCModalDrawerFoundation(this.createAdapter());
+      this._foundation = new MDCModalDrawerFoundation(this._createAdapter());
     } else {
-      this._foundation = new MDCDismissibleDrawerFoundation(this.createAdapter());
+      this._foundation = new MDCDismissibleDrawerFoundation(this._createAdapter());
     }
 
     if (!this.permanent) {

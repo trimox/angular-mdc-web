@@ -38,9 +38,7 @@ export class MdcListItemChange {
   moduleId: module.id,
   selector: '[mdcListGroup], mdc-list-group',
   exportAs: 'mdcListGroup',
-  host: {
-    'class': 'mdc-list-group'
-  },
+  host: { 'class': 'mdc-list-group' },
   template: `
   <h3 class="mdc-list-group__subheader" *ngIf="subheader">{{subheader}}</h3>
   <ng-content></ng-content>
@@ -57,9 +55,7 @@ export class MdcListGroup {
 @Directive({
   selector: '[mdcListGroupSubheader], mdc-list-group-subheader',
   exportAs: 'mdcListGroupSubheader',
-  host: {
-    'class': 'mdc-list-group__subheader'
-  }
+  host: { 'class': 'mdc-list-group__subheader' }
 })
 export class MdcListGroupSubheader {
   constructor(public elementRef: ElementRef) { }
@@ -211,22 +207,30 @@ export class MdcList implements AfterViewInit, OnDestroy {
           listItem.getListItemElement().click();
         }
       },
-      toggleCheckbox: (index: number) => {
-        let checkboxOrRadioExists = false;
-        const listItem = this._listItems.toArray()[index];
-        const elementsToToggle = [].slice.call(listItem.getListItemElement().querySelectorAll(strings.CHECKBOX_RADIO_SELECTOR));
-        elementsToToggle.forEach((element: any) => {
+      hasCheckboxAtIndex: (index: number) => {
+        const listItem = this._listItems.toArray()[index].getListItemElement();
+        return !!listItem.querySelector(strings.CHECKBOX_SELECTOR);
+      },
+      hasRadioAtIndex: (index: number) => {
+        const listItem = this._listItems.toArray()[index].getListItemElement();
+        return !!listItem.querySelector(strings.RADIO_SELECTOR);
+      },
+      isCheckboxCheckedAtIndex: (index: number) => {
+        const listItem = this._listItems.toArray()[index].getListItemElement();
+        const toggleEl = listItem.querySelector(strings.CHECKBOX_SELECTOR);
+        return toggleEl.checked;
+      },
+      setCheckedCheckboxOrRadioAtIndex: (index: number, isChecked: boolean) => {
+        const listItem = this._listItems.toArray()[index].getListItemElement();
+        const toggleEl = listItem.querySelector(strings.CHECKBOX_RADIO_SELECTOR);
+        toggleEl.checked = isChecked;
+
+        if (this._platform.isBrowser) {
           const event = document.createEvent('Event');
           event.initEvent('change', true, true);
-
-          if (!element.checked || element.type !== 'radio') {
-            element.checked = !element.checked;
-            element.dispatchEvent(event);
-          }
-          checkboxOrRadioExists = true;
-        });
-        return checkboxOrRadioExists;
-      },
+          toggleEl.dispatchEvent(event);
+        }
+      }
     };
   }
 

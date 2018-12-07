@@ -34,14 +34,6 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        loader: 'string-replace-loader',
-        query: {
-          search: 'moduleId: module.id,',
-          replace: '',
-          flags: 'g'
-        }
-      },
-      {
         test: /\.(js|ts)$/,
         loader: 'istanbul-instrumenter-loader',
         options: { esModules: true },

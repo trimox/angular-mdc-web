@@ -1,6 +1,6 @@
 import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed } from '@angular/core/testing';
-import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { MdcCheckbox, MdcCheckboxModule } from '@angular-mdc/web';
@@ -115,6 +115,16 @@ describe('MdcCheckbox', () => {
       expect(document.activeElement).toBe(inputElement);
     });
 
+    it('#should not set focus on element when focus() is called and disabled', () => {
+      checkboxInstance.disabled = true;
+      fixture.detectChanges();
+
+      checkboxInstance.focus();
+      fixture.detectChanges();
+
+      expect(document.activeElement).not.toBe(inputElement);
+    });
+
     it('#should forward the value to input element', () => {
       checkboxInstance.checked = true;
       fixture.detectChanges();
@@ -129,27 +139,18 @@ describe('MdcCheckbox', () => {
       expect(inputElement.checked).toBe(true);
     });
 
-    it('#should toggle checked to false', () => {
-      testComponent.isDisabled = true;
-      fixture.detectChanges();
-      expect(checkboxInstance.toggle());
-      fixture.detectChanges();
-
-      expect(inputElement.checked).toBe(false);
-      expect(checkboxInstance.disabled).toBe(true);
-    });
-
     it('#should not set indeterminate to true', () => {
       testComponent.isDisabled = true;
       fixture.detectChanges();
-      expect(checkboxInstance.setIndeterminate(true));
+
+      checkboxInstance.indeterminate = true;
       fixture.detectChanges();
 
       expect(checkboxInstance.indeterminate).toBe(false);
     });
 
     it('#should set checked to true', () => {
-      testComponent.isIndeterminate = true;
+      testComponent.indeterminate = true;
       fixture.detectChanges();
       expect(checkboxInstance.toggle());
       fixture.detectChanges();
@@ -157,8 +158,18 @@ describe('MdcCheckbox', () => {
       expect(inputElement.checked).toBe(true);
     });
 
+    it('#should set checked to false', () => {
+      testComponent.indeterminateToChecked = false;
+      fixture.detectChanges();
+
+      testComponent.indeterminate = false;
+      fixture.detectChanges();
+
+      expect(checkboxInstance.checked).toBe(false);
+    });
+
     it('#should set indeterminate to true', () => {
-      checkboxInstance.setIndeterminate(true);
+      testComponent.indeterminate = true;
       fixture.detectChanges();
 
       expect(checkboxInstance.indeterminate).toBe(true);
@@ -261,8 +272,8 @@ describe('MdcCheckbox', () => {
       it('#should be in pristine, untouched, and valid states initially', fakeAsync(() => {
         flushMicrotasks();
 
-        let checkboxElement = fixture.debugElement.query(By.directive(MdcCheckbox));
-        let ngModel = checkboxElement.injector.get<NgModel>(NgModel);
+        const checkboxElement = fixture.debugElement.query(By.directive(MdcCheckbox));
+        const ngModel = checkboxElement.injector.get<NgModel>(NgModel);
 
         expect(ngModel.valid).toBe(true);
         expect(ngModel.pristine).toBe(true);
@@ -295,7 +306,7 @@ describe('MdcCheckbox', () => {
       [(ngModel)]="checkboxValue"
       [checked]="checkboxValue"
       [indeterminateToChecked]="indeterminateToChecked"
-      [indeterminate]="isIndeterminate"
+      [indeterminate]="indeterminate"
       [disabled]="isDisabled">
     </mdc-checkbox>
   `,
@@ -303,7 +314,7 @@ describe('MdcCheckbox', () => {
 class SingleCheckbox {
   checkboxId: string | null = 'simple-check';
   isDisabled: boolean = false;
-  isIndeterminate: boolean = false;
+  indeterminate: boolean;
   checkboxValue: boolean = false;
   indeterminateToChecked: boolean = true;
 }

@@ -1,0 +1,36 @@
+{
+  "name": "angular-mdc-demos",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "build:aot": "ng build --prod --aot",
+    "lint": "ng lint"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/common": "~7.1.1",
+    "@angular/compiler": "~7.1.1",
+    "@angular/core": "~7.1.1",
+    "@angular/forms": "~7.1.1",
+    "@angular/platform-browser": "~7.1.1",
+    "@angular/platform-browser-dynamic": "~7.1.1",
+    "@angular/router": "~7.1.1",
+    "core-js": "^2.6.0",
+    "rxjs": "~6.3.3",
+    "tslib": "^1.9.3",
+    "zone.js": "~0.8.26"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.11.2",
+    "@angular/cli": "~7.1.1",
+    "@angular/compiler-cli": "~7.1.1",
+    "@types/node": "^10.12.12",
+    "highlight.js": "^9.13.1",
+    "ngx-highlightjs": "^3.0.0",
+    "ts-node": "~7.0.1",
+    "tslint": "~5.11.0",
+    "typescript": "~3.1.6"
+  }
+}

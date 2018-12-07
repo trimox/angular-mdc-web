@@ -1,0 +1,171 @@
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Menu Surface</h1>
+    The MDC Menu Surface component is a reusable surface that appears above the content of the page and can be positioned adjacent to an element.
+    <h2>References</h2>
+    <ul>
+      <li><a mdc-button href="https://material.io/guidelines/components/menus.html"
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Menus</a>
+      </li>
+      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-menu-surface/README.md"
+        target="_blank" rel="noopener noreferrer">Material Components Web</a>
+      </li>
+    </ul>
+    <h2>Import</h2>
+    <pre><code highlight="import { MdcMenuSurfaceModule } from '@angular-mdc/web';"></code></pre>
+
+    <h2>Design & API Documentation</h2>
+    <div class="docs-api">
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdc-menu-surface</span>
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>open: boolean</td>
+            <td>Opens or closes the menu.</td>
+          </tr>
+          <tr>
+            <td>anchorCorner: string</td>
+            <td>Override the opening point of the menu. (Default: topStart)
+              <p>Values: 'bottomEnd' | 'bottomStart' | 'topEnd' | 'topStart'</p>
+            </td>
+          </tr>
+          <tr>
+            <td>anchorMargin: {{'{'}}top: number, bottom: number, left: number, right : number{{'}'}}</td>
+            <td>Sets the distance from the anchor point that the menu surface should be shown.</td>
+          </tr>
+          <tr>
+            <td>coordinates: {{'{'}}x: number, y: number{{'}'}}</td>
+            <td>Sets the absolute x/y position of the menu. Should only be used when the menu is hoisted or using fixed positioning.</td>
+          </tr>
+          <tr>
+            <td>quickOpen: boolean</td>
+            <td>Sets whether the menu should open and close without animation when the open/close methods are called.</td>
+          </tr>
+          <tr>
+            <td>anchorElement: Element | mdcMenuSurfaceAnchor</td>
+            <td>Set to indicate an element the menu should be anchored to.</td>
+          </tr>
+          <tr>
+            <td>fixed: boolean</td>
+            <td>Used to indicate that the menu is using fixed positioning.</td>
+          </tr>
+          <tr>
+            <td>hoistToBody: boolean</td>
+            <td>Removes the menu-surface element from the DOM and appends it to the body element. Should be used to overcome overflow: hidden issues.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>selected(item: MdcMenuItem, index: number)</td>
+            <td>Dispatches an event that a menu item has been selected.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdcMenuSurfaceAnchor</span>
+        <span class="docs-api-class-selector-name">mdc-menu-surface-anchor</span>
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>Sets the anchor element used as an anchor for menu-surface positioning logic.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h2>Sass Mixins</h2>
+    To customize the colors, use the following mixins.
+    <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-menu-surface#sass-mixins"
+     target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
+
+    <h2>Basic Usage</h2>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-menu-surface"
+     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
+  </div>
+
+  <div class="demo-content demo-menu-surface">
+    <div class="demo-layout__row">
+      <div class="demo-content">
+        <h3 class="demo-content__headline">Anchor Corner</h3>
+        <div class="demo-layout__column">
+          <mdc-radio-group #menuSurfaceAnchorCorner class="demo-layout__column">
+            <mdc-form-field *ngFor="let corner of corners">
+              <mdc-radio [value]="corner"></mdc-radio>
+              <label>{{corner}}</label>
+            </mdc-form-field>
+           </mdc-radio-group>
+        </div>
+      </div>
+
+      <div class="demo-content">
+        <h3 class="demo-content__headline">Anchor Margin</h3>
+        <div class="demo-layout__row">
+          <mdc-text-field #marginTop label="Top margin" type="number"></mdc-text-field>
+          <mdc-text-field #marginBottom label="Bottom margin" type="number"></mdc-text-field>
+          <mdc-text-field #marginLeft label="Left margin" type="number"></mdc-text-field>
+          <mdc-text-field #marginRight label="Right margin" type="number"></mdc-text-field>
+        </div>
+      </div>
+
+      <div class="demo-content">
+        <mdc-form-field>
+          <mdc-checkbox #quickOpen></mdc-checkbox>
+          <label>Disable open animation</label>
+        </mdc-form-field>
+        <mdc-form-field>
+          <mdc-checkbox #fixed></mdc-checkbox>
+          <label>Fixed position menu surface</label>
+        </mdc-form-field>
+        <mdc-form-field>
+          <mdc-checkbox #hoistToBody></mdc-checkbox>
+          <label>Hoist to Body</label>
+        </mdc-form-field>
+      </div>
+    </div>
+
+    <div class="demo-layout--center">
+      <div mdcMenuSurfaceAnchor #menuSurfaceAnchor1>
+        <button mdc-button raised (click)="menuSurface1.open = !menuSurface1.open">
+          Show Menu Surface
+        </button>
+        <mdc-menu-surface #menuSurface1 class="demo-menu-surface--one"
+         [hoistToBody]="hoistToBody.checked"
+         [anchorElement]="menuSurfaceAnchor1"
+         [anchorCorner]="menuSurfaceAnchorCorner.value"
+         [quickOpen]="quickOpen.checked"
+         [fixed]="fixed.checked"
+         [anchorMargin]="{top: marginTop.value, bottom: marginBottom.value, left: marginLeft.value, right: marginRight.value}">
+          <mdc-image-list class="menu-surface-image-list">
+            <mdc-image-list-item *ngFor="let i of images">
+              <mdc-image-list-image-aspect>
+                <img mdcImageListImage src="https://material-components-web.appspot.com/images/photos/3x2/{{i+1}}.jpg" />
+              </mdc-image-list-image-aspect>
+              <mdc-image-list-supporting>
+                <span mdcImageListLabel>Text label</span>
+              </mdc-image-list-supporting>
+            </mdc-image-list-item>
+          </mdc-image-list>
+        </mdc-menu-surface>
+      </div>
+    </div>
+  </div>
+</div>

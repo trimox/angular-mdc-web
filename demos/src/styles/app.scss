@@ -1,0 +1,28 @@
+@import "./color-palette";
+@import "./global";
+@import "./layout";
+
+// Import Angular MDC after _global.scss
+@import "../../../packages/material-components-web/material.scss";
+@import "./button";
+@import "./cards";
+@import "./chips";
+@import "./demo";
+@import "./dialog";
+@import "./docs";
+@import "./drawer";
+@import "./elevation";
+@import "./fab";
+@import "./icon";
+@import "./icon-button";
+@import "./image-list";
+@import "./linear-progress";
+@import "./list";
+@import "./menu-surface";
+@import "./radio";
+@import "./select";
+@import "./slider";
+@import "./switch";
+@import "./tabs";
+@import "./text-field";
+@import "./top-app-bar";

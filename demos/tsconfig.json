@@ -1,24 +1,26 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./node_modules",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
     "declaration": false,
-    "target": "es5",
     "module": "es2015",
     "moduleResolution": "node",
-    "lib": ["es2018", "dom"],
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true,
-    "typeRoots": ["../node_modules/@types"],
-    "rootDir": "..",
-    "baseUrl": ".",
+    "importHelpers": true,
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
     "paths": {
-      "@angular-mdc/web/*": ["../packages/*"],
-      "@angular-mdc/web": ["../packages/public-api.ts"],
-      "@angular-mdc/theme/*": ["../packages/material-components-web/*"],
-      "@angular-mdc/theme": ["../packages/material-components-web/material.scss"]
+      "@angular-mdc/web/*": ["../../packages/*"],
+      "@angular-mdc/web": ["../../packages/public-api.ts"]
     }
-  },
-  "files": [
-    "./main.ts"
-  ]
+  }
 }

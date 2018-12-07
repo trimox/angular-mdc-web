@@ -1,0 +1,127 @@
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Switches</h1>
+    Switches toggle the state of a single setting on or off.
+    <h2>References</h2>
+    <ul>
+      <li><a mdc-button href="https://material.io/design/components/selection-controls.html#switches"
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Switches</a>
+      </li>
+      <li><a mdc-button href="https://github.com/material-components/material-components-web/blob/master/packages/mdc-switch/README.md"
+        target="_blank" rel="noopener noreferrer">Material Components Web</a>
+      </li>
+    </ul>
+    <h2>Import</h2>
+    <pre><code highlight="import { MdcSwitchModule } from '@angular-mdc/web';"></code></pre>
+
+    <h2>Design & API Documentation</h2>
+    <div class="docs-api">
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdc-switch</span>
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>id: string</td>
+            <td>Unique Id of the switch button (auto generated if not supplied).</td>
+          </tr>
+          <tr>
+            <td>name: string</td>
+            <td>Name of the switch.</td>
+          </tr>
+          <tr>
+            <td>ariaLabel: string</td>
+            <td>Used to set the 'aria-label' attribute on the underlying input element.</td>
+          </tr>
+          <tr>
+            <td>ariaLabelledby: string</td>
+            <td>The 'aria-labelledby' attribute takes precedence as the element's text alternative.</td>
+          </tr>
+          <tr>
+            <td>tabIndex: number</td>
+            <td>Set the underlying tab index of the switch. (Default: 0)</td>
+          </tr>
+          <tr>
+            <td>checked: boolean</td>
+            <td>Use to set the checked value.</td>
+          </tr>
+          <tr>
+            <td>disabled: boolean</td>
+            <td>Disables the component.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Methods</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>focus()</td>
+            <td>Set focus to the switch.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>change(source: MdcSwitch, value: boolean)</td>
+            <td>Event dispatched on value change.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h2>Theming</h2>
+    To customize the colors of any part of the switch, use the following mixins.
+    <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-switch#sass-mixins"
+     target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
+
+    <h2>Basic Usage</h2>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-switch"
+     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
+  </div>
+
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Switch</h3>
+    <div class="demo-layout__row">
+      <button mdc-button (click)="demoformfield.alignEnd = !demoformfield.alignEnd">RTL</button>
+      <button mdc-button (click)="demoswitch.checked = !demoswitch.checked">Checked: {{demoswitch.checked ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoswitch.disabled = !demoswitch.disabled">Disabled: {{demoswitch.disabled ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="alternateColors(demoswitch)">Alternate Colors</button>
+    </div>
+    <mdc-form-field #demoformfield>
+      <mdc-switch [(ngModel)]="isSwitchOn" name="demoswitch" #demoswitch (change)="onChange($event)"></mdc-switch>
+      <label>off/on</label>
+    </mdc-form-field>
+    <p>NgModel value: {{isSwitchOn}}</p>
+  </div>
+
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Switch - NgModel Form</h3>
+    <form #demoForm="ngForm" id="demoForm">
+      <mdc-form-field>
+        <mdc-switch #demoSwitch ngModel [name]="demoSwitch" #demoSwitchModel="ngModel"></mdc-switch>
+        <label>off/on</label>
+      </mdc-form-field>
+    </form>
+    <p>Dirty: {{ demoSwitchModel.dirty }}</p>
+    <p>Touched: {{ demoSwitchModel.touched }}</p>
+    <p>Value: {{ demoSwitchModel.value }}</p>
+  </div>
+</div>

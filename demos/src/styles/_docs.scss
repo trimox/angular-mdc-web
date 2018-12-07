@@ -1,0 +1,108 @@
+.docs-api-module-import {
+  display: inline-flex;
+  background: rgba(0, 0, 0, .06);
+  font-size: 15px;
+  word-break: break-word;
+  padding: 3px;
+}
+
+.docs-api-class-selector-label {
+  word-break: break-word;
+  font-size: 15px;
+}
+
+.docs-api-class-selector-name {
+  background: rgba(0, 0, 0, .06);
+  margin-left: 3px;
+  padding: 3px;
+}
+
+.docs-api-class-selector-name:not(:first-child) {
+  margin-left: 10px;
+}
+
+//
+// Markdown
+//
+
+.docs-markdown-code {
+  background: rgba(0,0,0,.03);
+  font-size: 90%;
+  padding: 3px;
+  font-family: 'Roboto', monospace;
+}
+
+.markdown-body {
+  line-height: 1.5;
+  padding-left: 10px;
+
+  h1 {
+    @include mdc-typography(headline4);
+
+    font-weight: 500;
+  }
+
+  h2 {
+    @include mdc-typography(headline5);
+  }
+
+  h4 {
+    @include mdc-typography(body2);
+  }
+
+  h1, h2 {
+    margin: 24px 16px 16px 0;
+    line-height: 1.25;
+    padding-bottom: .3em;
+    border-bottom: 1px solid #eaecef;
+  }
+
+  h3 {
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-bottom: 7px;
+  }
+
+  ul {
+    margin-bottom: 0;
+  }
+}
+
+//
+// API table
+//
+
+.docs-api table {
+  border: 1px solid #eee;
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  td, th {
+    border: 1px solid #eee;
+    padding: 12px;
+  }
+
+  td:first-child, th:first-child {
+    border-left: none;
+  }
+
+  td:last-child, th:last-child {
+    border-right: none;
+  }
+
+  th {
+    background: rgba(60, 133, 248, .08);
+    border-top: none;
+    font-weight: 400;
+    font-size: 15px;
+    text-align: left;
+  }
+
+  tr:last-child > td {
+    border-bottom: none;
+  }
+
+  td {
+    font-size: .9em;
+  }
+}

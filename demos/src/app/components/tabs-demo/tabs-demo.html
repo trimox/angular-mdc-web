@@ -1,0 +1,360 @@
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Tabs</h1>
+    Tabs organize content across different screens, data sets, and other interactions.
+    <h2>References</h2>
+    <ul>
+      <li><a mdc-button href="https://material.io/design/components/tabs.html"
+        target="_blank" rel="noopener noreferrer">Material Design guidelines: Tabs</a>
+      </li>
+      <li><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-tab/README.md"
+        target="_blank" rel="noopener noreferrer">Material Components Web</a>
+      </li>
+    </ul>
+    <h2>Import</h2>
+    <pre><code highlight="import { MdcTabBarModule } from '@angular-mdc/web';"></code></pre>
+
+    <h2>Design & API Documentation</h2>
+    <div class="docs-api">
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdc-tab-bar</span>
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>stacked: boolean</td>
+            <td>Indicates that the tab icon and label should flow vertically instead of horizontally.</td>
+          </tr>
+          <tr>
+            <td>fixed: boolean</td>
+            <td>Indicates that the tab should shrink in size to be as narrow as possible without causing text to wrap.</td>
+          </tr>
+          <tr>
+            <td>fade: boolean</td>
+            <td>Sets up the tab indicator to fade in on activation and fade out on deactivation. Default is false.</td>
+          </tr>
+          <tr>
+            <td>activeTabIndex: number</td>
+            <td>Set the active tab by index. (Default is 0). Set to -1 for no initially selected tab.</td>
+          </tr>
+          <tr>
+            <td>iconIndicator: string</td>
+            <td>A material icon to display in the center of the tab.</td>
+          </tr>
+          <tr>
+            <td>useAutomaticActivation: boolean</td>
+            <td>If true, permits using movement keys to switch tabs.</td>
+          </tr>
+          <tr>
+            <td>focusOnActivate: boolean</td>
+            <td>Sets whether the tab should focus itself when activated. Defaults to true.</td>
+          </tr>
+          <tr>
+            <td>align: string</td>
+            <td>Sets the elements inside the scroll content element to be aligned to the start, center or end of the scroll content element.
+<p>Valid values: 'start' | 'center' | 'end' * Only for Fixed Tabs.</p></td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Methods</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>activateTab(index: number)</td>
+            <td>Activates the Tab at the given index.</td>
+          </tr>
+          <tr>
+            <td>scrollIntoView(index: number)</td>
+            <td>Scrolls the Tab at the given index into view.</td>
+          </tr>
+          <tr>
+            <td>getActiveTabIndex(): number</td>
+            <td>Returns the index of the active Tab.</td>
+          </tr>
+          <tr>
+            <td>getActiveTab(): MdcTab | undefined</td>
+            <td>Returns the MdcTab that is active.</td>
+          </tr>
+          <tr>
+            <td>getTabIndex(tab: MdcTab): number</td>
+            <td>Returns the MdcTab index for given tab.</td>
+          </tr>
+          <tr>
+            <td>disableTab(index: number, disabled: boolean)</td>
+            <td>Control whether or not the tab is in a disable state.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Events</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>activated: (source: MdcTabBar, index: number, tab: MdcTab)</td>
+            <td>Emitted when a tab is activated.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdc-tab-scroller</span>
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Methods</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>scrollTo(scrollX: number)</td>
+            <td>Scrolls to the scrollX value.</td>
+          </tr>
+          <tr>
+            <td>incrementScroll(scrollXIncrement: number)</td>
+            <td>Increments the current scroll value by the scrollX value.</td>
+          </tr>
+          <tr>
+            <td>getScrollPosition(): number</td>
+            <td>Returns the current visual scroll position.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdc-tab</span>
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Properties</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>label: string</td>
+            <td>Optional. Adds a label in the tab.</td>
+          </tr>
+          <tr>
+            <td>icon: string</td>
+            <td>Optional. Indicates a leading icon in the tab.</td>
+          </tr>
+          <tr>
+            <td>disabled: boolean</td>
+            <td>Optional. Control the disabled state of the tab.</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Methods</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>getTabBarParent(): MdcTabBarParentComponent</td>
+            <td>Interface for communicating with ancestor MdcTabBar.</td>
+          </tr>
+          <tr>
+            <td>focus(): void</td>
+            <td>Sets focus to the tab.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdc-tab-label</span>
+      </p>
+      <table>
+        <tr>
+          <td>Optional. Allows customizing a label in the tab.</td>
+        </tr>
+      </table>
+
+      <p>
+        <span class="docs-api-class-selector-label">Selector:</span>
+        <span class="docs-api-class-selector-name">mdc-tab-icon</span>
+        <span class="docs-api-class-selector-name">mdcTabIcon</span>
+      </p>
+      <table>
+        <tr>
+          <td>Optional. Allows customizing a leading icon in the tab.</td>
+        </tr>
+      </table>
+    </div>
+    <h2>Sass Mixins</h2>
+    To customize the colors of any part of Tabs, use the following mixins.
+    <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-tab-bar#sass-mixins"
+     target="_blank" rel="noopener noreferrer">Tab Bar Mixins</a></p>
+    <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-tab#sass-mixins"
+     target="_blank" rel="noopener noreferrer">Tab Mixins</a></p>
+    <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-tab-indicator#sass-mixins"
+     target="_blank" rel="noopener noreferrer">Tab Indicator Mixins</a></p>
+
+    <h2>Basic Usage</h2>
+    <a mdc-button href="https://stackblitz.com/edit/angular-mdc-tabs"
+     target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
+  </div>
+
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Dynamic Tabs</h3>
+    <div class="demo-layout__row">
+      <button mdc-button primary (click)="addTab()">Add Tab</button>
+      <button mdc-button (click)="demoTabBar.useAutomaticActivation = !demoTabBar.useAutomaticActivation">Automatic Activation: {{demoTabBar.useAutomaticActivation ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoTabBar.activateTab(2)">Activate Tab(3)</button>
+      <button mdc-button (click)="demoTabBar.disableTab(1, true)">Disable Tab(2)</button>
+    </div>
+    <mdc-tab-bar #demoTabBar (activated)="logTab($event)" [activeTabIndex]="1" useAutomaticActivation>
+      <mdc-tab-scroller>
+        <mdc-tab *ngFor="let tab of tabs" [label]="tab.label" [icon]="tab.icon">
+        </mdc-tab>
+      </mdc-tab-scroller>
+    </mdc-tab-bar>
+    <p>Activated tab: {{ demoTabBar.activeTabIndex }}</p>
+  </div>
+
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Tabs (no initial selection)</h3>
+    <mdc-tab-bar #demoTabIndex [activeTabIndex]="-1">
+      <mdc-tab-scroller>
+        <mdc-tab label="Flights"></mdc-tab>
+        <mdc-tab label="Hotel"></mdc-tab>
+        <mdc-tab label="Favorites"></mdc-tab>
+      </mdc-tab-scroller>
+    </mdc-tab-bar>
+    <p>Activated tab: {{ demoTabIndex.activeTabIndex }}</p>
+  </div>
+
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Tabs with icons next to label</h3>
+    <div class="demo-layout__row">
+      <button mdc-button (click)="demoTabBarDefault.fade = !demoTabBarDefault.fade">Fade: {{demoTabBarDefault.fade ? 'On' : 'Off'}}</button>
+    </div>
+    <mdc-tab-bar #demoTabBarDefault>
+      <mdc-tab-scroller>
+        <mdc-tab>
+          <mdc-icon mdcTabIcon>favorite</mdc-icon>
+          <mdc-tab-label>Favorites</mdc-tab-label>
+        </mdc-tab>
+        <mdc-tab label="Flights" icon="airplanemode_active"></mdc-tab>
+        <mdc-tab label="Hotel" icon="hotel"></mdc-tab>
+      </mdc-tab-scroller>
+    </mdc-tab-bar>
+  </div>
+
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Tabs with stacked label and icon</h3>
+    <div class="demo-layout__row">
+      <button mdc-button (click)="demoStackedTabBar.fade = !demoStackedTabBar.fade">Fade: {{demoStackedTabBar.fade ? 'On' : 'Off'}}</button>
+    </div>
+    <mdc-tab-bar #demoStackedTabBar stacked>
+      <mdc-tab-scroller>
+        <mdc-tab label="Flights" icon="airplanemode_active"></mdc-tab>
+        <mdc-tab label="Hotel" icon="hotel"></mdc-tab>
+        <mdc-tab label="Favorites" icon="favorite"></mdc-tab>
+      </mdc-tab-scroller>
+    </mdc-tab-bar>
+  </div>
+
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Tabs with icon indicator</h3>
+    <mdc-tab-bar iconIndicator='star'>
+      <mdc-tab-scroller>
+        <mdc-tab label="Flights"></mdc-tab>
+        <mdc-tab label="Hotel"></mdc-tab>
+        <mdc-tab label="Favorites"></mdc-tab>
+      </mdc-tab-scroller>
+    </mdc-tab-bar>
+  </div>
+
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Fixed Tabs</h3>
+    <div class="demo-layout__row">
+      <button mdc-button (click)="demoFixedTabsTabBar.align = 'start'">Align Start</button>
+      <button mdc-button (click)="demoFixedTabsTabBar.align = 'center'">Align Center</button>
+      <button mdc-button (click)="demoFixedTabsTabBar.align = 'end'">Align End</button>
+      <button mdc-button (click)="demoFixedTabsTabBar.stacked = !demoFixedTabsTabBar.stacked">Stacked: {{demoFixedTabsTabBar.stacked ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoFixedTabsTabBar.fade = !demoFixedTabsTabBar.fade">Fade: {{demoFixedTabsTabBar.fade ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoFixedTabsTabBar.useAutomaticActivation = !demoFixedTabsTabBar.useAutomaticActivation">Automatic Activation: {{demoFixedTabsTabBar.useAutomaticActivation ? 'On' : 'Off'}}</button>
+    </div>
+    <mdc-tab-bar #demoFixedTabsTabBar fixed>
+      <mdc-tab-scroller>
+        <mdc-tab label="Favorites" icon="favorite"></mdc-tab>
+        <mdc-tab label="Person" icon="person"></mdc-tab>
+        <mdc-tab label="Explore" icon="explore"></mdc-tab>
+      </mdc-tab-scroller>
+    </mdc-tab-bar>
+  </div>
+
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Scrolling Tabs (mobile)</h3>
+    <div class="demo-layout__row">
+      <button mdc-button (click)="demoScrollingTabBar1.scrollIntoView(0)">Scroll Start</button>
+      <button mdc-button (click)="demoScrollingTabBar1.scrollIntoView(7)">Scroll End</button>
+      <button mdc-button (click)="demoScrollingTabBar1.activateTab(5)">Activate Hotel</button>
+      <button mdc-button (click)="demoScrollingTabBar1.stacked = !demoScrollingTabBar1.stacked">Stacked: {{demoScrollingTabBar1.stacked ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoScrollingTabBar1.fade = !demoScrollingTabBar1.fade">Fade: {{demoScrollingTabBar1.fade ? 'On' : 'Off'}}</button>
+    </div>
+    <mdc-tab-bar #demoScrollingTabBar1>
+      <mdc-tab-scroller>
+        <mdc-tab label="Favorites" icon="favorite"></mdc-tab>
+        <mdc-tab label="Person" icon="person"></mdc-tab>
+        <mdc-tab label="Explore" icon="explore"></mdc-tab>
+        <mdc-tab label="Build" icon="build"></mdc-tab>
+        <mdc-tab label="Flights" icon="airplanemode_active"></mdc-tab>
+        <mdc-tab label="Hotel" icon="hotel"></mdc-tab>
+        <mdc-tab label="Accessibility" icon="accessibility"></mdc-tab>
+        <mdc-tab label="Account" icon="account_box"></mdc-tab>
+      </mdc-tab-scroller>
+    </mdc-tab-bar>
+  </div>
+
+  <div class="demo-content">
+    <h3 class="demo-content__headline">Scrolling Tabs with Scroll Buttons</h3>
+    <div class="demo-layout__row">
+      <button mdc-button (click)="demoScrollingTabBar2.stacked = !demoScrollingTabBar2.stacked">Stacked: {{demoScrollingTabBar2.stacked ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="demoScrollingTabBar2.fade = !demoScrollingTabBar2.fade">Fade: {{demoScrollingTabBar2.fade ? 'On' : 'Off'}}</button>
+    </div>
+    <div class="demo-scrolling-tabs__row">
+      <button mdc-icon-button (click)="demoScrollingScroller2.incrementScroll(-125)" icon="keyboard_arrow_left"></button>
+      <mdc-tab-bar #demoScrollingTabBar2>
+        <mdc-tab-scroller #demoScrollingScroller2>
+          <mdc-tab label="Favorites" icon="favorite"></mdc-tab>
+          <mdc-tab label="Person" icon="person"></mdc-tab>
+          <mdc-tab label="Explore" icon="explore"></mdc-tab>
+          <mdc-tab label="Build" icon="build"></mdc-tab>
+          <mdc-tab label="Flights" icon="airplanemode_active"></mdc-tab>
+          <mdc-tab label="Hotel" icon="hotel"></mdc-tab>
+          <mdc-tab label="Accessibility" icon="accessibility"></mdc-tab>
+          <mdc-tab label="Timeline" icon="timeline"></mdc-tab>
+          <mdc-tab label="Saved" icon="star"></mdc-tab>
+          <mdc-tab label="Account" icon="account_box"></mdc-tab>
+        </mdc-tab-scroller>
+      </mdc-tab-bar>
+      <button mdc-icon-button (click)="demoScrollingScroller2.incrementScroll(125)" icon="keyboard_arrow_right"></button>
+    </div>
+  </div>
+</div>

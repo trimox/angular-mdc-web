@@ -1,0 +1,47 @@
+<div class="demo-page">
+  <div class="markdown-body">
+    <h1>Getting started</h1>
+    <p>For help getting started with a new Angular app, check out the <a href="https://cli.angular.io/" target="_blank" rel="noopener noreferrer">Angular CLI</a>.</p>
+    <p>For existing apps, follow these steps to begin using Angular MDC.</p>
+    <h2>Step 1: Install Angular MDC</h2>
+    <h4>npm</h4>
+    <pre><code highlight="npm i @angular-mdc/web"></code></pre>
+
+    <h4>yarn</h4>
+    <pre><code highlight="yarn add @angular-mdc/web"></code></pre>
+
+    <h2>Step 2: Import MDC Sass</h2>
+    Edit styles.scss, and add the following:
+    <pre><code highlight="$mdc-theme-primary: #1565c0; // primary color
+$mdc-theme-secondary: #388e3c; // secondary color
+
+@import '~@angular-mdc/theme/material'"></code></pre>
+
+    <h2>Step 3: Import component modules</h2>
+    Now just import the NgModule for each component you want to use.
+    <pre><code highlight="import {
+  MdcFabModule,
+  MdcIconModule,
+  MdcMenuModule
+} from '@angular-mdc/web';
+
+@NgModule({
+...
+imports: [
+    MdcFabModule,
+    MdcIconModule
+    MdcMenuModule,
+    ...
+],
+...
+})
+export class ExampleModule { }"></code></pre>
+
+  Open app.component.html and add the following markup:
+  <pre><code highlight="<button mdc-button raised>My Button</button>
+
+<button mdc-fab>
+  <mdc-icon>edit</mdc-icon>
+</button>"></code></pre>
+  </div>
+</div>

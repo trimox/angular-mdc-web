@@ -1,3 +1,34 @@
+# [0.42.0](https://github.com/trimox/angular-mdc-web/compare/v0.41.4...v0.42.0) (2018-12-07)
+
+
+### Bug Fixes
+
+* **checkbox:** Move property hooks for SSR support ([#1585](https://github.com/trimox/angular-mdc-web/issues/1585)) ([fc13f80](https://github.com/trimox/angular-mdc-web/commit/fc13f80)), closes [#1421](https://github.com/trimox/angular-mdc-web/issues/1421)
+* **demos:** Start script failure ([#1574](https://github.com/trimox/angular-mdc-web/issues/1574)) ([ebbc593](https://github.com/trimox/angular-mdc-web/commit/ebbc593))
+* **text-field:** Foundation should show/hide aria-hidden ([#1580](https://github.com/trimox/angular-mdc-web/issues/1580)) ([f4a7539](https://github.com/trimox/angular-mdc-web/commit/f4a7539))
+* **text-field:** Should apply fullwidth modifier ([#1582](https://github.com/trimox/angular-mdc-web/issues/1582)) ([467e7d6](https://github.com/trimox/angular-mdc-web/commit/467e7d6))
+
+
+### Features
+
+* **demos:** Improvements and move to CLI ([#1588](https://github.com/trimox/angular-mdc-web/issues/1588)) ([479b608](https://github.com/trimox/angular-mdc-web/commit/479b608)), closes [#1158](https://github.com/trimox/angular-mdc-web/issues/1158)
+* **form-field:** Add error state change detection ([#1573](https://github.com/trimox/angular-mdc-web/issues/1573)) ([bb7ed57](https://github.com/trimox/angular-mdc-web/commit/bb7ed57)), closes [#1323](https://github.com/trimox/angular-mdc-web/issues/1323) [#1549](https://github.com/trimox/angular-mdc-web/issues/1549)
+* **form-field:** Add fluid property ([#1584](https://github.com/trimox/angular-mdc-web/issues/1584)) ([9a4b5d9](https://github.com/trimox/angular-mdc-web/commit/9a4b5d9)), closes [#1575](https://github.com/trimox/angular-mdc-web/issues/1575)
+* **list:** Add new adapter methods for accessibility ([#1586](https://github.com/trimox/angular-mdc-web/issues/1586)) ([f2dba6c](https://github.com/trimox/angular-mdc-web/commit/f2dba6c))
+* **menu:** Add wrapFocus property ([#1583](https://github.com/trimox/angular-mdc-web/issues/1583)) ([95373c4](https://github.com/trimox/angular-mdc-web/commit/95373c4))
+* **notched-outline:** Change notched outline to use 3 divs ([#1581](https://github.com/trimox/angular-mdc-web/issues/1581)) ([0614eba](https://github.com/trimox/angular-mdc-web/commit/0614eba)), closes [material-components/material-components-web#4035](https://github.com/material-components/material-components-web/issues/4035)
+* **select:** Rename floatingLabel to floatLabel ([#1590](https://github.com/trimox/angular-mdc-web/issues/1590)) ([288b2b9](https://github.com/trimox/angular-mdc-web/commit/288b2b9)), closes [#1589](https://github.com/trimox/angular-mdc-web/issues/1589)
+* Add support for strictPropertyInitialization ([#1572](https://github.com/trimox/angular-mdc-web/issues/1572)) ([7d7ed13](https://github.com/trimox/angular-mdc-web/commit/7d7ed13)), closes [#1372](https://github.com/trimox/angular-mdc-web/issues/1372) [#1569](https://github.com/trimox/angular-mdc-web/issues/1569)
+* Upgrade to material-components-web v0.42.0 ([#1579](https://github.com/trimox/angular-mdc-web/issues/1579)) ([932b86f](https://github.com/trimox/angular-mdc-web/commit/932b86f)), closes [/github.com/material-components/material-components-web/blob/master/CHANGELOG.md#0420-2018-12-04](https://github.com//github.com/material-components/material-components-web/blob/master/CHANGELOG.md/issues/0420-2018-12-04)
+
+
+### BREAKING CHANGES
+
+* **select:** Renamed the property `floatingLabel` to `floatLabel`. Please update your code to
+use `floatLabel`.
+
+
+
 ## [0.41.4](https://github.com/trimox/angular-mdc-web/compare/v0.41.3...v0.41.4) (2018-11-27)
 
 

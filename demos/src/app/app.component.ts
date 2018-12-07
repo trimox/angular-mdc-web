@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +13,10 @@ export class AppComponent implements OnInit {
     this._router.events.subscribe(event => {
       if (this._router.url !== '/') {
         if (event instanceof NavigationEnd) {
-          // (<any>window).ga('set', 'page', event.urlAfterRedirects);
-          // (<any>window).ga('send', 'pageview');
+          if (environment.production) {
+            (<any>window).ga('set', 'page', event.urlAfterRedirects);
+            (<any>window).ga('send', 'pageview');
+          }
         }
       }
     });

@@ -2,21 +2,12 @@
 
  - [Infrastructure and Tooling](#tools)
  - [Setup your development environment](#setup)
- - [Running the Development Server](#dev-server)
+ - [Install demo dependencies](#setupdemos)
+ - [Running the Demos](#demo-server)
  - [Linting](#lint)
  - [Testing / Coverage Enforcement](#test)
  - [Building](#build)
  - [Code Style](#code-style)
-
-## <a name="tools"></a> Infrastructure and Tooling
-
-Build System
-- [Rollup](https://github.com/rollup/rollup)
-  * Provides next-generation ES6 module bundling.
-
-Development Server
-- [WebPack](https://webpack.js.org/)
-  - Fast, modern development environment (incremental compilation, source maps, live reloading, etc.)
 
 ## <a name="setup"></a> Setup your development environment
 You'll need a recent version of nodejs and yarn.
@@ -24,33 +15,45 @@ Once ready, simply clone our repo (or your fork of it) and install developer dep
 ```
 git clone https://github.com/trimox/angular-mdc-web.git  # or a path to your fork
 cd angular-mdc-web
-yarn # Install developer dependencies
+yarn
 ```
 
-## <a name="dev-server"></a> Running the development server
-Run a webpack-dev-server instance that should assist with initial development. (content served from `src/demo-app/`)
+## <a name="setupdemos"></a> Install demo dependencies
+Change path to `/path/to/angular-mdc-web/demos`
 ```
-cd /path/to/angular-mdc-web
-npm run start
+cd /path/to/angular-mdc-web/demos
+yarn
 ```
-After your development server is running, open a browser to url: http://localhost:4000
+
+## <a name="demo-server"></a> Running the demos
+Change path to `/path/to/angular-mdc-web/demos`
+```
+cd /path/to/angular-mdc-web/demos
+yarn start
+```
+After your development server is running, open a browser to url: http://localhost:4200
 
 ## <a name="lint"></a> Linting
+Change path to `/path/to/angular-mdc-web`
 ```
-npm run lint:ts # Lints typescript using tslint
-npm run lint:css # Lints (S)CSS using stylelint
-npm run lint # Runs both of the above commands in parallel
+cd /path/to/angular-mdc-web
+yarn lint # Lints typescript using tslint
+yarn lint:css # Lints (S)CSS using stylelint
 ```
 
 ## <a name="test"></a> Testing / Coverage Enforcement
+Change path to `/path/to/angular-mdc-web`
 ```
-npm run test:watch # Runs karma on ChromeHeadless, re-running when source files change
-npm test # Runs karma, and then runs coverage enforcement checks a single time.
+cd /path/to/angular-mdc-web
+yarn test:watch # Runs karma on ChromeHeadless, re-running when source files change
+yarn test # Runs karma, and then runs coverage enforcement checks a single time.
 ```
 
 ## <a name="build"></a> Building Angular MDC
+Change path to `/path/to/angular-mdc-web`
 ```
-npm run build:release # Builds Angular MDC inside of dist/releases/web
+cd /path/to/angular-mdc-web
+yarn build:release # Builds Angular MDC inside of dist/releases/web
 ```
 
 ## <a name="code-style"></a> Code Style

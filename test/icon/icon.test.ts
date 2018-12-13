@@ -95,7 +95,7 @@ describe('MdcIcon', () => {
       const iconElement = fixture.debugElement.nativeElement.querySelector('mdc-icon');
       testComponent.iconName = 'home';
       fixture.detectChanges();
-      expect(sortedClassNames(iconElement)).toEqual(['material-icons', 'ng-mdc-icon']);
+      expect(sortedClassNames(iconElement)).toEqual(['material-icons', 'ngx-mdc-icon']);
     });
 
     it('should use alternate icon font if set', () => {
@@ -107,7 +107,7 @@ describe('MdcIcon', () => {
       const iconElement = fixture.debugElement.nativeElement.querySelector('mdc-icon');
       testComponent.iconName = 'home';
       fixture.detectChanges();
-      expect(sortedClassNames(iconElement)).toEqual(['myfont', 'ng-mdc-icon']);
+      expect(sortedClassNames(iconElement)).toEqual(['myfont', 'ngx-mdc-icon']);
     });
   });
 
@@ -156,7 +156,7 @@ describe('MdcIcon', () => {
       const mdcIconElement = fixture.debugElement.nativeElement.querySelector('mdc-icon');
       testComponent.iconName = 'home';
       fixture.detectChanges();
-      expect(sortedClassNames(mdcIconElement)).toEqual(['myfont', 'myfont-48x48', 'ng-mdc-icon']);
+      expect(sortedClassNames(mdcIconElement)).toEqual(['myfont', 'myfont-48x48', 'ngx-mdc-icon']);
     });
 
     it('should throw an error when using an untrusted icon url', () => {
@@ -660,17 +660,17 @@ describe('MdcIcon', () => {
       testComponent.fontSet = 'f1';
       testComponent.fontIcon = 'house';
       fixture.detectChanges();
-      expect(sortedClassNames(mdcIconElement)).toEqual(['font1', 'house', 'ng-mdc-icon']);
+      expect(sortedClassNames(mdcIconElement)).toEqual(['font1', 'house', 'ngx-mdc-icon']);
 
       testComponent.fontSet = 'f2';
       testComponent.fontIcon = 'igloo';
       fixture.detectChanges();
-      expect(sortedClassNames(mdcIconElement)).toEqual(['f2', 'igloo', 'ng-mdc-icon']);
+      expect(sortedClassNames(mdcIconElement)).toEqual(['f2', 'igloo', 'ngx-mdc-icon']);
 
       testComponent.fontSet = 'f3';
       testComponent.fontIcon = 'tent';
       fixture.detectChanges();
-      expect(sortedClassNames(mdcIconElement)).toEqual(['f3', 'ng-mdc-icon', 'tent']);
+      expect(sortedClassNames(mdcIconElement)).toEqual(['f3', 'ngx-mdc-icon', 'tent']);
     });
 
     it('should handle values with extraneous spaces being passed in to `fontSet`', () => {
@@ -682,14 +682,14 @@ describe('MdcIcon', () => {
         fixture.detectChanges();
       }).not.toThrow();
 
-      expect(sortedClassNames(mdcIconElement)).toEqual(['font', 'ng-mdc-icon']);
+      expect(sortedClassNames(mdcIconElement)).toEqual(['font', 'ngx-mdc-icon']);
 
       expect(() => {
         fixture.componentInstance.fontSet = ' changed';
         fixture.detectChanges();
       }).not.toThrow();
 
-      expect(sortedClassNames(mdcIconElement)).toEqual(['changed', 'ng-mdc-icon']);
+      expect(sortedClassNames(mdcIconElement)).toEqual(['changed', 'ngx-mdc-icon']);
     });
 
     it('should handle values with extraneous spaces being passed in to `fontIcon`', () => {
@@ -701,14 +701,14 @@ describe('MdcIcon', () => {
         fixture.detectChanges();
       }).not.toThrow();
 
-      expect(sortedClassNames(mdcIconElement)).toEqual(['font', 'material-icons', 'ng-mdc-icon']);
+      expect(sortedClassNames(mdcIconElement)).toEqual(['font', 'material-icons', 'ngx-mdc-icon']);
 
       expect(() => {
         fixture.componentInstance.fontIcon = ' changed';
         fixture.detectChanges();
       }).not.toThrow();
 
-      expect(sortedClassNames(mdcIconElement)).toEqual(['changed', 'material-icons', 'ng-mdc-icon']);
+      expect(sortedClassNames(mdcIconElement)).toEqual(['changed', 'material-icons', 'ngx-mdc-icon']);
     });
 
   });

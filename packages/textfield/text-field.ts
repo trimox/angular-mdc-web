@@ -353,10 +353,6 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
 
     // Force setter to be called in case id was not specified.
     this.id = this.id;
-
-    if (this._parentFormField) {
-      _parentFormField.elementRef.nativeElement.classList.add('ngx-mdc-form-field');
-    }
   }
 
   ngAfterViewInit(): void {

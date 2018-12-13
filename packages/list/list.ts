@@ -71,7 +71,7 @@ export class MdcListGroupSubheader {
     '[attr.aria-orientation]': 'verticalOrientation ? "vertical" : "horizontal"',
     '[class.mdc-list--dense]': 'dense',
     '[class.mdc-list--avatar-list]': 'avatar',
-    '[class.ng-mdc-list--border]': 'border',
+    '[class.ngx-mdc-list--border]': 'border',
     '[class.mdc-list--non-interactive]': '!interactive',
     '[class.mdc-list--two-line]': 'twoLine'
   },

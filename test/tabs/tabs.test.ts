@@ -106,7 +106,7 @@ describe('MDC Tabs', () => {
       fixture.detectChanges();
       flush();
 
-      expect(testInstance.tabs.toArray()[0].elementRef.nativeElement.classList.contains('ng-mdc-tab--disabled')).toBe(true);
+      expect(testInstance.tabs.toArray()[0].elementRef.nativeElement.classList.contains('ngx-mdc-tab--disabled')).toBe(true);
     }));
 
     it('#should turn on stacked for tabs', fakeAsync(() => {

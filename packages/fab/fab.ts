@@ -66,10 +66,10 @@ export class MdcFab implements AfterContentInit, OnDestroy {
   get position(): string | null { return this._position; }
   set position(value: string | null) {
     if (this._position) {
-      this._getHostElement().classList.remove(`ng-mdc-fab--${this._convertPosition(this._position)}`);
+      this._getHostElement().classList.remove(`ngx-mdc-fab--${this._convertPosition(this._position)}`);
     }
     if (value) {
-      this._getHostElement().classList.add(`ng-mdc-fab--${this._convertPosition(value)}`);
+      this._getHostElement().classList.add(`ngx-mdc-fab--${this._convertPosition(value)}`);
     }
     this._position = value;
   }

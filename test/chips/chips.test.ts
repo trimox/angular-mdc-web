@@ -104,13 +104,13 @@ describe('Chips', () => {
     it('#should apply primary class modifier', () => {
       testComponent.primary = true;
       fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList.contains('ng-mdc-chip--primary')).toBe(true);
+      expect(testDebugElement.nativeElement.classList.contains('ngx-mdc-chip--primary')).toBe(true);
     });
 
     it('#should apply secondary class modifier', () => {
       testComponent.secondary = true;
       fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList.contains('ng-mdc-chip--secondary')).toBe(true);
+      expect(testDebugElement.nativeElement.classList.contains('ngx-mdc-chip--secondary')).toBe(true);
     });
   });
 

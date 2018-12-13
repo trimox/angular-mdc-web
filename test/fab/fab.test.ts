@@ -79,7 +79,7 @@ describe('MdcFab', () => {
     it('#should apply class `bottomLeft`', () => {
       testComponent.myPosition = 'bottomLeft';
       fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.classList.contains('ng-mdc-fab--bottom-left')).toBe(true);
+      expect(buttonDebugElement.nativeElement.classList.contains('ngx-mdc-fab--bottom-left')).toBe(true);
     });
 
     it('#should apply class `bottom-right`', () => {
@@ -87,7 +87,7 @@ describe('MdcFab', () => {
       fixture.detectChanges();
 
       expect(buttonInstance.position).toBe('bottomRight');
-      expect(buttonDebugElement.nativeElement.classList.contains('ng-mdc-fab--bottom-right')).toBe(true);
+      expect(buttonDebugElement.nativeElement.classList.contains('ngx-mdc-fab--bottom-right')).toBe(true);
     });
 
     it('#should store position but not add class', () => {

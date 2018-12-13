@@ -1,7 +1,7 @@
-.ng-mdc-chip--primary {
+.ngx-mdc-chip--primary {
   @include mdc-chip-fill-color-accessible($mdc-theme-primary);
 }
 
-.ng-mdc-chip--secondary {
+.ngx-mdc-chip--secondary {
   @include mdc-chip-fill-color-accessible($mdc-theme-secondary);
 }

@@ -118,8 +118,8 @@ export class MdcChipText {
     '[id]': 'id',
     '[attr.tabindex]': 'disabled ? null : 0',
     'class': 'mdc-chip',
-    '[class.ng-mdc-chip--primary]': 'primary',
-    '[class.ng-mdc-chip--secondary]': 'secondary'
+    '[class.ngx-mdc-chip--primary]': 'primary',
+    '[class.ngx-mdc-chip--secondary]': 'secondary'
   },
   template: `
   <ng-container [ngSwitch]="filter">

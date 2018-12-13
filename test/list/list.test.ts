@@ -45,7 +45,7 @@ describe('MdcListModule', () => {
     it('#should apply class border', () => {
       testComponent.isBordered = true;
       fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList.contains('ng-mdc-list--border')).toBe(true);
+      expect(testDebugElement.nativeElement.classList.contains('ngx-mdc-list--border')).toBe(true);
     });
 
     it('#should apply class dense', () => {

@@ -19,8 +19,8 @@ import { MdcIcon } from '@angular-mdc/web/icon';
   host: {
     '[tabIndex]': 'disabled ? -1 : 0',
     'class': 'mdc-button',
-    '[class.ng-mdc-button--primary]': 'primary',
-    '[class.ng-mdc-button--secondary]': 'secondary',
+    '[class.ngx-mdc-button--primary]': 'primary',
+    '[class.ngx-mdc-button--secondary]': 'secondary',
     '[class.mdc-button--raised]': 'raised',
     '[class.mdc-button--dense]': 'dense',
     '[class.mdc-button--unelevated]': 'unelevated',

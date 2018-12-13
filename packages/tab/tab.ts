@@ -72,7 +72,7 @@ export class MdcTabIcon {
     '[class.mdc-tab--active]': 'active',
     '[class.mdc-tab--stacked]': 'stacked',
     '[class.mdc-tab--min-width]': 'fixed',
-    '[class.ng-mdc-tab--disabled]': 'disabled'
+    '[class.ngx-mdc-tab--disabled]': 'disabled'
   },
   template: `
   <div #content class="mdc-tab__content">

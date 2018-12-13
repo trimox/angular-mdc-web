@@ -59,11 +59,11 @@ describe('MdcButton', () => {
 
       testComponent.isPrimary = true;
       fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.classList.contains('ng-mdc-button--primary')).toBe(true);
+      expect(buttonDebugElement.nativeElement.classList.contains('ngx-mdc-button--primary')).toBe(true);
 
       testComponent.isSecondary = true;
       fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.classList.contains('ng-mdc-button--secondary')).toBe(true);
+      expect(buttonDebugElement.nativeElement.classList.contains('ngx-mdc-button--secondary')).toBe(true);
     });
 
     it('#should handle a click on the button', () => {

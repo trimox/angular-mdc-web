@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/%40angular-mdc%2Fweb.svg)](https://badge.fury.io/js/%40angular-mdc%2Fweb)
 [![Build Status](https://travis-ci.com/trimox/angular-mdc-web.svg?branch=master)](https://travis-ci.com/trimox/angular-mdc-web)
 [![codecov](https://codecov.io/gh/trimox/angular-mdc-web/branch/master/graph/badge.svg)](https://codecov.io/gh/trimox/angular-mdc-web)
-[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angular-mdc/Lobby)
+[![Chat](https://img.shields.io/discord/522582556814737419.svg)](https://discord.gg/dm6bGvA)
 
 [Demos, documentation and guides](https://trimox.github.io/angular-mdc-web/)
 
@@ -12,7 +12,7 @@ Incorporating [Google Material Components](https://github.com/material-component
 #### Quick Links
 *  [Changelog](https://github.com/trimox/angular-mdc-web/blob/master/CHANGELOG.md)
 *  [Getting Started Guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md)
-*  [Documentation and demos](https://trimox.github.io/angular-mdc-web/)
+*  [Demos, documentation and guides](https://trimox.github.io/angular-mdc-web/)
 *  [Contributing](https://github.com/trimox/angular-mdc-web/blob/master/CONTRIBUTING.md)
 *  [Developer guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/developer.md)
 
@@ -20,7 +20,7 @@ Incorporating [Google Material Components](https://github.com/material-component
 > breaking changes. A list of changes is always available in the [CHANGELOG](./CHANGELOG.md).
 
 ## <a name="getstarted"></a> Getting started
-View our [Getting Started Guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md) to begin using  Angular MDC in your project.
+View our [Getting Started Guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md) to begin using Angular MDC in your project.
 
 ## Material Design Components
 Developed using Google Material Components [foundations and adapters](https://github.com/material-components/material-components-web/blob/master/docs/integrating-into-frameworks.md#the-advanced-approach-using-foundations-and-adapters).

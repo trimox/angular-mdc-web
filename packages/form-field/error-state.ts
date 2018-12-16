@@ -28,6 +28,7 @@ export function mixinErrorState<T extends Constructor<HasErrorState>>(base: T)
   return class extends base {
     /** Whether the component is in an error state. */
     errorState: boolean = false;
+    required: boolean = false;
 
     errorStateMatcher?: ErrorStateMatcher;
 
@@ -40,6 +41,13 @@ export function mixinErrorState<T extends Constructor<HasErrorState>>(base: T)
 
       if (newState !== oldState) {
         this.errorState = newState;
+      }
+
+      // Currently there isn't a great way to determine if Validators.required
+      // has been added to the control since form validators are combined into
+      // an aggregate function at initialization.
+      if (control && !this.required) {
+        this.required = control.hasError('required');
       }
     }
 

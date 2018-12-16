@@ -18,7 +18,7 @@ import { startWith } from 'rxjs/operators';
 
 import { toBoolean } from '@angular-mdc/web/common';
 import { MdcList, MdcListItem } from '@angular-mdc/web/list';
-import { MdcMenuSurfaceAbstract } from '@angular-mdc/web/menu-surface';
+import { MdcMenuSurfaceBase } from '@angular-mdc/web/menu-surface';
 
 import { MDCMenuFoundation } from '@material/menu/index';
 
@@ -63,7 +63,7 @@ export class MdcMenuSelectionGroupIcon {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcMenu extends MdcMenuSurfaceAbstract implements AfterContentInit, OnDestroy {
+export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnDestroy {
   private _uniqueId: string = `mdc-menu-${++nextUniqueId}`;
 
   @Input() id: string = this._uniqueId;

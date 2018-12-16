@@ -1,18 +1,13 @@
 import { Component, DebugElement } from '@angular/core';
 import {
-  ControlValueAccessor,
   FormControl,
-  FormGroup,
-  FormGroupDirective,
   FormsModule,
-  NG_VALUE_ACCESSOR,
-  ReactiveFormsModule,
-  Validators
+  ReactiveFormsModule
 } from '@angular/forms';
 import { async, fakeAsync, ComponentFixture, TestBed, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { dispatchKeyboardEvent, dispatchFakeEvent, dispatchMouseEvent, dispatchTouchEvent } from '../testing/dispatch-events';
+import { dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from '../testing/dispatch-events';
 
 import { DOWN_ARROW, MdcSelectModule, MdcSelect } from '@angular-mdc/web';
 
@@ -72,14 +67,6 @@ describe('MdcSelectModule', () => {
       testComponent.valid = true;
       fixture.detectChanges();
       expect(testInstance.valid).toBe(true);
-    });
-
-    it('#should set helper content', fakeAsync(() => {
-      expect(testInstance.helperText.setContent('test'));
-    }));
-
-    it('#should show to screen reader', () => {
-      expect(testInstance.helperText.showToScreenReader());
     });
 
     it('#should set outlined and floating label with value', () => {
@@ -179,17 +166,16 @@ describe('MdcSelectModule', () => {
       <mdc-form-field>
         <mdc-select #select placeholder="Favorite food" ngModel #demoSelectModel="ngModel" name="food"
          [disabled]="disabled" [floatLabel]="floatLabel" [required]="required" [valid]="valid"
-         [helperText]="testHelper" [value]="testValue"
+         [value]="testValue"
          (valueChange)="handleValueChange($event)" (selectionChange)="handleSelectedChange($event)">
           <option *ngFor="let food of foods" [value]="food.value" disabled="food.disabled">
             {{food.description}}
           </option>
         </mdc-select>
-        <p mdcSelectHelperText
-          #testHelper="mdcSelectHelperText"
+        <mdc-helper-text
           [validation]="true"
           [persistent]="false">Meal selection is required
-        </p>
+        </mdc-helper-text>
       </mdc-form-field>
     </form>
   `,

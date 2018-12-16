@@ -1,6 +1,6 @@
 import { Component, DebugElement } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed, tick, flush } from '@angular/core/testing';
-import { FormControl, FormsModule, NgModel } from '@angular/forms';
+import { async, ComponentFixture, fakeAsync, TestBed, flush } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import {
@@ -117,35 +117,10 @@ describe('MdcTextField', () => {
       expect(textFieldInstance.valid).toBe(true);
     }));
 
-    it('#should set helper content', fakeAsync(() => {
-      expect(textFieldInstance.helperText.setContent('test'));
-    }));
-
     it('#should call onBlur', () => {
       expect(textFieldInstance.onBlur());
       fixture.detectChanges();
     });
-
-    it('#should show to screen reader', () => {
-      expect(textFieldInstance.helperText.showToScreenReader());
-    });
-
-    it('#should turn on validation errors', () => {
-      expect(textFieldInstance.helperText.setValidity(true));
-    });
-
-    it('#should set validation to true', () => {
-      textFieldInstance.helperText.validation = true;
-      fixture.detectChanges();
-      expect(textFieldInstance.helperText.validation).toBe(true);
-      expect(textFieldInstance.isBadInput()).toBe(false);
-    });
-
-    it('#should set persistent to true', fakeAsync(() => {
-      textFieldInstance.helperText.persistent = true;
-      fixture.detectChanges();
-      expect(textFieldInstance.helperText.persistent).toBe(true);
-    }));
 
     it('#should set required to true', fakeAsync(() => {
       testComponent.required = true;
@@ -161,11 +136,18 @@ describe('MdcTextField', () => {
       flush();
 
       expect(textFieldInstance.useNativeValidation).toBe(true);
+      expect(textFieldInstance.isBadInput()).toBe(false);
     }));
 
     it('#should set style shake to true', fakeAsync(() => {
       expect(textFieldInstance._floatingLabel.shake(true));
       fixture.detectChanges();
+
+      testComponent.validation = true;
+      fixture.detectChanges();
+      testComponent.persistent = true;
+      fixture.detectChanges();
+      expect(textFieldInstance.helperText.persistent).toBe(true);
     }));
 
     it('#should focus on underlying input element when focus() is called', fakeAsync(() => {
@@ -229,6 +211,14 @@ describe('MdcTextField', () => {
       expect(testInstance.value).toBe('foo');
     }));
 
+    it('#should set helperText to null', fakeAsync(() => {
+      testInstance.helperText = null;
+      fixture.detectChanges();
+      flush();
+
+      expect(testInstance.helperText).toBeNull();
+    }));
+
     it('#should check for browser', fakeAsync(() => {
       platform.isBrowser = false;
       expect(testInstance.focused).toBe(false);
@@ -256,6 +246,7 @@ describe('MdcTextField', () => {
 
 @Component({
   template: `
+  <mdc-form-field>
     <mdc-text-field
       [(ngModel)]="myModel"
       label="Username"
@@ -269,16 +260,12 @@ describe('MdcTextField', () => {
       [readonly]="readonly"
       [disabled]="disabled"
       [useNativeValidation]="useNativeValidation"
-      [helperText]="userHelper"
       (blur)="onBlur($event)">
       <mdc-icon mdcTextFieldIcon leading>person</mdc-icon>
       <mdc-icon mdcTextFieldIcon trailing>person</mdc-icon>
     </mdc-text-field>
-    <p mdcTextFieldHelperText
-      #userHelper="mdcHelperText"
-      [validation]="true"
-      [persistent]="false">Username is required
-    </p>
+    <mdc-helper-text [validation]="validation" [persistent]="persistent">Username is required</mdc-helper-text>
+  </mdc-form-field>
   `,
 })
 class SimpleTextfield {
@@ -291,6 +278,8 @@ class SimpleTextfield {
   required: boolean;
   readonly: boolean;
   useNativeValidation: boolean = false;
+  validation: boolean;
+  persistent: boolean = true;
 
   onBlur(event: any) { }
 }
@@ -299,8 +288,10 @@ class SimpleTextfield {
   template: `
     <mdc-text-field
       label="Username"
+      [helperText]="helper"
       [value]="value">
     </mdc-text-field>
+    <mdc-helper-text #helper></mdc-helper-text>
   `,
 })
 class TextFieldTestWithValue {

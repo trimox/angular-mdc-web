@@ -1,23 +1,39 @@
 import { Component } from '@angular/core';
-import { FormControl, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, FormBuilder, NgForm, Validators } from '@angular/forms';
+
+import { MdcSelect, ErrorStateMatcher } from '@angular-mdc/web';
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    return !!(control && control.invalid && (control.touched || (form && form.submitted)));
+  }
+}
 
 @Component({
   templateUrl: './select-demo.html'
 })
 export class SelectDemo {
+  matcher = new MyErrorStateMatcher();
+
   // foodControl = new FormControl('fruit-3');
   foodControl = new FormControl();
+
+  foodForm = new FormGroup({
+    favoriteFood: new FormControl(
+      { value: '', disabled: false }, [Validators.required])
+  });
 
   public formOne: FormGroup;
   public fruits: object[] = [
     {
       id: 1,
-      name: "Pineapple",
+      name: 'Pineapple',
       tasty: true
     },
     {
       id: 2,
-      name: "Watermelon",
+      name: 'Watermelon',
       tasty: false
     }
   ];
@@ -40,6 +56,18 @@ export class SelectDemo {
     });
 
     this.foodControl.setValue('fruit-3');
+  }
+
+  submitForm() {
+    console.log(this.foodForm);
+    if (this.foodForm.invalid) {
+      return;
+    }
+  }
+
+  resetForm(formDirective: FormGroupDirective) {
+    formDirective.resetForm();
+    this.foodForm.reset();
   }
 
   onChange(event: { index: number, value: any }) {

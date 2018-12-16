@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 
-import { MdcTextField, ErrorStateMatcher } from '@angular-mdc/web';
+import { MdcTextField, ErrorStateMatcher, MdcIconRegistry } from '@angular-mdc/web';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -32,12 +33,17 @@ export class TextFieldDemo {
   waypoint = new Directions();
 
   updateForm: FormGroup;
-  username: string;
+  demoValue: string;
   prefilledText: string = 'Prefilled';
 
-  submitForm() {
-    console.log(this.demoForm);
-    if (this.demoForm.invalid) {
+  constructor(iconRegistry: MdcIconRegistry, sanitizer: DomSanitizer) {
+    iconRegistry.addSvgIcon(
+      'thumbup', sanitizer.bypassSecurityTrustResourceUrl('/assets/thumbup-icon.svg'));
+  }
+
+  submit(f: NgForm | FormGroup) {
+    console.log(f);
+    if (f.invalid) {
       return;
     }
   }

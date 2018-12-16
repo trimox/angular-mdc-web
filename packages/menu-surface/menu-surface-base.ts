@@ -41,7 +41,7 @@ const ANCHOR_CORNER_MAP = {
   topStart: Corner.TOP_START
 };
 
-export abstract class MdcMenuSurfaceAbstract {
+export abstract class MdcMenuSurfaceBase {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 

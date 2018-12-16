@@ -6,7 +6,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
-import { MdcMenuSurfaceAbstract } from './menu-surface.abstract';
+import { MdcMenuSurfaceBase } from './menu-surface-base';
 
 @Component({
   moduleId: module.id,
@@ -17,7 +17,7 @@ import { MdcMenuSurfaceAbstract } from './menu-surface.abstract';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcMenuSurface extends MdcMenuSurfaceAbstract implements OnInit, OnDestroy {
+export class MdcMenuSurface extends MdcMenuSurfaceBase implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initMenuSurface();
   }

@@ -1,7 +1,3 @@
-//
-// Text Field
-//
-
 .demo-text-field-custom-colors:not(.mdc-text-field--invalid) {
   $idle-border: rgba(blue, .38);
   $hover-border: rgba(blue, .6);
@@ -72,4 +68,12 @@
     @include mdc-text-field-label-color(rgba(orange, .87));
     @include mdc-text-field-fullwidth-bottom-line-color(orange);
   }
+}
+
+.demo-shaped-text-field {
+  @include mdc-text-field-shape-radius(50%);
+}
+
+.demo-shaped-text-field--outline {
+  @include mdc-text-field-outline-shape-radius(50%);
 }

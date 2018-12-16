@@ -5,20 +5,20 @@ import { MdcFloatingLabelModule } from '@angular-mdc/web/floating-label';
 import { MdcLineRippleModule } from '@angular-mdc/web/line-ripple';
 import { MdcNotchedOutlineModule } from '@angular-mdc/web/notched-outline';
 import { MdcFormFieldModule } from '@angular-mdc/web/form-field';
+import { MdcMenuModule } from '@angular-mdc/web/menu';
 
 import { MdcSelect } from './select';
 import { MdcSelectIcon } from './select-icon';
-import { MdcSelectHelperText } from './helper-text';
 
 const SELECT_DECLARATIONS = [
   MdcSelect,
-  MdcSelectHelperText,
   MdcSelectIcon
 ];
 
 @NgModule({
   imports: [
     CommonModule,
+    MdcMenuModule,
     MdcFormFieldModule,
     MdcFloatingLabelModule,
     MdcNotchedOutlineModule,

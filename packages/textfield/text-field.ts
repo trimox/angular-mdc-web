@@ -26,6 +26,7 @@ import { MdcNotchedOutline } from '@angular-mdc/web/notched-outline';
 import {
   MdcFormField,
   MdcFormFieldControl,
+  MdcHelperText,
   ErrorStateMatcher,
   CanUpdateErrorState,
   CanUpdateErrorStateCtor,
@@ -33,8 +34,8 @@ import {
 } from '@angular-mdc/web/form-field';
 
 import { MdcTextFieldIcon } from './text-field-icon';
-import { MdcTextFieldHelperText } from './helper-text';
 
+import { MDCTextFieldHelperTextFoundation } from '@material/textfield/helper-text/index';
 import { MDCTextFieldFoundation } from '@material/textfield/index';
 
 export class MdcTextFieldBase {
@@ -107,6 +108,8 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   private _uid = `mdc-input-${nextUniqueId++}`;
   private _initialized: boolean = false;
 
+  controlType: string = 'mdc-text-field';
+
   @Input() label: string | null = null;
   @Input() maxlength?: number;
   @Input() minlength?: number;
@@ -154,9 +157,17 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   get required(): boolean { return this._required; }
   set required(value: boolean) {
     this._required = toBoolean(value);
+
     if (this._initialized) {
-      this._changeDetectorRef.markForCheck();
-      this._handleValidationAttributeChange();
+      if (!this.valid) {
+        this._foundation.setValid(true);
+        this._changeDetectorRef.markForCheck();
+      }
+
+      if (this.ngControl) {
+        this._required ? this._getInputElement().setAttribute('required', '') :
+          this._getInputElement().removeAttribute('required');
+      }
     }
   }
   private _required: boolean = false;
@@ -184,11 +195,14 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   private _dense: boolean = false;
 
   @Input()
-  get helperText(): MdcTextFieldHelperText | null { return this._helperText; }
-  set helperText(helperText: MdcTextFieldHelperText | null) {
+  get helperText(): MdcHelperText | null { return this._helperText; }
+  set helperText(helperText: MdcHelperText | null) {
     this._helperText = helperText;
+    if (this._helperText) {
+      this._initHelperText();
+    }
   }
-  private _helperText: MdcTextFieldHelperText | null = null;
+  private _helperText: MdcHelperText | null = null;
 
   /** Sets the Text Field valid or invalid. */
   @Input()
@@ -238,7 +252,10 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   _onTouched = () => { };
 
   get textarea(): boolean { return this._getHostElement().nodeName.toLowerCase() === 'mdc-textarea'; }
-  get focused(): boolean { return this._platform.isBrowser ? document.activeElement! === this._getInputElement() : false; }
+  get focused(): boolean {
+    return this._platform.isBrowser ?
+      document.activeElement! === this._getInputElement() : false;
+  }
   get leadingIcon(): MdcTextFieldIcon | undefined { return this._icons.find(icon => icon.leading); }
   get trailingIcon(): MdcTextFieldIcon | undefined { return this._icons.find(icon => icon.trailing); }
 
@@ -330,7 +347,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     activateFocus(): void,
     deactivateFocus(): void,
     handleValidationAttributeChange(attributesList?: string[]): void
-  } = new MDCTextFieldFoundation();
+  } = new MDCTextFieldFoundation(this._createAdapter());
 
   constructor(
     private _platform: Platform,
@@ -436,7 +453,10 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   setValue(value: any, isUserInput?: boolean): void {
     const newValue = this.type === 'number' ? toNumber(value, null) : value;
     if (this._value === newValue) {
-      this._handleValidationAttributeChange();
+      // Reset validity for numeric form inputs
+      if (newValue === null) {
+        this.valid = true;
+      }
       return;
     }
 
@@ -444,6 +464,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     if (this._getInputElement().value !== this._value) {
       this._getInputElement().value = this._value;
     }
+
     this._foundation.setValue(this._value);
 
     if (isUserInput) {
@@ -453,7 +474,6 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     }
 
     // need to run valiation attribute check if input reset
-    this._handleValidationAttributeChange();
     this._changeDetectorRef.markForCheck();
   }
 
@@ -503,17 +523,12 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     });
   }
 
-  private _handleValidationAttributeChange(): void {
-    if (!this._platform.isBrowser) { return; }
-
-    Promise.resolve().then(() => {
-      const attributes = this._getInputElement().attributes;
-      const result = new Array(length);
-      for (let i = 0; i < attributes.length; i++) {
-        result[i] = attributes[i].name;
-      }
-      this._foundation.handleValidationAttributeChange(result);
-    });
+  private _initHelperText(): void {
+    const helper = this.helperText;
+    if (helper) {
+      helper.addHelperTextClass(this.controlType);
+      helper.initFoundation(MDCTextFieldHelperTextFoundation);
+    }
   }
 
   private _initRipple(): void {

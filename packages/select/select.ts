@@ -4,20 +4,22 @@ import {
   Component,
   ContentChild,
   ContentChildren,
+  DoCheck,
   ElementRef,
   EventEmitter,
-  forwardRef,
   Input,
   OnDestroy,
   OnInit,
   Optional,
   Output,
   QueryList,
+  Self,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { toBoolean, Platform } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
@@ -25,20 +27,33 @@ import { MdcNotchedOutline } from '@angular-mdc/web/notched-outline';
 import { MdcFloatingLabel } from '@angular-mdc/web/floating-label';
 import { MdcMenu } from '@angular-mdc/web/menu';
 import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
-import { MdcFormField, MdcFormFieldControl } from '@angular-mdc/web/form-field';
+import {
+  MdcFormField,
+  MdcFormFieldControl,
+  MdcHelperText,
+  ErrorStateMatcher,
+  CanUpdateErrorState,
+  CanUpdateErrorStateCtor,
+  mixinErrorState
+} from '@angular-mdc/web/form-field';
 import { MdcList, MdcListItem } from '@angular-mdc/web/list';
 
 import { MdcSelectIcon } from './select-icon';
-import { MdcSelectHelperText } from './helper-text';
 
-import { cssClasses } from '@material/select/constants';
+import { MDCSelectHelperTextFoundation } from '@material/select/helper-text/index';
+import { strings, cssClasses } from '@material/select/constants';
 import { MDCSelectFoundation } from '@material/select/index';
 
-export const MDC_SELECT_CONTROL_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => MdcSelect),
-  multi: true
-};
+export class MdcSelectBase {
+  constructor(
+    public _defaultErrorStateMatcher: ErrorStateMatcher,
+    public _parentForm: NgForm,
+    public _parentFormGroup: FormGroupDirective,
+    public ngControl: NgControl) { }
+}
+
+export const _MdcSelectMixinBase: CanUpdateErrorStateCtor & typeof MdcSelectBase =
+  mixinErrorState(MdcSelectBase);
 
 export class MdcSelectChange {
   constructor(
@@ -59,17 +74,27 @@ let nextUniqueId = 0;
     '[class.mdc-select--disabled]': 'disabled',
     '[class.mdc-select--outlined]': 'outlined',
     '[class.mdc-select--required]': 'required',
-    '[class.mdc-select--invalid]': 'valid',
     '[class.mdc-select--with-leading-icon]': 'leadingIcon',
+    '[class.mdc-select--invalid]': 'errorState'
   },
   template: `
-  <ng-container *ngIf="_selectMenu">
-    <input #nativeInput type="hidden">
-    <div #selectedText class="mdc-select__selected-text"></div>
-  </ng-container>
   <ng-content select="mdc-icon"></ng-content>
+  <ng-container *ngIf="_list">
+    <input #hiddenInput type="hidden">
+    <div #selectedText class="mdc-select__selected-text"
+      (blur)="onBlur()"
+      (change)="onChange($event)"
+      (focus)="onFocus()"
+      (keydown)="onKeydown()"
+      (mousedown)="onInteraction($event)"
+      (touchstart)="onInteraction($event)">
+    </div>
+    <mdc-menu>
+      <ng-content select="mdc-list"></ng-content>
+    </mdc-menu>
+  </ng-container>
   <i class="mdc-select__dropdown-icon"></i>
-  <select #nativeSelect *ngIf="!_selectMenu"
+  <select #nativeSelect *ngIf="!_list"
    class="mdc-select__native-control"
    [attr.aria-describedby]="_ariaDescribedby || null"
    [required]="required"
@@ -80,27 +105,34 @@ let nextUniqueId = 0;
    (focus)="onFocus()">
     <ng-content></ng-content>
   </select>
-  <label mdcFloatingLabel *ngIf="!outlined" [for]="id">{{_floatingLabelValue()}}</label>
+  <label mdcFloatingLabel *ngIf="!outlined" [for]="id">{{placeholderText}}</label>
   <mdc-line-ripple *ngIf="!outlined"></mdc-line-ripple>
-  <mdc-notched-outline *ngIf="outlined" [label]="_floatingLabelValue()" [for]="id"></mdc-notched-outline>
+  <mdc-notched-outline *ngIf="outlined" [label]="placeholderText" [for]="id"></mdc-notched-outline>
   `,
   providers: [
     MdcRipple,
-    MDC_SELECT_CONTROL_VALUE_ACCESSOR,
     { provide: MdcFormFieldControl, useExisting: MdcSelect }
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
+export class MdcSelect extends _MdcSelectMixinBase implements OnInit, DoCheck,
+  OnDestroy, ControlValueAccessor, MdcFormFieldControl<any>, CanUpdateErrorState {
   /** Emits whenever the component is destroyed. */
-  private _destroy = new Subject<void>();
+  private _destroyed = new Subject<void>();
 
   private _initialized: boolean = false;
   private _uniqueId: string = `mdc-select-${++nextUniqueId}`;
 
+  controlType: string = 'mdc-select';
+
+  /** Enhanced select private properties */
+  private _menuOpened: boolean = false;
+  private _selectedIndex: number = -1;
+
   @Input() id: string = this._uniqueId;
   @Input() name: string | null = null;
+
   /** The aria-describedby attribute on the input for improved a11y. */
   _ariaDescribedby?: string;
 
@@ -123,10 +155,7 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
   get floatLabel(): boolean { return this._floatLabel; }
   set floatLabel(value: boolean) {
     this._floatLabel = toBoolean(value);
-    if (this.outlined && this.getValue()) {
-      this._foundation.notchOutline(this._floatLabel);
-    }
-    this._changeDetectorRef.markForCheck();
+    this.layout();
   }
   private _floatLabel: boolean = true;
 
@@ -136,7 +165,7 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
     const newValue = toBoolean(value);
     if (newValue !== this._outlined) {
       this._outlined = toBoolean(newValue);
-      this._reinitialize();
+      this.layout();
     }
   }
   private _outlined: boolean = false;
@@ -155,9 +184,7 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
   get valid(): boolean | undefined { return this._valid; }
   set valid(value: boolean | undefined) {
     this._valid = toBoolean(value);
-    if (this._foundation) {
-      this._foundation.setValid(this._valid);
-    }
+    this._foundation.setValid(this._valid);
   }
   private _valid: boolean | undefined;
 
@@ -165,6 +192,7 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
   get autosize(): boolean { return this._autosize; }
   set autosize(value: boolean) {
     this._autosize = toBoolean(value);
+    this._setWidth();
   }
   private _autosize: boolean = false;
 
@@ -184,11 +212,17 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
   private _value: any;
 
   @Input()
-  get helperText(): MdcSelectHelperText | null { return this._helperText; }
-  set helperText(helperText: MdcSelectHelperText | null) {
-    this._helperText = helperText;
+  get helperText(): MdcHelperText | null { return this._helperText; }
+  set helperText(helperText: MdcHelperText | null) {
+    if (this._helperText !== helperText) {
+      this._helperText = helperText;
+      this._initHelperText();
+    }
   }
-  private _helperText: MdcSelectHelperText | null = null;
+  private _helperText: MdcHelperText | null = null;
+
+  /** An object used to control when error messages are shown. */
+  @Input() errorStateMatcher?: ErrorStateMatcher;
 
   /** Event emitted when the selected value has been changed by the user. */
   @Output() readonly selectionChange: EventEmitter<MdcSelectChange> =
@@ -204,10 +238,10 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
   @ViewChild(MdcFloatingLabel) _floatingLabel!: MdcFloatingLabel;
   @ViewChild(MdcLineRipple) _lineRipple!: MdcLineRipple;
   @ViewChild(MdcNotchedOutline) _notchedOutline!: MdcNotchedOutline;
-  @ViewChild('nativeInput') _nativeInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('hiddenInput') _hiddenInput!: ElementRef<HTMLInputElement>;
   @ViewChild('nativeSelect') _nativeSelect!: ElementRef<HTMLSelectElement>;
   @ViewChild('selectedText') _selectedText!: ElementRef<HTMLElement>;
-  @ContentChild(MdcMenu) _selectMenu!: MdcMenu;
+  @ContentChild(MdcMenu) _menu!: MdcMenu;
   @ContentChild(MdcSelectIcon) leadingIcon!: MdcSelectIcon;
   @ContentChild(MdcList) _list!: MdcList;
   @ContentChildren(MdcListItem, { descendants: true }) _listItems!: QueryList<MdcListItem>;
@@ -217,6 +251,10 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
 
   /** View -> model callback called when select has been touched */
   _onTouched = () => { };
+
+  get placeholderText(): string {
+    return !this._hasFloatingLabel() && this.getValue() ? '' : this.placeholder;
+  }
 
   private _createAdapter() {
     return Object.assign(
@@ -243,7 +281,8 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
           this._lineRipple.deactivate();
         }
       },
-      notifyChange: (value: string) => this.selectionChange.emit(new MdcSelectChange(this, this.getSelectedIndex(), value))
+      notifyChange: (value: string) =>
+        this.selectionChange.emit(new MdcSelectChange(this, this.getSelectedIndex(), value))
     };
   }
 
@@ -265,55 +304,51 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
 
   private _getEnhancedSelectAdapterMethods() {
     return {
-      // getValue: () => {
-      //   const listItem = this.menuElement_.querySelector(strings.SELECTED_ITEM_SELECTOR);
-      //   if (listItem && listItem.hasAttribute(strings.ENHANCED_VALUE_ATTR)) {
-      //     return listItem.getAttribute(strings.ENHANCED_VALUE_ATTR);
-      //   }
-      //   return '';
-      // },
-      // setValue: (value: any) => {
-      //   const element =
-      //     /** @type {HTMLElement} */ (this.menuElement_.querySelector(`[${strings.ENHANCED_VALUE_ATTR}="${value}"]`));
-      //   this.setEnhancedSelectedIndex_(element ? this.menu_.items.indexOf(element) : -1);
-      // },
-      // openMenu: () => {
-      //   if (this.menu_ && !this.menu_.open) {
-      //     this.menu_.open = true;
-      //     this.menuOpened_ = true;
-      //     this.selectedText_.setAttribute('aria-expanded', 'true');
-      //   }
-      // },
-      // closeMenu: () => {
-      //   if (this.menu_ && this.menu_.open) {
-      //     this.menu_.open = false;
-      //   }
-      // },
-      // isMenuOpen: () => this.menu_ && this.menuOpened_,
-      // setSelectedIndex: (index) => {
-      //   this.setEnhancedSelectedIndex_(index);
-      // },
-      // setDisabled: (isDisabled: boolean) => {
-      //   this.selectedText_.setAttribute('tabindex', isDisabled ? '-1' : '0');
-      //   this.selectedText_.setAttribute('aria-disabled', isDisabled.toString());
-      //   if (this.hiddenInput_) {
-      //     this.hiddenInput_.disabled = isDisabled;
-      //   }
-      // },
-      // checkValidity: () => {
-      //   const classList = this.root_.classList;
-      //   if (classList.contains(cssClasses.REQUIRED) && !classList.contains(cssClasses.DISABLED)) {
-      //     // See notes for required attribute under https://www.w3.org/TR/html52/sec-forms.html#the-select-element
-      //     // TL;DR: Invalid if no index is selected, or if the first index is selected and has an empty value.
-      //     return this.selectedIndex !== -1 && (this.selectedIndex !== 0 || this.value);
-      //   } else {
-      //     return true;
-      //   }
-      // },
-      // setValid: (isValid: boolean) => {
-      //   this._selectedText.nativeElement.setAttribute('aria-invalid', (!isValid).toString());
-      //   this._valid = isValid;
-      // }
+      getValue: () => {
+        return '';
+      },
+      setValue: (value: any) => {
+        const element =
+          (this._menu.elementRef.nativeElement.querySelector(`[${strings.ENHANCED_VALUE_ATTR}="${value}"]`));
+        // this.setEnhancedSelectedIndex_(element ? this._menu._listItems.toArray().indexOf(element) : -1);
+      },
+      openMenu: () => {
+        if (this._menu && !this._menu.open) {
+          this._menu.open = true;
+          this._menuOpened = true;
+          this._selectedText.nativeElement.setAttribute('aria-expanded', 'true');
+        }
+      },
+      closeMenu: () => {
+        if (this._menu && this._menu.open) {
+          this._menu.open = false;
+        }
+      },
+      isMenuOpen: () => this._menu && this._menuOpened,
+      setSelectedIndex: (index: number) => {
+        // this.setEnhancedSelectedIndex_(index);
+      },
+      setDisabled: (isDisabled: boolean) => {
+        this._selectedText.nativeElement.setAttribute('tabindex', isDisabled ? '-1' : '0');
+        this._selectedText.nativeElement.setAttribute('aria-disabled', isDisabled.toString());
+        if (this._hiddenInput) {
+          this._hiddenInput.nativeElement.disabled = isDisabled;
+        }
+      },
+      checkValidity: () => {
+        const classList = this._getHostElement().classList;
+        if (classList.contains(cssClasses.REQUIRED) && !classList.contains(cssClasses.DISABLED)) {
+          // See notes for required attribute under https://www.w3.org/TR/html52/sec-forms.html#the-select-element
+          // TL;DR: Invalid if no index is selected, or if the first index is selected and has an empty value.
+          // return this.selectedIndex !== -1 && (this.selectedIndex !== 0 || this.value);
+        } else {
+          return true;
+        }
+      },
+      setValid: (isValid: boolean) => {
+        this._selectedText.nativeElement.setAttribute('aria-invalid', (!isValid).toString());
+        this._valid = isValid;
+      }
     };
   }
 
@@ -328,7 +363,7 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
   private _getLabelAdapterMethods() {
     return {
       floatLabel: (shouldFloat: boolean) => this._getFloatingLabel().float(shouldFloat),
-      getLabelWidth: () => this._hasFloatingLabel() ? this._getFloatingLabel().getWidth() : 0
+      getLabelWidth: () => this._hasFloatingLabel() ? this._getFloatingLabel()!.getWidth() : 0
     };
   }
 
@@ -359,9 +394,21 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
   constructor(
     private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
-    public elementRef: ElementRef,
-    private _ripple: MdcRipple,
-    @Optional() private _parentFormField: MdcFormField) {
+    public elementRef: ElementRef<HTMLElement>,
+    public _defaultErrorStateMatcher: ErrorStateMatcher,
+    @Optional() private _parentFormField: MdcFormField,
+    @Optional() private _ripple: MdcRipple,
+    @Self() @Optional() public ngControl: NgControl,
+    @Optional() _parentForm: NgForm,
+    @Optional() _parentFormGroup: FormGroupDirective) {
+
+    super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
+
+    if (this.ngControl) {
+      // Note: we provide the value accessor through here, instead of
+      // the `providers` to avoid running into a circular import.
+      this.ngControl.valueAccessor = this;
+    }
 
     // Force setter to be called in case id was not specified.
     this.id = this.id;
@@ -372,7 +419,16 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._destroySelect();
+    this._destroy();
+  }
+
+  ngDoCheck(): void {
+    if (this.ngControl) {
+      // We need to re-evaluate this on every change detection cycle, because there are some
+      // error triggers that we can't subscribe to (e.g. parent form submissions). This means
+      // that whatever logic is in here has to be super lean or we risk destroying the performance.
+      this.updateErrorState();
+    }
   }
 
   init(): void {
@@ -380,10 +436,11 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
     this._initialized = true;
     this._changeDetectorRef.detectChanges();
 
-    // initialize these after detectChanges()
+    // initialize after running a detectChanges()
     this._initRipple();
     this._initializeSelection();
     this._setWidth();
+    this._enhancedSelectSetup();
 
     // Initially sync floating label
     this._foundation.handleChange(false);
@@ -421,7 +478,14 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
   }
 
   onInteraction(evt: MouseEvent | TouchEvent): void {
+    if (this._selectedText) {
+      this._selectedText.nativeElement.focus();
+    }
     this._foundation.handleClick(this._getNormalizedXCoordinate(evt));
+  }
+
+  onKeydown(evt: KeyboardEvent): void {
+    this._foundation.handleKeydown(evt);
   }
 
   /**
@@ -446,7 +510,7 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
   }
 
   getSelectedIndex(): number {
-    return (<HTMLSelectElement>this._getInputElement()).selectedIndex;
+    return (<HTMLSelectElement>this._getInputElement()).selectedIndex || -1;
   }
 
   setSelectedIndex(index: number): void {
@@ -469,8 +533,49 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
     }
   }
 
-  _floatingLabelValue(): string {
-    return !this._hasFloatingLabel() && this.getValue() ? '' : this.placeholder;
+  /** Initialize Select internal state based on the environment state */
+  private layout(): void {
+    if (this._foundation) {
+      this._destroy();
+    }
+
+    this.init();
+    this._changeDetectorRef.markForCheck();
+
+    if (this._outlined) {
+      this._foundation.layout();
+    }
+  }
+
+  private _enhancedSelectSetup(): void {
+    if (this._menu) {
+      this._menu.elementRef.nativeElement.classList.add('mdc-select__menu');
+      this._menu.hoistToBody = true;
+      this._menu.anchorElement = this._getHostElement();
+      this._menu.wrapFocus = false;
+
+      this._selectedText.nativeElement.setAttribute('tabindex', this.disabled ? '-1' : '0');
+
+      // Subscribe to menu opened event
+      this._menu.opened.pipe(takeUntil(this._destroyed))
+        .subscribe(() => {
+          if (this._selectedIndex >= 0) {
+            this._menu._listItems.toArray()[this._selectedIndex].focus();
+          }
+        });
+
+      // Subscribe to menu closed event
+      this._menu.closed.pipe(takeUntil(this._destroyed))
+        .subscribe(() => {
+          this._menuOpened = false;
+          this._selectedText.nativeElement.removeAttribute('aria-expanded');
+          if (this._platform.isBrowser) {
+            if (document.activeElement !== this._selectedText.nativeElement) {
+              this._foundation.handleBlur();
+            }
+          }
+        });
+    }
   }
 
   private _initializeSelection(): void {
@@ -484,18 +589,26 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
     });
   }
 
+  private _initHelperText(): void {
+    const helper = this.helperText;
+    if (helper) {
+      helper.addHelperTextClass(this.controlType);
+      helper.initFoundation(MDCSelectHelperTextFoundation);
+    }
+  }
+
   private _initRipple(): void {
     if (!this.outlined) {
       this._ripple.init({
         surface: this.elementRef.nativeElement,
-        activator: this._nativeSelect ? this._nativeSelect.nativeElement : this._selectedText
+        activator: this._nativeSelect ? this._nativeSelect.nativeElement : this._selectedText.nativeElement
       });
     }
   }
 
-  private _destroySelect(): void {
-    this._destroy.next();
-    this._destroy.complete();
+  private _destroy(): void {
+    this._destroyed.next();
+    this._destroyed.complete();
 
     if (this._lineRipple) {
       this._lineRipple.destroy();
@@ -505,15 +618,18 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
     }
   }
 
-  private _reinitialize(): void {
-    if (this._initialized) {
-      this._destroySelect();
-      this.init();
+  private _hasErrorState(): boolean {
+    if (this.ngControl) {
+      return !this.errorState;
     }
+
+    return this._valid ? this._valid : this._platform.isBrowser ?
+      this._getInputElement().validity.valid : true;
   }
 
+
   private _hasFloatingLabel(): boolean {
-    return this.placeholder && (this._floatingLabel || this._notchedOutline) ? true : false;
+    return this.placeholder && this.floatLabel && (this._floatingLabel || this._notchedOutline) ? true : false;
   }
 
   private _getFloatingLabel(): MdcFloatingLabel {
@@ -533,17 +649,17 @@ export class MdcSelect implements OnInit, ControlValueAccessor, OnDestroy {
   }
 
   private _setWidth(): void {
-    if (!this.autosize) { return; }
-
-    if (this._getFloatingLabel() && this._getFloatingLabel().elementRef.nativeElement.textContent) {
-      const labelLength = this._getFloatingLabel().elementRef.nativeElement.textContent!.length;
+    if (this.placeholder && this.autosize) {
+      const labelLength = this.placeholder.length;
       this._getHostElement().style.setProperty('width', `${labelLength}rem`);
+    } else {
+      this._getHostElement().style.removeProperty('width');
     }
   }
 
   /** Retrieves the select input element. */
   private _getInputElement(): HTMLSelectElement | HTMLInputElement {
-    return this._nativeSelect ? this._nativeSelect.nativeElement : this._nativeInput.nativeElement;
+    return this._nativeSelect ? this._nativeSelect.nativeElement : this._hiddenInput.nativeElement;
   }
 
   /** Retrieves the DOM element of the component host. */

@@ -1,5 +1,6 @@
 import { ElementRef } from '@angular/core';
 import { MdcRipple } from '@angular-mdc/web/ripple';
+import { MdcHelperText } from './helper-text';
 
 export abstract class MdcFormFieldControl<T> {
   /** The value of the control. */
@@ -14,4 +15,8 @@ export abstract class MdcFormFieldControl<T> {
   readonly elementRef!: ElementRef;
 
   readonly ripple?: MdcRipple;
+
+  readonly controlType?: string;
+
+  helperText?: MdcHelperText | null;
 }

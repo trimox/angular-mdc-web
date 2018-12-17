@@ -25,3 +25,11 @@
 .demo-fab-shaped--two {
   @include mdc-fab-shape-radius(8px);
 }
+
+.demo-fab-shape-radius {
+  @include mdc-fab-shape-radius(50% 0 0 0);
+}
+
+.demo-fab-extended-shape-radius {
+  @include mdc-fab-extended-shape-radius(25%);
+}

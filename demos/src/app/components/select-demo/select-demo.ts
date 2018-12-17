@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, FormBuilder, NgForm, Validators } from '@angular/forms';
 
-import { MdcSelect, ErrorStateMatcher } from '@angular-mdc/web';
+import { ErrorStateMatcher } from '@angular-mdc/web';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {

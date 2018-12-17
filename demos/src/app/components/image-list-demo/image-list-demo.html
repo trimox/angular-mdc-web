@@ -105,18 +105,17 @@
     <p><a mdc-button href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-image-list#sass-mixins"
      target="_blank" rel="noopener noreferrer">Sass Mixins</a></p>
 
-<p>Constraining width</p>
-     <pre><![CDATA[
-.my-image-list {
+     <pre><code highlight="// Images in a Standard Image list are constrained to 1:1 aspect ratio by default;
+// this can be overridden using the mdc-image-list-aspect mixin documented below.
+.image-list {
   @include mdc-image-list-standard-columns(5);
 }
 
 @media (max-width: 599px) {
-  .my-image-list {
+  .image-list {
     @include mdc-image-list-standard-columns(3);
   }
-}
-]]></pre>
+}"></code></pre>
     <h2>Basic Usage</h2>
     <a mdc-button href="https://stackblitz.com/edit/angular-mdc-image-list"
      target="_blank" rel="noopener noreferrer">EDIT IN STACKBLITZ</a>
@@ -127,7 +126,7 @@
     <div class="demo-layout__row">
       <button mdc-button (click)="demolist.textProtection = !demolist.textProtection">Text Protection: {{demolist.textProtection ? 'On' : 'Off'}}</button>
     </div>
-    <mdc-image-list #demolist class="standard-image-list">
+    <mdc-image-list #demolist class="standard-image-list image-list--rounded-corners">
       <mdc-image-list-item *ngFor="let i of images">
         <mdc-image-list-image-aspect>
           <img mdcImageListImage src="https://material-components-web.appspot.com/images/photos/3x2/{{i+1}}.jpg" />

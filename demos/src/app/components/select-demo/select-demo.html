@@ -200,23 +200,58 @@
 
   <div class="demo-layout__row">
     <div class="demo-content">
-      <h3 class="demo-content__headline">Select examples</h3>
-      <mdc-form-field class="demo-container">
+      <h3 class="demo-content__headline">Custom</h3>
+      <div class="demo-layout__row">
+        <mdc-select placeholder="Standard" class="custom-select-shape-radius">
+          <mdc-menu>
+            <mdc-list>
+              <mdc-list-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
+                {{food.viewValue}}
+              </mdc-list-item>
+            </mdc-list>
+          </mdc-menu>
+        </mdc-select>
+
+        <mdc-select placeholder="Standard" outlined class="custom-select-outline-shape-radius">
+          <mdc-menu>
+            <mdc-list>
+              <mdc-list-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
+                {{food.viewValue}}
+              </mdc-list-item>
+            </mdc-list>
+          </mdc-menu>
+        </mdc-select>
+
+        <mdc-select placeholder="Standard" outlined class="custom-select-outline-color">
+          <mdc-menu>
+            <mdc-list>
+              <mdc-list-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
+                {{food.viewValue}}
+              </mdc-list-item>
+            </mdc-list>
+          </mdc-menu>
+        </mdc-select>          
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-layout__row">
+    <div class="demo-content">
+      <h3 class="demo-content__headline">Simple</h3>
+      <div class="demo-layout__row">
         <mdc-select #example1>
-          <option value="apple">Apple</option>
-          <option value="orange">Orange</option>
-        </mdc-select>
-      </mdc-form-field>
-      <mdc-form-field class="demo-container">
-        <mdc-select placeholder="Unit">
-          <option value="kg">kg</option>
-          <option value="ml">ml</option>
-        </mdc-select>
-      </mdc-form-field>
+        <option value="apple">Apple</option>
+        <option value="orange">Orange</option>
+      </mdc-select>
+      <mdc-select placeholder="Unit">
+        <option value="kg">kg</option>
+        <option value="ml">ml</option>
+      </mdc-select>
+      </div>
     </div>
 
     <div class="demo-content">
-      <h1 mdcHeadline6>Select using compareWith</h1>
+      <h1 mdcHeadline6>Select with [compareWith]</h1>
       <form [formGroup]="formOne">
         <mdc-select formControlName="fruit" [compareWith]="compareFn" (selectionChange)="onSelectionChangeFruit($event)">
           <option *ngFor="let fruit of fruits" [ngValue]="fruit">
@@ -265,7 +300,6 @@
         'On' : 'Off'}}</button>
       <button mdc-button (click)="favoriteFood.floatLabel = !favoriteFood.floatLabel">Float Label:
         {{favoriteFood.floatLabel ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="favoriteFood.reset()">Reset Selection</button>
       <button mdc-button (click)="favoriteFood.setSelectionByValue('pizza-1')">Select Pizza</button>
       <button mdc-button (click)="favoriteFood.setValue('pizza-1')">Set Form Value</button>
       <button mdc-button (click)="favoriteFood.setSelectedIndex(1)">Set Index (1)</button>

@@ -16,3 +16,7 @@
     @include mdc-image-list-masonry-columns(3);
   }
 }
+
+.image-list--rounded-corners {
+  @include mdc-image-list-shape-radius(8px);
+}

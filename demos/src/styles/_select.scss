@@ -29,3 +29,11 @@
 .custom-enhanced-select-width {
   width: 300px;
 }
+
+.custom-select-shape-radius {
+  @include mdc-select-shape-radius(50%);
+}
+
+.custom-select-outline-shape-radius {
+  @include mdc-select-outline-shape-radius(50%);
+}

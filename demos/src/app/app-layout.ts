@@ -23,16 +23,16 @@ export class AppLayout implements OnInit, OnDestroy {
   startVisible: boolean;
 
   navigationLinks = [
-    { name: 'Button', route: '/button-demo' },
+    { name: 'Button', route: 'button-demo' },
     { name: 'Card', route: 'card-demo' },
     { name: 'Checkbox', route: 'checkbox-demo' },
     { name: 'Chips', route: 'chips-demo' },
     { name: 'Dialog', route: 'dialog-demo' },
     { name: 'Drawer', route: 'drawer-demo' },
     { name: 'Elevation', route: 'elevation-demo' },
-    { name: 'FAB', route: '/fab-demo' },
+    { name: 'FAB', route: 'fab-demo' },
     { name: 'Form Field', route: 'form-field-demo' },
-    { name: 'Icon Button', route: '/icon-button-demo' },
+    { name: 'Icon Button', route: 'icon-button-demo' },
     { name: 'Icon', route: 'icon-demo' },
     { name: 'Image List', route: 'image-list-demo' },
     { name: 'Linear Progress', route: 'linear-progress-demo' },
@@ -87,5 +87,9 @@ export class AppLayout implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._destroy.next();
     this._destroy.complete();
+  }
+
+  onDrawerSelect(route: any) {
+    this._router.navigate([route]);
   }
 }

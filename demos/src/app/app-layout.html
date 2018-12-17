@@ -17,17 +17,17 @@
 <mdc-drawer class="demo-drawer" #appdrawer="mdcDrawer" [open]="!isScreenSmall()" [drawer]="isScreenSmall() ? 'modal' : 'dismissible'" mdcTopAppBarFixedAdjust>
   <mdc-drawer-content>
     <mdc-list useActivatedClass>
-      <mdc-list-item [routerLink]="['home']" routerLinkActive #rlaHome="routerLinkActive">Home</mdc-list-item>
+      <mdc-list-item (selectionChange)="onDrawerSelect('home')">Home</mdc-list-item>
       <mdc-list-divider></mdc-list-divider>
-      <mdc-list-item (click)="startVisible = !startVisible">
+      <mdc-list-item (selectionChange)="startVisible = !startVisible">
         Getting Started
         <mdc-icon mdcListItemMeta>keyboard_arrow_{{startVisible ? 'down' : 'right'}}</mdc-icon>
       </mdc-list-item>
       <div *ngIf="startVisible">
-        <mdc-list-item *ngFor="let item of startRoutes" [routerLink]="[item.route]" routerLinkActive #rlaCore="routerLinkActive">{{item.name}}</mdc-list-item>
+        <mdc-list-item *ngFor="let item of startRoutes" (selectionChange)="onDrawerSelect('getting-started')">{{item.name}}</mdc-list-item>
       </div>
       <mdc-list-divider></mdc-list-divider>
-      <mdc-list-item *ngFor="let navItem of navigationLinks" [routerLink]="[navItem.route]" routerLinkActive #rla="routerLinkActive">{{navItem.name}}</mdc-list-item>
+      <mdc-list-item *ngFor="let navItem of navigationLinks" (selectionChange)="onDrawerSelect(navItem.route)">{{navItem.name}}</mdc-list-item>
     </mdc-list>
   </mdc-drawer-content>
 </mdc-drawer>

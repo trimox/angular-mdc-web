@@ -10,15 +10,15 @@ export class AppComponent implements OnInit {
   constructor(private _router: Router) { }
 
   ngOnInit() {
-    this._router.events.subscribe(event => {
-      if (this._router.url !== '/') {
-        if (event instanceof NavigationEnd) {
-          if (environment.production) {
+    if (environment.production) {
+      this._router.events.subscribe(event => {
+        if (this._router.url !== '/') {
+          if (event instanceof NavigationEnd) {
             (<any>window).ga('set', 'page', event.urlAfterRedirects);
             (<any>window).ga('send', 'pageview');
           }
         }
-      }
-    });
+      });
+    }
   }
 }

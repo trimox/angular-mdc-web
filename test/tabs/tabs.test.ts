@@ -1,4 +1,4 @@
-import { Component, DebugElement, ViewChild } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -106,7 +106,8 @@ describe('MDC Tabs', () => {
       fixture.detectChanges();
       flush();
 
-      expect(testInstance.tabs.toArray()[0].elementRef.nativeElement.classList.contains('ngx-mdc-tab--disabled')).toBe(true);
+      expect(testInstance.tabs.toArray()[0].elementRef.nativeElement.classList
+        .contains('ngx-mdc-tab--disabled')).toBe(true);
     }));
 
     it('#should turn on stacked for tabs', fakeAsync(() => {
@@ -120,6 +121,8 @@ describe('MDC Tabs', () => {
       dispatchFakeEvent(testInstance.tabs.toArray()[1].elementRef.nativeElement, 'mousedown');
       fixture.detectChanges();
       flush();
+
+      dispatchFakeEvent(testInstance.tabScroller.content.nativeElement, 'transitionend');
     }));
 
     it('#should turn on fixed for tabs', fakeAsync(() => {
@@ -141,6 +144,13 @@ describe('MDC Tabs', () => {
       fixture.detectChanges();
       flush();
       expect(testInstance.useAutomaticActivation).toBe(true);
+    }));
+
+    it('#should turn off focusOnActivate', fakeAsync(() => {
+      testComponent.focusOnActivate = true;
+      fixture.detectChanges();
+      flush();
+      expect(testInstance.focusOnActivate).toBe(true);
     }));
 
     it('#should set active tab', fakeAsync(() => {
@@ -241,7 +251,9 @@ describe('MDC Tabs', () => {
 @Component({
   template: `
   <mdc-tab-bar [stacked]="stacked" [fixed]="fixed" [fade]="fade" [align]="align" [activeTabIndex]="activeTabIndex"
-    [useAutomaticActivation]="useAutomaticActivation" [iconIndicator]="iconIndicator" (activated)="handleActivatedTab($event)">
+    [useAutomaticActivation]="useAutomaticActivation" [iconIndicator]="iconIndicator"
+    [focusOnActivate]="focusOnActivate"
+    (activated)="handleActivatedTab($event)">
     <mdc-tab-scroller>
       <mdc-tab label="Flights" icon="airplanemode_active" [disabled]="disabledTab"></mdc-tab>
       <mdc-tab label="Hotel" icon="hotel"></mdc-tab>
@@ -263,6 +275,7 @@ class SimpleTest {
   activeTabIndex: number;
   iconIndicator: string;
   disabledTab: boolean;
+  focusOnActivate: boolean;
 
   handleActivatedTab: (event: { index: number, tab: MdcTab }) => void = () => { };
 }

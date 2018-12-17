@@ -1,10 +1,12 @@
 import { Component, DebugElement } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed, flush } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, flush, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import {
+  dispatchFakeEvent,
   dispatchTouchEvent,
+  dispatchMouseEvent,
   dispatchKeyboardEvent
 } from '../testing/dispatch-events';
 
@@ -182,6 +184,17 @@ describe('MdcTextField', () => {
       fixture.detectChanges();
     }));
 
+    it('handles animationend event', fakeAsync(() => {
+      dispatchFakeEvent(textFieldInstance._floatingLabel.elementRef.nativeElement, 'animationend');
+    }));
+
+    it('handles transitionend event', fakeAsync(() => {
+      testComponent.outlined = false;
+      fixture.detectChanges();
+
+      dispatchFakeEvent(textFieldInstance._lineRipple.elementRef.nativeElement, 'transitionend');
+    }));
+
     it('expect trailing icon to be defined', fakeAsync(() => {
       expect(textFieldInstance.trailingIcon).toBeDefined();
     }));
@@ -229,12 +242,18 @@ describe('MdcTextField', () => {
       testInstance._input.nativeElement.focus();
       fixture.detectChanges();
 
-      dispatchKeyboardEvent(testInstance._input.nativeElement, 'keyup', A);
+      dispatchKeyboardEvent(textFieldNativeElement, 'keyup', A);
       fixture.detectChanges();
 
-      dispatchTouchEvent(testInstance._input.nativeElement, 'touchstart');
+      dispatchTouchEvent(textFieldNativeElement, 'touchstart');
       fixture.detectChanges();
-      flush();
+      tick(300);
+
+      dispatchTouchEvent(textFieldNativeElement, 'touchstart');
+      dispatchMouseEvent(testInstance._input.nativeElement, 'mousedown');
+      dispatchMouseEvent(testInstance._input.nativeElement, 'mousedown');
+      fixture.detectChanges();
+      tick(300);
 
       expect(testInstance.focused).toBe(true);
 

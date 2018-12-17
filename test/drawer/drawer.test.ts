@@ -51,6 +51,10 @@ describe('MdcDrawer', () => {
       expect(testInstance.open).toBe(false);
     });
 
+    it('handles transitionend event', fakeAsync(() => {
+      dispatchFakeEvent(testInstance.elementRef.nativeElement, 'transitionend');
+    }));
+
     it('#should set permanent if empty', () => {
       testComponent.drawer = null;
       fixture.detectChanges();

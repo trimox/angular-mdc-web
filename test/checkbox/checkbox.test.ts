@@ -3,6 +3,8 @@ import { async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed } from '@a
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
+import { dispatchFakeEvent } from '../testing/dispatch-events';
+
 import { MdcCheckbox, MdcCheckboxModule } from '@angular-mdc/web';
 
 describe('MdcCheckbox', () => {
@@ -48,6 +50,10 @@ describe('MdcCheckbox', () => {
 
       expect(inputElement.checked).toBe(true);
     });
+
+    it('handles animationend event', fakeAsync(() => {
+      dispatchFakeEvent(checkboxInstance.elementRef.nativeElement, 'animationend');
+    }));
 
     it('#should toggle checked state on click', () => {
       expect(checkboxInstance.checked).toBe(false);
@@ -146,6 +152,18 @@ describe('MdcCheckbox', () => {
       checkboxInstance.indeterminate = true;
       fixture.detectChanges();
 
+      expect(checkboxInstance.indeterminate).toBe(false);
+    });
+
+    it('#should not set checked to false', () => {
+      checkboxInstance.indeterminate = true;
+      checkboxInstance.indeterminateToChecked = false;
+      fixture.detectChanges();
+
+      inputElement.click();
+      fixture.detectChanges();
+
+      expect(inputElement.checked).toBe(false);
       expect(checkboxInstance.indeterminate).toBe(false);
     });
 

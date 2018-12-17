@@ -2,13 +2,13 @@ import { Component, DebugElement, ViewChild } from '@angular/core';
 import { async, ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+import { dispatchFakeEvent } from '../testing/dispatch-events';
+
 import {
   MdcChipsModule,
   MdcChip,
   MdcChipSet,
   MdcChipRemovedEvent,
-  MdcChipIcon,
-  MdcChipInteractionEvent,
   MdcChipSelectionEvent,
   MdcIcon,
   MdcChipSetChange
@@ -44,6 +44,10 @@ describe('Chips', () => {
     it('#should have mdc-chip by default', () => {
       expect(testDebugElement.nativeElement.classList).toContain('mdc-chip');
     });
+
+    it('handles transitionend event', fakeAsync(() => {
+      dispatchFakeEvent(testInstance.elementRef.nativeElement, 'transitionend');
+    }));
 
     it('#should have leading icon', () => {
       expect(testInstance.leadingIcon).toBeDefined();

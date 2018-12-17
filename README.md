@@ -15,6 +15,7 @@ Incorporating [Google Material Components](https://github.com/material-component
 *  [Demos, documentation and guides](https://trimox.github.io/angular-mdc-web/)
 *  [Contributing](https://github.com/trimox/angular-mdc-web/blob/master/CONTRIBUTING.md)
 *  [Developer guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/developer.md)
+*  [MDC Web Roadmap](https://github.com/material-components/material-components-web/blob/master/ROADMAP.md)
 
 > Note: Angular MDC follows semver and is still in version 0.x, which means it is regularly subject to
 > breaking changes. A list of changes is always available in the [CHANGELOG](./CHANGELOG.md).

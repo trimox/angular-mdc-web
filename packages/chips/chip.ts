@@ -270,7 +270,8 @@ export class MdcChip implements AfterViewInit, OnDestroy {
           window.getComputedStyle(this._getHostElement()).getPropertyValue(propertyName);
         }
       },
-      setStyleProperty: (propertyName: string, value: string) => this._getHostElement().style.setProperty(propertyName, value)
+      setStyleProperty: (propertyName: string, value: string) =>
+        this._getHostElement().style.setProperty(propertyName, value)
     };
   }
 

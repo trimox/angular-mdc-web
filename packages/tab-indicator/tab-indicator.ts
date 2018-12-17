@@ -76,7 +76,8 @@ export class MdcTabIndicator implements AfterViewInit {
 
         return this.content.nativeElement.getBoundingClientRect();
       },
-      setContentStyleProperty: (propName: string, value: string) => this.content.nativeElement.style.setProperty(propName, value)
+      setContentStyleProperty: (propName: string, value: string) =>
+        this.content.nativeElement.style.setProperty(propName, value)
     };
   }
 

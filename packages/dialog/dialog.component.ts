@@ -112,7 +112,8 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
           this._focusTrap.deactivate();
         }
       },
-      isContentScrollable: () => !!this._content && this._scrollable && isScrollable(this._content.elementRef.nativeElement),
+      isContentScrollable: () =>
+        !!this._content && this._scrollable && isScrollable(this._content.elementRef.nativeElement),
       areButtonsStacked: () => areTopsMisaligned(this._buttons),
       getActionFromEvent: (event: Event) => {
         const element = closest(event.target, `[${strings.ACTION_ATTRIBUTE}]`);

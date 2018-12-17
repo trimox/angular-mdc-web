@@ -3,7 +3,7 @@ import {
   OnDestroy,
   NgZone
 } from '@angular/core';
-import { fromEvent, Subject, Subscription } from 'rxjs';
+import { fromEvent, Subject, Subscription, merge, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { Platform } from '@angular-mdc/web/common';
@@ -14,6 +14,20 @@ import {
   supportsCssVariables
 } from '@material/ripple/util';
 import { MDCRippleFoundation } from '@material/ripple/index';
+
+// Activation events registered on the root element of each instance for activation
+const ACTIVATION_EVENT_TYPES = ['touchstart', 'mousedown', 'keydown'];
+
+// Deactivation events registered on documentElement when a pointer-related down event occurs
+const POINTER_DEACTIVATION_EVENT_TYPES = ['touchend', 'pointerup', 'mouseup', 'keyup', 'contextmenu'];
+
+/**
+ * Time in milliseconds for which to ignore mouse events, after
+ * receiving a touch event. Used to avoid doing double work for
+ * touch devices where the browser fires fake mouse events, in
+ * addition to touch events.
+ */
+const MOUSE_EVENT_IGNORE_TIME = 800;
 
 export class MdcRippleConfig {
   surface: any;
@@ -32,8 +46,28 @@ export class MdcRipple implements OnDestroy {
 
   private _rippleConfig!: MdcRippleConfig;
 
+  /** Time in milliseconds when the last touchstart event happened. */
+  private _lastTouchStartEvent: number = 0;
+
   private _focusSubscription: Subscription | null = null;
   private _blurSubscription: Subscription | null = null;
+
+  private _activationEventsSubscription: Subscription | null = null;
+  private _pointerDeactivationEventsSubscription: Subscription | null = null;
+
+  /** Combined stream of all of the activation events. */
+  get activationEvents(): Observable<any> {
+    return merge(...ACTIVATION_EVENT_TYPES.map(evt =>
+      fromEvent(this._rippleConfig.activator ? this._rippleConfig.activator :
+        this._rippleConfig.surface, evt, applyPassive())));
+  }
+
+  /** Combined stream of all of the de-activation events. */
+  get pointerDeactivationEvents(): Observable<any> {
+    return merge(...POINTER_DEACTIVATION_EVENT_TYPES.map(evt =>
+      fromEvent(this._rippleConfig.activator ? this._rippleConfig.activator :
+        this._rippleConfig.surface, evt, applyPassive())));
+  }
 
   createAdapter() {
     return {
@@ -50,10 +84,6 @@ export class MdcRipple implements OnDestroy {
       addClass: (className: string) => this._rippleConfig.surface.classList.add(className),
       removeClass: (className: string) => this._rippleConfig.surface.classList.remove(className),
       containsEventTarget: (target: EventTarget) => this._rippleConfig.surface.contains(target),
-      registerInteractionHandler: (evtType: string, handler: EventListener) =>
-        this._rippleConfig.surface.addEventListener(evtType, handler, applyPassive()),
-      deregisterInteractionHandler: (evtType: string, handler: EventListener) =>
-        this._rippleConfig.surface.removeEventListener(evtType, handler, applyPassive()),
       registerDocumentInteractionHandler: (evtType: string, handler: EventListener) => {
         if (!this._platform.isBrowser) { return; }
 
@@ -74,7 +104,8 @@ export class MdcRipple implements OnDestroy {
 
         window.removeEventListener('resize', handler);
       },
-      updateCssVariable: (varName: string, value: string) => this._rippleConfig.surface.style.setProperty(varName, value),
+      updateCssVariable: (varName: string, value: string) =>
+        this._rippleConfig.surface.style.setProperty(varName, value),
       computeBoundingRect: () => {
         if (!this._platform.isBrowser) { return {}; }
 
@@ -129,11 +160,24 @@ export class MdcRipple implements OnDestroy {
   }
 
   activateRipple(event?: Event): void {
-    this._foundation.activate(event);
+    if (event) {
+      if (event instanceof MouseEvent) {
+        const isSyntheticEvent = this._lastTouchStartEvent &&
+          Date.now() < this._lastTouchStartEvent + MOUSE_EVENT_IGNORE_TIME;
+
+        if (isSyntheticEvent) {
+          return;
+        }
+      } else {
+        this._lastTouchStartEvent = Date.now();
+      }
+    }
+
+    setTimeout(() => this._foundation.activate(event));
   }
 
   deactivateRipple(event?: Event): void {
-    this._foundation.deactivate(event);
+    setTimeout(() => this._foundation.deactivate(event));
   }
 
   handleFocus(): void {
@@ -145,6 +189,14 @@ export class MdcRipple implements OnDestroy {
   }
 
   private _loadListeners(): void {
+    this._activationEventsSubscription = this._ngZone.runOutsideAngular(() =>
+      this.activationEvents.pipe(takeUntil(this._destroy))
+        .subscribe(event => this._ngZone.run(() => this.activateRipple(event))));
+
+    this._pointerDeactivationEventsSubscription = this._ngZone.runOutsideAngular(() =>
+      this.pointerDeactivationEvents.pipe(takeUntil(this._destroy))
+        .subscribe(event => this._ngZone.run(() => this.deactivateRipple(event))));
+
     this._focusSubscription = this._ngZone.runOutsideAngular(() =>
       fromEvent<FocusEvent>(this._rippleConfig.activator ?
         this._rippleConfig.activator : this._rippleConfig.surface, 'focus').pipe(takeUntil(this._destroy))
@@ -157,6 +209,15 @@ export class MdcRipple implements OnDestroy {
   }
 
   private _unloadListeners(): void {
+    if (this._activationEventsSubscription) {
+      this._activationEventsSubscription.unsubscribe();
+      this._activationEventsSubscription = null;
+    }
+
+    if (this._pointerDeactivationEventsSubscription) {
+      this._pointerDeactivationEventsSubscription.unsubscribe();
+      this._pointerDeactivationEventsSubscription = null;
+    }
     if (this._focusSubscription) {
       this._focusSubscription.unsubscribe();
       this._focusSubscription = null;

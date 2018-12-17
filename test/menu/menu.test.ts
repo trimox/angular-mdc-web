@@ -134,9 +134,6 @@ describe('MdcMenu', () => {
       dispatchKeyboardEvent(listItemInstance.getListItemElement(), 'keydown', DOWN_ARROW);
       fixture.detectChanges();
       tick(500);
-
-      dispatchKeyboardEvent(listItemInstance.getListItemElement(), 'keydown', TAB);
-      fixture.detectChanges();
     }));
   });
 });

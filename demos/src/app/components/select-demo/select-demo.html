@@ -67,6 +67,10 @@
             <td>disabled: boolean</td>
             <td>Enables/disables the select.</td>
           </tr>
+          <tr>
+            <td>helperText: MdcHelperText</td>
+            <td>Reference to related <code>MdcHelperText</code></td>
+          </tr>
         </tbody>
       </table>
       <table>
@@ -147,15 +151,39 @@
   </div>
 
   <div class="demo-content">
+    <h3 class="demo-content__headline">Enhanced Select</h3>
+    <div class="demo-layout__row">
+      <button mdc-button (click)="enhanced.outlined = !enhanced.outlined">Outlined: {{enhanced.outlined ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="enhanced.required = !enhanced.required">Required: {{enhanced.required ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="enhanced.disabled = !enhanced.disabled">Disabled: {{enhanced.disabled ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="enhanced.floatLabel = !enhanced.floatLabel">Float Label: {{enhanced.floatLabel ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="enhanced.autosize = !enhanced.autosize">Autosize: {{enhanced.autosize ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="enhanced.setSelectedIndex(2)">Set Index (2)</button>
+    </div>
+    <mdc-select #enhanced placeholder="Fruit" [helperText]="enhancedHelper" required>
+      <mdc-menu>
+        <mdc-list>
+          <mdc-list-item selected></mdc-list-item>
+          <mdc-list-item value="apple">Apple</mdc-list-item>
+          <mdc-list-item value="orange">Orange</mdc-list-item>
+          <mdc-list-item value="banana">Banana</mdc-list-item>
+        </mdc-list>
+      </mdc-menu>
+    </mdc-select>
+    <mdc-helper-text #enhancedHelper validation>Field is required</mdc-helper-text>
+    <p> Value: {{ enhanced.value }}</p>
+    <p> Index: {{ enhanced.getSelectedIndex() }}</p>
+  </div>
+
+  <div class="demo-content">
     <h3 class="demo-content__headline">Select</h3>
     <div class="demo-layout__row">
       <button mdc-button (click)="native1.outlined = !native1.outlined">Outlined: {{native1.outlined ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="native1.required = !native1.required">Required: {{native1.required ? 'On' : 'Off'}}</button>
       <button mdc-button (click)="native1.disabled = !native1.disabled">Disabled: {{native1.disabled ? 'On' : 'Off'}}</button>
-      <button mdc-button (click)="native1.floatLabel = !native1.floatLabel">Float Label: {{native1.floatLabel ? 'On' :
-        'Off'}}</button>
-        <button mdc-button (click)="native1.autosize = !native1.autosize">Autosize: {{native1.autosize ? 'On' : 'Off'}}</button>
-        <button mdc-button (click)="native1.setSelectedIndex(2)">Set Index (2)</button>
+      <button mdc-button (click)="native1.floatLabel = !native1.floatLabel">Float Label: {{native1.floatLabel ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="native1.autosize = !native1.autosize">Autosize: {{native1.autosize ? 'On' : 'Off'}}</button>
+      <button mdc-button (click)="native1.setSelectedIndex(2)">Set Index (2)</button>
     </div>
     <mdc-form-field>
       <mdc-select #native1 required placeholder="Select Meal" autosize>
@@ -170,32 +198,34 @@
     </mdc-form-field>
   </div>
 
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Select examples</h3>
-    <mdc-form-field>
-      <mdc-select #example1>
-        <option value="apple">Apple</option>
-        <option value="orange">Orange</option>
-      </mdc-select>
-    </mdc-form-field>
-    <mdc-form-field>
-      <mdc-select placeholder="Unit">
-        <option value="kg">kg</option>
-        <option value="ml">ml</option>
-      </mdc-select>
-    </mdc-form-field>
-  </div>
+  <div class="demo-layout__row">
+    <div class="demo-content">
+      <h3 class="demo-content__headline">Select examples</h3>
+      <mdc-form-field class="demo-container">
+        <mdc-select #example1>
+          <option value="apple">Apple</option>
+          <option value="orange">Orange</option>
+        </mdc-select>
+      </mdc-form-field>
+      <mdc-form-field class="demo-container">
+        <mdc-select placeholder="Unit">
+          <option value="kg">kg</option>
+          <option value="ml">ml</option>
+        </mdc-select>
+      </mdc-form-field>
+    </div>
 
-  <div class="demo-content">
-    <h1 mdcHeadline6>Select using compareWith</h1>
-    <form [formGroup]="formOne">
-      <mdc-select formControlName="fruit" [compareWith]="compareFn" (selectionChange)="onSelectionChangeFruit($event)">
-        <option *ngFor="let fruit of fruits" [ngValue]="fruit">
-          {{ fruit.name }}
-        </option>
-      </mdc-select>
-    </form>
-    <p> Value: {{ formOne.value | json}} </p>
+    <div class="demo-content">
+      <h1 mdcHeadline6>Select using compareWith</h1>
+      <form [formGroup]="formOne">
+        <mdc-select formControlName="fruit" [compareWith]="compareFn" (selectionChange)="onSelectionChangeFruit($event)">
+          <option *ngFor="let fruit of fruits" [ngValue]="fruit">
+            {{ fruit.name }}
+          </option>
+        </mdc-select>
+      </form>
+      <p> Value: {{ formOne.value | json}} </p>
+    </div>
   </div>
 
   <div class="demo-content">
@@ -262,18 +292,5 @@
     <p>Pristine: {{ foodForm.pristine }}</p>
     <p>Touched: {{ foodForm.touched }}</p>
     <p>Value: {{ foodForm.value | json }}</p>
-  </div>
-
-  <div class="demo-content">
-    <h3 class="demo-content__headline">Enhanced Select</h3>
-    <mdc-form-field>
-      <mdc-select placeholder="Fruit">
-        <mdc-list>
-          <mdc-list-item>Apple</mdc-list-item>
-          <mdc-list-item>Orange</mdc-list-item>
-          <mdc-list-item>Banana</mdc-list-item>
-        </mdc-list>
-      </mdc-select>
-    </mdc-form-field>
   </div>
 </div>

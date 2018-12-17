@@ -9,17 +9,18 @@ import { By } from '@angular/platform-browser';
 
 import { dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from '../testing/dispatch-events';
 
-import { DOWN_ARROW, MdcSelectModule, MdcSelect } from '@angular-mdc/web';
+import { DOWN_ARROW, MdcSelectModule, MdcSelect, MdcListModule } from '@angular-mdc/web';
 
 describe('MdcSelectModule', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, ReactiveFormsModule, MdcSelectModule],
+      imports: [FormsModule, ReactiveFormsModule, MdcSelectModule, MdcListModule],
       declarations: [
         SimpleTest,
         SelectFormControl,
+        EnhancedSelect
       ]
     });
     TestBed.compileComponents();
@@ -155,7 +156,49 @@ describe('MdcSelectModule', () => {
       document.body.focus(); // ensure that focus isn't on the trigger already
       testInstance.focus();
 
-      expect(document.activeElement).toBe(testInstance._nativeSelect.nativeElement, 'Expected select element to be focused.');
+      expect(document.activeElement).toBe(testInstance._nativeSelect.nativeElement,
+        'Expected select element to be focused.');
+    }));
+  });
+
+  describe('Enhanced select', () => {
+    let testDebugElement: DebugElement;
+    let testNativeElement: HTMLElement;
+    let testInstance: MdcSelect;
+    let testComponent: EnhancedSelect;
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(EnhancedSelect);
+      fixture.detectChanges();
+
+      testDebugElement = fixture.debugElement.query(By.directive(MdcSelect));
+      testNativeElement = testDebugElement.nativeElement;
+      testInstance = testDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+
+      fixture.detectChanges();
+    });
+
+    it('#should apply class outlined', fakeAsync(() => {
+      testComponent.outlined = true;
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList.contains('mdc-select--outlined')).toBe(true);
+    }));
+
+    it('#should be disabled', fakeAsync(() => {
+      testComponent.disabled = true;
+      fixture.detectChanges();
+      expect(testInstance.disabled).toBe(true);
+    }));
+
+    it('#should handle mouse events', fakeAsync(() => {
+      dispatchMouseEvent(testDebugElement.nativeElement, 'mousedown');
+      fixture.detectChanges();
+      testInstance.focus();
+      dispatchKeyboardEvent(testInstance.elementRef.nativeElement, 'keydown', DOWN_ARROW);
+      fixture.detectChanges();
+
+      flush();
     }));
   });
 });
@@ -227,4 +270,28 @@ class SelectFormControl {
   ];
 
   handleBlur: () => void = () => { };
+}
+
+@Component({
+  template: `
+  <mdc-select placeholder="Fruit" [helperText]="enhancedHelper" [disabled]="disabled" [outlined]="outlined">
+  <mdc-menu>
+    <mdc-list>
+      <mdc-list-item selected></mdc-list-item>
+      <mdc-list-item value="apple">Apple</mdc-list-item>
+      <mdc-list-item value="orange">Orange</mdc-list-item>
+      <mdc-list-item value="banana">Banana</mdc-list-item>
+    </mdc-list>
+  </mdc-menu>
+</mdc-select>
+<mdc-helper-text #enhancedHelper validation>Field is required</mdc-helper-text>
+`
+})
+class EnhancedSelect {
+  outlined: boolean;
+  disabled: boolean;
+
+  compareFn(f1: any, f2: any): boolean {
+    return f1 && f2 ? f1.id === f2.id : f1 === f2;
+  }
 }

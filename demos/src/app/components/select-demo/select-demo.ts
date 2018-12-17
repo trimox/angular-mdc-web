@@ -21,7 +21,7 @@ export class SelectDemo {
 
   foodForm = new FormGroup({
     favoriteFood: new FormControl(
-      { value: '', disabled: false }, [Validators.required])
+      { value: 'pizza-1', disabled: false }, [Validators.required])
   });
 
   public formOne: FormGroup;
@@ -75,10 +75,10 @@ export class SelectDemo {
   }
 
   onSelectionChange(event: { index: any, value: any }) {
-    console.log(`onSelectionChange: ${event.index} ${event.value}`);
+    // console.log(`onSelectionChange: ${event.index} ${event.value}`);
   }
 
   onSelectionChangeFruit(event: { index: any, value: any }) {
-    console.log(`onSelectionChangeFruit: ${event.index} ${event.value}`);
+    // console.log(`onSelectionChangeFruit: ${event.index} ${event.value}`);
   }
 }

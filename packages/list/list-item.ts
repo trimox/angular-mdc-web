@@ -16,7 +16,7 @@ import {
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { toBoolean } from '@angular-mdc/web/common';
+import { toBoolean, ENTER, SPACE } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
 /** Change event that is fired whenever the selected state of an option changes. */
@@ -111,17 +111,18 @@ export class MdcListItem implements AfterViewInit, OnDestroy {
   /** The unique ID of the option. */
   get id(): string { return this._id; }
 
-  @Output() readonly selectionChange: EventEmitter<MdcListSelectionChange>
-    = new EventEmitter<MdcListSelectionChange>();
-
-  @ContentChild(MdcListItemGraphic) listItemStart!: MdcListItemGraphic;
+  @Input() value: any;
+  @Input() tabIndex: number = -1;
 
   /** Whether the option is selected. */
   @Input()
   get selected(): boolean { return this._selected; }
   set selected(value: boolean) {
-    this._selected = toBoolean(value);
-    this._changeDetectorRef.markForCheck();
+    const newValue = toBoolean(value);
+    if (newValue !== this._selected) {
+      this._selected = toBoolean(value);
+      this._changeDetectorRef.markForCheck();
+    }
   }
   private _selected: boolean = false;
 
@@ -129,8 +130,11 @@ export class MdcListItem implements AfterViewInit, OnDestroy {
   @Input()
   get activated(): boolean { return this._activated; }
   set activated(value: boolean) {
-    this._activated = toBoolean(value);
-    this._changeDetectorRef.markForCheck();
+    const newValue = toBoolean(value);
+    if (newValue !== this._activated) {
+      this._activated = toBoolean(value);
+      this._changeDetectorRef.markForCheck();
+    }
   }
   private _activated: boolean = false;
 
@@ -138,12 +142,18 @@ export class MdcListItem implements AfterViewInit, OnDestroy {
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
-    this._disabled = toBoolean(value);
-    this._changeDetectorRef.markForCheck();
+    const newValue = toBoolean(value);
+    if (newValue !== this._disabled) {
+      this._disabled = toBoolean(value);
+      this._changeDetectorRef.markForCheck();
+    }
   }
   private _disabled: boolean = false;
 
-  @Input() tabIndex: number = -1;
+  @Output() readonly selectionChange: EventEmitter<MdcListSelectionChange>
+    = new EventEmitter<MdcListSelectionChange>();
+
+  @ContentChild(MdcListItemGraphic) listItemStart!: MdcListItemGraphic;
 
   constructor(
     private _ngZone: NgZone,
@@ -167,6 +177,8 @@ export class MdcListItem implements AfterViewInit, OnDestroy {
   }
 
   focus(): void {
+    if (this._disabled) { return; }
+
     this.getListItemElement().focus();
   }
 
@@ -182,10 +194,18 @@ export class MdcListItem implements AfterViewInit, OnDestroy {
     this._ngZone.runOutsideAngular(() =>
       fromEvent<MouseEvent>(this.getListItemElement(), 'click').pipe(takeUntil(this._destroy))
         .subscribe(() => this._ngZone.run(() => this._emitChangeEvent())));
+
+    this._ngZone.runOutsideAngular(() =>
+      fromEvent<KeyboardEvent>(this.getListItemElement(), 'keydown').pipe(takeUntil(this._destroy))
+        .subscribe((evt) => this._ngZone.run(() => {
+          if (evt.keyCode === ENTER || evt.keyCode === SPACE) {
+            this._emitChangeEvent();
+          }
+        })));
   }
 
   /** Emits a change event if the selected state of an option changed. */
-  private _emitChangeEvent(): void {
+  _emitChangeEvent(): void {
     this.selectionChange.emit(new MdcListSelectionChange(this));
   }
 }

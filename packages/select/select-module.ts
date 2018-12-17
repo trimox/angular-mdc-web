@@ -25,6 +25,7 @@ const SELECT_DECLARATIONS = [
     MdcLineRippleModule
   ],
   exports: [
+    MdcMenuModule,
     MdcFormFieldModule,
     SELECT_DECLARATIONS
   ],

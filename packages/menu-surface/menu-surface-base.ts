@@ -252,7 +252,7 @@ export abstract class MdcMenuSurfaceBase {
   } = new MDCMenuSurfaceFoundation(this._createSurfaceAdapter());
 
   constructor(
-    @Optional() private _changeDetectorRef: ChangeDetectorRef,
+    public changeDetectorRef: ChangeDetectorRef,
     public platform: Platform,
     @Optional() private _ngZone: NgZone,
     public elementRef: ElementRef<HTMLElement>) { }

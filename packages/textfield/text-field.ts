@@ -51,6 +51,14 @@ export const _MdcTextFieldMixinBase: CanUpdateErrorStateCtor & typeof MdcTextFie
 
 let nextUniqueId = 0;
 
+/**
+ * Time in milliseconds for which to ignore mouse events, after
+ * receiving a touch event. Used to avoid doing double work for
+ * touch devices where the browser fires fake mouse events, in
+ * addition to touch events.
+ */
+const MOUSE_EVENT_IGNORE_TIME = 800;
+
 @Component({
   moduleId: module.id,
   selector: 'mdc-text-field',
@@ -107,6 +115,9 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   OnDestroy, ControlValueAccessor, MdcFormFieldControl<any>, CanUpdateErrorState {
   private _uid = `mdc-input-${nextUniqueId++}`;
   private _initialized: boolean = false;
+
+  /** Time in milliseconds when the last touchstart event happened. */
+  private _lastTouchStartEvent: number = 0;
 
   controlType: string = 'mdc-text-field';
 
@@ -406,6 +417,17 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   }
 
   onInputInteraction(evt: MouseEvent | TouchEvent): void {
+    if (evt instanceof MouseEvent) {
+      const isSyntheticEvent = this._lastTouchStartEvent &&
+        Date.now() < this._lastTouchStartEvent + MOUSE_EVENT_IGNORE_TIME;
+
+      if (isSyntheticEvent) {
+        return;
+      }
+    } else {
+      this._lastTouchStartEvent = Date.now();
+    }
+
     this._foundation.setTransformOrigin(evt);
   }
 

@@ -8,8 +8,9 @@ import {
 import { toBoolean } from '@angular-mdc/web/common';
 
 @Component({
-  selector: 'mdc-helper-text, [mdcHelperText]',
-  exportAs: 'mdcHelperText',
+  selector: `mdc-helper-text, [mdcHelperText],
+  mdc-text-field-helper-text, [mdcTextFieldHelperText], [mdcSelectHelperText]`,
+  exportAs: 'mdcHelperText, mdcSelectHelperText',
   template: '<ng-content></ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None

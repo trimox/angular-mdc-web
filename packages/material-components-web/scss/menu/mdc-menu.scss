@@ -65,6 +65,7 @@
   }
 }
 
+// Extra specificity required to override `display` property on `mdc-list-item__graphic`.
 .mdc-menu__selection-group-icon {
   @include mdc-rtl-reflexive-position(left, 16px);
 

@@ -5899,7 +5899,7 @@ matchdep@^2.0.0:
     resolve "^1.4.0"
     stack-trace "0.0.10"
 
-material-components-web@^0.42.0:
+material-components-web@^0.42.1:
   version "0.42.1"
   resolved "https://registry.yarnpkg.com/material-components-web/-/material-components-web-0.42.1.tgz#007b729af28f8f22bef003e90c548853694f5ea4"
   integrity sha512-Hl5l7BX/9HoT8zlV5glbRCnE/B3w/bnsq2UdJ+8VqDSX8hIwgKMgDAdemV5nKTQlRS6zkM8yk/xV3aAU/jAr4w==

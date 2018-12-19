@@ -53,12 +53,12 @@ export class MdcNotchedOutline {
 
   constructor(public elementRef: ElementRef<HTMLElement>) { }
 
-  /** Updates notched outline to open notch in outline path. */
+  /** Updates classes and styles to open the notch to the specified width. */
   notch(notchWidth: number): void {
     this._foundation.notch(notchWidth);
   }
 
-  /** Updates the notched outline to close notch in outline path. */
+  /** Updates classes and styles to close the notch. */
   closeNotch(): void {
     this._foundation.closeNotch();
   }

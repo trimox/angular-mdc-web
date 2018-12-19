@@ -1,3 +1,29 @@
+## [0.42.1](https://github.com/trimox/angular-mdc-web/compare/v0.42.0...v0.42.1) (2018-12-19)
+
+
+### Bug Fixes
+
+* **demos:** Drawer navigation on keypress ([#1618](https://github.com/trimox/angular-mdc-web/issues/1618)) ([8d161be](https://github.com/trimox/angular-mdc-web/commit/8d161be))
+* **form-field:** Remove experimental gap mixin ([#1601](https://github.com/trimox/angular-mdc-web/issues/1601)) ([4e69e55](https://github.com/trimox/angular-mdc-web/commit/4e69e55))
+* **helper-text:** Support deprecated exports and selectors ([#1625](https://github.com/trimox/angular-mdc-web/issues/1625)) ([09daf9f](https://github.com/trimox/angular-mdc-web/commit/09daf9f))
+* **icon:** Support query params when prefixing ([#1597](https://github.com/trimox/angular-mdc-web/issues/1597)) ([197cfa4](https://github.com/trimox/angular-mdc-web/commit/197cfa4))
+* **tab:** Deduplicate synthetic ripple event on touch devices ([#1615](https://github.com/trimox/angular-mdc-web/issues/1615)) ([1fcb59f](https://github.com/trimox/angular-mdc-web/commit/1fcb59f))
+* **text-field:** Prevent synthetic event on touch devices ([#1613](https://github.com/trimox/angular-mdc-web/issues/1613)) ([b158a7c](https://github.com/trimox/angular-mdc-web/commit/b158a7c))
+* Use 'ngx' prefix naming for extended Sass ([#1598](https://github.com/trimox/angular-mdc-web/issues/1598)) ([7e61941](https://github.com/trimox/angular-mdc-web/commit/7e61941))
+
+
+### Features
+
+* Upgrade to material-components-web v0.42.1 ([#1624](https://github.com/trimox/angular-mdc-web/issues/1624)) ([b8cfff7](https://github.com/trimox/angular-mdc-web/commit/b8cfff7)), closes [#1622](https://github.com/trimox/angular-mdc-web/issues/1622)
+* **select:** Add enhanced variant ([#1612](https://github.com/trimox/angular-mdc-web/issues/1612)) ([d354bf2](https://github.com/trimox/angular-mdc-web/commit/d354bf2)), closes [#1593](https://github.com/trimox/angular-mdc-web/issues/1593) [#1592](https://github.com/trimox/angular-mdc-web/issues/1592) [#1402](https://github.com/trimox/angular-mdc-web/issues/1402) [#1611](https://github.com/trimox/angular-mdc-web/issues/1611) [#1610](https://github.com/trimox/angular-mdc-web/issues/1610) [#1609](https://github.com/trimox/angular-mdc-web/issues/1609) [#1603](https://github.com/trimox/angular-mdc-web/issues/1603) [#1616](https://github.com/trimox/angular-mdc-web/issues/1616)
+* Add mdc-helper-text ([#1596](https://github.com/trimox/angular-mdc-web/issues/1596)) ([c706980](https://github.com/trimox/angular-mdc-web/commit/c706980)), closes [#1595](https://github.com/trimox/angular-mdc-web/issues/1595)
+
+
+### BREAKING CHANGES
+
+* `mdcTextFieldHelperText` and `mdcSelectHelperText` are deprecated and are to be removed in the near future. Please update your code to use `mdcHelperText` or `mdc-helper-text` selectors.
+
+
 # [0.42.0](https://github.com/trimox/angular-mdc-web/compare/v0.41.4...v0.42.0) (2018-12-07)
 
 

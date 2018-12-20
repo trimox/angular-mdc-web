@@ -115,6 +115,8 @@ export class MdcDialog implements OnDestroy {
     // Only close the dialogs at this level on destroy
     // since the parent service may still be active.
     this._closeDialogs(this._openDialogsAtThisLevel);
+    this._afterAllClosedAtThisLevel.complete();
+    this._afterOpenedAtThisLevel.complete();
   }
 
   /**

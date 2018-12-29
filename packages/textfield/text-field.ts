@@ -531,7 +531,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     const newValue = toBoolean(isDisabled);
 
     if (newValue !== this._disabled) {
-      this._disabled = toBoolean(isDisabled);
+      this._disabled = newValue;
       this._foundation.setDisabled(this._disabled);
     }
     this._changeDetectorRef.markForCheck();

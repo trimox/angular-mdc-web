@@ -23,7 +23,7 @@ import { toBoolean, Platform } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcNotchedOutline } from '@angular-mdc/web/notched-outline';
 import { MdcFloatingLabel } from '@angular-mdc/web/floating-label';
-import { MdcMenu, MdcMenuSelectedEvent } from '@angular-mdc/web/menu';
+import { MdcMenu } from '@angular-mdc/web/menu';
 import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
 import {
   MdcFormField,
@@ -531,8 +531,9 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
     // Defer setting the value in order to avoid the "Expression
     // has changed after it was checked" errors from Angular.
     Promise.resolve().then(() => {
-      if (this.value) {
-        this.setSelectionByValue(this.value);
+      const value = this.ngControl ? this.ngControl.value : this._value;
+      if (value) {
+        this.setSelectionByValue(value);
         this._foundation.layout();
       }
     });

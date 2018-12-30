@@ -1,3 +1,14 @@
+## [0.42.2](https://github.com/trimox/angular-mdc-web/compare/v0.42.1...v0.42.2) (2018-12-30)
+
+
+### Bug Fixes
+
+* **dialog:** Complete streams when destroying injectable ([#1628](https://github.com/trimox/angular-mdc-web/issues/1628)) ([e658ab8](https://github.com/trimox/angular-mdc-web/commit/e658ab8))
+* **select:** Check ngControl value on initialize ([#1632](https://github.com/trimox/angular-mdc-web/issues/1632)) ([464dad8](https://github.com/trimox/angular-mdc-web/commit/464dad8)), closes [#1631](https://github.com/trimox/angular-mdc-web/issues/1631)
+* **text-field:** Reuse coerced disabled value ([#1634](https://github.com/trimox/angular-mdc-web/issues/1634)) ([edb3613](https://github.com/trimox/angular-mdc-web/commit/edb3613))
+
+
+
 ## [0.42.1](https://github.com/trimox/angular-mdc-web/compare/v0.42.0...v0.42.1) (2018-12-19)
 
 

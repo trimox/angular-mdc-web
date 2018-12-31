@@ -461,6 +461,14 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
 
     const newValue = value || null;
 
+    if (this._value === newValue) {
+      // If value reset, change style to valid
+      if (newValue === null) {
+        this.valid = true;
+      }
+      return;
+    }
+
     if (this._isEnhancedVariant()) {
       this._menu.open = false;
       this._enhancedSelectedText = this._list.getSelectedText();

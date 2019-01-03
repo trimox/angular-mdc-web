@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 
 const SMALL_WIDTH_BREAKPOINT = 1240;
 
-import { MdcTopAppBar } from '@angular-mdc/web';
+import { MdcDrawer, MdcTopAppBar } from '@angular-mdc/web';
 
 @Component({
   selector: 'app-layout',
@@ -19,6 +19,7 @@ export class AppLayout implements OnInit, OnDestroy {
 
   @ViewChild('demoTopAppBarControls') demoTopAppBarControls;
   @ViewChild('topAppBar') topAppBar: MdcTopAppBar;
+  @ViewChild('appdrawer') appdrawer: MdcDrawer;
 
   startVisible: boolean;
 
@@ -91,5 +92,8 @@ export class AppLayout implements OnInit, OnDestroy {
 
   onDrawerSelect(route: any) {
     this._router.navigate([route]);
+    if (this.isScreenSmall()) {
+      this.appdrawer.open = false;
+    }
   }
 }

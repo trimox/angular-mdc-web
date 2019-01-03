@@ -93,6 +93,7 @@ let nextUniqueId = 0;
    class="mdc-select__native-control"
    [attr.aria-describedby]="_ariaDescribedby || null"
    [required]="required"
+   [value]="value"
    (mousedown)="onInteraction($event)"
    (touchstart)="onInteraction($event)"
    (blur)="onBlur()"
@@ -200,7 +201,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   @Input()
   get value(): any { return this._value; }
   set value(newValue: any) {
-    this.setSelectionByValue(newValue);
+    this.setSelectionByValue(newValue, true);
   }
   private _value: any;
 
@@ -411,7 +412,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   }
 
   writeValue(value: any): void {
-    this.setSelectionByValue(value, false);
+    this.setSelectionByValue(value);
   }
 
   registerOnChange(fn: (value: any) => void): void {
@@ -456,7 +457,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
    * Sets the selected option based on a value. If no option can be
    * found with the designated value, the select trigger is cleared.
    */
-  setSelectionByValue(value: any, isUserInput: boolean = true): void {
+  setSelectionByValue(value: any, isUserInput?: boolean): void {
     if (!this._foundation) { return; }
 
     const newValue = value || null;

@@ -138,7 +138,7 @@ export class MdcTab implements OnInit, OnDestroy {
       this._foundation.setFocusOnActivate(this._focusOnActivate);
     }
   }
-  private _focusOnActivate: boolean = false;
+  private _focusOnActivate: boolean = true;
 
   @Output() readonly interacted: EventEmitter<MdcTabInteractedEvent> =
     new EventEmitter<MdcTabInteractedEvent>();

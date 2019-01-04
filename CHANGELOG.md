@@ -1,3 +1,15 @@
+## [0.42.3](https://github.com/trimox/angular-mdc-web/compare/v0.42.2...v0.42.3) (2019-01-04)
+
+
+### Bug Fixes
+
+* **demos:** Close drawer when route change for small screen devices ([#1640](https://github.com/trimox/angular-mdc-web/issues/1640)) ([1d52c8e](https://github.com/trimox/angular-mdc-web/commit/1d52c8e))
+* **select:** Should update value asynchronously ([#1642](https://github.com/trimox/angular-mdc-web/issues/1642)) ([bf8f1fa](https://github.com/trimox/angular-mdc-web/commit/bf8f1fa)), closes [#1638](https://github.com/trimox/angular-mdc-web/issues/1638)
+* **select:** Update validity style on reset ([#1636](https://github.com/trimox/angular-mdc-web/issues/1636)) ([aa22f63](https://github.com/trimox/angular-mdc-web/commit/aa22f63))
+* **tab-bar:** focusOnActivate not respecting false ([#1645](https://github.com/trimox/angular-mdc-web/issues/1645)) ([6c7b143](https://github.com/trimox/angular-mdc-web/commit/6c7b143)), closes [#1644](https://github.com/trimox/angular-mdc-web/issues/1644)
+
+
+
 ## [0.42.2](https://github.com/trimox/angular-mdc-web/compare/v0.42.1...v0.42.2) (2018-12-30)
 
 

@@ -7,70 +7,70 @@ import { Directive } from '@angular/core';
 export class MdcTypography { }
 
 @Directive({
-  selector: '[mdcHeadline1], [mdc-typography-display4]',
+  selector: '[mdcHeadline1]',
   host: { 'class': 'mdc-typography--headline1' }
 })
-export class MdcTypographyHeadline1 { }
+export class MdcHeadline1 { }
 
 @Directive({
-  selector: '[mdcHeadline2], [mdc-typography-display3]',
+  selector: '[mdcHeadline2]',
   host: { 'class': 'mdc-typography--headline2' }
 })
-export class MdcTypographyHeadline2 { }
+export class MdcHeadline2 { }
 
 @Directive({
-  selector: '[mdcHeadline3], [mdc-typography-display2]',
+  selector: '[mdcHeadline3]',
   host: { 'class': 'mdc-typography--headline3' }
 })
-export class MdcTypographyHeadline3 { }
+export class MdcHeadline3 { }
 
 @Directive({
-  selector: '[mdcHeadline4], [mdc-typography-display1]',
+  selector: '[mdcHeadline4]',
   host: { 'class': 'mdc-typography--headline4' }
 })
-export class MdcTypographyHeadline4 { }
+export class MdcHeadline4 { }
 
 @Directive({
-  selector: '[mdcHeadline5], [mdc-typography-headline]',
+  selector: '[mdcHeadline5]',
   host: { 'class': 'mdc-typography--headline5' }
 })
-export class MdcTypographyHeadline5 { }
+export class MdcHeadline5 { }
 
 @Directive({
-  selector: '[mdcHeadline6], [mdc-typography-title]',
+  selector: '[mdcHeadline6]',
   host: { 'class': 'mdc-typography--headline6' }
 })
-export class MdcTypographyHeadline6 { }
+export class MdcHeadline6 { }
 
 @Directive({
-  selector: '[mdcSubtitle1], [mdc-typography-subheading2]',
+  selector: '[mdcSubtitle1]',
   host: { 'class': 'mdc-typography--subtitle1' }
 })
-export class MdcTypographySubtitle1 { }
+export class MdcSubtitle1 { }
 
 @Directive({
-  selector: '[mdcSubtitle2], [mdc-typography-subheading1]',
+  selector: '[mdcSubtitle2]',
   host: { 'class': 'mdc-typography--subtitle2' }
 })
-export class MdcTypographySubtitle2 { }
+export class MdcSubtitle2 { }
 
 @Directive({
-  selector: '[mdcBody2], [mdc-typography-body2]',
+  selector: '[mdcBody2]',
   host: { 'class': 'mdc-typography--body2' }
 })
-export class MdcTypographyBody2 { }
+export class MdcBody2 { }
 
 @Directive({
-  selector: '[mdcBody1], [mdc-typography-body1]',
+  selector: '[mdcBody1]',
   host: { 'class': 'mdc-typography--body1' }
 })
-export class MdcTypographyBody1 { }
+export class MdcBody1 { }
 
 @Directive({
-  selector: '[mdcCaption], [mdc-typography-caption]',
+  selector: '[mdcCaption]',
   host: { 'class': 'mdc-typography--caption' }
 })
-export class MdcTypographyCaption { }
+export class MdcCaption { }
 
 @Directive({
   selector: '[mdcButton]',
@@ -82,4 +82,4 @@ export class MdcTypographyButton { }
   selector: '[mdcOverline]',
   host: { 'class': 'mdc-typography--overline' }
 })
-export class MdcTypographyOverline { }
+export class MdcOverline { }

@@ -201,7 +201,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   @Input()
   get value(): any { return this._value; }
   set value(newValue: any) {
-    this.setSelectionByValue(newValue, true);
+    this.setSelectionByValue(newValue);
   }
   private _value: any;
 
@@ -412,7 +412,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   }
 
   writeValue(value: any): void {
-    this.setSelectionByValue(value);
+    this.setSelectionByValue(value, false);
   }
 
   registerOnChange(fn: (value: any) => void): void {
@@ -457,7 +457,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
    * Sets the selected option based on a value. If no option can be
    * found with the designated value, the select trigger is cleared.
    */
-  setSelectionByValue(value: any, isUserInput?: boolean): void {
+  setSelectionByValue(value: any, isUserInput: boolean = true): void {
     if (!this._foundation) { return; }
 
     const newValue = value || null;

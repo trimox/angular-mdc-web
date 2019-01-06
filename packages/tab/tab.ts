@@ -69,7 +69,6 @@ export class MdcTabIcon {
   host: {
     'role': 'tab',
     'class': 'mdc-tab',
-    '[class.mdc-tab--active]': 'active',
     '[class.mdc-tab--stacked]': 'stacked',
     '[class.mdc-tab--min-width]': 'fixed',
     '[class.ngx-mdc-tab--disabled]': 'disabled'

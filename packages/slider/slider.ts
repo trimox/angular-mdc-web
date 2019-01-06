@@ -254,12 +254,7 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
     if (this._platform.isBrowser) {
       this._foundation = new MDCSliderFoundation(this._createAdapter());
       this._foundation.init();
-
-      this._foundation.setMin(this.min);
-      this._foundation.setMax(this.max);
-      this._foundation.setStep(this.step);
       this._foundation.setValue(this.value);
-
       this._foundation.setupTrackMarker();
     }
   }

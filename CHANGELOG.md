@@ -1,3 +1,23 @@
+## [0.42.4](https://github.com/trimox/angular-mdc-web/compare/v0.42.3...v0.42.4) (2019-01-06)
+
+
+### Bug Fixes
+
+* **select:** Change not updating value ([#1648](https://github.com/trimox/angular-mdc-web/issues/1648)) ([e1a0f74](https://github.com/trimox/angular-mdc-web/commit/e1a0f74))
+* **tab:** Remove host template for [active] ([#1649](https://github.com/trimox/angular-mdc-web/issues/1649)) ([cd70d3a](https://github.com/trimox/angular-mdc-web/commit/cd70d3a))
+
+
+### Features
+
+* **typography:** Remove deprecated selectors ([#1647](https://github.com/trimox/angular-mdc-web/issues/1647)) ([c72ef80](https://github.com/trimox/angular-mdc-web/commit/c72ef80))
+
+
+### BREAKING CHANGES
+
+* **typography:** Deprecated selectors removed. Please update your code accordingly.
+
+
+
 ## [0.42.3](https://github.com/trimox/angular-mdc-web/compare/v0.42.2...v0.42.3) (2019-01-04)
 
 

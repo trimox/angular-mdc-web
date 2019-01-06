@@ -237,7 +237,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   get value(): any { return this._value; }
   set value(newValue: any) {
     if (!this._initialized) {
-      this._initializeValue();
+      this.ngControl ? this._initializeValue() : this._initializeValue(newValue);
     } else {
       this.setValue(newValue, true);
     }
@@ -289,7 +289,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
       getNativeInput: () => {
         return {
           type: this._type,
-          value: this._value,
+          value: this._platform.isBrowser ? this._input.nativeElement.value : this._value,
           disabled: this._disabled,
           validity: {
             valid: this._hasErrorState(),
@@ -464,11 +464,11 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     this._onTouched = fn;
   }
 
-  private _initializeValue(): void {
+  private _initializeValue(value?: any): void {
     // Defer setting the value in order to avoid the "Expression
     // has changed after it was checked" errors from Angular.
     Promise.resolve().then(() => {
-      this.setValue(this.ngControl ? this.ngControl.value : this._value);
+      this.setValue(this.ngControl ? this.ngControl.value : value);
     });
   }
 
@@ -482,7 +482,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
       return;
     }
 
-    this._value = newValue ? newValue : null;
+    this._value = newValue !== undefined ? newValue : null;
     if (this._getInputElement().value !== this._value) {
       this._getInputElement().value = this._value;
     }

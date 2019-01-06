@@ -1,0 +1,52 @@
+<div class="docs-api">
+  <h4 mdcSubtitle2>Sass Mixins</h4>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Mixin</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>mdc-typography-base</code></td>
+        <td>Sets the font to Roboto</td>
+      </tr>
+      <tr>
+        <td><code>mdc-typography($style)</code></td>
+        <td>Applies one of the typography styles, including setting the font to Roboto</td>
+      </tr>
+      <tr>
+        <td><code>mdc-typography-overflow-ellipsis</code></td>
+        <td>Truncates overflow text to one line with an ellipsis</td>
+      </tr>
+      <tr>
+        <td><code>mdc-typography-baseline-top($distance)</code></td>
+        <td>Sets the baseline height of a text element from top.</td>
+      </tr>
+      <tr>
+        <td><code>mdc-typography-baseline-bottom($distance)</code></td>
+        <td>Sets the distance from text baseline to bottom. This mixin should be combined with <code>mdc-typography-baseline-top</code>
+          when setting baseline distance to following text element.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>Overriding Styles</h4>
+  <div class="demo-content">
+    Example: Overriding the button <code>font-size</code> and <code>text-transform</code> properties.
+    <example-viewer [example]="exampleOverrideButton"></example-viewer>
+  </div>
+
+  <div class="demo-content">
+    Example: Overriding the global <code>font-family</code> property.
+    <example-viewer [example]="exampleOverrideGlobalFontFamily"></example-viewer>
+  </div>
+
+  <div class="demo-content">
+    Example: Overriding the <code>font-family</code> property for <code>headline1</code> and <code>font-family</code>
+      and <code>font-size</code> for <code>headline2</code>.
+    <example-viewer [example]="exampleOverrideFontFamily"></example-viewer>
+  </div>
+</div>

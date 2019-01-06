@@ -1,0 +1,8 @@
+<div class="example-viewer">
+  <mdc-tab-bar fixed [focusOnActivate]="false">
+    <mdc-tab-scroller>
+      <mdc-tab *ngFor="let tab of tabs" [label]="tab.label" (interacted)="showSource(tab.source)"></mdc-tab>
+    </mdc-tab-scroller>
+  </mdc-tab-bar>
+</div>
+<pre><code [highlight]="currentExample"></code></pre>

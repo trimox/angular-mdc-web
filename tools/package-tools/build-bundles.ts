@@ -151,12 +151,12 @@ export class PackageBundler {
       }));
     }
 
-    bundleOptions.plugins.push(minify());
+    // bundleOptions.plugins.push(minify());
 
     // For UMD bundles, we need to adjust the `external` bundle option in order to include
     // all necessary code in the bundle.
     if (config.format === 'umd') {
-      // bundleOptions.plugins.push(minify());
+      bundleOptions.plugins.push(minify());
 
       // For all UMD bundles, we want to exclude tslib from the `external` bundle option so that
       // it is inlined into the bundle.

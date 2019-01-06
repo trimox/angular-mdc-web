@@ -1,0 +1,22 @@
+<div class="demo-panel-content">
+  <div class="demo-panel-transition">
+    <h1>{{componentView.name}}</h1>
+    {{componentView.description}}
+
+    <div *ngIf="componentView.references">
+      <h2>References</h2>
+      <ul>
+        <li *ngFor="let ref of componentView.references"><a mdc-button [href]="ref.url" target="_blank" rel="noopener">{{ref.name}}</a></li>
+      </ul>
+    </div>
+    <pre *ngIf="componentView.importCode"><code [highlight]="componentView.importCode"></code></pre>
+
+    <mdc-tab-bar activeTabRouter [activeTabIndex]="-1">
+      <mdc-tab-scroller>
+        <mdc-tab *ngFor="let tab of componentView.tabs" [label]="tab.label" [routerLink]="tab.route" routerLinkActive
+          #rla="routerLinkActive"></mdc-tab>
+      </mdc-tab-scroller>
+    </mdc-tab-bar>
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,94 @@
+<div class="docs-api">
+  <h4 mdcSubtitle2>Ripple Mixins</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Mixin</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>mdc-ripple-surface</code></td>
+        <td>Mandatory. Adds base styles for a ripple surface</td>
+      </tr>
+      <tr>
+        <td><code>mdc-ripple-radius-bounded($radius)</code></td>
+        <td>Adds styles for the radius of the ripple effect,<br>for bounded ripple surfaces</td>
+      </tr>
+      <tr>
+        <td><code>mdc-ripple-radius-unbounded($radius)</code></td>
+        <td>Adds styles for the radius of the ripple effect,<br>for unbounded ripple surfaces</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>Basic States Mixins</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Mixin</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>mdc-states($color, $has-nested-focusable-element)</code></td>
+        <td>Mandatory. Adds state and ripple styles in the given color</td>
+      </tr>
+      <tr>
+        <td><code>mdc-states-activated($color, $has-nested-focusable-element)</code></td>
+        <td>Optional. Adds state and ripple styles for activated states in the given color</td>
+      </tr>
+      <tr>
+        <td><code>mdc-states-selected($color, $has-nested-focusable-element)</code></td>
+        <td>Optional. Adds state and ripple styles for selected states in the given color</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>Advanced States Mixins</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Mixin</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>mdc-states-base-color($color)</code></td>
+        <td>Mandatory. Sets up base state styles using the provided color</td>
+      </tr>
+      <tr>
+        <td><code>mdc-states-hover-opacity($opacity)</code></td>
+        <td>Mandatory. Adds styles for hover state using the provided opacity</td>
+      </tr>
+      <tr>
+        <td><code>mdc-states-focus-opacity($opacity, $has-nested-focusable-element)</code></td>
+        <td>Mandatory. Adds styles for focus state using the provided opacity</td>
+      </tr>
+      <tr>
+        <td><code>mdc-states-press-opacity($opacity)</code></td>
+        <td>Mandatory. Adds styles for press state using the provided opacity</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>Sass Functions</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Function</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>mdc-states-opacity($color, $state)</code></td>
+        <td>Returns the appropriate default opacity to apply to the given color in the given state (hover, focus,
+          press, selected, or activated)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

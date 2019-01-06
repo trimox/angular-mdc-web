@@ -1,0 +1,16 @@
+<div class="demo-content">
+  <div class="demo-layout__row">
+    <button mdc-button (click)="demoripple.primary = !demoripple.primary">Primary Color: {{demoripple.primary ? 'On' :
+      'Off'}}</button>
+    <button mdc-button (click)="demoripple.secondary = !demoripple.secondary">Secondary Color: {{demoripple.secondary ?
+      'On' : 'Off'}}</button>
+    <button mdc-button (click)="demoripple.disabled = !demoripple.disabled">Disabled: {{demoripple.disabled ? 'On' :
+      'Off'}}</button>
+  </div>
+  <mdc-ripple #demoripple [attachTo]="demodiv">
+    <div style="height: 200px; width: 100%;" class="demo-layout--center" #demodiv>
+      Click me
+    </div>
+  </mdc-ripple>
+  <example-viewer [example]="exampleRipple"></example-viewer>
+</div>

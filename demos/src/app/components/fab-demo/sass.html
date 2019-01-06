@@ -1,0 +1,70 @@
+<div class="docs-api">
+  <h4 mdcSubtitle2>Basic Sass Mixins</h4>
+  <p>MDC FAB uses MDC Theme's secondary color by default. Use the following mixins to customize it.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Mixin</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>mdc-fab-accessible($container-color)</code></td>
+        <td>Changes the FAB's container color to the given color, and updates the FAB's ink and ripple color to meet
+          accessibility standards.</td>
+      </tr>
+      <tr>
+        <td><code>mdc-fab-extended-fluid</code></td>
+        <td>Makes the Extended FAB fluid to container, such as screen width or the layout grid. Exposed as a mixin to
+          support use within <code>@media</code> queries.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>Advanced Sass Mixins</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Mixin</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>mdc-fab-container-color($color)</code></td>
+        <td>Sets the container color to the given color</td>
+      </tr>
+      <tr>
+        <td><code>mdc-fab-icon-size($width, $height)</code></td>
+        <td>Sets the icon <code>width</code>, <code>height</code>, and <code>font-size</code> properties to the
+          specified <code>width</code> and <code>height</code>. <code>$height</code> is optional and will default to
+          <code>$width</code> if omitted. The <code>font-size</code> will be set to the provided <code>$width</code>
+          value.</td>
+      </tr>
+      <tr>
+        <td><code>mdc-fab-ink-color($color)</code></td>
+        <td>Sets the ink color to the given color</td>
+      </tr>
+      <tr>
+        <td><code>mdc-fab-extended-padding($icon-padding, $label-padding)</code></td>
+        <td>Sets the padding on both sides of the icon, and between the label and the edge of the FAB. In cases where
+          there is no icon, <code>$label-padding</code> will apply to both sides.</td>
+      </tr>
+      <tr>
+        <td><code>mdc-fab-extended-label-padding($label-padding)</code></td>
+        <td>Sets the label side padding for Extended FAB. Useful when styling an Extended FAB with no icon.</td>
+      </tr>
+      <tr>
+        <td><code>mdc-fab-shape-radius($radius, $rtl-reflexive)</code></td>
+        <td>Sets rounded shape to only regular &amp; mini FAB variants with given radius size. Set <code>$rtl-reflexive</code>
+          to true to flip radius values in RTL context, defaults to false.</td>
+      </tr>
+      <tr>
+        <td><code>mdc-fab-extended-shape-radius($radius, $rtl-reflexive)</code></td>
+        <td>Sets rounded shape to only Extended FAB variant with given radius size. Set <code>$rtl-reflexive</code> to
+          true to flip radius values in RTL context, defaults to false.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

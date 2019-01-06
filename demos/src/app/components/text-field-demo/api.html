@@ -1,0 +1,235 @@
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcTextField</h3>
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-text-field</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcTextField</span>
+
+  <h4 mdcSubtitle2>Properties</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>id: string</td>
+        <td>Unique id of the element.</td>
+      </tr>
+      <tr>
+        <td>type: string = 'text'</td>
+        <td>Input type of textfield (e.g.: email, password, date, color).</td>
+      </tr>
+      <tr>
+        <td>name: string</td>
+        <td>Name of the textfield.</td>
+      </tr>
+      <tr>
+        <td>label: string</td>
+        <td>Shown to the user when there's no focus or values.</td>
+      </tr>
+      <tr>
+        <td>value: string</td>
+        <td>The input element's value.</td>
+      </tr>
+      <tr>
+        <td>outlined: boolean</td>
+        <td>Set a border around all sides of the text field.</td>
+      </tr>
+      <tr>
+        <td>dense: boolean</td>
+        <td>Shrinks the font size and height of the input.</td>
+      </tr>
+      <tr>
+        <td>fullwidth: boolean</td>
+        <td>Set to fullwidth textfield.</td>
+      </tr>
+      <tr>
+        <td>disabled: boolean</td>
+        <td>Disables the component.</td>
+      </tr>
+      <tr>
+        <td>readonly: boolean</td>
+        <td>Whether or not the textfield value is editable.</td>
+      </tr>
+      <tr>
+        <td>required: boolean</td>
+        <td>Whether the element is required.</td>
+      </tr>
+      <tr>
+        <td>useNativeValidation: boolean</td>
+        <td>Sets whether to check native HTML validity state (true, default) or custom validity state when updating
+          styles (false).</td>
+      </tr>
+      <tr>
+        <td>valid: boolean</td>
+        <td>Updates input validity styling using passed value.</td>
+      </tr>
+      <tr>
+        <td>empty: boolean</td>
+        <td>Returns whether the control is empty.</td>
+      </tr>
+      <tr>
+        <td>autocomplete: string</td>
+        <td>Indicates if the input can be automatically completed by the browser, usually by remembering previous
+          values the user has entered.</td>
+      </tr>
+      <tr>
+        <td>tabIndex: number</td>
+        <td>Tab index of the text element.</td>
+      </tr>
+      <tr>
+        <td>pattern: string</td>
+        <td>Regular expression that the control's value is checked against.</td>
+      </tr>
+      <tr>
+        <td>maxlength: number</td>
+        <td>Maxlength of characters allowed to be entered.</td>
+      </tr>
+      <tr>
+        <td>minlength: number</td>
+        <td>Specifies the minimum number of characters that the user can enter.</td>
+      </tr>
+      <tr>
+        <td>max: number</td>
+        <td>The maximum numeric value for the input.</td>
+      </tr>
+      <tr>
+        <td>min: number</td>
+        <td>The minimum numeric value for this input, which must not be greater than its maximum (max attribute)
+          value.</td>
+      </tr>
+      <tr>
+        <td>step: number</td>
+        <td>Works with the min and max attributes to limit the increments at which a numeric or date-time value can
+          be set.</td>
+      </tr>
+      <tr>
+        <td>size: number</td>
+        <td>The initial size of the control.</td>
+      </tr>
+      <tr>
+        <td>helperText: MdcHelperText</td>
+        <td>Reference to related <code>MdcHelperText</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>Methods</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td>focus()</td>
+        <td>Sets focus to the input.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>Events</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td>change(value: string)</td>
+        <td>Emitted whenever the value of the input changes.</td>
+      </tr>
+      <tr>
+        <td>blur(value: string)</td>
+        <td>Emitted whenever the input loses focus.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcHelperText</h3>
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-helper-text</span>
+    <span class="docs-api-class-selector-name">mdcHelperText</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcHelperText</span>
+
+  <h4 mdcSubtitle2>Properties</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>validation: boolean</td>
+        <td>Help text can be used to provide additional validation messages.</td>
+      </tr>
+      <tr>
+        <td>persistent: boolean</td>
+        <td>Help text will always be visible.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcTextFieldIcon</h3>
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-icon[mdcTextFieldIcon]</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcTextFieldIcon</span>
+
+  <h4 mdcSubtitle2>Properties</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>leading: boolean</td>
+        <td>Styles the text field as a text field with a leading icon.</td>
+      </tr>
+      <tr>
+        <td>trailing: boolean</td>
+        <td>Styles the text field as a text field with a trailing icon.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcTextarea</h3>
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-textarea</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcTextarea</span>
+
+  <h4 mdcSubtitle2>Properties</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Same properties as mdc-text-area</td>
+      </tr>
+      <tr>
+        <td>rows: number</td>
+        <td>Number of rows for this textarea.</td>
+      </tr>
+      <tr>
+        <td>cols: number</td>
+        <td>Number of columns for this textarea.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

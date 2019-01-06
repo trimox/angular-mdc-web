@@ -1,0 +1,177 @@
+<div class="docs-api">
+  <h2 mdcHeadline6>Service</h2>
+  <h3 mdcHeadline6>MdcDialog</h3>
+  Service to open MDC dialogs.
+
+  <h4 mdcSubtitle2>Properties</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>afterDismiss: Observable
+          <pre>R | undefined</pre>
+        </td>
+        <td>Gets an observable that is notified when the dialog is finished closing.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>Methods</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td>close(dialogResult?: any)</td>
+        <td>Closes the dialog with optional returned result.</td>
+      </tr>
+      <tr>
+        <td>open(component, config?: MdcDialogConfig)</td>
+        <td>Opens the dialog with optional configuration.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>MdcDialogConfig</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td>id: string</td>
+        <td>ID for the dialog. If omitted, a unique one will be generated.</td>
+      </tr>
+      <tr>
+        <td>ariaLabel: string</td>
+        <td>Aria label to assign to the dialog element.</td>
+      </tr>
+      <tr>
+        <td>ariaDescribedBy: string</td>
+        <td>ID of the element that describes the dialog.</td>
+      </tr>
+      <tr>
+        <td>clickOutsideToClose: boolean</td>
+        <td>Close the dialog if user clicks on the backdrop. (Default: true)</td>
+      </tr>
+      <tr>
+        <td>escapeToClose: boolean</td>
+        <td>Enable or disable close on escape key (Default: true).</td>
+      </tr>
+      <tr>
+        <td>scrollable: boolean</td>
+        <td>Applied automatically when the dialog has overflowing content to warrant scrolling.</td>
+      </tr>
+      <tr>
+        <td>buttonsStacked: boolean</td>
+        <td>Enable or disable the stacking of action buttons, if they can't fit on a single line.</td>
+      </tr>
+      <tr>
+        <td>data: any</td>
+        <td>Data that can be assigned inside child component.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="docs-api">
+  <h2 mdcHeadline6>Directives</h2>
+  <h3 mdcHeadline6>MdcDialog</h3>
+  Mandatory. The root DOM element containing the surface and the container.
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-dialog</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcDialog</span>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcDialogContainer</h3>
+  Mandatory. Wrapper element needed to ensure flexbox behavior in IE 11.
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-dialog-container</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcDialogContainer</span>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcDialogSurface</h3>
+  Mandatory. The bounding box for the dialog's content.
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-dialog-surface</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcDialogSurface</span>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcDialogTitle</h3>
+  Mandatory. The bounding box for the dialog's content.
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-dialog-title</span>
+    <span class="docs-api-class-selector-name">mdcDialogTitle</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcDialogTitle</span>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcDialogContent</h3>
+  Optional. Primary content area. May contain a list, a form, or prose.
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-dialog-content</span>
+    <span class="docs-api-class-selector-name">mdcDialogContent</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcDialogContent</span>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcDialogActions</h3>
+  Optional. Footer area containing the dialog's action buttons.
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-dialog-actions</span>
+    <span class="docs-api-class-selector-name">mdcDialogActions</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcDialogActions</span>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcDialogButton</h3>
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">button[mdcDialogButton]</span>
+    <span class="docs-api-class-selector-name">a[mdcDialogButton]</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcDialogButton</span>
+
+  <h4 mdcSubtitle2>Properties</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>default: boolean</td>
+        <td>Indicates that this action button represents the default action.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcDialogAction</h3>
+  Optional. Any element within a dialog may include the<span class="docs-api-class-selector-name">mdcDialogAction</span>
+  directive.
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdcDialogAction="close"</span>
+    <span class="docs-api-class-selector-name">mdcDialogAction="accept"</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcDialogAction</span>
+</div>

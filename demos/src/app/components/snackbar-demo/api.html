@@ -1,0 +1,73 @@
+<div class="docs-api">
+  <h2 mdcHeadline6>Service</h2>
+  <h3 mdcHeadline6>MdcSnackbar</h3>
+  Service to open MDC snackbars.
+
+  <h4 mdcSubtitle2>Properties</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>afterDismiss: Observable</td>
+        <td>Gets an observable that is notified when the snackbar is finished closing.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>Methods</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td>show(message: string)</td>
+        <td>Show snackbar with message.</td>
+      </tr>
+      <tr>
+        <td>show(message: string, action: string)</td>
+        <td>Show snackbar message and action.</td>
+      </tr>
+      <tr>
+        <td>show(message: string, action: string, config?: MdcSnackbarConfig)</td>
+        <td>Show the snackbar with optional configuration.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>MdcSnackbarConfig</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td>timeout: number (Default 2750)</td>
+        <td>The amount of time in milliseconds to show the snackbar.</td>
+      </tr>
+      <tr>
+        <td>actionHandler: Function</td>
+        <td>The function to execute when the action is clicked.</td>
+      </tr>
+      <tr>
+        <td>multiline: boolean</td>
+        <td>Whether to show the snackbar with space for multiple lines of text.</td>
+      </tr>
+      <tr>
+        <td>actionOnBottom: boolean</td>
+        <td>Whether to show the action below the multiple lines of text.</td>
+      </tr>
+      <tr>
+        <td>align: string</td>
+        <td>Alignment of the snackbar on screen. Valid values - 'start' | 'center' | 'end'</td>
+      </tr>
+      <tr>
+        <td>dismissOnAction: boolean</td>
+        <td>Dismisses snackbar when action button is clicked.</td>
+      </tr>
+      <tr>
+        <td>focusAction: boolean</td>
+        <td>Sets focus to the action button.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

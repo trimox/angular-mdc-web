@@ -1,0 +1,151 @@
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcChipSet</h3>
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-chip-set</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcChipSet</span>
+
+  <h4 mdcSubtitle2>Properties</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>choice: boolean</td>
+        <td>Indicates that the chips in the set are choice chips, which allow a single selection from a set of options.</td>
+      </tr>
+      <tr>
+        <td>filter: boolean</td>
+        <td>Indicates that the chips in the set are filter chips, which allow multiple selection from a set of options.</td>
+      </tr>
+      <tr>
+        <td>input: boolean</td>
+        <td>Indicates that the chips in the set are input chips, which enable user input by converting text into chips.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>Methods</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td>getSelectedChipIds(): string[]</td>
+        <td>Returns an array of the IDs of all selected chips.</td>
+      </tr>
+      <tr>
+        <td>select(chipId: string): void</td>
+        <td>Selects the chip with the given id. Deselects all other chips if the chip set is of the choice variant.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>Events</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td>change: MdcChipSetChange</td>
+        <td>Emitted when a chip is interacted with.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcChip</h3>
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-chip</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcChip</span>
+
+  <h4 mdcSubtitle2>Properties</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>label: string</td>
+        <td>Sets the text content of the chip.</td>
+      </tr>
+      <tr>
+        <td>removable: boolean</td>
+        <td>Sets whether a trailing icon click should trigger exit/removal of the chip. (Default is true)</td>
+      </tr>
+      <tr>
+        <td>disableRipple: boolean</td>
+        <td>Whether ripples are disabled.</td>
+      </tr>
+      <tr>
+        <td>primary: boolean</td>
+        <td>Colors selected chip with the primary theme color.</td>
+      </tr>
+      <tr>
+        <td>secondary: boolean</td>
+        <td>Colors selected chips with the secondary theme color.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>Events</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td>selectionChange: MdcChipInteractionEvent</td>
+        <td>Emitted when the chip is selected or deselected.</td>
+      </tr>
+      <tr>
+        <td>removed: MdcChipRemovedEvent</td>
+        <td>Emitted when a chip is removed from a set.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcChipText</h3>
+  Optional. Indicates the text content of the chip.
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-chip-text</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcChipText</span>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcChipIcon</h3>
+  Optional. Indicates the text content of the chip.
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-chip-icon</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcChipIcon</span>
+
+  <h4 mdcSubtitle2>Properties</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>leading: boolean</td>
+        <td>Indicates a leading icon in the chip</td>
+      </tr>
+      <tr>
+        <td>trailing: boolean</td>
+        <td>Indicates a trailing icon in the chip</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

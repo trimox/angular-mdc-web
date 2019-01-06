@@ -3,3 +3,11 @@
 
   @include mdc-theme-prop(color, $color);
 }
+
+.temporary-workaround-for-text-field-svg {
+  top: .90em
+}
+
+.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__icon {
+  fill: rgba(0, 0, 0, .54);
+}

@@ -1,0 +1,72 @@
+<div class="demo-content">
+  <h3 class="demo-content__headline">Continuous</h3>
+  <mdc-slider #democontinous [min]="continuousMin.value" [max]="continuousMax.value" [value]="50" (input)="onInput($event)"
+    (change)="onChange($event)" name="test" ngModel #continousModel="ngModel"></mdc-slider>
+
+  <div class="demo-container">
+    <mdc-text-field #continuousMin label="Min" type="number" value="0"></mdc-text-field>
+  </div>
+  <div class="demo-container">
+    <mdc-text-field #continuousMax label="Max" type="number" value="100"></mdc-text-field>
+  </div>
+  <div class="demo-layout__row">
+    <button mdc-button (click)="democontinous.disabled = !democontinous.disabled">Disabled: {{democontinous.disabled ?
+      'On' : 'Off'}}</button>
+    <button mdc-button (click)="democontinous.value = 50">Reset</button>
+  </div>
+  <p>Dirty: {{ continousModel.dirty }}</p>
+  <p>Touched: {{ continousModel.touched }}</p>
+  <p>Value: {{ democontinous.value }}</p>
+  <p>Last value from input event: {{continuousInputEventValue}}</p>
+  <p>Last value from change event: {{continuousChangeEventValue}}</p>
+
+  <example-viewer [example]="exampleContinuous"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Discrete</h3>
+  <mdc-slider #demodiscrete discrete [min]="discreteMin.value" [max]="discreteMax.value" [value]="25" (input)="discreteInputEventValue = $event.value"
+    (change)="discreteChangeEventValue = $event.value"></mdc-slider>
+  <div class="demo-container">
+    <mdc-text-field #discreteMin label="Min" type="number" value="0"></mdc-text-field>
+  </div>
+  <div class="demo-container">
+    <mdc-text-field #discreteMax label="Max" type="number" value="100"></mdc-text-field>
+  </div>
+  <button mdc-button (click)="demodiscrete.disabled = !demodiscrete.disabled">Disabled: {{demodiscrete.disabled ?
+    'On' : 'Off'}}</button>
+  <p>Value: {{demodiscrete.value}}</p>
+  <p>Last value from input event: {{discreteInputEventValue}}</p>
+  <p>Last value from change event: {{discreteChangeEventValue}}</p>
+
+  <example-viewer [example]="exampleDiscrete"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Discrete with Tick Marks</h3>
+  <mdc-slider #demomarkers discrete markers [min]="dmMin.value" [max]="dmMax.value" [step]="dmStep.value" ngModel #demoMarkerModel="ngModel"
+    [value]="20" (input)="markersInputEventValue = $event.value" (change)="markersChangeEventValue = $event.value"></mdc-slider>
+  <div class="demo-container">
+    <mdc-text-field #dmMin label="Min" type="number" value="0"></mdc-text-field>
+  </div>
+  <div class="demo-container">
+    <mdc-text-field #dmMax label="Max" type="number" value="100"></mdc-text-field>
+  </div>
+  <div class="demo-container">
+    <mdc-text-field #dmStep label="Step" type="number" value="5"></mdc-text-field>
+  </div>
+  <button mdc-button (click)="demomarkers.disabled = !demomarkers.disabled">Disabled: {{demomarkers.disabled ? 'On' :
+    'Off'}}</button>
+  <p>Value: {{demomarkers.value}}</p>
+  <p>Last value from input event: {{markersInputEventValue}}</p>
+  <p>Last value from change event: {{markersChangeEventValue}}</p>
+
+  <example-viewer [example]="exampleDiscreteTickMarks"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Themed</h3>
+  <mdc-slider discrete markers class="demo-slider--custom" [value]="20"></mdc-slider>
+
+  <example-viewer [example]="exampleThemed"></example-viewer>
+</div>

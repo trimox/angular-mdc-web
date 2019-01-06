@@ -1,0 +1,66 @@
+<div class="docs-api">
+  <h4 mdcSubtitle2>Basic Sass Mixins</h4>
+  <p>These mixins will override the color of the container, ink, outline or ripple. It is up to you to ensure your
+    button meets accessibility standards.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Mixin</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>mdc-button-filled-accessible($container-fill-color)</code></td>
+        <td>Sets the container fill color for a contained (<em>raised</em> or <em>unelevated</em>) button, and updates
+          the button's ink, icon, and ripple colors to meet accessibility standards</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>Advanced Sass Mixins</h4>
+  <p>These mixins will override the color of the container, ink, outline or ripple. It is up to you to ensure your
+    button meets accessibility standards.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Mixin</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>mdc-button-container-fill-color($color)</code></td>
+        <td>Sets the container fill color to the given color.</td>
+      </tr>
+      <tr>
+        <td><code>mdc-button-icon-color($color)</code></td>
+        <td>Sets the icon color to the given color.</td>
+      </tr>
+      <tr>
+        <td><code>mdc-button-ink-color($color)</code></td>
+        <td>Sets the ink color to the given color, and sets the icon color to the given color unless <code>mdc-button-icon-color</code>
+          is also used.</td>
+      </tr>
+      <tr>
+        <td><code>mdc-button-shape-radius($radius, $rtl-reflexive)</code></td>
+        <td>Sets rounded shape to button with given radius size. Set <code>$rtl-reflexive</code> to true to flip radius
+          values in RTL context, defaults to false.</td>
+      </tr>
+      <tr>
+        <td><code>mdc-button-horizontal-padding($padding)</code></td>
+        <td>Sets horizontal padding to the given number.</td>
+      </tr>
+      <tr>
+        <td><code>mdc-button-outline-color($color)</code></td>
+        <td>Sets the outline color to the given color.</td>
+      </tr>
+      <tr>
+        <td><code>mdc-button-outline-width($width, $padding)</code></td>
+        <td>Sets the outline width to the given number (defaults to 2px) and adjusts padding accordingly. <code>$padding</code>
+          is only required in cases where <code>mdc-button-horizontal-padding</code> is also included with a custom
+          value.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

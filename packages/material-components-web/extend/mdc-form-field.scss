@@ -3,3 +3,24 @@
   flex: auto;
   flex-direction: column;
 }
+
+// experimental
+
+@mixin mdc-form-field-spacing($gap-size) {
+  padding: $gap-size / 2;
+}
+
+mdc-form-field {
+  + .mdc-text-field, .mdc-select {
+    @at-root mdc-form-field {
+      @include mdc-form-field-spacing(12px);
+
+      display: inline-block;
+
+      .mdc-text-field-helper-text:not(.mdc-text-field-helper-text--persistent),
+      .mdc-select-helper-text:not(.mdc-select-helper-text--persistent) {
+        margin-bottom: 11px;
+      }
+    }
+  }
+}

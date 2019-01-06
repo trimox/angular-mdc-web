@@ -1,8 +1,8 @@
-.mdc-button.big-round-shape-button {
+.big-round-shape-button {
   @include mdc-button-shape-radius(8px);
 }
 
-.mdc-button.thick-outline-button {
+.thick-outline-button {
   @include mdc-button-outline-width(4px);
 }
 

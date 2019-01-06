@@ -1,0 +1,261 @@
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcList</h3>
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-list</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcList</span>
+
+  <h4 mdcSubtitle2>Properties</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>dense: boolean</td>
+        <td>Increases the density of the list, making it appear more compact.</td>
+      </tr>
+      <tr>
+        <td>twoLine: boolean</td>
+        <td>Increases the height of the row to give it greater visual separation from adjacent rows.</td>
+      </tr>
+      <tr>
+        <td>avatar: boolean</td>
+        <td>Configures the leading tiles of each row to display images instead of icons.</td>
+      </tr>
+      <tr>
+        <td>border: boolean</td>
+        <td>Sets a border around each list item.</td>
+      </tr>
+      <tr>
+        <td>singleSelection: boolean</td>
+        <td>When enabled, the space and enter keys (or click event) will trigger an single list item to become selected
+          and any other previous selected element to become deselected.</td>
+      </tr>
+      <tr>
+        <td>interactive: boolean</td>
+        <td>List items receive styles for hover, focus, and press states (including the ripple). Default is true.</td>
+      </tr>
+      <tr>
+        <td>useActivatedClass: boolean</td>
+        <td>Sets the selection logic to apply/remove the mdc-list-item--activated class.</td>
+      </tr>
+      <tr>
+        <td>useSelectedClass: boolean</td>
+        <td>Sets the selection logic to apply/remove the mdc-list-item--selected class.</td>
+      </tr>
+      <tr>
+        <td>wrapFocus: boolean</td>
+        <td>Sets the list to allow the up arrow on the first element to focus the last element of the list and vice
+          versa.</td>
+      </tr>
+      <tr>
+        <td>verticalOrientation: boolean</td>
+        <td>Sets the list to an orientation causing the keys used for navigation to change. true results in the Up/Down
+          arrow keys being used.
+          false results in the Left/Right arrow keys being used.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>Methods</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td>setSelectedIndex(index: number)</td>
+        <td>Sets the currently selected list item.</td>
+      </tr>
+      <tr>
+        <td>getSelectedIndex(): number</td>
+        <td>Returns the currently selected item index.</td>
+      </tr>
+      <tr>
+        <td>focusItemAtIndex(index: number)</td>
+        <td>Sets focus to the element at the given index in a list.</td>
+      </tr>
+      <tr>
+        <td>focusFirstElement()</td>
+        <td>Sets focus to the first element in a list.</td>
+      </tr>
+      <tr>
+        <td>focusLastElement()</td>
+        <td>Sets focus to the last element in a list.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>Events</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td>selectionChange: MdcListItemChange</td>
+        <td>Change event that is being fired whenever the selected state of an option changes.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcListItem</h3>
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-list-item</span>
+    <span class="docs-api-class-selector-name">a[mdc-list-item]</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcListItem</span>
+
+  <h4 mdcSubtitle2>Properties</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>selected: boolean</td>
+        <td>Styles the row in an selected state.</td>
+      </tr>
+      <tr>
+        <td>activated: boolean</td>
+        <td>Styles the row in an activated state.</td>
+      </tr>
+      <tr>
+        <td>disabled: boolean</td>
+        <td>Disables the list item.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcListItemGraphic</h3>
+  Optional. the first tile in the row (in LTR languages, the first column of the list item). Typically an icon or
+  image.
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdcListItemGraphic</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcListItemGraphic</span>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcListItemMeta</h3>
+  Optional. the last tile in the row (in LTR languages, the last column of the list item). Typically small text, icon.
+  or image.
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdcListItemMeta</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcListItemMeta</span>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcListItemText</h3>
+  Mandatory. Wrapper for list item text content (displayed as middle column of the list item).
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-list-item-text</span>
+    <span class="docs-api-class-selector-name">mdcListItemText</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcListItemText</span>
+
+  <h4 mdcSubtitle2>Properties</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>secondaryText: string</td>
+        <td>Optional secondary text for the list item. Displayed below the primary text.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcListItemSecondary</h3>
+  Optional. Secondary text for the list item. Displayed below the primary text. Should be the child of
+  mdc-list-item-text.
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-list-item-secondary</span>
+    <span class="docs-api-class-selector-name">mdcListItemSecondary</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcListItemSecondary</span>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcListGroup</h3>
+  Optional. Wrapper around two or more mdc-list elements to be grouped together.
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-list-group</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcListGroup</span>
+  <h4 mdcSubtitle2>Properties</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>subheader: string</td>
+        <td>Optional, heading text displayed above each list in a group.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcListGroupSubheader</h3>
+  Optional. Heading text displayed above each list in a group.
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-list-group-subheader</span>
+    <span class="docs-api-class-selector-name">mdcListGroupSubheader</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcListGroupSubheader</span>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcListDivider</h3>
+  Optional, for list divider element.
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-list-divider</span>
+    <span class="docs-api-class-selector-name">mdcListDivider</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcListDivider</span>
+  <h4 mdcSubtitle2>Properties</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>inset: boolean</td>
+        <td>Increases the leading margin of the divider so that it does not intersect the avatar column.</td>
+      </tr>
+      <tr>
+        <td>padded: boolean</td>
+        <td>To make a divider match the padding of list items.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

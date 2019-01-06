@@ -1,7 +1,0 @@
-.test-dialog--form {
-  @include mdc-dialog-min-width(580px);
-
-  @media (max-width: 1239px) {
-    @include mdc-dialog-min-width(280px);
-  }
-}

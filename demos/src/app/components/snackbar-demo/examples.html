@@ -1,0 +1,42 @@
+<div class="demo-content">
+  <div class="demo-layout__row">
+    <div class="demo-layout__column">
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="multiline"></mdc-checkbox>
+        <label>Multiline</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="actionOnBottom" [disabled]="!multiline"></mdc-checkbox>
+        <label>Action on Bottom (requires multiline)</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-checkbox (change)="align = 'start'"></mdc-checkbox>
+        <label>Start align (desktop only)</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-checkbox (change)="align = 'center'"></mdc-checkbox>
+        <label>Center align</label>
+      </mdc-form-field>
+    </div>
+    <div class="demo-layout__column">
+      <mdc-form-field>
+        <mdc-checkbox (change)="align = 'end'"></mdc-checkbox>
+        <label>RTL (end) (desktop only)</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="dismissOnAction"></mdc-checkbox>
+        <label>Dismiss on Action Click</label>
+      </mdc-form-field>
+      <mdc-form-field>
+        <mdc-checkbox [(ngModel)]="focusAction"></mdc-checkbox>
+        <label>Focus on Action button</label>
+      </mdc-form-field>
+    </div>
+  </div>
+
+  <div class="demo-layout--center">
+    <button mdc-button primary raised (click)="show()">Show Snackbar</button>
+  </div>
+
+  <example-viewer [example]="exampleSnackbar"></example-viewer>
+</div>

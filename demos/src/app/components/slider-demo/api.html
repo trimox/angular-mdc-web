@@ -1,0 +1,90 @@
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcSlider</h3>
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-slider</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcSlider</span>
+
+  <h4 mdcSubtitle2>Properties</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>min: number</td>
+        <td>The minimum value that the slider can have.</td>
+      </tr>
+      <tr>
+        <td>max: number</td>
+        <td>The maximum value that the slider can have.</td>
+      </tr>
+      <tr>
+        <td>value: number</td>
+        <td>The current value of the slider.</td>
+      </tr>
+      <tr>
+        <td>step: number</td>
+        <td>Specifies the increments at which a slider value can be set.</td>
+      </tr>
+      <tr>
+        <td>discrete: boolean</td>
+        <td>Discrete sliders allow users to select a specific value from a range. (Default: false)</td>
+      </tr>
+      <tr>
+        <td>markers: boolean</td>
+        <td>Show markers on track. Discrete sliders support displaying markers on their tracks. (Default: false)</td>
+      </tr>
+      <tr>
+        <td>disabled: boolean</td>
+        <td>Disables the slider.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>Methods</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td>getMin(): number</td>
+        <td>Returns the min value the slider can have.</td>
+      </tr>
+      <tr>
+        <td>getMax(): number</td>
+        <td>Returns the max value the slider can have.</td>
+      </tr>
+      <tr>
+        <td>getStep(): number</td>
+        <td>Returns the slider step value.</td>
+      </tr>
+      <tr>
+        <td>getValue(): number</td>
+        <td>Returns the current value of the slider.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>Events</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td>
+          change(source: MdcSlider, value: number)
+        </td>
+        <td>Broadcast when slider value is changed and committed by way of a user event, e.g. when a user stops
+          dragging the slider or changes the value using the arrow keys.</td>
+      </tr>
+      <tr>
+        <td>
+          input(source: MdcSlider, value: number)
+        </td>
+        <td>Broadcasts when slider value is changed by way of a user event, e.g. when a user is dragging the slider or
+          changing the value using the arrow keys.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

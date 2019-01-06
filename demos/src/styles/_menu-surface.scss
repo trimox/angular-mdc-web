@@ -1,8 +1,4 @@
-.demo-menu-surface {
-  padding-bottom: 300px;
-}
-
-.demo-menu-surface--one {
+.demo-menu-surface--shaped {
   @include mdc-menu-surface-shape-radius(4px);
 }
 

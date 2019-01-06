@@ -1,0 +1,40 @@
+<div class="demo-content">
+  <h3 class="demo-content__headline">Material Icons (default)</h3>
+  <mdc-icon #demoicon>home</mdc-icon>
+  <example-viewer [example]="example1"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Material Icons - Themed</h3>
+  <mdc-icon class="demo-icon-custom-colors">home</mdc-icon>
+  <example-viewer [example]="exampleThemed"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Using Font Awesome</h3>
+  <div class="demo-layout__row">
+    <button mdc-button (click)="alternateColors(demofa)">Alternate Colors</button>
+  </div>
+  <mdc-icon #demofa fontSet="fa" fontIcon="fa-camera"></mdc-icon>
+  <example-viewer [example]="example2"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">SVG Icon</h3>
+  <mdc-icon>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+      <path d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"></path>
+    </svg>
+  </mdc-icon>
+  <example-viewer [example]="exampleSvg"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Using MdcIconRegistry</h3>
+  <mdc-text-field outlined label="Svg icon">
+    <mdc-icon mdcTextFieldIcon leading svgIcon="thumbup" class="temporary-workaround-for-text-field-svg"></mdc-icon>
+  </mdc-text-field>
+
+  <example-viewer [example]="example4"></example-viewer>
+</div>

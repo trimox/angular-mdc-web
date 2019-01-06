@@ -1,0 +1,58 @@
+<div class="demo-content">
+  <h3 class="demo-content__headline">Switch</h3>
+  <div class="demo-layout__column">
+    <div class="demo-container">
+      <mdc-switch></mdc-switch>
+    </div>
+    <div class="demo-container">
+      <mdc-form-field>
+        <mdc-switch></mdc-switch>
+        <label>off/on</label>
+      </mdc-form-field>
+    </div>
+    <div class="demo-container">
+      <mdc-form-field>
+        <mdc-switch disabled></mdc-switch>
+        <label>Disabled</label>
+      </mdc-form-field>
+    </div>
+    <div class="demo-container">
+      <mdc-form-field>
+        <mdc-switch class="demo-switch--custom"></mdc-switch>
+        <label>Custom Theme</label>
+      </mdc-form-field>
+    </div>
+  </div>
+  <example-viewer [example]="example1"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Switch - ngModel</h3>
+  <div class="demo-layout__row">
+    <button mdc-button (click)="demoformfield.alignEnd = !demoformfield.alignEnd">RTL</button>
+    <button mdc-button (click)="demoswitch.checked = !demoswitch.checked">Checked: {{demoswitch.checked ? 'On' :
+      'Off'}}</button>
+    <button mdc-button (click)="demoswitch.disabled = !demoswitch.disabled">Disabled: {{demoswitch.disabled ? 'On' :
+      'Off'}}</button>
+  </div>
+  <mdc-form-field #demoformfield>
+    <mdc-switch [(ngModel)]="isSwitchOn" name="demoswitch" #demoswitch (change)="onChange($event)"></mdc-switch>
+    <label>off/on</label>
+  </mdc-form-field>
+  <p>NgModel value: {{isSwitchOn}}</p>
+  <example-viewer [example]="exampleNgModel"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Switch - NgModel Form</h3>
+  <form #demoForm="ngForm" id="demoForm">
+    <mdc-form-field>
+      <mdc-switch #demoSwitch ngModel name="demoSwitch" #demoSwitchModel="ngModel"></mdc-switch>
+      <label>off/on</label>
+    </mdc-form-field>
+  </form>
+  <p>Dirty: {{ demoSwitchModel.dirty }}</p>
+  <p>Touched: {{ demoSwitchModel.touched }}</p>
+  <p>Value: {{ demoSwitchModel.value }}</p>
+  <example-viewer [example]="exampleNgModelForm"></example-viewer>
+</div>

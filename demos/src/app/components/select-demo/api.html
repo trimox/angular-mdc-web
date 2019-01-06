@@ -1,0 +1,130 @@
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcSelect</h3>
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-select</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcSelect</span>
+
+  <h4 mdcSubtitle2>Properties</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>id: string</td>
+        <td>Unique Id of the select (auto generated if not supplied).</td>
+      </tr>
+      <tr>
+        <td>name: string</td>
+        <td>Name of the select.</td>
+      </tr>
+      <tr>
+        <td>placeholder: string</td>
+        <td>Text shown if no value has been selected.</td>
+      </tr>
+      <tr>
+        <td>value: any</td>
+        <td>Sets the selected item by value.</td>
+      </tr>
+      <tr>
+        <td>autosize: boolean</td>
+        <td>If true, the width of the select and it's menu are calculated and set appropriately. (Default is false)</td>
+      </tr>
+      <tr>
+        <td>tabIndex: number</td>
+        <td>Set the underlying tab index of the select. (Default is 0)</td>
+      </tr>
+      <tr>
+        <td>floatLabel: boolean</td>
+        <td>Whether or not to show or hide a floating placeholder.</td>
+      </tr>
+      <tr>
+        <td>outlined: boolean</td>
+        <td>Styles the select as an outlined select.</td>
+      </tr>
+      <tr>
+        <td>disabled: boolean</td>
+        <td>Enables/disables the select.</td>
+      </tr>
+      <tr>
+        <td>helperText: MdcHelperText</td>
+        <td>Reference to related <code>MdcHelperText</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>Methods</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td>focus()</td>
+        <td>Sets focus to the select component.</td>
+      </tr>
+      <tr>
+        <td>getValue(): string</td>
+        <td>Returns the value of the currently selected option, or an empty string if no option is selected.</td>
+      </tr>
+      <tr>
+        <td>getSelectedIndex(): number</td>
+        <td>Returns the index of the currently selected option. Returns -1 if no option is currently selected.</td>
+      </tr>
+      <tr>
+        <td>setSelectionByValue(value: any)</td>
+        <td>Set selection to the passed value.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>Events</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td>
+          valueChange(index: number, value: string)
+        </td>
+        <td>Event emitted on any value change.</td>
+      </tr>
+      <tr>
+        <td>
+          selectionChange(source: MdcSelect, index: number, value: string)
+        </td>
+        <td>Event emitted if user changed the value.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcHelperText</h3>
+  <p>
+    Selector:
+    <span class="docs-api-class-selector-name">mdc-helper-text</span>
+    <span class="docs-api-class-selector-name">mdcHelperText</span>
+  </p>
+  Exported as: <span class="docs-api-class-selector-name">mdcHelperText</span>
+
+  <h4 mdcSubtitle2>Properties</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>validation: boolean</td>
+        <td>Help text can be used to provide additional validation messages.</td>
+      </tr>
+      <tr>
+        <td>persistent: boolean</td>
+        <td>Help text will always be visible.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

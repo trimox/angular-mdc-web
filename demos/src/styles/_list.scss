@@ -1,7 +1,3 @@
-//
-// List
-//
-
 .demo-list--custom {
   @include mdc-list-item-graphic-ink-color(white);
   @include mdc-list-item-graphic-fill-color(text-icon-on-background);

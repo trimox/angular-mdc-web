@@ -2,13 +2,14 @@
   <h3 class="demo-content__headline">Standard Image List</h3>
   Images in a Standard Image list are constrained to 1:1 aspect ratio by default this can be overridden using the mdc-image-list-aspect mixin documented below.
   <pre><code highlight=".image-list {
-    @include mdc-image-list-standard-columns(5);
+  @include mdc-image-list-standard-columns(5);
+}
+
+@media (max-width: 599px) {
+  .image-list {
+    @include mdc-image-list-standard-columns(3);
   }
-  @media (max-width: 599px) {
-    .image-list {
-      @include mdc-image-list-standard-columns(3);
-    }
-  }"></code></pre>
+}"></code></pre>
     <div class="demo-layout__row">
     <button mdc-button (click)="demolist.textProtection = !demolist.textProtection">Text Protection:
       {{demolist.textProtection ? 'On' : 'Off'}}</button>

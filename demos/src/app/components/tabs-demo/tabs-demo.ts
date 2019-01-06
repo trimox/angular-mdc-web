@@ -142,10 +142,10 @@ addTab(): void {
 
   exampleTabFade = {
     html: `<mdc-tab-bar fade>
-    <mdc-tab-scroller>
-      <mdc-tab *ngFor="let tab of tabs" [label]="tab.label" [icon]="tab.icon"></mdc-tab>
-    </mdc-tab-scroller>
-  </mdc-tab-bar>`,
+  <mdc-tab-scroller>
+    <mdc-tab *ngFor="let tab of tabs" [label]="tab.label" [icon]="tab.icon"></mdc-tab>
+  </mdc-tab-scroller>
+</mdc-tab-bar>`,
     ts: this.exampleTS
   };
 

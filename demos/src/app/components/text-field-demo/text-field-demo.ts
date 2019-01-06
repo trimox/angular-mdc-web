@@ -65,7 +65,7 @@ export class Examples {
 
   constructor(iconRegistry: MdcIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
-      'thumbup', sanitizer.bypassSecurityTrustResourceUrl('/assets/thumbup-icon.svg'));
+      'thumbup', sanitizer.bypassSecurityTrustResourceUrl('https://trimox.github.io/angular-mdc-web/assets/thumbup-icon.svg'));
   }
 
   submit(f: NgForm | FormGroup) {
@@ -107,7 +107,7 @@ export class Examples {
   //
 
   exampleStandard = {
-    html: `<mdc-text-field #standard label="Standard" required [helperText]="standardHelper"></mdc-text-field>
+    html: `<mdc-text-field label="Standard" required [helperText]="standardHelper"></mdc-text-field>
 <mdc-helper-text #standardHelper validation persistent>Helper Text</mdc-helper-text>`
   };
 
@@ -177,10 +177,9 @@ resetForm(formDirective: FormGroupDirective) {
     </mdc-helper-text>
   </mdc-form-field>
 </form>
-<div class="demo-layout__row">
-  <button mdc-button type="submit" form="demoWeightForm">Submit</button>
-  <button mdc-button (click)="demoWeightForm.reset()">Reset</button>
-</div>
+
+<button mdc-button type="submit" form="demoWeightForm">Submit</button>
+<button mdc-button (click)="demoWeightForm.reset()">Reset</button>
 
 <p>Dirty: {{ demoWeightModel.dirty }}</p>
 <p>Valid: {{ demoWeightForm.valid }}</p>
@@ -196,9 +195,8 @@ resetForm(formDirective: FormGroupDirective) {
     <span *ngIf="!demoValue?.value">Field is required</span>
   </mdc-helper-text>
 </mdc-form-field>
-<div class="demo-layout__row">
-  <button mdc-button (click)="demoValue.value = null">Reset value</button>
-</div>
+
+<button mdc-button (click)="demoValue.value = null">Reset value</button>
 
 <p>Value: {{demoValue.value}}</p>`,
     ts: `demoInputValue: string;`
@@ -304,11 +302,33 @@ waypoint = new Directions();`
 
 <mdc-text-field type="password" label="Password" required outlined></mdc-text-field>
 
-<mdc-text-field type="color" label="Color" style="width: 6rem" outlined></mdc-text-field>`
+<mdc-text-field type="color" label="Color" outlined></mdc-text-field>`
   };
 
   exampleFullWithSingleLine = {
-    html: `<mdc-text-field #demofullwidth label="Subject" fullwidth></mdc-text-field>`
+    html: `<mdc-text-field label="Subject" fullwidth></mdc-text-field>`,
+    sass: `.demo-fullwidth-input:not(.mdc-text-field--invalid) {
+  @include mdc-text-field-fullwidth-bottom-line-color(rgba(blue, .38));
+  @include mdc-text-field-ink-color(black);
+  @include mdc-text-field-label-color(rgba(blue, .5));
+  @include mdc-text-field-line-ripple-color(blue);
+
+  &.mdc-text-field--focused {
+    @include mdc-text-field-label-color(rgba(blue, .87));
+  }
+}
+
+.demo-fullwidth-input.mdc-text-field--invalid {
+  @include mdc-text-field-fullwidth-bottom-line-color(rgba(orange, .38));
+  @include mdc-text-field-ink-color(orange);
+  @include mdc-text-field-label-color(rgba(orange, .5));
+  @include mdc-text-field-line-ripple-color(orange);
+
+  &.mdc-text-field--focused {
+    @include mdc-text-field-label-color(rgba(orange, .87));
+    @include mdc-text-field-fullwidth-bottom-line-color(orange);
+  }
+}`
   };
 
   exampleTextarea = {
@@ -345,7 +365,7 @@ waypoint = new Directions();`
     html: `<mdc-textarea label="Type your message here" fullwidth required rows="8"
   [helperText]="fullWidthHelper"></mdc-textarea>
 <mdc-helper-text #fullWidthHelper validation>Helper Text</mdc-helper-text>`,
-    ts: `.demo-fullwidth-input:not(.mdc-text-field--invalid) {
+    sass: `.demo-fullwidth-input:not(.mdc-text-field--invalid) {
   @include mdc-text-field-fullwidth-bottom-line-color(rgba(blue, .38));
   @include mdc-text-field-ink-color(black);
   @include mdc-text-field-label-color(rgba(blue, .5));

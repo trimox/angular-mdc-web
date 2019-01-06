@@ -1,0 +1,101 @@
+<div class="demo-content">
+  <h3 class="demo-content__headline">Fixed</h3>
+  <mdc-top-app-bar style="position: unset">
+    <mdc-top-app-bar-row>
+      <mdc-top-app-bar-section align="start" title="App">
+        <button mdcIconButton mdcTopAppBarNavIcon icon="menu"></button>
+      </mdc-top-app-bar-section>
+      <mdc-top-app-bar-section align="end">
+        <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
+        <mdc-icon mdcTopAppBarActionItem>print</mdc-icon>
+        <mdc-icon mdcTopAppBarActionItem>bookmark</mdc-icon>
+      </mdc-top-app-bar-section>
+    </mdc-top-app-bar-row>
+  </mdc-top-app-bar>
+  <example-viewer [example]="exampleFixed"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Prominent</h3>
+  <mdc-top-app-bar prominent style="position: unset">
+    <mdc-top-app-bar-row>
+      <mdc-top-app-bar-section align="start" title="App">
+        <button mdcIconButton mdcTopAppBarNavIcon icon="menu"></button>
+      </mdc-top-app-bar-section>
+      <mdc-top-app-bar-section align="end">
+        <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
+        <mdc-icon mdcTopAppBarActionItem>print</mdc-icon>
+        <mdc-icon mdcTopAppBarActionItem>bookmark</mdc-icon>
+      </mdc-top-app-bar-section>
+    </mdc-top-app-bar-row>
+  </mdc-top-app-bar>
+  <example-viewer [example]="exampleProminent"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Dense</h3>
+  <mdc-top-app-bar dense style="position: unset">
+    <mdc-top-app-bar-row>
+      <mdc-top-app-bar-section align="start" title="App">
+        <button mdcIconButton mdcTopAppBarNavIcon icon="menu"></button>
+      </mdc-top-app-bar-section>
+      <mdc-top-app-bar-section align="end">
+        <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
+        <mdc-icon mdcTopAppBarActionItem>print</mdc-icon>
+        <mdc-icon mdcTopAppBarActionItem>bookmark</mdc-icon>
+      </mdc-top-app-bar-section>
+    </mdc-top-app-bar-row>
+  </mdc-top-app-bar>
+  <example-viewer [example]="exampleDense"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Short</h3>
+  <mdc-top-app-bar short style="position: unset" [scrollTarget]="mainContent">
+    <mdc-top-app-bar-row>
+      <mdc-top-app-bar-section align="start" title="App">
+        <button mdcIconButton mdcTopAppBarNavIcon icon="menu"></button>
+      </mdc-top-app-bar-section>
+      <mdc-top-app-bar-section align="end">
+        <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
+      </mdc-top-app-bar-section>
+    </mdc-top-app-bar-row>
+  </mdc-top-app-bar>
+  <div class="demo-app-bar-content" #mainContent>
+    <p *ngFor="let lorem of lorems">{{lorem}}</p>
+  </div>
+  <example-viewer [example]="exampleShort"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Short Collapsed</h3>
+  <mdc-top-app-bar shortCollapsed style="position: unset">
+    <mdc-top-app-bar-row>
+      <mdc-top-app-bar-section align="start" title="App">
+        <button mdcIconButton mdcTopAppBarNavIcon icon="menu"></button>
+      </mdc-top-app-bar-section>
+      <mdc-top-app-bar-section align="end">
+        <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
+      </mdc-top-app-bar-section>
+    </mdc-top-app-bar-row>
+  </mdc-top-app-bar>
+  <example-viewer [example]="exampleShortCollapsed"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Themed</h3>
+  <mdc-top-app-bar class="demo-top-app-bar-themed" style="position: unset" [scrollTarget]="mainThemedContent">
+    <mdc-top-app-bar-row>
+      <mdc-top-app-bar-section align="start" title="App">
+        <button mdcIconButton mdcTopAppBarNavIcon icon="menu"></button>
+      </mdc-top-app-bar-section>
+      <mdc-top-app-bar-section align="end">
+        <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
+      </mdc-top-app-bar-section>
+    </mdc-top-app-bar-row>
+  </mdc-top-app-bar>
+  <div class="demo-app-bar-content" #mainThemedContent>
+    <p *ngFor="let lorem of lorems">{{lorem}}</p>
+  </div>
+  <example-viewer [example]="exampleThemed"></example-viewer>
+</div>

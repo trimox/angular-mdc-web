@@ -8,3 +8,15 @@
   padding: 10px;
   display: none;
 }
+
+.demo-app-bar-content {
+  padding-left: 16px;
+  padding-right: 16px;
+  overflow: auto;
+  height: 200px;
+}
+
+.demo-top-app-bar-themed {
+  @include mdc-top-app-bar-fill-color($material-color-yellow-800);
+  @include mdc-top-app-bar-icon-ink-color($material-color-blue-900)
+}

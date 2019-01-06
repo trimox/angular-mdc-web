@@ -17,7 +17,15 @@
   <button mdc-fab #demoFA>
     <mdc-icon fontSet="fa" fontIcon="fa-keyboard-o"></mdc-icon>
   </button>
-  <example-viewer [example]="example2"></example-viewer>
+  <example-viewer [example]="exampleFA"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Mini</h3>
+  <button mdc-fab mini>
+    <mdc-icon>edit</mdc-icon>
+  </button>
+  <example-viewer [example]="exampleMini"></example-viewer>
 </div>
 
 <div class="demo-content">
@@ -33,15 +41,17 @@
         <mdc-icon>favorite_border</mdc-icon>
       </button>
     </div>
-    <button mdc-fab class="demo-fab-shape-radius">
-      <mdc-icon>favorite_border</mdc-icon>
-    </button>
+    <div class="demo-container">
+      <button mdc-fab class="demo-fab-shape-radius">
+        <mdc-icon>favorite_border</mdc-icon>
+      </button>
+    </div>
   </div>
-  <example-viewer [example]="example3"></example-viewer>
+  <example-viewer [example]="exampleShaped"></example-viewer>
 </div>
 
 <div class="demo-content">
-  <h3 class="demo-content__headline">Alternate colors</h3>
+  <h3 class="demo-content__headline">Themed</h3>
   <div class="demo-layout__row">
     <div class="demo-container">
       <button mdc-fab class="red800Fab" icon="edit"></button>
@@ -53,7 +63,7 @@
       <button mdc-fab class="purple500Fab" icon="edit"></button>
     </div>
   </div>
-  <example-viewer [example]="example4"></example-viewer>
+  <example-viewer [example]="exampleThemed"></example-viewer>
 </div>
 
 <div class="demo-content">
@@ -85,17 +95,17 @@
       </button>
     </div>
   </div>
-  <example-viewer [example]="example5"></example-viewer>
+  <example-viewer [example]="exampleExtended"></example-viewer>
 </div>
 
 <div class="demo-content">
-  <h3 class="demo-content__headline">Auto width extended FAB (Responsive)</h3>
+  <h3 class="demo-content__headline">Extended FAB (Fluid)</h3>
   <div class="demo-layout__row">
     <button mdc-fab extended label="Add to cart" class="demo-fab-extended-fluid">
       <mdc-icon>add_shopping_cart</mdc-icon>
     </button>
   </div>
-  <example-viewer [example]="example6"></example-viewer>
+  <example-viewer [example]="exampleExtendedFluid"></example-viewer>
 </div>
 
 <div class="demo-content">
@@ -107,11 +117,11 @@
   <button mdc-fab #exited (click)="exited.toggleExited()">
     <mdc-icon>save</mdc-icon>
   </button>
-  <example-viewer [example]="example7"></example-viewer>
+  <example-viewer [example]="exampleExited"></example-viewer>
 </div>
 
 <div class="demo-content">
-  <h3 class="demo-content__headline">Absolute Positioning</h3>
+  <h3 class="demo-content__headline">Absolute Position</h3>
   <div class="demo-layout__row">
     <button mdc-button (click)="demoPosition.position = 'bottomLeft'">Bottom Left</button>
     <button mdc-button (click)="demoPosition.position = 'bottomRight'">Bottom Right</button>
@@ -119,5 +129,5 @@
       'Off'}}</button>
   </div>
   <button #demoPosition mdc-fab position='bottomRight' icon="add"></button>
-  <example-viewer [example]="example8"></example-viewer>
+  <example-viewer [example]="examplePosition"></example-viewer>
 </div>

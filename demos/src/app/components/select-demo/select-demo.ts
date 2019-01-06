@@ -122,6 +122,7 @@ export class Examples {
   </mdc-menu>
 </mdc-select>
 <mdc-helper-text #enhancedHelper validation>Field is required</mdc-helper-text>
+
 <p> Value: {{ enhanced.value }}</p>
 <p> Index: {{ enhanced.getSelectedIndex() }}</p>`
   };
@@ -209,6 +210,7 @@ export class Examples {
     </option>
   </mdc-select>
 </form>
+
 <p>Value: {{ demoNgModel.value }}</p>
 <p>Index: {{ select.getSelectedIndex() }}</p>
 <p>Touched: {{ demoForm.touched }}</p>

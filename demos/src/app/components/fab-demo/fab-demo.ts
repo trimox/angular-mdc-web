@@ -36,13 +36,19 @@ export class Examples {
 </button>`
   };
 
-  example2 = {
+  exampleMini = {
+    html: `<button mdc-fab mini>
+  <mdc-icon>edit</mdc-icon>
+</button>`
+  };
+
+  exampleFA = {
     html: `<button mdc-fab>
   <mdc-icon fontSet="fa" fontIcon="fa-keyboard-o"></mdc-icon>
 </button>`
   };
 
-  example3 = {
+  exampleShaped = {
     html: `<button mdc-fab class="demo-fab-shaped--one">
   <mdc-icon>favorite_border</mdc-icon>
 </button>
@@ -67,7 +73,7 @@ export class Examples {
 }`
   };
 
-  example4 = {
+  exampleThemed = {
     html: `<button mdc-fab class="red800Fab" icon="edit"></button>
 
 <button mdc-fab class="yellow800Fab" icon="edit"></button>
@@ -86,7 +92,7 @@ export class Examples {
 }`
   };
 
-  example5 = {
+  exampleExtended = {
     html: `<button mdc-fab extended icon="add_shopping_cart" label="Add to cart" class="blackFab"></button>
 
 <button mdc-fab extended label="Create" class="blackFab"></button>
@@ -108,12 +114,16 @@ export class Examples {
   @include mdc-fab-accessible(black);
 }
 
+.mdc-fab.purple500Fab {
+  @include mdc-fab-accessible($material-color-purple-500);
+}
+
 .demo-fab-extended-shape-radius {
   @include mdc-fab-extended-shape-radius(25%);
 }`
   };
 
-  example6 = {
+  exampleExtendedFluid = {
     html: `<button mdc-fab extended label="Add to cart" class="demo-fab-extended-fluid">
   <mdc-icon>add_shopping_cart</mdc-icon>
 </button>`,
@@ -122,13 +132,13 @@ export class Examples {
 }`
   };
 
-  example7 = {
+  exampleExited = {
     html: `<button mdc-fab #exited (click)="exited.toggleExited()">
-<mdc-icon>save</mdc-icon>
+  <mdc-icon>save</mdc-icon>
 </button>`
   };
 
-  example8 = {
+  examplePosition = {
     html: `<button mdc-fab position='bottomRight' icon="add"></button>`
   };
 }

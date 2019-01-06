@@ -45,12 +45,12 @@ export class Examples {
 }`;
 
   example1 = {
-    html: `<mdc-linear-progress #lp></mdc-linear-progress>`,
+    html: `<mdc-linear-progress></mdc-linear-progress>`,
     sass: this.customSass
   };
 
   example2 = {
-    html: `<mdc-linear-progress #deter determinate [progress]="0.5" [buffer]="0.75" secondary></mdc-linear-progress>`,
+    html: `<mdc-linear-progress determinate [progress]="0.5" [buffer]="0.75" secondary></mdc-linear-progress>`,
     sass: this.customSass
   };
 }

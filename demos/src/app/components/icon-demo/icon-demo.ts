@@ -35,7 +35,7 @@ export class Api { }
 export class Examples {
   constructor(iconRegistry: MdcIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
-      'thumbup', sanitizer.bypassSecurityTrustResourceUrl('/assets/thumbup-icon.svg'));
+      'thumbup', sanitizer.bypassSecurityTrustResourceUrl('https://trimox.github.io/angular-mdc-web/assets/thumbup-icon.svg'));
   }
 
   alternateColors(icon: MdcIcon) {

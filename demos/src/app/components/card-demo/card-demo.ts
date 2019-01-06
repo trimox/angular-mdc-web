@@ -80,6 +80,10 @@ export class Examples {
   @include mdc-theme-prop(color, text-secondary-on-background);
 
   padding: 0 1rem 8px 1rem;
+}
+
+.demo-card__media--16-9 {
+  background-image: url(https://material-components-web.appspot.com/images/16-9.jpg);
 }`
   };
 
@@ -178,10 +182,6 @@ export class Examples {
 
 .demo-card__media {
   background-image: url(https://material-components-web.appspot.com/images/1-1.jpg);
-}
-
-.demo-card__media--16-9 {
-  background-image: url(https://material-components-web.appspot.com/images/16-9.jpg);
 }
 
 .demo-card__media-content--with-title {

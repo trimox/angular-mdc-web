@@ -1,3 +1,18 @@
+## [0.42.5](https://github.com/trimox/angular-mdc-web/compare/v0.42.4...v0.42.5) (2019-01-07)
+
+
+### Bug Fixes
+
+* **slider:** Min, Max and step value fail to initialize ([#1653](https://github.com/trimox/angular-mdc-web/issues/1653)) ([01766cd](https://github.com/trimox/angular-mdc-web/commit/01766cd))
+* **text-field:** Should display and float [value] ([#1652](https://github.com/trimox/angular-mdc-web/issues/1652)) ([839c26b](https://github.com/trimox/angular-mdc-web/commit/839c26b)), closes [#1651](https://github.com/trimox/angular-mdc-web/issues/1651)
+
+
+### Features
+
+* **demos:** Improved documentation and examples ([#1654](https://github.com/trimox/angular-mdc-web/issues/1654)) ([c5d1e93](https://github.com/trimox/angular-mdc-web/commit/c5d1e93)), closes [#1158](https://github.com/trimox/angular-mdc-web/issues/1158) [#1650](https://github.com/trimox/angular-mdc-web/issues/1650) [#1646](https://github.com/trimox/angular-mdc-web/issues/1646) [#1517](https://github.com/trimox/angular-mdc-web/issues/1517)
+
+
+
 ## [0.42.4](https://github.com/trimox/angular-mdc-web/compare/v0.42.3...v0.42.4) (2019-01-06)
 
 

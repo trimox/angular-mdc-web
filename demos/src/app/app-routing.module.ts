@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'card-demo', loadChildren: './components/card-demo/card.module#CardModule' },
   { path: 'checkbox-demo', loadChildren: './components/checkbox-demo/checkbox.module#CheckboxModule' },
   { path: 'chips-demo', loadChildren: './components/chips-demo/chips.module#ChipsModule' },
+  { path: 'theme', loadChildren: './theme/theme.module#ThemeModule' },
   { path: 'dialog-demo', loadChildren: './components/dialog-demo/dialog.module#DialogModule' },
   { path: 'drawer-demo', loadChildren: './components/drawer-demo/drawer.module#DrawerModule' },
   { path: 'elevation-demo', loadChildren: './components/elevation-demo/elevation.module#ElevationModule' },

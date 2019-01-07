@@ -1,7 +1,5 @@
-import { Component, OnInit, OnDestroy, NgZone, ViewChild } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { filter, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
 
 import { environment } from '../environments/environment';
 
@@ -13,18 +11,15 @@ const SMALL_WIDTH_BREAKPOINT = 1240;
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
-export class AppComponent implements OnInit, OnDestroy {
-  /** Emits whenever the component is destroyed. */
-  private _destroy = new Subject<void>();
-
+export class AppComponent implements OnInit {
   version: string = environment.version;
   matcher: MediaQueryList;
 
-  @ViewChild('demoTopAppBarControls') demoTopAppBarControls;
   @ViewChild('topAppBar') topAppBar: MdcTopAppBar;
   @ViewChild('appDrawer') appDrawer: MdcDrawer;
 
-  startVisible: boolean;
+  startVisible: boolean = false;
+  themeVisible: boolean = false;
 
   navigationLinks = [
     { name: 'Button', route: 'button-demo' },
@@ -59,6 +54,10 @@ export class AppComponent implements OnInit, OnDestroy {
     { name: 'Installation', route: 'getting-started' }
   ];
 
+  themeRoutes = [
+    { name: 'Color Scheme', route: 'theme' }
+  ];
+
   constructor(
     private _router: Router,
     private _ngZone: NgZone) { }
@@ -81,27 +80,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.matcher = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
     this.matcher.addListener((event: MediaQueryListEvent) => this._ngZone.run(() => event.matches));
-
-    this._router.events
-      .pipe(takeUntil(this._destroy),
-        filter(event => event instanceof NavigationEnd))
-      .subscribe(_ => {
-        if (this._router.url.includes('/top-app-bar-demo')) {
-          this.demoTopAppBarControls.nativeElement.style.display = 'block';
-        } else {
-          this.demoTopAppBarControls.nativeElement.style.display = 'none';
-
-          // reset to fixed after navigation away from top-app-bar demo
-          this.topAppBar.fixed = true;
-          this.topAppBar.prominent = false;
-          this.topAppBar.dense = false;
-        }
-      });
-  }
-
-  ngOnDestroy(): void {
-    this._destroy.next();
-    this._destroy.complete();
   }
 
   onDrawerSelect(route: any) {

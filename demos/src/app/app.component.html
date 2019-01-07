@@ -29,6 +29,14 @@
           <mdc-list-item *ngFor="let item of startRoutes" (selectionChange)="onDrawerSelect('getting-started')">{{item.name}}</mdc-list-item>
         </div>
         <mdc-list-divider></mdc-list-divider>
+        <mdc-list-item (selectionChange)="themeVisible = !themeVisible">
+          Theme
+          <mdc-icon mdcListItemMeta>keyboard_arrow_{{themeVisible ? 'down' : 'right'}}</mdc-icon>
+        </mdc-list-item>
+        <div *ngIf="themeVisible">
+          <mdc-list-item *ngFor="let item of themeRoutes" (selectionChange)="onDrawerSelect(item.route)">{{item.name}}</mdc-list-item>
+        </div>
+        <mdc-list-divider></mdc-list-divider>
         <mdc-list-item *ngFor="let navItem of navigationLinks" (selectionChange)="onDrawerSelect(navItem.route)">{{navItem.name}}</mdc-list-item>
       </mdc-list>
     </mdc-drawer-content>
@@ -36,19 +44,5 @@
 
   <div mdcDrawerAppContent mdcTopAppBarFixedAdjust class="demo-panel-section">
     <router-outlet></router-outlet>
-  </div>
-</div>
-
-<div class="demo-app-bar-control-container" #demoTopAppBarControls>
-  <div class="demo-layout__row">
-    <button mdc-button (click)="topAppBar.fixed = !topAppBar.fixed">Fixed: {{topAppBar.fixed ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="topAppBar.prominent = !topAppBar.prominent">Prominent: {{topAppBar.prominent ? 'On' :
-      'Off'}}</button>
-    <button mdc-button (click)="topAppBar.dense = !topAppBar.dense">Dense: {{topAppBar.dense ? 'On' : 'Off'}}</button>
-  </div>
-  <div class="demo-layout__row">
-    <button mdc-button (click)="topAppBar.short = !topAppBar.short">Short: {{topAppBar.short ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="topAppBar.shortCollapsed = !topAppBar.shortCollapsed">Short Collapsed:
-      {{topAppBar.shortCollapsed ? 'On' : 'Off'}}</button>
   </div>
 </div>

@@ -1,14 +1,3 @@
-.demo-app-bar-control-container {
-  @include mdc-elevation(4);
-
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  background-color: $color-white;
-  padding: 10px;
-  display: none;
-}
-
 .demo-app-bar-content {
   padding-left: 16px;
   padding-right: 16px;

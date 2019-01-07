@@ -1,17 +1,76 @@
 <div class="demo-content">
-  <h3 class="demo-content__headline">Checkbox</h3>
-  <div class="demo-layout__row">
-    <button mdc-button (click)="demobox.indeterminate = true">Indeterminate</button>
-    <button mdc-button (click)="demobox.indeterminateToChecked = !demobox.indeterminateToChecked">
-      Indeterminate To Checked: {{demobox.indeterminateToChecked ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="demobox.toggle()">Toggle</button>
-    <button mdc-button (click)="demofield.alignEnd = !demofield.alignEnd">RTL: {{demofield.alignEnd ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="demobox.disabled = !demobox.disabled">Disabled: {{demobox.disabled ? 'On' : 'Off'}}</button>
+  <mdc-checkbox></mdc-checkbox>
+  <mdc-checkbox checked></mdc-checkbox>
+  <mdc-checkbox disabled></mdc-checkbox>
+  <mdc-checkbox checked disabled></mdc-checkbox>
+  <mdc-checkbox indeterminate></mdc-checkbox>
+  <mdc-checkbox indeterminate indeterminateToChecked="false"></mdc-checkbox>
+
+  <example-viewer [example]="exampleSimple"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <div class="demo-layout__column">
+    <div class="demo-container">
+      <mdc-form-field>
+        <mdc-checkbox></mdc-checkbox>
+        <label>Label</label>
+      </mdc-form-field>
+    </div>
+
+    <div class="demo-container">
+      <mdc-form-field>
+        <mdc-checkbox disabled></mdc-checkbox>
+        <label>Disabled</label>
+      </mdc-form-field>
+    </div>
+
+    <div class="demo-container">
+      <mdc-form-field alignEnd>
+        <mdc-checkbox></mdc-checkbox>
+        <label>Label (RTL)</label>
+      </mdc-form-field>
+    </div>
   </div>
-  <mdc-form-field #demofield>
-    <mdc-checkbox #demobox></mdc-checkbox>
-    <label>Checkbox value is {{demobox.checked}}</label>
+  <example-viewer [example]="exampleLabel"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <div class="demo-layout__row">
+    <button mdc-button (click)="cb.indeterminate = true">Indeterminate</button>
+    <button mdc-button (click)="toggle(cb)">Toggle</button>
+  </div>
+  <div class="demo-layout__row">
+    <button mdc-button (click)="cb.indeterminateToChecked = !cb.indeterminateToChecked">
+      Indeterminate To Checked: {{cb.indeterminateToChecked ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="formField.alignEnd = !formField.alignEnd">RTL: {{formField.alignEnd ? 'On'
+      : 'Off'}}</button>
+    <button mdc-button (click)="cb.disabled = !cb.disabled">Disabled: {{cb.disabled ? 'On' : 'Off'}}</button>
+  </div>
+  <mdc-form-field #formField alignEnd="false">
+    <mdc-checkbox #cb indeterminateToChecked [disabled]="false" (change)="onChange($event)"></mdc-checkbox>
+    <label>Checkbox value is {{cb.checked}}</label>
   </mdc-form-field>
 
-  <example-viewer [example]="example1"></example-viewer>
+  <example-viewer [example]="exampleDynamic"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Theme</h3>
+  <div class="demo-layout__column">
+    <div class="demo-container">
+      <mdc-form-field>
+        <mdc-checkbox class="demo-checkbox--custom-all"></mdc-checkbox>
+        <label>Custom Stroke/Fill/Ink</label>
+      </mdc-form-field>
+    </div>
+
+    <div class="demo-container">
+      <mdc-form-field>
+        <mdc-checkbox class="demo-checkbox--custom-stroke-and-fill"></mdc-checkbox>
+        <label>Custom Stroke and Fill</label>
+      </mdc-form-field>
+    </div>
+  </div>
+  <example-viewer [example]="exampleTheme"></example-viewer>
 </div>

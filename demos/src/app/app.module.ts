@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { APP_BASE_HREF } from '@angular/common';
 
+import { environment } from '../environments/environment';
 import { SharedModule } from './shared.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule, DEMO_DECLARATIONS } from './app-routing.module';
@@ -34,6 +36,7 @@ export function hljsLanguages() {
     AppComponent,
     DEMO_DECLARATIONS
   ],
+  providers: [{ provide: APP_BASE_HREF, useValue: environment.production ? '/angular-mdc-web/' : '/' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

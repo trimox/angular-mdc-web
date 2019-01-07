@@ -13,3 +13,7 @@
 .demo-icon-button-secondary {
   @include mdc-icon-button-ink-color($mdc-theme-secondary);
 }
+
+.demo-icon-button-large {
+  @include mdc-icon-button-size(36px);
+}

@@ -102,7 +102,7 @@ export class MdcIconButton implements AfterContentInit, ControlValueAccessor, On
   _onChange: (value: any) => void = () => { };
   _onTouched = () => { };
 
-  createAdapter() {
+  private _createAdapter() {
     return {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
@@ -121,7 +121,7 @@ export class MdcIconButton implements AfterContentInit, ControlValueAccessor, On
     toggle(isOn: boolean): void,
     isOn(): boolean,
     handleClick(): void
-  } = new MDCIconButtonToggleFoundation(this.createAdapter());
+  } = new MDCIconButtonToggleFoundation(this._createAdapter());
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,

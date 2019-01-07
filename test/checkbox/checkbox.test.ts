@@ -3,7 +3,7 @@ import { async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed } from '@a
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { dispatchFakeEvent } from '../testing/dispatch-events';
+import { dispatchFakeEvent, dispatchMouseEvent } from '../testing/dispatch-events';
 
 import { MdcCheckbox, MdcCheckboxModule } from '@angular-mdc/web';
 
@@ -95,7 +95,8 @@ describe('MdcCheckbox', () => {
       testComponent.isDisabled = true;
       fixture.detectChanges();
 
-      inputElement.click();
+      dispatchMouseEvent(checkboxInstance._inputElement.nativeElement, 'click');
+      fixture.detectChanges();
       expect(checkboxInstance.checked).toBe(false);
     });
 

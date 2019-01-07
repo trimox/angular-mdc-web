@@ -28,7 +28,7 @@ export class ComponentView {
   importCode: string;
   tabs: Tab[];
 
-  constructor(name: string, description: string, importCode: string, tabs?: Tab[]) {
+  constructor(name: string, description: string, importCode: string = null, tabs?: Tab[]) {
     this.name = name;
     this.description = description;
     this.importCode = importCode;

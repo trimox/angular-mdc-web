@@ -1,3 +1,12 @@
+## [0.42.6](https://github.com/trimox/angular-mdc-web/compare/v0.42.5...v0.42.6) (2019-01-08)
+
+
+### Bug Fixes
+
+* **checkbox:** State transition from indeterminate ([#1661](https://github.com/trimox/angular-mdc-web/issues/1661)) ([90ba0fc](https://github.com/trimox/angular-mdc-web/commit/90ba0fc)), closes [#1660](https://github.com/trimox/angular-mdc-web/issues/1660)
+
+
+
 ## [0.42.5](https://github.com/trimox/angular-mdc-web/compare/v0.42.4...v0.42.5) (2019-01-07)
 
 

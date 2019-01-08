@@ -77,7 +77,7 @@ const MOUSE_EVENT_IGNORE_TIME = 800;
   },
   template: `
   <ng-content *ngIf="leadingIcon"></ng-content>
-  <input #input class="mdc-text-field__input"
+  <input #inputElement class="mdc-text-field__input"
     [id]="id"
     [type]="type"
     [tabindex]="tabIndex"
@@ -96,7 +96,7 @@ const MOUSE_EVENT_IGNORE_TIME = 800;
     (mousedown)="onInputInteraction($event)"
     (touchstart)="onInputInteraction($event)"
     (focus)="onFocus()"
-    (input)="onInput($event.target.value)"
+    (input)="onInput($event)"
     (change)="onChange($event)"
     (blur)="onBlur()" />
     <ng-content></ng-content>
@@ -248,9 +248,10 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   @Input() errorStateMatcher?: ErrorStateMatcher;
 
   @Output() readonly change = new EventEmitter<any>();
+  @Output() readonly input = new EventEmitter<any>();
   @Output() readonly blur = new EventEmitter<any>();
 
-  @ViewChild('input') _input!: ElementRef<HTMLInputElement | HTMLTextAreaElement>;
+  @ViewChild('inputElement') _input!: ElementRef<HTMLInputElement | HTMLTextAreaElement>;
   @ViewChild(MdcLineRipple) _lineRipple!: MdcLineRipple;
   @ViewChild(MdcNotchedOutline) _notchedOutline!: MdcNotchedOutline;
   @ViewChild(MdcFloatingLabel) _floatingLabel!: MdcFloatingLabel;
@@ -431,8 +432,11 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     this._foundation.setTransformOrigin(evt);
   }
 
-  onInput(value: any): void {
+  onInput(evt: KeyboardEvent): void {
+    const value = (<any>evt.target).value;
     this.setValue(value, true);
+    this.input.emit(value);
+    evt.stopPropagation();
   }
 
   onFocus(): void {
@@ -442,7 +446,9 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   }
 
   onChange(evt: Event): void {
-    this.setValue((<any>evt.target).value);
+    const value = (<any>evt.target).value;
+    this.setValue(value);
+    this.change.emit(value);
     evt.stopPropagation();
   }
 
@@ -492,7 +498,6 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     if (isUserInput) {
       // Call _onChange before emitting change event
       this._onChange(this._value);
-      this.change.emit(this._value);
     }
 
     // need to run valiation attribute check if input reset

@@ -45,7 +45,11 @@
       </tr>
       <tr>
         <td>fullwidth: boolean</td>
-        <td>Set to fullwidth textfield.</td>
+        <td>Set to fullwidth textfield.
+          <blockquote>
+            <p><em>*</em> Do not use <code>mdc-text-field--outlined</code> to style a full width text field.</p>
+          </blockquote>
+        </td>
       </tr>
       <tr>
         <td>disabled: boolean</td>
@@ -132,12 +136,16 @@
   <table>
     <tbody>
       <tr>
-        <td>change(value: string)</td>
-        <td>Emitted whenever the value of the input changes.</td>
+        <td>change(value: any)</td>
+        <td>Emitted when an alteration to the element's value is committed.</td>
       </tr>
       <tr>
-        <td>blur(value: string)</td>
+        <td>blur(value: any)</td>
         <td>Emitted whenever the input loses focus.</td>
+      </tr>
+      <tr>
+        <td>input(value: any)</td>
+        <td>Emitted synchronously when the value has been altered.</td>
       </tr>
     </tbody>
   </table>
@@ -204,13 +212,14 @@
 
 <div class="docs-api">
   <h3 mdcHeadline6>MdcTextarea</h3>
+  Same properties, methods and events as <code>MdcTextField</code>
   <p>
     Selector:
     <span class="docs-api-class-selector-name">mdc-textarea</span>
   </p>
   Exported as: <span class="docs-api-class-selector-name">mdcTextarea</span>
 
-  <h4 mdcSubtitle2>Properties</h4>
+  <h4 mdcSubtitle2>Additional Properties</h4>
   <table>
     <thead>
       <tr>
@@ -219,9 +228,6 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Same properties as mdc-text-area</td>
-      </tr>
       <tr>
         <td>rows: number</td>
         <td>Number of rows for this textarea.</td>

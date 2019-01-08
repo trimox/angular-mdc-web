@@ -15,7 +15,15 @@
 </div>
 
 <div class="demo-content">
-  <h3 class="demo-content__headline">Text Field - FormControl</h3>
+  <h3 class="demo-content__headline">Input and Change events</h3>
+  <mdc-text-field label="Standard" (input)="onInput($event)" (change)="onChange($event)"></mdc-text-field>
+  <p>Input event: {{inputEvent}}</p>
+  <p>Change event: {{changeEvent}}</p>
+  <example-viewer [example]="exampleEvents"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Reactive Form</h3>
   <div class="demo-layout__row">
     <button mdc-button (click)="demoformInput.outlined = !demoformInput.outlined">Outlined: {{demoformInput.outlined
       ? 'On' : 'Off'}}</button>
@@ -50,7 +58,7 @@
 </div>
 
 <div class="demo-content">
-  <h3 class="demo-content__headline">Text Field - Numeric with ngModel Form</h3>
+  <h3 class="demo-content__headline">Numeric with ngModel Form</h3>
   <div class="demo-layout__row">
     <button mdc-button (click)="demoweight.outlined = !demoweight.outlined">Outlined: {{demoweight.outlined ? 'On' :
       'Off'}}</button>
@@ -78,7 +86,7 @@
 </div>
 
 <div class="demo-content">
-  <h3 class="demo-content__headline">Text Field - Using [value]</h3>
+  <h3 class="demo-content__headline">Using [value]</h3>
   <div class="demo-layout__row">
     <button mdc-button (click)="demoValue.required = !demoValue.required">Required: {{demoValue.required ? 'On' :
       'Off'}}</button>
@@ -191,7 +199,7 @@
 </div>
 
 <div class="demo-content">
-  <h3 class="demo-content__headline">Full-width single line</h3>
+  <h3 class="demo-content__headline">Full Width</h3>
   <div class="demo-layout__row">
     <button mdc-button (click)="alternateColors(demofullwidth)">Alternate Colors</button>
   </div>
@@ -215,7 +223,7 @@
 </div>
 
 <div class="demo-content">
-  <h3 class="demo-content__headline">Full-width Textarea</h3>
+  <h3 class="demo-content__headline">Full Width Textarea</h3>
   <div class="demo-layout__row">
     <button mdc-button (click)="demotextarea.disabled = !demotextarea.disabled">Disabled: {{demotextarea.disabled ?
       'On' : 'Off'}}</button>

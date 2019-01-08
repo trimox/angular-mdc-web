@@ -279,6 +279,8 @@ describe('MdcTextField', () => {
       [readonly]="readonly"
       [disabled]="disabled"
       [useNativeValidation]="useNativeValidation"
+      (input)="onInput($event)"
+      (change)="onChange($event)"
       (blur)="onBlur($event)">
       <mdc-icon mdcTextFieldIcon leading>person</mdc-icon>
       <mdc-icon mdcTextFieldIcon trailing>person</mdc-icon>
@@ -300,6 +302,8 @@ class SimpleTextfield {
   validation: boolean;
   persistent: boolean = true;
 
+  onInput(value: any) { }
+  onChange(value: any) { }
   onBlur(event: any) { }
 }
 
@@ -308,6 +312,8 @@ class SimpleTextfield {
     <mdc-text-field
       label="Username"
       [helperText]="helper"
+      (input)="onInput($event)"
+      (change)="onChange($event)"
       [value]="value">
     </mdc-text-field>
     <mdc-helper-text #helper></mdc-helper-text>
@@ -315,4 +321,7 @@ class SimpleTextfield {
 })
 class TextFieldTestWithValue {
   value: string = 'test';
+
+  onInput: () => void = () => { };
+  onChange(value: any) { }
 }

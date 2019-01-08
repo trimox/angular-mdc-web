@@ -3,6 +3,7 @@ import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { MdcTextField, ErrorStateMatcher, MdcIconRegistry } from '@angular-mdc/web';
+import { environment } from '../../../environments/environment';
 import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -63,13 +64,24 @@ export class Examples {
   demoInputValue: string;
   prefilledText: string = 'Prefilled';
 
+  inputEvent: string = '';
+  changeEvent: string = '';
+
   constructor(iconRegistry: MdcIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
-      'thumbup', sanitizer.bypassSecurityTrustResourceUrl('https://trimox.github.io/angular-mdc-web/assets/thumbup-icon.svg'));
+      'thumbup', sanitizer.bypassSecurityTrustResourceUrl(environment.production ?
+        'https://trimox.github.io/angular-mdc-web/assets/thumbup-icon.svg' : '/assets/thumbup-icon.svg'));
+  }
+
+  onInput(value: any): void {
+    this.inputEvent = value;
+  }
+
+  onChange(value: any): void {
+    this.changeEvent = value;
   }
 
   submit(f: NgForm | FormGroup) {
-    console.log(f);
     if (f.invalid) {
       return;
     }
@@ -109,6 +121,18 @@ export class Examples {
   exampleStandard = {
     html: `<mdc-text-field label="Standard" required [helperText]="standardHelper"></mdc-text-field>
 <mdc-helper-text #standardHelper validation persistent>Helper Text</mdc-helper-text>`
+  };
+
+  exampleEvents = {
+    html: `<mdc-text-field label="Standard"
+  (input)="onInput($event)" (change)="onChange($event)"></mdc-text-field>`,
+  ts: `onInput(value: any): void {
+  this.inputEvent = value;
+}
+
+onChange(value: any): void {
+  this.changeEvent = value;
+}`
   };
 
   exampleReactive = {

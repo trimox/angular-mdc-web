@@ -19,7 +19,7 @@ import { MdcTextField } from './text-field';
     '[class.mdc-text-field--invalid]': 'errorState'
   },
   template: `
-  <textarea #input class="mdc-text-field__input"
+  <textarea #inputElement class="mdc-text-field__input"
     [id]="id"
     [rows]="rows"
     [cols]="cols"
@@ -32,7 +32,7 @@ import { MdcTextField } from './text-field';
     (mousedown)="onInputInteraction($event)"
     (touchstart)="onInputInteraction($event)"
     (focus)="onFocus()"
-    (input)="onInput($event.target.value)"
+    (input)="onInput($event)"
     (change)="onChange($event)"
     (blur)="onBlur()"></textarea>
   <mdc-notched-outline [label]="label" [for]="id"></mdc-notched-outline>

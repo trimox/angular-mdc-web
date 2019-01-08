@@ -28,7 +28,8 @@ export class MdcFabLabel { }
     'class': 'mdc-fab',
     '[class.mdc-fab--mini]': 'mini',
     '[class.mdc-fab--exited]': 'exited',
-    '[class.mdc-fab--extended]': 'extended'
+    '[class.mdc-fab--extended]': 'extended',
+    '[class.ngx-mdc-fab-extended--fluid]': 'fluid'
   },
   template: `
   <ng-content></ng-content>
@@ -63,6 +64,13 @@ export class MdcFab implements AfterContentInit, OnDestroy {
   private _extended: boolean = false;
 
   @Input()
+  get fluid(): boolean { return this._fluid; }
+  set fluid(value: boolean) {
+    this._fluid = toBoolean(value);
+  }
+  private _fluid: boolean = false;
+
+  @Input()
   get position(): string | null { return this._position; }
   set position(value: string | null) {
     if (this._position) {
@@ -93,12 +101,16 @@ export class MdcFab implements AfterContentInit, OnDestroy {
   }
 
   private _convertPosition(position: string): string | null {
-    if (position === 'bottomLeft') {
-      return 'bottom-left';
-    } else if (position === 'bottomRight') {
-      return 'bottom-right';
-    } else {
-      return null;
+    switch (position) {
+      case 'bottomLeft': {
+        return 'bottom-left';
+      }
+      case 'bottomRight': {
+        return 'bottom-right';
+      }
+      default: {
+        return null;
+      }
     }
   }
 

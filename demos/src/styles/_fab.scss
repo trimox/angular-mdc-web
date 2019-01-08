@@ -14,10 +14,6 @@
   @include mdc-fab-accessible(black);
 }
 
-.demo-fab-extended-fluid {
-  @include mdc-fab-extended-fluid;
-}
-
 .demo-fab-shaped--one {
   @include mdc-fab-shape-radius(28px 0);
 }
@@ -32,4 +28,12 @@
 
 .demo-fab-extended-shape-radius {
   @include mdc-fab-extended-shape-radius(25%);
+}
+
+.demo-fab-icon-size {
+  @include mdc-fab-icon-size(36px);
+}
+
+.demo-fab-position-zindex {
+  z-index: 7;
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { MdcCheckbox } from '@angular-mdc/web';
+import { MdcCheckbox, MdcCheckboxChange } from '@angular-mdc/web';
 
 import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
 
@@ -33,8 +33,8 @@ export class CheckboxDemo implements OnInit {
 
 @Component({ templateUrl: './examples.html' })
 export class Examples {
-  onChange(source: MdcCheckbox, value: boolean) {
-    console.log(value);
+  onChange(event: MdcCheckboxChange) {
+    console.log(event.checked);
   }
 
   toggle(cb: MdcCheckbox): void {
@@ -77,14 +77,14 @@ export class Examples {
   };
 
   exampleDynamic = {
-    html: `<mdc-form-field #formField alignEnd="false">
-  <mdc-checkbox #cb indeterminateToChecked [disabled]="false" (change)="onChange($event)"></mdc-checkbox>
+    html: `<mdc-form-field #formField>
+  <mdc-checkbox #cb indeterminateToChecked (change)="onChange($event)"></mdc-checkbox>
   <label>Checkbox value is {{cb.checked}}</label>
 </mdc-form-field>`,
-    ts: `import { MdcCheckbox } from '@angular-mdc/web';
+    ts: `import { MdcCheckbox, MdcCheckboxChange } from '@angular-mdc/web';
 
-onChange(source: MdcCheckbox, value: boolean) {
-  console.log(value);
+onChange(event: MdcCheckboxChange) {
+  console.log(event.checked);
 }
 
 toggle(cb: MdcCheckbox): void {

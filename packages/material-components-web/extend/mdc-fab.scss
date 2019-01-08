@@ -1,3 +1,7 @@
+.ngx-mdc-fab-extended--fluid {
+  @include mdc-fab-extended-fluid;
+}
+
 .ngx-mdc-fab--bottom-right {
   position: fixed;
   right: 1rem;

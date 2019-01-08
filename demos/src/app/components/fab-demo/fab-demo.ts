@@ -73,7 +73,7 @@ export class Examples {
 }`
   };
 
-  exampleThemed = {
+  exampleTheme = {
     html: `<button mdc-fab class="red800Fab" icon="edit"></button>
 
 <button mdc-fab class="yellow800Fab" icon="edit"></button>
@@ -124,18 +124,22 @@ export class Examples {
   };
 
   exampleExtendedFluid = {
-    html: `<button mdc-fab extended label="Add to cart" class="demo-fab-extended-fluid">
+    html: `<button mdc-fab extended fluid label="Add to cart">
   <mdc-icon>add_shopping_cart</mdc-icon>
-</button>`,
-    sass: `.demo-fab-extended-fluid {
-  @include mdc-fab-extended-fluid;
-}`
+</button>`
   };
 
   exampleExited = {
     html: `<button mdc-fab #exited (click)="exited.toggleExited()">
   <mdc-icon>save</mdc-icon>
 </button>`
+  };
+
+  exampleCustom = {
+    html: `<button mdc-fab class="demo-fab-icon-size" icon="edit"></button>`,
+    sass: `.demo-fab-icon-size {
+  @include mdc-fab-icon-size(36px);
+}`
   };
 
   examplePosition = {

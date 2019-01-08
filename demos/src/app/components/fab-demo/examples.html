@@ -29,44 +29,6 @@
 </div>
 
 <div class="demo-content">
-  <h3 class="demo-content__headline">Shaped</h3>
-  <div class="demo-layout__row">
-    <div class="demo-container">
-      <button mdc-fab class="demo-fab-shaped--one">
-        <mdc-icon>favorite_border</mdc-icon>
-      </button>
-    </div>
-    <div class="demo-container">
-      <button mdc-fab mini class="demo-fab-shaped--two">
-        <mdc-icon>favorite_border</mdc-icon>
-      </button>
-    </div>
-    <div class="demo-container">
-      <button mdc-fab class="demo-fab-shape-radius">
-        <mdc-icon>favorite_border</mdc-icon>
-      </button>
-    </div>
-  </div>
-  <example-viewer [example]="exampleShaped"></example-viewer>
-</div>
-
-<div class="demo-content">
-  <h3 class="demo-content__headline">Themed</h3>
-  <div class="demo-layout__row">
-    <div class="demo-container">
-      <button mdc-fab class="red800Fab" icon="edit"></button>
-    </div>
-    <div class="demo-container">
-      <button mdc-fab class="yellow800Fab" icon="edit"></button>
-    </div>
-    <div class="demo-container">
-      <button mdc-fab class="purple500Fab" icon="edit"></button>
-    </div>
-  </div>
-  <example-viewer [example]="exampleThemed"></example-viewer>
-</div>
-
-<div class="demo-content">
   <h3 class="demo-content__headline">Extended FAB</h3>
   <div class="demo-layout__row">
     <div class="demo-container">
@@ -101,7 +63,10 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Extended FAB (Fluid)</h3>
   <div class="demo-layout__row">
-    <button mdc-fab extended label="Add to cart" class="demo-fab-extended-fluid">
+    <button mdc-button (click)="extended.fluid = !extended.fluid">Fluid: {{extended.fluid ? 'On' : 'Off'}}</button>
+  </div>
+  <div class="demo-layout__row">
+    <button #extended mdc-fab extended fluid label="Add to cart">
       <mdc-icon>add_shopping_cart</mdc-icon>
     </button>
   </div>
@@ -121,6 +86,54 @@
 </div>
 
 <div class="demo-content">
+  <h3 class="demo-content__headline">Shaped</h3>
+  <div class="demo-layout__row">
+    <div class="demo-container">
+      <button mdc-fab class="demo-fab-shaped--one">
+        <mdc-icon>favorite_border</mdc-icon>
+      </button>
+    </div>
+    <div class="demo-container">
+      <button mdc-fab mini class="demo-fab-shaped--two">
+        <mdc-icon>favorite_border</mdc-icon>
+      </button>
+    </div>
+    <div class="demo-container">
+      <button mdc-fab class="demo-fab-shape-radius">
+        <mdc-icon>favorite_border</mdc-icon>
+      </button>
+    </div>
+  </div>
+  <example-viewer [example]="exampleShaped"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Theme</h3>
+  <div class="demo-layout__row">
+    <div class="demo-container">
+      <button mdc-fab class="red800Fab" icon="edit"></button>
+    </div>
+    <div class="demo-container">
+      <button mdc-fab class="yellow800Fab" icon="edit"></button>
+    </div>
+    <div class="demo-container">
+      <button mdc-fab class="purple500Fab" icon="edit"></button>
+    </div>
+  </div>
+  <example-viewer [example]="exampleTheme"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Custom</h3>
+  <div class="demo-layout__row">
+    <div class="demo-container">
+      <button mdc-fab class="demo-fab-icon-size" icon="edit"></button>
+    </div>
+  </div>
+  <example-viewer [example]="exampleCustom"></example-viewer>
+</div>
+
+<div class="demo-content">
   <h3 class="demo-content__headline">Absolute Position</h3>
   <div class="demo-layout__row">
     <button mdc-button (click)="demoPosition.position = 'bottomLeft'">Bottom Left</button>
@@ -128,6 +141,6 @@
     <button mdc-button (click)="demoPosition.mini = !demoPosition.mini">Mini: {{demoPosition.mini ? 'On' :
       'Off'}}</button>
   </div>
-  <button #demoPosition mdc-fab position='bottomRight' icon="add"></button>
+  <button #demoPosition mdc-fab position='bottomRight' icon="add" class="demo-fab-position-zindex"></button>
   <example-viewer [example]="examplePosition"></example-viewer>
 </div>

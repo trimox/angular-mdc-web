@@ -51,6 +51,15 @@ describe('MdcFab', () => {
       expect(buttonDebugElement.nativeElement.classList.contains('mdc-fab--extended')).toBe(true);
     });
 
+    it('#should apply style for fluid', () => {
+      testComponent.extended = true;
+      testComponent.fluid = true;
+      fixture.detectChanges();
+      expect(buttonDebugElement.nativeElement.classList.contains('mdc-fab--extended')).toBe(true);
+      expect(buttonDebugElement.nativeElement.classList.contains('ngx-mdc-fab-extended--fluid')).toBe(true);
+      expect(buttonInstance.fluid).toBe(true);
+    });
+
     it('#should apply class `exited`', () => {
       testComponent.isExited = true;
       fixture.detectChanges();
@@ -156,6 +165,7 @@ describe('MdcFab', () => {
       [exited]="isExited"
       [position]="myPosition"
       [extended]="extended"
+      [fluid]="fluid"
       [mini]="mini">
       <mdc-icon>search</mdc-icon>
     </button>
@@ -164,6 +174,7 @@ describe('MdcFab', () => {
 class SimpleButton {
   mini: boolean = false;
   extended: boolean;
+  fluid: boolean;
   isExited: boolean = false;
   clickCount: number = 0;
   myPosition: string = 'bottomLeft';

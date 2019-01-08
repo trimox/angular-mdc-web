@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
+import { environment } from '../../../environments/environment';
 import { MdcIcon, MdcIconRegistry } from '@angular-mdc/web';
 
 @Component({ template: '<component-viewer></component-viewer>' })
@@ -35,7 +36,8 @@ export class Api { }
 export class Examples {
   constructor(iconRegistry: MdcIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
-      'thumbup', sanitizer.bypassSecurityTrustResourceUrl('https://trimox.github.io/angular-mdc-web/assets/thumbup-icon.svg'));
+      'thumbup', sanitizer.bypassSecurityTrustResourceUrl(environment.production ?
+        'https://trimox.github.io/angular-mdc-web/assets/thumbup-icon.svg' : '/assets/thumbup-icon.svg'));
   }
 
   alternateColors(icon: MdcIcon) {
@@ -86,7 +88,7 @@ constructor(iconRegistry: MdcIconRegistry, sanitizer: DomSanitizer) {
   iconRegistry.addSvgIcon(
     'thumbup', sanitizer.bypassSecurityTrustResourceUrl('/assets/thumbup-icon.svg'));
 }`,
-sass: `.temporary-workaround-for-text-field-svg {
+    sass: `.temporary-workaround-for-text-field-svg {
   top: .90em
 }
 

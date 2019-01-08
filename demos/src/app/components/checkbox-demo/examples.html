@@ -47,8 +47,8 @@
       : 'Off'}}</button>
     <button mdc-button (click)="cb.disabled = !cb.disabled">Disabled: {{cb.disabled ? 'On' : 'Off'}}</button>
   </div>
-  <mdc-form-field #formField alignEnd="false">
-    <mdc-checkbox #cb indeterminateToChecked [disabled]="false" (change)="onChange($event)"></mdc-checkbox>
+  <mdc-form-field #formField>
+    <mdc-checkbox #cb indeterminateToChecked (change)="onChange($event)"></mdc-checkbox>
     <label>Checkbox value is {{cb.checked}}</label>
   </mdc-form-field>
 

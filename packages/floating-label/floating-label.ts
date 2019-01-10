@@ -29,7 +29,7 @@ export class MdcFloatingLabel implements AfterContentInit, OnDestroy {
     return {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
-      getWidth: () => this._getHostElement().offsetWidth
+      getWidth: () => this._getHostElement().scrollWidth
     };
   }
 

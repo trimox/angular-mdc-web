@@ -231,7 +231,9 @@ export class MdcList implements AfterViewInit, OnDestroy {
           event.initEvent('change', true, true);
           toggleEl.dispatchEvent(event);
         }
-      }
+      },
+      isFocusInsideList: () => this._platform.isBrowser ?
+        this.elementRef.nativeElement.contains(document.activeElement) : false
     };
   }
 

@@ -42,7 +42,8 @@ export class MdcNotchedOutline {
       removeClass: (className: string) =>
         this.elementRef.nativeElement.classList.remove(className),
       setNotchWidthProperty: (width: number) =>
-        this._notchElement.nativeElement.style.setProperty('width', width > 0 ? width + 'px' : '0')
+        this._notchElement.nativeElement.style.setProperty('width', `${width}px`),
+      removeNotchWidthProperty: () => this._notchElement.nativeElement.style.removeProperty('width')
     };
   }
 

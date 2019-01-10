@@ -1,7 +1,5 @@
-.ngx-mdc-snackbar--align-end {
-  @media (min-width: $mdc-snackbar-tablet-breakpoint) {
-    @include mdc-rtl-reflexive-position(right, 24px);
-
-    bottom: 24px;
+.ngx-mdc-snackbar--trailing {
+  @media (min-width: $mdc-snackbar-mobile-breakpoint) {
+    justify-content: flex-end;
   }
 }

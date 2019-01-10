@@ -1,3 +1,30 @@
+# [0.43.0](https://github.com/trimox/angular-mdc-web/compare/v0.42.6...v0.43.0) (2019-01-10)
+
+
+### Bug Fixes
+
+* **tab-scroller:** Should hide scrollbar in FireFox and Edge ([#1678](https://github.com/trimox/angular-mdc-web/issues/1678)) ([910eabf](https://github.com/trimox/angular-mdc-web/commit/910eabf)), closes [#1543](https://github.com/trimox/angular-mdc-web/issues/1543) [#1529](https://github.com/trimox/angular-mdc-web/issues/1529)
+* **text-field:** Fix change event + add input event ([#1668](https://github.com/trimox/angular-mdc-web/issues/1668)) ([8be13d9](https://github.com/trimox/angular-mdc-web/commit/8be13d9)), closes [#1641](https://github.com/trimox/angular-mdc-web/issues/1641)
+
+
+### Features
+
+* **button:** Add trailing icon support ([#1676](https://github.com/trimox/angular-mdc-web/issues/1676)) ([84451c1](https://github.com/trimox/angular-mdc-web/commit/84451c1)), closes [#1602](https://github.com/trimox/angular-mdc-web/issues/1602)
+* **fab:** Add fluid property for extended fab ([#1672](https://github.com/trimox/angular-mdc-web/issues/1672)) ([b4fad19](https://github.com/trimox/angular-mdc-web/commit/b4fad19)), closes [#1655](https://github.com/trimox/angular-mdc-web/issues/1655) [#1671](https://github.com/trimox/angular-mdc-web/issues/1671)
+* **snackbar:** Improved snackbar ([#1680](https://github.com/trimox/angular-mdc-web/issues/1680)) ([a5ca38c](https://github.com/trimox/angular-mdc-web/commit/a5ca38c)), closes [#1599](https://github.com/trimox/angular-mdc-web/issues/1599) [#1548](https://github.com/trimox/angular-mdc-web/issues/1548)
+* **tab:** Add id property ([#1675](https://github.com/trimox/angular-mdc-web/issues/1675)) ([2db621b](https://github.com/trimox/angular-mdc-web/commit/2db621b)), closes [#1674](https://github.com/trimox/angular-mdc-web/issues/1674)
+* Upgrade to material-components-web v0.43.0 ([#1673](https://github.com/trimox/angular-mdc-web/issues/1673)) ([62a0ad3](https://github.com/trimox/angular-mdc-web/commit/62a0ad3)), closes [#1662](https://github.com/trimox/angular-mdc-web/issues/1662)
+
+
+### BREAKING CHANGES
+
+* **snackbar:** Snackbar API changed to match the latest design guidelines. See the Snackbar documentation for more information.
+* **text-field:** Please update your event code accordingly.
+`(change`) - Emitted when an alteration to the element's value is committed.
+`(input)` - Emitted synchronously when the value has been altered.
+
+
+
 ## [0.42.6](https://github.com/trimox/angular-mdc-web/compare/v0.42.5...v0.42.6) (2019-01-08)
 
 

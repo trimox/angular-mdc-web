@@ -31,6 +31,22 @@
 </div>
 
 <div class="demo-content">
+  <h3 class="demo-content__headline">Shaped</h3>
+  <mdc-list class="demo-list--shaped" singleSelection>
+    <mdc-list-item>
+      <mdc-icon mdcListItemGraphic>network_wifi</mdc-icon>Wi-Fi
+    </mdc-list-item>
+    <mdc-list-item>
+      <mdc-icon mdcListItemGraphic>bluetooth</mdc-icon>Bluetooth
+    </mdc-list-item>
+    <mdc-list-item>
+      <mdc-icon mdcListItemGraphic>data_usage</mdc-icon>Data Usage
+    </mdc-list-item>
+  </mdc-list>
+  <example-viewer [example]="exampleShaped"></example-viewer>
+</div>
+
+<div class="demo-content">
   <h3 class="demo-content__headline">Single-Line</h3>
   <div class="demo-layout__row">
     <button mdc-button (click)="singleline.border = !singleline.border">Border: {{singleline.border ? 'On' : 'Off'}}</button>

@@ -63,11 +63,9 @@ export class Examples {
 
   <mdc-menu #demo [anchorElement]="demoAnchor" (selected)="onMenuSelect($event)">
     <mdc-list>
-      <ng-container *ngFor="let fruit of fruits">
-        <ng-container [ngSwitch]="!!fruit.label">
-          <mdc-list-item *ngSwitchCase="true">{{fruit.label}}</mdc-list-item>
-          <mdc-list-divider *ngSwitchCase="false"></mdc-list-divider>
-        </ng-container>
+      <ng-container *ngFor="let fruit of fruits" [ngSwitch]="!!fruit.label">
+        <mdc-list-item *ngSwitchCase="true">{{fruit.label}}</mdc-list-item>
+        <mdc-list-divider *ngSwitchCase="false"></mdc-list-divider>
       </ng-container>
     </mdc-list>
   </mdc-menu>

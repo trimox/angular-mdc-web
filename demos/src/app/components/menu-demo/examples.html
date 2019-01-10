@@ -48,11 +48,9 @@
       <mdc-menu #demo (selected)="onMenuSelect($event)" [anchorElement]="demoAnchor" [anchorCorner]="menuSurfaceAnchorCorner.value"
         [quickOpen]="quickOpen.checked" [fixed]="fixed.checked" [wrapFocus]="wrapFocus.checked" [anchorMargin]="{top: marginTop.value, bottom: marginBottom.value, left: marginLeft.value, right: marginRight.value}">
         <mdc-list>
-          <ng-container *ngFor="let fruit of fruits">
-            <ng-container [ngSwitch]="!!fruit.label">
-              <mdc-list-item *ngSwitchCase="true">{{fruit.label}}</mdc-list-item>
-              <mdc-list-divider *ngSwitchCase="false"></mdc-list-divider>
-            </ng-container>
+          <ng-container *ngFor="let fruit of fruits" [ngSwitch]="!!fruit.label">
+            <mdc-list-item *ngSwitchCase="true">{{fruit.label}}</mdc-list-item>
+            <mdc-list-divider *ngSwitchCase="false"></mdc-list-divider>
           </ng-container>
         </mdc-list>
       </mdc-menu>

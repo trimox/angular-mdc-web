@@ -1,6 +1,8 @@
 # Getting Started
 
 - [Install Angular MDC](#installmdc)
+- [Use Roboto font](#useroboto)
+- [Add Material Icons](#materialicons)
 - [Include MDC Sass](#importtheme)
 - [Import component modules](#importmodules)
 
@@ -19,13 +21,13 @@ npm i @angular-mdc/web
 yarn add @angular-mdc/web
 ```
 
-## <a name="importtheme"></a> Step 2: Use Roboto font
+## <a name="useroboto"></a> Step 2: Use Roboto font
 To get started, first include the Roboto font with the 300, 400 and 500 weights. You can host it yourself or include it from [Google Fonts](https://fonts.google.com/):
 ```html
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
 ```
 
-## <a name="importtheme"></a> Step 3 (optional): Add Material Icons
+## <a name="materialicons"></a> Step 3 (optional): Add Material Icons
 If you want to use the `mdc-icon` component with the official Material Design Icons, load the icon font in your index.html:
 ```html
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">

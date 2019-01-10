@@ -69,7 +69,7 @@ export class Examples {
   @include mdc-drawer-item-activated-icon-ink-color(pink);
 }`;
 
-  example1 = {
+  examplePerm = {
     html: `<mdc-drawer drawer="permanent">
   <mdc-drawer-header title="Drawer Title" subtitle="Subtitle"></mdc-drawer-header>
   <mdc-drawer-content>
@@ -102,7 +102,7 @@ export class Examples {
     sass: this.genericSass
   };
 
-  example2 = {
+  exampleDismissible = {
     html: `<mdc-drawer drawer="dismissible">
   <mdc-drawer-header title="Drawer Title" subtitle="Subtitle"></mdc-drawer-header>
   <mdc-drawer-content>
@@ -115,14 +115,14 @@ export class Examples {
 </mdc-drawer>
 <div mdcDrawerAppContent>
   Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea, quaeque
-  voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an
+  voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit.
   legere iriure blandit. Veri iisque accusamus an pri.
 </div>`,
     ts: this.genericTS,
     sass: this.genericSass
   };
 
-  example3 = {
+  exampleModal = {
     html: `<mdc-drawer drawer="modal" open>
   <mdc-drawer-header>
     <h3 mdcDrawerTitle>Drawer Title</h3>
@@ -138,14 +138,14 @@ export class Examples {
 </mdc-drawer>
 <div>
   Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea, quaeque
-  voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an
+  voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit.
   legere iriure blandit. Veri iisque accusamus an pri.
 </div>`,
     ts: this.genericTS,
     sass: this.genericSass
   };
 
-  example4 = {
+  exampleRtl = {
     html: `<mdc-drawer drawer="modal" dir="rtl">
   <mdc-drawer-header>
     <h3 mdcDrawerTitle>Drawer Title</h3>
@@ -161,12 +161,32 @@ export class Examples {
 </mdc-drawer>
 <div>
   Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea, quaeque
-  voluptaria
   efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an legere
-  iriure blandit.
   Veri iisque accusamus an pri.
 </div>`,
     ts: this.genericTS,
     sass: this.genericSass
+  };
+
+  exampleShaped = {
+    html: `<mdc-drawer drawer="permanent">
+  <mdc-drawer-header title="Drawer Title" subtitle="Subtitle"></mdc-drawer-header>
+  <mdc-drawer-content>
+    <mdc-list useActivatedClass class="demo-list--shaped">
+      <a mdc-list-item *ngFor="let item of destinations" href="#/drawer-demo/examples">
+        <mdc-icon mdcListItemGraphic *ngIf="item.icon">{{item.icon}}</mdc-icon>{{item.label}}
+      </a>
+    </mdc-list>
+  </mdc-drawer-content>
+</mdc-drawer>
+<div>
+  Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo et. Diam phaedrum ei mea,
+  voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit.
+  legere iriure blandit. Veri iisque accusamus an pri.
+</div>`,
+    ts: this.genericTS,
+    sass: `.demo-list--shaped {
+  @include mdc-list-item-shape-radius(0 50px 50px 0);
+}`
   };
 }

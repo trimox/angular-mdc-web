@@ -58,7 +58,7 @@ export class Examples {
     </mdc-list-item>
   </mdc-list>
 </mdc-list-group>`,
-ts: `folders = [
+    ts: `folders = [
   { name: 'Photos', icon: 'folder', addDate: 'Jan 9, 2015' },
   { name: 'Recipes', icon: 'folder', addDate: 'Jan 17, 2015' },
   { name: 'Work', icon: 'folder', addDate: 'Jan 28, 2015' }
@@ -212,5 +212,22 @@ files = [
     </mdc-list-item>
   </mdc-list>
 </mdc-list-group>`
+  };
+
+  exampleShaped = {
+    html: `<mdc-list class="demo-list--shaped" singleSelection>
+  <mdc-list-item>
+    <mdc-icon mdcListItemGraphic>network_wifi</mdc-icon>Wi-Fi
+  </mdc-list-item>
+  <mdc-list-item>
+    <mdc-icon mdcListItemGraphic>bluetooth</mdc-icon>Bluetooth
+  </mdc-list-item>
+  <mdc-list-item>
+    <mdc-icon mdcListItemGraphic>data_usage</mdc-icon>Data Usage
+  </mdc-list-item>
+</mdc-list>`,
+    sass: `.demo-list--shaped {
+  @include mdc-list-item-shape-radius(0 50px 50px 0);
+}`
   };
 }

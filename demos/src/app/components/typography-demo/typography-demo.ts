@@ -67,7 +67,7 @@ export class Examples {
 
   exampleSubtitle = {
     html: `<div mdcSubtitle1>Subtitle 1</div>
-<div mdcSubtitle1>Subtitle 2</div>`
+<div mdcSubtitle2>Subtitle 2</div>`
   };
 
   exampleBody = {

@@ -10,7 +10,9 @@ export class Usage {
   exampleUsage = `$mdc-theme-primary: #fcb8ab;
 $mdc-theme-secondary: #feeae6;
 $mdc-theme-on-primary: #442b2d;
-$mdc-theme-on-secondary: #442b2d;`;
+$mdc-theme-on-secondary: #442b2d;
+
+@import "~@angular-mdc/theme/material";`;
 }
 
 @Component({ template: '<component-viewer></component-viewer>' })

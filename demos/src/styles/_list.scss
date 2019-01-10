@@ -10,3 +10,7 @@
   @include mdc-list-item-graphic-ink-color($material-color-pink-50);
   @include mdc-list-item-meta-ink-color($material-color-orange-500);
 }
+
+.demo-list--shaped {
+  @include mdc-list-item-shape-radius(0 50px 50px 0);
+}

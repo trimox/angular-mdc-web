@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   ContentChild,
+  Directive,
   ElementRef,
   Input,
   OnDestroy,
@@ -11,6 +12,15 @@ import {
 import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcIcon } from '@angular-mdc/web/icon';
+
+@Directive({
+  selector: 'mdc-button-label, [mdcButtonLabel]',
+  exportAs: 'mdcButtonLabel',
+  host: {
+    'class': 'mdc-button__label'
+ }
+})
+export class MdcButtonLabel { }
 
 @Component({
   moduleId: module.id,
@@ -27,7 +37,10 @@ import { MdcIcon } from '@angular-mdc/web/icon';
     '[class.mdc-button--outlined]': 'outlined',
     '(click)': 'onClick($event)'
   },
-  template: '<ng-content></ng-content>',
+  template: `
+  <mdc-button-label *ngIf="label">{{label}}</mdc-button-label>
+  <ng-content></ng-content>
+  `,
   providers: [MdcRipple],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -83,6 +96,8 @@ export class MdcButton implements OnInit, OnDestroy {
   private _disabled: boolean = false;
 
   @ContentChild(MdcIcon) _icon!: MdcIcon;
+
+  @Input() label?: string;
 
   constructor(
     public elementRef: ElementRef<HTMLElement>,

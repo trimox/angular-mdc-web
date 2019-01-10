@@ -106,3 +106,33 @@
   </div>
   <example-viewer [example]="shapedExample"></example-viewer>
 </div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Trailing icon</h3>
+  <p>
+    Certain icons make more sense to appear after the button's text label rather than before. This can be accomplished by putting the icon markup <i>after</i> the mdcButtonLabel element.
+  </p>
+  <p>
+    NOTE: The mdc-button-label element is required in order for the trailing icon to be styled appropriately.
+  </p>
+  <div class="demo-layout__row">
+    <div class="demo-container">
+      <button mdc-button>
+        <span mdcButtonLabel>Trailing Icon</span>
+        <mdc-icon>favorite</mdc-icon>
+      </button>
+    </div>
+    <div class="demo-container">
+      <button mdc-button secondary raised>
+        <mdc-button-label>Trailing Icon</mdc-button-label>
+        <mdc-icon>favorite</mdc-icon>
+      </button>
+    </div>
+    <div class="demo-container">
+      <button mdc-button outlined label="Trailing Icon">
+        <mdc-icon>favorite</mdc-icon>
+      </button>
+    </div>
+  </div>
+  <example-viewer [example]="trailingIconExample"></example-viewer>
+</div>

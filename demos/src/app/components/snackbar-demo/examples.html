@@ -1,42 +1,65 @@
 <div class="demo-content">
   <div class="demo-layout__row">
-    <div class="demo-layout__column">
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="multiline"></mdc-checkbox>
-        <label>Multiline</label>
-      </mdc-form-field>
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="actionOnBottom" [disabled]="!multiline"></mdc-checkbox>
-        <label>Action on Bottom (requires multiline)</label>
-      </mdc-form-field>
-      <mdc-form-field>
-        <mdc-checkbox (change)="align = 'start'"></mdc-checkbox>
-        <label>Start align (desktop only)</label>
-      </mdc-form-field>
-      <mdc-form-field>
-        <mdc-checkbox (change)="align = 'center'"></mdc-checkbox>
-        <label>Center align</label>
-      </mdc-form-field>
+    <div class="demo-container">
+      <button mdc-button raised (click)="simple()">Simple</button>
     </div>
-    <div class="demo-layout__column">
-      <mdc-form-field>
-        <mdc-checkbox (change)="align = 'end'"></mdc-checkbox>
-        <label>RTL (end) (desktop only)</label>
-      </mdc-form-field>
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="dismissOnAction"></mdc-checkbox>
-        <label>Dismiss on Action Click</label>
-      </mdc-form-field>
-      <mdc-form-field>
-        <mdc-checkbox [(ngModel)]="focusAction"></mdc-checkbox>
-        <label>Focus on Action button</label>
-      </mdc-form-field>
+    <div class="demo-container">
+      <button mdc-button raised (click)="withAction()">With Action</button>
+    </div>
+    <div class="demo-container">
+      <button mdc-button raised (click)="dismissIcon()">Dismiss Icon</button>
+    </div>
+    <div class="demo-container">
+      <button mdc-button raised (click)="stacked()">Stacked</button>
     </div>
   </div>
-
-  <div class="demo-layout--center">
-    <button mdc-button primary raised (click)="show()">Show Snackbar</button>
-  </div>
-
   <example-viewer [example]="exampleSnackbar"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <div class="demo-layout__row">
+    <div class="demo-container">
+      <button mdc-button raised (click)="openLeading()">Leading</button>
+    </div>
+    <div class="demo-container">
+      <button mdc-button raised (click)="openTrailing()">Trailing</button>
+    </div>
+    <div class="demo-container">
+      <button mdc-button raised (click)="openRtl()">RTL</button>
+    </div>
+  </div>
+  <example-viewer [example]="exampleAlign"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Custom</h3>
+  <div class="demo-layout__row">
+    <div class="demo-container">
+      <button mdc-button raised (click)="openCustom('custom-snackbar--shape-radius')">Shaped</button>
+    </div>
+    <div class="demo-container">
+      <button mdc-button raised (click)="openCustom('custom-snackbar--elevation')">Elevation</button>
+    </div>
+    <div class="demo-container">
+      <button mdc-button raised (click)="openCustom('custom-snackbar--viewport-margin')">Viewport Margin</button>
+    </div>
+  </div>
+  <example-viewer [example]="exampleCustom"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Theme</h3>
+  <div class="demo-layout__row">
+    <div class="demo-container">
+      <button mdc-button raised (click)="openCustom('custom-snackbar--fill-color')">Fill Color</button>
+    </div>
+    <div class="demo-container">
+      <button mdc-button raised (click)="openCustom('custom-snackbar--label-ink-color')">Ink Color</button>
+    </div>
+    <div class="demo-container">
+      <button mdc-button raised (click)="openCustom(['custom-snackbar--fill-color', 'custom-snackbar--label-ink-color'])">Fill/Ink
+        Color</button>
+    </div>
+  </div>
+  <example-viewer [example]="exampleTheme"></example-viewer>
 </div>

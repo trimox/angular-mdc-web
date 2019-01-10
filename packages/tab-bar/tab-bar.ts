@@ -162,7 +162,7 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
       getFocusedTabIndex: () =>
         this._platform.isBrowser ? this.tabs.toArray().findIndex(tab =>
           tab.elementRef.nativeElement === document.activeElement!) : -1,
-      getIndexOfTab: (tabToFind: MdcTab) => this.tabs.toArray().indexOf(tabToFind),
+      getIndexOfTabById: (id: string) => this.tabs.toArray().findIndex(tab => id === tab.id),
       getTabListLength: () => this.tabs.length,
       notifyTabActivated: (index: number) =>
         this.activated.emit({ source: this, index: index, tab: this.tabs.toArray()[index] })

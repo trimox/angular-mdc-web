@@ -7,11 +7,10 @@ import {
   Injector,
   OnDestroy,
   Optional,
-  SkipSelf,
-  TemplateRef
+  SkipSelf
 } from '@angular/core';
 import { Overlay, OverlayRef } from '@angular-mdc/web/overlay';
-import { ComponentPortal, ComponentType, PortalInjector, TemplatePortal } from '@angular-mdc/web/portal';
+import { ComponentPortal, ComponentType, PortalInjector } from '@angular-mdc/web/portal';
 
 import { MdcSnackbarModule } from './snackbar-module';
 
@@ -32,9 +31,7 @@ export function MDC_SNACKBAR_DEFAULT_OPTIONS_FACTORY(): MdcSnackbarConfig {
   return new MdcSnackbarConfig();
 }
 
-@Injectable({
-  providedIn: MdcSnackbarModule
-})
+@Injectable({ providedIn: MdcSnackbarModule })
 export class MdcSnackbar implements OnDestroy {
   /**
    * Reference to the current snackbar in the view *at this level* (in the Angular injector tree).
@@ -77,17 +74,17 @@ export class MdcSnackbar implements OnDestroy {
 
   /**
    * Opens a snackbar with a message and an optional action.
-   * @param message The message to show in the snackbar.
+   * @param message Message text.
    * @param action The label for the snackbar action.
    * @param config Additional configuration options for the snackbar.
    */
-  show(message: string, actionText: string = '', config?: MdcSnackbarConfig):
+  open(message: string, action: string = '', config?: MdcSnackbarConfig):
     MdcSnackbarRef<MdcSnackbarComponent> {
     const _config = { ...this._defaultConfig, ...config };
 
     // Since the user doesn't have access to the component, we can
     // override the data to pass in our own message and action.
-    _config.data = { message, actionText };
+    _config.data = { message, action };
 
     return this.openFromComponent(MdcSnackbarComponent, _config);
   }
@@ -129,7 +126,7 @@ export class MdcSnackbar implements OnDestroy {
   /**
    * Places a new component or a template as the content of the snackbar container.
    */
-  private _attach<T>(content: ComponentType<T> | TemplateRef<T>, userConfig?: MdcSnackbarConfig):
+  private _attach<T>(content: ComponentType<T>, userConfig?: MdcSnackbarConfig):
     MdcSnackbarRef<T | EmbeddedViewRef<any>> {
 
     const config = { ...new MdcSnackbarConfig(), ...this._defaultConfig, ...userConfig };
@@ -137,24 +134,19 @@ export class MdcSnackbar implements OnDestroy {
     const container = this._attachSnackbarContainer(overlayRef, config);
     const snackbarRef = new MdcSnackbarRef<T | EmbeddedViewRef<any>>(container, overlayRef);
 
-    if (content instanceof TemplateRef) {
-      const portal = new TemplatePortal(content, null!, {
-        $implicit: config.data,
-        snackbarRef
-      } as any);
+    const injector = this._createInjector(config, snackbarRef);
+    const portal = new ComponentPortal(content, undefined, injector);
+    const contentRef = container.attachComponentPortal<T>(portal);
 
-      snackbarRef.instance = container.attachTemplatePortal(portal);
-    } else {
-      const injector = this._createInjector(config, snackbarRef);
-      const portal = new ComponentPortal(content, undefined, injector);
-      const contentRef = container.attachComponentPortal<T>(portal);
-
-      // We can't pass this via the injector, because the injector is created earlier.
-      snackbarRef.instance = contentRef.instance;
-    }
+    // We can't pass this via the injector, because the injector is created earlier.
+    snackbarRef.instance = contentRef.instance;
 
     this._loadListeners(snackbarRef);
     this._openedSnackbarRef = snackbarRef;
+
+    if (snackbarRef.instance instanceof MdcSnackbarComponent) {
+      (<MdcSnackbarComponent>snackbarRef.instance).open();
+    }
     return this._openedSnackbarRef;
   }
 

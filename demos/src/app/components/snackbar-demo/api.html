@@ -13,8 +13,19 @@
     </thead>
     <tbody>
       <tr>
-        <td>afterDismiss: Observable</td>
-        <td>Gets an observable that is notified when the snackbar is finished closing.</td>
+        <td>afterDismiss: Observable
+          <pre>MdcSnackbarDismissReason</pre>
+        </td>
+        <td>Gets an observable that is notified when the snackbar is finished closing.
+          <pre><code highlight="/** Event that is emitted when a snackbar is dismissed. */
+export interface MdcSnackbarDismissReason {
+  /** Whether the snackbar was dismissed using the action button. */
+  action: boolean;
+
+  /** Whether the snackbar was dismissed using the dismiss icon button. */
+  dismiss: boolean;
+}"></code></pre>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -23,16 +34,16 @@
   <table>
     <tbody>
       <tr>
-        <td>show(message: string)</td>
-        <td>Show snackbar with message.</td>
+        <td>open(message: string)</td>
+        <td>Open snackbar with message.</td>
       </tr>
       <tr>
-        <td>show(message: string, action: string)</td>
-        <td>Show snackbar message and action.</td>
+        <td>open(message: string, action: string)</td>
+        <td>Opens snackbar message and action.</td>
       </tr>
       <tr>
-        <td>show(message: string, action: string, config?: MdcSnackbarConfig)</td>
-        <td>Show the snackbar with optional configuration.</td>
+        <td>open(message: string, action: string, config?: MdcSnackbarConfig)</td>
+        <td>Opens the snackbar with optional configuration.</td>
       </tr>
     </tbody>
   </table>
@@ -41,32 +52,44 @@
   <table>
     <tbody>
       <tr>
-        <td>timeout: number (Default 2750)</td>
-        <td>The amount of time in milliseconds to show the snackbar.</td>
+        <td>timeoutMs?: number</td>
+        <td>Value must be between 4000 and 10000 or an error will be thrown. Defaults to 5000 (5 seconds).</td>
       </tr>
       <tr>
-        <td>actionHandler: Function</td>
-        <td>The function to execute when the action is clicked.</td>
+        <td>stacked?: boolean</td>
+        <td>Positions the action button/icon below the label instead of alongside it. Defaults to false.</td>
       </tr>
       <tr>
-        <td>multiline: boolean</td>
-        <td>Whether to show the snackbar with space for multiple lines of text.</td>
+        <td>leading?: boolean</td>
+        <td>Positions the snackbar on the leading edge of the screen.</td>
       </tr>
       <tr>
-        <td>actionOnBottom: boolean</td>
-        <td>Whether to show the action below the multiple lines of text.</td>
+        <td>trailing?: boolean</td>
+        <td>Positions the snackbar on the trailing (right) edge of the screen.</td>
       </tr>
       <tr>
-        <td>align: string</td>
-        <td>Alignment of the snackbar on screen. Valid values - 'start' | 'center' | 'end'</td>
+        <td>direction?: string</td>
+        <td>The layout direction of the snackbar content. Default is 'ltr'.</td>
       </tr>
       <tr>
-        <td>dismissOnAction: boolean</td>
-        <td>Dismisses snackbar when action button is clicked.</td>
+        <td>dismiss?: boolean</td>
+        <td>Show dismiss ("X") icon. Default is false.</td>
       </tr>
       <tr>
-        <td>focusAction: boolean</td>
-        <td>Sets focus to the action button.</td>
+        <td>closeOnEscape?: boolean</td>
+        <td>Whether the snackbar closes when it is focused and the user presses the ESC key. Default is true.</td>
+      </tr>
+      <tr>
+        <td>classes?: string | string[]</td>
+        <td>Add a CSS class or an array of classes.</td>
+      </tr>
+      <tr>
+        <td>actionClasses?: string | string[]</td>
+        <td>Add a CSS class or an array of classes to the action button.</td>
+      </tr>
+      <tr>
+        <td>dismissClasses?: string | string[]</td>
+        <td>Add a CSS class or an array of classes to the action icon.</td>
       </tr>
     </tbody>
   </table>

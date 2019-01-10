@@ -32,25 +32,66 @@ export class Sass { }
 
 @Component({ templateUrl: './examples.html' })
 export class Examples {
-  multiline = false;
-  dismissOnAction = true;
-  align: string;
-  focusAction = false;
-  actionOnBottom = false;
-
   constructor(private snackbar: MdcSnackbar) { }
 
-  show() {
-    const snackbarRef = this.snackbar.show('Message sent', 'Undo', {
-      align: this.align,
-      multiline: this.multiline,
-      dismissOnAction: this.dismissOnAction,
-      focusAction: this.focusAction,
-      actionOnBottom: this.actionOnBottom,
+  simple() {
+    const snackbarRef = this.snackbar.open('Marked as favorite.');
+    snackbarRef.afterDismiss().subscribe(reason => {
+      console.log(`The snack-bar was dismissed: ${reason}`);
+    });
+  }
+
+  withAction() {
+    const snackbarRef = this.snackbar.open(`Can't send photo. Retry in 5 seconds.`, 'Retry');
+    snackbarRef.afterDismiss().subscribe(reason => {
+      console.log(`The snack-bar was dismissed: ${reason}`);
+    });
+  }
+
+  dismissIcon() {
+    const snackbarRef = this.snackbar.open(`Can't send photo. Retry in 5 seconds.`, 'Retry', {
+      dismiss: true
     });
 
-    snackbarRef.afterDismiss().subscribe(() => {
-      console.log('The snack-bar was dismissed');
+    snackbarRef.afterDismiss().subscribe(reason => {
+      console.log(`The snack-bar was dismissed: ${reason}`);
+    });
+  }
+
+  stacked() {
+    const snackbarRef = this.snackbar.open(
+      `This item already has the label "travel". You can add a new label.`,
+      'Add a new label', {
+        stacked: true,
+        dismiss: true
+      });
+
+    snackbarRef.afterDismiss().subscribe(reason => {
+      console.log(`The snack-bar was dismissed: ${reason}`);
+    });
+  }
+
+  openLeading(): void {
+    this.snackbar.open(`Can't send photo. Retry in 5 seconds.`, 'Retry', {
+      leading: true
+    });
+  }
+
+  openTrailing(): void {
+    this.snackbar.open(`Can't send photo. Retry in 5 seconds.`, 'Retry', {
+      trailing: true
+    });
+  }
+
+  openRtl(): void {
+    this.snackbar.open(`My content is right to left`, 'Ok', {
+      direction: 'rtl'
+    });
+  }
+
+  openCustom(classes: string | string[]) {
+    this.snackbar.open(`Can't send photo. Retry in 5 seconds.`, 'Retry', {
+      classes: classes
     });
   }
 
@@ -58,28 +99,136 @@ export class Examples {
   // Examples
   //
 
-  exampleSnackbar = {
-    html: `<button mdc-button raised (click)="show()">Show Snackbar</button>`,
-    ts: `import { MdcSnackbar } from '@angular-mdc/web';
+  exampleHeader = `import { MdcSnackbar } from '@angular-mdc/web';
 
 @Component({ templateUrl: './examples.html' })
 export class Examples {
   constructor(private snackbar: MdcSnackbar) { }
+`;
 
-  show() {
-    const snackbarRef = this.snackbar.show('Message sent', 'Undo', {
-      align: 'center',
-      timeout: 2750,
-      multiline: false,
-      dismissOnAction: true,
-      focusAction: true,
-      actionOnBottom: false
-    });
+  exampleSnackbar = {
+    html: `<button mdc-button raised (click)="simple()">Simple</button>
 
-    snackbarRef.afterDismiss().subscribe(() => {
-      console.log('The snack-bar was dismissed');
+<button mdc-button raised (click)="withAction()">With Action</button>
+
+<button mdc-button raised (click)="dismissIcon()">Dismiss Icon</button>
+
+<button mdc-button raised (click)="stacked()">Stacked</button>`,
+    ts: `${this.exampleHeader}
+  simple() {
+    const snackbarRef = this.snackbar.open('Marked as favorite.');
+    snackbarRef.afterDismiss().subscribe(reason => {
+      console.log(reason);
     });
   }
+
+  withAction() {
+    const snackbarRef = this.snackbar.open(\`Can't send photo. Retry in 5 seconds.\`, 'Retry');
+    snackbarRef.afterDismiss().subscribe(reason => {
+      console.log(reason);
+    });
+  }
+
+  dismissIcon() {
+    const snackbarRef = this.snackbar.open(\`Can't send photo. Retry in 5 seconds.\`, 'Retry', {
+      dismiss: true
+    });
+
+    snackbarRef.afterDismiss().subscribe(reason => {
+      console.log(reason);
+    });
+  }
+
+  stacked() {
+    const snackbarRef = this.snackbar.open(
+      \`This item already has the label "travel". You can add a new label.\`,
+      'Add a new label', {
+        stacked: true,
+        dismiss: true
+      });
+
+    snackbarRef.afterDismiss().subscribe(reason => {
+      console.log(reason);
+    });
+  }
+}`
+  };
+
+  exampleAlign = {
+    html: `<button mdc-button raised (click)="openLeading()">Leading</button>
+
+<button mdc-button raised (click)="openTrailing()">Trailing</button>
+
+<button mdc-button raised (click)="openRtl()">RTL</button>`,
+    ts: `${this.exampleHeader}
+  openLeading(): void {
+    this.snackbar.open(\`Can't send photo. Retry in 5 seconds.\`, 'Retry', {
+      leading: true
+    });
+  }
+
+  openTrailing(): void {
+    this.snackbar.open(\`Can't send photo. Retry in 5 seconds.\`, 'Retry', {
+      trailing: true
+    });
+  }
+
+  openRtl(): void {
+    this.snackbar.open('My content is right to left', 'Ok', {
+      direction: 'rtl'
+    });
+  }
+}`
+  };
+
+  exampleCustom = {
+    html: `<button mdc-button raised (click)="openCustom('custom-snackbar--shape-radius')">Shaped</button>
+
+<button mdc-button raised (click)="openCustom('custom-snackbar--elevation')">Elevation</button>
+
+<button mdc-button raised (click)="openCustom('custom-snackbar--viewport-margin')">Viewport Margin</button>`,
+    ts: `${this.exampleHeader}
+  openCustom(classes: string | string[]) {
+    this.snackbar.open(\`Can't send photo. Retry in 5 seconds.\`, 'Retry', {
+      classes: classes
+    });
+  }
+}`,
+    sass: `.custom-snackbar--shape-radius {
+  @include mdc-snackbar-shape-radius(10px);
+}
+
+.custom-snackbar--viewport-margin {
+  @include mdc-snackbar-viewport-margin(50px);
+}
+
+.custom-snackbar--elevation {
+  @include mdc-snackbar-elevation(16);
+}`,
+  };
+
+  exampleTheme = {
+    html: `<button mdc-button raised (click)="openCustom('custom-snackbar--fill-color')">Fill Color</button>
+
+<button mdc-button raised (click)="openCustom('custom-snackbar--label-ink-color')">Ink Color</button>
+
+<button mdc-button raised
+  (click)="openCustom([
+    'custom-snackbar--fill-color',
+    'custom-snackbar--label-ink-color'])">Fill/Ink Color</button>`,
+    ts: `${this.exampleHeader}
+  openCustom(classes: string | string[]) {
+    this.snackbar.open(\`Can't send photo. Retry in 5 seconds.\`, 'Retry', {
+      classes: classes
+    });
+  }
+}`,
+    sass: `.custom-snackbar--fill-color {
+  @include mdc-snackbar-fill-color($material-color-red-500);
+}
+
+.custom-snackbar--label-ink-color {
+  @include mdc-snackbar-label-ink-color($material-color-yellow-500);
 }`
   };
 }

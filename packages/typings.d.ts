@@ -31,6 +31,7 @@ declare module '@material/select/index';
 declare module '@material/slider/constants';
 declare module '@material/slider/index';
 declare module '@material/snackbar/index';
+declare module '@material/snackbar/util';
 declare module '@material/switch/index';
 declare module '@material/tab-bar/index';
 declare module '@material/tab-indicator/index';

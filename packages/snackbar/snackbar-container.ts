@@ -6,10 +6,8 @@ import {
 } from '@angular-mdc/web/portal';
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ComponentRef,
-  ElementRef,
   EmbeddedViewRef,
   NgZone,
   OnDestroy,
@@ -23,17 +21,11 @@ import { MdcSnackbarConfig } from './snackbar-config';
 @Component({
   moduleId: module.id,
   selector: 'mdc-snackbar-container',
-  host: {
-    'role': 'alert'
-  },
   template: '<ng-template cdkPortalOutlet></ng-template>',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 export class MdcSnackbarContainer extends BasePortalOutlet implements OnDestroy {
-  /** Whether the component has been destroyed. */
-  private _destroyed = false;
-
   /** The portal outlet inside of this container into which the snackbar content will be loaded. */
   @ViewChild(CdkPortalOutlet) _portalOutlet!: CdkPortalOutlet;
 
@@ -42,8 +34,6 @@ export class MdcSnackbarContainer extends BasePortalOutlet implements OnDestroy 
 
   constructor(
     private _ngZone: NgZone,
-    private _elementRef: ElementRef<HTMLElement>,
-    private _changeDetectorRef: ChangeDetectorRef,
     public snackbarConfig: MdcSnackbarConfig) {
 
     super();
@@ -60,7 +50,6 @@ export class MdcSnackbarContainer extends BasePortalOutlet implements OnDestroy 
   }
 
   ngOnDestroy() {
-    this._destroyed = true;
     this._completeExit();
   }
 

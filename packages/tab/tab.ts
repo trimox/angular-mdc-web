@@ -42,9 +42,12 @@ export const MDC_TAB_BAR_PARENT_COMPONENT =
 
 export interface MdcTabInteractedEvent {
   detail: {
+    tabId: string;
     tab: MdcTab;
   };
 }
+
+let nextUniqueId = 0;
 
 @Directive({
   selector: 'mdc-tab-label, [mdcTabLabel]',
@@ -67,6 +70,7 @@ export class MdcTabIcon {
   selector: '[mdcTab], mdc-tab',
   exportAs: 'mdcTab',
   host: {
+    '[id]': 'id',
     'role': 'tab',
     'class': 'mdc-tab',
     '[class.mdc-tab--stacked]': 'stacked',
@@ -97,6 +101,9 @@ export class MdcTab implements OnInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
+  private _uniqueId: string = `mdc-tab-${++nextUniqueId}`;
+
+  @Input() id: string = this._uniqueId;
   @Input() label?: string;
   @Input() icon?: string;
 
@@ -155,7 +162,7 @@ export class MdcTab implements OnInit, OnDestroy {
       activateIndicator: (previousIndicatorClientRect: ClientRect) =>
         this.tabIndicator.activate(previousIndicatorClientRect),
       deactivateIndicator: () => this.tabIndicator.deactivate(),
-      notifyInteracted: () => this.interacted.emit({ detail: { tab: this } }),
+      notifyInteracted: () => this.interacted.emit({ detail: { tabId: this.id, tab: this } }),
       getOffsetLeft: () => this._getHostElement().offsetLeft,
       getOffsetWidth: () => this._getHostElement().offsetWidth,
       getContentOffsetLeft: () => this.content.nativeElement.offsetLeft,

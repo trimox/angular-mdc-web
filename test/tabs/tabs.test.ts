@@ -147,10 +147,11 @@ describe('MDC Tabs', () => {
     }));
 
     it('#should turn off focusOnActivate', fakeAsync(() => {
-      testComponent.focusOnActivate = true;
+      testComponent.focusOnActivate = false;
       fixture.detectChanges();
       flush();
-      expect(testInstance.focusOnActivate).toBe(true);
+      expect(testInstance.focusOnActivate).toBe(false);
+      expect(testInstance.tabs.toArray()[1].focusOnActivate).toBe(false);
     }));
 
     it('#should set active tab', fakeAsync(() => {
@@ -255,8 +256,8 @@ describe('MDC Tabs', () => {
     [focusOnActivate]="focusOnActivate"
     (activated)="handleActivatedTab($event)">
     <mdc-tab-scroller>
-      <mdc-tab label="Flights" icon="airplanemode_active" [disabled]="disabledTab"></mdc-tab>
-      <mdc-tab label="Hotel" icon="hotel"></mdc-tab>
+      <mdc-tab [id]="my-tab" label="Flights" icon="airplanemode_active" [disabled]="disabledTab"></mdc-tab>
+      <mdc-tab label="Hotel" icon="hotel" [focusOnActivate]="focusOnActivate"></mdc-tab>
       <mdc-tab label="Favorites" icon="favorite"></mdc-tab>
       <mdc-tab>
         <mdc-icon mdcTabIcon>favorite</mdc-icon>

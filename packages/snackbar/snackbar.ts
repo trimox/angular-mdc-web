@@ -94,6 +94,9 @@ export class MdcSnackbar implements OnDestroy {
    */
   dismiss(): void {
     if (this._openedSnackbarRef) {
+      if (this._openedSnackbarRef.instance instanceof MdcSnackbarComponent) {
+        (<MdcSnackbarComponent>this._openedSnackbarRef.instance).close();
+      }
       this._openedSnackbarRef.dismiss();
     }
   }

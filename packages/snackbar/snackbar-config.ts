@@ -20,7 +20,7 @@ export class MdcSnackbarConfig<D = any> {
   dismissClasses?: string | string[];
 
   /** Value must be between 4000 and 10000 or an error will be thrown. Defaults to 5000 (5 seconds). */
-  timeoutMs?: number = 5000;
+  timeoutMs?: number;
 
   /** Positions the action button/icon below the label instead of alongside it. */
   stacked?: boolean = false;

@@ -66,14 +66,10 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
   }
 
   private _foundation: {
-    init(): void,
     destroy(): void,
     open(): void,
     close(reason?: any): void,
-    isOpen(): boolean,
-    getTimeoutMs(): number,
     setTimeoutMs(timeoutMs: number): void,
-    getCloseOnEscape(): boolean,
     setCloseOnEscape(closeOnEscape: boolean): void,
     handleKeyDown(evt: KeyboardEvent): void,
     handleActionButtonClick(evt: MouseEvent): void,
@@ -92,6 +88,7 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
     this._changeDetectorRef.detectChanges();
 
     this._applyClasses();
+    this._applyConfig();
   }
 
   ngOnDestroy(): void {
@@ -115,7 +112,7 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
     this._foundation.open();
   }
 
-  close(reason: MdcSnackbarDismissReason): void {
+  close(reason?: MdcSnackbarDismissReason): void {
     this._foundation.close(reason);
   }
 
@@ -145,6 +142,15 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
       } else {
         this.dismiss.nativeElement.classList.toggle(dismissClasses);
       }
+    }
+  }
+
+  private _applyConfig(): void {
+    if (this.config.timeoutMs) {
+      this._foundation.setTimeoutMs(this.config.timeoutMs);
+    }
+    if (this.config.dismiss) {
+      this._foundation.setCloseOnEscape(this.config.closeOnEscape ? true : false);
     }
   }
 

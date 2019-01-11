@@ -71,6 +71,16 @@ export class Examples {
     });
   }
 
+  maxTimeout() {
+    const snackbarRef = this.snackbar.open(`Can't send photo. Retry in 10 seconds.`, 'Retry', {
+      timeoutMs: 10000
+    });
+
+    snackbarRef.afterDismiss().subscribe(reason => {
+      console.log(`The snack-bar was dismissed: ${reason}`);
+    });
+  }
+
   openLeading(): void {
     this.snackbar.open(`Can't send photo. Retry in 5 seconds.`, 'Retry', {
       leading: true
@@ -113,7 +123,9 @@ export class Examples {
 
 <button mdc-button raised (click)="dismissIcon()">Dismiss Icon</button>
 
-<button mdc-button raised (click)="stacked()">Stacked</button>`,
+<button mdc-button raised (click)="stacked()">Stacked</button>
+
+<button mdc-button raised (click)="maxTimeout()">Max Timeout</button>`,
     ts: `${this.exampleHeader}
   simple() {
     const snackbarRef = this.snackbar.open('Marked as favorite.');
@@ -146,6 +158,16 @@ export class Examples {
         stacked: true,
         dismiss: true
       });
+
+    snackbarRef.afterDismiss().subscribe(reason => {
+      console.log(reason);
+    });
+  }
+
+  maxTimeout() {
+    const snackbarRef = this.snackbar.open(\`Can't send photo. Retry in 10 seconds.\`, 'Retry', {
+      timeoutMs: 10000
+    });
 
     snackbarRef.afterDismiss().subscribe(reason => {
       console.log(reason);

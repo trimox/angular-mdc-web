@@ -109,6 +109,27 @@ describe('MdcSnackbar', () => {
         'Expected the snack bar reference to be placed in the component instance');
   });
 
+  it('should open a snackbar with 10000 timeoutMs', () => {
+    const config: MdcSnackbarConfig = {
+      viewContainerRef: testViewContainerRef,
+      timeoutMs: 10000
+    };
+    snackBar.open(simpleMessage, simpleActionLabel, config);
+
+    viewContainerFixture.detectChanges();
+  });
+
+  it('should open a snackbar with dismiss icon and closeOnEscape set false', () => {
+    const config: MdcSnackbarConfig = {
+      viewContainerRef: testViewContainerRef,
+      dismiss: true,
+      closeOnEscape: false
+    };
+    snackBar.open(simpleMessage, simpleActionLabel, config);
+
+    viewContainerFixture.detectChanges();
+  });
+
   it('should open a simple message with no button', () => {
     const config: MdcSnackbarConfig = { viewContainerRef: testViewContainerRef };
     const snackBarRef = snackBar.open(simpleMessage, '', config);

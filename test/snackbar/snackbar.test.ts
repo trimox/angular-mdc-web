@@ -75,6 +75,40 @@ describe('MdcSnackbar', () => {
         'Expected the snack bar reference to be placed in the component instance');
   });
 
+  it('should open a snackbar with non-array CSS classes to apply', () => {
+    const config: MdcSnackbarConfig = {
+      viewContainerRef: testViewContainerRef,
+      dismiss: true,
+      classes: 'snack-test', actionClasses: 'action-text', dismissClasses: 'dismiss-class'
+    };
+    const snackBarRef = snackBar.open(simpleMessage, simpleActionLabel, config);
+
+    viewContainerFixture.detectChanges();
+
+    expect(snackBarRef.instance instanceof MdcSnackbarComponent)
+      .toBe(true, 'Expected the snack bar content component to be MdcSnackbarComponent');
+    expect(snackBarRef.instance.snackbarRef)
+      .toBe(snackBarRef,
+        'Expected the snack bar reference to be placed in the component instance');
+  });
+
+  it('should open a snackbar with an array of CSS classes to apply', () => {
+    const config: MdcSnackbarConfig = {
+      viewContainerRef: testViewContainerRef,
+      dismiss: true,
+      classes: ['snack-test', 'snack-test2'], actionClasses: ['action-text'], dismissClasses: ['dismiss-class']
+    };
+    const snackBarRef = snackBar.open(simpleMessage, simpleActionLabel, config);
+
+    viewContainerFixture.detectChanges();
+
+    expect(snackBarRef.instance instanceof MdcSnackbarComponent)
+      .toBe(true, 'Expected the snack bar content component to be MdcSnackbarComponent');
+    expect(snackBarRef.instance.snackbarRef)
+      .toBe(snackBarRef,
+        'Expected the snack bar reference to be placed in the component instance');
+  });
+
   it('should open a simple message with no button', () => {
     const config: MdcSnackbarConfig = { viewContainerRef: testViewContainerRef };
     const snackBarRef = snackBar.open(simpleMessage, '', config);

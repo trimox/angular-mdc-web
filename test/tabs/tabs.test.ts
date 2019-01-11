@@ -114,6 +114,7 @@ describe('MDC Tabs', () => {
       testComponent.stacked = true;
       fixture.detectChanges();
       flush();
+      expect(testInstance.stacked).toBe(true);
       expect(testInstance.tabs.toArray()[0].stacked).toBe(true);
     }));
 
@@ -129,6 +130,7 @@ describe('MDC Tabs', () => {
       testComponent.fixed = true;
       fixture.detectChanges();
       flush();
+      expect(testInstance.fixed).toBe(true);
       expect(testInstance.tabs.toArray()[0].fixed).toBe(true);
     }));
 

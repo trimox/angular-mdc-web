@@ -70,7 +70,7 @@ describe('MdcMenu', () => {
     it('#menu should set wrapFocus', () => {
       testComponent.wrapFocus = true;
       fixture.detectChanges();
-      expect(testInstance.fixed).toBe(true);
+      expect(testInstance.wrapFocus).toBe(true);
     });
 
     it('#menu should set anchor corner', () => {

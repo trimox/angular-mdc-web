@@ -1,3 +1,30 @@
+## [0.43.1](https://github.com/trimox/angular-mdc-web/compare/v0.43.0...v0.43.1) (2019-01-12)
+
+
+### Bug Fixes
+
+* **select:** Enhanced API issues ([#1700](https://github.com/trimox/angular-mdc-web/issues/1700)) ([cb3a695](https://github.com/trimox/angular-mdc-web/commit/cb3a695)), closes [#1699](https://github.com/trimox/angular-mdc-web/issues/1699) [#1698](https://github.com/trimox/angular-mdc-web/issues/1698) [#1695](https://github.com/trimox/angular-mdc-web/issues/1695) [#1694](https://github.com/trimox/angular-mdc-web/issues/1694) [#1686](https://github.com/trimox/angular-mdc-web/issues/1686)
+* **snackbar:** Sync config with foundation ([#1684](https://github.com/trimox/angular-mdc-web/issues/1684)) ([e0e69f5](https://github.com/trimox/angular-mdc-web/commit/e0e69f5))
+
+
+### Features
+
+* **list:** Add disableRipple + fix checkbox list ([#1690](https://github.com/trimox/angular-mdc-web/issues/1690)) ([c94681b](https://github.com/trimox/angular-mdc-web/commit/c94681b)), closes [#1687](https://github.com/trimox/angular-mdc-web/issues/1687) [#1689](https://github.com/trimox/angular-mdc-web/issues/1689) [#1688](https://github.com/trimox/angular-mdc-web/issues/1688)
+
+#### New for MdcSelect
+- Adds `reset(): void`
+
+#### New for MdcList
+- Adds `@Input() disableRipple: boolean`
+- Adds `setSelectedValue(value: any): void`
+- Adds `getSelectedItem(): MdcListItem | undefined`
+- Adds `getListItemByValue(value: any): MdcListItem | undefined`
+- Adds `getListItemByIndex(index: number): MdcListItem | undefined`
+- Adds `getListItemIndexByValue(value: any): number`
+- Adds `reset(): void`
+
+
+
 # [0.43.0](https://github.com/trimox/angular-mdc-web/compare/v0.42.6...v0.43.0) (2019-01-10)
 
 

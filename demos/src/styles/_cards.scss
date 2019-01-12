@@ -36,7 +36,9 @@
 }
 
 .demo-card-article__title {
-  margin: 0 0 4px 0;
+  margin: 0 0 4px 0 !important;
+  border-bottom: unset !important;
+  padding-bottom: unset !important;
 }
 
 .demo-card-article__snippet {

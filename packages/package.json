@@ -22,7 +22,7 @@
   "typings": "./web.d.ts",
   "private": false,
   "dependencies": {
-    "@angular-mdc/theme": "0.43.0"
+    "@angular-mdc/theme": "0.43.1"
   },
   "peerDependencies": {
     "@angular/core": "0.0.0-NG",

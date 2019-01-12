@@ -84,18 +84,6 @@ describe('MdcListModule', () => {
       expect(testComponent.listitem.selected).toBe(false);
     });
 
-    it('#should be selected', () => {
-      testComponent.singleSelection = true;
-      fixture.detectChanges();
-
-      const event: Event = new MouseEvent('click');
-      testDebugElement.nativeElement.dispatchEvent(event);
-
-      fixture.detectChanges();
-      expect(testComponent.listitem.selected).toBe(true);
-      expect(testInstance.singleSelection).toBe(true);
-    });
-
     it('#first list item should be focused', () => {
       testInstance.focusFirstElement();
       fixture.detectChanges();

@@ -73,7 +73,7 @@ let nextUniqueId = 0;
     '[class.mdc-select--outlined]': 'outlined',
     '[class.mdc-select--required]': 'required',
     '[class.mdc-select--with-leading-icon]': 'leadingIcon',
-    '[class.mdc-select--invalid]': 'errorState || !valid'
+    '[class.mdc-select--invalid]': 'errorState'
   },
   template: `
   <ng-content select="mdc-icon"></ng-content>
@@ -166,8 +166,16 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   get required(): boolean { return this._required; }
   set required(value: boolean) {
     this._required = toBoolean(value);
-    if (!this._required) {
-      this.valid = true;
+    if (this._foundation) {
+      if (!this._required) {
+        this.valid = true;
+        this._changeDetectorRef.markForCheck();
+      }
+
+      if (this.ngControl) {
+        this._required ? this._getInputElement().setAttribute('required', '') :
+          this._getInputElement().removeAttribute('required');
+      }
     }
   }
   private _required: boolean = false;
@@ -285,9 +293,14 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
       isMenuOpen: () => false,
       setSelectedIndex: (index: number) => this._nativeSelect.nativeElement.selectedIndex = index,
       setDisabled: (isDisabled: boolean) => this._nativeSelect.nativeElement.disabled = isDisabled,
-      setValid: (isValid: boolean) =>
+      setValid: (isValid: boolean) => {
+        if (this.ngControl) {
+          return;
+        }
+
         isValid ? this._getHostElement().classList.remove(cssClasses.INVALID) :
-          this._getHostElement().classList.add(cssClasses.INVALID),
+          this._getHostElement().classList.add(cssClasses.INVALID);
+      },
       checkValidity: () => this._nativeSelect.nativeElement.checkValidity()
     };
   }
@@ -310,10 +323,12 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
       setDisabled: (isDisabled: boolean) => {
         this._selectedText.nativeElement.setAttribute('aria-disabled', isDisabled.toString());
       },
-      checkValidity: () => this._hasErrorState(),
+      checkValidity: () => this._isValid(),
       setValid: (isValid: boolean) => {
         this._selectedText.nativeElement.setAttribute('aria-invalid', (!isValid).toString());
         this._valid = isValid;
+        isValid ? this._getHostElement().classList.remove(cssClasses.INVALID) :
+          this._getHostElement().classList.add(cssClasses.INVALID);
       }
     };
   }
@@ -453,38 +468,6 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
     this._foundation.handleKeydown(evt);
   }
 
-  /**
-   * Sets the selected option based on a value. If no option can be
-   * found with the designated value, the select trigger is cleared.
-   */
-  setSelectionByValue(value: any, isUserInput: boolean = true): void {
-    if (!this._foundation) { return; }
-
-    const newValue = value || null;
-
-    if (this._value === newValue) {
-      // If value reset, change style to valid
-      if (newValue === null) {
-        this.valid = true;
-      }
-      return;
-    }
-
-    if (this._isEnhancedVariant()) {
-      this._menu.open = false;
-      this._enhancedSelectedText = this._list.getSelectedText();
-    }
-
-    this._value = newValue;
-    this._foundation.setValue(this._value);
-    this.valueChange.emit({ index: this.getSelectedIndex(), value: this._value });
-
-    if (isUserInput) {
-      this._onChange(this._value);
-    }
-    this._changeDetectorRef.markForCheck();
-  }
-
   getValue(): any {
     return this._value;
   }
@@ -497,14 +480,42 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
     return (<HTMLSelectElement>this._getInputElement()).selectedIndex || -1;
   }
 
+  /**
+   * Sets the selected option based on a value. If no option can be
+   * found with the designated value, the select trigger is cleared.
+   */
+  setSelectionByValue(value: any, isUserInput: boolean = true): void {
+    if (!this._foundation) { return; }
+
+    const newValue = value;
+    this._setEnhancedSelection(newValue); // if enhanced select, perform selection
+
+    if (this._value === newValue) {
+      if (newValue === null) {
+        this._valid = true;
+      }
+      return;
+    }
+
+    this._value = newValue;
+    this._foundation.setValue(this._value);
+    this.valueChange.emit({ index: this.getSelectedIndex(), value: this._value });
+
+    if (isUserInput) {
+      this._onChange(this._value);
+    }
+    this._changeDetectorRef.markForCheck();
+  }
+
   setSelectedIndex(index: number): void {
     this._foundation.setSelectedIndex(index);
 
     if (this._isEnhancedVariant()) {
       this._list.setSelectedIndex(index);
     }
-    this.setSelectionByValue(this._isEnhancedVariant() ?
-      this._list.getSelectedValue() : this._getInputElement().value);
+
+    const value = this._isEnhancedVariant() ? this._list.getSelectedValue() : this._getInputElement().value;
+    this.setSelectionByValue(value);
   }
 
   // Implemented as part of ControlValueAccessor.
@@ -520,6 +531,17 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
     if (!this.disabled) {
       this._isEnhancedVariant() ? this._selectedText.nativeElement.focus() : this._getInputElement().focus();
     }
+  }
+
+  reset(): void {
+    if (this._isEnhancedVariant()) {
+      this._enhancedSelectedText = '';
+      this._list.reset();
+    }
+
+    this._value = null;
+    this.valid = true;
+    this.layout();
   }
 
   /** Initialize Select internal state based on the environment state */
@@ -581,6 +603,14 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
     return !!this._list;
   }
 
+  private _setEnhancedSelection(value: any): void {
+    if (this._isEnhancedVariant()) {
+      this._list.setSelectedValue(value);
+      this._enhancedSelectedText = this._list.getSelectedText();
+      this._menu.open = false;
+    }
+  }
+
   private _enhancedSelectSetup(): void {
     if (this._isEnhancedVariant()) {
       this._menu.elementRef.nativeElement.classList.add('mdc-select__menu');
@@ -619,15 +649,15 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
     }
   }
 
-  private _hasErrorState(): boolean {
+  private _isValid(): boolean {
     if (this.ngControl) {
       return !this.errorState;
     }
 
     if (this.required && !this.disabled) {
-      return this._list.getSelectedIndex() !== -1 && (this.getSelectedIndex() !== 0 || this.value);
+      return this.getSelectedIndex() !== -1 && (this.getSelectedIndex() !== 0 || this._value);
     }
-    return false;
+    return true;
   }
 
   private _hasFloatingLabel(): boolean {
@@ -654,10 +684,6 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
     if (this.placeholder && this.autosize) {
       const labelLength = this.placeholder.length;
       this._getHostElement().style.setProperty('width', `${labelLength}rem`);
-
-      if (this._isEnhancedVariant()) {
-        this._menu.elementRef.nativeElement.style.setProperty('width', `${labelLength}rem`);
-      }
     } else {
       this._getHostElement().style.removeProperty('width');
     }

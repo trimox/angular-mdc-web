@@ -1,15 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, FormBuilder, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, FormBuilder, Validators } from '@angular/forms';
 
-import { ErrorStateMatcher } from '@angular-mdc/web';
 import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
-
-/** Error when invalid control is dirty, touched, or submitted. */
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    return !!(control && control.invalid && (control.touched || (form && form.submitted)));
-  }
-}
 
 @Component({ template: '<component-viewer></component-viewer>' })
 export class SelectDemo implements OnInit {
@@ -18,7 +10,9 @@ export class SelectDemo implements OnInit {
   ngOnInit(): void {
     this._componentViewer.componentView = new ComponentView(
       'Select Menus',
-      `MDC Select provides Material Design single-option select menus. It supports using the browser's native <select> element, or a MDC Menu. It is fully accessible, and fully RTL-aware.`,
+      `MDC Select provides Material Design single-option select menus.
+       It supports using the browser's native <select> element, or a MDC Menu.
+       It is fully accessible, and fully RTL-aware.`,
       "import { MdcSelectModule } from '@angular-mdc/web';");
 
     this._componentViewer.componentView.references = [{
@@ -39,9 +33,6 @@ export class Sass { }
 
 @Component({ templateUrl: './examples.html' })
 export class Examples {
-  matcher = new MyErrorStateMatcher();
-
-  // foodControl = new FormControl('fruit-3');
   foodControl = new FormControl();
 
   foodForm = new FormGroup({
@@ -94,16 +85,8 @@ export class Examples {
     this.foodForm.reset();
   }
 
-  onChange(event: { index: number, value: any }) {
-    console.log(`onChange: ${event.index}`);
-  }
-
   onSelectionChange(event: { index: any, value: any }) {
-    // console.log(`onSelectionChange: ${event.index} ${event.value}`);
-  }
-
-  onSelectionChangeFruit(event: { index: any, value: any }) {
-    // console.log(`onSelectionChangeFruit: ${event.index} ${event.value}`);
+    console.log(`onSelectionChange: ${event.index} ${event.value}`);
   }
 
   //
@@ -203,8 +186,8 @@ export class Examples {
 
   exampleNgModel = {
     html: `<form #demoForm="ngForm">
-  <mdc-select #select placeholder="Favorite food" ngModel #demoNgModel="ngModel" name="food" outlined
-    (change)="onChange($event)" (selectionChange)="onSelectionChange($event)">
+  <mdc-select #select placeholder="Favorite food" name="food" required outlined ngModel #demoNgModel="ngModel"
+    (selectionChange)="onSelectionChange($event)">
     <option *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
       {{food.viewValue}}
     </option>
@@ -222,10 +205,6 @@ export class Examples {
   { value: 'tacos-2', viewValue: 'Tacos is disabled', disabled: true },
   { value: 'fruit-3', viewValue: 'Fruit' },
 ];
-
-onChange(event: { index: number, value: any }) {
-  console.log(event.index);
-}
 
 onSelectionChange(event: { index: any, value: any }) {
   console.log(event.index);

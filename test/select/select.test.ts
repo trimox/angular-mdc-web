@@ -119,6 +119,12 @@ describe('MdcSelectModule', () => {
       dispatchTouchEvent(testInstance._nativeSelect.nativeElement, 'touchstart');
       fixture.detectChanges();
     });
+
+    it('#should reset', fakeAsync(() => {
+      testInstance.reset();
+      fixture.detectChanges();
+      expect(testInstance.getSelectedIndex()).toBe(-1);
+    }));
   });
 
   describe('form control basic behaviors', () => {
@@ -200,6 +206,38 @@ describe('MdcSelectModule', () => {
 
       flush();
     }));
+
+    it('#should reset', fakeAsync(() => {
+      testInstance.reset();
+      fixture.detectChanges();
+      expect(testInstance.getSelectedIndex()).toBe(-1);
+    }));
+
+    it('#should handle mouse events', fakeAsync(() => {
+      testComponent.open = true;
+      fixture.detectChanges();
+      dispatchMouseEvent(testInstance._list.getListItemByIndex(1).getListItemElement(), 'mousedown');
+      fixture.detectChanges();
+      flush();
+    }));
+
+    it('#should select first item', fakeAsync(() => {
+      testInstance.setSelectedIndex(1);
+      fixture.detectChanges();
+      expect(testInstance.getSelectedIndex()).toBe(1);
+    }));
+
+    it('#should select no item', fakeAsync(() => {
+      testInstance.setSelectedIndex(-1);
+      fixture.detectChanges();
+      expect(testInstance.getSelectedIndex()).toBe(-1);
+    }));
+
+    it('#should open', fakeAsync(() => {
+      testComponent.open = true;
+      fixture.detectChanges();
+      expect(testInstance._menu.open).toBe(true);
+    }));
   });
 });
 
@@ -274,8 +312,9 @@ class SelectFormControl {
 
 @Component({
   template: `
-  <mdc-select placeholder="Fruit" [helperText]="enhancedHelper" [disabled]="disabled" [outlined]="outlined">
-  <mdc-menu>
+  <mdc-select placeholder="Fruit" [helperText]="enhancedHelper" [required]="required"
+   [disabled]="disabled" [outlined]="outlined">
+  <mdc-menu [open]="open">
     <mdc-list>
       <mdc-list-item selected></mdc-list-item>
       <mdc-list-item value="apple">Apple</mdc-list-item>
@@ -289,6 +328,8 @@ class SelectFormControl {
 })
 class EnhancedSelect {
   outlined: boolean;
+  required: boolean = true;
+  open: boolean;
   disabled: boolean;
 
   compareFn(f1: any, f2: any): boolean {

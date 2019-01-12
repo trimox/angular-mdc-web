@@ -69,12 +69,20 @@
   <table>
     <tbody>
       <tr>
+        <td>setSelectedValue(value: any)</td>
+        <td>Sets the currently selected list item by value.</td>
+      </tr>
+      <tr>
         <td>setSelectedIndex(index: number)</td>
         <td>Sets the currently selected list item.</td>
       </tr>
       <tr>
         <td>getSelectedIndex(): number</td>
         <td>Returns the currently selected item index.</td>
+      </tr>
+      <tr>
+        <td>getSelectedItem(): MdcListItem | undefined</td>
+        <td>Returns the currently selected item.</td>
       </tr>
       <tr>
         <td>focusItemAtIndex(index: number)</td>
@@ -87,6 +95,22 @@
       <tr>
         <td>focusLastElement()</td>
         <td>Sets focus to the last element in a list.</td>
+      </tr>
+      <tr>
+        <td>getListItemByValue(value: any): MdcListItem | undefined</td>
+        <td>Returns list item for given value.</td>
+      </tr>
+      <tr>
+        <td>getListItemByIndex(index: number): MdcListItem | undefined</td>
+        <td>Returns list item for given index.</td>
+      </tr>
+      <tr>
+        <td>getListItemIndexByValue(value: any): number</td>
+        <td>Returns the list item index for a given value.</td>
+      </tr>
+      <tr>
+        <td>reset()</td>
+        <td>Clear all activated and selected list item states.</td>
       </tr>
     </tbody>
   </table>

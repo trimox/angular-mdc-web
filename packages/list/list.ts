@@ -185,7 +185,7 @@ export class MdcList implements AfterViewInit, OnDestroy {
   private _changeSubscription: Subscription | null = null;
 
   /** Subscription to selection events in list items. */
-  private itemselectionSubscription: Subscription | null = null;
+  private itemSelectionSubscription: Subscription | null = null;
 
   /** Combined stream of all of the list item selection events. */
   get listItemSelections(): Observable<MdcListSelectionChange> {
@@ -300,49 +300,6 @@ export class MdcList implements AfterViewInit, OnDestroy {
     this._foundation.destroy();
   }
 
-  private _resetListItems() {
-    this._dropSubscriptions();
-    this._listenForListItemSelection();
-  }
-
-  private _dropSubscriptions() {
-    if (this.itemselectionSubscription) {
-      this.itemselectionSubscription.unsubscribe();
-      this.itemselectionSubscription = null;
-    }
-  }
-
-  /** Listens to selected events on each list item. */
-  private _listenForListItemSelection(): void {
-    this.itemselectionSubscription = this.listItemSelections.subscribe(event => {
-      if (this.singleSelection) {
-        this.items.filter(_ => _.id !== event.source.id && (_.activated || _.selected))
-          .forEach(_ => {
-            _.selected = false;
-            _.activated = false;
-          });
-      }
-
-      if (this.useActivatedClass) {
-        event.source.activated = true;
-      } else if (this.useSelectedClass) {
-        event.source.selected = true;
-      }
-
-      if (!this.singleSelection) {
-        event.source.ripple.handleBlur();
-      }
-      this.selectionChange.emit(new MdcListItemChange(this, event.source));
-    });
-  }
-
-  private _initRipple(): void {
-    if (!this.items) { return; }
-
-    this.items.map(option =>
-      this.disableRipple ? option.destroyRipple() : option.initRipple());
-  }
-
   setSingleSelection(singleSelection: boolean): void {
     this._singleSelection = toBoolean(singleSelection);
     this._foundation.setSingleSelection(this._singleSelection);
@@ -356,13 +313,34 @@ export class MdcList implements AfterViewInit, OnDestroy {
     this._changeDetectorRef.markForCheck();
   }
 
-  setSelectedIndex(index: number, isUserInput: boolean = true): void {
+  setSelectedIndex(index: number): void {
+    this.reset();
     this._foundation.setSelectedIndex(index);
+    if (index === -1) {
+      return;
+    }
 
     const selectedItem = this.items.toArray()[index];
-    if (selectedItem && !isUserInput) {
-      this.items.toArray()[index]._emitChangeEvent();
+    if (selectedItem) {
+      this._applySelectionState(selectedItem);
     }
+  }
+
+  setSelectedValue(value: any): void {
+    this.reset();
+    if (value === null) {
+      return;
+    }
+
+    const selectedItem = this.getListItemByValue(value);
+    this._foundation.setSelectedIndex(this.getListItemIndexByValue(value));
+    if (selectedItem) {
+      this._applySelectionState(selectedItem);
+    }
+  }
+
+  getSelectedItem(): MdcListItem | undefined {
+    return this.items ? this.items.toArray().find(_ => _.selected || _.activated) : undefined;
   }
 
   getSelectedIndex(): number {
@@ -375,8 +353,20 @@ export class MdcList implements AfterViewInit, OnDestroy {
   }
 
   getSelectedText(): string {
-    const item = this.items ? this.items.find(_ => _.selected) : null;
-    return item && item.getListItemElement().textContent ? item.getListItemElement().textContent || '' : '';
+    const selectedItem = this.getSelectedItem();
+    return selectedItem && selectedItem.getListItemElement().textContent || '';
+  }
+
+  getListItemByValue(value: any): MdcListItem | undefined {
+    return this.items ? this.items.toArray().find(_ => _.value === value) : undefined;
+  }
+
+  getListItemByIndex(index: number): MdcListItem | undefined {
+    return this.items ? this.items.toArray()[index] : undefined;
+  }
+
+  getListItemIndexByValue(value: any): number {
+    return this.items ? this.items.toArray().findIndex(_ => _.value === value) : -1;
   }
 
   focusItemAtIndex(index: number): void {
@@ -393,6 +383,61 @@ export class MdcList implements AfterViewInit, OnDestroy {
 
   setRole(role: string): void {
     this._getHostElement().setAttribute('role', role);
+  }
+
+  reset(): void {
+    this.items.filter(_ => _.activated || _.selected)
+      .map(_ => {
+        _.selected = false;
+        _.activated = false;
+      });
+  }
+
+  private _applySelectionState(item: MdcListItem): void {
+    if (this.useActivatedClass) {
+      item.activated = true;
+    } else if (this.useSelectedClass) {
+      item.selected = true;
+    }
+  }
+
+  private _resetListItems() {
+    this._dropSubscriptions();
+    this._listenForListItemSelection();
+  }
+
+  private _dropSubscriptions() {
+    if (this.itemSelectionSubscription) {
+      this.itemSelectionSubscription.unsubscribe();
+      this.itemSelectionSubscription = null;
+    }
+  }
+
+  /** Listens to selected events on each list item. */
+  private _listenForListItemSelection(): void {
+    this.itemSelectionSubscription = this.listItemSelections.subscribe(event => {
+      if (this.singleSelection) {
+        this.items.filter(_ => _.id !== event.source.id && (_.activated || _.selected))
+          .map(_ => {
+            _.selected = false;
+            _.activated = false;
+          });
+      }
+
+      this._applySelectionState(event.source);
+
+      if (!this.singleSelection) {
+        event.source.ripple.handleBlur();
+      }
+      this.selectionChange.emit(new MdcListItemChange(this, event.source));
+    });
+  }
+
+  private _initRipple(): void {
+    if (!this.items) { return; }
+
+    this.items.map(option =>
+      this.disableRipple ? option.destroyRipple() : option.initRipple());
   }
 
   private _loadListeners(): void {

@@ -30,6 +30,12 @@ export class Sass { }
 
 @Component({ templateUrl: './examples.html' })
 export class Examples {
+  items = [
+    { label: 'Wi-Fi', icon: 'network_wifi' },
+    { label: 'Bluetooth', icon: 'bluetooth' },
+    { label: 'Data Usage', icon: 'data_usage' }
+  ];
+
   folders = [
     { name: 'Photos', icon: 'folder', addDate: 'Jan 9, 2015' },
     { name: 'Recipes', icon: 'folder', addDate: 'Jan 17, 2015' },
@@ -41,7 +47,13 @@ export class Examples {
     { name: 'Kitchen Remodel', icon: 'insert_drive_file', addDate: 'Jan 20, 2015' }
   ];
 
-  example1 = {
+  exampleItemsArray = `items = [
+  { label: 'Wi-Fi', icon: 'network_wifi'},
+  { label: 'Bluetooth', icon: 'bluetooth'},
+  { label: 'Data Usage', icon: 'data_usage'}
+];`;
+
+  exampleCustom = {
     html: `<mdc-list-group subheader="Folders">
   <mdc-list twoLine avatar class="demo-list--custom">
     <mdc-list-item *ngFor="let folder of folders">
@@ -82,9 +94,8 @@ files = [
 }`
   };
 
-  example2 = {
+  exampleSingleLine = {
     html: `<mdc-list>
-  <mdc-list-item>Single-line item</mdc-list-item>
   <mdc-list-item>Single-line item</mdc-list-item>
   <mdc-list-item>Single-line item</mdc-list-item>
   <mdc-list-item disabled>Single-line item (disabled)</mdc-list-item>
@@ -92,7 +103,7 @@ files = [
 </mdc-list>`
   };
 
-  example3 = {
+  exampleTwoLine = {
     html: `<mdc-list twoLine>
   <mdc-list-item>
     <mdc-list-item-text secondaryText="Secondary text">Single-line item</mdc-list-item-text>
@@ -106,7 +117,7 @@ files = [
 </mdc-list>`
   };
 
-  example4 = {
+  exampleStartGraphic = {
     html: `<mdc-list>
   <mdc-list-item>
     <mdc-icon mdcListItemGraphic>network_wifi</mdc-icon>Wi-Fi
@@ -120,7 +131,7 @@ files = [
 </mdc-list>`
   };
 
-  example5 = {
+  exampleMeta = {
     html: `<mdc-list>
   <mdc-list-item>Wi-Fi
     <mdc-icon mdcListItemMeta>info</mdc-icon>
@@ -134,7 +145,7 @@ files = [
 </mdc-list>`
   };
 
-  example6 = {
+  exampleStartEnd = {
     html: `<mdc-list>
   <mdc-list-item>
     <mdc-icon mdcListItemGraphic>network_wifi</mdc-icon>Wi-Fi
@@ -151,7 +162,7 @@ files = [
 </mdc-list>`
   };
 
-  example7 = {
+  exampleCheckList = {
     html: `<mdc-list>
   <mdc-list-item>
     Single-line item
@@ -168,7 +179,7 @@ files = [
 </mdc-list>`
   };
 
-  example8 = {
+  exampleAvatars = {
     html: `<mdc-list>
   <mdc-list-item>
     <mdc-icon mdcListItemGraphic>person</mdc-icon>Single-line item
@@ -182,7 +193,7 @@ files = [
 </mdc-list>`
   };
 
-  example9 = {
+  exampleGroupLists = {
     html: `<mdc-list-group subheader="First Group">
   <mdc-list>
     <mdc-list-item>
@@ -216,18 +227,24 @@ files = [
 
   exampleShaped = {
     html: `<mdc-list class="demo-list--shaped" singleSelection>
-  <mdc-list-item>
-    <mdc-icon mdcListItemGraphic>network_wifi</mdc-icon>Wi-Fi
-  </mdc-list-item>
-  <mdc-list-item>
-    <mdc-icon mdcListItemGraphic>bluetooth</mdc-icon>Bluetooth
-  </mdc-list-item>
-  <mdc-list-item>
-    <mdc-icon mdcListItemGraphic>data_usage</mdc-icon>Data Usage
+  <mdc-list-item *ngFor="let item of items">
+    <mdc-icon mdcListItemGraphic>{{item.icon}}</mdc-icon>
+    {{item.label}}
   </mdc-list-item>
 </mdc-list>`,
+    ts: this.exampleItemsArray,
     sass: `.demo-list--shaped {
   @include mdc-list-item-shape-radius(0 50px 50px 0);
 }`
+  };
+
+  exampleRippleDisabled = {
+    html: `<mdc-list disableRipple>
+  <mdc-list-item *ngFor="let item of items">
+    <mdc-icon mdcListItemGraphic>{{item.icon}}</mdc-icon>
+    {{item.label}}
+  </mdc-list-item>
+</mdc-list>`,
+    ts: this.exampleItemsArray
   };
 }

@@ -115,11 +115,23 @@ export class MdcList implements AfterViewInit, OnDestroy {
   @Input()
   get interactive(): boolean { return this._interactive; }
   set interactive(value: boolean) {
-    if (value !== this._interactive) {
-      this.setInteractive(value);
+    const newValue = toBoolean(value);
+    if (newValue !== this._interactive) {
+      this._interactive = newValue;
     }
   }
   private _interactive: boolean = true;
+
+  @Input()
+  get disableRipple(): boolean { return this._disableRipple; }
+  set disableRipple(value: boolean) {
+    const newValue = toBoolean(value);
+    if (newValue !== this._disableRipple) {
+      this._disableRipple = newValue;
+      this._initRipple();
+    }
+  }
+  private _disableRipple: boolean = false;
 
   @Input()
   get singleSelection(): boolean { return this._singleSelection; }
@@ -240,6 +252,7 @@ export class MdcList implements AfterViewInit, OnDestroy {
   private _foundation: {
     init(): void,
     destroy(): void,
+    layout(): void,
     setVerticalOrientation(vertical: boolean): void,
     setWrapFocus(wrapFocus: boolean): void,
     handleClick(index: number, toggleCheckbox: boolean): void,
@@ -268,10 +281,11 @@ export class MdcList implements AfterViewInit, OnDestroy {
     this._changeSubscription = this.items.changes.pipe(startWith(null))
       .subscribe(() => {
         this._resetListItems();
-        this.setInteractive(this.interactive);
+        this._initRipple();
       });
 
     this._loadListeners();
+    this._foundation.layout();
   }
 
   ngOnDestroy(): void {
@@ -315,26 +329,26 @@ export class MdcList implements AfterViewInit, OnDestroy {
         event.source.selected = true;
       }
 
-      if (!this.singleSelection && this.interactive) {
+      if (!this.singleSelection) {
         event.source.ripple.handleBlur();
       }
       this.selectionChange.emit(new MdcListItemChange(this, event.source));
     });
   }
 
-  setInteractive(value: boolean): void {
-    this._interactive = toBoolean(value);
-
+  private _initRipple(): void {
     if (!this.items) { return; }
 
-    this.items.forEach(option => {
-      option.setInteractive(value);
-    });
+    this.items.map(option =>
+      this.disableRipple ? option.destroyRipple() : option.initRipple());
   }
 
   setSingleSelection(singleSelection: boolean): void {
     this._singleSelection = toBoolean(singleSelection);
     this._foundation.setSingleSelection(this._singleSelection);
+    if (!this._useSelectedClass) {
+      this._useActivatedClass = true;
+    }
 
     if (this.getSelectedIndex() > -1) {
       this.setSelectedIndex(this.getSelectedIndex());
@@ -342,9 +356,13 @@ export class MdcList implements AfterViewInit, OnDestroy {
     this._changeDetectorRef.markForCheck();
   }
 
-  setSelectedIndex(index: number): void {
+  setSelectedIndex(index: number, isUserInput: boolean = true): void {
     this._foundation.setSelectedIndex(index);
-    this.items.toArray()[index]._emitChangeEvent();
+
+    const selectedItem = this.items.toArray()[index];
+    if (selectedItem && !isUserInput) {
+      this.items.toArray()[index]._emitChangeEvent();
+    }
   }
 
   getSelectedIndex(): number {
@@ -395,9 +413,7 @@ export class MdcList implements AfterViewInit, OnDestroy {
       fromEvent<FocusEvent>(this._getHostElement(), 'focusin').pipe(takeUntil(this._destroy))
         .subscribe(evt => this._ngZone.run(() => {
           const index = this._getListItemIndex(evt);
-          if (index >= 0) {
-            this._foundation.handleFocusIn(evt, index);
-          }
+          this._foundation.handleFocusIn(evt, index);
         })));
 
     this._ngZone.runOutsideAngular(() =>

@@ -60,6 +60,12 @@ describe('MdcListModule', () => {
       expect(testDebugElement.nativeElement.classList.contains('mdc-list--two-line')).toBe(true);
     });
 
+    it('#should disable ripple', () => {
+      testComponent.disableRipple = true;
+      fixture.detectChanges();
+      expect(testInstance.disableRipple).toBe(true);
+    });
+
     it('#should apply class avatar', () => {
       testComponent.isAvatar = true;
       fixture.detectChanges();
@@ -148,6 +154,15 @@ describe('MdcListModule', () => {
       fixture.detectChanges();
     });
 
+    it('#should disable list item', () => {
+      const listItemDebugElement = fixture.debugElement.query(By.directive(MdcListItem));
+      const listItemInstance = listItemDebugElement.injector.get<MdcListItem>(MdcListItem);
+
+      testComponent.disabled = true;
+      fixture.detectChanges();
+      expect(listItemInstance.disabled).toBe(true);
+    });
+
     it('#should set focus to list item index (0)', () => {
       const listItemDebugElement = fixture.debugElement.query(By.directive(MdcListItem));
 
@@ -164,6 +179,15 @@ describe('MdcListModule', () => {
       fixture.detectChanges();
       expect(document.activeElement).toBe(listItemDebugElement.nativeElement, 'Expected focus to be on list item');
     });
+
+    it('#should set role to "test"', () => {
+      const listItemDebugElement = fixture.debugElement.query(By.directive(MdcListItem));
+      const listItemInstance = listItemDebugElement.injector.get<MdcListItem>(MdcListItem);
+
+      listItemInstance.setRole('test');
+      fixture.detectChanges();
+      expect(listItemInstance.elementRef.nativeElement.getAttribute('role')).toBe('test');
+    });
   });
 });
 
@@ -171,9 +195,10 @@ describe('MdcListModule', () => {
   template: `
     <mdc-list-group #group>
       <mdc-list-group-subheader>Grouped Lists</mdc-list-group-subheader>
-      <mdc-list [dense]="isDense" [border]="isBordered" [wrapFocus]="wrapFocus" [twoLine]="twoLine" [singleSelection]="singleSelection"
+      <mdc-list [dense]="isDense" [border]="isBordered" [wrapFocus]="wrapFocus" [twoLine]="twoLine"
+       [singleSelection]="singleSelection" [disableRipple]="disableRipple"
        [avatar]="isAvatar" [interactive]="isInteractive" useSelectedClass [verticalOrientation]="verticalOrientation">
-        <mdc-list-item #listitem mdcListItemGraphic [selected]="isItemSelected" [disabled]="false">Test
+        <mdc-list-item #listitem mdcListItemGraphic [selected]="isItemSelected" [disabled]="disabled">Test
           <mdc-icon mdcListItemMeta>info</mdc-icon>
         </mdc-list-item>
         <mdc-list-item mdcListItemGraphic>Test
@@ -206,6 +231,8 @@ class SimpleList {
   singleSelection: boolean;
   verticalOrientation: boolean;
   wrapFocus: boolean;
+  disabled: boolean;
+  disableRipple: boolean;
 
   @ViewChild('divider') divider: MdcListDivider;
   @ViewChild('listitem') listitem: MdcListItem;

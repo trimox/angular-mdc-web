@@ -10,6 +10,7 @@ import {
   Input,
   NgZone,
   OnDestroy,
+  OnInit,
   Output,
   ViewEncapsulation
 } from '@angular/core';
@@ -37,27 +38,23 @@ let uniqueIdCounter = 0;
   }
 })
 export class MdcListItemGraphic {
-  constructor(public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
 }
 
 @Directive({
   selector: '[mdcListItemMeta], mdc-list-item-meta',
   exportAs: 'mdcListItemMeta',
-  host: {
-    'class': 'mdc-list-item__meta'
-  }
+  host: { 'class': 'mdc-list-item__meta' }
 })
 export class MdcListItemMeta {
-  constructor(public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
 }
 
 @Component({
   moduleId: module.id,
   selector: '[mdcListItemText], mdc-list-item-text',
   exportAs: 'mdcListItemText',
-  host: {
-    'class': 'mdc-list-item__text'
-  },
+  host: { 'class': 'mdc-list-item__text' },
   template: `
   <ng-container>
     <span class="mdc-list-item__primary-text"><ng-content></ng-content></span>
@@ -70,18 +67,16 @@ export class MdcListItemMeta {
 export class MdcListItemText {
   @Input() secondaryText?: string;
 
-  constructor(public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
 }
 
 @Directive({
   selector: '[mdcListItemSecondary], mdc-list-item-secondary',
   exportAs: 'mdcListItemSecondary',
-  host: {
-    'class': 'mdc-list-item__secondary-text'
-  }
+  host: { 'class': 'mdc-list-item__secondary-text' }
 })
 export class MdcListItemSecondary {
-  constructor(public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
 }
 
 @Component({
@@ -102,7 +97,7 @@ export class MdcListItemSecondary {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [MdcRipple]
 })
-export class MdcListItem implements AfterViewInit, OnDestroy {
+export class MdcListItem implements AfterViewInit, OnInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
@@ -120,7 +115,7 @@ export class MdcListItem implements AfterViewInit, OnDestroy {
   set selected(value: boolean) {
     const newValue = toBoolean(value);
     if (newValue !== this._selected) {
-      this._selected = toBoolean(value);
+      this._selected = newValue;
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -132,7 +127,7 @@ export class MdcListItem implements AfterViewInit, OnDestroy {
   set activated(value: boolean) {
     const newValue = toBoolean(value);
     if (newValue !== this._activated) {
-      this._activated = toBoolean(value);
+      this._activated = newValue;
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -144,7 +139,7 @@ export class MdcListItem implements AfterViewInit, OnDestroy {
   set disabled(value: boolean) {
     const newValue = toBoolean(value);
     if (newValue !== this._disabled) {
-      this._disabled = toBoolean(value);
+      this._disabled = newValue;
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -153,7 +148,7 @@ export class MdcListItem implements AfterViewInit, OnDestroy {
   @Output() readonly selectionChange: EventEmitter<MdcListSelectionChange>
     = new EventEmitter<MdcListSelectionChange>();
 
-  @ContentChild(MdcListItemGraphic) listItemStart!: MdcListItemGraphic;
+  @ContentChild(MdcListItemGraphic) listItemStart?: MdcListItemGraphic;
 
   constructor(
     private _ngZone: NgZone,
@@ -165,15 +160,26 @@ export class MdcListItem implements AfterViewInit, OnDestroy {
     this._loadListeners();
   }
 
+  ngOnInit(): void {
+    this.initRipple();
+  }
+
   ngOnDestroy(): void {
-    this.ripple.destroy();
+    this.destroyRipple();
 
     this._destroy.next();
     this._destroy.complete();
   }
 
-  setInteractive(interactive: boolean): void {
-    interactive ? this.ripple.init({ surface: this.getListItemElement() }) : this.ripple.destroy();
+  initRipple(): void {
+    this.ripple.init({
+      surface: this.getListItemElement(),
+      disabled: this.disabled
+    });
+  }
+
+  destroyRipple(): void {
+    this.ripple.destroy();
   }
 
   focus(): void {

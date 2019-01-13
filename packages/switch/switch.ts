@@ -145,7 +145,8 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, Contr
     this._foundation.init();
     this.ripple.init({
       surface: this.thumbUnderlay.nativeElement,
-      unbounded: true
+      unbounded: true,
+      disabled: this.disabled
     });
   }
 

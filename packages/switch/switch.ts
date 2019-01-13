@@ -187,7 +187,7 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, Contr
     evt.stopPropagation();
   }
 
-  onBlur() {
+  onBlur(): void {
     this._onTouched();
   }
 
@@ -232,7 +232,7 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, Contr
   /**
    * Emits a change event on the `change` output. Also notifies the FormControl about the change.
    */
-  private _emitChangeEvent() {
+  private _emitChangeEvent(): void {
     this._onChange(this.checked);
     this.change.emit(new MdcSwitchChange(this, this.checked));
   }

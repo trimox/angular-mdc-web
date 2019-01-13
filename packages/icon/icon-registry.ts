@@ -10,6 +10,7 @@ import {
   Inject,
   Injectable,
   InjectionToken,
+  OnDestroy,
   Optional,
   SecurityContext,
   SkipSelf
@@ -88,7 +89,7 @@ class SvgIconConfig {
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
 @Injectable({ providedIn: 'root' })
-export class MdcIconRegistry {
+export class MdcIconRegistry implements OnDestroy {
   private _document: Document;
 
   /**
@@ -303,6 +304,12 @@ export class MdcIconRegistry {
     }
 
     return observableThrow(getMdcIconNameNotFoundError(key));
+  }
+
+  ngOnDestroy(): void {
+    this._svgIconConfigs.clear();
+    this._iconSetConfigs.clear();
+    this._cachedIconsByUrl.clear();
   }
 
   /**

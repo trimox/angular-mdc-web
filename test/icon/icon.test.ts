@@ -73,6 +73,10 @@ describe('MdcIcon', () => {
       sanitizer = ds;
     }));
 
+  afterEach(() => {
+    iconRegistry.ngOnDestroy();
+  });
+
   it('should mark mdc-icon as aria-hidden by default', () => {
     const fixture = TestBed.createComponent(IconWithLigature);
     const iconElement = fixture.debugElement.nativeElement.querySelector('mdc-icon');
@@ -89,7 +93,7 @@ describe('MdcIcon', () => {
 
   describe('Ligature icons', () => {
     it('should add material-icons class by default', () => {
-      let fixture = TestBed.createComponent(IconWithLigature);
+      const fixture = TestBed.createComponent(IconWithLigature);
 
       const testComponent = fixture.componentInstance;
       const iconElement = fixture.debugElement.nativeElement.querySelector('mdc-icon');
@@ -101,7 +105,7 @@ describe('MdcIcon', () => {
     it('should use alternate icon font if set', () => {
       iconRegistry.setDefaultFontSetClass('myfont');
 
-      let fixture = TestBed.createComponent(IconWithLigature);
+      const fixture = TestBed.createComponent(IconWithLigature);
 
       const testComponent = fixture.componentInstance;
       const iconElement = fixture.debugElement.nativeElement.querySelector('mdc-icon');
@@ -116,7 +120,7 @@ describe('MdcIcon', () => {
       iconRegistry.addSvgIcon('fluffy', trustUrl('cat.svg'));
       iconRegistry.addSvgIcon('fido', trustUrl('dog.svg'));
 
-      let fixture = TestBed.createComponent(IconFromSvgName);
+      const fixture = TestBed.createComponent(IconFromSvgName);
       let svgElement: SVGElement;
       const testComponent = fixture.componentInstance;
       const iconElement = fixture.debugElement.nativeElement.querySelector('mdc-icon');
@@ -151,7 +155,7 @@ describe('MdcIcon', () => {
 
     it('should be able to provide multiple alternate icon set classes', () => {
       iconRegistry.setDefaultFontSetClass('myfont', 'myfont-48x48');
-      let fixture = TestBed.createComponent(IconWithLigature);
+      const fixture = TestBed.createComponent(IconWithLigature);
       const testComponent = fixture.componentInstance;
       const mdcIconElement = fixture.debugElement.nativeElement.querySelector('mdc-icon');
       testComponent.iconName = 'home';
@@ -163,7 +167,7 @@ describe('MdcIcon', () => {
       iconRegistry.addSvgIcon('fluffy', 'farm-set-1.svg');
 
       expect(() => {
-        let fixture = TestBed.createComponent(IconFromSvgName);
+        const fixture = TestBed.createComponent(IconFromSvgName);
         fixture.componentInstance.iconName = 'fluffy';
         fixture.detectChanges();
       }).toThrowError(/unsafe value used in a resource URL context/);
@@ -173,7 +177,7 @@ describe('MdcIcon', () => {
       iconRegistry.addSvgIconSetInNamespace('farm', 'farm-set-1.svg');
 
       expect(() => {
-        let fixture = TestBed.createComponent(IconFromSvgName);
+        const fixture = TestBed.createComponent(IconFromSvgName);
         fixture.componentInstance.iconName = 'farm:pig';
         fixture.detectChanges();
       }).toThrowError(/unsafe value used in a resource URL context/);
@@ -373,7 +377,7 @@ describe('MdcIcon', () => {
     it('should remove the SVG element from the DOM when the binding is cleared', () => {
       iconRegistry.addSvgIconSet(trustUrl('arrow-set.svg'));
 
-      let fixture = TestBed.createComponent(IconFromSvgName);
+      const fixture = TestBed.createComponent(IconFromSvgName);
 
       const testComponent = fixture.componentInstance;
       const icon = fixture.debugElement.nativeElement.querySelector('mdc-icon');
@@ -416,7 +420,7 @@ describe('MdcIcon', () => {
       iconRegistry.addSvgIconLiteral('fluffy', trustHtml(FAKE_SVGS.cat));
       iconRegistry.addSvgIconLiteral('fido', trustHtml(FAKE_SVGS.dog));
 
-      let fixture = TestBed.createComponent(IconFromSvgName);
+      const fixture = TestBed.createComponent(IconFromSvgName);
       let svgElement: SVGElement;
       const testComponent = fixture.componentInstance;
       const iconElement = fixture.debugElement.nativeElement.querySelector('mdc-icon');
@@ -748,7 +752,7 @@ describe('MdcIcon without HttpClientModule', () => {
     expect(() => {
       iconRegistry.addSvgIcon('fido', sanitizer.bypassSecurityTrustResourceUrl('dog.svg'));
 
-      let fixture = TestBed.createComponent(IconFromSvgName);
+      const fixture = TestBed.createComponent(IconFromSvgName);
 
       fixture.componentInstance.iconName = 'fido';
       fixture.detectChanges();

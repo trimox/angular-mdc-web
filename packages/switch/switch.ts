@@ -45,10 +45,11 @@ let nextUniqueId = 0;
   selector: 'mdc-switch',
   host: {
     '[id]': 'id',
-    '[tabIndex]': 'tabIndex',
+    '[attr.tabindex]': '0',
     'class': 'mdc-switch',
     '[class.mdc-switch--checked]': 'checked',
-    '[class.mdc-switch--disabled]': 'disabled'
+    '[class.mdc-switch--disabled]': 'disabled',
+    '(focus)': '_inputElement.nativeElement.focus()'
   },
   template: `
   <div class="mdc-switch__track"></div>
@@ -59,12 +60,15 @@ let nextUniqueId = 0;
         role="switch"
         class="mdc-switch__native-control"
         [id]="inputId"
-        [name]="name"
+        [attr.name]="name"
+        [attr.aria-label]="ariaLabel"
+        [attr.aria-labelledby]="ariaLabelledby"
         [tabIndex]="tabIndex"
         [disabled]="disabled"
+        [required]="required"
         [checked]="checked"
-        (click)="onInputClick($event)"
         (blur)="onBlur()"
+        (click)="onInputClick($event)"
         (change)="onChange($event)"/>
     </div>
   </div>
@@ -82,11 +86,18 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, Contr
 
   @Input() id: string = this._uniqueId;
   @Input() name: string | null = null;
+  @Input() tabIndex: number = 0;
+
+  /** The value attribute of the native input element */
+  @Input() value: string | null = null;
 
   @Input()
   get checked(): boolean { return this._checked; }
   set checked(value: boolean) {
-    this.setChecked(value);
+    if (this.disabled) { return; }
+
+    this._checked = toBoolean(value);
+    this._changeDetectorRef.markForCheck();
   }
   private _checked: boolean = false;
 
@@ -97,20 +108,29 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, Contr
   }
   private _disabled: boolean = false;
 
-  /** The value attribute of the native input element */
-  @Input() value: string | null = null;
+  @Input()
+  get required(): boolean { return this._required; }
+  set required(value: boolean) {
+    this._required = toBoolean(value);
+  }
+  private _required: boolean = false;
 
-  @Input() tabIndex: number = 0;
+  /** Used to set the aria-label attribute on the underlying input element. */
+  @Input('aria-label') ariaLabel: string | null = null;
+
+  /** Used to set the aria-labelledby attribute on the underlying input element. */
+  @Input('aria-labelledby') ariaLabelledby: string | null = null;
+
   @Output() readonly change: EventEmitter<MdcSwitchChange> = new EventEmitter<MdcSwitchChange>();
 
-  @ViewChild('input') inputElement!: ElementRef<HTMLInputElement>;
+  @ViewChild('input') _inputElement!: ElementRef<HTMLInputElement>;
   @ViewChild('thumbUnderlay') thumbUnderlay!: ElementRef<HTMLElement>;
 
   /** View -> model callback called when value changes */
-  _onChange: (value: any) => void = () => { };
+  private _onChange = (_: any) => { };
 
   /** View -> model callback called when control has been touched */
-  _onTouched = () => { };
+  private _onTouched = () => { };
 
   get inputId(): string { return `${this.id || this._uniqueId}-input`; }
 
@@ -143,11 +163,7 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, Contr
 
   ngAfterViewInit(): void {
     this._foundation.init();
-    this.ripple.init({
-      surface: this.thumbUnderlay.nativeElement,
-      unbounded: true,
-      disabled: this.disabled
-    });
+    this._initRipple();
   }
 
   ngOnDestroy(): void {
@@ -157,23 +173,29 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, Contr
   onChange(evt: Event): void {
     evt.stopPropagation();
 
+    if (this.disabled) { return; }
+
     this._foundation.handleChange(evt);
-    this.setChecked(this._getInputElement().checked);
+    this._checked = this._inputElement.nativeElement.checked;
+    this._foundation.setChecked(this._checked);
+
+    this._emitChangeEvent();
+    this._changeDetectorRef.markForCheck();
   }
 
   onInputClick(evt: Event): void {
     evt.stopPropagation();
   }
 
-  onBlur(): void {
+  onBlur() {
     this._onTouched();
   }
 
   writeValue(value: any): void {
-    this.setChecked(value);
+    this.checked = !!value;
   }
 
-  registerOnChange(fn: (value: any) => void): void {
+  registerOnChange(fn: any): void {
     this._onChange = fn;
   }
 
@@ -181,40 +203,43 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, Contr
     this._onTouched = fn;
   }
 
-  setDisabled(disabled: boolean): void {
-    this.setDisabledState(disabled);
-  }
-
-  setChecked(checked: boolean): void {
-    if (this.disabled) { return; }
-
-    const previousValue = this.checked;
-
-    this._checked = toBoolean(checked);
-    this._foundation.setChecked(checked);
-
-    if (previousValue !== null || undefined) {
-      this._onChange(this.checked);
-      this.change.emit(new MdcSwitchChange(this, this.checked));
-    }
-
-    this._changeDetectorRef.markForCheck();
+  /** Toggles the checked state of the switch. */
+  toggle(): void {
+    this.checked = !this.checked;
+    this._onChange(this.checked);
   }
 
   setDisabledState(disabled: boolean): void {
     this._disabled = toBoolean(disabled);
-    this._foundation.setDisabled(disabled);
-
+    this._foundation.setDisabled(this._disabled);
     this._changeDetectorRef.markForCheck();
   }
 
   focus(): void {
-    this.inputElement.nativeElement.focus();
+    this._inputElement.nativeElement.focus();
+  }
+
+  private _initRipple(): void {
+    this.ripple.init({
+      surface: this.thumbUnderlay.nativeElement,
+      activator: this._inputElement.nativeElement
+    }, Object.assign(this.ripple.createAdapter(), {
+      isUnbounded: () => true,
+      isSurfaceDisabled: () => this._disabled
+    }));
+  }
+
+  /**
+   * Emits a change event on the `change` output. Also notifies the FormControl about the change.
+   */
+  private _emitChangeEvent() {
+    this._onChange(this.checked);
+    this.change.emit(new MdcSwitchChange(this, this.checked));
   }
 
   /** Retrieves the DOM element of the component input. */
   private _getInputElement(): HTMLInputElement {
-    return this.inputElement.nativeElement;
+    return this._inputElement.nativeElement;
   }
 
   /** Retrieves the DOM element of the component host. */

@@ -3,7 +3,7 @@
     <mdc-dialog-surface>
       <mdc-dialog-title>Create profile</mdc-dialog-title>
       <mdc-dialog-content>
-        <form [formGroup]="profileForm" id="profileForm" (ngSubmit)="submit()" autocomplete="off">
+        <form [formGroup]="profileForm" id="profileForm" (ngSubmit)="submit()" autocomplete="off" class="demo-form-field-spacing">
           <mdc-form-field fluid>
             <mdc-text-field formControlName="first" label="First name" outlined></mdc-text-field>
             <mdc-helper-text persistent validation>*Required</mdc-helper-text>

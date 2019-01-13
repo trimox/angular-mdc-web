@@ -208,7 +208,11 @@ export class Examples {
 
 <button mdc-button raised (click)="openCustom('custom-snackbar--elevation')">Elevation</button>
 
-<button mdc-button raised (click)="openCustom('custom-snackbar--viewport-margin')">Viewport Margin</button>`,
+<button mdc-button raised (click)="openCustom('custom-snackbar--viewport-margin')">Viewport Margin</button>
+
+<button mdc-button raised (click)="openCustom('custom-snackbar--max-width')">Max-Width</button>
+
+<button mdc-button raised (click)="openCustom('custom-snackbar--min-width')">Min-Width</button>`,
     ts: `${this.exampleHeader}
   openCustom(classes: string | string[]) {
     this.snackbar.open(\`Can't send photo. Retry in 5 seconds.\`, 'Retry', {
@@ -226,6 +230,14 @@ export class Examples {
 
 .custom-snackbar--elevation {
   @include mdc-snackbar-elevation(16);
+}
+
+.custom-snackbar--max-width {
+  @include mdc-snackbar-max-width(200px);
+}
+
+.custom-snackbar--min-width {
+  @include mdc-snackbar-min-width(800px);
 }`,
   };
 

@@ -17,3 +17,11 @@
 .custom-snackbar--elevation {
   @include mdc-snackbar-elevation(16);
 }
+
+.custom-snackbar--max-width {
+  @include mdc-snackbar-max-width(200px);
+}
+
+.custom-snackbar--min-width {
+  @include mdc-snackbar-min-width(800px);
+}

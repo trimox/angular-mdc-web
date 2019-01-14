@@ -15,8 +15,8 @@ export class DrawerDemo implements OnInit {
   ngOnInit(): void {
     this._componentViewer.componentView = new ComponentView(
       'Drawers',
-      'A floating action button represents the primary action in an application.',
-      "import { MdcFabModule } from '@angular-mdc/web';");
+      'Navigation drawers provide access to destinations in your app.',
+      "import { MdcDrawerModule } from '@angular-mdc/web';");
 
     this._componentViewer.componentView.references = [{
       name: 'Material Design guidelines: Navigation Drawer',
@@ -73,7 +73,7 @@ export class Examples {
     html: `<mdc-drawer drawer="permanent">
   <mdc-drawer-header title="Drawer Title" subtitle="Subtitle"></mdc-drawer-header>
   <mdc-drawer-content>
-    <mdc-list useActivatedClass>
+    <mdc-list>
       <a mdc-list-item *ngFor="let item of destinations" href="#/drawer-demo/examples">
         <mdc-icon mdcListItemGraphic *ngIf="item.icon">{{item.icon}}</mdc-icon>{{item.label}}
       </a>
@@ -106,7 +106,7 @@ export class Examples {
     html: `<mdc-drawer drawer="dismissible">
   <mdc-drawer-header title="Drawer Title" subtitle="Subtitle"></mdc-drawer-header>
   <mdc-drawer-content>
-    <mdc-list useActivatedClass>
+    <mdc-list>
       <mdc-list-item *ngFor="let item of destinations">
         <mdc-icon mdcListItemGraphic *ngIf="item.icon">{{item.icon}}</mdc-icon>{{item.label}}
       </mdc-list-item>
@@ -129,7 +129,7 @@ export class Examples {
     <h6 mdcDrawerSubtitle>Subtitle</h6>
   </mdc-drawer-header>
   <mdc-drawer-content>
-    <mdc-list useActivatedClass>
+    <mdc-list>
       <mdc-list-item *ngFor="let item of destinations">
         <mdc-icon mdcListItemGraphic *ngIf="item.icon">{{item.icon}}</mdc-icon>{{item.label}}
       </mdc-list-item>
@@ -152,7 +152,7 @@ export class Examples {
     <h6 mdcDrawerSubtitle>Subtitle</h6>
   </mdc-drawer-header>
   <mdc-drawer-content dir="rtl">
-    <mdc-list useActivatedClass>
+    <mdc-list>
       <mdc-list-item *ngFor="let item of destinations">
         <mdc-icon mdcListItemGraphic *ngIf="item.icon">{{item.icon}}</mdc-icon>{{item.label}}
       </mdc-list-item>
@@ -172,7 +172,7 @@ export class Examples {
     html: `<mdc-drawer drawer="permanent">
   <mdc-drawer-header title="Drawer Title" subtitle="Subtitle"></mdc-drawer-header>
   <mdc-drawer-content>
-    <mdc-list useActivatedClass class="demo-list--shaped">
+    <mdc-list class="demo-list--shaped">
       <a mdc-list-item *ngFor="let item of destinations" href="#/drawer-demo/examples">
         <mdc-icon mdcListItemGraphic *ngIf="item.icon">{{item.icon}}</mdc-icon>{{item.label}}
       </a>

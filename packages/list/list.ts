@@ -134,11 +134,13 @@ export class MdcList implements AfterViewInit, OnDestroy {
   private _disableRipple: boolean = false;
 
   @Input()
-  get singleSelection(): boolean { return this._singleSelection; }
-  set singleSelection(value: boolean) {
-    this.setSingleSelection(value);
+  get singleSelection(): boolean | undefined { return this._singleSelection; }
+  set singleSelection(value: boolean | undefined) {
+    if (value !== undefined) {
+      this.setSingleSelection(value);
+    }
   }
-  private _singleSelection: boolean = false;
+  private _singleSelection: boolean | undefined;
 
   @Input()
   get useActivatedClass(): boolean { return this._useActivatedClass; }
@@ -303,9 +305,6 @@ export class MdcList implements AfterViewInit, OnDestroy {
   setSingleSelection(singleSelection: boolean): void {
     this._singleSelection = toBoolean(singleSelection);
     this._foundation.setSingleSelection(this._singleSelection);
-    if (!this._useSelectedClass) {
-      this._useActivatedClass = true;
-    }
 
     if (this.getSelectedIndex() > -1) {
       this.setSelectedIndex(this.getSelectedIndex());

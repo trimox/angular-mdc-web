@@ -197,7 +197,11 @@ describe('MdcListModule', () => {
           Single-line item
           <mdc-checkbox mdcListItemMeta></mdc-checkbox>
         </mdc-list-item>
-        <mdc-list-item #lastitem>
+        <mdc-list-item>
+          Single-line item
+          <mdc-checkbox mdcListItemMeta checked></mdc-checkbox>
+        </mdc-list-item>
+          <mdc-list-item #lastitem>
           <mdc-list-item-text>
           Single-line item
           <mdc-list-item-secondary>Secondary text</mdc-list-item-secondary>

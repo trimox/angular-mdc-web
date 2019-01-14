@@ -13,8 +13,7 @@
 
     <mdc-tab-bar activeTabRouter [activeTabIndex]="-1" *ngIf="componentView.tabs">
       <mdc-tab-scroller>
-        <mdc-tab *ngFor="let tab of componentView.tabs" [label]="tab.label" [routerLink]="tab.route" routerLinkActive
-          #rla="routerLinkActive"></mdc-tab>
+        <mdc-tab *ngFor="let tab of componentView.tabs" [label]="tab.label" [routerLink]="tab.route"></mdc-tab>
       </mdc-tab-scroller>
     </mdc-tab-bar>
     <ng-content></ng-content>

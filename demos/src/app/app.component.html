@@ -18,7 +18,7 @@
   <mdc-drawer class="demo-drawer" #appDrawer="mdcDrawer" [open]="!isScreenSmall()" [drawer]="isScreenSmall() ? 'modal' : 'dismissible'"
     mdcTopAppBarFixedAdjust>
     <mdc-drawer-content>
-      <mdc-list useActivatedClass>
+      <mdc-list>
         <mdc-list-item (selectionChange)="onDrawerSelect('home')">Home</mdc-list-item>
         <mdc-list-divider></mdc-list-divider>
         <mdc-list-item (selectionChange)="startVisible = !startVisible">

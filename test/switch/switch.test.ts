@@ -291,39 +291,6 @@ describe('MdcSwitch with forms', () => {
     });
   });
 });
-// describe('with a FormControl', () => {
-//   let fixture: ComponentFixture<SwitchWithFormControl>;
-
-//   let testComponent: SwitchWithFormControl;
-//   let slideToggle: MdcSwitch;
-//   let _inputElement: HTMLInputElement;
-
-//   beforeEach(() => {
-//     fixture = TestBed.createComponent(SwitchWithFormControl);
-//     fixture.detectChanges();
-
-//     testComponent = fixture.debugElement.componentInstance;
-//     slideToggle = fixture.debugElement.query(By.directive(MdcSwitch)).componentInstance;
-//     _inputElement = fixture.debugElement.query(By.css('input')).nativeElement;
-//   });
-
-//   it('should toggle the disabled state', () => {
-//     expect(slideToggle.disabled).toBe(false);
-//     expect(_inputElement.disabled).toBe(false);
-
-//     testComponent.formControl.disable();
-//     fixture.detectChanges();
-
-//     expect(slideToggle.disabled).toBe(true);
-//     expect(_inputElement.disabled).toBe(true);
-
-//     testComponent.formControl.enable();
-//     fixture.detectChanges();
-
-//     expect(slideToggle.disabled).toBe(false);
-//     expect(_inputElement.disabled).toBe(false);
-//   });
-// });
 
 /** Simple component for testing. */
 @Component({

@@ -1,5 +1,5 @@
-import { Component, ElementRef, DebugElement, ViewChild } from '@angular/core';
-import { async, ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
+import { Component, DebugElement } from '@angular/core';
+import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { dispatchFakeEvent, dispatchKeyboardEvent } from '../testing/dispatch-events';
@@ -11,16 +11,18 @@ import {
   MdcListModule,
   MdcIconModule,
   MdcListItem,
-  MdcDrawer
+  MdcDrawer,
+  MdcButtonModule,
+  MdcButton
 } from '@angular-mdc/web';
 
 describe('MdcDrawer', () => {
   let fixture: ComponentFixture<any>;
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        MdcDrawerModule, MdcListModule, MdcIconModule
+        MdcDrawerModule, MdcListModule, MdcIconModule, MdcButtonModule
       ],
       declarations: [SimpleTest]
     });
@@ -91,7 +93,7 @@ describe('MdcDrawer', () => {
 
     it('#should not have fixed adjust element', () => {
       testInstance.fixedAdjustElement = null;
-      fixture.detectChanges()
+      fixture.detectChanges();
       expect(testInstance.fixedAdjustElement).toBeNull();
     });
 
@@ -99,7 +101,6 @@ describe('MdcDrawer', () => {
       testComponent.drawer = 'modal';
       testComponent.open = true;
       fixture.detectChanges();
-      tick(500);
 
       const drawerScrim = document.body.querySelector('.mdc-drawer-scrim');
 
@@ -114,10 +115,28 @@ describe('MdcDrawer', () => {
       fixture.detectChanges();
     }));
 
+    it('#should open from button', fakeAsync(() => {
+      testComponent.drawer = 'dismissible';
+      fixture.detectChanges();
+
+      dispatchFakeEvent(fixture.debugElement.query(By.directive(MdcButton)).nativeElement, 'click');
+      fixture.detectChanges();
+
+      expect(testInstance.open).toBe(true);
+
+      const listItemDebugElement = fixture.debugElement.query(By.directive(MdcListItem));
+      const listItemInstance = listItemDebugElement.injector.get<MdcListItem>(MdcListItem);
+
+      listItemInstance.getListItemElement().click();
+      fixture.detectChanges();
+
+      testComponent.singleSelection = false;
+      fixture.detectChanges();
+    }));
+
     it('#should handle list item click', fakeAsync(() => {
       testComponent.open = true;
       fixture.detectChanges();
-      tick(500);
 
       const listItemDebugElement = fixture.debugElement.query(By.directive(MdcListItem));
       const listItemInstance = listItemDebugElement.injector.get<MdcListItem>(MdcListItem);
@@ -147,13 +166,12 @@ describe('MdcDrawer', () => {
 
 @Component({
   template: `
-  <button (click)="testDrawer.open = !testDrawer.open" #openButton></button>
+  <button mdc-button (click)="testDrawer.open = !testDrawer.open"></button>
   <mdc-drawer #testDrawer [drawer]="drawer" [open]="open" [fixedAdjustElement]="testcontent">
-    <mdc-drawer-header title='Test' subtitle='Testing'>
-    </mdc-drawer-header>
+    <mdc-drawer-header title='Test' subtitle='Testing'></mdc-drawer-header>
     <mdc-drawer-content>
       <mdc-list-group>
-        <mdc-list useActivatedClass>
+        <mdc-list [singleSelection]="singleSelection">
           <mdc-list-item>
             <mdc-icon mdc-list-item-start>home</mdc-icon>Home
           </mdc-list-item>
@@ -166,9 +184,7 @@ describe('MdcDrawer', () => {
           <mdc-list-item>
             <mdc-icon mdc-list-item-start>drafts</mdc-icon>Drafts
           </mdc-list-item>
-        </mdc-list>
-        <mdc-list-divider></mdc-list-divider>
-        <mdc-list>
+          <mdc-list-divider></mdc-list-divider>
           <mdc-list-item>
             <mdc-icon mdc-list-item-start>email</mdc-icon>All Mail
           </mdc-list-item>
@@ -188,7 +204,5 @@ describe('MdcDrawer', () => {
 class SimpleTest {
   drawer: string = 'permanent';
   open: boolean;
-
-  @ViewChild('testcontent') testContent;
-  @ViewChild('openButton') openButton: ElementRef<HTMLButtonElement>;
+  singleSelection: boolean;
 }

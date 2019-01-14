@@ -3,7 +3,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ContentChildren,
+  ContentChild,
   Directive,
   ElementRef,
   EventEmitter,
@@ -11,14 +11,13 @@ import {
   NgZone,
   OnDestroy,
   Output,
-  QueryList,
   ViewEncapsulation
 } from '@angular/core';
 import { Subscription, fromEvent, Subject } from 'rxjs';
-import { startWith, takeUntil, filter } from 'rxjs/operators';
+import { takeUntil, filter } from 'rxjs/operators';
 
 import { Platform, toBoolean } from '@angular-mdc/web/common';
-import { MdcList, MdcListItem } from '@angular-mdc/web/list';
+import { MdcList } from '@angular-mdc/web/list';
 
 import createFocusTrap from 'focus-trap';
 
@@ -38,9 +37,7 @@ export type MdcDrawerType = 'permanent' | 'dismissible' | 'modal';
   <h3 class="mdc-drawer__title" *ngIf="title">{{title}}</h3>
   <h6 class="mdc-drawer__subtitle" *ngIf="subtitle">{{subtitle}}</h6>
   `,
-  host: {
-    'class': 'mdc-drawer__header'
-  },
+  host: { 'class': 'mdc-drawer__header' },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
@@ -129,13 +126,9 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
   @Output() readonly opened: EventEmitter<void> = new EventEmitter<void>();
   @Output() readonly closed: EventEmitter<void> = new EventEmitter<void>();
 
-  @ContentChildren(MdcList, { descendants: true }) _list!: QueryList<MdcList>;
-  @ContentChildren(MdcListItem, { descendants: true }) _listItems!: QueryList<MdcListItem>;
+  @ContentChild(MdcList) _list?: MdcList;
 
   private _scrimSubscription: Subscription | null = null;
-
-  /** Subscription to a list. */
-  private _listSubscription: Subscription | null = null;
 
   get modal(): boolean { return this.drawer === 'modal'; }
   get dismissible(): boolean { return this.drawer === 'dismissible'; }
@@ -157,11 +150,11 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
         }
       },
       focusActiveNavigationItem: () => {
-        if (!this._platform.isBrowser) { return; }
+        if (!this._platform.isBrowser || !this._list) { return; }
 
-        const activeNavItemEl = this._listItems.find((_: MdcListItem) => _.activated || _.selected);
-        if (activeNavItemEl) {
-          activeNavItemEl.focus();
+        const selectedItem = this._list.getSelectedItem();
+        if (selectedItem) {
+          selectedItem.focus();
         }
       },
       notifyClose: () => this.closed.emit(),
@@ -195,9 +188,7 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
     public elementRef: ElementRef<HTMLElement>) { }
 
   ngAfterViewInit(): void {
-    this._listSubscription = this._list.changes.pipe(startWith(null)).subscribe(() => {
-      this._initListType();
-    });
+    this._initListType();
 
     if (!this._initialized) {
       this._initFoundation();
@@ -207,13 +198,32 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this._unloadListeners();
 
-    if (this._listSubscription) {
-      this._listSubscription.unsubscribe();
-    }
-
     if (this._foundation && this._platform.isBrowser) {
       this._foundation.destroy();
     }
+  }
+
+  setDrawer(drawer: string): void {
+    if (!drawer) {
+      drawer = 'permanent';
+    }
+
+    if (this.drawer !== drawer) {
+      this._drawer = drawer;
+      this._initFoundation();
+    }
+  }
+
+  setFixedAdjustElement(element: any): void {
+    this._fixedAdjustElement = element;
+
+    if (element) {
+      this._getHostElement().style.setProperty('position', 'absolute');
+    } else {
+      this._getHostElement().style.removeProperty('position');
+    }
+
+    this._changeDetectorRef.markForCheck();
   }
 
   private _loadListeners(): void {
@@ -277,33 +287,11 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
   }
 
   private _initListType(): void {
-    if (this._list.length > 0) {
-      this._list.first.singleSelection = true;
-      this._list.first.wrapFocus = true;
+    if (this._list && (this._list.singleSelection || this._list.singleSelection === undefined)) {
+      this._list.wrapFocus = true;
+      this._list.singleSelection = true;
+      this._list.useActivatedClass = true;
     }
-  }
-
-  setDrawer(drawer: string): void {
-    if (!drawer) {
-      drawer = 'permanent';
-    }
-
-    if (this.drawer !== drawer) {
-      this._drawer = drawer;
-      this._initFoundation();
-    }
-  }
-
-  setFixedAdjustElement(element: any): void {
-    this._fixedAdjustElement = element;
-
-    if (element) {
-      this._getHostElement().style.setProperty('position', 'absolute');
-    } else {
-      this._getHostElement().style.removeProperty('position');
-    }
-
-    this._changeDetectorRef.markForCheck();
   }
 
   private _removeDrawerModifiers(): void {

@@ -19,6 +19,7 @@
     <button mdc-button (click)="custom.useSelectedClass = !custom.useSelectedClass">Use Selected Class:
       {{custom.useSelectedClass ?
       'On' : 'Off'}}</button>
+    <button mdc-button (click)="custom.reset()" *ngIf="custom.useActivatedClass || custom.useSelectedClass">Reset</button>
   </div>
   <mdc-list-group subheader="Folders">
     <mdc-list #custom twoLine avatar class="demo-list--custom">

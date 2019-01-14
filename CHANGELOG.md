@@ -1,3 +1,25 @@
+## [0.43.2](https://github.com/trimox/angular-mdc-web/compare/v0.43.1...v0.43.2) (2019-01-14)
+
+
+### Bug Fixes
+
+* **icon:** Clear cached references in icon registry on destroy ([#1714](https://github.com/trimox/angular-mdc-web/issues/1714)) ([4cf25ac](https://github.com/trimox/angular-mdc-web/commit/4cf25ac)), closes [#1713](https://github.com/trimox/angular-mdc-web/issues/1713)
+* **switch:** Pass disabled property to ripple ([#1706](https://github.com/trimox/angular-mdc-web/issues/1706)) ([0a7f362](https://github.com/trimox/angular-mdc-web/commit/0a7f362)), closes [#1705](https://github.com/trimox/angular-mdc-web/issues/1705)
+
+
+### Features
+
+* **drawer:** Allow disabling singleSelection + refactoring ([#1717](https://github.com/trimox/angular-mdc-web/issues/1717)) ([2bdd8a6](https://github.com/trimox/angular-mdc-web/commit/2bdd8a6)), closes [#1692](https://github.com/trimox/angular-mdc-web/issues/1692) [#1716](https://github.com/trimox/angular-mdc-web/issues/1716)
+* **switch:** Improvements and fixes ([#1712](https://github.com/trimox/angular-mdc-web/issues/1712)) ([bb0531d](https://github.com/trimox/angular-mdc-web/commit/bb0531d)), closes [#1709](https://github.com/trimox/angular-mdc-web/issues/1709) [#1710](https://github.com/trimox/angular-mdc-web/issues/1710) [#1708](https://github.com/trimox/angular-mdc-web/issues/1708) [#1707](https://github.com/trimox/angular-mdc-web/issues/1707)
+
+#### MdcSwitch
+- Adds `toggle()`
+- Adds `@Input() required: boolean`
+- Adds `aria-label`
+- Adds `aria-labelledby`
+- Fixes issues using with forms
+
+
 ## [0.43.1](https://github.com/trimox/angular-mdc-web/compare/v0.43.0...v0.43.1) (2019-01-12)
 
 

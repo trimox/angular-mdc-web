@@ -82,7 +82,8 @@ const funcIriPattern = /^url\(['"]?#(.*?)['"]?\)$/;
     '[attr.role]': 'role',
     '[attr.tabindex]': 'tabIndex',
     'class': 'ngx-mdc-icon',
-    '[class.ngx-mdc-icon--clickable]': 'clickable'
+    '[class.ngx-mdc-icon--clickable]': 'clickable',
+    '[class.ngx-mdc-icon--inline]': 'inline'
   },
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
@@ -97,6 +98,17 @@ export class MdcIcon implements AfterViewChecked, OnDestroy, OnChanges, OnInit {
 
   /** Keeps track of the elements and attributes that we've prefixed with the current path. */
   private _elementsWithExternalReferences?: Map<Element, { name: string, value: string }[]>;
+
+  /**
+   * Whether the icon should be inlined, automatically sizing the icon to match the font size of
+   * the element the icon is contained in.
+   */
+  @Input()
+  get inline(): boolean { return this._inline; }
+  set inline(inline: boolean) {
+    this._inline = toBoolean(inline);
+  }
+  private _inline: boolean = false;
 
   /** Name of the icon in the SVG icon set. */
   @Input() svgIcon?: string;

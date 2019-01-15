@@ -51,6 +51,7 @@ describe('MdcIcon', () => {
         IconFromSvgName,
         IconWithAriaHiddenFalse,
         IconWithBindingAndNgIf,
+        InlineIcon,
         SvgIconWithUserContent,
       ],
       providers: [{
@@ -89,6 +90,18 @@ describe('MdcIcon', () => {
     const iconElement = fixture.debugElement.nativeElement.querySelector('mdc-icon');
     expect(iconElement.getAttribute('aria-hidden'))
       .toBe('false', 'Expected the mdc-icon element has the user-provided aria-hidden value');
+  });
+
+  it('should apply inline styling', () => {
+    const fixture = TestBed.createComponent(InlineIcon);
+    const iconElement = fixture.debugElement.nativeElement.querySelector('mdc-icon');
+    expect(iconElement.classList.contains('ngx-mdc-icon--inline'))
+      .toBeFalsy('Expected the mdc-icon element to not include the inline styling class');
+
+    fixture.debugElement.componentInstance.inline = true;
+    fixture.detectChanges();
+    expect(iconElement.classList.contains('ngx-mdc-icon--inline'))
+      .toBeTruthy('Expected the mdc-icon element to include the inline styling class');
   });
 
   describe('Ligature icons', () => {
@@ -783,6 +796,11 @@ class IconWithAriaHiddenFalse { }
 class IconWithBindingAndNgIf {
   iconName = 'fluffy';
   showIcon = true;
+}
+
+@Component({template: `<mdc-icon [inline]="inline">{{iconName}}</mdc-icon>`})
+class InlineIcon {
+  inline = false;
 }
 
 @Component({ template: `<mdc-icon clickable [svgIcon]="iconName"><div>Hello</div></mdc-icon>` })

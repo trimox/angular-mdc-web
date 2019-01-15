@@ -7,3 +7,10 @@ a.ngx-mdc-icon {
   -ms-user-select: none;
   user-select: none;
 }
+
+.ngx-mdc-icon--inline {
+  font-size: inherit;
+  height: inherit;
+  line-height: inherit;
+  width: inherit;
+}

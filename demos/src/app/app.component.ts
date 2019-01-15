@@ -69,11 +69,9 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     if (environment.production) {
       this._router.events.subscribe(event => {
-        if (this._router.url !== '/') {
-          if (event instanceof NavigationEnd) {
-            (<any>window).ga('set', 'page', event.urlAfterRedirects);
-            (<any>window).ga('send', 'pageview');
-          }
+        if (event instanceof NavigationEnd) {
+          (<any>window).ga('set', 'page', event.urlAfterRedirects);
+          (<any>window).ga('send', 'pageview');
         }
       });
     }
@@ -82,9 +80,7 @@ export class AppComponent implements OnInit {
     this.matcher.addListener((event: MediaQueryListEvent) => this._ngZone.run(() => event.matches));
   }
 
-  onDrawerSelect(route: any) {
-    this._router.navigate([route]);
-
+  onDrawerSelect() {
     if (this.isScreenSmall()) {
       this.appDrawer.open = false;
     }

@@ -60,14 +60,20 @@
   <h3 class="demo-content__headline">Theme</h3>
   <div class="demo-layout__row">
     <div class="demo-container">
-      <button mdc-button raised (click)="openCustom('custom-snackbar--fill-color')">Fill Color</button>
+      <button mdc-button raised (click)="openCustom({classes: 'custom-snackbar--fill-color'})">Fill Color</button>
     </div>
     <div class="demo-container">
-      <button mdc-button raised (click)="openCustom('custom-snackbar--label-ink-color')">Ink Color</button>
+      <button mdc-button raised (click)="openCustom({classes: 'custom-snackbar--label-ink-color'})">Ink Color</button>
     </div>
     <div class="demo-container">
-      <button mdc-button raised (click)="openCustom(['custom-snackbar--fill-color', 'custom-snackbar--label-ink-color'])">Fill/Ink
+      <button mdc-button raised (click)="openCustom({classes: ['custom-snackbar--fill-color', 'custom-snackbar--label-ink-color']})">Fill/Ink
         Color</button>
+    </div>
+    <div class="demo-container">
+      <button mdc-button raised (click)="openCustom({actionClasses: 'mdc-button--outlined'})">Action Outlined</button>
+    </div>
+    <div class="demo-container">
+      <button mdc-button raised (click)="openCustom({dismissClasses: 'demo-icon-button-custom'})">Dismiss Icon</button>
     </div>
   </div>
   <example-viewer [example]="exampleTheme"></example-viewer>

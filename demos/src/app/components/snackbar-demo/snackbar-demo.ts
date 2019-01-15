@@ -4,6 +4,12 @@ import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
 
 import { MdcSnackbar } from '@angular-mdc/web';
 
+interface CustomClasses {
+  classes: string | string[];
+  actionClasses: string | string[];
+  dismissClasses: string | string[];
+}
+
 @Component({ template: '<component-viewer></component-viewer>' })
 export class SnackbarDemo implements OnInit {
   @ViewChild(ComponentViewer) _componentViewer: ComponentViewer;
@@ -99,9 +105,12 @@ export class Examples {
     });
   }
 
-  openCustom(classes: string | string[]) {
+  openCustom(customClasses: CustomClasses) {
     this.snackbar.open(`Can't send photo. Retry in 5 seconds.`, 'Retry', {
-      classes: classes
+      dismiss: true,
+      classes: customClasses.classes,
+      actionClasses: customClasses.actionClasses,
+      dismissClasses: customClasses.dismissClasses
     });
   }
 
@@ -242,18 +251,38 @@ export class Examples {
   };
 
   exampleTheme = {
-    html: `<button mdc-button raised (click)="openCustom('custom-snackbar--fill-color')">Fill Color</button>
-
-<button mdc-button raised (click)="openCustom('custom-snackbar--label-ink-color')">Ink Color</button>
+    html: `<button mdc-button raised
+  (click)="openCustom({classes: 'custom-snackbar--fill-color'})">Fill Color</button>
 
 <button mdc-button raised
-  (click)="openCustom([
-    'custom-snackbar--fill-color',
-    'custom-snackbar--label-ink-color'])">Fill/Ink Color</button>`,
-    ts: `${this.exampleHeader}
-  openCustom(classes: string | string[]) {
+  (click)="openCustom({classes: 'custom-snackbar--label-ink-color'})">Ink Color</button>
+
+<button mdc-button raised
+  (click)="openCustom({classes: ['custom-snackbar--fill-color', 'custom-snackbar--label-ink-color']})">Fill/Ink Color</button>
+
+<button mdc-button raised
+  (click)="openCustom({actionClasses: 'mdc-button--outlined'})">Action Outlined</button>
+
+<button mdc-button raised
+  (click)="openCustom({dismissClasses: 'demo-icon-button-custom'})">Custom Dismiss Icon</button>`,
+    ts: `import { MdcSnackbar } from '@angular-mdc/web';
+
+interface CustomClasses {
+  classes: string | string[];
+  actionClasses: string | string[];
+  dismissClasses: string | string[];
+}
+
+@Component({ templateUrl: './examples.html' })
+export class Examples {
+  constructor(private snackbar: MdcSnackbar) { }
+
+  openCustom(customClasses: CustomClasses) {
     this.snackbar.open(\`Can't send photo. Retry in 5 seconds.\`, 'Retry', {
-      classes: classes
+      dismiss: true,
+      classes: customClasses.classes,
+      actionClasses: customClasses.actionClasses,
+      dismissClasses: customClasses.dismissClasses
     });
   }
 }`,
@@ -263,6 +292,14 @@ export class Examples {
 
 .custom-snackbar--label-ink-color {
   @include mdc-snackbar-label-ink-color($material-color-yellow-500);
+}
+
+.demo-icon-button-custom {
+  @include mdc-icon-button-ink-color(#de442c);
+  @include mdc-states-base-color(#de442c);
+  @include mdc-states-hover-opacity(.09);
+  @include mdc-states-focus-opacity(.26);
+  @include mdc-states-press-opacity(.35);
 }`
   };
 }

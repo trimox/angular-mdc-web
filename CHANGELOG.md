@@ -1,3 +1,24 @@
+## [0.43.3](https://github.com/trimox/angular-mdc-web/compare/v0.43.2...v0.43.3) (2019-01-16)
+
+
+### Bug Fixes
+
+* **demos:** Restore navigation drawer state ([#1719](https://github.com/trimox/angular-mdc-web/issues/1719)) ([b1be5ee](https://github.com/trimox/angular-mdc-web/commit/b1be5ee))
+* **list:** Move events to host binding ([#1734](https://github.com/trimox/angular-mdc-web/issues/1734)) ([a258e3f](https://github.com/trimox/angular-mdc-web/commit/a258e3f)), closes [#1733](https://github.com/trimox/angular-mdc-web/issues/1733)
+* **menu:** Update mdcMenuSelectionGroupIcon selected state ([#1725](https://github.com/trimox/angular-mdc-web/issues/1725)) ([9cc7167](https://github.com/trimox/angular-mdc-web/commit/9cc7167)), closes [#1658](https://github.com/trimox/angular-mdc-web/issues/1658)
+* **tab-bar:** Selected tab should scroll into view ([#1722](https://github.com/trimox/angular-mdc-web/issues/1722)) ([9359f4d](https://github.com/trimox/angular-mdc-web/commit/9359f4d)), closes [#1685](https://github.com/trimox/angular-mdc-web/issues/1685)
+* **text-field:** Keep Chrome autofill behind notched outline ([#1730](https://github.com/trimox/angular-mdc-web/issues/1730)) ([d1c79ae](https://github.com/trimox/angular-mdc-web/commit/d1c79ae)), closes [#1729](https://github.com/trimox/angular-mdc-web/issues/1729)
+* **text-field:** Should disable input element ([#1731](https://github.com/trimox/angular-mdc-web/issues/1731)) ([97269ff](https://github.com/trimox/angular-mdc-web/commit/97269ff)), closes [#1728](https://github.com/trimox/angular-mdc-web/issues/1728)
+* **text-field:** Should update view model in onChange ([#1732](https://github.com/trimox/angular-mdc-web/issues/1732)) ([cdbf68b](https://github.com/trimox/angular-mdc-web/commit/cdbf68b)), closes [#1724](https://github.com/trimox/angular-mdc-web/issues/1724)
+
+
+### Features
+
+* **icon:** Add inline property ([#1726](https://github.com/trimox/angular-mdc-web/issues/1726)) ([684ff2a](https://github.com/trimox/angular-mdc-web/commit/684ff2a))
+* **icon:** Preserve svg viewBox attribute in icon-registry ([#1723](https://github.com/trimox/angular-mdc-web/issues/1723)) ([cb0d503](https://github.com/trimox/angular-mdc-web/commit/cb0d503)), closes [#1681](https://github.com/trimox/angular-mdc-web/issues/1681) [#1704](https://github.com/trimox/angular-mdc-web/issues/1704)
+
+
+
 ## [0.43.2](https://github.com/trimox/angular-mdc-web/compare/v0.43.1...v0.43.2) (2019-01-14)
 
 

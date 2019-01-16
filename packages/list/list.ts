@@ -9,14 +9,13 @@ import {
   EventEmitter,
   forwardRef,
   Input,
-  NgZone,
   OnDestroy,
   Output,
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
-import { fromEvent, merge, Observable, Subject, Subscription } from 'rxjs';
-import { startWith, takeUntil } from 'rxjs/operators';
+import { merge, Observable, Subscription } from 'rxjs';
+import { startWith } from 'rxjs/operators';
 
 import { toBoolean, Platform } from '@angular-mdc/web/common';
 
@@ -74,16 +73,17 @@ export class MdcListGroupSubheader {
     '[class.mdc-list--avatar-list]': 'avatar',
     '[class.ngx-mdc-list--border]': 'border',
     '[class.mdc-list--non-interactive]': '!interactive',
-    '[class.mdc-list--two-line]': 'twoLine'
+    '[class.mdc-list--two-line]': 'twoLine',
+    '(click)': '_handleClickEvent($event)',
+    '(keydown)': '_onKeydown($event)',
+    '(focusin)': '_onFocusIn($event)',
+    '(focusout)': '_onFocusOut($event)'
   },
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcList implements AfterViewInit, OnDestroy {
-  /** Emits whenever the component is destroyed. */
-  private _destroy = new Subject<void>();
-
   @Input()
   get twoLine(): boolean { return this._twoLine; }
   set twoLine(value: boolean) {
@@ -261,10 +261,10 @@ export class MdcList implements AfterViewInit, OnDestroy {
     handleKeydown(evt: KeyboardEvent, isRootListItem: boolean, listItemIndex: number): void,
     handleFocusIn(evt: FocusEvent, listItemIndex: number): void,
     handleFocusOut(evt: FocusEvent, listItemIndex: number): void,
-    focusNextElement(index: number): void,
-    focusPrevElement(index: number): void,
-    focusFirstElement(): void,
-    focusLastElement(): void,
+    focusNextElement(index: number): number,
+    focusPrevElement(index: number): number,
+    focusFirstElement(): number,
+    focusLastElement(): number,
     setSelectedIndex(index: number): void,
     setSingleSelection(isSingleSelectionList: boolean): void,
     setUseActivatedClass(useActivated: boolean): void
@@ -273,7 +273,6 @@ export class MdcList implements AfterViewInit, OnDestroy {
   constructor(
     private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
-    private _ngZone: NgZone,
     public elementRef: ElementRef) { }
 
   ngAfterViewInit(): void {
@@ -286,14 +285,10 @@ export class MdcList implements AfterViewInit, OnDestroy {
         this._initRipple();
       });
 
-    this._loadListeners();
     this._foundation.layout();
   }
 
   ngOnDestroy(): void {
-    this._destroy.next();
-    this._destroy.complete();
-
     this._dropSubscriptions();
     if (this._changeSubscription) {
       this._changeSubscription.unsubscribe();
@@ -372,12 +367,20 @@ export class MdcList implements AfterViewInit, OnDestroy {
     this.items.toArray()[index].getListItemElement().focus();
   }
 
-  focusFirstElement(): void {
-    this._foundation.focusFirstElement();
+  focusFirstElement(): number {
+    return this._foundation.focusFirstElement();
   }
 
-  focusLastElement(): void {
-    this._foundation.focusLastElement();
+  focusLastElement(): number {
+    return this._foundation.focusLastElement();
+  }
+
+  focusNextElement(index: number): number {
+    return this._foundation.focusNextElement(index);
+  }
+
+  focusPrevElement(index: number): number {
+    return this._foundation.focusPrevElement(index);
   }
 
   setRole(role: string): void {
@@ -385,11 +388,10 @@ export class MdcList implements AfterViewInit, OnDestroy {
   }
 
   reset(): void {
-    this.items.filter(_ => _.activated || _.selected)
-      .map(_ => {
-        _.selected = false;
-        _.activated = false;
-      });
+    this.items.forEach(_ => {
+      _.selected = false;
+      _.activated = false;
+    });
   }
 
   private _applySelectionState(item: MdcListItem): void {
@@ -417,7 +419,7 @@ export class MdcList implements AfterViewInit, OnDestroy {
     this.itemSelectionSubscription = this.listItemSelections.subscribe(event => {
       if (this.singleSelection) {
         this.items.filter(_ => _.id !== event.source.id && (_.activated || _.selected))
-          .map(_ => {
+          .forEach(_ => {
             _.selected = false;
             _.activated = false;
           });
@@ -435,42 +437,30 @@ export class MdcList implements AfterViewInit, OnDestroy {
   private _initRipple(): void {
     if (!this.items) { return; }
 
-    this.items.map(option =>
+    this.items.forEach(option =>
       this.disableRipple ? option.destroyRipple() : option.initRipple());
   }
 
-  private _loadListeners(): void {
-    this._ngZone.runOutsideAngular(() =>
-      fromEvent<MouseEvent>(this._getHostElement(), 'click').pipe(takeUntil(this._destroy))
-        .subscribe(evt => this._ngZone.run(() => this._handleClickEvent(evt))));
-
-    this._ngZone.runOutsideAngular(() =>
-      fromEvent<KeyboardEvent>(this._getHostElement(), 'keydown').pipe(takeUntil(this._destroy))
-        .subscribe(evt => this._ngZone.run(() => {
-          const index = this._getListItemIndex(evt);
-          if (index >= 0 && evt.target) {
-            this._foundation.handleKeydown(evt, (<any>evt.target).classList.contains('mdc-list-item'), index);
-          }
-        })));
-
-    this._ngZone.runOutsideAngular(() =>
-      fromEvent<FocusEvent>(this._getHostElement(), 'focusin').pipe(takeUntil(this._destroy))
-        .subscribe(evt => this._ngZone.run(() => {
-          const index = this._getListItemIndex(evt);
-          this._foundation.handleFocusIn(evt, index);
-        })));
-
-    this._ngZone.runOutsideAngular(() =>
-      fromEvent<FocusEvent>(this._getHostElement(), 'focusout').pipe(takeUntil(this._destroy))
-        .subscribe(evt => this._ngZone.run(() => {
-          const index = this._getListItemIndex(evt);
-          if (index >= 0) {
-            this._foundation.handleFocusOut(evt, index);
-          }
-        })));
+  _onFocusIn(evt: FocusEvent): void {
+    const index = this._getListItemIndex(evt);
+    this._foundation.handleFocusIn(evt, index);
   }
 
-  private _handleClickEvent(evt: MouseEvent): void {
+  _onFocusOut(evt: FocusEvent): void {
+    const index = this._getListItemIndex(evt);
+    if (index >= 0) {
+      this._foundation.handleFocusOut(evt, index);
+    }
+  }
+
+  _onKeydown(evt: KeyboardEvent): void {
+    const index = this._getListItemIndex(evt);
+    if (index >= 0 && evt.target) {
+      this._foundation.handleKeydown(evt, (<any>evt.target).classList.contains(strings.LIST_ITEM_CLASS), index);
+    }
+  }
+
+  _handleClickEvent(evt: MouseEvent): void {
     const index = this._getListItemIndex(evt);
 
     // Toggle the checkbox only if it's not the target of the event, or the checkbox will have 2 change events.

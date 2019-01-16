@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -8,15 +7,11 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  NgZone,
   OnDestroy,
   OnInit,
   Output,
   ViewEncapsulation
 } from '@angular/core';
-import { fromEvent, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-
 import { toBoolean, ENTER, SPACE } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
@@ -90,17 +85,16 @@ export class MdcListItemSecondary {
     'class': 'mdc-list-item',
     '[class.mdc-list-item--selected]': 'selected',
     '[class.mdc-list-item--activated]': 'activated',
-    '[class.mdc-list-item--disabled]': 'disabled'
+    '[class.mdc-list-item--disabled]': 'disabled',
+    '(click)': '_emitChangeEvent($event)',
+    '(keydown)': '_onKeydown($event)'
   },
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [MdcRipple]
 })
-export class MdcListItem implements AfterViewInit, OnInit, OnDestroy {
-  /** Emits whenever the component is destroyed. */
-  private _destroy = new Subject<void>();
-
+export class MdcListItem implements OnInit, OnDestroy {
   private _id = `mdc-list-item-${uniqueIdCounter++}`;
 
   /** The unique ID of the option. */
@@ -151,14 +145,9 @@ export class MdcListItem implements AfterViewInit, OnInit, OnDestroy {
   @ContentChild(MdcListItemGraphic) listItemStart?: MdcListItemGraphic;
 
   constructor(
-    private _ngZone: NgZone,
     public ripple: MdcRipple,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef) { }
-
-  ngAfterViewInit(): void {
-    this._loadListeners();
-  }
 
   ngOnInit(): void {
     this.initRipple();
@@ -166,9 +155,6 @@ export class MdcListItem implements AfterViewInit, OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroyRipple();
-
-    this._destroy.next();
-    this._destroy.complete();
   }
 
   initRipple(): void {
@@ -196,18 +182,10 @@ export class MdcListItem implements AfterViewInit, OnInit, OnDestroy {
     return this.elementRef.nativeElement;
   }
 
-  private _loadListeners(): void {
-    this._ngZone.runOutsideAngular(() =>
-      fromEvent<MouseEvent>(this.getListItemElement(), 'click').pipe(takeUntil(this._destroy))
-        .subscribe(() => this._ngZone.run(() => this._emitChangeEvent())));
-
-    this._ngZone.runOutsideAngular(() =>
-      fromEvent<KeyboardEvent>(this.getListItemElement(), 'keydown').pipe(takeUntil(this._destroy))
-        .subscribe((evt) => this._ngZone.run(() => {
-          if (evt.keyCode === ENTER || evt.keyCode === SPACE) {
-            this._emitChangeEvent();
-          }
-        })));
+  _onKeydown(evt: KeyboardEvent): void {
+    if (evt.keyCode === ENTER || evt.keyCode === SPACE) {
+      this._emitChangeEvent();
+    }
   }
 
   /** Emits a change event if the selected state of an option changed. */

@@ -37,8 +37,8 @@
           <mdc-list-item *ngFor="let item of themeRoutes" [routerLink]="item.route" (selectionChange)="onDrawerSelect()">{{item.name}}</mdc-list-item>
         </div>
         <mdc-list-divider></mdc-list-divider>
-        <mdc-list-item *ngFor="let navItem of navigationLinks" [routerLink]="navItem.route" [activated]="rla.isActive"
-          routerLinkActive #rla="routerLinkActive">{{navItem.name}}</mdc-list-item>
+        <mdc-list-item *ngFor="let navItem of navigationLinks" (selectionChange)="onDrawerSelect(navItem.route)" [activated]="rla.isActive"
+          routerLinkActive #rla="routerLinkActive" [routerLink]="navItem.route">{{navItem.name}}</mdc-list-item>
       </mdc-list>
     </mdc-drawer-content>
   </mdc-drawer>

@@ -80,7 +80,9 @@ export class AppComponent implements OnInit {
     this.matcher.addListener((event: MediaQueryListEvent) => this._ngZone.run(() => event.matches));
   }
 
-  onDrawerSelect() {
+  onDrawerSelect(route: string) {
+    this._router.navigate([route]);
+
     if (this.isScreenSmall()) {
       this.appDrawer.open = false;
     }

@@ -1,7 +1,11 @@
 import { Component, DebugElement, ViewChild } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
+import { dispatchMouseEvent, dispatchKeyboardEvent } from '../testing/dispatch-events';
+
 import {
+  TAB,
   MdcList,
   MdcListItem,
   MdcListGroup,
@@ -14,7 +18,7 @@ import {
 describe('MdcListModule', () => {
   let fixture: ComponentFixture<any>;
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [MdcListModule, MdcIconModule, MdcCheckboxModule],
       declarations: [
@@ -29,14 +33,14 @@ describe('MdcListModule', () => {
     let testInstance: MdcList;
     let testComponent: SimpleList;
 
-    beforeEach(() => {
+    beforeEach(fakeAsync(() => {
       fixture = TestBed.createComponent(SimpleList);
       fixture.detectChanges();
 
       testDebugElement = fixture.debugElement.query(By.directive(MdcList));
       testInstance = testDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
-    });
+    }));
 
     it('#should have mdc-list class', () => {
       expect(testDebugElement.nativeElement.classList).toContain('mdc-list');
@@ -88,6 +92,12 @@ describe('MdcListModule', () => {
       testInstance.focusFirstElement();
       fixture.detectChanges();
       expect(document.activeElement === testComponent.listitem.elementRef.nativeElement).toBe(true);
+
+      testInstance.focusNextElement(1);
+      fixture.detectChanges();
+
+      testInstance.focusPrevElement(0);
+      fixture.detectChanges();
     });
 
     it('#last list item should be focused', () => {
@@ -173,6 +183,7 @@ describe('MdcListModule', () => {
       const listItemInstance = listItemDebugElement.injector.get<MdcListItem>(MdcListItem);
 
       listItemInstance.setRole('test');
+      dispatchKeyboardEvent(listItemDebugElement.nativeElement, 'keydown', TAB);
       fixture.detectChanges();
       expect(listItemInstance.elementRef.nativeElement.getAttribute('role')).toBe('test');
     });

@@ -34,7 +34,7 @@ let nextUniqueId = 0;
   exportAs: 'mdcMenuSelectionGroup'
 })
 export class MdcMenuSelectionGroup {
-  constructor(public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
 }
 
 @Directive({
@@ -74,7 +74,7 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
   set wrapFocus(value: boolean) {
     const newValue = toBoolean(value);
     if (newValue !== this._wrapFocus) {
-      this._wrapFocus = toBoolean(value);
+      this._wrapFocus = newValue;
       this._list.wrapFocus = newValue;
     }
   }
@@ -103,9 +103,10 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
       getElementIndex: (element: HTMLElement) =>
         this._list.items.toArray().findIndex(_ => _.getListItemElement() === element),
       getParentElement: (element: HTMLElement) => element.parentElement,
-      getSelectedElementIndex: (selectionGroup: MdcMenuSelectionGroup) =>
-        this._list.items.toArray().indexOf(
-          selectionGroup.elementRef.nativeElement.querySelector('mdc-menu-item--selected')),
+      getSelectedElementIndex: (selectionGroup: HTMLElement) => {
+        const selectedItem = selectionGroup.querySelector(`.mdc-menu-item--selected`);
+        return selectedItem ? this._list.items.toArray().findIndex(_ => _.id === selectedItem.id) : -1;
+      },
       notifySelected: (evtData: { index: number }) =>
         this.selected.emit(new MdcMenuSelectedEvent(evtData.index, this._list.items.toArray()[evtData.index]))
     });
@@ -145,9 +146,7 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
 
     // When the list items change, re-subscribe
     this._list.items.changes.pipe(takeUntil(this._destroyed))
-      .subscribe(() => {
-        this._list.items.forEach(item => item.setRole('menuitem'));
-      });
+      .subscribe(() => this._list.items.forEach(item => item.setRole('menuitem')));
   }
 
   handleClick(evt: MouseEvent): void {

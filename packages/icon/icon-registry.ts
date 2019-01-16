@@ -490,6 +490,11 @@ export class MdcIconRegistry implements OnDestroy {
 
     if (!svg) {
       throw Error('<svg> tag not found');
+    } else {
+      const viewBox = svg.getAttribute('viewBox');
+      if (viewBox) {
+        svg.setAttribute('viewBox', viewBox);
+      }
     }
 
     return svg;

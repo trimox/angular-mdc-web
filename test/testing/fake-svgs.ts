@@ -40,7 +40,7 @@ export const FAKE_SVGS = {
   arrows: `
     <svg>
       <defs>
-        <svg id="left-arrow" name="left-arrow"><path name="left"></path></svg>
+        <svg id="left-arrow" name="left-arrow" viewBox="0 0 24 24"><path name="left"></path></svg>
         <svg id="right-arrow" name="right-arrow"><path name="right"></path></svg>
       </defs>
     </svg>  `

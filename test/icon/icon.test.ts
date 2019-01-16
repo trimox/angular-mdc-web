@@ -367,7 +367,7 @@ describe('MdcIcon', () => {
       fixture.detectChanges();
       svgElement = verifyAndGetSingleSvgChild(mdcIconElement);
       verifyPathChildElement(svgElement, 'left');
-      expect(svgElement.getAttribute('viewBox')).toBeFalsy();
+      expect(svgElement.getAttribute('viewBox')).toBeTruthy();
     });
 
     it('should not throw when toggling an icon that has a binding in IE11', () => {
@@ -566,7 +566,7 @@ describe('MdcIcon', () => {
       fixture.detectChanges();
       svgElement = verifyAndGetSingleSvgChild(mdcIconElement);
       verifyPathChildElement(svgElement, 'left');
-      expect(svgElement.getAttribute('viewBox')).toBeFalsy();
+      expect(svgElement.getAttribute('viewBox')).toBeTruthy();
     });
 
     it('should add an extra string to the end of `style` tags inside SVG', fakeAsync(() => {

@@ -11,3 +11,9 @@
 .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__icon {
   fill: rgba(0, 0, 0, .54);
 }
+
+.demo-svg-custom-color {
+  $color: $material-color-orange-500;
+
+  @include mdc-theme-prop(fill, $color);
+}

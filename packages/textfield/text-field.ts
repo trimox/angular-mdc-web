@@ -91,6 +91,7 @@ const MOUSE_EVENT_IGNORE_TIME = 800;
     [attr.min]="min"
     [attr.size]="size"
     [attr.step]="step"
+    [disabled]="disabled"
     [readonly]="readonly"
     [required]="required"
     (mousedown)="onInputInteraction($event)"

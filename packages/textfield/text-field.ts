@@ -448,7 +448,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
 
   onChange(evt: Event): void {
     const value = (<any>evt.target).value;
-    this.setValue(value);
+    this.setValue(value, true);
     this.change.emit(value);
     evt.stopPropagation();
   }

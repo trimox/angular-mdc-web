@@ -83,8 +83,9 @@
 </div>
 
 <div class="demo-content">
-  <h3 class="demo-content__headline">Themed</h3>
-  <mdc-top-app-bar class="demo-top-app-bar-themed" style="position: unset" [scrollTarget]="mainThemedContent">
+  <h3 class="demo-content__headline">Theme</h3>
+  <mdc-top-app-bar class="demo-top-app-bar-themed" style="position: unset"
+    [scrollTarget]="mainThemedContent">
     <mdc-top-app-bar-row>
       <mdc-top-app-bar-section align="start" title="App">
         <button mdcIconButton mdcTopAppBarNavIcon icon="menu"></button>
@@ -97,5 +98,60 @@
   <div class="demo-app-bar-content" #mainThemedContent>
     <p *ngFor="let lorem of lorems">{{lorem}}</p>
   </div>
-  <example-viewer [example]="exampleThemed"></example-viewer>
+  <example-viewer [example]="exampleTheme"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">With Tab Bar and Drawer</h3>
+  <mdc-top-app-bar style="position: unset" class="demo-top-app-bar-with-tabs">
+    <mdc-top-app-bar-row>
+      <mdc-top-app-bar-section align="start" title="App">
+        <button mdcIconButton mdcTopAppBarNavIcon icon="menu" (click)="drawer.open = !drawer.open"></button>
+      </mdc-top-app-bar-section>
+      <mdc-top-app-bar-section align="end">
+        <mdc-icon mdcTopAppBarActionItem>search</mdc-icon>
+        <mdc-icon mdcTopAppBarActionItem>notifications_none</mdc-icon>
+        <mdc-icon mdcTopAppBarActionItem (click)="profileMenu.open = !profileMenu.open">more_vert</mdc-icon>
+        <div mdcMenuSurfaceAnchor #menuAnchor>
+          <mdc-menu #profileMenu [anchorElement]="menuAnchor">
+            <mdc-list>
+              <mdc-list-item>My Profile</mdc-list-item>
+              <mdc-list-divider></mdc-list-divider>
+              <mdc-list-item>Sign out</mdc-list-item>
+            </mdc-list>
+          </mdc-menu>
+        </div>
+      </mdc-top-app-bar-section>
+    </mdc-top-app-bar-row>
+    <mdc-top-app-bar-row>
+      <mdc-top-app-bar-section>
+        <mdc-tab-bar [focusOnActivate]="false">
+          <mdc-tab-scroller>
+            <mdc-tab *ngFor="let tab of tabs" [label]="tab.label" [icon]="tab.icon"></mdc-tab>
+          </mdc-tab-scroller>
+        </mdc-tab-bar>
+      </mdc-top-app-bar-section>
+    </mdc-top-app-bar-row>
+  </mdc-top-app-bar>
+
+  <div class="demo-drawer-app-content">
+    <mdc-drawer drawer="dismissible" #drawer>
+      <mdc-drawer-header title="Drawer Title" subtitle="Subtitle"></mdc-drawer-header>
+      <mdc-drawer-content>
+        <mdc-list>
+          <mdc-list-item *ngFor="let link of links">
+            <mdc-icon mdcListItemGraphic>{{link.icon}}</mdc-icon>{{link.label}}
+          </mdc-list-item>
+        </mdc-list>
+      </mdc-drawer-content>
+    </mdc-drawer>
+    <div mdcDrawerAppContent style="padding: 16px; height: 400px;">
+      Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam
+      quo et. Diam phaedrum ei mea, quaeque
+      voluptaria efficiantur duo no. Eu adhuc veritus civibus nec, sumo
+      invidunt mel id, in vim dictas detraxit. Per an
+      legere iriure blandit. Veri iisque accusamus an pri.
+    </div>
+  </div>
+  <example-viewer [example]="exampleWithTabsDrawer"></example-viewer>
 </div>

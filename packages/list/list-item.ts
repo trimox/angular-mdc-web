@@ -86,7 +86,7 @@ export class MdcListItemSecondary {
     '[class.mdc-list-item--selected]': 'selected',
     '[class.mdc-list-item--activated]': 'activated',
     '[class.mdc-list-item--disabled]': 'disabled',
-    '(click)': '_emitChangeEvent($event)',
+    '(click)': '_emitChangeEvent()',
     '(keydown)': '_onKeydown($event)'
   },
   template: '<ng-content></ng-content>',

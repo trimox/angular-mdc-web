@@ -9,3 +9,36 @@
   @include mdc-top-app-bar-fill-color($material-color-yellow-800);
   @include mdc-top-app-bar-icon-ink-color($material-color-blue-900)
 }
+
+.demo-top-app-bar-with-tabs {
+  @include mdc-top-app-bar-fill-color(#363640);
+
+  .mdc-tab-bar {
+    margin-top: 1em;
+
+    @media (max-width: 599px) {
+      margin-top: .5em;
+    }
+
+    .mdc-tab {
+      @include mdc-tab-text-label-color(on-primary);
+      @include mdc-tab-icon-color(on-primary);
+    }
+  
+    .mdc-tab__ripple {
+      @include mdc-states($material-color-blue-700);
+    }
+  
+    .mdc-tab-indicator {
+      @include mdc-tab-indicator-underline-color($material-color-blue-700);
+      @include mdc-tab-indicator-underline-height(3px);
+    }
+  }
+}
+
+.demo-drawer-app-content {
+  border: 1px solid rgba(0, 0, 0, .15);
+  min-height: 16.7rem;
+  overflow: hidden;
+  position: relative;
+}

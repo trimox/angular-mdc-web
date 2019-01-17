@@ -38,19 +38,19 @@
   <h3 class="demo-content__headline">Custom</h3>
   <div class="demo-layout__row">
     <div class="demo-container">
-      <button mdc-button raised (click)="openCustom('custom-snackbar--shape-radius')">Shaped</button>
+      <button mdc-button raised (click)="openCustom({classes: 'custom-snackbar--shape-radius'})">Shaped</button>
     </div>
     <div class="demo-container">
-      <button mdc-button raised (click)="openCustom('custom-snackbar--elevation')">Elevation</button>
+      <button mdc-button raised (click)="openCustom({classes: 'custom-snackbar--elevation'})">Elevation</button>
     </div>
     <div class="demo-container">
-      <button mdc-button raised (click)="openCustom('custom-snackbar--viewport-margin')">Viewport Margin</button>
+      <button mdc-button raised (click)="openCustom({classes: 'custom-snackbar--viewport-margin'})">Viewport Margin</button>
     </div>
     <div class="demo-container">
-      <button mdc-button raised (click)="openCustom('custom-snackbar--max-width')">Max-Width</button>
+      <button mdc-button raised (click)="openCustom({classes: 'custom-snackbar--max-width'})">Max-Width</button>
     </div>
     <div class="demo-container">
-      <button mdc-button raised (click)="openCustom('custom-snackbar--min-width')">Min-Width</button>
+      <button mdc-button raised (click)="openCustom({classes: 'custom-snackbar--min-width'})">Min-Width</button>
     </div>
   </div>
   <example-viewer [example]="exampleCustom"></example-viewer>

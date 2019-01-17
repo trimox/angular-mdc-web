@@ -5,9 +5,9 @@ import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
 import { MdcSnackbar } from '@angular-mdc/web';
 
 interface CustomClasses {
-  classes: string | string[];
-  actionClasses: string | string[];
-  dismissClasses: string | string[];
+  classes?: string | string[];
+  actionClasses?: string | string[];
+  dismissClasses?: string | string[];
 }
 
 @Component({ template: '<component-viewer></component-viewer>' })
@@ -125,6 +125,28 @@ export class Examples {
   constructor(private snackbar: MdcSnackbar) { }
 `;
 
+  exampleCustomTS = `import { MdcSnackbar } from '@angular-mdc/web';
+
+interface CustomClasses {
+  classes: string | string[];
+  actionClasses: string | string[];
+  dismissClasses: string | string[];
+}
+
+@Component({ templateUrl: './examples.html' })
+export class Examples {
+  constructor(private snackbar: MdcSnackbar) { }
+
+  openCustom(customClasses: CustomClasses) {
+    this.snackbar.open(\`Can't send photo. Retry in 5 seconds.\`, 'Retry', {
+      dismiss: true,
+      classes: customClasses.classes,
+      actionClasses: customClasses.actionClasses,
+      dismissClasses: customClasses.dismissClasses
+    });
+  }
+}`;
+
   exampleSnackbar = {
     html: `<button mdc-button raised (click)="simple()">Simple</button>
 
@@ -213,19 +235,31 @@ export class Examples {
   };
 
   exampleCustom = {
-    html: `<button mdc-button raised (click)="openCustom('custom-snackbar--shape-radius')">Shaped</button>
+    html: `<button mdc-button raised (click)="openCustom({classes: 'custom-snackbar--shape-radius'})">Shaped</button>
 
-<button mdc-button raised (click)="openCustom('custom-snackbar--elevation')">Elevation</button>
+<button mdc-button raised (click)="openCustom({classes: 'custom-snackbar--elevation'})">Elevation</button>
 
-<button mdc-button raised (click)="openCustom('custom-snackbar--viewport-margin')">Viewport Margin</button>
+<button mdc-button raised (click)="openCustom({classes: 'custom-snackbar--viewport-margin'})">Viewport Margin</button>
 
-<button mdc-button raised (click)="openCustom('custom-snackbar--max-width')">Max-Width</button>
+<button mdc-button raised (click)="openCustom({classes: 'custom-snackbar--max-width'})">Max-Width</button>
 
-<button mdc-button raised (click)="openCustom('custom-snackbar--min-width')">Min-Width</button>`,
-    ts: `${this.exampleHeader}
-  openCustom(classes: string | string[]) {
+<button mdc-button raised (click)="openCustom({classes: 'custom-snackbar--min-width'})">Min-Width</button>`,
+    ts: `import { MdcSnackbar } from '@angular-mdc/web';
+
+interface CustomClasses {
+  classes: string | string[];
+  actionClasses: string | string[];
+  dismissClasses: string | string[];
+}
+
+@Component({ templateUrl: './examples.html' })
+export class Examples {
+  constructor(private snackbar: MdcSnackbar) { }
+
+  openCustom(customClasses: CustomClasses) {
     this.snackbar.open(\`Can't send photo. Retry in 5 seconds.\`, 'Retry', {
-      classes: classes
+      dismiss: true,
+      classes: customClasses.classes
     });
   }
 }`,
@@ -265,27 +299,7 @@ export class Examples {
 
 <button mdc-button raised
   (click)="openCustom({dismissClasses: 'demo-icon-button-custom'})">Custom Dismiss Icon</button>`,
-    ts: `import { MdcSnackbar } from '@angular-mdc/web';
-
-interface CustomClasses {
-  classes: string | string[];
-  actionClasses: string | string[];
-  dismissClasses: string | string[];
-}
-
-@Component({ templateUrl: './examples.html' })
-export class Examples {
-  constructor(private snackbar: MdcSnackbar) { }
-
-  openCustom(customClasses: CustomClasses) {
-    this.snackbar.open(\`Can't send photo. Retry in 5 seconds.\`, 'Retry', {
-      dismiss: true,
-      classes: customClasses.classes,
-      actionClasses: customClasses.actionClasses,
-      dismissClasses: customClasses.dismissClasses
-    });
-  }
-}`,
+    ts: this.exampleCustomTS,
     sass: `.custom-snackbar--fill-color {
   @include mdc-snackbar-fill-color($material-color-red-500);
 }

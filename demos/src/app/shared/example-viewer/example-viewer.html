@@ -1,8 +1,11 @@
-<div class="example-viewer">
-  <mdc-tab-bar fixed [focusOnActivate]="false">
-    <mdc-tab-scroller>
-      <mdc-tab *ngFor="let tab of tabs" [label]="tab.label" (interacted)="showSource(tab.source)"></mdc-tab>
-    </mdc-tab-scroller>
-  </mdc-tab-bar>
-</div>
-<pre><code [highlight]="currentExample"></code></pre>
+<mdc-list-divider class="example-divider"></mdc-list-divider>
+<button mdc-button raised class="example-opener" *ngIf="!open" (click)="open = !open">
+  <mdc-icon>code</mdc-icon>
+  View Source
+</button>
+<mdc-tab-bar fixed [focusOnActivate]="false" *ngIf="open">
+  <mdc-tab-scroller>
+    <mdc-tab *ngFor="let tab of tabs" [label]="tab.label" (interacted)="showSource(tab.source)"></mdc-tab>
+  </mdc-tab-scroller>
+</mdc-tab-bar>
+<pre><code [highlight]="currentExample" *ngIf="open"></code></pre>

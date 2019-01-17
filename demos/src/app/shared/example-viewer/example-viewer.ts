@@ -20,6 +20,8 @@ export class ExampleViewer implements OnInit {
   currentExample: any;
   tabs: ExampleTab[] = [];
 
+  @Input() open: boolean = false;
+
   @Input()
   get example(): Example { return this._example; }
   set example(value: Example) {

@@ -78,7 +78,8 @@ export class MdcDrawerAppContent { }
   exportAs: 'mdcDrawer',
   host: {
     'role': 'navigation',
-    'class': 'mdc-drawer'
+    'class': 'mdc-drawer',
+    '(keydown)': '_onKeydown($event)'
   },
   template: '<ng-content></ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -193,6 +194,7 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
     if (!this._initialized) {
       this._initFoundation();
     }
+    this._initTransitionEndListener();
   }
 
   ngOnDestroy(): void {
@@ -245,16 +247,6 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
       }
       this._scrimElement.remove();
     }
-
-    this._ngZone.runOutsideAngular(() =>
-      fromEvent<KeyboardEvent>(this._getHostElement(), 'keydown').pipe(takeUntil(this._destroy))
-        .subscribe(evt => this._ngZone.run(() => this._foundation.handleKeydown(evt))));
-
-    this._ngZone.runOutsideAngular(() =>
-      fromEvent<TransitionEvent>(this._getHostElement(), 'transitionend')
-        .pipe(takeUntil(this._destroy), filter((e: TransitionEvent) =>
-          e.target === this._getHostElement()))
-        .subscribe(evt => this._ngZone.run(() => this._foundation.handleTransitionEnd(evt))));
   }
 
   private _unloadListeners(): void {
@@ -297,6 +289,18 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
   private _removeDrawerModifiers(): void {
     this._getHostElement().classList.remove('mdc-drawer--modal');
     this._getHostElement().classList.remove('mdc-drawer--dismissible');
+  }
+
+  private _initTransitionEndListener(): void {
+    this._ngZone.runOutsideAngular(() =>
+      fromEvent<TransitionEvent>(this._getHostElement(), 'transitionend').pipe(
+        takeUntil(this._destroy), filter((e: TransitionEvent) =>
+          e.target === this._getHostElement()))
+        .subscribe(evt => this._ngZone.run(() => this._foundation.handleTransitionEnd(evt))));
+  }
+
+  _onKeydown(evt: KeyboardEvent): void {
+    this._foundation.handleKeydown(evt);
   }
 
   private _getHostElement(): HTMLElement {

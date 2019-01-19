@@ -7,14 +7,13 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  NgZone,
   OnDestroy,
   Output,
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
-import { fromEvent, merge, Observable, Subscription, Subject } from 'rxjs';
-import { startWith, takeUntil } from 'rxjs/operators';
+import { merge, Observable, Subscription, Subject } from 'rxjs';
+import { startWith } from 'rxjs/operators';
 
 import { toBoolean, Platform } from '@angular-mdc/web/common';
 import { MdcTabScroller, MdcTabScrollerAlignment } from '@angular-mdc/web/tab-scroller';
@@ -35,7 +34,8 @@ export class MdcTabActivatedEvent {
   exportAs: 'mdcTabBar',
   host: {
     'role': 'tablist',
-    'class': 'mdc-tab-bar'
+    'class': 'mdc-tab-bar',
+    '(keydown)': '_onKeydown($event)'
   },
   template: '<ng-content></ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -92,7 +92,7 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
     this._useAutomaticActivation = toBoolean(value);
     this._foundation.setUseAutomaticActivation(this._useAutomaticActivation);
   }
-  private _useAutomaticActivation: boolean = false;
+  private _useAutomaticActivation: boolean = true;
 
   @Input()
   get activeTabIndex(): number { return this._activeTabIndex; }
@@ -179,9 +179,8 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
   } = new MDCTabBarFoundation(this._createAdapter());
 
   constructor(
-    private _ngZone: NgZone,
     private _platform: Platform,
-    public elementRef: ElementRef) { }
+    public elementRef: ElementRef<HTMLElement>) { }
 
   ngAfterContentInit(): void {
     this._foundation.init();
@@ -196,10 +195,6 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
         }
       });
     });
-
-    this._ngZone.runOutsideAngular(() =>
-      fromEvent<KeyboardEvent>(this._getHostElement(), 'keydown').pipe(takeUntil(this._destroy))
-        .subscribe(evt => this._ngZone.run(() => this._foundation.handleKeyDown(evt))));
   }
 
   ngOnDestroy(): void {
@@ -284,6 +279,10 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
     if (!this.tabs) { return; }
 
     this.tabs.toArray()[index].disabled = toBoolean(disabled);
+  }
+
+  _onKeydown(evt: KeyboardEvent): void {
+    this._foundation.handleKeyDown(evt);
   }
 
   private _indexIsInRange(index: number): boolean {

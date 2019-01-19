@@ -76,7 +76,7 @@ export class Examples {
         sanitizer.bypassSecurityTrustHtml(BIKE_ICON))
       .addSvgIconSetInNamespace('core',
         sanitizer.bypassSecurityTrustResourceUrl(environment.production ?
-          'https://trimox.github.io/angular-mdc-web/assets/thumbup-icon.svg' : '/assets/core-icon-set.svg'))
+          'https://trimox.github.io/angular-mdc-web/assets/core-icon-set.svg' : '/assets/core-icon-set.svg'))
       .addSvgIconSetLiteralInNamespace('core-inline',
         sanitizer.bypassSecurityTrustHtml(INLINE_ICON_SET))
       .registerFontClassAlias('fontawesome', 'fa');

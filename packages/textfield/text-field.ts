@@ -152,7 +152,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   set outlined(value: boolean) {
     const newValue = toBoolean(value);
     if (newValue !== this._outlined) {
-      this._outlined = toBoolean(newValue);
+      this._outlined = newValue;
       this.layout();
     }
   }
@@ -168,17 +168,20 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   @Input()
   get required(): boolean { return this._required; }
   set required(value: boolean) {
-    this._required = toBoolean(value);
+    const newValue = toBoolean(value);
+    if (newValue !== this._required) {
+      this._required = newValue;
 
-    if (this._initialized) {
-      if (!this.valid) {
-        this._foundation.setValid(true);
-        this._changeDetectorRef.markForCheck();
-      }
+      if (this._initialized) {
+        if (!this.valid) {
+          this._foundation.setValid(true);
+          this._changeDetectorRef.markForCheck();
+        }
 
-      if (this.ngControl) {
-        this._required ? this._getInputElement().setAttribute('required', '') :
-          this._getInputElement().removeAttribute('required');
+        if (this.ngControl) {
+          this._required ? this._getInputElement().setAttribute('required', '') :
+            this._getInputElement().removeAttribute('required');
+        }
       }
     }
   }
@@ -220,8 +223,11 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   @Input()
   get valid(): boolean | undefined { return this._valid; }
   set valid(value: boolean | undefined) {
-    this._valid = toBoolean(value);
-    this._foundation.setValid(this._valid);
+    const newValue = toBoolean(value);
+    if (newValue !== this._valid) {
+      this._valid = value;
+      this._foundation.setValid(newValue);
+    }
   }
   private _valid: boolean | undefined;
 
@@ -229,8 +235,11 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   @Input()
   get useNativeValidation(): boolean { return this._useNativeValidation; }
   set useNativeValidation(value: boolean) {
-    this._useNativeValidation = toBoolean(value);
-    this._foundation.setUseNativeValidation(this._useNativeValidation);
+    const newValue = toBoolean(value);
+    if (newValue !== this._useNativeValidation) {
+      this._useNativeValidation = newValue;
+      this._foundation.setUseNativeValidation(this._useNativeValidation);
+    }
   }
   private _useNativeValidation: boolean = true;
 
@@ -294,7 +303,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
           value: this._platform.isBrowser ? this._input.nativeElement.value : this._value,
           disabled: this._disabled,
           validity: {
-            valid: this._hasErrorState(),
+            valid: this._isValid(),
             badInput: this._platform.isBrowser ? this._input.nativeElement.validity.badInput : false
           }
         };
@@ -499,8 +508,6 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     if (isUserInput) {
       this._onChange(this._value);
     }
-
-    // need to run valiation attribute check if input reset
     this._changeDetectorRef.markForCheck();
   }
 
@@ -581,7 +588,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     this._foundation.destroy();
   }
 
-  private _hasErrorState(): boolean {
+  private _isValid(): boolean {
     if (this.ngControl) {
       return !this.errorState;
     }

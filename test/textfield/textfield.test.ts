@@ -1,13 +1,12 @@
 import { Component, DebugElement } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed, flush, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, flush, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import {
   dispatchFakeEvent,
   dispatchTouchEvent,
-  dispatchMouseEvent,
-  dispatchKeyboardEvent
+  dispatchMouseEvent
 } from '../testing/dispatch-events';
 
 import {
@@ -22,7 +21,7 @@ describe('MdcTextField', () => {
   let fixture: ComponentFixture<any>;
   let platform: { isBrowser: boolean };
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     // Set the default Platform override that can be updated before component creation.
     platform = { isBrowser: true };
 
@@ -113,6 +112,7 @@ describe('MdcTextField', () => {
 
     it('#should set validity based on input element validity', fakeAsync(() => {
       textFieldInstance.valid = true;
+      textFieldInstance.valid = true; // check to ensure it doesn't run change again
       fixture.detectChanges();
       flush();
 
@@ -132,8 +132,18 @@ describe('MdcTextField', () => {
       expect(textFieldInstance.required).toBe(true);
     }));
 
+    it('#should set required to true and valid to true', fakeAsync(() => {
+      textFieldInstance.valid = true;
+      fixture.detectChanges();
+      testComponent.required = true;
+      fixture.detectChanges();
+
+      expect(textFieldInstance.required).toBe(true);
+    }));
+
     it('#should set useNativeValidation to true', fakeAsync(() => {
       testComponent.useNativeValidation = true;
+      textFieldInstance.useNativeValidation = true; // check to ensure it doesn't run change again
       fixture.detectChanges();
       flush();
 
@@ -153,6 +163,8 @@ describe('MdcTextField', () => {
     }));
 
     it('#should focus on underlying input element when focus() is called', fakeAsync(() => {
+      testComponent.outlined = true;
+      fixture.detectChanges();
       expect(document.activeElement).not.toBe(textFieldInstance._input.nativeElement);
       textFieldInstance.focus();
       fixture.detectChanges();
@@ -237,12 +249,18 @@ describe('MdcTextField', () => {
       expect(testInstance.focused).toBe(false);
     }));
 
+    it('#should call OnInput', fakeAsync(() => {
+      spyOn(testComponent, 'onInput');
+
+      textFieldDebugElement.nativeElement.value = 'text';
+      dispatchFakeEvent(textFieldNativeElement, 'input');
+      fixture.detectChanges();
+      expect(testComponent.onInput).toHaveBeenCalledTimes(1);
+    }));
+
     it('#should handle touch event', fakeAsync(() => {
       expect(testInstance.focused).toBe(false);
       testInstance._input.nativeElement.focus();
-      fixture.detectChanges();
-
-      dispatchKeyboardEvent(textFieldNativeElement, 'keyup', A);
       fixture.detectChanges();
 
       dispatchTouchEvent(textFieldNativeElement, 'touchstart');
@@ -316,12 +334,12 @@ class SimpleTextfield {
       (change)="onChange($event)"
       [value]="value">
     </mdc-text-field>
-    <mdc-helper-text #helper></mdc-helper-text>
+    <mdc-helper-text #helper validation></mdc-helper-text>
   `,
 })
 class TextFieldTestWithValue {
-  value: string = 'test';
+  value: string = 'my-test';
 
-  onInput: () => void = () => { };
+  onInput: (value: any) => void = () => { };
   onChange(value: any) { }
 }

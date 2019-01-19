@@ -4,14 +4,11 @@ import {
   Component,
   ElementRef,
   Inject,
-  NgZone,
   OnDestroy,
   OnInit,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { fromEvent, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 import { MdcSnackbarRef, MdcSnackbarDismissReason } from './snackbar-ref';
 import { MDC_SNACKBAR_DATA, MdcSnackbarConfig } from './snackbar-config';
@@ -27,7 +24,8 @@ import { MDCSnackbarFoundation } from '@material/snackbar/index';
     '[dir]': 'this.config.direction',
     '[class.mdc-snackbar--stacked]': 'config.stacked',
     '[class.mdc-snackbar--leading]': 'config.leading',
-    '[class.ngx-mdc-snackbar--trailing]': 'config.trailing'
+    '[class.ngx-mdc-snackbar--trailing]': 'config.trailing',
+    '(keydown)': '_onKeydown($event)'
   },
   template: `
   <div #surface class="mdc-snackbar__surface">
@@ -36,20 +34,16 @@ import { MDCSnackbarFoundation } from '@material/snackbar/index';
       aria-live="polite">{{data.message}}</div>
     <div class="mdc-snackbar__actions" *ngIf="data.action">
       <button #action type="button" class="mdc-button mdc-snackbar__action"
-        (click)="onActionClick($event)">{{data.action}}</button>
+        (click)="_onActionClick($event)">{{data.action}}</button>
       <button #dismiss *ngIf="config.dismiss"
         class="mdc-icon-button mdc-snackbar__dismiss material-icons"
-        title="Dismiss" (click)="onActionIconClick($event)">close</button>
+        title="Dismiss" (click)="_onActionIconClick($event)">close</button>
     </div>
-  </div>
-    `,
+  </div>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 export class MdcSnackbarComponent implements OnInit, OnDestroy {
-  /** Emits whenever the component is destroyed. */
-  private _destroyed = new Subject<void>();
-
   @ViewChild('label') label!: ElementRef<HTMLElement>;
   @ViewChild('action') action?: ElementRef<HTMLButtonElement>;
   @ViewChild('dismiss') dismiss?: ElementRef<HTMLButtonElement>;
@@ -77,14 +71,12 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
   } = new MDCSnackbarFoundation(this._createAdapter());
 
   constructor(
-    private _ngZone: NgZone,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef<HTMLElement>,
     public snackbarRef: MdcSnackbarRef<MdcSnackbarComponent>,
     @Inject(MDC_SNACKBAR_DATA) public data: any) { }
 
   ngOnInit(): void {
-    this._loadListeners();
     this._changeDetectorRef.detectChanges();
 
     this._applyClasses();
@@ -92,19 +84,20 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._destroyed.next();
-    this._destroyed.complete();
-
     if (this._foundation) {
       this._foundation.destroy();
     }
   }
 
-  onActionClick(evt: MouseEvent): void {
+  _onKeydown(evt: KeyboardEvent): void {
+    this._foundation.handleKeyDown(evt);
+  }
+
+  _onActionClick(evt: MouseEvent): void {
     this._foundation.handleActionButtonClick(evt);
   }
 
-  onActionIconClick(evt: MouseEvent): void {
+  _onActionIconClick(evt: MouseEvent): void {
     this._foundation.handleActionIconClick(evt);
   }
 
@@ -135,12 +128,14 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
       }
     }
 
-    const dismissClasses = this.config.dismissClasses;
-    if (dismissClasses && this.dismiss) {
-      if (dismissClasses instanceof Array) {
-        this.dismiss.nativeElement.classList.add(...this.config.dismissClasses as string[]);
-      } else {
-        this.dismiss.nativeElement.classList.toggle(dismissClasses);
+    if (this.dismiss) {
+      const dismissClasses = this.config.dismissClasses;
+      if (dismissClasses) {
+        if (dismissClasses instanceof Array) {
+          this.dismiss.nativeElement.classList.add(...this.config.dismissClasses as string[]);
+        } else {
+          this.dismiss.nativeElement.classList.toggle(dismissClasses);
+        }
       }
     }
   }
@@ -152,12 +147,6 @@ export class MdcSnackbarComponent implements OnInit, OnDestroy {
     if (this.config.dismiss) {
       this._foundation.setCloseOnEscape(this.config.closeOnEscape ? true : false);
     }
-  }
-
-  private _loadListeners(): void {
-    this._ngZone.runOutsideAngular(() =>
-      fromEvent<KeyboardEvent>(this._getHostElement(), 'keydown').pipe(takeUntil(this._destroyed))
-        .subscribe((evt) => this._ngZone.run(() => this._foundation.handleKeyDown(evt))));
   }
 
   /** Retrieves the DOM element of the component host. */

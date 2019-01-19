@@ -13,15 +13,14 @@ import {
   Output,
   ViewEncapsulation
 } from '@angular/core';
-import { Subscription, fromEvent, Subject } from 'rxjs';
-import { takeUntil, filter } from 'rxjs/operators';
+import { Subscription, fromEvent } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 import { Platform, toBoolean } from '@angular-mdc/web/common';
 import { MdcList } from '@angular-mdc/web/list';
 
-import createFocusTrap from 'focus-trap';
+import createFocusTrap, { FocusTrap } from 'focus-trap';
 
-import { createFocusTrapInstance } from '@material/drawer/util';
 import {
   MDCDismissibleDrawerFoundation,
   MDCModalDrawerFoundation
@@ -35,8 +34,7 @@ export type MdcDrawerType = 'permanent' | 'dismissible' | 'modal';
   template: `
   <ng-content></ng-content>
   <h3 class="mdc-drawer__title" *ngIf="title">{{title}}</h3>
-  <h6 class="mdc-drawer__subtitle" *ngIf="subtitle">{{subtitle}}</h6>
-  `,
+  <h6 class="mdc-drawer__subtitle" *ngIf="subtitle">{{subtitle}}</h6>`,
   host: { 'class': 'mdc-drawer__header' },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
@@ -86,15 +84,11 @@ export class MdcDrawerAppContent { }
   encapsulation: ViewEncapsulation.None
 })
 export class MdcDrawer implements AfterViewInit, OnDestroy {
-  /** Emits whenever the component is destroyed. */
-  private _destroy = new Subject<void>();
-
   private _initialized: boolean = false;
   private _previousFocus: Element | null = null;
-  private _scrimElement: Element | null = null;
+  private _scrimElement: HTMLElement | null = null;
 
-  private _focusTrapFactory: any;
-  private _focusTrap: any;
+  private _focusTrapInstance: FocusTrap | null = null;
 
   @Input()
   get open(): boolean { return this._open; }
@@ -129,6 +123,7 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
 
   @ContentChild(MdcList) _list?: MdcList;
 
+  private _transitionEndSubscription: Subscription | null = null;
   private _scrimSubscription: Subscription | null = null;
 
   get modal(): boolean { return this.drawer === 'modal'; }
@@ -160,16 +155,8 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
       },
       notifyClose: () => this.closed.emit(),
       notifyOpen: () => this.opened.emit(),
-      trapFocus: () => {
-        if (this._focusTrap) {
-          this._focusTrap.activate();
-        }
-      },
-      releaseFocus: () => {
-        if (this._focusTrap) {
-          this._focusTrap.deactivate();
-        }
-      }
+      trapFocus: () => this._focusTrapInstance!.activate(),
+      releaseFocus: () => this._focusTrapInstance!.deactivate()
     };
   }
 
@@ -194,10 +181,13 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
     if (!this._initialized) {
       this._initFoundation();
     }
-    this._initTransitionEndListener();
   }
 
   ngOnDestroy(): void {
+    this.open = false;
+    if (this._scrimElement) {
+      this._scrimElement.remove();
+    }
     this._unloadListeners();
 
     if (this._foundation && this._platform.isBrowser) {
@@ -219,43 +209,46 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
   setFixedAdjustElement(element: any): void {
     this._fixedAdjustElement = element;
 
-    if (element) {
-      this._getHostElement().style.setProperty('position', 'absolute');
-    } else {
+    element ? this._getHostElement().style.setProperty('position', 'absolute') :
       this._getHostElement().style.removeProperty('position');
-    }
 
     this._changeDetectorRef.markForCheck();
   }
 
+  _onKeydown(evt: KeyboardEvent): void {
+    this._foundation.handleKeydown(evt);
+  }
+
   private _loadListeners(): void {
+    this._unloadListeners();
+
     if (this.modal && this._platform.isBrowser) {
-      this._focusTrapFactory = createFocusTrap;
-
-      this._scrimElement = document.createElement('div');
-      this._scrimElement.classList.add('mdc-drawer-scrim');
-      this._getHostElement().insertAdjacentElement('afterend', this._scrimElement);
-
-      this._ngZone.runOutsideAngular(() =>
-        this._scrimSubscription = fromEvent<MouseEvent>(this._scrimElement!, 'click')
-          .subscribe(() => this._ngZone.run(() => this.open = false)));
-
-      this._focusTrapFactory = createFocusTrapInstance(this._getHostElement(), this._focusTrapFactory);
+      this._createScrim();
+      this._focusTrapInstance = this._createFocusTrapInstance();
     } else if (this._scrimElement) {
-      if (this._scrimSubscription) {
-        this._scrimSubscription.unsubscribe();
-      }
       this._scrimElement.remove();
     }
+    this._initTransitionEndListener();
   }
 
   private _unloadListeners(): void {
-    this._destroy.next();
-    this._destroy.complete();
-
     if (this._scrimSubscription) {
       this._scrimSubscription.unsubscribe();
     }
+    if (this._transitionEndSubscription) {
+      this._transitionEndSubscription.unsubscribe();
+    }
+  }
+
+  private _createScrim(): void {
+    this._scrimElement = document.createElement('div');
+    this._scrimElement.classList.add('mdc-drawer-scrim');
+    this._getHostElement().insertAdjacentElement('afterend', this._scrimElement);
+
+    this._scrimSubscription =
+      this._ngZone.runOutsideAngular(() =>
+        fromEvent<MouseEvent>(this._scrimElement!, 'click')
+          .subscribe(() => this._ngZone.run(() => this.open = false)));
   }
 
   private _initFoundation(): void {
@@ -292,15 +285,20 @@ export class MdcDrawer implements AfterViewInit, OnDestroy {
   }
 
   private _initTransitionEndListener(): void {
-    this._ngZone.runOutsideAngular(() =>
-      fromEvent<TransitionEvent>(this._getHostElement(), 'transitionend').pipe(
-        takeUntil(this._destroy), filter((e: TransitionEvent) =>
-          e.target === this._getHostElement()))
-        .subscribe(evt => this._ngZone.run(() => this._foundation.handleTransitionEnd(evt))));
+    this._transitionEndSubscription =
+      this._ngZone.runOutsideAngular(() =>
+        fromEvent<TransitionEvent>(this._getHostElement(), 'transitionend').pipe(
+          filter((e: TransitionEvent) => e.target === this._getHostElement()))
+          .subscribe(evt => this._ngZone.run(() => this._foundation.handleTransitionEnd(evt))));
   }
 
-  _onKeydown(evt: KeyboardEvent): void {
-    this._foundation.handleKeydown(evt);
+  private _createFocusTrapInstance(focusTrapFactory = createFocusTrap): any {
+    return focusTrapFactory(this._getHostElement(), {
+      clickOutsideDeactivates: true,
+      initialFocus: this._getHostElement(), // Navigation drawer sets focus to activated item
+      escapeDeactivates: false, // Navigation drawer handles ESC.
+      returnFocusOnDeactivate: false, // Navigation drawer handles restore focus.
+    });
   }
 
   private _getHostElement(): HTMLElement {

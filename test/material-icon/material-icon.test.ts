@@ -1,5 +1,5 @@
 import { Component, DebugElement } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import {
@@ -9,7 +9,7 @@ import {
 describe('MdcMaterialIcon', () => {
   let fixture: ComponentFixture<any>;
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [MdcIconModule],
       declarations: [SimpleTest]

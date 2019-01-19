@@ -1,5 +1,5 @@
 import { Component, DebugElement } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import {
@@ -10,7 +10,7 @@ import {
 describe('MdcTypography', () => {
   let fixture: ComponentFixture<any>;
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [MdcTypographyModule],
       declarations: [SimpleTest]
@@ -20,18 +20,12 @@ describe('MdcTypography', () => {
 
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;
-    let testNativeElement: HTMLElement;
-    let testInstance: MdcTypography;
-    let testComponent: SimpleTest;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SimpleTest);
       fixture.detectChanges();
 
       testDebugElement = fixture.debugElement.query(By.directive(MdcTypography));
-      testNativeElement = testDebugElement.nativeElement;
-      testInstance = testDebugElement.componentInstance;
-      testComponent = fixture.debugElement.componentInstance;
     });
 
     it('#should have mdc-typography by default', () => {

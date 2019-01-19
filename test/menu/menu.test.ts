@@ -5,16 +5,13 @@ import { By } from '@angular/platform-browser';
 import { dispatchFakeEvent, dispatchMouseEvent, dispatchKeyboardEvent } from '../testing/dispatch-events';
 
 import {
-  TAB,
   DOWN_ARROW,
   MdcMenu,
   MdcMenuModule,
   MdcListModule,
   MdcListItem,
   MdcIconModule,
-  MdcButtonModule,
-  MdcMenuSelectionGroup,
-  MdcMenuSelectionGroupIcon
+  MdcButtonModule
 } from '@angular-mdc/web';
 
 describe('MdcMenu', () => {

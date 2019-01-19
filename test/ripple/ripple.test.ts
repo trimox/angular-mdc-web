@@ -1,5 +1,5 @@
 import { Component, DebugElement, ViewChild } from '@angular/core';
-import { async, ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { dispatchMouseEvent } from '../testing/dispatch-events';
@@ -15,7 +15,7 @@ describe('MdcRippleComponent', () => {
   let fixture: ComponentFixture<any>;
   let platform: { isBrowser: boolean };
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     // Set the default Platform override that can be updated before component creation.
     platform = { isBrowser: true };
 

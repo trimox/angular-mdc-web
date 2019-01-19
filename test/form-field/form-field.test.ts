@@ -1,5 +1,5 @@
 import { Component, DebugElement } from '@angular/core';
-import { async, ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { dispatchFakeEvent } from '../testing/dispatch-events';
@@ -15,7 +15,7 @@ import {
 describe('MdcFormField', () => {
   let fixture: ComponentFixture<any>;
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         MdcFormFieldModule,

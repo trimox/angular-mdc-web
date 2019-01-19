@@ -1,5 +1,5 @@
 import { Component, DebugElement } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { MdcButton, MdcButtonLabel, MdcIcon, MdcIconModule, MdcButtonModule } from '@angular-mdc/web';
@@ -7,7 +7,7 @@ import { MdcButton, MdcButtonLabel, MdcIcon, MdcIconModule, MdcButtonModule } fr
 describe('MdcButton', () => {
   let fixture: ComponentFixture<any>;
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [MdcButtonModule, MdcIconModule],
       declarations: [
@@ -90,9 +90,9 @@ describe('MdcButton', () => {
     });
 
     it('#should handle a click on the button', () => {
-      let fixture = TestBed.createComponent(SimpleButton);
-      let testComponent = fixture.debugElement.componentInstance;
-      let buttonDebugElement = fixture.debugElement.query(By.css('button'));
+      const fixture = TestBed.createComponent(SimpleButton);
+      const testComponent = fixture.debugElement.componentInstance;
+      const buttonDebugElement = fixture.debugElement.query(By.css('button'));
 
       buttonDebugElement.nativeElement.click();
       expect(testComponent.clickCount).toBe(1);
@@ -115,9 +115,9 @@ describe('MdcButton', () => {
   // Anchor button tests
   describe('a[mdc-button]', () => {
     it('#should not redirect if disabled', () => {
-      let fixture = TestBed.createComponent(HrefButton);
-      let testComponent = fixture.debugElement.componentInstance;
-      let buttonDebugElement = fixture.debugElement.query(By.css('a'));
+      const fixture = TestBed.createComponent(HrefButton);
+      const testComponent = fixture.debugElement.componentInstance;
+      const buttonDebugElement = fixture.debugElement.query(By.css('a'));
 
       testComponent.isDisabled = true;
       fixture.detectChanges();
@@ -126,9 +126,9 @@ describe('MdcButton', () => {
     });
 
     it('#should remove tabindex if disabled', () => {
-      let fixture = TestBed.createComponent(HrefButton);
-      let testComponent = fixture.debugElement.componentInstance;
-      let buttonDebugElement = fixture.debugElement.query(By.css('a'));
+      const fixture = TestBed.createComponent(HrefButton);
+      const testComponent = fixture.debugElement.componentInstance;
+      const buttonDebugElement = fixture.debugElement.query(By.css('a'));
       expect(buttonDebugElement.nativeElement.getAttribute('tabIndex')).toBe(null);
 
       testComponent.isDisabled = true;
@@ -137,9 +137,9 @@ describe('MdcButton', () => {
     });
 
     it('#should add aria-disabled attribute if disabled', () => {
-      let fixture = TestBed.createComponent(HrefButton);
-      let testComponent = fixture.debugElement.componentInstance;
-      let buttonDebugElement = fixture.debugElement.query(By.css('a'));
+      const fixture = TestBed.createComponent(HrefButton);
+      const testComponent = fixture.debugElement.componentInstance;
+      const buttonDebugElement = fixture.debugElement.query(By.css('a'));
       fixture.detectChanges();
       expect(buttonDebugElement.nativeElement.getAttribute('aria-disabled')).toBeDefined();
 
@@ -149,9 +149,9 @@ describe('MdcButton', () => {
     });
 
     it('#should not add aria-disabled attribute if disabled is false', () => {
-      let fixture = TestBed.createComponent(HrefButton);
-      let testComponent = fixture.debugElement.componentInstance;
-      let buttonDebugElement = fixture.debugElement.query(By.css('a'));
+      const fixture = TestBed.createComponent(HrefButton);
+      const testComponent = fixture.debugElement.componentInstance;
+      const buttonDebugElement = fixture.debugElement.query(By.css('a'));
 
       testComponent.isDisabled = false;
       fixture.detectChanges();

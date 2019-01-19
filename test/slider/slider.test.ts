@@ -1,6 +1,6 @@
 import { Component, DebugElement } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed } from '@angular/core/testing';
-import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { dispatchMouseEvent } from '../testing/dispatch-events';
@@ -10,7 +10,7 @@ import { MdcSlider, MdcSliderModule } from '@angular-mdc/web';
 describe('MdcSlider', () => {
   let fixture: ComponentFixture<any>;
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [MdcSliderModule, FormsModule, ReactiveFormsModule],
       declarations: [SingleSlider]

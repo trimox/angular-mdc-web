@@ -1,5 +1,5 @@
 import { Component, DebugElement } from '@angular/core';
-import { async, ComponentFixture, TestBed, flush, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { dispatchFakeEvent, dispatchMouseEvent, dispatchKeyboardEvent } from '../testing/dispatch-events';
@@ -18,7 +18,7 @@ describe('MdcMenuSurface', () => {
   let fixture: ComponentFixture<any>;
   let platform: { isBrowser: boolean };
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     // Set the default Platform override that can be updated before component creation.
     platform = { isBrowser: true };
 

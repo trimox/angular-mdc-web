@@ -4,7 +4,7 @@ import {
   FormsModule,
   ReactiveFormsModule
 } from '@angular/forms';
-import { async, fakeAsync, ComponentFixture, TestBed, flush } from '@angular/core/testing';
+import { fakeAsync, ComponentFixture, TestBed, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from '../testing/dispatch-events';
@@ -14,7 +14,7 @@ import { DOWN_ARROW, MdcSelectModule, MdcSelect, MdcListModule } from '@angular-
 describe('MdcSelectModule', () => {
   let fixture: ComponentFixture<any>;
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule, ReactiveFormsModule, MdcSelectModule, MdcListModule],
       declarations: [

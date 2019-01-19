@@ -1,5 +1,5 @@
 import { Component, DebugElement, ViewChild } from '@angular/core';
-import { async, ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { dispatchFakeEvent } from '../testing/dispatch-events';
@@ -17,7 +17,7 @@ import {
 describe('Chips', () => {
   let fixture: ComponentFixture<any>;
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [MdcChipsModule],
       declarations: [ChipTest]

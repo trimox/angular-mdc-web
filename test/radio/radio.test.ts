@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { Component, DebugElement, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -6,7 +6,7 @@ import { By } from '@angular/platform-browser';
 import { MdcRadio, MdcRadioChange, MdcRadioGroup, MdcRadioModule, MdcFormFieldModule } from '@angular-mdc/web';
 
 describe('MdcRadio', () => {
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [MdcRadioModule, MdcFormFieldModule, FormsModule, ReactiveFormsModule],
       declarations: [
@@ -35,7 +35,7 @@ describe('MdcRadio', () => {
     let radioInstances: MdcRadio[];
     let testComponent: RadiosInsideRadioGroup;
 
-    beforeEach(async(() => {
+    beforeEach(fakeAsync(() => {
       fixture = TestBed.createComponent(RadiosInsideRadioGroup);
       fixture.detectChanges();
 
@@ -276,7 +276,6 @@ describe('MdcRadio', () => {
     let groupDebugElement: DebugElement;
     let radioDebugElements: DebugElement[];
     let innerRadios: DebugElement[];
-    let radioLabelElements: HTMLLabelElement[];
     let groupInstance: MdcRadioGroup;
     let radioInstances: MdcRadio[];
     let testComponent: RadioGroupWithNgModel;
@@ -430,17 +429,17 @@ describe('MdcRadio', () => {
 
       radioDebugElements = fixture.debugElement.queryAll(By.directive(MdcRadio));
       seasonRadioInstances = radioDebugElements
-        .filter(debugEl => debugEl.componentInstance.name == 'season')
+        .filter(debugEl => debugEl.componentInstance.name === 'season')
         .map(debugEl => debugEl.componentInstance);
       weatherRadioInstances = radioDebugElements
-        .filter(debugEl => debugEl.componentInstance.name == 'weather')
+        .filter(debugEl => debugEl.componentInstance.name === 'weather')
         .map(debugEl => debugEl.componentInstance);
       fruitRadioInstances = radioDebugElements
-        .filter(debugEl => debugEl.componentInstance.name == 'fruit')
+        .filter(debugEl => debugEl.componentInstance.name === 'fruit')
         .map(debugEl => debugEl.componentInstance);
 
       const fruitRadioNativeElements = radioDebugElements
-        .filter(debugEl => debugEl.componentInstance.name == 'fruit')
+        .filter(debugEl => debugEl.componentInstance.name === 'fruit')
         .map(debugEl => debugEl.nativeElement);
 
       fruitRadioNativeInputs = [];
@@ -596,7 +595,7 @@ describe('MdcRadio', () => {
     let radioDebugElements: DebugElement[];
     let radioInstances: MdcRadio[];
 
-    beforeEach(async(() => {
+    beforeEach(fakeAsync(() => {
       fixture = TestBed.createComponent(InterleavedRadioGroup);
       fixture.detectChanges();
 

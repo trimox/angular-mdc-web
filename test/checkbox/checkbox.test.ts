@@ -1,5 +1,5 @@
 import { Component, DebugElement } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flushMicrotasks, TestBed } from '@angular/core/testing';
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
@@ -10,7 +10,7 @@ import { MdcCheckbox, MdcCheckboxModule } from '@angular-mdc/web';
 describe('MdcCheckbox', () => {
   let fixture: ComponentFixture<any>;
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [MdcCheckboxModule, FormsModule, ReactiveFormsModule],
       declarations: [

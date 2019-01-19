@@ -1,5 +1,5 @@
 import { Component, DebugElement } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { MdcLinearProgress, MdcLinearProgressModule } from '@angular-mdc/web';
@@ -7,7 +7,7 @@ import { MdcLinearProgress, MdcLinearProgressModule } from '@angular-mdc/web';
 describe('MdcLinearProgress', () => {
   let fixture: ComponentFixture<any>;
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [MdcLinearProgressModule],
       declarations: [

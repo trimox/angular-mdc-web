@@ -13,6 +13,7 @@ Incorporating [Google Material Components](https://github.com/material-component
 *  [Changelog](https://github.com/trimox/angular-mdc-web/blob/master/CHANGELOG.md)
 *  [Getting Started Guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md)
 *  [Demos, documentation and guides](https://trimox.github.io/angular-mdc-web/)
+*  [StackBlitz Template](https://stackblitz.com/edit/angular-mdc)
 *  [Contributing](https://github.com/trimox/angular-mdc-web/blob/master/CONTRIBUTING.md)
 *  [Developer guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/developer.md)
 *  [MDC Web Roadmap](https://github.com/material-components/material-components-web/blob/master/ROADMAP.md)
@@ -52,6 +53,7 @@ Developed using Google Material Components [foundations and adapters](https://gi
 | switch | Available | [View](https://trimox.github.io/angular-mdc-web/#/switch-demo) |
 | tabs | Available | [View](https://trimox.github.io/angular-mdc-web/#/tabs-demo) |
 | text-field | Available | [View](https://trimox.github.io/angular-mdc-web/#/text-field-demo) |
+| theme | Available | [View](https://trimox.github.io/angular-mdc-web/#/angular-mdc-web/theme) |
 | top-app-bar | Available | [View](https://trimox.github.io/angular-mdc-web/#/top-app-bar-demo) |
 | typography | Available | [View](https://trimox.github.io/angular-mdc-web/#/typography-demo) |
 

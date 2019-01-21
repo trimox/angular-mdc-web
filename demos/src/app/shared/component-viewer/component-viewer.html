@@ -1,10 +1,10 @@
 <div class="demo-panel-content">
   <div class="demo-panel-transition">
-    <h1>{{componentView.name}}</h1>
+    <h1 class="demo-panel-title">{{componentView.name}}</h1>
     {{componentView.description}}
 
     <div *ngIf="componentView.references">
-      <h2>References</h2>
+      <h2 class="demo-panel-references">References</h2>
       <ul>
         <li *ngFor="let ref of componentView.references"><a mdc-button [href]="ref.url" target="_blank" rel="noopener">{{ref.name}}</a></li>
       </ul>

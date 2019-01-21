@@ -77,30 +77,22 @@
 .demo-panel-transition {
   width: 100%;
   max-width: 900px;
-  padding-bottom: 60px;
+  padding-bottom: 60px;  
+}
 
-  h1, h2 {
-    margin: 24px 16px 16px 0;
-    line-height: 1.25;
-    padding-bottom: .3em;
-    border-bottom: 1px solid #eaecef;  
-  }
+.demo-panel-title {
+  @include mdc-typography(headline4);
 
-  h1 {
-    @include mdc-typography(headline4);
-
-    font-weight: 500;  
-  }
-
-  h2 {
-    @include mdc-typography(headline5);
-  }
+  margin: 24px 16px 16px 0;
+  line-height: 1.25;
+  padding-bottom: .3em;
+  border-bottom: 1px solid #eaecef;  
+  font-weight: 500;  
 }
 
 .demo-panel-references {
   @include mdc-typography(headline5);
 
-  font-weight: 500;
   margin: 24px 16px 16px 0;
   line-height: 1.25;
   padding-bottom: .3em;

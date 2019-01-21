@@ -1,11 +1,10 @@
 <mdc-list-divider class="example-divider"></mdc-list-divider>
 <button mdc-button raised class="example-opener" *ngIf="!open" (click)="open = !open">
-  <mdc-icon>code</mdc-icon>
-  View Source
+  <mdc-icon>code</mdc-icon>View Source
 </button>
-<mdc-tab-bar fixed [focusOnActivate]="false" *ngIf="open">
+<mdc-tab-bar fixed [focusOnActivate]="false" *ngIf="open" (activated)="onActivatedTab($event)">
   <mdc-tab-scroller>
-    <mdc-tab *ngFor="let tab of tabs" [label]="tab.label" (interacted)="showSource(tab.source)"></mdc-tab>
+    <mdc-tab *ngFor="let tab of tabs" [label]="tab.label"></mdc-tab>
   </mdc-tab-scroller>
 </mdc-tab-bar>
 <pre><code [highlight]="currentExample" *ngIf="open"></code></pre>

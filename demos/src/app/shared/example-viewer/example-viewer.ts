@@ -1,5 +1,7 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 
+import {MdcTabActivatedEvent} from '@angular-mdc/web';
+
 interface Example {
   label?: string;
   source?: any;
@@ -38,10 +40,10 @@ export class ExampleViewer implements OnInit {
   private _example: Example;
 
   ngOnInit(): void {
-    this.showSource(this.tabs[0].source);
+    this.currentExample = this.tabs[0].source;
   }
 
-  showSource(exampleType: string): void {
-    this.currentExample = exampleType;
+  onActivatedTab(event: MdcTabActivatedEvent): void {
+    this.currentExample = this.tabs[event.index].source;
   }
 }

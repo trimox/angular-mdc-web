@@ -2,13 +2,15 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ContentChild,
   Directive,
   ElementRef,
   EventEmitter,
+  Inject,
+  InjectionToken,
   Input,
   OnDestroy,
   OnInit,
+  Optional,
   Output,
   ViewEncapsulation
 } from '@angular/core';
@@ -20,6 +22,20 @@ export class MdcListSelectionChange {
   constructor(
     public source: MdcListItem) { }
 }
+
+/**
+ * Describes a parent MdcList component.
+ * Contains properties that MdcListItem can inherit.
+ */
+export interface MdcListParentComponent {
+  disableRipple(): boolean;
+}
+
+/**
+ * Injection token used to provide the parent MdcList component to MdcListItem.
+ */
+export const MDC_LIST_PARENT_COMPONENT =
+  new InjectionToken<MdcListParentComponent>('MDC_LIST_PARENT_COMPONENT');
 
 let uniqueIdCounter = 0;
 
@@ -54,8 +70,7 @@ export class MdcListItemMeta {
   <ng-container>
     <span class="mdc-list-item__primary-text"><ng-content></ng-content></span>
     <span class="mdc-list-item__secondary-text" *ngIf="secondaryText">{{secondaryText}}</span>
-  </ng-container>
-  `,
+  </ng-container>`,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -97,13 +112,13 @@ export class MdcListItemSecondary {
 export class MdcListItem implements OnInit, OnDestroy {
   private _id = `mdc-list-item-${uniqueIdCounter++}`;
 
-  /** The unique ID of the option. */
+  /** The unique ID of the list item. */
   get id(): string { return this._id; }
 
   @Input() value: any;
   @Input() tabIndex: number = -1;
 
-  /** Whether the option is selected. */
+  /** Whether the list item is selected. */
   @Input()
   get selected(): boolean { return this._selected; }
   set selected(value: boolean) {
@@ -115,7 +130,7 @@ export class MdcListItem implements OnInit, OnDestroy {
   }
   private _selected: boolean = false;
 
-  /** Whether the option is activated. */
+  /** Whether the list item is activated. */
   @Input()
   get activated(): boolean { return this._activated; }
   set activated(value: boolean) {
@@ -127,7 +142,7 @@ export class MdcListItem implements OnInit, OnDestroy {
   }
   private _activated: boolean = false;
 
-  /** Whether the option is disabled. */
+  /** Whether the list item is disabled. */
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
@@ -142,35 +157,29 @@ export class MdcListItem implements OnInit, OnDestroy {
   @Output() readonly selectionChange: EventEmitter<MdcListSelectionChange>
     = new EventEmitter<MdcListSelectionChange>();
 
-  @ContentChild(MdcListItemGraphic) listItemStart?: MdcListItemGraphic;
-
   constructor(
     public ripple: MdcRipple,
     private _changeDetectorRef: ChangeDetectorRef,
-    public elementRef: ElementRef) { }
+    public elementRef: ElementRef,
+    @Optional() @Inject(MDC_LIST_PARENT_COMPONENT) private _parent: MdcListParentComponent) { }
 
   ngOnInit(): void {
-    this.initRipple();
+    this._initRipple();
   }
 
   ngOnDestroy(): void {
-    this.destroyRipple();
-  }
-
-  initRipple(): void {
-    this.ripple.init({
-      surface: this.getListItemElement(),
-      disabled: this.disabled
-    });
-  }
-
-  destroyRipple(): void {
     this.ripple.destroy();
   }
 
-  focus(): void {
-    if (this._disabled) { return; }
+  private _initRipple(): void {
+    this.ripple.init({
+      surface: this.elementRef.nativeElement
+    }, Object.assign(this.ripple.createAdapter(), {
+      isSurfaceDisabled: () => this._disabled || this._parent.disableRipple
+    }));
+  }
 
+  focus(): void {
     this.getListItemElement().focus();
   }
 

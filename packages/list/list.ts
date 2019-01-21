@@ -7,7 +7,6 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
-  forwardRef,
   Input,
   OnDestroy,
   Output,
@@ -19,7 +18,7 @@ import { startWith } from 'rxjs/operators';
 
 import { toBoolean, Platform } from '@angular-mdc/web/common';
 
-import { MdcListItem, MdcListSelectionChange } from './list-item';
+import { MdcListItem, MdcListSelectionChange, MDC_LIST_PARENT_COMPONENT } from './list-item';
 
 import { strings } from '@material/list/constants';
 import { matches } from '@material/dom/ponyfill';
@@ -41,8 +40,7 @@ export class MdcListItemChange {
   host: { 'class': 'mdc-list-group' },
   template: `
   <h3 class="mdc-list-group__subheader" *ngIf="subheader">{{subheader}}</h3>
-  <ng-content></ng-content>
-  `,
+  <ng-content></ng-content>`,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -81,7 +79,8 @@ export class MdcListGroupSubheader {
   },
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{ provide: MDC_LIST_PARENT_COMPONENT, useExisting: MdcList }]
 })
 export class MdcList implements AfterViewInit, OnDestroy {
   @Input()
@@ -128,7 +127,6 @@ export class MdcList implements AfterViewInit, OnDestroy {
     const newValue = toBoolean(value);
     if (newValue !== this._disableRipple) {
       this._disableRipple = newValue;
-      this._initRipple();
     }
   }
   private _disableRipple: boolean = false;
@@ -177,7 +175,7 @@ export class MdcList implements AfterViewInit, OnDestroy {
   }
   private _wrapFocus: boolean = false;
 
-  @ContentChildren(forwardRef(() => MdcListItem), { descendants: true }) items!: QueryList<MdcListItem>;
+  @ContentChildren(MdcListItem, { descendants: true }) items!: QueryList<MdcListItem>;
 
   /** Emits a change event whenever the selected state of an option changes. */
   @Output() readonly selectionChange: EventEmitter<MdcListItemChange> =
@@ -282,7 +280,6 @@ export class MdcList implements AfterViewInit, OnDestroy {
     this._changeSubscription = this.items.changes.pipe(startWith(null))
       .subscribe(() => {
         this._resetListItems();
-        this._initRipple();
       });
 
     this._foundation.layout();
@@ -432,13 +429,6 @@ export class MdcList implements AfterViewInit, OnDestroy {
       }
       this.selectionChange.emit(new MdcListItemChange(this, event.source));
     });
-  }
-
-  private _initRipple(): void {
-    if (!this.items) { return; }
-
-    this.items.forEach(option =>
-      this.disableRipple ? option.destroyRipple() : option.initRipple());
   }
 
   _onFocusIn(evt: FocusEvent): void {

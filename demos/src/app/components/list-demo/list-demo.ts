@@ -47,6 +47,10 @@ export class Examples {
     { name: 'Kitchen Remodel', icon: 'insert_drive_file', addDate: 'Jan 20, 2015' }
   ];
 
+  //
+  // Examples
+  //
+
   exampleItemsArray = `items = [
   { label: 'Wi-Fi', icon: 'network_wifi'},
   { label: 'Bluetooth', icon: 'bluetooth'},
@@ -117,7 +121,7 @@ files = [
 </mdc-list>`
   };
 
-  exampleStartGraphic = {
+  exampleLeadingIcon = {
     html: `<mdc-list>
   <mdc-list-item>
     <mdc-icon mdcListItemGraphic>network_wifi</mdc-icon>Wi-Fi
@@ -131,7 +135,7 @@ files = [
 </mdc-list>`
   };
 
-  exampleMeta = {
+  exampleTrailingIcon = {
     html: `<mdc-list>
   <mdc-list-item>Wi-Fi
     <mdc-icon mdcListItemMeta>info</mdc-icon>
@@ -145,7 +149,7 @@ files = [
 </mdc-list>`
   };
 
-  exampleStartEnd = {
+  exampleLeadingAndTrailingIcon = {
     html: `<mdc-list>
   <mdc-list-item>
     <mdc-icon mdcListItemGraphic>network_wifi</mdc-icon>Wi-Fi
@@ -162,7 +166,24 @@ files = [
 </mdc-list>`
   };
 
-  exampleCheckList = {
+  exampleCheckListLeading = {
+    html: `<mdc-list>
+  <mdc-list-item>
+    <mdc-checkbox></mdc-checkbox>
+    Single-line item
+  </mdc-list-item>
+  <mdc-list-item>
+    <mdc-checkbox></mdc-checkbox>
+    Single-line item
+  </mdc-list-item>
+  <mdc-list-item>
+    <mdc-checkbox></mdc-checkbox>
+    Single-line item
+  </mdc-list-item>
+</mdc-list>`
+  };
+
+  exampleCheckListTrailing = {
     html: `<mdc-list>
   <mdc-list-item>
     Single-line item
@@ -180,7 +201,7 @@ files = [
   };
 
   exampleAvatars = {
-    html: `<mdc-list>
+    html: `<mdc-list avatar>
   <mdc-list-item>
     <mdc-icon mdcListItemGraphic>person</mdc-icon>Single-line item
   </mdc-list-item>

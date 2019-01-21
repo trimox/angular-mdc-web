@@ -1,22 +1,30 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Custom</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="custom.border = !custom.border">Border: {{custom.border ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="custom.dense = !custom.dense">Dense: {{custom.dense ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="custom.singleSelection = !custom.singleSelection">Single Selection:
+    <button mdc-button (click)="custom.border = !custom.border">Border:
+      {{custom.border ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="custom.dense = !custom.dense">Dense:
+      {{custom.dense ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="custom.singleSelection = !custom.singleSelection">Single
+      Selection:
       {{custom.singleSelection ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="custom.wrapFocus = !custom.wrapFocus">Wrap Focus: {{custom.wrapFocus ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="custom.interactive = !custom.interactive">Interactive: {{custom.interactive ? 'On' :
+    <button mdc-button (click)="custom.wrapFocus = !custom.wrapFocus">Wrap
+      Focus: {{custom.wrapFocus ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="custom.interactive = !custom.interactive">Interactive:
+      {{custom.interactive ? 'On' :
       'Off'}}</button>
-    <button mdc-button (click)="custom.disableRipple = !custom.disableRipple">Disable Ripple: {{custom.disableRipple ?
+    <button mdc-button (click)="custom.disableRipple = !custom.disableRipple">Disable
+      Ripple: {{custom.disableRipple ?
       'On' :
       'Off'}}</button>
   </div>
   <div class="demo-layout__row">
-    <button mdc-button (click)="custom.useActivatedClass = !custom.useActivatedClass">Use Activated Class:
+    <button mdc-button (click)="custom.useActivatedClass = !custom.useActivatedClass">Use
+      Activated Class:
       {{custom.useActivatedClass ?
       'On' : 'Off'}}</button>
-    <button mdc-button (click)="custom.useSelectedClass = !custom.useSelectedClass">Use Selected Class:
+    <button mdc-button (click)="custom.useSelectedClass = !custom.useSelectedClass">Use
+      Selected Class:
       {{custom.useSelectedClass ?
       'On' : 'Off'}}</button>
     <button mdc-button (click)="custom.reset()" *ngIf="custom.useActivatedClass || custom.useSelectedClass">Reset</button>
@@ -26,14 +34,16 @@
       <mdc-list-item *ngFor="let folder of folders">
         <mdc-icon mdcListItemGraphic>{{folder.icon}}</mdc-icon>
         <mdc-list-item-text [secondaryText]="folder.addDate">{{folder.name}}</mdc-list-item-text>
-        <a href="#/list-demo/examples" mdcListItemMeta mdcIcon aria-label="View more" title="More info">info</a>
+        <a href="#/list-demo/examples" mdcListItemMeta mdcIcon aria-label="View more"
+          title="More info">info</a>
       </mdc-list-item>
       <mdc-list-divider inset></mdc-list-divider>
       <h3 mdcListGroupSubheader>Files</h3>
       <mdc-list-item *ngFor="let file of files">
         <mdc-icon mdcListItemGraphic>{{file.icon}}</mdc-icon>
         <mdc-list-item-text [secondaryText]="file.addDate">{{file.name}}</mdc-list-item-text>
-        <a href="#/list-demo/examples" mdcListItemMeta mdcIcon aria-label="View more" title="More info">info</a>
+        <a href="#/list-demo/examples" mdcListItemMeta mdcIcon aria-label="View more"
+          title="More info">info</a>
       </mdc-list-item>
     </mdc-list>
   </mdc-list-group>
@@ -42,12 +52,18 @@
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Ripple disabled</h3>
-  <mdc-list disableRipple>
+  <mdc-list #listNoRipple disableRipple>
     <mdc-list-item *ngFor="let item of items">
       <mdc-icon mdcListItemGraphic>{{item.icon}}</mdc-icon>
       {{item.label}}
     </mdc-list-item>
   </mdc-list>
+  <div class="demo-layout__row">
+    <mdc-form-field>
+      <mdc-checkbox (change)="listNoRipple.disableRipple = !listNoRipple.disableRipple"></mdc-checkbox>
+      <label>Enable Ripple</label>
+    </mdc-form-field>
+  </div>
   <example-viewer [example]="exampleRippleDisabled"></example-viewer>
 </div>
 
@@ -70,11 +86,15 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Single-Line</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="singleline.border = !singleline.border">Border: {{singleline.border ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="singleline.dense = !singleline.dense">Dense: {{singleline.dense ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="singleline.singleSelection = !singleline.singleSelection">Single Selection:
+    <button mdc-button (click)="singleline.border = !singleline.border">Border:
+      {{singleline.border ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="singleline.dense = !singleline.dense">Dense:
+      {{singleline.dense ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="singleline.singleSelection = !singleline.singleSelection">Single
+      Selection:
       {{singleline.singleSelection ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="singleline.interactive = !singleline.interactive">Interactive: {{singleline.interactive
+    <button mdc-button (click)="singleline.interactive = !singleline.interactive">Interactive:
+      {{singleline.interactive
       ? 'On' : 'Off'}}</button>
   </div>
   <mdc-list #singleline>
@@ -89,11 +109,15 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Two-Line</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="twoline.border = !twoline.border">Border: {{twoline.border ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="twoline.dense = !twoline.dense">Dense: {{twoline.dense ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="twoline.singleSelection = !twoline.singleSelection">Single Selection:
+    <button mdc-button (click)="twoline.border = !twoline.border">Border:
+      {{twoline.border ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="twoline.dense = !twoline.dense">Dense:
+      {{twoline.dense ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="twoline.singleSelection = !twoline.singleSelection">Single
+      Selection:
       {{twoline.singleSelection ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="twoline.interactive = !twoline.interactive">Interactive: {{twoline.interactive ? 'On' :
+    <button mdc-button (click)="twoline.interactive = !twoline.interactive">Interactive:
+      {{twoline.interactive ? 'On' :
       'Off'}}</button>
   </div>
   <mdc-list #twoline twoLine>
@@ -111,12 +135,15 @@
 </div>
 
 <div class="demo-content">
-  <h3 class="demo-content__headline">Start Graphic</h3>
+  <h3 class="demo-content__headline">Leading Icon</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="startgraphic.border = !startgraphic.border">Border: {{startgraphic.border ? 'On' :
+    <button mdc-button (click)="startgraphic.border = !startgraphic.border">Border:
+      {{startgraphic.border ? 'On' :
       'Off'}}</button>
-    <button mdc-button (click)="startgraphic.dense = !startgraphic.dense">Dense: {{startgraphic.dense ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="startgraphic.singleSelection = !startgraphic.singleSelection">Single Selection:
+    <button mdc-button (click)="startgraphic.dense = !startgraphic.dense">Dense:
+      {{startgraphic.dense ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="startgraphic.singleSelection = !startgraphic.singleSelection">Single
+      Selection:
       {{startgraphic.singleSelection ? 'On' : 'Off'}}</button>
     <button mdc-button (click)="startgraphic.interactive = !startgraphic.interactive">Interactive:
       {{startgraphic.interactive ? 'On' : 'Off'}}</button>
@@ -132,15 +159,18 @@
       <mdc-icon mdcListItemGraphic>data_usage</mdc-icon>Data Usage
     </mdc-list-item>
   </mdc-list>
-  <example-viewer [example]="exampleStartGraphic"></example-viewer>
+  <example-viewer [example]="exampleLeadingIcon"></example-viewer>
 </div>
 
 <div class="demo-content">
-  <h3 class="demo-content__headline">End Meta</h3>
+  <h3 class="demo-content__headline">Trailing Icon</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="endmeta.border = !endmeta.border">Border: {{endmeta.border ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="endmeta.dense = !endmeta.dense">Dense: {{endmeta.dense ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="endmeta.interactive = !endmeta.interactive">Interactive: {{endmeta.interactive ? 'On' :
+    <button mdc-button (click)="endmeta.border = !endmeta.border">Border:
+      {{endmeta.border ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="endmeta.dense = !endmeta.dense">Dense:
+      {{endmeta.dense ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="endmeta.interactive = !endmeta.interactive">Interactive:
+      {{endmeta.interactive ? 'On' :
       'Off'}}</button>
   </div>
   <mdc-list #endmeta>
@@ -154,15 +184,18 @@
       <mdc-icon mdcListItemMeta>info</mdc-icon>
     </mdc-list-item>
   </mdc-list>
-  <example-viewer [example]="exampleMeta"></example-viewer>
+  <example-viewer [example]="exampleTrailingIcon"></example-viewer>
 </div>
 
 <div class="demo-content">
-  <h3 class="demo-content__headline">Start and End Graphic/Meta Detail</h3>
+  <h3 class="demo-content__headline">Leading and Trailing Icon</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="startend.border = !startend.border">Border: {{startend.border ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="startend.dense = !startend.dense">Dense: {{startend.dense ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="startend.interactive = !startend.interactive">Interactive: {{startend.interactive ?
+    <button mdc-button (click)="startend.border = !startend.border">Border:
+      {{startend.border ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="startend.dense = !startend.dense">Dense:
+      {{startend.dense ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="startend.interactive = !startend.interactive">Interactive:
+      {{startend.interactive ?
       'On' : 'Off'}}</button>
   </div>
   <mdc-list #startend>
@@ -179,15 +212,37 @@
       <mdc-icon mdcListItemMeta>info</mdc-icon>
     </mdc-list-item>
   </mdc-list>
-  <example-viewer [example]="exampleStartEnd"></example-viewer>
+  <example-viewer [example]="exampleLeadingAndTrailingIcon"></example-viewer>
 </div>
 
 <div class="demo-content">
-  <h3 class="demo-content__headline">Checkbox List</h3>
+  <h3 class="demo-content__headline">List with Leading Checkbox</h3>
+  <mdc-list>
+    <mdc-list-item>
+      <mdc-checkbox></mdc-checkbox>
+      Single-line item
+    </mdc-list-item>
+    <mdc-list-item>
+      <mdc-checkbox></mdc-checkbox>
+      Single-line item
+    </mdc-list-item>
+    <mdc-list-item>
+      <mdc-checkbox></mdc-checkbox>
+      Single-line item
+    </mdc-list-item>
+  </mdc-list>
+  <example-viewer [example]="exampleCheckListLeading"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">List with Trailing Checkbox</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="checkboxes.border = !checkboxes.border">Border: {{checkboxes.border ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="checkboxes.dense = !checkboxes.dense">Dense: {{checkboxes.dense ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="checkboxes.interactive = !checkboxes.interactive">Interactive: {{checkboxes.interactive
+    <button mdc-button (click)="checkboxes.border = !checkboxes.border">Border:
+      {{checkboxes.border ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="checkboxes.dense = !checkboxes.dense">Dense:
+      {{checkboxes.dense ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="checkboxes.interactive = !checkboxes.interactive">Interactive:
+      {{checkboxes.interactive
       ? 'On' : 'Off'}}</button>
   </div>
   <mdc-list #checkboxes>
@@ -204,18 +259,12 @@
       <mdc-checkbox mdcListItemMeta></mdc-checkbox>
     </mdc-list-item>
   </mdc-list>
-  <example-viewer [example]="exampleCheckList"></example-viewer>
+  <example-viewer [example]="exampleCheckListTrailing"></example-viewer>
 </div>
 
 <div class="demo-content">
-  <h3 class="demo-content__headline">Avatars</h3>
-  <div class="demo-layout__row">
-    <button mdc-button (click)="avatar.border = !avatar.border">Border: {{avatar.border ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="avatar.dense = !avatar.dense">Dense: {{avatar.dense ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="avatar.interactive = !avatar.interactive">Interactive: {{avatar.interactive ? 'On' :
-      'Off'}}</button>
-  </div>
-  <mdc-list #avatar>
+  <h3 class="demo-content__headline">Avatar List</h3>
+  <mdc-list avatar #listAvatar>
     <mdc-list-item>
       <mdc-icon mdcListItemGraphic>person</mdc-icon>Single-line item
     </mdc-list-item>
@@ -226,14 +275,30 @@
       <mdc-icon mdcListItemGraphic>person</mdc-icon>Single-line item
     </mdc-list-item>
   </mdc-list>
+  <div class="demo-layout__row">
+    <mdc-form-field>
+      <mdc-checkbox [checked]="listAvatar.avatar" (change)="listAvatar.avatar = !listAvatar.avatar"></mdc-checkbox>
+      <label>Avatar</label>
+    </mdc-form-field>
+    <mdc-form-field>
+      <mdc-checkbox [checked]="listAvatar.border" (change)="listAvatar.border = !listAvatar.border"></mdc-checkbox>
+      <label>Border</label>
+    </mdc-form-field>
+    <mdc-form-field>
+      <mdc-checkbox [checked]="listAvatar.dense" (change)="listAvatar.dense = !listAvatar.dense"></mdc-checkbox>
+      <label>Dense</label>
+    </mdc-form-field>
+  </div>
   <example-viewer [example]="exampleAvatars"></example-viewer>
 </div>
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Group Lists</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="divider.inset = !divider.inset">Divider Inset: {{divider.inset ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="divider.padded = !divider.padded">Divider Padded: {{divider.padded ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="divider.inset = !divider.inset">Divider Inset:
+      {{divider.inset ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="divider.padded = !divider.padded">Divider
+      Padded: {{divider.padded ? 'On' : 'Off'}}</button>
   </div>
   <mdc-list-group subheader="First Group">
     <mdc-list>

@@ -2,7 +2,9 @@ import { Component, DebugElement } from '@angular/core';
 import {
   FormControl,
   FormsModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  FormGroup,
+  Validators
 } from '@angular/forms';
 import { fakeAsync, ComponentFixture, TestBed, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -151,6 +153,12 @@ describe('MdcSelectModule', () => {
       expect(testDebugElement.nativeElement.classList.contains('mdc-select--outlined')).toBe(true);
     });
 
+    it('#should set autosize to false', () => {
+      testComponent.autosize = false;
+      fixture.detectChanges();
+      expect(testInstance.autosize).toBe(false);
+    });
+
     it('#should set value to tacos-2', fakeAsync(() => {
       testComponent.foodControl.setValue('tacos-2');
       flush();
@@ -195,6 +203,15 @@ describe('MdcSelectModule', () => {
       testComponent.disabled = true;
       fixture.detectChanges();
       expect(testInstance.disabled).toBe(true);
+    }));
+
+    it('#should set required to true and valid to true', fakeAsync(() => {
+      testInstance.valid = true;
+      fixture.detectChanges();
+      testComponent.required = false;
+      fixture.detectChanges();
+
+      expect(testInstance.required).toBe(false);
     }));
 
     it('#should handle mouse events', fakeAsync(() => {
@@ -267,7 +284,7 @@ class SimpleTest {
   floatLabel: boolean;
   multiple: boolean;
   required: boolean;
-  valid: boolean;
+  valid: boolean = false;
   testValue: string;
 
   foods = [
@@ -312,21 +329,27 @@ class SelectFormControl {
 
 @Component({
   template: `
-  <mdc-select placeholder="Fruit" [helperText]="enhancedHelper" [required]="required"
-   [disabled]="disabled" [outlined]="outlined">
-  <mdc-menu [open]="open">
-    <mdc-list>
-      <mdc-list-item selected></mdc-list-item>
-      <mdc-list-item value="apple">Apple</mdc-list-item>
-      <mdc-list-item value="orange">Orange</mdc-list-item>
-      <mdc-list-item value="banana">Banana</mdc-list-item>
-    </mdc-list>
-  </mdc-menu>
-</mdc-select>
-<mdc-helper-text #enhancedHelper validation>Field is required</mdc-helper-text>
+  <form [formGroup]="foodForm" id="foodForm" #formDirective="ngForm">
+    <mdc-select placeholder="Fruit" [helperText]="enhancedHelper" [required]="required"
+      [disabled]="disabled" [outlined]="outlined">
+      <mdc-menu [open]="open">
+        <mdc-list>
+          <mdc-list-item selected></mdc-list-item>
+          <mdc-list-item value="apple">Apple</mdc-list-item>
+          <mdc-list-item value="orange">Orange</mdc-list-item>
+          <mdc-list-item value="banana">Banana</mdc-list-item>
+        </mdc-list>
+      </mdc-menu>
+    </mdc-select>
+    <mdc-helper-text #enhancedHelper validation>Field is required</mdc-helper-text>
+  </form>
 `
 })
 class EnhancedSelect {
+  foodForm = new FormGroup({
+    favoriteFood: new FormControl(null, [Validators.required])
+  });
+
   outlined: boolean;
   required: boolean = true;
   open: boolean;

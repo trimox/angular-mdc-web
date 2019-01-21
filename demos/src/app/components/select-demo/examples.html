@@ -1,17 +1,40 @@
 <div class="demo-content">
+  <h3 class="demo-content__headline">Simple Native - FormControl</h3>
+  <form [formGroup]="simpleNativeForm">
+    <mdc-select formControlName="simpleNative">
+      <option value="one">One</option>
+      <option value="two">Two</option>
+    </mdc-select>
+  </form>
+  <p>Dirty: {{ simpleNativeForm.dirty }}</p>
+  <p>Valid: {{ simpleNativeForm.valid }}</p>
+  <p>Pristine: {{ simpleNativeForm.pristine }}</p>
+  <p>Touched: {{ simpleNativeForm.touched }}</p>
+  <p>Value: {{ simpleNativeForm.value | json }}</p>
+  <example-viewer [example]="exampleSimpleNativeFormControl"></example-viewer>
+</div>
+
+<div class="demo-content">
   <h3 class="demo-content__headline">Enhanced Select</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="enhanced.outlined = !enhanced.outlined">Outlined: {{enhanced.outlined ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="enhanced.required = !enhanced.required">Required: {{enhanced.required ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="enhanced.disabled = !enhanced.disabled">Disabled: {{enhanced.disabled ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="enhanced.floatLabel = !enhanced.floatLabel">Float Label: {{enhanced.floatLabel ? 'On' :
+    <button mdc-button (click)="enhanced.outlined = !enhanced.outlined">Outlined:
+      {{enhanced.outlined ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="enhanced.required = !enhanced.required">Required:
+      {{enhanced.required ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="enhanced.disabled = !enhanced.disabled">Disabled:
+      {{enhanced.disabled ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="enhanced.floatLabel = !enhanced.floatLabel">Float
+      Label: {{enhanced.floatLabel ? 'On' :
       'Off'}}</button>
-    <button mdc-button (click)="enhanced.autosize = !enhanced.autosize">Autosize: {{enhanced.autosize ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="enhanced.setSelectionByValue('banana')">Select Banana</button>
+    <button mdc-button (click)="enhanced.autosize = !enhanced.autosize">Autosize:
+      {{enhanced.autosize ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="enhanced.setSelectionByValue('banana')">Select
+      Banana</button>
     <button mdc-button (click)="enhanced.setSelectedIndex(2)">Set Index (2)</button>
     <button mdc-button (click)="enhanced.reset()">Reset</button>
   </div>
-  <mdc-select #enhanced placeholder="Fruit" required [helperText]="enhancedHelper" (selectionChange)="onSelectionChange($event)">
+  <mdc-select #enhanced placeholder="Fruit" required [helperText]="enhancedHelper"
+    (selectionChange)="onSelectionChange($event)">
     <mdc-menu>
       <mdc-list>
         <mdc-list-item></mdc-list-item>
@@ -47,17 +70,23 @@
 </div>
 
 <div class="demo-content">
-  <h3 class="demo-content__headline">Native Select - w/Leading Icon</h3>
+  <h3 class="demo-content__headline">Native Select - Leading Icon</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="meal.outlined = !meal.outlined">Outlined: {{meal.outlined ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="meal.required = !meal.required">Required: {{meal.required ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="meal.disabled = !meal.disabled">Disabled: {{meal.disabled ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="meal.floatLabel = !meal.floatLabel">Float Label: {{meal.floatLabel ? 'On' :
+    <button mdc-button (click)="meal.outlined = !meal.outlined">Outlined:
+      {{meal.outlined ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="meal.required = !meal.required">Required:
+      {{meal.required ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="meal.disabled = !meal.disabled">Disabled:
+      {{meal.disabled ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="meal.floatLabel = !meal.floatLabel">Float
+      Label: {{meal.floatLabel ? 'On' :
       'Off'}}</button>
-    <button mdc-button (click)="meal.autosize = !meal.autosize">Autosize: {{meal.autosize ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="meal.autosize = !meal.autosize">Autosize:
+      {{meal.autosize ? 'On' : 'Off'}}</button>
     <button mdc-button (click)="meal.setSelectedIndex(2)">Set Index (2)</button>
   </div>
-  <mdc-select #meal [helperText]="mealHelper" required placeholder="Pick a Meal" autosize>
+  <mdc-select #meal [helperText]="mealHelper" required placeholder="Pick a Meal"
+    autosize>
     <mdc-icon mdcSelectIcon>fastfood</mdc-icon>
     <option *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
       {{food.viewValue}}
@@ -76,7 +105,8 @@
       <mdc-select placeholder="Standard" class="custom-select-shape-radius">
         <mdc-menu>
           <mdc-list>
-            <mdc-list-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
+            <mdc-list-item *ngFor="let food of foods" [value]="food.value"
+              [disabled]="food.disabled">
               {{food.viewValue}}
             </mdc-list-item>
           </mdc-list>
@@ -87,7 +117,8 @@
       <mdc-select placeholder="Standard" outlined class="custom-select-outline-shape-radius">
         <mdc-menu>
           <mdc-list>
-            <mdc-list-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
+            <mdc-list-item *ngFor="let food of foods" [value]="food.value"
+              [disabled]="food.disabled">
               {{food.viewValue}}
             </mdc-list-item>
           </mdc-list>
@@ -98,7 +129,8 @@
       <mdc-select placeholder="Standard" outlined class="custom-select-outline-color">
         <mdc-menu>
           <mdc-list>
-            <mdc-list-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
+            <mdc-list-item *ngFor="let food of foods" [value]="food.value"
+              [disabled]="food.disabled">
               {{food.viewValue}}
             </mdc-list-item>
           </mdc-list>
@@ -111,30 +143,34 @@
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Select with [compareWith]</h3>
-  <form [formGroup]="formOne">
+  <form [formGroup]="formCompareWith">
     <mdc-select formControlName="fruit" [compareWith]="compareFn">
       <option *ngFor="let fruit of fruits" [ngValue]="fruit">
         {{ fruit.name }}
       </option>
     </mdc-select>
   </form>
-  <p> Value: {{ formOne.value | json}} </p>
+  <p> Value: {{ formCompareWith.value | json}} </p>
 </div>
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Select with ngModel</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="select.outlined = !select.outlined">Outlined: {{select.outlined ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="select.disabled = !select.disabled">Disabled: {{select.disabled ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="select.floatLabel = !select.floatLabel">Float Label: {{select.floatLabel ? 'On' :
+    <button mdc-button (click)="select.outlined = !select.outlined">Outlined:
+      {{select.outlined ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="select.disabled = !select.disabled">Disabled:
+      {{select.disabled ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="select.floatLabel = !select.floatLabel">Float
+      Label: {{select.floatLabel ? 'On' :
       'Off'}}</button>
     <button mdc-button (click)="demoNgModel.reset()">Clear Selection</button>
-    <button mdc-button (click)="select.setSelectionByValue('fruit-3')">Select Fruit</button>
+    <button mdc-button (click)="select.setSelectionByValue('fruit-3')">Select
+      Fruit</button>
     <button mdc-button (click)="select.setSelectedIndex(4)">Set Index (4)</button>
   </div>
   <form #demoForm="ngForm">
-    <mdc-select #select placeholder="Favorite food" name="food" required outlined ngModel #demoNgModel="ngModel"
-      (selectionChange)="onSelectionChange($event)">
+    <mdc-select #select placeholder="Favorite food" name="food" required
+      outlined ngModel #demoNgModel="ngModel" (selectionChange)="onSelectionChange($event)">
       <option *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
         {{food.viewValue}}
       </option>
@@ -151,24 +187,32 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Select with FormControl</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="favoriteFood.outlined = !favoriteFood.outlined">Outlined: {{favoriteFood.outlined ?
+    <button mdc-button (click)="favoriteFood.outlined = !favoriteFood.outlined">Outlined:
+      {{favoriteFood.outlined ?
       'On' : 'Off'}}</button>
-    <button mdc-button (click)="favoriteFood.disabled = !favoriteFood.disabled">Disabled: {{favoriteFood.disabled ?
+    <button mdc-button (click)="favoriteFood.disabled = !favoriteFood.disabled">Disabled:
+      {{favoriteFood.disabled ?
       'On' : 'Off'}}</button>
-    <button mdc-button (click)="favoriteFood.floatLabel = !favoriteFood.floatLabel">Float Label:
+    <button mdc-button (click)="favoriteFood.floatLabel = !favoriteFood.floatLabel">Float
+      Label:
       {{favoriteFood.floatLabel ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="favoriteFood.setSelectionByValue('pizza-1')">Select Pizza</button>
-    <button mdc-button (click)="foodForm.controls['favoriteFood'].setValue('pizza-1')">Set Form Value</button>
+    <button mdc-button (click)="favoriteFood.setSelectionByValue('pizza-1')">Select
+      Pizza</button>
+    <button mdc-button (click)="foodForm.controls['favoriteFood'].setValue('pizza-1')">Set
+      Form Value</button>
     <button mdc-button (click)="favoriteFood.setSelectedIndex(1)">Set Index (1)</button>
   </div>
-  <form [formGroup]="foodForm" id="foodForm" (ngSubmit)="submitForm()" #formDirective="ngForm">
-    <mdc-select #favoriteFood placeholder="Favorite food" formControlName="favoriteFood" [helperText]="reactiveHelper">
+  <form [formGroup]="foodForm" id="foodForm" (ngSubmit)="submitForm()"
+    #formDirective="ngForm">
+    <mdc-select #favoriteFood placeholder="Favorite food" formControlName="favoriteFood"
+      [helperText]="reactiveHelper">
       <option *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
         {{food.viewValue}}
       </option>
     </mdc-select>
     <mdc-helper-text #reactiveHelper validation>
-      <span *ngIf="foodForm.controls['favoriteFood'].hasError('required')">Selection is required</span>
+      <span *ngIf="foodForm.controls['favoriteFood'].hasError('required')">Selection
+        is required</span>
     </mdc-helper-text>
     <div class="demo-layout__row">
       <button mdc-button>Submit</button>

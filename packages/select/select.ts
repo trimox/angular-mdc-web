@@ -146,8 +146,11 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   @Input()
   get floatLabel(): boolean { return this._floatLabel; }
   set floatLabel(value: boolean) {
-    this._floatLabel = toBoolean(value);
-    this.layout();
+    const newValue = toBoolean(value);
+    if (newValue !== this._floatLabel) {
+      this._floatLabel = newValue;
+      this.layout();
+    }
   }
   private _floatLabel: boolean = true;
 
@@ -165,16 +168,19 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   @Input()
   get required(): boolean { return this._required; }
   set required(value: boolean) {
-    this._required = toBoolean(value);
-    if (this._foundation) {
-      if (!this._required) {
-        this.valid = true;
-        this._changeDetectorRef.markForCheck();
-      }
+    const newValue = toBoolean(value);
+    if (newValue !== this._required) {
+      this._required = newValue;
+      if (this._foundation) {
+        if (!this._required) {
+          this.valid = true;
+          this._changeDetectorRef.markForCheck();
+        }
 
-      if (this.ngControl) {
-        this._required ? this._getInputElement().setAttribute('required', '') :
-          this._getInputElement().removeAttribute('required');
+        if (this.ngControl) {
+          this._required ? this._getInputElement().setAttribute('required', '') :
+            this._getInputElement().removeAttribute('required');
+        }
       }
     }
   }
@@ -183,9 +189,13 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   @Input()
   get valid(): boolean | undefined { return this._valid; }
   set valid(value: boolean | undefined) {
-    this._valid = toBoolean(value);
-    if (this._foundation) {
-      this._foundation.setValid(this._valid);
+    const newValue = toBoolean(value);
+    if (newValue !== this._valid) {
+      this._valid = newValue;
+
+      if (this._foundation) {
+        this._foundation.setValid(this._valid);
+      }
     }
   }
   private _valid: boolean | undefined;
@@ -193,8 +203,11 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   @Input()
   get autosize(): boolean { return this._autosize; }
   set autosize(value: boolean) {
-    this._autosize = toBoolean(value);
-    this._setWidth();
+    const newValue = toBoolean(value);
+    if (newValue !== this._autosize) {
+      this._autosize = newValue;
+      this._setWidth();
+    }
   }
   private _autosize: boolean = false;
 
@@ -237,14 +250,14 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   @Output() readonly valueChange:
     EventEmitter<{ index: number, value: any }> = new EventEmitter<any>();
 
-  @ViewChild(MdcFloatingLabel) _floatingLabel!: MdcFloatingLabel;
-  @ViewChild(MdcLineRipple) _lineRipple!: MdcLineRipple;
-  @ViewChild(MdcNotchedOutline) _notchedOutline!: MdcNotchedOutline;
-  @ViewChild('nativeSelect') _nativeSelect!: ElementRef<HTMLSelectElement>;
-  @ViewChild('selectedText') _selectedText!: ElementRef<HTMLElement>;
-  @ContentChild(MdcMenu) _menu!: MdcMenu;
-  @ContentChild(MdcSelectIcon) leadingIcon!: MdcSelectIcon;
-  @ContentChild(MdcList) _list!: MdcList;
+  @ViewChild(MdcFloatingLabel) _floatingLabel?: MdcFloatingLabel;
+  @ViewChild(MdcLineRipple) _lineRipple?: MdcLineRipple;
+  @ViewChild(MdcNotchedOutline) _notchedOutline?: MdcNotchedOutline;
+  @ViewChild('nativeSelect') _nativeSelect?: ElementRef<HTMLSelectElement>;
+  @ViewChild('selectedText') _selectedText?: ElementRef<HTMLElement>;
+  @ContentChild(MdcMenu) _menu?: MdcMenu;
+  @ContentChild(MdcSelectIcon) leadingIcon?: MdcSelectIcon;
+  @ContentChild(MdcList) _list?: MdcList;
 
   /** View -> model callback called when value changes */
   _onChange: (value: any) => void = () => { };
@@ -358,7 +371,6 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   private _foundation!: {
     setSelectedIndex(index: number): void,
     setValue(value: any): void,
-    getValue(): any,
     setDisabled(isDisabled: boolean): void,
     updateDisabledStyle(disabled: boolean): void,
     notchOutline(openNotch: boolean): void,
@@ -368,7 +380,6 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
     handleClick(normalizedX: number): void,
     handleKeydown(event: KeyboardEvent): void,
     setValid(isValid: boolean): void,
-    isValid(): boolean,
     layout(): void
   };
 
@@ -564,7 +575,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
     Promise.resolve().then(() => {
       const value = this.ngControl ? this.ngControl.value : this._value;
       if (value) {
-        this.setSelectionByValue(value);
+        this.setSelectionByValue(value, false);
         this._foundation.layout();
       }
     });

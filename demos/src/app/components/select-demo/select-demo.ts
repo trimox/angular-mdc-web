@@ -39,8 +39,9 @@ export class Examples {
     favoriteFood: new FormControl(null, [Validators.required])
   });
 
-  public formOne: FormGroup;
-  public fruits: object[] = [
+  simpleNativeForm: FormGroup;
+  formCompareWith: FormGroup;
+  fruits: object[] = [
     {
       id: 1,
       name: 'Pineapple',
@@ -66,11 +67,15 @@ export class Examples {
   }
 
   constructor(private fb: FormBuilder) {
-    this.formOne = this.fb.group({
+    this.formCompareWith = this.fb.group({
       fruit: [undefined]
     });
 
     this.foodControl.setValue('fruit-3');
+
+    this.simpleNativeForm = new FormGroup({
+      simpleNative: new FormControl('one')
+    });
   }
 
   submitForm() {
@@ -92,6 +97,28 @@ export class Examples {
   //
   // Examples
   //
+
+  exampleSimpleNativeFormControl = {
+    html: `<form [formGroup]="simpleNativeForm">
+  <mdc-select formControlName="simpleNative">
+    <option value="one">One</option>
+    <option value="two">Two</option>
+  </mdc-select>
+</form>
+
+<p>Dirty: {{ simpleNativeForm.dirty }}</p>
+<p>Valid: {{ simpleNativeForm.valid }}</p>
+<p>Pristine: {{ simpleNativeForm.pristine }}</p>
+<p>Touched: {{ simpleNativeForm.touched }}</p>
+<p>Value: {{ simpleNativeForm.value | json }}</p>`,
+    ts: `simpleNativeForm: FormGroup;
+
+constructor() {
+  this.simpleNativeForm = new FormGroup({
+    simpleNative: new FormControl('one')
+  });
+}`
+  };
 
   exampleEnhanced = {
     html: `<mdc-select #enhanced placeholder="Fruit" [helperText]="enhancedHelper" required>

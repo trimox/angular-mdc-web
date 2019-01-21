@@ -129,7 +129,7 @@ describe('MdcTopAppBar', () => {
       document.body.removeChild(veryLargeElement);
     });
 
-    it('#should reset scrollTarget value', () => {
+    it('#should reset scrollTarget value to Window', () => {
       testInstance.scrollTarget = undefined;
       fixture.detectChanges();
       expect(testInstance.scrollTarget).toBe(window);
@@ -144,6 +144,9 @@ describe('MdcTopAppBar', () => {
 
     describe('basic behaviors', () => {
       beforeEach(() => {
+        // Set the default Platform override that can be updated before component creation.
+        platform = { isBrowser: true };
+
         fixture = TestBed.createComponent(NoScrollContent);
         fixture.detectChanges();
 
@@ -183,9 +186,51 @@ describe('MdcTopAppBar', () => {
         fixture.detectChanges();
         document.body.removeChild(veryLargeElement);
       });
+    });
+  });
+
+  describe('MdcTopAppBar - Platform !== browser', () => {
+    let testDebugElement: DebugElement;
+    let testNativeElement: HTMLElement;
+    let testInstance: MdcTopAppBar;
+    let testComponent: NoScrollContent;
+
+    describe('basic behaviors', () => {
+      beforeEach(() => {
+        // Set the default Platform override that can be updated before component creation.
+        platform = { isBrowser: false };
+
+        fixture = TestBed.createComponent(NoScrollContent);
+        fixture.detectChanges();
+
+        testDebugElement = fixture.debugElement.query(By.directive(MdcTopAppBar));
+        testNativeElement = testDebugElement.nativeElement;
+        testInstance = testDebugElement.componentInstance;
+        testComponent = fixture.debugElement.componentInstance;
+      });
+
+      it('#scrollTarget should default to undefined', () => {
+        expect(testInstance.scrollTarget).toEqual(undefined);
+      });
+
+      it('#should handle when window is scrolled if not fixed', () => {
+        document.body.appendChild(veryLargeElement);
+        window.scrollTo(1500, 2000);
+        fixture.detectChanges();
+      });
 
       it('#should handle when window is scrolled if fixed', () => {
-        platform.isBrowser = false;
+        testComponent.fixed = true;
+        fixture.detectChanges();
+
+        expect(testInstance.scrollTarget).toEqual(undefined);
+        document.body.appendChild(veryLargeElement);
+        window.scrollTo(1500, 2000);
+        fixture.detectChanges();
+        document.body.removeChild(veryLargeElement);
+      });
+
+      it('#should handle when window is scrolled if fixed, and not a browser', () => {
         testComponent.fixed = true;
         fixture.detectChanges();
 
@@ -194,6 +239,13 @@ describe('MdcTopAppBar', () => {
         fixture.detectChanges();
         expect(testInstance.scrollTarget).toEqual(undefined);
         document.body.removeChild(veryLargeElement);
+      });
+
+      it('#should reset scrollTarget value to test', () => {
+        testInstance.scrollTarget = 'test';
+        testInstance.scrollTarget = 'test';
+        fixture.detectChanges();
+        expect(testInstance.scrollTarget).toBe('test');
       });
     });
   });

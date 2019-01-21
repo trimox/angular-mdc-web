@@ -111,17 +111,14 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
   private _fixedAdjustElement: HTMLElement | null = null;
 
   @Input()
-  get scrollTarget(): any {
-    return this._platform.isBrowser ?
-      this._scrollTarget || window : undefined;
-  }
+  get scrollTarget(): any { return this._scrollTarget; }
   set scrollTarget(target: any) {
     if (target !== this._scrollTarget) {
-      this._scrollTarget = target;
+      this._scrollTarget = target ? target : this._platform.isBrowser ? window : undefined;
       this._initScrollHandler();
     }
   }
-  private _scrollTarget: any;
+  private _scrollTarget: any = this._platform.isBrowser ? this._scrollTarget || window : undefined;
 
   /** Event emitted when the navigation icon is selected. */
   @Output() readonly navigationSelected: EventEmitter<MdcTopAppBarNavSelected> =
@@ -340,24 +337,24 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
   }
 
   private _removeFixedAdjustClasses(): void {
-    this.fixedAdjustElement.classList.remove('mdc-top-app-bar--short-fixed-adjust');
-    this.fixedAdjustElement.classList.remove('mdc-top-app-bar--fixed-adjust');
-    this.fixedAdjustElement.classList.remove('mdc-top-app-bar--dense-fixed-adjust');
-    this.fixedAdjustElement.classList.remove('mdc-top-app-bar--prominent-fixed-adjust');
-    this.fixedAdjustElement.classList.remove('mdc-top-app-bar--dense-prominent-fixed-adjust');
+    this.fixedAdjustElement!.classList.remove('mdc-top-app-bar--short-fixed-adjust');
+    this.fixedAdjustElement!.classList.remove('mdc-top-app-bar--fixed-adjust');
+    this.fixedAdjustElement!.classList.remove('mdc-top-app-bar--dense-fixed-adjust');
+    this.fixedAdjustElement!.classList.remove('mdc-top-app-bar--prominent-fixed-adjust');
+    this.fixedAdjustElement!.classList.remove('mdc-top-app-bar--dense-prominent-fixed-adjust');
   }
 
   private _addFixedAdjustClass(): void {
     if (this._short) {
-      this.fixedAdjustElement.classList.add('mdc-top-app-bar--short-fixed-adjust');
+      this.fixedAdjustElement!.classList.add('mdc-top-app-bar--short-fixed-adjust');
     } else if (this._dense && this._prominent) {
-      this.fixedAdjustElement.classList.add('mdc-top-app-bar--dense-prominent-fixed-adjust');
+      this.fixedAdjustElement!.classList.add('mdc-top-app-bar--dense-prominent-fixed-adjust');
     } else if (this._dense) {
-      this.fixedAdjustElement.classList.add('mdc-top-app-bar--dense-fixed-adjust');
+      this.fixedAdjustElement!.classList.add('mdc-top-app-bar--dense-fixed-adjust');
     } else if (this._prominent) {
-      this.fixedAdjustElement.classList.add('mdc-top-app-bar--prominent-fixed-adjust');
+      this.fixedAdjustElement!.classList.add('mdc-top-app-bar--prominent-fixed-adjust');
     } else {
-      this.fixedAdjustElement.classList.add('mdc-top-app-bar--fixed-adjust');
+      this.fixedAdjustElement!.classList.add('mdc-top-app-bar--fixed-adjust');
     }
   }
 

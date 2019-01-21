@@ -253,11 +253,11 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   @ViewChild(MdcFloatingLabel) _floatingLabel?: MdcFloatingLabel;
   @ViewChild(MdcLineRipple) _lineRipple?: MdcLineRipple;
   @ViewChild(MdcNotchedOutline) _notchedOutline?: MdcNotchedOutline;
-  @ViewChild('nativeSelect') _nativeSelect?: ElementRef<HTMLSelectElement>;
-  @ViewChild('selectedText') _selectedText?: ElementRef<HTMLElement>;
-  @ContentChild(MdcMenu) _menu?: MdcMenu;
+  @ViewChild('nativeSelect') _nativeSelect!: ElementRef<HTMLSelectElement>;
+  @ViewChild('selectedText') _selectedText!: ElementRef<HTMLElement>;
+  @ContentChild(MdcMenu) _menu!: MdcMenu;
   @ContentChild(MdcSelectIcon) leadingIcon?: MdcSelectIcon;
-  @ContentChild(MdcList) _list?: MdcList;
+  @ContentChild(MdcList) _list!: MdcList;
 
   /** View -> model callback called when value changes */
   _onChange: (value: any) => void = () => { };
@@ -301,11 +301,11 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
 
   private _getNativeSelectAdapterMethods() {
     return {
-      getValue: () => this._platform.isBrowser ? this._nativeSelect.nativeElement.value : '',
-      setValue: (value: any) => this._nativeSelect.nativeElement.value = value,
+      getValue: () => this._platform.isBrowser ? this._getInputElement().value : '',
+      setValue: (value: any) => this._getInputElement().value = value,
       isMenuOpen: () => false,
-      setSelectedIndex: (index: number) => this._nativeSelect.nativeElement.selectedIndex = index,
-      setDisabled: (isDisabled: boolean) => this._nativeSelect.nativeElement.disabled = isDisabled,
+      setSelectedIndex: (index: number) => this._getInputElement().selectedIndex = index,
+      setDisabled: (isDisabled: boolean) => this._getInputElement().disabled = isDisabled,
       setValid: (isValid: boolean) => {
         if (this.ngControl) {
           return;
@@ -314,7 +314,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
         isValid ? this._getHostElement().classList.remove(cssClasses.INVALID) :
           this._getHostElement().classList.add(cssClasses.INVALID);
       },
-      checkValidity: () => this._nativeSelect.nativeElement.checkValidity()
+      checkValidity: () => this._getInputElement().checkValidity()
     };
   }
 
@@ -324,7 +324,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
       openMenu: () => {
         if (this._menu && !this._menu.open) {
           this._menu.open = true;
-          this._selectedText.nativeElement.setAttribute('aria-expanded', 'true');
+          this._selectedText!.nativeElement.setAttribute('aria-expanded', 'true');
         }
       },
       closeMenu: () => {
@@ -349,8 +349,8 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   private _getOutlineAdapterMethods() {
     return {
       hasOutline: () => !!this._notchedOutline,
-      notchOutline: (labelWidth: number) => this._notchedOutline.notch(labelWidth),
-      closeOutline: () => this._notchedOutline.closeNotch()
+      notchOutline: (labelWidth: number) => this._notchedOutline!.notch(labelWidth),
+      closeOutline: () => this._notchedOutline!.closeNotch()
     };
   }
 
@@ -676,7 +676,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   }
 
   private _getFloatingLabel(): MdcFloatingLabel {
-    return this._floatingLabel || this._notchedOutline.floatingLabel;
+    return this._floatingLabel || this._notchedOutline!.floatingLabel;
   }
 
   /**

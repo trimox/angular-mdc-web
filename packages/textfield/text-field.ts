@@ -367,8 +367,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     setTransformOrigin(evt: Event | TouchEvent): void,
     handleTextFieldInteraction(): void,
     activateFocus(): void,
-    deactivateFocus(): void,
-    handleValidationAttributeChange(attributesList?: string[]): void
+    deactivateFocus(): void
   } = new MDCTextFieldFoundation(this._createAdapter());
 
   constructor(

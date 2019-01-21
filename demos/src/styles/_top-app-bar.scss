@@ -42,3 +42,9 @@
   overflow: hidden;
   position: relative;
 }
+
+.demo-top-app-bar-container {
+  border: 1px solid rgba(0, 0, 0, .15);
+  max-height: 16.7rem;
+  overflow: auto;
+}

@@ -51,11 +51,13 @@ export class Examples {
   excepturi!`;
   lorems = Array(5).fill(this.text);
 
-  exampleFixed = {
-    html: `<mdc-top-app-bar fixed>
+  exampleStandard = {
+    html: `<mdc-top-app-bar>
   <mdc-top-app-bar-row>
     <mdc-top-app-bar-section align="start" title="App">
-      <button mdcIconButton mdcTopAppBarNavIcon icon="menu"></button>
+      <button mdcTopAppBarNavIcon>
+        <mdc-icon>menu</mdc-icon>
+      </button>
     </mdc-top-app-bar-section>
     <mdc-top-app-bar-section align="end">
       <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
@@ -63,14 +65,39 @@ export class Examples {
       <mdc-icon mdcTopAppBarActionItem>bookmark</mdc-icon>
     </mdc-top-app-bar-section>
   </mdc-top-app-bar-row>
-</mdc-top-app-bar>`
+</mdc-top-app-bar>
+<div>
+  <p *ngFor="let lorem of lorems">{{lorem}}</p>
+</div>`
+  };
+
+  exampleFixed = {
+    html: `<mdc-top-app-bar fixed [scrollTarget]="fixedContent">
+  <mdc-top-app-bar-row>
+    <mdc-top-app-bar-section align="start" title="App">
+      <button mdcTopAppBarNavIcon>
+        <mdc-icon>menu</mdc-icon>
+      </button>
+    </mdc-top-app-bar-section>
+    <mdc-top-app-bar-section align="end">
+      <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
+      <mdc-icon mdcTopAppBarActionItem>print</mdc-icon>
+      <mdc-icon mdcTopAppBarActionItem>bookmark</mdc-icon>
+    </mdc-top-app-bar-section>
+  </mdc-top-app-bar-row>
+</mdc-top-app-bar>
+<div class="demo-app-bar-content" #fixedContent>
+  <p *ngFor="let lorem of lorems">{{lorem}}</p>
+</div>`
   };
 
   exampleProminent = {
     html: `<mdc-top-app-bar prominent>
   <mdc-top-app-bar-row>
     <mdc-top-app-bar-section align="start" title="App">
-      <button mdcIconButton mdcTopAppBarNavIcon icon="menu"></button>
+      <button mdcTopAppBarNavIcon>
+        <mdc-icon>menu</mdc-icon>
+      </button>
     </mdc-top-app-bar-section>
     <mdc-top-app-bar-section align="end">
       <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
@@ -85,7 +112,9 @@ export class Examples {
     html: `<mdc-top-app-bar dense>
   <mdc-top-app-bar-row>
     <mdc-top-app-bar-section align="start" title="App">
-      <button mdcIconButton mdcTopAppBarNavIcon icon="menu"></button>
+      <button mdcTopAppBarNavIcon>
+        <mdc-icon>menu</mdc-icon>
+      </button>
     </mdc-top-app-bar-section>
     <mdc-top-app-bar-section align="end">
       <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
@@ -100,7 +129,9 @@ export class Examples {
     html: `<mdc-top-app-bar short [scrollTarget]="mainContent">
   <mdc-top-app-bar-row>
     <mdc-top-app-bar-section align="start" title="App">
-      <button mdcIconButton mdcTopAppBarNavIcon icon="menu"></button>
+      <button mdcTopAppBarNavIcon>
+        <mdc-icon>menu</mdc-icon>
+      </button>
     </mdc-top-app-bar-section>
     <mdc-top-app-bar-section align="end">
       <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
@@ -123,7 +154,9 @@ lorems = Array(5).fill(this.text);`
     html: `<mdc-top-app-bar shortCollapsed>
   <mdc-top-app-bar-row>
     <mdc-top-app-bar-section align="start" title="App">
-      <button mdcIconButton mdcTopAppBarNavIcon icon="menu"></button>
+      <button mdcTopAppBarNavIcon>
+        <mdc-icon>menu</mdc-icon>
+      </button>
     </mdc-top-app-bar-section>
     <mdc-top-app-bar-section align="end">
       <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
@@ -133,17 +166,19 @@ lorems = Array(5).fill(this.text);`
   };
 
   exampleTheme = {
-    html: `<mdc-top-app-bar class="demo-top-app-bar-themed" [scrollTarget]="mainThemedContent">
+    html: `<mdc-top-app-bar fixed class="demo-top-app-bar-themed" [scrollTarget]="themeContent">
   <mdc-top-app-bar-row>
     <mdc-top-app-bar-section align="start" title="App">
-      <button mdcIconButton mdcTopAppBarNavIcon icon="menu"></button>
+      <button mdcTopAppBarNavIcon>
+        <mdc-icon>menu</mdc-icon>
+      </button>
     </mdc-top-app-bar-section>
     <mdc-top-app-bar-section align="end">
       <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
     </mdc-top-app-bar-section>
   </mdc-top-app-bar-row>
 </mdc-top-app-bar>
-<div #mainThemedContent>
+<div #themeContent>
   <p *ngFor="let lorem of lorems">{{lorem}}</p>
 </div>`,
     sass: `.demo-top-app-bar-themed {
@@ -156,7 +191,9 @@ lorems = Array(5).fill(this.text);`
     html: `<mdc-top-app-bar class="demo-top-app-bar-with-tabs">
   <mdc-top-app-bar-row>
     <mdc-top-app-bar-section align="start" title="App">
-      <button mdcIconButton mdcTopAppBarNavIcon icon="menu" (click)="drawer.open = !drawer.open"></button>
+      <button mdcTopAppBarNavIcon (click)="drawer.open = !drawer.open">
+        <mdc-icon>menu</mdc-icon>
+      </button>
     </mdc-top-app-bar-section>
     <mdc-top-app-bar-section align="end">
       <mdc-icon mdcTopAppBarActionItem>search</mdc-icon>

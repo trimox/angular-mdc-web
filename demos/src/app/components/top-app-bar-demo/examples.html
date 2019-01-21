@@ -1,9 +1,35 @@
 <div class="demo-content">
+  <h3 class="demo-content__headline">Standard</h3>
+  <div class="demo-top-app-bar-container">
+    <mdc-top-app-bar style="position: relative">
+      <mdc-top-app-bar-row>
+        <mdc-top-app-bar-section align="start" title="App">
+          <button mdcTopAppBarNavIcon>
+            <mdc-icon>menu</mdc-icon>
+          </button>
+        </mdc-top-app-bar-section>
+        <mdc-top-app-bar-section align="end">
+          <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
+          <mdc-icon mdcTopAppBarActionItem>print</mdc-icon>
+          <mdc-icon mdcTopAppBarActionItem>bookmark</mdc-icon>
+        </mdc-top-app-bar-section>
+      </mdc-top-app-bar-row>
+    </mdc-top-app-bar>
+    <div>
+      <p *ngFor="let lorem of lorems">{{lorem}}</p>
+    </div>
+  </div>
+  <example-viewer [example]="exampleStandard"></example-viewer>
+</div>
+
+<div class="demo-content">
   <h3 class="demo-content__headline">Fixed</h3>
-  <mdc-top-app-bar style="position: unset">
+  <mdc-top-app-bar #fixed style="position: unset" fixed [scrollTarget]="fixedContent">
     <mdc-top-app-bar-row>
       <mdc-top-app-bar-section align="start" title="App">
-        <button mdcIconButton mdcTopAppBarNavIcon icon="menu"></button>
+        <button mdcTopAppBarNavIcon>
+          <mdc-icon>menu</mdc-icon>
+        </button>
       </mdc-top-app-bar-section>
       <mdc-top-app-bar-section align="end">
         <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
@@ -12,56 +38,85 @@
       </mdc-top-app-bar-section>
     </mdc-top-app-bar-row>
   </mdc-top-app-bar>
+  <div class="demo-app-bar-content" #fixedContent>
+    <p *ngFor="let lorem of lorems">{{lorem}}</p>
+  </div>
+  <div class="demo-layout__row">
+    <mdc-form-field>
+      <mdc-checkbox (change)="fixed.prominent = !fixed.prominent"></mdc-checkbox>
+      <label>Prominent</label>
+    </mdc-form-field>
+    <mdc-form-field>
+      <mdc-checkbox (change)="fixed.dense = !fixed.dense"></mdc-checkbox>
+      <label>Dense</label>
+    </mdc-form-field>
+  </div>
   <example-viewer [example]="exampleFixed"></example-viewer>
 </div>
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Prominent</h3>
-  <mdc-top-app-bar prominent style="position: unset">
-    <mdc-top-app-bar-row>
-      <mdc-top-app-bar-section align="start" title="App">
-        <button mdcIconButton mdcTopAppBarNavIcon icon="menu"></button>
-      </mdc-top-app-bar-section>
-      <mdc-top-app-bar-section align="end">
-        <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
-        <mdc-icon mdcTopAppBarActionItem>print</mdc-icon>
-        <mdc-icon mdcTopAppBarActionItem>bookmark</mdc-icon>
-      </mdc-top-app-bar-section>
-    </mdc-top-app-bar-row>
-  </mdc-top-app-bar>
+  <div class="demo-top-app-bar-container">
+    <mdc-top-app-bar prominent style="position: relative">
+      <mdc-top-app-bar-row>
+        <mdc-top-app-bar-section align="start" title="App">
+          <button mdcTopAppBarNavIcon>
+            <mdc-icon>menu</mdc-icon>
+          </button>
+        </mdc-top-app-bar-section>
+        <mdc-top-app-bar-section align="end">
+          <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
+          <mdc-icon mdcTopAppBarActionItem>print</mdc-icon>
+          <mdc-icon mdcTopAppBarActionItem>bookmark</mdc-icon>
+        </mdc-top-app-bar-section>
+      </mdc-top-app-bar-row>
+    </mdc-top-app-bar>
+    <div>
+      <p *ngFor="let lorem of lorems">{{lorem}}</p>
+    </div>
+  </div>
   <example-viewer [example]="exampleProminent"></example-viewer>
 </div>
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Dense</h3>
-  <mdc-top-app-bar dense style="position: unset">
-    <mdc-top-app-bar-row>
-      <mdc-top-app-bar-section align="start" title="App">
-        <button mdcIconButton mdcTopAppBarNavIcon icon="menu"></button>
-      </mdc-top-app-bar-section>
-      <mdc-top-app-bar-section align="end">
-        <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
-        <mdc-icon mdcTopAppBarActionItem>print</mdc-icon>
-        <mdc-icon mdcTopAppBarActionItem>bookmark</mdc-icon>
-      </mdc-top-app-bar-section>
-    </mdc-top-app-bar-row>
-  </mdc-top-app-bar>
+  <div class="demo-top-app-bar-container">
+    <mdc-top-app-bar dense style="position: relative">
+      <mdc-top-app-bar-row>
+        <mdc-top-app-bar-section align="start" title="App">
+          <button mdcTopAppBarNavIcon>
+            <mdc-icon>menu</mdc-icon>
+          </button>
+        </mdc-top-app-bar-section>
+        <mdc-top-app-bar-section align="end">
+          <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
+          <mdc-icon mdcTopAppBarActionItem>print</mdc-icon>
+          <mdc-icon mdcTopAppBarActionItem>bookmark</mdc-icon>
+        </mdc-top-app-bar-section>
+      </mdc-top-app-bar-row>
+    </mdc-top-app-bar>
+    <div>
+      <p *ngFor="let lorem of lorems">{{lorem}}</p>
+    </div>
+  </div>
   <example-viewer [example]="exampleDense"></example-viewer>
 </div>
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Short</h3>
-  <mdc-top-app-bar short style="position: unset" [scrollTarget]="mainContent">
+  <mdc-top-app-bar short style="position: unset" [scrollTarget]="shortContent">
     <mdc-top-app-bar-row>
       <mdc-top-app-bar-section align="start" title="App">
-        <button mdcIconButton mdcTopAppBarNavIcon icon="menu"></button>
+        <button mdcTopAppBarNavIcon>
+          <mdc-icon>menu</mdc-icon>
+        </button>
       </mdc-top-app-bar-section>
       <mdc-top-app-bar-section align="end">
         <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
       </mdc-top-app-bar-section>
     </mdc-top-app-bar-row>
   </mdc-top-app-bar>
-  <div class="demo-app-bar-content" #mainContent>
+  <div class="demo-app-bar-content" #shortContent>
     <p *ngFor="let lorem of lorems">{{lorem}}</p>
   </div>
   <example-viewer [example]="exampleShort"></example-viewer>
@@ -72,30 +127,37 @@
   <mdc-top-app-bar shortCollapsed style="position: unset">
     <mdc-top-app-bar-row>
       <mdc-top-app-bar-section align="start" title="App">
-        <button mdcIconButton mdcTopAppBarNavIcon icon="menu"></button>
+        <button mdcTopAppBarNavIcon>
+          <mdc-icon>menu</mdc-icon>
+        </button>
       </mdc-top-app-bar-section>
       <mdc-top-app-bar-section align="end">
         <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
       </mdc-top-app-bar-section>
     </mdc-top-app-bar-row>
   </mdc-top-app-bar>
+  <div class="demo-app-bar-content">
+    <p *ngFor="let lorem of lorems">{{lorem}}</p>
+  </div>
   <example-viewer [example]="exampleShortCollapsed"></example-viewer>
 </div>
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Theme</h3>
-  <mdc-top-app-bar class="demo-top-app-bar-themed" style="position: unset"
-    [scrollTarget]="mainThemedContent">
+  <mdc-top-app-bar fixed class="demo-top-app-bar-themed" style="position: unset"
+    [scrollTarget]="themeContent">
     <mdc-top-app-bar-row>
       <mdc-top-app-bar-section align="start" title="App">
-        <button mdcIconButton mdcTopAppBarNavIcon icon="menu"></button>
+        <button mdcTopAppBarNavIcon>
+          <mdc-icon>menu</mdc-icon>
+        </button>
       </mdc-top-app-bar-section>
       <mdc-top-app-bar-section align="end">
         <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
       </mdc-top-app-bar-section>
     </mdc-top-app-bar-row>
   </mdc-top-app-bar>
-  <div class="demo-app-bar-content" #mainThemedContent>
+  <div class="demo-app-bar-content" #themeContent>
     <p *ngFor="let lorem of lorems">{{lorem}}</p>
   </div>
   <example-viewer [example]="exampleTheme"></example-viewer>
@@ -106,7 +168,9 @@
   <mdc-top-app-bar style="position: unset" class="demo-top-app-bar-with-tabs">
     <mdc-top-app-bar-row>
       <mdc-top-app-bar-section align="start" title="App">
-        <button mdcIconButton mdcTopAppBarNavIcon icon="menu" (click)="drawer.open = !drawer.open"></button>
+        <button mdcTopAppBarNavIcon (click)="drawer.open = !drawer.open">
+          <mdc-icon>menu</mdc-icon>
+        </button>
       </mdc-top-app-bar-section>
       <mdc-top-app-bar-section align="end">
         <mdc-icon mdcTopAppBarActionItem>search</mdc-icon>

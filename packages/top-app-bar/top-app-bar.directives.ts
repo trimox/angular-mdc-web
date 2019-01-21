@@ -12,7 +12,9 @@ import { MdcRipple } from '@angular-mdc/web/ripple';
   selector: '[mdcTopAppBarFixedAdjust]',
   host: { 'class': 'mdc-top-app-bar--fixed-adjust' }
 })
-export class MdcTopAppBarFixedAdjust { }
+export class MdcTopAppBarFixedAdjust {
+  constructor(public elementRef: ElementRef<HTMLElement>) { }
+}
 
 @Directive({
   selector: 'mdc-top-app-bar-row, [mdcTopAppBarRow]',
@@ -35,8 +37,7 @@ export class MdcTopAppBarRow {
   },
   template: `
   <ng-content></ng-content>
-  <span class="mdc-top-app-bar__title" *ngIf="title">{{title}}</span>
-  `,
+  <span class="mdc-top-app-bar__title" *ngIf="title">{{title}}</span>`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcTopAppBarSection {
@@ -47,7 +48,7 @@ export class MdcTopAppBarSection {
 }
 
 @Directive({
-  selector: 'mdc-icon[mdcTopAppBarActionItem], [mdcTopAppBarActionItem], mdc-top-app-bar-action-item',
+  selector: '[mdcTopAppBarActionItem], mdc-top-app-bar-action-item',
   exportAs: 'mdcTopAppBarActionItem',
   host: {
     'role': 'button',
@@ -69,7 +70,7 @@ export class MdcTopAppBarActionItem implements OnDestroy {
 }
 
 @Directive({
-  selector: 'mdc-icon[mdcTopAppBarNavIcon], [mdcTopAppBarNavIcon], mdc-icon[mdcTopAppBarNavigationIcon]',
+  selector: '[mdcTopAppBarNavIcon], mdc-icon[mdcTopAppBarNavigationIcon]',
   exportAs: 'mdcTopAppBarNavigationIcon',
   host: {
     'role': 'button',

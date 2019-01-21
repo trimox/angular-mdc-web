@@ -9,13 +9,14 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  NgZone,
   OnDestroy,
   Output,
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
+import { fromEvent, Subject, Subscription } from 'rxjs';
 import { takeUntil, startWith } from 'rxjs/operators';
-import { Subject } from 'rxjs';
 
 import { Platform, toBoolean } from '@angular-mdc/web/common';
 
@@ -51,7 +52,7 @@ export class MdcTopAppBarNavSelected {
 })
 export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
-  private _destroy = new Subject<void>();
+  private _destroyed = new Subject<void>();
 
   private _isFoundationInit: boolean = false;
 
@@ -110,20 +111,28 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
   private _fixedAdjustElement: HTMLElement | null = null;
 
   @Input()
-  get scrollTarget(): any { return this._scrollTarget; }
-  set scrollTarget(target: any) {
-    this._scrollTarget = target;
+  get scrollTarget(): any {
+    return this._platform.isBrowser ?
+      this._scrollTarget || window : undefined;
   }
-  private _scrollTarget: any = this._platform.isBrowser ? window : undefined;
+  set scrollTarget(target: any) {
+    if (target !== this._scrollTarget) {
+      this._scrollTarget = target;
+      this._initScrollHandler();
+    }
+  }
+  private _scrollTarget: any;
 
   /** Event emitted when the navigation icon is selected. */
   @Output() readonly navigationSelected: EventEmitter<MdcTopAppBarNavSelected> =
     new EventEmitter<MdcTopAppBarNavSelected>();
 
-  @ContentChild(MdcTopAppBarNavigationIcon) navigationIcon!: MdcTopAppBarNavigationIcon;
+  @ContentChild(MdcTopAppBarNavigationIcon) navigationIcon?: MdcTopAppBarNavigationIcon;
   @ContentChildren(MdcTopAppBarActionItem, { descendants: true }) actions!: QueryList<MdcTopAppBarActionItem>;
 
-  createAdapter() {
+  private _scrollTargetSubscription: Subscription | null = null;
+
+  private _createAdapter() {
     return {
       hasClass: (className: string) => this._getHostElement().classList.contains(className),
       addClass: (className: string) => this._getHostElement().classList.add(className),
@@ -136,16 +145,6 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
       setStyle: (property: string, value: string) => this._getHostElement().style.setProperty(property, value),
       getTopAppBarHeight: () => this._getHostElement().clientHeight,
       notifyNavigationIconClicked: () => this.navigationSelected.emit({ source: this }),
-      registerScrollHandler: (handler: EventListener) => {
-        if (!this._platform.isBrowser || !this._scrollTarget) { return; }
-
-        this._scrollTarget.addEventListener('scroll', handler);
-      },
-      deregisterScrollHandler: (handler: EventListener) => {
-        if (!this._platform.isBrowser || !this._scrollTarget) { return; }
-
-        this._scrollTarget.removeEventListener('scroll', handler);
-      },
       registerResizeHandler: (handler: EventListener) => {
         if (!this._platform.isBrowser) { return; }
 
@@ -157,7 +156,7 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
         window.removeEventListener('resize', handler);
       },
       getViewportScrollY: () => {
-        if (!this._platform.isBrowser || !this._scrollTarget) { return 0; }
+        if (!this._platform.isBrowser) { return 0; }
 
         return this._scrollTarget[this._scrollTarget === window ? 'pageYOffset' : 'scrollTop'];
       },
@@ -165,41 +164,44 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
     };
   }
 
-  private _foundation: {
+  private _foundation!: {
     init(): void,
     destroy(): void,
-    initScrollHandler(): void,
-    destroyScrollHandler(): void
-  } = new MDCTopAppBarFoundation(this.createAdapter());
+    fixedScrollHandler_(): void,
+    shortAppBarScrollHandler_(): void,
+    topAppBarScrollHandler_(): void
+  };
 
   constructor(
+    private _ngZone: NgZone,
     private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef) { }
 
   ngAfterContentInit(): void {
-    this.actions.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
-      if (this.short) {
-        this.actions.length > 0 && this.short ?
-          this._getHostElement().classList.add('mdc-top-app-bar--short-has-action-item')
-          : this._getHostElement().classList.remove('mdc-top-app-bar--short-has-action-item');
-      }
-    });
+    this.actions.changes.pipe(startWith(null),
+      takeUntil(this._destroyed))
+      .subscribe(() => {
+        if (this.short && this.actions.length) {
+          this._getHostElement().classList.toggle('mdc-top-app-bar--short-has-action-item');
+        }
+      });
   }
 
   ngAfterViewInit(): void {
     if (!this._isFoundationInit) {
-      this.initializeFoundation();
+      this._initFoundation();
     }
   }
 
   ngOnDestroy(): void {
-    this._destroy.next();
-    this._destroy.complete();
+    this._destroyed.next();
+    this._destroyed.complete();
 
-    if (this._foundation) {
-      this._foundation.destroy();
+    if (this._scrollTargetSubscription) {
+      this._scrollTargetSubscription.unsubscribe();
     }
+    this._destroyFoundation();
   }
 
   setFixedAdjustElement(element: HTMLElement | null): void {
@@ -216,7 +218,7 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
     }
 
     if (isUserInput) {
-      this.initializeFoundation();
+      this._initFoundation();
     }
   }
 
@@ -229,7 +231,7 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
     }
 
     if (isUserInput) {
-      this.initializeFoundation();
+      this._initFoundation();
     }
   }
 
@@ -242,7 +244,7 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
     }
 
     if (isUserInput) {
-      this.initializeFoundation();
+      this._initFoundation();
     }
   }
 
@@ -259,7 +261,7 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
     }
 
     if (isUserInput) {
-      this.initializeFoundation();
+      this._initFoundation();
     }
   }
 
@@ -272,28 +274,27 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
     }
 
     if (isUserInput) {
-      this.initializeFoundation();
+      this._initFoundation();
     }
   }
 
   isCollapsed(): boolean {
-    return this._getHostElement().classList.contains('mdc-top-app-bar--short-collapsed') ||
-      this._getHostElement().classList.contains('mdc-top-app-bar--short-collapsed');
+    return this._getHostElement().classList.contains('mdc-top-app-bar--short-collapsed');
   }
 
-  initializeFoundation(): void {
+  private _initFoundation(): void {
     setTimeout(() => {
-      this._foundation.destroy();
+      this._destroyFoundation();
 
       this._getHostElement().style.top = '0px';
       this._resetFixedShort();
 
       if (this.short) {
-        this._foundation = new MDCShortTopAppBarFoundation(this.createAdapter());
+        this._foundation = new MDCShortTopAppBarFoundation(this._createAdapter());
       } else if (this.fixed) {
-        this._foundation = new MDCFixedTopAppBarFoundation(this.createAdapter());
+        this._foundation = new MDCFixedTopAppBarFoundation(this._createAdapter());
       } else {
-        this._foundation = new MDCTopAppBarFoundation(this.createAdapter());
+        this._foundation = new MDCTopAppBarFoundation(this._createAdapter());
       }
 
       this._foundation.init();
@@ -333,28 +334,63 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
     }
 
     if (this.fixedAdjustElement) {
-      this.fixedAdjustElement.classList.remove('mdc-top-app-bar--short-fixed-adjust');
-      this.fixedAdjustElement.classList.remove('mdc-top-app-bar--fixed-adjust');
-      this.fixedAdjustElement.classList.remove('mdc-top-app-bar--dense-fixed-adjust');
-      this.fixedAdjustElement.classList.remove('mdc-top-app-bar--prominent-fixed-adjust');
-      this.fixedAdjustElement.classList.remove('mdc-top-app-bar--dense-prominent-fixed-adjust');
-
-      if (this._short) {
-        this.fixedAdjustElement.classList.add('mdc-top-app-bar--short-fixed-adjust');
-      } else if (this._dense && this._prominent) {
-        this.fixedAdjustElement.classList.add('mdc-top-app-bar--dense-prominent-fixed-adjust');
-      } else if (this._dense) {
-        this.fixedAdjustElement.classList.add('mdc-top-app-bar--dense-fixed-adjust');
-      } else if (this._prominent) {
-        this.fixedAdjustElement.classList.add('mdc-top-app-bar--prominent-fixed-adjust');
-      } else {
-        this.fixedAdjustElement.classList.add('mdc-top-app-bar--fixed-adjust');
-      }
+      this._removeFixedAdjustClasses();
+      this._addFixedAdjustClass();
     }
   }
 
+  private _removeFixedAdjustClasses(): void {
+    this.fixedAdjustElement.classList.remove('mdc-top-app-bar--short-fixed-adjust');
+    this.fixedAdjustElement.classList.remove('mdc-top-app-bar--fixed-adjust');
+    this.fixedAdjustElement.classList.remove('mdc-top-app-bar--dense-fixed-adjust');
+    this.fixedAdjustElement.classList.remove('mdc-top-app-bar--prominent-fixed-adjust');
+    this.fixedAdjustElement.classList.remove('mdc-top-app-bar--dense-prominent-fixed-adjust');
+  }
+
+  private _addFixedAdjustClass(): void {
+    if (this._short) {
+      this.fixedAdjustElement.classList.add('mdc-top-app-bar--short-fixed-adjust');
+    } else if (this._dense && this._prominent) {
+      this.fixedAdjustElement.classList.add('mdc-top-app-bar--dense-prominent-fixed-adjust');
+    } else if (this._dense) {
+      this.fixedAdjustElement.classList.add('mdc-top-app-bar--dense-fixed-adjust');
+    } else if (this._prominent) {
+      this.fixedAdjustElement.classList.add('mdc-top-app-bar--prominent-fixed-adjust');
+    } else {
+      this.fixedAdjustElement.classList.add('mdc-top-app-bar--fixed-adjust');
+    }
+  }
+
+  private _destroyFoundation(): void {
+    if (this._foundation) {
+      this._foundation.destroy();
+    }
+  }
+
+  private _initScrollHandler(): void {
+    if (this._scrollTargetSubscription) {
+      this._scrollTargetSubscription.unsubscribe();
+    }
+    if (!this._platform.isBrowser) {
+      return;
+    }
+
+    this._scrollTargetSubscription = this._ngZone.runOutsideAngular(() =>
+      fromEvent<Event>(this.scrollTarget || window, 'scroll')
+        .subscribe(() => this._ngZone.run(() => {
+          if (this.fixed) {
+            this._foundation.fixedScrollHandler_();
+          } else if (this.short) {
+            this._foundation.shortAppBarScrollHandler_();
+          } else {
+            this._foundation.topAppBarScrollHandler_();
+          }
+        })));
+  }
+
   private _getScrollOffset(): number {
-    return this._platform.isBrowser ? window.pageYOffset : 0;
+    if (!this._platform.isBrowser) { return 0; }
+    return this.scrollTarget ? this.scrollTarget.scrollTop : window.pageYOffset;
   }
 
   /** Retrieves the DOM element of the component host. */

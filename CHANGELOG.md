@@ -1,3 +1,19 @@
+## [0.43.4](https://github.com/trimox/angular-mdc-web/compare/v0.43.3...v0.43.4) (2019-01-21)
+
+
+### Bug Fixes
+
+* **select:** Should not trigger ng-dirty on initialize ([#1755](https://github.com/trimox/angular-mdc-web/issues/1755)) ([9038146](https://github.com/trimox/angular-mdc-web/commit/9038146)), closes [#1739](https://github.com/trimox/angular-mdc-web/issues/1739)
+* **text-field:** Prevent reset of validity style during change check ([#1743](https://github.com/trimox/angular-mdc-web/issues/1743)) ([9fcb7ac](https://github.com/trimox/angular-mdc-web/commit/9fcb7ac)), closes [#1740](https://github.com/trimox/angular-mdc-web/issues/1740)
+* **top-app-bar:** Move scroll event to component ([#1750](https://github.com/trimox/angular-mdc-web/issues/1750)) ([38a2df9](https://github.com/trimox/angular-mdc-web/commit/38a2df9)), closes [#1753](https://github.com/trimox/angular-mdc-web/issues/1753)
+
+
+### Features
+
+* **list:** Add dependency injection ([#1759](https://github.com/trimox/angular-mdc-web/issues/1759)) ([3a765f7](https://github.com/trimox/angular-mdc-web/commit/3a765f7)), closes [#1758](https://github.com/trimox/angular-mdc-web/issues/1758) [#1757](https://github.com/trimox/angular-mdc-web/issues/1757) [#1754](https://github.com/trimox/angular-mdc-web/issues/1754)
+
+
+
 ## [0.43.3](https://github.com/trimox/angular-mdc-web/compare/v0.43.2...v0.43.3) (2019-01-16)
 
 

@@ -215,7 +215,7 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
         this._ngZone.runOutsideAngular(() => this._foundation.layout()));
 
     this._interactionEventSubscription = this.interactionEvents.pipe()
-      .subscribe(evt => this._ngZone.runOutsideAngular(() =>
+      .subscribe(evt => this._ngZone.run(() =>
         this._foundation.handleInteraction(evt)));
 
     if (this._platform.isBrowser) {

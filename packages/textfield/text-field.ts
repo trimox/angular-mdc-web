@@ -262,10 +262,10 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   @Output() readonly blur = new EventEmitter<any>();
 
   @ViewChild('inputElement') _input!: ElementRef<HTMLInputElement | HTMLTextAreaElement>;
-  @ViewChild(MdcLineRipple) _lineRipple!: MdcLineRipple;
-  @ViewChild(MdcNotchedOutline) _notchedOutline!: MdcNotchedOutline;
-  @ViewChild(MdcFloatingLabel) _floatingLabel!: MdcFloatingLabel;
-  @ContentChildren(MdcTextFieldIcon, { descendants: true }) _icons!: QueryList<MdcTextFieldIcon>;
+  @ViewChild(MdcLineRipple) _lineRipple?: MdcLineRipple;
+  @ViewChild(MdcNotchedOutline) _notchedOutline?: MdcNotchedOutline;
+  @ViewChild(MdcFloatingLabel) _floatingLabel?: MdcFloatingLabel;
+  @ContentChildren(MdcTextFieldIcon, { descendants: true }) _icons?: QueryList<MdcTextFieldIcon>;
 
   /** View -> model callback called when value changes */
   _onChange: (value: any) => void = () => { };
@@ -278,8 +278,14 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     return this._platform.isBrowser ?
       document.activeElement! === this._getInputElement() : false;
   }
-  get leadingIcon(): MdcTextFieldIcon | undefined { return this._icons.find(icon => icon.leading); }
-  get trailingIcon(): MdcTextFieldIcon | undefined { return this._icons.find(icon => icon.trailing); }
+  get leadingIcon(): MdcTextFieldIcon | undefined {
+    return this._icons ?
+      this._icons.find(icon => icon.leading) : undefined;
+  }
+  get trailingIcon(): MdcTextFieldIcon | undefined {
+    return this._icons ?
+      this._icons.find(icon => icon.trailing) : undefined;
+  }
 
   private _createAdapter() {
     return Object.assign({
@@ -343,8 +349,8 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   private _getOutlineAdapterMethods() {
     return {
       hasOutline: () => this._notchedOutline,
-      notchOutline: (labelWidth: number) => this._notchedOutline.notch(labelWidth),
-      closeOutline: () => this._notchedOutline.closeNotch()
+      notchOutline: (labelWidth: number) => this._notchedOutline!.notch(labelWidth),
+      closeOutline: () => this._notchedOutline!.closeNotch()
     };
   }
 
@@ -601,7 +607,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   }
 
   private _getFloatingLabel(): MdcFloatingLabel {
-    return this._floatingLabel || this._notchedOutline.floatingLabel;
+    return this._floatingLabel || this._notchedOutline!.floatingLabel;
   }
 
   private _getInputElement(): HTMLInputElement | HTMLTextAreaElement {

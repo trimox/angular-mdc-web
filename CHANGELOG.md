@@ -1,3 +1,16 @@
+## [0.43.5](https://github.com/trimox/angular-mdc-web/compare/v0.43.4...v0.43.5) (2019-01-24)
+
+
+### Bug Fixes
+
+* **dialog:** AfterClosed in angular zone ([#1765](https://github.com/trimox/angular-mdc-web/issues/1765)) ([65bea37](https://github.com/trimox/angular-mdc-web/commit/65bea37)), closes [#1764](https://github.com/trimox/angular-mdc-web/issues/1764)
+* **dialog:** Improve focus trap instantiation ([#1773](https://github.com/trimox/angular-mdc-web/issues/1773)) ([16207d1](https://github.com/trimox/angular-mdc-web/commit/16207d1)), closes [#1765](https://github.com/trimox/angular-mdc-web/issues/1765) [#1772](https://github.com/trimox/angular-mdc-web/issues/1772)
+* **floating-label:** Edge crash with CLI --prod flag ([#1767](https://github.com/trimox/angular-mdc-web/issues/1767)) ([157fe2d](https://github.com/trimox/angular-mdc-web/commit/157fe2d)), closes [#1740](https://github.com/trimox/angular-mdc-web/issues/1740)
+* **select:** Call shouldFloat label if options change ([#1770](https://github.com/trimox/angular-mdc-web/issues/1770)) ([2f52b28](https://github.com/trimox/angular-mdc-web/commit/2f52b28)), closes [#1766](https://github.com/trimox/angular-mdc-web/issues/1766) [#1768](https://github.com/trimox/angular-mdc-web/issues/1768)
+* **text-field:** Correct strictness evaluations ([#1771](https://github.com/trimox/angular-mdc-web/issues/1771)) ([de1d386](https://github.com/trimox/angular-mdc-web/commit/de1d386))
+
+
+
 ## [0.43.4](https://github.com/trimox/angular-mdc-web/compare/v0.43.3...v0.43.4) (2019-01-21)
 
 

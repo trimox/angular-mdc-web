@@ -201,15 +201,15 @@ export class DialogSimple {
     <mdc-dialog-content>
       <mdc-list>
         <mdc-list-item>
-          <mdc-radio mdcListItemGraphic checked></mdc-radio>
+          <mdc-radio checked></mdc-radio>
           Never Gonna Give You Up
         </mdc-list-item>
         <mdc-list-item>
-          <mdc-radio mdcListItemGraphic></mdc-radio>
+          <mdc-radio></mdc-radio>
           Hot Cross Buns
         </mdc-list-item>
         <mdc-list-item>
-          <mdc-radio mdcListItemGraphic></mdc-radio>
+          <mdc-radio></mdc-radio>
           None
         </mdc-list-item>
       </mdc-list>
@@ -436,15 +436,15 @@ export class DialogScrollable {
         <mdc-dialog-content>
           <mdc-list>
             <mdc-list-item>
-              <mdc-radio mdcListItemGraphic checked></mdc-radio>
+              <mdc-radio checked></mdc-radio>
               Never Gonna Give You Up
             </mdc-list-item>
             <mdc-list-item>
-              <mdc-radio mdcListItemGraphic></mdc-radio>
+              <mdc-radio></mdc-radio>
               Hot Cross Buns
             </mdc-list-item>
             <mdc-list-item>
-              <mdc-radio mdcListItemGraphic></mdc-radio>
+              <mdc-radio></mdc-radio>
               None
             </mdc-list-item>
           </mdc-list>

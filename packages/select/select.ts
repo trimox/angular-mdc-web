@@ -4,6 +4,8 @@ import {
   ChangeDetectorRef,
   Component,
   ContentChild,
+  ContentChildren,
+  Directive,
   DoCheck,
   ElementRef,
   EventEmitter,
@@ -11,13 +13,14 @@ import {
   OnDestroy,
   Optional,
   Output,
+  QueryList,
   Self,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, startWith } from 'rxjs/operators';
 
 import { toBoolean, Platform } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
@@ -59,6 +62,12 @@ export class MdcSelectChange {
     public index: number,
     public value: any) { }
 }
+
+@Directive({
+  selector: 'option',
+  exportAs: 'mdcSelectOption',
+})
+export class MdcSelectOption { }
 
 let nextUniqueId = 0;
 
@@ -259,6 +268,8 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   @ContentChild(MdcSelectIcon) leadingIcon?: MdcSelectIcon;
   @ContentChild(MdcList) _list!: MdcList;
 
+  @ContentChildren(MdcSelectOption) _options?: QueryList<MdcSelectOption>;
+
   /** View -> model callback called when value changes */
   _onChange: (value: any) => void = () => { };
 
@@ -433,7 +444,11 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
     this._setWidth();
     this._enhancedSelectSetup();
 
-    // Initially sync floating label
+    if (this._options) {
+      this._options.changes.pipe(startWith(null), takeUntil(this._destroyed))
+        .subscribe(() => this._getFloatingLabel().float(!!this.getValue()));
+    }
+
     this._foundation.handleChange(false);
   }
 

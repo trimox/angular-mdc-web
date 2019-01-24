@@ -7,12 +7,13 @@ import { MdcNotchedOutlineModule } from '@angular-mdc/web/notched-outline';
 import { MdcFormFieldModule } from '@angular-mdc/web/form-field';
 import { MdcMenuModule } from '@angular-mdc/web/menu';
 
-import { MdcSelect } from './select';
+import { MdcSelect, MdcSelectOption } from './select';
 import { MdcSelectIcon } from './select-icon';
 
 const SELECT_DECLARATIONS = [
   MdcSelect,
-  MdcSelectIcon
+  MdcSelectIcon,
+  MdcSelectOption
 ];
 
 @NgModule({

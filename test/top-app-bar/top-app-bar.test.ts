@@ -1,5 +1,5 @@
 import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { dispatchFakeEvent, dispatchKeyboardEvent } from '../testing/dispatch-events';
@@ -21,7 +21,7 @@ describe('MdcTopAppBar', () => {
   veryLargeElement.style.width = '6000px';
   veryLargeElement.style.height = '6000px';
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     // Set the default Platform override that can be updated before component creation.
     platform = { isBrowser: true };
 
@@ -33,7 +33,7 @@ describe('MdcTopAppBar', () => {
       ]
     });
     TestBed.compileComponents();
-  });
+  }));
 
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;

@@ -3,6 +3,12 @@ import { FormControl, FormGroup, FormGroupDirective, FormBuilder, Validators } f
 
 import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
 
+interface Food {
+  value: string;
+  viewValue?: string;
+  disabled?: boolean;
+}
+
 @Component({ template: '<component-viewer></component-viewer>' })
 export class SelectDemo implements OnInit {
   @ViewChild(ComponentViewer) _componentViewer: ComponentViewer;
@@ -33,10 +39,16 @@ export class Sass { }
 
 @Component({ templateUrl: './examples.html' })
 export class Examples {
+  lazyFoods: Food[] = [];
+
   foodControl = new FormControl();
 
   foodForm = new FormGroup({
     favoriteFood: new FormControl(null, [Validators.required])
+  });
+
+  lazyLoadForm = new FormGroup({
+    lazySelect: new FormControl(null, [Validators.required])
   });
 
   simpleNativeForm: FormGroup;
@@ -79,7 +91,6 @@ export class Examples {
   }
 
   submitForm() {
-    console.log(this.foodForm);
     if (this.foodForm.invalid) {
       return;
     }
@@ -92,6 +103,27 @@ export class Examples {
 
   onSelectionChange(event: { index: any, value: any }) {
     console.log(`onSelectionChange: ${event.index} ${event.value}`);
+  }
+
+  loadFoods(): void {
+    this.lazyFoods = [
+      { value: '', disabled: false },
+      { value: 'steak-0', viewValue: 'Steak' },
+      { value: 'pizza-1', viewValue: 'Pizza' },
+      { value: 'tacos-2', viewValue: 'Tacos is disabled', disabled: true },
+      { value: 'fruit-3', viewValue: 'Fruit' },
+    ];
+
+    // Patch the form
+    this.lazyLoadForm.patchValue({
+      lazySelect: 'pizza-1'
+    });
+  }
+
+  public resetLazyLoaded(formDirective: FormGroupDirective): void {
+    this.lazyFoods = [];
+    formDirective.resetForm();
+    this.lazyLoadForm.reset();
   }
 
   //
@@ -280,6 +312,56 @@ submitForm() {
 resetForm(formDirective: FormGroupDirective) {
   formDirective.resetForm();
   this.foodForm.reset();
+}`
+  };
+
+  exampleLazyLoadedNative = {
+    html: `<form [formGroup]="lazyLoadForm" #formDirectiveLazy="ngForm">
+  <mdc-select formControlName="lazySelect" [helperText]="lazyHelper">
+    <option *ngFor="let food of lazyFoods" [value]="food.value"
+      [disabled]="food.disabled">{{food.viewValue}}</option>
+  </mdc-select>
+  <mdc-helper-text #lazyHelper validation>
+    <span *ngIf="lazyLoadForm.controls['lazySelect'].hasError('required')">Selection is required</span>
+  </mdc-helper-text>
+
+  <button mdc-button (click)="loadFoods()">Load</button>
+  <button mdc-button type="button" (click)="resetLazyLoaded(formDirectiveLazy)">Reset</button>
+</form>`,
+    ts: `interface Food {
+  value: string;
+  viewValue?: string;
+  disabled?: boolean;
+}
+
+@Component({ templateUrl: './examples.html' })
+export class Examples {
+  lazyFoods: Food[] = [];
+
+  lazyLoadForm = new FormGroup({
+    lazySelect: new FormControl(null, [Validators.required])
+  });
+
+  loadFoods(): void {
+    this.lazyFoods = [
+      { value: '', disabled: false },
+      { value: 'steak-0', viewValue: 'Steak' },
+      { value: 'pizza-1', viewValue: 'Pizza' },
+      { value: 'tacos-2', viewValue: 'Tacos is disabled', disabled: true },
+      { value: 'fruit-3', viewValue: 'Fruit' },
+    ];
+
+    // Patch the form
+    this.lazyLoadForm.patchValue({
+      lazySelect: 'pizza-1'
+    });
+  }
+
+  public resetLazyLoaded(formDirective: FormGroupDirective): void {
+    this.lazyFoods = [];
+    formDirective.resetForm();
+    this.lazyLoadForm.reset();
+  }
 }`
   };
 }

@@ -142,6 +142,25 @@
 </div>
 
 <div class="demo-content">
+  <h3 class="demo-content__headline">Lazy Load</h3>
+  <form [formGroup]="lazyLoadForm" #formDirectiveLazy="ngForm">
+    <mdc-select formControlName="lazySelect" [helperText]="lazyHelper">
+      <option *ngFor="let food of lazyFoods" [value]="food.value" [disabled]="food.disabled">{{food.viewValue}}</option>
+    </mdc-select>
+    <mdc-helper-text #lazyHelper validation>
+      <span *ngIf="lazyLoadForm.controls['lazySelect'].hasError('required')">Selection
+        is required</span>
+    </mdc-helper-text>
+
+    <div class="demo-layout__row">
+      <button mdc-button (click)="loadFoods()">Load</button>
+      <button mdc-button type="button" (click)="resetLazyLoaded(formDirectiveLazy)">Reset</button>
+    </div>
+  </form>
+  <example-viewer [example]="exampleLazyLoadedNative"></example-viewer>
+</div>
+
+<div class="demo-content">
   <h3 class="demo-content__headline">Select with [compareWith]</h3>
   <form [formGroup]="formCompareWith">
     <mdc-select formControlName="fruit" [compareWith]="compareFn">

@@ -1,5 +1,5 @@
 import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { dispatchFakeEvent, dispatchKeyboardEvent } from '../testing/dispatch-events';
@@ -55,14 +55,15 @@ describe('MdcTopAppBar', () => {
       expect(testDebugElement.nativeElement.classList).toContain('mdc-top-app-bar');
     });
 
-    it('#should apply mdc-top-app-bar--short class based on property', () => {
+    it('#should apply mdc-top-app-bar--short class based on property', fakeAsync(() => {
       testComponent.short = true;
       fixture.detectChanges();
 
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short')).toBe(true);
+      flush();
       // expect(testInstance.fixedAdjustElement.classList.contains('mdc-top-app-bar--short-fixed-adjust')).toBe(true);
       // expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short-has-action-item')).toBe(true);
-    });
+    }));
 
     it('#should remove mdc-top-app-bar--short class based on property', () => {
       testComponent.short = false;

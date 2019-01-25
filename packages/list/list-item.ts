@@ -199,6 +199,8 @@ export class MdcListItem implements OnInit, OnDestroy {
 
   /** Emits a change event if the selected state of an option changed. */
   _emitChangeEvent(): void {
+    if (this._disabled) { return; }
+
     this.selectionChange.emit(new MdcListSelectionChange(this));
   }
 }

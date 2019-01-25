@@ -1,13 +1,6 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Custom</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="custom.border = !custom.border">Border:
-      {{custom.border ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="custom.dense = !custom.dense">Dense:
-      {{custom.dense ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="custom.singleSelection = !custom.singleSelection">Single
-      Selection:
-      {{custom.singleSelection ? 'On' : 'Off'}}</button>
     <button mdc-button (click)="custom.wrapFocus = !custom.wrapFocus">Wrap
       Focus: {{custom.wrapFocus ? 'On' : 'Off'}}</button>
     <button mdc-button (click)="custom.interactive = !custom.interactive">Interactive:
@@ -19,6 +12,15 @@
       'Off'}}</button>
   </div>
   <div class="demo-layout__row">
+    <button mdc-button (click)="custom.border = !custom.border">Border:
+      {{custom.border ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="custom.dense = !custom.dense">Dense:
+      {{custom.dense ? 'On' : 'Off'}}</button>
+  </div>
+  <div class="demo-layout__row">
+    <button mdc-button (click)="custom.singleSelection = !custom.singleSelection">Single
+      Selection:
+      {{custom.singleSelection ? 'On' : 'Off'}}</button>
     <button mdc-button (click)="custom.useActivatedClass = !custom.useActivatedClass">Use
       Activated Class:
       {{custom.useActivatedClass ?
@@ -216,7 +218,8 @@
 </div>
 
 <div class="demo-content">
-  <h3 class="demo-content__headline">Two-Line with Leading and Trailing Icon and Divider</h3>
+  <h3 class="demo-content__headline">Two-Line with Leading and Trailing Icon
+    and Divider</h3>
   <mdc-list avatar twoLine>
     <mdc-list-item>
       <mdc-icon mdcListItemGraphic>folder</mdc-icon>

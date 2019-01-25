@@ -26,21 +26,20 @@
     <button mdc-button (click)="enhanced.floatLabel = !enhanced.floatLabel">Float
       Label: {{enhanced.floatLabel ? 'On' :
       'Off'}}</button>
-    <button mdc-button (click)="enhanced.autosize = !enhanced.autosize">Autosize:
-      {{enhanced.autosize ? 'On' : 'Off'}}</button>
     <button mdc-button (click)="enhanced.setSelectionByValue('banana')">Select
       Banana</button>
     <button mdc-button (click)="enhanced.setSelectedIndex(2)">Set Index (2)</button>
     <button mdc-button (click)="enhanced.reset()">Reset</button>
   </div>
   <mdc-select #enhanced placeholder="Fruit" required [helperText]="enhancedHelper"
-    (selectionChange)="onSelectionChange($event)">
+    (selectionChange)="onSelectionChange($event)" class="demo-enhanced-width">
     <mdc-menu>
       <mdc-list>
         <mdc-list-item></mdc-list-item>
         <mdc-list-item value="apple">Apple</mdc-list-item>
         <mdc-list-item value="orange">Orange</mdc-list-item>
         <mdc-list-item value="banana">Banana</mdc-list-item>
+        <mdc-list-item disabled value="mango">Mango</mdc-list-item>
       </mdc-list>
     </mdc-menu>
   </mdc-select>

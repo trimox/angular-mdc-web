@@ -153,20 +153,25 @@ constructor() {
   };
 
   exampleEnhanced = {
-    html: `<mdc-select #enhanced placeholder="Fruit" [helperText]="enhancedHelper" required>
+    html: `<mdc-select #enhanced placeholder="Fruit" [helperText]="enhancedHelper"
+  required class="demo-enhanced-width">
   <mdc-menu>
     <mdc-list>
       <mdc-list-item selected></mdc-list-item>
       <mdc-list-item value="apple">Apple</mdc-list-item>
       <mdc-list-item value="orange">Orange</mdc-list-item>
       <mdc-list-item value="banana">Banana</mdc-list-item>
-    </mdc-list>
+      <mdc-list-item disabled value="mango">Mango</mdc-list-item>
+      </mdc-list>
   </mdc-menu>
 </mdc-select>
 <mdc-helper-text #enhancedHelper validation>Field is required</mdc-helper-text>
 
 <p> Value: {{ enhanced.value }}</p>
-<p> Index: {{ enhanced.getSelectedIndex() }}</p>`
+<p> Index: {{ enhanced.getSelectedIndex() }}</p>`,
+    sass: `.demo-enhanced-width {
+  width: 7rem;
+}`
   };
 
   exampleSimpleNative = {

@@ -20,7 +20,7 @@ import { toBoolean, Platform } from '@angular-mdc/web/common';
 
 import { MdcListItem, MdcListSelectionChange, MDC_LIST_PARENT_COMPONENT } from './list-item';
 
-import { strings } from '@material/list/constants';
+import { cssClasses, strings } from '@material/list/constants';
 import { matches } from '@material/dom/ponyfill';
 import { MDCListFoundation } from '@material/list/index';
 
@@ -135,7 +135,17 @@ export class MdcList implements AfterViewInit, OnDestroy {
   get singleSelection(): boolean | undefined { return this._singleSelection; }
   set singleSelection(value: boolean | undefined) {
     if (value !== undefined) {
-      this.setSingleSelection(value);
+      const newValue = toBoolean(value);
+
+      if (newValue !== this._singleSelection) {
+        this._singleSelection = newValue;
+        this._foundation.setSingleSelection(this._singleSelection);
+
+        if (this.getSelectedIndex() > -1) {
+          this.setSelectedIndex(this.getSelectedIndex());
+        }
+        this._changeDetectorRef.markForCheck();
+      }
     }
   }
   private _singleSelection: boolean | undefined;
@@ -199,14 +209,22 @@ export class MdcList implements AfterViewInit, OnDestroy {
         if (!this._platform.isBrowser && document.activeElement!) { return -1; }
         return this.items.toArray().findIndex(_ => _.getListItemElement() === document.activeElement!) || -1;
       },
-      setAttributeForElementIndex: (index: number, attr: string, value: string) =>
-        this.items.toArray()[index].getListItemElement().setAttribute(attr, value),
+      setAttributeForElementIndex: (index: number, attr: string, value: string) => {
+        const item = this.getListItemByIndex(index);
+        if (item) {
+          item.getListItemElement().setAttribute(attr, value);
+        }
+      },
       removeAttributeForElementIndex: (index: number, attr: string) =>
         this.items.toArray()[index].getListItemElement().removeAttribute(attr),
       addClassForElementIndex: (index: number, className: string) =>
         this.items.toArray()[index].getListItemElement().classList.add(className),
-      removeClassForElementIndex: (index: number, className: string) =>
-        this.items.toArray()[index].getListItemElement().classList.remove(className),
+      removeClassForElementIndex: (index: number, className: string) => {
+        const item = this.getListItemByIndex(index);
+        if (item) {
+          item.getListItemElement().classList.remove(className);
+        }
+      },
       focusItemAtIndex: (index: number) => this.focusItemAtIndex(index),
       setTabIndexForListItemChildren: (listItemIndex: number, tabIndexValue: number) => {
         const listItemChildren = [].slice.call(this.items.toArray()[listItemIndex].getListItemElement()
@@ -275,14 +293,15 @@ export class MdcList implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this._foundation.init();
+    this._foundation.layout();
 
     // When list items change, re-subscribe
     this._changeSubscription = this.items.changes.pipe(startWith(null))
       .subscribe(() => {
-        this._resetListItems();
+        if (this.items.length) {
+          this._resetListItems();
+        }
       });
-
-    this._foundation.layout();
   }
 
   ngOnDestroy(): void {
@@ -292,16 +311,6 @@ export class MdcList implements AfterViewInit, OnDestroy {
     }
 
     this._foundation.destroy();
-  }
-
-  setSingleSelection(singleSelection: boolean): void {
-    this._singleSelection = toBoolean(singleSelection);
-    this._foundation.setSingleSelection(this._singleSelection);
-
-    if (this.getSelectedIndex() > -1) {
-      this.setSelectedIndex(this.getSelectedIndex());
-    }
-    this._changeDetectorRef.markForCheck();
   }
 
   setSelectedIndex(index: number): void {
@@ -432,33 +441,44 @@ export class MdcList implements AfterViewInit, OnDestroy {
   }
 
   _onFocusIn(evt: FocusEvent): void {
-    const index = this._getListItemIndex(evt);
+    const index = this._getListItemIndexByEvent(evt);
     this._foundation.handleFocusIn(evt, index);
   }
 
   _onFocusOut(evt: FocusEvent): void {
-    const index = this._getListItemIndex(evt);
+    const index = this._getListItemIndexByEvent(evt);
+
     if (index >= 0) {
       this._foundation.handleFocusOut(evt, index);
     }
   }
 
   _onKeydown(evt: KeyboardEvent): void {
-    const index = this._getListItemIndex(evt);
-    if (index >= 0 && evt.target) {
-      this._foundation.handleKeydown(evt, (<any>evt.target).classList.contains(strings.LIST_ITEM_CLASS), index);
+    const index = this._getListItemIndexByEvent(evt);
+
+    if (index >= 0) {
+      this._foundation.handleKeydown(evt, (<any>evt.target).classList.contains(cssClasses.LIST_ITEM_CLASS), index);
     }
   }
 
   _handleClickEvent(evt: MouseEvent): void {
-    const index = this._getListItemIndex(evt);
+    const index = this._getListItemIndexByEvent(evt);
+
+    const listItem = this._getListItemByEventTarget(evt.target!);
+    if (listItem && listItem.disabled) {
+      return;
+    }
 
     // Toggle the checkbox only if it's not the target of the event, or the checkbox will have 2 change events.
     const toggleCheckbox = !matches((evt.target), strings.CHECKBOX_RADIO_SELECTOR);
     this._foundation.handleClick(index, toggleCheckbox);
   }
 
-  private _getListItemIndex(evt: Event): number {
+  private _getListItemByEventTarget(target: EventTarget): MdcListItem | undefined {
+    return this.items.toArray().find(_ => _.getListItemElement() === target);
+  }
+
+  private _getListItemIndexByEvent(evt: Event): number {
     return this.items.toArray().findIndex(_ => _.getListItemElement() === evt.target);
   }
 

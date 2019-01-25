@@ -2,10 +2,11 @@ import { Component, DebugElement, ViewChild } from '@angular/core';
 import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { dispatchMouseEvent, dispatchKeyboardEvent } from '../testing/dispatch-events';
+import { dispatchFakeEvent, dispatchKeyboardEvent } from '../testing/dispatch-events';
 
 import {
   TAB,
+  ENTER,
   MdcList,
   MdcListItem,
   MdcListGroup,
@@ -156,9 +157,22 @@ describe('MdcListModule', () => {
       const listItemDebugElement = fixture.debugElement.query(By.directive(MdcListItem));
       const listItemInstance = listItemDebugElement.injector.get<MdcListItem>(MdcListItem);
 
+      listItemInstance.selected = false;
       testComponent.disabled = true;
       fixture.detectChanges();
       expect(listItemInstance.disabled).toBe(true);
+
+      dispatchFakeEvent(listItemDebugElement.nativeElement, 'click');
+      fixture.detectChanges();
+      expect(listItemInstance.selected).toBe(false);
+
+      dispatchFakeEvent(listItemDebugElement.nativeElement, 'keydown');
+      fixture.detectChanges();
+      expect(listItemInstance.selected).toBe(false);
+
+      dispatchKeyboardEvent(listItemDebugElement.nativeElement, 'keydown', ENTER);
+      fixture.detectChanges();
+      expect(listItemInstance.selected).toBe(false);
     });
 
     it('#should set focus to list item index (0)', () => {

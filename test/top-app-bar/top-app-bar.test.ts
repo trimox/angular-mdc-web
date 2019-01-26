@@ -63,49 +63,54 @@ describe('MdcTopAppBar', () => {
       flush();
       // expect(testInstance.fixedAdjustElement.classList.contains('mdc-top-app-bar--short-fixed-adjust')).toBe(true);
       // expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short-has-action-item')).toBe(true);
+      flush();
     }));
 
-    it('#should remove mdc-top-app-bar--short class based on property', () => {
+    it('#should remove mdc-top-app-bar--short class based on property', fakeAsync(() => {
       testComponent.short = false;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short')).toBe(false);
-    });
+    }));
 
-    it('#should add mdc-top-app-bar--short after setting shortCollapsed', () => {
+    it('#should add mdc-top-app-bar--short after setting shortCollapsed', fakeAsync(() => {
       testComponent.short = false;
       fixture.detectChanges();
 
       testComponent.shortCollapsed = true;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short')).toBe(true);
-    });
+      flush();
+    }));
 
-    it('#should apply mdc-top-app-bar--prominent class based on property', () => {
+    it('#should apply mdc-top-app-bar--prominent class based on property', fakeAsync(() => {
       testComponent.short = true;
       fixture.detectChanges();
       testComponent.prominent = true;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--prominent')).toBe(true);
-    });
+      flush();
+    }));
 
-    it('#should apply prominent and dense class based on property', () => {
+    it('#should apply prominent and dense class based on property', fakeAsync(() => {
       testComponent.dense = true;
       fixture.detectChanges();
       testComponent.prominent = true;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--prominent')).toBe(true);
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--dense')).toBe(true);
-    });
+      flush();
+    }));
 
-    it('#should apply mdc-top-app-bar--dense class based on property', () => {
+    it('#should apply mdc-top-app-bar--dense class based on property', fakeAsync(() => {
       testComponent.short = true;
       fixture.detectChanges();
       testComponent.dense = true;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--dense')).toBe(true);
-    });
+      flush();
+    }));
 
-    it('#should apply mdc-top-app-bar--fixed class based on property', () => {
+    it('#should apply mdc-top-app-bar--fixed class based on property', fakeAsync(() => {
       testComponent.short = true;
       fixture.detectChanges();
       testComponent.fixed = true;
@@ -116,9 +121,10 @@ describe('MdcTopAppBar', () => {
 
       dispatchKeyboardEvent(window.document, 'keydown', DOWN_ARROW);
       fixture.detectChanges();
-    });
+      flush();
+    }));
 
-    it('#should run even if platform is not a browser', () => {
+    it('#should run even if platform is not a browser', fakeAsync(() => {
       platform.isBrowser = false;
       fixture.detectChanges();
       document.body.appendChild(veryLargeElement);
@@ -128,13 +134,13 @@ describe('MdcTopAppBar', () => {
       testInstance.scrollTarget = undefined;
       fixture.detectChanges();
       document.body.removeChild(veryLargeElement);
-    });
+    }));
 
-    it('#should reset scrollTarget value to Window', () => {
+    it('#should reset scrollTarget value to Window', fakeAsync(() => {
       testInstance.scrollTarget = undefined;
       fixture.detectChanges();
       expect(testInstance.scrollTarget).toBe(window);
-    });
+    }));
   });
 
   describe('MdcTopAppBar', () => {
@@ -161,7 +167,7 @@ describe('MdcTopAppBar', () => {
         expect(testInstance.scrollTarget).toEqual(window);
       });
 
-      it('#should not apply `mdc-top-app-bar--short-has-action-item` property', () => {
+      it('#should not apply `mdc-top-app-bar--short-has-action-item` property', fakeAsync(() => {
         testComponent.short = true;
         fixture.detectChanges();
 
@@ -169,7 +175,7 @@ describe('MdcTopAppBar', () => {
         // expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short')).toBe(true);
         // expect(testInstance.fixedAdjustElement.classList.contains('mdc-top-app-bar--short-fixed-adjust')).toBe(true);
         expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short-has-action-item')).toBe(true);
-      });
+      }));
 
       it('#should handle when window is scrolled if not fixed', () => {
         document.body.appendChild(veryLargeElement);

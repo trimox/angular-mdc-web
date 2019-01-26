@@ -9,7 +9,6 @@ import {
   Input,
   OnDestroy,
   Output,
-  Provider,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
@@ -20,7 +19,7 @@ import { toNumber, toBoolean, Platform } from '@angular-mdc/web/common';
 import { strings } from '@material/slider/constants';
 import { MDCSliderFoundation } from '@material/slider/index';
 
-export const MDC_SLIDER_CONTROL_VALUE_ACCESSOR: Provider = {
+export const MDC_SLIDER_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => MdcSlider),
   multi: true
@@ -44,23 +43,22 @@ export class MdcSliderChange {
     '[class.mdc-slider--display-markers]': 'markers && discrete'
   },
   template: `
-    <div class="mdc-slider__track-container">
-      <div #track class="mdc-slider__track"></div>
-      <div #markercontainer *ngIf="markers" class="mdc-slider__track-marker-container"></div>
+  <div class="mdc-slider__track-container">
+    <div #track class="mdc-slider__track"></div>
+    <div #markercontainer *ngIf="markers" class="mdc-slider__track-marker-container"></div>
+  </div>
+  <div #thumbcontainer class="mdc-slider__thumb-container">
+    <div *ngIf="discrete" class="mdc-slider__pin">
+      <span #pin class="mdc-slider__pin-value-marker"></span>
     </div>
-    <div #thumbcontainer class="mdc-slider__thumb-container">
-      <div *ngIf="discrete" class="mdc-slider__pin">
-        <span #pin class="mdc-slider__pin-value-marker"></span>
-      </div>
-      <svg #sliderThumb
-        class="mdc-slider__thumb"
-        width="21" height="21"
-        focusable="false">
-        <circle cx="10.5" cy="10.5" r="7.875"></circle>
-      </svg>
-      <div class="mdc-slider__focus-ring"></div>
-    </div>
-  `,
+    <svg #sliderThumb
+      class="mdc-slider__thumb"
+      width="21" height="21"
+      focusable="false">
+      <circle cx="10.5" cy="10.5" r="7.875"></circle>
+    </svg>
+    <div class="mdc-slider__focus-ring"></div>
+  </div>`,
   providers: [MDC_SLIDER_CONTROL_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
@@ -70,6 +68,11 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
   get discrete(): boolean { return this._discrete; }
   set discrete(value: boolean) {
     this._discrete = toBoolean(value);
+    if (this._foundation) {
+      if (this._discrete && this.markers) {
+        this._foundation.setupTrackMarker();
+      }
+    }
   }
   private _discrete: boolean = false;
 
@@ -77,60 +80,72 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
   get markers(): boolean { return this._markers; }
   set markers(value: boolean) {
     this._markers = toBoolean(value);
+    if (this._foundation) {
+      if (this._markers && this.discrete) {
+        this._foundation.setupTrackMarker();
+      }
+    }
   }
   private _markers: boolean = false;
 
   @Input()
   get min(): number { return this._min; }
   set min(value: number) {
-    const min = toNumber(value);
-    if (min > this.max) { return; }
+    const min = toNumber(value, this._min);
+    if (min > this._max) { return; }
 
-    this._min = min;
-    if (this._foundation) {
-      this._foundation.setMin(toNumber(min, 0));
+    if (min !== this._min) {
+      this._min = min;
+      if (this._foundation) {
+        this._foundation.setMin(this._min);
+      }
+      this._changeDetectorRef.markForCheck();
     }
-    this._changeDetectorRef.markForCheck();
   }
   private _min: number = 0;
 
   @Input()
   get max(): number { return this._max; }
   set max(value: number) {
-    const max = toNumber(value);
-    if (this.min > max) { return; }
+    const max = toNumber(value, this._max);
+    if (max < this._min) { return; }
 
-    this._max = max;
-    if (this._foundation) {
-      this._foundation.setMax(toNumber(max, 100));
+    if (max !== this._max) {
+      this._max = max;
+      if (this._foundation) {
+        this._foundation.setMax(this._max);
+      }
+      this._changeDetectorRef.markForCheck();
     }
-    this._changeDetectorRef.markForCheck();
   }
   private _max: number = 100;
 
   @Input()
   get step(): number { return this._step; }
   set step(value: number) {
-    this._step = toNumber(value);
+    const step = toNumber(value, this._step);
 
-    if (this._foundation) {
-      this._foundation.setStep(this._step);
+    if (step !== this._step) {
+      this._step = step;
+      if (this._foundation) {
+        this._foundation.setStep(this._step);
+      }
+      this._changeDetectorRef.markForCheck();
     }
-    this._changeDetectorRef.markForCheck();
   }
   private _step: number = 0;
 
   @Input()
   get value(): number { return this._value; }
   set value(newValue: number) {
-    this.setValue(newValue);
+    this.setValue(newValue, true);
   }
   private _value: number = 0;
 
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
-    this.setDisabled(value);
+    this.setDisabledState(value);
   }
   private _disabled: boolean = false;
 
@@ -140,11 +155,11 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
   @ViewChild('thumbcontainer') thumbContainer!: ElementRef<HTMLElement>;
   @ViewChild('sliderThumb') _sliderThumb!: ElementRef<HTMLElement>;
   @ViewChild('track') track!: ElementRef<HTMLElement>;
-  @ViewChild('pin') pinValueMarker!: ElementRef;
-  @ViewChild('markercontainer') trackMarkerContainer!: ElementRef<HTMLElement>;
+  @ViewChild('pin') pinValueMarker?: ElementRef;
+  @ViewChild('markercontainer') trackMarkerContainer?: ElementRef<HTMLElement>;
 
   /** View -> model callback called when value changes */
-  _onChange: (value: any) => void = () => { };
+  _onChanged: (value: any) => void = () => { };
 
   /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
   _onTouched: () => any = () => { };
@@ -157,57 +172,30 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
       getAttribute: (name: string) => this._getHostElement().getAttribute(name),
       setAttribute: (name: string, value: string) => this._getHostElement().setAttribute(name, value),
       removeAttribute: (name: string) => this._getHostElement().removeAttribute(name),
-      computeBoundingRect: () => {
-        if (!this._platform.isBrowser) { return; }
-
-        return this._getHostElement().getBoundingClientRect();
-      },
+      computeBoundingRect: () => this._getHostElement().getBoundingClientRect(),
       getTabIndex: () => this._getHostElement().tabIndex,
       registerInteractionHandler: (type: string, handler: EventListener) =>
         this._getHostElement().addEventListener(type, handler),
       deregisterInteractionHandler: (type: string, handler: EventListener) =>
         this._getHostElement().removeEventListener(type, handler),
-      registerThumbContainerInteractionHandler: (type: string, handler: EventListener) => {
-        if (this.thumbContainer) {
-          this.thumbContainer.nativeElement.addEventListener(type, handler);
-        }
-      },
+      registerThumbContainerInteractionHandler: (type: string, handler: EventListener) =>
+        this.thumbContainer.nativeElement.addEventListener(type, handler),
       deregisterThumbContainerInteractionHandler: (type: string, handler: EventListener) =>
         this.thumbContainer.nativeElement.removeEventListener(type, handler),
-      registerBodyInteractionHandler: (type: string, handler: EventListener) => {
-        if (!this._platform.isBrowser) { return; }
-
-        document.body.addEventListener(type, handler);
-      },
-      deregisterBodyInteractionHandler: (type: string, handler: EventListener) => {
-        if (!this._platform.isBrowser) { return; }
-
-        document.body.removeEventListener(type, handler);
-      },
-      registerResizeHandler: (handler: EventListener) => {
-        if (!this._platform.isBrowser) { return; }
-
-        window.addEventListener('resize', handler);
-      },
-      deregisterResizeHandler: (handler: EventListener) => {
-        if (!this._platform.isBrowser) { return; }
-
-        window.removeEventListener('resize', handler);
-      },
-      notifyInput: () => {
-        this.input.emit(new MdcSliderChange(this, this._foundation.getValue()));
-        this._onTouched();
-      },
-      notifyChange: () => {
-        this.change.emit(new MdcSliderChange(this, this._value));
-        this.setValue(this._foundation.getValue());
-      },
+      registerBodyInteractionHandler: (type: string, handler: EventListener) =>
+        document.body.addEventListener(type, handler),
+      deregisterBodyInteractionHandler: (type: string, handler: EventListener) =>
+        document.body.removeEventListener(type, handler),
+      registerResizeHandler: (handler: EventListener) => window.addEventListener('resize', handler),
+      deregisterResizeHandler: (handler: EventListener) => window.removeEventListener('resize', handler),
+      notifyInput: () => this._onInput(),
+      notifyChange: () => this._onChange(),
       setThumbContainerStyleProperty: (propertyName: string, value: string) =>
         this.thumbContainer.nativeElement.style.setProperty(propertyName, value),
       setTrackStyleProperty: (propertyName: string, value: string) =>
         this.track.nativeElement.style.setProperty(propertyName, value),
       setMarkerValue: (value: number) =>
-        this.pinValueMarker.nativeElement.innerText = value !== null ? value.toString() : null,
+        this.pinValueMarker!.nativeElement.innerText = value !== null ? value.toString() : null,
       appendTrackMarkers: (numMarkers: number) => {
         const docFrag = document.createDocumentFragment();
         for (let i = 0; i < numMarkers; i++) {
@@ -215,12 +203,11 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
           marker.classList.add('mdc-slider__track-marker');
           docFrag.appendChild(marker);
         }
-        this.trackMarkerContainer.nativeElement.appendChild(docFrag);
+        this.trackMarkerContainer!.nativeElement.appendChild(docFrag);
       },
       removeTrackMarkers: () => {
-        while (this.trackMarkerContainer.nativeElement.firstChild) {
-          this.trackMarkerContainer.nativeElement
-            .removeChild(this.trackMarkerContainer.nativeElement.firstChild);
+        while (this.trackMarkerContainer!.nativeElement.firstChild) {
+          this.trackMarkerContainer!.nativeElement.removeChild(this.trackMarkerContainer!.nativeElement!.firstChild!);
         }
       },
       setLastTrackMarkersStyleProperty: (propertyName: string, value: string) => {
@@ -236,7 +223,6 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
     init(): void,
     destroy(): void,
     setDisabled(disabled: boolean): void,
-    layout(): void,
     setValue(value: number): void,
     getValue(): number,
     setMax(max: number): void,
@@ -254,7 +240,7 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
     if (this._platform.isBrowser) {
       this._foundation = new MDCSliderFoundation(this._createAdapter());
       this._foundation.init();
-      this._foundation.setValue(this.value);
+      this._initializeSelection();
       this._foundation.setupTrackMarker();
     }
   }
@@ -266,39 +252,31 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
   }
 
   writeValue(value: any): void {
-    if (value) {
-      if (value !== this.value) {
-        this.setValue(value);
-      }
-    }
+    this.setValue(value);
   }
 
   registerOnChange(fn: (value: any) => any): void {
-    this._onChange = fn;
+    this._onChanged = fn;
   }
 
-  registerOnTouched(fn: () => any): void {
+  registerOnTouched(fn: any) {
     this._onTouched = fn;
   }
 
-  setValue(value: number): void {
+  setValue(value: number, isUserInput?: boolean): void {
     if (this.disabled) { return; }
 
-    const previousValue = this.value;
-    this._value = value;
+    const newValue = toNumber(value, this.min);
+    this._value = Math.round(newValue);
 
     if (this._foundation) {
-      this._foundation.setValue(value);
+      this._foundation.setValue(this._value);
     }
 
-    if (value !== previousValue) {
-      this._onChange(value);
+    if (isUserInput) {
+      this._onChanged(this._value);
     }
     this._changeDetectorRef.markForCheck();
-  }
-
-  setDisabled(disabled: boolean): void {
-    this.setDisabledState(disabled);
   }
 
   setDisabledState(disabled: boolean): void {
@@ -307,6 +285,27 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
     if (!this._foundation) { return; }
     this._foundation.setDisabled(this._disabled);
     this._changeDetectorRef.markForCheck();
+  }
+
+  private _onInput(): void {
+    this.setValue(this._foundation.getValue(), true);
+    this.input.emit(new MdcSliderChange(this, this._value));
+  }
+
+  private _onChange(): void {
+    this.setValue(this._foundation.getValue(), true);
+    this.change.emit(new MdcSliderChange(this, this._value));
+  }
+
+  private _initializeSelection(): void {
+    // Defer setting the value in order to avoid the "Expression
+    // has changed after it was checked" errors from Angular.
+    Promise.resolve().then(() => {
+      this._foundation.setMin(this._min);
+      this._foundation.setMax(this._max);
+      this._foundation.setStep(this._step);
+      this._foundation.setValue(this._value);
+    });
   }
 
   /** Retrieves the DOM element of the component host. */

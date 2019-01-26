@@ -32,6 +32,12 @@ export class Sass { }
 
 @Component({ templateUrl: './examples.html' })
 export class Examples {
+  max: number = 50;
+  min: number = 10;
+  value: number = 25;
+
+  sliderModel: number = 10;
+
   continuousInputEventValue: number;
   continuousChangeEventValue: number;
 
@@ -63,25 +69,38 @@ onChange(event: MdcSliderChange): void {
   console.log(event.value);
 }`;
 
+  exampleSimple = {
+    html: `<mdc-slider discrete [min]="min" [max]="max" [value]="value"></mdc-slider>`,
+    ts: `max: number = 50;
+min: number = 10;
+value: number = 25;`
+  };
+
   exampleContinuous = {
-    html: `<mdc-slider [min]="0" [max]="100" [value]="50" (input)="onInput($event)" (change)="onChange($event)"></mdc-slider>`,
+    html: `<mdc-slider [min]="0" [max]="100" value="50"
+  (input)="onInput($event)" (change)="onChange($event)"></mdc-slider>`,
     ts: this.exampleEvents
   };
 
   exampleDiscrete = {
-    html: `<mdc-slider discrete [min]="0" [max]="100" [value]="50"
-    (input)="onInput($event)" (change)="onChange($event)"></mdc-slider>`,
+    html: `<mdc-slider discrete [min]="0" [max]="100" value="25"
+  (input)="onInput($event)" (change)="onChange($event)"></mdc-slider>`,
     ts: this.exampleEvents
   };
 
   exampleDiscreteTickMarks = {
     html: `<mdc-slider discrete markers [min]="0" [max]="100" [step]="5" [value]="20"
-    (input)="onInput($event)" (change)="onChange($event)"></mdc-slider>`,
+  (input)="onInput($event)" (change)="onChange($event)"></mdc-slider>`,
     ts: this.exampleEvents
   };
 
-  exampleThemed = {
-    html: `<mdc-slider discrete markers class="demo-slider--custom" [value]="20"></mdc-slider>`,
+  exampleNgModel = {
+    html: `<mdc-slider [min]="0" [max]="100" [(ngModel)]="sliderModel"></mdc-slider>`,
+    ts: `sliderModel: number = 10;`
+  };
+
+  exampleTheme = {
+    html: `<mdc-slider discrete markers class="demo-slider--custom" value="20"></mdc-slider>`,
     sass: `.demo-slider--custom {
   @include mdc-slider-highlight-color($material-color-red-700);
   @include mdc-slider-rail-color($material-color-yellow-600, 1);

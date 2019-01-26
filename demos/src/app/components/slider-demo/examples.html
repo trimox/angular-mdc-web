@@ -1,72 +1,85 @@
 <div class="demo-content">
-  <h3 class="demo-content__headline">Continuous</h3>
-  <mdc-slider #democontinous [min]="continuousMin.value" [max]="continuousMax.value" [value]="50" (input)="onInput($event)"
-    (change)="onChange($event)" name="test" ngModel #continousModel="ngModel"></mdc-slider>
+  <mdc-slider #simple discrete [min]="min" [max]="max" [value]="value"></mdc-slider>
+  <p>Min: {{ simple.min }}</p>
+  <p>Max: {{ simple.max }}</p>
+  <p>Value: {{ simple.value }}</p>
+  <example-viewer [example]="exampleSimple"></example-viewer>
+</div>
 
-  <div class="demo-container">
-    <mdc-text-field #continuousMin label="Min" type="number" value="0"></mdc-text-field>
-  </div>
-  <div class="demo-container">
-    <mdc-text-field #continuousMax label="Max" type="number" value="100"></mdc-text-field>
-  </div>
+<div class="demo-content">
+  <h3 class="demo-content__headline">Continuous</h3>
+  <mdc-slider #continuous [min]="continuousMin.value" [max]="continuousMax.value"
+    value="50" (input)="onInput($event)" (change)="onChange($event)" name="test"></mdc-slider>
+
+  <mdc-text-field #continuousMin label="Min" size="1" min="0" max="200" type="number"
+    value="0"></mdc-text-field>
+  <mdc-text-field #continuousMax label="Max" type="number" size="1" min="0" max="200"
+    value="100"></mdc-text-field>
   <div class="demo-layout__row">
-    <button mdc-button (click)="democontinous.disabled = !democontinous.disabled">Disabled: {{democontinous.disabled ?
-      'On' : 'Off'}}</button>
-    <button mdc-button (click)="democontinous.value = 50">Reset</button>
+    <mdc-form-field>
+      <mdc-checkbox (change)="continuous.disabled = !continuous.disabled"></mdc-checkbox>
+      <label>Disabled</label>
+    </mdc-form-field>
   </div>
-  <p>Dirty: {{ continousModel.dirty }}</p>
-  <p>Touched: {{ continousModel.touched }}</p>
-  <p>Value: {{ democontinous.value }}</p>
+  <p>Value: {{ continuous.value }}</p>
   <p>Last value from input event: {{continuousInputEventValue}}</p>
   <p>Last value from change event: {{continuousChangeEventValue}}</p>
-
   <example-viewer [example]="exampleContinuous"></example-viewer>
 </div>
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Discrete</h3>
-  <mdc-slider #demodiscrete discrete [min]="discreteMin.value" [max]="discreteMax.value" [value]="25" (input)="discreteInputEventValue = $event.value"
-    (change)="discreteChangeEventValue = $event.value"></mdc-slider>
-  <div class="demo-container">
-    <mdc-text-field #discreteMin label="Min" type="number" value="0"></mdc-text-field>
+  <mdc-slider #discrete discrete [min]="discreteMin.value" [max]="discreteMax.value"
+    value="25" (input)="discreteInputEventValue = $event.value" (change)="discreteChangeEventValue = $event.value"></mdc-slider>
+
+  <mdc-text-field #discreteMin label="Min" type="number" size="1" min="0" max="200"
+    value="0"></mdc-text-field>
+  <mdc-text-field #discreteMax label="Max" type="number" size="1" min="0" max="200"
+    value="100"></mdc-text-field>
+  <div class="demo-layout__row">
+    <mdc-form-field>
+      <mdc-checkbox (change)="discrete.disabled = !discrete.disabled"></mdc-checkbox>
+      <label>Disabled</label>
+    </mdc-form-field>
   </div>
-  <div class="demo-container">
-    <mdc-text-field #discreteMax label="Max" type="number" value="100"></mdc-text-field>
-  </div>
-  <button mdc-button (click)="demodiscrete.disabled = !demodiscrete.disabled">Disabled: {{demodiscrete.disabled ?
-    'On' : 'Off'}}</button>
-  <p>Value: {{demodiscrete.value}}</p>
+  <p>Value: {{discrete.value}}</p>
   <p>Last value from input event: {{discreteInputEventValue}}</p>
   <p>Last value from change event: {{discreteChangeEventValue}}</p>
-
   <example-viewer [example]="exampleDiscrete"></example-viewer>
 </div>
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Discrete with Tick Marks</h3>
-  <mdc-slider #demomarkers discrete markers [min]="dmMin.value" [max]="dmMax.value" [step]="dmStep.value" ngModel #demoMarkerModel="ngModel"
-    [value]="20" (input)="markersInputEventValue = $event.value" (change)="markersChangeEventValue = $event.value"></mdc-slider>
-  <div class="demo-container">
-    <mdc-text-field #dmMin label="Min" type="number" value="0"></mdc-text-field>
+  <mdc-slider #demomarkers discrete markers [min]="dmMin.value" [max]="dmMax.value"
+    [step]="dmStep.value" value="20" (input)="markersInputEventValue = $event.value"
+    (change)="markersChangeEventValue = $event.value"></mdc-slider>
+  <mdc-text-field #dmMin label="Min" type="number" size="1" min="0" max="200"
+    value="0"></mdc-text-field>
+  <mdc-text-field #dmMax label="Max" type="number" size="1" min="0" max="200"
+    value="100"></mdc-text-field>
+  <mdc-text-field #dmStep label="Step" type="number" size="1" min="0" max="10"
+    value="5"></mdc-text-field>
+  <div class="demo-layout__row">
+    <mdc-form-field>
+      <mdc-checkbox (change)="demomarkers.disabled = !demomarkers.disabled"></mdc-checkbox>
+      <label>Disabled</label>
+    </mdc-form-field>
   </div>
-  <div class="demo-container">
-    <mdc-text-field #dmMax label="Max" type="number" value="100"></mdc-text-field>
-  </div>
-  <div class="demo-container">
-    <mdc-text-field #dmStep label="Step" type="number" value="5"></mdc-text-field>
-  </div>
-  <button mdc-button (click)="demomarkers.disabled = !demomarkers.disabled">Disabled: {{demomarkers.disabled ? 'On' :
-    'Off'}}</button>
   <p>Value: {{demomarkers.value}}</p>
   <p>Last value from input event: {{markersInputEventValue}}</p>
   <p>Last value from change event: {{markersChangeEventValue}}</p>
-
   <example-viewer [example]="exampleDiscreteTickMarks"></example-viewer>
 </div>
 
 <div class="demo-content">
-  <h3 class="demo-content__headline">Themed</h3>
-  <mdc-slider discrete markers class="demo-slider--custom" [value]="20"></mdc-slider>
+  <h3 class="demo-content__headline">ngModel</h3>
+  <mdc-slider #demoModel [min]="0" [max]="100" [(ngModel)]="sliderModel"></mdc-slider>
+  <p>Value: {{ demoModel.value }}</p>
+  <example-viewer [example]="exampleNgModel"></example-viewer>
+</div>
 
-  <example-viewer [example]="exampleThemed"></example-viewer>
+<div class="demo-content">
+  <h3 class="demo-content__headline">Theme</h3>
+  <mdc-slider discrete markers class="demo-slider--custom" value="20"></mdc-slider>
+  <example-viewer [example]="exampleTheme"></example-viewer>
 </div>

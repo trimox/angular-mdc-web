@@ -6,7 +6,7 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { fakeAsync, ComponentFixture, TestBed, flush } from '@angular/core/testing';
+import { fakeAsync, ComponentFixture, TestBed, flush, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from '../testing/dispatch-events';
@@ -22,7 +22,8 @@ describe('MdcSelectModule', () => {
       declarations: [
         SimpleTest,
         SelectFormControl,
-        EnhancedSelect
+        EnhancedSelect,
+        SelectLazyLoad
       ]
     });
     TestBed.compileComponents();
@@ -153,6 +154,17 @@ describe('MdcSelectModule', () => {
       expect(testDebugElement.nativeElement.classList.contains('mdc-select--outlined')).toBe(true);
     });
 
+    it('#should remove helper text linkage', () => {
+      testInstance.helperText = null;
+      fixture.detectChanges();
+    });
+
+    it('#should remove compareWith', () => {
+      testComponent.compareFn = undefined;
+      fixture.detectChanges();
+      expect(testInstance.compareWith).toBe(undefined);
+    });
+
     it('#should set autosize to false', () => {
       testComponent.autosize = false;
       fixture.detectChanges();
@@ -172,6 +184,43 @@ describe('MdcSelectModule', () => {
 
       expect(document.activeElement).toBe(testInstance._nativeSelect.nativeElement,
         'Expected select element to be focused.');
+    }));
+  });
+
+  describe('Lazy Loaded', () => {
+    let testDebugElement: DebugElement;
+    let testNativeElement: HTMLElement;
+    let testInstance: MdcSelect;
+    let testComponent: SelectLazyLoad;
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(SelectLazyLoad);
+      fixture.detectChanges();
+
+      testDebugElement = fixture.debugElement.query(By.directive(MdcSelect));
+      testNativeElement = testDebugElement.nativeElement;
+      testInstance = testDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+    });
+
+    it('#should load data', fakeAsync(() => {
+      testComponent.loadFoods();
+      fixture.detectChanges();
+      flush();
+
+      expect(testInstance.getValue()).toBe('pizza-1');
+      testComponent.reset();
+    }));
+
+    it('#should load data if not outlined', fakeAsync(() => {
+      testInstance.outlined = false;
+      fixture.detectChanges();
+
+      testComponent.loadFoods();
+      fixture.detectChanges();
+
+      expect(testInstance.getValue()).toBe('pizza-1');
+      testComponent.reset();
     }));
   });
 
@@ -325,6 +374,46 @@ class SelectFormControl {
   ];
 
   handleBlur: () => void = () => { };
+}
+
+@Component({
+  template: `
+  <form [formGroup]="lazyLoadForm" #formDirectiveLazy="ngForm">
+    <mdc-select [outlined]="outlined" formControlName="lazySelect" [helperText]="lazyHelper">
+      <option *ngFor="let food of lazyFoods" [value]="food.value" [disabled]="food.disabled">{{food.viewValue}}</option>
+    </mdc-select>
+    <mdc-helper-text #lazyHelper validation>
+      <span *ngIf="lazyLoadForm.controls['lazySelect'].hasError('required')">Selection
+        is required</span>
+    </mdc-helper-text>
+  </form>`,
+})
+class SelectLazyLoad {
+  outlined: boolean = true;
+  lazyFoods: any[];
+
+  lazyLoadForm = new FormGroup({
+    lazySelect: new FormControl(null, [Validators.required])
+  });
+
+  loadFoods(): void {
+    this.lazyFoods = [
+      { value: '', disabled: false },
+      { value: 'steak-0', viewValue: 'Steak' },
+      { value: 'pizza-1', viewValue: 'Pizza' },
+      { value: 'tacos-2', viewValue: 'Tacos is disabled', disabled: true },
+      { value: 'fruit-3', viewValue: 'Fruit' },
+    ];
+
+    // Patch the form
+    this.lazyLoadForm.patchValue({
+      lazySelect: 'pizza-1'
+    });
+  }
+
+  reset(): void {
+    this.lazyFoods = [];
+  }
 }
 
 @Component({

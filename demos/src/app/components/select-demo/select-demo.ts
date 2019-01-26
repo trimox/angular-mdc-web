@@ -322,7 +322,7 @@ resetForm(formDirective: FormGroupDirective) {
 
   exampleLazyLoadedNative = {
     html: `<form [formGroup]="lazyLoadForm" #formDirectiveLazy="ngForm">
-  <mdc-select formControlName="lazySelect" [helperText]="lazyHelper">
+  <mdc-select outlined formControlName="lazySelect" [helperText]="lazyHelper">
     <option *ngFor="let food of lazyFoods" [value]="food.value"
       [disabled]="food.disabled">{{food.viewValue}}</option>
   </mdc-select>

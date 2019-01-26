@@ -20,7 +20,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { takeUntil, startWith } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 
 import { toBoolean, Platform } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
@@ -268,7 +268,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   @ContentChild(MdcSelectIcon) leadingIcon?: MdcSelectIcon;
   @ContentChild(MdcList) _list!: MdcList;
 
-  @ContentChildren(MdcSelectOption) _options?: QueryList<MdcSelectOption>;
+  @ContentChildren(MdcSelectOption) _options!: QueryList<MdcSelectOption>;
 
   /** View -> model callback called when value changes */
   _onChange: (value: any) => void = () => { };
@@ -419,6 +419,18 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
 
   ngAfterViewInit(): void {
     this.init();
+
+    if (!this._isEnhancedVariant()) {
+      this._options.changes.pipe(takeUntil(this._destroyed))
+        .subscribe(() => {
+          this._getFloatingLabel().float(!!this.getValue());
+
+          if (this.outlined) {
+            this.getValue() ?
+              this._notchedOutline!.notch(this._getFloatingLabel().getWidth()) : this._notchedOutline!.closeNotch();
+          }
+        });
+    }
   }
 
   ngOnDestroy(): void {
@@ -443,12 +455,6 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
     this._initializeSelection();
     this._setWidth();
     this._enhancedSelectSetup();
-
-    if (this._options) {
-      this._options.changes.pipe(startWith(null), takeUntil(this._destroyed))
-        .subscribe(() => this._getFloatingLabel().float(!!this.getValue()));
-    }
-
     this._foundation.handleChange(false);
   }
 

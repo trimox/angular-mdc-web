@@ -1,3 +1,14 @@
+## [0.43.6](https://github.com/trimox/angular-mdc-web/compare/v0.43.5...v0.43.6) (2019-01-27)
+
+
+### Bug Fixes
+
+* **list:** Check if list item is disabled and exists ([#1778](https://github.com/trimox/angular-mdc-web/issues/1778)) ([7dc4887](https://github.com/trimox/angular-mdc-web/commit/7dc4887)), closes [#1727](https://github.com/trimox/angular-mdc-web/issues/1727) [#1777](https://github.com/trimox/angular-mdc-web/issues/1777)
+* **select:** Refresh layout on lazy load ([#1780](https://github.com/trimox/angular-mdc-web/issues/1780)) ([5a86807](https://github.com/trimox/angular-mdc-web/commit/5a86807))
+* **slider:** Issues using min, max, step and value ([#1779](https://github.com/trimox/angular-mdc-web/issues/1779)) ([537ba1b](https://github.com/trimox/angular-mdc-web/commit/537ba1b)), closes [#1776](https://github.com/trimox/angular-mdc-web/issues/1776)
+
+
+
 ## [0.43.5](https://github.com/trimox/angular-mdc-web/compare/v0.43.4...v0.43.5) (2019-01-24)
 
 

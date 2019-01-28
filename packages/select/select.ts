@@ -693,7 +693,8 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   }
 
   private _hasFloatingLabel(): boolean {
-    return this.placeholder && this.floatLabel && (this._floatingLabel || this._notchedOutline) ? true : false;
+    return (this.placeholder && this.floatLabel) || this._required
+      && (this._floatingLabel || this._notchedOutline) ? true : false;
   }
 
   private _getFloatingLabel(): MdcFloatingLabel {

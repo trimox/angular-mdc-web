@@ -1,5 +1,6 @@
 import {
   AfterContentInit,
+  ChangeDetectorRef,
   ChangeDetectionStrategy,
   Component,
   ContentChild,
@@ -180,6 +181,7 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
 
   constructor(
     private _platform: Platform,
+    private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef<HTMLElement>) { }
 
   ngAfterContentInit(): void {
@@ -254,6 +256,7 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
     if (this._platform.isBrowser) {
       this._foundation.activateTab(index);
     }
+    this._changeDetectorRef.markForCheck();
   }
 
   /** Scrolls the tab at the given index into view */

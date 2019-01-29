@@ -24,6 +24,8 @@ import {
   MdcTopAppBarActionItem,
   MdcTopAppBarNavigationIcon,
 } from './top-app-bar.directives';
+
+import { cssClasses } from '@material/top-app-bar/constants';
 import {
   MDCTopAppBarFoundation,
   MDCShortTopAppBarFoundation,
@@ -105,7 +107,8 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
   get fixedAdjustElement(): HTMLElement | null { return this._fixedAdjustElement; }
   set fixedAdjustElement(element: HTMLElement | null) {
     if (this._fixedAdjustElement !== element) {
-      this.setFixedAdjustElement(element);
+      this._fixedAdjustElement = element;
+      this._initTopAppBar();
     }
   }
   private _fixedAdjustElement: HTMLElement | null = null;
@@ -134,7 +137,7 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
       hasClass: (className: string) => this._getHostElement().classList.contains(className),
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => {
-        if (className === 'mdc-top-app-bar--short-collapsed' && this.shortCollapsed) {
+        if (className === cssClasses.SHORT_COLLAPSED_CLASS && this.shortCollapsed) {
           return;
         }
         this._getHostElement().classList.remove(className);
@@ -176,11 +179,10 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
     public elementRef: ElementRef) { }
 
   ngAfterContentInit(): void {
-    this.actions.changes.pipe(startWith(null),
-      takeUntil(this._destroyed))
+    this.actions.changes.pipe(startWith(null), takeUntil(this._destroyed))
       .subscribe(() => {
         if (this.short && this.actions.length) {
-          this._getHostElement().classList.toggle('mdc-top-app-bar--short-has-action-item');
+          this._getHostElement().classList.toggle(cssClasses.SHORT_HAS_ACTION_ITEM_CLASS);
         }
       });
   }
@@ -199,11 +201,6 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
       this._scrollTargetSubscription.unsubscribe();
     }
     this._destroyFoundation();
-  }
-
-  setFixedAdjustElement(element: HTMLElement | null): void {
-    this._fixedAdjustElement = element;
-    this._initTopAppBar();
   }
 
   /** Sets the top app bar to fixed or not. */
@@ -276,7 +273,7 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
   }
 
   isCollapsed(): boolean {
-    return this._getHostElement().classList.contains('mdc-top-app-bar--short-collapsed');
+    return this._getHostElement().classList.contains(cssClasses.SHORT_COLLAPSED_CLASS);
   }
 
   private _initFoundation(): void {
@@ -298,36 +295,36 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
       this._isFoundationInit = true;
 
       this._initTopAppBar();
-
+      this._initScrollHandler();
       this._changeDetectorRef.markForCheck();
     }, 20);
   }
 
   private _resetFixedShort(): void {
-    this._getHostElement().classList.remove('mdc-top-app-bar--short-has-action-item');
-    this._getHostElement().classList.remove('mdc-top-app-bar--short-collapsed');
-    this._getHostElement().classList.remove('mdc-top-app-bar--fixed-scrolled');
+    this._getHostElement().classList.remove(cssClasses.SHORT_HAS_ACTION_ITEM_CLASS);
+    this._getHostElement().classList.remove(cssClasses.SHORT_COLLAPSED_CLASS);
+    this._getHostElement().classList.remove(cssClasses.FIXED_SCROLLED_CLASS);
   }
 
   private _initTopAppBar(): void {
     if (!this.fixed) {
-      this._getHostElement().classList.remove('mdc-top-app-bar--fixed-scrolled');
+      this._getHostElement().classList.remove(cssClasses.FIXED_SCROLLED_CLASS);
     }
 
     if (this.fixed && this._getScrollOffset() > 0) {
-      this._getHostElement().classList.add('mdc-top-app-bar--fixed-scrolled');
+      this._getHostElement().classList.add(cssClasses.FIXED_SCROLLED_CLASS);
     }
 
     if (!this.short) {
-      this._getHostElement().classList.remove('mdc-top-app-bar--short-has-action-item');
-      this._getHostElement().classList.remove('mdc-top-app-bar--short-collapsed');
+      this._getHostElement().classList.remove(cssClasses.SHORT_HAS_ACTION_ITEM_CLASS);
+      this._getHostElement().classList.remove(cssClasses.SHORT_COLLAPSED_CLASS);
     }
     if (this.short && this._getScrollOffset() > 0) {
-      this._getHostElement().classList.add('mdc-top-app-bar--short-collapsed');
+      this._getHostElement().classList.add(cssClasses.SHORT_COLLAPSED_CLASS);
     }
 
     if (this.shortCollapsed) {
-      this._getHostElement().classList.add('mdc-top-app-bar--short-collapsed');
+      this._getHostElement().classList.add(cssClasses.SHORT_COLLAPSED_CLASS);
     }
 
     if (this.fixedAdjustElement) {

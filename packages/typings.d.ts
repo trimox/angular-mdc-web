@@ -38,4 +38,5 @@ declare module '@material/tab-scroller/index';
 declare module '@material/tab/index';
 declare module '@material/textfield/helper-text/index';
 declare module '@material/textfield/index';
+declare module '@material/top-app-bar/constants';
 declare module '@material/top-app-bar/index';

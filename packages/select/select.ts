@@ -93,8 +93,7 @@ let nextUniqueId = 0;
       (change)="onChange($event)"
       (focus)="onFocus()"
       (keydown)="onKeydown($event)"
-      (mousedown)="onInteraction($event)"
-      (touchstart)="onInteraction($event)">{{_enhancedSelectedText}}</div>
+      (mousedown)="onInteraction($event)">{{_enhancedSelectedText}}</div>
     <ng-content select="mdc-menu"></ng-content>
   </ng-container>
   <i class="mdc-select__dropdown-icon"></i>

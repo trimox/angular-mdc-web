@@ -1,3 +1,15 @@
+## [0.43.7](https://github.com/trimox/angular-mdc-web/compare/v0.43.6...v0.43.7) (2019-01-29)
+
+
+### Bug Fixes
+
+* **select:** Remove touchstart handler ([#1787](https://github.com/trimox/angular-mdc-web/issues/1787)) ([f68f730](https://github.com/trimox/angular-mdc-web/commit/f68f730)), closes [#1762](https://github.com/trimox/angular-mdc-web/issues/1762)
+* **select:** Should float asterisk if no placeholder ([#1784](https://github.com/trimox/angular-mdc-web/issues/1784)) ([08f736a](https://github.com/trimox/angular-mdc-web/commit/08f736a)), closes [#1766](https://github.com/trimox/angular-mdc-web/issues/1766)
+* **tab-bar:** Force change detection on activeTabIndex ([#1783](https://github.com/trimox/angular-mdc-web/issues/1783)) ([457e337](https://github.com/trimox/angular-mdc-web/commit/457e337))
+* **top-app-bar:** Set scrollHandler from initFoundation ([#1786](https://github.com/trimox/angular-mdc-web/issues/1786)) ([0d9133d](https://github.com/trimox/angular-mdc-web/commit/0d9133d)), closes [#1785](https://github.com/trimox/angular-mdc-web/issues/1785)
+
+
+
 ## [0.43.6](https://github.com/trimox/angular-mdc-web/compare/v0.43.5...v0.43.6) (2019-01-27)
 
 

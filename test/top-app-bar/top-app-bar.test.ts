@@ -1,5 +1,5 @@
 import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flush, flushMicrotasks } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { dispatchFakeEvent, dispatchKeyboardEvent } from '../testing/dispatch-events';
@@ -60,7 +60,6 @@ describe('MdcTopAppBar', () => {
       fixture.detectChanges();
 
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short')).toBe(true);
-      flush();
       // expect(testInstance.fixedAdjustElement.classList.contains('mdc-top-app-bar--short-fixed-adjust')).toBe(true);
       // expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short-has-action-item')).toBe(true);
       flush();
@@ -140,6 +139,7 @@ describe('MdcTopAppBar', () => {
       testInstance.scrollTarget = undefined;
       fixture.detectChanges();
       expect(testInstance.scrollTarget).toBe(window);
+      flush();
     }));
   });
 
@@ -163,6 +163,10 @@ describe('MdcTopAppBar', () => {
         testComponent = fixture.debugElement.componentInstance;
       });
 
+      afterEach(() => {
+        testInstance.ngOnDestroy();
+      });
+
       it('#scrollTarget should default to window', () => {
         expect(testInstance.scrollTarget).toEqual(window);
       });
@@ -175,24 +179,28 @@ describe('MdcTopAppBar', () => {
         // expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short')).toBe(true);
         // expect(testInstance.fixedAdjustElement.classList.contains('mdc-top-app-bar--short-fixed-adjust')).toBe(true);
         expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short-has-action-item')).toBe(true);
+        flush();
       }));
 
-      it('#should handle when window is scrolled if not fixed', () => {
+      it('#should handle when window is scrolled if not fixed', fakeAsync(() => {
         document.body.appendChild(veryLargeElement);
         window.scrollTo(1500, 2000);
         fixture.detectChanges();
-      });
+        flush();
+      }));
 
-      it('#should handle when window is scrolled if fixed', () => {
+      it('#should handle when window is scrolled if fixed', fakeAsync(() => {
         testComponent.fixed = true;
         fixture.detectChanges();
+        flush();
 
         expect(testInstance.scrollTarget).toEqual(window);
         document.body.appendChild(veryLargeElement);
         window.scrollTo(1500, 2000);
         fixture.detectChanges();
         document.body.removeChild(veryLargeElement);
-      });
+        flush();
+      }));
     });
   });
 
@@ -220,13 +228,13 @@ describe('MdcTopAppBar', () => {
         expect(testInstance.scrollTarget).toEqual(undefined);
       });
 
-      it('#should handle when window is scrolled if not fixed', () => {
+      it('#should handle when window is scrolled if not fixed', fakeAsync(() => {
         document.body.appendChild(veryLargeElement);
         window.scrollTo(1500, 2000);
         fixture.detectChanges();
-      });
+      }));
 
-      it('#should handle when window is scrolled if fixed', () => {
+      it('#should handle when window is scrolled if fixed', fakeAsync(() => {
         testComponent.fixed = true;
         fixture.detectChanges();
 
@@ -235,9 +243,10 @@ describe('MdcTopAppBar', () => {
         window.scrollTo(1500, 2000);
         fixture.detectChanges();
         document.body.removeChild(veryLargeElement);
-      });
+        flush();
+      }));
 
-      it('#should handle when window is scrolled if fixed, and not a browser', () => {
+      it('#should handle when window is scrolled if fixed, and not a browser', fakeAsync(() => {
         testComponent.fixed = true;
         fixture.detectChanges();
 
@@ -246,7 +255,8 @@ describe('MdcTopAppBar', () => {
         fixture.detectChanges();
         expect(testInstance.scrollTarget).toEqual(undefined);
         document.body.removeChild(veryLargeElement);
-      });
+        flush();
+      }));
 
       it('#should reset scrollTarget value to test', () => {
         testInstance.scrollTarget = 'test';

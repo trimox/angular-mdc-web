@@ -297,7 +297,7 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
       this._initTopAppBar();
       this._initScrollHandler();
       this._changeDetectorRef.markForCheck();
-    }, 20);
+    });
   }
 
   private _resetFixedShort(): void {

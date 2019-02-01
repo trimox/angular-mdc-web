@@ -277,27 +277,25 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
   }
 
   private _initFoundation(): void {
-    setTimeout(() => {
-      this._destroyFoundation();
+    this._destroyFoundation();
 
-      this._getHostElement().style.top = '0px';
-      this._resetFixedShort();
+    this._getHostElement().style.top = '0px';
+    this._resetFixedShort();
 
-      if (this.short) {
-        this._foundation = new MDCShortTopAppBarFoundation(this._createAdapter());
-      } else if (this.fixed) {
-        this._foundation = new MDCFixedTopAppBarFoundation(this._createAdapter());
-      } else {
-        this._foundation = new MDCTopAppBarFoundation(this._createAdapter());
-      }
+    if (this.short) {
+      this._foundation = new MDCShortTopAppBarFoundation(this._createAdapter());
+    } else if (this.fixed) {
+      this._foundation = new MDCFixedTopAppBarFoundation(this._createAdapter());
+    } else {
+      this._foundation = new MDCTopAppBarFoundation(this._createAdapter());
+    }
 
-      this._foundation.init();
-      this._isFoundationInit = true;
+    this._foundation.init();
+    this._isFoundationInit = true;
 
-      this._initTopAppBar();
-      this._initScrollHandler();
-      this._changeDetectorRef.markForCheck();
-    });
+    this._initTopAppBar();
+    this._initScrollHandler();
+    this._changeDetectorRef.markForCheck();
   }
 
   private _resetFixedShort(): void {

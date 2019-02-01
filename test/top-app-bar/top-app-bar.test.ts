@@ -1,5 +1,5 @@
 import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, flush, flushMicrotasks } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { dispatchFakeEvent, dispatchKeyboardEvent } from '../testing/dispatch-events';
@@ -21,7 +21,7 @@ describe('MdcTopAppBar', () => {
   veryLargeElement.style.width = '6000px';
   veryLargeElement.style.height = '6000px';
 
-  beforeEach(fakeAsync(() => {
+  beforeEach(() => {
     // Set the default Platform override that can be updated before component creation.
     platform = { isBrowser: true };
 
@@ -33,7 +33,7 @@ describe('MdcTopAppBar', () => {
       ]
     });
     TestBed.compileComponents();
-  }));
+  });
 
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;
@@ -55,61 +55,56 @@ describe('MdcTopAppBar', () => {
       expect(testDebugElement.nativeElement.classList).toContain('mdc-top-app-bar');
     });
 
-    it('#should apply mdc-top-app-bar--short class based on property', fakeAsync(() => {
+    it('#should apply mdc-top-app-bar--short class based on property', () => {
       testComponent.short = true;
       fixture.detectChanges();
 
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short')).toBe(true);
       // expect(testInstance.fixedAdjustElement.classList.contains('mdc-top-app-bar--short-fixed-adjust')).toBe(true);
       // expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short-has-action-item')).toBe(true);
-      flush();
-    }));
+    });
 
-    it('#should remove mdc-top-app-bar--short class based on property', fakeAsync(() => {
+    it('#should remove mdc-top-app-bar--short class based on property', () => {
       testComponent.short = false;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short')).toBe(false);
-    }));
+    });
 
-    it('#should add mdc-top-app-bar--short after setting shortCollapsed', fakeAsync(() => {
+    it('#should add mdc-top-app-bar--short after setting shortCollapsed', () => {
       testComponent.short = false;
       fixture.detectChanges();
 
       testComponent.shortCollapsed = true;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short')).toBe(true);
-      flush();
-    }));
+    });
 
-    it('#should apply mdc-top-app-bar--prominent class based on property', fakeAsync(() => {
+    it('#should apply mdc-top-app-bar--prominent class based on property', () => {
       testComponent.short = true;
       fixture.detectChanges();
       testComponent.prominent = true;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--prominent')).toBe(true);
-      flush();
-    }));
+    });
 
-    it('#should apply prominent and dense class based on property', fakeAsync(() => {
+    it('#should apply prominent and dense class based on property', () => {
       testComponent.dense = true;
       fixture.detectChanges();
       testComponent.prominent = true;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--prominent')).toBe(true);
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--dense')).toBe(true);
-      flush();
-    }));
+    });
 
-    it('#should apply mdc-top-app-bar--dense class based on property', fakeAsync(() => {
+    it('#should apply mdc-top-app-bar--dense class based on property', () => {
       testComponent.short = true;
       fixture.detectChanges();
       testComponent.dense = true;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--dense')).toBe(true);
-      flush();
-    }));
+    });
 
-    it('#should apply mdc-top-app-bar--fixed class based on property', fakeAsync(() => {
+    it('#should apply mdc-top-app-bar--fixed class based on property', () => {
       testComponent.short = true;
       fixture.detectChanges();
       testComponent.fixed = true;
@@ -120,10 +115,9 @@ describe('MdcTopAppBar', () => {
 
       dispatchKeyboardEvent(window.document, 'keydown', DOWN_ARROW);
       fixture.detectChanges();
-      flush();
-    }));
+    });
 
-    it('#should run even if platform is not a browser', fakeAsync(() => {
+    it('#should run even if platform is not a browser', () => {
       platform.isBrowser = false;
       fixture.detectChanges();
       document.body.appendChild(veryLargeElement);
@@ -133,14 +127,13 @@ describe('MdcTopAppBar', () => {
       testInstance.scrollTarget = undefined;
       fixture.detectChanges();
       document.body.removeChild(veryLargeElement);
-    }));
+    });
 
-    it('#should reset scrollTarget value to Window', fakeAsync(() => {
+    it('#should reset scrollTarget value to Window', () => {
       testInstance.scrollTarget = undefined;
       fixture.detectChanges();
       expect(testInstance.scrollTarget).toBe(window);
-      flush();
-    }));
+    });
   });
 
   describe('MdcTopAppBar', () => {
@@ -171,7 +164,7 @@ describe('MdcTopAppBar', () => {
         expect(testInstance.scrollTarget).toEqual(window);
       });
 
-      it('#should not apply `mdc-top-app-bar--short-has-action-item` property', fakeAsync(() => {
+      it('#should not apply `mdc-top-app-bar--short-has-action-item` property', () => {
         testComponent.short = true;
         fixture.detectChanges();
 
@@ -179,28 +172,24 @@ describe('MdcTopAppBar', () => {
         // expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short')).toBe(true);
         // expect(testInstance.fixedAdjustElement.classList.contains('mdc-top-app-bar--short-fixed-adjust')).toBe(true);
         expect(testDebugElement.nativeElement.classList.contains('mdc-top-app-bar--short-has-action-item')).toBe(true);
-        flush();
-      }));
+      });
 
-      it('#should handle when window is scrolled if not fixed', fakeAsync(() => {
+      it('#should handle when window is scrolled if not fixed', () => {
         document.body.appendChild(veryLargeElement);
         window.scrollTo(1500, 2000);
         fixture.detectChanges();
-        flush();
-      }));
+      });
 
-      it('#should handle when window is scrolled if fixed', fakeAsync(() => {
+      it('#should handle when window is scrolled if fixed', () => {
         testComponent.fixed = true;
         fixture.detectChanges();
-        flush();
 
         expect(testInstance.scrollTarget).toEqual(window);
         document.body.appendChild(veryLargeElement);
         window.scrollTo(1500, 2000);
         fixture.detectChanges();
         document.body.removeChild(veryLargeElement);
-        flush();
-      }));
+      });
     });
   });
 
@@ -228,13 +217,13 @@ describe('MdcTopAppBar', () => {
         expect(testInstance.scrollTarget).toEqual(undefined);
       });
 
-      it('#should handle when window is scrolled if not fixed', fakeAsync(() => {
+      it('#should handle when window is scrolled if not fixed', () => {
         document.body.appendChild(veryLargeElement);
         window.scrollTo(1500, 2000);
         fixture.detectChanges();
-      }));
+      });
 
-      it('#should handle when window is scrolled if fixed', fakeAsync(() => {
+      it('#should handle when window is scrolled if fixed', () => {
         testComponent.fixed = true;
         fixture.detectChanges();
 
@@ -243,10 +232,9 @@ describe('MdcTopAppBar', () => {
         window.scrollTo(1500, 2000);
         fixture.detectChanges();
         document.body.removeChild(veryLargeElement);
-        flush();
-      }));
+      });
 
-      it('#should handle when window is scrolled if fixed, and not a browser', fakeAsync(() => {
+      it('#should handle when window is scrolled if fixed, and not a browser', () => {
         testComponent.fixed = true;
         fixture.detectChanges();
 
@@ -255,8 +243,7 @@ describe('MdcTopAppBar', () => {
         fixture.detectChanges();
         expect(testInstance.scrollTarget).toEqual(undefined);
         document.body.removeChild(veryLargeElement);
-        flush();
-      }));
+      });
 
       it('#should reset scrollTarget value to test', () => {
         testInstance.scrollTarget = 'test';

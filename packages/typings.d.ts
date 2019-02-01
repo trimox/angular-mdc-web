@@ -10,7 +10,6 @@ declare module '@material/dialog/util';
 declare module '@material/dom/ponyfill';
 declare module '@material/drawer/index';
 declare module '@material/floating-label/index';
-declare module '@material/grid-list/index';
 declare module '@material/icon-button/index';
 declare module '@material/line-ripple/index';
 declare module '@material/linear-progress/index';

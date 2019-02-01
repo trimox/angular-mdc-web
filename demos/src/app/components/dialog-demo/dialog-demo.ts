@@ -296,15 +296,6 @@ export class DialogScrollable {
             <mdc-text-field formControlName="last" label="Last name" outlined></mdc-text-field>
             <mdc-helper-text persistent validation>*Required</mdc-helper-text>
           </mdc-form-field>
-          <div class="demo-layout__row">
-            <mdc-form-field>
-              <mdc-text-field formControlName="middle" label="Middle name" outlined></mdc-text-field>
-            </mdc-form-field>
-            <mdc-form-field>
-              <mdc-text-field formControlName="dob" label="Birthdate" outlined type="date"></mdc-text-field>
-              <mdc-helper-text validation>*Required</mdc-helper-text>
-            </mdc-form-field>
-          </div>
           <mdc-form-field fluid>
             <mdc-text-field type="email" formControlName="email" label="Email" maxlength="254"
              outlined></mdc-text-field>
@@ -329,9 +320,6 @@ export class DialogForm {
   profileForm = new FormGroup({
     first: new FormControl('', Validators.required),
     last: new FormControl('', Validators.required),
-    middle: new FormControl(),
-    dob: new FormControl('', [
-      Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
     email: new FormControl('', [Validators.required, Validators.email])
   });
 
@@ -473,9 +461,6 @@ export class DialogForm {
   profileForm = new FormGroup({
     first: new FormControl('', Validators.required),
     last: new FormControl('', Validators.required),
-    middle: new FormControl(),
-    dob: new FormControl('', [
-      Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
     email: new FormControl('', [Validators.required, Validators.email])
   });
 

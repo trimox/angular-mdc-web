@@ -91,7 +91,7 @@
 }
 
 .demo-panel-references {
-  @include mdc-typography(headline5);
+  @include mdc-typography(headline6);
 
   margin: 24px 16px 16px 0;
   line-height: 1.25;
@@ -117,8 +117,9 @@
 }
 
 .demo-content {
+	@include mdc-shape-radius(12px);
+
   border: 1px solid rgba(0, 0, 0, .15);
-  border-radius: .75rem;
   margin: 1.5rem 1rem;
   padding: 1rem;
 

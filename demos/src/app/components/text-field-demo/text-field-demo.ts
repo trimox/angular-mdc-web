@@ -329,6 +329,14 @@ waypoint = new Directions();`
 <mdc-text-field type="color" label="Color" outlined></mdc-text-field>`
   };
 
+  exampleRtl = {
+    html: `<mdc-form-field dir="rtl">
+  <mdc-text-field outlined label="Standard">
+    <mdc-icon mdcTextFieldIcon leading>phone</mdc-icon>
+  </mdc-text-field>
+</mdc-form-field>`
+  };
+
   exampleFullWithSingleLine = {
     html: `<mdc-text-field label="Subject" fullwidth></mdc-text-field>`,
     sass: `.demo-fullwidth-input:not(.mdc-text-field--invalid) {

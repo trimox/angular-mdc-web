@@ -268,4 +268,24 @@ files = [
 </mdc-list>`,
     ts: this.exampleItemsArray
   };
+
+  exampleTwoLineLeadingTrailing = {
+    html: `<mdc-list avatar twoLine>
+  <mdc-list-item>
+    <mdc-icon mdcListItemGraphic>folder</mdc-icon>
+    <mdc-list-item-text secondaryText="Secondary text">Single-line item</mdc-list-item-text>
+    <mdc-icon mdcListItemMeta>info</mdc-icon>
+  </mdc-list-item>
+  <mdc-list-item>
+    <mdc-icon mdcListItemGraphic>folder</mdc-icon>
+    <mdc-list-item-text secondaryText="Secondary text">Single-line item</mdc-list-item-text>
+    <mdc-icon mdcListItemMeta>info</mdc-icon>
+  </mdc-list-item>
+  <mdc-list-item>
+    <mdc-icon mdcListItemGraphic>folder</mdc-icon>
+    <mdc-list-item-text secondaryText="Secondary text">Single-line item</mdc-list-item-text>
+    <mdc-icon mdcListItemMeta>info</mdc-icon>
+  </mdc-list-item>
+</mdc-list>`
+  };
 }

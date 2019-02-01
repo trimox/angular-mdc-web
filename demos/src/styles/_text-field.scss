@@ -82,23 +82,26 @@
 // Form spacing
 //
 
-@mixin mdc-form-field-spacing($gap-size) {
-  padding: $gap-size / 2;
+@mixin mdc-form-field-padding($padding) {
+	padding-left: $padding;
 }
 
-.demo-form-field-spacing {
-  mdc-form-field {
-    + .mdc-text-field, .mdc-select {
-      @at-root mdc-form-field {
-        @include mdc-form-field-spacing(12px);
+.ngx-form-field-text-field,
+.ngx-form-field-select {
+	height: 87px;
+}
 
-        display: inline-block;
+.demo-layout__row {
+  .ngx-form-field-text-field + mdc-form-field,
+  .ngx-form-field-select + mdc-form-field {
+    @include mdc-form-field-padding(14px);
+ } 
+}
 
-        .mdc-text-field-helper-text:not(.mdc-text-field-helper-text--persistent),
-        .mdc-select-helper-text:not(.mdc-select-helper-text--persistent) {
-          margin-bottom: 9px;
-        }
-      }
-    }
-  }
+.mdc-form-field {
+	> .mdc-checkbox {
+		@at-root .mdc-form-field {
+			align-self: flex-start;
+		}
+	}
 }

@@ -201,7 +201,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
     if (newValue !== this._valid) {
       this._valid = newValue;
 
-      if (this._foundation) {
+      if (this._foundation && this._valid !== undefined) {
         this._foundation.setValid(this._valid);
       }
     }
@@ -269,10 +269,10 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
 
   @ContentChildren(MdcSelectOption) _options!: QueryList<MdcSelectOption>;
 
-  /** View -> model callback called when value changes */
+  /** View to model callback called when value changes */
   _onChange: (value: any) => void = () => { };
 
-  /** View -> model callback called when select has been touched */
+  /** View to model callback called when select has been touched */
   _onTouched = () => { };
 
   get placeholderText(): string {

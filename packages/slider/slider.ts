@@ -158,7 +158,7 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
   @ViewChild('pin') pinValueMarker?: ElementRef;
   @ViewChild('markercontainer') trackMarkerContainer?: ElementRef<HTMLElement>;
 
-  /** View -> model callback called when value changes */
+  /** View to model callback called when value changes */
   _onChanged: (value: any) => void = () => { };
 
   /** onTouch function registered via registerOnTouch (ControlValueAccessor). */

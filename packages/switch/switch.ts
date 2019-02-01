@@ -126,10 +126,10 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, Contr
   @ViewChild('input') _inputElement!: ElementRef<HTMLInputElement>;
   @ViewChild('thumbUnderlay') thumbUnderlay!: ElementRef<HTMLElement>;
 
-  /** View -> model callback called when value changes */
+  /** View to model callback called when value changes */
   private _onChange = (_: any) => { };
 
-  /** View -> model callback called when control has been touched */
+  /** View to model callback called when control has been touched */
   private _onTouched = () => { };
 
   get inputId(): string { return `${this.id || this._uniqueId}-input`; }

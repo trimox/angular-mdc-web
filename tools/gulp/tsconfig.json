@@ -6,11 +6,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "../../dist/tools/gulp",
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
-    "strictPropertyInitialization": true,
+    "strict": true,
     "noEmitOnError": true,
     "target": "es5",
     "types": [

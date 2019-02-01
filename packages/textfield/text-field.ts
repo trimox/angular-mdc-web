@@ -267,10 +267,10 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   @ViewChild(MdcFloatingLabel) _floatingLabel?: MdcFloatingLabel;
   @ContentChildren(MdcTextFieldIcon, { descendants: true }) _icons?: QueryList<MdcTextFieldIcon>;
 
-  /** View -> model callback called when value changes */
+  /** View to model callback called when value changes */
   _onChange: (value: any) => void = () => { };
 
-  /** View -> model callback called when text field has been touched */
+  /** View to model callback called when text field has been touched */
   _onTouched = () => { };
 
   get textarea(): boolean { return this._getHostElement().nodeName.toLowerCase() === 'mdc-textarea'; }

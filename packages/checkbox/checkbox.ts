@@ -176,10 +176,10 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor,
 
   @ViewChild('input') _inputElement!: ElementRef<HTMLInputElement>;
 
-  /** View -> model callback called when value changes */
+  /** View to model callback called when value changes */
   _onChange: (value: any) => void = () => { };
 
-  /** View -> model callback called when component has been touched */
+  /** View to model callback called when component has been touched */
   _onTouched: () => any = () => { };
 
   private _createAdapter() {

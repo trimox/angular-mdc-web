@@ -7,7 +7,7 @@ sudo: required
 
 dist: trusty
 node_js:
-  - '10.7.0'
+  - '11.7.0'
 
 branches:
   only:

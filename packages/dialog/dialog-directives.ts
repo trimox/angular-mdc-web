@@ -98,7 +98,7 @@ export class MdcDialogActions {
   selector: '[mdcDialogButton]',
   exportAs: 'mdcDialogButton',
   host: {
-    'class': 'mdc-dialog__buton',
+    'class': 'mdc-dialog__button',
     '[class.mdc-button]': 'true',
     '[class.mdc-dialog__button--default]': 'default'
   },

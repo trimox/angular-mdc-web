@@ -10,7 +10,7 @@ import { createMetadataReexportFile } from './metadata-reexport';
 import { createTypingsReexportFile } from './typings-reexport';
 import { replaceVersionPlaceholders } from './version-placeholders';
 
-const { packagesDir, outputDir, projectDir } = buildConfig;
+const { outputDir } = buildConfig;
 
 /** Directory where all bundles will be created in. */
 const bundlesDir = join(outputDir, 'bundles');
@@ -57,7 +57,7 @@ export function composeRelease(buildPackage: BuildPackage) {
 
   if (buildPackage.exportsSecondaryEntryPointsAtRoot) {
     // Add re-exports to the root d.ts file to prevent errors of the form
-    // "@angular-mdc/web/web has no exported member 'MATERIAL_SANITY_CHECKS."
+    // "@angular-mdc/web/web has no exported member 'MDC_SANITY_CHECKS."
     const es2015Exports = buildPackage.secondaryEntryPoints
       .map(p => `export * from './${p}';`).join('\n');
     appendFileSync(join(releasePath, `${name}.d.ts`), es2015Exports, 'utf-8');
@@ -83,7 +83,7 @@ function createFilesForSecondaryEntryPoint(buildPackage: BuildPackage, releasePa
     // * An index.d.ts file that re-exports the index.d.ts from the typings/ directory
     // * A metadata.json re-export for this entry-point's metadata.
     const entryPointDir = join(releasePath, entryPointName);
-    const importAsName = `@angular-mdc/web/${entryPointName}`;
+    const importAsName = `@angular-mdc/${name}/${entryPointName}`;
 
     mkdirpSync(entryPointDir);
     createEntryPointPackageJson(entryPointDir, name, entryPointName);

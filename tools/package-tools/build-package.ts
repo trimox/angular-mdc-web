@@ -25,33 +25,27 @@ export class BuildPackage {
   /** Path to the entry file of the package in the output directory. */
   readonly entryFilePath: string;
 
-  /** Path to the tsconfig file, which will be used to build the package. */
-  private readonly tsconfigBuild: string;
-
   /** Package bundler instance. */
   private bundler = new PackageBundler(this);
 
   /** Secondary entry-points partitioned by their build depth. */
   get secondaryEntryPointsByDepth(): string[][] {
     this.cacheSecondaryEntryPoints();
-    return this._secondaryEntryPointsByDepth;
+    return this._secondaryEntryPointsByDepth!;
   }
-  private _secondaryEntryPointsByDepth: string[][];
+  private _secondaryEntryPointsByDepth?: string[][];
 
   /** Secondary entry points for the package. */
   get secondaryEntryPoints(): string[] {
     this.cacheSecondaryEntryPoints();
-    return this._secondaryEntryPoints;
+    return this._secondaryEntryPoints!;
   }
-  private _secondaryEntryPoints: string[];
+  private _secondaryEntryPoints?: string[];
 
   constructor(readonly name: string, readonly dependencies: BuildPackage[] = []) {
     this.sourceDir = join(packagesDir, name);
     this.outputDir = join(outputDir, 'packages', name);
     this.esm5OutputDir = join(outputDir, 'packages', name, 'esm5');
-
-    this.tsconfigBuild = join(this.sourceDir, buildTsconfigName);
-
     this.entryFilePath = join(this.outputDir, 'index.js');
   }
 

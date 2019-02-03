@@ -9,7 +9,7 @@ export function findBuildConfig(): string | null {
   let currentDir = process.cwd();
 
   while (!existsSync(resolve(currentDir, BUILD_CONFIG_FILENAME))) {
-    let parentDir = dirname(currentDir);
+    const parentDir = dirname(currentDir);
 
     if (parentDir === currentDir) {
       return null;

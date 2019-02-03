@@ -170,11 +170,6 @@
       },
       "NgModule": "^(?!\\s*$).+"
     }, "packages/**/"],
-    "missing-rollup-globals": [
-      true,
-      "./tools/package-tools/rollup-globals.ts",
-      "packages/**/*.ts"
-    ],
     "no-unescaped-html-tag": true
   }
 }

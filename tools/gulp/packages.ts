@@ -1,5 +1,4 @@
-import { BuildPackage, buildConfig } from 'ng-mdc-build-tools';
-import { join } from 'path';
+import { BuildPackage, buildConfig } from 'mdc-build-tools';
 
 export const mdcPackage = new BuildPackage('web');
 

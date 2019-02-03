@@ -395,6 +395,10 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
       this.ngControl.valueAccessor = this;
     }
 
+    if (this._parentFormField) {
+      _parentFormField.elementRef.nativeElement.classList.add('ngx-form-field-text-field');
+    }
+
     // Force setter to be called in case id was not specified.
     this.id = this.id;
   }

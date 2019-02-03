@@ -412,6 +412,10 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
       this.ngControl.valueAccessor = this;
     }
 
+    if (this._parentFormField) {
+      _parentFormField.elementRef.nativeElement.classList.add('ngx-form-field-select');
+    }
+
     // Force setter to be called in case id was not specified.
     this.id = this.id;
   }

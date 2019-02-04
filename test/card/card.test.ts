@@ -1,12 +1,11 @@
 import { Component, DebugElement } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import {
   MdcCardModule,
   MdcCard,
   MdcCardMedia,
-  MdcCardMediaContent,
   MdcCardAction,
   MdcIconModule
 } from '@angular-mdc/web';
@@ -14,7 +13,7 @@ import {
 describe('MdcCard', () => {
   let fixture: ComponentFixture<any>;
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [MdcCardModule, MdcIconModule],
       declarations: [SimpleTest]
@@ -38,7 +37,6 @@ describe('MdcCard', () => {
       fixture.detectChanges();
 
       testDebugElement = fixture.debugElement.query(By.directive(MdcCard));
-
       testActionButtonDebugElement = fixture.debugElement.query(By.directive(MdcCardAction));
       testActionButtonInstance = testActionButtonDebugElement.injector.get<MdcCardAction>(MdcCardAction);
 
@@ -64,6 +62,12 @@ describe('MdcCard', () => {
       fixture.detectChanges();
       expect(testActionButtonInstance.action).toBe('button');
     });
+
+    it('#should set action button to icon', () => {
+      testComponent.cardAction = 'icon';
+      fixture.detectChanges();
+      expect(testActionButtonInstance.action).toBe('icon');
+    });
   });
 });
 
@@ -78,6 +82,7 @@ describe('MdcCard', () => {
         </mdc-card-media>
       </mdc-card-primary-action>
       <mdc-card-actions [fullBleed]="fullBleed">
+        <div [mdcCardAction]="cardAction"></div>
         <mdc-card-action-buttons>
           <button mdc-button mdcCardAction="button">Action 2</button>
         </mdc-card-action-buttons>

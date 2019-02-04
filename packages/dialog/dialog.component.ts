@@ -151,8 +151,6 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
   }
 
   private _initialize(): void {
-    if (!this.config) { return; }
-
     this._scrollable = !!this.config.scrollable;
 
     if (!this.config.clickOutsideToClose) {
@@ -194,8 +192,7 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
 
   private _loadListeners(): void {
     this._layoutEventSubscription = this.layoutEvents.pipe()
-      .subscribe(() =>
-        this._ngZone.runOutsideAngular(() => this._foundation.layout()));
+      .subscribe(() => this._foundation.layout());
 
     if (this._platform.isBrowser) {
       this._ngZone.runOutsideAngular(() =>

@@ -1,15 +1,10 @@
 import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { dispatchFakeEvent, dispatchMouseEvent, dispatchKeyboardEvent } from '../testing/dispatch-events';
-
 import {
-  TAB,
-  DOWN_ARROW,
   MdcMenuSurface,
   MdcMenuSurfaceModule,
-  MdcMenuSurfaceAnchor,
   MdcImageListModule,
   Platform
 } from '@angular-mdc/web';
@@ -100,18 +95,6 @@ describe('MdcMenuSurface', () => {
       testDebugElement.nativeElement.click();
       fixture.detectChanges();
     });
-
-    it('#should handle window object click event', fakeAsync(() => {
-      testComponent.open = true;
-      fixture.detectChanges();
-      tick(500);
-
-      dispatchMouseEvent(document, 'click');
-      fixture.detectChanges();
-      tick(500);
-
-      expect(testInstance.open).toBe(false);
-    }));
   });
 });
 
@@ -132,7 +115,7 @@ describe('MdcMenuSurface', () => {
       <mdc-image-list>
         <mdc-image-list-item *ngFor="let i of images">
           <mdc-image-list-image-aspect>
-            <img mdcImageListImage src="https://material-components-web.appspot.com/images/photos/3x2/{{i+1}}.jpg" />
+            <img mdcImageListImage />
           </mdc-image-list-image-aspect>
           <mdc-image-list-supporting>
             <span mdcImageListLabel>Text label</span>

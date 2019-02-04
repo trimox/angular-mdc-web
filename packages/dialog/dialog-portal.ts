@@ -1,14 +1,10 @@
 import {
   Component,
   ComponentRef,
-  ElementRef,
   EmbeddedViewRef,
-  Inject,
-  Optional,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
 import { Subject } from 'rxjs';
 import {
   BasePortalOutlet,
@@ -69,12 +65,7 @@ export class MdcDialogPortal extends BasePortalOutlet {
     return this._portalOutlet.attachTemplatePortal(portal);
   }
 
-  constructor(
-    private _elementRef: ElementRef<HTMLElement>,
-    @Optional() @Inject(DOCUMENT) private _document: any,
-    /** The dialog configuration. */
-    public _config: MdcDialogConfig) {
-
+  constructor(public _config: MdcDialogConfig) {
     super();
   }
 }

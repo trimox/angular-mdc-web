@@ -13,9 +13,7 @@ import { MdcRipple } from '@angular-mdc/web/ripple';
 @Directive({
   selector: 'mdc-card-media-content, [mdcCardMediaContent]',
   exportAs: 'mdcCardMediaContent',
-  host: {
-    'class': 'mdc-card__media-content',
-  }
+  host: { 'class': 'mdc-card__media-content' }
 })
 export class MdcCardMediaContent {
   constructor(public elementRef: ElementRef<HTMLElement>) { }
@@ -56,9 +54,7 @@ export class MdcCardMedia {
   moduleId: module.id,
   selector: 'mdc-card-primary-action, [mdcCardPrimaryAction]',
   exportAs: 'mdcCardPrimaryAction',
-  host: {
-    'class': 'mdc-card__primary-action'
-  },
+  host: { 'class': 'mdc-card__primary-action' },
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -103,9 +99,7 @@ export class MdcCardActions {
 @Directive({
   selector: 'mdc-card-action-buttons, [mdcCardActionButtons]',
   exportAs: 'mdcCardActionButtons',
-  host: {
-    'class': 'mdc-card__action-buttons'
-  }
+  host: { 'class': 'mdc-card__action-buttons' }
 })
 export class MdcCardActionButtons {
   constructor(public elementRef: ElementRef<HTMLElement>) { }
@@ -114,9 +108,7 @@ export class MdcCardActionButtons {
 @Directive({
   selector: 'mdc-card-action-icons, [mdcCardActionIcons]',
   exportAs: 'mdcCardActionIcons',
-  host: {
-    'class': 'mdc-card__action-icons'
-  }
+  host: { 'class': 'mdc-card__action-icons' }
 })
 export class MdcCardActionIcons {
   constructor(public elementRef: ElementRef<HTMLElement>) { }
@@ -124,9 +116,7 @@ export class MdcCardActionIcons {
 
 @Directive({
   selector: '[mdcCardAction]',
-  host: {
-    'class': 'mdc-card__action'
-  }
+  host: { 'class': 'mdc-card__action' }
 })
 export class MdcCardAction {
   @Input('mdcCardAction')

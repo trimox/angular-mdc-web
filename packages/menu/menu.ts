@@ -15,7 +15,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { toBoolean } from '@angular-mdc/web/common';
-import { MdcList, MdcListItem } from '@angular-mdc/web/list';
+import { MdcList, MdcListItem, MdcListItemAction } from '@angular-mdc/web/list';
 import { MdcMenuSurfaceBase } from '@angular-mdc/web/menu-surface';
 
 import { MDCMenuFoundation } from '@material/menu/index';
@@ -54,8 +54,7 @@ export class MdcMenuSelectionGroupIcon {
     '[id]': 'id',
     'tabindex': '-1',
     'class': 'mdc-menu mdc-menu-surface',
-    '(click)': 'handleClick($event)',
-    '(keydown)': 'handleKeydown($event)',
+    '(keydown)': '_handleKeydown($event)',
   },
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
@@ -115,12 +114,13 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
   private _menuFoundation: {
     destroy(): void,
     handleKeydown(evt: KeyboardEvent): void,
-    handleClick(evt: MouseEvent): void
+    handleItemAction(listItem: HTMLElement): void
   } = new MDCMenuFoundation(this._createAdapter());
 
   ngAfterContentInit(): void {
     this.initMenuSurface();
     this._initList();
+    this._listenForListItemActions();
 
     this.opened.pipe(takeUntil(this._destroyed))
       .subscribe(() => {
@@ -138,6 +138,14 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
     this._menuFoundation.destroy();
   }
 
+  focus(): void {
+    this._getHostElement().focus();
+  }
+
+  _handleKeydown(evt: KeyboardEvent): void {
+    this._menuFoundation.handleKeydown(evt);
+  }
+
   private _initList(): void {
     if (!this._list) { return; }
 
@@ -149,15 +157,10 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
       .subscribe(() => this._list.items.forEach(item => item.setRole('menuitem')));
   }
 
-  handleClick(evt: MouseEvent): void {
-    this._menuFoundation.handleClick(evt);
-  }
-
-  handleKeydown(evt: KeyboardEvent): void {
-    this._menuFoundation.handleKeydown(evt);
-  }
-
-  focus(): void {
-    this._getHostElement().focus();
+  /** Listens to action events on each list item. */
+  private _listenForListItemActions(): void {
+    this._list.actionEvent.pipe(takeUntil(this._destroyed))
+      .subscribe((event: MdcListItemAction) =>
+        this._menuFoundation.handleItemAction(this._list.items.toArray()[event.index].getListItemElement()));
   }
 }

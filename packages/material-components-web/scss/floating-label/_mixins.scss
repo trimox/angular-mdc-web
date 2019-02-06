@@ -34,7 +34,6 @@
 
 @mixin mdc-floating-label-shake-keyframes($modifier, $positionY, $positionX: 0%, $scale: .75) {
   @keyframes mdc-floating-label-shake-float-above-#{$modifier} {
-    /* clean-css ignore:start */
     0% {
       transform: translateX(calc(0 - #{$positionX})) translateY(-#{$positionY}) scale(#{$scale});
     }
@@ -52,7 +51,6 @@
     100% {
       transform: translateX(calc(0 - #{$positionX})) translateY(-#{$positionY}) scale(#{$scale});
     }
-    /* clean-css ignore:end */
   }
 }
 

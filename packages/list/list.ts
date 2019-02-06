@@ -33,6 +33,11 @@ export class MdcListItemChange {
     public option: MdcListItem) { }
 }
 
+/** Notifies user action on list item including keyboard and mouse actions. */
+export interface MdcListItemAction {
+  index: number;
+}
+
 @Component({
   moduleId: module.id,
   selector: '[mdcListGroup], mdc-list-group',
@@ -191,6 +196,10 @@ export class MdcList implements AfterViewInit, OnDestroy {
   @Output() readonly selectionChange: EventEmitter<MdcListItemChange> =
     new EventEmitter<MdcListItemChange>();
 
+  /** Emits an event for keyboard and mouse actions. */
+  @Output() readonly actionEvent: EventEmitter<MdcListItemAction> =
+    new EventEmitter<MdcListItemAction>();
+
   /** Subscription to changes in list items. */
   private _changeSubscription: Subscription | null = null;
 
@@ -231,13 +240,6 @@ export class MdcList implements AfterViewInit, OnDestroy {
           .querySelectorAll(strings.CHILD_ELEMENTS_TO_TOGGLE_TABINDEX));
         listItemChildren.forEach((ele: Element) => ele.setAttribute('tabindex', `${tabIndexValue}`));
       },
-      followHref: (index: number) => {
-        const listItem = this.items.toArray()[index];
-
-        if (listItem && listItem.elementRef.nativeElement.href) {
-          listItem.getListItemElement().click();
-        }
-      },
       hasCheckboxAtIndex: (index: number) => {
         const listItem = this.items.toArray()[index].getListItemElement();
         return !!listItem.querySelector(strings.CHECKBOX_SELECTOR);
@@ -263,7 +265,10 @@ export class MdcList implements AfterViewInit, OnDestroy {
         }
       },
       isFocusInsideList: () => this._platform.isBrowser ?
-        this.elementRef.nativeElement.contains(document.activeElement) : false
+        this.elementRef.nativeElement.contains(document.activeElement) : false,
+      notifyAction: (index: number) => {
+        this.actionEvent.emit({ index: index });
+      }
     };
   }
 

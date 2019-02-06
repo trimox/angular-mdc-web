@@ -1,6 +1,45 @@
+$custom-chip-fill-color: $material-color-red-500;
+$custom-chip-ink-color: $material-color-blue-500;
+
 .custom-chip-secondary {
   @include mdc-chip-fill-color(white);
   @include mdc-chip-ink-color($mdc-theme-secondary);
   @include mdc-chip-selected-ink-color($mdc-theme-secondary);
   @include mdc-chip-outline(2px, solid, $mdc-theme-secondary);
+}
+
+.custom-chip--shape-radius {
+  @include mdc-chip-shape-radius(4px);
+}
+
+.custom-chip--height {
+  @include mdc-chip-height(40px);
+}
+
+.custom-chip--leading-icon-color {
+  @include mdc-chip-leading-icon-color($custom-chip-fill-color, .5);
+}
+
+.custom-chip--trailing-icon-color {
+  @include mdc-chip-trailing-icon-color($custom-chip-fill-color, .5);
+}
+
+.custom-chip--leading-icon-size {
+  @include mdc-chip-leading-icon-size(25px);
+}
+
+.custom-chip--trailing-icon-size {
+  @include mdc-chip-trailing-icon-size(25px);
+}
+
+.custom-chip--leading-icon-margin {
+  @include mdc-chip-leading-icon-margin(5px, 5px, 5px, 5px);
+}
+
+.custom-chip--trailing-icon-margin {
+  @include mdc-chip-trailing-icon-margin(5px, 5px, 5px, 5px);
+}
+
+.custom-chip--horizontal-padding {
+  @include mdc-chip-horizontal-padding(25px);
 }

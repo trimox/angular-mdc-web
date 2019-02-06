@@ -3,6 +3,7 @@ declare var module: { id: string };
 declare module '@material/animation/index';
 declare module '@material/checkbox/index';
 declare module '@material/chips/chip-set/index';
+declare module '@material/chips/chip/constants';
 declare module '@material/chips/chip/index';
 declare module '@material/dialog/constants';
 declare module '@material/dialog/index';

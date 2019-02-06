@@ -7,12 +7,13 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  NgZone,
   OnDestroy,
+  Optional,
   Output,
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
+import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { merge, Observable, Subject, Subscription } from 'rxjs';
 import { startWith, takeUntil } from 'rxjs/operators';
 
@@ -22,7 +23,8 @@ import {
   MdcChip,
   MdcChipInteractionEvent,
   MdcChipRemovedEvent,
-  MdcChipSelectionEvent
+  MdcChipSelectionEvent,
+  MDC_CHIPSET_PARENT_COMPONENT
 } from './chip';
 
 import { MDCChipSetFoundation } from '@material/chips/chip-set/index';
@@ -45,9 +47,10 @@ export class MdcChipSetChange {
   },
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{ provide: MDC_CHIPSET_PARENT_COMPONENT, useExisting: MdcChipSet }]
 })
-export class MdcChipSet implements AfterContentInit, OnDestroy {
+export class MdcChipSet implements AfterContentInit, OnDestroy, ControlValueAccessor {
   /** Emits whenever the component is destroyed. */
   private _destroyed = new Subject<void>();
 
@@ -58,10 +61,6 @@ export class MdcChipSet implements AfterContentInit, OnDestroy {
   get choice(): boolean { return this._choice; }
   set choice(value: boolean) {
     this._choice = toBoolean(value);
-
-    Promise.resolve().then(() => {
-      this.chips.forEach((chip: MdcChip) => chip.choice = this._choice);
-    });
   }
   private _choice: boolean = false;
 
@@ -72,10 +71,6 @@ export class MdcChipSet implements AfterContentInit, OnDestroy {
   get filter(): boolean { return this._filter; }
   set filter(value: boolean) {
     this._filter = toBoolean(value);
-
-    Promise.resolve().then(() => {
-      this.chips.forEach((chip: MdcChip) => chip.filter = this._filter);
-    });
   }
   private _filter: boolean = false;
 
@@ -86,17 +81,34 @@ export class MdcChipSet implements AfterContentInit, OnDestroy {
   get input(): boolean { return this._input; }
   set input(value: boolean) {
     this._input = toBoolean(value);
-
-    Promise.resolve().then(() => {
-      this.chips.forEach((chip: MdcChip) => chip.removable = this._input);
-    });
   }
   private _input: boolean = false;
+
+  @Input()
+  get value(): any { return this._value; }
+  set value(value: any) {
+    this.writeValue(value);
+    this._value = value;
+  }
+  protected _value: any;
+
+  /**
+   * A function to compare the option values with the selected values. The first argument
+   * is a value from an option. The second is a value from the selection. A boolean
+   * should be returned.
+   */
+  private _compareWith = (o1: any, o2: any) => o1 === o2;
 
   @Output() readonly change: EventEmitter<MdcChipSetChange> =
     new EventEmitter<MdcChipSetChange>();
 
   @ContentChildren(MdcChip, { descendants: true }) chips!: QueryList<MdcChip>;
+
+  /** Function when touched */
+  _onTouched = () => { };
+
+  /** Function when changed */
+  _onChange: (value: any) => void = () => { };
 
   /** Subscription to selection events in chips. */
   private _chipSelectionSubscription: Subscription | null = null;
@@ -122,7 +134,7 @@ export class MdcChipSet implements AfterContentInit, OnDestroy {
     return merge(...this.chips.map(chip => chip.removed));
   }
 
-  createAdapter() {
+  private _createAdapter() {
     return {
       hasClass: (className: string) => this._getHostElement().classList.contains(className),
       removeChip: (chipId: string) => {
@@ -145,13 +157,20 @@ export class MdcChipSet implements AfterContentInit, OnDestroy {
     select(chipId: string): void,
     handleChipInteraction(chipId: string): void,
     handleChipRemoval(chipId: string): void,
-    handleChipSelection(chipId: string): void
-  } = new MDCChipSetFoundation(this.createAdapter());
+    handleChipSelection(chipId: string, selected: boolean): void
+  } = new MDCChipSetFoundation(this._createAdapter());
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    private _ngZone: NgZone,
-    public elementRef: ElementRef<HTMLElement>) { }
+    public elementRef: ElementRef<HTMLElement>,
+    @Optional() _parentForm: NgForm,
+    @Optional() _parentFormGroup: FormGroupDirective,
+    @Optional() public ngControl: NgControl) {
+
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
 
   ngAfterContentInit(): void {
     this._foundation.init();
@@ -161,6 +180,7 @@ export class MdcChipSet implements AfterContentInit, OnDestroy {
       .subscribe(() => {
         if (this.chips.length > 0) {
           this._resetChipSet();
+          this._initializeSelection();
         }
       });
   }
@@ -177,6 +197,23 @@ export class MdcChipSet implements AfterContentInit, OnDestroy {
     this._foundation.destroy();
   }
 
+  // Implemented as part of ControlValueAccessor.
+  writeValue(value: any): void {
+    if (this.chips) {
+      this.selectByValue(value, false);
+    }
+  }
+
+  // Implemented as part of ControlValueAccessor.
+  registerOnChange(fn: (value: any) => void): void {
+    this._onChange = fn;
+  }
+
+  // Implemented as part of ControlValueAccessor.
+  registerOnTouched(fn: () => void): void {
+    this._onTouched = fn;
+  }
+
   getSelectedChipIds(): string[] {
     return this._foundation.getSelectedChipIds();
   }
@@ -189,14 +226,57 @@ export class MdcChipSet implements AfterContentInit, OnDestroy {
     return this.chips.find(_ => _.id === chipId);
   }
 
-  private _resetChipSet() {
+  selectByValue(value: any, isUserInput: boolean = true): void {
+    this.chips.forEach(chip => chip.deselect());
+
+    if (Array.isArray(value)) {
+      value.forEach(currentValue => this._selectValue(currentValue, isUserInput));
+    } else {
+      this._selectValue(value, isUserInput);
+    }
+  }
+
+  /**
+   * Finds and selects the chip based on its value.
+   * @returns Chip that has the corresponding value.
+   */
+  private _selectValue(value: any, isUserInput: boolean = true): MdcChip | undefined {
+    const correspondingChip = this.chips.find(chip => {
+      return chip.value != null && this._compareWith(chip.value, value);
+    });
+
+    if (correspondingChip) {
+      isUserInput ? correspondingChip.selectViaInteraction() : correspondingChip.select();
+    }
+
+    return correspondingChip;
+  }
+
+  private _initializeSelection(): void {
+    // Defer setting the value in order to avoid the "Expression
+    // has changed after it was checked" errors from Angular.
+    Promise.resolve().then(() => {
+      if (this.ngControl || this._value) {
+        this.selectByValue(this.ngControl ? this.ngControl.value : this._value, false);
+      }
+    });
+  }
+
+  private _propagateChanges(evt: MdcChipSelectionEvent): void {
+    this._value = evt.detail.value;
+    this.change.emit(new MdcChipSetChange(this, evt.detail));
+    this._onChange(this._value);
+    this._changeDetectorRef.markForCheck();
+  }
+
+  private _resetChipSet(): void {
     this._dropSubscriptions();
     this._listenForChipSelection();
     this._listenToChipsInteraction();
     this._listenToChipsRemoved();
   }
 
-  private _dropSubscriptions() {
+  private _dropSubscriptions(): void {
     if (this._chipSelectionSubscription) {
       this._chipSelectionSubscription.unsubscribe();
       this._chipSelectionSubscription = null;
@@ -215,14 +295,18 @@ export class MdcChipSet implements AfterContentInit, OnDestroy {
   private _listenForChipSelection(): void {
     this._chipSelectionSubscription = this.chipSelections
       .subscribe((event: MdcChipSelectionEvent) => {
-        this._foundation.handleChipSelection(event.detail.chipId);
-        this.change.emit(new MdcChipSetChange(this, event.detail));
+        this._foundation.handleChipSelection(event.detail.chipId, event.detail.selected);
+
+        if (event.isUserInput) {
+          this._propagateChanges(event);
+        }
       });
   }
 
   private _listenToChipsInteraction(): void {
     this._chipInteractionSubscription = this.chipInteractions
-      .subscribe((event: MdcChipInteractionEvent) => this._foundation.handleChipInteraction(event.detail.chipId));
+      .subscribe((event: MdcChipInteractionEvent) =>
+        this._foundation.handleChipInteraction(event.detail.chipId));
   }
 
   private _listenToChipsRemoved(): void {

@@ -1,9 +1,11 @@
 <div class="demo-content">
-  <h3 class="demo-content__headline">Chip - Theming</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="simplechip.primary = !simplechip.primary">Primary: {{simplechip.primary ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="simplechip.secondary = !simplechip.secondary">Secondary: {{simplechip.secondary ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="simplechip.disableRipple = !simplechip.disableRipple">Disable Ripple: {{simplechip.disableRipple ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="simplechip.primary = !simplechip.primary">Primary:
+      {{simplechip.primary ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="simplechip.secondary = !simplechip.secondary">Secondary:
+      {{simplechip.secondary ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="simplechip.disableRipple = !simplechip.disableRipple">Disable
+      Ripple: {{simplechip.disableRipple ? 'On' : 'Off'}}</button>
   </div>
   <mdc-chip-set>
     <mdc-chip #simplechip>
@@ -12,32 +14,32 @@
     </mdc-chip>
   </mdc-chip-set>
 
-  <example-viewer [example]="example1"></example-viewer>
+  <example-viewer [example]="exampleSimple"></example-viewer>
 </div>
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Input Chips</h3>
   <div class="demo-layout__row">
     <mdc-chip-set #inputchipset input>
-      <mdc-chip label="Alice">
+      <mdc-chip label="Alice" (removed)="onChipRemoved($event)">
         <mdc-chip-icon leading>face</mdc-chip-icon>
         <mdc-chip-icon trailing>cancel</mdc-chip-icon>
       </mdc-chip>
-      <mdc-chip label="Bob">
+      <mdc-chip label="Bob" (removed)="onChipRemoved($event)">
         <mdc-chip-icon leading>face</mdc-chip-icon>
         <mdc-chip-icon trailing>cancel</mdc-chip-icon>
       </mdc-chip>
-      <mdc-chip label='Charlie'>
+      <mdc-chip label='Charlie' (removed)="onChipRemoved($event)">
         <mdc-chip-icon leading>face</mdc-chip-icon>
         <mdc-chip-icon trailing>cancel</mdc-chip-icon>
       </mdc-chip>
-      <mdc-chip label='David'>
+      <mdc-chip label='David' (removed)="onChipRemoved($event)">
         <mdc-chip-icon leading>face</mdc-chip-icon>
         <mdc-chip-icon trailing>cancel</mdc-chip-icon>
       </mdc-chip>
     </mdc-chip-set>
   </div>
-  <example-viewer [example]="example2"></example-viewer>
+  <example-viewer [example]="exampleInput"></example-viewer>
 </div>
 
 <div class="demo-content">
@@ -55,7 +57,7 @@
       </mdc-chip>
     </mdc-chip-set>
   </div>
-  <example-viewer [example]="example3"></example-viewer>
+  <example-viewer [example]="exampleChoice"></example-viewer>
 </div>
 
 <div class="demo-content">
@@ -76,8 +78,11 @@
       </mdc-chip>
     </mdc-chip-set>
   </div>
-  <example-viewer [example]="example4"></example-viewer>
+  <example-viewer [example]="exampleFilter"></example-viewer>
+</div>
 
+<div class="demo-content">
+  <h3 class="demo-content__headline">Filter Chips with Leading Icon</h3>
   <div class="demo-layout__row">
     <mdc-chip-set filter>
       <mdc-chip>
@@ -98,7 +103,7 @@
       </mdc-chip>
     </mdc-chip-set>
   </div>
-  <example-viewer [example]="example5"></example-viewer>
+  <example-viewer [example]="exampleFilterWithIcon"></example-viewer>
 </div>
 
 <div class="demo-content">
@@ -123,11 +128,68 @@
       </mdc-chip>
     </mdc-chip-set>
   </div>
-  <example-viewer [example]="example6"></example-viewer>
+  <example-viewer [example]="exampleAction"></example-viewer>
 </div>
 
 <div class="demo-content">
-  <h3 class="demo-content__headline">Custom Theme</h3>
+  <h3 class="demo-content__headline">Choice with value</h3>
+  <mdc-chip-set choice #chipSetValue (change)="onChipSetChange($event)" [value]="demoChipValue">
+    <mdc-chip *ngFor="let food of foods" [value]="food.value" [selected]="food.selected"
+      (selectionChange)="onChipInteraction($event)">
+      {{food.viewValue}}
+    </mdc-chip>
+  </mdc-chip-set>
+  <p>Value: {{chipSetValue.value}}</p>
+  <example-viewer [example]="exampleValue"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">NgModel</h3>
+  <mdc-chip-set [(ngModel)]="selectedFood">
+    <mdc-chip *ngFor="let food of foods" [value]="food.value" [selected]="food.selected">
+      {{food.viewValue}}
+    </mdc-chip>
+  </mdc-chip-set>
+  <p>Value: {{selectedFood}}</p>
+  <example-viewer [example]="exampleNgModel"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">FormControl</h3>
+  <form #form="ngForm" novalidate>
+    <mdc-chip-set [formControl]="formControl">
+      <mdc-chip *ngFor="let food of foods" [value]="food.value" [selected]="food.selected">
+        {{food.viewValue}}
+      </mdc-chip>
+    </mdc-chip-set>
+  </form>
+  <p>Value: {{formControl.value}}</p>
+  <example-viewer [example]="exampleFormControl"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Shape</h3>
+  <div class="demo-layout__row">
+    <mdc-chip-set>
+      <mdc-chip class="custom-chip--shape-radius">
+        <mdc-chip-text>Turn on lights</mdc-chip-text>
+      </mdc-chip>
+      <mdc-chip class="custom-chip--shape-radius">
+        <mdc-chip-text>Bookmark</mdc-chip-text>
+      </mdc-chip>
+      <mdc-chip class="custom-chip--shape-radius">
+        <mdc-chip-text>Set alarm</mdc-chip-text>
+      </mdc-chip>
+      <mdc-chip class="custom-chip--shape-radius">
+        <mdc-chip-text>Get Directions</mdc-chip-text>
+      </mdc-chip>
+    </mdc-chip-set>
+  </div>
+  <example-viewer [example]="exampleShape"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Theme</h3>
   <div class="demo-layout__row">
     <mdc-chip-set>
       <mdc-chip class="custom-chip-secondary">
@@ -144,5 +206,44 @@
       </mdc-chip>
     </mdc-chip-set>
   </div>
-  <example-viewer [example]="example7"></example-viewer>
+  <example-viewer [example]="exampleTheme"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Custom</h3>
+  <div class="demo-layout__row">
+    <mdc-chip-set>
+      <mdc-chip class="custom-chip--height">
+        <mdc-chip-text>Height</mdc-chip-text>
+      </mdc-chip>
+      <mdc-chip class="custom-chip--horizontal-padding">
+        <mdc-chip-text>Horizontal Padding</mdc-chip-text>
+      </mdc-chip>
+      <mdc-chip class="custom-chip--leading-icon-color">
+        <mdc-chip-icon leading>wb_sunny</mdc-chip-icon>
+        <mdc-chip-text>Leading Icon Color</mdc-chip-text>
+      </mdc-chip>
+      <mdc-chip class="custom-chip--trailing-icon-color">
+        <mdc-chip-text>Trailing Icon Color</mdc-chip-text>
+        <mdc-chip-icon trailing>wb_sunny</mdc-chip-icon>
+      </mdc-chip>
+      <mdc-chip class="custom-chip--leading-icon-size">
+        <mdc-chip-icon leading>wb_sunny</mdc-chip-icon>
+        <mdc-chip-text>Leading Icon Size</mdc-chip-text>
+      </mdc-chip>
+      <mdc-chip class="custom-chip--trailing-icon-size">
+        <mdc-chip-text>Trailing Icon Size</mdc-chip-text>
+        <mdc-chip-icon trailing>wb_sunny</mdc-chip-icon>
+      </mdc-chip>
+      <mdc-chip class="custom-chip--leading-icon-margin">
+        <mdc-chip-icon leading>wb_sunny</mdc-chip-icon>
+        <mdc-chip-text>Leading Icon Margin</mdc-chip-text>
+      </mdc-chip>
+      <mdc-chip class="custom-chip--trailing-icon-margin">
+        <mdc-chip-text>Trailing Icon Margin</mdc-chip-text>
+        <mdc-chip-icon trailing>wb_sunny</mdc-chip-icon>
+      </mdc-chip>
+    </mdc-chip-set>
+  </div>
+  <example-viewer [example]="exampleCustom"></example-viewer>
 </div>

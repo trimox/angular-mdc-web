@@ -33,8 +33,10 @@
     </thead>
     <tbody>
       <tr>
-        <td><code>mdc-text-field-shape-radius($radius, $rtl-reflexive)</code></td>
-        <td>Sets rounded shape to boxed text field variant with given radius size. Set <code>$rtl-reflexive</code> to
+        <td><code>mdc-text-field-shape-radius($radius, $rtl-reflexive)</code>
+        </td>
+        <td>Sets rounded shape to boxed text field variant with given radius
+          size. Set <code>$rtl-reflexive</code> to
           true to flip radius values in RTL context, defaults to false.</td>
       </tr>
       <tr>
@@ -43,15 +45,18 @@
       </tr>
       <tr>
         <td><code>mdc-text-field-bottom-line-color($color)</code></td>
-        <td>Customizes the text field bottom line color except the outlined and textarea variants.</td>
+        <td>Customizes the text field bottom line color except the outlined and
+          textarea variants.</td>
       </tr>
       <tr>
         <td><code>mdc-text-field-hover-bottom-line-color($color)</code></td>
-        <td>Customizes the hover text field bottom line color except the outlined and textarea variants.</td>
+        <td>Customizes the hover text field bottom line color except the
+          outlined and textarea variants.</td>
       </tr>
       <tr>
         <td><code>mdc-text-field-line-ripple-color($color)</code></td>
-        <td>Customizes the color of the default line ripple of the text field.</td>
+        <td>Customizes the color of the default line ripple of the text field.
+        </td>
       </tr>
     </tbody>
   </table>
@@ -67,19 +72,24 @@
     <tbody>
       <tr>
         <td><code>mdc-text-field-focused-outline-color($color)</code></td>
-        <td>Customizes the outline border color when the text field is focused.</td>
+        <td>Customizes the outline border color when the text field is focused.
+        </td>
       </tr>
       <tr>
         <td><code>mdc-text-field-hover-outline-color($color)</code></td>
-        <td>Customizes the outline border color when the text field is hovered.</td>
+        <td>Customizes the outline border color when the text field is hovered.
+        </td>
       </tr>
       <tr>
         <td><code>mdc-text-field-outline-color($color)</code></td>
         <td>Customizes the border color of the outlined text field.</td>
       </tr>
       <tr>
-        <td><code>mdc-text-field-outline-shape-radius($radius, $rtl-reflexive)</code></td>
-        <td>Sets rounded shape to outlined text field variant with given radius size. Set <code>$rtl-reflexive</code>
+        <td>
+          <code>mdc-text-field-outline-shape-radius($radius, $rtl-reflexive)</code>
+        </td>
+        <td>Sets rounded shape to outlined text field variant with given radius
+          size. Set <code>$rtl-reflexive</code>
           to true to flip radius values in RTL context, defaults to false.</td>
       </tr>
     </tbody>
@@ -95,8 +105,11 @@
     </thead>
     <tbody>
       <tr>
-        <td><code>mdc-text-field-textarea-shape-radius($radius, $rtl-reflexive)</code></td>
-        <td>Sets rounded shape to text area variant with given radius size. Set <code>$rtl-reflexive</code> to true to
+        <td>
+          <code>mdc-text-field-textarea-shape-radius($radius, $rtl-reflexive)</code>
+        </td>
+        <td>Sets rounded shape to text area variant with given radius size. Set
+          <code>$rtl-reflexive</code> to true to
           flip radius values in RTL context, defaults to false.</td>
       </tr>
       <tr>
@@ -122,6 +135,73 @@
       <tr>
         <td><code>mdc-text-field-fullwidth-bottom-line-color($color)</code></td>
         <td>Customizes the fullwidth text field variant bottom line color.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>Mixins for Text Field Icon</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Mixin</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <code>mdc-text-field-icon-color($color, $styleSecondIcon: false)</code>
+        </td>
+        <td>Customizes the color for the leading/trailing icons. If the
+          <code>$styleSecondIcon</code> is <code>true</code> it will output the
+          color to only apply to a trailing icon when used with a leading icon.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>Mixins for Text Field Helper Text</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Mixin</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>mdc-text-field-helper-text-color($color)</code></td>
+        <td>Customizes the color of the helper text following a text-field.</td>
+      </tr>
+      <tr>
+        <td><code>mdc-text-field-helper-text-validation-color($color)</code>
+        </td>
+        <td>Customizes the color of the helper text when it's used as a
+          validation message.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>Mixins for Text Field Character Counter</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Mixin</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>mdc-text-field-character-counter-color($color)</code></td>
+        <td>Customizes the color of the character counter associated with text
+          field.</td>
+      </tr>
+      <tr>
+        <td>
+          <code>mdc-text-field-character-counter-position($xOffset, $yOffset)</code>
+        </td>
+        <td>Positions the character counter element inside text field. Used only
+          for textarea variant.</td>
       </tr>
     </tbody>
   </table>

@@ -290,6 +290,7 @@ describe('MdcTextField', () => {
       [type]="myType"
       [tabIndex]="1"
       [dense]="isDense"
+      [characterCounter]="characterCounter"
       [outlined]="outlined"
       [value]="value"
       [fullwidth]="isFullwidth"
@@ -319,6 +320,7 @@ class SimpleTextfield {
   useNativeValidation: boolean = false;
   validation: boolean;
   persistent: boolean = true;
+  characterCounter: boolean = true;
 
   onInput(value: any) { }
   onChange(value: any) { }

@@ -1,5 +1,6 @@
 import {
   AfterContentInit,
+  ChangeDetectorRef,
   ChangeDetectionStrategy,
   Component,
   ContentChild,
@@ -28,10 +29,8 @@ import { MdcHelperText } from './helper-text';
     '[class.ngx-mdc-form-field--fluid]': 'fluid',
     '[class.mdc-form-field--align-end]': 'alignEnd'
   },
-  template: `
-  <ng-content></ng-content>
-  <ng-content select="[mdcHelperText, mdc-helper-text]"></ng-content>
-  `,
+  template: `<ng-content></ng-content>
+  <ng-content select="[mdcHelperText, mdc-helper-text]"></ng-content>`,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -39,7 +38,7 @@ export class MdcFormField implements AfterContentInit, OnInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
-  public label!: HTMLElement;
+  public label?: HTMLElement;
 
   @Input()
   get fluid(): boolean { return this._fluid; }
@@ -59,6 +58,7 @@ export class MdcFormField implements AfterContentInit, OnInit, OnDestroy {
   @ContentChildren(MdcHelperText, { descendants: true }) assistiveElements!: QueryList<MdcHelperText>;
 
   constructor(
+    private _changeDetectorRef: ChangeDetectorRef,
     private _ngZone: NgZone,
     public elementRef: ElementRef<HTMLElement>) { }
 
@@ -69,7 +69,7 @@ export class MdcFormField implements AfterContentInit, OnInit, OnDestroy {
       if (control.nextElementSibling) {
         if (control.nextElementSibling.tagName === 'LABEL') {
           this.label = control.nextElementSibling;
-          this.label.setAttribute('for', this._control.inputId || '');
+          this.label!.setAttribute('for', this._control.inputId || '');
 
           this._loadListeners();
         }
@@ -81,9 +81,8 @@ export class MdcFormField implements AfterContentInit, OnInit, OnDestroy {
     // When assistive elements change, initialize foundation
     this.assistiveElements.changes.pipe(startWith(null), takeUntil(this._destroy))
       .subscribe(() => {
-        (this.assistiveElements).forEach(helperText => {
-          this._initHelperTextFoundation(helperText);
-        });
+        (this.assistiveElements).forEach(helperText =>
+          this._initHelperTextFoundation(helperText));
       });
   }
 
@@ -97,12 +96,13 @@ export class MdcFormField implements AfterContentInit, OnInit, OnDestroy {
 
     if (control && control.controlType) {
       control.helperText = helperText;
+      this._changeDetectorRef.markForCheck();
     }
   }
 
   private _loadListeners(): void {
     this._ngZone.runOutsideAngular(() =>
-      fromEvent<MouseEvent>(this.label, 'click').pipe(takeUntil(this._destroy))
+      fromEvent<MouseEvent>(this.label!, 'click').pipe(takeUntil(this._destroy))
         .subscribe(() => this._ngZone.run(() => {
           this._control.ripple!.activateRipple();
 

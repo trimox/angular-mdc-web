@@ -2,9 +2,9 @@
   <h3 mdcHeadline6>MdcTextField</h3>
   <p>
     Selector:
-    <span class="docs-api-class-selector-name">mdc-text-field</span>
+    <span class="markdown-code">mdc-text-field</span>
   </p>
-  Exported as: <span class="docs-api-class-selector-name">mdcTextField</span>
+  Exported as: <span class="markdown-code">mdcTextField</span>
 
   <h4 mdcSubtitle2>Properties</h4>
   <table>
@@ -46,7 +46,7 @@
       <tr>
         <td>fullwidth: boolean</td>
         <td>Set to fullwidth textfield.
-          <p><em>*</em> Do not use <code>outlined</code> to style a full width text field.</p>
+          <p>Do not use <code class="markdown-code">outlined</code> to style a full width text field.</p>
         </td>
       </tr>
       <tr>
@@ -60,6 +60,12 @@
       <tr>
         <td>required: boolean</td>
         <td>Whether the element is required.</td>
+      </tr>
+      <tr>
+        <td>characterCounter: boolean</td>
+        <td>Character counter is used if there is a character limit. It displays the ratio of characters used and the total character limit.
+          <p><markdown>maxlength</markdown> is required on <markdown>MdcTextField</markdown>.</p>
+        </td>
       </tr>
       <tr>
         <td>useNativeValidation: boolean</td>
@@ -115,7 +121,7 @@
       </tr>
       <tr>
         <td>helperText: MdcHelperText</td>
-        <td>Reference to related <code>MdcHelperText</code></td>
+        <td>Reference to related <code class="markdown-code">MdcHelperText</code></td>
       </tr>
     </tbody>
   </table>
@@ -153,10 +159,10 @@
   <h3 mdcHeadline6>MdcHelperText</h3>
   <p>
     Selector:
-    <span class="docs-api-class-selector-name">mdc-helper-text</span>
-    <span class="docs-api-class-selector-name">mdcHelperText</span>
+    <span class="markdown-code">mdc-helper-text</span>
+    <span class="markdown-code">mdcHelperText</span>
   </p>
-  Exported as: <span class="docs-api-class-selector-name">mdcHelperText</span>
+  Exported as: <span class="markdown-code">mdcHelperText</span>
 
   <h4 mdcSubtitle2>Properties</h4>
   <table>
@@ -183,9 +189,9 @@
   <h3 mdcHeadline6>MdcTextFieldIcon</h3>
   <p>
     Selector:
-    <span class="docs-api-class-selector-name">mdc-icon[mdcTextFieldIcon]</span>
+    <span class="markdown-code">mdc-icon[mdcTextFieldIcon]</span>
   </p>
-  Exported as: <span class="docs-api-class-selector-name">mdcTextFieldIcon</span>
+  Exported as: <span class="markdown-code">mdcTextFieldIcon</span>
 
   <h4 mdcSubtitle2>Properties</h4>
   <table>
@@ -210,12 +216,12 @@
 
 <div class="docs-api">
   <h3 mdcHeadline6>MdcTextarea</h3>
-  Same properties, methods and events as <code>MdcTextField</code>
+  Same properties, methods and events as <code class="markdown-code">MdcTextField</code>
   <p>
     Selector:
-    <span class="docs-api-class-selector-name">mdc-textarea</span>
+    <span class="markdown-code">mdc-textarea</span>
   </p>
-  Exported as: <span class="docs-api-class-selector-name">mdcTextarea</span>
+  Exported as: <span class="markdown-code">mdcTextarea</span>
 
   <h4 mdcSubtitle2>Additional Properties</h4>
   <table>
@@ -233,6 +239,12 @@
       <tr>
         <td>cols: number</td>
         <td>Number of columns for this textarea.</td>
+      </tr>
+      <tr>
+        <td>characterCounter: boolean</td>
+        <td>Character counter is used if there is a character limit. It displays the ratio of characters used and the total character limit.
+          <p><markdown>maxlength</markdown> is required on <markdown>MdcTextArea</markdown>.</p>
+        </td>
       </tr>
     </tbody>
   </table>

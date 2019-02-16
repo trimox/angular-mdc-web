@@ -4,7 +4,7 @@ import { MdcHelperText } from './helper-text';
 
 export abstract class MdcFormFieldControl<T> {
   /** The value of the control. */
-  value: T | null = null;
+  value?: T | null = null;
 
   /** The element ID for this control. */
   readonly id!: string;

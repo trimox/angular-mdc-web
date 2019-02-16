@@ -1,3 +1,4 @@
+export * from './character-counter';
 export * from './error-state';
 export * from './error-state-matcher';
 export * from './form-field';

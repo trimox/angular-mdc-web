@@ -24,12 +24,12 @@ import { MdcFloatingLabel } from '@angular-mdc/web/floating-label';
 import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
 import { MdcNotchedOutline } from '@angular-mdc/web/notched-outline';
 import {
-  MdcFormField,
-  MdcFormFieldControl,
-  MdcHelperText,
   ErrorStateMatcher,
   CanUpdateErrorState,
   CanUpdateErrorStateCtor,
+  MdcFormField,
+  MdcFormFieldControl,
+  MdcHelperText,
   mixinErrorState
 } from '@angular-mdc/web/form-field';
 
@@ -103,8 +103,7 @@ const MOUSE_EVENT_IGNORE_TIME = 800;
     <ng-content></ng-content>
     <label mdcFloatingLabel [for]="id" *ngIf="!this.placeholder && !outlined">{{label}}</label>
     <mdc-line-ripple *ngIf="!this.outlined && !this.textarea"></mdc-line-ripple>
-    <mdc-notched-outline *ngIf="outlined" [label]="label" [for]="id"></mdc-notched-outline>
-  `,
+    <mdc-notched-outline *ngIf="outlined" [label]="label" [for]="id"></mdc-notched-outline>`,
   providers: [
     MdcRipple,
     { provide: MdcFormFieldControl, useExisting: MdcTextField }
@@ -215,6 +214,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     this._helperText = helperText;
     if (this._helperText) {
       this._initHelperText();
+      this._helperText.characterCounter = this._characterCounter;
     }
   }
   private _helperText: MdcHelperText | null = null;
@@ -244,6 +244,19 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   private _useNativeValidation: boolean = true;
 
   @Input()
+  get characterCounter(): boolean { return this._characterCounter; }
+  set characterCounter(value: boolean) {
+    const newValue = toBoolean(value);
+    if (newValue !== this._characterCounter) {
+      this._characterCounter = newValue;
+      if (this.helperText) {
+        this.helperText.characterCounter = this._characterCounter;
+      }
+    }
+  }
+  private _characterCounter: boolean = false;
+
+  @Input()
   get value(): any { return this._value; }
   set value(newValue: any) {
     if (!this._initialized) {
@@ -265,7 +278,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   @ViewChild(MdcLineRipple) _lineRipple?: MdcLineRipple;
   @ViewChild(MdcNotchedOutline) _notchedOutline?: MdcNotchedOutline;
   @ViewChild(MdcFloatingLabel) _floatingLabel?: MdcFloatingLabel;
-  @ContentChildren(MdcTextFieldIcon, { descendants: true }) _icons?: QueryList<MdcTextFieldIcon>;
+  @ContentChildren(MdcTextFieldIcon, { descendants: true }) _icons!: QueryList<MdcTextFieldIcon>;
 
   /** View to model callback called when value changes */
   _onChange: (value: any) => void = () => { };
@@ -305,6 +318,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     return {
       getNativeInput: () => {
         return {
+          maxLength: this.maxlength,
           type: this._type,
           value: this._platform.isBrowser ? this._input.nativeElement.value : this._value,
           disabled: this._disabled,
@@ -357,7 +371,8 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   /** Returns a map of all subcomponents to subfoundations.*/
   private _getFoundationMap() {
     return {
-      helperText: this._helperText || undefined
+      helperText: this._helperText || undefined,
+      characterCounter: this.characterCounterFoundation()
     };
   }
 
@@ -370,10 +385,11 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     readonly shouldFloat: boolean,
     notchOutline(openNotch: boolean): void,
     setUseNativeValidation(useNativeValidation: boolean): void,
-    setTransformOrigin(evt: Event | TouchEvent): void,
+    setTransformOrigin(evt: MouseEvent | TouchEvent): void,
     handleTextFieldInteraction(): void,
     activateFocus(): void,
-    deactivateFocus(): void
+    deactivateFocus(): void,
+    handleInput(): void
   } = new MDCTextFieldFoundation(this._createAdapter());
 
   constructor(
@@ -454,6 +470,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   onInput(evt: KeyboardEvent): void {
     const value = (<any>evt.target).value;
     this.setValue(value, true);
+    this._foundation.handleInput();
     this.input.emit(value);
     evt.stopPropagation();
   }
@@ -570,7 +587,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     const helper = this.helperText;
     if (helper) {
       helper.addHelperTextClass(this.controlType);
-      helper.initFoundation(MDCTextFieldHelperTextFoundation);
+      helper.init(MDCTextFieldHelperTextFoundation);
     }
   }
 
@@ -612,6 +629,11 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
 
   private _getFloatingLabel(): MdcFloatingLabel {
     return this._floatingLabel || this._notchedOutline!.floatingLabel;
+  }
+
+  protected characterCounterFoundation(): any {
+    return this.helperText && this.characterCounter ?
+      this.helperText._characterCounterElement!.getDefaultFoundation() : undefined;
   }
 
   private _getInputElement(): HTMLInputElement | HTMLTextAreaElement {

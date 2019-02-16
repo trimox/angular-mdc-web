@@ -3,19 +3,27 @@ import {
   Component,
   ElementRef,
   Input,
+  ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+
 import { toBoolean } from '@angular-mdc/web/common';
+import { MdcCharacterCounter } from './character-counter';
 
 @Component({
+  moduleId: module.id,
   selector: `mdc-helper-text, [mdcHelperText],
   mdc-text-field-helper-text, [mdcTextFieldHelperText], [mdcSelectHelperText]`,
   exportAs: 'mdcHelperText, mdcSelectHelperText',
-  template: '<ng-content></ng-content>',
+  host: { 'class': 'mdc-text-field-helper-line' },
+  template: `<div #helperText><ng-content></ng-content></div>
+  <div mdcCharacterCounter *ngIf="characterCounter"></div>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 export class MdcHelperText {
+  characterCounter: boolean = false;
+
   @Input() id?: string;
 
   @Input()
@@ -38,6 +46,9 @@ export class MdcHelperText {
   }
   private _validation: boolean = false;
 
+  @ViewChild('helperText') _helperTextElement?: ElementRef<HTMLElement>;
+  @ViewChild(MdcCharacterCounter) _characterCounterElement?: MdcCharacterCounter;
+
   constructor(public elementRef: ElementRef<HTMLElement>) { }
 
   private _foundation!: {
@@ -57,29 +68,23 @@ export class MdcHelperText {
     this._foundation.showToScreenReader();
   }
 
-  initFoundation(foundation: any): void {
+  init(foundation: any): void {
     this._foundation = new foundation(this._createAdapter());
-
     this._foundation.setPersistent(this.persistent);
     this._foundation.setValidation(this.validation);
   }
 
   addHelperTextClass(className: string): void {
-    this._getHostElement().classList.add(`${className}-helper-text`);
+    this._helperTextElement!.nativeElement.classList.add(`${className}-helper-text`);
   }
 
   private _createAdapter() {
     return {
-      addClass: (className: string) => this._getHostElement().classList.add(className),
-      removeClass: (className: string) => this._getHostElement().classList.remove(className),
-      hasClass: (className: string) => this._getHostElement().classList.contains(className),
-      setAttr: (attr: string, value: string) => this._getHostElement().setAttribute(attr, value),
-      removeAttr: (attr: string) => this._getHostElement().removeAttribute(attr)
+      addClass: (className: string) => this._helperTextElement!.nativeElement.classList.add(className),
+      removeClass: (className: string) => this._helperTextElement!.nativeElement.classList.remove(className),
+      hasClass: (className: string) => this._helperTextElement!.nativeElement.classList.contains(className),
+      setAttr: (attr: string, value: string) => this._helperTextElement!.nativeElement.setAttribute(attr, value),
+      removeAttr: (attr: string) => this._helperTextElement!.nativeElement.removeAttribute(attr)
     };
-  }
-
-  /** Retrieves the DOM element of the component host. */
-  private _getHostElement(): HTMLElement {
-    return this.elementRef.nativeElement;
   }
 }

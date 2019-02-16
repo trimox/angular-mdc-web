@@ -1,26 +1,32 @@
 <div class="demo-content">
   <div class="demo-layout__row">
-    <button mdc-button (click)="standard.outlined = !standard.outlined">Outlined:
+    <button mdc-button
+      (click)="standard.outlined = !standard.outlined">Outlined:
       {{standard.outlined ? 'On' :
       'Off'}}</button>
-    <button mdc-button (click)="standard.required = !standard.required">Required:
+    <button mdc-button
+      (click)="standard.required = !standard.required">Required:
       {{standard.required ? 'On' :
       'Off'}}</button>
-    <button mdc-button (click)="standard.disabled = !standard.disabled">Disabled:
+    <button mdc-button
+      (click)="standard.disabled = !standard.disabled">Disabled:
       {{standard.disabled ? 'On' :
       'Off'}}</button>
     <button mdc-button (click)="standard.readonly = !standard.readonly">Read
       Only: {{standard.readonly ? 'On' :
       'Off'}}</button>
   </div>
-  <mdc-text-field #standard label="Standard" required [helperText]="standardHelper"></mdc-text-field>
-  <mdc-helper-text #standardHelper validation persistent>Helper Text</mdc-helper-text>
+  <mdc-text-field #standard label="Standard" required
+    [helperText]="standardHelper"></mdc-text-field>
+  <mdc-helper-text #standardHelper validation persistent>Helper Text
+  </mdc-helper-text>
   <example-viewer [example]="exampleStandard"></example-viewer>
 </div>
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Input and Change events</h3>
-  <mdc-text-field label="Standard" (input)="onInput($event)" (change)="onChange($event)"></mdc-text-field>
+  <mdc-text-field label="Standard" (input)="onInput($event)"
+    (change)="onChange($event)"></mdc-text-field>
   <p>Input event: {{inputEvent}}</p>
   <p>Change event: {{changeEvent}}</p>
   <example-viewer [example]="exampleEvents"></example-viewer>
@@ -29,31 +35,40 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Reactive Form</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="demoformInput.outlined = !demoformInput.outlined">Outlined:
+    <button mdc-button
+      (click)="demoformInput.outlined = !demoformInput.outlined">Outlined:
       {{demoformInput.outlined
       ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="demoformInput.useNativeValidation = !demoformInput.useNativeValidation">Native
+    <button mdc-button
+      (click)="demoformInput.useNativeValidation = !demoformInput.useNativeValidation">Native
       validation: {{demoformInput.useNativeValidation ? 'On' : 'Off'}}</button>
-    <button mdc-button [disabled]="demoForm.touched" (click)="demoForm.controls['username'].markAsTouched()">Mark
+    <button mdc-button [disabled]="demoForm.touched"
+      (click)="demoForm.controls['username'].markAsTouched()">Mark
       touched</button>
   </div>
-  <form [formGroup]="demoForm" (ngSubmit)="submit(demoForm)" #formDirective="ngForm">
+  <form [formGroup]="demoForm" (ngSubmit)="submit(demoForm)"
+    #formDirective="ngForm">
     <mdc-form-field>
       <mdc-text-field #demoformInput formControlName="username" label="Username"
         outlined [errorStateMatcher]="matcher"></mdc-text-field>
       <mdc-helper-text validation>
-        <span *ngIf="demoForm.controls['username'].hasError('required')">Username
+        <span
+          *ngIf="demoForm.controls['username'].hasError('required')">Username
           is required</span>
-        <span *ngIf="demoForm.controls['username'].hasError('minlength')">Username
+        <span
+          *ngIf="demoForm.controls['username'].hasError('minlength')">Username
           is not long enough</span>
-        <span *ngIf="demoForm.controls['username'].hasError('maxlength')">Username
+        <span
+          *ngIf="demoForm.controls['username'].hasError('maxlength')">Username
           is max length is 11</span>
       </mdc-helper-text>
     </mdc-form-field>
     <div class="demo-layout__row">
       <button mdc-button type="submit">Submit</button>
-      <button mdc-button type="button" (click)="resetForm(formDirective)">Reset</button>
-      <button mdc-button type="button" (click)="demoForm.controls['username'].setValue('User-1')">Set
+      <button mdc-button type="button"
+        (click)="resetForm(formDirective)">Reset</button>
+      <button mdc-button type="button"
+        (click)="demoForm.controls['username'].setValue('User-1')">Set
         Value</button>
     </div>
   </form>
@@ -70,11 +85,13 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Numeric with ngModel Form</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="demoweight.outlined = !demoweight.outlined">Outlined:
+    <button mdc-button
+      (click)="demoweight.outlined = !demoweight.outlined">Outlined:
       {{demoweight.outlined ? 'On' :
       'Off'}}</button>
   </div>
-  <form #demoWeightForm="ngForm" id="demoWeightForm" (ngSubmit)="submit(demoWeightForm)">
+  <form #demoWeightForm="ngForm" id="demoWeightForm"
+    (ngSubmit)="submit(demoWeightForm)">
     <mdc-form-field>
       <mdc-text-field #demoweight type="number" name="demoweight" label="Weight"
         ngModel #demoWeightModel="ngModel" required></mdc-text-field>
@@ -92,14 +109,50 @@
   <p>Pristine: {{ demoWeightForm.pristine }}</p>
   <p>Touched: {{ demoWeightModel.touched }}</p>
   <p>Value: {{ demoWeightModel.value }}</p>
-
   <example-viewer [example]="exampleNumericNgModel"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Character Counter</h3>
+  <div class="text-field-container">
+    <mdc-text-field outlined [helperText]="counterHelper" label="Standard" characterCounter
+      maxlength="10">
+    </mdc-text-field>
+    <mdc-helper-text #counterHelper></mdc-helper-text>
+  </div>
+
+  <div class="text-field-container">
+    <mdc-text-field outlined [helperText]="counterHelperPersistent" characterCounter
+      label="Standard" maxlength="10">
+    </mdc-text-field>
+    <mdc-helper-text #counterHelperPersistent persistent>Helper
+      Text
+    </mdc-helper-text>
+  </div>
+
+  <div class="demo-container">
+    <mdc-form-field>
+      <mdc-text-field outlined label="Standard" characterCounter maxlength="10">
+      </mdc-text-field>
+      <mdc-helper-text persistent>Helper Text</mdc-helper-text>
+    </mdc-form-field>
+  </div>
+  <example-viewer [example]="exampleCharacterCounter"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Textarea - Character Counter</h3>
+  <mdc-textarea label="Comments" rows="8" cols="40" required maxlength="140"
+    [helperText]="taCounterHelper" characterCounter></mdc-textarea>
+  <mdc-helper-text #taCounterHelper validation>Helper Text</mdc-helper-text>
+  <example-viewer [example]="exampleTACounter"></example-viewer>
 </div>
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Using [value]</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="demoValue.required = !demoValue.required">Required:
+    <button mdc-button
+      (click)="demoValue.required = !demoValue.required">Required:
       {{demoValue.required ? 'On' :
       'Off'}}</button>
   </div>
@@ -133,7 +186,8 @@
   <h3 class="demo-content__headline">Svg Icon</h3>
   <div class="demo-container">
     <mdc-text-field outlined label="Svg icon">
-      <mdc-icon mdcTextFieldIcon leading svgIcon="thumbup" class="temporary-workaround-for-text-field-svg"></mdc-icon>
+      <mdc-icon mdcTextFieldIcon leading svgIcon="thumbup"
+        class="temporary-workaround-for-text-field-svg"></mdc-icon>
     </mdc-text-field>
   </div>
   <example-viewer [example]="exampleSvgIcon"></example-viewer>
@@ -142,13 +196,16 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Theme and Shaped</h3>
   <div class="demo-container">
-    <mdc-text-field label="Standard" required class="demo-text-field-custom-colors"></mdc-text-field>
+    <mdc-text-field label="Standard" required
+      class="demo-text-field-custom-colors"></mdc-text-field>
   </div>
   <div class="demo-container">
-    <mdc-text-field label="Standard" class="demo-shaped-text-field"></mdc-text-field>
+    <mdc-text-field label="Standard" class="demo-shaped-text-field">
+    </mdc-text-field>
   </div>
   <div class="demo-container">
-    <mdc-text-field label="Standard" outlined class="demo-shaped-text-field--outline"></mdc-text-field>
+    <mdc-text-field label="Standard" outlined
+      class="demo-shaped-text-field--outline"></mdc-text-field>
   </div>
 
   <example-viewer [example]="exampleThemeShaped"></example-viewer>
@@ -157,7 +214,8 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Clickable Icon</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="leadingicon.clickable = !leadingicon.clickable">Clickable
+    <button mdc-button
+      (click)="leadingicon.clickable = !leadingicon.clickable">Clickable
       Icon:
       {{leadingicon.clickable ? 'On' : 'Off'}}</button>
   </div>
@@ -167,7 +225,8 @@
   </mdc-text-field>
 
   <div class="demo-layout__row">
-    <button mdc-button (click)="trailingicon.clickable = !trailingicon.clickable">Clickable
+    <button mdc-button
+      (click)="trailingicon.clickable = !trailingicon.clickable">Clickable
       Icon:
       {{trailingicon.clickable ? 'On' : 'Off'}}</button>
   </div>
@@ -180,7 +239,8 @@
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Numeric with ngModel</h3>
-  <mdc-text-field type="number" label="Distance" [(ngModel)]="waypoint.dt"></mdc-text-field>
+  <mdc-text-field type="number" label="Distance" [(ngModel)]="waypoint.dt">
+  </mdc-text-field>
   <p>Model: {{waypoint | json}}</p>
 
   <example-viewer [example]="exampleNumeric"></example-viewer>
@@ -214,10 +274,12 @@
       <mdc-text-field type="time" label="Time" outlined></mdc-text-field>
     </div>
     <div class="demo-container">
-      <mdc-text-field type="password" label="Password" required outlined></mdc-text-field>
+      <mdc-text-field type="password" label="Password" required outlined>
+      </mdc-text-field>
     </div>
     <div class="demo-container">
-      <mdc-text-field type="color" label="Color" style="width: 6rem" outlined></mdc-text-field>
+      <mdc-text-field type="color" label="Color" style="width: 6rem" outlined>
+      </mdc-text-field>
     </div>
   </div>
 
@@ -238,13 +300,16 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Textarea</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="comments.disabled = !comments.disabled">Disabled:
+    <button mdc-button
+      (click)="comments.disabled = !comments.disabled">Disabled:
       {{comments.disabled ? 'On' :
       'Off'}}</button>
-    <button mdc-button (click)="comments.required = !comments.required">Required:
+    <button mdc-button
+      (click)="comments.required = !comments.required">Required:
       {{comments.required ? 'On' :
       'Off'}}</button>
-    <button mdc-button (click)="alternateColors(comments)">Alternate Colors</button>
+    <button mdc-button (click)="alternateColors(comments)">Alternate
+      Colors</button>
   </div>
   <mdc-textarea #comments label="Comments" rows="8" cols="40" required
     [helperText]="commentsHelper"></mdc-textarea>
@@ -255,13 +320,16 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Full Width Textarea</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="demotextarea.disabled = !demotextarea.disabled">Disabled:
+    <button mdc-button
+      (click)="demotextarea.disabled = !demotextarea.disabled">Disabled:
       {{demotextarea.disabled ?
       'On' : 'Off'}}</button>
-    <button mdc-button (click)="demotextarea.required = !demotextarea.required">Required:
+    <button mdc-button
+      (click)="demotextarea.required = !demotextarea.required">Required:
       {{demotextarea.required ?
       'On' : 'Off'}}</button>
-    <button mdc-button (click)="alternateColors(demotextarea)">Alternate Colors</button>
+    <button mdc-button (click)="alternateColors(demotextarea)">Alternate
+      Colors</button>
   </div>
   <mdc-textarea #demotextarea label="Type your message here" fullwidth required
     rows="8" [helperText]="fullWidthHelper"></mdc-textarea>

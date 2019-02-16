@@ -126,7 +126,7 @@ export class Examples {
   exampleEvents = {
     html: `<mdc-text-field label="Standard"
   (input)="onInput($event)" (change)="onChange($event)"></mdc-text-field>`,
-  ts: `onInput(value: any): void {
+    ts: `onInput(value: any): void {
   this.inputEvent = value;
 }
 
@@ -361,6 +361,44 @@ waypoint = new Directions();`
     @include mdc-text-field-fullwidth-bottom-line-color(orange);
   }
 }`
+  };
+
+  exampleCharacterCounter = {
+    html: `<div class="text-field-container">
+  <mdc-text-field outlined [helperText]="counterHelper" label="Standard"
+    maxlength="10" characterCounter>
+  </mdc-text-field>
+  <mdc-helper-text #counterHelper characterCounter></mdc-helper-text>
+</div>
+
+<div class="text-field-container">
+  <mdc-text-field outlined [helperText]="counterHelperPersistent"
+    label="Standard" characterCounter maxlength="10">
+  </mdc-text-field>
+  <mdc-helper-text #counterHelperPersistent persistent>Helper
+    Text
+  </mdc-helper-text>
+</div>
+
+<mdc-form-field>
+  <mdc-text-field outlined label="Standard" characterCounter maxlength="10">
+  </mdc-text-field>
+  <mdc-helper-text persistent>Helper Text</mdc-helper-text>
+</mdc-form-field>`,
+sass: `.text-field-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  min-width: 200px;
+  padding: 10px;
+}`
+  };
+
+  exampleTACounter = {
+    html: `<mdc-textarea label="Comments" characterCounter maxlength="140"
+  [helperText]="taCounterHelper" rows="8" cols="40"></mdc-textarea>
+<mdc-helper-text #taCounterHelper validation>Helper Text</mdc-helper-text>`
   };
 
   exampleTextarea = {

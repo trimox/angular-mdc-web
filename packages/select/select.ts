@@ -609,7 +609,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
     const helper = this.helperText;
     if (helper) {
       helper.addHelperTextClass(this.controlType);
-      helper.initFoundation(MDCSelectHelperTextFoundation);
+      helper.init(MDCSelectHelperTextFoundation);
     }
   }
 

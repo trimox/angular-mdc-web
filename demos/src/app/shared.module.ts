@@ -7,11 +7,12 @@ import { HighlightModule } from 'ngx-highlightjs';
 import { MaterialModule } from './material.module';
 import { ComponentViewer } from './shared/component-viewer';
 import { ExampleViewer } from './shared/example-viewer';
-import { ActiveTabRouterModule } from './shared/active-tab-router';
+import { ActiveTabRouterModule, Markdown } from './shared';
 
 const SHARED_DECLARATIONS = [
   ComponentViewer,
-  ExampleViewer
+  ExampleViewer,
+  Markdown
 ];
 
 @NgModule({

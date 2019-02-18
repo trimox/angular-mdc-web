@@ -10,7 +10,8 @@
       <a mdcTopAppBarActionItem href="https://github.com/trimox/angular-mdc-web"
         alt="GitHub" target="_blank" rel="noopener noreferrer">
         <mdc-icon>
-          <img src="https://trimox.github.io/angular-mdc-web/assets/github-circle-white-transparent.svg"
+          <img
+            src="https://trimox.github.io/angular-mdc-web/assets/github-circle-white-transparent.svg"
             height="24" />
         </mdc-icon>
       </a>
@@ -19,37 +20,37 @@
 </mdc-top-app-bar>
 
 <div class="demo-panel">
-  <mdc-drawer class="demo-drawer" #appDrawer="mdcDrawer" [open]="!isScreenSmall()"
+  <mdc-drawer class="demo-drawer" #appDrawer="mdcDrawer"
+    [open]="!isScreenSmall()"
     [drawer]="isScreenSmall() ? 'modal' : 'dismissible'"
     mdcTopAppBarFixedAdjust>
     <mdc-drawer-content>
       <mdc-list>
         <mdc-list-item routerLink="home" [activated]="rlaHome.isActive"
-          (selectionChange)="onDrawerSelect('home')" routerLinkActive #rlaHome="routerLinkActive">Home</mdc-list-item>
+          (selectionChange)="onDrawerSelect('home')" routerLinkActive
+          #rlaHome="routerLinkActive">Home</mdc-list-item>
         <mdc-list-divider></mdc-list-divider>
-        <mdc-list-item (selectionChange)="startVisible = !startVisible">
-          Getting Started
-          <mdc-icon mdcListItemMeta>keyboard_arrow_{{startVisible ? 'down' :
+        <mdc-list-item routerLink="getting-started" [activated]="rlaGS.isActive"
+          (selectionChange)="onDrawerSelect('getting-started')" routerLinkActive
+          #rlaGS="routerLinkActive">Getting Started</mdc-list-item>
+        <mdc-list-divider></mdc-list-divider>
+        <mdc-list-item
+          (selectionChange)="foundationVisible = !foundationVisible">
+          Material Foundation
+          <mdc-icon mdcListItemMeta>keyboard_arrow_{{foundationVisible ? 'down' :
             'right'}}</mdc-icon>
         </mdc-list-item>
-        <div *ngIf="startVisible">
-          <mdc-list-item *ngFor="let item of startRoutes" routerLink="getting-started"
-            (selectionChange)="onDrawerSelect('getting-started')">{{item.name}}</mdc-list-item>
-        </div>
-        <mdc-list-divider></mdc-list-divider>
-        <mdc-list-item (selectionChange)="themeVisible = !themeVisible">
-          Theme
-          <mdc-icon mdcListItemMeta>keyboard_arrow_{{themeVisible ? 'down' :
-            'right'}}</mdc-icon>
-        </mdc-list-item>
-        <div *ngIf="themeVisible">
-          <mdc-list-item *ngFor="let item of themeRoutes" [routerLink]="item.route"
-            (selectionChange)="onDrawerSelect(item.route)">{{item.name}}</mdc-list-item>
+        <div *ngIf="foundationVisible">
+          <mdc-list-item *ngFor="let item of foundationRoutes"
+            [routerLink]="item.route"
+            (selectionChange)="onDrawerSelect(item.route)">{{item.name}}
+          </mdc-list-item>
         </div>
         <mdc-list-divider></mdc-list-divider>
         <mdc-list-item *ngFor="let navItem of navigationLinks"
-          (selectionChange)="onDrawerSelect(navItem.route)" [activated]="rla.isActive"
-          routerLinkActive #rla="routerLinkActive" [routerLink]="navItem.route">{{navItem.name}}</mdc-list-item>
+          (selectionChange)="onDrawerSelect(navItem.route)"
+          [activated]="rla.isActive" routerLinkActive #rla="routerLinkActive"
+          [routerLink]="navItem.route">{{navItem.name}}</mdc-list-item>
       </mdc-list>
     </mdc-drawer-content>
   </mdc-drawer>

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { ComponentViewer, ComponentView } from '../shared/component-viewer';
+import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
 
 @Component({ templateUrl: './sass.html' })
 export class Sass { }
@@ -16,7 +16,7 @@ $mdc-theme-on-secondary: #442b2d;
 }
 
 @Component({ template: '<component-viewer></component-viewer>' })
-export class Theme implements OnInit {
+export class ThemeDocs implements OnInit {
   @ViewChild(ComponentViewer) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {

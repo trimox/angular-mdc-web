@@ -1,23 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { Sass, Usage, ColorPalette, Theme } from './theme';
+import { Usage, ShapeDocs } from './shape';
 
 export const ROUTE_DECLARATIONS = [
-  Sass,
-  ColorPalette,
   Usage,
-  Theme
+  ShapeDocs
 ];
 
 const ROUTES: Routes = [
   {
-    path: '', component: Theme,
+    path: '', component: ShapeDocs,
     children: [
       { path: '', redirectTo: 'usage' },
-      { path: 'color-palette', component: ColorPalette },
-      { path: 'usage', component: Usage },
-      { path: 'sass', component: Sass }
+      { path: 'usage', component: Usage }
     ]
   }
 ];

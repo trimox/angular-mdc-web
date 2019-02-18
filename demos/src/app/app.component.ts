@@ -18,8 +18,7 @@ export class AppComponent implements OnInit {
   @ViewChild('topAppBar') topAppBar: MdcTopAppBar;
   @ViewChild('appDrawer') appDrawer: MdcDrawer;
 
-  startVisible: boolean = false;
-  themeVisible: boolean = false;
+  foundationVisible: boolean = false;
 
   navigationLinks = [
     { name: 'Button', route: 'button-demo' },
@@ -28,7 +27,6 @@ export class AppComponent implements OnInit {
     { name: 'Chips', route: 'chips-demo' },
     { name: 'Dialog', route: 'dialog-demo' },
     { name: 'Drawer', route: 'drawer-demo' },
-    { name: 'Elevation', route: 'elevation-demo' },
     { name: 'FAB', route: 'fab-demo' },
     { name: 'Form Field', route: 'form-field-demo' },
     { name: 'Icon Button', route: 'icon-button-demo' },
@@ -39,23 +37,21 @@ export class AppComponent implements OnInit {
     { name: 'Menu', route: 'menu-demo' },
     { name: 'Menu Surface', route: 'menu-surface-demo' },
     { name: 'Radio Buttons', route: 'radio-demo' },
-    { name: 'Ripple', route: 'ripple-demo' },
     { name: 'Select', route: 'select-demo' },
     { name: 'Slider', route: 'slider-demo' },
     { name: 'Snackbar', route: 'snackbar-demo' },
     { name: 'Switch', route: 'switch-demo' },
     { name: 'Tabs', route: 'tabs-demo' },
     { name: 'Text Field', route: 'text-field-demo' },
-    { name: 'Top App Bar', route: 'top-app-bar-demo' },
+    { name: 'Top App Bar', route: 'top-app-bar-demo' }
+  ];
+
+  foundationRoutes = [
+    { name: 'Elevation', route: 'elevation-demo' },
+    { name: 'Ripple', route: 'ripple-demo' },
+    { name: 'Shape', route: 'shape-docs' },
+    { name: 'Theme', route: 'theme-docs' },
     { name: 'Typography', route: 'typography-demo' }
-  ];
-
-  startRoutes = [
-    { name: 'Installation', route: 'getting-started' }
-  ];
-
-  themeRoutes = [
-    { name: 'Color Scheme', route: 'theme' }
   ];
 
   constructor(

@@ -14,7 +14,8 @@ import {
   Platform,
   MdcTextField,
   MdcTextFieldModule,
-  MdcIconModule
+  MdcIconModule,
+  MDC_TEXT_FIELD_DEFAULT_OPTIONS
 } from '@angular-mdc/web';
 
 describe('MdcTextField', () => {
@@ -278,6 +279,70 @@ describe('MdcTextField', () => {
       document.body.focus();
       fixture.detectChanges();
     }));
+  });
+});
+
+describe('MDC_TEXT_FIELD_DEFAULT_OPTIONS', () => {
+  let fixture: ComponentFixture<any>;
+  let defaultOptions: { outlined?: boolean };
+
+  beforeEach(fakeAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [MdcTextFieldModule, MdcIconModule, FormsModule],
+      declarations: [SimpleTextfield, TextFieldTestWithValue],
+      providers: [
+        { provide: MDC_TEXT_FIELD_DEFAULT_OPTIONS, useFactory: () => defaultOptions }
+      ]
+    });
+    TestBed.compileComponents();
+  }));
+
+  describe('basic behaviors', () => {
+    let textFieldDebugElement: DebugElement;
+    let textFieldNativeElement: HTMLElement;
+    let textFieldInstance: MdcTextField;
+    let testComponent: SimpleTextfield;
+
+    beforeEach(() => {
+      defaultOptions = { outlined: true };
+
+      fixture = TestBed.createComponent(SimpleTextfield);
+      fixture.detectChanges();
+
+      textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextField));
+      textFieldNativeElement = textFieldDebugElement.nativeElement;
+      textFieldInstance = textFieldDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+    });
+
+    it('#should have mdc-text-field by default', () => {
+      expect(textFieldDebugElement.nativeElement.classList)
+        .toContain('mdc-text-field', 'Expected to have mdc-text-field class');
+    });
+  });
+
+  describe('basic behaviors', () => {
+    let textFieldDebugElement: DebugElement;
+    let textFieldNativeElement: HTMLElement;
+    let textFieldInstance: MdcTextField;
+    let testComponent: SimpleTextfield;
+
+    beforeEach(() => {
+      defaultOptions = undefined;
+
+      fixture = TestBed.createComponent(SimpleTextfield);
+      fixture.detectChanges();
+
+      textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextField));
+      textFieldNativeElement = textFieldDebugElement.nativeElement;
+      textFieldInstance = textFieldDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+    });
+
+    it('#should have mdc-text-field by default', () => {
+      expect(textFieldDebugElement.nativeElement.classList)
+        .toContain('mdc-text-field', 'Expected to have mdc-text-field class');
+    });
   });
 });
 

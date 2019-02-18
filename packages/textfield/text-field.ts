@@ -1,4 +1,5 @@
 import {
+  AfterContentInit,
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -7,6 +8,8 @@ import {
   ElementRef,
   EventEmitter,
   DoCheck,
+  Inject,
+  InjectionToken,
   Input,
   OnDestroy,
   Optional,
@@ -37,6 +40,21 @@ import { MdcTextFieldIcon } from './text-field-icon';
 
 import { MDCTextFieldHelperTextFoundation } from '@material/textfield/helper-text/index';
 import { MDCTextFieldFoundation } from '@material/textfield/index';
+
+/**
+ * Represents the default options for mdc-text-field that can be configured
+ * using an `MDC_TEXT_FIELD_DEFAULT_OPTIONS` injection token.
+ */
+export interface MdcTextFieldDefaultOptions {
+  outlined?: boolean;
+}
+
+/**
+ * Injection token that can be used to configure the default options for all
+ * mdc-text-field usage within an app.
+ */
+export const MDC_TEXT_FIELD_DEFAULT_OPTIONS =
+  new InjectionToken<MdcTextFieldDefaultOptions>('MDC_TEXT_FIELD_DEFAULT_OPTIONS');
 
 export class MdcTextFieldBase {
   constructor(
@@ -111,7 +129,7 @@ const MOUSE_EVENT_IGNORE_TIME = 800;
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewInit, DoCheck,
+export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContentInit, AfterViewInit, DoCheck,
   OnDestroy, ControlValueAccessor, MdcFormFieldControl<any>, CanUpdateErrorState {
   private _uid = `mdc-input-${nextUniqueId++}`;
   private _initialized: boolean = false;
@@ -151,7 +169,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   set outlined(value: boolean) {
     const newValue = toBoolean(value);
     if (newValue !== this._outlined) {
-      this._outlined = newValue;
+      this._outlined = newValue || (this._defaults && this._defaults.outlined) || false;
       this.layout();
     }
   }
@@ -196,8 +214,11 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   @Input()
   get fullwidth(): boolean { return this._fullwidth; }
   set fullwidth(value: boolean) {
-    this._fullwidth = toBoolean(value);
-    this.placeholder = this.fullwidth ? this.label : '';
+    const newValue = toBoolean(value);
+    if (newValue !== this._fullwidth) {
+      this._fullwidth = newValue;
+      this.placeholder = this.fullwidth ? this.label : '';
+    }
   }
   private _fullwidth: boolean = false;
 
@@ -401,7 +422,8 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     @Optional() private _ripple: MdcRipple,
     @Self() @Optional() public ngControl: NgControl,
     @Optional() _parentForm: NgForm,
-    @Optional() _parentFormGroup: FormGroupDirective) {
+    @Optional() _parentFormGroup: FormGroupDirective,
+    @Optional() @Inject(MDC_TEXT_FIELD_DEFAULT_OPTIONS) private _defaults: MdcTextFieldDefaultOptions) {
 
     super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
 
@@ -417,6 +439,10 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
 
     // Force setter to be called in case id was not specified.
     this.id = this.id;
+  }
+
+  ngAfterContentInit(): void {
+    this._setDefaultOptions();
   }
 
   ngAfterViewInit(): void {
@@ -573,6 +599,13 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
       this._foundation.setDisabled(this._disabled);
     }
     this._changeDetectorRef.markForCheck();
+  }
+
+  /** Set the default options here so we invoke the setter on the first run. */
+  private _setDefaultOptions(): void {
+    if (this._defaults) {
+      this._outlined = this._defaults.outlined || this._outlined;
+    }
   }
 
   private _checkCustomValidity(): void {

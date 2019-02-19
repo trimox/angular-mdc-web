@@ -253,7 +253,7 @@ constructor(iconRegistry: MdcIconRegistry, sanitizer: DomSanitizer) {
 }`
   };
 
-  exampleThemeShaped = {
+  exampleShape = {
     html: `<mdc-text-field label="Standard" required class="demo-text-field-custom-colors"></mdc-text-field>
 
 <mdc-text-field label="Standard" class="demo-shaped-text-field"></mdc-text-field>
@@ -363,36 +363,44 @@ waypoint = new Directions();`
 }`
   };
 
-  exampleCharacterCounter = {
-    html: `<div class="text-field-container">
-  <mdc-text-field outlined [helperText]="counterHelper" label="Standard"
-    maxlength="10" characterCounter>
+  exampleNoLabel = {
+    html: `<mdc-form-field>
+  <mdc-text-field>
   </mdc-text-field>
-  <mdc-helper-text #counterHelper characterCounter></mdc-helper-text>
-</div>
-
-<div class="text-field-container">
-  <mdc-text-field outlined [helperText]="counterHelperPersistent"
-    label="Standard" characterCounter maxlength="10">
-  </mdc-text-field>
-  <mdc-helper-text #counterHelperPersistent persistent>Helper
-    Text
+  <mdc-helper-text persistent>Helper Text
   </mdc-helper-text>
-</div>
+</mdc-form-field>
 
 <mdc-form-field>
-  <mdc-text-field outlined label="Standard" characterCounter maxlength="10">
+  <mdc-text-field outlined></mdc-text-field>
+  <mdc-helper-text persistent>Helper Text
+  </mdc-helper-text>
+</mdc-form-field>
+
+<mdc-form-field>
+  <mdc-text-field outlined class="demo-shaped-text-field--outline">
   </mdc-text-field>
-  <mdc-helper-text persistent>Helper Text</mdc-helper-text>
+  <mdc-helper-text persistent>Helper Text
+  </mdc-helper-text>
 </mdc-form-field>`,
-sass: `.text-field-container {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  min-width: 200px;
-  padding: 10px;
+    sass: `.demo-shaped-text-field--outline {
+  @include mdc-text-field-outline-shape-radius(50%);
 }`
+  };
+
+  exampleCharacterCounter = {
+    html: `<mdc-form-field>
+  <mdc-text-field label="Standard" characterCounter maxlength="10">
+  </mdc-text-field>
+  <mdc-helper-text></mdc-helper-text>
+</mdc-form-field>
+
+<mdc-form-field>
+  <mdc-text-field outlined characterCounter label="Standard" maxlength="10">
+  </mdc-text-field>
+  <mdc-helper-text persistent>Helper Text
+  </mdc-helper-text>
+</mdc-form-field>`
   };
 
   exampleTACounter = {

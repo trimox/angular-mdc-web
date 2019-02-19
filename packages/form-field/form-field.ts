@@ -69,9 +69,10 @@ export class MdcFormField implements AfterContentInit, OnInit, OnDestroy {
       if (control.nextElementSibling) {
         if (control.nextElementSibling.tagName === 'LABEL') {
           this.label = control.nextElementSibling;
-          this.label!.setAttribute('for', this._control.inputId || '');
-
-          this._loadListeners();
+          if (this.label && this._control.inputId) {
+            this.label!.setAttribute('for', this._control.inputId);
+            this._loadListeners();
+          }
         }
       }
     }

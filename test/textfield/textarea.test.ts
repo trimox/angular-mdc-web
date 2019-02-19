@@ -14,7 +14,7 @@ describe('MdcTextarea', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [MdcTextFieldModule, FormsModule, ReactiveFormsModule],
-      declarations: [SimpleTextfield]
+      declarations: [SimpleTextArea, SimpleTextAreaNoCounter]
     });
     TestBed.compileComponents();
   });
@@ -22,10 +22,10 @@ describe('MdcTextarea', () => {
   describe('basic behaviors', () => {
     let textFieldDebugElement: DebugElement;
     let textFieldInstance: MdcTextarea;
-    let testComponent: SimpleTextfield;
+    let testComponent: SimpleTextArea;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(SimpleTextfield);
+      fixture = TestBed.createComponent(SimpleTextArea);
       fixture.detectChanges();
 
       textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextarea));
@@ -50,10 +50,33 @@ describe('MdcTextarea', () => {
       testComponent.comments = 'my comments';
       fixture.detectChanges();
     });
+
+    it('#should set character counter false', () => {
+      testComponent.characterCounter = false;
+      fixture.detectChanges();
+      expect(testComponent.characterCounter).toBe(false);
+
+      testComponent.comments = 'my comments';
+      fixture.detectChanges();
+    });
+  });
+
+  describe('basic behaviors', () => {
+    let textFieldDebugElement: DebugElement;
+    let textFieldInstance: MdcTextarea;
+    let testComponent: SimpleTextAreaNoCounter;
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(SimpleTextAreaNoCounter);
+      fixture.detectChanges();
+
+      textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextarea));
+      textFieldInstance = textFieldDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+    });
   });
 });
 
-/** Simple component for testing. */
 @Component({
   template: `
   <mdc-textarea
@@ -67,9 +90,19 @@ describe('MdcTextarea', () => {
     [disabled]="isDisabled">
   </mdc-textarea>`,
 })
-class SimpleTextfield {
+class SimpleTextArea {
   comments: string = '';
   isDisabled: boolean = false;
   isRequired: boolean = false;
   characterCounter: boolean = true;
 }
+
+@Component({
+  template: `
+  <mdc-textarea
+    label="Comments"
+    [rows]="3"
+    [cols]="5">
+  </mdc-textarea>`,
+})
+class SimpleTextAreaNoCounter { }

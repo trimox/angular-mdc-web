@@ -16,6 +16,7 @@ import { MdcTextField } from './text-field';
   host: {
     'class': 'mdc-text-field',
     '[class.mdc-text-field--textarea]': 'true',
+    '[class.mdc-text-field--no-label]': '!label',
     '[class.mdc-text-field--dense]': 'dense',
     '[class.mdc-text-field--fullwidth]': 'fullwidth',
     '[class.mdc-text-field--invalid]': 'errorState'

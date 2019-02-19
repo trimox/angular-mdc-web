@@ -89,6 +89,7 @@ const MOUSE_EVENT_IGNORE_TIME = 800;
     '[class.mdc-text-field--fullwidth]': 'fullwidth',
     '[class.mdc-text-field--with-leading-icon]': 'leadingIcon',
     '[class.mdc-text-field--with-trailing-icon]': 'trailingIcon',
+    '[class.mdc-text-field--no-label]': '!label || label && fullwidth',
     '[class.mdc-text-field--invalid]': 'errorState',
     '(click)': 'onTextFieldInteraction()',
     '(keydown)': 'onTextFieldInteraction()'

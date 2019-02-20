@@ -37,10 +37,4 @@
     margin-bottom: 20px;
     text-align: center;
   }
-
-  &__version {
-    @include mdc-typography(caption);
-
-    margin: 8px;
-  }
 }

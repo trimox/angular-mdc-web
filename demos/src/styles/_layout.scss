@@ -114,14 +114,11 @@
 }
 
 .demo-content {
-	@include mdc-shape-radius(12px);
+  @include mdc-shape-radius(12px);
 
   border: 1px solid rgba(0, 0, 0, .15);
   margin: 1.5rem 1rem;
   padding: 1rem;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
 
   &__headline {
     @include mdc-typography(headline6);

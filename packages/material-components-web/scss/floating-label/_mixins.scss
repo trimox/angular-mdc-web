@@ -21,6 +21,7 @@
 //
 
 @import "../rtl/mixins";
+@import "../theme/mixins";
 @import "./variables";
 
 @mixin mdc-floating-label-ink-color($color) {

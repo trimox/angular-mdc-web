@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, Type } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, flush, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -345,6 +345,44 @@ describe('MDC_TEXT_FIELD_DEFAULT_OPTIONS', () => {
     });
   });
 });
+
+describe('MDC_TEXT_FIELD_DEFAULT_OPTIONS', () => {
+  it('should be no default options provided', fakeAsync(() => {
+    const fixture = createComponent(SimpleTextfield);
+    fixture.detectChanges();
+    flush();
+    expect(fixture.componentInstance.outlined).toBe(undefined);
+  }));
+
+  // it('should be default of outlined, if specified in default options',
+  //   fakeAsync(() => {
+  //     const fixture = createComponent(SimpleTextfield, [{
+  //       provide: MDC_TEXT_FIELD_DEFAULT_OPTIONS, useValue: { outlined: true }
+  //     }
+  //     ]);
+  //     fixture.detectChanges();
+  //     flush();
+  //     expect(fixture.componentInstance.outlined).toBe(true);
+  //   }));
+});
+
+function createComponent<T>(component: Type<T>,
+  providers: any[] = [],
+  imports: any[] = [],
+  declarations: any[] = []): ComponentFixture<T> {
+  TestBed.configureTestingModule({
+    imports: [
+      FormsModule,
+      MdcTextFieldModule,
+      MdcIconModule,
+      ...imports
+    ],
+    declarations: [component, ...declarations],
+    providers,
+  }).compileComponents();
+
+  return TestBed.createComponent<T>(component);
+}
 
 @Component({
   template: `

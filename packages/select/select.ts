@@ -1,4 +1,5 @@
 import {
+  AfterContentInit,
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -9,6 +10,8 @@ import {
   DoCheck,
   ElementRef,
   EventEmitter,
+  Inject,
+  InjectionToken,
   Input,
   OnDestroy,
   Optional,
@@ -44,6 +47,21 @@ import { MdcSelectIcon } from './select-icon';
 import { MDCSelectHelperTextFoundation } from '@material/select/helper-text/index';
 import { cssClasses } from '@material/select/constants';
 import { MDCSelectFoundation } from '@material/select/index';
+
+/**
+ * Represents the default options for mdc-select that can be configured
+ * using an `MDC_SELECT_DEFAULT_OPTIONS` injection token.
+ */
+export interface MdcSelectDefaultOptions {
+  outlined?: boolean;
+}
+
+/**
+ * Injection token that can be used to configure the default options for all
+ * mdc-select usage within an app.
+ */
+export const MDC_SELECT_DEFAULT_OPTIONS =
+  new InjectionToken<MdcSelectDefaultOptions>('MDC_SELECT_DEFAULT_OPTIONS');
 
 export class MdcSelectBase {
   constructor(
@@ -120,7 +138,7 @@ let nextUniqueId = 0;
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoCheck,
+export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, AfterViewInit, DoCheck,
   OnDestroy, ControlValueAccessor, MdcFormFieldControl<any>, CanUpdateErrorState {
   /** Emits whenever the component is destroyed. */
   private _destroyed = new Subject<void>();
@@ -167,7 +185,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   set outlined(value: boolean) {
     const newValue = toBoolean(value);
     if (newValue !== this._outlined) {
-      this._outlined = toBoolean(newValue);
+      this._outlined = newValue || (this._defaults && this._defaults.outlined) || false;
       this.layout();
     }
   }
@@ -402,7 +420,8 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
     @Optional() private _ripple: MdcRipple,
     @Self() @Optional() public ngControl: NgControl,
     @Optional() _parentForm: NgForm,
-    @Optional() _parentFormGroup: FormGroupDirective) {
+    @Optional() _parentFormGroup: FormGroupDirective,
+    @Optional() @Inject(MDC_SELECT_DEFAULT_OPTIONS) private _defaults: MdcSelectDefaultOptions) {
 
     super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
 
@@ -418,6 +437,10 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
 
     // Force setter to be called in case id was not specified.
     this.id = this.id;
+  }
+
+  ngAfterContentInit(): void {
+    this._setDefaultOptions();
   }
 
   ngAfterViewInit(): void {
@@ -619,6 +642,13 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
         surface: this.elementRef.nativeElement,
         activator: this._nativeSelect ? this._nativeSelect.nativeElement : this._selectedText.nativeElement
       });
+    }
+  }
+
+  /** Set the default options. */
+  private _setDefaultOptions(): void {
+    if (this._defaults && this._defaults.outlined) {
+      this._outlined = this._defaults.outlined;
     }
   }
 

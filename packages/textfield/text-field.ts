@@ -602,10 +602,10 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
     this._changeDetectorRef.markForCheck();
   }
 
-  /** Set the default options here so we invoke the setter on the first run. */
+  /** Set the default options here. */
   private _setDefaultOptions(): void {
-    if (this._defaults) {
-      this._outlined = this._defaults.outlined || this._outlined;
+    if (this._defaults && this._defaults.outlined) {
+      this._outlined = this._defaults.outlined;
     }
   }
 

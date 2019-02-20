@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, Type } from '@angular/core';
 import {
   FormControl,
   FormsModule,
@@ -6,12 +6,15 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { fakeAsync, ComponentFixture, TestBed, flush, tick } from '@angular/core/testing';
+import { fakeAsync, ComponentFixture, TestBed, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from '../testing/dispatch-events';
 
-import { DOWN_ARROW, MdcSelectModule, MdcSelect, MdcListModule } from '@angular-mdc/web';
+import {
+  DOWN_ARROW, MdcSelectModule, MdcSelect, MdcListModule,
+  MDC_SELECT_DEFAULT_OPTIONS
+} from '@angular-mdc/web';
 
 describe('MdcSelectModule', () => {
   let fixture: ComponentFixture<any>;
@@ -307,13 +310,52 @@ describe('MdcSelectModule', () => {
   });
 });
 
+describe('MDC_SELECT_DEFAULT_OPTIONS', () => {
+  it('should be no default options provided', fakeAsync(() => {
+    const fixture = createComponent(SelectFormControl);
+    fixture.detectChanges();
+    flush();
+    expect(fixture.componentInstance.outlined).toBe(undefined);
+  }));
+
+  // it('should be default of outlined, if specified in default options',
+  //   fakeAsync(() => {
+  //     const fixture = createComponent(SelectFormControl, [{
+  //       provide: MDC_SELECT_DEFAULT_OPTIONS, useValue: { outlined: true }
+  //     }
+  //     ]);
+  //     fixture.detectChanges();
+  //     flush();
+  //     expect(fixture.componentInstance.outlined).toBe(true);
+  //   }));
+});
+
+function createComponent<T>(component: Type<T>,
+  providers: any[] = [],
+  imports: any[] = [],
+  declarations: any[] = []): ComponentFixture<T> {
+  TestBed.configureTestingModule({
+    imports: [
+      FormsModule,
+      MdcSelectModule,
+      ReactiveFormsModule,
+      ...imports
+    ],
+    declarations: [component, ...declarations],
+    providers: [
+      { provide: MDC_SELECT_DEFAULT_OPTIONS, useValue: { outlined: true } }]
+  }).compileComponents();
+
+  return TestBed.createComponent<T>(component);
+}
+
 @Component({
   template: `
     <form #demoSelectForm="ngForm" id="demoSelectForm">
       <mdc-form-field>
         <mdc-select #select placeholder="Favorite food" ngModel #demoSelectModel="ngModel" name="food"
          [disabled]="disabled" [floatLabel]="floatLabel" [required]="required" [valid]="valid"
-         [value]="testValue"
+         [value]="testValue" [outlined]="outlined"
          (valueChange)="handleValueChange($event)" (selectionChange)="handleSelectedChange($event)">
           <option *ngFor="let food of foods" [value]="food.value" disabled="food.disabled">
             {{food.description}}
@@ -335,6 +377,7 @@ class SimpleTest {
   required: boolean;
   valid: boolean = false;
   testValue: string;
+  outlined: boolean;
 
   foods = [
     { value: 'steak-0', description: 'Steak' },

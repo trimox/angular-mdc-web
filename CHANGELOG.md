@@ -1,3 +1,34 @@
+# [0.44.0](https://github.com/trimox/angular-mdc-web/compare/v0.43.7...v0.44.0) (2019-02-22)
+
+
+### Bug Fixes
+
+* **checkbox:** Should use specified id attribute ([#1825](https://github.com/trimox/angular-mdc-web/issues/1825)) ([3e63c38](https://github.com/trimox/angular-mdc-web/commit/3e63c38)), closes [#1818](https://github.com/trimox/angular-mdc-web/issues/1818)
+* **dialog:** Misspelled button class name ([#1800](https://github.com/trimox/angular-mdc-web/issues/1800)) ([671c3af](https://github.com/trimox/angular-mdc-web/commit/671c3af)), closes [#1799](https://github.com/trimox/angular-mdc-web/issues/1799)
+* **top-app-bar:** Remove setTimeout during initialization ([#1801](https://github.com/trimox/angular-mdc-web/issues/1801)) ([a1e63eb](https://github.com/trimox/angular-mdc-web/commit/a1e63eb))
+
+
+### Features
+
+* **chip:** Add form (value) support + improvements ([#1796](https://github.com/trimox/angular-mdc-web/issues/1796)) ([8b412ba](https://github.com/trimox/angular-mdc-web/commit/8b412ba)), closes [#1788](https://github.com/trimox/angular-mdc-web/issues/1788) [#1795](https://github.com/trimox/angular-mdc-web/issues/1795) [#1793](https://github.com/trimox/angular-mdc-web/issues/1793) [#1811](https://github.com/trimox/angular-mdc-web/issues/1811)
+* **form-field:** Apply no style class to text-field and select ([#1804](https://github.com/trimox/angular-mdc-web/issues/1804)) ([9f8838d](https://github.com/trimox/angular-mdc-web/commit/9f8838d))
+* **select:** Add MDC_SELECT_DEFAULT_OPTIONS ([#1809](https://github.com/trimox/angular-mdc-web/issues/1809)) ([d67629e](https://github.com/trimox/angular-mdc-web/commit/d67629e)), closes [#1798](https://github.com/trimox/angular-mdc-web/issues/1798)
+* **text-field:** Add MDC_TEXT_FIELD_DEFAULT_OPTIONS ([#1807](https://github.com/trimox/angular-mdc-web/issues/1807)) ([5a2ee43](https://github.com/trimox/angular-mdc-web/commit/5a2ee43)), closes [#1798](https://github.com/trimox/angular-mdc-web/issues/1798)
+* **text-field:** Add support for character counter ([#1816](https://github.com/trimox/angular-mdc-web/issues/1816)) ([fa4d855](https://github.com/trimox/angular-mdc-web/commit/fa4d855)), closes [#1720](https://github.com/trimox/angular-mdc-web/issues/1720) [#1814](https://github.com/trimox/angular-mdc-web/issues/1814)
+* **text-field:** Add support for independent labels ([#1822](https://github.com/trimox/angular-mdc-web/issues/1822)) ([8bd33ff](https://github.com/trimox/angular-mdc-web/commit/8bd33ff)), closes [#1721](https://github.com/trimox/angular-mdc-web/issues/1721)
+* Remove Grid List ([#1789](https://github.com/trimox/angular-mdc-web/issues/1789)) ([9660a85](https://github.com/trimox/angular-mdc-web/commit/9660a85)), closes [#1154](https://github.com/trimox/angular-mdc-web/issues/1154)
+* Upgrade to material-components-web v0.44.0 ([#1810](https://github.com/trimox/angular-mdc-web/issues/1810)) ([3da7eba](https://github.com/trimox/angular-mdc-web/commit/3da7eba)), closes [/github.com/material-components/material-components-web/blob/master/CHANGELOG.md#0440-2019-02-04](https://github.com//github.com/material-components/material-components-web/blob/master/CHANGELOG.md/issues/0440-2019-02-04)
+
+### Build
+* Include .map sourcemap files in npm release
+* Enable all strict type checking
+
+### BREAKING CHANGES
+
+* As per #1154. Delete deprecated Grid List component.
+
+
+
 ## [0.43.7](https://github.com/trimox/angular-mdc-web/compare/v0.43.6...v0.43.7) (2019-01-29)
 
 

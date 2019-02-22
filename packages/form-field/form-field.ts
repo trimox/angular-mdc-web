@@ -9,7 +9,6 @@ import {
   Input,
   NgZone,
   OnDestroy,
-  OnInit,
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
@@ -34,7 +33,7 @@ import { MdcHelperText } from './helper-text';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcFormField implements AfterContentInit, OnInit, OnDestroy {
+export class MdcFormField implements AfterContentInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
@@ -62,7 +61,7 @@ export class MdcFormField implements AfterContentInit, OnInit, OnDestroy {
     private _ngZone: NgZone,
     public elementRef: ElementRef<HTMLElement>) { }
 
-  ngOnInit(): void {
+  ngAfterContentInit(): void {
     if (this._control) {
       const control = this._control.elementRef.nativeElement;
 
@@ -76,9 +75,7 @@ export class MdcFormField implements AfterContentInit, OnInit, OnDestroy {
         }
       }
     }
-  }
 
-  ngAfterContentInit(): void {
     // When assistive elements change, initialize foundation
     this.assistiveElements.changes.pipe(startWith(null), takeUntil(this._destroy))
       .subscribe(() => {

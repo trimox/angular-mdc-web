@@ -97,6 +97,8 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor,
   private _uniqueId: string = `mdc-checkbox-${++nextUniqueId}`;
 
   @Input() id: string = this._uniqueId;
+
+  /** Returns the unique id for the visual hidden input. */
   get inputId(): string { return `${this.id || this._uniqueId}-input`; }
 
   @Input() name: string | null = null;

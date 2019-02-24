@@ -52,7 +52,7 @@ export class Examples {
   lorems = Array(5).fill(this.text);
 
   exampleStandard = {
-    html: `<mdc-top-app-bar>
+    html: `<mdc-top-app-bar [scrollTarget]="standardContent">
   <mdc-top-app-bar-row>
     <mdc-top-app-bar-section align="start" title="App">
       <button mdcTopAppBarNavIcon>
@@ -66,7 +66,7 @@ export class Examples {
     </mdc-top-app-bar-section>
   </mdc-top-app-bar-row>
 </mdc-top-app-bar>
-<div>
+<div class="demo-app-bar-content" #standardContent>
   <p *ngFor="let lorem of lorems">{{lorem}}</p>
 </div>`
   };

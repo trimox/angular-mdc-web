@@ -1,6 +1,5 @@
 import {
   AfterContentInit,
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -130,7 +129,7 @@ const MOUSE_EVENT_IGNORE_TIME = 800;
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContentInit, AfterViewInit, DoCheck,
+export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContentInit, DoCheck,
   OnDestroy, ControlValueAccessor, MdcFormFieldControl<any>, CanUpdateErrorState {
   private _uid = `mdc-input-${nextUniqueId++}`;
   private _initialized: boolean = false;
@@ -444,9 +443,6 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
 
   ngAfterContentInit(): void {
     this._setDefaultOptions();
-  }
-
-  ngAfterViewInit(): void {
     this.init();
   }
 
@@ -464,10 +460,12 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   }
 
   init(): void {
-    this._foundation = new MDCTextFieldFoundation(this._createAdapter(), this._getFoundationMap());
+    setTimeout(() => {
+      this._foundation = new MDCTextFieldFoundation(this._createAdapter(), this._getFoundationMap());
+      this._foundation.init();
+    });
 
     this._initRipple();
-    this._foundation.init();
     this._checkCustomValidity();
 
     this._initialized = true;

@@ -25,11 +25,11 @@
     "test:watch": "karma start --auto-watch"
   },
   "dependencies": {
-    "@angular/common": "^7.2.8",
-    "@angular/compiler": "^7.2.8",
-    "@angular/core": "^7.2.8",
-    "@angular/forms": "^7.2.8",
-    "@angular/platform-browser": "^7.2.8",
+    "@angular/common": "^7.2.9",
+    "@angular/compiler": "^7.2.9",
+    "@angular/core": "^7.2.9",
+    "@angular/forms": "^7.2.9",
+    "@angular/platform-browser": "^7.2.9",
     "core-js": "^2.6.5",
     "material-components-web": "^0.44.1",
     "rxjs": "^6.4.0",
@@ -38,15 +38,15 @@
     "zone.js": "0.8.29"
   },
   "devDependencies": {
-    "@angular/compiler-cli": "^7.2.8",
-    "@angular/platform-browser-dynamic": "^7.2.8",
+    "@angular/compiler-cli": "^7.2.9",
+    "@angular/platform-browser-dynamic": "^7.2.9",
     "@babel/core": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
     "@types/fs-extra": "^5.0.5",
     "@types/glob": "^7.1.1",
     "@types/gulp": "^4.0.6",
-    "@types/jasmine": "^3.3.9",
-    "@types/node": "^11.9.4",
+    "@types/jasmine": "^3.3.10",
+    "@types/node": "^11.11.3",
     "@types/run-sequence": "0.0.30",
     "babel-loader": "^8.0.5",
     "babel-plugin-istanbul": "^5.1.1",
@@ -84,16 +84,16 @@
     "stylelint-order": "^2.0.0",
     "stylelint-scss": "^3.5.3",
     "stylelint-selector-bem-pattern": "^2.0.0",
-    "terser": "^3.16.1",
+    "terser": "^3.17.0",
     "ts-loader": "^5.3.3",
     "ts-node": "^8.0.3",
     "tsconfig-paths": "^3.8.0",
     "tsconfig-paths-webpack-plugin": "^3.2.0",
-    "tslint": "^5.13.1",
+    "tslint": "^5.14.0",
     "typescript": "~3.2.2",
     "validate-commit-msg": "^2.14.0",
     "webpack": "^4.29.6",
-    "webpack-cli": "^3.2.3"
+    "webpack-cli": "^3.3.0"
   },
   "config": {
     "validate-commit-msg": {

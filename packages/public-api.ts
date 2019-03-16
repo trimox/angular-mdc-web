@@ -1,4 +1,5 @@
 export * from './version';
+export * from '@angular-mdc/web/base';
 export * from '@angular-mdc/web/button';
 export * from '@angular-mdc/web/card';
 export * from '@angular-mdc/web/checkbox';

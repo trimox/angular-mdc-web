@@ -38,7 +38,7 @@ module.exports = {
         loader: 'istanbul-instrumenter-loader',
         options: { esModules: true },
         enforce: 'post',
-        exclude: /(node_modules|grid-list|testing|portal|overlay|\.test\.ts$)/
+        exclude: /(node_modules|base|testing|portal|overlay|\.test\.ts$)/
       }
     ]
   }

@@ -18,7 +18,8 @@ import { toBoolean, UniqueSelectionDispatcher } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcFormField, MdcFormFieldControl } from '@angular-mdc/web/form-field';
 
-import { MDCRadioFoundation } from '@material/radio/index';
+import { MDCComponent } from '@angular-mdc/web/base';
+import { MDCRadioFoundation, MDCRadioAdapter } from '@material/radio/index';
 
 /**
  * Describes a parent MdcRadioGroup component.
@@ -60,7 +61,8 @@ export class MdcRadioChange {
     '[id]': 'id',
     'class': 'mdc-radio',
     '(focus)': 'input.nativeElement.focus()',
-    '[attr.tabindex]': 'null'
+    '[attr.tabindex]': '-1',
+    '[attr.name]': 'null'
   },
   template: `
   <input type="radio"
@@ -89,7 +91,7 @@ export class MdcRadioChange {
     { provide: MdcFormFieldControl, useExisting: MdcRadio }
   ]
 })
-export class MdcRadio implements AfterViewInit, OnDestroy, MdcFormFieldControl<any> {
+export class MdcRadio extends MDCComponent<any> implements AfterViewInit, OnDestroy, MdcFormFieldControl<any> {
   private _uniqueId: string = `mdc-radio-${++nextUniqueId}`;
 
   /** The unique ID for the radio button. */
@@ -147,19 +149,14 @@ export class MdcRadio implements AfterViewInit, OnDestroy, MdcFormFieldControl<a
   /** Unregister function for _radioDispatcher */
   private _removeUniqueSelectionListener: () => void = () => { };
 
-  private _createAdapter() {
-    return {
+  getDefaultFoundation() {
+    const adapter: MDCRadioAdapter = {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
       setNativeControlDisabled: (disabled: boolean) => this.disabled = disabled
     };
+    return new MDCRadioFoundation(adapter);
   }
-
-  private _foundation: {
-    init(): void,
-    destroy(): void,
-    setDisabled(disabled: boolean): void
-  } = new MDCRadioFoundation(this._createAdapter());
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
@@ -168,6 +165,7 @@ export class MdcRadio implements AfterViewInit, OnDestroy, MdcFormFieldControl<a
     private _radioDispatcher: UniqueSelectionDispatcher,
     @Optional() @Inject(MDC_RADIO_GROUP_PARENT_COMPONENT) public radioGroup: MdcRadioGroupParentComponent,
     @Optional() private _parentFormField: MdcFormField) {
+    super(elementRef);
 
     if (this._parentFormField) {
       _parentFormField.elementRef.nativeElement.classList.add('mdc-form-field');
@@ -217,7 +215,6 @@ export class MdcRadio implements AfterViewInit, OnDestroy, MdcFormFieldControl<a
 
     if (this.radioGroup) {
       this.radioGroup._controlValueAccessorChangeFn(this.value);
-      this.radioGroup._touch();
       if (groupValueChanged) {
         this.radioGroup.emitChangeEvent();
       }

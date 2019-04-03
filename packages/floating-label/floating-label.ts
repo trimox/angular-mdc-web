@@ -9,6 +9,7 @@ import {
 import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
+import { MDCComponent } from '@angular-mdc/web/base';
 import { MDCFloatingLabelFoundation } from '@material/floating-label/index';
 
 @Directive({
@@ -19,33 +20,30 @@ import { MDCFloatingLabelFoundation } from '@material/floating-label/index';
     '[for]': 'for'
   }
 })
-export class MdcFloatingLabel implements AfterContentInit, OnDestroy {
+export class MdcFloatingLabel extends MDCComponent<any>
+  implements AfterContentInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
   @Input() for?: string;
 
-  private _createAdapter() {
-    return {
+  getDefaultFoundation() {
+    const adapter: any = {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
       getWidth: () => this._getHostElement().scrollWidth
     };
+    return new MDCFloatingLabelFoundation(adapter);
   }
-
-  private _foundation!: {
-    getWidth(): number,
-    shake(shouldShake: boolean): void,
-    float(shouldFloat: boolean): void,
-    handleShakeAnimationEnd_(): void
-  };
 
   constructor(
     private _ngZone: NgZone,
-    public elementRef: ElementRef<HTMLElement>) { }
+    public elementRef: ElementRef<HTMLElement>) {
+
+    super(elementRef);
+  }
 
   ngAfterContentInit(): void {
-    this._foundation = new MDCFloatingLabelFoundation(this._createAdapter());
     this._loadListeners();
   }
 

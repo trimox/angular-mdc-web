@@ -10,11 +10,12 @@ import {
 import { fromEvent, Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import { MDCComponent } from '@angular-mdc/web/base';
 import { Platform, toBoolean } from '@angular-mdc/web/common';
 
 import { getTransformPropertyName } from '@material/menu-surface/util';
 import { Corner, strings } from '@material/menu-surface/constants';
-import { MDCMenuSurfaceFoundation } from '@material/menu-surface/index';
+import { MDCMenuSurfaceFoundation, MDCMenuSurfaceAdapter } from '@material/menu-surface';
 
 export interface MdcMenuSurfaceOpenedEvent {
   detail: string;
@@ -41,7 +42,7 @@ const ANCHOR_CORNER_MAP = {
   topStart: Corner.TOP_START
 };
 
-export abstract class MdcMenuSurfaceBase {
+export abstract class MdcMenuSurfaceBase extends MDCComponent<any> {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
@@ -125,8 +126,8 @@ export abstract class MdcMenuSurfaceBase {
   /** Subscription to interaction events in menu-surface. */
   private _windowClickSubscription: Subscription | null = null;
 
-  protected _createSurfaceAdapter() {
-    return Object.assign({
+  getDefaultFoundation() {
+    const adapter: MDCMenuSurfaceAdapter = {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
       hasClass: (className: string) => this._getHostElement().classList.contains(className),
@@ -141,7 +142,7 @@ export abstract class MdcMenuSurfaceBase {
       },
       isElementInContainer: (el: Element) => this._getHostElement() === el || this._getHostElement().contains(el),
       isRtl: () => {
-        if (!this.platform.isBrowser) { return; }
+        if (!this.platform.isBrowser) { return false; }
 
         return window.getComputedStyle(this._getHostElement()).getPropertyValue('direction') === 'rtl';
       },
@@ -149,15 +150,7 @@ export abstract class MdcMenuSurfaceBase {
         if (!this.platform.isBrowser) { return; }
 
         this._getHostElement().style[`${getTransformPropertyName(window)}-origin` as any] = origin;
-      }
-    },
-      this._getFocusAdaptermethods(),
-      this._getDimensionAdapterMethods()
-    );
-  }
-
-  private _getFocusAdaptermethods() {
-    return {
+      },
       isFocused: () => this.platform.isBrowser ? document.activeElement! === this._getHostElement() : false,
       saveFocus: () => {
         if (!this.platform.isBrowser) { return; }
@@ -174,11 +167,11 @@ export abstract class MdcMenuSurfaceBase {
       },
       isFirstElementFocused: () => {
         if (!this.platform.isBrowser) { return false; }
-        return this._firstFocusableElement && this._firstFocusableElement === document.activeElement!;
+        return this._firstFocusableElement ? this._firstFocusableElement === document.activeElement : false;
       },
       isLastElementFocused: () => {
         if (!this.platform.isBrowser) { return false; }
-        return this._lastFocusableElement && this._lastFocusableElement === document.activeElement!;
+        return this._lastFocusableElement ? this._lastFocusableElement === document.activeElement :  false;
       },
       focusFirstElement: () => {
         if (!this.platform.isBrowser) { return; }
@@ -193,19 +186,14 @@ export abstract class MdcMenuSurfaceBase {
         if (this._lastFocusableElement) {
           (<any>this._lastFocusableElement).focus();
         }
-      }
-    };
-  }
-
-  private _getDimensionAdapterMethods() {
-    return {
+      },
       getInnerDimensions: () => {
         return { width: this._getHostElement().offsetWidth, height: this._getHostElement().offsetHeight };
       },
       getAnchorDimensions: () => {
-        if (!this.platform.isBrowser) { return; }
+        if (!this.platform.isBrowser || !this.anchorElement) { return null; }
 
-        return this._anchorElement && this._anchorElement.getBoundingClientRect();
+        return this._anchorElement!.getBoundingClientRect();
       },
       getWindowDimensions: () => {
         return {
@@ -225,37 +213,25 @@ export abstract class MdcMenuSurfaceBase {
           y: this.platform.isBrowser ? window.pageYOffset : 0
         };
       },
-      setPosition: (position: { left: string, right: string, top: string, bottom: string }) => {
-        this._getHostElement().style.left = 'left' in position ? position.left : null;
-        this._getHostElement().style.right = 'right' in position ? position.right : null;
-        this._getHostElement().style.top = 'top' in position ? position.top : null;
-        this._getHostElement().style.bottom = 'bottom' in position ? position.bottom : null;
+      setPosition: (position: { left: number, right: number, top: number, bottom: number }) => {
+        this._getHostElement().style.left = 'left' in position ? `${position.left}px` : '';
+        this._getHostElement().style.right = 'right' in position ? `${position.right}px` : '';
+        this._getHostElement().style.top = 'top' in position ? `${position.top}px` : '';
+        this._getHostElement().style.bottom = 'bottom' in position ? `${position.bottom}px` : '';
       },
       setMaxHeight: (height: string) => this._getHostElement().style.maxHeight = height
     };
+    return new MDCMenuSurfaceFoundation(adapter);
   }
-
-  private _foundation: {
-    init(): void,
-    destroy(): void,
-    open(): void,
-    close(): void,
-    isOpen(): boolean,
-    setAnchorCorner(corner: any): void,
-    setAnchorMargin(margin: AnchorMargin): void,
-    setIsHoisted(isHoisted: boolean): void,
-    setFixedPosition(isFixedPosition: boolean): void,
-    setAbsolutePosition(x: number, y: number): void,
-    setQuickOpen(quickOpen: boolean): void,
-    handleBodyClick(evt: MouseEvent): void,
-    handleKeydown(evt: KeyboardEvent): void
-  } = new MDCMenuSurfaceFoundation(this._createSurfaceAdapter());
 
   constructor(
     public changeDetectorRef: ChangeDetectorRef,
     public platform: Platform,
     @Optional() private _ngZone: NgZone,
-    public elementRef: ElementRef<HTMLElement>) { }
+    public elementRef: ElementRef<HTMLElement>) {
+
+    super(elementRef);
+  }
 
   protected initMenuSurface(): void {
     this._foundation.init();

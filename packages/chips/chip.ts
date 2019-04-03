@@ -37,7 +37,7 @@ import {
 } from '@angular-mdc/web/icon';
 
 import { cssClasses } from '@material/chips/chip/constants';
-import { MDCChipFoundation } from '@material/chips/chip/index';
+import { MDCChipFoundation } from '@material/chips/chip';
 
 export interface MdcChipInteractionEvent {
   detail: {

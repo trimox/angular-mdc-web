@@ -31,7 +31,7 @@
     "@angular/forms": "^7.2.9",
     "@angular/platform-browser": "^7.2.9",
     "core-js": "^2.6.5",
-    "material-components-web": "^0.44.1",
+    "material-components-web": "^1.1.0",
     "rxjs": "^6.4.0",
     "tsickle": "^0.34.3",
     "tslib": "1.9.3",

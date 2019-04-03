@@ -52,11 +52,18 @@ export class MdcHelperText {
   constructor(public elementRef: ElementRef<HTMLElement>) { }
 
   private _foundation!: {
+    init(): void,
+    destroy(): void,
     showToScreenReader(): boolean,
     setValidity(inputIsValid: boolean): void,
     setPersistent(isPersistent: boolean): void,
-    setValidation(isValidation: boolean): void
+    setValidation(isValidation: boolean): void,
+    setContent(content: string): void
   };
+
+  get foundation(): any {
+    return this._foundation;
+  }
 
   /** Sets the validity of the helper text based on inputIsValid. */
   setValidity(inputIsValid: boolean): void {

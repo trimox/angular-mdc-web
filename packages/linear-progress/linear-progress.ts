@@ -4,13 +4,13 @@ import {
   Component,
   ElementRef,
   Input,
-  OnDestroy,
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
+import { MDCComponent } from '@angular-mdc/web/base';
 import { toBoolean, toNumber } from '@angular-mdc/web/common';
 
-import { MDCLinearProgressFoundation } from '@material/linear-progress/index';
+import { MDCLinearProgressFoundation, MDCLinearProgressAdapter } from '@material/linear-progress/index';
 
 @Component({
   moduleId: module.id,
@@ -35,7 +35,8 @@ import { MDCLinearProgressFoundation } from '@material/linear-progress/index';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcLinearProgress implements OnInit, OnDestroy {
+export class MdcLinearProgress extends MDCComponent<any> implements OnInit {
+
   @Input()
   get open(): boolean { return this._open; }
   set open(value: boolean) {
@@ -84,8 +85,8 @@ export class MdcLinearProgress implements OnInit, OnDestroy {
   }
   private _buffer: number = 0;
 
-  createAdapter() {
-    return {
+  getDefaultFoundation() {
+    const adapter: MDCLinearProgressAdapter = {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       getPrimaryBar: () => this._getHostElement().querySelector('.mdc-linear-progress__primary-bar'),
       getBuffer: () => this._getHostElement().querySelector('.mdc-linear-progress__buffer'),
@@ -93,29 +94,18 @@ export class MdcLinearProgress implements OnInit, OnDestroy {
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
       setStyle: (el: HTMLElement, styleProperty: string, value: string) => el.style.setProperty(styleProperty, value)
     };
+    return new MDCLinearProgressFoundation(adapter);
   }
-
-  private _foundation: {
-    init(): void,
-    destroy(): void,
-    setProgress(value: number): void,
-    setBuffer(value: number): void,
-    setReverse(value: boolean): void,
-    setDeterminate(value: boolean): void,
-    open(): void,
-    close(): void
-  } = new MDCLinearProgressFoundation(this.createAdapter());
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    public elementRef: ElementRef<HTMLElement>) { }
+    public elementRef: ElementRef) {
+
+    super(elementRef);
+  }
 
   ngOnInit(): void {
     this._foundation.init();
-  }
-
-  ngOnDestroy(): void {
-    this._foundation.destroy();
   }
 
   /** Retrieves the DOM element of the component host. */

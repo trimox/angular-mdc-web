@@ -15,6 +15,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import createFocusTrap, { FocusTrap } from 'focus-trap';
 
+import { MDCComponent } from '@angular-mdc/web/base';
 import { Platform } from '@angular-mdc/web/common';
 
 import {
@@ -25,13 +26,9 @@ import {
 import { MdcDialogRef } from './dialog-ref';
 import { MdcDialogConfig } from './dialog-config';
 
-import {
-  isScrollable,
-  areTopsMisaligned
-} from '@material/dialog/util';
 import { strings } from '@material/dialog/constants';
-import { closest, matches } from '@material/dom/ponyfill';
-import { MDCDialogFoundation } from '@material/dialog/index';
+import { ponyfill } from '@material/dom';
+import { MDCDialogFoundation, MDCDialogAdapter, util } from '@material/dialog';
 
 const LAYOUT_EVENTS = ['resize', 'orientationchange'];
 
@@ -56,7 +53,7 @@ const LAYOUT_EVENTS = ['resize', 'orientationchange'];
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcDialogComponent implements AfterViewInit, OnDestroy {
+export class MdcDialogComponent extends MDCComponent<any> implements AfterViewInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
@@ -68,7 +65,7 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
 
   @ContentChild(MdcDialogSurface) _surface!: MdcDialogSurface;
   @ContentChild(MdcDialogContent) _content!: MdcDialogContent;
-  @ContentChildren(MdcDialogButton, { descendants: true }) _buttons?: QueryList<MdcDialogButton>;
+  @ContentChildren(MdcDialogButton, { descendants: true }) _buttons!: QueryList<MdcDialogButton>;
 
   private _layoutEventSubscription: Subscription | null = null;
 
@@ -77,8 +74,8 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
     return merge(...LAYOUT_EVENTS.map(evt => fromEvent(window, evt)));
   }
 
-  private _createAdapter() {
-    return {
+  getDefaultFoundation() {
+    const adapter: MDCDialogAdapter = {
       addClass: (className: string) => this._getDialog().classList.add(className),
       removeClass: (className: string) => this._getDialog().classList.remove(className),
       hasClass: (className: string) => this._getDialog().classList.contains(className),
@@ -92,14 +89,14 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
           document.body!.classList.remove(className);
         }
       },
-      eventTargetMatches: (target: EventTarget, selector: string) => matches(target, selector),
+      eventTargetMatches: (target: EventTarget, selector: string) => ponyfill.matches(target as Element, selector),
       trapFocus: () => this._focusTrapInstance!.activate(),
       releaseFocus: () => this._focusTrapInstance!.deactivate(),
       isContentScrollable: () =>
-        !!this._content && this._scrollable && isScrollable(this._content.elementRef.nativeElement),
-      areButtonsStacked: () => areTopsMisaligned(this._buttons),
+        !!this._content && this._scrollable && util.isScrollable(this._content.elementRef.nativeElement),
+      areButtonsStacked: () => util.areTopsMisaligned(this._buttons as any),
       getActionFromEvent: (event: Event) => {
-        const element = closest(event.target, `[${strings.ACTION_ATTRIBUTE}]`);
+        const element = ponyfill.closest(event.target as Element, `[${strings.ACTION_ATTRIBUTE}]`);
         return element && element.getAttribute(strings.ACTION_ATTRIBUTE);
       },
       clickDefaultButton: () => {
@@ -115,34 +112,26 @@ export class MdcDialogComponent implements AfterViewInit, OnDestroy {
         this._buttons.forEach(button => button.getHostElement().parentElement!.appendChild(button.getHostElement()));
       },
       notifyOpened: () => this.dialogRef.opened(),
-      notifyClosed: (action: string) => this._closeDialogByRef(action)
+      notifyOpening: () => { },
+      notifyClosed: (action: string) => this._closeDialogByRef(action),
+      notifyClosing: () => { }
     };
-  }
 
-  private _foundation!: {
-    init(): void,
-    destroy(): void,
-    open(): void,
-    close(action?: string): void,
-    setEscapeKeyAction(action: string): void,
-    setScrimClickAction(action: string): void,
-    setAutoStackButtons(autoStack: boolean): void,
-    layout(): void,
-    handleInteraction(evt: KeyboardEvent | MouseEvent): void,
-    handleDocumentKeydown(evt: KeyboardEvent): void
-  };
+    return new MDCDialogFoundation(adapter);
+  }
 
   constructor(
     private _ngZone: NgZone,
     private _platform: Platform,
-    private _elementRef: ElementRef<HTMLElement>,
+    public elementRef: ElementRef<HTMLElement>,
     public dialogRef: MdcDialogRef<MdcDialogComponent>) {
 
+    super(elementRef);
     this.config = dialogRef._portalInstance._config;
   }
 
   ngAfterViewInit(): void {
-    this._foundation = new MDCDialogFoundation(this._createAdapter());
+    this._foundation = this.getDefaultFoundation();
     this._focusTrapInstance = this._createFocusTrapInstance();
     this._initialize();
 

@@ -37,8 +37,14 @@ import {
 
 import { MdcTextFieldIcon } from './text-field-icon';
 
-import { MDCTextFieldHelperTextFoundation } from '@material/textfield/helper-text/index';
-import { MDCTextFieldFoundation } from '@material/textfield/index';
+import { MDCTextFieldHelperTextFoundation } from '@material/textfield/helper-text';
+import {
+  MDCTextFieldFoundation,
+  MDCTextFieldOutlineAdapter,
+  MDCTextFieldLabelAdapter,
+  MDCTextFieldRootAdapter,
+  MDCTextFieldLineRippleAdapter
+} from '@material/textfield';
 
 /**
  * Represents the default options for mdc-text-field that can be configured
@@ -321,7 +327,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
       this._icons.find(icon => icon.trailing) : undefined;
   }
 
-  private _createAdapter() {
+  private _createAdapter(): MDCTextFieldRootAdapter {
     return Object.assign({
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
@@ -335,7 +341,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
     );
   }
 
-  private _getInputAdapterMethods() {
+  private _getInputAdapterMethods(): any {
     return {
       getNativeInput: () => {
         return {
@@ -352,7 +358,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
     };
   }
 
-  private _getLabelAdapterMethods() {
+  private _getLabelAdapterMethods(): MDCTextFieldLabelAdapter {
     return {
       shakeLabel: (shouldShake: boolean) => this._getFloatingLabel().shake(shouldShake),
       floatLabel: (shouldFloat: boolean) => this._getFloatingLabel().float(shouldFloat),
@@ -361,7 +367,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
     };
   }
 
-  private _getLineRippleAdapterMethods() {
+  private _getLineRippleAdapterMethods(): MDCTextFieldLineRippleAdapter {
     return {
       activateLineRipple: () => {
         if (this._lineRipple) {
@@ -381,9 +387,9 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
     };
   }
 
-  private _getOutlineAdapterMethods() {
+  private _getOutlineAdapterMethods(): MDCTextFieldOutlineAdapter {
     return {
-      hasOutline: () => this._notchedOutline,
+      hasOutline: () => !!this._notchedOutline,
       notchOutline: (labelWidth: number) => this._notchedOutline!.notch(labelWidth),
       closeOutline: () => this._notchedOutline!.closeNotch()
     };
@@ -392,7 +398,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   /** Returns a map of all subcomponents to subfoundations.*/
   private _getFoundationMap() {
     return {
-      helperText: this._helperText || undefined,
+      helperText: this._helperText ? this._helperText.foundation : undefined,
       characterCounter: this.characterCounterFoundation()
     };
   }

@@ -14,10 +14,11 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
+import { MDCComponent } from '@angular-mdc/web/base';
 import { toNumber, toBoolean, Platform } from '@angular-mdc/web/common';
 
 import { strings } from '@material/slider/constants';
-import { MDCSliderFoundation } from '@material/slider/index';
+import { MDCSliderFoundation, MDCSliderAdapter } from '@material/slider';
 
 export const MDC_SLIDER_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -63,7 +64,9 @@ export class MdcSliderChange {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor {
+export class MdcSlider extends MDCComponent<any> implements AfterViewInit, OnDestroy, ControlValueAccessor {
+  private _initialized = false;
+
   @Input()
   get discrete(): boolean { return this._discrete; }
   set discrete(value: boolean) {
@@ -96,7 +99,7 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
 
     if (min !== this._min) {
       this._min = min;
-      if (this._foundation) {
+      if (this._foundation && this._initialized) {
         this._foundation.setMin(this._min);
       }
       this._changeDetectorRef.markForCheck();
@@ -112,7 +115,7 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
 
     if (max !== this._max) {
       this._max = max;
-      if (this._foundation) {
+      if (this._foundation && this._initialized) {
         this._foundation.setMax(this._max);
       }
       this._changeDetectorRef.markForCheck();
@@ -127,7 +130,7 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
 
     if (step !== this._step) {
       this._step = step;
-      if (this._foundation) {
+      if (this._foundation && this._initialized) {
         this._foundation.setStep(this._step);
       }
       this._changeDetectorRef.markForCheck();
@@ -164,8 +167,8 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
   /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
   _onTouched: () => any = () => { };
 
-  private _createAdapter() {
-    return {
+  getDefaultFoundation() {
+    const adapter: MDCSliderAdapter = {
       hasClass: (className: string) => this._getHostElement().classList.contains(className),
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
@@ -186,8 +189,8 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
         document.body.addEventListener(type, handler),
       deregisterBodyInteractionHandler: (type: string, handler: EventListener) =>
         document.body.removeEventListener(type, handler),
-      registerResizeHandler: (handler: EventListener) => window.addEventListener('resize', handler),
-      deregisterResizeHandler: (handler: EventListener) => window.removeEventListener('resize', handler),
+      registerResizeHandler: (handler: any) => window.addEventListener('resize', handler),
+      deregisterResizeHandler: (handler: any) => window.removeEventListener('resize', handler),
       notifyInput: () => this._onInput(),
       notifyChange: () => this._onChange(),
       setThumbContainerStyleProperty: (propertyName: string, value: string) =>
@@ -212,36 +215,28 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
       },
       setLastTrackMarkersStyleProperty: (propertyName: string, value: string) => {
         const lastTrackMarker =
-          this._getHostElement().querySelector(strings.LAST_TRACK_MARKER_SELECTOR);
-        lastTrackMarker.style.setProperty(propertyName, value);
+          this._getHostElement().querySelector<HTMLElement>(strings.LAST_TRACK_MARKER_SELECTOR);
+        lastTrackMarker!.style.setProperty(propertyName, value);
       },
       isRTL: () => getComputedStyle(this._getHostElement()).direction === 'rtl'
     };
+    return new MDCSliderFoundation(adapter);
   }
-
-  private _foundation!: {
-    init(): void,
-    destroy(): void,
-    setDisabled(disabled: boolean): void,
-    setValue(value: number): void,
-    getValue(): number,
-    setMax(max: number): void,
-    setMin(min: number): void,
-    setStep(step: number): void,
-    setupTrackMarker(): void
-  };
 
   constructor(
     private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
-    public elementRef: ElementRef) { }
+    public elementRef: ElementRef) {
+
+    super(elementRef);
+  }
 
   ngAfterViewInit(): void {
     if (this._platform.isBrowser) {
-      this._foundation = new MDCSliderFoundation(this._createAdapter());
       this._foundation.init();
       this._initializeSelection();
       this._foundation.setupTrackMarker();
+      this._initialized = true;
     }
   }
 
@@ -269,7 +264,7 @@ export class MdcSlider implements AfterViewInit, OnDestroy, ControlValueAccessor
     const newValue = toNumber(value, this.min);
     this._value = Math.round(newValue);
 
-    if (this._foundation) {
+    if (this._foundation && this._initialized) {
       this._foundation.setValue(this._value);
     }
 

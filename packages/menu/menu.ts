@@ -18,7 +18,7 @@ import { toBoolean } from '@angular-mdc/web/common';
 import { MdcList, MdcListItem, MdcListItemAction } from '@angular-mdc/web/list';
 import { MdcMenuSurfaceBase } from '@angular-mdc/web/menu-surface';
 
-import { MDCMenuFoundation } from '@material/menu/index';
+import { MDCMenuFoundation } from '@material/menu';
 
 export class MdcMenuSelectedEvent {
   constructor(
@@ -107,7 +107,11 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
         return selectedItem ? this._list.items.toArray().findIndex(_ => _.id === selectedItem.id) : -1;
       },
       notifySelected: (evtData: { index: number }) =>
-        this.selected.emit(new MdcMenuSelectedEvent(evtData.index, this._list.items.toArray()[evtData.index]))
+        this.selected.emit(new MdcMenuSelectedEvent(evtData.index, this._list.items.toArray()[evtData.index])),
+      getMenuItemCount: () => this._list.items.length,
+      focusItemAtIndex: (index: number) => this._list.items.toArray()[index].focus(),
+      isRootFocused: () => document.activeElement === this._getHostElement(),
+      focusRoot: () => this._getHostElement().focus()
     });
   }
 

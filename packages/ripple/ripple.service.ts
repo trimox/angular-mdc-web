@@ -8,12 +8,12 @@ import { takeUntil } from 'rxjs/operators';
 
 import { Platform } from '@angular-mdc/web/common';
 
+import { ponyfill } from '@material/dom';
 import {
   applyPassive,
-  getMatchesProperty,
   supportsCssVariables
 } from '@material/ripple/util';
-import { MDCRippleFoundation } from '@material/ripple/index';
+import { MDCRippleFoundation } from '@material/ripple';
 
 // Activation events registered on the root element of each instance for activation
 const ACTIVATION_EVENT_TYPES = ['touchstart', 'mousedown', 'keydown'];
@@ -59,27 +59,21 @@ export class MdcRipple implements OnDestroy {
   get activationEvents(): Observable<any> {
     return merge(...ACTIVATION_EVENT_TYPES.map(evt =>
       fromEvent(this._rippleConfig.activator ? this._rippleConfig.activator :
-        this._rippleConfig.surface, evt, applyPassive())));
+        this._rippleConfig.surface, evt, applyPassive() as EventListenerOptions)));
   }
 
   /** Combined stream of all of the de-activation events. */
   get pointerDeactivationEvents(): Observable<any> {
     return merge(...POINTER_DEACTIVATION_EVENT_TYPES.map(evt =>
       fromEvent(this._rippleConfig.activator ? this._rippleConfig.activator :
-        this._rippleConfig.surface, evt, applyPassive())));
+        this._rippleConfig.surface, evt, applyPassive() as EventListenerOptions)));
   }
 
   createAdapter() {
     return {
       browserSupportsCssVars: () => this._platform.isBrowser ? supportsCssVariables(window) : false,
       isUnbounded: () => this._rippleConfig.unbounded,
-      isSurfaceActive: () => {
-        if (!this._platform.isBrowser) { return false; }
-
-        const MATCHES = getMatchesProperty(HTMLElement.prototype);
-        return this._rippleConfig.activator ? this._rippleConfig.activator[MATCHES](':active') :
-          this._rippleConfig.surface[MATCHES](':active');
-      },
+      isSurfaceActive: () => ponyfill.matches(this._rippleConfig.surface, ':active'),
       isSurfaceDisabled: () => this._rippleConfig.disabled,
       addClass: (className: string) => this._rippleConfig.surface.classList.add(className),
       removeClass: (className: string) => this._rippleConfig.surface.classList.remove(className),

@@ -16,12 +16,13 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
+import { MDCComponent } from '@angular-mdc/web/base';
 import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 
 import { MdcFormField, MdcFormFieldControl } from '@angular-mdc/web/form-field';
 
-import { MDCSwitchFoundation } from '@material/switch/index';
+import { MDCSwitchFoundation, MDCSwitchAdapter } from '@material/switch/index';
 
 export const MDC_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
@@ -81,7 +82,8 @@ let nextUniqueId = 0;
     MdcRipple
   ]
 })
-export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, ControlValueAccessor, OnDestroy {
+export class MdcSwitch extends MDCComponent<any> implements MdcFormFieldControl<any>,
+  AfterViewInit, ControlValueAccessor, OnDestroy {
   private _uniqueId: string = `mdc-switch-${++nextUniqueId}`;
 
   @Input() id: string = this._uniqueId;
@@ -134,27 +136,22 @@ export class MdcSwitch implements MdcFormFieldControl<any>, AfterViewInit, Contr
 
   get inputId(): string { return `${this.id || this._uniqueId}-input`; }
 
-  private _createAdapter() {
-    return {
+  getDefaultFoundation() {
+    const adapter: MDCSwitchAdapter = {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
       setNativeControlChecked: (checked: boolean) => this._getInputElement().checked = checked,
       setNativeControlDisabled: (disabled: boolean) => this._getInputElement().disabled = disabled
     };
+    return new MDCSwitchFoundation(adapter);
   }
-
-  private _foundation: {
-    init(): void,
-    setChecked(checked: boolean): void,
-    setDisabled(disabled: boolean): void,
-    handleChange(evt: Event): void
-  } = new MDCSwitchFoundation(this._createAdapter());
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     public ripple: MdcRipple,
     public elementRef: ElementRef<HTMLElement>,
     @Optional() private _parentFormField: MdcFormField) {
+    super(elementRef);
 
     if (this._parentFormField) {
       _parentFormField.elementRef.nativeElement.classList.add('mdc-form-field');

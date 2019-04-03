@@ -44,9 +44,9 @@ import { MdcList, MdcListItemChange } from '@angular-mdc/web/list';
 
 import { MdcSelectIcon } from './select-icon';
 
-import { MDCSelectHelperTextFoundation } from '@material/select/helper-text/index';
+import { MDCSelectHelperTextFoundation } from '@material/select/helper-text';
 import { cssClasses } from '@material/select/constants';
-import { MDCSelectFoundation } from '@material/select/index';
+import { MDCSelectFoundation } from '@material/select';
 
 /**
  * Represents the default options for mdc-select that can be configured
@@ -392,7 +392,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
   /** Returns a map of all subcomponents to subfoundations.*/
   private _getFoundationMap() {
     return {
-      helperText: this._helperText || undefined
+      helperText: this._helperText ? this._helperText.foundation : undefined
     };
   }
 
@@ -400,7 +400,6 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
     setSelectedIndex(index: number): void,
     setValue(value: any): void,
     setDisabled(isDisabled: boolean): void,
-    updateDisabledStyle(disabled: boolean): void,
     notchOutline(openNotch: boolean): void,
     handleChange(didChange?: boolean): void,
     handleFocus(): void,

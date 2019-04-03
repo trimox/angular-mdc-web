@@ -16,11 +16,12 @@ import {
 import { merge, Observable, Subscription, Subject } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
+import { MDCComponent } from '@angular-mdc/web/base';
 import { toBoolean, Platform } from '@angular-mdc/web/common';
 import { MdcTabScroller, MdcTabScrollerAlignment } from '@angular-mdc/web/tab-scroller';
 import { MdcTab, MdcTabInteractedEvent, MDC_TAB_BAR_PARENT_COMPONENT } from '@angular-mdc/web/tab';
 
-import { MDCTabBarFoundation } from '@material/tab-bar/index';
+import { MDCTabBarFoundation, MDCTabBarAdapter } from '@material/tab-bar';
 
 export class MdcTabActivatedEvent {
   constructor(
@@ -43,7 +44,7 @@ export class MdcTabActivatedEvent {
   encapsulation: ViewEncapsulation.None,
   providers: [{ provide: MDC_TAB_BAR_PARENT_COMPONENT, useExisting: MdcTabBar }]
 })
-export class MdcTabBar implements AfterContentInit, OnDestroy {
+export class MdcTabBar extends MDCComponent<any> implements AfterContentInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
@@ -130,8 +131,8 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
     return merge(...this.tabs.map(tab => tab.interacted));
   }
 
-  private _createAdapter() {
-    return {
+  getDefaultFoundation() {
+    const adapter: MDCTabBarAdapter = {
       scrollTo: (scrollX: number) => this.tabScroller.scrollTo(scrollX),
       incrementScroll: (scrollXIncrement: number) => this.tabScroller.incrementScroll(scrollXIncrement),
       getScrollPosition: () => this.tabScroller.getScrollPosition(),
@@ -152,7 +153,7 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
       },
       focusTabAtIndex: (index: number) => this.tabs.toArray()[index].focus(),
       getTabIndicatorClientRectAtIndex: (previousActiveIndex: number) => {
-        if (!this._platform.isBrowser) { return; }
+        if (!this._platform.isBrowser) { return { height: 0, width: 0, bottom: 0, top: 0, left: 0, right: 0 }; }
         if (!this._indexIsInRange(previousActiveIndex)) {
           previousActiveIndex = this.activeTabIndex;
         }
@@ -168,21 +169,16 @@ export class MdcTabBar implements AfterContentInit, OnDestroy {
       notifyTabActivated: (index: number) =>
         this.activated.emit({ source: this, index: index, tab: this.tabs.toArray()[index] })
     };
+    return new MDCTabBarFoundation(adapter);
   }
-
-  private _foundation: {
-    init(): void,
-    activateTab(index: number): void,
-    handleKeyDown(evt: KeyboardEvent): void,
-    handleTabInteraction(evt: MdcTabInteractedEvent): void,
-    scrollIntoView(index: number): void,
-    setUseAutomaticActivation(useAutomaticActivation: boolean): void
-  } = new MDCTabBarFoundation(this._createAdapter());
 
   constructor(
     private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
-    public elementRef: ElementRef<HTMLElement>) { }
+    public elementRef: ElementRef<HTMLElement>) {
+
+    super(elementRef);
+  }
 
   ngAfterContentInit(): void {
     this._foundation.init();

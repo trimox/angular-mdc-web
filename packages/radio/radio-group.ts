@@ -37,7 +37,8 @@ let nextUniqueId = 0;
   selector: 'mdc-radio-group, [mdcRadioGroup]',
   exportAs: 'mdcRadioGroup',
   host: {
-    'role': 'radiogroup'
+    'role': 'radiogroup',
+    '[attr.name]': 'null'
   },
   template: '<ng-content></ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -147,8 +148,8 @@ export class MdcRadioGroup implements AfterContentInit, ControlValueAccessor {
     if (this._radios) {
       this._radios.forEach(radio => {
         radio.name = this.name;
+        radio.markForCheck();
       });
-      this._markRadiosForCheck();
     }
   }
 

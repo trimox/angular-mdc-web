@@ -22,7 +22,7 @@ import { Platform, toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcFormField, MdcFormFieldControl } from '@angular-mdc/web/form-field';
 
-import { MDCCheckboxFoundation } from '@material/checkbox/index';
+import { MDCCheckboxFoundation } from '@material/checkbox';
 
 let nextUniqueId = 0;
 

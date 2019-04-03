@@ -21,10 +21,10 @@ export class MdcSnackbarRef<T> {
   componentInstance: MdcSnackbarContainer;
 
   /** Whether the snackbar was dismissed using the action button. */
-  private _dismissedReason?: MdcSnackbarDismissReason;
+  private _dismissedReason?: MdcSnackbarDismissReason | string;
 
   /** Subject for notifying the user that the snackbar has been dismissed. */
-  private readonly _afterDismiss = new Subject<MdcSnackbarDismissReason>();
+  private readonly _afterDismiss = new Subject<MdcSnackbarDismissReason | string>();
 
   constructor(
     public containerInstance: MdcSnackbarContainer,
@@ -34,11 +34,11 @@ export class MdcSnackbarRef<T> {
   }
 
   /** Gets an observable that is notified when the snackbar is finished closing. */
-  afterDismiss(): Observable<MdcSnackbarDismissReason> {
+  afterDismiss(): Observable<MdcSnackbarDismissReason | string> {
     return this._afterDismiss.asObservable();
   }
 
-  dismiss(reason?: MdcSnackbarDismissReason): void {
+  dismiss(reason?: MdcSnackbarDismissReason | string): void {
     if (!this._afterDismiss.closed) {
       this._dismissedReason = reason;
       this._finishDismiss();

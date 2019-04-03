@@ -12,8 +12,10 @@ import {
 import { merge, fromEvent, Subject, Subscription, Observable } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
+import { MDCComponent } from '@angular-mdc/web/base';
 import { Platform } from '@angular-mdc/web/common';
 
+import { ponyfill } from '@material/dom/index';
 import { MDCTabScrollerFoundation, util } from '@material/tab-scroller/index';
 
 /** Possible alignments for tab scroller content. */
@@ -44,7 +46,7 @@ const SCROLLER_EVENTS = [
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class MdcTabScroller implements AfterViewInit, OnDestroy {
+export class MdcTabScroller extends MDCComponent<any> implements AfterViewInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
@@ -65,12 +67,9 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
     return merge(...SCROLLER_EVENTS.map(evt => fromEvent(this._getScrollArea(), evt)));
   }
 
-  private _createAdapter() {
-    return {
-      eventTargetMatchesSelector: (evtTarget: any, selector: string) => {
-        const MATCHES = util.getMatchesProperty(HTMLElement.prototype);
-        return evtTarget[MATCHES](selector);
-      },
+  getDefaultFoundation() {
+    const adapter: any = {
+      eventTargetMatchesSelector: (evtTarget: Element, selector: string) => ponyfill.matches(evtTarget, selector),
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
       addScrollAreaClass: (className: string) => this.area.nativeElement.classList.add(className),
@@ -91,22 +90,16 @@ export class MdcTabScroller implements AfterViewInit, OnDestroy {
       computeHorizontalScrollbarHeight: () =>
         this._platform.isBrowser ? util.computeHorizontalScrollbarHeight(document) : 0
     };
+    return new MDCTabScrollerFoundation(adapter);
   }
-
-  private _foundation: {
-    init(): void,
-    handleInteraction(): void,
-    handleTransitionEnd(evt: TransitionEvent): void,
-    getScrollPosition(): number,
-    offsetWidth(): number,
-    incrementScroll(scrollXIncrement: number): void,
-    scrollTo(scrollX: number): number
-  } = new MDCTabScrollerFoundation(this._createAdapter());
 
   constructor(
     private _ngZone: NgZone,
     private _platform: Platform,
-    public elementRef: ElementRef<HTMLElement>) { }
+    public elementRef: ElementRef<HTMLElement>) {
+
+    super(elementRef);
+  }
 
   ngAfterViewInit(): void {
     this._foundation.init();

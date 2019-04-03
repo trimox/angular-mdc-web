@@ -18,6 +18,7 @@ import {
 import { fromEvent, Subject, Subscription } from 'rxjs';
 import { takeUntil, startWith } from 'rxjs/operators';
 
+import { MDCComponent } from '@angular-mdc/web/base';
 import { Platform, toBoolean } from '@angular-mdc/web/common';
 
 import {
@@ -27,6 +28,8 @@ import {
 
 import { cssClasses } from '@material/top-app-bar/constants';
 import {
+  MDCTopAppBarAdapter,
+  MDCTopAppBarBaseFoundation,
   MDCTopAppBarFoundation,
   MDCShortTopAppBarFoundation,
   MDCFixedTopAppBarFoundation
@@ -52,11 +55,9 @@ export class MdcTopAppBarNavSelected {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy {
+export class MdcTopAppBar extends MDCComponent<any> implements AfterContentInit, AfterViewInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroyed = new Subject<void>();
-
-  private _isFoundationInit: boolean = false;
 
   @Input()
   get fixed(): boolean { return this._fixed; }
@@ -132,8 +133,8 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
 
   private _scrollTargetSubscription: Subscription | null = null;
 
-  private _createAdapter() {
-    return {
+  getDefaultFoundation(): MDCTopAppBarBaseFoundation | MDCFixedTopAppBarFoundation | MDCShortTopAppBarFoundation | any {
+    const adapter: MDCTopAppBarAdapter = {
       hasClass: (className: string) => this._getHostElement().classList.contains(className),
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => {
@@ -144,13 +145,17 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
       },
       setStyle: (property: string, value: string) => this._getHostElement().style.setProperty(property, value),
       getTopAppBarHeight: () => this._getHostElement().clientHeight,
+      registerNavigationIconInteractionHandler: () => { },
+      deregisterNavigationIconInteractionHandler: () => { },
       notifyNavigationIconClicked: () => this.navigationSelected.emit({ source: this }),
-      registerResizeHandler: (handler: EventListener) => {
+      registerScrollHandler: () => { },
+      deregisterScrollHandler: () => { },
+      registerResizeHandler: (handler: any) => {
         if (!this._platform.isBrowser) { return; }
 
         window.addEventListener('resize', handler);
       },
-      deregisterResizeHandler: (handler: EventListener) => {
+      deregisterResizeHandler: (handler: any) => {
         if (!this._platform.isBrowser) { return; }
 
         window.removeEventListener('resize', handler);
@@ -162,21 +167,31 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
       },
       getTotalActionItems: () => this.actions ? this.actions.length : 0
     };
-  }
 
-  private _foundation!: {
-    init(): void,
-    destroy(): void,
-    fixedScrollHandler_(): void,
-    shortAppBarScrollHandler_(): void,
-    topAppBarScrollHandler_(): void
-  };
+    let foundation: MDCTopAppBarBaseFoundation;
+    if (!this.elementRef) {
+      return new MDCTopAppBarBaseFoundation(adapter);
+    }
+
+    if (this.short) {
+      foundation = new MDCShortTopAppBarFoundation(adapter);
+    } else if (this.fixed) {
+      foundation = new MDCFixedTopAppBarFoundation(adapter);
+    } else {
+      foundation = new MDCTopAppBarFoundation(adapter);
+    }
+
+    return foundation;
+  }
 
   constructor(
     private _ngZone: NgZone,
     private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
-    public elementRef: ElementRef) { }
+    public elementRef: ElementRef) {
+
+    super(elementRef);
+  }
 
   ngAfterContentInit(): void {
     this.actions.changes.pipe(startWith(null), takeUntil(this._destroyed))
@@ -188,9 +203,7 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
   }
 
   ngAfterViewInit(): void {
-    if (!this._isFoundationInit) {
-      this._initFoundation();
-    }
+    this._initFoundation();
   }
 
   ngOnDestroy(): void {
@@ -204,11 +217,11 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
   }
 
   /** Sets the top app bar to fixed or not. */
-  setFixed(fixed: boolean, isUserInput: boolean = true): void {
+  setFixed(fixed: boolean, isUserInput: boolean = false): void {
     this._fixed = toBoolean(fixed);
 
     if (this.fixed && this.short) {
-      this.setShort(false, false);
+      this.setShort(false);
     }
 
     if (isUserInput) {
@@ -217,11 +230,11 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
   }
 
   /** Sets the top app bar to prominent or not. */
-  setProminent(prominent: boolean, isUserInput: boolean = true): void {
+  setProminent(prominent: boolean, isUserInput: boolean = false): void {
     this._prominent = toBoolean(prominent);
 
     if (this.prominent && this.short) {
-      this.setShort(false, false);
+      this.setShort(false);
     }
 
     if (isUserInput) {
@@ -230,11 +243,11 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
   }
 
   /** Sets the top app bar to dense variant. */
-  setDense(dense: boolean, isUserInput: boolean = true): void {
+  setDense(dense: boolean, isUserInput: boolean = false): void {
     this._dense = toBoolean(dense);
 
     if (this.dense && this.short) {
-      this.setShort(false, false);
+      this.setShort(false);
     }
 
     if (isUserInput) {
@@ -243,15 +256,15 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
   }
 
   /** Sets the top app bar to short or not. */
-  setShort(short: boolean, isUserInput: boolean = true): void {
+  setShort(short: boolean, isUserInput: boolean = false): void {
     this._short = toBoolean(short);
 
     if (this.short) {
-      this.setProminent(false, false);
-      this.setDense(false, false);
-      this.setFixed(false, false);
+      this.setProminent(false);
+      this.setDense(false);
+      this.setFixed(false);
     } else {
-      this.setShortCollapsed(false, false);
+      this.setShortCollapsed(false);
     }
 
     if (isUserInput) {
@@ -260,11 +273,11 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
   }
 
   /** Sets the top app bar to short-collapsed or not. */
-  setShortCollapsed(shortCollapsed: boolean, isUserInput: boolean = true): void {
+  setShortCollapsed(shortCollapsed: boolean, isUserInput: boolean = false): void {
     this._shortCollapsed = toBoolean(shortCollapsed);
 
     if (this.shortCollapsed && !this.short) {
-      this.setShort(true, false);
+      this.setShort(true);
     }
 
     if (isUserInput) {
@@ -282,16 +295,8 @@ export class MdcTopAppBar implements AfterContentInit, AfterViewInit, OnDestroy 
     this._getHostElement().style.top = '0px';
     this._resetFixedShort();
 
-    if (this.short) {
-      this._foundation = new MDCShortTopAppBarFoundation(this._createAdapter());
-    } else if (this.fixed) {
-      this._foundation = new MDCFixedTopAppBarFoundation(this._createAdapter());
-    } else {
-      this._foundation = new MDCTopAppBarFoundation(this._createAdapter());
-    }
-
+    this._foundation = this.getDefaultFoundation();
     this._foundation.init();
-    this._isFoundationInit = true;
 
     this._initTopAppBar();
     this._initScrollHandler();

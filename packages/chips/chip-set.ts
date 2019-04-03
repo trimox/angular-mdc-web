@@ -17,6 +17,7 @@ import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@an
 import { merge, Observable, Subject, Subscription } from 'rxjs';
 import { startWith, takeUntil } from 'rxjs/operators';
 
+import { MDCComponent } from '@angular-mdc/web/base';
 import { toBoolean } from '@angular-mdc/web/common';
 
 import {
@@ -27,7 +28,7 @@ import {
   MDC_CHIPSET_PARENT_COMPONENT
 } from './chip';
 
-import { MDCChipSetFoundation } from '@material/chips/chip-set/index';
+import { MDCChipSetFoundation, MDCChipSetAdapter } from '@material/chips/chip-set';
 
 export class MdcChipSetChange {
   constructor(
@@ -50,7 +51,7 @@ export class MdcChipSetChange {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{ provide: MDC_CHIPSET_PARENT_COMPONENT, useExisting: MdcChipSet }]
 })
-export class MdcChipSet implements AfterContentInit, OnDestroy, ControlValueAccessor {
+export class MdcChipSet extends MDCComponent<any> implements AfterContentInit, OnDestroy, ControlValueAccessor {
   /** Emits whenever the component is destroyed. */
   private _destroyed = new Subject<void>();
 
@@ -134,8 +135,8 @@ export class MdcChipSet implements AfterContentInit, OnDestroy, ControlValueAcce
     return merge(...this.chips.map(chip => chip.removed));
   }
 
-  private _createAdapter() {
-    return {
+  getDefaultFoundation() {
+    const adapter: MDCChipSetAdapter = {
       hasClass: (className: string) => this._getHostElement().classList.contains(className),
       removeChip: (chipId: string) => {
         const index = this._findChipIndex(chipId);
@@ -148,17 +149,8 @@ export class MdcChipSet implements AfterContentInit, OnDestroy, ControlValueAcce
         }
       }
     };
+    return new MDCChipSetFoundation(adapter);
   }
-
-  private _foundation: {
-    init(): void,
-    destroy(): void,
-    getSelectedChipIds(): string[],
-    select(chipId: string): void,
-    handleChipInteraction(chipId: string): void,
-    handleChipRemoval(chipId: string): void,
-    handleChipSelection(chipId: string, selected: boolean): void
-  } = new MDCChipSetFoundation(this._createAdapter());
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
@@ -167,14 +159,14 @@ export class MdcChipSet implements AfterContentInit, OnDestroy, ControlValueAcce
     @Optional() _parentFormGroup: FormGroupDirective,
     @Optional() public ngControl: NgControl) {
 
+    super(elementRef);
+
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
   }
 
   ngAfterContentInit(): void {
-    this._foundation.init();
-
     // When chips change, re-subscribe
     this.chips.changes.pipe(startWith(null), takeUntil(this._destroyed))
       .subscribe(() => {
@@ -193,8 +185,6 @@ export class MdcChipSet implements AfterContentInit, OnDestroy, ControlValueAcce
     if (this._chipRemoveSubscription) {
       this._chipRemoveSubscription.unsubscribe();
     }
-
-    this._foundation.destroy();
   }
 
   // Implemented as part of ControlValueAccessor.
@@ -214,7 +204,7 @@ export class MdcChipSet implements AfterContentInit, OnDestroy, ControlValueAcce
     this._onTouched = fn;
   }
 
-  getSelectedChipIds(): string[] {
+  getSelectedChipIds(): ReadonlyArray<string> {
     return this._foundation.getSelectedChipIds();
   }
 

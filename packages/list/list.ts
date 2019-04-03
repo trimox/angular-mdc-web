@@ -16,13 +16,14 @@ import {
 import { merge, Observable, Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
+import { MDCComponent } from '@angular-mdc/web/base';
 import { toBoolean, Platform } from '@angular-mdc/web/common';
 
 import { MdcListItem, MdcListSelectionChange, MDC_LIST_PARENT_COMPONENT } from './list-item';
 
 import { cssClasses, strings } from '@material/list/constants';
-import { matches } from '@material/dom/ponyfill';
-import { MDCListFoundation } from '@material/list/index';
+import { ponyfill } from '@material/dom/index';
+import { MDCListFoundation, MDCListAdapter } from '@material/list/index';
 
 /** Change event that is being fired whenever the selected state of an option changes. */
 export class MdcListItemChange {
@@ -87,7 +88,7 @@ export class MdcListGroupSubheader {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{ provide: MDC_LIST_PARENT_COMPONENT, useExisting: MdcList }]
 })
-export class MdcList implements AfterViewInit, OnDestroy {
+export class MdcList extends MDCComponent<any> implements AfterViewInit, OnDestroy {
   @Input()
   get twoLine(): boolean { return this._twoLine; }
   set twoLine(value: boolean) {
@@ -211,8 +212,8 @@ export class MdcList implements AfterViewInit, OnDestroy {
     return merge(...this.items.map(item => item.selectionChange));
   }
 
-  private _createAdapter() {
-    return {
+  getDefaultFoundation() {
+    const adapter: MDCListAdapter = {
       getListItemCount: () => this.items.length,
       getFocusedElementIndex: () => {
         if (!this._platform.isBrowser && document.activeElement!) { return -1; }
@@ -224,8 +225,6 @@ export class MdcList implements AfterViewInit, OnDestroy {
           item.getListItemElement().setAttribute(attr, value);
         }
       },
-      removeAttributeForElementIndex: (index: number, attr: string) =>
-        this.items.toArray()[index].getListItemElement().removeAttribute(attr),
       addClassForElementIndex: (index: number, className: string) =>
         this.items.toArray()[index].getListItemElement().classList.add(className),
       removeClassForElementIndex: (index: number, className: string) => {
@@ -234,8 +233,10 @@ export class MdcList implements AfterViewInit, OnDestroy {
           item.getListItemElement().classList.remove(className);
         }
       },
+      getAttributeForElementIndex: (index, attr) =>
+        this.items.toArray()[index].getListItemElement().getAttribute(attr),
       focusItemAtIndex: (index: number) => this.focusItemAtIndex(index),
-      setTabIndexForListItemChildren: (listItemIndex: number, tabIndexValue: number) => {
+      setTabIndexForListItemChildren: (listItemIndex: number, tabIndexValue: string) => {
         const listItemChildren = [].slice.call(this.items.toArray()[listItemIndex].getListItemElement()
           .querySelectorAll(strings.CHILD_ELEMENTS_TO_TOGGLE_TABINDEX));
         listItemChildren.forEach((ele: Element) => ele.setAttribute('tabindex', `${tabIndexValue}`));
@@ -250,18 +251,18 @@ export class MdcList implements AfterViewInit, OnDestroy {
       },
       isCheckboxCheckedAtIndex: (index: number) => {
         const listItem = this.items.toArray()[index].getListItemElement();
-        const toggleEl = listItem.querySelector(strings.CHECKBOX_SELECTOR);
-        return toggleEl.checked;
+        const toggleEl = listItem.querySelector<HTMLInputElement>(strings.CHECKBOX_SELECTOR);
+        return toggleEl!.checked;
       },
       setCheckedCheckboxOrRadioAtIndex: (index: number, isChecked: boolean) => {
         const listItem = this.items.toArray()[index].getListItemElement();
-        const toggleEl = listItem.querySelector(strings.CHECKBOX_RADIO_SELECTOR);
-        toggleEl.checked = isChecked;
+        const toggleEl = listItem.querySelector<HTMLInputElement>(strings.CHECKBOX_RADIO_SELECTOR);
+        toggleEl!.checked = isChecked;
 
         if (this._platform.isBrowser) {
           const event = document.createEvent('Event');
           event.initEvent('change', true, true);
-          toggleEl.dispatchEvent(event);
+          toggleEl!.dispatchEvent(event);
         }
       },
       isFocusInsideList: () => this._platform.isBrowser ?
@@ -270,31 +271,16 @@ export class MdcList implements AfterViewInit, OnDestroy {
         this.actionEvent.emit({ index: index });
       }
     };
+    return new MDCListFoundation(adapter);
   }
-
-  private _foundation: {
-    init(): void,
-    destroy(): void,
-    layout(): void,
-    setVerticalOrientation(vertical: boolean): void,
-    setWrapFocus(wrapFocus: boolean): void,
-    handleClick(index: number, toggleCheckbox: boolean): void,
-    handleKeydown(evt: KeyboardEvent, isRootListItem: boolean, listItemIndex: number): void,
-    handleFocusIn(evt: FocusEvent, listItemIndex: number): void,
-    handleFocusOut(evt: FocusEvent, listItemIndex: number): void,
-    focusNextElement(index: number): number,
-    focusPrevElement(index: number): number,
-    focusFirstElement(): number,
-    focusLastElement(): number,
-    setSelectedIndex(index: number): void,
-    setSingleSelection(isSingleSelectionList: boolean): void,
-    setUseActivatedClass(useActivated: boolean): void
-  } = new MDCListFoundation(this._createAdapter());
 
   constructor(
     private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
-    public elementRef: ElementRef) { }
+    public elementRef: ElementRef) {
+
+    super(elementRef);
+  }
 
   ngAfterViewInit(): void {
     this._foundation.init();
@@ -468,6 +454,7 @@ export class MdcList implements AfterViewInit, OnDestroy {
 
   _handleClickEvent(evt: MouseEvent): void {
     const index = this._getListItemIndexByEvent(evt);
+    const target = evt.target as Element;
 
     const listItem = this._getListItemByEventTarget(evt.target!);
     if (listItem && listItem.disabled) {
@@ -475,7 +462,7 @@ export class MdcList implements AfterViewInit, OnDestroy {
     }
 
     // Toggle the checkbox only if it's not the target of the event, or the checkbox will have 2 change events.
-    const toggleCheckbox = !matches((evt.target), strings.CHECKBOX_RADIO_SELECTOR);
+    const toggleCheckbox = !ponyfill.matches(target, strings.CHECKBOX_RADIO_SELECTOR);
     this._foundation.handleClick(index, toggleCheckbox);
   }
 

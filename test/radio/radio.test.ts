@@ -583,7 +583,7 @@ describe('MdcRadio', () => {
       const radioButtonEl =
         predefinedFixture.debugElement.query(By.css('.mdc-radio')).nativeElement;
 
-      expect(radioButtonEl.getAttribute('tabindex')).toBeFalsy();
+      expect(radioButtonEl.getAttribute('tabindex')).toBe('-1');
     });
 
   });

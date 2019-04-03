@@ -10,11 +10,12 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
+import { MDCComponent } from '@angular-mdc/web/base';
 import { MdcSnackbarRef, MdcSnackbarDismissReason } from './snackbar-ref';
 import { MDC_SNACKBAR_DATA, MdcSnackbarConfig } from './snackbar-config';
 
 import { announce } from '@material/snackbar/util';
-import { MDCSnackbarFoundation } from '@material/snackbar/index';
+import { MDCSnackbarFoundation, MDCSnackbarAdapter } from '@material/snackbar';
 
 @Component({
   moduleId: module.id,
@@ -43,38 +44,33 @@ import { MDCSnackbarFoundation } from '@material/snackbar/index';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class MdcSnackbarComponent implements OnInit, OnDestroy {
+export class MdcSnackbarComponent extends MDCComponent<any> implements OnInit, OnDestroy {
   @ViewChild('label') label!: ElementRef<HTMLElement>;
   @ViewChild('action') action?: ElementRef<HTMLButtonElement>;
   @ViewChild('dismiss') dismiss?: ElementRef<HTMLButtonElement>;
 
   get config(): MdcSnackbarConfig { return this.snackbarRef.componentInstance.snackbarConfig; }
 
-  private _createAdapter() {
-    return {
+  getDefaultFoundation() {
+    const adapter: MDCSnackbarAdapter = {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
       announce: () => announce(this.label.nativeElement),
-      notifyClosed: (reason: MdcSnackbarDismissReason) => this.snackbarRef.dismiss(reason)
+      notifyClosing: () => { },
+      notifyOpened: () => { },
+      notifyOpening: () => { },
+      notifyClosed: (reason: MdcSnackbarDismissReason | string) => this.snackbarRef.dismiss(reason)
     };
+    return new MDCSnackbarFoundation(adapter);
   }
-
-  private _foundation: {
-    destroy(): void,
-    open(): void,
-    close(reason?: any): void,
-    setTimeoutMs(timeoutMs: number): void,
-    setCloseOnEscape(closeOnEscape: boolean): void,
-    handleKeyDown(evt: KeyboardEvent): void,
-    handleActionButtonClick(evt: MouseEvent): void,
-    handleActionIconClick(evt: MouseEvent): void
-  } = new MDCSnackbarFoundation(this._createAdapter());
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef<HTMLElement>,
     public snackbarRef: MdcSnackbarRef<MdcSnackbarComponent>,
-    @Inject(MDC_SNACKBAR_DATA) public data: any) { }
+    @Inject(MDC_SNACKBAR_DATA) public data: any) {
+    super(elementRef);
+  }
 
   ngOnInit(): void {
     this._changeDetectorRef.detectChanges();

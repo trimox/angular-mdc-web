@@ -119,12 +119,12 @@
     ],
 
     // Codelyzer
-    "banana-in-box": true,
-    "contextual-life-cycle": true,
-    "decorator-not-allowed": true,
+    "template-banana-in-box": true,
+    "contextual-lifecycle": true,
+    "contextual-decorator": true,
     "no-output-on-prefix": true,
-    "templates-no-negated-async": true,
-    "use-life-cycle-interface": true,
+    "template-no-negated-async": true,
+    "use-lifecycle-interface": true,
 
     "directive-selector": [
       false,
@@ -136,9 +136,9 @@
       "element",
       "kebab-case"
     ],
-    "use-input-property-decorator": false,
-    "use-output-property-decorator": true,
-    "use-host-property-decorator": false,
+    "use-inputs-property-decorator": false,
+    "no-outputs-metadata-property": true,
+    "use-host-metadata-property": false,
     "no-input-rename": false,
     "no-output-rename": false,
     "use-pipe-transform-interface": true,

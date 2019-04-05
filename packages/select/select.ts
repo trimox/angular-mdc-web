@@ -203,7 +203,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
           this._changeDetectorRef.markForCheck();
         }
 
-        if (this.ngControl) {
+        if (this.ngControl && !this._isEnhancedVariant()) {
           this._required ? this._getInputElement().setAttribute('required', '') :
             this._getInputElement().removeAttribute('required');
         }

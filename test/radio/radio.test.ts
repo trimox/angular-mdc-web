@@ -18,6 +18,7 @@ describe('MdcRadio', () => {
         StandaloneRadioButtons,
         InterleavedRadioGroup,
         TranscludingWrapper,
+        MultipleFormsRadioButtons,
         RadioButtonWithPredefinedTabindex,
       ]
     });
@@ -57,6 +58,11 @@ describe('MdcRadio', () => {
       for (const radio of radioInstances) {
         expect(radio.name).toBe(groupInstance.name);
       }
+    });
+
+    it('should clear the name attribute from the radio group host node', () => {
+      expect(groupInstance.name).toBeTruthy();
+      expect(groupDebugElement.nativeElement.getAttribute('name')).toBeFalsy();
     });
 
     // it('should coerce the disabled binding on the radio group', () => {
@@ -552,6 +558,9 @@ describe('MdcRadio', () => {
       expect(radio.hasAttribute('name')).toBe(false);
     });
 
+    it('should clear the name attribute from the radio host node', () => {
+      expect(radioDebugElements.every(el => !el.nativeElement.getAttribute('name'))).toBe(true);
+    });
   });
 
   describe('with tabindex', () => {
@@ -607,6 +616,59 @@ describe('MdcRadio', () => {
 
     it('should initialize selection of radios based on model value', () => {
       expect(groupInstance.selected).toBe(radioInstances[2]);
+    });
+  });
+
+  describe('groups inside different forms', () => {
+    let fixture: ComponentFixture<MultipleFormsRadioButtons>;
+    let testComponent: MultipleFormsRadioButtons;
+    let radioDebugElements: DebugElement[];
+    let radioInstances: MdcRadio[];
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(MultipleFormsRadioButtons);
+      fixture.detectChanges();
+
+      testComponent = fixture.debugElement.componentInstance;
+
+      radioDebugElements = fixture.debugElement.queryAll(By.directive(MdcRadio));
+      radioInstances = radioDebugElements.map(debugEl => debugEl.componentInstance);
+    });
+
+    it('should select different values even if they have the same name', () => {
+      radioInstances[2].checked = true;
+      radioInstances[3].checked = true;
+      radioInstances[8].checked = true;
+      fixture.detectChanges();
+
+      expect(radioInstances[0].checked).toBeFalsy();
+      expect(radioInstances[1].checked).toBeFalsy();
+      expect(radioInstances[2].checked).toBeTruthy();
+
+      expect(radioInstances[3].checked).toBeTruthy();
+      expect(radioInstances[4].checked).toBeFalsy();
+      expect(radioInstances[5].checked).toBeFalsy();
+
+      expect(radioInstances[6].checked).toBeFalsy();
+      expect(radioInstances[7].checked).toBeFalsy();
+      expect(radioInstances[8].checked).toBeTruthy();
+
+      radioInstances[1].checked = true;
+      radioInstances[5].checked = true;
+      radioInstances[6].checked = true;
+      fixture.detectChanges();
+
+      expect(radioInstances[0].checked).toBeFalsy();
+      expect(radioInstances[1].checked).toBeTruthy();
+      expect(radioInstances[2].checked).toBeFalsy();
+
+      expect(radioInstances[3].checked).toBeFalsy();
+      expect(radioInstances[4].checked).toBeFalsy();
+      expect(radioInstances[5].checked).toBeTruthy();
+
+      expect(radioInstances[6].checked).toBeTruthy();
+      expect(radioInstances[7].checked).toBeFalsy();
+      expect(radioInstances[8].checked).toBeFalsy();
     });
   });
 });
@@ -748,3 +810,23 @@ class TranscludingWrapper { }
   template: `<mdc-radio tabindex="0"></mdc-radio>`
 })
 class RadioButtonWithPredefinedTabindex { }
+
+@Component({
+  template: `
+    <form>
+      <mdc-radio name="season" value="spring">Spring</mdc-radio>
+      <mdc-radio name="season" value="summer">Summer</mdc-radio>
+      <mdc-radio name="season" value="autum">Autumn</mdc-radio>
+    </form>
+    <form>
+      <mdc-radio name="season" value="spring">Spring</mdc-radio>
+      <mdc-radio name="season" value="summer">Summer</mdc-radio>
+      <mdc-radio name="season" value="autum">Autumn</mdc-radio>
+    </form>
+    <form>
+      <mdc-radio name="season" value="spring">Spring</mdc-radio>
+      <mdc-radio name="season" value="summer">Summer</mdc-radio>
+      <mdc-radio name="season" value="autum">Autumn</mdc-radio>
+    </form>`
+})
+class MultipleFormsRadioButtons { }

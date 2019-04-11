@@ -560,7 +560,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
       this._getInputElement().value = this._value;
     }
 
-    this._foundation.setValue(this._value);
+    this._foundation.setValue(this._value || '');
 
     if (isUserInput) {
       this._onChange(this._value);

@@ -1,3 +1,30 @@
+# [1.0.0](https://github.com/trimox/angular-mdc-web/compare/v0.44.0...v1.0.0) (2019-04-11)
+
+
+### Bug Fixes
+
+* **demos:** Scroll behavior for standard top-app-bar ([#1827](https://github.com/trimox/angular-mdc-web/issues/1827)) ([eb9e8f5](https://github.com/trimox/angular-mdc-web/commit/eb9e8f5)), closes [#1826](https://github.com/trimox/angular-mdc-web/issues/1826)
+* **radio:** Should set default checked with multiple groups ([#1857](https://github.com/trimox/angular-mdc-web/issues/1857)) ([fa89c0e](https://github.com/trimox/angular-mdc-web/commit/fa89c0e)), closes [#1834](https://github.com/trimox/angular-mdc-web/issues/1834)
+* **select:** Enhanced variant exception using FormControl ([#1856](https://github.com/trimox/angular-mdc-web/issues/1856)) ([3a9f95c](https://github.com/trimox/angular-mdc-web/commit/3a9f95c)), closes [#1852](https://github.com/trimox/angular-mdc-web/issues/1852)
+* **text-field:** Move init to AfterContentInit for transcluded content ([#1830](https://github.com/trimox/angular-mdc-web/issues/1830)) ([c18afcd](https://github.com/trimox/angular-mdc-web/commit/c18afcd)), closes [#1828](https://github.com/trimox/angular-mdc-web/issues/1828)
+
+
+### Features
+
+* Upgrade to material-components-web v1.1.1 ([#1845](https://github.com/trimox/angular-mdc-web/issues/1845)) ([2a6b2df](https://github.com/trimox/angular-mdc-web/commit/2a6b2df)), closes [#1842](https://github.com/trimox/angular-mdc-web/issues/1842)
+* Upgrade to material-components-web v1.1.0 ([#1860](https://github.com/trimox/angular-mdc-web/issues/1860)) ([e66f167](https://github.com/trimox/angular-mdc-web/commit/e66f167)), closes [/github.com/material-components/material-components-web/blob/master/CHANGELOG.md#111-2019-04-08](https://github.com//github.com/material-components/material-components-web/blob/master/CHANGELOG.md/issues/111-2019-04-08)
+* Upgrade to material-components-web v1.0.0 ([#1845](https://github.com/trimox/angular-mdc-web/issues/1845)) ([2a6b2df](https://github.com/trimox/angular-mdc-web/commit/2a6b2df)), closes [#1842](https://github.com/trimox/angular-mdc-web/issues/1842)
+* **base:** Add MDC component and foundation base classes ([#1844](https://github.com/trimox/angular-mdc-web/issues/1844)) ([a304d16](https://github.com/trimox/angular-mdc-web/commit/a304d16)), closes [#1843](https://github.com/trimox/angular-mdc-web/issues/1843)
+
+### `material-components-web` improvements
+* v1.1.1
+https://github.com/material-components/material-components-web/blob/master/CHANGELOG.md#111-2019-04-08
+* v1.1.0
+https://github.com/material-components/material-components-web/blob/master/CHANGELOG.md#110-2019-03-26
+* v1.0.0
+https://github.com/material-components/material-components-web/blob/master/CHANGELOG.md#100-2019-03-06
+
+
 # [0.44.0](https://github.com/trimox/angular-mdc-web/compare/v0.43.7...v0.44.0) (2019-02-22)
 
 

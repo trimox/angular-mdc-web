@@ -23,7 +23,7 @@ import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcTabIndicator } from '@angular-mdc/web/tab-indicator';
 
-import { MDCTabFoundation } from '@material/tab/index';
+import { MDCTabFoundation } from '@material/tab';
 
 /**
  * Describes a parent MdcTabBar component.

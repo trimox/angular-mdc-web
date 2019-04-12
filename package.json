@@ -8,7 +8,7 @@
     "url": "https://github.com/trimox/angular-mdc-web.git"
   },
   "license": "MIT",
-  "version": "0.44.0",
+  "version": "1.0.0",
   "engines": {
     "node": ">= 9.11.1"
   },
@@ -72,11 +72,11 @@
     "karma-webpack": "^3.0.5",
     "magic-string": "^0.25.2",
     "node-sass": "^4.9.2",
-    "rollup": "^1.8.0",
+    "rollup": "^1.10.0",
     "rollup-plugin-alias": "^1.5.1",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-commonjs": "^9.3.4",
-    "rollup-plugin-node-resolve": "^4.0.1",
+    "rollup-plugin-node-resolve": "^4.2.3",
     "run-sequence": "^2.2.1",
     "sorcery": "^0.10.0",
     "stylelint": "^9.10.1",

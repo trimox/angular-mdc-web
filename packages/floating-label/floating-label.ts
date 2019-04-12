@@ -10,7 +10,7 @@ import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
 import { MDCComponent } from '@angular-mdc/web/base';
-import { MDCFloatingLabelFoundation } from '@material/floating-label/index';
+import { MDCFloatingLabelFoundation } from '@material/floating-label';
 
 @Directive({
   selector: 'label[mdcFloatingLabel], mdc-floating-label',

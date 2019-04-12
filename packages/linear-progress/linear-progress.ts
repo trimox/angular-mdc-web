@@ -10,7 +10,7 @@ import {
 import { MDCComponent } from '@angular-mdc/web/base';
 import { toBoolean, toNumber } from '@angular-mdc/web/common';
 
-import { MDCLinearProgressFoundation, MDCLinearProgressAdapter } from '@material/linear-progress/index';
+import { MDCLinearProgressFoundation, MDCLinearProgressAdapter } from '@material/linear-progress';
 
 @Component({
   moduleId: module.id,

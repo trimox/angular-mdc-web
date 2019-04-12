@@ -8,12 +8,14 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+
+import { MDCComponent } from '@angular-mdc/web/base';
 import { toBoolean, Platform } from '@angular-mdc/web/common';
 
 import {
   MDCSlidingTabIndicatorFoundation,
   MDCFadingTabIndicatorFoundation
-} from '@material/tab-indicator/index';
+} from '@material/tab-indicator';
 
 @Component({
   moduleId: module.id,
@@ -32,7 +34,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class MdcTabIndicator implements AfterViewInit {
+export class MdcTabIndicator extends MDCComponent<any> implements AfterViewInit {
   private _isFoundationInit: boolean = false;
 
   @Input()
@@ -67,31 +69,31 @@ export class MdcTabIndicator implements AfterViewInit {
 
   @ViewChild('content') content!: ElementRef<HTMLElement>;
 
-  private _createAdapter() {
-    return {
+  getDefaultFoundation() {
+    const adapter: any = {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
       computeContentClientRect: () => {
-        if (!this._platform.isBrowser) { return; }
+        if (!this._platform.isBrowser) { return {}; }
 
         return this.content.nativeElement.getBoundingClientRect();
       },
       setContentStyleProperty: (propName: string, value: string) =>
         this.content.nativeElement.style.setProperty(propName, value)
     };
+    if (this._fade) {
+      return new MDCFadingTabIndicatorFoundation(adapter);
+    } else {
+      return new MDCSlidingTabIndicatorFoundation(adapter);
+    }
   }
-
-  private _foundation!: {
-    init(): void,
-    computeContentClientRect(): ClientRect,
-    activate(previousIndicatorClientRect: ClientRect): void,
-    deactivate(): void
-  };
 
   constructor(
     private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
-    public elementRef: ElementRef<HTMLElement>) { }
+    public elementRef: ElementRef<HTMLElement>) {
+    super(elementRef);
+  }
 
   ngAfterViewInit(): void {
     if (!this._isFoundationInit) {
@@ -117,12 +119,6 @@ export class MdcTabIndicator implements AfterViewInit {
   }
 
   private _initFoundation(): void {
-    if (this.fade) {
-      this._foundation = new MDCFadingTabIndicatorFoundation(this._createAdapter());
-    } else {
-      this._foundation = new MDCSlidingTabIndicatorFoundation(this._createAdapter());
-    }
-
     this._foundation.init();
     this._isFoundationInit = true;
     this._changeDetectorRef.markForCheck();

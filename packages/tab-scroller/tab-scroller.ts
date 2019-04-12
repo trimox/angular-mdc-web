@@ -15,8 +15,8 @@ import { filter, takeUntil } from 'rxjs/operators';
 import { MDCComponent } from '@angular-mdc/web/base';
 import { Platform } from '@angular-mdc/web/common';
 
-import { ponyfill } from '@material/dom/index';
-import { MDCTabScrollerFoundation, util } from '@material/tab-scroller/index';
+import { ponyfill } from '@material/dom';
+import { MDCTabScrollerFoundation, util } from '@material/tab-scroller';
 
 /** Possible alignments for tab scroller content. */
 export type MdcTabScrollerAlignment = 'start' | 'center' | 'end' | null;

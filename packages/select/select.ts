@@ -63,7 +63,7 @@ export interface MdcSelectDefaultOptions {
 export const MDC_SELECT_DEFAULT_OPTIONS =
   new InjectionToken<MdcSelectDefaultOptions>('MDC_SELECT_DEFAULT_OPTIONS');
 
-export class MdcSelectBase {
+class MdcSelectBase {
   constructor(
     public _defaultErrorStateMatcher: ErrorStateMatcher,
     public _parentForm: NgForm,
@@ -71,7 +71,7 @@ export class MdcSelectBase {
     public ngControl: NgControl) { }
 }
 
-export const _MdcSelectMixinBase: CanUpdateErrorStateCtor & typeof MdcSelectBase =
+const _MdcSelectMixinBase: CanUpdateErrorStateCtor & typeof MdcSelectBase =
   mixinErrorState(MdcSelectBase);
 
 export class MdcSelectChange {

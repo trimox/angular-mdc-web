@@ -24,6 +24,7 @@ import {
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import { MDCComponent } from '@angular-mdc/web/base';
 import {
   toBoolean,
   Platform
@@ -37,7 +38,10 @@ import {
 } from '@angular-mdc/web/icon';
 
 import { cssClasses } from '@material/chips/chip/constants';
-import { MDCChipFoundation } from '@material/chips/chip';
+import {
+  MDCChipAdapter,
+  MDCChipFoundation
+} from '@material/chips/chip';
 
 export interface MdcChipInteractionEvent {
   detail: {
@@ -129,7 +133,7 @@ export class MdcChipText {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [MdcRipple]
 })
-export class MdcChip implements AfterViewInit, OnDestroy {
+export class MdcChip extends MDCComponent<any> implements AfterViewInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroyed = new Subject<void>();
 
@@ -248,8 +252,8 @@ export class MdcChip implements AfterViewInit, OnDestroy {
   @ContentChild(MdcChipCheckmark) _checkmark?: MdcChipCheckmark;
   @ContentChildren(forwardRef(() => MdcChipIcon), { descendants: true }) _icons!: QueryList<MdcChipIcon>;
 
-  private _createAdapter() {
-    return {
+  getDefaultFoundation() {
+    const adapter: MDCChipAdapter = {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
       hasClass: (className: string) => this._getHostElement().classList.contains(className),
@@ -265,10 +269,11 @@ export class MdcChip implements AfterViewInit, OnDestroy {
       },
       eventTargetHasClass: (target: HTMLElement, className: string) => target.classList.contains(className),
       notifyInteraction: () => this._emitSelectionChangeEvent(true),
+      notifySelection: () => { },
       notifyTrailingIconInteraction: () => this.trailingIconInteraction.emit({ detail: { chipId: this.id } }),
       notifyRemoval: () => this.removed.emit({ detail: { chipId: this.id, root: this } }),
       getComputedStyleValue: (propertyName: string) => {
-        if (!this._platform.isBrowser) { return; }
+        if (!this._platform.isBrowser) { return ''; }
         return window.getComputedStyle(this._getHostElement()).getPropertyValue(propertyName);
       },
       setStyleProperty: (propertyName: string, value: string) =>
@@ -278,18 +283,8 @@ export class MdcChip implements AfterViewInit, OnDestroy {
       getCheckmarkBoundingClientRect: () => this._checkmark ?
         this._checkmark.elementRef.nativeElement.getBoundingClientRect() : null
     };
+    return new MDCChipFoundation(adapter);
   }
-
-  private _foundation: {
-    init(): void,
-    destroy(): void,
-    setSelected(selected: boolean): void,
-    setShouldRemoveOnTrailingIconClick(shouldRemove: boolean): void,
-    handleInteraction(evt: KeyboardEvent | MouseEvent): void,
-    handleTransitionEnd(evt: TransitionEvent): void,
-    handleTrailingIconInteraction(evt: KeyboardEvent | MouseEvent): void,
-    getDimensions(): ClientRect
-  } = new MDCChipFoundation(this._createAdapter());
 
   constructor(
     private _platform: Platform,
@@ -297,7 +292,9 @@ export class MdcChip implements AfterViewInit, OnDestroy {
     private _changeDetectorRef: ChangeDetectorRef,
     private _ripple: MdcRipple,
     public elementRef: ElementRef<HTMLElement>,
-    @Optional() @Inject(MDC_CHIPSET_PARENT_COMPONENT) private _parent: MdcChipSetParentComponent) { }
+    @Optional() @Inject(MDC_CHIPSET_PARENT_COMPONENT) private _parent: MdcChipSetParentComponent) {
+    super(elementRef);
+  }
 
   ngAfterViewInit(): void {
     this._foundation.init();

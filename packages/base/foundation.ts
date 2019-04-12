@@ -1,3 +1,4 @@
+// @dynamic
 export class MDCFoundation<AdapterType extends {} = {}> {
   static get cssClasses(): { [key: string]: string } {
     // Classes extending MDCFoundation should implement this method to return an object which exports every

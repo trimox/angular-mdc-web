@@ -22,7 +22,7 @@ import { MdcRipple } from '@angular-mdc/web/ripple';
 
 import { MdcFormField, MdcFormFieldControl } from '@angular-mdc/web/form-field';
 
-import { MDCSwitchFoundation, MDCSwitchAdapter } from '@material/switch/index';
+import { MDCSwitchFoundation, MDCSwitchAdapter } from '@material/switch';
 
 export const MDC_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,

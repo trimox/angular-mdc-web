@@ -33,7 +33,7 @@ import {
   MDCTopAppBarFoundation,
   MDCShortTopAppBarFoundation,
   MDCFixedTopAppBarFoundation
-} from '@material/top-app-bar/index';
+} from '@material/top-app-bar';
 
 /** Event object emitted by MdcTopAppBar navigation icon selected. */
 export class MdcTopAppBarNavSelected {

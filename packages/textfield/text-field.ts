@@ -61,7 +61,7 @@ export interface MdcTextFieldDefaultOptions {
 export const MDC_TEXT_FIELD_DEFAULT_OPTIONS =
   new InjectionToken<MdcTextFieldDefaultOptions>('MDC_TEXT_FIELD_DEFAULT_OPTIONS');
 
-export class MdcTextFieldBase {
+class MdcTextFieldBase {
   constructor(
     public _defaultErrorStateMatcher: ErrorStateMatcher,
     public _parentForm: NgForm,
@@ -69,7 +69,7 @@ export class MdcTextFieldBase {
     public ngControl: NgControl) { }
 }
 
-export const _MdcTextFieldMixinBase: CanUpdateErrorStateCtor & typeof MdcTextFieldBase =
+const _MdcTextFieldMixinBase: CanUpdateErrorStateCtor & typeof MdcTextFieldBase =
   mixinErrorState(MdcTextFieldBase);
 
 let nextUniqueId = 0;

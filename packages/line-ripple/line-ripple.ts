@@ -8,7 +8,7 @@ import {
 import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
-import { MDCLineRippleFoundation } from '@material/line-ripple/index';
+import { MDCLineRippleFoundation } from '@material/line-ripple';
 
 @Directive({
   selector: '[mdcLineRipple], mdc-line-ripple',

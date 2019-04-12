@@ -24,7 +24,7 @@ import createFocusTrap, { FocusTrap } from 'focus-trap';
 import {
   MDCDismissibleDrawerFoundation,
   MDCModalDrawerFoundation
-} from '@material/drawer/index';
+} from '@material/drawer';
 
 export type MdcDrawerType = 'permanent' | 'dismissible' | 'modal';
 

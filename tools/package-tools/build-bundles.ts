@@ -105,10 +105,11 @@ export class PackageBundler {
     uglifyJsFile(config.umdDest, config.umdMinDest);
 
     // Remaps the sourcemaps to be based on top of the original TypeScript source files.
-    await remapSourcemap(config.esm2015Dest);
-    await remapSourcemap(config.esm5Dest);
-    await remapSourcemap(config.umdDest);
-    // await remapSourcemap(config.umdMinDest);
+    // TO-DO (dcarretto): Broken because MDC is not providing TypeScript files (yet)
+    // await remapSourcemap(config.esm2015Dest);
+    // await remapSourcemap(config.esm5Dest);
+    // await remapSourcemap(config.umdDest);
+    // await remapSourcemap(config.umdMinDest); -- disabled
   }
 
   /** Creates a rollup bundle of a specified JavaScript file.*/

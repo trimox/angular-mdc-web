@@ -1,7 +1,6 @@
 import { ElementRef } from '@angular/core';
-import { MDCFoundation } from './foundation';
 
-export class MDCComponent<FoundationType extends MDCFoundation> {
+export class MDCComponent<FoundationType extends any> {
   protected _elementRef: ElementRef;
   protected _foundation: FoundationType;
 

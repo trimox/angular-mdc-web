@@ -14,15 +14,16 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil, filter } from 'rxjs/operators';
 
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { MDCComponent } from '@angular-mdc/web/base';
 import { Platform, toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcFormField, MdcFormFieldControl } from '@angular-mdc/web/form-field';
 
-import { MDCCheckboxFoundation } from '@material/checkbox';
+import { MDCCheckboxFoundation, MDCCheckboxAdapter } from '@material/checkbox';
 
 let nextUniqueId = 0;
 
@@ -89,7 +90,7 @@ export const MDC_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcCheckbox implements AfterViewInit, ControlValueAccessor,
+export class MdcCheckbox extends MDCComponent<MDCCheckboxFoundation> implements AfterViewInit, ControlValueAccessor,
   OnDestroy, MdcFormFieldControl<any> {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
@@ -184,8 +185,8 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor,
   /** View to model callback called when component has been touched */
   _onTouched: () => any = () => { };
 
-  private _createAdapter() {
-    return {
+  getDefaultFoundation() {
+    const adapter: MDCCheckboxAdapter = {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
       setNativeControlAttr: (attr: string, value: string) =>
@@ -200,15 +201,8 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor,
       forceLayout: () => this._getHostElement().offsetWidth,
       isAttachedToDOM: () => true
     };
+    return new MDCCheckboxFoundation(adapter);
   }
-
-  private _foundation: {
-    init(): void,
-    destroy(): void,
-    setDisabled(disabled: boolean): void,
-    handleChange(): void,
-    handleAnimationEnd(): void
-  } = new MDCCheckboxFoundation(this._createAdapter());
 
   constructor(
     private _platform: Platform,
@@ -217,6 +211,7 @@ export class MdcCheckbox implements AfterViewInit, ControlValueAccessor,
     public elementRef: ElementRef<HTMLElement>,
     public ripple: MdcRipple,
     @Optional() private _parentFormField: MdcFormField) {
+    super(elementRef);
 
     if (this._parentFormField) {
       _parentFormField.elementRef.nativeElement.classList.add('mdc-form-field');

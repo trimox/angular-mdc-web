@@ -1,3 +1,12 @@
+## [1.0.1](https://github.com/trimox/angular-mdc-web/compare/v1.0.0...v1.0.1) (2019-04-13)
+
+
+### Features
+
+* Add dependency for material-components-web ([#1864](https://github.com/trimox/angular-mdc-web/issues/1864)) ([414b0c6](https://github.com/trimox/angular-mdc-web/commit/414b0c6)), closes [#1863](https://github.com/trimox/angular-mdc-web/issues/1863)
+
+
+
 # [1.0.0](https://github.com/trimox/angular-mdc-web/compare/v0.44.0...v1.0.0) (2019-04-11)
 
 

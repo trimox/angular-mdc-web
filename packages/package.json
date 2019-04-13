@@ -22,6 +22,7 @@
   "typings": "./web.d.ts",
   "private": false,
   "dependencies": {
+    "material-components-web": "^1.1.1",
     "@angular-mdc/theme": "1.0.0"
   },
   "peerDependencies": {

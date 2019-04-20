@@ -36,13 +36,13 @@ export interface Coordinates {
 export type AnchorCorner = 'bottomEnd' | 'bottomStart' | 'topEnd' | 'topStart';
 
 const ANCHOR_CORNER_MAP = {
-  bottomEnd: Corner.BOTTOM_END,
-  bottomStart: Corner.BOTTOM_START,
   topEnd: Corner.TOP_END,
-  topStart: Corner.TOP_START
+  topStart: Corner.TOP_START,
+  bottomEnd: Corner.BOTTOM_END,
+  bottomStart: Corner.BOTTOM_START
 };
 
-export abstract class MdcMenuSurfaceBase extends MDCComponent<any> {
+export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoundation> {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
@@ -62,17 +62,17 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<any> {
   private _open: boolean = false;
 
   @Input()
-  get anchorElement(): Element | null { return this._anchorElement; }
-  set anchorElement(element: Element | null) {
+  get anchorElement(): HTMLElement | null { return this._anchorElement; }
+  set anchorElement(element: HTMLElement | null) {
     this._anchorElement = element;
   }
-  private _anchorElement: Element | null = null;
+  private _anchorElement: HTMLElement | null = null;
 
   @Input()
   get anchorCorner(): AnchorCorner { return this._anchorCorner; }
   set anchorCorner(value: AnchorCorner) {
     this._anchorCorner = value || 'topStart';
-    this._foundation.setAnchorCorner([ANCHOR_CORNER_MAP[this._anchorCorner]]);
+    this._foundation.setAnchorCorner(ANCHOR_CORNER_MAP[this._anchorCorner]);
   }
   private _anchorCorner: AnchorCorner = 'topStart';
 
@@ -195,7 +195,6 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<any> {
       },
       getAnchorDimensions: () => {
         if (!this.platform.isBrowser || !this.anchorElement) { return null; }
-
         return this._anchorElement!.getBoundingClientRect();
       },
       getWindowDimensions: () => {

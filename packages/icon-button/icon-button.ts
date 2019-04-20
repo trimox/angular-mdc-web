@@ -19,11 +19,12 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
+import { MDCComponent } from '@angular-mdc/web/base';
 import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcIcon } from '@angular-mdc/web/icon';
 
-import { MDCIconButtonToggleFoundation } from '@material/icon-button';
+import { MDCIconButtonToggleFoundation, MDCIconButtonToggleAdapter } from '@material/icon-button';
 
 export const MDC_ICON_BUTTON_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
@@ -68,7 +69,8 @@ export class MdcIconOn { }
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class MdcIconButton implements AfterContentInit, ControlValueAccessor, OnDestroy {
+export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation>
+  implements AfterContentInit, ControlValueAccessor, OnDestroy {
   private _uniqueId: string = `mdc-icon-button-${++nextUniqueId}`;
 
   @Input() id: string = this._uniqueId;
@@ -102,8 +104,8 @@ export class MdcIconButton implements AfterContentInit, ControlValueAccessor, On
   _onChange: (value: any) => void = () => { };
   _onTouched = () => { };
 
-  private _createAdapter() {
-    return {
+  getDefaultFoundation() {
+    const adapter: MDCIconButtonToggleAdapter = {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
       hasClass: (className: string) => this._getHostElement().classList.contains(className),
@@ -113,20 +115,15 @@ export class MdcIconButton implements AfterContentInit, ControlValueAccessor, On
         this._onChange(this._foundation.isOn());
       }
     };
+    return new MDCIconButtonToggleFoundation(adapter);
   }
-
-  private _foundation: {
-    init(): void,
-    destroy(): void,
-    toggle(isOn: boolean): void,
-    isOn(): boolean,
-    handleClick(): void
-  } = new MDCIconButtonToggleFoundation(this._createAdapter());
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef<HTMLElement>,
-    public ripple: MdcRipple) { }
+    public ripple: MdcRipple) {
+    super(elementRef);
+  }
 
   ngAfterContentInit(): void {
     this._foundation.init();

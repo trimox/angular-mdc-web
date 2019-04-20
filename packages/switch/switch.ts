@@ -46,7 +46,6 @@ let nextUniqueId = 0;
   selector: 'mdc-switch',
   host: {
     '[id]': 'id',
-    '[attr.tabindex]': '0',
     'class': 'mdc-switch',
     '[class.mdc-switch--checked]': 'checked',
     '[class.mdc-switch--disabled]': 'disabled',

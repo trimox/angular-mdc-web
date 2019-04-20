@@ -58,9 +58,9 @@ export class MdcDialog implements OnDestroy {
    * Stream that emits when all open dialog have finished closing.
    * Will emit on subscribe if there are no open dialogs to begin with.
    */
-  readonly afterAllClosed: Observable<any> = defer<any>(() => this.openDialogs.length ?
+  readonly afterAllClosed: Observable<void> = defer(() => this.openDialogs.length ?
     this._afterAllClosed :
-    this._afterAllClosed.pipe(startWith(undefined)));
+    this._afterAllClosed.pipe(startWith(undefined))) as Observable<any>;
 
   constructor(
     private _overlay: Overlay,

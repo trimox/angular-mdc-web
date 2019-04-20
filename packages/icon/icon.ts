@@ -208,7 +208,9 @@ export class MdcIcon implements AfterViewChecked, OnDestroy, OnChanges, OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     // Only update the inline SVG icon if the inputs changed, to avoid unnecessary DOM operations.
-    if (changes.svgIcon) {
+    const svgIconChanges = changes['svgIcon'];
+
+    if (svgIconChanges) {
       if (this.svgIcon) {
         const [namespace, iconName] = this._splitIconName(this.svgIcon);
 
@@ -216,7 +218,7 @@ export class MdcIcon implements AfterViewChecked, OnDestroy, OnChanges, OnInit {
           svg => this._setSvgElement(svg),
           (err: Error) => console.log(`Error retrieving icon: ${err.message}`)
         );
-      } else {
+      } else if (svgIconChanges.previousValue) {
         this._clearSvgElement();
       }
     }

@@ -53,6 +53,7 @@ describe('MdcIcon', () => {
         IconWithBindingAndNgIf,
         InlineIcon,
         SvgIconWithUserContent,
+        IconWithLigatureAndSvgBinding,
       ],
       providers: [{
         provide: MDC_ICON_LOCATION,
@@ -114,6 +115,18 @@ describe('MdcIcon', () => {
       fixture.detectChanges();
       expect(sortedClassNames(iconElement)).toEqual(['material-icons', 'ngx-mdc-icon']);
     });
+
+    it('should not clear the text of a ligature icon if the svgIcon is bound to something falsy',
+      () => {
+        const fixture = TestBed.createComponent(IconWithLigatureAndSvgBinding);
+
+        const testComponent = fixture.componentInstance;
+        const iconElement = fixture.debugElement.nativeElement.querySelector('mdc-icon');
+        testComponent.iconName = undefined;
+        fixture.detectChanges();
+
+        expect(iconElement.textContent.trim()).toBe('house');
+      });
 
     it('should use alternate icon font if set', () => {
       iconRegistry.setDefaultFontSetClass('myfont');
@@ -798,7 +811,7 @@ class IconWithBindingAndNgIf {
   showIcon = true;
 }
 
-@Component({template: `<mdc-icon [inline]="inline">{{iconName}}</mdc-icon>`})
+@Component({ template: `<mdc-icon [inline]="inline">{{iconName}}</mdc-icon>` })
 class InlineIcon {
   inline = false;
 }
@@ -806,4 +819,9 @@ class InlineIcon {
 @Component({ template: `<mdc-icon clickable [svgIcon]="iconName"><div>Hello</div></mdc-icon>` })
 class SvgIconWithUserContent {
   iconName: string | undefined = '';
+}
+
+@Component({ template: '<mdc-icon [svgIcon]="iconName">house</mdc-icon>' })
+class IconWithLigatureAndSvgBinding {
+  iconName: string | undefined;
 }

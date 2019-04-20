@@ -31,7 +31,7 @@ export function getMdcIconNameNotFoundError(iconName: string): Error {
 
 /**
  * Returns an exception to be thrown when the consumer attempts to use
- * `<mdc-icon>` without including @angular/http.
+ * `<mdc-icon>` without including @angular/common/http.
  * @docs-private
  */
 export function getMdcIconNoHttpProviderError(): Error {

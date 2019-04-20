@@ -182,9 +182,11 @@ describe('MdcSelectModule', () => {
     }));
 
     it('should be able to focus the select trigger', fakeAsync(() => {
+      expect(testInstance.focused).toBe(false);
       document.body.focus(); // ensure that focus isn't on the trigger already
       testInstance.focus();
 
+      expect(testInstance.focused).toBe(true);
       expect(document.activeElement).toBe(testInstance._nativeSelect.nativeElement,
         'Expected select element to be focused.');
     }));

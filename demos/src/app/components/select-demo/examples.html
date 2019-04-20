@@ -17,22 +17,28 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Enhanced Select</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="enhanced.outlined = !enhanced.outlined">Outlined:
+    <button mdc-button
+      (click)="enhanced.outlined = !enhanced.outlined">Outlined:
       {{enhanced.outlined ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="enhanced.required = !enhanced.required">Required:
+    <button mdc-button
+      (click)="enhanced.required = !enhanced.required">Required:
       {{enhanced.required ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="enhanced.disabled = !enhanced.disabled">Disabled:
+    <button mdc-button
+      (click)="enhanced.disabled = !enhanced.disabled">Disabled:
       {{enhanced.disabled ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="enhanced.floatLabel = !enhanced.floatLabel">Float
+    <button mdc-button
+      (click)="enhanced.floatLabel = !enhanced.floatLabel">Float
       Label: {{enhanced.floatLabel ? 'On' :
       'Off'}}</button>
     <button mdc-button (click)="enhanced.setSelectionByValue('banana')">Select
       Banana</button>
-    <button mdc-button (click)="enhanced.setSelectedIndex(2)">Set Index (2)</button>
+    <button mdc-button (click)="enhanced.setSelectedIndex(2)">Set Index
+      (2)</button>
     <button mdc-button (click)="enhanced.reset()">Reset</button>
   </div>
-  <mdc-select #enhanced placeholder="Fruit" required [helperText]="enhancedHelper"
-    (selectionChange)="onSelectionChange($event)" class="demo-enhanced-width">
+  <mdc-select #enhanced placeholder="Fruit" required
+    [helperText]="enhancedHelper" (selectionChange)="onSelectionChange($event)"
+    class="demo-enhanced-width">
     <mdc-menu>
       <mdc-list>
         <mdc-list-item></mdc-list-item>
@@ -43,7 +49,8 @@
       </mdc-list>
     </mdc-menu>
   </mdc-select>
-  <mdc-helper-text #enhancedHelper validation>Field is required</mdc-helper-text>
+  <mdc-helper-text #enhancedHelper validation>Field is required
+  </mdc-helper-text>
   <p> Value: {{ enhanced.value }}</p>
   <p> Index: {{ enhanced.getSelectedIndex() }}</p>
   <example-viewer [example]="exampleEnhanced"></example-viewer>
@@ -87,7 +94,8 @@
   <mdc-select #meal [helperText]="mealHelper" required placeholder="Pick a Meal"
     autosize>
     <mdc-icon mdcSelectIcon>fastfood</mdc-icon>
-    <option *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
+    <option *ngFor="let food of foods" [value]="food.value"
+      [disabled]="food.disabled">
       {{food.viewValue}}
     </option>
   </mdc-select>
@@ -113,7 +121,8 @@
       </mdc-select>
     </div>
     <div class="demo-container">
-      <mdc-select placeholder="Standard" outlined class="custom-select-outline-shape-radius">
+      <mdc-select placeholder="Standard" outlined
+        class="custom-select-outline-shape-radius">
         <mdc-menu>
           <mdc-list>
             <mdc-list-item *ngFor="let food of foods" [value]="food.value"
@@ -125,7 +134,8 @@
       </mdc-select>
     </div>
     <div class="demo-container">
-      <mdc-select placeholder="Standard" outlined class="custom-select-outline-color">
+      <mdc-select placeholder="Standard" outlined
+        class="custom-select-outline-color">
         <mdc-menu>
           <mdc-list>
             <mdc-list-item *ngFor="let food of foods" [value]="food.value"
@@ -143,17 +153,21 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Lazy Load</h3>
   <form [formGroup]="lazyLoadForm" #formDirectiveLazy="ngForm">
-    <mdc-select outlined formControlName="lazySelect" [helperText]="lazyHelper" class="demo-enhanced-width">
-      <option *ngFor="let food of lazyFoods" [value]="food.value" [disabled]="food.disabled">{{food.viewValue}}</option>
+    <mdc-select outlined formControlName="lazySelect" [helperText]="lazyHelper"
+      class="demo-enhanced-width">
+      <option *ngFor="let food of lazyFoods" [value]="food.value"
+        [disabled]="food.disabled">{{food.viewValue}}</option>
     </mdc-select>
     <mdc-helper-text #lazyHelper validation>
-      <span *ngIf="lazyLoadForm.controls['lazySelect'].hasError('required')">Selection
+      <span
+        *ngIf="lazyLoadForm.controls['lazySelect'].hasError('required')">Selection
         is required</span>
     </mdc-helper-text>
 
     <div class="demo-layout__row">
       <button mdc-button (click)="loadFoods()">Load</button>
-      <button mdc-button type="button" (click)="resetLazyLoaded(formDirectiveLazy)">Reset</button>
+      <button mdc-button type="button"
+        (click)="resetLazyLoaded(formDirectiveLazy)">Reset</button>
     </div>
   </form>
   <example-viewer [example]="exampleLazyLoadedNative"></example-viewer>
@@ -184,12 +198,15 @@
     <button mdc-button (click)="demoNgModel.reset()">Clear Selection</button>
     <button mdc-button (click)="select.setSelectionByValue('fruit-3')">Select
       Fruit</button>
-    <button mdc-button (click)="select.setSelectedIndex(4)">Set Index (4)</button>
+    <button mdc-button (click)="select.setSelectedIndex(2)">Select index
+      2</button>
   </div>
   <form #demoForm="ngForm">
     <mdc-select #select placeholder="Favorite food" name="food" required
-      outlined ngModel #demoNgModel="ngModel" (selectionChange)="onSelectionChange($event)">
-      <option *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
+      outlined ngModel #demoNgModel="ngModel"
+      (selectionChange)="onSelectionChange($event)">
+      <option *ngFor="let food of foods" [value]="food.value"
+        [disabled]="food.disabled">
         {{food.viewValue}}
       </option>
     </mdc-select>
@@ -205,36 +222,45 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Select with FormControl</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="favoriteFood.outlined = !favoriteFood.outlined">Outlined:
+    <button mdc-button
+      (click)="favoriteFood.outlined = !favoriteFood.outlined">Outlined:
       {{favoriteFood.outlined ?
       'On' : 'Off'}}</button>
-    <button mdc-button (click)="favoriteFood.disabled = !favoriteFood.disabled">Disabled:
+    <button mdc-button
+      (click)="favoriteFood.disabled = !favoriteFood.disabled">Disabled:
       {{favoriteFood.disabled ?
       'On' : 'Off'}}</button>
-    <button mdc-button (click)="favoriteFood.floatLabel = !favoriteFood.floatLabel">Float
+    <button mdc-button
+      (click)="favoriteFood.floatLabel = !favoriteFood.floatLabel">Float
       Label:
       {{favoriteFood.floatLabel ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="favoriteFood.setSelectionByValue('pizza-1')">Select
+    <button mdc-button
+      (click)="favoriteFood.setSelectionByValue('pizza-1')">Select
       Pizza</button>
-    <button mdc-button (click)="foodForm.controls['favoriteFood'].setValue('pizza-1')">Set
+    <button mdc-button
+      (click)="foodForm.controls['favoriteFood'].setValue('pizza-1')">Set
       Form Value</button>
-    <button mdc-button (click)="favoriteFood.setSelectedIndex(1)">Set Index (1)</button>
+    <button mdc-button (click)="favoriteFood.setSelectedIndex(1)">Set Index
+      (1)</button>
   </div>
   <form [formGroup]="foodForm" id="foodForm" (ngSubmit)="submitForm()"
     #formDirective="ngForm">
-    <mdc-select #favoriteFood placeholder="Favorite food" formControlName="favoriteFood"
-      [helperText]="reactiveHelper">
-      <option *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
+    <mdc-select #favoriteFood placeholder="Favorite food"
+      formControlName="favoriteFood" [helperText]="reactiveHelper">
+      <option *ngFor="let food of foods" [value]="food.value"
+        [disabled]="food.disabled">
         {{food.viewValue}}
       </option>
     </mdc-select>
     <mdc-helper-text #reactiveHelper validation>
-      <span *ngIf="foodForm.controls['favoriteFood'].hasError('required')">Selection
+      <span
+        *ngIf="foodForm.controls['favoriteFood'].hasError('required')">Selection
         is required</span>
     </mdc-helper-text>
     <div class="demo-layout__row">
       <button mdc-button>Submit</button>
-      <button mdc-button type="button" (click)="resetForm(formDirective)">Reset</button>
+      <button mdc-button type="button"
+        (click)="resetForm(formDirective)">Reset</button>
     </div>
   </form>
   <p>Control Valid: {{foodForm.controls['favoriteFood'].valid}}</p>

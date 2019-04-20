@@ -53,8 +53,11 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<any> {
   @Input()
   get open(): boolean { return this._open; }
   set open(value: boolean) {
-    this._open = toBoolean(value);
-    this.setOpen();
+    const newValue = toBoolean(value);
+    if (newValue !== this._open) {
+      this._open = toBoolean(value);
+      this.setOpen();
+    }
   }
   private _open: boolean = false;
 
@@ -171,7 +174,7 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<any> {
       },
       isLastElementFocused: () => {
         if (!this.platform.isBrowser) { return false; }
-        return this._lastFocusableElement ? this._lastFocusableElement === document.activeElement :  false;
+        return this._lastFocusableElement ? this._lastFocusableElement === document.activeElement : false;
       },
       focusFirstElement: () => {
         if (!this.platform.isBrowser) { return; }

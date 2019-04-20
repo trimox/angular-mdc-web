@@ -1,3 +1,17 @@
+## [1.0.3](https://github.com/trimox/angular-mdc-web/compare/v1.0.2...v1.0.3) (2019-04-20)
+
+
+### Bug Fixes
+
+* **icon:** Clear user content when `svgIcon` is bound to falsy value ([#1875](https://github.com/trimox/angular-mdc-web/issues/1875)) ([ac23b37](https://github.com/trimox/angular-mdc-web/commit/ac23b37))
+* **select:** Emitting on initial value + inconsistent validity state ([#1867](https://github.com/trimox/angular-mdc-web/issues/1867)) ([625e481](https://github.com/trimox/angular-mdc-web/commit/625e481)), closes [#1829](https://github.com/trimox/angular-mdc-web/issues/1829) [#1812](https://github.com/trimox/angular-mdc-web/issues/1812)
+* **switch:** Should not trap keyboard focus ([#1868](https://github.com/trimox/angular-mdc-web/issues/1868)) ([00b3335](https://github.com/trimox/angular-mdc-web/commit/00b3335)), closes [#1846](https://github.com/trimox/angular-mdc-web/issues/1846)
+
+### Documentation
+
+* **menu:** Example for opening menu from card action
+
+
 ## [1.0.1](https://github.com/trimox/angular-mdc-web/compare/v1.0.0...v1.0.1) (2019-04-13)
 
 

@@ -3,7 +3,7 @@ import { ComponentFixture, fakeAsync, TestBed, flush, tick } from '@angular/core
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { dispatchMouseEvent } from '../testing/dispatch-events';
+import { dispatchMouseEvent, dispatchFakeEvent } from '../testing/dispatch-events';
 
 import { Platform, MdcSlider, MdcSliderModule } from '@angular-mdc/web';
 
@@ -185,6 +185,12 @@ describe('MdcSlider', () => {
       sliderInstance.setValue(25);
       fixture.detectChanges();
       expect(sliderInstance.value).toBe(25);
+    }));
+
+    it('#should dispatch an event when the window is resized', fakeAsync(() => {
+      dispatchFakeEvent(window, 'resize');
+      tick(150);
+      fixture.detectChanges();
     }));
   });
 

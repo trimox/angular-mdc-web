@@ -7,12 +7,15 @@ import {
   EventEmitter,
   forwardRef,
   Input,
+  NgZone,
   OnDestroy,
   Output,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { fromEvent, Subject } from 'rxjs';
+import { takeUntil, auditTime } from 'rxjs/operators';
 
 import { MDCComponent } from '@angular-mdc/web/base';
 import { toNumber, toBoolean, Platform } from '@angular-mdc/web/common';
@@ -64,7 +67,11 @@ export class MdcSliderChange {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class MdcSlider extends MDCComponent<any> implements AfterViewInit, OnDestroy, ControlValueAccessor {
+export class MdcSlider extends MDCComponent<MDCSliderFoundation>
+  implements AfterViewInit, OnDestroy, ControlValueAccessor {
+  /** Emits whenever the component is destroyed. */
+  private _destroyed = new Subject<void>();
+
   private _initialized = false;
 
   @Input()
@@ -189,8 +196,8 @@ export class MdcSlider extends MDCComponent<any> implements AfterViewInit, OnDes
         document.body.addEventListener(type, handler),
       deregisterBodyInteractionHandler: (type: string, handler: EventListener) =>
         document.body.removeEventListener(type, handler),
-      registerResizeHandler: (handler: any) => window.addEventListener('resize', handler),
-      deregisterResizeHandler: (handler: any) => window.removeEventListener('resize', handler),
+      registerResizeHandler: () => { },
+      deregisterResizeHandler: () => { },
       notifyInput: () => this._onInput(),
       notifyChange: () => this._onChange(),
       setThumbContainerStyleProperty: (propertyName: string, value: string) =>
@@ -225,9 +232,9 @@ export class MdcSlider extends MDCComponent<any> implements AfterViewInit, OnDes
 
   constructor(
     private _platform: Platform,
+    private _ngZone: NgZone,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef) {
-
     super(elementRef);
   }
 
@@ -236,11 +243,15 @@ export class MdcSlider extends MDCComponent<any> implements AfterViewInit, OnDes
       this._foundation.init();
       this._initializeSelection();
       this._foundation.setupTrackMarker();
+      this._loadListeners();
       this._initialized = true;
     }
   }
 
   ngOnDestroy(): void {
+    this._destroyed.next();
+    this._destroyed.complete();
+
     if (this._foundation) {
       this._foundation.destroy();
     }
@@ -282,6 +293,10 @@ export class MdcSlider extends MDCComponent<any> implements AfterViewInit, OnDes
     this._changeDetectorRef.markForCheck();
   }
 
+  layout(): void {
+    this._foundation.layout();
+  }
+
   private _onInput(): void {
     this.setValue(this._foundation.getValue(), true);
     this.input.emit(new MdcSliderChange(this, this._value));
@@ -301,6 +316,13 @@ export class MdcSlider extends MDCComponent<any> implements AfterViewInit, OnDes
       this._foundation.setStep(this._step);
       this._foundation.setValue(this._value);
     });
+  }
+
+  private _loadListeners(): void {
+    this._ngZone.runOutsideAngular(() =>
+      fromEvent(window, 'resize')
+        .pipe(auditTime(16), takeUntil(this._destroyed))
+        .subscribe(() => this.layout()));
   }
 
   /** Retrieves the DOM element of the component host. */

@@ -105,11 +105,10 @@ export class PackageBundler {
     uglifyJsFile(config.umdDest, config.umdMinDest);
 
     // Remaps the sourcemaps to be based on top of the original TypeScript source files.
-    // TO-DO (dcarretto): Broken because MDC is not providing TypeScript files (yet)
-    // await remapSourcemap(config.esm2015Dest);
-    // await remapSourcemap(config.esm5Dest);
-    // await remapSourcemap(config.umdDest);
-    // await remapSourcemap(config.umdMinDest); -- disabled
+    await remapSourcemap(config.esm2015Dest);
+    await remapSourcemap(config.esm5Dest);
+    await remapSourcemap(config.umdDest);
+    // await remapSourcemap(config.umdMinDest);
   }
 
   /** Creates a rollup bundle of a specified JavaScript file.*/
@@ -130,7 +129,6 @@ export class PackageBundler {
       },
       plugins: [
         rollupRemoveLicensesPlugin,
-        rollupNodeResolutionPlugin(),
         commonjs({
           include: 'node_modules/**'
         })
@@ -170,6 +168,7 @@ export class PackageBundler {
     // For UMD bundles, we need to adjust the `external` bundle option in order to include
     // all necessary code in the bundle.
     if (config.format === 'umd') {
+      bundleOptions.plugins.push(rollupNodeResolutionPlugin());
       // For all UMD bundles, we want to exclude tslib from the `external` bundle option so that
       // it is inlined into the bundle.
       let external = Object.keys(rollupGlobals);

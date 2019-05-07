@@ -18,6 +18,7 @@ import { toBoolean } from '@angular-mdc/web/common';
 import { MdcList, MdcListItem, MdcListItemAction } from '@angular-mdc/web/list';
 import { MdcMenuSurfaceBase } from '@angular-mdc/web/menu-surface';
 
+import { cssClasses } from '@material/menu/constants';
 import { MDCMenuFoundation } from '@material/menu';
 
 export class MdcMenuSelectedEvent {
@@ -52,7 +53,6 @@ export class MdcMenuSelectionGroupIcon {
   exportAs: 'mdcMenu',
   host: {
     '[id]': 'id',
-    'tabindex': '-1',
     'class': 'mdc-menu mdc-menu-surface',
     '(keydown)': '_handleKeydown($event)',
   },
@@ -64,7 +64,7 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
   /** Emits whenever the component is destroyed. */
   private _destroyed = new Subject<void>();
 
-  private _uniqueId: string = `mdc-menu-${++nextUniqueId}`;
+  private _uniqueId: string = `${cssClasses.ROOT}-${++nextUniqueId}`;
 
   @Input() id: string = this._uniqueId;
 
@@ -103,22 +103,22 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
         this._list.items.toArray().findIndex(_ => _.getListItemElement() === element),
       getParentElement: (element: HTMLElement) => element.parentElement,
       getSelectedElementIndex: (selectionGroup: HTMLElement) => {
-        const selectedItem = selectionGroup.querySelector(`.mdc-menu-item--selected`);
+        const selectedItem = selectionGroup.querySelector(cssClasses.MENU_SELECTED_LIST_ITEM);
         return selectedItem ? this._list.items.toArray().findIndex(_ => _.id === selectedItem.id) : -1;
       },
       notifySelected: (evtData: { index: number }) =>
         this.selected.emit(new MdcMenuSelectedEvent(evtData.index, this._list.items.toArray()[evtData.index])),
       getMenuItemCount: () => this._list.items.length,
-      focusItemAtIndex: (index: number) => this._list.items.toArray()[index].focus(),
-      isRootFocused: () => document.activeElement === this._getHostElement(),
-      focusRoot: () => this._getHostElement().focus()
+      focusItemAtIndex: (index: number) => this._list.getListItemByIndex(index)!.focus(),
+      focusListRoot: () => this._list.focus()
     });
   }
 
   private _menuFoundation: {
     destroy(): void,
     handleKeydown(evt: KeyboardEvent): void,
-    handleItemAction(listItem: HTMLElement): void
+    handleItemAction(listItem: HTMLElement): void,
+    handleMenuSurfaceOpened(): void
   } = new MDCMenuFoundation(this._createAdapter());
 
   ngAfterContentInit(): void {
@@ -127,11 +127,7 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
     this._listenForListItemActions();
 
     this.opened.pipe(takeUntil(this._destroyed))
-      .subscribe(() => {
-        if (this._list) {
-          this._list.focusFirstElement();
-        }
-      });
+      .subscribe(() => this._menuFoundation.handleMenuSurfaceOpened());
   }
 
   ngOnDestroy(): void {
@@ -155,6 +151,7 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
 
     this._list.setRole('menu');
     this._list.wrapFocus = this._wrapFocus;
+    this._list.setTabIndex(-1);
 
     // When the list items change, re-subscribe
     this._list.items.changes.pipe(takeUntil(this._destroyed))

@@ -21,8 +21,8 @@ import { toBoolean, Platform } from '@angular-mdc/web/common';
 
 import { MdcListItem, MdcListSelectionChange, MDC_LIST_PARENT_COMPONENT } from './list-item';
 
+import { matches } from '@material/dom/ponyfill';
 import { cssClasses, strings } from '@material/list/constants';
-import { ponyfill } from '@material/dom';
 import { MDCListFoundation, MDCListAdapter } from '@material/list';
 
 /** Change event that is being fired whenever the selected state of an option changes. */
@@ -267,9 +267,8 @@ export class MdcList extends MDCComponent<any> implements AfterViewInit, OnDestr
       },
       isFocusInsideList: () => this._platform.isBrowser ?
         this.elementRef.nativeElement.contains(document.activeElement) : false,
-      notifyAction: (index: number) => {
-        this.actionEvent.emit({ index: index });
-      }
+      isRootFocused: () => this._platform.isBrowser ? document.activeElement === this._getHostElement() : false,
+      notifyAction: (index: number) => this.actionEvent.emit({ index: index })
     };
     return new MDCListFoundation(adapter);
   }
@@ -384,6 +383,14 @@ export class MdcList extends MDCComponent<any> implements AfterViewInit, OnDestr
     this._getHostElement().setAttribute('role', role);
   }
 
+  setTabIndex(index: number): void {
+    this._getHostElement().tabIndex = index;
+  }
+
+  focus(): void {
+    this._getHostElement().focus();
+  }
+
   reset(): void {
     this.items.forEach(_ => {
       _.selected = false;
@@ -446,9 +453,9 @@ export class MdcList extends MDCComponent<any> implements AfterViewInit, OnDestr
 
   _onKeydown(evt: KeyboardEvent): void {
     const index = this._getListItemIndexByEvent(evt);
-
+    const target = evt.target as Element;
     if (index >= 0) {
-      this._foundation.handleKeydown(evt, (<any>evt.target).classList.contains(cssClasses.LIST_ITEM_CLASS), index);
+      this._foundation.handleKeydown(evt, target.classList.contains(cssClasses.LIST_ITEM_CLASS), index);
     }
   }
 
@@ -462,7 +469,7 @@ export class MdcList extends MDCComponent<any> implements AfterViewInit, OnDestr
     }
 
     // Toggle the checkbox only if it's not the target of the event, or the checkbox will have 2 change events.
-    const toggleCheckbox = !ponyfill.matches(target, strings.CHECKBOX_RADIO_SELECTOR);
+    const toggleCheckbox = !matches(target, strings.CHECKBOX_RADIO_SELECTOR);
     this._foundation.handleClick(index, toggleCheckbox);
   }
 

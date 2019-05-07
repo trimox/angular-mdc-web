@@ -10,7 +10,8 @@ import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
 import { MDCComponent } from '@angular-mdc/web/base';
-import { MDCFloatingLabelFoundation } from '@material/floating-label';
+import { cssClasses } from '@material/floating-label/constants';
+import { MDCFloatingLabelFoundation, MDCFloatingLabelAdapter } from '@material/floating-label';
 
 @Directive({
   selector: 'label[mdcFloatingLabel], mdc-floating-label',
@@ -20,7 +21,7 @@ import { MDCFloatingLabelFoundation } from '@material/floating-label';
     '[for]': 'for'
   }
 })
-export class MdcFloatingLabel extends MDCComponent<any>
+export class MdcFloatingLabel extends MDCComponent<MDCFloatingLabelFoundation>
   implements AfterContentInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
@@ -28,10 +29,12 @@ export class MdcFloatingLabel extends MDCComponent<any>
   @Input() for?: string;
 
   getDefaultFoundation() {
-    const adapter: any = {
+    const adapter: MDCFloatingLabelAdapter = {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
-      getWidth: () => this._getHostElement().scrollWidth
+      getWidth: () => this._getHostElement().scrollWidth,
+      registerInteractionHandler: () => { },
+      deregisterInteractionHandler: () => { }
     };
     return new MDCFloatingLabelFoundation(adapter);
   }
@@ -72,7 +75,7 @@ export class MdcFloatingLabel extends MDCComponent<any>
       fromEvent<AnimationEvent>(this._getHostElement(), 'animationend')
         .pipe(takeUntil(this._destroy), filter((e: AnimationEvent) =>
           e.target === this._getHostElement()))
-        .subscribe(() => this._ngZone.run(() => this._foundation.handleShakeAnimationEnd_())));
+        .subscribe(() => this._ngZone.run(() => this._getHostElement().classList.remove(cssClasses.LABEL_SHAKE))));
   }
 
   /** Retrieves the DOM element of the component host. */

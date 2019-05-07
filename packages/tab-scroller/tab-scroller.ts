@@ -15,8 +15,8 @@ import { filter, takeUntil } from 'rxjs/operators';
 import { MDCComponent } from '@angular-mdc/web/base';
 import { Platform } from '@angular-mdc/web/common';
 
-import { ponyfill } from '@material/dom';
-import { MDCTabScrollerFoundation, util } from '@material/tab-scroller';
+import { matches } from '@material/dom/ponyfill';
+import { MDCTabScrollerFoundation, MDCTabScrollerAdapter, util } from '@material/tab-scroller';
 
 /** Possible alignments for tab scroller content. */
 export type MdcTabScrollerAlignment = 'start' | 'center' | 'end' | null;
@@ -68,8 +68,8 @@ export class MdcTabScroller extends MDCComponent<any> implements AfterViewInit, 
   }
 
   getDefaultFoundation() {
-    const adapter: any = {
-      eventTargetMatchesSelector: (evtTarget: Element, selector: string) => ponyfill.matches(evtTarget, selector),
+    const adapter: MDCTabScrollerAdapter = {
+      eventTargetMatchesSelector: (evtTarget: Element, selector: string) => matches(evtTarget, selector),
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
       addScrollAreaClass: (className: string) => this.area.nativeElement.classList.add(className),

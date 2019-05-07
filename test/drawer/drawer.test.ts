@@ -55,6 +55,7 @@ describe('MdcDrawer', () => {
 
     it('handles transitionend event', fakeAsync(() => {
       dispatchFakeEvent(testInstance.elementRef.nativeElement, 'transitionend');
+      flush();
     }));
 
     it('#should set permanent if empty', () => {

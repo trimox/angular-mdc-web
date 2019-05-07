@@ -270,7 +270,8 @@ export class MdcRadioGroup implements AfterContentInit, ControlValueAccessor {
     { provide: MdcFormFieldControl, useExisting: MdcRadio }
   ]
 })
-export class MdcRadio extends MDCComponent<any> implements AfterViewInit, OnDestroy, MdcFormFieldControl<any> {
+export class MdcRadio extends MDCComponent<MDCRadioFoundation>
+  implements AfterViewInit, OnDestroy, MdcFormFieldControl<any> {
   private _uniqueId: string = `mdc-radio-${++nextUniqueId}`;
 
   /** The parent radio group. May or may not be present. */

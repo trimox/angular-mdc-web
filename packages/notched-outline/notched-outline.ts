@@ -7,9 +7,10 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
+import { MDCComponent } from '@angular-mdc/web/base';
 import { MdcFloatingLabel } from '@angular-mdc/web/floating-label';
 
-import { MDCNotchedOutlineFoundation } from '@material/notched-outline';
+import { MDCNotchedOutlineFoundation, MDCNotchedOutlineAdapter } from '@material/notched-outline';
 
 @Component({
   moduleId: module.id,
@@ -30,14 +31,14 @@ import { MDCNotchedOutlineFoundation } from '@material/notched-outline';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class MdcNotchedOutline {
+export class MdcNotchedOutline extends MDCComponent<MDCNotchedOutlineFoundation> {
   @Input() label?: string;
   @Input() for?: string;
   @ViewChild('notch') _notchElement!: ElementRef<HTMLElement>;
   @ViewChild(MdcFloatingLabel) floatingLabel!: MdcFloatingLabel;
 
-  private _createAdapter() {
-    return {
+  getDefaultFoundation() {
+    const adapter: MDCNotchedOutlineAdapter = {
       addClass: (className: string) => this.elementRef.nativeElement.classList.add(className),
       removeClass: (className: string) =>
         this.elementRef.nativeElement.classList.remove(className),
@@ -45,14 +46,12 @@ export class MdcNotchedOutline {
         this._notchElement.nativeElement.style.setProperty('width', `${width}px`),
       removeNotchWidthProperty: () => this._notchElement.nativeElement.style.removeProperty('width')
     };
+    return new MDCNotchedOutlineFoundation(adapter);
   }
 
-  private _foundation: {
-    notch(notchWidth: number): void,
-    closeNotch(): void
-  } = new MDCNotchedOutlineFoundation(this._createAdapter());
-
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {
+    super(elementRef);
+  }
 
   /** Updates classes and styles to open the notch to the specified width. */
   notch(notchWidth: number): void {

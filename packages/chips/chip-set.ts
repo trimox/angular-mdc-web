@@ -51,7 +51,8 @@ export class MdcChipSetChange {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{ provide: MDC_CHIPSET_PARENT_COMPONENT, useExisting: MdcChipSet }]
 })
-export class MdcChipSet extends MDCComponent<any> implements AfterContentInit, OnDestroy, ControlValueAccessor {
+export class MdcChipSet extends MDCComponent<MDCChipSetFoundation>
+  implements AfterContentInit, OnDestroy, ControlValueAccessor {
   /** Emits whenever the component is destroyed. */
   private _destroyed = new Subject<void>();
 

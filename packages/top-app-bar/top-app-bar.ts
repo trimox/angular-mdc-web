@@ -55,7 +55,8 @@ export class MdcTopAppBarNavSelected {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class MdcTopAppBar extends MDCComponent<any> implements AfterContentInit, AfterViewInit, OnDestroy {
+export class MdcTopAppBar extends MDCComponent<MDCTopAppBarBaseFoundation | MDCShortTopAppBarFoundation
+| MDCFixedTopAppBarFoundation | any> implements AfterContentInit, AfterViewInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroyed = new Subject<void>();
 
@@ -133,7 +134,7 @@ export class MdcTopAppBar extends MDCComponent<any> implements AfterContentInit,
 
   private _scrollTargetSubscription: Subscription | null = null;
 
-  getDefaultFoundation(): MDCTopAppBarBaseFoundation | MDCFixedTopAppBarFoundation | MDCShortTopAppBarFoundation | any {
+  getDefaultFoundation(): any {
     const adapter: MDCTopAppBarAdapter = {
       hasClass: (className: string) => this._getHostElement().classList.contains(className),
       addClass: (className: string) => this._getHostElement().classList.add(className),
@@ -180,7 +181,6 @@ export class MdcTopAppBar extends MDCComponent<any> implements AfterContentInit,
     } else {
       foundation = new MDCTopAppBarFoundation(adapter);
     }
-
     return foundation;
   }
 

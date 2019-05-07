@@ -81,7 +81,7 @@ let nextUniqueId = 0;
     MdcRipple
   ]
 })
-export class MdcSwitch extends MDCComponent<any> implements MdcFormFieldControl<any>,
+export class MdcSwitch extends MDCComponent<MDCSwitchFoundation> implements MdcFormFieldControl<any>,
   AfterViewInit, ControlValueAccessor, OnDestroy {
   private _uniqueId: string = `mdc-switch-${++nextUniqueId}`;
 

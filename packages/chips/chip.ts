@@ -25,10 +25,7 @@ import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { MDCComponent } from '@angular-mdc/web/base';
-import {
-  toBoolean,
-  Platform
-} from '@angular-mdc/web/common';
+import { toBoolean, Platform } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import {
   MdcIcon,
@@ -133,7 +130,7 @@ export class MdcChipText {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [MdcRipple]
 })
-export class MdcChip extends MDCComponent<any> implements AfterViewInit, OnDestroy {
+export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterViewInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroyed = new Subject<void>();
 

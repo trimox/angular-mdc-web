@@ -53,7 +53,7 @@ const LAYOUT_EVENTS = ['resize', 'orientationchange'];
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcDialogComponent extends MDCComponent<any> implements AfterViewInit, OnDestroy {
+export class MdcDialogComponent extends MDCComponent<MDCDialogFoundation> implements AfterViewInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 

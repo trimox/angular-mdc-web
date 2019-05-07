@@ -19,11 +19,12 @@ import {
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import { MDCComponent } from '@angular-mdc/web/base';
 import { toBoolean } from '@angular-mdc/web/common';
 import { MdcRipple } from '@angular-mdc/web/ripple';
 import { MdcTabIndicator } from '@angular-mdc/web/tab-indicator';
 
-import { MDCTabFoundation } from '@material/tab';
+import { MDCTabFoundation, MDCTabAdapter } from '@material/tab';
 
 /**
  * Describes a parent MdcTabBar component.
@@ -97,7 +98,7 @@ export class MdcTabIcon {
   encapsulation: ViewEncapsulation.None,
   providers: [MdcRipple]
 })
-export class MdcTab implements OnInit, OnDestroy {
+export class MdcTab extends MDCComponent<MDCTabFoundation> implements OnInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
@@ -153,8 +154,8 @@ export class MdcTab implements OnInit, OnDestroy {
   @ViewChild('ripplesurface') rippleSurface!: ElementRef;
   @ViewChild(MdcTabIndicator) tabIndicator!: MdcTabIndicator;
 
-  private _createAdapter() {
-    return {
+  getDefaultFoundation() {
+    const adapter: MDCTabAdapter = {
       setAttr: (attr: string, value: string) => this._getHostElement().setAttribute(attr, value),
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
@@ -169,24 +170,17 @@ export class MdcTab implements OnInit, OnDestroy {
       getContentOffsetWidth: () => this.content.nativeElement.offsetWidth,
       focus: () => this._getHostElement().focus()
     };
+    return new MDCTabFoundation(adapter);
   }
-
-  private _foundation: {
-    init(): void,
-    isActive(): boolean,
-    activate(previousIndicatorClientRect: ClientRect): void,
-    deactivate(): void,
-    computeDimensions(): any,
-    handleClick(): void,
-    setFocusOnActivate(focusOnActivate: boolean): void
-  } = new MDCTabFoundation(this._createAdapter());
 
   constructor(
     private _ngZone: NgZone,
     private _changeDetectorRef: ChangeDetectorRef,
     private _ripple: MdcRipple,
     public elementRef: ElementRef<HTMLElement>,
-    @Optional() @Inject(MDC_TAB_BAR_PARENT_COMPONENT) private _parent: MdcTabBarParentComponent) { }
+    @Optional() @Inject(MDC_TAB_BAR_PARENT_COMPONENT) private _parent: MdcTabBarParentComponent) {
+    super(elementRef);
+  }
 
   ngOnInit(): void {
     this._foundation.init();
@@ -207,7 +201,7 @@ export class MdcTab implements OnInit, OnDestroy {
   }
 
   /** Activates the tab */
-  activate(computeIndicatorClientRect: ClientRect): void {
+  activate(computeIndicatorClientRect?: ClientRect): void {
     this._foundation.activate(computeIndicatorClientRect);
   }
 

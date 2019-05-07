@@ -35,7 +35,7 @@ import { MDCLinearProgressFoundation, MDCLinearProgressAdapter } from '@material
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcLinearProgress extends MDCComponent<any> implements OnInit {
+export class MdcLinearProgress extends MDCComponent<MDCLinearProgressFoundation> implements OnInit {
 
   @Input()
   get open(): boolean { return this._open; }

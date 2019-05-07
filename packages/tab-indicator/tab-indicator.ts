@@ -13,6 +13,7 @@ import { MDCComponent } from '@angular-mdc/web/base';
 import { toBoolean, Platform } from '@angular-mdc/web/common';
 
 import {
+  MDCTabIndicatorAdapter,
   MDCSlidingTabIndicatorFoundation,
   MDCFadingTabIndicatorFoundation
 } from '@material/tab-indicator';
@@ -34,7 +35,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class MdcTabIndicator extends MDCComponent<any> implements AfterViewInit {
+export class MdcTabIndicator extends
+  MDCComponent<MDCSlidingTabIndicatorFoundation | MDCFadingTabIndicatorFoundation> implements AfterViewInit {
   private _isFoundationInit: boolean = false;
 
   @Input()
@@ -70,22 +72,17 @@ export class MdcTabIndicator extends MDCComponent<any> implements AfterViewInit 
   @ViewChild('content') content!: ElementRef<HTMLElement>;
 
   getDefaultFoundation() {
-    const adapter: any = {
+    const adapter: MDCTabIndicatorAdapter = {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
       computeContentClientRect: () => {
-        if (!this._platform.isBrowser) { return {}; }
-
+        if (!this._platform.isBrowser) { return { height: 0, width: 0, bottom: 0, top: 0, left: 0, right: 0 }; }
         return this.content.nativeElement.getBoundingClientRect();
       },
       setContentStyleProperty: (propName: string, value: string) =>
         this.content.nativeElement.style.setProperty(propName, value)
     };
-    if (this._fade) {
-      return new MDCFadingTabIndicatorFoundation(adapter);
-    } else {
-      return new MDCSlidingTabIndicatorFoundation(adapter);
-    }
+    return this._fade ? new MDCFadingTabIndicatorFoundation(adapter) : new MDCSlidingTabIndicatorFoundation(adapter);
   }
 
   constructor(

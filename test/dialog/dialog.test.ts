@@ -28,14 +28,14 @@ describe('MdcDialog Service', () => {
   let viewContainerFixture: ComponentFixture<ComponentWithChildViewContainer>;
   let mockLocation: SpyLocation;
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [MdcDialogModule, DialogTestModule],
       providers: [{ provide: Location, useClass: SpyLocation }]
     });
 
     TestBed.compileComponents();
-  });
+  }));
 
   beforeEach(inject([MdcDialog, Location, OverlayContainer],
     (d: MdcDialog, l: Location, oc: OverlayContainer) => {
@@ -122,13 +122,6 @@ describe('MdcDialog Service', () => {
 
     expect(dialogRef.componentInstance.buttonAction).toBe(null);
   });
-
-  // it('#should handle keydown event', fakeAsync(() => {
-  //   const dialogRef = dialog.open(DialogWithDefaultButton);
-  //   dispatchKeyboardEvent(overlayContainerElement.querySelector('mdc-dialog'), 'keydown', A);
-  //   tick(500);
-  //   viewContainerFixture.detectChanges();
-  // }));
 
   it('#should handle default button click', () => {
     const dialogRef = dialog.open(DialogWithDefaultButton);

@@ -1,3 +1,21 @@
+## [1.0.5](https://github.com/trimox/angular-mdc-web/compare/v1.0.3...v1.0.5) (2019-06-08)
+
+
+### Bug Fixes
+
+* **select:** Value inconsistancy ([#1902](https://github.com/trimox/angular-mdc-web/issues/1902)) ([bf2867b](https://github.com/trimox/angular-mdc-web/commit/bf2867b)), closes [#1900](https://github.com/trimox/angular-mdc-web/issues/1900) [#1898](https://github.com/trimox/angular-mdc-web/issues/1898)
+* Sync upstream constants import ([#1903](https://github.com/trimox/angular-mdc-web/issues/1903)) ([0b13ef1](https://github.com/trimox/angular-mdc-web/commit/0b13ef1))
+
+
+### Features
+
+* **slider:** Add public layout() for recomputing dimensions ([#1877](https://github.com/trimox/angular-mdc-web/issues/1877)) ([93d02c4](https://github.com/trimox/angular-mdc-web/commit/93d02c4)), closes [#1832](https://github.com/trimox/angular-mdc-web/issues/1832)
+* Upgrade to material-components-web v2.0.0 ([#1885](https://github.com/trimox/angular-mdc-web/issues/1885)) ([e14345c](https://github.com/trimox/angular-mdc-web/commit/e14345c)), closes [/github.com/material-components/material-components-web/blob/master/CHANGELOG.md#200-2019-04-29](https://github.com//github.com/material-components/material-components-web/blob/master/CHANGELOG.md/issues/200-2019-04-29) [#1883](https://github.com/trimox/angular-mdc-web/issues/1883) [#1890](https://github.com/trimox/angular-mdc-web/issues/1890) [#1820](https://github.com/trimox/angular-mdc-web/issues/1820)
+* Upgrade to material-components-web v2.1.0 ([#1893](https://github.com/trimox/angular-mdc-web/issues/1893)) ([f7337d8](https://github.com/trimox/angular-mdc-web/commit/f7337d8)), closes [/github.com/material-components/material-components-web/blob/master/CHANGELOG.md#210-2019-05-06](https://github.com//github.com/material-components/material-components-web/blob/master/CHANGELOG.md/issues/210-2019-05-06) [#1891](https://github.com/trimox/angular-mdc-web/issues/1891) [#1892](https://github.com/trimox/angular-mdc-web/issues/1892)
+* Upgrade to material-components-web v2.3.0 ([#1901](https://github.com/trimox/angular-mdc-web/issues/1901)) ([595afb9](https://github.com/trimox/angular-mdc-web/commit/595afb9)), closes [/github.com/material-components/material-components-web/blob/master/CHANGELOG.md#230-2019-05-28](https://github.com//github.com/material-components/material-components-web/blob/master/CHANGELOG.md/issues/230-2019-05-28)
+
+
+
 ## [1.0.3](https://github.com/trimox/angular-mdc-web/compare/v1.0.2...v1.0.3) (2019-04-20)
 
 

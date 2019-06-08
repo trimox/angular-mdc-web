@@ -45,8 +45,7 @@ import { MdcList, MdcListItemChange } from '@angular-mdc/web/list';
 import { MdcSelectIcon } from './select-icon';
 
 import { MDCSelectHelperTextFoundation } from '@material/select/helper-text';
-import { cssClasses } from '@material/select/constants';
-import { MDCSelectFoundation } from '@material/select';
+import { cssClasses, MDCSelectFoundation } from '@material/select';
 
 /**
  * Represents the default options for mdc-select that can be configured
@@ -78,7 +77,7 @@ export class MdcSelectChange {
   constructor(
     public source: MdcSelect,
     public index: number,
-    public value: string) { }
+    public value: any) { }
 }
 
 @Directive({
@@ -246,11 +245,11 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
 
   /** Value of the select control. */
   @Input()
-  get value(): string { return this._value; }
-  set value(newValue: string) {
+  get value(): any { return this._value; }
+  set value(newValue: any) {
     this.setSelectionByValue(newValue);
   }
-  private _value: string = '';
+  private _value: any = '';
 
   @Input()
   get helperText(): MdcHelperText | null { return this._helperText; }
@@ -274,7 +273,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
    * to facilitate the two-way binding for the `value` input.
    */
   @Output() readonly valueChange:
-    EventEmitter<{ index: number, value: string }> = new EventEmitter<any>();
+    EventEmitter<{ index: number, value: any }> = new EventEmitter<any>();
 
   @ViewChild(MdcFloatingLabel) _floatingLabel?: MdcFloatingLabel;
   @ViewChild(MdcLineRipple) _lineRipple?: MdcLineRipple;
@@ -322,7 +321,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
           this._lineRipple.deactivate();
         }
       },
-      notifyChange: (value: string) =>
+      notifyChange: (value: any) =>
         this.selectionChange.emit(new MdcSelectChange(this, this.getSelectedIndex(), value))
     };
   }
@@ -330,7 +329,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
   private _getNativeSelectAdapterMethods() {
     return {
       getValue: () => this._platform.isBrowser ? this._getInputElement().value : '',
-      setValue: (value: string) => this._getInputElement().value = value,
+      setValue: (value: any) => this._getInputElement().value = value,
       isMenuOpen: () => false,
       setSelectedIndex: (index: number) => this._getInputElement().selectedIndex = index,
       setDisabled: (isDisabled: boolean) => this._getInputElement().disabled = isDisabled,
@@ -398,7 +397,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
 
   private _foundation!: {
     setSelectedIndex(index: number): void,
-    setValue(value: string): void,
+    setValue(value: any): void,
     setDisabled(isDisabled: boolean): void,
     notchOutline(openNotch: boolean): void,
     handleChange(didChange?: boolean): void,
@@ -407,7 +406,9 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
     handleClick(normalizedX: number): void,
     handleKeydown(event: KeyboardEvent): void,
     setValid(isValid: boolean): void,
-    layout(): void
+    layout(): void,
+    handleMenuOpened(): void,
+    handleMenuClosed(): void
   };
 
   constructor(
@@ -483,7 +484,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
     this._foundation.handleChange(false);
   }
 
-  writeValue(value: string): void {
+  writeValue(value: any): void {
     this.setSelectionByValue(value, false);
   }
 
@@ -527,7 +528,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
     this._foundation.handleKeydown(evt);
   }
 
-  getValue(): string {
+  getValue(): any {
     return this._value;
   }
 
@@ -543,7 +544,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
    * Sets the selected option based on a value. If no option can be
    * found with the designated value, the select trigger is cleared.
    */
-  setSelectionByValue(value: string, isUserInput: boolean = true): void {
+  setSelectionByValue(value: any, isUserInput: boolean = true): void {
     if (!this._foundation) { return; }
 
     this._setEnhancedSelection(value); // if enhanced select, perform selection
@@ -694,6 +695,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
       // Subscribe to menu opened event
       this._menu.opened.pipe(takeUntil(this._destroyed))
         .subscribe(() => {
+          this._foundation.handleMenuOpened();
           const selectedIndex = this._list.getSelectedIndex();
           if (selectedIndex > -1) {
             this._list.items.toArray()[selectedIndex].focus();
@@ -703,6 +705,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
       // Subscribe to menu closed event
       this._menu.closed.pipe(takeUntil(this._destroyed))
         .subscribe(() => {
+          this._foundation.handleMenuClosed();
           this._selectedText.nativeElement.removeAttribute('aria-expanded');
           if (this._platform.isBrowser) {
             if (document.activeElement !== this._selectedText.nativeElement) {

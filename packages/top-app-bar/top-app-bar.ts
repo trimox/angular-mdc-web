@@ -26,8 +26,8 @@ import {
   MdcTopAppBarNavigationIcon,
 } from './top-app-bar.directives';
 
-import { cssClasses } from '@material/top-app-bar/constants';
 import {
+  cssClasses,
   MDCTopAppBarAdapter,
   MDCTopAppBarBaseFoundation,
   MDCTopAppBarFoundation,

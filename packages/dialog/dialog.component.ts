@@ -27,7 +27,7 @@ import { MdcDialogRef } from './dialog-ref';
 import { MdcDialogConfig } from './dialog-config';
 
 import { strings } from '@material/dialog/constants';
-import { ponyfill } from '@material/dom';
+import { matches, closest } from '@material/dom/ponyfill';
 import { MDCDialogFoundation, MDCDialogAdapter, util } from '@material/dialog';
 
 const LAYOUT_EVENTS = ['resize', 'orientationchange'];
@@ -89,14 +89,14 @@ export class MdcDialogComponent extends MDCComponent<MDCDialogFoundation> implem
           document.body!.classList.remove(className);
         }
       },
-      eventTargetMatches: (target: EventTarget, selector: string) => ponyfill.matches(target as Element, selector),
+      eventTargetMatches: (target: EventTarget, selector: string) => matches(target as Element, selector),
       trapFocus: () => this._focusTrapInstance!.activate(),
       releaseFocus: () => this._focusTrapInstance!.deactivate(),
       isContentScrollable: () =>
         !!this._content && this._scrollable && util.isScrollable(this._content.elementRef.nativeElement),
       areButtonsStacked: () => util.areTopsMisaligned(this._buttons as any),
       getActionFromEvent: (event: Event) => {
-        const element = ponyfill.closest(event.target as Element, `[${strings.ACTION_ATTRIBUTE}]`);
+        const element = closest(event.target as Element, `[${strings.ACTION_ATTRIBUTE}]`);
         return element && element.getAttribute(strings.ACTION_ATTRIBUTE);
       },
       clickDefaultButton: () => {

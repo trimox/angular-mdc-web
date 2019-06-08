@@ -18,8 +18,7 @@ import { toBoolean } from '@angular-mdc/web/common';
 import { MdcList, MdcListItem, MdcListItemAction } from '@angular-mdc/web/list';
 import { MdcMenuSurfaceBase } from '@angular-mdc/web/menu-surface';
 
-import { cssClasses } from '@material/menu/constants';
-import { MDCMenuFoundation } from '@material/menu';
+import { cssClasses, MDCMenuFoundation } from '@material/menu';
 
 export class MdcMenuSelectedEvent {
   constructor(

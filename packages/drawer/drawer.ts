@@ -22,8 +22,8 @@ import { MdcList } from '@angular-mdc/web/list';
 
 import createFocusTrap, { FocusTrap } from 'focus-trap';
 
-import { cssClasses } from '@material/drawer/constants';
 import {
+  cssClasses,
   MDCDrawerAdapter,
   MDCDismissibleDrawerFoundation,
   MDCModalDrawerFoundation

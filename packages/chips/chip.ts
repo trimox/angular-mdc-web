@@ -34,8 +34,8 @@ import {
   MdcIconRegistry
 } from '@angular-mdc/web/icon';
 
-import { cssClasses } from '@material/chips/chip/constants';
 import {
+  chipCssClasses,
   MDCChipAdapter,
   MDCChipFoundation
 } from '@material/chips/chip';
@@ -153,7 +153,7 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
     this._foundation.setSelected(newValue);
 
     if (this.filter && this.leadingIcon) {
-      this.leadingIcon.elementRef.nativeElement.classList.remove(cssClasses.HIDDEN_LEADING_ICON);
+      this.leadingIcon.elementRef.nativeElement.classList.remove(chipCssClasses.HIDDEN_LEADING_ICON);
     }
   }
   private _selected: boolean = false;

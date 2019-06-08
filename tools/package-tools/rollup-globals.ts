@@ -36,7 +36,7 @@ export const rollupGlobals = {
   '@material/chips/chip-set': 'mdc.chip.chipset',
   '@material/dialog': 'mdc.dialog',
   '@material/dialog/constants': 'mdc.dialog.constants',
-  '@material/dom': 'mdc.dom',
+  '@material/dom/ponyfill': 'mdc.dom.ponyfill',
   '@material/drawer': 'mdc.drawer',
   '@material/floating-label': 'mdc.floatingLabel',
   '@material/form-field': 'mdc.formField',

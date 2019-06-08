@@ -7,4 +7,9 @@
     <mdc-tab *ngFor="let tab of tabs" [label]="tab.label"></mdc-tab>
   </mdc-tab-scroller>
 </mdc-tab-bar>
-<pre><code [highlight]="currentExample" *ngIf="open"></code></pre>
+<div class="example-container" *ngIf="open">
+  <button mdcIconButton class="example-copy-button" (click)="copyCode()">
+    <mdc-icon>file_copy</mdc-icon>
+  </button>
+  <pre><code [highlight]="currentExample"></code></pre>
+</div>

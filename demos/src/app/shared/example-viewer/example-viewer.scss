@@ -7,3 +7,14 @@
   margin-top: 20px;
   background-color: #344955 !important;
 }
+
+.example-container {
+  position: relative;
+}
+
+.example-copy-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: #ffffff;
+}

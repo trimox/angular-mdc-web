@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 
 import {MdcTabActivatedEvent} from '@angular-mdc/web';
+import {MdcSnackbar} from '@angular-mdc/web/snackbar';
 
 interface Example {
   label?: string;
@@ -39,11 +40,36 @@ export class ExampleViewer implements OnInit {
   }
   private _example: Example;
 
+  constructor(private snackbar: MdcSnackbar) {}
+
   ngOnInit(): void {
     this.currentExample = this.tabs[0].source;
   }
 
   onActivatedTab(event: MdcTabActivatedEvent): void {
     this.currentExample = this.tabs[event.index].source;
+  }
+
+  copyCode(): void {
+    const tempTextarea = document.createElement('textarea');
+    tempTextarea.id = 'txt';
+    tempTextarea.style.position = 'fixed';
+    tempTextarea.style.top = '0';
+    tempTextarea.style.left = '0';
+    tempTextarea.style.opacity = '0';
+    tempTextarea.value = this.currentExample;
+    document.body.appendChild(tempTextarea);
+    tempTextarea.select();
+
+    try {
+      const returnValue = document.execCommand('copy');
+      if (returnValue) {
+        this.snackbar.open('Code copied');
+      }
+    } catch (err) {
+      this.snackbar.open('Unable to copy.');
+    } finally {
+      document.body.removeChild(tempTextarea);
+    }
   }
 }

@@ -75,8 +75,8 @@ export class MdcDialog implements OnDestroy {
    * @param config Extra configuration options.
    * @returns Reference to the newly-opened dialog.
    */
-  open<T, D = any>(componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-    config?: MdcDialogConfig<D>): MdcDialogRef<T, {}> {
+  open<T, D = any, R = {}>(componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
+    config?: MdcDialogConfig<D>): MdcDialogRef<T, R> {
 
     config = _applyConfigDefaults(config, this._defaultOptions || new MdcDialogConfig());
 

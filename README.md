@@ -18,9 +18,6 @@ Incorporating [Google Material Components](https://github.com/material-component
 *  [Developer guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/developer.md)
 *  [MDC Web Roadmap](https://github.com/material-components/material-components-web/blob/master/ROADMAP.md)
 
-> Note: Angular MDC follows semver and is still in version 0.x, which means it is regularly subject to
-> breaking changes. A list of changes is always available in the [CHANGELOG](./CHANGELOG.md).
-
 ## <a name="getstarted"></a> Getting started
 View our [Getting Started Guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md) to begin using Angular MDC in your project.
 

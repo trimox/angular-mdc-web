@@ -53,7 +53,7 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
   }
   private _alignEnd: boolean = false;
 
-  @ContentChild(MdcFormFieldControl) _control!: MdcFormFieldControl<any>;
+  @ContentChild(MdcFormFieldControl, {static: false}) _control!: MdcFormFieldControl<any>;
   @ContentChildren(MdcHelperText, { descendants: true }) assistiveElements!: QueryList<MdcHelperText>;
 
   constructor(

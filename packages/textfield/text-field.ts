@@ -301,10 +301,10 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   @Output() readonly input = new EventEmitter<any>();
   @Output() readonly blur = new EventEmitter<any>();
 
-  @ViewChild('inputElement') _input!: ElementRef<HTMLInputElement | HTMLTextAreaElement>;
-  @ViewChild(MdcLineRipple) _lineRipple?: MdcLineRipple;
-  @ViewChild(MdcNotchedOutline) _notchedOutline?: MdcNotchedOutline;
-  @ViewChild(MdcFloatingLabel) _floatingLabel?: MdcFloatingLabel;
+  @ViewChild('inputElement', {static: true}) _input!: ElementRef<HTMLInputElement | HTMLTextAreaElement>;
+  @ViewChild(MdcLineRipple, {static: false}) _lineRipple?: MdcLineRipple;
+  @ViewChild(MdcNotchedOutline, {static: false}) _notchedOutline?: MdcNotchedOutline;
+  @ViewChild(MdcFloatingLabel, {static: false}) _floatingLabel?: MdcFloatingLabel;
   @ContentChildren(MdcTextFieldIcon, { descendants: true }) _icons!: QueryList<MdcTextFieldIcon>;
 
   /** View to model callback called when value changes */

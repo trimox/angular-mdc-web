@@ -40,7 +40,7 @@ const INLINE_ICON_SET =
 
 @Component({ template: '<component-viewer></component-viewer>' })
 export class IconDemo implements OnInit {
-  @ViewChild(ComponentViewer) _componentViewer: ComponentViewer;
+  @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
     this._componentViewer.componentView = new ComponentView(

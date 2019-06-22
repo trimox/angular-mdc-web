@@ -33,7 +33,7 @@ export function throwMdcDialogContentAlreadyAttachedError() {
   encapsulation: ViewEncapsulation.None
 })
 export class MdcDialogPortal extends BasePortalOutlet {
-  @ViewChild(CdkPortalOutlet) _portalOutlet!: CdkPortalOutlet;
+  @ViewChild(CdkPortalOutlet, {static: true}) _portalOutlet!: CdkPortalOutlet;
 
   /** A subject emitting after the dialog exits the view. */
   _afterExit: Subject<void> = new Subject();

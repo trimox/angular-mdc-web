@@ -754,7 +754,7 @@ class RadioGroupWithNgModel {
   template: `<mdc-radio>One</mdc-radio>`
 })
 class DisableableRadioButton {
-  @ViewChild(MdcRadio) radio: MdcRadio;
+  @ViewChild(MdcRadio, {static: false}) radio: MdcRadio;
 
   set disabled(value: boolean) {
     this.radio.disabled = value;

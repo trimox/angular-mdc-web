@@ -27,7 +27,7 @@ import { MdcSnackbarConfig } from './snackbar-config';
 })
 export class MdcSnackbarContainer extends BasePortalOutlet implements OnDestroy {
   /** The portal outlet inside of this container into which the snackbar content will be loaded. */
-  @ViewChild(CdkPortalOutlet) _portalOutlet!: CdkPortalOutlet;
+  @ViewChild(CdkPortalOutlet, {static: true}) _portalOutlet!: CdkPortalOutlet;
 
   /** Subject for notifying that the snackbar has exited from view. */
   readonly _onExit: Subject<any> = new Subject();

@@ -63,8 +63,8 @@ export class MdcDialogComponent extends MDCComponent<MDCDialogFoundation> implem
 
   config: MdcDialogConfig;
 
-  @ContentChild(MdcDialogSurface) _surface!: MdcDialogSurface;
-  @ContentChild(MdcDialogContent) _content!: MdcDialogContent;
+  @ContentChild(MdcDialogSurface, {static: false}) _surface!: MdcDialogSurface;
+  @ContentChild(MdcDialogContent, {static: false}) _content!: MdcDialogContent;
   @ContentChildren(MdcDialogButton, { descendants: true }) _buttons!: QueryList<MdcDialogButton>;
 
   private _layoutEventSubscription: Subscription | null = null;

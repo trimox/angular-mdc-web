@@ -21,7 +21,7 @@ export class Sass { }
 
 @Component({ template: '<component-viewer></component-viewer>' })
 export class DialogDemo implements OnInit {
-  @ViewChild(ComponentViewer) _componentViewer: ComponentViewer;
+  @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
     this._componentViewer.componentView = new ComponentView(
@@ -455,7 +455,7 @@ export class DialogConfirmation {
   templateUrl: './dialog-form-demo.html'
 })
 export class DialogForm {
-  constructor(public dialogRef: MdcDialogRef<DialogConfirmation>,
+  constructor(public dialogRef: MdcDialogRef<DialogForm>,
     @Inject(MDC_DIALOG_DATA) public data: DialogData) { }
 
   profileForm = new FormGroup({

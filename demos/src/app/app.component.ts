@@ -15,8 +15,8 @@ export class AppComponent implements OnInit {
   version: string = environment.version;
   matcher: MediaQueryList;
 
-  @ViewChild('topAppBar') topAppBar: MdcTopAppBar;
-  @ViewChild('appDrawer') appDrawer: MdcDrawer;
+  @ViewChild('topAppBar', {static: false}) topAppBar: MdcTopAppBar;
+  @ViewChild('appDrawer', {static: false}) appDrawer: MdcDrawer;
 
   foundationVisible: boolean = false;
 

@@ -81,7 +81,7 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
   @Output() readonly selected: EventEmitter<MdcMenuSelectedEvent> =
     new EventEmitter<MdcMenuSelectedEvent>();
 
-  @ContentChild(MdcList) _list!: MdcList;
+  @ContentChild(MdcList, {static: false}) _list!: MdcList;
 
   private _createAdapter() {
     return Object.assign({

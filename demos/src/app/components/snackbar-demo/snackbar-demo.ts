@@ -12,7 +12,7 @@ interface CustomClasses {
 
 @Component({ template: '<component-viewer></component-viewer>' })
 export class SnackbarDemo implements OnInit {
-  @ViewChild(ComponentViewer) _componentViewer: ComponentViewer;
+  @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
     this._componentViewer.componentView = new ComponentView(

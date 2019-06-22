@@ -57,8 +57,8 @@ export class MdcTabScroller extends MDCComponent<any> implements AfterViewInit, 
   }
   private _align: MdcTabScrollerAlignment | null = null;
 
-  @ViewChild('area') area!: ElementRef;
-  @ViewChild('content') content!: ElementRef;
+  @ViewChild('area', {static: true}) area!: ElementRef;
+  @ViewChild('content', {static: true}) content!: ElementRef;
 
   private _scrollAreaEventsSubscription: Subscription | null = null;
 

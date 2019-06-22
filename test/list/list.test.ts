@@ -251,8 +251,8 @@ class SimpleList {
   disabled: boolean;
   disableRipple: boolean;
 
-  @ViewChild('divider') divider: MdcListDivider;
-  @ViewChild('listitem') listitem: MdcListItem;
-  @ViewChild('lastitem') lastItem: MdcListItem;
-  @ViewChild('group') group: MdcListGroup;
+  @ViewChild('divider', {static: false}) divider: MdcListDivider;
+  @ViewChild('listitem', {static: false}) listitem: MdcListItem;
+  @ViewChild('lastitem', {static: false}) lastItem: MdcListItem;
+  @ViewChild('group', {static: false}) group: MdcListGroup;
 }

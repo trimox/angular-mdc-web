@@ -45,9 +45,9 @@ import { MDCSnackbarFoundation, MDCSnackbarAdapter } from '@material/snackbar';
   encapsulation: ViewEncapsulation.None
 })
 export class MdcSnackbarComponent extends MDCComponent<MDCSnackbarFoundation> implements OnInit, OnDestroy {
-  @ViewChild('label') label!: ElementRef<HTMLElement>;
-  @ViewChild('action') action?: ElementRef<HTMLButtonElement>;
-  @ViewChild('dismiss') dismiss?: ElementRef<HTMLButtonElement>;
+  @ViewChild('label', {static: true}) label!: ElementRef<HTMLElement>;
+  @ViewChild('action', {static: false}) action?: ElementRef<HTMLButtonElement>;
+  @ViewChild('dismiss', {static: false}) dismiss?: ElementRef<HTMLButtonElement>;
 
   get config(): MdcSnackbarConfig { return this.snackbarRef.componentInstance.snackbarConfig; }
 

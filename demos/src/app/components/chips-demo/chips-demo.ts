@@ -13,7 +13,7 @@ export class Sass { }
 
 @Component({ template: '<component-viewer></component-viewer>' })
 export class ChipsDemo implements OnInit {
-  @ViewChild(ComponentViewer) _componentViewer: ComponentViewer;
+  @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
     this._componentViewer.componentView = new ComponentView(
@@ -46,7 +46,7 @@ export class Examples {
     { value: 'tacos-2', viewValue: 'Tacos', selected: false },
   ];
 
-  @ViewChild('form') form: NgForm;
+  @ViewChild('form', {static: false}) form: NgForm;
 
   onChipSetChange(evt: MdcChipSetChange): void {
     console.log(evt);

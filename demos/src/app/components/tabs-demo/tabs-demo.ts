@@ -5,7 +5,7 @@ import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
 
 @Component({ template: '<component-viewer></component-viewer>' })
 export class TabsDemo implements OnInit {
-  @ViewChild(ComponentViewer) _componentViewer: ComponentViewer;
+  @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
     this._componentViewer.componentView = new ComponentView(

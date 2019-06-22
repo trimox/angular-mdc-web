@@ -125,7 +125,7 @@ export class MdcDrawer extends MDCComponent<MDCDismissibleDrawerFoundation | MDC
   @Output() readonly opened: EventEmitter<void> = new EventEmitter<void>();
   @Output() readonly closed: EventEmitter<void> = new EventEmitter<void>();
 
-  @ContentChild(MdcList) _list?: MdcList;
+  @ContentChild(MdcList, {static: false}) _list?: MdcList;
 
   private _transitionEndSubscription: Subscription | null = null;
   private _scrimSubscription: Subscription | null = null;

@@ -46,8 +46,8 @@ export class MdcHelperText {
   }
   private _validation: boolean = false;
 
-  @ViewChild('helperText') _helperTextElement?: ElementRef<HTMLElement>;
-  @ViewChild(MdcCharacterCounter) _characterCounterElement?: MdcCharacterCounter;
+  @ViewChild('helperText', {static: true}) _helperTextElement?: ElementRef<HTMLElement>;
+  @ViewChild(MdcCharacterCounter, {static: false}) _characterCounterElement?: MdcCharacterCounter;
 
   constructor(public elementRef: ElementRef<HTMLElement>) { }
 

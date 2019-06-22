@@ -150,9 +150,9 @@ export class MdcTab extends MDCComponent<MDCTabFoundation> implements OnInit, On
   @Output() readonly interacted: EventEmitter<MdcTabInteractedEvent> =
     new EventEmitter<MdcTabInteractedEvent>();
 
-  @ViewChild('content') content!: ElementRef;
-  @ViewChild('ripplesurface') rippleSurface!: ElementRef;
-  @ViewChild(MdcTabIndicator) tabIndicator!: MdcTabIndicator;
+  @ViewChild('content', {static: false}) content!: ElementRef;
+  @ViewChild('ripplesurface', {static: false}) rippleSurface!: ElementRef;
+  @ViewChild(MdcTabIndicator, {static: false}) tabIndicator!: MdcTabIndicator;
 
   getDefaultFoundation() {
     const adapter: MDCTabAdapter = {

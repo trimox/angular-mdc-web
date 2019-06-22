@@ -69,7 +69,7 @@ export class MdcTabIndicator extends
   }
   private _icon: string | null = null;
 
-  @ViewChild('content') content!: ElementRef<HTMLElement>;
+  @ViewChild('content', { static: true }) content!: ElementRef<HTMLElement>;
 
   getDefaultFoundation() {
     const adapter: MDCTabIndicatorAdapter = {

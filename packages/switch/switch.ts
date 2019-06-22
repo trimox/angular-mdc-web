@@ -124,8 +124,8 @@ export class MdcSwitch extends MDCComponent<MDCSwitchFoundation> implements MdcF
 
   @Output() readonly change: EventEmitter<MdcSwitchChange> = new EventEmitter<MdcSwitchChange>();
 
-  @ViewChild('input') _inputElement!: ElementRef<HTMLInputElement>;
-  @ViewChild('thumbUnderlay') thumbUnderlay!: ElementRef<HTMLElement>;
+  @ViewChild('input', {static: true}) _inputElement!: ElementRef<HTMLInputElement>;
+  @ViewChild('thumbUnderlay', {static: false}) thumbUnderlay!: ElementRef<HTMLElement>;
 
   /** View to model callback called when value changes */
   private _onChange = (_: any) => { };

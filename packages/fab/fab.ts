@@ -86,7 +86,7 @@ export class MdcFab implements AfterContentInit, OnDestroy {
   @Input() label?: string;
   @Input() icon?: string;
 
-  @ContentChild(MdcIcon) fabIcon!: MdcIcon;
+  @ContentChild(MdcIcon, {static: false}) fabIcon!: MdcIcon;
 
   constructor(
     private _changeDetectionRef: ChangeDetectorRef,

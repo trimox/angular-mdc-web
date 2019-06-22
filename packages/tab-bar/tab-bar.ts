@@ -117,7 +117,7 @@ export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements Afte
   @Output() readonly activated: EventEmitter<MdcTabActivatedEvent> =
     new EventEmitter<MdcTabActivatedEvent>();
 
-  @ContentChild(MdcTabScroller) tabScroller!: MdcTabScroller;
+  @ContentChild(MdcTabScroller, { static: true }) tabScroller!: MdcTabScroller;
   @ContentChildren(MdcTab, { descendants: true }) tabs!: QueryList<MdcTab>;
 
   /** Subscription to changes in tabs. */

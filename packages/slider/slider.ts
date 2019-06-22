@@ -162,11 +162,11 @@ export class MdcSlider extends MDCComponent<MDCSliderFoundation>
   @Output() readonly change: EventEmitter<MdcSliderChange> = new EventEmitter<MdcSliderChange>();
   @Output() readonly input: EventEmitter<MdcSliderChange> = new EventEmitter<MdcSliderChange>();
 
-  @ViewChild('thumbcontainer') thumbContainer!: ElementRef<HTMLElement>;
-  @ViewChild('sliderThumb') _sliderThumb!: ElementRef<HTMLElement>;
-  @ViewChild('track') track!: ElementRef<HTMLElement>;
-  @ViewChild('pin') pinValueMarker?: ElementRef;
-  @ViewChild('markercontainer') trackMarkerContainer?: ElementRef<HTMLElement>;
+  @ViewChild('thumbcontainer', {static: false}) thumbContainer!: ElementRef<HTMLElement>;
+  @ViewChild('sliderThumb', {static: false}) _sliderThumb!: ElementRef<HTMLElement>;
+  @ViewChild('track', {static: false}) track!: ElementRef<HTMLElement>;
+  @ViewChild('pin', {static: false}) pinValueMarker?: ElementRef;
+  @ViewChild('markercontainer', {static: false}) trackMarkerContainer?: ElementRef<HTMLElement>;
 
   /** View to model callback called when value changes */
   _onChanged: (value: any) => void = () => { };

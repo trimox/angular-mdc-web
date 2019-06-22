@@ -132,7 +132,7 @@ describe('MdcRippleComponent', () => {
   `
 })
 class SimpleTest {
-  @ViewChild('demodiv') demodiv;
+  @ViewChild('demodiv', {static: false}) demodiv;
   primary: boolean;
   secondary: boolean;
   disabled: boolean;

@@ -11,27 +11,27 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/common": "~7.2.14",
-    "@angular/compiler": "~7.2.14",
-    "@angular/core": "~7.2.14",
-    "@angular/forms": "~7.2.14",
-    "@angular/platform-browser": "~7.2.14",
-    "@angular/platform-browser-dynamic": "~7.2.14",
-    "@angular/router": "~7.2.14",
-    "core-js": "^2.6.5",
+    "@angular/common": "~8.0.2",
+    "@angular/compiler": "~8.0.2",
+    "@angular/core": "~8.0.2",
+    "@angular/forms": "~8.0.2",
+    "@angular/platform-browser": "~8.0.2",
+    "@angular/platform-browser-dynamic": "~8.0.2",
+    "@angular/router": "~8.0.2",
+    "core-js": "^3.1.4",
     "rxjs": "~6.4.0",
-    "tslib": "^1.9.3",
-    "zone.js": "~0.8.29"
+    "tslib": "^1.10.0",
+    "zone.js": "~0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.13.8",
-    "@angular/cli": "^7.3.8",
-    "@angular/compiler-cli": "~7.2.14",
-    "@types/node": "^11.13.9",
+    "@angular-devkit/build-angular": "^0.800.3",
+    "@angular/cli": "^8.0.3",
+    "@angular/compiler-cli": "~8.0.2",
+    "@types/node": "^12.0.10",
     "highlight.js": "^9.15.6",
     "ngx-highlightjs": "^3.0.3",
     "ts-node": "~8.1.0",
-    "tslint": "~5.15.0",
-    "typescript": "~3.2.2"
+    "tslint": "~5.18.0",
+    "typescript": "~3.4"
   }
 }

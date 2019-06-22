@@ -275,14 +275,14 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
   @Output() readonly valueChange:
     EventEmitter<{ index: number, value: any }> = new EventEmitter<any>();
 
-  @ViewChild(MdcFloatingLabel) _floatingLabel?: MdcFloatingLabel;
-  @ViewChild(MdcLineRipple) _lineRipple?: MdcLineRipple;
-  @ViewChild(MdcNotchedOutline) _notchedOutline?: MdcNotchedOutline;
-  @ViewChild('nativeSelect') _nativeSelect!: ElementRef<HTMLSelectElement>;
-  @ViewChild('selectedText') _selectedText!: ElementRef<HTMLElement>;
-  @ContentChild(MdcMenu) _menu!: MdcMenu;
-  @ContentChild(MdcSelectIcon) leadingIcon?: MdcSelectIcon;
-  @ContentChild(MdcList) _list!: MdcList;
+  @ViewChild(MdcFloatingLabel, {static: false}) _floatingLabel?: MdcFloatingLabel;
+  @ViewChild(MdcLineRipple, {static: false}) _lineRipple?: MdcLineRipple;
+  @ViewChild(MdcNotchedOutline, {static: false}) _notchedOutline?: MdcNotchedOutline;
+  @ViewChild('nativeSelect', {static: false}) _nativeSelect!: ElementRef<HTMLSelectElement>;
+  @ViewChild('selectedText', {static: false}) _selectedText!: ElementRef<HTMLElement>;
+  @ContentChild(MdcMenu, {static: false}) _menu!: MdcMenu;
+  @ContentChild(MdcSelectIcon, {static: false}) leadingIcon?: MdcSelectIcon;
+  @ContentChild(MdcList, {static: false}) _list!: MdcList;
 
   @ContentChildren(MdcSelectOption) _options!: QueryList<MdcSelectOption>;
 

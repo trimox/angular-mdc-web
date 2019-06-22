@@ -246,7 +246,7 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
   @Output() readonly removed: EventEmitter<MdcChipRemovedEvent> =
     new EventEmitter<MdcChipRemovedEvent>();
 
-  @ContentChild(MdcChipCheckmark) _checkmark?: MdcChipCheckmark;
+  @ContentChild(MdcChipCheckmark, {static: false}) _checkmark?: MdcChipCheckmark;
   @ContentChildren(forwardRef(() => MdcChipIcon), { descendants: true }) _icons!: QueryList<MdcChipIcon>;
 
   getDefaultFoundation() {

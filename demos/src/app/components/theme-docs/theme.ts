@@ -17,7 +17,7 @@ $mdc-theme-on-secondary: #442b2d;
 
 @Component({ template: '<component-viewer></component-viewer>' })
 export class ThemeDocs implements OnInit {
-  @ViewChild(ComponentViewer) _componentViewer: ComponentViewer;
+  @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
     this._componentViewer.componentView = new ComponentView(

@@ -378,7 +378,7 @@ class ChipTest {
   secondary: boolean;
   disableRipple: boolean;
 
-  @ViewChild('trailingIcon') trailingIcon: MdcIcon;
+  @ViewChild('trailingIcon', {static: false}) trailingIcon: MdcIcon;
 
   chipSelectionChange: (event?: MdcChipSelectionEvent) => void = () => { };
   iconInteraction: () => void = () => { };
@@ -393,7 +393,7 @@ class ChipTest {
 </mdc-chip-set>`
 })
 class ChipFilter {
-  @ViewChild('icon') icon: MdcIcon;
+  @ViewChild('icon', {static: false}) icon: MdcIcon;
 }
 
 @Component({

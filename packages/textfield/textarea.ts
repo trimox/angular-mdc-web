@@ -47,7 +47,7 @@ export class MdcTextarea extends MdcTextField {
   @Input() rows?: number;
   @Input() cols?: number;
 
-  @ViewChild(MdcCharacterCounter) _characterCounterElement!: MdcCharacterCounter;
+  @ViewChild(MdcCharacterCounter, {static: false}) _characterCounterElement!: MdcCharacterCounter;
 
   protected characterCounterFoundation(): any {
     return this.characterCounter ? this._characterCounterElement.getDefaultFoundation() : undefined;

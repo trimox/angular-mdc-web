@@ -327,7 +327,7 @@ export class MdcRadio extends MDCComponent<MDCRadioFoundation>
   private _required: boolean = false;
 
   @Output() readonly change: EventEmitter<MdcRadioChange> = new EventEmitter<MdcRadioChange>();
-  @ViewChild('input') input!: ElementRef<HTMLInputElement>;
+  @ViewChild('input', {static: true}) input!: ElementRef<HTMLInputElement>;
 
   /** Unregister function for _radioDispatcher */
   private _removeUniqueSelectionListener: () => void = () => { };

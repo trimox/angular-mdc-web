@@ -18,7 +18,7 @@ import { MdcIcon } from '@angular-mdc/web/icon';
   exportAs: 'mdcButtonLabel',
   host: {
     'class': 'mdc-button__label'
- }
+  }
 })
 export class MdcButtonLabel { }
 
@@ -95,7 +95,7 @@ export class MdcButton implements OnInit, OnDestroy {
   }
   private _disabled: boolean = false;
 
-  @ContentChild(MdcIcon) _icon!: MdcIcon;
+  @ContentChild(MdcIcon, { static: true }) _icon!: MdcIcon;
 
   @Input() label?: string;
 

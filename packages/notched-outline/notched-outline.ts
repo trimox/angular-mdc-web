@@ -34,8 +34,8 @@ import { MDCNotchedOutlineFoundation, MDCNotchedOutlineAdapter } from '@material
 export class MdcNotchedOutline extends MDCComponent<MDCNotchedOutlineFoundation> {
   @Input() label?: string;
   @Input() for?: string;
-  @ViewChild('notch') _notchElement!: ElementRef<HTMLElement>;
-  @ViewChild(MdcFloatingLabel) floatingLabel!: MdcFloatingLabel;
+  @ViewChild('notch', {static: false}) _notchElement!: ElementRef<HTMLElement>;
+  @ViewChild(MdcFloatingLabel, {static: false}) floatingLabel!: MdcFloatingLabel;
 
   getDefaultFoundation() {
     const adapter: MDCNotchedOutlineAdapter = {

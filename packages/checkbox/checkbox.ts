@@ -177,7 +177,7 @@ export class MdcCheckbox extends MDCComponent<MDCCheckboxFoundation> implements 
   @Output() readonly indeterminateChange: EventEmitter<MdcIndeterminateChange>
     = new EventEmitter<MdcIndeterminateChange>();
 
-  @ViewChild('input') _inputElement!: ElementRef<HTMLInputElement>;
+  @ViewChild('input', {static: true}) _inputElement!: ElementRef<HTMLInputElement>;
 
   /** View to model callback called when value changes */
   _onChange: (value: any) => void = () => { };

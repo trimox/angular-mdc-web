@@ -129,7 +129,7 @@ export class MdcTopAppBar extends MDCComponent<MDCTopAppBarBaseFoundation | MDCS
   @Output() readonly navigationSelected: EventEmitter<MdcTopAppBarNavSelected> =
     new EventEmitter<MdcTopAppBarNavSelected>();
 
-  @ContentChild(MdcTopAppBarNavigationIcon) navigationIcon?: MdcTopAppBarNavigationIcon;
+  @ContentChild(MdcTopAppBarNavigationIcon, {static: false}) navigationIcon?: MdcTopAppBarNavigationIcon;
   @ContentChildren(MdcTopAppBarActionItem, { descendants: true }) actions!: QueryList<MdcTopAppBarActionItem>;
 
   private _scrollTargetSubscription: Subscription | null = null;

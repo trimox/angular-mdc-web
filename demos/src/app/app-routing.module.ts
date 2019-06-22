@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
-import { GettingStarted } from './getting-started';
-import { Home } from './home/home';
+import {GettingStarted} from './getting-started';
+import {Home} from './home/home';
 
 export const DEMO_DECLARATIONS = [
   GettingStarted,
@@ -10,40 +10,76 @@ export const DEMO_DECLARATIONS = [
 ];
 
 const routes: Routes = [
-  { path: 'button-demo', loadChildren: './components/button-demo/button.module#ButtonModule' },
-  { path: 'card-demo', loadChildren: './components/card-demo/card.module#CardModule' },
-  { path: 'checkbox-demo', loadChildren: './components/checkbox-demo/checkbox.module#CheckboxModule' },
-  { path: 'chips-demo', loadChildren: './components/chips-demo/chips.module#ChipsModule' },
-  { path: 'theme-docs', loadChildren: './components/theme-docs/theme.module#ThemeModule' },
-  { path: 'dialog-demo', loadChildren: './components/dialog-demo/dialog.module#DialogModule' },
-  { path: 'drawer-demo', loadChildren: './components/drawer-demo/drawer.module#DrawerModule' },
-  { path: 'elevation-demo', loadChildren: './components/elevation-demo/elevation.module#ElevationModule' },
-  { path: 'fab-demo', loadChildren: './components/fab-demo/fab.module#FabModule' },
-  { path: 'form-field-demo', loadChildren: './components/form-field-demo/form-field.module#FormFieldModule' },
-  { path: 'getting-started', component: GettingStarted },
-  { path: 'home', component: Home, pathMatch: 'full' },
-  { path: 'icon-demo', loadChildren: './components/icon-demo/icon.module#IconModule' },
-  { path: 'icon-button-demo', loadChildren: './components/icon-button-demo/icon-button.module#IconButtonModule' },
-  { path: 'image-list-demo', loadChildren: './components/image-list-demo/image-list.module#ImageListModule' },
   {
-    path: 'linear-progress-demo',
-    loadChildren: './components/linear-progress-demo/linear-progress.module#LinearProgressModule'
+    path: 'button-demo', loadChildren: () =>
+      import('./components/button-demo/button.module').then(m => m.ButtonModule)
   },
-  { path: 'list-demo', loadChildren: './components/list-demo/list.module#ListModule' },
-  { path: 'menu-demo', loadChildren: './components/menu-demo/menu.module#MenuModule' },
-  { path: 'menu-surface-demo', loadChildren: './components/menu-surface-demo/menu-surface.module#MenuSurfaceModule' },
-  { path: 'radio-demo', loadChildren: './components/radio-demo/radio.module#RadioModule' },
-  { path: 'ripple-demo', loadChildren: './components/ripple-demo/ripple.module#RippleModule' },
-  { path: 'select-demo', loadChildren: './components/select-demo/select.module#SelectModule' },
-  { path: 'shape-docs', loadChildren: './components/shape-docs/shape.module#ShapeModule' },
-  { path: 'slider-demo', loadChildren: './components/slider-demo/slider.module#SliderModule' },
-  { path: 'snackbar-demo', loadChildren: './components/snackbar-demo/snackbar.module#SnackbarModule' },
-  { path: 'switch-demo', loadChildren: './components/switch-demo/switch.module#SwitchModule' },
-  { path: 'tabs-demo', loadChildren: './components/tabs-demo/tabs.module#TabsModule' },
-  { path: 'text-field-demo', loadChildren: './components/text-field-demo/text-field.module#TextFieldModule' },
-  { path: 'top-app-bar-demo', loadChildren: './components/top-app-bar-demo/top-app-bar.module#TopAppBarModule' },
-  { path: 'typography-demo', loadChildren: './components/typography-demo/typography.module#TypographyModule' },
-  { path: '**', redirectTo: 'home' }
+  {path: 'card-demo', loadChildren: () => import('./components/card-demo/card.module').then(m => m.CardModule)},
+  {
+    path: 'checkbox-demo', loadChildren: () =>
+      import('./components/checkbox-demo/checkbox.module').then(m => m.CheckboxModule)
+  },
+  {
+    path: 'chips-demo', loadChildren: () =>
+      import('./components/chips-demo/chips.module').then(m => m.ChipsModule)
+  },
+  {path: 'theme-docs', loadChildren: () => import('./components/theme-docs/theme.module').then(m => m.ThemeModule)},
+  {path: 'dialog-demo', loadChildren: () => import('./components/dialog-demo/dialog.module').then(m => m.DialogModule)},
+  {path: 'drawer-demo', loadChildren: () => import('./components/drawer-demo/drawer.module').then(m => m.DrawerModule)},
+  {
+    path: 'elevation-demo', loadChildren: () =>
+      import('./components/elevation-demo/elevation.module').then(m => m.ElevationModule)
+  },
+  {path: 'fab-demo', loadChildren: () => import('./components/fab-demo/fab.module').then(m => m.FabModule)},
+  {
+    path: 'form-field-demo', loadChildren: () =>
+      import('./components/form-field-demo/form-field.module').then(m => m.FormFieldModule)
+  },
+  {path: 'getting-started', component: GettingStarted},
+  {path: 'home', component: Home, pathMatch: 'full'},
+  {path: 'icon-demo', loadChildren: () => import('./components/icon-demo/icon.module').then(m => m.IconModule)},
+  {
+    path: 'icon-button-demo', loadChildren: () =>
+      import('./components/icon-button-demo/icon-button.module').then(m => m.IconButtonModule)
+  },
+  {
+    path: 'image-list-demo', loadChildren: () =>
+      import('./components/image-list-demo/image-list.module').then(m => m.ImageListModule)
+  },
+  {
+    path: 'linear-progress-demo', loadChildren: () =>
+      import('./components/linear-progress-demo/linear-progress.module').then(m => m.LinearProgressModule)
+  },
+  {path: 'list-demo', loadChildren: () => import('./components/list-demo/list.module').then(m => m.ListModule)},
+  {path: 'menu-demo', loadChildren: () => import('./components/menu-demo/menu.module').then(m => m.MenuModule)},
+  {
+    path: 'menu-surface-demo', loadChildren: () =>
+      import('./components/menu-surface-demo/menu-surface.module').then(m => m.MenuSurfaceModule)
+  },
+  {path: 'radio-demo', loadChildren: () => import('./components/radio-demo/radio.module').then(m => m.RadioModule)},
+  {path: 'ripple-demo', loadChildren: () => import('./components/ripple-demo/ripple.module').then(m => m.RippleModule)},
+  {path: 'select-demo', loadChildren: () => import('./components/select-demo/select.module').then(m => m.SelectModule)},
+  {path: 'shape-docs', loadChildren: () => import('./components/shape-docs/shape.module').then(m => m.ShapeModule)},
+  {path: 'slider-demo', loadChildren: () => import('./components/slider-demo/slider.module').then(m => m.SliderModule)},
+  {
+    path: 'snackbar-demo', loadChildren: () =>
+      import('./components/snackbar-demo/snackbar.module').then(m => m.SnackbarModule)
+  },
+  {path: 'switch-demo', loadChildren: () => import('./components/switch-demo/switch.module').then(m => m.SwitchModule)},
+  {path: 'tabs-demo', loadChildren: () => import('./components/tabs-demo/tabs.module').then(m => m.TabsModule)},
+  {
+    path: 'text-field-demo', loadChildren: () =>
+      import('./components/text-field-demo/text-field.module').then(m => m.TextFieldModule)
+  },
+  {
+    path: 'top-app-bar-demo', loadChildren: () =>
+      import('./components/top-app-bar-demo/top-app-bar.module').then(m => m.TopAppBarModule)
+  },
+  {
+    path: 'typography-demo', loadChildren: () =>
+      import('./components/typography-demo/typography.module').then(m => m.TypographyModule)
+  },
+  {path: '**', redirectTo: 'home'}
 ];
 
 @NgModule({
@@ -53,4 +89,4 @@ const routes: Routes = [
   })],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

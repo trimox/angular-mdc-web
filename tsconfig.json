@@ -8,6 +8,7 @@
     "moduleResolution": "node",
     "strict": true,
     "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "skipLibCheck": true,
     "target": "es2015",

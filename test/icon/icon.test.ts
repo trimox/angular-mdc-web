@@ -1,12 +1,12 @@
-import { inject, async, fakeAsync, tick, TestBed } from '@angular/core/testing';
-import { SafeResourceUrl, DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Component } from '@angular/core';
+import {inject, async, fakeAsync, tick, TestBed} from '@angular/core/testing';
+import {SafeResourceUrl, DomSanitizer, SafeHtml} from '@angular/platform-browser';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {Component} from '@angular/core';
 
-import { wrappedErrorMessage } from '../testing/wrapped-error-message';
-import { FAKE_SVGS } from '../testing/fake-svgs';
+import {wrappedErrorMessage} from '../testing/wrapped-error-message';
+import {FAKE_SVGS} from '../testing/fake-svgs';
 
-import { MdcIconModule, MDC_ICON_LOCATION, MdcIconRegistry, getMdcIconNoHttpProviderError } from '@angular-mdc/web';
+import {MdcIconModule, MDC_ICON_LOCATION, MdcIconRegistry, getMdcIconNoHttpProviderError} from '@angular-mdc/web';
 
 /** Returns the CSS classes assigned to an element as a sorted array. */
 function sortedClassNames(element: Element): string[] {
@@ -240,6 +240,29 @@ describe('MdcIcon', () => {
       expect(svgChild.tagName.toLowerCase()).toBe('g');
       expect(svgChild.getAttribute('name')).toBe('cow');
       verifyPathChildElement(svgChild, 'moo');
+    });
+
+    it('should handle unescape characters in icon names', () => {
+      iconRegistry.addSvgIconSetInNamespace('farm', trustUrl('farm-set-4.svg'));
+
+      const fixture = TestBed.createComponent(IconFromSvgName);
+      const testComponent = fixture.componentInstance;
+      const mdcIconElement = fixture.debugElement.nativeElement.querySelector('mdc-icon');
+      let svgElement: any;
+      let svgChild: any;
+
+      testComponent.iconName = 'farm:pig with spaces';
+      fixture.detectChanges();
+      http.expectOne('farm-set-4.svg').flush(FAKE_SVGS.farmSet4);
+
+      expect(mdcIconElement.childNodes.length).toBe(1);
+      svgElement = verifyAndGetSingleSvgChild(mdcIconElement);
+      expect(svgElement.childNodes.length).toBe(1);
+      svgChild = svgElement.childNodes[0];
+      // The first <svg> child should be the <g id="pig"> element.
+      expect(svgChild.tagName.toLowerCase()).toBe('g');
+      expect(svgChild.getAttribute('name')).toBe('pig');
+      verifyPathChildElement(svgChild, 'oink');
     });
 
     it('should never parse the same icon set multiple times', () => {

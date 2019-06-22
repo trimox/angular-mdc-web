@@ -7,8 +7,8 @@ import {
   OnDestroy,
   ViewEncapsulation
 } from '@angular/core';
-import { toBoolean } from '@angular-mdc/web/common';
-import { MdcRipple } from '@angular-mdc/web/ripple';
+import {toBoolean} from '@angular-mdc/web/common';
+import {MdcRipple} from '@angular-mdc/web/ripple';
 
 @Directive({
   selector: 'mdc-card-media-content, [mdcCardMediaContent]',

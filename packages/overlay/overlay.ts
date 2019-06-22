@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import { DomPortalOutlet } from '@angular-mdc/web/portal';
-import { DOCUMENT, Location } from '@angular/common';
+import {DomPortalOutlet} from '@angular-mdc/web/portal';
+import {DOCUMENT, Location} from '@angular/common';
 import {
   ApplicationRef,
   ComponentFactoryResolver,
@@ -17,9 +17,9 @@ import {
   NgZone,
   Optional
 } from '@angular/core';
-import { OverlayConfig } from './overlay-config';
-import { OverlayContainer } from './overlay-container';
-import { OverlayRef } from './overlay-ref';
+import {OverlayConfig} from './overlay-config';
+import {OverlayContainer} from './overlay-container';
+import {OverlayRef} from './overlay-ref';
 
 /** Next overlay unique ID. */
 let nextUniqueId = 0;

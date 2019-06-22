@@ -3,17 +3,17 @@ import {
   OnDestroy,
   NgZone
 } from '@angular/core';
-import { fromEvent, Subject, Subscription, merge, Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import {fromEvent, Subject, Subscription, merge, Observable} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
-import { Platform } from '@angular-mdc/web/common';
+import {Platform} from '@angular-mdc/web/common';
 
-import { matches } from '@material/dom/ponyfill';
+import {matches} from '@material/dom/ponyfill';
 import {
   applyPassive,
   supportsCssVariables
 } from '@material/ripple/util';
-import { MDCRippleFoundation } from '@material/ripple';
+import {MDCRippleFoundation} from '@material/ripple';
 
 // Activation events registered on the root element of each instance for activation
 const ACTIVATION_EVENT_TYPES = ['touchstart', 'mousedown', 'keydown'];

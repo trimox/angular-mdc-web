@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import { Injector } from '@angular/core';
+import {Injector} from '@angular/core';
 
 /**
  * Custom injector to be used when providing custom

@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { MdcIconModule } from '@angular-mdc/web/icon';
+import {MdcIconModule} from '@angular-mdc/web/icon';
 import {
   MdcIconButton,
   MdcIconOn

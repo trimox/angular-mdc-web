@@ -9,15 +9,15 @@ import {
   Optional,
   SkipSelf
 } from '@angular/core';
-import { Overlay, OverlayRef } from '@angular-mdc/web/overlay';
-import { ComponentPortal, ComponentType, PortalInjector } from '@angular-mdc/web/portal';
+import {Overlay, OverlayRef} from '@angular-mdc/web/overlay';
+import {ComponentPortal, ComponentType, PortalInjector} from '@angular-mdc/web/portal';
 
-import { MdcSnackbarModule } from './snackbar-module';
+import {MdcSnackbarModule} from './snackbar-module';
 
-import { MdcSnackbarRef } from './snackbar-ref';
-import { MdcSnackbarComponent } from './snackbar.component';
-import { MDC_SNACKBAR_DATA, MdcSnackbarConfig } from './snackbar-config';
-import { MdcSnackbarContainer } from './snackbar-container';
+import {MdcSnackbarRef} from './snackbar-ref';
+import {MdcSnackbarComponent} from './snackbar.component';
+import {MDC_SNACKBAR_DATA, MdcSnackbarConfig} from './snackbar-config';
+import {MdcSnackbarContainer} from './snackbar-container';
 
 /** Injection token that can be used to specify default snackbar. */
 export const MDC_SNACKBAR_DEFAULT_OPTIONS =

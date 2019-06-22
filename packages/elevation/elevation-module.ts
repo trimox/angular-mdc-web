@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 
-import { MdcElevation } from './elevation';
+import {MdcElevation} from './elevation';
 
 @NgModule({
   exports: [MdcElevation],

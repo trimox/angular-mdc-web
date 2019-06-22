@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 
-import { MdcTabScroller } from './tab-scroller';
+import {MdcTabScroller} from './tab-scroller';
 
 @NgModule({
   exports: [MdcTabScroller],

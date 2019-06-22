@@ -7,9 +7,9 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
-import { MdcButton } from '@angular-mdc/web/button';
-import { toBoolean } from '@angular-mdc/web/common';
-import { MdcRipple } from '@angular-mdc/web/ripple';
+import {MdcButton} from '@angular-mdc/web/button';
+import {toBoolean} from '@angular-mdc/web/common';
+import {MdcRipple} from '@angular-mdc/web/ripple';
 
 @Directive({ selector: '[mdcDialogAction]' })
 export class MdcDialogAction {

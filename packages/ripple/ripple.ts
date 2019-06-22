@@ -8,9 +8,9 @@ import {
   Input,
   OnDestroy
 } from '@angular/core';
-import { toBoolean } from '@angular-mdc/web/common';
+import {toBoolean} from '@angular-mdc/web/common';
 
-import { MdcRipple } from './ripple.service';
+import {MdcRipple} from './ripple.service';
 
 @Component({
   selector: 'mdc-ripple, [mdc-ripple]',

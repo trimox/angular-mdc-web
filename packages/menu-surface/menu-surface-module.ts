@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 
-import { MdcMenuSurface } from './menu-surface';
-import { MdcMenuSurfaceAnchor } from './menu-surface-anchor';
+import {MdcMenuSurface} from './menu-surface';
+import {MdcMenuSurfaceAnchor} from './menu-surface-anchor';
 
 const MENU_SURFACE_DECLARATIONS = [
   MdcMenuSurface,

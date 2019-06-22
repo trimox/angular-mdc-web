@@ -15,16 +15,16 @@ import {
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { startWith } from 'rxjs/operators';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {Subscription} from 'rxjs';
+import {startWith} from 'rxjs/operators';
 
-import { MDCComponent } from '@angular-mdc/web/base';
-import { toBoolean } from '@angular-mdc/web/common';
-import { MdcRipple } from '@angular-mdc/web/ripple';
-import { MdcIcon } from '@angular-mdc/web/icon';
+import {MDCComponent} from '@angular-mdc/web/base';
+import {toBoolean} from '@angular-mdc/web/common';
+import {MdcRipple} from '@angular-mdc/web/ripple';
+import {MdcIcon} from '@angular-mdc/web/icon';
 
-import { MDCIconButtonToggleFoundation, MDCIconButtonToggleAdapter } from '@material/icon-button';
+import {MDCIconButtonToggleFoundation, MDCIconButtonToggleAdapter} from '@material/icon-button';
 
 export const MDC_ICON_BUTTON_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,

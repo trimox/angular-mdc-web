@@ -7,8 +7,8 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
-import { toBoolean } from '@angular-mdc/web/common';
-import { MdcCharacterCounter } from './character-counter';
+import {toBoolean} from '@angular-mdc/web/common';
+import {MdcCharacterCounter} from './character-counter';
 
 @Component({
   moduleId: module.id,

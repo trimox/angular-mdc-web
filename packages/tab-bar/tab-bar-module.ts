@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 
-import { MdcTabIndicatorModule } from '@angular-mdc/web/tab-indicator';
-import { MdcTabModule } from '@angular-mdc/web/tab';
-import { MdcTabScrollerModule } from '@angular-mdc/web/tab-scroller';
+import {MdcTabIndicatorModule} from '@angular-mdc/web/tab-indicator';
+import {MdcTabModule} from '@angular-mdc/web/tab';
+import {MdcTabScrollerModule} from '@angular-mdc/web/tab-scroller';
 
-import { MdcTabBar } from './tab-bar';
+import {MdcTabBar} from './tab-bar';
 
 @NgModule({
   imports: [

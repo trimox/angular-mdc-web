@@ -5,7 +5,7 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { Subject } from 'rxjs';
+import {Subject} from 'rxjs';
 import {
   BasePortalOutlet,
   ComponentPortal,
@@ -13,7 +13,7 @@ import {
   TemplatePortal
 } from '@angular-mdc/web/portal';
 
-import { MdcDialogConfig } from './dialog-config';
+import {MdcDialogConfig} from './dialog-config';
 
 /**
  * Throws an exception for the case when a ComponentPortal is

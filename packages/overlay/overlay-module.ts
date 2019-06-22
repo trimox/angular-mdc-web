@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { PortalModule } from '@angular-mdc/web/portal';
-import { Overlay } from './overlay';
+import {NgModule} from '@angular/core';
+import {PortalModule} from '@angular-mdc/web/portal';
+import {Overlay} from './overlay';
 
 export { ComponentType } from '@angular-mdc/web/portal';
 

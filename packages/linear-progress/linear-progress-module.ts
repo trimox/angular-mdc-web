@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 
-import { MdcLinearProgress } from './linear-progress';
+import {MdcLinearProgress} from './linear-progress';
 
 @NgModule({
   exports: [MdcLinearProgress],

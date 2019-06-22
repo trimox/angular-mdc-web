@@ -14,15 +14,15 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
-import { MDCComponent } from '@angular-mdc/web/base';
-import { toBoolean } from '@angular-mdc/web/common';
-import { MdcRipple } from '@angular-mdc/web/ripple';
+import {MDCComponent} from '@angular-mdc/web/base';
+import {toBoolean} from '@angular-mdc/web/common';
+import {MdcRipple} from '@angular-mdc/web/ripple';
 
-import { MdcFormField, MdcFormFieldControl } from '@angular-mdc/web/form-field';
+import {MdcFormField, MdcFormFieldControl} from '@angular-mdc/web/form-field';
 
-import { MDCSwitchFoundation, MDCSwitchAdapter } from '@material/switch';
+import {MDCSwitchFoundation, MDCSwitchAdapter} from '@material/switch';
 
 export const MDC_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,

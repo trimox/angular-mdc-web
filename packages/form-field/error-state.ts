@@ -1,6 +1,6 @@
-import { FormControl, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import {FormControl, FormGroupDirective, NgControl, NgForm} from '@angular/forms';
 
-import { ErrorStateMatcher } from './error-state-matcher';
+import {ErrorStateMatcher} from './error-state-matcher';
 
 export type Constructor<T> = new (...args: any[]) => T;
 

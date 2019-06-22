@@ -13,12 +13,12 @@ import {
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
-import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { merge, Observable, Subject, Subscription } from 'rxjs';
-import { startWith, takeUntil } from 'rxjs/operators';
+import {ControlValueAccessor, FormGroupDirective, NgControl, NgForm} from '@angular/forms';
+import {merge, Observable, Subject, Subscription} from 'rxjs';
+import {startWith, takeUntil} from 'rxjs/operators';
 
-import { MDCComponent } from '@angular-mdc/web/base';
-import { toBoolean } from '@angular-mdc/web/common';
+import {MDCComponent} from '@angular-mdc/web/base';
+import {toBoolean} from '@angular-mdc/web/common';
 
 import {
   MdcChip,
@@ -28,7 +28,7 @@ import {
   MDC_CHIPSET_PARENT_COMPONENT
 } from './chip';
 
-import { MDCChipSetFoundation, MDCChipSetAdapter } from '@material/chips/chip-set';
+import {MDCChipSetFoundation, MDCChipSetAdapter} from '@material/chips/chip-set';
 
 export class MdcChipSetChange {
   constructor(

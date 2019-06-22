@@ -7,15 +7,15 @@ import {
   Optional,
   Output
 } from '@angular/core';
-import { fromEvent, Subject, Subscription } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import {fromEvent, Subject, Subscription} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
-import { MDCComponent } from '@angular-mdc/web/base';
-import { Platform, toBoolean } from '@angular-mdc/web/common';
+import {MDCComponent} from '@angular-mdc/web/base';
+import {Platform, toBoolean} from '@angular-mdc/web/common';
 
-import { getTransformPropertyName } from '@material/menu-surface/util';
-import { Corner, strings } from '@material/menu-surface/constants';
-import { MDCMenuSurfaceFoundation, MDCMenuSurfaceAdapter } from '@material/menu-surface';
+import {getTransformPropertyName} from '@material/menu-surface/util';
+import {Corner, strings} from '@material/menu-surface/constants';
+import {MDCMenuSurfaceFoundation, MDCMenuSurfaceAdapter} from '@material/menu-surface';
 
 export interface MdcMenuSurfaceOpenedEvent {
   detail: string;

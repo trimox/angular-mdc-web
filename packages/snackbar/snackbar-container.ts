@@ -14,9 +14,9 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { Subject } from 'rxjs';
-import { take } from 'rxjs/operators';
-import { MdcSnackbarConfig } from './snackbar-config';
+import {Subject} from 'rxjs';
+import {take} from 'rxjs/operators';
+import {MdcSnackbarConfig} from './snackbar-config';
 
 @Component({
   moduleId: module.id,

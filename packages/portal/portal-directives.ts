@@ -19,7 +19,7 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import { BasePortalOutlet, ComponentPortal, Portal, TemplatePortal } from './portal';
+import {BasePortalOutlet, ComponentPortal, Portal, TemplatePortal} from './portal';
 
 /**
  * Directive version of a `TemplatePortal`. Because the directive *is* a TemplatePortal,

@@ -14,16 +14,16 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { fromEvent, Subject } from 'rxjs';
-import { takeUntil, filter } from 'rxjs/operators';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {fromEvent, Subject} from 'rxjs';
+import {takeUntil, filter} from 'rxjs/operators';
 
-import { MDCComponent } from '@angular-mdc/web/base';
-import { Platform, toBoolean } from '@angular-mdc/web/common';
-import { MdcRipple } from '@angular-mdc/web/ripple';
-import { MdcFormField, MdcFormFieldControl } from '@angular-mdc/web/form-field';
+import {MDCComponent} from '@angular-mdc/web/base';
+import {Platform, toBoolean} from '@angular-mdc/web/common';
+import {MdcRipple} from '@angular-mdc/web/ripple';
+import {MdcFormField, MdcFormFieldControl} from '@angular-mdc/web/form-field';
 
-import { MDCCheckboxFoundation, MDCCheckboxAdapter } from '@material/checkbox';
+import {MDCCheckboxFoundation, MDCCheckboxAdapter} from '@material/checkbox';
 
 let nextUniqueId = 0;
 

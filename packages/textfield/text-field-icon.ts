@@ -2,8 +2,8 @@ import {
   Directive,
   Input
 } from '@angular/core';
-import { toBoolean } from '@angular-mdc/web/common';
-import { MdcIcon } from '@angular-mdc/web/icon';
+import {toBoolean} from '@angular-mdc/web/common';
+import {MdcIcon} from '@angular-mdc/web/icon';
 
 @Directive({
   selector: '[mdcTextFieldIcon]',

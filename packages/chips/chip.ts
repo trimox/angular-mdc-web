@@ -21,12 +21,12 @@ import {
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
-import { fromEvent, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import {fromEvent, Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
-import { MDCComponent } from '@angular-mdc/web/base';
-import { toBoolean, Platform } from '@angular-mdc/web/common';
-import { MdcRipple } from '@angular-mdc/web/ripple';
+import {MDCComponent} from '@angular-mdc/web/base';
+import {toBoolean, Platform} from '@angular-mdc/web/common';
+import {MdcRipple} from '@angular-mdc/web/ripple';
 import {
   MdcIcon,
   MdcIconLocation,

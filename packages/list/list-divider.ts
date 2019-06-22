@@ -6,7 +6,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
-import { toBoolean } from '@angular-mdc/web/common';
+import {toBoolean} from '@angular-mdc/web/common';
 
 @Component({
   moduleId: module.id,

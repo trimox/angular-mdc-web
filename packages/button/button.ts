@@ -9,9 +9,9 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import { toBoolean } from '@angular-mdc/web/common';
-import { MdcRipple } from '@angular-mdc/web/ripple';
-import { MdcIcon } from '@angular-mdc/web/icon';
+import {toBoolean} from '@angular-mdc/web/common';
+import {MdcRipple} from '@angular-mdc/web/ripple';
+import {MdcIcon} from '@angular-mdc/web/icon';
 
 @Directive({
   selector: 'mdc-button-label, [mdcButtonLabel]',

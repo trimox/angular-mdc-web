@@ -6,7 +6,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
-import { MdcMenuSurfaceBase } from './menu-surface-base';
+import {MdcMenuSurfaceBase} from './menu-surface-base';
 
 @Component({
   moduleId: module.id,

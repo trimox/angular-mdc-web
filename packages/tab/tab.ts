@@ -16,15 +16,15 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { fromEvent, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import {fromEvent, Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
-import { MDCComponent } from '@angular-mdc/web/base';
-import { toBoolean } from '@angular-mdc/web/common';
-import { MdcRipple } from '@angular-mdc/web/ripple';
-import { MdcTabIndicator } from '@angular-mdc/web/tab-indicator';
+import {MDCComponent} from '@angular-mdc/web/base';
+import {toBoolean} from '@angular-mdc/web/common';
+import {MdcRipple} from '@angular-mdc/web/ripple';
+import {MdcTabIndicator} from '@angular-mdc/web/tab-indicator';
 
-import { MDCTabFoundation, MDCTabAdapter } from '@material/tab';
+import {MDCTabFoundation, MDCTabAdapter} from '@material/tab';
 
 /**
  * Describes a parent MdcTabBar component.

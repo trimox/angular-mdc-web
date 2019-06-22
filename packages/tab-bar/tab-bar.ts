@@ -13,15 +13,15 @@ import {
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
-import { merge, Observable, Subscription, Subject } from 'rxjs';
-import { startWith } from 'rxjs/operators';
+import {merge, Observable, Subscription, Subject} from 'rxjs';
+import {startWith} from 'rxjs/operators';
 
-import { MDCComponent } from '@angular-mdc/web/base';
-import { toBoolean, Platform } from '@angular-mdc/web/common';
-import { MdcTabScroller, MdcTabScrollerAlignment } from '@angular-mdc/web/tab-scroller';
-import { MdcTab, MdcTabInteractedEvent, MDC_TAB_BAR_PARENT_COMPONENT } from '@angular-mdc/web/tab';
+import {MDCComponent} from '@angular-mdc/web/base';
+import {toBoolean, Platform} from '@angular-mdc/web/common';
+import {MdcTabScroller, MdcTabScrollerAlignment} from '@angular-mdc/web/tab-scroller';
+import {MdcTab, MdcTabInteractedEvent, MDC_TAB_BAR_PARENT_COMPONENT} from '@angular-mdc/web/tab';
 
-import { MDCTabBarFoundation, MDCTabBarAdapter } from '@material/tab-bar';
+import {MDCTabBarFoundation, MDCTabBarAdapter} from '@material/tab-bar';
 
 export class MdcTabActivatedEvent {
   constructor(

@@ -6,8 +6,8 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
-import { MdcCharacterCounter } from '@angular-mdc/web/form-field';
-import { MdcTextField } from './text-field';
+import {MdcCharacterCounter} from '@angular-mdc/web/form-field';
+import {MdcTextField} from './text-field';
 
 @Component({
   moduleId: module.id,

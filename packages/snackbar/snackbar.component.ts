@@ -10,12 +10,12 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
-import { MDCComponent } from '@angular-mdc/web/base';
-import { MdcSnackbarRef, MdcSnackbarDismissReason } from './snackbar-ref';
-import { MDC_SNACKBAR_DATA, MdcSnackbarConfig } from './snackbar-config';
+import {MDCComponent} from '@angular-mdc/web/base';
+import {MdcSnackbarRef, MdcSnackbarDismissReason} from './snackbar-ref';
+import {MDC_SNACKBAR_DATA, MdcSnackbarConfig} from './snackbar-config';
 
-import { announce } from '@material/snackbar/util';
-import { MDCSnackbarFoundation, MDCSnackbarAdapter } from '@material/snackbar';
+import {announce} from '@material/snackbar/util';
+import {MDCSnackbarFoundation, MDCSnackbarAdapter} from '@material/snackbar';
 
 @Component({
   moduleId: module.id,

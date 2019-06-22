@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { MdcSlider } from './slider';
+import {MdcSlider} from './slider';
 
 @NgModule({
   imports: [CommonModule],

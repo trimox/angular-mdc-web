@@ -7,10 +7,10 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
-import { MDCComponent } from '@angular-mdc/web/base';
-import { MdcFloatingLabel } from '@angular-mdc/web/floating-label';
+import {MDCComponent} from '@angular-mdc/web/base';
+import {MdcFloatingLabel} from '@angular-mdc/web/floating-label';
 
-import { MDCNotchedOutlineFoundation, MDCNotchedOutlineAdapter } from '@material/notched-outline';
+import {MDCNotchedOutlineFoundation, MDCNotchedOutlineAdapter} from '@material/notched-outline';
 
 @Component({
   moduleId: module.id,

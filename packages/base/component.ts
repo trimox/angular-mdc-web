@@ -1,4 +1,4 @@
-import { ElementRef } from '@angular/core';
+import {ElementRef} from '@angular/core';
 
 export class MDCComponent<FoundationType extends any> {
   protected _elementRef: ElementRef;

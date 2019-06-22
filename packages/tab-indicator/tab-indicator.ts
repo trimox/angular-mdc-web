@@ -9,8 +9,8 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
-import { MDCComponent } from '@angular-mdc/web/base';
-import { toBoolean, Platform } from '@angular-mdc/web/common';
+import {MDCComponent} from '@angular-mdc/web/base';
+import {toBoolean, Platform} from '@angular-mdc/web/common';
 
 import {
   MDCTabIndicatorAdapter,

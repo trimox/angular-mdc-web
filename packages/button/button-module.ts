@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { MdcButton, MdcButtonLabel } from './button';
+import {MdcButton, MdcButtonLabel} from './button';
 
 @NgModule({
   imports: [

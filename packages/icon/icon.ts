@@ -22,11 +22,11 @@ import {
   SimpleChanges,
   ViewEncapsulation
 } from '@angular/core';
-import { take } from 'rxjs/operators';
-import { DOCUMENT } from '@angular/common';
+import {take} from 'rxjs/operators';
+import {DOCUMENT} from '@angular/common';
 
-import { toBoolean } from '@angular-mdc/web/common';
-import { MdcIconRegistry } from './icon-registry';
+import {toBoolean} from '@angular-mdc/web/common';
+import {MdcIconRegistry} from './icon-registry';
 
 export interface MdcIconLocation {
   getPathname: () => string;

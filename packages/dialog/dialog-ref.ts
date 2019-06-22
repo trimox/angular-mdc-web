@@ -1,7 +1,7 @@
-import { Observable, Subject } from 'rxjs';
-import { OverlayRef } from '@angular-mdc/web/overlay';
+import {Observable, Subject} from 'rxjs';
+import {OverlayRef} from '@angular-mdc/web/overlay';
 
-import { MdcDialogPortal } from './dialog-portal';
+import {MdcDialogPortal} from './dialog-portal';
 
 /** Unique id for the created dialog. */
 let uniqueId = 0;

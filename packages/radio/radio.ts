@@ -16,14 +16,14 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
-import { toBoolean, UniqueSelectionDispatcher } from '@angular-mdc/web/common';
-import { MdcRipple } from '@angular-mdc/web/ripple';
-import { MdcFormField, MdcFormFieldControl } from '@angular-mdc/web/form-field';
-import { MDCComponent } from '@angular-mdc/web/base';
+import {toBoolean, UniqueSelectionDispatcher} from '@angular-mdc/web/common';
+import {MdcRipple} from '@angular-mdc/web/ripple';
+import {MdcFormField, MdcFormFieldControl} from '@angular-mdc/web/form-field';
+import {MDCComponent} from '@angular-mdc/web/base';
 
-import { MDCRadioFoundation, MDCRadioAdapter } from '@material/radio';
+import {MDCRadioFoundation, MDCRadioAdapter} from '@material/radio';
 
 /**
  * Provider Expression that allows mdc-radio-group to register as a ControlValueAccessor. This

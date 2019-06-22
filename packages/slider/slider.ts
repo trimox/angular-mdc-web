@@ -13,15 +13,15 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { fromEvent, Subject } from 'rxjs';
-import { takeUntil, auditTime } from 'rxjs/operators';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {fromEvent, Subject} from 'rxjs';
+import {takeUntil, auditTime} from 'rxjs/operators';
 
-import { MDCComponent } from '@angular-mdc/web/base';
-import { toNumber, toBoolean, Platform } from '@angular-mdc/web/common';
+import {MDCComponent} from '@angular-mdc/web/base';
+import {toNumber, toBoolean, Platform} from '@angular-mdc/web/common';
 
-import { strings } from '@material/slider/constants';
-import { MDCSliderFoundation, MDCSliderAdapter } from '@material/slider';
+import {strings} from '@material/slider/constants';
+import {MDCSliderFoundation, MDCSliderAdapter} from '@material/slider';
 
 export const MDC_SLIDER_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

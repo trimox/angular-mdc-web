@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { MdcTopAppBar } from './top-app-bar';
+import {MdcTopAppBar} from './top-app-bar';
 import {
   MdcTopAppBarActionItem,
   MdcTopAppBarFixedAdjust,

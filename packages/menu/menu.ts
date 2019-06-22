@@ -11,14 +11,14 @@ import {
   Output,
   ViewEncapsulation
 } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
-import { toBoolean } from '@angular-mdc/web/common';
-import { MdcList, MdcListItem, MdcListItemAction } from '@angular-mdc/web/list';
-import { MdcMenuSurfaceBase } from '@angular-mdc/web/menu-surface';
+import {toBoolean} from '@angular-mdc/web/common';
+import {MdcList, MdcListItem, MdcListItemAction} from '@angular-mdc/web/list';
+import {MdcMenuSurfaceBase} from '@angular-mdc/web/menu-surface';
 
-import { cssClasses, MDCMenuFoundation } from '@material/menu';
+import {cssClasses, MDCMenuFoundation} from '@material/menu';
 
 export class MdcMenuSelectedEvent {
   constructor(

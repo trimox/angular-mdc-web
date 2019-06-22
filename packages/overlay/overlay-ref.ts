@@ -6,13 +6,13 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import { ComponentPortal, Portal, PortalOutlet, TemplatePortal } from '@angular-mdc/web/portal';
-import { ComponentRef, EmbeddedViewRef, NgZone } from '@angular/core';
-import { Location } from '@angular/common';
-import { Observable, Subject, merge, SubscriptionLike, Subscription, Observer } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { OverlayConfig } from './overlay-config';
-import { OverlayReference } from './overlay-reference';
+import {ComponentPortal, Portal, PortalOutlet, TemplatePortal} from '@angular-mdc/web/portal';
+import {ComponentRef, EmbeddedViewRef, NgZone} from '@angular/core';
+import {Location} from '@angular/common';
+import {Observable, Subject, merge, SubscriptionLike, Subscription, Observer} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {OverlayConfig} from './overlay-config';
+import {OverlayReference} from './overlay-reference';
 
 /** An object where all of its properties cannot be written. */
 export type ImmutableObject<T> = {

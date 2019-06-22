@@ -21,16 +21,16 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import {ControlValueAccessor, FormGroupDirective, NgControl, NgForm} from '@angular/forms';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
-import { toBoolean, Platform } from '@angular-mdc/web/common';
-import { MdcRipple } from '@angular-mdc/web/ripple';
-import { MdcNotchedOutline } from '@angular-mdc/web/notched-outline';
-import { MdcFloatingLabel } from '@angular-mdc/web/floating-label';
-import { MdcMenu } from '@angular-mdc/web/menu';
-import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
+import {toBoolean, Platform} from '@angular-mdc/web/common';
+import {MdcRipple} from '@angular-mdc/web/ripple';
+import {MdcNotchedOutline} from '@angular-mdc/web/notched-outline';
+import {MdcFloatingLabel} from '@angular-mdc/web/floating-label';
+import {MdcMenu} from '@angular-mdc/web/menu';
+import {MdcLineRipple} from '@angular-mdc/web/line-ripple';
 import {
   MdcFormField,
   MdcFormFieldControl,
@@ -40,12 +40,12 @@ import {
   CanUpdateErrorStateCtor,
   mixinErrorState
 } from '@angular-mdc/web/form-field';
-import { MdcList, MdcListItemChange } from '@angular-mdc/web/list';
+import {MdcList, MdcListItemChange} from '@angular-mdc/web/list';
 
-import { MdcSelectIcon } from './select-icon';
+import {MdcSelectIcon} from './select-icon';
 
-import { MDCSelectHelperTextFoundation } from '@material/select/helper-text';
-import { cssClasses, MDCSelectFoundation } from '@material/select';
+import {MDCSelectHelperTextFoundation} from '@material/select/helper-text';
+import {cssClasses, MDCSelectFoundation} from '@material/select';
 
 /**
  * Represents the default options for mdc-select that can be configured

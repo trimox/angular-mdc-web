@@ -4,7 +4,7 @@ import {
   OnDestroy
 } from '@angular/core';
 
-import { MDCComponent } from '@angular-mdc/web/base';
+import {MDCComponent} from '@angular-mdc/web/base';
 import {
   MDCTextFieldCharacterCounterFoundation,
   MDCTextFieldCharacterCounterAdapter

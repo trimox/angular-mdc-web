@@ -1,5 +1,5 @@
-import { Directive } from '@angular/core';
-import { MdcIcon } from '@angular-mdc/web/icon';
+import {Directive} from '@angular/core';
+import {MdcIcon} from '@angular-mdc/web/icon';
 
 @Directive({
   selector: '[mdcSelectIcon]',

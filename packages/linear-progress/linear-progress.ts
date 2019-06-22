@@ -7,10 +7,10 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import { MDCComponent } from '@angular-mdc/web/base';
-import { toBoolean, toNumber } from '@angular-mdc/web/common';
+import {MDCComponent} from '@angular-mdc/web/base';
+import {toBoolean, toNumber} from '@angular-mdc/web/common';
 
-import { MDCLinearProgressFoundation, MDCLinearProgressAdapter } from '@material/linear-progress';
+import {MDCLinearProgressFoundation, MDCLinearProgressAdapter} from '@material/linear-progress';
 
 @Component({
   moduleId: module.id,

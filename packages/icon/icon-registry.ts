@@ -15,11 +15,11 @@ import {
   SecurityContext,
   SkipSelf
 } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { DomSanitizer, SafeResourceUrl, SafeHtml } from '@angular/platform-browser';
-import { forkJoin, Observable, of as observableOf, throwError as observableThrow } from 'rxjs';
-import { catchError, finalize, map, share, tap } from 'rxjs/operators';
+import {DOCUMENT} from '@angular/common';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {DomSanitizer, SafeResourceUrl, SafeHtml} from '@angular/platform-browser';
+import {forkJoin, Observable, of as observableOf, throwError as observableThrow} from 'rxjs';
+import {catchError, finalize, map, share, tap} from 'rxjs/operators';
 
 /**
  * Returns an exception to be thrown in the case when attempting to

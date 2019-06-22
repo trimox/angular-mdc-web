@@ -10,25 +10,25 @@ import {
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
-import { merge, Observable, fromEvent, Subject, Subscription } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import {merge, Observable, fromEvent, Subject, Subscription} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 import createFocusTrap, { FocusTrap } from 'focus-trap';
 
-import { MDCComponent } from '@angular-mdc/web/base';
-import { Platform } from '@angular-mdc/web/common';
+import {MDCComponent} from '@angular-mdc/web/base';
+import {Platform} from '@angular-mdc/web/common';
 
 import {
   MdcDialogButton,
   MdcDialogContent,
   MdcDialogSurface
 } from './dialog-directives';
-import { MdcDialogRef } from './dialog-ref';
-import { MdcDialogConfig } from './dialog-config';
+import {MdcDialogRef} from './dialog-ref';
+import {MdcDialogConfig} from './dialog-config';
 
-import { strings } from '@material/dialog/constants';
-import { matches, closest } from '@material/dom/ponyfill';
-import { MDCDialogFoundation, MDCDialogAdapter, util } from '@material/dialog';
+import {strings} from '@material/dialog/constants';
+import {matches, closest} from '@material/dom/ponyfill';
+import {MDCDialogFoundation, MDCDialogAdapter, util} from '@material/dialog';
 
 const LAYOUT_EVENTS = ['resize', 'orientationchange'];
 

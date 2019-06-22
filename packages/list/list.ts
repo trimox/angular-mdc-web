@@ -13,16 +13,16 @@ import {
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
-import { merge, Observable, Subscription } from 'rxjs';
-import { startWith } from 'rxjs/operators';
+import {merge, Observable, Subscription} from 'rxjs';
+import {startWith} from 'rxjs/operators';
 
-import { MDCComponent } from '@angular-mdc/web/base';
-import { toBoolean, Platform } from '@angular-mdc/web/common';
+import {MDCComponent} from '@angular-mdc/web/base';
+import {toBoolean, Platform} from '@angular-mdc/web/common';
 
-import { MdcListItem, MdcListSelectionChange, MDC_LIST_PARENT_COMPONENT } from './list-item';
+import {MdcListItem, MdcListSelectionChange, MDC_LIST_PARENT_COMPONENT} from './list-item';
 
-import { matches } from '@material/dom/ponyfill';
-import { cssClasses, strings, MDCListFoundation, MDCListAdapter } from '@material/list';
+import {matches} from '@material/dom/ponyfill';
+import {cssClasses, strings, MDCListFoundation, MDCListAdapter} from '@material/list';
 
 /** Change event that is being fired whenever the selected state of an option changes. */
 export class MdcListItemChange {

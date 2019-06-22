@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import { Portal } from '@angular-mdc/web/portal';
+import {Portal} from '@angular-mdc/web/portal';
 
 /**
  * Basic interface for an overlay. Used to avoid circular type references between

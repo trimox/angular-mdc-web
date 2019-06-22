@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 
-import { OverlayModule } from '@angular-mdc/web/overlay';
-import { PortalModule } from '@angular-mdc/web/portal';
+import {OverlayModule} from '@angular-mdc/web/overlay';
+import {PortalModule} from '@angular-mdc/web/portal';
 
-import { MdcDialogComponent } from './dialog.component';
-import { MdcDialogPortal } from './dialog-portal';
-import { MdcDialog } from './dialog';
+import {MdcDialogComponent} from './dialog.component';
+import {MdcDialogPortal} from './dialog-portal';
+import {MdcDialog} from './dialog';
 
 import {
   MdcDialogAction,

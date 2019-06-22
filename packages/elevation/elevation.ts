@@ -5,7 +5,7 @@ import {
   OnChanges,
   SimpleChange
 } from '@angular/core';
-import { toNumber } from '@angular-mdc/web/common';
+import {toNumber} from '@angular-mdc/web/common';
 
 @Directive({
   selector: '[mdcElevation]',

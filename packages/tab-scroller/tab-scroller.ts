@@ -9,14 +9,14 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { merge, fromEvent, Subject, Subscription, Observable } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import {merge, fromEvent, Subject, Subscription, Observable} from 'rxjs';
+import {filter, takeUntil} from 'rxjs/operators';
 
-import { MDCComponent } from '@angular-mdc/web/base';
-import { Platform } from '@angular-mdc/web/common';
+import {MDCComponent} from '@angular-mdc/web/base';
+import {Platform} from '@angular-mdc/web/common';
 
-import { matches } from '@material/dom/ponyfill';
-import { MDCTabScrollerFoundation, MDCTabScrollerAdapter, util } from '@material/tab-scroller';
+import {matches} from '@material/dom/ponyfill';
+import {MDCTabScrollerFoundation, MDCTabScrollerAdapter, util} from '@material/tab-scroller';
 
 /** Possible alignments for tab scroller content. */
 export type MdcTabScrollerAlignment = 'start' | 'center' | 'end' | null;

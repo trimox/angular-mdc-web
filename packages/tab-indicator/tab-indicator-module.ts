@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { MdcTabIndicator } from './tab-indicator';
+import {MdcTabIndicator} from './tab-indicator';
 
 @NgModule({
   imports: [CommonModule],

@@ -18,13 +18,13 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import {ControlValueAccessor, FormGroupDirective, NgControl, NgForm} from '@angular/forms';
 
-import { Platform, toBoolean, toNumber } from '@angular-mdc/web/common';
-import { MdcRipple } from '@angular-mdc/web/ripple';
-import { MdcFloatingLabel } from '@angular-mdc/web/floating-label';
-import { MdcLineRipple } from '@angular-mdc/web/line-ripple';
-import { MdcNotchedOutline } from '@angular-mdc/web/notched-outline';
+import {Platform, toBoolean, toNumber} from '@angular-mdc/web/common';
+import {MdcRipple} from '@angular-mdc/web/ripple';
+import {MdcFloatingLabel} from '@angular-mdc/web/floating-label';
+import {MdcLineRipple} from '@angular-mdc/web/line-ripple';
+import {MdcNotchedOutline} from '@angular-mdc/web/notched-outline';
 import {
   ErrorStateMatcher,
   CanUpdateErrorState,
@@ -35,9 +35,9 @@ import {
   mixinErrorState
 } from '@angular-mdc/web/form-field';
 
-import { MdcTextFieldIcon } from './text-field-icon';
+import {MdcTextFieldIcon} from './text-field-icon';
 
-import { MDCTextFieldHelperTextFoundation } from '@material/textfield/helper-text';
+import {MDCTextFieldHelperTextFoundation} from '@material/textfield/helper-text';
 import {
   MDCTextFieldFoundation,
   MDCTextFieldOutlineAdapter,

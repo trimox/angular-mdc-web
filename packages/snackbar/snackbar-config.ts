@@ -1,4 +1,4 @@
-import { ViewContainerRef, InjectionToken } from '@angular/core';
+import {ViewContainerRef, InjectionToken} from '@angular/core';
 
 /** Injection token that can be used to access the data that was passed in to a snackbar. */
 export const MDC_SNACKBAR_DATA = new InjectionToken<any>('MdcSnackbarData');

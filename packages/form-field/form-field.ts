@@ -12,13 +12,13 @@ import {
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
-import { fromEvent, Subject } from 'rxjs';
-import { takeUntil, startWith } from 'rxjs/operators';
+import {fromEvent, Subject} from 'rxjs';
+import {takeUntil, startWith} from 'rxjs/operators';
 
-import { toBoolean } from '@angular-mdc/web/common';
+import {toBoolean} from '@angular-mdc/web/common';
 
-import { MdcFormFieldControl } from './form-field-control';
-import { MdcHelperText } from './helper-text';
+import {MdcFormFieldControl} from './form-field-control';
+import {MdcHelperText} from './helper-text';
 
 @Component({
   moduleId: module.id,

@@ -6,7 +6,7 @@ import {
   Input,
   ViewEncapsulation
 } from '@angular/core';
-import { toBoolean } from '@angular-mdc/web/common';
+import {toBoolean} from '@angular-mdc/web/common';
 
 @Directive({
   selector: '[mdcImageListItem], mdc-image-list-item',

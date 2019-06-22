@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { MdcIconModule } from '@angular-mdc/web/icon';
-import { MdcChip, MdcChipText, MdcChipIcon, MdcChipCheckmark } from './chip';
-import { MdcChipSet } from './chip-set';
+import {MdcIconModule} from '@angular-mdc/web/icon';
+import {MdcChip, MdcChipText, MdcChipIcon, MdcChipCheckmark} from './chip';
+import {MdcChipSet} from './chip-set';
 
 export const CHIP_DECLARATIONS = [
   MdcChip,

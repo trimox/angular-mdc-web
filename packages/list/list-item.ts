@@ -14,8 +14,8 @@ import {
   Output,
   ViewEncapsulation
 } from '@angular/core';
-import { toBoolean, ENTER, SPACE } from '@angular-mdc/web/common';
-import { MdcRipple } from '@angular-mdc/web/ripple';
+import {toBoolean, ENTER, SPACE} from '@angular-mdc/web/common';
+import {MdcRipple} from '@angular-mdc/web/ripple';
 
 /** Change event that is fired whenever the selected state of an option changes. */
 export class MdcListSelectionChange {

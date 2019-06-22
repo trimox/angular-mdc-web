@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 
-import { MdcMenuSurfaceModule } from '@angular-mdc/web/menu-surface';
+import {MdcMenuSurfaceModule} from '@angular-mdc/web/menu-surface';
 
 import {
   MdcMenu,

@@ -5,11 +5,11 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core';
-import { fromEvent, Subject } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import {fromEvent, Subject} from 'rxjs';
+import {filter, takeUntil} from 'rxjs/operators';
 
-import { MDCComponent } from '@angular-mdc/web/base';
-import { MDCLineRippleFoundation, MDCLineRippleAdapter } from '@material/line-ripple';
+import {MDCComponent} from '@angular-mdc/web/base';
+import {MDCLineRippleFoundation, MDCLineRippleAdapter} from '@material/line-ripple';
 
 @Directive({
   selector: '[mdcLineRipple], mdc-line-ripple',

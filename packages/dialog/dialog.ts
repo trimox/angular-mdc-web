@@ -8,8 +8,8 @@ import {
   SkipSelf,
   TemplateRef
 } from '@angular/core';
-import { Observable, Subject, defer } from 'rxjs';
-import { startWith } from 'rxjs/operators';
+import {Observable, Subject, defer} from 'rxjs';
+import {startWith} from 'rxjs/operators';
 import {
   Overlay,
   OverlayRef
@@ -21,9 +21,9 @@ import {
   TemplatePortal
 } from '@angular-mdc/web/portal';
 
-import { MdcDialogRef } from './dialog-ref';
-import { MdcDialogPortal } from './dialog-portal';
-import { MdcDialogConfig } from './dialog-config';
+import {MdcDialogRef} from './dialog-ref';
+import {MdcDialogPortal} from './dialog-portal';
+import {MdcDialogConfig} from './dialog-config';
 
 /** Injection token that can be used to access the data that was passed in to a dialog. */
 export const MDC_DIALOG_DATA = new InjectionToken<any>('MdcDialogData');

@@ -1,8 +1,8 @@
-import { NgModule, } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { MdcIconModule } from '@angular-mdc/web/icon';
-import { MdcFab, MdcFabLabel } from './fab';
+import {MdcIconModule} from '@angular-mdc/web/icon';
+import {MdcFab, MdcFabLabel} from './fab';
 
 @NgModule({
   imports: [

@@ -13,12 +13,12 @@ import {
   Output,
   ViewEncapsulation
 } from '@angular/core';
-import { Subscription, fromEvent } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import {Subscription, fromEvent} from 'rxjs';
+import {filter} from 'rxjs/operators';
 
-import { MDCComponent } from '@angular-mdc/web/base';
-import { Platform, toBoolean } from '@angular-mdc/web/common';
-import { MdcList } from '@angular-mdc/web/list';
+import {MDCComponent} from '@angular-mdc/web/base';
+import {Platform, toBoolean} from '@angular-mdc/web/common';
+import {MdcList} from '@angular-mdc/web/list';
 
 import createFocusTrap, { FocusTrap } from 'focus-trap';
 

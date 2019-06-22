@@ -6,7 +6,7 @@ import {
   Input,
   OnDestroy
 } from '@angular/core';
-import { MdcRipple } from '@angular-mdc/web/ripple';
+import {MdcRipple} from '@angular-mdc/web/ripple';
 
 @Directive({
   selector: '[mdcTopAppBarFixedAdjust]',

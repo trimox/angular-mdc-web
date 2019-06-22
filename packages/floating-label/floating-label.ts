@@ -6,11 +6,11 @@ import {
   NgZone,
   OnDestroy
 } from '@angular/core';
-import { fromEvent, Subject } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import {fromEvent, Subject} from 'rxjs';
+import {filter, takeUntil} from 'rxjs/operators';
 
-import { MDCComponent } from '@angular-mdc/web/base';
-import { MDCFloatingLabelFoundation, MDCFloatingLabelAdapter, cssClasses } from '@material/floating-label';
+import {MDCComponent} from '@angular-mdc/web/base';
+import {MDCFloatingLabelFoundation, MDCFloatingLabelAdapter, cssClasses} from '@material/floating-label';
 
 @Directive({
   selector: 'label[mdcFloatingLabel], mdc-floating-label',

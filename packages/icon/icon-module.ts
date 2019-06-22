@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 
-import { MdcMaterialIcons } from './material-icons';
-import { MdcIcon } from './icon';
+import {MdcMaterialIcons} from './material-icons';
+import {MdcIcon} from './icon';
 
 const ICON_DECLARATIONS = [
   MdcIcon,

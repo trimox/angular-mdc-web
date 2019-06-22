@@ -147,7 +147,7 @@
 
     // Custom Rules
     "ts-loader": true,
-    // "no-import-spacing": true,
+    "no-import-spacing": true,
     "no-private-getters": true,
     "setters-after-getters": true,
     "rxjs-imports": true,

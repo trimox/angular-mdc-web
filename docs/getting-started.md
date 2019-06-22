@@ -13,12 +13,12 @@ For existing apps, follow these steps to begin using Angular MDC.
 ## <a name="installmdc"></a> Step 1: Install Angular MDC
 #### npm
 ```
-npm i @angular-mdc/web material-components-web
+npm i @angular-mdc/web
 ```
 
 #### yarn
 ```
-yarn add @angular-mdc/web material-components-web
+yarn add @angular-mdc/web
 ```
 
 ## <a name="useroboto"></a> Step 2: Use Roboto font

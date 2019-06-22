@@ -106,8 +106,8 @@
     "no-duplicate-imports": true,
     // Avoids inconsistent linebreak styles in source files. Forces developers to use LF linebreaks.
     //"linebreak-style": [true, "LF"],
+    // Namespaces are no allowed, because of Closure compiler.
     "no-namespace": true,
-
     // Bans jasmine helper functions that will prevent the CI from properly running tests.
     "ban": [
       true,
@@ -125,7 +125,6 @@
     "no-output-on-prefix": true,
     "template-no-negated-async": true,
     "use-lifecycle-interface": true,
-
     "directive-selector": [
       false,
       "attribute",
@@ -151,12 +150,15 @@
     "no-private-getters": true,
     "setters-after-getters": true,
     "rxjs-imports": true,
+    "static-query": true,
     "no-host-decorator-in-concrete": [
       true,
       "HostBinding",
       "HostListener"
     ],
-    "validate-decorators": [true, {
+    "validate-decorators": [
+      true,
+      {
       "Component": {
         "!host": "\\[class\\]",
         "!preserveWhitespaces": ".*",
@@ -169,7 +171,9 @@
         "!host": "\\[class\\]"
       },
       "NgModule": "^(?!\\s*$).+"
-    }, "packages/**/"],
+      },
+      "packages/**/"
+    ],
     "no-unescaped-html-tag": true
   }
 }

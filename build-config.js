@@ -18,7 +18,7 @@ const buildVersion = packageJson.version;
 /** License that will be placed inside of all created bundles. */
 const buildLicense = `/**
  * @license
- * Copyright (c) 2018 Dominic Carretto
+ * Copyright (c) 2019 Dominic Carretto
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://github.com/trimox/angular-mdc-web/blob/master/LICENSE

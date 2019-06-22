@@ -991,10 +991,10 @@
   resolved "https://registry.yarnpkg.com/@material/rtl/-/rtl-0.42.0.tgz#1836e78186c2d8b996f6fbf97adab203535335bc"
   integrity sha512-VrnrKJzhmspsN8WXHuxxBZ69yM5IwhCUqWr1t1eNfw3ZEvEj7i1g3P31HGowKThIN1dc1Wh4LE14rCISWCtv5w==
 
-"@material/select@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@material/select/-/select-2.3.0.tgz#f71530e534c1b467bbee1834f58b19d067988e1d"
-  integrity sha512-0OAj7t3Eov+9QKnifELdauQ1f2XweNdZ9c/eYrqBKPSHCGkZ7FZoVfcM8LMMZiIAANi/LFAgVq9tIdgQ8GA6/A==
+"@material/select@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@material/select/-/select-2.3.1.tgz#25d23a554a6d04f3873cf857e37ea509c6b7f33b"
+  integrity sha512-0NLXp0G0eEFcXpO8VaqfBPBu8yUcXcgiWQwsusT2/ek9bA8eT/rzkwvcK++K9i9V3wTPcWPLz5tnZbPASHfGOw==
   dependencies:
     "@material/animation" "^1.0.0"
     "@material/base" "^1.0.0"
@@ -1106,10 +1106,10 @@
     "@material/typography" "^2.3.0"
     tslib "^1.9.3"
 
-"@material/textfield@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@material/textfield/-/textfield-2.3.0.tgz#45df864e553460d084e48de940ca07fa38508520"
-  integrity sha512-6Tc0XZDEcU7tQgASNDNQPSxVzkmR7iO5zGynemXydYsmXzrcoisId2nyD2OWW+XBw+TUkJs93REd38Ij8l9LKw==
+"@material/textfield@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@material/textfield/-/textfield-2.3.1.tgz#893183f86b3c6f5913247f56f8516dcbf83a1cd8"
+  integrity sha512-4w/HyJjNUTnYwuLpOaYEDN45bdFkBcZLC3QfCn3I0B3qrbM1zcpmDUxG0DYyGj1oXCM/sDJXMk07u6CcXpJU5w==
   dependencies:
     "@material/animation" "^1.0.0"
     "@material/base" "^1.0.0"
@@ -5835,10 +5835,10 @@ matchdep@^2.0.0:
     resolve "^1.4.0"
     stack-trace "0.0.10"
 
-material-components-web@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/material-components-web/-/material-components-web-2.3.0.tgz#1da0c45d55b9156b2a8dce81ee0e997ebaf1e919"
-  integrity sha512-W6UzUliyrPfydvnNYbCONVjgPGQz4iB8zXZoE3aPqBi3dI+U7yzNmX3k+K0hoIe2j27G5PYsuQzWbzqPPX4FVw==
+material-components-web@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/material-components-web/-/material-components-web-2.3.1.tgz#04595079e6e9784bfab58519d866ef9df35cb246"
+  integrity sha512-jDf4T0h8XiSadvrodpkGBtybRI5bAqtfz6MJyq4Kw/PzUPT6jQ5T8EunJyhEXOkjdfWy5VLRfltICTioCtbq6Q==
   dependencies:
     "@material/animation" "^1.0.0"
     "@material/auto-init" "^2.3.0"
@@ -5868,7 +5868,7 @@ material-components-web@^2.3.0:
     "@material/radio" "^2.3.0"
     "@material/ripple" "^2.3.0"
     "@material/rtl" "^0.42.0"
-    "@material/select" "^2.3.0"
+    "@material/select" "^2.3.1"
     "@material/shape" "^1.1.1"
     "@material/slider" "^2.3.0"
     "@material/snackbar" "^2.3.0"
@@ -5877,7 +5877,7 @@ material-components-web@^2.3.0:
     "@material/tab-bar" "^2.3.0"
     "@material/tab-indicator" "^2.3.0"
     "@material/tab-scroller" "^2.3.0"
-    "@material/textfield" "^2.3.0"
+    "@material/textfield" "^2.3.1"
     "@material/theme" "^1.1.0"
     "@material/toolbar" "^2.3.0"
     "@material/top-app-bar" "^2.3.0"

@@ -88,7 +88,7 @@ class SvgIconConfig {
  * - Registers aliases for CSS classes, for use with icon fonts.
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class MdcIconRegistry implements OnDestroy {
   private _document: Document;
 
@@ -559,7 +559,7 @@ export class MdcIconRegistry implements OnDestroy {
 
     // TODO(jelbourn): for some reason, the `finalize` operator "loses" the generic type on the
     // Observable. Figure out why and fix it.
-    const req = this._httpClient.get(url, { responseType: 'text' }).pipe(
+    const req = this._httpClient.get(url, {responseType: 'text'}).pipe(
       finalize(() => this._inProgressUrlFetches.delete(url)),
       share(),
     );

@@ -14,11 +14,11 @@ import {
 } from '@angular/core';
 
 /** Container inside which all overlays will render. */
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class OverlayContainer implements OnDestroy {
   protected _containerElement: HTMLElement | null = null;
 
-  constructor(@Inject(DOCUMENT) protected _document: any) { }
+  constructor(@Inject(DOCUMENT) protected _document: any) {}
 
   ngOnDestroy() {
     if (this._containerElement && this._containerElement.parentNode) {
@@ -33,7 +33,7 @@ export class OverlayContainer implements OnDestroy {
    * @returns the container element
    */
   getContainerElement(): HTMLElement {
-    if (!this._containerElement) { this._createContainer(); }
+    if (!this._containerElement) {this._createContainer();}
     return this._containerElement!;
   }
 

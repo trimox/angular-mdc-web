@@ -20,7 +20,7 @@ export type UniqueSelectionDispatcherListener = (id: string, name: string) => vo
  * This service does not *store* any IDs and names because they may change at any time, so it is
  * less error-prone if they are simply passed through when the events occur.
  */
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class UniqueSelectionDispatcher implements OnDestroy {
   private _listeners: UniqueSelectionDispatcherListener[] = [];
 

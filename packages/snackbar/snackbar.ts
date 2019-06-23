@@ -31,7 +31,7 @@ export function MDC_SNACKBAR_DEFAULT_OPTIONS_FACTORY(): MdcSnackbarConfig {
   return new MdcSnackbarConfig();
 }
 
-@Injectable({ providedIn: MdcSnackbarModule })
+@Injectable({providedIn: MdcSnackbarModule})
 export class MdcSnackbar implements OnDestroy {
   /**
    * Reference to the current snackbar in the view *at this level* (in the Angular injector tree).
@@ -58,7 +58,7 @@ export class MdcSnackbar implements OnDestroy {
     private _overlay: Overlay,
     private _injector: Injector,
     @Optional() @SkipSelf() private _parentSnackBar: MdcSnackbar,
-    @Inject(MDC_SNACKBAR_DEFAULT_OPTIONS) private _defaultConfig: MdcSnackbarConfig) { }
+    @Inject(MDC_SNACKBAR_DEFAULT_OPTIONS) private _defaultConfig: MdcSnackbarConfig) {}
 
   /**
    * Creates and dispatches a snackbar with a custom component for the content, removing any
@@ -80,11 +80,11 @@ export class MdcSnackbar implements OnDestroy {
    */
   open(message: string, action: string = '', config?: MdcSnackbarConfig):
     MdcSnackbarRef<MdcSnackbarComponent> {
-    const _config = { ...this._defaultConfig, ...config };
+    const _config = {...this._defaultConfig, ...config};
 
     // Since the user doesn't have access to the component, we can
     // override the data to pass in our own message and action.
-    _config.data = { message, action };
+    _config.data = {message, action};
 
     return this.openFromComponent(MdcSnackbarComponent, _config);
   }
@@ -132,7 +132,7 @@ export class MdcSnackbar implements OnDestroy {
   private _attach<T>(content: ComponentType<T>, userConfig?: MdcSnackbarConfig):
     MdcSnackbarRef<T | EmbeddedViewRef<any>> {
 
-    const config = { ...new MdcSnackbarConfig(), ...this._defaultConfig, ...userConfig };
+    const config = {...new MdcSnackbarConfig(), ...this._defaultConfig, ...userConfig};
     const overlayRef = this._createOverlay();
     const container = this._attachSnackbarContainer(overlayRef, config);
     const snackbarRef = new MdcSnackbarRef<T | EmbeddedViewRef<any>>(container, overlayRef);

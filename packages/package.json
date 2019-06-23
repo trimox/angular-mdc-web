@@ -22,12 +22,13 @@
   "typings": "./web.d.ts",
   "private": false,
   "dependencies": {
-    "@angular-mdc/theme": "1.0.5",
+    "@angular-mdc/theme": "2.0.0",
     "material-components-web": "^2.3.1"
   },
   "peerDependencies": {
     "@angular/core": "0.0.0-NG",
-    "@angular/common": "0.0.0-NG"
+    "@angular/common": "0.0.0-NG",
+    "@angular/forms": "0.0.0-NG"
   },
   "sideEffects": false
 }

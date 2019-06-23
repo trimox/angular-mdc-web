@@ -33,7 +33,9 @@ export class OverlayContainer implements OnDestroy {
    * @returns the container element
    */
   getContainerElement(): HTMLElement {
-    if (!this._containerElement) {this._createContainer();}
+    if (!this._containerElement) {
+      this._createContainer();
+    }
     return this._containerElement!;
   }
 

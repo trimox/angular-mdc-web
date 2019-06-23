@@ -28,7 +28,7 @@ import {
   MDC_CHIPSET_PARENT_COMPONENT
 } from './chip';
 
-import {MDCChipSetFoundation, MDCChipSetAdapter} from '@material/chips/chip-set';
+import {MDCChipSetFoundation, MDCChipSetAdapter} from '@material/chips';
 
 export class MdcChipSetChange {
   constructor(

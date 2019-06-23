@@ -20,8 +20,7 @@ import {takeUntil, auditTime} from 'rxjs/operators';
 import {MDCComponent} from '@angular-mdc/web/base';
 import {toNumber, toBoolean, Platform} from '@angular-mdc/web/common';
 
-import {strings} from '@material/slider/constants';
-import {MDCSliderFoundation, MDCSliderAdapter} from '@material/slider';
+import {MDCSliderFoundation, MDCSliderAdapter, strings} from '@material/slider';
 
 export const MDC_SLIDER_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

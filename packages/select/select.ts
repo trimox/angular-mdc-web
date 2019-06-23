@@ -44,8 +44,7 @@ import {MdcList, MdcListItemChange} from '@angular-mdc/web/list';
 
 import {MdcSelectIcon} from './select-icon';
 
-import {MDCSelectHelperTextFoundation} from '@material/select/helper-text';
-import {cssClasses, MDCSelectFoundation} from '@material/select';
+import {MDCSelectHelperTextFoundation, cssClasses, MDCSelectFoundation} from '@material/select';
 
 /**
  * Represents the default options for mdc-select that can be configured

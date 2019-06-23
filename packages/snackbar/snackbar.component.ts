@@ -11,10 +11,10 @@ import {
 } from '@angular/core';
 
 import {MDCComponent} from '@angular-mdc/web/base';
+import {announce} from './util';
 import {MdcSnackbarRef, MdcSnackbarDismissReason} from './snackbar-ref';
 import {MDC_SNACKBAR_DATA, MdcSnackbarConfig} from './snackbar-config';
 
-import {announce} from '@material/snackbar/util';
 import {MDCSnackbarFoundation, MDCSnackbarAdapter} from '@material/snackbar';
 
 @Component({
@@ -55,10 +55,11 @@ export class MdcSnackbarComponent extends MDCComponent<MDCSnackbarFoundation> im
     const adapter: MDCSnackbarAdapter = {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
-      announce: () => announce(this.label.nativeElement),
-      notifyClosing: () => { },
-      notifyOpened: () => { },
-      notifyOpening: () => { },
+      announce: () => announce(this.label.nativeElement, MDCSnackbarFoundation.numbers.ARIA_LIVE_DELAY_MS,
+        MDCSnackbarFoundation.strings.ARIA_LIVE_LABEL_TEXT_ATTR),
+      notifyClosing: () => {},
+      notifyOpened: () => {},
+      notifyOpening: () => {},
       notifyClosed: (reason: MdcSnackbarDismissReason | string) => this.snackbarRef.dismiss(reason)
     };
     return new MDCSnackbarFoundation(adapter);

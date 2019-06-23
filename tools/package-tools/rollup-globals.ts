@@ -1,13 +1,13 @@
-import { getSubdirectoryNames } from './secondary-entry-points';
-import { buildConfig } from './build-config';
+import {getSubdirectoryNames} from './secondary-entry-points';
+import {buildConfig} from './build-config';
 
 /** Method that converts dash-case strings to a camel-based string. */
 export const dashCaseToCamelCase =
   (str: string) => str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 
 /** Generates rollup entry point mappings for the given package and entry points. */
-function generateRollupEntryPoints(packageName: string, entryPoints: string[]): { [k: string]: string } {
-  return entryPoints.reduce((globals: { [k: string]: string }, entryPoint: string) => {
+function generateRollupEntryPoints(packageName: string, entryPoints: string[]): {[k: string]: string} {
+  return entryPoints.reduce((globals: {[k: string]: string}, entryPoint: string) => {
     globals[`@angular-mdc/${packageName}/${entryPoint}`] =
       `ng.${dashCaseToCamelCase(packageName)}.${dashCaseToCamelCase(entryPoint)}`;
     return globals;
@@ -32,11 +32,8 @@ export const rollupGlobals = {
   '@material/checkbox': 'mdc.checkbox',
   '@material/chips': 'mdc.chips',
   '@material/chips/chip': 'mdc.chips.chip',
-  '@material/chips/chip/constants': 'mdc.chips.chip.constants',
   '@material/chips/chip-set': 'mdc.chip.chipset',
   '@material/dialog': 'mdc.dialog',
-  '@material/dialog/constants': 'mdc.dialog.constants',
-  '@material/dom/ponyfill': 'mdc.dom.ponyfill',
   '@material/drawer': 'mdc.drawer',
   '@material/floating-label': 'mdc.floatingLabel',
   '@material/form-field': 'mdc.formField',
@@ -45,33 +42,22 @@ export const rollupGlobals = {
   '@material/line-ripple': 'mdc.lineRipple',
   '@material/linear-progress': 'mdc.linearProgress',
   '@material/list': 'mdc.list',
-  '@material/list/constants': 'mdc.list.constants',
   '@material/menu': 'mdc.menu',
   '@material/menu-surface': 'mdc.menuSurface',
-  '@material/menu-surface/util': 'mdc.menuSurface.util',
-  '@material/menu-surface/constants': 'mdc.menuSurface.constants',
   '@material/notched-outline': 'mdc.notchedOutline',
   '@material/radio': 'mdc.radio',
   '@material/ripple': 'mdc.ripple',
-  '@material/ripple/util': 'mdc.ripple.util',
   '@material/select': 'mdc.select',
-  '@material/select/constants': 'mdc.select.constants',
-  '@material/select/helper-text': 'mdc.select.helperText',
   '@material/slider': 'mdc.slider',
-  '@material/slider/constants': 'mdc.slider.constants',
   '@material/snackbar': 'mdc.snackbar',
-  '@material/snackbar/util': 'mdc.snackbar.util',
   '@material/switch': 'mdc.switch',
   '@material/tab': 'mdc.tab',
   '@material/tab-bar': 'mdc.tabBar',
   '@material/tab-indicator': 'mdc.tabIndicator',
   '@material/tab-scroller': 'mdc.tabScroller',
   '@material/textfield': 'mdc.textfield',
-  '@material/textfield/character-counter': 'mdc.textfield.characterCounter',
-  '@material/textfield/helper-text': 'mdc.textfield.helperText',
   '@material/toolbar': 'mdc.toolbar',
   '@material/top-app-bar': 'mdc.topAppBar',
-  '@material/top-app-bar/constants': 'mdc.topAppBar.constants',
 
   '@angular/core': 'ng.core',
   '@angular/common': 'ng.common',

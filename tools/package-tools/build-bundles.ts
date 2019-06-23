@@ -1,10 +1,10 @@
-import { join, dirname } from 'path';
-import { uglifyJsFile } from './minify-sources';
-import { buildConfig } from './build-config';
-import { BuildPackage } from './build-package';
-import { rollupRemoveLicensesPlugin } from './rollup-remove-licenses';
-import { dashCaseToCamelCase, rollupGlobals } from './rollup-globals';
-import { remapSourcemap } from './sourcemap-remap';
+import {join, dirname} from 'path';
+import {uglifyJsFile} from './minify-sources';
+import {buildConfig} from './build-config';
+import {BuildPackage} from './build-package';
+import {rollupRemoveLicensesPlugin} from './rollup-remove-licenses';
+import {dashCaseToCamelCase, rollupGlobals} from './rollup-globals';
+import {remapSourcemap} from './sourcemap-remap';
 
 // There are no type definitions available for these imports.
 const rollup = require('rollup');
@@ -137,7 +137,7 @@ export class PackageBundler {
 
     const writeOptions = {
       name: config.moduleName || 'ng.web',
-      amd: { id: config.importName },
+      amd: {id: config.importName},
       banner: buildConfig.licenseBanner,
       format: config.format,
       file: config.dest,
@@ -207,7 +207,7 @@ export class PackageBundler {
       map[`@angular-mdc/${this.buildPackage.name}/${p}`] =
         join(dirname(bundleOutputDir), this.buildPackage.name, `${p}.es5.js`);
       return map;
-    }, {} as { [key: string]: string });
+    }, {} as {[key: string]: string});
   }
 
   /**

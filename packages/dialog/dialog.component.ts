@@ -17,6 +17,7 @@ import createFocusTrap, { FocusTrap } from 'focus-trap';
 
 import {MDCComponent} from '@angular-mdc/web/base';
 import {Platform} from '@angular-mdc/web/common';
+import {matches, closest} from '@angular-mdc/web/dom';
 
 import {
   MdcDialogButton,
@@ -26,9 +27,7 @@ import {
 import {MdcDialogRef} from './dialog-ref';
 import {MdcDialogConfig} from './dialog-config';
 
-import {strings} from '@material/dialog/constants';
-import {matches, closest} from '@material/dom/ponyfill';
-import {MDCDialogFoundation, MDCDialogAdapter, util} from '@material/dialog';
+import {MDCDialogFoundation, MDCDialogAdapter, strings, util} from '@material/dialog';
 
 const LAYOUT_EVENTS = ['resize', 'orientationchange'];
 
@@ -89,7 +88,7 @@ export class MdcDialogComponent extends MDCComponent<MDCDialogFoundation> implem
           document.body!.classList.remove(className);
         }
       },
-      eventTargetMatches: (target: EventTarget, selector: string) => matches(target as Element, selector),
+      eventTargetMatches: (target: EventTarget, selector: string) => matches(target as HTMLElement, selector),
       trapFocus: () => this._focusTrapInstance!.activate(),
       releaseFocus: () => this._focusTrapInstance!.deactivate(),
       isContentScrollable: () =>

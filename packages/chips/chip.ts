@@ -38,7 +38,7 @@ import {
   chipCssClasses,
   MDCChipAdapter,
   MDCChipFoundation
-} from '@material/chips/chip';
+} from '@material/chips';
 
 export interface MdcChipInteractionEvent {
   detail: {

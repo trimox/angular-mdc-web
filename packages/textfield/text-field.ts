@@ -37,9 +37,9 @@ import {
 
 import {MdcTextFieldIcon} from './text-field-icon';
 
-import {MDCTextFieldHelperTextFoundation} from '@material/textfield/helper-text';
 import {
   MDCTextFieldFoundation,
+  MDCTextFieldHelperTextFoundation,
   MDCTextFieldOutlineAdapter,
   MDCTextFieldLabelAdapter,
   MDCTextFieldRootAdapter,

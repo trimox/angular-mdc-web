@@ -13,9 +13,7 @@ import {takeUntil} from 'rxjs/operators';
 import {MDCComponent} from '@angular-mdc/web/base';
 import {Platform, toBoolean} from '@angular-mdc/web/common';
 
-import {getTransformPropertyName} from '@material/menu-surface/util';
-import {Corner, strings} from '@material/menu-surface/constants';
-import {MDCMenuSurfaceFoundation, MDCMenuSurfaceAdapter} from '@material/menu-surface';
+import {MDCMenuSurfaceFoundation, MDCMenuSurfaceAdapter, Corner, strings, util} from '@material/menu-surface';
 
 export interface MdcMenuSurfaceOpenedEvent {
   detail: string;
@@ -152,7 +150,7 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
       setTransformOrigin: (origin: string) => {
         if (!this.platform.isBrowser) { return; }
 
-        this._getHostElement().style[`${getTransformPropertyName(window)}-origin` as any] = origin;
+        this._getHostElement().style[`${util.getTransformPropertyName(window)}-origin` as any] = origin;
       },
       isFocused: () => this.platform.isBrowser ? document.activeElement! === this._getHostElement() : false,
       saveFocus: () => {

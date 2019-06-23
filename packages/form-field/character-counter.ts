@@ -8,7 +8,7 @@ import {MDCComponent} from '@angular-mdc/web/base';
 import {
   MDCTextFieldCharacterCounterFoundation,
   MDCTextFieldCharacterCounterAdapter
-} from '@material/textfield/character-counter';
+} from '@material/textfield';
 
 @Component({
   moduleId: module.id,
@@ -17,7 +17,7 @@ import {
   host: { 'class': 'mdc-text-field-character-counter' },
   template: '<ng-content></ng-content>'
 })
-export class MdcCharacterCounter extends MDCComponent<any> implements OnDestroy {
+export class MdcCharacterCounter extends MDCComponent<MDCTextFieldCharacterCounterFoundation> implements OnDestroy {
   getDefaultFoundation() {
     const adapter: MDCTextFieldCharacterCounterAdapter = {
       setContent: (content: string) => this.elementRef.nativeElement.textContent = content

@@ -18,10 +18,10 @@ import {startWith} from 'rxjs/operators';
 
 import {MDCComponent} from '@angular-mdc/web/base';
 import {toBoolean, Platform} from '@angular-mdc/web/common';
+import {matches} from '@angular-mdc/web/dom';
 
 import {MdcListItem, MdcListSelectionChange, MDC_LIST_PARENT_COMPONENT} from './list-item';
 
-import {matches} from '@material/dom/ponyfill';
 import {cssClasses, strings, MDCListFoundation, MDCListAdapter} from '@material/list';
 
 /** Change event that is being fired whenever the selected state of an option changes. */
@@ -460,7 +460,7 @@ export class MdcList extends MDCComponent<any> implements AfterViewInit, OnDestr
 
   _handleClickEvent(evt: MouseEvent): void {
     const index = this._getListItemIndexByEvent(evt);
-    const target = evt.target as Element;
+    const target = evt.target as HTMLElement;
 
     const listItem = this._getListItemByEventTarget(evt.target!);
     if (listItem && listItem.disabled) {

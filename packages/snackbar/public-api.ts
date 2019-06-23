@@ -1,3 +1,4 @@
+export * from './util';
 export * from './snackbar-module';
 export * from './snackbar-container';
 export * from './snackbar-config';

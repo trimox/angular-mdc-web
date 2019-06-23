@@ -1,3 +1,19 @@
+# [2.0.0](https://github.com/trimox/angular-mdc-web/compare/v1.0.5...v2.0.0) (2019-06-23)
+
+
+### Bug Fixes
+
+* Add material-components-web to dependencies ([#1924](https://github.com/trimox/angular-mdc-web/issues/1924)) ([f12c4e2](https://github.com/trimox/angular-mdc-web/commit/f12c4e2))
+* **icon:** Handle unescaped characters in names ([#1926](https://github.com/trimox/angular-mdc-web/pull/1926))
+
+### Features
+
+* **dialog:** Allow dialog return to be typed ([#1907](https://github.com/trimox/angular-mdc-web/issues/1907)) ([dd5cd38](https://github.com/trimox/angular-mdc-web/commit/dd5cd38))
+* Upgrade to material-components-web 2.3.1 ([#1918](https://github.com/trimox/angular-mdc-web/pull/1918))
+* Upgrade to Angular 8.0.2  ([#1915](https://github.com/trimox/angular-mdc-web/pull/1915))
+
+
+
 ## [1.0.5](https://github.com/trimox/angular-mdc-web/compare/v1.0.3...v1.0.5) (2019-06-08)
 
 

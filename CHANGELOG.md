@@ -1,3 +1,13 @@
+## [2.0.1](https://github.com/trimox/angular-mdc-web/compare/v2.0.0...v2.0.1) (2019-06-26)
+
+
+### Bug Fixes
+
+* **overlay:** Remove erroneous whitespace lint error ([#1933](https://github.com/trimox/angular-mdc-web/issues/1933)) ([e9bf36b](https://github.com/trimox/angular-mdc-web/commit/e9bf36b))
+* Angular server-side rendering ([#1938](https://github.com/trimox/angular-mdc-web/issues/1938)) ([070bd3f](https://github.com/trimox/angular-mdc-web/commit/070bd3f)), closes [#1937](https://github.com/trimox/angular-mdc-web/issues/1937) [#1936](https://github.com/trimox/angular-mdc-web/issues/1936) [#1935](https://github.com/trimox/angular-mdc-web/issues/1935) [#1934](https://github.com/trimox/angular-mdc-web/issues/1934) [#1932](https://github.com/trimox/angular-mdc-web/issues/1932)
+
+
+
 # [2.0.0](https://github.com/trimox/angular-mdc-web/compare/v1.0.5...v2.0.0) (2019-06-23)
 
 

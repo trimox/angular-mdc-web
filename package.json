@@ -25,11 +25,11 @@
     "test:watch": "karma start --auto-watch"
   },
   "dependencies": {
-    "@angular/common": "^8.0.2",
-    "@angular/compiler": "^8.0.2",
-    "@angular/core": "^8.0.2",
-    "@angular/forms": "^8.0.2",
-    "@angular/platform-browser": "^8.0.2",
+    "@angular/common": "^8.0.3",
+    "@angular/compiler": "^8.0.3",
+    "@angular/core": "^8.0.3",
+    "@angular/forms": "^8.0.3",
+    "@angular/platform-browser": "^8.0.3",
     "core-js": "^2.6.5",
     "material-components-web": "^2.3.1",
     "rxjs": "^6.4.0",
@@ -38,11 +38,11 @@
     "zone.js": "0.9.1"
   },
   "devDependencies": {
-    "@angular/compiler-cli": "^8.0.2",
-    "@angular/platform-browser-dynamic": "^8.0.2",
+    "@angular/compiler-cli": "^8.0.3",
+    "@angular/platform-browser-dynamic": "^8.0.3",
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
-    "@types/fs-extra": "^7.0.0",
+    "@types/fs-extra": "^8.0.0",
     "@types/glob": "^7.1.1",
     "@types/gulp": "^4.0.6",
     "@types/jasmine": "^3.3.13",
@@ -76,7 +76,7 @@
     "rollup-plugin-alias": "^1.5.2",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.0.0",
-    "rollup-plugin-node-resolve": "^5.0.4",
+    "rollup-plugin-node-resolve": "^5.1.0",
     "run-sequence": "^2.2.1",
     "sorcery": "^0.10.0",
     "stylelint": "^9.10.1",
@@ -93,7 +93,7 @@
     "typescript": "~3.4",
     "validate-commit-msg": "^2.14.0",
     "webpack": "^4.35.0",
-    "webpack-cli": "^3.3.4"
+    "webpack-cli": "^3.3.5"
   },
   "config": {
     "validate-commit-msg": {

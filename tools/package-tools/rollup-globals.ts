@@ -23,7 +23,6 @@ const rollupMdcEntryPoints = generateRollupEntryPoints('web', mdcSecondaryEntryP
 /** Map of globals that are used inside of the different packages. */
 export const rollupGlobals = {
   'tslib': 'tslib',
-  'focus-trap': 'focustrap',
 
   // MDC Web
   '@material/animation': 'mdc.animation',
@@ -31,8 +30,6 @@ export const rollupGlobals = {
   '@material/base': 'mdc.base',
   '@material/checkbox': 'mdc.checkbox',
   '@material/chips': 'mdc.chips',
-  '@material/chips/chip': 'mdc.chips.chip',
-  '@material/chips/chip-set': 'mdc.chip.chipset',
   '@material/dialog': 'mdc.dialog',
   '@material/drawer': 'mdc.drawer',
   '@material/floating-label': 'mdc.floatingLabel',
@@ -56,8 +53,9 @@ export const rollupGlobals = {
   '@material/tab-indicator': 'mdc.tabIndicator',
   '@material/tab-scroller': 'mdc.tabScroller',
   '@material/textfield': 'mdc.textfield',
-  '@material/toolbar': 'mdc.toolbar',
   '@material/top-app-bar': 'mdc.topAppBar',
+
+  'focus-trap': 'focustrap',
 
   '@angular/core': 'ng.core',
   '@angular/common': 'ng.common',

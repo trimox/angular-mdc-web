@@ -1,7 +1,8 @@
 import {NgModule} from '@angular/core';
 
 import {MdcFormFieldModule} from '@angular-mdc/web/form-field';
-import {MdcRadio, MdcRadioGroup} from './radio';
+import {MdcRadio} from './radio';
+import {MdcRadioGroup} from './radio-group';
 
 @NgModule({
   imports: [MdcFormFieldModule],

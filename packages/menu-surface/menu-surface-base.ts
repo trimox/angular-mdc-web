@@ -13,7 +13,7 @@ import {takeUntil} from 'rxjs/operators';
 import {MDCComponent} from '@angular-mdc/web/base';
 import {Platform, toBoolean} from '@angular-mdc/web/common';
 
-import {MDCMenuSurfaceFoundation, MDCMenuSurfaceAdapter, Corner, strings, util} from '@material/menu-surface';
+import {MDCMenuSurfaceFoundation, MDCMenuSurfaceAdapter, Corner, util} from '@material/menu-surface';
 
 export interface MdcMenuSurfaceOpenedEvent {
   detail: string;
@@ -45,8 +45,6 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
   private _destroy = new Subject<void>();
 
   private _previousFocus: Element | null = null;
-  private _firstFocusableElement: Element | null = null;
-  private _lastFocusableElement: Element | null = null;
 
   @Input()
   get open(): boolean { return this._open; }
@@ -166,28 +164,6 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
           }
         }
       },
-      isFirstElementFocused: () => {
-        if (!this.platform.isBrowser) { return false; }
-        return this._firstFocusableElement ? this._firstFocusableElement === document.activeElement : false;
-      },
-      isLastElementFocused: () => {
-        if (!this.platform.isBrowser) { return false; }
-        return this._lastFocusableElement ? this._lastFocusableElement === document.activeElement : false;
-      },
-      focusFirstElement: () => {
-        if (!this.platform.isBrowser) { return; }
-
-        if (this._firstFocusableElement) {
-          (<any>this._firstFocusableElement).focus();
-        }
-      },
-      focusLastElement: () => {
-        if (!this.platform.isBrowser) { return; }
-
-        if (this._lastFocusableElement) {
-          (<any>this._lastFocusableElement).focus();
-        }
-      },
       getInnerDimensions: () => {
         return { width: this._getHostElement().offsetWidth, height: this._getHostElement().offsetHeight };
       },
@@ -255,17 +231,8 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
   }
 
   protected setOpen(): void {
-    if (this._open) {
-      const focusableElements = this._getHostElement().querySelectorAll(strings.FOCUSABLE_ELEMENTS);
-      this._firstFocusableElement = focusableElements.length > 0 ? focusableElements[0] : null;
-      this._lastFocusableElement = focusableElements.length > 0 ?
-        focusableElements[focusableElements.length - 1] : null;
-
-      this._foundation.open();
-    } else {
-      this._foundation.close();
-    }
-  }
+    this._open ? this._foundation.open() : this._foundation.close();
+ }
 
   /**
    * Removes the menu-surface from it's current location and appends it to the

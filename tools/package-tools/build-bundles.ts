@@ -1,5 +1,5 @@
 import {join, dirname} from 'path';
-import {uglifyJsFile} from './minify-sources';
+import {terserJs} from './minify-sources';
 import {buildConfig} from './build-config';
 import {BuildPackage} from './build-package';
 import {rollupRemoveLicensesPlugin} from './rollup-remove-licenses';
@@ -102,7 +102,7 @@ export class PackageBundler {
     });
 
     // Create a minified UMD bundle using terser-js
-    uglifyJsFile(config.umdDest, config.umdMinDest);
+    terserJs(config.umdDest, config.umdMinDest);
 
     // Remaps the sourcemaps to be based on top of the original TypeScript source files.
     await remapSourcemap(config.esm2015Dest);
@@ -189,7 +189,6 @@ export class PackageBundler {
         bundleOptions.plugins.push(
           rollupAlias(this.getResolvedSecondaryEntryPointImportPaths(config.dest)));
       }
-
       bundleOptions.external = external;
     }
 

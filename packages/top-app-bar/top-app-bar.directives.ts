@@ -52,7 +52,7 @@ export class MdcTopAppBarSection {
   exportAs: 'mdcTopAppBarActionItem',
   host: {
     'role': 'button',
-    'class': 'mdc-top-app-bar__action-item'
+    'class': 'mdc-top-app-bar__action-item mdc-icon-button'
   },
   providers: [MdcRipple]
 })
@@ -74,7 +74,7 @@ export class MdcTopAppBarActionItem implements OnDestroy {
   exportAs: 'mdcTopAppBarNavigationIcon',
   host: {
     'role': 'button',
-    'class': 'mdc-top-app-bar__navigation-icon'
+    'class': 'mdc-top-app-bar__navigation-icon mdc-icon-button'
   },
   providers: [MdcRipple]
 })

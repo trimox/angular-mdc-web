@@ -185,10 +185,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/router@~8.0.3":
-  version "8.0.3"
-  resolved "https://registry.yarnpkg.com/@angular/router/-/router-8.0.3.tgz#7e9e908b9c19753d275f2ff18699a7ec13eaff1e"
-  integrity sha512-CU5pLTfQVUnTN93mdIKJrVjXiNldUkk30DPz4lpdxpZjYOqFGXeeSeQWmToHSofLPodNcAB4kkZ41VyXvlBu7w==
+"@angular/router@^8.1.3":
+  version "8.1.3"
+  resolved "https://registry.yarnpkg.com/@angular/router/-/router-8.1.3.tgz#c85715827c943f57f09325aea5d8dbcfb38bbea6"
+  integrity sha512-MOalKqqWcTaosHLNE5nmk5rsLRp3jE1PobGaFtbUJKTTZW0vS4rcr6iiRg2bZRv/srGixDXvNLenvYjTpzzTdw==
   dependencies:
     tslib "^1.9.0"
 
@@ -2528,10 +2528,10 @@ hash.js@^1.0.0, hash.js@^1.0.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
-highlight.js@^9.15.8:
-  version "9.15.8"
-  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.15.8.tgz#f344fda123f36f1a65490e932cf90569e4999971"
-  integrity sha512-RrapkKQWwE+wKdF73VsOa2RQdIoO3mxwJ4P8mhbI6KYJUraUHRKM5w5zQQKXNk0xNL4UVRdulV9SBJcmzJNzVA==
+highlight.js@^9.15.9:
+  version "9.15.9"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.15.9.tgz#865257da1dbb4a58c4552d46c4b3854f77f0e6d5"
+  integrity sha512-M0zZvfLr5p0keDMCAhNBp03XJbKBxUx5AfyfufMdFMEP4N/Xj6dh0IqC75ys7BAzceR34NgcvXjupRVaHBPPVQ==
 
 hmac-drbg@^1.0.0:
   version "1.0.1"

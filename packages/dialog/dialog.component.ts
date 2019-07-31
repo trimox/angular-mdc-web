@@ -13,7 +13,7 @@ import {
 import {merge, Observable, fromEvent, Subject, Subscription} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-import createFocusTrap, { FocusTrap } from 'focus-trap';
+import createFocusTrap, {FocusTrap} from 'focus-trap';
 
 import {MDCComponent} from '@angular-mdc/web/base';
 import {Platform} from '@angular-mdc/web/common';
@@ -43,8 +43,8 @@ const LAYOUT_EVENTS = ['resize', 'orientationchange'];
     '[attr.aria-labelledby]': 'config?.ariaLabel',
     '[attr.aria-label]': 'config?.ariaLabel',
     '[attr.aria-describedby]': 'config?.ariaDescribedBy || null',
-    '(click)': '_onInteraction($event)',
-    '(keydown)': '_onInteraction($event)'
+    '(click)': '_onClick($event)',
+    '(keydown)': '_onKeydown($event)'
   },
   template: `
   <mdc-dialog-scrim></mdc-dialog-scrim>
@@ -64,7 +64,7 @@ export class MdcDialogComponent extends MDCComponent<MDCDialogFoundation> implem
 
   @ContentChild(MdcDialogSurface, {static: false}) _surface!: MdcDialogSurface;
   @ContentChild(MdcDialogContent, {static: false}) _content!: MdcDialogContent;
-  @ContentChildren(MdcDialogButton, { descendants: true }) _buttons!: QueryList<MdcDialogButton>;
+  @ContentChildren(MdcDialogButton, {descendants: true}) _buttons!: QueryList<MdcDialogButton>;
 
   private _layoutEventSubscription: Subscription | null = null;
 
@@ -77,6 +77,7 @@ export class MdcDialogComponent extends MDCComponent<MDCDialogFoundation> implem
     const adapter: MDCDialogAdapter = {
       addClass: (className: string) => this._getDialog().classList.add(className),
       removeClass: (className: string) => this._getDialog().classList.remove(className),
+      getInitialFocusEl: () => this._getInitialFocusEl(),
       hasClass: (className: string) => this._getDialog().classList.contains(className),
       addBodyClass: (className: string) => {
         if (this._platform.isBrowser) {
@@ -105,17 +106,18 @@ export class MdcDialogComponent extends MDCComponent<MDCDialogFoundation> implem
         }
       },
       reverseButtons: () => {
-        if (!this._buttons) { return; }
+        if (!this._buttons) {
+          return;
+        }
 
         this._buttons.toArray().reverse();
         this._buttons.forEach(button => button.getHostElement().parentElement!.appendChild(button.getHostElement()));
       },
       notifyOpened: () => this.dialogRef.opened(),
-      notifyOpening: () => { },
+      notifyOpening: () => {},
       notifyClosed: (action: string) => this._closeDialogByRef(action),
-      notifyClosing: () => { }
+      notifyClosing: () => {}
     };
-
     return new MDCDialogFoundation(adapter);
   }
 
@@ -165,8 +167,16 @@ export class MdcDialogComponent extends MDCComponent<MDCDialogFoundation> implem
     }
   }
 
-  _onInteraction(evt: KeyboardEvent | MouseEvent): void {
-    this._foundation.handleInteraction(evt);
+  _onKeydown(evt: KeyboardEvent): void {
+    this._foundation.handleKeydown(evt);
+  }
+
+  _onClick(evt: MouseEvent): void {
+    this._foundation.handleClick(evt);
+  }
+
+  private _getInitialFocusEl(): HTMLElement | null {
+    return this._platform.isBrowser ? document.querySelector(`[${strings.INITIAL_FOCUS_ATTRIBUTE}]`) : null;
   }
 
   private _getDefaultButton(): HTMLElement | undefined {

@@ -1,10 +1,10 @@
-import { readFileSync, writeFileSync } from 'fs';
+import {readFileSync, writeFileSync} from 'fs';
 
 // There are no type definitions available for these imports.
 const terser = require('terser');
 
 /** Minifies a JavaScript file by using terser-js. Also writes sourcemaps to the output. */
-export function uglifyJsFile(inputPath: string, outputPath: string) {
+export function terserJs(inputPath: string, outputPath: string) {
   // const sourceMapPath = `${outputPath}.map`;
 
   const result = terser.minify(readFileSync(inputPath, 'utf8'), {

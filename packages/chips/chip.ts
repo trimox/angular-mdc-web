@@ -276,6 +276,7 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
       setStyleProperty: (propertyName: string, value: string) =>
         this._getHostElement().style.setProperty(propertyName, value),
       hasLeadingIcon: () => !!this.leadingIcon,
+      setAttr: (name: string, value: string) => this._elementRef.nativeElement.setAttribute(name, value),
       getRootBoundingClientRect: () => this._getHostElement().getBoundingClientRect(),
       getCheckmarkBoundingClientRect: () => this._checkmark ?
         this._checkmark.elementRef.nativeElement.getBoundingClientRect() : null

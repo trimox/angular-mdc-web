@@ -123,7 +123,7 @@ export class MdcTopAppBar extends MDCComponent<MDCTopAppBarBaseFoundation | MDCS
       this._initScrollHandler();
     }
   }
-  private _scrollTarget: any = this._platform.isBrowser ? this._scrollTarget || window : undefined;
+  private _scrollTarget: any = this._platform.isBrowser ? this.scrollTarget || window : undefined;
 
   /** Event emitted when the navigation icon is selected. */
   @Output() readonly navigationSelected: EventEmitter<MdcTopAppBarNavSelected> =
@@ -146,21 +146,7 @@ export class MdcTopAppBar extends MDCComponent<MDCTopAppBarBaseFoundation | MDCS
       },
       setStyle: (property: string, value: string) => this._getHostElement().style.setProperty(property, value),
       getTopAppBarHeight: () => this._getHostElement().clientHeight,
-      registerNavigationIconInteractionHandler: () => { },
-      deregisterNavigationIconInteractionHandler: () => { },
       notifyNavigationIconClicked: () => this.navigationSelected.emit({ source: this }),
-      registerScrollHandler: () => { },
-      deregisterScrollHandler: () => { },
-      registerResizeHandler: (handler: any) => {
-        if (!this._platform.isBrowser) { return; }
-
-        window.addEventListener('resize', handler);
-      },
-      deregisterResizeHandler: (handler: any) => {
-        if (!this._platform.isBrowser) { return; }
-
-        window.removeEventListener('resize', handler);
-      },
       getViewportScrollY: () => {
         if (!this._platform.isBrowser) { return 0; }
 
@@ -374,15 +360,7 @@ export class MdcTopAppBar extends MDCComponent<MDCTopAppBarBaseFoundation | MDCS
 
     this._scrollTargetSubscription = this._ngZone.runOutsideAngular(() =>
       fromEvent<Event>(this.scrollTarget || window, 'scroll')
-        .subscribe(() => this._ngZone.run(() => {
-          if (this.fixed) {
-            this._foundation.fixedScrollHandler_();
-          } else if (this.short) {
-            this._foundation.shortAppBarScrollHandler_();
-          } else {
-            this._foundation.topAppBarScrollHandler_();
-          }
-        })));
+        .subscribe(() => this._ngZone.run(() => this._foundation.handleTargetScroll())));
   }
 
   private _getScrollOffset(): number {

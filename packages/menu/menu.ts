@@ -16,6 +16,7 @@ import {takeUntil} from 'rxjs/operators';
 
 import {toBoolean} from '@angular-mdc/web/common';
 import {MdcList, MdcListItem, MdcListItemAction} from '@angular-mdc/web/list';
+import {closest} from '@angular-mdc/web/dom';
 import {MdcMenuSurfaceBase} from '@angular-mdc/web/menu-surface';
 
 import {cssClasses, MDCMenuFoundation} from '@material/menu';
@@ -23,27 +24,27 @@ import {cssClasses, MDCMenuFoundation} from '@material/menu';
 export class MdcMenuSelectedEvent {
   constructor(
     public index: number,
-    public source: MdcListItem) { }
+    public source: MdcListItem) {}
 }
 
 let nextUniqueId = 0;
 
 @Directive({
   selector: '[mdcMenuSelectionGroup], mdc-menu-selection-group',
-  host: { 'class': 'mdc-menu__selection-group' },
+  host: {'class': 'mdc-menu__selection-group'},
   exportAs: 'mdcMenuSelectionGroup'
 })
 export class MdcMenuSelectionGroup {
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
 }
 
 @Directive({
   selector: '[mdcMenuSelectionGroupIcon], mdc-menu-selection-group-icon',
-  host: { 'class': 'mdc-menu__selection-group-icon' },
+  host: {'class': 'mdc-menu__selection-group-icon'},
   exportAs: 'mdcMenuSelectionGroupIcon'
 })
 export class MdcMenuSelectionGroupIcon {
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
 }
 
 @Component({
@@ -86,30 +87,30 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
   private _createAdapter() {
     return Object.assign({
       addClassToElementAtIndex: (index: number, className: string) =>
-        this._list.items.toArray()[index].getListItemElement().classList.add(className),
+        this._items()[index].getListItemElement().classList.add(className),
       removeClassFromElementAtIndex: (index: number, className: string) =>
-        this._list.items.toArray()[index].getListItemElement().classList.remove(className),
+        this._items()[index].getListItemElement().classList.remove(className),
       addAttributeToElementAtIndex: (index: number, attr: string, value: string) =>
-        this._list.items.toArray()[index].getListItemElement().setAttribute(attr, value),
+        this._items()[index].getListItemElement().setAttribute(attr, value),
       removeAttributeFromElementAtIndex: (index: number, attr: string) =>
-        this._list.items.toArray()[index].getListItemElement().removeAttribute(attr),
+        this._items()[index].getListItemElement().removeAttribute(attr),
       elementContainsClass: (element: HTMLElement, className: string) => element.classList.contains(className),
-      closeSurface: () => {
-        this.open = false;
-        this.setOpen();
-      },
+      closeSurface: (skipRestoreFocus: boolean) => this._foundation.close(skipRestoreFocus),
       getElementIndex: (element: HTMLElement) =>
-        this._list.items.toArray().findIndex(_ => _.getListItemElement() === element),
-      getParentElement: (element: HTMLElement) => element.parentElement,
-      getSelectedElementIndex: (selectionGroup: HTMLElement) => {
-        const selectedItem = selectionGroup.querySelector(cssClasses.MENU_SELECTED_LIST_ITEM);
-        return selectedItem ? this._list.items.toArray().findIndex(_ => _.id === selectedItem.id) : -1;
-      },
-      notifySelected: (evtData: { index: number }) =>
-        this.selected.emit(new MdcMenuSelectedEvent(evtData.index, this._list.items.toArray()[evtData.index])),
-      getMenuItemCount: () => this._list.items.length,
+        this._items().findIndex(_ => _.getListItemElement() === element),
+      notifySelected: (evtData: {index: number}) =>
+        this.selected.emit(new MdcMenuSelectedEvent(evtData.index, this._items()[evtData.index])),
+      getMenuItemCount: () => this._items().length,
       focusItemAtIndex: (index: number) => this._list.getListItemByIndex(index)!.focus(),
-      focusListRoot: () => this._list.focus()
+      focusListRoot: () => this._list.focus(),
+      isSelectableItemAtIndex: (index: number) =>
+        !!closest(this._items()[index].getListItemElement(), `.${cssClasses.MENU_SELECTION_GROUP}`),
+      getSelectedSiblingOfItemAtIndex: (index: number) => {
+        const selectionGroupEl = closest(this._items()[index].getListItemElement(),
+          `.${cssClasses.MENU_SELECTION_GROUP}`) as HTMLElement;
+        const selectedItemEl = selectionGroupEl.querySelector<any>(`.${cssClasses.MENU_SELECTED_LIST_ITEM}`);
+        return selectedItemEl ? this._items().indexOf(selectedItemEl) : -1;
+      }
     });
   }
 
@@ -145,8 +146,14 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
     this._menuFoundation.handleKeydown(evt);
   }
 
+  private _items(): MdcListItem[] {
+    return this._list ? this._list.items.toArray() : [];
+  }
+
   private _initList(): void {
-    if (!this._list) { return; }
+    if (!this._list) {
+      return;
+    }
 
     this._list.setRole('menu');
     this._list.wrapFocus = this._wrapFocus;
@@ -161,6 +168,6 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
   private _listenForListItemActions(): void {
     this._list.actionEvent.pipe(takeUntil(this._destroyed))
       .subscribe((event: MdcListItemAction) =>
-        this._menuFoundation.handleItemAction(this._list.items.toArray()[event.index].getListItemElement()));
+        this._menuFoundation.handleItemAction(this._items()[event.index].getListItemElement()));
   }
 }

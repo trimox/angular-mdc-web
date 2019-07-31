@@ -18,8 +18,10 @@ import {fromEvent, Subject} from 'rxjs';
 import {takeUntil, auditTime} from 'rxjs/operators';
 
 import {MDCComponent} from '@angular-mdc/web/base';
+import {applyPassive} from '@angular-mdc/web/dom';
 import {toNumber, toBoolean, Platform} from '@angular-mdc/web/common';
 
+import {EventType, SpecificEventListener} from '@material/base/types';
 import {MDCSliderFoundation, MDCSliderAdapter, strings} from '@material/slider';
 
 export const MDC_SLIDER_CONTROL_VALUE_ACCESSOR: any = {
@@ -31,7 +33,7 @@ export const MDC_SLIDER_CONTROL_VALUE_ACCESSOR: any = {
 export class MdcSliderChange {
   constructor(
     public source: MdcSlider,
-    public value: number) { }
+    public value: number) {}
 }
 
 @Component({
@@ -168,10 +170,10 @@ export class MdcSlider extends MDCComponent<MDCSliderFoundation>
   @ViewChild('markercontainer', {static: false}) trackMarkerContainer?: ElementRef<HTMLElement>;
 
   /** View to model callback called when value changes */
-  _onChanged: (value: any) => void = () => { };
+  _onChanged: (value: any) => void = () => {};
 
   /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
-  _onTouched: () => any = () => { };
+  _onTouched: () => any = () => {};
 
   getDefaultFoundation() {
     const adapter: MDCSliderAdapter = {
@@ -183,20 +185,21 @@ export class MdcSlider extends MDCComponent<MDCSliderFoundation>
       removeAttribute: (name: string) => this._getHostElement().removeAttribute(name),
       computeBoundingRect: () => this._getHostElement().getBoundingClientRect(),
       getTabIndex: () => this._getHostElement().tabIndex,
-      registerInteractionHandler: (type: string, handler: EventListener) =>
-        this._getHostElement().addEventListener(type, handler),
-      deregisterInteractionHandler: (type: string, handler: EventListener) =>
-        this._getHostElement().removeEventListener(type, handler),
-      registerThumbContainerInteractionHandler: (type: string, handler: EventListener) =>
-        this.thumbContainer.nativeElement.addEventListener(type, handler),
-      deregisterThumbContainerInteractionHandler: (type: string, handler: EventListener) =>
-        this.thumbContainer.nativeElement.removeEventListener(type, handler),
-      registerBodyInteractionHandler: (type: string, handler: EventListener) =>
-        document.body.addEventListener(type, handler),
-      deregisterBodyInteractionHandler: (type: string, handler: EventListener) =>
-        document.body.removeEventListener(type, handler),
-      registerResizeHandler: () => { },
-      deregisterResizeHandler: () => { },
+      registerInteractionHandler: <K extends EventType>(evtType: K, handler: SpecificEventListener<K>) =>
+        this._getHostElement().addEventListener(evtType, handler, applyPassive()),
+      deregisterInteractionHandler: <K extends EventType>(evtType: K, handler: SpecificEventListener<K>) =>
+        this._getHostElement().removeEventListener(evtType, handler, applyPassive()),
+      registerThumbContainerInteractionHandler: <K extends EventType>(evtType: K, handler: SpecificEventListener<K>) =>
+        this.thumbContainer.nativeElement.addEventListener(evtType, handler, applyPassive()),
+      deregisterThumbContainerInteractionHandler: <K extends EventType>(evtType: K,
+        handler: SpecificEventListener<K>) =>
+        this.thumbContainer.nativeElement.removeEventListener(evtType, handler, applyPassive()),
+      registerBodyInteractionHandler: <K extends EventType>(evtType: K, handler: SpecificEventListener<K>) =>
+        document.body.addEventListener(evtType, handler),
+      deregisterBodyInteractionHandler: <K extends EventType>(evtType: K, handler: SpecificEventListener<K>) =>
+        document.body.removeEventListener(evtType, handler),
+      registerResizeHandler: () => {},
+      deregisterResizeHandler: () => {},
       notifyInput: () => this._onInput(),
       notifyChange: () => this._onChange(),
       setThumbContainerStyleProperty: (propertyName: string, value: string) =>

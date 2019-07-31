@@ -14,7 +14,7 @@ import {filter, takeUntil} from 'rxjs/operators';
 
 import {MDCComponent} from '@angular-mdc/web/base';
 import {Platform} from '@angular-mdc/web/common';
-import {matches} from '@angular-mdc/web/dom';
+import {matches, applyPassive} from '@angular-mdc/web/dom';
 
 import {MDCTabScrollerFoundation, MDCTabScrollerAdapter, util} from '@material/tab-scroller';
 
@@ -64,7 +64,7 @@ export class MdcTabScroller extends MDCComponent<any> implements AfterViewInit, 
 
   /** Combined stream of all of the scroll area events. */
   get scrollAreaEvents(): Observable<any> {
-    return merge(...SCROLLER_EVENTS.map(evt => fromEvent(this._getScrollArea(), evt)));
+    return merge(...SCROLLER_EVENTS.map(evt => fromEvent(this._getScrollArea(), evt, { passive: applyPassive()})));
   }
 
   getDefaultFoundation() {

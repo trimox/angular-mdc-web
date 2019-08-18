@@ -802,10 +802,10 @@
     "@material/typography" "^3.1.0"
     tslib "^1.9.3"
 
-"@material/data-table@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@material/data-table/-/data-table-3.1.0.tgz#ee5c613dc7bccd3864d49521aff90eae8b9fd993"
-  integrity sha512-1ICPC7LgsJCqNZZ9eskFD2t5DYOLW0jcgwWPhZJjQfSZnhnLiw6SrrHMcnWbQJM5yuXK5+HRz1dEtl4xkRYpjA==
+"@material/data-table@^3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@material/data-table/-/data-table-3.1.1.tgz#3e88e2f8ba7d8a56208cbe506b7db342911c5bd3"
+  integrity sha512-6p85gotXObC47KYaEOM1sJKqrXOFkhfHutmrsHMFDLr4B3mCS7XH9KxvBFX4uw9uEZlgiUJBJtbiUIXuHhLIEQ==
   dependencies:
     "@material/animation" "^3.1.0"
     "@material/base" "^3.1.0"
@@ -845,10 +845,10 @@
   dependencies:
     tslib "^1.9.3"
 
-"@material/drawer@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@material/drawer/-/drawer-3.1.0.tgz#88ead67a8336f79e24d2d67f6f85c1334b8fe6e6"
-  integrity sha512-CfM64bsjkQu3qw3MMkf+Kg1sbWMzinHH25y17kO4rlQQFpHCKZ/7yoLtM6ecuS5AKxN1EyHCW73xBN8HoBV3FA==
+"@material/drawer@^3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@material/drawer/-/drawer-3.1.1.tgz#9d7c2247cb51858aa240aa2d7718ce4b4c602ccc"
+  integrity sha512-OQeQdqo/eE9VbKpgD5YJQTQ7upGTmZONN4WAOuNXg3QV2fZ9y7Ca5+j/i+DSbXKoaYVd0flAxNlW41rP7gnCRw==
   dependencies:
     "@material/animation" "^3.1.0"
     "@material/base" "^3.1.0"
@@ -6154,10 +6154,10 @@ matchdep@^2.0.0:
     resolve "^1.4.0"
     stack-trace "0.0.10"
 
-material-components-web@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/material-components-web/-/material-components-web-3.1.0.tgz#c9188b225d9d4fe7dafaa0fa048138f3820d2ba5"
-  integrity sha512-Gw9R+VmvIisbq7YRE/QhLHuM+6y5dVhBs9Hk46X5PZdMdQqE3vZBNNGkqAuE6dqMiYcS9Ee3syWNBQT4Rp/Dug==
+material-components-web@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/material-components-web/-/material-components-web-3.1.1.tgz#b8496da7b2e869ebedcbb2b834367951c0e6026f"
+  integrity sha512-MO1CwQEysS1607kdUuzvkCP940675P4utsQGRsO0wGB8ygbv4w3Wm980VqHuh1E1um61GIdcD8S9S6BRGVk0pg==
   dependencies:
     "@material/animation" "^3.1.0"
     "@material/auto-init" "^3.1.0"
@@ -6166,10 +6166,10 @@ material-components-web@^3.1.0:
     "@material/card" "^3.1.0"
     "@material/checkbox" "^3.1.0"
     "@material/chips" "^3.1.0"
-    "@material/data-table" "^3.1.0"
+    "@material/data-table" "^3.1.1"
     "@material/dialog" "^3.1.0"
     "@material/dom" "^3.1.0"
-    "@material/drawer" "^3.1.0"
+    "@material/drawer" "^3.1.1"
     "@material/elevation" "^3.1.0"
     "@material/fab" "^3.1.0"
     "@material/feature-targeting" "^3.1.0"

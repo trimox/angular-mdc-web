@@ -1,3 +1,24 @@
+## [3.1.1](https://github.com/trimox/angular-mdc-web/compare/v2.0.1...v3.1.1) (2019-08-24)
+
+
+### Bug Fixes
+
+* https://github.com/material-components/material-components-web/blob/master/CHANGELOG.md#bug-fixes-2
+* https://github.com/material-components/material-components-web/blob/master/CHANGELOG.md#bug-fixes-1
+
+### Features
+
+* Add MDC Data Table ([#1954](https://github.com/trimox/angular-mdc-web/issues/1954)) ([279871e](https://github.com/trimox/angular-mdc-web/commit/279871e)), closes [#1539](https://github.com/trimox/angular-mdc-web/issues/1539)
+* Upgrade to material components web v3.1.1
+  - https://github.com/material-components/material-components-web/blob/master/CHANGELOG.md
+
+
+### BREAKING CHANGES
+
+* **chips**: Update `mdc-chip-leading-icon-margin` and `mdc-chip-trailing-icon-margin` mixins signatures to take only left and right margin values.
+
+
+
 ## [2.0.1](https://github.com/trimox/angular-mdc-web/compare/v2.0.0...v2.0.1) (2019-06-26)
 
 

@@ -1,0 +1,180 @@
+<div class="docs-api">
+  <h3 mdcHeadline6>MDCDataTable</h3>
+  <p>
+    Selector:
+    <span class="markdown-code">mdc-data-table</span>
+  </p>
+  Exported as: <span class="markdown-code">mdcDataTable</span>
+
+  <h4 mdcSubtitle2>Methods</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td>layoutAsync(): Promise</td>
+        <td>Re-initializes header row checkbox and row checkboxes when
+          selectable rows are added or removed from table.
+          Use this if registering checkbox is asynchronous.
+        </td>
+      </tr>
+      <tr>
+        <td>layout(): void</td>
+        <td>Re-initializes header row checkbox and row checkboxes when
+          selectable rows are added or removed from table.</td>
+      </tr>
+      <tr>
+        <td>getHeaderCheckbox(): MdcCheckbox | undefined</td>
+        <td>Retrieve a reference to the header row checkbox.</td>
+      </tr>
+      <tr>
+        <td>getRows(): MDCDataTableRow[]</td>
+        <td>Return an array of all MDCDataTableRow objects.</td>
+      </tr>
+      <tr>
+        <td>getSelectedRowIds():
+          <pre><code highlight="Array<string | null>"></code></pre>
+        </td>
+        <td>Returns array of selected row ids.</td>
+      </tr>
+      <tr>
+        <td>setSelectedRowIds(rowIds: string[]): void</td>
+        <td>Array of row ids that needs to be selected.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 mdcSubtitle2>Events</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td>selectionChanged: MDCDataTableRowSelectionChangedEvent
+          <pre><code highlight="MDCDataTableRowSelectionChangedEvent {
+  index: number;
+  id: string | null;
+  selected: boolean;
+}"></code></pre>
+        </td>
+        <td>Event emitted when row checkbox is checked or unchecked.
+        </td>
+      </tr>
+      <tr>
+        <td>selectedAll</td>
+        <td>Event emitted when header row checkbox is checked.</td>
+      </tr>
+      <tr>
+        <td>unselectedAll</td>
+        <td>Event emitted when header row checkbox is unchecked.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MDCDataTableTable</h3>
+  Mandatory. Table element. Added to table HTML tag.
+  <p>
+    Selector:
+    <span class="markdown-code">mdcDataTableTable</span>
+  </p>
+  Exported as: <span class="markdown-code">mdcDataTableTable</span>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MDCDataTableHeaderRow</h3>
+  Mandatory. Table header row element. Added to thead > tr HTML tag.
+  <p>
+    Selector:
+    <span class="markdown-code">mdcDataTableHeaderRow</span>
+  </p>
+  Exported as: <span class="markdown-code">mdcDataTableHeaderRow</span>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MDCDataTableHeaderCell</h3>
+  <p>
+    Selector:
+    <span class="markdown-code">mdcDataTableHeaderCell</span>
+  </p>
+  Exported as: <span class="markdown-code">mdcDataTableHeaderCell</span>
+
+  <h4 mdcSubtitle2>Properties</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>numeric: boolean</td>
+        <td>Optional. Table header cell element that maps to numeric cells.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MDCDataTableContent</h3>
+  Mandatory. Table body element. Added to tbody HTML tag.
+  <p>
+    Selector:
+    <span class="markdown-code">mdcDataTableContent</span>
+  </p>
+  Exported as: <span class="markdown-code">mdcDataTableContent</span>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MDCDataTableRow</h3>
+  <p>
+    Selector:
+    <span class="markdown-code">mdcDataTableRow</span>
+  </p>
+  Exported as: <span class="markdown-code">mdcDataTableRow</span>
+
+  <h4 mdcSubtitle2>Properties</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>selected: boolean</td>
+        <td>Optional. Modifier class added to mdc-data-table__row when table row
+          is selected.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MDCDataTableCell</h3>
+  <p>
+    Selector:
+    <span class="markdown-code">mdcDataTableCell</span>
+  </p>
+  Exported as: <span class="markdown-code">mdcDataTableCell</span>
+
+  <h4 mdcSubtitle2>Properties</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>checkbox: boolean</td>
+        <td>Optional. Table cell element that contains mdc-checkbox.</td>
+      </tr>
+      <tr>
+        <td>numeric: boolean</td>
+        <td>Optional. Table cell element that maps to numeric cells.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

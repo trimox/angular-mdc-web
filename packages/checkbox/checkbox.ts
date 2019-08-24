@@ -251,8 +251,8 @@ export class MdcCheckbox extends MDCComponent<MDCCheckboxFoundation> implements 
     }
   }
 
-  toggle(): void {
-    this._setState();
+  toggle(checked?: boolean): void {
+    this._setState(checked);
   }
 
   _onInteraction(evt: Event): void {
@@ -277,14 +277,14 @@ export class MdcCheckbox extends MDCComponent<MDCCheckboxFoundation> implements 
     this._changeDetectorRef.markForCheck();
   }
 
-  private _setState(): void {
+  private _setState(checked?: boolean): void {
     if (this.disabled) { return; }
 
     if (this.indeterminate) {
       this._checked = this.indeterminateToChecked;
       this.indeterminate = false;
     } else {
-      this.checked = !this.checked;
+      this.checked = checked || !this.checked;
     }
 
     // Reset native input when clicked with noop. The native checkbox becomes checked after

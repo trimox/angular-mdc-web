@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
     { name: 'Card', route: 'card-demo' },
     { name: 'Checkbox', route: 'checkbox-demo' },
     { name: 'Chips', route: 'chips-demo' },
+    { name: 'Data Table', route: 'data-table-demo' },
     { name: 'Dialog', route: 'dialog-demo' },
     { name: 'Drawer', route: 'drawer-demo' },
     { name: 'FAB', route: 'fab-demo' },

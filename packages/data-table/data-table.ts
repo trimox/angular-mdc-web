@@ -102,8 +102,9 @@ export class MDCDataTable extends MDCComponent<MDCDataTableFoundation> implement
         this.getRows()[rowIndex].getNativeElement().classList.remove(className),
       setAttributeAtRowIndex: (rowIndex: number, attr: string, value: string) =>
         this.getRows()[rowIndex].getNativeElement().setAttribute(attr, value),
-      setHeaderRowCheckboxChecked: (checked: boolean) => this._headerCheckbox.checked = checked,
-      setHeaderRowCheckboxIndeterminate: (indeterminate: boolean) => this._headerCheckbox.indeterminate = indeterminate,
+      setHeaderRowCheckboxChecked: (checked: boolean) => this._headerCheckbox!.checked = checked,
+      setHeaderRowCheckboxIndeterminate: (indeterminate: boolean) =>
+        this._headerCheckbox!.indeterminate = indeterminate,
       setRowCheckboxCheckedAtIndex: (rowIndex: number, checked: boolean) =>
         this.getRows()[rowIndex]._checkbox ? this.getRows()[rowIndex]._checkbox!.toggle(checked) : null
     };

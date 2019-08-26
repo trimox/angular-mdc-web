@@ -58,6 +58,8 @@ export const rollupGlobals = {
 
   'focus-trap': 'focustrap',
 
+  '@angular/cdk/portal': 'ng.cdk.portal',
+  '@angular/cdk/overlay': 'ng.cdk.overlay',
   '@angular/core': 'ng.core',
   '@angular/common': 'ng.common',
   '@angular/common/http': 'ng.common.http',

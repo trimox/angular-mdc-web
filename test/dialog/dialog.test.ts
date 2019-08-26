@@ -2,11 +2,11 @@ import {
   NgModule, Directive, Component, Inject,
   Injector, TemplateRef, ViewContainerRef, ViewChild
 } from '@angular/core';
-import { inject, flush, fakeAsync, flushMicrotasks, tick, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Location } from '@angular/common';
-import { SpyLocation } from '@angular/common/testing';
+import {inject, flush, fakeAsync, flushMicrotasks, tick, ComponentFixture, TestBed} from '@angular/core/testing';
+import {Location} from '@angular/common';
+import {SpyLocation} from '@angular/common/testing';
 
-import { dispatchKeyboardEvent, dispatchFakeEvent } from '../testing/dispatch-events';
+import {dispatchKeyboardEvent, dispatchFakeEvent} from '../testing/dispatch-events';
 
 import {
   A,
@@ -15,9 +15,9 @@ import {
   MdcDialog,
   MDC_DIALOG_DATA,
   MdcDialogModule,
-  MdcDialogRef,
-  OverlayContainer
+  MdcDialogRef
 } from '@angular-mdc/web';
+import {OverlayContainer} from '@angular/cdk/overlay';
 
 describe('MdcDialog Service', () => {
   let dialog: MdcDialog;
@@ -31,7 +31,7 @@ describe('MdcDialog Service', () => {
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [MdcDialogModule, DialogTestModule],
-      providers: [{ provide: Location, useClass: SpyLocation }]
+      providers: [{provide: Location, useClass: SpyLocation}]
     });
 
     TestBed.compileComponents();
@@ -76,9 +76,9 @@ describe('MdcDialog Service', () => {
     templateRefFixture.componentInstance.localValue = 'Bees';
     templateRefFixture.detectChanges();
 
-    const data = { value: 'Knees' };
+    const data = {value: 'Knees'};
 
-    const dialogRef = dialog.open(templateRefFixture.componentInstance.templateRef, { data });
+    const dialogRef = dialog.open(templateRefFixture.componentInstance.templateRef, {data});
 
     viewContainerFixture.detectChanges();
 
@@ -154,7 +154,7 @@ describe('MdcDialog Service', () => {
     sibling.setAttribute('aria-hidden', 'true');
     overlayContainerElement.parentNode!.appendChild(sibling);
 
-    const dialogRef = dialog.open(PizzaMsg, { viewContainerRef: testViewContainerRef });
+    const dialogRef = dialog.open(PizzaMsg, {viewContainerRef: testViewContainerRef});
     viewContainerFixture.detectChanges();
     flush();
 
@@ -174,7 +174,7 @@ describe('MdcDialog Service', () => {
     sibling.setAttribute('aria-live', 'polite');
     overlayContainerElement.parentNode!.appendChild(sibling);
 
-    dialog.open(PizzaMsg, { viewContainerRef: testViewContainerRef });
+    dialog.open(PizzaMsg, {viewContainerRef: testViewContainerRef});
     viewContainerFixture.detectChanges();
     flush();
 
@@ -184,8 +184,8 @@ describe('MdcDialog Service', () => {
   }));
 
   it('should notify the observers if all open dialogs have finished closing', fakeAsync(() => {
-    const ref1 = dialog.open(PizzaMsg, { viewContainerRef: testViewContainerRef });
-    const ref2 = dialog.open(SimpleDialog, { viewContainerRef: testViewContainerRef });
+    const ref1 = dialog.open(PizzaMsg, {viewContainerRef: testViewContainerRef});
+    const ref2 = dialog.open(SimpleDialog, {viewContainerRef: testViewContainerRef});
     const spy = jasmine.createSpy('afterAllClosed spy');
 
     dialog.afterAllClosed.subscribe(spy);
@@ -225,7 +225,7 @@ describe('MdcDialog Service', () => {
   it('should complete open and close streams when the injectable is destroyed', () => {
     const afterOpenedSpy = jasmine.createSpy('after opened spy');
     const afterAllClosedSpy = jasmine.createSpy('after all closed spy');
-    const afterOpenedSubscription = dialog.afterOpened.subscribe({ complete: afterOpenedSpy });
+    const afterOpenedSubscription = dialog.afterOpened.subscribe({complete: afterOpenedSpy});
     const afterAllClosedSubscription = dialog.afterAllClosed.subscribe({
       complete: afterAllClosedSpy
     });
@@ -330,10 +330,10 @@ describe('MdcDialog with a parent MdcDialog', () => {
         {
           provide: OverlayContainer, useFactory: () => {
             overlayContainerElement = document.createElement('div');
-            return { getContainerElement: () => overlayContainerElement };
+            return {getContainerElement: () => overlayContainerElement};
           }
         },
-        { provide: Location, useClass: SpyLocation }
+        {provide: Location, useClass: SpyLocation}
       ],
     });
 
@@ -402,9 +402,9 @@ describe('MdcDialog with a parent MdcDialog', () => {
   }));
 });
 
-@Directive({ selector: 'dir-with-view-container' })
+@Directive({selector: 'dir-with-view-container'})
 class DirectiveWithViewContainer {
-  constructor(public viewContainerRef: ViewContainerRef) { }
+  constructor(public viewContainerRef: ViewContainerRef) {}
 }
 
 @Component({
@@ -437,10 +437,10 @@ class ComponentWithTemplateRef {
 }
 
 /** Simple component for testing ComponentPortal. */
-@Component({ template: '<p>Pizza</p> <input> <button>Close</button>' })
+@Component({template: '<p>Pizza</p> <input> <button>Close</button>'})
 class PizzaMsg {
   constructor(public dialogRef: MdcDialogRef<PizzaMsg>,
-    public dialogInjector: Injector) { }
+    public dialogInjector: Injector) {}
 }
 
 @Component({
@@ -462,7 +462,7 @@ class PizzaMsg {
   </mdc-dialog>`,
 })
 class SimpleDialog {
-  constructor(public dialogRef: MdcDialogRef<SimpleDialog>) { }
+  constructor(public dialogRef: MdcDialogRef<SimpleDialog>) {}
 
   buttonAction: string = 'close';
 }
@@ -484,7 +484,7 @@ class SimpleDialog {
   </mdc-dialog>`,
 })
 class DialogWithDefaultButton {
-  constructor(public dialogRef: MdcDialogRef<DialogWithDefaultButton>) { }
+  constructor(public dialogRef: MdcDialogRef<DialogWithDefaultButton>) {}
 }
 
 @Component({
@@ -501,13 +501,13 @@ class DialogWithDefaultButton {
   </mdc-dialog>`,
 })
 class DialogWithNoButtons {
-  constructor(public dialogRef: MdcDialogRef<DialogWithNoButtons>) { }
+  constructor(public dialogRef: MdcDialogRef<DialogWithNoButtons>) {}
 }
 
 /** Simple component for testing ComponentPortal. */
-@Component({ template: '' })
+@Component({template: ''})
 class DialogWithInjectedData {
-  constructor(@Inject(MDC_DIALOG_DATA) public data: any) { }
+  constructor(@Inject(MDC_DIALOG_DATA) public data: any) {}
 }
 
 @Component({
@@ -515,7 +515,7 @@ class DialogWithInjectedData {
   providers: [MdcDialog]
 })
 class ComponentThatProvidesMdcDialog {
-  constructor(public dialog: MdcDialog) { }
+  constructor(public dialog: MdcDialog) {}
 }
 
 const TEST_DIRECTIVES = [
@@ -543,4 +543,4 @@ const TEST_DIRECTIVES = [
     ComponentWithChildViewContainer
   ],
 })
-class DialogTestModule { }
+class DialogTestModule {}

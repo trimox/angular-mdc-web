@@ -11,7 +11,7 @@ import {
   ComponentPortal,
   CdkPortalOutlet,
   TemplatePortal
-} from '@angular-mdc/web/portal';
+} from '@angular/cdk/portal';
 
 import {MdcDialogConfig} from './dialog-config';
 

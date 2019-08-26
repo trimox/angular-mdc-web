@@ -13,13 +13,13 @@ import {startWith} from 'rxjs/operators';
 import {
   Overlay,
   OverlayRef
-} from '@angular-mdc/web/overlay';
+} from '@angular/cdk/overlay';
 import {
   ComponentPortal,
   ComponentType,
   PortalInjector,
   TemplatePortal
-} from '@angular-mdc/web/portal';
+} from '@angular/cdk/portal';
 
 import {MdcDialogRef} from './dialog-ref';
 import {MdcDialogPortal} from './dialog-portal';

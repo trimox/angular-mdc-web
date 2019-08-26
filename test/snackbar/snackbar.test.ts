@@ -15,17 +15,16 @@ import {
   Inject,
   TemplateRef,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {
   MDC_SNACKBAR_DATA,
   MdcSnackbar,
   MdcSnackbarComponent,
   MdcSnackbarConfig,
   MdcSnackbarModule,
-  MdcSnackbarDismissReason,
-  MdcSnackbarRef,
-  OverlayContainer
+  MdcSnackbarRef
 } from '@angular-mdc/web';
+import {OverlayContainer} from '@angular/cdk/overlay';
 
 describe('MdcSnackbar', () => {
   let snackBar: MdcSnackbar;
@@ -63,7 +62,7 @@ describe('MdcSnackbar', () => {
   });
 
   it('should open a simple message with a button', () => {
-    const config: MdcSnackbarConfig = { viewContainerRef: testViewContainerRef };
+    const config: MdcSnackbarConfig = {viewContainerRef: testViewContainerRef};
     const snackBarRef = snackBar.open(simpleMessage, simpleActionLabel, config);
 
     viewContainerFixture.detectChanges();
@@ -131,7 +130,7 @@ describe('MdcSnackbar', () => {
   });
 
   it('should open a simple message with no button', () => {
-    const config: MdcSnackbarConfig = { viewContainerRef: testViewContainerRef };
+    const config: MdcSnackbarConfig = {viewContainerRef: testViewContainerRef};
     const snackBarRef = snackBar.open(simpleMessage, '', config);
 
     viewContainerFixture.detectChanges();
@@ -143,7 +142,7 @@ describe('MdcSnackbar', () => {
   });
 
   it('should dismiss the snack bar and remove itself from the view', fakeAsync(() => {
-    const config: MdcSnackbarConfig = { viewContainerRef: testViewContainerRef };
+    const config: MdcSnackbarConfig = {viewContainerRef: testViewContainerRef};
     const dismissCompleteSpy = jasmine.createSpy('dismiss complete spy');
 
     const snackBarRef = snackBar.open(simpleMessage, undefined, config);
@@ -207,7 +206,7 @@ describe('MdcSnackbar', () => {
 
     snackBarRef.afterDismiss().subscribe(undefined, undefined, dismissCompleteSpy);
 
-    snackBarRef.dismiss({ action: true });
+    snackBarRef.dismiss({action: true});
     viewContainerFixture.detectChanges();
     flush();
 
@@ -222,11 +221,11 @@ describe('MdcSnackbar', () => {
 
     snackBarRef.afterDismiss().subscribe(dismissSpy);
 
-    snackBarRef.dismiss({ action: true });
+    snackBarRef.dismiss({action: true});
     viewContainerFixture.detectChanges();
     flush();
 
-    expect(dismissSpy).toHaveBeenCalledWith(jasmine.objectContaining({ action: true }));
+    expect(dismissSpy).toHaveBeenCalledWith(jasmine.objectContaining({action: true}));
     tick(500);
   }));
 
@@ -331,9 +330,9 @@ describe('MdcSnackbar with parent MdcSnackbar', () => {
   }));
 });
 
-@Directive({ selector: 'dir-with-view-container' })
+@Directive({selector: 'dir-with-view-container'})
 class DirectiveWithViewContainer {
-  constructor(public viewContainerRef: ViewContainerRef) { }
+  constructor(public viewContainerRef: ViewContainerRef) {}
 }
 
 @Component({
@@ -364,11 +363,11 @@ class ComponentWithTemplateRef {
 }
 
 /** Simple component for testing ComponentPortal. */
-@Component({ template: '<p>Burritos are on the way.</p>' })
+@Component({template: '<p>Burritos are on the way.</p>'})
 class BurritosNotification {
   constructor(
     public snackBarRef: MdcSnackbarRef<BurritosNotification>,
-    @Inject(MDC_SNACKBAR_DATA) public data: any) { }
+    @Inject(MDC_SNACKBAR_DATA) public data: any) {}
 }
 
 @Component({
@@ -376,7 +375,7 @@ class BurritosNotification {
   providers: [MdcSnackbar]
 })
 class ComponentThatProvidesMdcSnackBar {
-  constructor(public snackBar: MdcSnackbar) { }
+  constructor(public snackBar: MdcSnackbar) {}
 }
 
 /**
@@ -394,4 +393,4 @@ const TEST_DIRECTIVES = [ComponentWithChildViewContainer,
   declarations: TEST_DIRECTIVES,
   entryComponents: [ComponentWithChildViewContainer, BurritosNotification],
 })
-class SnackBarTestModule { }
+class SnackBarTestModule {}

@@ -3,7 +3,7 @@ import {
   CdkPortalOutlet,
   ComponentPortal,
   TemplatePortal,
-} from '@angular-mdc/web/portal';
+} from '@angular/cdk/portal';
 import {
   ChangeDetectionStrategy,
   Component,

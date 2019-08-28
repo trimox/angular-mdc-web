@@ -167,6 +167,11 @@ export class MdcDialogComponent extends MDCComponent<MDCDialogFoundation> implem
     }
   }
 
+  /** Recalculates layout and automatically adds/removes modifier classes like --scrollable. */
+  layout(): void {
+    this._foundation.layout();
+  }
+
   _onKeydown(evt: KeyboardEvent): void {
     this._foundation.handleKeydown(evt);
   }
@@ -180,7 +185,7 @@ export class MdcDialogComponent extends MDCComponent<MDCDialogFoundation> implem
   }
 
   private _getDefaultButton(): HTMLElement | undefined {
-    const defaultBtn = this._buttons ? this._buttons.find(_ => _.default) : undefined;
+    const defaultBtn = this._buttons.find(_ => _.default);
     return defaultBtn ? defaultBtn.getHostElement() : undefined;
   }
 
@@ -190,7 +195,7 @@ export class MdcDialogComponent extends MDCComponent<MDCDialogFoundation> implem
 
   private _loadListeners(): void {
     this._layoutEventSubscription = this.layoutEvents.pipe()
-      .subscribe(() => this._foundation.layout());
+      .subscribe(() => this.layout());
 
     if (this._platform.isBrowser) {
       this._ngZone.runOutsideAngular(() =>

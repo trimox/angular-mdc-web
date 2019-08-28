@@ -9,13 +9,19 @@ import {SpyLocation} from '@angular/common/testing';
 import {dispatchKeyboardEvent, dispatchFakeEvent} from '../testing/dispatch-events';
 
 import {
-  A,
+  TAB,
+  ENTER,
   ESCAPE,
   DOWN_ARROW,
   MdcDialog,
   MDC_DIALOG_DATA,
   MdcDialogModule,
-  MdcDialogRef
+  MdcDialogComponent,
+  MdcDialogRef,
+  MdcDialogButton,
+  MdcDialogAction,
+  MdcListModule,
+  MdcIconModule
 } from '@angular-mdc/web';
 import {OverlayContainer} from '@angular/cdk/overlay';
 
@@ -101,7 +107,7 @@ describe('MdcDialog Service', () => {
   });
 
   it('#should close using escape key', () => {
-    const dialogRef = dialog.open(SimpleDialog);
+    dialog.open(SimpleDialog);
     viewContainerFixture.detectChanges();
 
     dispatchKeyboardEvent(document.body, 'keydown', ESCAPE);
@@ -115,6 +121,29 @@ describe('MdcDialog Service', () => {
     expect(dialogRef.componentInstance.buttonAction).toBe('close');
   });
 
+  it('#should handle layout()', () => {
+    const dialogRef = dialog.open(SimpleDialog);
+    viewContainerFixture.detectChanges();
+
+    dialogRef.componentInstance.dialogComponent.layout();
+  });
+
+  it('#should handle click event', () => {
+    const dialogRef = dialog.open(SimpleDialog);
+    viewContainerFixture.detectChanges();
+
+    dialogRef.componentInstance.dialogComponent.elementRef.nativeElement.click();
+    viewContainerFixture.detectChanges();
+  });
+
+  it('#should handle keydown event', () => {
+    const dialogRef = dialog.open(SimpleDialog);
+    viewContainerFixture.detectChanges();
+
+    dispatchKeyboardEvent(dialogRef.componentInstance.dialogComponent.elementRef.nativeElement, 'keydown', TAB);
+    viewContainerFixture.detectChanges();
+  });
+
   it('#should have null for button action', () => {
     const dialogRef = dialog.open(SimpleDialog);
     dialogRef.componentInstance.buttonAction = null;
@@ -124,15 +153,24 @@ describe('MdcDialog Service', () => {
   });
 
   it('#should handle default button click', () => {
-    const dialogRef = dialog.open(DialogWithDefaultButton);
+    dialog.open(DialogWithDefaultButton);
+    viewContainerFixture.detectChanges();
+
     const actionButtonDebugElement = overlayContainerElement.querySelector('button');
     dispatchFakeEvent(actionButtonDebugElement, 'click');
 
     viewContainerFixture.detectChanges();
   });
 
+  it('#should have button with accept action', () => {
+    const dialogRef = dialog.open(DialogWithDefaultButton);
+    viewContainerFixture.detectChanges();
+
+    expect(dialogRef.componentInstance.dialogActionButton.action).toBe('accept');
+  });
+
   it('#should open a dialog with no buttons', () => {
-    const dialogRef = dialog.open(DialogWithNoButtons);
+    dialog.open(DialogWithNoButtons);
     viewContainerFixture.detectChanges();
   });
 
@@ -462,6 +500,8 @@ class PizzaMsg {
   </mdc-dialog>`,
 })
 class SimpleDialog {
+  @ViewChild(MdcDialogComponent, {static: true}) dialogComponent!: MdcDialogComponent;
+
   constructor(public dialogRef: MdcDialogRef<SimpleDialog>) {}
 
   buttonAction: string = 'close';
@@ -484,6 +524,10 @@ class SimpleDialog {
   </mdc-dialog>`,
 })
 class DialogWithDefaultButton {
+  @ViewChild(MdcDialogComponent, {static: true}) dialogComponent!: MdcDialogComponent;
+  @ViewChild(MdcDialogButton, {static: true}) dialogButton!: MdcDialogButton;
+  @ViewChild(MdcDialogAction, {static: true}) dialogActionButton!: MdcDialogAction;
+
   constructor(public dialogRef: MdcDialogRef<DialogWithDefaultButton>) {}
 }
 
@@ -501,7 +545,36 @@ class DialogWithDefaultButton {
   </mdc-dialog>`,
 })
 class DialogWithNoButtons {
+  @ViewChild(MdcDialogComponent, {static: true}) dialogComponent!: MdcDialogComponent;
+
   constructor(public dialogRef: MdcDialogRef<DialogWithNoButtons>) {}
+}
+
+@Component({
+  template: `
+  <mdc-dialog>
+    <mdc-dialog-container>
+      <mdc-dialog-surface>
+        <mdc-dialog-title>Select an account</mdc-dialog-title>
+        <mdc-dialog-content>
+          <mdc-list avatar>
+            <mdc-list-item mdcDialogAction="close" [tabIndex]="0">
+              <mdc-icon mdcListItemGraphic>person</mdc-icon>username@gmail.com
+            </mdc-list-item>
+            <mdc-list-item>
+              <mdc-icon mdcListItemGraphic>person</mdc-icon>user02@gmail.com
+            </mdc-list-item>
+          </mdc-list>
+        </mdc-dialog-content>
+      </mdc-dialog-surface>
+    </mdc-dialog-container>
+  </mdc-dialog>
+  `,
+})
+export class DialogWithList {
+  @ViewChild(MdcDialogComponent, {static: true}) dialogComponent!: MdcDialogComponent;
+
+  constructor(public dialogRef: MdcDialogRef<DialogWithList>) { }
 }
 
 /** Simple component for testing ComponentPortal. */
@@ -523,6 +596,7 @@ const TEST_DIRECTIVES = [
   DialogWithDefaultButton,
   DialogWithNoButtons,
   DialogWithInjectedData,
+  DialogWithList,
   PizzaMsg,
   ComponentWithTemplateRef,
   ComponentWithChildViewContainer,
@@ -530,7 +604,11 @@ const TEST_DIRECTIVES = [
 ];
 
 @NgModule({
-  imports: [MdcDialogModule],
+  imports: [
+    MdcDialogModule,
+    MdcListModule,
+    MdcIconModule
+  ],
   exports: TEST_DIRECTIVES,
   declarations: TEST_DIRECTIVES,
   entryComponents: [
@@ -538,6 +616,7 @@ const TEST_DIRECTIVES = [
     DialogWithDefaultButton,
     DialogWithNoButtons,
     DialogWithInjectedData,
+    DialogWithList,
     ComponentWithTemplateRef,
     PizzaMsg,
     ComponentWithChildViewContainer

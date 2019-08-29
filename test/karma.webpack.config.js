@@ -5,6 +5,11 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 module.exports = {
   mode: 'development',
   devtool: 'inline-source-map',
+  optimization: {
+    splitChunks: false,
+    runtimeChunk: false,
+    minimize: false
+  },
   plugins: [
     // Workaround for angular/angular#1158
     new webpack.ContextReplacementPlugin(

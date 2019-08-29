@@ -21,11 +21,5 @@
       "@angular-mdc/web/*": ["../packages/*"],
       "@angular-mdc/web": ["../packages/public-api.ts"]
     }
-  },
-  "files": [
-    "test.ts"
-  ],
-  "include": [
-    "**/*.test.ts"
-  ]
+  }
 }

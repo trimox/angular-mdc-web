@@ -14,7 +14,8 @@ import {
   Output,
   ViewEncapsulation
 } from '@angular/core';
-import {toBoolean, ENTER, SPACE} from '@angular-mdc/web/common';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
+import {ENTER, SPACE} from '@angular/cdk/keycodes';
 import {MdcRipple} from '@angular-mdc/web/ripple';
 
 /** Change event that is fired whenever the selected state of an option changes. */
@@ -122,7 +123,7 @@ export class MdcListItem implements OnInit, OnDestroy {
   @Input()
   get selected(): boolean { return this._selected; }
   set selected(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._selected) {
       this._selected = newValue;
       this._changeDetectorRef.markForCheck();
@@ -134,7 +135,7 @@ export class MdcListItem implements OnInit, OnDestroy {
   @Input()
   get activated(): boolean { return this._activated; }
   set activated(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._activated) {
       this._activated = newValue;
       this._changeDetectorRef.markForCheck();
@@ -146,7 +147,7 @@ export class MdcListItem implements OnInit, OnDestroy {
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._disabled) {
       this._disabled = newValue;
       this._changeDetectorRef.markForCheck();

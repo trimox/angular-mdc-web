@@ -11,10 +11,10 @@ import {
   Output,
   ViewEncapsulation
 } from '@angular/core';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-import {toBoolean} from '@angular-mdc/web/common';
 import {MdcList, MdcListItem, MdcListItemAction} from '@angular-mdc/web/list';
 import {MdcMenuSurfaceBase} from '@angular-mdc/web/menu-surface';
 
@@ -71,7 +71,7 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
   @Input()
   get wrapFocus(): boolean { return this._wrapFocus; }
   set wrapFocus(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._wrapFocus) {
       this._wrapFocus = newValue;
       this._list.wrapFocus = newValue;

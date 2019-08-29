@@ -13,12 +13,12 @@ import {
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Platform} from '@angular/cdk/platform';
 import {merge, Observable, Subscription, Subject} from 'rxjs';
 import {startWith} from 'rxjs/operators';
 
 import {MDCComponent} from '@angular-mdc/web/base';
-import {toBoolean} from '@angular-mdc/web/common';
 import {MdcTabScroller, MdcTabScrollerAlignment} from '@angular-mdc/web/tab-scroller';
 import {MdcTab, MdcTabInteractedEvent, MDC_TAB_BAR_PARENT_COMPONENT} from '@angular-mdc/web/tab';
 
@@ -52,7 +52,7 @@ export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements Afte
   @Input()
   get fade(): boolean { return this._fade; }
   set fade(value: boolean) {
-    this._fade = toBoolean(value);
+    this._fade = coerceBooleanProperty(value);
     this._syncTabs();
   }
   private _fade: boolean = false;
@@ -60,7 +60,7 @@ export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements Afte
   @Input()
   get stacked(): boolean { return this._stacked; }
   set stacked(value: boolean) {
-    this._stacked = toBoolean(value);
+    this._stacked = coerceBooleanProperty(value);
     this._syncTabs();
   }
   private _stacked: boolean = false;
@@ -68,7 +68,7 @@ export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements Afte
   @Input()
   get fixed(): boolean { return this._fixed; }
   set fixed(value: boolean) {
-    this._fixed = toBoolean(value);
+    this._fixed = coerceBooleanProperty(value);
     this._syncTabs();
   }
   private _fixed: boolean = false;
@@ -92,7 +92,7 @@ export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements Afte
   @Input()
   get useAutomaticActivation(): boolean { return this._useAutomaticActivation; }
   set useAutomaticActivation(value: boolean) {
-    this._useAutomaticActivation = toBoolean(value);
+    this._useAutomaticActivation = coerceBooleanProperty(value);
     this._foundation.setUseAutomaticActivation(this._useAutomaticActivation);
   }
   private _useAutomaticActivation: boolean = true;
@@ -110,7 +110,7 @@ export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements Afte
   @Input()
   get focusOnActivate(): boolean { return this._focusOnActivate; }
   set focusOnActivate(value: boolean) {
-    this._focusOnActivate = toBoolean(value);
+    this._focusOnActivate = coerceBooleanProperty(value);
     this._syncTabs();
   }
   private _focusOnActivate: boolean = true;
@@ -278,7 +278,7 @@ export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements Afte
   disableTab(index: number, disabled: boolean): void {
     if (!this.tabs) { return; }
 
-    this.tabs.toArray()[index].disabled = toBoolean(disabled);
+    this.tabs.toArray()[index].disabled = coerceBooleanProperty(disabled);
   }
 
   _onKeydown(evt: KeyboardEvent): void {

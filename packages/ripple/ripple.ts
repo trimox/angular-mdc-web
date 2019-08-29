@@ -8,7 +8,7 @@ import {
   Input,
   OnDestroy
 } from '@angular/core';
-import {toBoolean} from '@angular-mdc/web/common';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
 import {MdcRipple} from './ripple.service';
 
@@ -39,7 +39,7 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
   @Input()
   get primary(): boolean { return this._primary; }
   set primary(value: boolean) {
-    this._primary = toBoolean(value);
+    this._primary = coerceBooleanProperty(value);
     this._primary ? this.attachTo.classList.add('mdc-ripple-surface--primary')
       : this.attachTo.classList.remove('mdc-ripple-surface--primary');
   }
@@ -48,7 +48,7 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
   @Input()
   get secondary(): boolean { return this._secondary; }
   set secondary(value: boolean) {
-    this._secondary = toBoolean(value);
+    this._secondary = coerceBooleanProperty(value);
     this._secondary ? this.attachTo.classList.add('mdc-ripple-surface--accent')
       : this.attachTo.classList.remove('mdc-ripple-surface--accent');
   }
@@ -57,14 +57,14 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
-    this._disabled = toBoolean(value);
+    this._disabled = coerceBooleanProperty(value);
   }
   private _disabled: boolean = false;
 
   @Input()
   get unbounded(): boolean { return this._unbounded; }
   set unbounded(value: boolean) {
-    this._unbounded = toBoolean(value);
+    this._unbounded = coerceBooleanProperty(value);
   }
   protected _unbounded: boolean = false;
 

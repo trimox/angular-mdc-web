@@ -15,12 +15,12 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Platform} from '@angular/cdk/platform';
 import {fromEvent, Subject} from 'rxjs';
 import {takeUntil, filter} from 'rxjs/operators';
 
 import {MDCComponent} from '@angular-mdc/web/base';
-import {toBoolean} from '@angular-mdc/web/common';
 import {MdcRipple} from '@angular-mdc/web/ripple';
 import {MdcFormField, MdcFormFieldControl} from '@angular-mdc/web/form-field';
 
@@ -109,7 +109,7 @@ export class MdcCheckbox extends MDCComponent<MDCCheckboxFoundation> implements 
   get checked(): boolean { return this._checked; }
   set checked(value: boolean) {
     if (value !== this.checked) {
-      this._checked = toBoolean(value);
+      this._checked = coerceBooleanProperty(value);
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -136,7 +136,7 @@ export class MdcCheckbox extends MDCComponent<MDCCheckboxFoundation> implements 
   set indeterminate(value: boolean) {
     if (this.disabled) { return; }
 
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._indeterminate) {
       this._indeterminate = newValue;
       if (newValue) {
@@ -156,7 +156,7 @@ export class MdcCheckbox extends MDCComponent<MDCCheckboxFoundation> implements 
   @Input()
   get indeterminateToChecked(): boolean { return this._indeterminateToChecked; }
   set indeterminateToChecked(value: boolean) {
-    this._indeterminateToChecked = toBoolean(value);
+    this._indeterminateToChecked = coerceBooleanProperty(value);
     this._changeDetectorRef.markForCheck();
   }
   private _indeterminateToChecked: boolean = true;
@@ -273,7 +273,7 @@ export class MdcCheckbox extends MDCComponent<MDCCheckboxFoundation> implements 
   }
 
   setDisabledState(disabled: boolean): void {
-    this._disabled = toBoolean(disabled);
+    this._disabled = coerceBooleanProperty(disabled);
     this._foundation.setDisabled(this._disabled);
     this._changeDetectorRef.markForCheck();
   }

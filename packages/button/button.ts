@@ -9,7 +9,7 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import {toBoolean} from '@angular-mdc/web/common';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {MdcRipple} from '@angular-mdc/web/ripple';
 import {MdcIcon} from '@angular-mdc/web/icon';
 
@@ -49,42 +49,42 @@ export class MdcButton implements OnInit, OnDestroy {
   @Input()
   get raised(): boolean { return this._raised; }
   set raised(value: boolean) {
-    this._raised = toBoolean(value);
+    this._raised = coerceBooleanProperty(value);
   }
   private _raised: boolean = false;
 
   @Input()
   get primary(): boolean { return this._primary; }
   set primary(value: boolean) {
-    this._primary = toBoolean(value);
+    this._primary = coerceBooleanProperty(value);
   }
   private _primary: boolean = false;
 
   @Input()
   get dense(): boolean { return this._dense; }
   set dense(value: boolean) {
-    this._dense = toBoolean(value);
+    this._dense = coerceBooleanProperty(value);
   }
   private _dense: boolean = false;
 
   @Input()
   get secondary(): boolean { return this._secondary; }
   set secondary(value: boolean) {
-    this._secondary = toBoolean(value);
+    this._secondary = coerceBooleanProperty(value);
   }
   private _secondary: boolean = false;
 
   @Input()
   get unelevated(): boolean { return this._unelevated; }
   set unelevated(value: boolean) {
-    this._unelevated = toBoolean(value);
+    this._unelevated = coerceBooleanProperty(value);
   }
   private _unelevated: boolean = false;
 
   @Input()
   get outlined(): boolean { return this._outlined; }
   set outlined(value: boolean) {
-    this._outlined = toBoolean(value);
+    this._outlined = coerceBooleanProperty(value);
   }
   private _outlined: boolean = false;
 
@@ -116,7 +116,7 @@ export class MdcButton implements OnInit, OnDestroy {
   }
 
   setDisabled(disabled: boolean): void {
-    this._disabled = toBoolean(disabled);
+    this._disabled = coerceBooleanProperty(disabled);
 
     if (this._disabled) {
       this.getHostElement().setAttribute('disabled', 'true');

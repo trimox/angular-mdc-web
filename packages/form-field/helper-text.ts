@@ -6,8 +6,8 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
-import {toBoolean} from '@angular-mdc/web/common';
 import {MdcCharacterCounter} from './character-counter';
 
 @Component({
@@ -28,7 +28,7 @@ export class MdcHelperText {
   @Input()
   get persistent(): boolean { return this._persistent; }
   set persistent(value: boolean) {
-    this._persistent = toBoolean(value);
+    this._persistent = coerceBooleanProperty(value);
     if (this._foundation) {
       this._foundation.setPersistent(this._persistent);
     }
@@ -38,7 +38,7 @@ export class MdcHelperText {
   @Input()
   get validation(): boolean { return this._validation; }
   set validation(value: boolean) {
-    this._validation = toBoolean(value);
+    this._validation = coerceBooleanProperty(value);
     if (this._foundation) {
       this._foundation.setValidation(this._validation);
     }

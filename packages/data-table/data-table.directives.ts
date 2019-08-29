@@ -7,7 +7,7 @@ import {
   Input,
   ViewEncapsulation
 } from '@angular/core';
-import {toBoolean} from '@angular-mdc/web/common';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {MdcCheckbox} from '@angular-mdc/web/checkbox';
 
 let uniqueIdCounter = 0;
@@ -51,7 +51,7 @@ export class MDCDataTableHeaderCell {
     return this._numeric;
   }
   set numeric(value: boolean) {
-    this._numeric = toBoolean(value);
+    this._numeric = coerceBooleanProperty(value);
   }
   private _numeric: boolean = false;
 
@@ -98,7 +98,7 @@ export class MDCDataTableRow {
     return this._selected;
   }
   set selected(value: boolean) {
-    this._selected = toBoolean(value);
+    this._selected = coerceBooleanProperty(value);
   }
   private _selected: boolean = false;
 
@@ -128,7 +128,7 @@ export class MDCDataTableCell {
     return this._checkbox;
   }
   set checkbox(value: boolean) {
-    this._checkbox = toBoolean(value);
+    this._checkbox = coerceBooleanProperty(value);
   }
   private _checkbox: boolean = false;
 
@@ -137,7 +137,7 @@ export class MDCDataTableCell {
     return this._numeric;
   }
   set numeric(value: boolean) {
-    this._numeric = toBoolean(value);
+    this._numeric = coerceBooleanProperty(value);
   }
   private _numeric: boolean = false;
 

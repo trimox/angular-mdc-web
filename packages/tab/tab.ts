@@ -16,11 +16,11 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {fromEvent, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 import {MDCComponent} from '@angular-mdc/web/base';
-import {toBoolean} from '@angular-mdc/web/common';
 import {MdcRipple} from '@angular-mdc/web/ripple';
 import {MdcTabIndicator} from '@angular-mdc/web/tab-indicator';
 
@@ -111,7 +111,7 @@ export class MdcTab extends MDCComponent<MDCTabFoundation> implements OnInit, On
   @Input()
   get stacked(): boolean { return this._stacked; }
   set stacked(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._stacked) {
       this._stacked = newValue;
     }
@@ -121,7 +121,7 @@ export class MdcTab extends MDCComponent<MDCTabFoundation> implements OnInit, On
   @Input()
   get fixed(): boolean { return this._fixed; }
   set fixed(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._fixed) {
       this._fixed = newValue;
       this._changeDetectorRef.detectChanges();
@@ -132,14 +132,14 @@ export class MdcTab extends MDCComponent<MDCTabFoundation> implements OnInit, On
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
-    this._disabled = toBoolean(value);
+    this._disabled = coerceBooleanProperty(value);
   }
   private _disabled: boolean = false;
 
   @Input()
   get focusOnActivate(): boolean { return this._focusOnActivate; }
   set focusOnActivate(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._focusOnActivate) {
       this._focusOnActivate = newValue;
       this._foundation.setFocusOnActivate(this._focusOnActivate);

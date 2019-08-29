@@ -8,11 +8,11 @@ import {
 } from '@angular/forms';
 import {fakeAsync, ComponentFixture, TestBed, flush} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
+import {DOWN_ARROW} from '@angular/cdk/keycodes';
 
 import {dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent} from '../testing/dispatch-events';
 
 import {
-  DOWN_ARROW,
   MdcSelectModule,
   MdcSelect,
   MdcListModule,

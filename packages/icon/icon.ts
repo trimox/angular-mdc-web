@@ -22,10 +22,10 @@ import {
   SimpleChanges,
   ViewEncapsulation
 } from '@angular/core';
-import {take} from 'rxjs/operators';
 import {DOCUMENT} from '@angular/common';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
+import {take} from 'rxjs/operators';
 
-import {toBoolean} from '@angular-mdc/web/common';
 import {MdcIconRegistry} from './icon-registry';
 
 export interface MdcIconLocation {
@@ -106,7 +106,7 @@ export class MdcIcon implements AfterViewChecked, OnDestroy, OnChanges, OnInit {
   @Input()
   get inline(): boolean { return this._inline; }
   set inline(inline: boolean) {
-    this._inline = toBoolean(inline);
+    this._inline = coerceBooleanProperty(inline);
   }
   private _inline: boolean = false;
 
@@ -135,7 +135,7 @@ export class MdcIcon implements AfterViewChecked, OnDestroy, OnChanges, OnInit {
   @Input()
   get clickable(): boolean { return this._clickable; }
   set clickable(value: boolean) {
-    this._clickable = toBoolean(value);
+    this._clickable = coerceBooleanProperty(value);
 
     if (this._clickable) {
       this.tabIndex = 0;

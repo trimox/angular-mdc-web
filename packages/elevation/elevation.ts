@@ -5,7 +5,7 @@ import {
   OnChanges,
   SimpleChange
 } from '@angular/core';
-import {toNumber} from '@angular-mdc/web/common';
+import {coerceNumberProperty} from '@angular/cdk/coercion';
 
 @Directive({
   selector: '[mdcElevation]',
@@ -15,7 +15,7 @@ export class MdcElevation implements OnChanges {
   @Input()
   get mdcElevation(): number { return this._mdcElevation; }
   set mdcElevation(value: number) {
-    this._mdcElevation = toNumber(value);
+    this._mdcElevation = coerceNumberProperty(value);
   }
   private _mdcElevation: number = 0;
 

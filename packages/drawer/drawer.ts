@@ -13,12 +13,12 @@ import {
   Output,
   ViewEncapsulation
 } from '@angular/core';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Platform} from '@angular/cdk/platform';
 import {Subscription, fromEvent} from 'rxjs';
 import {filter} from 'rxjs/operators';
 
 import {MDCComponent} from '@angular-mdc/web/base';
-import {toBoolean} from '@angular-mdc/web/common';
 import {MdcList} from '@angular-mdc/web/list';
 
 import createFocusTrap, { FocusTrap } from 'focus-trap';
@@ -98,7 +98,7 @@ export class MdcDrawer extends MDCComponent<MDCDismissibleDrawerFoundation | MDC
   @Input()
   get open(): boolean { return this._open; }
   set open(value: boolean) {
-    this._open = toBoolean(value);
+    this._open = coerceBooleanProperty(value);
     if (this._platform.isBrowser) {
       this._open ? this._foundation.open() : this._foundation.close();
     }

@@ -16,11 +16,11 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Subscription} from 'rxjs';
 import {startWith} from 'rxjs/operators';
 
 import {MDCComponent} from '@angular-mdc/web/base';
-import {toBoolean} from '@angular-mdc/web/common';
 import {MdcRipple} from '@angular-mdc/web/ripple';
 import {MdcIcon} from '@angular-mdc/web/icon';
 
@@ -165,12 +165,12 @@ export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation>
   }
 
   toggle(isOn?: boolean): void {
-    this.on = isOn ? toBoolean(isOn) : !this.on;
+    this.on = isOn ? coerceBooleanProperty(isOn) : !this.on;
     this._foundation.toggle(this.on);
   }
 
   setOn(on: boolean): void {
-    this._on = toBoolean(on);
+    this._on = coerceBooleanProperty(on);
     this._foundation.toggle(this.on);
 
     this._changeDetectorRef.markForCheck();
@@ -178,7 +178,7 @@ export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation>
 
   /** Sets the button disabled state */
   setDisabled(disabled: boolean): void {
-    this._disabled = toBoolean(disabled);
+    this._disabled = coerceBooleanProperty(disabled);
     this.disabled ? this._getHostElement().setAttribute('disabled', '') :
       this._getHostElement().removeAttribute('disabled');
     this._changeDetectorRef.markForCheck();

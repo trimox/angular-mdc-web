@@ -7,12 +7,12 @@ import {
   Optional,
   Output
 } from '@angular/core';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Platform} from '@angular/cdk/platform';
 import {fromEvent, Subject, Subscription} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 import {MDCComponent} from '@angular-mdc/web/base';
-import {toBoolean} from '@angular-mdc/web/common';
 
 import {MDCMenuSurfaceFoundation, MDCMenuSurfaceAdapter, Corner, util} from '@material/menu-surface';
 
@@ -50,9 +50,9 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
   @Input()
   get open(): boolean { return this._open; }
   set open(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._open) {
-      this._open = toBoolean(value);
+      this._open = coerceBooleanProperty(value);
       this.setOpen();
     }
   }
@@ -76,7 +76,7 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
   @Input()
   get quickOpen(): boolean { return this._quickOpen; }
   set quickOpen(value: boolean) {
-    this._quickOpen = toBoolean(value);
+    this._quickOpen = coerceBooleanProperty(value);
     this._foundation.setQuickOpen(this._quickOpen);
   }
   private _quickOpen: boolean = false;
@@ -84,7 +84,7 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
   @Input()
   get fixed(): boolean { return this._fixed; }
   set fixed(value: boolean) {
-    this._fixed = toBoolean(value);
+    this._fixed = coerceBooleanProperty(value);
     this._fixed ? this._getHostElement().classList.add('mdc-menu-surface--fixed') :
       this._getHostElement().classList.remove('mdc-menu-surface--fixed');
     this._foundation.setFixedPosition(this._fixed);
@@ -110,7 +110,7 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
   @Input()
   get hoistToBody(): boolean { return this._hoistToBody; }
   set hoistToBody(value: boolean) {
-    this._hoistToBody = toBoolean(value);
+    this._hoistToBody = coerceBooleanProperty(value);
     if (this._hoistToBody) {
       this.setHoistToBody();
     }

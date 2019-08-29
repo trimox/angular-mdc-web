@@ -7,8 +7,9 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
+import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion';
+
 import {MDCComponent} from '@angular-mdc/web/base';
-import {toBoolean, toNumber} from '@angular-mdc/web/common';
 
 import {MDCLinearProgressFoundation, MDCLinearProgressAdapter} from '@material/linear-progress';
 
@@ -41,7 +42,7 @@ export class MdcLinearProgress extends MDCComponent<MDCLinearProgressFoundation>
   get open(): boolean { return this._open; }
   set open(value: boolean) {
     if (this._open !== value) {
-      this._open = toBoolean(value);
+      this._open = coerceBooleanProperty(value);
       this._open ? this._foundation.open() : this._foundation.close();
     }
   }
@@ -50,7 +51,7 @@ export class MdcLinearProgress extends MDCComponent<MDCLinearProgressFoundation>
   @Input()
   get determinate(): boolean { return this._determinate; }
   set determinate(value: boolean) {
-    this._determinate = toBoolean(value);
+    this._determinate = coerceBooleanProperty(value);
     this._foundation.setDeterminate(this._determinate);
     this._changeDetectorRef.markForCheck();
   }
@@ -59,7 +60,7 @@ export class MdcLinearProgress extends MDCComponent<MDCLinearProgressFoundation>
   @Input()
   get reversed(): boolean { return this._reversed; }
   set reversed(value: boolean) {
-    this._reversed = toBoolean(value);
+    this._reversed = coerceBooleanProperty(value);
     this._foundation.setReverse(this._reversed);
     this._changeDetectorRef.markForCheck();
   }
@@ -70,7 +71,7 @@ export class MdcLinearProgress extends MDCComponent<MDCLinearProgressFoundation>
   @Input()
   get progress(): number { return this._progress; }
   set progress(value: number) {
-    this._progress = toNumber(value);
+    this._progress = coerceNumberProperty(value);
     this._foundation.setProgress(this._progress);
     this._changeDetectorRef.markForCheck();
   }
@@ -79,7 +80,7 @@ export class MdcLinearProgress extends MDCComponent<MDCLinearProgressFoundation>
   @Input()
   get buffer(): number { return this._buffer; }
   set buffer(value: number) {
-    this._buffer = toNumber(value);
+    this._buffer = coerceNumberProperty(value);
     this._foundation.setBuffer(this._buffer);
     this._changeDetectorRef.markForCheck();
   }

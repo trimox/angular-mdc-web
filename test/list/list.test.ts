@@ -1,12 +1,11 @@
-import { Component, DebugElement, ViewChild } from '@angular/core';
-import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import {Component, DebugElement, ViewChild} from '@angular/core';
+import {fakeAsync, ComponentFixture, TestBed} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
+import {TAB, ENTER} from '@angular/cdk/keycodes';
 
-import { dispatchFakeEvent, dispatchKeyboardEvent } from '../testing/dispatch-events';
+import {dispatchFakeEvent, dispatchKeyboardEvent} from '../testing/dispatch-events';
 
 import {
-  TAB,
-  ENTER,
   MdcList,
   MdcListItem,
   MdcListGroup,

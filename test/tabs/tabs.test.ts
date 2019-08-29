@@ -2,11 +2,11 @@ import {Component, DebugElement} from '@angular/core';
 import {ComponentFixture, TestBed, fakeAsync, flush} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {Platform} from '@angular/cdk/platform';
+import {LEFT_ARROW} from '@angular/cdk/keycodes';
 
 import {dispatchFakeEvent, dispatchKeyboardEvent} from '../testing/dispatch-events';
 
 import {
-  LEFT_ARROW,
   MdcTabBarModule,
   MdcIconModule,
   MdcTabIndicatorModule,

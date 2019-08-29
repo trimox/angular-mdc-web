@@ -13,12 +13,12 @@ import {
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Platform} from '@angular/cdk/platform';
 import {merge, Observable, Subscription} from 'rxjs';
 import {startWith} from 'rxjs/operators';
 
 import {MDCComponent} from '@angular-mdc/web/base';
-import {toBoolean} from '@angular-mdc/web/common';
 
 import {MdcListItem, MdcListSelectionChange, MDC_LIST_PARENT_COMPONENT} from './list-item';
 
@@ -92,35 +92,35 @@ export class MdcList extends MDCComponent<any> implements AfterViewInit, OnDestr
   @Input()
   get twoLine(): boolean { return this._twoLine; }
   set twoLine(value: boolean) {
-    this._twoLine = toBoolean(value);
+    this._twoLine = coerceBooleanProperty(value);
   }
   private _twoLine: boolean = false;
 
   @Input()
   get dense(): boolean { return this._dense; }
   set dense(value: boolean) {
-    this._dense = toBoolean(value);
+    this._dense = coerceBooleanProperty(value);
   }
   private _dense: boolean = false;
 
   @Input()
   get border(): boolean { return this._border; }
   set border(value: boolean) {
-    this._border = toBoolean(value);
+    this._border = coerceBooleanProperty(value);
   }
   private _border: boolean = false;
 
   @Input()
   get avatar(): boolean { return this._avatar; }
   set avatar(value: boolean) {
-    this._avatar = toBoolean(value);
+    this._avatar = coerceBooleanProperty(value);
   }
   private _avatar: boolean = false;
 
   @Input()
   get interactive(): boolean { return this._interactive; }
   set interactive(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._interactive) {
       this._interactive = newValue;
     }
@@ -130,7 +130,7 @@ export class MdcList extends MDCComponent<any> implements AfterViewInit, OnDestr
   @Input()
   get disableRipple(): boolean { return this._disableRipple; }
   set disableRipple(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._disableRipple) {
       this._disableRipple = newValue;
     }
@@ -141,7 +141,7 @@ export class MdcList extends MDCComponent<any> implements AfterViewInit, OnDestr
   get singleSelection(): boolean | undefined { return this._singleSelection; }
   set singleSelection(value: boolean | undefined) {
     if (value !== undefined) {
-      const newValue = toBoolean(value);
+      const newValue = coerceBooleanProperty(value);
 
       if (newValue !== this._singleSelection) {
         this._singleSelection = newValue;
@@ -159,7 +159,7 @@ export class MdcList extends MDCComponent<any> implements AfterViewInit, OnDestr
   @Input()
   get useActivatedClass(): boolean { return this._useActivatedClass; }
   set useActivatedClass(value: boolean) {
-    this._useActivatedClass = toBoolean(value);
+    this._useActivatedClass = coerceBooleanProperty(value);
     this._foundation.setUseActivatedClass(this._useActivatedClass);
     this._changeDetectorRef.markForCheck();
   }
@@ -168,7 +168,7 @@ export class MdcList extends MDCComponent<any> implements AfterViewInit, OnDestr
   @Input()
   get useSelectedClass(): boolean { return this._useSelectedClass; }
   set useSelectedClass(value: boolean) {
-    this._useSelectedClass = toBoolean(value);
+    this._useSelectedClass = coerceBooleanProperty(value);
     this._changeDetectorRef.markForCheck();
   }
   private _useSelectedClass: boolean = false;
@@ -176,7 +176,7 @@ export class MdcList extends MDCComponent<any> implements AfterViewInit, OnDestr
   @Input()
   get verticalOrientation(): boolean { return this._verticalOrientation; }
   set verticalOrientation(value: boolean) {
-    this._verticalOrientation = toBoolean(value);
+    this._verticalOrientation = coerceBooleanProperty(value);
     this._foundation.setVerticalOrientation(this._verticalOrientation);
     this._changeDetectorRef.markForCheck();
   }
@@ -185,7 +185,7 @@ export class MdcList extends MDCComponent<any> implements AfterViewInit, OnDestr
   @Input()
   get wrapFocus(): boolean { return this._wrapFocus; }
   set wrapFocus(value: boolean) {
-    this._wrapFocus = toBoolean(value);
+    this._wrapFocus = coerceBooleanProperty(value);
     this._foundation.setWrapFocus(this._wrapFocus);
     this._changeDetectorRef.markForCheck();
   }

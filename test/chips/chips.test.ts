@@ -1,12 +1,12 @@
-import { Component, DebugElement, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import {Component, DebugElement, ViewChild} from '@angular/core';
+import {ComponentFixture, TestBed, fakeAsync, flush} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
+import {FormsModule} from '@angular/forms';
+import {ENTER} from '@angular/cdk/keycodes';
 
-import { dispatchFakeEvent, dispatchMouseEvent } from '../testing/dispatch-events';
+import {dispatchFakeEvent, dispatchMouseEvent} from '../testing/dispatch-events';
 
 import {
-  ENTER,
   MdcChipsModule,
   MdcChip,
   MdcChipSet,
@@ -380,8 +380,8 @@ class ChipTest {
 
   @ViewChild('trailingIcon', {static: false}) trailingIcon: MdcIcon;
 
-  chipSelectionChange: (event?: MdcChipSelectionEvent) => void = () => { };
-  iconInteraction: () => void = () => { };
+  chipSelectionChange: (event?: MdcChipSelectionEvent) => void = () => {};
+  iconInteraction: () => void = () => {};
 }
 
 @Component({
@@ -404,7 +404,7 @@ class ChipFilter {
 </mdc-chip-set>`
 })
 class ChipInput {
-  chipRemoved: (event?: MdcChipRemovedEvent) => void = () => { };
+  chipRemoved: (event?: MdcChipRemovedEvent) => void = () => {};
 }
 
 @Component({
@@ -415,7 +415,7 @@ class ChipInput {
 </mdc-chip-set>`
 })
 class ChipChoice {
-  chipSelectionChange: (event?: MdcChipSelectionEvent) => void = () => { };
+  chipSelectionChange: (event?: MdcChipSelectionEvent) => void = () => {};
 }
 
 @Component({
@@ -437,7 +437,7 @@ class ChipValue {
   choice: boolean = true;
   value: any;
 
-  onChipSetChange: (event?: MdcChipSetChange) => void = () => { };
+  onChipSetChange: (event?: MdcChipSetChange) => void = () => {};
 }
 
 @Component({
@@ -451,8 +451,8 @@ class ChipModel {
   selectedFood: any;
 
   foods: any[] = [
-    { value: 'steak-0', viewValue: 'Steak', selected: false },
-    { value: 'pizza-1', viewValue: 'Pizza', selected: false },
-    { value: 'tacos-2', viewValue: 'Tacos', selected: false },
+    {value: 'steak-0', viewValue: 'Steak', selected: false},
+    {value: 'pizza-1', viewValue: 'Pizza', selected: false},
+    {value: 'tacos-2', viewValue: 'Tacos', selected: false},
   ];
 }

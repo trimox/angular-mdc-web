@@ -10,7 +10,8 @@ import {
   OnDestroy,
   ViewEncapsulation
 } from '@angular/core';
-import {toBoolean} from '@angular-mdc/web/common';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
+
 import {MdcRipple} from '@angular-mdc/web/ripple';
 import {MdcIcon} from '@angular-mdc/web/icon';
 
@@ -44,14 +45,14 @@ export class MdcFab implements AfterContentInit, OnDestroy {
   @Input()
   get mini(): boolean { return this._mini; }
   set mini(value: boolean) {
-    this._mini = toBoolean(value);
+    this._mini = coerceBooleanProperty(value);
   }
   private _mini: boolean = false;
 
   @Input()
   get exited(): boolean { return this._exited; }
   set exited(value: boolean) {
-    this._exited = toBoolean(value);
+    this._exited = coerceBooleanProperty(value);
     this._changeDetectionRef.markForCheck();
   }
   private _exited: boolean = false;
@@ -59,14 +60,14 @@ export class MdcFab implements AfterContentInit, OnDestroy {
   @Input()
   get extended(): boolean { return this._extended; }
   set extended(value: boolean) {
-    this._extended = toBoolean(value);
+    this._extended = coerceBooleanProperty(value);
   }
   private _extended: boolean = false;
 
   @Input()
   get fluid(): boolean { return this._fluid; }
   set fluid(value: boolean) {
-    this._fluid = toBoolean(value);
+    this._fluid = coerceBooleanProperty(value);
   }
   private _fluid: boolean = false;
 

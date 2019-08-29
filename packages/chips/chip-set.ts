@@ -14,11 +14,11 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {ControlValueAccessor, FormGroupDirective, NgControl, NgForm} from '@angular/forms';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {merge, Observable, Subject, Subscription} from 'rxjs';
 import {startWith, takeUntil} from 'rxjs/operators';
 
 import {MDCComponent} from '@angular-mdc/web/base';
-import {toBoolean} from '@angular-mdc/web/common';
 
 import {
   MdcChip,
@@ -62,7 +62,7 @@ export class MdcChipSet extends MDCComponent<MDCChipSetFoundation>
   @Input()
   get choice(): boolean { return this._choice; }
   set choice(value: boolean) {
-    this._choice = toBoolean(value);
+    this._choice = coerceBooleanProperty(value);
   }
   private _choice: boolean = false;
 
@@ -72,7 +72,7 @@ export class MdcChipSet extends MDCComponent<MDCChipSetFoundation>
   @Input()
   get filter(): boolean { return this._filter; }
   set filter(value: boolean) {
-    this._filter = toBoolean(value);
+    this._filter = coerceBooleanProperty(value);
   }
   private _filter: boolean = false;
 
@@ -82,7 +82,7 @@ export class MdcChipSet extends MDCComponent<MDCChipSetFoundation>
   @Input()
   get input(): boolean { return this._input; }
   set input(value: boolean) {
-    this._input = toBoolean(value);
+    this._input = coerceBooleanProperty(value);
   }
   private _input: boolean = false;
 

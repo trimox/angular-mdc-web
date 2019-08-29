@@ -6,9 +6,9 @@ import {
   Input,
   ViewEncapsulation
 } from '@angular/core';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
 import {MdcButton} from '@angular-mdc/web/button';
-import {toBoolean} from '@angular-mdc/web/common';
 import {MdcRipple} from '@angular-mdc/web/ripple';
 
 @Directive({ selector: '[mdcDialogAction]' })
@@ -84,7 +84,7 @@ export class MdcDialogActions {
   @Input()
   get stacked(): boolean { return this._stacked; }
   set stacked(value: boolean) {
-    this._stacked = toBoolean(value);
+    this._stacked = coerceBooleanProperty(value);
   }
   private _stacked: boolean = false;
 
@@ -109,7 +109,7 @@ export class MdcDialogButton extends MdcButton {
   @Input()
   get default(): boolean { return this._default; }
   set default(value: boolean) {
-    this._default = toBoolean(value);
+    this._default = coerceBooleanProperty(value);
   }
   private _default: boolean = false;
 }

@@ -5,9 +5,9 @@ import {
   Input,
   ViewEncapsulation
 } from '@angular/core';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
 import {MDCComponent} from '@angular-mdc/web/base';
-import {toBoolean} from '@angular-mdc/web/common';
 import {MDCSelectHelperTextFoundation, MDCSelectHelperTextAdapter} from '@material/select';
 
 @Component({
@@ -27,7 +27,7 @@ export class MDCSelectHelperText extends MDCComponent<MDCSelectHelperTextFoundat
     return this._persistent;
   }
   set persistent(value: boolean) {
-    this._persistent = toBoolean(value);
+    this._persistent = coerceBooleanProperty(value);
     this._foundation.setPersistent(this._persistent);
   }
   private _persistent: boolean = false;
@@ -37,7 +37,7 @@ export class MDCSelectHelperText extends MDCComponent<MDCSelectHelperTextFoundat
     return this._validation;
   }
   set validation(value: boolean) {
-    this._validation = toBoolean(value);
+    this._validation = coerceBooleanProperty(value);
     this._foundation.setValidation(this._validation);
   }
   private _validation: boolean = false;

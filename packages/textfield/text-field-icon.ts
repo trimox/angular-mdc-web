@@ -2,7 +2,7 @@ import {
   Directive,
   Input
 } from '@angular/core';
-import {toBoolean} from '@angular-mdc/web/common';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {MdcIcon} from '@angular-mdc/web/icon';
 
 @Directive({
@@ -14,14 +14,14 @@ export class MdcTextFieldIcon extends MdcIcon {
   @Input()
   get leading(): boolean { return this._leading; }
   set leading(value: boolean) {
-    this._leading = toBoolean(value);
+    this._leading = coerceBooleanProperty(value);
   }
   private _leading: boolean = false;
 
   @Input()
   get trailing(): boolean { return this._trailing; }
   set trailing(value: boolean) {
-    this._trailing = toBoolean(value);
+    this._trailing = coerceBooleanProperty(value);
   }
   private _trailing: boolean = false;
 }

@@ -14,9 +14,9 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {UniqueSelectionDispatcher} from '@angular/cdk/collections';
 
-import {toBoolean} from '@angular-mdc/web/common';
 import {MdcRipple} from '@angular-mdc/web/ripple';
 import {MdcFormField, MdcFormFieldControl} from '@angular-mdc/web/form-field';
 import {MDCComponent} from '@angular-mdc/web/base';
@@ -130,7 +130,7 @@ export class MdcRadio extends MDCComponent<MDCRadioFoundation>
   @Input()
   get disabled(): boolean {return this._disabled || (this.radioGroup !== null && this.radioGroup.disabled); }
   set disabled(value: boolean) {
-    const newDisabledState = toBoolean(value);
+    const newDisabledState = coerceBooleanProperty(value);
     if (this._disabled !== newDisabledState) {
       this._disabled = newDisabledState;
       this._foundation.setDisabled(this._disabled);
@@ -142,7 +142,7 @@ export class MdcRadio extends MDCComponent<MDCRadioFoundation>
   @Input()
   get required(): boolean {return this._required || (this.radioGroup && this.radioGroup.required); }
   set required(value: boolean) {
-    this._required = toBoolean(value);
+    this._required = coerceBooleanProperty(value);
   }
   private _required: boolean = false;
 
@@ -227,7 +227,7 @@ export class MdcRadio extends MDCComponent<MDCRadioFoundation>
   }
 
   setChecked(checked: boolean): void {
-    const newCheckedState = toBoolean(checked);
+    const newCheckedState = coerceBooleanProperty(checked);
 
     if (this._checked !== newCheckedState) {
       this._checked = newCheckedState;

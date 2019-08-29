@@ -22,11 +22,11 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {ControlValueAccessor, FormGroupDirective, NgControl, NgForm} from '@angular/forms';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Platform} from '@angular/cdk/platform';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-import {toBoolean} from '@angular-mdc/web/common';
 import {MdcRipple} from '@angular-mdc/web/ripple';
 import {MdcNotchedOutline} from '@angular-mdc/web/notched-outline';
 import {MdcFloatingLabel} from '@angular-mdc/web/floating-label';
@@ -171,7 +171,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
   @Input()
   get floatLabel(): boolean { return this._floatLabel; }
   set floatLabel(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._floatLabel) {
       this._floatLabel = newValue;
       this.layout();
@@ -182,7 +182,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
   @Input()
   get outlined(): boolean { return this._outlined; }
   set outlined(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._outlined) {
       this._outlined = newValue || (this._defaults && this._defaults.outlined) || false;
       this.layout();
@@ -193,7 +193,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
   @Input()
   get required(): boolean { return this._required; }
   set required(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._required) {
       this._required = newValue;
       if (this._foundation) {
@@ -214,7 +214,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
   @Input()
   get valid(): boolean | undefined { return this._valid; }
   set valid(value: boolean | undefined) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._valid) {
       this._valid = newValue;
 
@@ -228,7 +228,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
   @Input()
   get autosize(): boolean { return this._autosize; }
   set autosize(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._autosize) {
       this._autosize = newValue;
       this._setWidth();
@@ -583,7 +583,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
 
   // Implemented as part of ControlValueAccessor.
   setDisabledState(disabled: boolean) {
-    this._disabled = toBoolean(disabled);
+    this._disabled = coerceBooleanProperty(disabled);
     if (this._foundation) {
       this._foundation.setDisabled(this._disabled);
     }

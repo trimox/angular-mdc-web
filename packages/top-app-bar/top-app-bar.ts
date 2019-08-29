@@ -15,12 +15,12 @@ import {
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Platform} from '@angular/cdk/platform';
 import {fromEvent, Subject, Subscription} from 'rxjs';
 import {takeUntil, startWith} from 'rxjs/operators';
 
 import {MDCComponent} from '@angular-mdc/web/base';
-import {toBoolean} from '@angular-mdc/web/common';
 
 import {
   MdcTopAppBarActionItem,
@@ -205,7 +205,7 @@ export class MdcTopAppBar extends MDCComponent<MDCTopAppBarBaseFoundation | MDCS
 
   /** Sets the top app bar to fixed or not. */
   setFixed(fixed: boolean, isUserInput: boolean = false): void {
-    this._fixed = toBoolean(fixed);
+    this._fixed = coerceBooleanProperty(fixed);
 
     if (this.fixed && this.short) {
       this.setShort(false);
@@ -218,7 +218,7 @@ export class MdcTopAppBar extends MDCComponent<MDCTopAppBarBaseFoundation | MDCS
 
   /** Sets the top app bar to prominent or not. */
   setProminent(prominent: boolean, isUserInput: boolean = false): void {
-    this._prominent = toBoolean(prominent);
+    this._prominent = coerceBooleanProperty(prominent);
 
     if (this.prominent && this.short) {
       this.setShort(false);
@@ -231,7 +231,7 @@ export class MdcTopAppBar extends MDCComponent<MDCTopAppBarBaseFoundation | MDCS
 
   /** Sets the top app bar to dense variant. */
   setDense(dense: boolean, isUserInput: boolean = false): void {
-    this._dense = toBoolean(dense);
+    this._dense = coerceBooleanProperty(dense);
 
     if (this.dense && this.short) {
       this.setShort(false);
@@ -244,7 +244,7 @@ export class MdcTopAppBar extends MDCComponent<MDCTopAppBarBaseFoundation | MDCS
 
   /** Sets the top app bar to short or not. */
   setShort(short: boolean, isUserInput: boolean = false): void {
-    this._short = toBoolean(short);
+    this._short = coerceBooleanProperty(short);
 
     if (this.short) {
       this.setProminent(false);
@@ -261,7 +261,7 @@ export class MdcTopAppBar extends MDCComponent<MDCTopAppBarBaseFoundation | MDCS
 
   /** Sets the top app bar to short-collapsed or not. */
   setShortCollapsed(shortCollapsed: boolean, isUserInput: boolean = false): void {
-    this._shortCollapsed = toBoolean(shortCollapsed);
+    this._shortCollapsed = coerceBooleanProperty(shortCollapsed);
 
     if (this.shortCollapsed && !this.short) {
       this.setShort(true);

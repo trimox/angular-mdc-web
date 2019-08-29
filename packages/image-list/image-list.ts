@@ -6,7 +6,7 @@ import {
   Input,
   ViewEncapsulation
 } from '@angular/core';
-import {toBoolean} from '@angular-mdc/web/common';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
 @Directive({
   selector: '[mdcImageListItem], mdc-image-list-item',
@@ -76,14 +76,14 @@ export class MdcImageList {
   @Input()
   get masonry(): boolean { return this._masonry; }
   set masonry(value: boolean) {
-    this._masonry = toBoolean(value);
+    this._masonry = coerceBooleanProperty(value);
   }
   private _masonry: boolean = false;
 
   @Input()
   get textProtection(): boolean { return this._textProtection; }
   set textProtection(value: boolean) {
-    this._textProtection = toBoolean(value);
+    this._textProtection = coerceBooleanProperty(value);
   }
   private _textProtection: boolean = false;
 

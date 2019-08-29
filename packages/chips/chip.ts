@@ -21,12 +21,12 @@ import {
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Platform} from '@angular/cdk/platform';
 import {fromEvent, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 import {MDCComponent} from '@angular-mdc/web/base';
-import {toBoolean} from '@angular-mdc/web/common';
 import {MdcRipple} from '@angular-mdc/web/ripple';
 import {
   MdcIcon,
@@ -149,7 +149,7 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
   @Input()
   get selected(): boolean { return this._selected; }
   set selected(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     this._selected = newValue;
     this._foundation.setSelected(newValue);
 
@@ -162,7 +162,7 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
   @Input()
   get filter(): boolean { return this._filter; }
   set filter(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._filter) {
       this._filter = newValue;
     }
@@ -172,28 +172,28 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
   @Input()
   get choice(): boolean { return this._choice; }
   set choice(value: boolean) {
-    this._choice = toBoolean(value);
+    this._choice = coerceBooleanProperty(value);
   }
   private _choice: boolean = false;
 
   @Input()
   get input(): boolean { return this._input; }
   set input(value: boolean) {
-    this._input = toBoolean(value);
+    this._input = coerceBooleanProperty(value);
   }
   private _input: boolean = false;
 
   @Input()
   get primary(): boolean { return this._primary; }
   set primary(value: boolean) {
-    this._primary = toBoolean(value);
+    this._primary = coerceBooleanProperty(value);
   }
   private _primary: boolean = false;
 
   @Input()
   get secondary(): boolean { return this._secondary; }
   set secondary(value: boolean) {
-    this._secondary = toBoolean(value);
+    this._secondary = coerceBooleanProperty(value);
   }
   private _secondary: boolean = false;
 
@@ -201,7 +201,7 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
   @Input()
   get removable(): boolean { return this._removable; }
   set removable(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._removable) {
       this._removable = value;
       this._foundation.setShouldRemoveOnTrailingIconClick(this._removable);
@@ -213,7 +213,7 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
-    this._disabled = toBoolean(value);
+    this._disabled = coerceBooleanProperty(value);
   }
   private _disabled: boolean = false;
 
@@ -221,7 +221,7 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
   @Input()
   get disableRipple(): boolean { return this._disableRipple; }
   set disableRipple(value: boolean) {
-    this._disableRipple = toBoolean(value);
+    this._disableRipple = coerceBooleanProperty(value);
   }
   private _disableRipple: boolean = false;
 
@@ -418,14 +418,14 @@ export class MdcChipIcon extends MdcIcon implements AfterContentInit {
   @Input()
   get leading(): boolean { return this._leading; }
   set leading(value: boolean) {
-    this._leading = toBoolean(value);
+    this._leading = coerceBooleanProperty(value);
   }
   private _leading: boolean = false;
 
   @Input()
   get trailing(): boolean { return this._trailing; }
   set trailing(value: boolean) {
-    this._trailing = toBoolean(value);
+    this._trailing = coerceBooleanProperty(value);
   }
   private _trailing: boolean = false;
 

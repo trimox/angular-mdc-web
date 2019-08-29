@@ -1,11 +1,11 @@
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed, flush, fakeAsync, tick } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import {Component, DebugElement} from '@angular/core';
+import {ComponentFixture, TestBed, flush, fakeAsync, tick} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
+import {DOWN_ARROW} from '@angular/cdk/keycodes';
 
-import { dispatchFakeEvent, dispatchMouseEvent, dispatchKeyboardEvent } from '../testing/dispatch-events';
+import {dispatchFakeEvent, dispatchMouseEvent, dispatchKeyboardEvent} from '../testing/dispatch-events';
 
 import {
-  DOWN_ARROW,
   MdcMenu,
   MdcMenuModule,
   MdcListModule,
@@ -189,7 +189,7 @@ class MenuTest {
   fixed: boolean = true;
   wrapFocus: boolean;
 
-  handleSelected(event: { index: number, source: MdcListItem }) { }
+  handleSelected(event: {index: number, source: MdcListItem}) {}
 }
 
 @Component({

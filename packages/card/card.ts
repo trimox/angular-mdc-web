@@ -7,7 +7,7 @@ import {
   OnDestroy,
   ViewEncapsulation
 } from '@angular/core';
-import {toBoolean} from '@angular-mdc/web/common';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {MdcRipple} from '@angular-mdc/web/ripple';
 
 @Directive({
@@ -36,14 +36,14 @@ export class MdcCardMedia {
   @Input()
   get square(): boolean { return this._square; }
   set square(value: boolean) {
-    this._square = toBoolean(value);
+    this._square = coerceBooleanProperty(value);
   }
   private _square: boolean = false;
 
   @Input()
   get wide(): boolean { return this._wide; }
   set wide(value: boolean) {
-    this._wide = toBoolean(value);
+    this._wide = coerceBooleanProperty(value);
   }
   private _wide: boolean = false;
 
@@ -89,7 +89,7 @@ export class MdcCardActions {
   @Input()
   get fullBleed(): boolean { return this._fullBleed; }
   set fullBleed(value: boolean) {
-    this._fullBleed = toBoolean(value);
+    this._fullBleed = coerceBooleanProperty(value);
   }
   private _fullBleed: boolean = false;
 
@@ -158,7 +158,7 @@ export class MdcCard {
   @Input()
   get outlined(): boolean { return this._outlined; }
   set outlined(value: boolean) {
-    this._outlined = toBoolean(value);
+    this._outlined = coerceBooleanProperty(value);
   }
   private _outlined: boolean = false;
 

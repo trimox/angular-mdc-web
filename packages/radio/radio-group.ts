@@ -13,8 +13,8 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
-import {toBoolean} from '@angular-mdc/web/common';
 import {
   MdcRadio,
   MdcRadioChange,
@@ -100,7 +100,7 @@ export class MdcRadioGroup implements AfterContentInit, ControlValueAccessor {
   @Input()
   get required(): boolean {return this._required; }
   set required(value: boolean) {
-    this._required = toBoolean(value);
+    this._required = coerceBooleanProperty(value);
     this._markRadiosForCheck();
   }
   private _required: boolean = false;
@@ -108,7 +108,7 @@ export class MdcRadioGroup implements AfterContentInit, ControlValueAccessor {
   @Input()
   get disabled(): boolean {return this._disabled; }
   set disabled(value: boolean) {
-    this._disabled = toBoolean(value);
+    this._disabled = coerceBooleanProperty(value);
     this._updateDisableRadioState(this._disabled);
     this._markRadiosForCheck();
   }
@@ -209,7 +209,7 @@ export class MdcRadioGroup implements AfterContentInit, ControlValueAccessor {
    * @param isDisabled Whether the control should be disabled.
    */
   setDisabledState(isDisabled: boolean) {
-    this.disabled = toBoolean(isDisabled);
+    this.disabled = coerceBooleanProperty(isDisabled);
     this._changeDetectorRef.markForCheck();
   }
 

@@ -15,9 +15,9 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
 import {MDCComponent} from '@angular-mdc/web/base';
-import {toBoolean} from '@angular-mdc/web/common';
 import {MdcRipple} from '@angular-mdc/web/ripple';
 
 import {MdcFormField, MdcFormFieldControl} from '@angular-mdc/web/form-field';
@@ -97,7 +97,7 @@ export class MdcSwitch extends MDCComponent<MDCSwitchFoundation> implements MdcF
   set checked(value: boolean) {
     if (this.disabled) { return; }
 
-    this._checked = toBoolean(value);
+    this._checked = coerceBooleanProperty(value);
     this._changeDetectorRef.markForCheck();
   }
   private _checked: boolean = false;
@@ -112,7 +112,7 @@ export class MdcSwitch extends MDCComponent<MDCSwitchFoundation> implements MdcF
   @Input()
   get required(): boolean { return this._required; }
   set required(value: boolean) {
-    this._required = toBoolean(value);
+    this._required = coerceBooleanProperty(value);
   }
   private _required: boolean = false;
 
@@ -206,7 +206,7 @@ export class MdcSwitch extends MDCComponent<MDCSwitchFoundation> implements MdcF
   }
 
   setDisabledState(disabled: boolean): void {
-    this._disabled = toBoolean(disabled);
+    this._disabled = coerceBooleanProperty(disabled);
     this._foundation.setDisabled(this._disabled);
     this._changeDetectorRef.markForCheck();
   }

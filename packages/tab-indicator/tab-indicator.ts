@@ -8,10 +8,10 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Platform} from '@angular/cdk/platform';
 
 import {MDCComponent} from '@angular-mdc/web/base';
-import {toBoolean} from '@angular-mdc/web/common';
 
 import {
   MDCTabIndicatorAdapter,
@@ -43,9 +43,9 @@ export class MdcTabIndicator extends
   @Input()
   get active(): boolean { return this._active; }
   set active(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (this._active !== newValue) {
-      this._active = toBoolean(newValue);
+      this._active = coerceBooleanProperty(newValue);
       this._active ? this.activate(this.computeContentClientRect()) : this.deactivate();
     }
   }
@@ -54,7 +54,7 @@ export class MdcTabIndicator extends
   @Input()
   get fade(): boolean { return this._fade; }
   set fade(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._fade) {
       this._fade = newValue;
       this._initFoundation();

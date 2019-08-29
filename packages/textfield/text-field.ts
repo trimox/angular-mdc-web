@@ -19,9 +19,9 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {ControlValueAccessor, FormGroupDirective, NgControl, NgForm} from '@angular/forms';
+import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion';
 import {Platform} from '@angular/cdk/platform';
 
-import {toBoolean, toNumber} from '@angular-mdc/web/common';
 import {MdcRipple} from '@angular-mdc/web/ripple';
 import {MdcFloatingLabel} from '@angular-mdc/web/floating-label';
 import {MdcLineRipple} from '@angular-mdc/web/line-ripple';
@@ -174,7 +174,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   @Input()
   get outlined(): boolean { return this._outlined; }
   set outlined(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._outlined) {
       this._outlined = newValue || (this._defaults && this._defaults.outlined) || false;
       this.layout();
@@ -192,7 +192,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   @Input()
   get required(): boolean { return this._required; }
   set required(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._required) {
       this._required = newValue;
 
@@ -214,14 +214,14 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   @Input()
   get readonly(): boolean { return this._readonly; }
   set readonly(value: boolean) {
-    this._readonly = toBoolean(value);
+    this._readonly = coerceBooleanProperty(value);
   }
   private _readonly: boolean = false;
 
   @Input()
   get fullwidth(): boolean { return this._fullwidth; }
   set fullwidth(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._fullwidth) {
       this._fullwidth = newValue;
       this.placeholder = this.fullwidth ? this.label : '';
@@ -232,7 +232,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   @Input()
   get dense(): boolean { return this._dense; }
   set dense(value: boolean) {
-    this._dense = toBoolean(value);
+    this._dense = coerceBooleanProperty(value);
   }
   private _dense: boolean = false;
 
@@ -251,7 +251,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   @Input()
   get valid(): boolean | undefined { return this._valid; }
   set valid(value: boolean | undefined) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._valid) {
       this._valid = value;
       this._foundation.setValid(newValue);
@@ -263,7 +263,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   @Input()
   get useNativeValidation(): boolean { return this._useNativeValidation; }
   set useNativeValidation(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._useNativeValidation) {
       this._useNativeValidation = newValue;
       this._foundation.setUseNativeValidation(this._useNativeValidation);
@@ -274,7 +274,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   @Input()
   get characterCounter(): boolean { return this._characterCounter; }
   set characterCounter(value: boolean) {
-    const newValue = toBoolean(value);
+    const newValue = coerceBooleanProperty(value);
     if (newValue !== this._characterCounter) {
       this._characterCounter = newValue;
       if (this.helperText) {
@@ -547,7 +547,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   }
 
   setValue(value: any, isUserInput?: boolean): void {
-    const newValue = this.type === 'number' ? toNumber(value, null) : value;
+    const newValue = this.type === 'number' ? coerceNumberProperty(value, null) : value;
     if (this._value === newValue) {
       // Reset validity for numeric form inputs
       if (newValue === null) {
@@ -598,7 +598,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
 
   /** Implemented as part of ControlValueAccessor. */
   setDisabledState(isDisabled: boolean) {
-    const newValue = toBoolean(isDisabled);
+    const newValue = coerceBooleanProperty(isDisabled);
 
     if (newValue !== this._disabled) {
       this._disabled = newValue;

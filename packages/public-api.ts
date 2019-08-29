@@ -4,7 +4,6 @@ export * from '@angular-mdc/web/button';
 export * from '@angular-mdc/web/card';
 export * from '@angular-mdc/web/checkbox';
 export * from '@angular-mdc/web/chips';
-export * from '@angular-mdc/web/common';
 export * from '@angular-mdc/web/data-table';
 export * from '@angular-mdc/web/dialog';
 export * from '@angular-mdc/web/drawer';

@@ -5,14 +5,11 @@ import {
 import {inject, flush, fakeAsync, flushMicrotasks, tick, ComponentFixture, TestBed} from '@angular/core/testing';
 import {Location} from '@angular/common';
 import {SpyLocation} from '@angular/common/testing';
+import {DOWN_ARROW, ESCAPE, TAB} from '@angular/cdk/keycodes';
 
 import {dispatchKeyboardEvent, dispatchFakeEvent} from '../testing/dispatch-events';
 
 import {
-  TAB,
-  ENTER,
-  ESCAPE,
-  DOWN_ARROW,
   MdcDialog,
   MDC_DIALOG_DATA,
   MdcDialogModule,
@@ -574,7 +571,7 @@ class DialogWithNoButtons {
 export class DialogWithList {
   @ViewChild(MdcDialogComponent, {static: true}) dialogComponent!: MdcDialogComponent;
 
-  constructor(public dialogRef: MdcDialogRef<DialogWithList>) { }
+  constructor(public dialogRef: MdcDialogRef<DialogWithList>) {}
 }
 
 /** Simple component for testing ComponentPortal. */

@@ -14,12 +14,12 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion';
 import {Platform, supportsPassiveEventListeners} from '@angular/cdk/platform';
 import {fromEvent, Subject} from 'rxjs';
 import {takeUntil, auditTime} from 'rxjs/operators';
 
 import {MDCComponent} from '@angular-mdc/web/base';
-import {toNumber, toBoolean} from '@angular-mdc/web/common';
 
 import {EventType, SpecificEventListener} from '@material/base/types';
 import {MDCSliderFoundation, MDCSliderAdapter, strings} from '@material/slider';
@@ -78,7 +78,7 @@ export class MdcSlider extends MDCComponent<MDCSliderFoundation>
   @Input()
   get discrete(): boolean { return this._discrete; }
   set discrete(value: boolean) {
-    this._discrete = toBoolean(value);
+    this._discrete = coerceBooleanProperty(value);
     if (this._foundation) {
       if (this._discrete && this.markers) {
         this._foundation.setupTrackMarker();
@@ -90,7 +90,7 @@ export class MdcSlider extends MDCComponent<MDCSliderFoundation>
   @Input()
   get markers(): boolean { return this._markers; }
   set markers(value: boolean) {
-    this._markers = toBoolean(value);
+    this._markers = coerceBooleanProperty(value);
     if (this._foundation) {
       if (this._markers && this.discrete) {
         this._foundation.setupTrackMarker();
@@ -102,7 +102,7 @@ export class MdcSlider extends MDCComponent<MDCSliderFoundation>
   @Input()
   get min(): number { return this._min; }
   set min(value: number) {
-    const min = toNumber(value, this._min);
+    const min = coerceNumberProperty(value, this._min);
     if (min > this._max) { return; }
 
     if (min !== this._min) {
@@ -118,7 +118,7 @@ export class MdcSlider extends MDCComponent<MDCSliderFoundation>
   @Input()
   get max(): number { return this._max; }
   set max(value: number) {
-    const max = toNumber(value, this._max);
+    const max = coerceNumberProperty(value, this._max);
     if (max < this._min) { return; }
 
     if (max !== this._max) {
@@ -134,7 +134,7 @@ export class MdcSlider extends MDCComponent<MDCSliderFoundation>
   @Input()
   get step(): number { return this._step; }
   set step(value: number) {
-    const step = toNumber(value, this._step);
+    const step = coerceNumberProperty(value, this._step);
 
     if (step !== this._step) {
       this._step = step;
@@ -274,7 +274,7 @@ export class MdcSlider extends MDCComponent<MDCSliderFoundation>
   setValue(value: number, isUserInput?: boolean): void {
     if (this.disabled) { return; }
 
-    const newValue = toNumber(value, this.min);
+    const newValue = coerceNumberProperty(value, this.min);
     this._value = Math.round(newValue);
 
     if (this._foundation && this._initialized) {
@@ -288,7 +288,7 @@ export class MdcSlider extends MDCComponent<MDCSliderFoundation>
   }
 
   setDisabledState(disabled: boolean): void {
-    this._disabled = toBoolean(disabled);
+    this._disabled = coerceBooleanProperty(disabled);
 
     if (!this._foundation) { return; }
     this._foundation.setDisabled(this._disabled);

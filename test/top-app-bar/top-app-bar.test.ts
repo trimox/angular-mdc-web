@@ -2,11 +2,10 @@ import {Component, DebugElement} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {Platform} from '@angular/cdk/platform';
-
+import {DOWN_ARROW} from '@angular/cdk/keycodes';
 import {dispatchFakeEvent, dispatchKeyboardEvent} from '../testing/dispatch-events';
 
 import {
-  DOWN_ARROW,
   MdcIconModule,
   MdcTopAppBarModule,
   MdcTopAppBar

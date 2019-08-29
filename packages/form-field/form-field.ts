@@ -12,10 +12,9 @@ import {
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {fromEvent, Subject} from 'rxjs';
 import {takeUntil, startWith} from 'rxjs/operators';
-
-import {toBoolean} from '@angular-mdc/web/common';
 
 import {MdcFormFieldControl} from './form-field-control';
 import {MdcHelperText} from './helper-text';
@@ -42,14 +41,14 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
   @Input()
   get fluid(): boolean { return this._fluid; }
   set fluid(value: boolean) {
-    this._fluid = toBoolean(value);
+    this._fluid = coerceBooleanProperty(value);
   }
   private _fluid: boolean = false;
 
   @Input()
   get alignEnd(): boolean { return this._alignEnd; }
   set alignEnd(value: boolean) {
-    this._alignEnd = toBoolean(value);
+    this._alignEnd = coerceBooleanProperty(value);
   }
   private _alignEnd: boolean = false;
 

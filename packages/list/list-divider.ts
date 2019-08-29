@@ -5,8 +5,7 @@ import {
   Input,
   ViewEncapsulation
 } from '@angular/core';
-
-import {toBoolean} from '@angular-mdc/web/common';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
 @Component({
   moduleId: module.id,
@@ -26,14 +25,14 @@ export class MdcListDivider {
   @Input()
   get inset(): boolean { return this._inset; }
   set inset(value: boolean) {
-    this._inset = toBoolean(value);
+    this._inset = coerceBooleanProperty(value);
   }
   private _inset: boolean = false;
 
   @Input()
   get padded(): boolean { return this._padded; }
   set padded(value: boolean) {
-    this._padded = toBoolean(value);
+    this._padded = coerceBooleanProperty(value);
   }
   private _padded: boolean = false;
 

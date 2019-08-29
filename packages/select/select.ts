@@ -34,7 +34,6 @@ import {MdcLineRipple} from '@angular-mdc/web/line-ripple';
 import {
   MdcFormField,
   MdcFormFieldControl,
-  MdcHelperText,
   ErrorStateMatcher,
   CanUpdateErrorState,
   CanUpdateErrorStateCtor,
@@ -43,8 +42,9 @@ import {
 import {MdcList, MdcListItemChange} from '@angular-mdc/web/list';
 
 import {MdcSelectIcon} from './select-icon';
+import {MDCSelectHelperText} from './select-helper-text';
 
-import {MDCSelectHelperTextFoundation, cssClasses, MDCSelectFoundation} from '@material/select';
+import {cssClasses, MDCSelectFoundation} from '@material/select';
 
 /**
  * Represents the default options for mdc-select that can be configured
@@ -136,7 +136,7 @@ let nextUniqueId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, AfterViewInit, DoCheck,
-  OnDestroy, ControlValueAccessor, MdcFormFieldControl<any>, CanUpdateErrorState {
+  OnDestroy, ControlValueAccessor, CanUpdateErrorState {
   /** Emits whenever the component is destroyed. */
   private _destroyed = new Subject<void>();
 
@@ -251,14 +251,16 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
   private _value: any = '';
 
   @Input()
-  get helperText(): MdcHelperText | null { return this._helperText; }
-  set helperText(helperText: MdcHelperText | null) {
+  get helperText(): MDCSelectHelperText | null {
+    return this._helperText;
+  }
+  set helperText(helperText: MDCSelectHelperText | null) {
     if (this._helperText !== helperText) {
       this._helperText = helperText;
       this._initHelperText();
     }
   }
-  private _helperText: MdcHelperText | null = null;
+  private _helperText: MDCSelectHelperText | null = null;
 
   /** An object used to control when error messages are shown. */
   @Input() errorStateMatcher?: ErrorStateMatcher;
@@ -636,8 +638,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
   private _initHelperText(): void {
     const helper = this.helperText;
     if (helper) {
-      helper.addHelperTextClass(this.controlType);
-      helper.init(MDCSelectHelperTextFoundation);
+      helper.init();
     }
   }
 

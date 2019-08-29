@@ -165,7 +165,7 @@ constructor() {
       </mdc-list>
   </mdc-menu>
 </mdc-select>
-<mdc-helper-text #enhancedHelper validation>Field is required</mdc-helper-text>
+<mdc-select-helper-text #enhancedHelper validation>Field is required</mdc-select-helper-text>
 
 <p> Value: {{ enhanced.value }}</p>
 <p> Index: {{ enhanced.getSelectedIndex() }}</p>`,
@@ -193,9 +193,9 @@ constructor() {
     {{food.viewValue}}
   </option>
 </mdc-select>
-<mdc-helper-text #mealHelper validation>
+<mdc-select-helper-text #mealHelper validation>
   <span *ngIf="!meal.value">Meal selection is required</span>
-</mdc-helper-text>`,
+</mdc-select-helper-text>`,
     ts: `foods = [
   { value: '', disabled: false },
   { value: 'steak-0', viewValue: 'Steak' },
@@ -282,9 +282,9 @@ onSelectionChange(event: { index: any, value: any }) {
       {{food.viewValue}}
     </option>
   </mdc-select>
-  <mdc-helper-text #reactiveHelper validation>
+  <mdc-select-helper-text #reactiveHelper validation>
     <span *ngIf="foodForm.controls['favoriteFood'].hasError('required')">Selection is required</span>
-  </mdc-helper-text>
+  </mdc-select-helper-text>
 
   <button mdc-button>Submit</button>
   <button mdc-button type="button" (click)="resetForm(formDirective)">Reset</button>
@@ -326,9 +326,9 @@ resetForm(formDirective: FormGroupDirective) {
     <option *ngFor="let food of lazyFoods" [value]="food.value"
       [disabled]="food.disabled">{{food.viewValue}}</option>
   </mdc-select>
-  <mdc-helper-text #lazyHelper validation>
+  <mdc-select-helper-text #lazyHelper validation>
     <span *ngIf="lazyLoadForm.controls['lazySelect'].hasError('required')">Selection is required</span>
-  </mdc-helper-text>
+  </mdc-select-helper-text>
 
   <button mdc-button (click)="loadFoods()">Load</button>
   <button mdc-button type="button" (click)="resetLazyLoaded(formDirectiveLazy)">Reset</button>

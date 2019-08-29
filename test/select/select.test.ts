@@ -1,4 +1,4 @@
-import { Component, DebugElement, Type } from '@angular/core';
+import {Component, DebugElement, Type} from '@angular/core';
 import {
   FormControl,
   FormsModule,
@@ -6,13 +6,16 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { fakeAsync, ComponentFixture, TestBed, flush } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import {fakeAsync, ComponentFixture, TestBed, flush} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
 
-import { dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from '../testing/dispatch-events';
+import {dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent} from '../testing/dispatch-events';
 
 import {
-  DOWN_ARROW, MdcSelectModule, MdcSelect, MdcListModule,
+  DOWN_ARROW,
+  MdcSelectModule,
+  MdcSelect,
+  MdcListModule,
   MDC_SELECT_DEFAULT_OPTIONS
 } from '@angular-mdc/web';
 
@@ -227,6 +230,19 @@ describe('MdcSelectModule', () => {
       expect(testInstance.getValue()).toBe('pizza-1');
       testComponent.reset();
     }));
+
+    it('#should show to screen reader', () => {
+      expect(testInstance.helperText.elementRef.nativeElement.attributes.getNamedItem('aria-hidden')).toBeDefined();
+      testInstance.helperText.showToScreenReader();
+      fixture.detectChanges();
+      expect(testInstance.helperText.elementRef.nativeElement.attributes.getNamedItem('aria-hidden')).toBeNull();
+    });
+
+    it('#should set validity from helper text', () => {
+      testInstance.helperText.setValidity(true);
+      fixture.detectChanges();
+      expect(testInstance.helperText.elementRef.nativeElement.attributes.getNamedItem('role')).toBeDefined();
+    });
   });
 
   describe('Enhanced select', () => {
@@ -345,7 +361,7 @@ function createComponent<T>(component: Type<T>,
     ],
     declarations: [component, ...declarations],
     providers: [
-      { provide: MDC_SELECT_DEFAULT_OPTIONS, useValue: { outlined: true } }]
+      {provide: MDC_SELECT_DEFAULT_OPTIONS, useValue: {outlined: true}}]
   }).compileComponents();
 
   return TestBed.createComponent<T>(component);
@@ -363,10 +379,10 @@ function createComponent<T>(component: Type<T>,
             {{food.description}}
           </option>
         </mdc-select>
-        <mdc-helper-text
+        <mdc-select-helper-text
           [validation]="true"
           [persistent]="false">Meal selection is required
-        </mdc-helper-text>
+        </mdc-select-helper-text>
       </mdc-form-field>
     </form>
   `,
@@ -382,14 +398,14 @@ class SimpleTest {
   outlined: boolean;
 
   foods = [
-    { value: 'steak-0', description: 'Steak' },
-    { value: 'pizza-1', description: 'Pizza' },
-    { value: 'tacos-2', description: 'Tacos' },
-    { value: 'fruit-3', description: 'Fruit', disabled: true },
+    {value: 'steak-0', description: 'Steak'},
+    {value: 'pizza-1', description: 'Pizza'},
+    {value: 'tacos-2', description: 'Tacos'},
+    {value: 'fruit-3', description: 'Fruit', disabled: true},
   ];
 
-  handleValueChange(event: { index: number, value: string }) { }
-  handleSelectedChange(event: { index: number, value: string }) { }
+  handleValueChange(event: {index: number, value: string}) {}
+  handleSelectedChange(event: {index: number, value: string}) {}
 }
 
 @Component({
@@ -412,13 +428,13 @@ class SelectFormControl {
   }
 
   foods = [
-    { value: 'steak-0', description: 'Steak' },
-    { value: 'pizza-1', description: 'Pizza' },
-    { value: 'tacos-2', description: 'Tacos' },
-    { value: 'fruit-3', description: 'Fruit', disabled: true },
+    {value: 'steak-0', description: 'Steak'},
+    {value: 'pizza-1', description: 'Pizza'},
+    {value: 'tacos-2', description: 'Tacos'},
+    {value: 'fruit-3', description: 'Fruit', disabled: true},
   ];
 
-  handleBlur: () => void = () => { };
+  handleBlur: () => void = () => {};
 }
 
 @Component({
@@ -427,10 +443,10 @@ class SelectFormControl {
     <mdc-select [outlined]="outlined" formControlName="lazySelect" [helperText]="lazyHelper">
       <option *ngFor="let food of lazyFoods" [value]="food.value" [disabled]="food.disabled">{{food.viewValue}}</option>
     </mdc-select>
-    <mdc-helper-text #lazyHelper validation>
+    <mdc-select-helper-text #lazyHelper validation>
       <span *ngIf="lazyLoadForm.controls['lazySelect'].hasError('required')">Selection
         is required</span>
-    </mdc-helper-text>
+    </mdc-select-helper-text>
   </form>`,
 })
 class SelectLazyLoad {
@@ -443,11 +459,11 @@ class SelectLazyLoad {
 
   loadFoods(): void {
     this.lazyFoods = [
-      { value: '', disabled: false },
-      { value: 'steak-0', viewValue: 'Steak' },
-      { value: 'pizza-1', viewValue: 'Pizza' },
-      { value: 'tacos-2', viewValue: 'Tacos is disabled', disabled: true },
-      { value: 'fruit-3', viewValue: 'Fruit' },
+      {value: '', disabled: false},
+      {value: 'steak-0', viewValue: 'Steak'},
+      {value: 'pizza-1', viewValue: 'Pizza'},
+      {value: 'tacos-2', viewValue: 'Tacos is disabled', disabled: true},
+      {value: 'fruit-3', viewValue: 'Fruit'},
     ];
 
     // Patch the form
@@ -475,7 +491,7 @@ class SelectLazyLoad {
         </mdc-list>
       </mdc-menu>
     </mdc-select>
-    <mdc-helper-text #enhancedHelper validation>Field is required</mdc-helper-text>
+    <mdc-select-helper-text #enhancedHelper validation>Field is required</mdc-select-helper-text>
   </form>
 `
 })

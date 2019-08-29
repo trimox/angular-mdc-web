@@ -1,7 +1,7 @@
-import { Component, DebugElement, Type } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, flush, tick } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
+import {Component, DebugElement, Type} from '@angular/core';
+import {ComponentFixture, fakeAsync, TestBed, flush, tick} from '@angular/core/testing';
+import {FormsModule} from '@angular/forms';
+import {By} from '@angular/platform-browser';
 
 import {
   dispatchFakeEvent,
@@ -20,16 +20,16 @@ import {
 
 describe('MdcTextField', () => {
   let fixture: ComponentFixture<any>;
-  let platform: { isBrowser: boolean };
+  let platform: {isBrowser: boolean};
 
   beforeEach(fakeAsync(() => {
     // Set the default Platform override that can be updated before component creation.
-    platform = { isBrowser: true };
+    platform = {isBrowser: true};
 
     TestBed.configureTestingModule({
       imports: [MdcTextFieldModule, MdcIconModule, FormsModule],
       declarations: [SimpleTextfield, TextFieldTestWithValue],
-      providers: [{ provide: Platform, useFactory: () => platform }]
+      providers: [{provide: Platform, useFactory: () => platform}]
     });
     TestBed.compileComponents();
   }));
@@ -37,7 +37,7 @@ describe('MdcTextField', () => {
   describe('basic behaviors', () => {
     let textFieldDebugElement: DebugElement;
     let textFieldNativeElement: HTMLElement;
-    let textFieldInstance: MdcTextField;
+    let testInstance: MdcTextField;
     let testComponent: SimpleTextfield;
 
     beforeEach(() => {
@@ -46,7 +46,7 @@ describe('MdcTextField', () => {
 
       textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextField));
       textFieldNativeElement = textFieldDebugElement.nativeElement;
-      textFieldInstance = textFieldDebugElement.componentInstance;
+      testInstance = textFieldDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
     });
 
@@ -88,7 +88,7 @@ describe('MdcTextField', () => {
     }));
 
     it('#should not be disabled', fakeAsync(() => {
-      expect(textFieldInstance.disabled).toBeFalsy();
+      expect(testInstance.disabled).toBeFalsy();
     }));
 
     it('#should be disabled', fakeAsync(() => {
@@ -96,11 +96,11 @@ describe('MdcTextField', () => {
       fixture.detectChanges();
       flush();
 
-      expect(textFieldInstance.disabled).toBe(true);
+      expect(testInstance.disabled).toBe(true);
     }));
 
     it('#should not be read only', fakeAsync(() => {
-      expect(textFieldInstance.readonly).toBeFalsy();
+      expect(testInstance.readonly).toBeFalsy();
     }));
 
     it('#should be read only', fakeAsync(() => {
@@ -108,20 +108,20 @@ describe('MdcTextField', () => {
       fixture.detectChanges();
       flush();
 
-      expect(textFieldInstance.readonly).toBe(true);
+      expect(testInstance.readonly).toBe(true);
     }));
 
     it('#should set validity based on input element validity', fakeAsync(() => {
-      textFieldInstance.valid = true;
-      textFieldInstance.valid = true; // check to ensure it doesn't run change again
+      testInstance.valid = true;
+      testInstance.valid = true; // check to ensure it doesn't run change again
       fixture.detectChanges();
       flush();
 
-      expect(textFieldInstance.valid).toBe(true);
+      expect(testInstance.valid).toBe(true);
     }));
 
     it('#should call onBlur', () => {
-      expect(textFieldInstance.onBlur());
+      expect(testInstance.onBlur());
       fixture.detectChanges();
     });
 
@@ -130,48 +130,48 @@ describe('MdcTextField', () => {
       fixture.detectChanges();
       flush();
 
-      expect(textFieldInstance.required).toBe(true);
+      expect(testInstance.required).toBe(true);
     }));
 
     it('#should set required to true and valid to true', fakeAsync(() => {
-      textFieldInstance.valid = true;
+      testInstance.valid = true;
       fixture.detectChanges();
       testComponent.required = true;
       fixture.detectChanges();
 
-      expect(textFieldInstance.required).toBe(true);
+      expect(testInstance.required).toBe(true);
     }));
 
     it('#should set useNativeValidation to true', fakeAsync(() => {
       testComponent.useNativeValidation = true;
-      textFieldInstance.useNativeValidation = true; // check to ensure it doesn't run change again
+      testInstance.useNativeValidation = true; // check to ensure it doesn't run change again
       fixture.detectChanges();
       flush();
 
-      expect(textFieldInstance.useNativeValidation).toBe(true);
-      expect(textFieldInstance.isBadInput()).toBe(false);
+      expect(testInstance.useNativeValidation).toBe(true);
+      expect(testInstance.isBadInput()).toBe(false);
     }));
 
     it('#should set style shake to true', fakeAsync(() => {
-      expect(textFieldInstance._floatingLabel.shake(true));
+      expect(testInstance._floatingLabel.shake(true));
       fixture.detectChanges();
 
       testComponent.validation = true;
       fixture.detectChanges();
       testComponent.persistent = true;
       fixture.detectChanges();
-      expect(textFieldInstance.helperText.persistent).toBe(true);
+      expect(testInstance.helperText.persistent).toBe(true);
     }));
 
     it('#should focus on underlying input element when focus() is called', fakeAsync(() => {
       testComponent.outlined = true;
       fixture.detectChanges();
-      expect(document.activeElement).not.toBe(textFieldInstance._input.nativeElement);
-      textFieldInstance.focus();
+      expect(document.activeElement).not.toBe(testInstance._input.nativeElement);
+      testInstance.focus();
       fixture.detectChanges();
       flush();
 
-      expect(document.activeElement).toBe(textFieldInstance._input.nativeElement);
+      expect(document.activeElement).toBe(testInstance._input.nativeElement);
     }));
 
     it('change type', fakeAsync(() => {
@@ -179,7 +179,7 @@ describe('MdcTextField', () => {
       fixture.detectChanges();
       flush();
 
-      expect(textFieldInstance.type).toBe('text');
+      expect(testInstance.type).toBe('text');
     }));
 
     it('handles blur event', fakeAsync(() => {
@@ -198,19 +198,32 @@ describe('MdcTextField', () => {
     }));
 
     it('handles animationend event', fakeAsync(() => {
-      dispatchFakeEvent(textFieldInstance._floatingLabel.elementRef.nativeElement, 'animationend');
+      dispatchFakeEvent(testInstance._floatingLabel.elementRef.nativeElement, 'animationend');
     }));
 
     it('handles transitionend event', fakeAsync(() => {
       testComponent.outlined = false;
       fixture.detectChanges();
 
-      dispatchFakeEvent(textFieldInstance._lineRipple.elementRef.nativeElement, 'transitionend');
+      dispatchFakeEvent(testInstance._lineRipple.elementRef.nativeElement, 'transitionend');
     }));
 
     it('expect trailing icon to be defined', fakeAsync(() => {
-      expect(textFieldInstance.trailingIcon).toBeDefined();
+      expect(testInstance.trailingIcon).toBeDefined();
     }));
+
+    it('#should show to screen reader', () => {
+      expect(testInstance.helperText.elementRef.nativeElement.attributes.getNamedItem('aria-hidden')).toBeDefined();
+      testInstance.helperText.showToScreenReader();
+      fixture.detectChanges();
+      expect(testInstance.helperText.elementRef.nativeElement.attributes.getNamedItem('aria-hidden')).toBeNull();
+    });
+
+    it('#should set validity from helper text', () => {
+      testInstance.helperText.setValidity(true);
+      fixture.detectChanges();
+      expect(testInstance.helperText.elementRef.nativeElement.attributes.getNamedItem('role')).toBeDefined();
+    });
   });
 
   describe('basic behaviors', () => {
@@ -284,14 +297,14 @@ describe('MdcTextField', () => {
 
 describe('MDC_TEXT_FIELD_DEFAULT_OPTIONS', () => {
   let fixture: ComponentFixture<any>;
-  let defaultOptions: { outlined?: boolean };
+  let defaultOptions: {outlined?: boolean};
 
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [MdcTextFieldModule, MdcIconModule, FormsModule],
       declarations: [SimpleTextfield, TextFieldTestWithValue],
       providers: [
-        { provide: MDC_TEXT_FIELD_DEFAULT_OPTIONS, useFactory: () => defaultOptions }
+        {provide: MDC_TEXT_FIELD_DEFAULT_OPTIONS, useFactory: () => defaultOptions}
       ]
     });
     TestBed.compileComponents();
@@ -300,18 +313,18 @@ describe('MDC_TEXT_FIELD_DEFAULT_OPTIONS', () => {
   describe('basic behaviors', () => {
     let textFieldDebugElement: DebugElement;
     let textFieldNativeElement: HTMLElement;
-    let textFieldInstance: MdcTextField;
+    let testInstance: MdcTextField;
     let testComponent: SimpleTextfield;
 
     beforeEach(() => {
-      defaultOptions = { outlined: true };
+      defaultOptions = {outlined: true};
 
       fixture = TestBed.createComponent(SimpleTextfield);
       fixture.detectChanges();
 
       textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextField));
       textFieldNativeElement = textFieldDebugElement.nativeElement;
-      textFieldInstance = textFieldDebugElement.componentInstance;
+      testInstance = textFieldDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
     });
 
@@ -324,7 +337,7 @@ describe('MDC_TEXT_FIELD_DEFAULT_OPTIONS', () => {
   describe('basic behaviors', () => {
     let textFieldDebugElement: DebugElement;
     let textFieldNativeElement: HTMLElement;
-    let textFieldInstance: MdcTextField;
+    let testInstance: MdcTextField;
     let testComponent: SimpleTextfield;
 
     beforeEach(() => {
@@ -335,7 +348,7 @@ describe('MDC_TEXT_FIELD_DEFAULT_OPTIONS', () => {
 
       textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextField));
       textFieldNativeElement = textFieldDebugElement.nativeElement;
-      textFieldInstance = textFieldDebugElement.componentInstance;
+      testInstance = textFieldDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
     });
 
@@ -425,9 +438,9 @@ class SimpleTextfield {
   persistent: boolean = true;
   characterCounter: boolean = true;
 
-  onInput(value: any) { }
-  onChange(value: any) { }
-  onBlur(event: any) { }
+  onInput(value: any) {}
+  onChange(value: any) {}
+  onBlur(event: any) {}
 }
 
 @Component({
@@ -445,6 +458,6 @@ class SimpleTextfield {
 class TextFieldTestWithValue {
   value: string = 'my-test';
 
-  onInput: (value: any) => void = () => { };
-  onChange(value: any) { }
+  onInput: (value: any) => void = () => {};
+  onChange(value: any) {}
 }

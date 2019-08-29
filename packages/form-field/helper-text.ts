@@ -12,9 +12,8 @@ import {MdcCharacterCounter} from './character-counter';
 
 @Component({
   moduleId: module.id,
-  selector: `mdc-helper-text, [mdcHelperText],
-  mdc-text-field-helper-text, [mdcTextFieldHelperText], [mdcSelectHelperText]`,
-  exportAs: 'mdcHelperText, mdcSelectHelperText',
+  selector: `mdc-helper-text, [mdcHelperText], mdc-text-field-helper-text, [mdcTextFieldHelperText]`,
+  exportAs: 'mdcHelperText',
   host: { 'class': 'mdc-text-field-helper-line' },
   template: `<div #helperText><ng-content></ng-content></div>
   <div mdcCharacterCounter *ngIf="characterCounter"></div>`,

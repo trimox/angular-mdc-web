@@ -1,12 +1,12 @@
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import {Component, DebugElement} from '@angular/core';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
+import {Platform} from '@angular/cdk/platform';
 
-import { dispatchFakeEvent, dispatchKeyboardEvent } from '../testing/dispatch-events';
+import {dispatchFakeEvent, dispatchKeyboardEvent} from '../testing/dispatch-events';
 
 import {
   DOWN_ARROW,
-  Platform,
   MdcIconModule,
   MdcTopAppBarModule,
   MdcTopAppBar
@@ -14,7 +14,7 @@ import {
 
 describe('MdcTopAppBar', () => {
   let fixture: ComponentFixture<any>;
-  let platform: { isBrowser: boolean };
+  let platform: {isBrowser: boolean};
 
   // Create a very large element that will make the page scrollable.
   const veryLargeElement: HTMLElement = document.createElement('div');
@@ -23,13 +23,13 @@ describe('MdcTopAppBar', () => {
 
   beforeEach(() => {
     // Set the default Platform override that can be updated before component creation.
-    platform = { isBrowser: true };
+    platform = {isBrowser: true};
 
     TestBed.configureTestingModule({
       imports: [MdcTopAppBarModule, MdcIconModule],
       declarations: [SimpleTest, NoScrollContent],
       providers: [
-        { provide: Platform, useFactory: () => platform }
+        {provide: Platform, useFactory: () => platform}
       ]
     });
     TestBed.compileComponents();
@@ -145,7 +145,7 @@ describe('MdcTopAppBar', () => {
     describe('basic behaviors', () => {
       beforeEach(() => {
         // Set the default Platform override that can be updated before component creation.
-        platform = { isBrowser: true };
+        platform = {isBrowser: true};
 
         fixture = TestBed.createComponent(NoScrollContent);
         fixture.detectChanges();
@@ -202,7 +202,7 @@ describe('MdcTopAppBar', () => {
     describe('basic behaviors', () => {
       beforeEach(() => {
         // Set the default Platform override that can be updated before component creation.
-        platform = { isBrowser: false };
+        platform = {isBrowser: false};
 
         fixture = TestBed.createComponent(NoScrollContent);
         fixture.detectChanges();

@@ -16,9 +16,9 @@ import {takeUntil} from 'rxjs/operators';
 
 import {toBoolean} from '@angular-mdc/web/common';
 import {MdcList, MdcListItem, MdcListItemAction} from '@angular-mdc/web/list';
-import {closest} from '@angular-mdc/web/dom';
 import {MdcMenuSurfaceBase} from '@angular-mdc/web/menu-surface';
 
+import {closest} from '@material/dom/ponyfill';
 import {cssClasses, MDCMenuFoundation} from '@material/menu';
 
 export class MdcMenuSelectedEvent {

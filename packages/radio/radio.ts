@@ -14,7 +14,9 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import {toBoolean, UniqueSelectionDispatcher} from '@angular-mdc/web/common';
+import {UniqueSelectionDispatcher} from '@angular/cdk/collections';
+
+import {toBoolean} from '@angular-mdc/web/common';
 import {MdcRipple} from '@angular-mdc/web/ripple';
 import {MdcFormField, MdcFormFieldControl} from '@angular-mdc/web/form-field';
 import {MDCComponent} from '@angular-mdc/web/base';

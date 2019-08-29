@@ -13,7 +13,6 @@ import {
 import {merge, Observable, Subject, Subscription} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-import {closest} from '@angular-mdc/web/dom';
 import {MDCComponent} from '@angular-mdc/web/base';
 import {MdcCheckbox, MdcCheckboxChange} from '@angular-mdc/web/checkbox';
 
@@ -22,6 +21,7 @@ import {
   MDCDataTableRow,
 } from './data-table.directives';
 
+import {closest} from '@material/dom/ponyfill';
 import {
   strings,
   MDCDataTableRowSelectionChangedEventDetail,

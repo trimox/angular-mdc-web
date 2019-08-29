@@ -1,27 +1,27 @@
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import {Component, DebugElement} from '@angular/core';
+import {ComponentFixture, TestBed, fakeAsync} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
+import {Platform} from '@angular/cdk/platform';
 
 import {
   MdcMenuSurface,
   MdcMenuSurfaceModule,
-  MdcImageListModule,
-  Platform
+  MdcImageListModule
 } from '@angular-mdc/web';
 
 describe('MdcMenuSurface', () => {
   let fixture: ComponentFixture<any>;
-  let platform: { isBrowser: boolean };
+  let platform: {isBrowser: boolean};
 
   beforeEach(fakeAsync(() => {
     // Set the default Platform override that can be updated before component creation.
-    platform = { isBrowser: true };
+    platform = {isBrowser: true};
 
     TestBed.configureTestingModule({
       imports: [MdcMenuSurfaceModule, MdcImageListModule],
       declarations: [MenuSurfaceTest],
       providers: [
-        { provide: Platform, useFactory: () => platform }
+        {provide: Platform, useFactory: () => platform}
       ]
     });
     TestBed.compileComponents();
@@ -132,7 +132,7 @@ class MenuSurfaceTest {
   quickOpen: boolean;
   fixed: boolean;
   hoistToBody: boolean;
-  anchorMargin = { top: 0, bottom: 0, left: 0, right: 0 };
+  anchorMargin = {top: 0, bottom: 0, left: 0, right: 0};
 
   images = Array.from(Array(2), (x, i) => i);
 }

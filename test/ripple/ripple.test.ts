@@ -1,11 +1,11 @@
-import { Component, DebugElement, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import {Component, DebugElement, ViewChild} from '@angular/core';
+import {ComponentFixture, TestBed, fakeAsync, flush} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
+import {Platform} from '@angular/cdk/platform';
 
-import { dispatchMouseEvent } from '../testing/dispatch-events';
+import {dispatchMouseEvent} from '../testing/dispatch-events';
 
 import {
-  Platform,
   MdcRippleModule,
   MdcRippleComponent,
   MdcRippleDirective
@@ -13,17 +13,17 @@ import {
 
 describe('MdcRippleComponent', () => {
   let fixture: ComponentFixture<any>;
-  let platform: { isBrowser: boolean };
+  let platform: {isBrowser: boolean};
 
   beforeEach(fakeAsync(() => {
     // Set the default Platform override that can be updated before component creation.
-    platform = { isBrowser: true };
+    platform = {isBrowser: true};
 
     TestBed.configureTestingModule({
       imports: [MdcRippleModule],
       declarations: [SimpleTest, SimpleRippleTest],
       providers: [
-        { provide: Platform, useFactory: () => platform }
+        {provide: Platform, useFactory: () => platform}
       ]
     });
     TestBed.compileComponents();
@@ -144,4 +144,4 @@ class SimpleTest {
   <div mdcRipple></div>
   `
 })
-class SimpleRippleTest { }
+class SimpleRippleTest {}

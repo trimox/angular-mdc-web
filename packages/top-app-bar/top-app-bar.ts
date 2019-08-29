@@ -15,11 +15,12 @@ import {
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
+import {Platform} from '@angular/cdk/platform';
 import {fromEvent, Subject, Subscription} from 'rxjs';
 import {takeUntil, startWith} from 'rxjs/operators';
 
 import {MDCComponent} from '@angular-mdc/web/base';
-import {Platform, toBoolean} from '@angular-mdc/web/common';
+import {toBoolean} from '@angular-mdc/web/common';
 
 import {
   MdcTopAppBarActionItem,

@@ -10,14 +10,13 @@ import {
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
+import {Platform} from '@angular/cdk/platform';
 import {merge, Observable, fromEvent, Subject, Subscription} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 import createFocusTrap, {FocusTrap} from 'focus-trap';
 
 import {MDCComponent} from '@angular-mdc/web/base';
-import {Platform} from '@angular-mdc/web/common';
-import {matches, closest} from '@angular-mdc/web/dom';
 
 import {
   MdcDialogButton,
@@ -27,6 +26,7 @@ import {
 import {MdcDialogRef} from './dialog-ref';
 import {MdcDialogConfig} from './dialog-config';
 
+import {closest, matches} from '@material/dom/ponyfill';
 import {MDCDialogFoundation, MDCDialogAdapter, strings, util} from '@material/dialog';
 
 const LAYOUT_EVENTS = ['resize', 'orientationchange'];

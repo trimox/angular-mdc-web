@@ -2,6 +2,7 @@ import {Component, DebugElement, Type} from '@angular/core';
 import {ComponentFixture, fakeAsync, TestBed, flush, tick} from '@angular/core/testing';
 import {FormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
+import {Platform} from '@angular/cdk/platform';
 
 import {
   dispatchFakeEvent,
@@ -10,8 +11,6 @@ import {
 } from '../testing/dispatch-events';
 
 import {
-  A,
-  Platform,
   MdcTextField,
   MdcTextFieldModule,
   MdcIconModule,

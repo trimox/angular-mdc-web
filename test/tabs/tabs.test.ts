@@ -1,12 +1,12 @@
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import {Component, DebugElement} from '@angular/core';
+import {ComponentFixture, TestBed, fakeAsync, flush} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
+import {Platform} from '@angular/cdk/platform';
 
-import { dispatchFakeEvent, dispatchKeyboardEvent } from '../testing/dispatch-events';
+import {dispatchFakeEvent, dispatchKeyboardEvent} from '../testing/dispatch-events';
 
 import {
   LEFT_ARROW,
-  Platform,
   MdcTabBarModule,
   MdcIconModule,
   MdcTabIndicatorModule,
@@ -20,16 +20,16 @@ import {
 
 describe('MDC Tabs', () => {
   let fixture: ComponentFixture<any>;
-  let platform: { isBrowser: boolean };
+  let platform: {isBrowser: boolean};
 
   beforeEach(fakeAsync(() => {
     // Set the default Platform override that can be updated before component creation.
-    platform = { isBrowser: true };
+    platform = {isBrowser: true};
 
     TestBed.configureTestingModule({
       imports: [MdcTabBarModule, MdcTabIndicatorModule, MdcTabScrollerModule, MdcIconModule],
       declarations: [SimpleTest, TabIndicatorTest, TabScrollerTest],
-      providers: [{ provide: Platform, useFactory: () => platform }]
+      providers: [{provide: Platform, useFactory: () => platform}]
     });
     TestBed.compileComponents();
   }));
@@ -280,7 +280,7 @@ class SimpleTest {
   disabledTab: boolean;
   focusOnActivate: boolean;
 
-  handleActivatedTab: (event: { index: number, tab: MdcTab }) => void = () => { };
+  handleActivatedTab: (event: {index: number, tab: MdcTab}) => void = () => {};
 }
 
 @Component({

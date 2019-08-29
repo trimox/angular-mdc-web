@@ -1,25 +1,26 @@
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, flush, tick } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
+import {Component, DebugElement} from '@angular/core';
+import {ComponentFixture, fakeAsync, TestBed, flush, tick} from '@angular/core/testing';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {By} from '@angular/platform-browser';
+import {Platform} from '@angular/cdk/platform';
 
-import { dispatchMouseEvent, dispatchFakeEvent } from '../testing/dispatch-events';
+import {dispatchMouseEvent, dispatchFakeEvent} from '../testing/dispatch-events';
 
-import { Platform, MdcSlider, MdcSliderModule } from '@angular-mdc/web';
+import {MdcSlider, MdcSliderModule} from '@angular-mdc/web';
 
 describe('MdcSlider', () => {
   let fixture: ComponentFixture<any>;
-  let platform: { isBrowser: boolean };
+  let platform: {isBrowser: boolean};
 
   beforeEach(fakeAsync(() => {
     // Set the default Platform override that can be updated before component creation.
-    platform = { isBrowser: true };
+    platform = {isBrowser: true};
 
     TestBed.configureTestingModule({
       imports: [MdcSliderModule, FormsModule, ReactiveFormsModule],
       declarations: [SingleSlider, SliderModelTest],
       providers: [
-        { provide: Platform, useFactory: () => platform }
+        {provide: Platform, useFactory: () => platform}
       ]
     });
     TestBed.compileComponents();
@@ -32,7 +33,7 @@ describe('MdcSlider', () => {
 
     beforeEach(() => {
       // Set the default Platform override that can be updated before component creation.
-      platform = { isBrowser: false };
+      platform = {isBrowser: false};
 
       fixture = TestBed.createComponent(SingleSlider);
       fixture.detectChanges();

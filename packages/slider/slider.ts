@@ -14,12 +14,12 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {Platform, supportsPassiveEventListeners} from '@angular/cdk/platform';
 import {fromEvent, Subject} from 'rxjs';
 import {takeUntil, auditTime} from 'rxjs/operators';
 
 import {MDCComponent} from '@angular-mdc/web/base';
-import {applyPassive} from '@angular-mdc/web/dom';
-import {toNumber, toBoolean, Platform} from '@angular-mdc/web/common';
+import {toNumber, toBoolean} from '@angular-mdc/web/common';
 
 import {EventType, SpecificEventListener} from '@material/base/types';
 import {MDCSliderFoundation, MDCSliderAdapter, strings} from '@material/slider';
@@ -186,14 +186,14 @@ export class MdcSlider extends MDCComponent<MDCSliderFoundation>
       computeBoundingRect: () => this._getHostElement().getBoundingClientRect(),
       getTabIndex: () => this._getHostElement().tabIndex,
       registerInteractionHandler: <K extends EventType>(evtType: K, handler: SpecificEventListener<K>) =>
-        this._getHostElement().addEventListener(evtType, handler, applyPassive()),
+        this._getHostElement().addEventListener(evtType, handler, supportsPassiveEventListeners()),
       deregisterInteractionHandler: <K extends EventType>(evtType: K, handler: SpecificEventListener<K>) =>
-        this._getHostElement().removeEventListener(evtType, handler, applyPassive()),
+        this._getHostElement().removeEventListener(evtType, handler, supportsPassiveEventListeners()),
       registerThumbContainerInteractionHandler: <K extends EventType>(evtType: K, handler: SpecificEventListener<K>) =>
-        this.thumbContainer.nativeElement.addEventListener(evtType, handler, applyPassive()),
+        this.thumbContainer.nativeElement.addEventListener(evtType, handler, supportsPassiveEventListeners()),
       deregisterThumbContainerInteractionHandler: <K extends EventType>(evtType: K,
         handler: SpecificEventListener<K>) =>
-        this.thumbContainer.nativeElement.removeEventListener(evtType, handler, applyPassive()),
+        this.thumbContainer.nativeElement.removeEventListener(evtType, handler, supportsPassiveEventListeners()),
       registerBodyInteractionHandler: <K extends EventType>(evtType: K, handler: SpecificEventListener<K>) =>
         document.body.addEventListener(evtType, handler),
       deregisterBodyInteractionHandler: <K extends EventType>(evtType: K, handler: SpecificEventListener<K>) =>

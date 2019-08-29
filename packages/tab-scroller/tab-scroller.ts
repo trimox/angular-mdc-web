@@ -9,13 +9,13 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+import {Platform, supportsPassiveEventListeners} from '@angular/cdk/platform';
 import {merge, fromEvent, Subject, Subscription, Observable} from 'rxjs';
 import {filter, takeUntil} from 'rxjs/operators';
 
 import {MDCComponent} from '@angular-mdc/web/base';
-import {Platform} from '@angular-mdc/web/common';
-import {matches, applyPassive} from '@angular-mdc/web/dom';
 
+import {matches} from '@material/dom/ponyfill';
 import {MDCTabScrollerFoundation, MDCTabScrollerAdapter, util} from '@material/tab-scroller';
 
 /** Possible alignments for tab scroller content. */
@@ -51,7 +51,9 @@ export class MdcTabScroller extends MDCComponent<any> implements AfterViewInit, 
   private _destroy = new Subject<void>();
 
   @Input()
-  get align(): MdcTabScrollerAlignment { return this._align; }
+  get align(): MdcTabScrollerAlignment {
+    return this._align;
+  }
   set align(value: MdcTabScrollerAlignment) {
     this.setAlign(value);
   }
@@ -64,7 +66,8 @@ export class MdcTabScroller extends MDCComponent<any> implements AfterViewInit, 
 
   /** Combined stream of all of the scroll area events. */
   get scrollAreaEvents(): Observable<any> {
-    return merge(...SCROLLER_EVENTS.map(evt => fromEvent(this._getScrollArea(), evt, { passive: applyPassive()})));
+    return merge(...SCROLLER_EVENTS.map(evt =>
+      fromEvent(this._getScrollArea(), evt, {passive: supportsPassiveEventListeners()})));
   }
 
   getDefaultFoundation() {
@@ -127,7 +130,9 @@ export class MdcTabScroller extends MDCComponent<any> implements AfterViewInit, 
 
   /** Returns the current visual scroll position */
   getScrollPosition(): number {
-    if (!this._platform.isBrowser) { return -1; }
+    if (!this._platform.isBrowser) {
+      return -1;
+    }
 
     return this._foundation.getScrollPosition();
   }
@@ -139,7 +144,9 @@ export class MdcTabScroller extends MDCComponent<any> implements AfterViewInit, 
 
   /** Increments the scroll value by the given amount */
   incrementScroll(scrollXIncrement: number) {
-    if (!this._platform.isBrowser) { return -1; }
+    if (!this._platform.isBrowser) {
+      return -1;
+    }
 
     this._foundation.incrementScroll(scrollXIncrement);
   }

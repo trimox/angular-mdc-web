@@ -22,10 +22,11 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {ControlValueAccessor, FormGroupDirective, NgControl, NgForm} from '@angular/forms';
+import {Platform} from '@angular/cdk/platform';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-import {toBoolean, Platform} from '@angular-mdc/web/common';
+import {toBoolean} from '@angular-mdc/web/common';
 import {MdcRipple} from '@angular-mdc/web/ripple';
 import {MdcNotchedOutline} from '@angular-mdc/web/notched-outline';
 import {MdcFloatingLabel} from '@angular-mdc/web/floating-label';

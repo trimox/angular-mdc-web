@@ -3,12 +3,12 @@ import {
   OnDestroy,
   NgZone
 } from '@angular/core';
+import {Platform, supportsPassiveEventListeners} from '@angular/cdk/platform';
 import {fromEvent, Subject, Subscription, merge, Observable} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-import {Platform} from '@angular-mdc/web/common';
-import {matches, applyPassive, supportsCssVariables} from '@angular-mdc/web/dom';
-
+import {matches} from '@material/dom/ponyfill';
+import {supportsCssVariables} from '@material/ripple/util';
 import {MDCRippleFoundation} from '@material/ripple';
 
 // Activation events registered on the root element of each instance for activation
@@ -55,14 +55,14 @@ export class MdcRipple implements OnDestroy {
   get activationEvents(): Observable<any> {
     return merge(...ACTIVATION_EVENT_TYPES.map(evt =>
       fromEvent(this._rippleConfig.activator ? this._rippleConfig.activator :
-        this._rippleConfig.surface, evt, applyPassive() as EventListenerOptions)));
+        this._rippleConfig.surface, evt, supportsPassiveEventListeners() as EventListenerOptions)));
   }
 
   /** Combined stream of all of the de-activation events. */
   get pointerDeactivationEvents(): Observable<any> {
     return merge(...POINTER_DEACTIVATION_EVENT_TYPES.map(evt =>
       fromEvent(this._rippleConfig.activator ? this._rippleConfig.activator :
-        this._rippleConfig.surface, evt, applyPassive() as EventListenerOptions)));
+        this._rippleConfig.surface, evt, supportsPassiveEventListeners() as EventListenerOptions)));
   }
 
   createAdapter() {
@@ -77,12 +77,12 @@ export class MdcRipple implements OnDestroy {
       registerDocumentInteractionHandler: (evtType: string, handler: EventListener) => {
         if (!this._platform.isBrowser) { return; }
 
-        document.documentElement!.addEventListener(evtType, handler, applyPassive());
+        document.documentElement!.addEventListener(evtType, handler, supportsPassiveEventListeners());
       },
       deregisterDocumentInteractionHandler: (evtType: string, handler: EventListener) => {
         if (!this._platform.isBrowser) { return; }
 
-        document.documentElement!.removeEventListener(evtType, handler, applyPassive());
+        document.documentElement!.removeEventListener(evtType, handler, supportsPassiveEventListeners());
       },
       registerResizeHandler: (handler: EventListener) => {
         if (!this._platform.isBrowser) { return; }

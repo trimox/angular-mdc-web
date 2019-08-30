@@ -10,7 +10,7 @@ import {fakeAsync, ComponentFixture, TestBed, flush} from '@angular/core/testing
 import {By} from '@angular/platform-browser';
 import {DOWN_ARROW} from '@angular/cdk/keycodes';
 
-import {dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent} from '../testing/dispatch-events';
+import {dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent, dispatchFakeEvent} from '../testing/dispatch-events';
 
 import {
   MdcSelectModule,
@@ -325,6 +325,15 @@ describe('MdcSelectModule', () => {
       fixture.detectChanges();
       expect(testInstance._menu.open).toBe(true);
     }));
+
+    it('#should handle blur event', () => {
+      spyOn(testComponent, 'handleBlur');
+      fixture.detectChanges();
+
+      dispatchFakeEvent(testInstance._selectedText.nativeElement, 'blur');
+      fixture.detectChanges();
+      expect(testComponent.handleBlur).toHaveBeenCalledTimes(1);
+    });
   });
 });
 
@@ -481,7 +490,7 @@ class SelectLazyLoad {
   template: `
   <form [formGroup]="foodForm" id="foodForm" #formDirective="ngForm">
     <mdc-select placeholder="Fruit" [helperText]="enhancedHelper" [required]="required"
-      [disabled]="disabled" [outlined]="outlined">
+      [disabled]="disabled" [outlined]="outlined" (blur)="handleBlur($event)">
       <mdc-menu [open]="open">
         <mdc-list>
           <mdc-list-item selected></mdc-list-item>
@@ -504,6 +513,8 @@ class EnhancedSelect {
   required: boolean = true;
   open: boolean;
   disabled: boolean;
+
+  handleBlur: (event?: any) => void = () => {};
 
   compareFn(f1: any, f2: any): boolean {
     return f1 && f2 ? f1.id === f2.id : f1 === f2;

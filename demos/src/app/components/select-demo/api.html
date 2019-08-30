@@ -89,15 +89,19 @@
     <tbody>
       <tr>
         <td>
-          valueChange(index: number, value: string)
+          valueChange(index: number, value: any)
         </td>
         <td>Event emitted on any value change.</td>
       </tr>
       <tr>
         <td>
-          selectionChange(source: MdcSelect, index: number, value: string)
+          selectionChange(source: MdcSelect, index: number, value: any)
         </td>
         <td>Event emitted if user changed the value.</td>
+      </tr>
+      <tr>
+        <td>blur(value: any)</td>
+        <td>Emitted whenever the select loses focus.</td>
       </tr>
     </tbody>
   </table>

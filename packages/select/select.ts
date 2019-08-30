@@ -276,6 +276,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
    */
   @Output() readonly valueChange:
     EventEmitter<{ index: number, value: any }> = new EventEmitter<any>();
+  @Output() readonly blur = new EventEmitter<any>();
 
   @ViewChild(MdcFloatingLabel, {static: false}) _floatingLabel?: MdcFloatingLabel;
   @ViewChild(MdcLineRipple, {static: false}) _lineRipple?: MdcLineRipple;
@@ -508,6 +509,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
       this._foundation.handleBlur();
       this._onTouched();
       this.focused = false;
+      this.blur.emit(this.value);
     }
   }
 

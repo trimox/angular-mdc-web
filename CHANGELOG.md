@@ -1,3 +1,28 @@
+## [3.1.2](https://github.com/trimox/angular-mdc-web/compare/v3.1.1...v3.1.2) (2019-08-30)
+
+
+### Bug Fixes
+
+* Typescript version ([#1970](https://github.com/trimox/angular-mdc-web/issues/1970)) ([8bf1563](https://github.com/trimox/angular-mdc-web/commit/8bf1563))
+
+
+### Features
+
+* **dialog:** Make foundation layout method public ([#1967](https://github.com/trimox/angular-mdc-web/issues/1967)) ([0e78d04](https://github.com/trimox/angular-mdc-web/commit/0e78d04)), closes [#1966](https://github.com/trimox/angular-mdc-web/issues/1966)
+* Remove packages/common ([#1976](https://github.com/trimox/angular-mdc-web/issues/1976)) ([1047ae0](https://github.com/trimox/angular-mdc-web/commit/1047ae0)), closes [#1974](https://github.com/trimox/angular-mdc-web/issues/1974)
+* Remove packages/dom ([#1975](https://github.com/trimox/angular-mdc-web/issues/1975)) ([61b247c](https://github.com/trimox/angular-mdc-web/commit/61b247c)), closes [#1973](https://github.com/trimox/angular-mdc-web/issues/1973)
+* Use @angular/cdk ([#1960](https://github.com/trimox/angular-mdc-web/issues/1960)) ([3a1dec3](https://github.com/trimox/angular-mdc-web/commit/3a1dec3)), closes [#1953](https://github.com/trimox/angular-mdc-web/issues/1953)
+* **dialog:** Support passing custom ComponentFactoryResolver ([#1978](https://github.com/trimox/angular-mdc-web/issues/1978)) ([84ba5e7](https://github.com/trimox/angular-mdc-web/commit/84ba5e7))
+* **select:** Add MDCSelectHelperText ([#1972](https://github.com/trimox/angular-mdc-web/issues/1972)) ([8266d2a](https://github.com/trimox/angular-mdc-web/commit/8266d2a)), closes [#1968](https://github.com/trimox/angular-mdc-web/issues/1968) [#1930](https://github.com/trimox/angular-mdc-web/issues/1930)
+* **select:** Add output event for blur ([#1977](https://github.com/trimox/angular-mdc-web/issues/1977)) ([6537877](https://github.com/trimox/angular-mdc-web/commit/6537877)), closes [#1971](https://github.com/trimox/angular-mdc-web/issues/1971)
+
+
+### BREAKING CHANGES
+
+* **select:** Update `mdc-select` helper text to use `mdc-select-helper-text` or `mdcSelectHelperText`.
+
+
+
 ## [3.1.1](https://github.com/trimox/angular-mdc-web/compare/v2.0.1...v3.1.1) (2019-08-24)
 
 

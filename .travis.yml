@@ -3,15 +3,8 @@ sudo: required
 
 dist: bionic
 
-services:
-  - xvfb
-
 node_js:
-  - '12.9.0'
-
-branches:
-  only:
-    - master
+  - 11
 
 cache:
   yarn: true
@@ -24,12 +17,41 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -y -qq yarn=1.17.3-1
 
-install:
-  - yarn
+stages:
+  - test
+  - name: build
+    if: branch = master
+  - name: build-docs
+    if: branch = master
 
-script:
-  - yarn lint
-  - yarn test
+jobs:
+   include:
+    - stage: test
+      name: "Lint, Test and CodeCoverage"
+      script:
+        - yarn lint
+        - yarn test
+        - codecov
 
-after_success:
-  - codecov
+    - stage: build
+      name: "Building angular-mdc-web"
+      script: yarn run build:release
+
+    - stage: build-docs
+      name: "Building and Deploying documentation"
+      script:
+        - cd demos
+        - npm install
+        - npm install -g @angular/cli
+        - rm -rf node_modules/@material/data-table/*.ts # Remove if #1959 is fixed
+        - rm -rf ../node_modules/@material/data-table/*.ts # Remove if #1959 is fixed
+        - ng build --prod
+      deploy:
+        provider: pages
+        github_token: $GITHUB_OAUTH_TOKEN
+        skip_cleanup: true
+        keep_history: true
+        committer_from_gh: true
+        local_dir: demos/dist/angular-mdc-demos/
+        on:
+            branch: master

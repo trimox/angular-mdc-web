@@ -1,4 +1,4 @@
-import {ViewContainerRef} from '@angular/core';
+import {ViewContainerRef, ComponentFactoryResolver} from '@angular/core';
 
 export class MdcDialogConfig<D = any> {
   viewContainerRef?: ViewContainerRef;
@@ -23,6 +23,9 @@ export class MdcDialogConfig<D = any> {
 
   /** Applied automatically when the dialog's action buttons can't fit on a single line and must be stacked. */
   buttonsStacked?: boolean = true;
+
+  /** Alternate `ComponentFactoryResolver` to use when resolving the associated component. */
+  componentFactoryResolver?: ComponentFactoryResolver;
 
   /** Data to be injected into the dialog content. */
   data?: D | null = null;

@@ -1,6 +1,7 @@
 import {
   NgModule, Directive, Component, Inject,
-  Injector, TemplateRef, ViewContainerRef, ViewChild
+  Injector, TemplateRef, ViewContainerRef, ViewChild,
+  ComponentFactoryResolver
 } from '@angular/core';
 import {inject, flush, fakeAsync, flushMicrotasks, tick, ComponentFixture, TestBed} from '@angular/core/testing';
 import {Location} from '@angular/common';
@@ -217,6 +218,19 @@ describe('MdcDialog Service', () => {
       .toBe(false, 'Expected live element not to be hidden.');
     sibling.parentNode!.removeChild(sibling);
   }));
+
+  it('should be able to pass in an alternate ComponentFactoryResolver',
+    inject([ComponentFactoryResolver], (resolver: ComponentFactoryResolver) => {
+      spyOn(resolver, 'resolveComponentFactory').and.callThrough();
+
+      dialog.open(PizzaMsg, {
+        viewContainerRef: testViewContainerRef,
+        componentFactoryResolver: resolver
+      });
+      viewContainerFixture.detectChanges();
+
+      expect(resolver.resolveComponentFactory).toHaveBeenCalled();
+    }));
 
   it('should notify the observers if all open dialogs have finished closing', fakeAsync(() => {
     const ref1 = dialog.open(PizzaMsg, {viewContainerRef: testViewContainerRef});

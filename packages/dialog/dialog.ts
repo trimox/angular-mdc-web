@@ -66,7 +66,7 @@ export class MdcDialog implements OnDestroy {
     private _overlay: Overlay,
     private _injector: Injector,
     @Optional() @Inject(MDC_DIALOG_DEFAULT_OPTIONS) private _defaultOptions: MdcDialogConfig,
-    @Optional() @SkipSelf() private _parentDialog: MdcDialog) { }
+    @Optional() @SkipSelf() private _parentDialog: MdcDialog) {}
 
   /**
    * Opens a modal dialog containing the given template.
@@ -138,8 +138,8 @@ export class MdcDialog implements OnDestroy {
     const injector = new PortalInjector(userInjector || this._injector, new WeakMap([
       [MdcDialogConfig, config]
     ]));
-    const containerPortal =
-      new ComponentPortal(MdcDialogPortal, config.viewContainerRef, injector);
+    const containerPortal = new ComponentPortal(MdcDialogPortal,
+      config.viewContainerRef, injector, config.componentFactoryResolver);
     const containerRef = overlay.attach<MdcDialogPortal>(containerPortal);
 
     return containerRef.instance;
@@ -167,7 +167,7 @@ export class MdcDialog implements OnDestroy {
     if (componentOrTemplateRef instanceof TemplateRef) {
       dialogContainer.attachTemplatePortal(
         new TemplatePortal<T>(componentOrTemplateRef, null!,
-          <any>{ $implicit: config.data, dialogRef }));
+          <any>{$implicit: config.data, dialogRef}));
     } else {
       const injector = this._createInjector<T>(config, dialogRef, dialogContainer);
       const contentRef = dialogContainer.attachComponentPortal<T>(
@@ -255,5 +255,5 @@ export class MdcDialog implements OnDestroy {
  */
 function _applyConfigDefaults(
   config?: MdcDialogConfig, defaultOptions?: MdcDialogConfig): MdcDialogConfig {
-  return { ...defaultOptions, ...config };
+  return {...defaultOptions, ...config};
 }

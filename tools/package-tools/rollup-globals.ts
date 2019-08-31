@@ -30,6 +30,7 @@ export const rollupGlobals = {
   '@material/base': 'mdc.base',
   '@material/checkbox': 'mdc.checkbox',
   '@material/chips': 'mdc.chips',
+  '@material/dom': 'mdc.dom',
   '@material/dom/ponyfill': 'mdc.dom.ponyfill',
   '@material/dialog': 'mdc.dialog',
   '@material/data-table': 'mdc.data-table',
@@ -60,6 +61,7 @@ export const rollupGlobals = {
 
   'focus-trap': 'focustrap',
 
+  '@angular/cdk': 'ng.cdk',
   '@angular/cdk/collections': 'ng.cdk.collections',
   '@angular/cdk/coercion': 'ng.cdk.coercion',
   '@angular/cdk/keycodes': 'ng.cdk.keycodes',

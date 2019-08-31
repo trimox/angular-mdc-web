@@ -23,7 +23,8 @@
   "private": false,
   "dependencies": {
     "@angular-mdc/theme": "0.0.0-PLACEHOLDER",
-    "material-components-web": "3.1.1"
+    "material-components-web": "3.1.1",
+    "@angular/cdk": "^8.1.4"
   },
   "peerDependencies": {
     "@angular/core": "0.0.0-NG",

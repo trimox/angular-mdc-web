@@ -20,9 +20,9 @@ before_install:
 stages:
   - test
   - name: build
-    if: branch = master
+    if: branch = master AND type != pull_request
   - name: build-docs
-    if: branch = master
+    if: branch = master AND type != pull_request
 
 jobs:
    include:

@@ -14,8 +14,6 @@ import {Platform} from '@angular/cdk/platform';
 import {merge, Observable, fromEvent, Subject, Subscription} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-import createFocusTrap, {FocusTrap} from 'focus-trap';
-
 import {MDCComponent} from '@angular-mdc/web/base';
 
 import {
@@ -56,8 +54,6 @@ export class MdcDialogComponent extends MDCComponent<MDCDialogFoundation> implem
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
-  private _focusTrapInstance: FocusTrap | null = null;
-
   private _scrollable: boolean = true;
 
   config: MdcDialogConfig;
@@ -77,7 +73,8 @@ export class MdcDialogComponent extends MDCComponent<MDCDialogFoundation> implem
     const adapter: MDCDialogAdapter = {
       addClass: (className: string) => this._getDialog().classList.add(className),
       removeClass: (className: string) => this._getDialog().classList.remove(className),
-      getInitialFocusEl: () => this._getInitialFocusEl(),
+      getInitialFocusEl: () => this._platform.isBrowser ? document.querySelector(`[cdk-focus-initial], ` +
+        `[cdkFocusInitial]`) as HTMLElement : null,
       hasClass: (className: string) => this._getDialog().classList.contains(className),
       addBodyClass: (className: string) => {
         if (this._platform.isBrowser) {
@@ -90,8 +87,8 @@ export class MdcDialogComponent extends MDCComponent<MDCDialogFoundation> implem
         }
       },
       eventTargetMatches: (target: EventTarget, selector: string) => matches(target as HTMLElement, selector),
-      trapFocus: () => this._focusTrapInstance!.activate(),
-      releaseFocus: () => this._focusTrapInstance!.deactivate(),
+      trapFocus: () => {},
+      releaseFocus: () => {},
       isContentScrollable: () =>
         !!this._content && this._scrollable && util.isScrollable(this._content.elementRef.nativeElement),
       areButtonsStacked: () => util.areTopsMisaligned(this._buttons as any),
@@ -100,16 +97,12 @@ export class MdcDialogComponent extends MDCComponent<MDCDialogFoundation> implem
         return element && element.getAttribute(strings.ACTION_ATTRIBUTE);
       },
       clickDefaultButton: () => {
-        const defaultBtn = this._getDefaultButton();
+        const defaultBtn = this._buttons.find(_ => _.default);
         if (defaultBtn) {
-          defaultBtn.click();
+          defaultBtn.elementRef.nativeElement.click();
         }
       },
       reverseButtons: () => {
-        if (!this._buttons) {
-          return;
-        }
-
         this._buttons.toArray().reverse();
         this._buttons.forEach(button => button.getHostElement().parentElement!.appendChild(button.getHostElement()));
       },
@@ -133,7 +126,6 @@ export class MdcDialogComponent extends MDCComponent<MDCDialogFoundation> implem
 
   ngAfterViewInit(): void {
     this._foundation = this.getDefaultFoundation();
-    this._focusTrapInstance = this._createFocusTrapInstance();
     this._initialize();
 
     this._loadListeners();
@@ -180,15 +172,6 @@ export class MdcDialogComponent extends MDCComponent<MDCDialogFoundation> implem
     this._foundation.handleClick(evt);
   }
 
-  private _getInitialFocusEl(): HTMLElement | null {
-    return this._platform.isBrowser ? document.querySelector(`[${strings.INITIAL_FOCUS_ATTRIBUTE}]`) : null;
-  }
-
-  private _getDefaultButton(): HTMLElement | undefined {
-    const defaultBtn = this._buttons.find(_ => _.default);
-    return defaultBtn ? defaultBtn.getHostElement() : undefined;
-  }
-
   private _closeDialogByRef(action?: string): void {
     this.dialogRef.close(action);
   }
@@ -202,14 +185,6 @@ export class MdcDialogComponent extends MDCComponent<MDCDialogFoundation> implem
         fromEvent<KeyboardEvent>(document, 'keydown').pipe(takeUntil(this._destroy))
           .subscribe(evt => this._ngZone.run(() => this._foundation.handleDocumentKeydown(evt))));
     }
-  }
-
-  private _createFocusTrapInstance(focusTrapFactory = createFocusTrap): any {
-    return focusTrapFactory(this._getDialog(), {
-      initialFocus: this._getDefaultButton(),
-      clickOutsideDeactivates: true, // Allow handling of scrim clicks
-      escapeDeactivates: false // Dialog foundation handles escape key
-    });
   }
 
   /** Retrieves the DOM element of the component host. */

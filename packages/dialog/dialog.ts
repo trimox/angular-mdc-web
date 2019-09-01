@@ -92,7 +92,7 @@ export class MdcDialog implements OnDestroy {
       config);
 
     this.openDialogs.push(dialogRef);
-    dialogRef.afterClosed().subscribe(() => this._removeOpenDialog(dialogRef));
+    dialogRef.afterClosed().subscribe(() => this._removeOpenDialog(dialogRef, dialogContainer));
     this.afterOpened.next(dialogRef);
 
     return dialogRef;
@@ -193,6 +193,8 @@ export class MdcDialog implements OnDestroy {
 
     const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
 
+    portalContainer.trapFocus();
+
     // The MdcDialogPortal is injected in the portal as the MdcDialogPortal and the dialog's
     // content are created out of the same ViewContainerRef and as such, are siblings for injector
     // purposes. To allow the hierarchy that is expected, the MdcDialogPortal is explicitly
@@ -210,10 +212,11 @@ export class MdcDialog implements OnDestroy {
    * Removes a dialog from the array of open dialogs.
    * @param dialogRef Dialog to be removed.
    */
-  private _removeOpenDialog(dialogRef: MdcDialogRef<any>): void {
+  private _removeOpenDialog(dialogRef: MdcDialogRef<any>, dialogContainer: MdcDialogPortal): void {
     const index = this.openDialogs.indexOf(dialogRef);
 
     if (index > -1) {
+      dialogContainer.restoreFocus();
       this.openDialogs.splice(index, 1);
 
       // If all the dialogs were closed, remove/restore the `aria-hidden`

@@ -13,7 +13,14 @@
     </thead>
     <tbody>
       <tr>
-        <td>afterDismiss: Observable
+        <td>afterOpened: Observable
+          <pre>void</pre>
+        </td>
+        <td>Gets an observable that is notified when the dialog is finished
+          opening.</td>
+      </tr>
+      <tr>
+        <td>afterClosed: Observable
           <pre>R | undefined</pre>
         </td>
         <td>Gets an observable that is notified when the dialog is finished
@@ -69,6 +76,14 @@
         <td>buttonsStacked: boolean</td>
         <td>Enable or disable the stacking of action buttons, if they can't fit
           on a single line.</td>
+      </tr>
+      <tr>
+        <td>autoFocus: boolean</td>
+        <td>Whether the dialog should focus the first focusable element on open. (Default: true)</td>
+      </tr>
+      <tr>
+        <td>restoreFocus: boolean</td>
+        <td>Whether the dialog should restore focus to the previously-focused element, after it's closed. (Default: true)</td>
       </tr>
       <tr>
         <td>componentFactoryResolver?: ComponentFactoryResolver</td>

@@ -176,7 +176,8 @@ describe('MdcDialog Service', () => {
     const dialogRef = dialog.open(SimpleDialog, {
       clickOutsideToClose: false,
       escapeToClose: false,
-      buttonsStacked: false
+      buttonsStacked: false,
+      autoFocus: false
     });
     viewContainerFixture.detectChanges();
 
@@ -461,10 +462,10 @@ class DirectiveWithViewContainer {
   template: `<dir-with-view-container></dir-with-view-container>`,
 })
 class ComponentWithChildViewContainer {
-  @ViewChild(DirectiveWithViewContainer, {static: false}) childWithViewContainer: DirectiveWithViewContainer;
+  @ViewChild(DirectiveWithViewContainer, {static: false}) childWithViewContainer!: DirectiveWithViewContainer;
 
   get childViewContainer() {
-    return this.childWithViewContainer.viewContainerRef;
+    return this.childWithViewContainer!.viewContainerRef;
   }
 }
 
@@ -474,10 +475,10 @@ class ComponentWithChildViewContainer {
       Cheese {{localValue}} {{data?.value}}{{setDialogRef(dialogRef)}}</ng-template>`,
 })
 class ComponentWithTemplateRef {
-  localValue: string;
-  dialogRef: MdcDialogRef<any>;
+  localValue?: string;
+  dialogRef?: MdcDialogRef<any>;
 
-  @ViewChild(TemplateRef, {static: false}) templateRef: TemplateRef<any>;
+  @ViewChild(TemplateRef, {static: false}) templateRef!: TemplateRef<any>;
 
   setDialogRef(dialogRef: MdcDialogRef<any>): string {
     this.dialogRef = dialogRef;

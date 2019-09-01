@@ -24,6 +24,15 @@ export class MdcDialogConfig<D = any> {
   /** Applied automatically when the dialog's action buttons can't fit on a single line and must be stacked. */
   buttonsStacked?: boolean = true;
 
+  /** Whether the dialog should focus the first focusable element on open. */
+  autoFocus?: boolean = true;
+
+  /**
+  * Whether the dialog should restore focus to the
+  * previously-focused element, after it's closed.
+  */
+  restoreFocus?: boolean = true;
+
   /** Alternate `ComponentFactoryResolver` to use when resolving the associated component. */
   componentFactoryResolver?: ComponentFactoryResolver;
 

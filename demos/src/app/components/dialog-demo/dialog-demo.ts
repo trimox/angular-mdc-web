@@ -1,8 +1,8 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {Component, Inject, OnInit, ViewChild, ContentChild} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-import { MdcDialog, MdcDialogRef, MDC_DIALOG_DATA } from '@angular-mdc/web';
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
+import {MdcDialog, MdcDialogRef, MDC_DIALOG_DATA, MdcDialogComponent} from '@angular-mdc/web';
+import {ComponentViewer, ComponentView} from '../../shared/component-viewer';
 
 export interface DialogData {
   first: string;
@@ -10,16 +10,16 @@ export interface DialogData {
   email: string;
 }
 
-@Component({ templateUrl: './usage.html' })
-export class Usage { }
+@Component({templateUrl: './usage.html'})
+export class Usage {}
 
-@Component({ templateUrl: './api.html' })
-export class Api { }
+@Component({templateUrl: './api.html'})
+export class Api {}
 
-@Component({ templateUrl: './sass.html' })
-export class Sass { }
+@Component({templateUrl: './sass.html'})
+export class Sass {}
 
-@Component({ template: '<component-viewer></component-viewer>' })
+@Component({template: '<component-viewer></component-viewer>'})
 export class DialogDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
@@ -45,9 +45,9 @@ export class DialogDemo implements OnInit {
   }
 }
 
-@Component({ templateUrl: './examples.html' })
+@Component({templateUrl: './examples.html'})
 export class Examples {
-  constructor(public dialog: MdcDialog) { }
+  constructor(public dialog: MdcDialog) {}
 
   openAlert() {
     const dialogRef = this.dialog.open(DialogAlert, {
@@ -55,6 +55,16 @@ export class Examples {
       clickOutsideToClose: false,
       buttonsStacked: false,
       id: 'my-dialog'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  openAutoFocus(autoFocus: boolean) {
+    const dialogRef = this.dialog.open(DialogAlert, {
+      autoFocus: autoFocus
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -73,6 +83,11 @@ export class Examples {
   openConfirmation() {
     const dialogRef = this.dialog.open(DialogConfirmation);
 
+    dialogRef.afterOpened().subscribe(() => {
+      dialogRef.componentInstance.dialogComponent.layout();
+      console.log('Dialog opened');
+    });
+
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
@@ -81,6 +96,10 @@ export class Examples {
   openScrollable(scrollable: boolean = true) {
     const dialogRef = this.dialog.open(DialogScrollable, {
       scrollable: scrollable
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
     });
   }
 
@@ -156,7 +175,7 @@ export class DialogAlert {
       <mdc-dialog-title>Select an account</mdc-dialog-title>
       <mdc-dialog-content>
         <mdc-list avatar>
-          <mdc-list-item mdcDialogAction="close" [tabIndex]="0">
+          <mdc-list-item (click)="closeDialog()" cdkInitialFocus>
             <mdc-icon mdcListItemGraphic>person</mdc-icon>username@gmail.com
           </mdc-list-item>
           <mdc-list-item (click)="closeDialog()">
@@ -182,6 +201,25 @@ export class DialogSimple {
 }`
   };
 
+  exampleAutoFocus = {
+    html: `<button mdc-button (click)="openAutoFocus(true)">Open focused initial element</button>
+<button mdc-button (click)="openAutoFocus(false)">Open no focused element</button>`,
+    ts: `${this.exampleTS}
+
+  openAutoFocus(autoFocus: boolean) {
+    const dialogRef = this.dialog.open(DialogAlert, {
+      autoFocus: autoFocus
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
+  }
+}`,
+    'dialog-alert.html': this.exampleAlert['Dialog-Alert.html'],
+    'dialog-alert.ts': this.exampleAlert['dialog-alert.ts']
+  };
+
   exampleConfirmation = {
     html: `<button mdc-button (click)="openConfirmation()">Open Confirmation</button>`,
     ts: `${this.exampleTS}
@@ -195,31 +233,31 @@ export class DialogSimple {
   }
 }`,
     'dialog-confirmation.html': `<mdc-dialog>
-<mdc-dialog-container>
-  <mdc-dialog-surface>
-    <mdc-dialog-title>Phone ringtone</mdc-dialog-title>
-    <mdc-dialog-content>
-      <mdc-list>
-        <mdc-list-item>
-          <mdc-radio checked></mdc-radio>
-          Never Gonna Give You Up
-        </mdc-list-item>
-        <mdc-list-item>
-          <mdc-radio></mdc-radio>
-          Hot Cross Buns
-        </mdc-list-item>
-        <mdc-list-item>
-          <mdc-radio></mdc-radio>
-          None
-        </mdc-list-item>
-      </mdc-list>
-    </mdc-dialog-content>
-    <mdc-dialog-actions>
-      <button mdcDialogButton mdcDialogAction="close">Cancel</button>
-      <button mdcDialogButton default mdcDialogAction="accept">Ok</button>
-    </mdc-dialog-actions>
-  </mdc-dialog-surface>
-</mdc-dialog-container>
+  <mdc-dialog-container>
+    <mdc-dialog-surface>
+      <mdc-dialog-title>Phone ringtone</mdc-dialog-title>
+      <mdc-dialog-content>
+        <mdc-list>
+          <mdc-list-item>
+            <mdc-form-field><mdc-radio name="demo-radio-set" checked></mdc-radio></mdc-form-field>
+            Never Gonna Give You Up
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-form-field><mdc-radio name="demo-radio-set"></mdc-radio></mdc-form-field>
+            Hot Cross Buns
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-form-field><mdc-radio name="demo-radio-set"></mdc-radio></mdc-form-field>
+            None
+          </mdc-list-item>
+        </mdc-list>
+      </mdc-dialog-content>
+      <mdc-dialog-actions>
+        <button mdcDialogButton mdcDialogAction="close">Cancel</button>
+        <button mdcDialogButton default mdcDialogAction="accept">Ok</button>
+      </mdc-dialog-actions>
+    </mdc-dialog-surface>
+  </mdc-dialog-container>
 </mdc-dialog>`,
     'dialog-confirmation.ts': `@Component({
   templateUrl: 'dialog-confirmation.html',
@@ -350,7 +388,7 @@ export class DialogForm {
   `,
 })
 export class DialogAlert {
-  constructor(public dialogRef: MdcDialogRef<DialogAlert>) { }
+  constructor(public dialogRef: MdcDialogRef<DialogAlert>) {}
 }
 
 @Component({
@@ -361,7 +399,7 @@ export class DialogAlert {
         <mdc-dialog-title>Select an account</mdc-dialog-title>
         <mdc-dialog-content>
           <mdc-list avatar>
-            <mdc-list-item mdcDialogAction="close" [tabIndex]="0">
+            <mdc-list-item (click)="closeDialog()" cdkFocusInitial>
               <mdc-icon mdcListItemGraphic>person</mdc-icon>username@gmail.com
             </mdc-list-item>
             <mdc-list-item (click)="closeDialog()">
@@ -378,7 +416,7 @@ export class DialogAlert {
   `,
 })
 export class DialogSimple {
-  constructor(public dialogRef: MdcDialogRef<DialogSimple>) { }
+  constructor(public dialogRef: MdcDialogRef<DialogSimple>) {}
 
   closeDialog(): void {
     this.dialogRef.close('Pizza');
@@ -396,7 +434,7 @@ export class DialogSimple {
         </mdc-dialog-content>
         <mdc-dialog-actions>
           <button mdcDialogButton mdcDialogAction="close">Decline</button>
-          <button mdcDialogButton mdcDialogAction="accept">Accept</button>
+          <button mdcDialogButton mdcDialogAction="accept" cdkFocusInitial>Accept</button>
         </mdc-dialog-actions>
       </mdc-dialog-surface>
     </mdc-dialog-container>
@@ -412,7 +450,7 @@ export class DialogScrollable {
   excepturi!`;
   lorems = Array(5).fill(this.text);
 
-  constructor(public dialogRef: MdcDialogRef<DialogScrollable>) { }
+  constructor(public dialogRef: MdcDialogRef<DialogScrollable>) {}
 }
 
 @Component({
@@ -424,15 +462,15 @@ export class DialogScrollable {
         <mdc-dialog-content>
           <mdc-list>
             <mdc-list-item>
-              <mdc-radio checked></mdc-radio>
+              <mdc-form-field><mdc-radio name="demo-radio-set" checked></mdc-radio></mdc-form-field>
               Never Gonna Give You Up
             </mdc-list-item>
             <mdc-list-item>
-              <mdc-radio></mdc-radio>
+              <mdc-form-field><mdc-radio name="demo-radio-set"></mdc-radio></mdc-form-field>
               Hot Cross Buns
             </mdc-list-item>
             <mdc-list-item>
-              <mdc-radio></mdc-radio>
+              <mdc-form-field><mdc-radio name="demo-radio-set"></mdc-radio></mdc-form-field>
               None
             </mdc-list-item>
           </mdc-list>
@@ -447,8 +485,9 @@ export class DialogScrollable {
   `,
 })
 export class DialogConfirmation {
+  @ViewChild(MdcDialogComponent, {static: false}) dialogComponent: MdcDialogComponent;
   constructor(public dialogRef: MdcDialogRef<DialogConfirmation>,
-    @Inject(MDC_DIALOG_DATA) public data: DialogData) { }
+    @Inject(MDC_DIALOG_DATA) public data: DialogData) {}
 }
 
 @Component({
@@ -456,7 +495,7 @@ export class DialogConfirmation {
 })
 export class DialogForm {
   constructor(public dialogRef: MdcDialogRef<DialogForm>,
-    @Inject(MDC_DIALOG_DATA) public data: DialogData) { }
+    @Inject(MDC_DIALOG_DATA) public data: DialogData) {}
 
   profileForm = new FormGroup({
     first: new FormControl('', Validators.required),

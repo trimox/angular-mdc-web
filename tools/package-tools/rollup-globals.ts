@@ -62,6 +62,7 @@ export const rollupGlobals = {
   'focus-trap': 'focustrap',
 
   '@angular/cdk': 'ng.cdk',
+  '@angular/cdk/a11y': 'ng.cdk.a11y',
   '@angular/cdk/collections': 'ng.cdk.collections',
   '@angular/cdk/coercion': 'ng.cdk.coercion',
   '@angular/cdk/keycodes': 'ng.cdk.keycodes',

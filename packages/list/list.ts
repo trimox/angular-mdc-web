@@ -146,10 +146,6 @@ export class MdcList extends MDCComponent<any> implements AfterViewInit, OnDestr
       if (newValue !== this._singleSelection) {
         this._singleSelection = newValue;
         this._foundation.setSingleSelection(this._singleSelection);
-
-        if (this.getSelectedIndex() > -1) {
-          this.setSelectedIndex(this.getSelectedIndex());
-        }
         this._changeDetectorRef.markForCheck();
       }
     }

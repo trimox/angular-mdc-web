@@ -73,8 +73,8 @@ export class MdcDialogComponent extends MDCComponent<MDCDialogFoundation> implem
     const adapter: MDCDialogAdapter = {
       addClass: (className: string) => this._getDialog().classList.add(className),
       removeClass: (className: string) => this._getDialog().classList.remove(className),
-      getInitialFocusEl: () => this._platform.isBrowser ? document.querySelector(`[cdk-focus-initial], ` +
-        `[cdkFocusInitial]`) as HTMLElement : null,
+      getInitialFocusEl: () => this._platform.isBrowser
+        ? document.querySelector(`[cdkFocusInitial]`) as HTMLElement : null,
       hasClass: (className: string) => this._getDialog().classList.contains(className),
       addBodyClass: (className: string) => {
         if (this._platform.isBrowser) {

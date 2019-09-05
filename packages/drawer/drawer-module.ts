@@ -3,12 +3,14 @@ import {CommonModule} from '@angular/common';
 
 import {
   MdcDrawer,
+  MdcDrawerHeader,
+} from './drawer';
+import {
   MdcDrawerAppContent,
   MdcDrawerContent,
-  MdcDrawerHeader,
   MdcDrawerSubtitle,
   MdcDrawerTitle
-} from './drawer';
+} from './drawer-directives';
 
 const DRAWER_DECLARATIONS = [
   MdcDrawer,
@@ -24,4 +26,4 @@ const DRAWER_DECLARATIONS = [
   exports: [DRAWER_DECLARATIONS],
   declarations: [DRAWER_DECLARATIONS]
 })
-export class MdcDrawerModule { }
+export class MdcDrawerModule {}

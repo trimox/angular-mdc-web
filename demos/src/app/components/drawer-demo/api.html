@@ -18,7 +18,7 @@
       <tr>
         <td>drawer: string</td>
         <td>Set the drawer implementation.
-          <p>Valid values: 'permanent' | 'dismissible' | 'modal'</p>
+          <p>Valid values: dismissible | modal | empty</p>
         </td>
       </tr>
       <tr>
@@ -31,7 +31,18 @@
       </tr>
       <tr>
         <td>dir: string</td>
-        <td>Optional. If value is 'rtl', drawer opens from the right side of the screen.</td>
+        <td>Optional. If value is 'rtl', drawer opens from the right side of the
+          screen.</td>
+      </tr>
+      <tr>
+        <td>autoFocus: boolean</td>
+        <td>Whether the drawer should focus the first focusable element on open.
+          (Default: true)</td>
+      </tr>
+      <tr>
+        <td>restoreFocus: boolean</td>
+        <td>Whether the drawer should restore focus to the previously-focused
+          element, after it's closed. (Default: true)</td>
       </tr>
     </tbody>
   </table>
@@ -47,8 +58,33 @@
         <td>closed()</td>
         <td>Event dispatched on drawer close.</td>
       </tr>
+      <tr>
+        <td>openedChange(opened: boolean)</td>
+        <td>Event dispatched on drawer open state changes.</td>
+      </tr>
+      <tr>
+        <td>drawerChange()</td>
+        <td>Event dispatched when the drawer variant changes.</td>
+      </tr>
     </tbody>
   </table>
+</div>
+
+<div>
+  <h3 class="demo-content__headline">Focus Management</h3>
+  <p>By default, the first element within the drawer will receive focus upon
+    open.
+    This can be configured by setting the <code
+      class="docs-markdown-code">cdkFocusInitial</code> attribute on another
+    focusable element or setting <code
+    class="docs-markdown-code">autoFocus</code> to false.</p>
+
+  <pre><code highlight='<mdc-list-item cdkFocusInitial>
+  <mdc-icon mdcListItemGraphic>star</mdc-icon>List item
+</mdc-list-item>'></code></pre>
+
+  <a mdc-button href="https://material.angular.io/cdk/a11y/overview#example"
+    target="_blank" rel="noopener">Focus Trap - Read more</a>
 </div>
 
 <div class="docs-api">
@@ -122,8 +158,19 @@
     <tbody>
       <tr>
         <td>dir: string</td>
-        <td>Optional. If value is 'rtl', content is displayed right to left.</td>
+        <td>Optional. If value is 'rtl', content is displayed right to left.
+        </td>
       </tr>
     </tbody>
   </table>
+</div>
+
+<div class="docs-api">
+  <h3 mdcHeadline6>MdcDrawerAppContent</h3>
+  Mandatory for dismissible variant only. Sibling element that is resized when the drawer opens/closes.
+  <p>
+    Selector:
+    <span class="markdown-code">mdcDrawerAppContent</span>
+  </p>
+  Exported as: <span class="markdown-code">mdcDrawerAppContent</span>
 </div>

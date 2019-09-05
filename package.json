@@ -55,7 +55,6 @@
     "codelyzer": "^5.1.0",
     "cpx": "^1.5.0",
     "cz-conventional-changelog": "^3.0.2",
-    "focus-trap": "^5.0.2",
     "fs-extra": "^8.1.0",
     "glob": "^7.1.4",
     "gulp": "^3.9.1",

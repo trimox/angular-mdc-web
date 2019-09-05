@@ -59,8 +59,6 @@ export const rollupGlobals = {
   '@material/textfield': 'mdc.textfield',
   '@material/top-app-bar': 'mdc.topAppBar',
 
-  'focus-trap': 'focustrap',
-
   '@angular/cdk': 'ng.cdk',
   '@angular/cdk/a11y': 'ng.cdk.a11y',
   '@angular/cdk/collections': 'ng.cdk.collections',

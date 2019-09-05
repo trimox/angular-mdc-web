@@ -31,10 +31,10 @@ export class DrawerDemo implements OnInit {
 @Component({ templateUrl: './examples.html' })
 export class Examples {
   destinations = [
-    { label: 'Inbox', icon: 'inbox' },
-    { label: 'Star', icon: 'star' },
-    { label: 'Sent Mail', icon: 'send' },
-    { label: 'Drafts', icon: 'drafts' }
+    { label: 'Inbox', icon: 'inbox', activated: true },
+    { label: 'Star', icon: 'star', activated: false },
+    { label: 'Sent Mail', icon: 'send', activated: false },
+    { label: 'Drafts', icon: 'drafts', activated: false }
   ];
 
   alternateColors(input: any, className: string) {
@@ -44,10 +44,10 @@ export class Examples {
   }
 
   genericTS = `destinations = [
-  { label: 'Inbox', icon: 'inbox' },
-  { label: 'Star', icon: 'star' },
-  { label: 'Sent Mail', icon: 'send' },
-  { label: 'Drafts', icon: 'drafts' }
+  { label: 'Inbox', icon: 'inbox', activated: true },
+  { label: 'Star', icon: 'star', activated: false },
+  { label: 'Sent Mail', icon: 'send', activated: false },
+  { label: 'Drafts', icon: 'drafts', activated: false }
 ];`;
 
   genericSass = `.demo-drawer--custom {
@@ -70,11 +70,11 @@ export class Examples {
 }`;
 
   examplePerm = {
-    html: `<mdc-drawer drawer="permanent">
+    html: `<mdc-drawer>
   <mdc-drawer-header title="Drawer Title" subtitle="Subtitle"></mdc-drawer-header>
   <mdc-drawer-content>
     <mdc-list>
-      <a mdc-list-item *ngFor="let item of destinations" href="#/drawer-demo/examples">
+      <a mdc-list-item *ngFor="let item of destinations" href="#/drawer-demo/examples" [activated]="item.activated">
         <mdc-icon mdcListItemGraphic *ngIf="item.icon">{{item.icon}}</mdc-icon>{{item.label}}
       </a>
       <mdc-list-divider></mdc-list-divider>
@@ -107,7 +107,7 @@ export class Examples {
   <mdc-drawer-header title="Drawer Title" subtitle="Subtitle"></mdc-drawer-header>
   <mdc-drawer-content>
     <mdc-list>
-      <mdc-list-item *ngFor="let item of destinations">
+      <mdc-list-item *ngFor="let item of destinations" [activated]="item.activated">
         <mdc-icon mdcListItemGraphic *ngIf="item.icon">{{item.icon}}</mdc-icon>{{item.label}}
       </mdc-list-item>
     </mdc-list>
@@ -130,7 +130,7 @@ export class Examples {
   </mdc-drawer-header>
   <mdc-drawer-content>
     <mdc-list>
-      <mdc-list-item *ngFor="let item of destinations">
+      <mdc-list-item *ngFor="let item of destinations" [activated]="item.activated">
         <mdc-icon mdcListItemGraphic *ngIf="item.icon">{{item.icon}}</mdc-icon>{{item.label}}
       </mdc-list-item>
     </mdc-list>
@@ -153,7 +153,7 @@ export class Examples {
   </mdc-drawer-header>
   <mdc-drawer-content dir="rtl">
     <mdc-list>
-      <mdc-list-item *ngFor="let item of destinations">
+      <mdc-list-item *ngFor="let item of destinations" [activated]="item.activated">
         <mdc-icon mdcListItemGraphic *ngIf="item.icon">{{item.icon}}</mdc-icon>{{item.label}}
       </mdc-list-item>
     </mdc-list>
@@ -169,11 +169,11 @@ export class Examples {
   };
 
   exampleShaped = {
-    html: `<mdc-drawer drawer="permanent">
+    html: `<mdc-drawer>
   <mdc-drawer-header title="Drawer Title" subtitle="Subtitle"></mdc-drawer-header>
   <mdc-drawer-content>
     <mdc-list class="demo-list--shaped">
-      <a mdc-list-item *ngFor="let item of destinations" href="#/drawer-demo/examples">
+      <a mdc-list-item *ngFor="let item of destinations" href="#/drawer-demo/examples" [activated]="item.activated">
         <mdc-icon mdcListItemGraphic *ngIf="item.icon">{{item.icon}}</mdc-icon>{{item.label}}
       </a>
     </mdc-list>

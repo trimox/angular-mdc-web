@@ -1,9 +1,9 @@
-import {Component, DebugElement} from '@angular/core';
-import {ComponentFixture, TestBed, fakeAsync, flush} from '@angular/core/testing';
+import {Component, DebugElement, ViewChild} from '@angular/core';
+import {ComponentFixture, TestBed, fakeAsync, flush, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {TAB, DOWN_ARROW} from '@angular/cdk/keycodes';
 
-import {dispatchFakeEvent, dispatchKeyboardEvent} from '../testing/dispatch-events';
+import {dispatchFakeEvent, dispatchMouseEvent, dispatchKeyboardEvent} from '../testing/dispatch-events';
 
 import {
   MdcDrawerModule,
@@ -57,12 +57,6 @@ describe('MdcDrawer', () => {
       flush();
     }));
 
-    it('#should set permanent if empty', () => {
-      testComponent.drawer = null;
-      fixture.detectChanges();
-      expect(testInstance.permanent).toBe(true);
-    });
-
     it('#should set modal', fakeAsync(() => {
       const listItemDebugElement = fixture.debugElement.query(By.directive(MdcListItem));
       const listItemInstance = listItemDebugElement.injector.get<MdcListItem>(MdcListItem);
@@ -97,42 +91,101 @@ describe('MdcDrawer', () => {
       expect(testInstance.fixedAdjustElement).toBeNull();
     });
 
-    it('#should be closed after clicking document', fakeAsync(() => {
-      testComponent.drawer = 'modal';
-      testComponent.open = true;
+    it('#should set autoFocus to false', () => {
+      testComponent.autoFocus = false;
+      fixture.detectChanges();
+      expect(testInstance.autoFocus).toBe(false);
+    });
+
+    it('#should set restoreFocus to false', () => {
+      testComponent.restoreFocus = false;
+      fixture.detectChanges();
+      expect(testInstance.restoreFocus).toBe(false);
+    });
+
+    it('#should open and restore focus to button', () => {
+      testComponent.restoreFocus = true;
+      testComponent.drawer = 'dismissible';
       fixture.detectChanges();
 
-      const drawerScrim = document.body.querySelector('.mdc-drawer-scrim');
+      testComponent.openButton.focus();
+      fixture.detectChanges();
 
-      dispatchFakeEvent(drawerScrim, 'click');
+      dispatchMouseEvent(testComponent.openButton.elementRef.nativeElement, 'click');
+      fixture.detectChanges();
+      expect(testComponent.drawerComponent.open).toBe(true);
+      expect(testComponent.open).toBe(true);
+
+      testComponent.open = false;
+      fixture.detectChanges();
+
+      expect(document.activeElement).toEqual(testComponent.openButton.elementRef.nativeElement);
+    });
+
+    it('#should close modal on scrim click', fakeAsync(() => {
+      testComponent.drawer = 'modal';
       fixture.detectChanges();
       flush();
 
-      expect(testInstance.open).toBe(false);
-
-      testComponent.drawer = 'permanent';
-      testComponent.open = true;
+      const drawerScrim = document.body.querySelector('.mdc-drawer-scrim');
+      dispatchMouseEvent(drawerScrim, 'click');
       fixture.detectChanges();
+
+      expect(testComponent.drawerComponent.open).toBe(false);
+      expect(testComponent.open).toBe(false);
     }));
 
-    it('#should open from button', fakeAsync(() => {
+    it('#should set modal then change to dismissible', fakeAsync(() => {
+      testComponent.drawer = 'modal';
+      fixture.detectChanges();
+      flush();
+
+      testComponent.drawer = 'dismissible';
+      fixture.detectChanges();
+      flush();
+    }));
+
+    it('#should handle transitionend', fakeAsync(() => {
+      testComponent.drawer = 'dismissible';
+      fixture.detectChanges();
+      flush();
+
+      dispatchFakeEvent(testComponent.drawerComponent.elementRef.nativeElement, 'transitionend');
+      fixture.detectChanges();
+      tick();
+    }));
+
+    it('#should open and not restore focus to open button', () => {
+      testComponent.restoreFocus = false;
+      testComponent.drawer = 'dismissible';
+      fixture.detectChanges();
+      testComponent.drawer = 'dismissible';
+      fixture.detectChanges();
+
+      testComponent.openButton.focus();
+      dispatchMouseEvent(testComponent.openButton.elementRef.nativeElement, 'click');
+      fixture.detectChanges();
+      testComponent.closeButton.focus();
+
+      dispatchMouseEvent(testComponent.closeButton.elementRef.nativeElement, 'click');
+      fixture.detectChanges();
+
+      expect(document.activeElement).toBe(testComponent.closeButton.elementRef.nativeElement);
+    });
+
+    it('#should open from button', () => {
       testComponent.drawer = 'dismissible';
       fixture.detectChanges();
 
       dispatchFakeEvent(fixture.debugElement.query(By.directive(MdcButton)).nativeElement, 'click');
       fixture.detectChanges();
 
-      expect(testInstance.open).toBe(true);
-
       const listItemDebugElement = fixture.debugElement.query(By.directive(MdcListItem));
       const listItemInstance = listItemDebugElement.injector.get<MdcListItem>(MdcListItem);
 
       listItemInstance.getListItemElement().click();
       fixture.detectChanges();
-
-      testComponent.singleSelection = false;
-      fixture.detectChanges();
-    }));
+    });
 
     it('#should handle list item click', fakeAsync(() => {
       testComponent.open = true;
@@ -143,9 +196,11 @@ describe('MdcDrawer', () => {
 
       listItemInstance.getListItemElement().click();
       fixture.detectChanges();
+      flush();
     }));
 
     it('#should handle list item keydown', () => {
+      testComponent.drawer = 'modal';
       testComponent.open = true;
       fixture.detectChanges();
 
@@ -166,16 +221,16 @@ describe('MdcDrawer', () => {
 
 @Component({
   template: `
-  <button mdc-button (click)="testDrawer.open = !testDrawer.open"></button>
-  <mdc-drawer #testDrawer [drawer]="drawer" [open]="open" [fixedAdjustElement]="testcontent">
+  <mdc-drawer [drawer]="drawer" [open]="open" [fixedAdjustElement]="testcontent"
+    [autoFocus]="autoFocus" [restoreFocus]="restoreFocus">
     <mdc-drawer-header title='Test' subtitle='Testing'></mdc-drawer-header>
     <mdc-drawer-content>
       <mdc-list-group>
-        <mdc-list [singleSelection]="singleSelection">
+        <mdc-list>
           <mdc-list-item>
             <mdc-icon mdc-list-item-start>home</mdc-icon>Home
           </mdc-list-item>
-          <mdc-list-item>
+          <mdc-list-item cdkFocusInitial>
             <mdc-icon mdc-list-item-start>star</mdc-icon>Star
           </mdc-list-item>
           <mdc-list-item>
@@ -199,10 +254,17 @@ describe('MdcDrawer', () => {
     </mdc-drawer-content>
   </mdc-drawer>
   <div #testcontent></div>
+  <button #openButton mdc-button (click)="open = true"></button>
+  <button #closeButton mdc-button (click)="open = false"></button>
   `,
 })
 class SimpleTest {
-  drawer: string = 'permanent';
-  open: boolean;
-  singleSelection: boolean;
+  @ViewChild('openButton', {static: true}) openButton!: MdcButton;
+  @ViewChild('closeButton', {static: true}) closeButton!: MdcButton;
+  @ViewChild(MdcDrawer, {static: true}) drawerComponent!: MdcDrawer;
+
+  drawer: string;
+  open: boolean = false;
+  autoFocus: boolean;
+  restoreFocus: boolean;
 }

@@ -9,9 +9,9 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+import {LiveAnnouncer} from '@angular/cdk/a11y';
 
 import {MDCComponent} from '@angular-mdc/web/base';
-import {announce} from './util';
 import {MdcSnackbarRef, MdcSnackbarDismissReason} from './snackbar-ref';
 import {MDC_SNACKBAR_DATA, MdcSnackbarConfig} from './snackbar-config';
 
@@ -42,21 +42,24 @@ import {MDCSnackbarFoundation, MDCSnackbarAdapter} from '@material/snackbar';
     </div>
   </div>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  providers: [LiveAnnouncer]
 })
 export class MdcSnackbarComponent extends MDCComponent<MDCSnackbarFoundation> implements OnInit, OnDestroy {
   @ViewChild('label', {static: true}) label!: ElementRef<HTMLElement>;
   @ViewChild('action', {static: false}) action?: ElementRef<HTMLButtonElement>;
   @ViewChild('dismiss', {static: false}) dismiss?: ElementRef<HTMLButtonElement>;
 
-  get config(): MdcSnackbarConfig { return this.snackbarRef.componentInstance.snackbarConfig; }
+  get config(): MdcSnackbarConfig {
+    return this.snackbarRef.componentInstance.snackbarConfig;
+  }
 
   getDefaultFoundation() {
     const adapter: MDCSnackbarAdapter = {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
-      announce: () => announce(this.label.nativeElement, MDCSnackbarFoundation.numbers.ARIA_LIVE_DELAY_MS,
-        MDCSnackbarFoundation.strings.ARIA_LIVE_LABEL_TEXT_ATTR),
+      announce: () => this.label.nativeElement ? this._liveAnnouncer.announce(this.config.data.message,
+        this.config.politeness, this.config.timeoutMs || MDCSnackbarFoundation.numbers.ARIA_LIVE_DELAY_MS) : {},
       notifyClosing: () => {},
       notifyOpened: () => {},
       notifyOpening: () => {},
@@ -67,6 +70,7 @@ export class MdcSnackbarComponent extends MDCComponent<MDCSnackbarFoundation> im
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
+    private _liveAnnouncer: LiveAnnouncer,
     public elementRef: ElementRef<HTMLElement>,
     public snackbarRef: MdcSnackbarRef<MdcSnackbarComponent>,
     @Inject(MDC_SNACKBAR_DATA) public data: any) {

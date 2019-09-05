@@ -1,4 +1,5 @@
 import {ViewContainerRef, InjectionToken} from '@angular/core';
+import {AriaLivePoliteness} from '@angular/cdk/a11y';
 
 /** Injection token that can be used to access the data that was passed in to a snackbar. */
 export const MDC_SNACKBAR_DATA = new InjectionToken<any>('MdcSnackbarData');
@@ -39,4 +40,7 @@ export class MdcSnackbarConfig<D = any> {
 
   /** Whether the snackbar closes when it is focused and the user presses the ESC key */
   closeOnEscape?: boolean = true;
+
+  /** The politeness level for the screen reader announcement. */
+  politeness?: AriaLivePoliteness = 'polite';
 }

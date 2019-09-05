@@ -58,7 +58,7 @@ export class MdcDrawerHeader {
   host: {
     'role': 'navigation',
     'class': 'mdc-drawer',
-    '(transitionend)': '_foundation.handleTransitionEnd($event)'
+    '(transitionend)': '_handleTransitionEnd($event)'
   },
   template: '<ng-content></ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -261,6 +261,10 @@ export class MdcDrawer extends MDCComponent<MDCDismissibleDrawerFoundation | MDC
     if (this._foundation && this._platform.isBrowser) {
       this._foundation.destroy();
     }
+  }
+
+  _handleTransitionEnd(event: TransitionEvent): void {
+    this._foundation.handleTransitionEnd(event);
   }
 
   private _createScrim(): void {

@@ -87,7 +87,7 @@ export class MdcDialogPortal extends BasePortalOutlet {
   }
 
   /** Moves the focus inside the focus trap. */
-  trapFocus() {
+  trapFocus(): void {
     const element = this._elementRef.nativeElement;
 
     if (!this._focusTrap) {
@@ -113,7 +113,7 @@ export class MdcDialogPortal extends BasePortalOutlet {
   }
 
   /** Restores focus to the element that was focused before the dialog opened. */
-  restoreFocus() {
+  restoreFocus(): void {
     const toFocus = this._elementFocusedBeforeDialogWasOpened;
 
     // We need the extra check, because IE can set the `activeElement` to null in some cases.
@@ -127,7 +127,7 @@ export class MdcDialogPortal extends BasePortalOutlet {
   }
 
   /** Saves a reference to the element that was focused before the dialog was opened. */
-  private _savePreviouslyFocusedElement() {
+  private _savePreviouslyFocusedElement(): void {
     if (this._document) {
       this._elementFocusedBeforeDialogWasOpened = this._document.activeElement as HTMLElement;
 

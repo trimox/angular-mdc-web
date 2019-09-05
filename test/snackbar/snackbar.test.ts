@@ -176,27 +176,30 @@ describe('MdcSnackbar', () => {
   it('should remove past snackbars when opening new snackbars', fakeAsync(() => {
     snackBar.open('First snackbar');
     viewContainerFixture.detectChanges();
+    tick(110);
 
     snackBar.open('Second snackbar');
     viewContainerFixture.detectChanges();
-    flush();
+    tick(110);
 
     snackBar.open('Third snackbar');
     viewContainerFixture.detectChanges();
-    flush();
-
+    tick(110);
     expect(overlayContainerElement.textContent!.trim()).toBe('Third snackbar');
+    flush();
   }));
 
   it('should remove snackbar if another is shown while its still animating open', fakeAsync(() => {
     snackBar.open('First snackbar');
     viewContainerFixture.detectChanges();
+    tick(110);
 
     snackBar.open('Second snackbar');
     viewContainerFixture.detectChanges();
+    tick(110);
 
-    flush();
     expect(overlayContainerElement.textContent!.trim()).toBe('Second snackbar');
+    flush();
   }));
 
   it('should allow manually dismissing with an action', fakeAsync(() => {
@@ -288,45 +291,46 @@ describe('MdcSnackbar with parent MdcSnackbar', () => {
   it('should close snackBars opened by parent when opening from child', fakeAsync(() => {
     parentSnackBar.open('Pizza');
     fixture.detectChanges();
-    flush();
-
+    tick(110);
     expect(overlayContainerElement.textContent)
       .toContain('Pizza', 'Expected a snackBar to be opened');
 
     childSnackBar.open('Taco');
     fixture.detectChanges();
-    flush();
+    tick(110);
 
     expect(overlayContainerElement.textContent)
       .toContain('Taco', 'Expected parent snackbar msg to be dismissed by opening from child');
+    flush();
   }));
 
   it('should close snackBars opened by child when opening from parent', fakeAsync(() => {
     childSnackBar.open('Pizza');
     fixture.detectChanges();
-    flush();
-
+    tick(110);
     expect(overlayContainerElement.textContent)
       .toContain('Pizza', 'Expected a snackBar to be opened');
 
     parentSnackBar.open('Taco');
     fixture.detectChanges();
-    flush();
+    tick(110);
 
     expect(overlayContainerElement.textContent)
       .toContain('Taco', 'Expected child snackbar msg to be dismissed by opening from parent');
+    flush();
   }));
 
   it('should not dismiss parent snack bar if child is destroyed', fakeAsync(() => {
     parentSnackBar.open('Pizza');
     fixture.detectChanges();
+    tick(110);
     expect(overlayContainerElement.childElementCount).toBeGreaterThan(0);
 
     childSnackBar.ngOnDestroy();
     fixture.detectChanges();
-    flush();
-
+    tick(110);
     expect(overlayContainerElement.childElementCount).toBeGreaterThan(0);
+    flush();
   }));
 });
 

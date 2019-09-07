@@ -1,7 +1,6 @@
 import {
-  AfterContentInit,
+  AfterViewInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   Directive,
   ElementRef,
@@ -10,7 +9,7 @@ import {
 } from '@angular/core';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
-import {MdcRipple} from './ripple.service';
+import {MdcRipple, MDCRippleCapableSurface} from './ripple.service';
 
 @Component({
   selector: 'mdc-ripple, [mdc-ripple]',
@@ -18,14 +17,18 @@ import {MdcRipple} from './ripple.service';
   providers: [MdcRipple],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcRippleComponent implements AfterContentInit, OnDestroy {
+export class MdcRippleComponent implements AfterViewInit, OnDestroy, MDCRippleCapableSurface {
+  _root!: Element;
+
   get ripple(): MdcRipple {
     return this._ripple;
   }
 
   @Input()
-  get attachTo(): HTMLElement { return this._attachTo; }
-  set attachTo(element: HTMLElement) {
+  get attachTo(): any {
+    return this._attachTo;
+  }
+  set attachTo(element: any) {
     if (this._attachTo) {
       this._attachTo.classList.remove('mdc-ripple-surface');
     }
@@ -34,10 +37,12 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
       this._attachTo.classList.add('mdc-ripple-surface');
     }
   }
-  private _attachTo: HTMLElement = this._getHostElement();
+  private _attachTo: any;
 
   @Input()
-  get primary(): boolean { return this._primary; }
+  get primary(): boolean {
+    return this._primary;
+  }
   set primary(value: boolean) {
     this._primary = coerceBooleanProperty(value);
     this._primary ? this.attachTo.classList.add('mdc-ripple-surface--primary')
@@ -46,7 +51,9 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
   private _primary: boolean = false;
 
   @Input()
-  get secondary(): boolean { return this._secondary; }
+  get secondary(): boolean {
+    return this._secondary;
+  }
   set secondary(value: boolean) {
     this._secondary = coerceBooleanProperty(value);
     this._secondary ? this.attachTo.classList.add('mdc-ripple-surface--accent')
@@ -55,46 +62,36 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
   private _secondary: boolean = false;
 
   @Input()
-  get disabled(): boolean { return this._disabled; }
+  get disabled(): boolean {
+    return this._disabled;
+  }
   set disabled(value: boolean) {
     this._disabled = coerceBooleanProperty(value);
   }
   private _disabled: boolean = false;
 
   @Input()
-  get unbounded(): boolean { return this._unbounded; }
+  get unbounded(): boolean {
+    return this._unbounded;
+  }
   set unbounded(value: boolean) {
     this._unbounded = coerceBooleanProperty(value);
   }
   protected _unbounded: boolean = false;
 
   constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
     private _ripple: MdcRipple,
-    public elementRef: ElementRef<HTMLElement>) { }
+    public elementRef: ElementRef<HTMLElement>) {
+    this._root = this.elementRef.nativeElement;
+  }
 
-  ngAfterContentInit(): void {
-    this._initRipple();
+  ngAfterViewInit(): void {
+    this._ripple = new MdcRipple(this.elementRef);
+    this._ripple.init();
   }
 
   ngOnDestroy(): void {
     this.ripple.destroy();
-  }
-
-  private _initRipple(): void {
-    this.ripple.init({
-      surface: this._attachTo
-    }, Object.assign(this.ripple.createAdapter(), {
-      isUnbounded: () => this._unbounded,
-      isSurfaceDisabled: () => this._disabled
-    }));
-
-    this._changeDetectorRef.markForCheck();
-  }
-
-  /** Retrieves the DOM element of the component host. */
-  private _getHostElement() {
-    return this.elementRef.nativeElement;
   }
 }
 
@@ -104,11 +101,10 @@ export class MdcRippleComponent implements AfterContentInit, OnDestroy {
 })
 export class MdcRippleDirective extends MdcRippleComponent {
   constructor(
-    _changeDetectorRef: ChangeDetectorRef,
     _ripple: MdcRipple,
     elementRef: ElementRef) {
 
-    super(_changeDetectorRef, _ripple, elementRef);
+    super(_ripple, elementRef);
 
     this._unbounded = true;
     this.elementRef.nativeElement.setAttribute('data-mdc-ripple-is-unbounded', '');

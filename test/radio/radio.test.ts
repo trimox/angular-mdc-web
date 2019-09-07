@@ -1,9 +1,9 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
-import { Component, DebugElement, ViewChild } from '@angular/core';
-import { By } from '@angular/platform-browser';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import {FormControl, FormsModule, NgModel, ReactiveFormsModule} from '@angular/forms';
+import {Component, DebugElement, ViewChild} from '@angular/core';
+import {By} from '@angular/platform-browser';
 
-import { MdcRadio, MdcRadioChange, MdcRadioGroup, MdcRadioModule, MdcFormFieldModule } from '@angular-mdc/web';
+import {MdcRadio, MdcRadioChange, MdcRadioGroup, MdcRadioModule, MdcFormFieldModule} from '@angular-mdc/web';
 
 describe('MdcRadio', () => {
   beforeEach(fakeAsync(() => {
@@ -215,24 +215,24 @@ describe('MdcRadio', () => {
 
     it(`should update the group's selected radio to null when unchecking that radio
         programmatically`, () => {
-        const changeSpy = jasmine.createSpy('radio-group change listener');
-        groupInstance.change.subscribe(changeSpy);
-        radioInstances[0].checked = true;
+      const changeSpy = jasmine.createSpy('radio-group change listener');
+      groupInstance.change.subscribe(changeSpy);
+      radioInstances[0].checked = true;
 
-        fixture.detectChanges();
+      fixture.detectChanges();
 
-        expect(changeSpy).not.toHaveBeenCalled();
-        expect(groupInstance.value).toBeTruthy();
+      expect(changeSpy).not.toHaveBeenCalled();
+      expect(groupInstance.value).toBeTruthy();
 
-        radioInstances[0].checked = false;
+      radioInstances[0].checked = false;
 
-        fixture.detectChanges();
+      fixture.detectChanges();
 
-        expect(changeSpy).not.toHaveBeenCalled();
-        expect(groupInstance.value).toBeFalsy();
-        expect(radioInstances.every(radio => !radio.checked)).toBe(true);
-        expect(groupInstance.selected).toBeNull();
-      });
+      expect(changeSpy).not.toHaveBeenCalled();
+      expect(groupInstance.value).toBeFalsy();
+      expect(radioInstances.every(radio => !radio.checked)).toBe(true);
+      expect(groupInstance.selected).toBeNull();
+    });
 
     it('should not fire a change event from the group when a radio checked state changes', () => {
       const changeSpy = jasmine.createSpy('radio-group change listener');
@@ -743,9 +743,9 @@ class StandaloneRadioButtons {
 class RadioGroupWithNgModel {
   modelValue: string;
   options = [
-    { label: 'Vanilla', value: 'vanilla' },
-    { label: 'Chocolate', value: 'chocolate' },
-    { label: 'Strawberry', value: 'strawberry' },
+    {label: 'Vanilla', value: 'vanilla'},
+    {label: 'Chocolate', value: 'chocolate'},
+    {label: 'Strawberry', value: 'strawberry'},
   ];
   lastEvent: MdcRadioChange;
 }
@@ -791,9 +791,9 @@ class FocusableRadioButton {
 class InterleavedRadioGroup {
   modelValue = 'strawberry';
   options = [
-    { label: 'Vanilla', value: 'vanilla' },
-    { label: 'Chocolate', value: 'chocolate' },
-    { label: 'Strawberry', value: 'strawberry' },
+    {label: 'Vanilla', value: 'vanilla'},
+    {label: 'Chocolate', value: 'chocolate'},
+    {label: 'Strawberry', value: 'strawberry'},
   ];
 }
 
@@ -803,13 +803,13 @@ class InterleavedRadioGroup {
     <div><ng-content></ng-content></div>
   `
 })
-class TranscludingWrapper { }
+class TranscludingWrapper {}
 
 
 @Component({
   template: `<mdc-radio tabindex="0"></mdc-radio>`
 })
-class RadioButtonWithPredefinedTabindex { }
+class RadioButtonWithPredefinedTabindex {}
 
 @Component({
   template: `
@@ -829,4 +829,4 @@ class RadioButtonWithPredefinedTabindex { }
       <mdc-radio name="season" value="autum">Autumn</mdc-radio>
     </form>`
 })
-class MultipleFormsRadioButtons { }
+class MultipleFormsRadioButtons {}

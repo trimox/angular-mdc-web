@@ -20,8 +20,10 @@ import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Subscription} from 'rxjs';
 import {startWith} from 'rxjs/operators';
 
+import {MDCRippleFoundation, MDCRippleAdapter} from '@material/ripple';
+
 import {MDCComponent} from '@angular-mdc/web/base';
-import {MdcRipple} from '@angular-mdc/web/ripple';
+import {MdcRipple, MDCRippleCapableSurface} from '@angular-mdc/web/ripple';
 import {MdcIcon} from '@angular-mdc/web/icon';
 
 import {MDCIconButtonToggleFoundation, MDCIconButtonToggleAdapter} from '@material/icon-button';
@@ -36,16 +38,16 @@ export const MDC_ICON_BUTTON_CONTROL_VALUE_ACCESSOR: Provider = {
 export class MdcIconButtonChange {
   constructor(
     public source: MdcIconButton,
-    public value: any) { }
+    public value: any) {}
 }
 
 let nextUniqueId = 0;
 
 @Directive({
   selector: '[mdcIconOn]',
-  host: { 'class': 'mdc-icon-button__icon--on' }
+  host: {'class': 'mdc-icon-button__icon--on'}
 })
-export class MdcIconOn { }
+export class MdcIconOn {}
 
 @Component({
   moduleId: module.id,
@@ -69,25 +71,33 @@ export class MdcIconOn { }
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation>
-  implements AfterContentInit, ControlValueAccessor, OnDestroy {
+export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation> implements AfterContentInit,
+  ControlValueAccessor, OnDestroy, MDCRippleCapableSurface {
   private _uniqueId: string = `mdc-icon-button-${++nextUniqueId}`;
 
+  _root!: Element;
+
   @Input() id: string = this._uniqueId;
-  get inputId(): string { return `${this.id || this._uniqueId}`; }
+  get inputId(): string {
+    return `${this.id || this._uniqueId}`;
+  }
 
   @Input() name: string | null = null;
   @Input() icon: string | null = null;
 
   @Input()
-  get on(): boolean { return this._on; }
+  get on(): boolean {
+    return this._on;
+  }
   set on(value: boolean) {
     this.setOn(value);
   }
   private _on: boolean = false;
 
   @Input()
-  get disabled(): boolean { return this._disabled; }
+  get disabled(): boolean {
+    return this._disabled;
+  }
   set disabled(value: boolean) {
     this.setDisabled(value);
   }
@@ -96,13 +106,13 @@ export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation>
   @Output() readonly change: EventEmitter<MdcIconButtonChange> =
     new EventEmitter<MdcIconButtonChange>();
 
-  @ContentChildren(MdcIcon, { descendants: true }) icons!: QueryList<MdcIcon>;
+  @ContentChildren(MdcIcon, {descendants: true}) icons!: QueryList<MdcIcon>;
 
   /** Subscription to changes in icons. */
   private _changeSubscription: Subscription | null = null;
 
-  _onChange: (value: any) => void = () => { };
-  _onTouched = () => { };
+  _onChange: (value: any) => void = () => {};
+  _onTouched = () => {};
 
   getDefaultFoundation() {
     const adapter: MDCIconButtonToggleAdapter = {
@@ -110,7 +120,7 @@ export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation>
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
       hasClass: (className: string) => this._getHostElement().classList.contains(className),
       setAttr: (name: string, value: string) => this._getHostElement().setAttribute(name, value),
-      notifyChange: (evtData: { isOn: boolean }) => {
+      notifyChange: (evtData: {isOn: boolean}) => {
         this.change.emit(new MdcIconButtonChange(this, evtData.isOn));
         this._onChange(this._foundation.isOn());
       }
@@ -123,14 +133,14 @@ export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation>
     public elementRef: ElementRef<HTMLElement>,
     public ripple: MdcRipple) {
     super(elementRef);
+    this._root = this.elementRef.nativeElement;
+    this.ripple = this._createRipple();
+    this.ripple.init();
   }
 
   ngAfterContentInit(): void {
     this._foundation.init();
     this._foundation.toggle(this._on || this._foundation.isOn());
-
-    this.ripple.init({ surface: this._getHostElement(), unbounded: true });
-
     this._changeDetectorRef.detectChanges();
 
     // When the icons change, re-subscribe
@@ -185,10 +195,20 @@ export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation>
   }
 
   handleClick(): void {
-    if (this.icons.length === 1) { return; }
+    if (this.icons.length === 1) {
+      return;
+    }
 
     this.on = !this.on;
     this._foundation.handleClick();
+  }
+
+  private _createRipple(): MdcRipple {
+    const adapter: MDCRippleAdapter = {
+      ...MdcRipple.createAdapter(this),
+      isUnbounded: () => true
+    };
+    return new MdcRipple(this.elementRef, new MDCRippleFoundation(adapter));
   }
 
   private _getHostElement(): HTMLElement {

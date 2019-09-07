@@ -15,14 +15,16 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {supportsPassiveEventListeners} from '@angular/cdk/platform';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
-import {MDCComponent} from '@angular-mdc/web/base';
-import {MdcRipple} from '@angular-mdc/web/ripple';
-
-import {MdcFormField, MdcFormFieldControl} from '@angular-mdc/web/form-field';
-
 import {MDCSwitchFoundation, MDCSwitchAdapter} from '@material/switch';
+import {MDCRippleAdapter, MDCRippleFoundation} from '@material/ripple';
+import {matches} from '@material/dom/ponyfill';
+
+import {MDCComponent} from '@angular-mdc/web/base';
+import {MdcRipple, MDCRippleCapableSurface} from '@angular-mdc/web/ripple';
+import {MdcFormField, MdcFormFieldControl} from '@angular-mdc/web/form-field';
 
 export const MDC_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
@@ -36,7 +38,7 @@ export class MdcSwitchChange {
     /** The source MdcSwitch of the event. */
     public source: MdcSwitch,
     /** The new `checked` value of the switch. */
-    public checked: boolean) { }
+    public checked: boolean) {}
 }
 
 let nextUniqueId = 0;
@@ -77,13 +79,15 @@ let nextUniqueId = 0;
   encapsulation: ViewEncapsulation.None,
   providers: [
     MDC_SWITCH_CONTROL_VALUE_ACCESSOR,
-    { provide: MdcFormFieldControl, useExisting: MdcSwitch },
+    {provide: MdcFormFieldControl, useExisting: MdcSwitch},
     MdcRipple
   ]
 })
 export class MdcSwitch extends MDCComponent<MDCSwitchFoundation> implements MdcFormFieldControl<any>,
-  AfterViewInit, ControlValueAccessor, OnDestroy {
+  AfterViewInit, ControlValueAccessor, OnDestroy, MDCRippleCapableSurface {
   private _uniqueId: string = `mdc-switch-${++nextUniqueId}`;
+
+  _root!: Element;
 
   @Input() id: string = this._uniqueId;
   @Input() name: string | null = null;
@@ -93,9 +97,13 @@ export class MdcSwitch extends MDCComponent<MDCSwitchFoundation> implements MdcF
   @Input() value: string | null = null;
 
   @Input()
-  get checked(): boolean { return this._checked; }
+  get checked(): boolean {
+    return this._checked;
+  }
   set checked(value: boolean) {
-    if (this.disabled) { return; }
+    if (this.disabled) {
+      return;
+    }
 
     this._checked = coerceBooleanProperty(value);
     this._changeDetectorRef.markForCheck();
@@ -103,14 +111,18 @@ export class MdcSwitch extends MDCComponent<MDCSwitchFoundation> implements MdcF
   private _checked: boolean = false;
 
   @Input()
-  get disabled(): boolean { return this._disabled; }
+  get disabled(): boolean {
+    return this._disabled;
+  }
   set disabled(value: boolean) {
     this.setDisabledState(value);
   }
   private _disabled: boolean = false;
 
   @Input()
-  get required(): boolean { return this._required; }
+  get required(): boolean {
+    return this._required;
+  }
   set required(value: boolean) {
     this._required = coerceBooleanProperty(value);
   }
@@ -128,12 +140,14 @@ export class MdcSwitch extends MDCComponent<MDCSwitchFoundation> implements MdcF
   @ViewChild('thumbUnderlay', {static: false}) thumbUnderlay!: ElementRef<HTMLElement>;
 
   /** View to model callback called when value changes */
-  private _onChange = (_: any) => { };
+  private _onChange = (_: any) => {};
 
   /** View to model callback called when control has been touched */
-  private _onTouched = () => { };
+  private _onTouched = () => {};
 
-  get inputId(): string { return `${this.id || this._uniqueId}-input`; }
+  get inputId(): string {
+    return `${this.id || this._uniqueId}-input`;
+  }
 
   getDefaultFoundation() {
     const adapter: MDCSwitchAdapter = {
@@ -151,6 +165,7 @@ export class MdcSwitch extends MDCComponent<MDCSwitchFoundation> implements MdcF
     public elementRef: ElementRef<HTMLElement>,
     @Optional() private _parentFormField: MdcFormField) {
     super(elementRef);
+    this._root = this.elementRef.nativeElement;
 
     if (this._parentFormField) {
       _parentFormField.elementRef.nativeElement.classList.add('mdc-form-field');
@@ -158,8 +173,9 @@ export class MdcSwitch extends MDCComponent<MDCSwitchFoundation> implements MdcF
   }
 
   ngAfterViewInit(): void {
+    this.ripple = this._createRipple();
+    this.ripple.init();
     this._foundation.init();
-    this._initRipple();
   }
 
   ngOnDestroy(): void {
@@ -169,7 +185,9 @@ export class MdcSwitch extends MDCComponent<MDCSwitchFoundation> implements MdcF
   onChange(evt: Event): void {
     evt.stopPropagation();
 
-    if (this.disabled) { return; }
+    if (this.disabled) {
+      return;
+    }
 
     this._foundation.handleChange(evt);
     this._checked = this._inputElement.nativeElement.checked;
@@ -215,14 +233,27 @@ export class MdcSwitch extends MDCComponent<MDCSwitchFoundation> implements MdcF
     this._inputElement.nativeElement.focus();
   }
 
-  private _initRipple(): void {
-    this.ripple.init({
-      surface: this.thumbUnderlay.nativeElement,
-      activator: this._inputElement.nativeElement
-    }, Object.assign(this.ripple.createAdapter(), {
+  private _createRipple(): MdcRipple {
+    const rippleSurface = this.thumbUnderlay.nativeElement as HTMLElement;
+
+    const adapter: MDCRippleAdapter = {
+      ...MdcRipple.createAdapter(this),
+      addClass: (className: string) => rippleSurface.classList.add(className),
+      computeBoundingRect: () => rippleSurface.getBoundingClientRect(),
+      deregisterInteractionHandler: (evtType: any, handler: any) => {
+        this._inputElement.nativeElement.removeEventListener(evtType, handler, supportsPassiveEventListeners());
+      },
+      isSurfaceActive: () => matches(this._inputElement.nativeElement, ':active'),
       isUnbounded: () => true,
-      isSurfaceDisabled: () => this._disabled
-    }));
+      registerInteractionHandler: (evtType: any, handler: any) => {
+        this._inputElement.nativeElement.addEventListener(evtType, handler, supportsPassiveEventListeners());
+      },
+      removeClass: (className: string) => rippleSurface.classList.remove(className),
+      updateCssVariable: (varName: string, value: string) => {
+        rippleSurface.style.setProperty(varName, value);
+      },
+    };
+    return new MdcRipple(this.elementRef, new MDCRippleFoundation(adapter));
   }
 
   /**

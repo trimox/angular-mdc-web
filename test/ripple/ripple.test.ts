@@ -47,6 +47,7 @@ describe('MdcRippleComponent', () => {
 
     it('#should apply primary class modifier', () => {
       testComponent.primary = true;
+      testInstance.ripple.layout();
       fixture.detectChanges();
       expect(testComponent.demodiv.nativeElement.classList.contains('mdc-ripple-surface--primary')).toBe(true);
       expect(testInstance.primary).toBe(true);

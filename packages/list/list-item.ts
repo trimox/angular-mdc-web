@@ -9,19 +9,21 @@ import {
   InjectionToken,
   Input,
   OnDestroy,
-  OnInit,
   Optional,
   Output,
   ViewEncapsulation
 } from '@angular/core';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {ENTER, SPACE} from '@angular/cdk/keycodes';
-import {MdcRipple} from '@angular-mdc/web/ripple';
+
+import {MDCRippleFoundation, MDCRippleAdapter} from '@material/ripple';
+
+import {MdcRipple, MDCRippleCapableSurface} from '@angular-mdc/web/ripple';
 
 /** Change event that is fired whenever the selected state of an option changes. */
 export class MdcListSelectionChange {
   constructor(
-    public source: MdcListItem) { }
+    public source: MdcListItem) {}
 }
 
 /**
@@ -29,7 +31,7 @@ export class MdcListSelectionChange {
  * Contains properties that MdcListItem can inherit.
  */
 export interface MdcListParentComponent {
-  disableRipple(): boolean;
+  disableRipple: boolean;
 }
 
 /**
@@ -50,23 +52,23 @@ let uniqueIdCounter = 0;
   }
 })
 export class MdcListItemGraphic {
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
 }
 
 @Directive({
   selector: '[mdcListItemMeta], mdc-list-item-meta',
   exportAs: 'mdcListItemMeta',
-  host: { 'class': 'mdc-list-item__meta' }
+  host: {'class': 'mdc-list-item__meta'}
 })
 export class MdcListItemMeta {
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
 }
 
 @Component({
   moduleId: module.id,
   selector: '[mdcListItemText], mdc-list-item-text',
   exportAs: 'mdcListItemText',
-  host: { 'class': 'mdc-list-item__text' },
+  host: {'class': 'mdc-list-item__text'},
   template: `
   <ng-container>
     <span class="mdc-list-item__primary-text"><ng-content></ng-content></span>
@@ -78,16 +80,16 @@ export class MdcListItemMeta {
 export class MdcListItemText {
   @Input() secondaryText?: string;
 
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
 }
 
 @Directive({
   selector: '[mdcListItemSecondary], mdc-list-item-secondary',
   exportAs: 'mdcListItemSecondary',
-  host: { 'class': 'mdc-list-item__secondary-text' }
+  host: {'class': 'mdc-list-item__secondary-text'}
 })
 export class MdcListItemSecondary {
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
 }
 
 @Component({
@@ -110,18 +112,24 @@ export class MdcListItemSecondary {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [MdcRipple]
 })
-export class MdcListItem implements OnInit, OnDestroy {
+export class MdcListItem implements OnDestroy, MDCRippleCapableSurface {
   private _id = `mdc-list-item-${uniqueIdCounter++}`;
 
+  _root!: Element;
+
   /** The unique ID of the list item. */
-  get id(): string { return this._id; }
+  get id(): string {
+    return this._id;
+  }
 
   @Input() value: any;
   @Input() tabIndex: number = -1;
 
   /** Whether the list item is selected. */
   @Input()
-  get selected(): boolean { return this._selected; }
+  get selected(): boolean {
+    return this._selected;
+  }
   set selected(value: boolean) {
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._selected) {
@@ -133,7 +141,9 @@ export class MdcListItem implements OnInit, OnDestroy {
 
   /** Whether the list item is activated. */
   @Input()
-  get activated(): boolean { return this._activated; }
+  get activated(): boolean {
+    return this._activated;
+  }
   set activated(value: boolean) {
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._activated) {
@@ -145,7 +155,9 @@ export class MdcListItem implements OnInit, OnDestroy {
 
   /** Whether the list item is disabled. */
   @Input()
-  get disabled(): boolean { return this._disabled; }
+  get disabled(): boolean {
+    return this._disabled;
+  }
   set disabled(value: boolean) {
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._disabled) {
@@ -162,22 +174,22 @@ export class MdcListItem implements OnInit, OnDestroy {
     public ripple: MdcRipple,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef,
-    @Optional() @Inject(MDC_LIST_PARENT_COMPONENT) private _parent: MdcListParentComponent) { }
-
-  ngOnInit(): void {
-    this._initRipple();
+    @Optional() @Inject(MDC_LIST_PARENT_COMPONENT) private _parent: MdcListParentComponent) {
+    this._root = this.elementRef.nativeElement;
+    this.ripple = this._createRipple();
+    this.ripple.init();
   }
 
   ngOnDestroy(): void {
     this.ripple.destroy();
   }
 
-  private _initRipple(): void {
-    this.ripple.init({
-      surface: this.elementRef.nativeElement
-    }, Object.assign(this.ripple.createAdapter(), {
+  private _createRipple(): MdcRipple {
+    const adapter: MDCRippleAdapter = {
+      ...MdcRipple.createAdapter(this),
       isSurfaceDisabled: () => this._disabled || this._parent.disableRipple
-    }));
+    };
+    return new MdcRipple(this.elementRef, new MDCRippleFoundation(adapter));
   }
 
   focus(): void {
@@ -200,7 +212,9 @@ export class MdcListItem implements OnInit, OnDestroy {
 
   /** Emits a change event if the selected state of an option changed. */
   _emitChangeEvent(): void {
-    if (this._disabled) { return; }
+    if (this._disabled) {
+      return;
+    }
 
     this.selectionChange.emit(new MdcListSelectionChange(this));
   }

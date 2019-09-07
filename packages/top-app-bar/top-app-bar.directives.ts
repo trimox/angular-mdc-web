@@ -6,23 +6,25 @@ import {
   Input,
   OnDestroy
 } from '@angular/core';
-import {MdcRipple} from '@angular-mdc/web/ripple';
+import {MDCRippleAdapter, MDCRippleFoundation} from '@material/ripple';
+
+import {MdcRipple, MDCRippleCapableSurface} from '@angular-mdc/web/ripple';
 
 @Directive({
   selector: '[mdcTopAppBarFixedAdjust]',
-  host: { 'class': 'mdc-top-app-bar--fixed-adjust' }
+  host: {'class': 'mdc-top-app-bar--fixed-adjust'}
 })
 export class MdcTopAppBarFixedAdjust {
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
 }
 
 @Directive({
   selector: 'mdc-top-app-bar-row, [mdcTopAppBarRow]',
   exportAs: 'mdcTopAppBarRow',
-  host: { 'class': 'mdc-top-app-bar__row' }
+  host: {'class': 'mdc-top-app-bar__row'}
 })
 export class MdcTopAppBarRow {
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
 }
 
 @Component({
@@ -44,7 +46,7 @@ export class MdcTopAppBarSection {
   @Input() title?: string;
   @Input() align?: string;
 
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
 }
 
 @Directive({
@@ -56,16 +58,27 @@ export class MdcTopAppBarSection {
   },
   providers: [MdcRipple]
 })
-export class MdcTopAppBarActionItem implements OnDestroy {
+export class MdcTopAppBarActionItem implements OnDestroy, MDCRippleCapableSurface {
+  _root!: Element;
+
   constructor(
     public elementRef: ElementRef<HTMLElement>,
     private _ripple: MdcRipple) {
-
-    this._ripple.init({ surface: this.elementRef.nativeElement, unbounded: true });
+    this._root = elementRef.nativeElement;
+    _ripple = this._createRipple();
+    _ripple.init();
   }
 
   ngOnDestroy(): void {
     this._ripple.destroy();
+  }
+
+  private _createRipple(): MdcRipple {
+    const adapter: MDCRippleAdapter = {
+      ...MdcRipple.createAdapter(this),
+      isUnbounded: () => true
+    };
+    return new MdcRipple(this.elementRef, new MDCRippleFoundation(adapter));
   }
 }
 
@@ -78,24 +91,35 @@ export class MdcTopAppBarActionItem implements OnDestroy {
   },
   providers: [MdcRipple]
 })
-export class MdcTopAppBarNavigationIcon implements OnDestroy {
+export class MdcTopAppBarNavigationIcon implements OnDestroy, MDCRippleCapableSurface {
+  _root!: Element;
+
   constructor(
     public elementRef: ElementRef<HTMLElement>,
     private _ripple: MdcRipple) {
-
-    _ripple.init({ surface: this.elementRef.nativeElement, unbounded: true });
+    this._root = elementRef.nativeElement;
+    _ripple = this._createRipple();
+    _ripple.init();
   }
 
   ngOnDestroy(): void {
     this._ripple.destroy();
+  }
+
+  private _createRipple(): MdcRipple {
+    const adapter: MDCRippleAdapter = {
+      ...MdcRipple.createAdapter(this),
+      isUnbounded: () => true
+    };
+    return new MdcRipple(this.elementRef, new MDCRippleFoundation(adapter));
   }
 }
 
 @Directive({
   selector: 'mdc-top-app-bar-title, [mdcTopAppBarTitle]',
   exportAs: 'mdcTopAppBarTitle',
-  host: { 'class': 'mdc-top-app-bar__title' },
+  host: {'class': 'mdc-top-app-bar__title'},
 })
 export class MdcTopAppBarTitle {
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
 }

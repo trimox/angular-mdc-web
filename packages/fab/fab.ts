@@ -17,9 +17,9 @@ import {MdcIcon} from '@angular-mdc/web/icon';
 
 @Directive({
   selector: 'mdc-fab-label, [mdcFabLabel]',
-  host: { 'class': 'mdc-fab__label' }
+  host: {'class': 'mdc-fab__label'}
 })
-export class MdcFabLabel { }
+export class MdcFabLabel {}
 
 @Component({
   moduleId: module.id,
@@ -43,14 +43,18 @@ export class MdcFabLabel { }
 })
 export class MdcFab implements AfterContentInit, OnDestroy {
   @Input()
-  get mini(): boolean { return this._mini; }
+  get mini(): boolean {
+    return this._mini;
+  }
   set mini(value: boolean) {
     this._mini = coerceBooleanProperty(value);
   }
   private _mini: boolean = false;
 
   @Input()
-  get exited(): boolean { return this._exited; }
+  get exited(): boolean {
+    return this._exited;
+  }
   set exited(value: boolean) {
     this._exited = coerceBooleanProperty(value);
     this._changeDetectionRef.markForCheck();
@@ -58,21 +62,27 @@ export class MdcFab implements AfterContentInit, OnDestroy {
   private _exited: boolean = false;
 
   @Input()
-  get extended(): boolean { return this._extended; }
+  get extended(): boolean {
+    return this._extended;
+  }
   set extended(value: boolean) {
     this._extended = coerceBooleanProperty(value);
   }
   private _extended: boolean = false;
 
   @Input()
-  get fluid(): boolean { return this._fluid; }
+  get fluid(): boolean {
+    return this._fluid;
+  }
   set fluid(value: boolean) {
     this._fluid = coerceBooleanProperty(value);
   }
   private _fluid: boolean = false;
 
   @Input()
-  get position(): string | null { return this._position; }
+  get position(): string | null {
+    return this._position;
+  }
   set position(value: string | null) {
     if (this._position) {
       this._getHostElement().classList.remove(`ngx-mdc-fab--${this._convertPosition(this._position)}`);
@@ -92,13 +102,14 @@ export class MdcFab implements AfterContentInit, OnDestroy {
   constructor(
     private _changeDetectionRef: ChangeDetectorRef,
     public elementRef: ElementRef<HTMLElement>,
-    private _ripple: MdcRipple) { }
+    private _ripple: MdcRipple) {}
 
   ngAfterContentInit(): void {
     if (this.fabIcon) {
       this.fabIcon.elementRef.nativeElement.classList.add('mdc-fab__icon');
     }
-    this._ripple.init({ surface: this._getHostElement() });
+    this._ripple = new MdcRipple(this.elementRef);
+    this._ripple.init();
   }
 
   private _convertPosition(position: string): string | null {

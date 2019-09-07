@@ -26,8 +26,10 @@ import {Platform} from '@angular/cdk/platform';
 import {fromEvent, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
+import {MDCRippleFoundation, MDCRippleAdapter} from '@material/ripple';
+
 import {MDCComponent} from '@angular-mdc/web/base';
-import {MdcRipple} from '@angular-mdc/web/ripple';
+import {MdcRipple, MDCRippleCapableSurface} from '@angular-mdc/web/ripple';
 import {
   MdcIcon,
   MdcIconLocation,
@@ -98,15 +100,15 @@ let nextUniqueId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcChipCheckmark {
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
 }
 
 @Directive({
   selector: 'mdc-chip-text, [mdcChipText]',
-  host: { 'class': 'mdc-chip__text' }
+  host: {'class': 'mdc-chip__text'}
 })
 export class MdcChipText {
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
 }
 
 @Component({
@@ -131,14 +133,19 @@ export class MdcChipText {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [MdcRipple]
 })
-export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterViewInit, OnDestroy {
+export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterViewInit, OnDestroy,
+  MDCRippleCapableSurface {
   /** Emits whenever the component is destroyed. */
   private _destroyed = new Subject<void>();
+
+  _root!: Element;
 
   private _id = `mdc-chip-${nextUniqueId++}`;
 
   /** The unique ID of the chip. */
-  get id(): string { return this._id; }
+  get id(): string {
+    return this._id;
+  }
 
   get leadingIcon(): MdcChipIcon | undefined {
     return this._icons.find((_: MdcChipIcon) => _.leading);
@@ -147,7 +154,9 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
   @Input() label?: string;
 
   @Input()
-  get selected(): boolean { return this._selected; }
+  get selected(): boolean {
+    return this._selected;
+  }
   set selected(value: boolean) {
     const newValue = coerceBooleanProperty(value);
     this._selected = newValue;
@@ -160,7 +169,9 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
   private _selected: boolean = false;
 
   @Input()
-  get filter(): boolean { return this._filter; }
+  get filter(): boolean {
+    return this._filter;
+  }
   set filter(value: boolean) {
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._filter) {
@@ -170,28 +181,36 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
   private _filter: boolean = false;
 
   @Input()
-  get choice(): boolean { return this._choice; }
+  get choice(): boolean {
+    return this._choice;
+  }
   set choice(value: boolean) {
     this._choice = coerceBooleanProperty(value);
   }
   private _choice: boolean = false;
 
   @Input()
-  get input(): boolean { return this._input; }
+  get input(): boolean {
+    return this._input;
+  }
   set input(value: boolean) {
     this._input = coerceBooleanProperty(value);
   }
   private _input: boolean = false;
 
   @Input()
-  get primary(): boolean { return this._primary; }
+  get primary(): boolean {
+    return this._primary;
+  }
   set primary(value: boolean) {
     this._primary = coerceBooleanProperty(value);
   }
   private _primary: boolean = false;
 
   @Input()
-  get secondary(): boolean { return this._secondary; }
+  get secondary(): boolean {
+    return this._secondary;
+  }
   set secondary(value: boolean) {
     this._secondary = coerceBooleanProperty(value);
   }
@@ -199,7 +218,9 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
 
   /** Determines whether or not the chip displays the remove styling and emits (removed) events. */
   @Input()
-  get removable(): boolean { return this._removable; }
+  get removable(): boolean {
+    return this._removable;
+  }
   set removable(value: boolean) {
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._removable) {
@@ -211,7 +232,9 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
 
   /** Whether the chip is disabled. */
   @Input()
-  get disabled(): boolean { return this._disabled; }
+  get disabled(): boolean {
+    return this._disabled;
+  }
   set disabled(value: boolean) {
     this._disabled = coerceBooleanProperty(value);
   }
@@ -219,7 +242,9 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
 
   /** Whether the chip ripple is disabled. */
   @Input()
-  get disableRipple(): boolean { return this._disableRipple; }
+  get disableRipple(): boolean {
+    return this._disableRipple;
+  }
   set disableRipple(value: boolean) {
     this._disableRipple = coerceBooleanProperty(value);
   }
@@ -232,7 +257,9 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
       ? this._value
       : this.elementRef.nativeElement.textContent;
   }
-  set value(value: any) { this._value = value; }
+  set value(value: any) {
+    this._value = value;
+  }
   protected _value: any;
 
   /** Emitted when the chip is selected or deselected. */
@@ -248,7 +275,7 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
     new EventEmitter<MdcChipRemovedEvent>();
 
   @ContentChild(MdcChipCheckmark, {static: false}) _checkmark?: MdcChipCheckmark;
-  @ContentChildren(forwardRef(() => MdcChipIcon), { descendants: true }) _icons!: QueryList<MdcChipIcon>;
+  @ContentChildren(forwardRef(() => MdcChipIcon), {descendants: true}) _icons!: QueryList<MdcChipIcon>;
 
   getDefaultFoundation() {
     const adapter: MDCChipAdapter = {
@@ -267,11 +294,13 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
       },
       eventTargetHasClass: (target: HTMLElement, className: string) => target.classList.contains(className),
       notifyInteraction: () => this._emitSelectionChangeEvent(true),
-      notifySelection: () => { },
-      notifyTrailingIconInteraction: () => this.trailingIconInteraction.emit({ detail: { chipId: this.id } }),
-      notifyRemoval: () => this.removed.emit({ detail: { chipId: this.id, root: this } }),
+      notifySelection: () => {},
+      notifyTrailingIconInteraction: () => this.trailingIconInteraction.emit({detail: {chipId: this.id}}),
+      notifyRemoval: () => this.removed.emit({detail: {chipId: this.id, root: this}}),
       getComputedStyleValue: (propertyName: string) => {
-        if (!this._platform.isBrowser) { return ''; }
+        if (!this._platform.isBrowser) {
+          return '';
+        }
         return window.getComputedStyle(this._getHostElement()).getPropertyValue(propertyName);
       },
       setStyleProperty: (propertyName: string, value: string) =>
@@ -293,12 +322,14 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
     public elementRef: ElementRef<HTMLElement>,
     @Optional() @Inject(MDC_CHIPSET_PARENT_COMPONENT) private _parent: MdcChipSetParentComponent) {
     super(elementRef);
+    this._root = this.elementRef.nativeElement;
+    this._ripple = this._createRipple();
+    this._ripple.init();
   }
 
   ngAfterViewInit(): void {
     this._foundation.init();
     this._setVariantFromChipSet();
-    this._initRipple();
     this._loadListeners();
   }
 
@@ -350,13 +381,12 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
     this._foundation.handleTrailingIconInteraction(evt);
   }
 
-  private _initRipple(): void {
-    this._ripple.init({
-      surface: this._getHostElement()
-    }, Object.assign(this._ripple.createAdapter(), {
-      isSurfaceDisabled: () => this._disableRipple,
+  private _createRipple(): MdcRipple {
+    const adapter: MDCRippleAdapter = {
+      ...MdcRipple.createAdapter(this),
       computeBoundingRect: () => this._foundation.getDimensions()
-    }));
+    };
+    return new MdcRipple(this.elementRef, new MDCRippleFoundation(adapter));
   }
 
   private _setVariantFromChipSet(): void {
@@ -378,14 +408,14 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
 
   /** Emits the removed event. */
   _emitRemovedEvent(): void {
-    this.removed.emit({ detail: { chipId: this.id, root: this } });
+    this.removed.emit({detail: {chipId: this.id, root: this}});
   }
 
   /** Emits the selection change event. */
   private _emitSelectionChangeEvent(isUserInput?: boolean): void {
     this.selectionChange.emit({
       isUserInput: isUserInput,
-      detail: { chipId: this.id, selected: this._selected, value: this._value }
+      detail: {chipId: this.id, selected: this._selected, value: this._value}
     });
   }
 
@@ -416,14 +446,18 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
 })
 export class MdcChipIcon extends MdcIcon implements AfterContentInit {
   @Input()
-  get leading(): boolean { return this._leading; }
+  get leading(): boolean {
+    return this._leading;
+  }
   set leading(value: boolean) {
     this._leading = coerceBooleanProperty(value);
   }
   private _leading: boolean = false;
 
   @Input()
-  get trailing(): boolean { return this._trailing; }
+  get trailing(): boolean {
+    return this._trailing;
+  }
   set trailing(value: boolean) {
     this._trailing = coerceBooleanProperty(value);
   }

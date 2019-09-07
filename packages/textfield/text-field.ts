@@ -67,7 +67,7 @@ class MdcTextFieldBase {
     public _defaultErrorStateMatcher: ErrorStateMatcher,
     public _parentForm: NgForm,
     public _parentFormGroup: FormGroupDirective,
-    public ngControl: NgControl) { }
+    public ngControl: NgControl) {}
 }
 
 const _MdcTextFieldMixinBase: CanUpdateErrorStateCtor & typeof MdcTextFieldBase =
@@ -131,7 +131,7 @@ const MOUSE_EVENT_IGNORE_TIME = 800;
     <mdc-notched-outline *ngIf="outlined" [label]="label" [for]="id"></mdc-notched-outline>`,
   providers: [
     MdcRipple,
-    { provide: MdcFormFieldControl, useExisting: MdcTextField }
+    {provide: MdcFormFieldControl, useExisting: MdcTextField}
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -159,20 +159,28 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   @Input() tabIndex: number = 0;
 
   @Input()
-  get id(): string { return this._id; }
-  set id(value: string) { this._id = value || this._uid; }
+  get id(): string {
+    return this._id;
+  }
+  set id(value: string) {
+    this._id = value || this._uid;
+  }
   private _id = '';
 
   /** Input type of the element. */
   @Input()
-  get type(): string { return this._type; }
+  get type(): string {
+    return this._type;
+  }
   set type(value: string) {
     this._type = value || 'text';
   }
   private _type = 'text';
 
   @Input()
-  get outlined(): boolean { return this._outlined; }
+  get outlined(): boolean {
+    return this._outlined;
+  }
   set outlined(value: boolean) {
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._outlined) {
@@ -183,14 +191,18 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   private _outlined: boolean = false;
 
   @Input()
-  get disabled(): boolean { return this._disabled; }
+  get disabled(): boolean {
+    return this._disabled;
+  }
   set disabled(value: boolean) {
     this.setDisabledState(value);
   }
   private _disabled: boolean = false;
 
   @Input()
-  get required(): boolean { return this._required; }
+  get required(): boolean {
+    return this._required;
+  }
   set required(value: boolean) {
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._required) {
@@ -212,14 +224,18 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   private _required: boolean = false;
 
   @Input()
-  get readonly(): boolean { return this._readonly; }
+  get readonly(): boolean {
+    return this._readonly;
+  }
   set readonly(value: boolean) {
     this._readonly = coerceBooleanProperty(value);
   }
   private _readonly: boolean = false;
 
   @Input()
-  get fullwidth(): boolean { return this._fullwidth; }
+  get fullwidth(): boolean {
+    return this._fullwidth;
+  }
   set fullwidth(value: boolean) {
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._fullwidth) {
@@ -230,14 +246,18 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   private _fullwidth: boolean = false;
 
   @Input()
-  get dense(): boolean { return this._dense; }
+  get dense(): boolean {
+    return this._dense;
+  }
   set dense(value: boolean) {
     this._dense = coerceBooleanProperty(value);
   }
   private _dense: boolean = false;
 
   @Input()
-  get helperText(): MdcHelperText | null { return this._helperText; }
+  get helperText(): MdcHelperText | null {
+    return this._helperText;
+  }
   set helperText(helperText: MdcHelperText | null) {
     this._helperText = helperText;
     if (this._helperText) {
@@ -249,7 +269,9 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
 
   /** Sets the Text Field valid or invalid. */
   @Input()
-  get valid(): boolean | undefined { return this._valid; }
+  get valid(): boolean | undefined {
+    return this._valid;
+  }
   set valid(value: boolean | undefined) {
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._valid) {
@@ -261,7 +283,9 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
 
   /** Enables or disables the use of native validation. Use this for custom validation. */
   @Input()
-  get useNativeValidation(): boolean { return this._useNativeValidation; }
+  get useNativeValidation(): boolean {
+    return this._useNativeValidation;
+  }
   set useNativeValidation(value: boolean) {
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._useNativeValidation) {
@@ -272,7 +296,9 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   private _useNativeValidation: boolean = true;
 
   @Input()
-  get characterCounter(): boolean { return this._characterCounter; }
+  get characterCounter(): boolean {
+    return this._characterCounter;
+  }
   set characterCounter(value: boolean) {
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._characterCounter) {
@@ -285,7 +311,9 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   private _characterCounter: boolean = false;
 
   @Input()
-  get value(): any { return this._value; }
+  get value(): any {
+    return this._value;
+  }
   set value(newValue: any) {
     if (!this._initialized) {
       this.ngControl ? this._initializeValue() : this._initializeValue(newValue);
@@ -306,15 +334,17 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   @ViewChild(MdcLineRipple, {static: false}) _lineRipple?: MdcLineRipple;
   @ViewChild(MdcNotchedOutline, {static: false}) _notchedOutline?: MdcNotchedOutline;
   @ViewChild(MdcFloatingLabel, {static: false}) _floatingLabel?: MdcFloatingLabel;
-  @ContentChildren(MdcTextFieldIcon, { descendants: true }) _icons!: QueryList<MdcTextFieldIcon>;
+  @ContentChildren(MdcTextFieldIcon, {descendants: true}) _icons!: QueryList<MdcTextFieldIcon>;
 
   /** View to model callback called when value changes */
-  _onChange: (value: any) => void = () => { };
+  _onChange: (value: any) => void = () => {};
 
   /** View to model callback called when text field has been touched */
-  _onTouched = () => { };
+  _onTouched = () => {};
 
-  get textarea(): boolean { return this._getHostElement().nodeName.toLowerCase() === 'mdc-textarea'; }
+  get textarea(): boolean {
+    return this._getHostElement().nodeName.toLowerCase() === 'mdc-textarea';
+  }
   get focused(): boolean {
     return this._platform.isBrowser ?
       document.activeElement! === this._getInputElement() : false;
@@ -472,7 +502,14 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
       this._foundation.init();
     });
 
-    this._initRipple();
+    if (!this.fullwidth && !this.outlined && !this.textarea) {
+      this._ripple = new MdcRipple(this.elementRef);
+      this._ripple.init();
+    } else {
+      if (this._ripple) {
+        this._ripple.destroy();
+      }
+    }
     this._checkCustomValidity();
 
     this._initialized = true;
@@ -627,19 +664,6 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
     if (helper) {
       helper.addHelperTextClass(this.controlType);
       helper.init(MDCTextFieldHelperTextFoundation);
-    }
-  }
-
-  private _initRipple(): void {
-    if (!this._ripple || this._ripple.initialized) { return; }
-
-    if (!this.fullwidth && !this.outlined && !this.textarea) {
-      this._ripple.init({
-        surface: this.elementRef.nativeElement,
-        activator: this._getInputElement()
-      });
-    } else {
-      this._ripple.destroy();
     }
   }
 

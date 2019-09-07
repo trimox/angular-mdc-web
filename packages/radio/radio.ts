@@ -17,11 +17,12 @@ import {
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {UniqueSelectionDispatcher} from '@angular/cdk/collections';
 
-import {MdcRipple} from '@angular-mdc/web/ripple';
+import {MDCRippleFoundation, MDCRippleAdapter} from '@material/ripple';
+import {MDCRadioFoundation, MDCRadioAdapter} from '@material/radio';
+
+import {MdcRipple, MDCRippleCapableSurface} from '@angular-mdc/web/ripple';
 import {MdcFormField, MdcFormFieldControl} from '@angular-mdc/web/form-field';
 import {MDCComponent} from '@angular-mdc/web/base';
-
-import {MDCRadioFoundation, MDCRadioAdapter} from '@material/radio';
 
 /**
  * Describes a parent MdcRadioGroup component.
@@ -94,8 +95,10 @@ let nextUniqueId = 0;
   ]
 })
 export class MdcRadio extends MDCComponent<MDCRadioFoundation>
-  implements AfterViewInit, OnDestroy, MdcFormFieldControl<any> {
+  implements AfterViewInit, OnDestroy, MdcFormFieldControl<any>, MDCRippleCapableSurface {
   private _uniqueId: string = `mdc-radio-${++nextUniqueId}`;
+
+  _root!: Element;
 
   /** The unique ID for the radio button. */
   @Input() id: string = this._uniqueId;
@@ -111,24 +114,32 @@ export class MdcRadio extends MDCComponent<MDCRadioFoundation>
   /** The 'aria-describedby' attribute is read after the element's label and field type. */
   @Input('aria-describedby') ariaDescribedby?: string;
 
-  get inputId(): string {return `${this.id || this._uniqueId}-input`; }
+  get inputId(): string {
+    return `${this.id || this._uniqueId}-input`;
+  }
 
   @Input()
-  get value(): any {return this._value; }
+  get value(): any {
+    return this._value;
+  }
   set value(newValue: any) {
     this.setValue(newValue);
   }
   private _value: any;
 
   @Input()
-  get checked(): boolean {return this._checked; }
+  get checked(): boolean {
+    return this._checked;
+  }
   set checked(value: boolean) {
     this.setChecked(value);
   }
   private _checked: boolean = false;
 
   @Input()
-  get disabled(): boolean {return this._disabled || (this.radioGroup !== null && this.radioGroup.disabled); }
+  get disabled(): boolean {
+    return this._disabled || (this.radioGroup !== null && this.radioGroup.disabled);
+  }
   set disabled(value: boolean) {
     const newDisabledState = coerceBooleanProperty(value);
     if (this._disabled !== newDisabledState) {
@@ -140,7 +151,9 @@ export class MdcRadio extends MDCComponent<MDCRadioFoundation>
   private _disabled: boolean = false;
 
   @Input()
-  get required(): boolean {return this._required || (this.radioGroup && this.radioGroup.required); }
+  get required(): boolean {
+    return this._required || (this.radioGroup && this.radioGroup.required);
+  }
   set required(value: boolean) {
     this._required = coerceBooleanProperty(value);
   }
@@ -174,19 +187,22 @@ export class MdcRadio extends MDCComponent<MDCRadioFoundation>
       _parentFormField.elementRef.nativeElement.classList.add('mdc-form-field');
     }
 
+    this._root = elementRef.nativeElement;
+    this.ripple = this._createRipple();
+    this.ripple.init();
+
     this._removeUniqueSelectionListener =
       _radioDispatcher.listen((id: string, name: string) => {
         if (id !== this.id && name === this.name) {
           // Get the checked state from native radio button. The native radio buttons with the same
           // name have separate unique selection in different form containers.
-          this.checked = this._getInputElement().checked;
+          this.checked = this.input.nativeElement.checked;
         }
       });
   }
 
   ngAfterViewInit(): void {
     this._foundation.init();
-    this._initRipple();
 
     if (this.radioGroup) {
       Promise.resolve().then(() => {
@@ -231,7 +247,7 @@ export class MdcRadio extends MDCComponent<MDCRadioFoundation>
 
     if (this._checked !== newCheckedState) {
       this._checked = newCheckedState;
-      this._getInputElement().checked = newCheckedState;
+      this.input.nativeElement.checked = newCheckedState;
 
       if (newCheckedState && this.radioGroup && this.radioGroup.value !== this.value) {
         this.radioGroup.selected = this;
@@ -254,7 +270,7 @@ export class MdcRadio extends MDCComponent<MDCRadioFoundation>
   setValue(value: any): void {
     if (this._value !== value) {
       this._value = value;
-      this._getInputElement().value = this._value;
+      this.input.nativeElement.value = this._value;
 
       if (this.radioGroup !== null) {
         if (!this.checked) {
@@ -269,32 +285,27 @@ export class MdcRadio extends MDCComponent<MDCRadioFoundation>
   }
 
   focus(): void {
-    this._getInputElement().focus();
+    if (!this._disabled) {
+      this.input.nativeElement.focus();
+    }
   }
 
   markForCheck(): void {
     this._changeDetectorRef.markForCheck();
   }
 
-  private _initRipple(): void {
-    this.ripple.init({
-      surface: this._getHostElement(),
-      activator: this._getInputElement()
-    }, Object.assign(this.ripple.createAdapter(), {
-      isUnbounded: () => true,
+  private _createRipple(): MdcRipple {
+    const adapter: MDCRippleAdapter = {
+      ...MdcRipple.createAdapter(this),
       isSurfaceActive: () => false,
-      isSurfaceDisabled: () => this._disabled
-    }));
+      isUnbounded: () => true
+    };
+    return new MdcRipple(this.elementRef, new MDCRippleFoundation(adapter));
   }
 
   /** Dispatch change event with current value. */
   private _emitChangeEvent(): void {
     this.change.emit(new MdcRadioChange(this, this._value));
-  }
-
-  /** Retrieves the DOM element of the component input. */
-  private _getInputElement(): HTMLInputElement {
-    return this.input.nativeElement;
   }
 
   /** Retrieves the DOM element of the component host. */

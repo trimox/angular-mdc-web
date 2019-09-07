@@ -20,11 +20,13 @@ import {Platform} from '@angular/cdk/platform';
 import {fromEvent, Subject} from 'rxjs';
 import {takeUntil, filter} from 'rxjs/operators';
 
-import {MDCComponent} from '@angular-mdc/web/base';
-import {MdcRipple} from '@angular-mdc/web/ripple';
-import {MdcFormField, MdcFormFieldControl} from '@angular-mdc/web/form-field';
-
+import {matches} from '@material/dom/ponyfill';
+import {MDCRippleFoundation, MDCRippleAdapter} from '@material/ripple';
 import {MDCCheckboxFoundation, MDCCheckboxAdapter} from '@material/checkbox';
+
+import {MDCComponent} from '@angular-mdc/web/base';
+import {MdcRipple, MDCRippleCapableSurface} from '@angular-mdc/web/ripple';
+import {MdcFormField, MdcFormFieldControl} from '@angular-mdc/web/form-field';
 
 let nextUniqueId = 0;
 
@@ -34,7 +36,7 @@ export class MdcCheckboxChange {
     /** The source MdcCheckbox of the event. */
     public source: MdcCheckbox,
     /** The new `checked` value of the checkbox. */
-    public checked: boolean) { }
+    public checked: boolean) {}
 }
 
 export interface MdcIndeterminateChange {
@@ -86,27 +88,34 @@ export const MDC_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
   providers: [
     MDC_CHECKBOX_CONTROL_VALUE_ACCESSOR,
     MdcRipple,
-    { provide: MdcFormFieldControl, useExisting: MdcCheckbox }
+    {provide: MdcFormFieldControl, useExisting: MdcCheckbox}
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcCheckbox extends MDCComponent<MDCCheckboxFoundation> implements AfterViewInit, ControlValueAccessor,
-  OnDestroy, MdcFormFieldControl<any> {
+  OnDestroy, MdcFormFieldControl<any>, MDCRippleCapableSurface {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
+
+  _root!: Element;
 
   private _uniqueId: string = `mdc-checkbox-${++nextUniqueId}`;
 
   @Input() id: string = this._uniqueId;
 
   /** Returns the unique id for the visual hidden input. */
-  get inputId(): string { return `${this.id || this._uniqueId}-input`; }
+  get inputId(): string {
+    return `${this.id || this._uniqueId}-input`
+      ;
+  }
 
   @Input() name: string | null = null;
 
   @Input()
-  get checked(): boolean { return this._checked; }
+  get checked(): boolean {
+    return this._checked;
+  }
   set checked(value: boolean) {
     if (value !== this.checked) {
       this._checked = coerceBooleanProperty(value);
@@ -116,7 +125,9 @@ export class MdcCheckbox extends MDCComponent<MDCCheckboxFoundation> implements 
   private _checked: boolean = false;
 
   @Input()
-  get disabled(): boolean { return this._disabled; }
+  get disabled(): boolean {
+    return this._disabled;
+  }
   set disabled(value: boolean) {
     this.setDisabledState(value);
   }
@@ -132,9 +143,13 @@ export class MdcCheckbox extends MDCComponent<MDCCheckboxFoundation> implements 
    * `true` is INDETERMINATE and `false` is not.
    */
   @Input()
-  get indeterminate(): boolean { return this._indeterminate; }
+  get indeterminate(): boolean {
+    return this._indeterminate;
+  }
   set indeterminate(value: boolean) {
-    if (this.disabled) { return; }
+    if (this.disabled) {
+      return;
+    }
 
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._indeterminate) {
@@ -142,7 +157,7 @@ export class MdcCheckbox extends MDCComponent<MDCCheckboxFoundation> implements 
       if (newValue) {
         this.checked = false;
       }
-      this.indeterminateChange.emit({ source: this, indeterminate: this._indeterminate });
+      this.indeterminateChange.emit({source: this, indeterminate: this._indeterminate});
       this._changeDetectorRef.markForCheck();
       this._foundation.handleChange();
     }
@@ -154,7 +169,9 @@ export class MdcCheckbox extends MDCComponent<MDCCheckboxFoundation> implements 
    * `true` will go to checked and `false` will go to unchecked.
    */
   @Input()
-  get indeterminateToChecked(): boolean { return this._indeterminateToChecked; }
+  get indeterminateToChecked(): boolean {
+    return this._indeterminateToChecked;
+  }
   set indeterminateToChecked(value: boolean) {
     this._indeterminateToChecked = coerceBooleanProperty(value);
     this._changeDetectorRef.markForCheck();
@@ -181,10 +198,10 @@ export class MdcCheckbox extends MDCComponent<MDCCheckboxFoundation> implements 
   @ViewChild('input', {static: true}) _inputElement!: ElementRef<HTMLInputElement>;
 
   /** View to model callback called when value changes */
-  _onChange: (value: any) => void = () => { };
+  _onChange: (value: any) => void = () => {};
 
   /** View to model callback called when component has been touched */
-  _onTouched: () => any = () => { };
+  _onTouched: () => any = () => {};
 
   getDefaultFoundation() {
     const adapter: MDCCheckboxAdapter = {
@@ -214,6 +231,10 @@ export class MdcCheckbox extends MDCComponent<MDCCheckboxFoundation> implements 
     @Optional() private _parentFormField: MdcFormField) {
     super(elementRef);
 
+    this._root = this.elementRef.nativeElement;
+    this.ripple = this._createRipple();
+    this.ripple.init();
+
     if (this._parentFormField) {
       _parentFormField.elementRef.nativeElement.classList.add('mdc-form-field');
     }
@@ -221,7 +242,6 @@ export class MdcCheckbox extends MDCComponent<MDCCheckboxFoundation> implements 
 
   ngAfterViewInit(): void {
     this._foundation.init();
-    this._initRipple();
     this._loadListeners();
   }
 
@@ -279,7 +299,9 @@ export class MdcCheckbox extends MDCComponent<MDCCheckboxFoundation> implements 
   }
 
   private _setState(checked?: boolean): void {
-    if (this.disabled) { return; }
+    if (this.disabled) {
+      return;
+    }
 
     if (this.indeterminate) {
       this._checked = this.indeterminateToChecked;
@@ -296,18 +318,19 @@ export class MdcCheckbox extends MDCComponent<MDCCheckboxFoundation> implements 
       requestAnimationFrame(() => this._foundation.handleChange()));
   }
 
-  private _initRipple(): void {
-    this.ripple.init({
-      surface: this.elementRef.nativeElement,
-      activator: this._inputElement.nativeElement
-    }, Object.assign(this.ripple.createAdapter(), {
-      isUnbounded: () => true,
-      isSurfaceDisabled: () => this._disabled
-    }));
+  private _createRipple(): MdcRipple {
+    const adapter: MDCRippleAdapter = {
+      ...MdcRipple.createAdapter(this),
+      isSurfaceActive: () => matches(this._inputElement.nativeElement, ':active'),
+      isUnbounded: () => true
+    };
+    return new MdcRipple(this.elementRef, new MDCRippleFoundation(adapter));
   }
 
   private _loadListeners(): void {
-    if (!this._platform.isBrowser) { return; }
+    if (!this._platform.isBrowser) {
+      return;
+    }
 
     this._ngZone.runOutsideAngular(() =>
       fromEvent<AnimationEvent>(this._getHostElement(), 'animationend')

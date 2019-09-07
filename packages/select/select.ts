@@ -67,7 +67,7 @@ class MdcSelectBase {
     public _defaultErrorStateMatcher: ErrorStateMatcher,
     public _parentForm: NgForm,
     public _parentFormGroup: FormGroupDirective,
-    public ngControl: NgControl) { }
+    public ngControl: NgControl) {}
 }
 
 const _MdcSelectMixinBase: CanUpdateErrorStateCtor & typeof MdcSelectBase =
@@ -77,14 +77,14 @@ export class MdcSelectChange {
   constructor(
     public source: MdcSelect,
     public index: number,
-    public value: any) { }
+    public value: any) {}
 }
 
 @Directive({
   selector: 'option',
   exportAs: 'mdcSelectOption',
 })
-export class MdcSelectOption { }
+export class MdcSelectOption {}
 
 let nextUniqueId = 0;
 
@@ -131,7 +131,7 @@ let nextUniqueId = 0;
   `,
   providers: [
     MdcRipple,
-    { provide: MdcFormFieldControl, useExisting: MdcSelect }
+    {provide: MdcFormFieldControl, useExisting: MdcSelect}
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -155,21 +155,27 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
 
   /** Placeholder to be shown if no value has been selected. */
   @Input()
-  get placeholder() { return this._placeholder; }
+  get placeholder() {
+    return this._placeholder;
+  }
   set placeholder(value: string) {
     this._placeholder = value;
   }
   private _placeholder: string = '';
 
   @Input()
-  get disabled(): boolean { return this._disabled; }
+  get disabled(): boolean {
+    return this._disabled;
+  }
   set disabled(value: boolean) {
     this.setDisabledState(value);
   }
   private _disabled: boolean = false;
 
   @Input()
-  get floatLabel(): boolean { return this._floatLabel; }
+  get floatLabel(): boolean {
+    return this._floatLabel;
+  }
   set floatLabel(value: boolean) {
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._floatLabel) {
@@ -180,7 +186,9 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
   private _floatLabel: boolean = true;
 
   @Input()
-  get outlined(): boolean { return this._outlined; }
+  get outlined(): boolean {
+    return this._outlined;
+  }
   set outlined(value: boolean) {
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._outlined) {
@@ -191,7 +199,9 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
   private _outlined: boolean = false;
 
   @Input()
-  get required(): boolean { return this._required; }
+  get required(): boolean {
+    return this._required;
+  }
   set required(value: boolean) {
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._required) {
@@ -212,7 +222,9 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
   private _required: boolean = false;
 
   @Input()
-  get valid(): boolean | undefined { return this._valid; }
+  get valid(): boolean | undefined {
+    return this._valid;
+  }
   set valid(value: boolean | undefined) {
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._valid) {
@@ -226,7 +238,9 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
   private _valid: boolean | undefined;
 
   @Input()
-  get autosize(): boolean { return this._autosize; }
+  get autosize(): boolean {
+    return this._autosize;
+  }
   set autosize(value: boolean) {
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._autosize) {
@@ -237,7 +251,9 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
   private _autosize: boolean = false;
 
   @Input()
-  get compareWith() { return this._compareWith; }
+  get compareWith() {
+    return this._compareWith;
+  }
   set compareWith(fn: (o1: any, o2: any) => boolean) {
     this._compareWith = fn;
   }
@@ -245,7 +261,9 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
 
   /** Value of the select control. */
   @Input()
-  get value(): any { return this._value; }
+  get value(): any {
+    return this._value;
+  }
   set value(newValue: any) {
     this.setSelectionByValue(newValue);
   }
@@ -275,7 +293,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
    * to facilitate the two-way binding for the `value` input.
    */
   @Output() readonly valueChange:
-    EventEmitter<{ index: number, value: any }> = new EventEmitter<any>();
+    EventEmitter<{index: number, value: any}> = new EventEmitter<any>();
   @Output() readonly blur = new EventEmitter<any>();
 
   @ViewChild(MdcFloatingLabel, {static: false}) _floatingLabel?: MdcFloatingLabel;
@@ -290,10 +308,10 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
   @ContentChildren(MdcSelectOption) _options!: QueryList<MdcSelectOption>;
 
   /** View to model callback called when value changes */
-  _onChange: (value: any) => void = () => { };
+  _onChange: (value: any) => void = () => {};
 
   /** View to model callback called when select has been touched */
-  _onTouched = () => { };
+  _onTouched = () => {};
 
   get placeholderText(): string {
     return !this._hasFloatingLabel() && this.getValue() ? '' : this.placeholder;
@@ -480,7 +498,9 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
     this._changeDetectorRef.detectChanges();
 
     // initialize after running a detectChanges()
-    this._initRipple();
+    if (!this.outlined) {
+      this._ripple = new MdcRipple(this._nativeSelect ? this._nativeSelect : this._selectedText);
+    }
     this._initializeSelection();
     this._setWidth();
     this._enhancedSelectSetup();
@@ -549,7 +569,9 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
    * found with the designated value, the select trigger is cleared.
    */
   setSelectionByValue(value: any, isUserInput: boolean = true): void {
-    if (!this._foundation) { return; }
+    if (!this._foundation) {
+      return;
+    }
 
     this._setEnhancedSelection(value); // if enhanced select, perform selection
 
@@ -558,7 +580,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
       this._foundation.setValue(this._value);
     }
 
-    this.valueChange.emit({ index: this.getSelectedIndex(), value: this._value });
+    this.valueChange.emit({index: this.getSelectedIndex(), value: this._value});
 
     if (isUserInput) {
       this._onChange(this._value);
@@ -642,15 +664,6 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
     const helper = this.helperText;
     if (helper) {
       helper.init();
-    }
-  }
-
-  private _initRipple(): void {
-    if (!this.outlined) {
-      this._ripple.init({
-        surface: this.elementRef.nativeElement,
-        activator: this._nativeSelect ? this._nativeSelect.nativeElement : this._selectedText.nativeElement
-      });
     }
   }
 

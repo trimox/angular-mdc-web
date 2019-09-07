@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -21,10 +22,11 @@ import {fromEvent, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 import {MDCComponent} from '@angular-mdc/web/base';
-import {MdcRipple} from '@angular-mdc/web/ripple';
+import {MdcRipple, MDCRippleCapableSurface} from '@angular-mdc/web/ripple';
 import {MdcTabIndicator} from '@angular-mdc/web/tab-indicator';
 
 import {MDCTabFoundation, MDCTabAdapter} from '@material/tab';
+import {MDCRippleAdapter, MDCRippleFoundation} from '@material/ripple';
 
 /**
  * Describes a parent MdcTabBar component.
@@ -52,18 +54,18 @@ let nextUniqueId = 0;
 
 @Directive({
   selector: 'mdc-tab-label, [mdcTabLabel]',
-  host: { 'class': 'mdc-tab__text-label' }
+  host: {'class': 'mdc-tab__text-label'}
 })
 export class MdcTabLabel {
-  constructor(public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef) {}
 }
 
 @Directive({
   selector: 'mdc-tab-icon, [mdcTabIcon]',
-  host: { 'class': 'mdc-tab__icon' }
+  host: {'class': 'mdc-tab__icon'}
 })
 export class MdcTabIcon {
-  constructor(public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef) {}
 }
 
 @Component({
@@ -98,9 +100,12 @@ export class MdcTabIcon {
   encapsulation: ViewEncapsulation.None,
   providers: [MdcRipple]
 })
-export class MdcTab extends MDCComponent<MDCTabFoundation> implements OnInit, OnDestroy {
+export class MdcTab extends MDCComponent<MDCTabFoundation> implements AfterViewInit, OnInit, OnDestroy,
+  MDCRippleCapableSurface {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
+
+  _root!: Element;
 
   private _uniqueId: string = `mdc-tab-${++nextUniqueId}`;
 
@@ -109,7 +114,9 @@ export class MdcTab extends MDCComponent<MDCTabFoundation> implements OnInit, On
   @Input() icon?: string;
 
   @Input()
-  get stacked(): boolean { return this._stacked; }
+  get stacked(): boolean {
+    return this._stacked;
+  }
   set stacked(value: boolean) {
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._stacked) {
@@ -119,7 +126,9 @@ export class MdcTab extends MDCComponent<MDCTabFoundation> implements OnInit, On
   private _stacked: boolean = false;
 
   @Input()
-  get fixed(): boolean { return this._fixed; }
+  get fixed(): boolean {
+    return this._fixed;
+  }
   set fixed(value: boolean) {
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._fixed) {
@@ -130,14 +139,18 @@ export class MdcTab extends MDCComponent<MDCTabFoundation> implements OnInit, On
   private _fixed: boolean = false;
 
   @Input()
-  get disabled(): boolean { return this._disabled; }
+  get disabled(): boolean {
+    return this._disabled;
+  }
   set disabled(value: boolean) {
     this._disabled = coerceBooleanProperty(value);
   }
   private _disabled: boolean = false;
 
   @Input()
-  get focusOnActivate(): boolean { return this._focusOnActivate; }
+  get focusOnActivate(): boolean {
+    return this._focusOnActivate;
+  }
   set focusOnActivate(value: boolean) {
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._focusOnActivate) {
@@ -163,7 +176,7 @@ export class MdcTab extends MDCComponent<MDCTabFoundation> implements OnInit, On
       activateIndicator: (previousIndicatorClientRect: ClientRect) =>
         this.tabIndicator.activate(previousIndicatorClientRect),
       deactivateIndicator: () => this.tabIndicator.deactivate(),
-      notifyInteracted: () => this.interacted.emit({ detail: { tabId: this.id, tab: this } }),
+      notifyInteracted: () => this.interacted.emit({detail: {tabId: this.id, tab: this}}),
       getOffsetLeft: () => this._getHostElement().offsetLeft,
       getOffsetWidth: () => this._getHostElement().offsetWidth,
       getContentOffsetLeft: () => this.content.nativeElement.offsetLeft,
@@ -180,12 +193,17 @@ export class MdcTab extends MDCComponent<MDCTabFoundation> implements OnInit, On
     public elementRef: ElementRef<HTMLElement>,
     @Optional() @Inject(MDC_TAB_BAR_PARENT_COMPONENT) private _parent: MdcTabBarParentComponent) {
     super(elementRef);
+    this._root = this.elementRef.nativeElement;
   }
 
   ngOnInit(): void {
     this._foundation.init();
-    this._initRipple();
     this._loadListeners();
+  }
+
+  ngAfterViewInit(): void {
+    this._ripple = this._createRipple();
+    this._ripple.init();
   }
 
   ngOnDestroy(): void {
@@ -227,15 +245,16 @@ export class MdcTab extends MDCComponent<MDCTabFoundation> implements OnInit, On
     this._getHostElement().focus();
   }
 
-  private _initRipple(): void {
-    this._ripple.init({
-      surface: this._getHostElement()
-    }, Object.assign(this._ripple.createAdapter(), {
-      addClass: (className: string) => this.rippleSurface.nativeElement.classList.add(className),
-      removeClass: (className: string) => this.rippleSurface.nativeElement.classList.remove(className),
-      updateCssVariable: (varName: string, value: string) =>
-        this.rippleSurface.nativeElement.style.setProperty(varName, value),
-    }));
+  private _createRipple(): MdcRipple {
+    const rippleSurface = this.rippleSurface.nativeElement as HTMLElement;
+
+    const adapter: MDCRippleAdapter = {
+      ...MdcRipple.createAdapter(this),
+      addClass: (className: string) => rippleSurface.classList.add(className),
+      removeClass: (className: string) => rippleSurface.classList.remove(className),
+      updateCssVariable: (varName: string, value: string) => rippleSurface.style.setProperty(varName, value)
+    };
+    return new MdcRipple(this.elementRef, new MDCRippleFoundation(adapter));
   }
 
   private _loadListeners(): void {

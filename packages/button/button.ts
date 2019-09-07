@@ -16,11 +16,9 @@ import {MdcIcon} from '@angular-mdc/web/icon';
 @Directive({
   selector: 'mdc-button-label, [mdcButtonLabel]',
   exportAs: 'mdcButtonLabel',
-  host: {
-    'class': 'mdc-button__label'
-  }
+  host: {'class': 'mdc-button__label'}
 })
-export class MdcButtonLabel { }
+export class MdcButtonLabel {}
 
 @Component({
   moduleId: module.id,
@@ -47,68 +45,83 @@ export class MdcButtonLabel { }
 })
 export class MdcButton implements OnInit, OnDestroy {
   @Input()
-  get raised(): boolean { return this._raised; }
+  get raised(): boolean {
+    return this._raised;
+  }
   set raised(value: boolean) {
     this._raised = coerceBooleanProperty(value);
   }
   private _raised: boolean = false;
 
   @Input()
-  get primary(): boolean { return this._primary; }
+  get primary(): boolean {
+    return this._primary;
+  }
   set primary(value: boolean) {
     this._primary = coerceBooleanProperty(value);
   }
   private _primary: boolean = false;
 
   @Input()
-  get dense(): boolean { return this._dense; }
+  get dense(): boolean {
+    return this._dense;
+  }
   set dense(value: boolean) {
     this._dense = coerceBooleanProperty(value);
   }
   private _dense: boolean = false;
 
   @Input()
-  get secondary(): boolean { return this._secondary; }
+  get secondary(): boolean {
+    return this._secondary;
+  }
   set secondary(value: boolean) {
     this._secondary = coerceBooleanProperty(value);
   }
   private _secondary: boolean = false;
 
   @Input()
-  get unelevated(): boolean { return this._unelevated; }
+  get unelevated(): boolean {
+    return this._unelevated;
+  }
   set unelevated(value: boolean) {
     this._unelevated = coerceBooleanProperty(value);
   }
   private _unelevated: boolean = false;
 
   @Input()
-  get outlined(): boolean { return this._outlined; }
+  get outlined(): boolean {
+    return this._outlined;
+  }
   set outlined(value: boolean) {
     this._outlined = coerceBooleanProperty(value);
   }
   private _outlined: boolean = false;
 
   @Input()
-  get disabled(): boolean { return this._disabled; }
+  get disabled(): boolean {
+    return this._disabled;
+  }
   set disabled(value: boolean) {
     this.setDisabled(value);
   }
   private _disabled: boolean = false;
 
-  @ContentChild(MdcIcon, { static: true }) _icon!: MdcIcon;
+  @ContentChild(MdcIcon, {static: true}) _icon!: MdcIcon;
 
   @Input() label?: string;
 
   constructor(
     public elementRef: ElementRef<HTMLElement>,
-    private _ripple: MdcRipple) { }
+    private _ripple: MdcRipple) {
+    this._ripple = new MdcRipple(this.elementRef);
+    this._ripple.init();
+  }
 
   ngOnInit(): void {
     if (this._icon) {
       this._icon.elementRef.nativeElement.classList.add('mdc-button__icon');
     }
-
-    this._ripple.init({ surface: this.getHostElement() });
   }
 
   ngOnDestroy(): void {

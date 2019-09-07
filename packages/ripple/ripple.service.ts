@@ -23,7 +23,7 @@ export class MdcRipple implements OnDestroy {
   private _foundation?: MDCRippleFoundation;
 
   static createAdapter(instance: MDCRippleCapableSurface): MDCRippleAdapter {
-    return {
+    const adapter = {
       addClass: (className: string) => instance._root.classList.add(className),
       removeClass: (className: string) => instance._root.classList.remove(className),
       browserSupportsCssVars: () => supportsCssVariables(window),
@@ -47,6 +47,7 @@ export class MdcRipple implements OnDestroy {
       deregisterInteractionHandler: <K extends EventType>(evtType: K, handler: SpecificEventListener<K>) =>
         (instance._root as HTMLElement).removeEventListener(evtType, handler, supportsPassiveEventListeners())
     };
+    return adapter;
   }
 
   constructor(

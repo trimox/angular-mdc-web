@@ -384,7 +384,8 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
   private _createRipple(): MdcRipple {
     const adapter: MDCRippleAdapter = {
       ...MdcRipple.createAdapter(this),
-      computeBoundingRect: () => this._foundation.getDimensions()
+      computeBoundingRect: () => this._foundation.getDimensions(),
+      isSurfaceDisabled: () => this._disableRipple
     };
     return new MdcRipple(this.elementRef, new MDCRippleFoundation(adapter));
   }

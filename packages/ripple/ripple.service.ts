@@ -20,7 +20,7 @@ export interface MDCRippleCapableSurface {
 
 @Injectable()
 export class MdcRipple implements OnDestroy {
-  private _foundation?: MDCRippleFoundation;
+  private _foundation!: MDCRippleFoundation;
   initialized: boolean = false;
 
   static createAdapter(instance: MDCRippleCapableSurface): MDCRippleAdapter {

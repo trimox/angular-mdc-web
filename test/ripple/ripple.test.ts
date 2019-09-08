@@ -96,6 +96,33 @@ describe('MdcRippleComponent', () => {
       fixture.detectChanges();
       flush();
     }));
+
+    it('#should not do some ripple functions', () => {
+      platform.isBrowser = false;
+      fixture.detectChanges();
+      expect(testInstance.ripple.initialized).toBe(true);
+
+      testInstance.ripple.init();
+      fixture.detectChanges();
+
+      dispatchMouseEvent(testComponent.demodiv.nativeElement, 'mouseup');
+      fixture.detectChanges();
+    });
+
+    it('#should not allow init to be called second time', () => {
+      expect(testInstance.ripple.initialized).toBe(true);
+      testInstance.ripple.init();
+      fixture.detectChanges();
+    });
+
+    it('#should not allow destroy to be called second time', () => {
+      testInstance.ripple.destroy();
+      fixture.detectChanges();
+
+      expect(testInstance.ripple.initialized).toBe(false);
+      testInstance.ripple.destroy();
+      fixture.detectChanges();
+    });
   });
 
   describe('basic behaviors', () => {

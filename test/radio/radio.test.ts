@@ -65,27 +65,6 @@ describe('MdcRadio', () => {
       expect(groupDebugElement.nativeElement.getAttribute('name')).toBeFalsy();
     });
 
-    // it('should coerce the disabled binding on the radio group', () => {
-    //   (groupInstance as any).disabled = '';
-    //   fixture.detectChanges();
-
-    //   radioLabelElements[0].click();
-    //   fixture.detectChanges();
-
-    //   expect(radioInstances[0].checked).toBe(false);
-    //   expect(groupInstance.disabled).toBe(true);
-    // });
-
-    // it('should disable click interaction when the group is disabled', () => {
-    //   testComponent.isGroupDisabled = true;
-    //   fixture.detectChanges();
-
-    //   radioLabelElements[0].click();
-    //   fixture.detectChanges();
-
-    //   expect(radioInstances[0].checked).toBe(false);
-    // });
-
     it('should disable each individual radio when the group is disabled', () => {
       testComponent.isGroupDisabled = true;
       fixture.detectChanges();
@@ -114,26 +93,6 @@ describe('MdcRadio', () => {
       expect(groupInstance.selected).toBe(radioInstances[0]);
     });
 
-    // it('should update the group and radios when one of the radios is clicked', () => {
-    //   expect(groupInstance.value).toBeFalsy();
-
-    //   radioLabelElements[0].click();
-    //   fixture.detectChanges();
-
-    //   expect(groupInstance.value).toBe('fire');
-    //   expect(groupInstance.selected).toBe(radioInstances[0]);
-    //   expect(radioInstances[0].checked).toBe(true);
-    //   expect(radioInstances[1].checked).toBe(false);
-
-    //   radioLabelElements[1].click();
-    //   fixture.detectChanges();
-
-    //   expect(groupInstance.value).toBe('water');
-    //   expect(groupInstance.selected).toBe(radioInstances[1]);
-    //   expect(radioInstances[0].checked).toBe(false);
-    //   expect(radioInstances[1].checked).toBe(true);
-    // });
-
     it('should check a radio upon interaction with the underlying native radio button', () => {
       radioInputElements[0].click();
       fixture.detectChanges();
@@ -142,46 +101,6 @@ describe('MdcRadio', () => {
       expect(groupInstance.value).toBe('fire');
       expect(groupInstance.selected).toBe(radioInstances[0]);
     });
-
-    // it('should emit a change event from radio buttons', () => {
-    //   expect(radioInstances[0].checked).toBe(false);
-
-    //   const spies = radioInstances
-    //     .map((radio, index) => jasmine.createSpy(`onChangeSpy ${index} for ${radio.name}`));
-
-    //   spies.forEach((spy, index) => radioInstances[index].change.subscribe(spy));
-
-    //   radioLabelElements[0].click();
-    //   fixture.detectChanges();
-
-    //   expect(spies[0]).toHaveBeenCalled();
-
-    //   radioLabelElements[1].click();
-    //   fixture.detectChanges();
-
-    //   // To match the native radio button behavior, the change event shouldn't
-    //   // be triggered when the radio got unselected.
-    //   expect(spies[0]).toHaveBeenCalledTimes(1);
-    //   expect(spies[1]).toHaveBeenCalledTimes(1);
-    // });
-
-    // it(`should not emit a change event from the radio group when change group value
-    //     programmatically`, () => {
-    //     expect(groupInstance.value).toBeFalsy();
-
-    //     const changeSpy = jasmine.createSpy('radio-group change listener');
-    //     groupInstance.change.subscribe(changeSpy);
-
-    //     radioLabelElements[0].click();
-    //     fixture.detectChanges();
-
-    //     expect(changeSpy).toHaveBeenCalledTimes(1);
-
-    //     groupInstance.value = 'water';
-    //     fixture.detectChanges();
-
-    //     expect(changeSpy).toHaveBeenCalledTimes(1);
-    //   });
 
     it('should update the group and radios when updating the group value', () => {
       expect(groupInstance.value).toBeFalsy();
@@ -302,19 +221,6 @@ describe('MdcRadio', () => {
       innerRadios = fixture.debugElement.queryAll(By.css('input[type="radio"]'));
     });
 
-    // it('should set individual radio names based on the group name', () => {
-    //   expect(groupInstance.name).toBeTruthy();
-    //   for (const radio of radioInstances) {
-    //     expect(radio.name).toBe(groupInstance.name);
-    //   }
-
-    //   groupInstance.name = 'new name';
-
-    //   for (const radio of radioInstances) {
-    //     expect(radio.name).toBe(groupInstance.name);
-    //   }
-    // });
-
     it('should check the corresponding radio button on group value change', () => {
       expect(groupInstance.value).toBeFalsy();
       for (const radio of radioInstances) {
@@ -415,6 +321,12 @@ describe('MdcRadio', () => {
       fixture.detectChanges();
       expect(radioInstance.disabled).toBeFalsy();
       expect(radioNativeElement.disabled).toBeFalsy();
+    });
+
+    it('should change inputId', () => {
+      radioInstance.id = null;
+      fixture.detectChanges();
+      expect(radioInstance.inputId).toContain('-input');
     });
   });
 
@@ -751,7 +663,7 @@ class RadioGroupWithNgModel {
 }
 
 @Component({
-  template: `<mdc-radio>One</mdc-radio>`
+  template: `<mdc-radio id="id-1">One</mdc-radio>`
 })
 class DisableableRadioButton {
   @ViewChild(MdcRadio, {static: false}) radio: MdcRadio;

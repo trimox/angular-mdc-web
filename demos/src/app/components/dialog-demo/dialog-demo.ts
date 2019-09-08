@@ -239,15 +239,15 @@ export class DialogSimple {
       <mdc-dialog-content>
         <mdc-list>
           <mdc-list-item>
-            <mdc-form-field><mdc-radio name="demo-radio-set" checked></mdc-radio></mdc-form-field>
+            <mdc-radio mdcListItemGraphic name="demo-radio-set" checked></mdc-radio>
             Never Gonna Give You Up
           </mdc-list-item>
           <mdc-list-item>
-            <mdc-form-field><mdc-radio name="demo-radio-set"></mdc-radio></mdc-form-field>
+            <mdc-radio mdcListItemGraphic name="demo-radio-set"></mdc-radio>
             Hot Cross Buns
           </mdc-list-item>
           <mdc-list-item>
-            <mdc-form-field><mdc-radio name="demo-radio-set"></mdc-radio></mdc-form-field>
+            <mdc-radio mdcListItemGraphic name="demo-radio-set"></mdc-radio>
             None
           </mdc-list-item>
         </mdc-list>
@@ -462,15 +462,15 @@ export class DialogScrollable {
         <mdc-dialog-content>
           <mdc-list>
             <mdc-list-item>
-              <mdc-form-field><mdc-radio name="demo-radio-set" checked></mdc-radio></mdc-form-field>
+              <mdc-radio mdcListItemGraphic name="demo-radio-set" checked></mdc-radio>
               Never Gonna Give You Up
             </mdc-list-item>
             <mdc-list-item>
-              <mdc-form-field><mdc-radio name="demo-radio-set"></mdc-radio></mdc-form-field>
+              <mdc-radio mdcListItemGraphic name="demo-radio-set"></mdc-radio>
               Hot Cross Buns
             </mdc-list-item>
             <mdc-list-item>
-              <mdc-form-field><mdc-radio name="demo-radio-set"></mdc-radio></mdc-form-field>
+              <mdc-radio mdcListItemGraphic name="demo-radio-set"></mdc-radio>
               None
             </mdc-list-item>
           </mdc-list>

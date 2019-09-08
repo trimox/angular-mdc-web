@@ -21,27 +21,32 @@ export interface MDCRippleCapableSurface {
 @Injectable()
 export class MdcRipple implements OnDestroy {
   private _foundation?: MDCRippleFoundation;
+  initialized: boolean = false;
 
   static createAdapter(instance: MDCRippleCapableSurface): MDCRippleAdapter {
     const adapter = {
       addClass: (className: string) => instance._root.classList.add(className),
       removeClass: (className: string) => instance._root.classList.remove(className),
-      browserSupportsCssVars: () => supportsCssVariables(window),
+      browserSupportsCssVars: () => typeof window !== 'undefined' ? supportsCssVariables(window) : false,
       isUnbounded: () => coerceBooleanProperty(instance.unbounded),
       isSurfaceActive: () => matches(instance._root, ':active'),
       isSurfaceDisabled: () => coerceBooleanProperty(instance.disabled),
-      containsEventTarget: (target: EventTarget) => instance._root.contains(target as Node),
+      containsEventTarget: (target: EventTarget | null) => instance._root.contains(target as Node),
       registerDocumentInteractionHandler: <K extends EventType>(evtType: K, handler: SpecificEventListener<K>) =>
-        document.documentElement!.addEventListener(evtType, handler, supportsPassiveEventListeners()),
+        typeof document === 'object' && !!document ?
+          document.documentElement!.addEventListener(evtType, handler, supportsPassiveEventListeners()) : {},
       deregisterDocumentInteractionHandler: <K extends EventType>(evtType: K, handler: SpecificEventListener<K>) =>
-        document.documentElement!.removeEventListener(evtType, handler, supportsPassiveEventListeners()),
-      registerResizeHandler: (handler: SpecificEventListener<'resize'>) => window.addEventListener('resize', handler),
-      deregisterResizeHandler: (handler: SpecificEventListener<'resize'>) =>
-        window.removeEventListener('resize', handler),
-      updateCssVariable: (varName: string, value: string) =>
+        typeof document === 'object' && !!document ?
+          document.documentElement!.removeEventListener(evtType, handler, supportsPassiveEventListeners()) : {},
+      registerResizeHandler: (handler: SpecificEventListener<'resize'>) => typeof window !== 'undefined' ?
+        window.addEventListener('resize', handler) : {},
+      deregisterResizeHandler: (handler: SpecificEventListener<'resize'>) => typeof window !== 'undefined' ?
+        window.removeEventListener('resize', handler) : {},
+      updateCssVariable: (varName: string, value: string | null) =>
         (instance._root as HTMLElement).style.setProperty(varName, value),
       computeBoundingRect: () => instance._root.getBoundingClientRect(),
-      getWindowPageOffset: () => ({x: window.pageXOffset, y: window.pageYOffset}),
+      getWindowPageOffset: () => typeof window !== 'undefined' ?
+        ({x: window.pageXOffset, y: window.pageYOffset}) : ({x: 0, y: 0}),
       registerInteractionHandler: <K extends EventType>(evtType: K, handler: SpecificEventListener<K>) =>
         (instance._root as HTMLElement).addEventListener(evtType, handler, supportsPassiveEventListeners()),
       deregisterInteractionHandler: <K extends EventType>(evtType: K, handler: SpecificEventListener<K>) =>
@@ -59,21 +64,21 @@ export class MdcRipple implements OnDestroy {
   }
 
   init(): void {
-    if (this._foundation) {
+    if (!this.initialized) {
       this._foundation.init();
+      this.initialized = true;
     }
   }
 
   destroy(): void {
-    if (this._foundation) {
+    if (this.initialized) {
+      this.initialized = false;
       this._foundation.destroy();
     }
   }
 
   layout(): void {
-    if (this._foundation) {
-      this._foundation.layout();
-    }
+    this._foundation.layout();
   }
 
   ngOnDestroy(): void {
@@ -81,20 +86,14 @@ export class MdcRipple implements OnDestroy {
   }
 
   activateRipple(event?: Event): void {
-    if (this._foundation) {
-      setTimeout(() => this._foundation!.activate(event));
-    }
+    setTimeout(() => this._foundation!.activate(event));
   }
 
   deactivateRipple(): void {
-    if (this._foundation) {
-      setTimeout(() => this._foundation!.deactivate());
-    }
+    setTimeout(() => this._foundation!.deactivate());
   }
 
   handleBlur(): void {
-    if (this._foundation) {
-      this._foundation.handleBlur();
-    }
+    this._foundation.handleBlur();
   }
 }

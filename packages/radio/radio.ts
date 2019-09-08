@@ -189,7 +189,6 @@ export class MdcRadio extends MDCComponent<MDCRadioFoundation>
 
     this._root = elementRef.nativeElement;
     this.ripple = this._createRipple();
-    this.ripple.init();
 
     this._removeUniqueSelectionListener =
       _radioDispatcher.listen((id: string, name: string) => {
@@ -228,6 +227,7 @@ export class MdcRadio extends MDCComponent<MDCRadioFoundation>
   }
 
   onInputChange(event: Event): void {
+    this.ripple.init();
     event.stopPropagation();
 
     const groupValueChanged = this.radioGroup && this.value !== this.radioGroup.value;
@@ -285,9 +285,7 @@ export class MdcRadio extends MDCComponent<MDCRadioFoundation>
   }
 
   focus(): void {
-    if (!this._disabled) {
-      this.input.nativeElement.focus();
-    }
+    this.input.nativeElement.focus();
   }
 
   markForCheck(): void {

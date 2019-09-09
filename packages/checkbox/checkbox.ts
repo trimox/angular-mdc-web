@@ -178,6 +178,16 @@ export class MdcCheckbox extends MDCComponent<MDCCheckboxFoundation> implements 
   }
   private _indeterminateToChecked: boolean = true;
 
+  /** Whether the ripple ink is disabled. */
+  @Input()
+  get disableRipple(): boolean {
+    return this._disableRipple;
+  }
+  set disableRipple(value: boolean) {
+    this._disableRipple = coerceBooleanProperty(value);
+  }
+  private _disableRipple: boolean = false;
+
   @Input() tabIndex: number = 0;
   @Input('aria-label') ariaLabel: string = '';
   @Input('aria-labelledby') ariaLabelledby: string | null = null;
@@ -322,7 +332,8 @@ export class MdcCheckbox extends MDCComponent<MDCCheckboxFoundation> implements 
     const adapter: MDCRippleAdapter = {
       ...MdcRipple.createAdapter(this),
       isSurfaceActive: () => matches(this._inputElement.nativeElement, ':active'),
-      isUnbounded: () => true
+      isUnbounded: () => true,
+      isSurfaceDisabled: () => this._disableRipple
     };
     return new MdcRipple(this.elementRef, new MDCRippleFoundation(adapter));
   }

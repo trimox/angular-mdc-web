@@ -46,6 +46,7 @@
     <button mdc-button (click)="formField.alignEnd = !formField.alignEnd">RTL: {{formField.alignEnd ? 'On'
       : 'Off'}}</button>
     <button mdc-button (click)="cb.disabled = !cb.disabled">Disabled: {{cb.disabled ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="cb.disableRipple = !cb.disableRipple">Ripple: {{!cb.disableRipple ? 'On' : 'Off'}}</button>
   </div>
   <mdc-form-field #formField>
     <mdc-checkbox #cb indeterminateToChecked (change)="onChange($event)"></mdc-checkbox>

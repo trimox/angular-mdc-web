@@ -1,11 +1,11 @@
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, fakeAsync, flushMicrotasks, TestBed } from '@angular/core/testing';
-import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
+import {Component, DebugElement} from '@angular/core';
+import {ComponentFixture, fakeAsync, flushMicrotasks, TestBed} from '@angular/core/testing';
+import {FormsModule, NgModel, ReactiveFormsModule} from '@angular/forms';
+import {By} from '@angular/platform-browser';
 
-import { dispatchFakeEvent, dispatchMouseEvent } from '../testing/dispatch-events';
+import {dispatchFakeEvent, dispatchMouseEvent} from '../testing/dispatch-events';
 
-import { MdcCheckbox, MdcCheckboxModule } from '@angular-mdc/web';
+import {MdcCheckbox, MdcCheckboxModule} from '@angular-mdc/web';
 
 describe('MdcCheckbox', () => {
   let fixture: ComponentFixture<any>;
@@ -194,6 +194,16 @@ describe('MdcCheckbox', () => {
       expect(checkboxInstance.indeterminate).toBe(true);
     });
 
+    it('expect disableRipple to be false', () => {
+      expect(testComponent.disableRipple).toBe(false);
+    });
+
+    it('expect disableRipple to be true', () => {
+      testComponent.disableRipple = true;
+      fixture.detectChanges();
+      expect(checkboxInstance.disableRipple).toBe(true);
+    });
+
     describe('with provided aria-label', () => {
       let checkboxDebugElement: DebugElement;
       let checkboxNativeElement: HTMLElement;
@@ -326,6 +336,7 @@ describe('MdcCheckbox', () => {
       [checked]="checkboxValue"
       [indeterminateToChecked]="indeterminateToChecked"
       [indeterminate]="indeterminate"
+      [disableRipple]="disableRipple"
       [disabled]="isDisabled">
     </mdc-checkbox>
   `,
@@ -336,19 +347,20 @@ class SingleCheckbox {
   indeterminate: boolean;
   checkboxValue: boolean = false;
   indeterminateToChecked: boolean = true;
+  disableRipple: boolean = false;
 }
 
 /** Simple test component with an aria-label set. */
 @Component({
   template: `<mdc-checkbox aria-labelledby="some-id"></mdc-checkbox>`
 })
-class CheckboxWithAriaLabelledby { }
+class CheckboxWithAriaLabelledby {}
 
 /** Simple test component with an aria-label set. */
 @Component({
   template: `<mdc-checkbox aria-label="Super effective"></mdc-checkbox>`
 })
-class CheckboxWithAriaLabel { }
+class CheckboxWithAriaLabel {}
 
 /** Simple test component with tabIndex */
 @Component({

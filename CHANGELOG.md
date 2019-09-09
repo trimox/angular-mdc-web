@@ -1,3 +1,33 @@
+# [3.2.0](https://github.com/trimox/angular-mdc-web/compare/v3.1.3...v3.2.0) (2019-09-09)
+
+
+### Bug Fixes
+
+* **chip:** Disabled ripple effect ([#1994](https://github.com/trimox/angular-mdc-web/issues/1994)) ([a460a67](https://github.com/trimox/angular-mdc-web/commit/a460a67))
+* **ripple:** Assign static to variable ([745519f](https://github.com/trimox/angular-mdc-web/commit/745519f))
+* **ripple:** Possibly undefined build error ([#1993](https://github.com/trimox/angular-mdc-web/issues/1993)) ([2f271f2](https://github.com/trimox/angular-mdc-web/commit/2f271f2))
+* **ripple:** Ripple effect displaced ([#1991](https://github.com/trimox/angular-mdc-web/issues/1991)) ([9561219](https://github.com/trimox/angular-mdc-web/commit/9561219)), closes [#1914](https://github.com/trimox/angular-mdc-web/issues/1914) [#1990](https://github.com/trimox/angular-mdc-web/issues/1990)
+* **ripple:** Server side rendering ([#1992](https://github.com/trimox/angular-mdc-web/issues/1992)) ([6df427c](https://github.com/trimox/angular-mdc-web/commit/6df427c))
+
+
+### Features
+
+* **checkbox:** Add disableRipple ([#1996](https://github.com/trimox/angular-mdc-web/issues/1996)) ([1036a14](https://github.com/trimox/angular-mdc-web/commit/1036a14)), closes [#1995](https://github.com/trimox/angular-mdc-web/issues/1995)
+* **dialog:** Switch focus-trap to @angular/cdk/a11y ([#1984](https://github.com/trimox/angular-mdc-web/issues/1984)) ([2877d74](https://github.com/trimox/angular-mdc-web/commit/2877d74)), closes [#1865](https://github.com/trimox/angular-mdc-web/issues/1865)
+* **drawer:** Switch focus-trap to @angular/cdk/a11y ([#1987](https://github.com/trimox/angular-mdc-web/issues/1987)) ([73b305d](https://github.com/trimox/angular-mdc-web/commit/73b305d)), closes [#1985](https://github.com/trimox/angular-mdc-web/issues/1985)
+* **snackbar:** Switch to @angular/cdk/a11y/live-announcer ([#1989](https://github.com/trimox/angular-mdc-web/issues/1989)) ([b13e354](https://github.com/trimox/angular-mdc-web/commit/b13e354)), closes [#1988](https://github.com/trimox/angular-mdc-web/issues/1988)
+
+### Ripple
+The `MdcRipple` service was completely rewritten to resolve some outstanding issues.
+
+### Travis-CI Improvements
+A huge thanks goes out to @TryHardDood for improving the continuous integration with Travis-CI. Much appreciated!
+
+* Run tests, build library and documentation automatically when pushed to master.
+* Deploy documentation to gh-pages branch when pushed to master.
+* Run just the tests when a pull requests is created.
+
+
 ## [3.1.2](https://github.com/trimox/angular-mdc-web/compare/v3.1.1...v3.1.2) (2019-08-30)
 
 

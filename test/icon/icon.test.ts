@@ -57,7 +57,7 @@ describe('MdcIcon', () => {
       ],
       providers: [{
         provide: MDC_ICON_LOCATION,
-        useValue: { getPathname: () => fakePath }
+        useValue: {getPathname: () => fakePath}
       }]
     });
 
@@ -274,8 +274,8 @@ describe('MdcIcon', () => {
       iconRegistry.addSvgIconSetInNamespace('farm', trustUrl('farm-set-1.svg'));
 
       // Requests for icons must be subscribed to in order for requests to be made.
-      iconRegistry.getNamedSvgIcon('pig', 'farm').subscribe(() => { });
-      iconRegistry.getNamedSvgIcon('cow', 'farm').subscribe(() => { });
+      iconRegistry.getNamedSvgIcon('pig', 'farm').subscribe(() => {});
+      iconRegistry.getNamedSvgIcon('cow', 'farm').subscribe(() => {});
 
       http.expectOne('farm-set-1.svg').flush(FAKE_SVGS.farmSet1);
 
@@ -356,6 +356,23 @@ describe('MdcIcon', () => {
       expect(svgElement.childNodes.length).toBe(1);
       expect(firstChild.nodeName.toLowerCase()).toBe('path');
       expect((firstChild as HTMLElement).getAttribute('name')).toBe('quack');
+    });
+
+    it('should copy over the attributes when unwrapping <symbol> nodes', () => {
+      iconRegistry.addSvgIconSetInNamespace('farm', trustUrl('farm-set-5.svg'));
+
+      const fixture = TestBed.createComponent(IconFromSvgName);
+      const testComponent = fixture.componentInstance;
+      const mdcIconElement = fixture.debugElement.nativeElement.querySelector('mdc-icon');
+
+      testComponent.iconName = 'farm:duck';
+      fixture.detectChanges();
+      http.expectOne('farm-set-5.svg').flush(FAKE_SVGS.farmSet5);
+
+      const svgElement = verifyAndGetSingleSvgChild(mdcIconElement);
+      expect(svgElement.getAttribute('viewBox')).toBe('0 0 13 37');
+      expect(svgElement.getAttribute('id')).toBeFalsy();
+      expect(svgElement.querySelector('symbol')).toBeFalsy();
     });
 
     it('should not wrap <svg> elements in icon sets in another svg tag', () => {
@@ -809,42 +826,42 @@ describe('MdcIcon without HttpClientModule', () => {
   });
 });
 
-@Component({ template: `<mdc-icon>{{iconName}}</mdc-icon>` })
+@Component({template: `<mdc-icon>{{iconName}}</mdc-icon>`})
 class IconWithLigature {
   iconName = '';
 }
 
-@Component({ template: `<mdc-icon [clickable]="false" [fontSet]="fontSet" [fontIcon]="fontIcon"></mdc-icon>` })
+@Component({template: `<mdc-icon [clickable]="false" [fontSet]="fontSet" [fontIcon]="fontIcon"></mdc-icon>`})
 class IconWithCustomFontCss {
   fontSet = '';
   fontIcon = '';
 }
 
-@Component({ template: `<mdc-icon [svgIcon]="iconName"></mdc-icon>` })
+@Component({template: `<mdc-icon [svgIcon]="iconName"></mdc-icon>`})
 class IconFromSvgName {
   iconName: string | undefined = '';
 }
 
-@Component({ template: '<mdc-icon aria-hidden="false">face</mdc-icon>' })
-class IconWithAriaHiddenFalse { }
+@Component({template: '<mdc-icon aria-hidden="false">face</mdc-icon>'})
+class IconWithAriaHiddenFalse {}
 
-@Component({ template: `<mdc-icon [svgIcon]="iconName" *ngIf="showIcon">{{iconName}}</mdc-icon>` })
+@Component({template: `<mdc-icon [svgIcon]="iconName" *ngIf="showIcon">{{iconName}}</mdc-icon>`})
 class IconWithBindingAndNgIf {
   iconName = 'fluffy';
   showIcon = true;
 }
 
-@Component({ template: `<mdc-icon [inline]="inline">{{iconName}}</mdc-icon>` })
+@Component({template: `<mdc-icon [inline]="inline">{{iconName}}</mdc-icon>`})
 class InlineIcon {
   inline = false;
 }
 
-@Component({ template: `<mdc-icon clickable [svgIcon]="iconName"><div>Hello</div></mdc-icon>` })
+@Component({template: `<mdc-icon clickable [svgIcon]="iconName"><div>Hello</div></mdc-icon>`})
 class SvgIconWithUserContent {
   iconName: string | undefined = '';
 }
 
-@Component({ template: '<mdc-icon [svgIcon]="iconName">house</mdc-icon>' })
+@Component({template: '<mdc-icon [svgIcon]="iconName">house</mdc-icon>'})
 class IconWithLigatureAndSvgBinding {
   iconName: string | undefined;
 }

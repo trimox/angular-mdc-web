@@ -44,7 +44,8 @@ export class MdcRipple implements OnDestroy {
         window.removeEventListener('resize', handler) : {},
       updateCssVariable: (varName: string, value: string | null) =>
         (instance._root as HTMLElement).style.setProperty(varName, value),
-      computeBoundingRect: () => instance._root.getBoundingClientRect(),
+      computeBoundingRect: () => typeof document === 'object' && !!document ?
+        instance._root.getBoundingClientRect() : ({top: 0, right: 0, bottom: 0, left: 0, width: 0, height: 0}),
       getWindowPageOffset: () => typeof window !== 'undefined' ?
         ({x: window.pageXOffset, y: window.pageYOffset}) : ({x: 0, y: 0}),
       registerInteractionHandler: <K extends EventType>(evtType: K, handler: SpecificEventListener<K>) =>

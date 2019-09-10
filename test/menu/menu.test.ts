@@ -64,6 +64,12 @@ describe('MdcMenu', () => {
       expect(testInstance.fixed).toBe(false);
     });
 
+    it('#menu should set closeSurfaceOnSelection to false', () => {
+      testComponent.closeSurfaceOnSelection = false;
+      fixture.detectChanges();
+      expect(testInstance.closeSurfaceOnSelection).toBe(false);
+    });
+
     it('#menu should set wrapFocus', () => {
       testComponent.wrapFocus = true;
       fixture.detectChanges();
@@ -168,7 +174,7 @@ describe('MdcMenu', () => {
   template: `
   <div mdcMenuSurfaceAnchor #testanchor>
     <mdc-menu [open]="open" [anchorCorner]="anchorCorner" (selected)="handleSelected($event)"
-      [wrapFocus]="wrapFocus"
+      [wrapFocus]="wrapFocus" [closeSurfaceOnSelection]="closeSurfaceOnSelection"
       [anchorElement]="testanchor" [quickOpen]="quickOpen" [fixed]="fixed"
       [anchorMargin]="{top: 0, right: 0, bottom: 0, left: 0}">
         <mdc-menu-selection-group>
@@ -188,6 +194,7 @@ class MenuTest {
   quickOpen: boolean;
   fixed: boolean = true;
   wrapFocus: boolean;
+  closeSurfaceOnSelection: boolean;
 
   handleSelected(event: {index: number, source: MdcListItem}) {}
 }

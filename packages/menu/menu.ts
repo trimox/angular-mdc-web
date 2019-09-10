@@ -83,6 +83,18 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
   }
   private _wrapFocus: boolean = false;
 
+  @Input()
+  get closeSurfaceOnSelection(): boolean {
+    return this._closeSurfaceOnSelection;
+  }
+  set closeSurfaceOnSelection(value: boolean) {
+    const newValue = coerceBooleanProperty(value);
+    if (newValue !== this._closeSurfaceOnSelection) {
+      this._closeSurfaceOnSelection = newValue;
+    }
+  }
+  private _closeSurfaceOnSelection: boolean = true;
+
   @Output() readonly selected: EventEmitter<MdcMenuSelectedEvent> = new EventEmitter<MdcMenuSelectedEvent>();
 
   @ContentChild(MdcList, {static: false}) _list!: MdcList;
@@ -99,7 +111,8 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
       removeAttributeFromElementAtIndex: (index: number, attr: string) =>
         this.listItems.toArray()[index].getListItemElement().removeAttribute(attr),
       elementContainsClass: (element: HTMLElement, className: string) => element.classList.contains(className),
-      closeSurface: (skipRestoreFocus: boolean) => this._foundation.close(skipRestoreFocus),
+      closeSurface: (skipRestoreFocus: boolean) =>
+        this.closeSurfaceOnSelection ? this._foundation.close(skipRestoreFocus) : {},
       getElementIndex: (element: HTMLElement) =>
         this.listItems.toArray().findIndex(_ => _.getListItemElement() === element),
       notifySelected: (evtData: {index: number}) =>

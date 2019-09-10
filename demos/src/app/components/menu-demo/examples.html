@@ -40,6 +40,10 @@
           <mdc-checkbox #wrapFocus></mdc-checkbox>
           <label>Wrap keyboard focus</label>
         </mdc-form-field>
+        <mdc-form-field>
+          <mdc-checkbox #closeSurfaceOnSelection [checked]="closeSurfaceOnSelection"></mdc-checkbox>
+          <label>Close Surface on Selection</label>
+        </mdc-form-field>
       </div>
     </div>
   </div>
@@ -52,8 +56,10 @@
       <mdc-menu #demo (selected)="onMenuSelect($event)"
         [anchorElement]="demoAnchor"
         [anchorCorner]="menuSurfaceAnchorCorner.value"
-        [quickOpen]="quickOpen.checked" [fixed]="fixed.checked"
+        [quickOpen]="quickOpen.checked"
+        [fixed]="fixed.checked"
         [wrapFocus]="wrapFocus.checked"
+        [closeSurfaceOnSelection]="closeSurfaceOnSelection.checked"
         [anchorMargin]="{top: marginTop.value, bottom: marginBottom.value, left: marginLeft.value, right: marginRight.value}">
         <mdc-list>
           <ng-container *ngFor="let fruit of fruits" [ngSwitch]="!!fruit.label">

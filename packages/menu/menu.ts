@@ -3,13 +3,15 @@ import {
   ChangeDetectionStrategy,
   Component,
   ContentChild,
+  ContentChildren,
   Directive,
   ElementRef,
   EventEmitter,
   Input,
   OnDestroy,
   Output,
-  ViewEncapsulation
+  ViewEncapsulation,
+  QueryList
 } from '@angular/core';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Subject} from 'rxjs';
@@ -69,7 +71,9 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
   @Input() id: string = this._uniqueId;
 
   @Input()
-  get wrapFocus(): boolean { return this._wrapFocus; }
+  get wrapFocus(): boolean {
+    return this._wrapFocus;
+  }
   set wrapFocus(value: boolean) {
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._wrapFocus) {
@@ -79,37 +83,38 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
   }
   private _wrapFocus: boolean = false;
 
-  @Output() readonly selected: EventEmitter<MdcMenuSelectedEvent> =
-    new EventEmitter<MdcMenuSelectedEvent>();
+  @Output() readonly selected: EventEmitter<MdcMenuSelectedEvent> = new EventEmitter<MdcMenuSelectedEvent>();
 
   @ContentChild(MdcList, {static: false}) _list!: MdcList;
+  @ContentChildren(MdcListItem, {descendants: true}) listItems!: QueryList<MdcListItem>;
 
   private _createAdapter() {
     return Object.assign({
       addClassToElementAtIndex: (index: number, className: string) =>
-        this._items()[index].getListItemElement().classList.add(className),
+        this.listItems.toArray()[index].getListItemElement().classList.add(className),
       removeClassFromElementAtIndex: (index: number, className: string) =>
-        this._items()[index].getListItemElement().classList.remove(className),
+        this.listItems.toArray()[index].getListItemElement().classList.remove(className),
       addAttributeToElementAtIndex: (index: number, attr: string, value: string) =>
-        this._items()[index].getListItemElement().setAttribute(attr, value),
+        this.listItems.toArray()[index].getListItemElement().setAttribute(attr, value),
       removeAttributeFromElementAtIndex: (index: number, attr: string) =>
-        this._items()[index].getListItemElement().removeAttribute(attr),
+        this.listItems.toArray()[index].getListItemElement().removeAttribute(attr),
       elementContainsClass: (element: HTMLElement, className: string) => element.classList.contains(className),
       closeSurface: (skipRestoreFocus: boolean) => this._foundation.close(skipRestoreFocus),
       getElementIndex: (element: HTMLElement) =>
-        this._items().findIndex(_ => _.getListItemElement() === element),
+        this.listItems.toArray().findIndex(_ => _.getListItemElement() === element),
       notifySelected: (evtData: {index: number}) =>
-        this.selected.emit(new MdcMenuSelectedEvent(evtData.index, this._items()[evtData.index])),
-      getMenuItemCount: () => this._items().length,
+        this.selected.emit(new MdcMenuSelectedEvent(evtData.index, this.listItems.toArray()[evtData.index])),
+      getMenuItemCount: () => this.listItems.toArray().length,
       focusItemAtIndex: (index: number) => this._list.getListItemByIndex(index)!.focus(),
       focusListRoot: () => this._list.focus(),
       isSelectableItemAtIndex: (index: number) =>
-        !!closest(this._items()[index].getListItemElement(), `.${cssClasses.MENU_SELECTION_GROUP}`),
+        !!closest(this.listItems.toArray()[index].getListItemElement(), `.${cssClasses.MENU_SELECTION_GROUP}`),
       getSelectedSiblingOfItemAtIndex: (index: number) => {
-        const selectionGroupEl = closest(this._items()[index].getListItemElement(),
+        const selectionGroupEl = closest(this.listItems.toArray()[index].getListItemElement(),
           `.${cssClasses.MENU_SELECTION_GROUP}`) as HTMLElement;
-        const selectedItemEl = selectionGroupEl.querySelector<any>(`.${cssClasses.MENU_SELECTED_LIST_ITEM}`);
-        return selectedItemEl ? this._items().indexOf(selectedItemEl) : -1;
+        const selectedItemEl = selectionGroupEl.querySelector<HTMLElement>(`.${cssClasses.MENU_SELECTED_LIST_ITEM}`);
+        return selectedItemEl ? this.listItems.toArray().findIndex(_ =>
+          _.elementRef.nativeElement === selectedItemEl) : -1;
       }
     });
   }
@@ -146,10 +151,6 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
     this._menuFoundation.handleKeydown(evt);
   }
 
-  private _items(): MdcListItem[] {
-    return this._list ? this._list.items.toArray() : [];
-  }
-
   private _initList(): void {
     if (!this._list) {
       return;
@@ -168,6 +169,6 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
   private _listenForListItemActions(): void {
     this._list.actionEvent.pipe(takeUntil(this._destroyed))
       .subscribe((event: MdcListItemAction) =>
-        this._menuFoundation.handleItemAction(this._items()[event.index].getListItemElement()));
+        this._menuFoundation.handleItemAction(this.listItems.toArray()[event.index].getListItemElement()));
   }
 }

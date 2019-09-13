@@ -167,6 +167,26 @@ describe('MdcMenu', () => {
 
       expect(listItemInstance.getListItemElement().classList.contains('.mdc-menu--selected'));
     }));
+
+    it('#menu should set default focus state to firstItem', () => {
+      testComponent.defaultFocusState = 'firstItem';
+      fixture.detectChanges();
+      expect(testInstance.defaultFocusState).toBe('firstItem');
+    });
+
+    it('#menu should select first item', () => {
+      testInstance.listItems.first.elementRef.nativeElement.click();
+      fixture.detectChanges();
+    });
+
+    it('#menu should select first item, then second item', fakeAsync(() => {
+      testInstance.listItems.first.elementRef.nativeElement.click();
+      fixture.detectChanges();
+      flush();
+
+      testInstance.listItems.toArray()[1].elementRef.nativeElement.click();
+      fixture.detectChanges();
+    }));
   });
 });
 
@@ -202,7 +222,8 @@ class MenuTest {
 @Component({
   template: `
   <div mdcMenuSurfaceAnchor #demoSelectionAnchor>
-    <mdc-menu [open]="open" [anchorElement]="demoSelectionAnchor">
+    <mdc-menu [open]="open" [anchorElement]="demoSelectionAnchor"
+      [defaultFocusState]="defaultFocusState">
       <mdc-list>
         <mdc-menu-selection-group>
           <mdc-list-item>
@@ -233,4 +254,5 @@ class MenuTest {
 })
 class MenuSelectionGroup {
   open: boolean;
+  defaultFocusState = 'list';
 }

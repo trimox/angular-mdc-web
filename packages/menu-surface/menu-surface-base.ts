@@ -48,7 +48,9 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
   private _previousFocus: Element | null = null;
 
   @Input()
-  get open(): boolean { return this._open; }
+  get open(): boolean {
+    return this._open;
+  }
   set open(value: boolean) {
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._open) {
@@ -59,14 +61,18 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
   private _open: boolean = false;
 
   @Input()
-  get anchorElement(): HTMLElement | null { return this._anchorElement; }
+  get anchorElement(): HTMLElement | null {
+    return this._anchorElement;
+  }
   set anchorElement(element: HTMLElement | null) {
     this._anchorElement = element;
   }
   private _anchorElement: HTMLElement | null = null;
 
   @Input()
-  get anchorCorner(): AnchorCorner { return this._anchorCorner; }
+  get anchorCorner(): AnchorCorner {
+    return this._anchorCorner;
+  }
   set anchorCorner(value: AnchorCorner) {
     this._anchorCorner = value || 'topStart';
     this._foundation.setAnchorCorner(ANCHOR_CORNER_MAP[this._anchorCorner]);
@@ -74,7 +80,9 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
   private _anchorCorner: AnchorCorner = 'topStart';
 
   @Input()
-  get quickOpen(): boolean { return this._quickOpen; }
+  get quickOpen(): boolean {
+    return this._quickOpen;
+  }
   set quickOpen(value: boolean) {
     this._quickOpen = coerceBooleanProperty(value);
     this._foundation.setQuickOpen(this._quickOpen);
@@ -82,7 +90,9 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
   private _quickOpen: boolean = false;
 
   @Input()
-  get fixed(): boolean { return this._fixed; }
+  get fixed(): boolean {
+    return this._fixed;
+  }
   set fixed(value: boolean) {
     this._fixed = coerceBooleanProperty(value);
     this._fixed ? this._getHostElement().classList.add('mdc-menu-surface--fixed') :
@@ -92,15 +102,19 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
   private _fixed: boolean = false;
 
   @Input()
-  get coordinates(): Coordinates { return this._coordinates; }
+  get coordinates(): Coordinates {
+    return this._coordinates;
+  }
   set coordinates(value: Coordinates) {
     this._coordinates = value;
     this._foundation.setAbsolutePosition(value.x, value.y);
   }
-  private _coordinates: Coordinates = { x: 0, y: 0 };
+  private _coordinates: Coordinates = {x: 0, y: 0};
 
   @Input()
-  get anchorMargin(): AnchorMargin { return this._anchorMargin; }
+  get anchorMargin(): AnchorMargin {
+    return this._anchorMargin;
+  }
   set anchorMargin(value: AnchorMargin) {
     this._anchorMargin = value;
     this._foundation.setAnchorMargin(this._anchorMargin);
@@ -108,7 +122,9 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
   private _anchorMargin: AnchorMargin = {};
 
   @Input()
-  get hoistToBody(): boolean { return this._hoistToBody; }
+  get hoistToBody(): boolean {
+    return this._hoistToBody;
+  }
   set hoistToBody(value: boolean) {
     this._hoistToBody = coerceBooleanProperty(value);
     if (this._hoistToBody) {
@@ -141,56 +157,38 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
         this._registerWindowClickListener();
       },
       isElementInContainer: (el: Element) => this._getHostElement() === el || this._getHostElement().contains(el),
-      isRtl: () => {
-        if (!this.platform.isBrowser) { return false; }
-
-        return window.getComputedStyle(this._getHostElement()).getPropertyValue('direction') === 'rtl';
-      },
-      setTransformOrigin: (origin: string) => {
-        if (!this.platform.isBrowser) { return; }
-
-        this._getHostElement().style[`${util.getTransformPropertyName(window)}-origin` as any] = origin;
-      },
+      isRtl: () => this.platform.isBrowser ?
+        window.getComputedStyle(this._getHostElement()).getPropertyValue('direction') === 'rtl' : false,
+      setTransformOrigin: (origin: string) =>
+        this.platform.isBrowser ?
+          this._getHostElement().style[`${util.getTransformPropertyName(window)}-origin` as any] = origin : false,
       isFocused: () => this.platform.isBrowser ? document.activeElement! === this._getHostElement() : false,
-      saveFocus: () => {
-        if (!this.platform.isBrowser) { return; }
-        this._previousFocus = document.activeElement!;
-      },
+      saveFocus: () => this.platform.isBrowser ? this._previousFocus = document.activeElement! : {},
       restoreFocus: () => {
-        if (!this.platform.isBrowser) { return; }
-
-        if (this._getHostElement().contains(document.activeElement!)) {
+        if (!this.platform.isBrowser && this._getHostElement().contains(document.activeElement!)) {
           if (this._previousFocus && (<any>this._previousFocus).focus) {
             (<any>this._previousFocus).focus();
           }
         }
       },
-      getInnerDimensions: () => {
-        return { width: this._getHostElement().offsetWidth, height: this._getHostElement().offsetHeight };
-      },
-      getAnchorDimensions: () => {
-        if (!this.platform.isBrowser || !this.anchorElement) { return null; }
-        return this._anchorElement!.getBoundingClientRect();
-      },
-      getWindowDimensions: () => {
-        return {
-          width: this.platform.isBrowser ? window.innerWidth : 0,
-          height: this.platform.isBrowser ? window.innerHeight : 0
-        };
-      },
-      getBodyDimensions: () => {
-        return {
-          width: this.platform.isBrowser ? document.body!.clientWidth : 0,
-          height: this.platform.isBrowser ? document.body!.clientHeight : 0
-        };
-      },
-      getWindowScroll: () => {
-        return {
-          x: this.platform.isBrowser ? window.pageXOffset : 0,
-          y: this.platform.isBrowser ? window.pageYOffset : 0
-        };
-      },
-      setPosition: (position: { left: number, right: number, top: number, bottom: number }) => {
+      getInnerDimensions: () =>
+        ({width: this._getHostElement().offsetWidth, height: this._getHostElement().offsetHeight}),
+      getAnchorDimensions: () =>
+        this.platform.isBrowser || !this.anchorElement ?
+          this._anchorElement!.getBoundingClientRect() : {top: 0, right: 0, bottom: 0, left: 0, width: 0, height: 0},
+      getWindowDimensions: () => ({
+        width: this.platform.isBrowser ? window.innerWidth : 0,
+        height: this.platform.isBrowser ? window.innerHeight : 0
+      }),
+      getBodyDimensions: () => ({
+        width: this.platform.isBrowser ? document.body!.clientWidth : 0,
+        height: this.platform.isBrowser ? document.body!.clientHeight : 0
+      }),
+      getWindowScroll: () => ({
+        x: this.platform.isBrowser ? window.pageXOffset : 0,
+        y: this.platform.isBrowser ? window.pageYOffset : 0
+      }),
+      setPosition: (position: {left: number, right: number, top: number, bottom: number}) => {
         this._getHostElement().style.left = 'left' in position ? `${position.left}px` : '';
         this._getHostElement().style.right = 'right' in position ? `${position.right}px` : '';
         this._getHostElement().style.top = 'top' in position ? `${position.top}px` : '';
@@ -206,7 +204,6 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
     public platform: Platform,
     @Optional() private _ngZone: NgZone,
     public elementRef: ElementRef<HTMLElement>) {
-
     super(elementRef);
   }
 
@@ -233,14 +230,16 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
 
   protected setOpen(): void {
     this._open ? this._foundation.open() : this._foundation.close();
- }
+  }
 
   /**
    * Removes the menu-surface from it's current location and appends it to the
    * body to overcome any overflow:hidden issues.
    */
   protected setHoistToBody(): void {
-    if (!this.platform.isBrowser) { return; }
+    if (!this.platform.isBrowser) {
+      return;
+    }
 
     const parentEl = this._getHostElement().parentElement;
     if (parentEl) {
@@ -256,7 +255,9 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
   }
 
   private _registerWindowClickListener(): void {
-    if (!this.platform.isBrowser) { return; }
+    if (!this.platform.isBrowser) {
+      return;
+    }
 
     this._windowClickSubscription =
       this._ngZone.runOutsideAngular(() =>

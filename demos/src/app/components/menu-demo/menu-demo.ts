@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
-import { MdcListItem } from '@angular-mdc/web';
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
+import {MdcListItem} from '@angular-mdc/web';
+import {ComponentViewer, ComponentView} from '../../shared/component-viewer';
 
-@Component({ template: '<component-viewer></component-viewer>' })
+@Component({template: '<component-viewer></component-viewer>'})
 export class MenuDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
@@ -23,36 +23,36 @@ export class MenuDemo implements OnInit {
   }
 }
 
-@Component({ templateUrl: './api.html' })
-export class Api { }
+@Component({templateUrl: './api.html'})
+export class Api {}
 
-@Component({ templateUrl: './sass.html' })
-export class Sass { }
+@Component({templateUrl: './sass.html'})
+export class Sass {}
 
-@Component({ templateUrl: './examples.html' })
+@Component({templateUrl: './examples.html'})
 export class Examples {
   corners: string[] = ['topStart', 'topEnd', 'bottomStart', 'bottomEnd'];
 
   fruits = [
-    { label: 'Passionfruit' },
-    { label: 'Orange' },
-    { label: 'Guava' },
-    { label: 'Pitaya' },
-    { label: null }, // null label sets a mdc-list-divider
-    { label: 'Pinaeapple' },
-    { label: 'Mango' },
-    { label: 'Papaya' },
-    { label: 'Lychee' }
+    {label: 'Passionfruit'},
+    {label: 'Orange'},
+    {label: 'Guava'},
+    {label: 'Pitaya'},
+    {label: null}, // null label sets a mdc-list-divider
+    {label: 'Pinaeapple'},
+    {label: 'Mango'},
+    {label: 'Papaya'},
+    {label: 'Lychee'}
   ];
 
   lastSelection: number;
 
-  onMenuSelect(event: { index: number, item: MdcListItem }) {
+  onMenuSelect(event: {index: number, item: MdcListItem}) {
     this.lastSelection = event.index;
   }
 
   addFruit(): void {
-    this.fruits.push({ label: 'New fruit item' });
+    this.fruits.push({label: 'New fruit item'});
   }
 
   exampleMenu = {

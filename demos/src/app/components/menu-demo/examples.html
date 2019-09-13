@@ -44,6 +44,12 @@
           <mdc-checkbox #closeSurfaceOnSelection [checked]="closeSurfaceOnSelection"></mdc-checkbox>
           <label>Close Surface on Selection</label>
         </mdc-form-field>
+        <mdc-select #defaultFocusState placeholder="Default Focus State">
+          <option value="none">None</option>
+          <option value="list">List Root</option>
+          <option value="firstItem">First Item</option>
+          <option value="lastItem">Last Item</option>
+        </mdc-select>
       </div>
     </div>
   </div>
@@ -57,6 +63,7 @@
         [anchorElement]="demoAnchor"
         [anchorCorner]="menuSurfaceAnchorCorner.value"
         [quickOpen]="quickOpen.checked"
+        [defaultFocusState]="defaultFocusState.value"
         [fixed]="fixed.checked"
         [wrapFocus]="wrapFocus.checked"
         [closeSurfaceOnSelection]="closeSurfaceOnSelection.checked"

@@ -21,7 +21,7 @@ import {MdcList, MdcListItem, MdcListItemAction} from '@angular-mdc/web/list';
 import {MdcMenuSurfaceBase} from '@angular-mdc/web/menu-surface';
 
 import {closest} from '@material/dom/ponyfill';
-import {cssClasses, MDCMenuFoundation} from '@material/menu';
+import {cssClasses, strings, DefaultFocusState, MDCMenuFoundation} from '@material/menu';
 
 export class MdcMenuSelectedEvent {
   constructor(
@@ -30,6 +30,15 @@ export class MdcMenuSelectedEvent {
 }
 
 let nextUniqueId = 0;
+
+export type MdcMenuFocusState = 'none' | 'list' | 'firstItem' | 'lastItem';
+
+const DEFAULT_FOCUS_STATE_MAP = {
+  none: DefaultFocusState.NONE,
+  list: DefaultFocusState.LIST_ROOT,
+  firstItem: DefaultFocusState.FIRST_ITEM,
+  lastItem: DefaultFocusState.LAST_ITEM
+};
 
 @Directive({
   selector: '[mdcMenuSelectionGroup], mdc-menu-selection-group',
@@ -95,6 +104,18 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
   }
   private _closeSurfaceOnSelection: boolean = true;
 
+  @Input()
+  get defaultFocusState(): MdcMenuFocusState {
+    return this._defaultFocusState;
+  }
+  set defaultFocusState(value: MdcMenuFocusState) {
+    if (value !== this._defaultFocusState) {
+      this._defaultFocusState = value;
+      this._menuFoundation.setDefaultFocusState(DEFAULT_FOCUS_STATE_MAP[this._defaultFocusState]);
+    }
+  }
+  private _defaultFocusState: MdcMenuFocusState = 'list';
+
   @Output() readonly selected: EventEmitter<MdcMenuSelectedEvent> = new EventEmitter<MdcMenuSelectedEvent>();
 
   @ContentChild(MdcList, {static: false}) _list!: MdcList;
@@ -118,8 +139,8 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
       notifySelected: (evtData: {index: number}) =>
         this.selected.emit(new MdcMenuSelectedEvent(evtData.index, this.listItems.toArray()[evtData.index])),
       getMenuItemCount: () => this.listItems.toArray().length,
-      focusItemAtIndex: (index: number) => this._list.getListItemByIndex(index)!.focus(),
-      focusListRoot: () => this._list.focus(),
+      focusItemAtIndex: (index: number) => this.listItems.toArray()[index].focus(),
+      focusListRoot: () => (this.elementRef.nativeElement.querySelector(strings.LIST_SELECTOR) as HTMLElement).focus(),
       isSelectableItemAtIndex: (index: number) =>
         !!closest(this.listItems.toArray()[index].getListItemElement(), `.${cssClasses.MENU_SELECTION_GROUP}`),
       getSelectedSiblingOfItemAtIndex: (index: number) => {
@@ -136,7 +157,8 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
     destroy(): void,
     handleKeydown(evt: KeyboardEvent): void,
     handleItemAction(listItem: HTMLElement): void,
-    handleMenuSurfaceOpened(): void
+    handleMenuSurfaceOpened(): void,
+    setDefaultFocusState(focusState: DefaultFocusState): void
   } = new MDCMenuFoundation(this._createAdapter());
 
   ngAfterContentInit(): void {
@@ -154,10 +176,6 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
 
     this.destroyMenuSurface();
     this._menuFoundation.destroy();
-  }
-
-  focus(): void {
-    this._getHostElement().focus();
   }
 
   _handleKeydown(evt: KeyboardEvent): void {

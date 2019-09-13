@@ -1,3 +1,21 @@
+## [3.2.1](https://github.com/trimox/angular-mdc-web/compare/v3.2.0...v3.2.1) (2019-09-13)
+
+
+### Bug Fixes
+
+* **icon:** Should copy attributes from symbol nodes ([#2002](https://github.com/trimox/angular-mdc-web/issues/2002)) ([2ef0639](https://github.com/trimox/angular-mdc-web/commit/2ef0639))
+* **menu:** Should deselect selection group items ([#1999](https://github.com/trimox/angular-mdc-web/issues/1999)) ([820f389](https://github.com/trimox/angular-mdc-web/commit/820f389)), closes [#1997](https://github.com/trimox/angular-mdc-web/issues/1997)
+* **ripple:** SSR document check for getBoundingClientRect ([#2000](https://github.com/trimox/angular-mdc-web/issues/2000)) ([f3089e9](https://github.com/trimox/angular-mdc-web/commit/f3089e9))
+
+
+### Features
+
+* **menu:** Support default focus state ([#2004](https://github.com/trimox/angular-mdc-web/issues/2004)) ([926c076](https://github.com/trimox/angular-mdc-web/commit/926c076)), closes [#1998](https://github.com/trimox/angular-mdc-web/issues/1998)
+* **menu:** Support keeping surface open on selection ([#2003](https://github.com/trimox/angular-mdc-web/issues/2003)) ([5408da3](https://github.com/trimox/angular-mdc-web/commit/5408da3)), closes [#2001](https://github.com/trimox/angular-mdc-web/issues/2001) [#1997](https://github.com/trimox/angular-mdc-web/issues/1997)
+* Update to material-components-web v3.2.0 ([#2005](https://github.com/trimox/angular-mdc-web/issues/2005)) ([83cf0eb](https://github.com/trimox/angular-mdc-web/commit/83cf0eb)), closes [/github.com/material-components/material-components-web/blob/master/CHANGELOG.md#320-2019-09-12](https://github.com//github.com/material-components/material-components-web/blob/master/CHANGELOG.md/issues/320-2019-09-12) [#1959](https://github.com/trimox/angular-mdc-web/issues/1959)
+
+
+
 # [3.2.0](https://github.com/trimox/angular-mdc-web/compare/v3.1.3...v3.2.0) (2019-09-09)
 
 

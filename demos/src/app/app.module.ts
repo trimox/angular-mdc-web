@@ -1,24 +1,26 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-import { APP_BASE_HREF } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
+import {APP_BASE_HREF} from '@angular/common';
 
-import { environment } from '../environments/environment';
-import { SharedModule } from './shared.module';
-import { AppComponent } from './app.component';
-import { AppRoutingModule, DEMO_DECLARATIONS } from './app-routing.module';
+import {environment} from '../environments/environment';
+import {SharedModule} from './shared.module';
+import {AppComponent} from './app.component';
+import {AppRoutingModule, DEMO_DECLARATIONS} from './app-routing.module';
 
-import { HighlightModule } from 'ngx-highlightjs';
+import {HighlightModule} from 'ngx-highlightjs';
 
 import typescript from 'highlight.js/lib/languages/typescript';
 import scss from 'highlight.js/lib/languages/scss';
 import xml from 'highlight.js/lib/languages/xml';
+import shell from 'highlight.js/lib/languages/shell';
 
 export function hljsLanguages() {
   return [
-    { name: 'typescript', func: typescript },
-    { name: 'scss', func: scss },
-    { name: 'xml', func: xml }
+    {name: 'typescript', func: typescript},
+    {name: 'scss', func: scss},
+    {name: 'shell', func: shell},
+    {name: 'xml', func: xml}
   ];
 }
 
@@ -28,13 +30,13 @@ export function hljsLanguages() {
     HttpClientModule,
     AppRoutingModule,
     SharedModule,
-    HighlightModule.forRoot({ languages: hljsLanguages })
+    HighlightModule.forRoot({languages: hljsLanguages})
   ],
   declarations: [
     AppComponent,
     DEMO_DECLARATIONS
   ],
-  providers: [{ provide: APP_BASE_HREF, useValue: environment.production ? '/angular-mdc-web/' : '/' }],
+  providers: [{provide: APP_BASE_HREF, useValue: environment.production ? '/angular-mdc-web/' : '/'}],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

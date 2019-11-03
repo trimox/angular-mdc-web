@@ -33,6 +33,7 @@ import {MdcTextField} from './text-field';
     [attr.minlength]="minlength"
     [disabled]="disabled"
     [required]="required"
+    [readonly]="readonly"
     (mousedown)="onInputInteraction($event)"
     (touchstart)="onInputInteraction($event)"
     (focus)="onFocus()"

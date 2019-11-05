@@ -3,14 +3,13 @@ import {
   Input
 } from '@angular/core';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import {MdcIcon} from '@angular-mdc/web/icon';
 
 @Directive({
   selector: '[mdcTextFieldIcon]',
   exportAs: 'mdcTextFieldIcon',
   host: { 'class': 'mdc-text-field__icon' }
 })
-export class MdcTextFieldIcon extends MdcIcon {
+export class MdcTextFieldIcon {
   @Input()
   get leading(): boolean { return this._leading; }
   set leading(value: boolean) {

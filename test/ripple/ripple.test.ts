@@ -7,7 +7,6 @@ import {dispatchMouseEvent} from '../testing/dispatch-events';
 
 import {
   MdcRippleModule,
-  MdcRippleComponent,
   MdcRippleDirective
 } from '@angular-mdc/web';
 
@@ -32,16 +31,16 @@ describe('MdcRippleComponent', () => {
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;
     let testNativeElement: HTMLElement;
-    let testInstance: MdcRippleComponent;
+    let testInstance: MdcRippleDirective;
     let testComponent: SimpleTest;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SimpleTest);
       fixture.detectChanges();
 
-      testDebugElement = fixture.debugElement.query(By.directive(MdcRippleComponent));
+      testDebugElement = fixture.debugElement.query(By.directive(MdcRippleDirective));
       testNativeElement = testDebugElement.nativeElement;
-      testInstance = testDebugElement.componentInstance;
+      testInstance = testDebugElement.injector.get(MdcRippleDirective);
       testComponent = fixture.debugElement.componentInstance;
     });
 
@@ -137,7 +136,7 @@ describe('MdcRippleComponent', () => {
 
       testDebugElement = fixture.debugElement.query(By.directive(MdcRippleDirective));
       testNativeElement = testDebugElement.nativeElement;
-      testInstance = testDebugElement.componentInstance;
+      testInstance = testDebugElement.injector.get(MdcRippleDirective);
       testComponent = fixture.debugElement.componentInstance;
     });
 

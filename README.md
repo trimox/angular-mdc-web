@@ -1,28 +1,23 @@
-# Material Web Components for Angular
+# Angular MDC
 
 [![npm version](https://badge.fury.io/js/%40angular-mdc%2Fweb.svg)](https://badge.fury.io/js/%40angular-mdc%2Fweb)
 [![Build Status](https://travis-ci.com/trimox/angular-mdc-web.svg?branch=master)](https://travis-ci.com/trimox/angular-mdc-web)
 [![codecov](https://codecov.io/gh/trimox/angular-mdc-web/branch/master/graph/badge.svg)](https://codecov.io/gh/trimox/angular-mdc-web)
-[![Chat](https://img.shields.io/discord/522582556814737419.svg)](https://discord.gg/dm6bGvA)
 
 [Demos, documentation and guides](https://trimox.github.io/angular-mdc-web/)
 
-Incorporating [Google Material Components](https://github.com/material-components/material-components-web) for a faithful and accurate representation of Material Design as envisioned on the web platform.
+Third-party integration incorporating [Google Material Components](https://github.com/material-components/material-components-web) for building beautiful, usable products using Material Design.
 
 #### Quick Links
+*  [Getting Started](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md)
 *  [Changelog](https://github.com/trimox/angular-mdc-web/blob/master/CHANGELOG.md)
-*  [Getting Started Guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md)
-*  [Demos, documentation and guides](https://trimox.github.io/angular-mdc-web/)
+*  [Documentation and demos](https://trimox.github.io/angular-mdc-web/)
 *  [StackBlitz Template](https://stackblitz.com/edit/angular-mdc)
 *  [Contributing](https://github.com/trimox/angular-mdc-web/blob/master/CONTRIBUTING.md)
 *  [Developer guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/developer.md)
-*  [MDC Web Roadmap](https://github.com/material-components/material-components-web/blob/master/ROADMAP.md)
-
-## <a name="getstarted"></a> Getting started
-View our [Getting Started Guide](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md) to begin using Angular MDC in your project.
 
 ## Material Design Components
-Developed using Google Material Components [foundations and adapters](https://github.com/material-components/material-components-web/blob/master/docs/integrating-into-frameworks.md#the-advanced-approach-using-foundations-and-adapters).
+Using Google Material Components [foundations and adapters](https://github.com/material-components/material-components-web/blob/master/docs/integrating-into-frameworks.md#the-advanced-approach-using-foundations-and-adapters).
 
 | Component  | Status  | Demo |
 | ---------- | ------- | :------: |

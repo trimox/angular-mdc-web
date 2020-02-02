@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
+import {ComponentViewer, ComponentView} from '../../shared/component-viewer';
 
-@Component({ template: '<component-viewer></component-viewer>' })
+@Component({template: '<component-viewer></component-viewer>'})
 export class RippleDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
@@ -22,19 +22,39 @@ export class RippleDemo implements OnInit {
   }
 }
 
-@Component({ templateUrl: './api.html' })
-export class Api { }
+@Component({templateUrl: './api.html'})
+export class Api {}
 
-@Component({ templateUrl: './sass.html' })
-export class Sass { }
+@Component({templateUrl: './sass.html'})
+export class Sass {}
 
-@Component({ templateUrl: './examples.html' })
+@Component({templateUrl: './examples.html'})
 export class Examples {
   exampleRipple = {
-    html: `<mdc-ripple [attachTo]="demodiv">
-  <div #demodiv>
+    html: `<div #rippleExample mdcRipple [attachTo]="demodiv"
+    [disabled]="disabled.checked">
+  <div style="height: 200px; width: 100%;" class="demo-layout--center"
+    #demodiv>
     Click me
   </div>
-</mdc-ripple>`
+</div>`
+  };
+
+  examplePrimary = {
+    html: `<div mdcRipple [attachTo]="demoPrimary" primary>
+  <div style="height: 200px; width: 100%;" class="demo-layout--center"
+    #demoPrimary>
+    Primary Theme Color
+  </div>
+</div>`
+  };
+
+  exampleSecondary = {
+    html: `<div mdcRipple [attachTo]="demoSecondary" secondary>
+  <div style="height: 200px; width: 100%;" class="demo-layout--center"
+    #demoSecondary>
+    Secondary Theme Color
+  </div>
+</div>`
   };
 }

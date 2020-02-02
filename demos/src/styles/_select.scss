@@ -1,39 +1,41 @@
+@use '@material/select/mixins';
+
 .custom-select-ink-color {
-  @include mdc-select-ink-color(green);
+  @include mixins.ink-color(green);
 }
 
 .custom-select-container-fill-color {
-  @include mdc-select-container-fill-color(green);
+  @include mixins.container-fill-color(green);
 }
 
 .custom-select-label-color {
-  @include mdc-select-label-color(green);
+  @include mixins.label-color(green);
 }
 
 .custom-select-bottom-line-color {
-  @include mdc-select-bottom-line-color(green);
+  @include mixins.bottom-line-color(green);
 }
 
 .custom-select-shape-radius {
-  @include mdc-select-shape-radius(50%);
+  @include mixins.shape-radius(50%);
 }
 
 .custom-select-outline-color {
-  @include mdc-select-outline-color(green);
+  @include mixins.outline-color(green);
 }
 
 .custom-select-outline-shape-radius {
-  @include mdc-select-outline-shape-radius(50%);
+  @include mixins.outline-shape-radius(50%);
 }
 
 .custom-select-shape-radius {
-  @include mdc-select-shape-radius(50%);
+  @include mixins.shape-radius(50%);
 }
 
 .custom-select-outline-shape-radius {
-  @include mdc-select-outline-shape-radius(50%);
+  @include mixins.outline-shape-radius(50%);
 }
 
-.demo-enhanced-width {
-  width: 7rem;
+.demo-select-width {
+  width: 200px;
 }

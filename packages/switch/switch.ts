@@ -56,23 +56,22 @@ let nextUniqueId = 0;
   template: `
   <div class="mdc-switch__track"></div>
   <div #thumbUnderlay class="mdc-switch__thumb-underlay">
-    <div class="mdc-switch__thumb">
-      <input type="checkbox"
-        #input
-        role="switch"
-        class="mdc-switch__native-control"
-        [id]="inputId"
-        [attr.name]="name"
-        [attr.aria-label]="ariaLabel"
-        [attr.aria-labelledby]="ariaLabelledby"
-        [tabIndex]="tabIndex"
-        [disabled]="disabled"
-        [required]="required"
-        [checked]="checked"
-        (blur)="onBlur()"
-        (click)="onInputClick($event)"
-        (change)="onChange($event)"/>
-    </div>
+    <div class="mdc-switch__thumb"></div>
+    <input type="checkbox"
+      #input
+      role="switch"
+      class="mdc-switch__native-control"
+      [id]="inputId"
+      [attr.name]="name"
+      [attr.aria-label]="ariaLabel"
+      [attr.aria-labelledby]="ariaLabelledby"
+      [tabIndex]="tabIndex"
+      [disabled]="disabled"
+      [required]="required"
+      [checked]="checked"
+      (blur)="onBlur()"
+      (click)="onInputClick($event)"
+      (change)="onChange($event)"/>
   </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -154,7 +153,8 @@ export class MdcSwitch extends MDCComponent<MDCSwitchFoundation> implements MdcF
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
       setNativeControlChecked: (checked: boolean) => this._getInputElement().checked = checked,
-      setNativeControlDisabled: (disabled: boolean) => this._getInputElement().disabled = disabled
+      setNativeControlDisabled: (disabled: boolean) => this._getInputElement().disabled = disabled,
+      setNativeControlAttr: (attr: string, value: string) => this._getInputElement().setAttribute(attr, value)
     };
     return new MDCSwitchFoundation(adapter);
   }
@@ -240,18 +240,14 @@ export class MdcSwitch extends MDCComponent<MDCSwitchFoundation> implements MdcF
       ...MdcRipple.createAdapter(this),
       addClass: (className: string) => rippleSurface.classList.add(className),
       computeBoundingRect: () => rippleSurface.getBoundingClientRect(),
-      deregisterInteractionHandler: (evtType: any, handler: any) => {
-        this._inputElement.nativeElement.removeEventListener(evtType, handler, supportsPassiveEventListeners());
-      },
+      deregisterInteractionHandler: (evtType: any, handler: any) =>
+        this._inputElement.nativeElement.removeEventListener(evtType, handler, supportsPassiveEventListeners()),
       isSurfaceActive: () => matches(this._inputElement.nativeElement, ':active'),
       isUnbounded: () => true,
-      registerInteractionHandler: (evtType: any, handler: any) => {
-        this._inputElement.nativeElement.addEventListener(evtType, handler, supportsPassiveEventListeners());
-      },
+      registerInteractionHandler: (evtType: any, handler: any) =>
+        this._inputElement.nativeElement.addEventListener(evtType, handler, supportsPassiveEventListeners()),
       removeClass: (className: string) => rippleSurface.classList.remove(className),
-      updateCssVariable: (varName: string, value: string) => {
-        rippleSurface.style.setProperty(varName, value);
-      },
+      updateCssVariable: (varName: string, value: string) => rippleSurface.style.setProperty(varName, value)
     };
     return new MdcRipple(this.elementRef, new MDCRippleFoundation(adapter));
   }

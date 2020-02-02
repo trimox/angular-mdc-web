@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { HighlightModule } from 'ngx-highlightjs';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {RouterModule} from '@angular/router';
+import {HighlightModule} from 'ngx-highlightjs';
 
-import { MaterialModule } from './material.module';
-import { ComponentViewer } from './shared/component-viewer';
-import { ExampleViewer } from './shared/example-viewer';
-import { ActiveTabRouterModule, Markdown } from './shared';
+import {MaterialModule} from './material.module';
+import {ComponentViewer} from './shared/component-viewer';
+import {ExampleViewer} from './shared/example-viewer';
+import {ActiveTabRouterModule, Markdown} from './shared';
 
 const SHARED_DECLARATIONS = [
   ComponentViewer,
@@ -35,4 +35,4 @@ const SHARED_DECLARATIONS = [
     SHARED_DECLARATIONS
   ]
 })
-export class SharedModule { }
+export class SharedModule {}

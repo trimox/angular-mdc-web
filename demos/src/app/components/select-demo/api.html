@@ -28,12 +28,8 @@
         <td>Text shown if no value has been selected.</td>
       </tr>
       <tr>
-        <td>value: any</td>
+        <td>value</td>
         <td>Sets the selected item by value.</td>
-      </tr>
-      <tr>
-        <td>autosize: boolean</td>
-        <td>If true, the width of the select and it's menu are calculated and set appropriately. (Default is false)</td>
       </tr>
       <tr>
         <td>tabIndex: number</td>
@@ -62,24 +58,16 @@
   <table>
     <tbody>
       <tr>
-        <td>reset()</td>
-        <td>Reset the select to initial state.</td>
-      </tr>
-      <tr>
-        <td>focus()</td>
-        <td>Sets focus to the select component.</td>
-      </tr>
-      <tr>
-        <td>getValue(): string</td>
-        <td>Returns the value of the currently selected option, or an empty string if no option is selected.</td>
-      </tr>
-      <tr>
         <td>getSelectedIndex(): number</td>
         <td>Returns the index of the currently selected option. Returns -1 if no option is currently selected.</td>
       </tr>
       <tr>
-        <td>setSelectionByValue(value: any)</td>
+        <td>setSelectionByValue(value)</td>
         <td>Set selection to the passed value.</td>
+      </tr>
+      <tr>
+        <td>focus()</td>
+        <td>Set focus to the select.</td>
       </tr>
     </tbody>
   </table>
@@ -100,8 +88,12 @@
         <td>Event emitted if user changed the value.</td>
       </tr>
       <tr>
-        <td>blur(value: any)</td>
+        <td>blur(value)</td>
         <td>Emitted whenever the select loses focus.</td>
+      </tr>
+      <tr>
+        <td>focus(boolean)</td>
+        <td>Emitted when the select gains or loses focus.</td>
       </tr>
     </tbody>
   </table>

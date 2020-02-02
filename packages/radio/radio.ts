@@ -86,6 +86,7 @@ let nextUniqueId = 0;
       <div class="mdc-radio__outer-circle"></div>
       <div class="mdc-radio__inner-circle"></div>
     </div>
+    <div class="mdc-radio__ripple"></div>
   `,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,

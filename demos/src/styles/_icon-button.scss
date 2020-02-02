@@ -1,19 +1,23 @@
+@use '@material/icon-button/mixins';
+@use '@material/ripple/mixins' as ripple-mixins;
+@use "@material/theme/variables" as theme-variables;
+
 .demo-icon-button-custom {
-  @include mdc-icon-button-ink-color(#de442c);
-  @include mdc-states-base-color(#de442c);
-  @include mdc-states-hover-opacity(.09);
-  @include mdc-states-focus-opacity(.26);
-  @include mdc-states-press-opacity(.35);
+  @include mixins.ink-color(#de442c);
+  @include ripple-mixins.states-base-color(#de442c);
+  @include ripple-mixins.states-hover-opacity(.09);
+  @include ripple-mixins.states-focus-opacity(.26);
+  @include ripple-mixins.states-press-opacity(.35);
 }
 
 .demo-icon-button-primary {
-  @include mdc-icon-button-ink-color($mdc-theme-primary);
+  @include mixins.ink-color(theme-variables.$primary);
 }
 
 .demo-icon-button-secondary {
-  @include mdc-icon-button-ink-color($mdc-theme-secondary);
+  @include mixins.ink-color(theme-variables.$secondary);
 }
 
 .demo-icon-button-large {
-  @include mdc-icon-button-size(36px);
+  @include mixins.size(36px);
 }

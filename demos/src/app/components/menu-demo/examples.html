@@ -41,14 +41,19 @@
           <label>Wrap keyboard focus</label>
         </mdc-form-field>
         <mdc-form-field>
-          <mdc-checkbox #closeSurfaceOnSelection [checked]="closeSurfaceOnSelection"></mdc-checkbox>
+          <mdc-checkbox #closeSurfaceOnSelection
+            [checked]="closeSurfaceOnSelection"></mdc-checkbox>
           <label>Close Surface on Selection</label>
         </mdc-form-field>
         <mdc-select #defaultFocusState placeholder="Default Focus State">
-          <option value="none">None</option>
-          <option value="list">List Root</option>
-          <option value="firstItem">First Item</option>
-          <option value="lastItem">Last Item</option>
+          <mdc-menu>
+            <mdc-list>
+              <mdc-list-item value=0>None</mdc-list-item>
+              <mdc-list-item value=1>List Root</mdc-list-item>
+              <mdc-list-item value=2>First Item</mdc-list-item>
+              <mdc-list-item value=3>Last Item</mdc-list-item>
+            </mdc-list>
+          </mdc-menu>
         </mdc-select>
       </div>
     </div>
@@ -63,8 +68,7 @@
         [anchorElement]="demoAnchor"
         [anchorCorner]="menuSurfaceAnchorCorner.value"
         [quickOpen]="quickOpen.checked"
-        [defaultFocusState]="defaultFocusState.value"
-        [fixed]="fixed.checked"
+        [defaultFocusState]="defaultFocusState.value" [fixed]="fixed.checked"
         [wrapFocus]="wrapFocus.checked"
         [closeSurfaceOnSelection]="closeSurfaceOnSelection.checked"
         [anchorMargin]="{top: marginTop.value, bottom: marginBottom.value, left: marginLeft.value, right: marginRight.value}">

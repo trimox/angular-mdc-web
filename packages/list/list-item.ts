@@ -101,6 +101,7 @@ export class MdcListItemSecondary {
     '[id]': 'id',
     '[tabIndex]': 'tabIndex',
     'class': 'mdc-list-item',
+    '[attr.data-value]': 'value',
     '[class.mdc-list-item--selected]': 'selected',
     '[class.mdc-list-item--activated]': 'activated',
     '[class.mdc-list-item--disabled]': 'disabled',
@@ -137,7 +138,7 @@ export class MdcListItem implements OnDestroy, MDCRippleCapableSurface {
       this._changeDetectorRef.markForCheck();
     }
   }
-  private _selected: boolean = false;
+  private _selected = false;
 
   /** Whether the list item is activated. */
   @Input()
@@ -151,7 +152,7 @@ export class MdcListItem implements OnDestroy, MDCRippleCapableSurface {
       this._changeDetectorRef.markForCheck();
     }
   }
-  private _activated: boolean = false;
+  private _activated = false;
 
   /** Whether the list item is disabled. */
   @Input()
@@ -165,7 +166,7 @@ export class MdcListItem implements OnDestroy, MDCRippleCapableSurface {
       this._changeDetectorRef.markForCheck();
     }
   }
-  private _disabled: boolean = false;
+  private _disabled = false;
 
   @Output() readonly selectionChange: EventEmitter<MdcListSelectionChange>
     = new EventEmitter<MdcListSelectionChange>();

@@ -8,20 +8,15 @@ import {SharedModule} from './shared.module';
 import {AppComponent} from './app.component';
 import {AppRoutingModule, DEMO_DECLARATIONS} from './app-routing.module';
 
-import {HighlightModule} from 'ngx-highlightjs';
+import {HighlightModule, HIGHLIGHT_OPTIONS} from 'ngx-highlightjs';
 
-import typescript from 'highlight.js/lib/languages/typescript';
-import scss from 'highlight.js/lib/languages/scss';
-import xml from 'highlight.js/lib/languages/xml';
-import shell from 'highlight.js/lib/languages/shell';
-
-export function hljsLanguages() {
-  return [
-    {name: 'typescript', func: typescript},
-    {name: 'scss', func: scss},
-    {name: 'shell', func: shell},
-    {name: 'xml', func: xml}
-  ];
+export function getHighlightLanguages() {
+  return {
+    typescript: () => import('highlight.js/lib/languages/typescript'),
+    scss: () => import('highlight.js/lib/languages/scss'),
+    shell: () => import('highlight.js/lib/languages/shell'),
+    xml: () => import('highlight.js/lib/languages/xml')
+  };
 }
 
 @NgModule({
@@ -30,13 +25,24 @@ export function hljsLanguages() {
     HttpClientModule,
     AppRoutingModule,
     SharedModule,
-    HighlightModule.forRoot({languages: hljsLanguages})
+    HighlightModule
   ],
   declarations: [
     AppComponent,
     DEMO_DECLARATIONS
   ],
-  providers: [{provide: APP_BASE_HREF, useValue: environment.production ? '/angular-mdc-web/' : '/'}],
+  providers: [
+    {
+      provide: APP_BASE_HREF,
+      useValue: environment.production ? '/angular-mdc-web/' : '/'
+    },
+    {
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: {
+        languages: getHighlightLanguages()
+      }
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -12,7 +12,7 @@ import {
 import {Overlay, OverlayRef} from '@angular/cdk/overlay';
 import {ComponentPortal, ComponentType, PortalInjector} from '@angular/cdk/portal';
 
-import {MdcSnackbarModule} from './snackbar-module';
+import {MdcSnackbarModule} from './module';
 
 import {MdcSnackbarRef} from './snackbar-ref';
 import {MdcSnackbarComponent} from './snackbar.component';

@@ -1,5 +1,5 @@
-import { resolve as resolvePath } from 'path';
-import { spawn } from 'child_process';
+import {resolve as resolvePath} from 'path';
+import {spawn} from 'child_process';
 
 /**
  * Spawns a child process that compiles TypeScript using the specified compiler binary.
@@ -10,7 +10,7 @@ import { spawn } from 'child_process';
 export function tsCompile(binary: 'tsc' | 'ngc', flags: string[]) {
   return new Promise((resolve, reject) => {
     const binaryPath = resolvePath(`./node_modules/.bin/${binary}`);
-    const childProcess = spawn(binaryPath, flags, { shell: true });
+    const childProcess = spawn(binaryPath, flags, {shell: true});
 
     // Pipe stdout and stderr from the child process.
     childProcess.stdout.on('data', (data: string | Buffer) => console.log(`${data}`));

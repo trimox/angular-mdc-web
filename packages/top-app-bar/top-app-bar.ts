@@ -346,9 +346,7 @@ export class MdcTopAppBar extends MDCComponent<MDCTopAppBarBaseFoundation | MDCS
   }
 
   private _destroyFoundation(): void {
-    if (this._foundation) {
-      this._foundation.destroy();
-    }
+    this._foundation?.destroy();
   }
 
   private _initScrollHandler(): void {

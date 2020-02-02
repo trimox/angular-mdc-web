@@ -1,2 +1,2 @@
-export * from './switch-module';
+export * from './module';
 export * from './switch';

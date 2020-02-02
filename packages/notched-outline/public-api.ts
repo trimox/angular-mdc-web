@@ -1,2 +1,2 @@
-export * from './notched-outline-module';
+export * from './module';
 export * from './notched-outline';

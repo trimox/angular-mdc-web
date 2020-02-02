@@ -1,9 +1,13 @@
-.demo-checkbox--custom-all {
-  $color: $material-color-red-500;
+@use '@material/checkbox/mixins';
+@use '@material/ripple/mixins' as mdc;
+@use '@material/theme/color-palette' as material-color;
 
-  @include mdc-checkbox-focus-indicator-color($color);
-  @include mdc-states($color);
-  @include mdc-checkbox-container-colors(
+.demo-checkbox--custom-all {
+  $color: material-color.$red-500;
+
+  @include mixins.focus-indicator-color($color);
+  @include mdc.states($color);
+  @include mixins.container-colors(
     $unmarked-stroke-color: $color,
     $unmarked-fill-color: rgba($color, .25),
     $marked-fill-color: $color,
@@ -11,8 +15,8 @@
 }
 
 .demo-checkbox--custom-stroke-and-fill {
-  @include mdc-checkbox-container-colors(
-    $unmarked-stroke-color: $material-color-blue-500,
-    $marked-fill-color: $material-color-purple-500,
+  @include mixins.container-colors(
+    $unmarked-stroke-color: material-color.$blue-500,
+    $marked-fill-color: material-color.$purple-500,
     $generate-keyframes: false);
 }

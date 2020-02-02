@@ -1,2 +1,2 @@
-export * from './fab-module';
+export * from './module';
 export * from './fab';

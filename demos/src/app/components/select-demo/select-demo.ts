@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, FormBuilder, Validators } from '@angular/forms';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormControl, FormGroup, FormGroupDirective, FormBuilder, Validators} from '@angular/forms';
 
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
+import {ComponentViewer, ComponentView} from '../../shared/component-viewer';
 
 interface Food {
   value: string;
@@ -9,7 +9,7 @@ interface Food {
   disabled?: boolean;
 }
 
-@Component({ template: '<component-viewer></component-viewer>' })
+@Component({template: '<component-viewer></component-viewer>'})
 export class SelectDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
@@ -31,13 +31,13 @@ export class SelectDemo implements OnInit {
   }
 }
 
-@Component({ templateUrl: './api.html' })
-export class Api { }
+@Component({templateUrl: './api.html'})
+export class Api {}
 
-@Component({ templateUrl: './sass.html' })
-export class Sass { }
+@Component({templateUrl: './sass.html'})
+export class Sass {}
 
-@Component({ templateUrl: './examples.html' })
+@Component({templateUrl: './examples.html'})
 export class Examples {
   lazyFoods: Food[] = [];
 
@@ -51,7 +51,6 @@ export class Examples {
     lazySelect: new FormControl(null, [Validators.required])
   });
 
-  simpleNativeForm: FormGroup;
   formCompareWith: FormGroup;
   fruits: object[] = [
     {
@@ -67,11 +66,11 @@ export class Examples {
   ];
 
   foods = [
-    { value: '', disabled: false },
-    { value: 'steak-0', viewValue: 'Steak' },
-    { value: 'pizza-1', viewValue: 'Pizza' },
-    { value: 'tacos-2', viewValue: 'Tacos is disabled', disabled: true },
-    { value: 'fruit-3', viewValue: 'Fruit' },
+    {value: '', disabled: false},
+    {value: 'steak-0', viewValue: 'Steak'},
+    {value: 'pizza-1', viewValue: 'Pizza'},
+    {value: 'tacos-2', viewValue: 'Tacos is disabled', disabled: true},
+    {value: 'fruit-3', viewValue: 'Fruit'},
   ];
 
   compareFn(f1: any, f2: any): boolean {
@@ -84,10 +83,6 @@ export class Examples {
     });
 
     this.foodControl.setValue('fruit-3');
-
-    this.simpleNativeForm = new FormGroup({
-      simpleNative: new FormControl('one')
-    });
   }
 
   submitForm() {
@@ -101,17 +96,17 @@ export class Examples {
     this.foodForm.reset();
   }
 
-  onSelectionChange(event: { index: any, value: any }) {
+  onSelectionChange(event: {index: any, value: any}) {
     console.log(`onSelectionChange: ${event.index} ${event.value}`);
   }
 
   loadFoods(): void {
     this.lazyFoods = [
-      { value: '', disabled: false },
-      { value: 'steak-0', viewValue: 'Steak' },
-      { value: 'pizza-1', viewValue: 'Pizza' },
-      { value: 'tacos-2', viewValue: 'Tacos is disabled', disabled: true },
-      { value: 'fruit-3', viewValue: 'Fruit' },
+      {value: '', disabled: false},
+      {value: 'steak-0', viewValue: 'Steak'},
+      {value: 'pizza-1', viewValue: 'Pizza'},
+      {value: 'tacos-2', viewValue: 'Tacos is disabled', disabled: true},
+      {value: 'fruit-3', viewValue: 'Fruit'},
     ];
 
     // Patch the form
@@ -130,29 +125,7 @@ export class Examples {
   // Examples
   //
 
-  exampleSimpleNativeFormControl = {
-    html: `<form [formGroup]="simpleNativeForm">
-  <mdc-select formControlName="simpleNative">
-    <option value="one">One</option>
-    <option value="two">Two</option>
-  </mdc-select>
-</form>
-
-<p>Dirty: {{ simpleNativeForm.dirty }}</p>
-<p>Valid: {{ simpleNativeForm.valid }}</p>
-<p>Pristine: {{ simpleNativeForm.pristine }}</p>
-<p>Touched: {{ simpleNativeForm.touched }}</p>
-<p>Value: {{ simpleNativeForm.value | json }}</p>`,
-    ts: `simpleNativeForm: FormGroup;
-
-constructor() {
-  this.simpleNativeForm = new FormGroup({
-    simpleNative: new FormControl('one')
-  });
-}`
-  };
-
-  exampleEnhanced = {
+  exampleStandard = {
     html: `<mdc-select #enhanced placeholder="Fruit" [helperText]="enhancedHelper"
   required class="demo-enhanced-width">
   <mdc-menu>
@@ -162,47 +135,33 @@ constructor() {
       <mdc-list-item value="orange">Orange</mdc-list-item>
       <mdc-list-item value="banana">Banana</mdc-list-item>
       <mdc-list-item disabled value="mango">Mango</mdc-list-item>
-      </mdc-list>
+    </mdc-list>
   </mdc-menu>
 </mdc-select>
 <mdc-select-helper-text #enhancedHelper validation>Field is required</mdc-select-helper-text>
 
 <p> Value: {{ enhanced.value }}</p>
 <p> Index: {{ enhanced.getSelectedIndex() }}</p>`,
-    sass: `.demo-enhanced-width {
-  width: 7rem;
+    sass: `.demo-select-width {
+  width: 200px;
 }`
   };
 
-  exampleSimpleNative = {
+  exampleNoLabel = {
     html: `<mdc-select>
-  <option value="apple">Apple</option>
-  <option value="orange">Orange</option>
-</mdc-select>
-
-<mdc-select placeholder="Unit">
-  <option value="kg">kg</option>
-  <option value="ml">ml</option>
-</mdc-select>`
-  };
-
-  exampleNativeSelect = {
-    html: `<mdc-select #meal [helperText]="mealHelper" required placeholder="Pick a Meal" autosize>
-  <mdc-icon mdcSelectIcon>fastfood</mdc-icon>
-  <option *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
-    {{food.viewValue}}
-  </option>
-</mdc-select>
-<mdc-select-helper-text #mealHelper validation>
-  <span *ngIf="!meal.value">Meal selection is required</span>
-</mdc-select-helper-text>`,
-    ts: `foods = [
-  { value: '', disabled: false },
-  { value: 'steak-0', viewValue: 'Steak' },
-  { value: 'pizza-1', viewValue: 'Pizza' },
-  { value: 'tacos-2', viewValue: 'Tacos is disabled', disabled: true },
-  { value: 'fruit-3', viewValue: 'Fruit' },
-];`
+  <mdc-menu class="demo-select-width" [anchorMargin]="{top: 10}">
+    <mdc-list>
+      <mdc-list-item></mdc-list-item>
+      <mdc-list-item value="apple">Apple</mdc-list-item>
+      <mdc-list-item value="orange">Orange</mdc-list-item>
+      <mdc-list-item value="banana">Banana</mdc-list-item>
+      <mdc-list-item value="mango">Mango</mdc-list-item>
+    </mdc-list>
+  </mdc-menu>
+</mdc-select>`,
+sass: `.demo-select-width {
+  width: 200px;
+}`
   };
 
   exampleCustomEnhanced = {
@@ -248,13 +207,42 @@ constructor() {
 }`
   };
 
+  exampleLeadingIcon = {
+    html: `<mdc-select #meal [helperText]="mealHelper" required placeholder="Pick a Meal" autosize>
+  <mdc-icon mdcSelectIcon>fastfood</mdc-icon>
+  <mdc-menu>
+    <mdc-list>
+      <mdc-list-item *ngFor="let food of foods" [value]="food.value"
+        [disabled]="food.disabled">
+        {{food.viewValue}}
+      </mdc-list-item>
+    </mdc-list>
+  </mdc-menu>
+</mdc-select>
+<mdc-select-helper-text #mealHelper validation>
+  <span *ngIf="!meal.value">Meal selection is required</span>
+</mdc-select-helper-text>`,
+    ts: `foods = [
+  { value: '', disabled: false },
+  { value: 'steak-0', viewValue: 'Steak' },
+  { value: 'pizza-1', viewValue: 'Pizza' },
+  { value: 'tacos-2', viewValue: 'Tacos is disabled', disabled: true },
+  { value: 'fruit-3', viewValue: 'Fruit' },
+];`
+  };
+
   exampleNgModel = {
     html: `<form #demoForm="ngForm">
   <mdc-select #select placeholder="Favorite food" name="food" required outlined ngModel #demoNgModel="ngModel"
     (selectionChange)="onSelectionChange($event)">
-    <option *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
-      {{food.viewValue}}
-    </option>
+    <mdc-menu>
+      <mdc-list>
+        <mdc-list-item *ngFor="let food of foods" [value]="food.value"
+          [disabled]="food.disabled">
+          {{food.viewValue}}
+        </mdc-list-item>
+      </mdc-list>
+    </mdc-menu>
   </mdc-select>
 </form>
 
@@ -278,9 +266,14 @@ onSelectionChange(event: { index: any, value: any }) {
   exampleReactive = {
     html: `<form [formGroup]="foodForm" id="foodForm" (ngSubmit)="submitForm()" #formDirective="ngForm">
   <mdc-select #favoriteFood placeholder="Favorite food" formControlName="favoriteFood" [helperText]="reactiveHelper">
-    <option *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
-      {{food.viewValue}}
-    </option>
+    <mdc-menu>
+      <mdc-list>
+        <mdc-list-item *ngFor="let food of foods" [value]="food.value"
+          [disabled]="food.disabled">
+          {{food.viewValue}}
+        </mdc-list-item>
+      </mdc-list>
+    </mdc-menu>
   </mdc-select>
   <mdc-select-helper-text #reactiveHelper validation>
     <span *ngIf="foodForm.controls['favoriteFood'].hasError('required')">Selection is required</span>
@@ -320,11 +313,15 @@ resetForm(formDirective: FormGroupDirective) {
 }`
   };
 
-  exampleLazyLoadedNative = {
+  exampleLazyLoaded = {
     html: `<form [formGroup]="lazyLoadForm" #formDirectiveLazy="ngForm">
   <mdc-select outlined formControlName="lazySelect" [helperText]="lazyHelper">
-    <option *ngFor="let food of lazyFoods" [value]="food.value"
-      [disabled]="food.disabled">{{food.viewValue}}</option>
+    <mdc-menu>
+      <mdc-list>
+        <mdc-list-item *ngFor="let food of lazyFoods" [value]="food.value"
+          [disabled]="food.disabled">{{food.viewValue}}</mdc-list-item>
+      </mdc-list>
+    </mdc-menu>
   </mdc-select>
   <mdc-select-helper-text #lazyHelper validation>
     <span *ngIf="lazyLoadForm.controls['lazySelect'].hasError('required')">Selection is required</span>

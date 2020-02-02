@@ -100,7 +100,9 @@ export class MdcDialogActions {
     '[class.mdc-button]': 'true',
     '[class.mdc-dialog__button--default]': 'default'
   },
-  template: '<ng-content></ng-content>',
+  template: `
+  <div class="mdc-button__ripple"></div>
+  <ng-content></ng-content>`,
   providers: [MdcRipple],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush

@@ -1,2 +1,2 @@
-export * from './linear-progress-module';
+export * from './module';
 export * from './linear-progress';

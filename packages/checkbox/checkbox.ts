@@ -84,6 +84,7 @@ export const MDC_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
     </svg>
     <div class="mdc-checkbox__mixedmark"></div>
   </div>
+  <div *ngIf="!disableRipple && !disabled" class="mdc-checkbox__ripple"></div>
   `,
   providers: [
     MDC_CHECKBOX_CONTROL_VALUE_ACCESSOR,
@@ -333,7 +334,7 @@ export class MdcCheckbox extends MDCComponent<MDCCheckboxFoundation> implements 
       ...MdcRipple.createAdapter(this),
       isSurfaceActive: () => matches(this._inputElement.nativeElement, ':active'),
       isUnbounded: () => true,
-      isSurfaceDisabled: () => this._disableRipple
+      isSurfaceDisabled: () => !this._disableRipple
     };
     return new MdcRipple(this.elementRef, new MDCRippleFoundation(adapter));
   }

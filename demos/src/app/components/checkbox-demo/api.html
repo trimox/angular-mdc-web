@@ -24,8 +24,12 @@
         <td>Name of the checkbox.</td>
       </tr>
       <tr>
+        <td>checked: boolean</td>
+        <td>Whether the checkbox is checked.</td>
+      </tr>
+      <tr>
         <td>value: string</td>
-        <td>Value of the checkbox.</td>
+        <td>The value attribute of the native input element.</td>
       </tr>
       <tr>
         <td>tabIndex: number</td>
@@ -38,10 +42,6 @@
       <tr>
         <td>ariaLabelledby: string</td>
         <td>The 'aria-labelledby' attribute takes precedence as the element's text alternative.</td>
-      </tr>
-      <tr>
-        <td>checked: boolean</td>
-        <td>Sets the checkbox input to checked or not.</td>
       </tr>
       <tr>
         <td>indeterminate: boolean</td>
@@ -81,8 +81,8 @@
   <table>
     <tbody>
       <tr>
-        <td>change(source: MdcCheckBox, value: boolean)</td>
-        <td>Event dispatched on value change.</td>
+        <td>change(source: MdcCheckBox, checked: boolean)</td>
+        <td>Event dispatched on checked change.</td>
       </tr>
       <tr>
         <td>indeterminateChange(source: MdcCheckbox, indeterminate: boolean)</td>

@@ -39,38 +39,40 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
   public label?: HTMLElement;
 
   @Input()
-  get fluid(): boolean { return this._fluid; }
+  get fluid(): boolean {
+    return this._fluid;
+  }
   set fluid(value: boolean) {
     this._fluid = coerceBooleanProperty(value);
   }
-  private _fluid: boolean = false;
+  private _fluid = false;
 
   @Input()
-  get alignEnd(): boolean { return this._alignEnd; }
+  get alignEnd(): boolean {
+    return this._alignEnd;
+  }
   set alignEnd(value: boolean) {
     this._alignEnd = coerceBooleanProperty(value);
   }
-  private _alignEnd: boolean = false;
+  private _alignEnd = false;
 
   @ContentChild(MdcFormFieldControl, {static: false}) _control!: MdcFormFieldControl<any>;
-  @ContentChildren(MdcHelperText, { descendants: true }) assistiveElements!: QueryList<MdcHelperText>;
+  @ContentChildren(MdcHelperText, {descendants: true}) assistiveElements!: QueryList<MdcHelperText>;
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _ngZone: NgZone,
-    public elementRef: ElementRef<HTMLElement>) { }
+    public elementRef: ElementRef<HTMLElement>) {}
 
   ngAfterContentInit(): void {
     if (this._control) {
       const control = this._control.elementRef.nativeElement;
 
-      if (control.nextElementSibling) {
-        if (control.nextElementSibling.tagName === 'LABEL') {
-          this.label = control.nextElementSibling;
-          if (this.label && this._control.inputId) {
-            this.label!.setAttribute('for', this._control.inputId);
-            this._loadListeners();
-          }
+      if (control?.nextElementSibling?.tagName === 'LABEL') {
+        this.label = control.nextElementSibling;
+        if (this.label && this._control.inputId) {
+          this.label!.setAttribute('for', this._control.inputId);
+          this._loadListeners();
         }
       }
     }
@@ -91,7 +93,7 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
   private _initHelperTextFoundation(helperText: MdcHelperText): void {
     const control = this._control;
 
-    if (control && control.controlType) {
+    if (control?.controlType) {
       control.helperText = helperText;
       this._changeDetectorRef.markForCheck();
     }

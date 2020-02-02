@@ -1,2 +1,2 @@
-export * from './tab-indicator-module';
+export * from './module';
 export * from './tab-indicator';

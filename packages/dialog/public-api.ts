@@ -1,4 +1,4 @@
-export * from './dialog-module';
+export * from './module';
 export * from './dialog';
 export * from './dialog.component';
 export * from './dialog-portal';

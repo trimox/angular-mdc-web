@@ -1,10 +1,10 @@
-import { join } from 'path';
-import { PackageBundler } from './build-bundles';
-import { buildConfig } from './build-config';
-import { getSecondaryEntryPointsForPackage } from './secondary-entry-points';
-import { compileEntryPoint, renamePrivateReExportsToBeUnique } from './compile-entry-point';
+import {join} from 'path';
+import {PackageBundler} from './build-bundles';
+import {buildConfig} from './build-config';
+import {getSecondaryEntryPointsForPackage} from './secondary-entry-points';
+import {compileEntryPoint, renamePrivateReExportsToBeUnique} from './compile-entry-point';
 
-const { packagesDir, outputDir } = buildConfig;
+const {packagesDir, outputDir} = buildConfig;
 
 /** Name of the tsconfig file that is responsible for building an ES2015 package. */
 const buildTsconfigName = 'tsconfig-build.json';

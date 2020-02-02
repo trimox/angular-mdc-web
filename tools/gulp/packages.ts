@@ -1,4 +1,4 @@
-import { BuildPackage, buildConfig } from 'mdc-build-tools';
+import {BuildPackage, buildConfig} from 'mdc-build-tools';
 
 export const mdcPackage = new BuildPackage('web');
 

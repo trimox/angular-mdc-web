@@ -1,18 +1,31 @@
+@use '@material/button/mixins';
+@use '@material/ripple/mixins' as ripple-mixins;
+@use '@material/theme/color-palette' as material-color;
+@use './color-palette' as demo-color;
+
 .big-round-shape-button {
-  @include mdc-button-shape-radius(8px);
+  @include mixins.shape-radius(8px);
 }
 
 .thick-outline-button {
-  @include mdc-button-outline-width(4px);
+  @include mixins.outline-width(4px);
 }
 
 .demo-button-ink-color {
-  @include mdc-button-container-fill-color($material-color-purple-500);
-  @include mdc-button-icon-color(white);
-  @include mdc-button-ink-color(orange);
-  @include mdc-states(orange);
+  @include mixins.container-fill-color(material-color.$purple-500);
+  @include mixins.icon-color(white);
+  @include mixins.ink-color(orange);
+  @include ripple-mixins.states(orange);
 }
 
 .demo-button-icon-color {
-  @include mdc-button-icon-color(orange);
+  @include mixins.icon-color(orange);
+}
+
+.demo-button-primary {
+  @include mixins.filled-accessible(demo-color.$mdc-theme-primary);
+}
+
+.demo-button-secondary {
+  @include mixins.filled-accessible(demo-color.$mdc-theme-secondary);
 }

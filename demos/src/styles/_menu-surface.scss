@@ -1,10 +1,13 @@
+@use '@material/menu-surface/mixins';
+@use '@material/image-list/mixins' as image-mixins;
+
 .demo-menu-surface--shaped {
-  @include mdc-menu-surface-shape-radius(4px);
+  @include mixins.shape-radius(4px);
 }
 
 .menu-surface-image-list {
-  @include mdc-image-list-aspect(1.5); // Images are 3:2
-  @include mdc-image-list-standard-columns(1);
+  @include image-mixins.aspect(1.5); // Images are 3:2
+  @include image-mixins.standard-columns(1);
 
   width: 220px;
 }

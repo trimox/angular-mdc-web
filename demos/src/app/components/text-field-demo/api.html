@@ -40,10 +40,6 @@
         <td>Set a border around all sides of the text field.</td>
       </tr>
       <tr>
-        <td>dense: boolean</td>
-        <td>Shrinks the font size and height of the input.</td>
-      </tr>
-      <tr>
         <td>fullwidth: boolean</td>
         <td>Set to fullwidth textfield.
           <p>Do not use <code class="markdown-code">outlined</code> to style a full width text field.</p>
@@ -144,16 +140,20 @@
   <table>
     <tbody>
       <tr>
-        <td>change(value: any)</td>
-        <td>Emitted when an alteration to the element's value is committed.</td>
+        <td>change(value)</td>
+        <td>Emitted when an alteration to the element value is committed.</td>
       </tr>
       <tr>
-        <td>blur(value: any)</td>
+        <td>blur(value)</td>
         <td>Emitted whenever the input loses focus.</td>
       </tr>
       <tr>
-        <td>input(value: any)</td>
+        <td>input(value)</td>
         <td>Emitted synchronously when the value has been altered.</td>
+      </tr>
+      <tr>
+        <td>focus(boolean)</td>
+        <td>Emitted when the input gains or loses focus.</td>
       </tr>
     </tbody>
   </table>

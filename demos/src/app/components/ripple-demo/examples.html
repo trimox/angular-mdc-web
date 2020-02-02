@@ -1,16 +1,37 @@
 <div class="demo-content">
   <div class="demo-layout__row">
-    <button mdc-button (click)="demoripple.primary = !demoripple.primary">Primary Color: {{demoripple.primary ? 'On' :
-      'Off'}}</button>
-    <button mdc-button (click)="demoripple.secondary = !demoripple.secondary">Secondary Color: {{demoripple.secondary ?
-      'On' : 'Off'}}</button>
-    <button mdc-button (click)="demoripple.disabled = !demoripple.disabled">Disabled: {{demoripple.disabled ? 'On' :
-      'Off'}}</button>
+    <mdc-form-field>
+      <mdc-checkbox #disabled></mdc-checkbox>
+      <label>Disable ripple</label>
+    </mdc-form-field>
   </div>
-  <mdc-ripple #demoripple [attachTo]="demodiv">
-    <div style="height: 200px; width: 100%;" class="demo-layout--center" #demodiv>
+
+  <div #rippleExample mdcRipple [attachTo]="demodiv"
+    [disabled]="disabled.checked">
+    <div style="height: 200px; width: 100%;" class="demo-layout--center"
+      #demodiv>
       Click me
     </div>
-  </mdc-ripple>
+  </div>
   <example-viewer [example]="exampleRipple"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <div mdcRipple [attachTo]="demoPrimary" primary>
+    <div style="height: 200px; width: 100%;" class="demo-layout--center"
+      #demoPrimary>
+      Primary Theme Color
+    </div>
+  </div>
+  <example-viewer [example]="examplePrimary"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <div mdcRipple [attachTo]="demoSecondary" secondary>
+    <div style="height: 200px; width: 100%;" class="demo-layout--center"
+      #demoSecondary>
+      Secondary Theme Color
+    </div>
+  </div>
+  <example-viewer [example]="exampleSecondary"></example-viewer>
 </div>

@@ -1,5 +1,7 @@
+@use '@material/snackbar/variables';
+
 .ngx-mdc-snackbar--trailing {
-  @media (min-width: $mdc-snackbar-mobile-breakpoint) {
+  @media (min-width: variables.$mobile-breakpoint) {
     justify-content: flex-end;
   }
 }

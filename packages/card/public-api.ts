@@ -1,2 +1,2 @@
-export * from './card-module';
+export * from './module';
 export * from './card';

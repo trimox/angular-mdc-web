@@ -30,7 +30,7 @@ export class MDCSelectHelperText extends MDCComponent<MDCSelectHelperTextFoundat
     this._persistent = coerceBooleanProperty(value);
     this._foundation.setPersistent(this._persistent);
   }
-  private _persistent: boolean = false;
+  private _persistent = false;
 
   @Input()
   get validation(): boolean {
@@ -40,14 +40,10 @@ export class MDCSelectHelperText extends MDCComponent<MDCSelectHelperTextFoundat
     this._validation = coerceBooleanProperty(value);
     this._foundation.setValidation(this._validation);
   }
-  private _validation: boolean = false;
+  private _validation = false;
 
   constructor(public elementRef: ElementRef<HTMLElement>) {
     super(elementRef);
-  }
-
-  get foundation(): MDCSelectHelperTextFoundation {
-    return this._foundation;
   }
 
   getDefaultFoundation() {

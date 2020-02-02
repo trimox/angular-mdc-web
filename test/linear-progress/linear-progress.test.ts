@@ -1,8 +1,8 @@
-import { Component, DebugElement } from '@angular/core';
-import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import {Component, DebugElement} from '@angular/core';
+import {fakeAsync, ComponentFixture, TestBed} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
 
-import { MdcLinearProgress, MdcLinearProgressModule } from '@angular-mdc/web';
+import {MdcLinearProgress, MdcLinearProgressModule} from '@angular-mdc/web';
 
 describe('MdcLinearProgress', () => {
   let fixture: ComponentFixture<any>;
@@ -45,12 +45,6 @@ describe('MdcLinearProgress', () => {
       expect(testInstance.reversed).toBe(true);
     });
 
-    it('#should apply secondary class based on property', () => {
-      testComponent.secondary = true;
-      fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList.contains('mdc-linear-progress--secondary')).toBe(true);
-    });
-
     it('#should apply indeterminate class based on property', () => {
       testComponent.determinate = false;
       fixture.detectChanges();
@@ -84,7 +78,7 @@ describe('MdcLinearProgress', () => {
     });
 
     it('#should not apply indeterminate class', () => {
-      testInstance.determinate  = true;
+      testInstance.determinate = true;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-linear-progress--indeterminate')).toBe(false);
     });
@@ -102,7 +96,6 @@ describe('MdcLinearProgress', () => {
   template: `
     <mdc-linear-progress
       [reversed]="reversed"
-      [secondary]="secondary"
       [open]="open"
       [progress]="0.5"
       [buffer]="0.75"
@@ -112,7 +105,6 @@ describe('MdcLinearProgress', () => {
 })
 class SimpleTest {
   reversed: boolean = false;
-  secondary: boolean = false;
   determinate: boolean = false;
   open: boolean;
 }

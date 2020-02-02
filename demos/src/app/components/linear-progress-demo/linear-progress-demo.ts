@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
-import { MdcLinearProgress } from '@angular-mdc/web';
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
+import {MdcLinearProgress} from '@angular-mdc/web';
+import {ComponentViewer, ComponentView} from '../../shared/component-viewer';
 
-@Component({ template: '<component-viewer></component-viewer>' })
+@Component({template: '<component-viewer></component-viewer>'})
 export class LinearProgressDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
@@ -15,7 +15,7 @@ export class LinearProgressDemo implements OnInit {
 
     this._componentViewer.componentView.references = [{
       name: 'Material Design guidelines: Progress Activity',
-      url: 'https://material.io/design/components/progress-activity.html'
+      url: 'https://material.io/components/progress-indicators/'
     }, {
       name: 'Material Components Web',
       url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-linear-progress/README.md'
@@ -23,13 +23,13 @@ export class LinearProgressDemo implements OnInit {
   }
 }
 
-@Component({ templateUrl: './api.html' })
-export class Api { }
+@Component({templateUrl: './api.html'})
+export class Api {}
 
-@Component({ templateUrl: './sass.html' })
-export class Sass { }
+@Component({templateUrl: './sass.html'})
+export class Sass {}
 
-@Component({ templateUrl: './examples.html' })
+@Component({templateUrl: './examples.html'})
 export class Examples {
   alternateColors(input: MdcLinearProgress) {
     const demoInput = 'demo-linear-progress--custom';
@@ -44,13 +44,13 @@ export class Examples {
   @include mdc-linear-progress-buffer-color($material-color-red-100);
 }`;
 
-  example1 = {
+  exampleIndeterminate = {
     html: `<mdc-linear-progress></mdc-linear-progress>`,
     sass: this.customSass
   };
 
-  example2 = {
-    html: `<mdc-linear-progress determinate [progress]="0.5" [buffer]="0.75" secondary></mdc-linear-progress>`,
+  exampleDeterminate = {
+    html: `<mdc-linear-progress determinate [progress]="0.5" [buffer]="0.75"></mdc-linear-progress>`,
     sass: this.customSass
   };
 }

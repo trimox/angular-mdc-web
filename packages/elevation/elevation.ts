@@ -5,23 +5,17 @@ import {
   OnChanges,
   SimpleChange
 } from '@angular/core';
-import {coerceNumberProperty} from '@angular/cdk/coercion';
 
 @Directive({
   selector: '[mdcElevation]',
   exportAs: 'mdcElevation'
 })
 export class MdcElevation implements OnChanges {
-  @Input()
-  get mdcElevation(): number { return this._mdcElevation; }
-  set mdcElevation(value: number) {
-    this._mdcElevation = coerceNumberProperty(value);
-  }
-  private _mdcElevation: number = 0;
+  @Input() mdcElevation: number = 0;
 
-  constructor(public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
 
-  public ngOnChanges(changes: { [key: string]: SimpleChange }): void {
+  public ngOnChanges(changes: {[key: string]: SimpleChange}): void {
     const change = changes['mdcElevation'];
 
     if (change.currentValue < 0 || change.currentValue > 24) {

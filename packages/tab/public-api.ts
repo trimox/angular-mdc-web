@@ -1,2 +1,2 @@
-export * from './tab-module';
+export * from './module';
 export * from './tab';

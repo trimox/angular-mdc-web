@@ -98,9 +98,7 @@ export class MdcDialogComponent extends MDCComponent<MDCDialogFoundation> implem
       },
       clickDefaultButton: () => {
         const defaultBtn = this._buttons.find(_ => _.default);
-        if (defaultBtn) {
-          defaultBtn.elementRef.nativeElement.click();
-        }
+        defaultBtn?.elementRef?.nativeElement?.click();
       },
       reverseButtons: () => {
         this._buttons.toArray().reverse();
@@ -150,13 +148,8 @@ export class MdcDialogComponent extends MDCComponent<MDCDialogFoundation> implem
     this._destroy.next();
     this._destroy.complete();
 
-    if (this._layoutEventSubscription) {
-      this._layoutEventSubscription.unsubscribe();
-    }
-
-    if (this._foundation) {
-      this._foundation.destroy();
-    }
+    this._layoutEventSubscription?.unsubscribe();
+    this._foundation?.destroy();
   }
 
   /** Recalculates layout and automatically adds/removes modifier classes like --scrollable. */

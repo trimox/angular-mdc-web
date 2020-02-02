@@ -1,37 +1,40 @@
+@use '@material/fab/mixins';
+@use '@material/theme/color-palette' as material-color;
+
 .mdc-fab.red800Fab {
-  @include mdc-fab-accessible($material-color-red-800);
+  @include mixins.accessible(material-color.$red-800);
 }
 
 .mdc-fab.yellow800Fab {
-  @include mdc-fab-accessible($material-color-yellow-800);
+  @include mixins.accessible(material-color.$yellow-800);
 }
 
 .mdc-fab.purple500Fab {
-  @include mdc-fab-accessible($material-color-purple-500);
+  @include mixins.accessible(material-color.$purple-500);
 }
 
 .mdc-fab.blackFab {
-  @include mdc-fab-accessible(black);
+  @include mixins.accessible(black);
 }
 
 .demo-fab-shaped--one {
-  @include mdc-fab-shape-radius(28px 0);
+  @include mixins.shape-radius(28px 0);
 }
 
 .demo-fab-shaped--two {
-  @include mdc-fab-shape-radius(8px);
+  @include mixins.shape-radius(8px);
 }
 
 .demo-fab-shape-radius {
-  @include mdc-fab-shape-radius(50% 0 0 0);
+  @include mixins.shape-radius(50% 0 0 0);
 }
 
 .demo-fab-extended-shape-radius {
-  @include mdc-fab-extended-shape-radius(25%);
+  @include mixins.extended-shape-radius(25%);
 }
 
 .demo-fab-icon-size {
-  @include mdc-fab-icon-size(36px);
+  @include mixins.icon-size(36px);
 }
 
 .demo-fab-position-zindex {

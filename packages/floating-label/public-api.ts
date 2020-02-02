@@ -1,2 +1,2 @@
-export * from './floating-label-module';
+export * from './module';
 export * from './floating-label';

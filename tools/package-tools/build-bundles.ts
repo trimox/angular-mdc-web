@@ -8,9 +8,8 @@ import {remapSourcemap} from './sourcemap-remap';
 
 // There are no type definitions available for these imports.
 const rollup = require('rollup');
-const rollupNodeResolutionPlugin = require('rollup-plugin-node-resolve');
-const rollupAlias = require('rollup-plugin-alias');
-const commonjs = require('rollup-plugin-commonjs');
+const rollupNodeResolutionPlugin = require('@rollup/plugin-node-resolve');
+const rollupAlias = require('@rollup/plugin-alias');
 const babel = require('rollup-plugin-babel');
 
 /** Directory where all bundles will be created in. */
@@ -128,10 +127,7 @@ export class PackageBundler {
         console.warn(warning.message);
       },
       plugins: [
-        rollupRemoveLicensesPlugin,
-        commonjs({
-          include: 'node_modules/**'
-        })
+        rollupRemoveLicensesPlugin
       ]
     };
 
@@ -146,7 +142,7 @@ export class PackageBundler {
     };
 
     // Only transpile es5 / umd packages
-    if (config.format === 'umd' || config.dest.endsWith('es5.js')) {
+    if (config.format === 'umd') {
       bundleOptions.plugins.push(babel({
         include: 'node_modules/**',
         presets: [

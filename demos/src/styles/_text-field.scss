@@ -1,23 +1,26 @@
+@use '@material/textfield/mixins';
+@use '@material/textfield/helper-text/mixins' as helper-text-mixins;
+@use '@material/textfield/icon/mixins' as icon-mixins;
+
 .demo-text-field-custom-colors:not(.mdc-text-field--invalid) {
   $idle-border: rgba(blue, .38);
   $hover-border: rgba(blue, .6);
   $focused-border: rgba(blue, 1);
 
-  @include mdc-text-field-bottom-line-color($idle-border);
-  @include mdc-text-field-hover-bottom-line-color($hover-border);
-  @include mdc-text-field-line-ripple-color($focused-border);
-  @include mdc-text-field-ink-color(black);
-  @include mdc-text-field-label-color(rgba(blue, .5));
-  @include mdc-text-field-outline-color($idle-border);
-  @include mdc-text-field-hover-outline-color($hover-border);
-  @include mdc-text-field-focused-outline-color($focused-border);
-  @include mdc-text-field-helper-text-color($idle-border);
-  @include mdc-text-field-textarea-stroke-color($idle-border);
-  @include mdc-text-field-icon-color($hover-border);
+  @include mixins.bottom-line-color($idle-border);
+  @include mixins.hover-bottom-line-color($hover-border);
+  @include mixins.line-ripple-color($focused-border);
+  @include mixins.ink-color(black);
+  @include mixins.label-color(rgba(blue, .5));
+  @include mixins.outline-color($idle-border);
+  @include mixins.hover-outline-color($hover-border);
+  @include mixins.focused-outline-color($focused-border);
+  @include helper-text-mixins.helper-text-color($idle-border);
+  @include icon-mixins.leading-icon-color($hover-border);
 
   &.mdc-text-field--focused {
-    @include mdc-text-field-label-color(rgba(blue, .87));
-    @include mdc-text-field-icon-color($focused-border);
+    @include mixins.label-color(rgba(blue, .87));
+    @include icon-mixins.leading-icon-color($focused-border);
   }
 }
 
@@ -26,56 +29,56 @@
   $hover-border: rgba(blue, .6);
   $focused-border: rgba(blue, 1);
 
-  @include mdc-text-field-ink-color(black);
-  @include mdc-text-field-label-color(rgba(blue, .5));
-  @include mdc-text-field-textarea-stroke-color($idle-border);
+  @include mixins.ink-color(black);
+  @include mixins.label-color(rgba(blue, .5));
+  @include mixins.outline-color($idle-border);
 
   &.mdc-text-field--focused {
-    @include mdc-text-field-label-color(rgba(blue, .87));
-    @include mdc-text-field-textarea-stroke-color($focused-border);
+    @include mixins.label-color(rgba(blue, .87));
+    @include mixins.outline-color($focused-border);
   }
 }
 
 .demo-textarea.mdc-text-field--invalid {
-  @include mdc-text-field-ink-color(orange);
-  @include mdc-text-field-label-color(rgba(orange, .5));
-  @include mdc-text-field-textarea-stroke-color(rgba(orange, .38));
+  @include mixins.ink-color(orange);
+  @include mixins.label-color(rgba(orange, .5));
+  @include mixins.outline-color(rgba(orange, .38));
 
   &.mdc-text-field--focused {
-    @include mdc-text-field-label-color(rgba(orange, .87));
-    @include mdc-text-field-textarea-stroke-color(orange);
+    @include mixins.label-color(rgba(orange, .87));
+    @include mixins.outline-color(orange);
   }
 }
 
 .demo-fullwidth-input:not(.mdc-text-field--invalid) {
-  @include mdc-text-field-fullwidth-bottom-line-color(rgba(blue, .38));
-  @include mdc-text-field-ink-color(black);
-  @include mdc-text-field-label-color(rgba(blue, .5));
-  @include mdc-text-field-line-ripple-color(blue);
+  @include mixins.bottom-line-color(rgba(blue, .38));
+  @include mixins.ink-color(black);
+  @include mixins.label-color(rgba(blue, .5));
+  @include mixins.line-ripple-color(blue);
 
   &.mdc-text-field--focused {
-    @include mdc-text-field-label-color(rgba(blue, .87));
+    @include mixins.label-color(rgba(blue, .87));
   }
 }
 
 .demo-fullwidth-input.mdc-text-field--invalid {
-  @include mdc-text-field-fullwidth-bottom-line-color(rgba(orange, .38));
-  @include mdc-text-field-ink-color(orange);
-  @include mdc-text-field-label-color(rgba(orange, .5));
-  @include mdc-text-field-line-ripple-color(orange);
+  @include mixins.bottom-line-color(rgba(orange, .38));
+  @include mixins.ink-color(orange);
+  @include mixins.label-color(rgba(orange, .5));
+  @include mixins.line-ripple-color(orange);
 
   &.mdc-text-field--focused {
-    @include mdc-text-field-label-color(rgba(orange, .87));
-    @include mdc-text-field-fullwidth-bottom-line-color(orange);
+    @include mixins.label-color(rgba(orange, .87));
+    @include mixins.bottom-line-color(orange);
   }
 }
 
 .demo-shaped-text-field {
-  @include mdc-text-field-shape-radius(50%);
+  @include mixins.shape-radius(50%);
 }
 
 .demo-shaped-text-field--outline {
-  @include mdc-text-field-outline-shape-radius(50%);
+  @include mixins.outline-shape-radius(50%);
 }
 
 //

@@ -37,6 +37,7 @@
     "flatModuleOutFile": "index.js",
     "flatModuleId": "@angular-mdc/web",
     "skipTemplateCodegen": true,
-    "fullTemplateTypeCheck": true
+    "fullTemplateTypeCheck": true,
+    "enableIvy": false
   }
 }

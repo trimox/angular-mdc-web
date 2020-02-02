@@ -181,9 +181,7 @@ export class MdcDrawer extends MDCComponent<MDCDismissibleDrawerFoundation | MDC
         } else {
           const cdkInitialItem = this._platform.isBrowser ?
             document.querySelector(`[cdkFocusInitial]`) as HTMLElement : null;
-          if (cdkInitialItem) {
-            cdkInitialItem.focus();
-          }
+          cdkInitialItem?.focus();
         }
       },
       notifyClose: () => this.closed.emit(),
@@ -245,15 +243,9 @@ export class MdcDrawer extends MDCComponent<MDCDismissibleDrawerFoundation | MDC
   ngOnDestroy(): void {
     this.open = false;
 
-    if (this._focusTrap) {
-      this._focusTrap.destroy();
-    }
-    if (this._scrimElement) {
-      this._scrimElement.remove();
-    }
-    if (this._scrimSubscription) {
-      this._scrimSubscription.unsubscribe();
-    }
+    this._focusTrap?.destroy();
+    this._scrimElement?.remove();
+    this._scrimSubscription?.unsubscribe();
 
     this._destroyed.next();
     this._destroyed.complete();

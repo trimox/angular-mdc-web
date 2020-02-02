@@ -1,17 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, NgForm, Validators } from '@angular/forms';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormControl, NgForm, Validators} from '@angular/forms';
 
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
+import {ComponentViewer, ComponentView} from '../../shared/component-viewer';
 
-import { MdcChipSetChange, MdcChipInteractionEvent, MdcChipRemovedEvent } from '@angular-mdc/web';
+import {MdcChipSetChange, MdcChipSelectionEvent, MdcChipRemovalEvent, MdcChipInteractionEvent} from '@angular-mdc/web';
 
-@Component({ templateUrl: './api.html' })
-export class Api { }
+@Component({templateUrl: './api.html'})
+export class Api {}
 
-@Component({ templateUrl: './sass.html' })
-export class Sass { }
+@Component({templateUrl: './sass.html'})
+export class Sass {}
 
-@Component({ template: '<component-viewer></component-viewer>' })
+@Component({template: '<component-viewer></component-viewer>'})
 export class ChipsDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
@@ -32,18 +32,22 @@ export class ChipsDemo implements OnInit {
   }
 }
 
-@Component({ templateUrl: './examples.html' })
+export interface ChipFood {
+  value: string;
+  viewValue: string;
+}
+
+@Component({templateUrl: './examples.html'})
 export class Examples {
-  selectedFood: any;
-
   demoChipValue = 'pizza-1';
+  ngModelValue = 'tacos-2';
 
-  formControl = new FormControl('', Validators.required);
+  formControl = new FormControl('steak-0', Validators.required);
 
-  foods: any[] = [
-    { value: 'steak-0', viewValue: 'Steak', selected: false },
-    { value: 'pizza-1', viewValue: 'Pizza', selected: false },
-    { value: 'tacos-2', viewValue: 'Tacos', selected: false },
+  foods: ChipFood[] = [
+    {value: 'steak-0', viewValue: 'Steak'},
+    {value: 'pizza-1', viewValue: 'Pizza'},
+    {value: 'tacos-2', viewValue: 'Tacos'},
   ];
 
   @ViewChild('form', {static: false}) form: NgForm;
@@ -53,11 +57,15 @@ export class Examples {
   }
 
   onChipInteraction(evt: MdcChipInteractionEvent): void {
-    console.log(evt);
+    console.log(`MdcChipInteractionEvent: ${evt.chipId} : ${evt.value}`);
   }
 
-  onChipRemoved(evt: MdcChipRemovedEvent): void {
-    console.log(evt);
+  onChipSelection(evt: MdcChipSelectionEvent): void {
+    console.log(`MdcChipSelectionEvent: ${evt.chipId} : ${evt.selected}`);
+  }
+
+  onChipRemoved(evt: MdcChipRemovalEvent): void {
+    console.log(`MdcChipRemovalEvent: ${evt.chipId}`);
   }
 
   //
@@ -304,7 +312,7 @@ onChipInteraction(evt: MdcChipInteractionEvent): void {
   };
 
   exampleNgModel = {
-    html: `<mdc-chip-set [(ngModel)]="selectedFood">
+    html: `<mdc-chip-set choice [(ngModel)]="selectedFood">
   <mdc-chip *ngFor="let food of foods" [value]="food.value" [selected]="food.selected">
     {{food.viewValue}}
   </mdc-chip>
@@ -315,7 +323,7 @@ onChipInteraction(evt: MdcChipInteractionEvent): void {
 
   exampleFormControl = {
     html: `<form #form="ngForm" novalidate>
-  <mdc-chip-set [formControl]="formControl">
+  <mdc-chip-set choice [formControl]="formControl">
     <mdc-chip *ngFor="let food of foods" [value]="food.value" [selected]="food.selected">
       {{food.viewValue}}
     </mdc-chip>

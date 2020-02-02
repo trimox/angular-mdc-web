@@ -1,3 +1,7 @@
+@use "@material/card/mixins";
+@use "@material/theme/mixins" as theme-mixins;
+@use "@material/rtl/mixins" as rtl-mixins;
+
 .demo-card {
   width: 350px;
   margin: 28px;
@@ -12,13 +16,13 @@
 }
 
 .demo-card__subtitle {
-  @include mdc-theme-prop(color, text-secondary-on-background);
+  @include theme-mixins.prop(color, text-secondary-on-background);
 
   margin: 0;
 }
 
 .demo-card__secondary {
-  @include mdc-theme-prop(color, text-secondary-on-background);
+  @include theme-mixins.prop(color, text-secondary-on-background);
 
   padding: 0 1rem 8px 1rem;
 }
@@ -30,7 +34,7 @@
 }
 
 .demo-card-article-group-heading {
-  @include mdc-theme-prop(color, text-secondary-on-light);
+  @include theme-mixins.prop(color, text-secondary-on-light);
 
   padding: 8px 16px;
 }
@@ -40,7 +44,7 @@
 }
 
 .demo-card-article__snippet {
-  @include mdc-theme-prop(color, text-secondary-on-light);
+  @include theme-mixins.prop(color, text-secondary-on-light);
 
   margin: 0;
 }
@@ -70,10 +74,10 @@
 }
 
 .demo-card--music {
-  @include mdc-card-shape-radius(24px 4px);
+  @include mixins.shape-radius(24px 4px);
 
-  @include mdc-rtl {
-    @include mdc-card-shape-radius(4px 24px);
+  @include rtl-mixins.rtl {
+    @include mixins.shape-radius(4px 24px);
   }
 }
 
@@ -81,7 +85,7 @@
   display: flex;
   border-top-left-radius: inherit;
 
-  @include mdc-rtl {
+  @include rtl-mixins.rtl {
     border-top-left-radius: 0;
     border-top-right-radius: inherit;
   }
@@ -91,7 +95,7 @@
   width: 110px;
   border-top-left-radius: inherit;
 
-  @include mdc-rtl {
+  @include rtl-mixins.rtl {
     border-top-left-radius: 0;
     border-top-right-radius: inherit;
   }

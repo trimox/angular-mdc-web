@@ -1,2 +1,2 @@
-export * from './checkbox-module';
+export * from './module';
 export * from './checkbox';

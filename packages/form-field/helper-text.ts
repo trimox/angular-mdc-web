@@ -14,41 +14,45 @@ import {MdcCharacterCounter} from './character-counter';
   moduleId: module.id,
   selector: `mdc-helper-text, [mdcHelperText], mdc-text-field-helper-text, [mdcTextFieldHelperText]`,
   exportAs: 'mdcHelperText',
-  host: { 'class': 'mdc-text-field-helper-line' },
+  host: {'class': 'mdc-text-field-helper-line'},
   template: `<div #helperText><ng-content></ng-content></div>
   <div mdcCharacterCounter *ngIf="characterCounter"></div>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 export class MdcHelperText {
-  characterCounter: boolean = false;
+  characterCounter = false;
 
   @Input() id?: string;
 
   @Input()
-  get persistent(): boolean { return this._persistent; }
+  get persistent(): boolean {
+    return this._persistent;
+  }
   set persistent(value: boolean) {
     this._persistent = coerceBooleanProperty(value);
     if (this._foundation) {
       this._foundation.setPersistent(this._persistent);
     }
   }
-  private _persistent: boolean = false;
+  private _persistent = false;
 
   @Input()
-  get validation(): boolean { return this._validation; }
+  get validation(): boolean {
+    return this._validation;
+  }
   set validation(value: boolean) {
     this._validation = coerceBooleanProperty(value);
     if (this._foundation) {
       this._foundation.setValidation(this._validation);
     }
   }
-  private _validation: boolean = false;
+  private _validation = false;
 
   @ViewChild('helperText', {static: true}) _helperTextElement?: ElementRef<HTMLElement>;
   @ViewChild(MdcCharacterCounter, {static: false}) _characterCounterElement?: MdcCharacterCounter;
 
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
 
   private _foundation!: {
     init(): void,

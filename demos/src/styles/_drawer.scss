@@ -1,20 +1,22 @@
+@use '@material/drawer/mixins';
+
 .demo-drawer--custom {
-  @include mdc-drawer-border-color(lightblue);
-  @include mdc-drawer-subtitle-ink-color(darkolivegreen);
-  @include mdc-drawer-surface-fill-color(black);
-  @include mdc-drawer-item-icon-ink-color(darkolivegreen);
-  @include mdc-drawer-title-ink-color(darkolivegreen);
-  @include mdc-drawer-activated-overlay-color(darkcyan);
-  @include mdc-drawer-item-text-ink-color(darkolivegreen);
-  @include mdc-drawer-item-activated-text-ink-color(darkcyan);
-  @include mdc-drawer-item-activated-icon-ink-color(darkcyan);
+  @include mixins.border-color(lightblue);
+  @include mixins.subtitle-ink-color(darkolivegreen);
+  @include mixins.surface-fill-color(black);
+  @include mixins.item-icon-ink-color(darkolivegreen);
+  @include mixins.title-ink-color(darkolivegreen);
+  @include mixins.activated-overlay-color(darkcyan);
+  @include mixins.item-text-ink-color(darkolivegreen);
+  @include mixins.item-activated-text-ink-color(darkcyan);
+  @include mixins.item-activated-icon-ink-color(darkcyan);
 }
 
 .demo-drawer--accessible {
-  @include mdc-drawer-fill-color-accessible(darkcyan);
-  @include mdc-drawer-activated-overlay-color(pink);
-  @include mdc-drawer-item-activated-text-ink-color(pink);
-  @include mdc-drawer-item-activated-icon-ink-color(pink);
+  @include mixins.fill-color-accessible(darkcyan);
+  @include mixins.activated-overlay-color(pink);
+  @include mixins.item-activated-text-ink-color(pink);
+  @include mixins.item-activated-icon-ink-color(pink);
 }
 
 .demo-drawer-app {

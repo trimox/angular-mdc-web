@@ -22,6 +22,7 @@ describe('MdcMenu', () => {
       imports: [MdcMenuModule, MdcListModule, MdcButtonModule, MdcIconModule],
       declarations: [
         MenuTest,
+        MenuWithNoList,
         MenuSelectionGroup
       ]
     });
@@ -169,24 +170,51 @@ describe('MdcMenu', () => {
     }));
 
     it('#menu should set default focus state to firstItem', () => {
-      testComponent.defaultFocusState = 'firstItem';
+      testComponent.defaultFocusState = 2;
       fixture.detectChanges();
-      expect(testInstance.defaultFocusState).toBe('firstItem');
+      expect(testInstance.defaultFocusState).toBe(2);
+    });
+
+    it('#menu should set default focus state to default (0)', () => {
+      testComponent.defaultFocusState = null;
+      fixture.detectChanges();
+      expect(testInstance.defaultFocusState).toBe(0);
     });
 
     it('#menu should select first item', () => {
-      testInstance.listItems.first.elementRef.nativeElement.click();
+      testInstance._list.items.first.elementRef.nativeElement.click();
       fixture.detectChanges();
     });
 
     it('#menu should select first item, then second item', fakeAsync(() => {
-      testInstance.listItems.first.elementRef.nativeElement.click();
+      testInstance._list.items.first.elementRef.nativeElement.click();
       fixture.detectChanges();
       flush();
 
-      testInstance.listItems.toArray()[1].elementRef.nativeElement.click();
+      testInstance._list.items.toArray()[1].elementRef.nativeElement.click();
       fixture.detectChanges();
     }));
+  });
+
+  describe('Menu with no List', () => {
+    let testDebugElement: DebugElement;
+    let testInstance: MdcMenu;
+    let testComponent: MenuWithNoList;
+
+    beforeEach(fakeAsync(() => {
+      fixture = TestBed.createComponent(MenuWithNoList);
+      fixture.detectChanges();
+
+      testDebugElement = fixture.debugElement.query(By.directive(MdcMenu));
+      testInstance = testDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+    }));
+
+    it('#menu should open', () => {
+      testComponent.open = true;
+      fixture.detectChanges();
+      expect(testInstance.open).toBe(true);
+    });
   });
 });
 
@@ -209,6 +237,27 @@ describe('MdcMenu', () => {
   </div>`,
 })
 class MenuTest {
+  open: boolean;
+  anchorCorner: string = 'topStart';
+  quickOpen: boolean;
+  fixed: boolean = true;
+  wrapFocus: boolean;
+  closeSurfaceOnSelection: boolean;
+
+  handleSelected(event: {index: number, source: MdcListItem}) {}
+}
+
+@Component({
+  template: `
+  <div mdcMenuSurfaceAnchor #testanchor>
+    <mdc-menu [open]="open" [anchorCorner]="anchorCorner" (selected)="handleSelected($event)"
+      [wrapFocus]="wrapFocus" [closeSurfaceOnSelection]="closeSurfaceOnSelection"
+      [anchorElement]="testanchor" [quickOpen]="quickOpen" [fixed]="fixed"
+      [anchorMargin]="{top: 0, right: 0, bottom: 0, left: 0}">
+    </mdc-menu>
+  </div>`,
+})
+class MenuWithNoList {
   open: boolean;
   anchorCorner: string = 'topStart';
   quickOpen: boolean;
@@ -254,5 +303,5 @@ class MenuTest {
 })
 class MenuSelectionGroup {
   open: boolean;
-  defaultFocusState = 'list';
+  defaultFocusState: number;
 }

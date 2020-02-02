@@ -1,4 +1,4 @@
-import { findBuildConfig } from './find-build-config';
+import {findBuildConfig} from './find-build-config';
 
 export interface BuildConfig {
   /** Current version of the project. */

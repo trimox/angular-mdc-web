@@ -22,7 +22,7 @@ import {takeUntil, auditTime} from 'rxjs/operators';
 import {MDCComponent} from '@angular-mdc/web/base';
 
 import {EventType, SpecificEventListener} from '@material/base/types';
-import {MDCSliderFoundation, MDCSliderAdapter, strings} from '@material/slider';
+import {MDCSliderFoundation, MDCSliderAdapter} from '@material/slider';
 
 export const MDC_SLIDER_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -208,24 +208,17 @@ export class MdcSlider extends MDCComponent<MDCSliderFoundation>
         this.track.nativeElement.style.setProperty(propertyName, value),
       setMarkerValue: (value: number) =>
         this.pinValueMarker!.nativeElement.innerText = value !== null ? value.toString() : null,
-      appendTrackMarkers: (numMarkers: number) => {
-        const docFrag = document.createDocumentFragment();
-        for (let i = 0; i < numMarkers; i++) {
-          const marker = document.createElement('div');
-          marker.classList.add('mdc-slider__track-marker');
-          docFrag.appendChild(marker);
-        }
-        this.trackMarkerContainer!.nativeElement.appendChild(docFrag);
-      },
-      removeTrackMarkers: () => {
-        while (this.trackMarkerContainer!.nativeElement.firstChild) {
-          this.trackMarkerContainer!.nativeElement.removeChild(this.trackMarkerContainer!.nativeElement!.firstChild!);
-        }
-      },
-      setLastTrackMarkersStyleProperty: (propertyName: string, value: string) => {
-        const lastTrackMarker =
-          this._getHostElement().querySelector<HTMLElement>(strings.LAST_TRACK_MARKER_SELECTOR);
-        lastTrackMarker!.style.setProperty(propertyName, value);
+      setTrackMarkers: (step: number, max: number, min: number) => {
+        const stepStr = step.toLocaleString();
+        const maxStr = max.toLocaleString();
+        const minStr = min.toLocaleString();
+        // keep calculation in css for better rounding/subpixel behavior
+        const markerAmount = `((${maxStr} - ${minStr}) / ${stepStr})`;
+        const markerWidth = `2px`;
+        const markerBkgdImage = `linear-gradient(to right, currentColor ${markerWidth}, transparent 0)`;
+        const markerBkgdLayout = `0 center / calc((100% - ${markerWidth}) / ${markerAmount}) 100% repeat-x`;
+        const markerBkgdShorthand = `${markerBkgdImage} ${markerBkgdLayout}`;
+        this.trackMarkerContainer!.nativeElement.style.setProperty('background', markerBkgdShorthand);
       },
       isRTL: () => getComputedStyle(this._getHostElement()).direction === 'rtl'
     };

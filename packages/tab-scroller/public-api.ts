@@ -1,2 +1,2 @@
-export * from './tab-scroller-module';
+export * from './module';
 export * from './tab-scroller';

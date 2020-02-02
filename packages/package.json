@@ -1,6 +1,6 @@
 {
   "name": "@angular-mdc/web",
-  "description": "Material Web Components for Angular",
+  "description": "Angular MDC",
   "homepage": "https://github.com/trimox/angular-mdc-web",
   "bugs": "https://github.com/trimox/angular-mdc-web/issues",
   "repository": {
@@ -23,8 +23,8 @@
   "private": false,
   "dependencies": {
     "@angular-mdc/theme": "0.0.0-PLACEHOLDER",
-    "material-components-web": "3.2.0",
-    "@angular/cdk": "^8.1.4"
+    "material-components-web": "5.0.0-canary.3e782d8f8.0",
+    "@angular/cdk": "^9.0.0-rc.9"
   },
   "peerDependencies": {
     "@angular/core": "0.0.0-NG",

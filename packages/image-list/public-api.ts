@@ -1,2 +1,2 @@
-export * from './image-list-module';
+export * from './module';
 export * from './image-list';

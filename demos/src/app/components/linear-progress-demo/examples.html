@@ -3,11 +3,10 @@
   <div class="demo-layout__row">
     <button mdc-button (click)="lp.reversed = !lp.reversed">Reverse</button>
     <button mdc-button (click)="lp.open = !lp.open">Open/Close</button>
-    <button mdc-button (click)="lp.secondary = !lp.secondary">{{lp.secondary ? 'Primary' : 'Secondary'}} Color</button>
     <button mdc-button (click)="alternateColors(lp)">Alternate Colors</button>
   </div>
   <mdc-linear-progress #lp></mdc-linear-progress>
-  <example-viewer [example]="example1"></example-viewer>
+  <example-viewer [example]="exampleIndeterminate"></example-viewer>
 </div>
 
 <div class="demo-content">
@@ -15,9 +14,8 @@
   <div class="demo-layout__row">
     <button mdc-button (click)="deter.reversed = !deter.reversed">Reverse</button>
     <button mdc-button (click)="deter.open = !deter.open">Open/Close</button>
-    <button mdc-button (click)="deter.secondary = !deter.secondary">{{deter.secondary ? 'Primary' : 'Secondary'}} Color</button>
     <button mdc-button (click)="alternateColors(deter)">Alternate Colors</button>
   </div>
-  <mdc-linear-progress #deter determinate [progress]="0.5" [buffer]="0.75" secondary></mdc-linear-progress>
-  <example-viewer [example]="example2"></example-viewer>
+  <mdc-linear-progress #deter determinate [progress]="0.5" [buffer]="0.75"></mdc-linear-progress>
+  <example-viewer [example]="exampleDeterminate"></example-viewer>
 </div>

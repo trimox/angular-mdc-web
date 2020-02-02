@@ -10,7 +10,7 @@ import {fakeAsync, ComponentFixture, TestBed, flush} from '@angular/core/testing
 import {By} from '@angular/platform-browser';
 import {DOWN_ARROW} from '@angular/cdk/keycodes';
 
-import {dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent, dispatchFakeEvent} from '../testing/dispatch-events';
+import {dispatchKeyboardEvent, dispatchMouseEvent, dispatchFakeEvent} from '../testing/dispatch-events';
 
 import {
   MdcSelectModule,
@@ -101,7 +101,7 @@ describe('MdcSelectModule', () => {
     it('#should select fruit-3', () => {
       testInstance.setSelectionByValue('fruit-3');
       fixture.detectChanges();
-      expect(testInstance.getValue());
+      expect(testInstance.value).toBe('fruit-3');
     });
 
     it('#should have no selected options', () => {
@@ -113,24 +113,17 @@ describe('MdcSelectModule', () => {
     it('#should select fruit-3 by index', () => {
       testInstance.setSelectedIndex(3);
       fixture.detectChanges();
-      expect(testInstance.getValue()).toBe('fruit-3');
+      expect(testInstance.value).toBe('fruit-3');
     });
 
     it('#should handle mouse events', () => {
-      dispatchMouseEvent(testInstance._nativeSelect.nativeElement, 'mousedown');
-      fixture.detectChanges();
       testInstance.focus();
       dispatchKeyboardEvent(testInstance.elementRef.nativeElement, 'keydown', DOWN_ARROW);
       fixture.detectChanges();
     });
 
-    it('#should handle touch events', () => {
-      dispatchTouchEvent(testInstance._nativeSelect.nativeElement, 'touchstart');
-      fixture.detectChanges();
-    });
-
     it('#should reset', fakeAsync(() => {
-      testInstance.reset();
+      testComponent.testValue = '';
       fixture.detectChanges();
       expect(testInstance.getSelectedIndex()).toBe(-1);
     }));
@@ -171,27 +164,10 @@ describe('MdcSelectModule', () => {
       expect(testInstance.compareWith).toBe(undefined);
     });
 
-    it('#should set autosize to false', () => {
-      testComponent.autosize = false;
-      fixture.detectChanges();
-      expect(testInstance.autosize).toBe(false);
-    });
-
     it('#should set value to tacos-2', fakeAsync(() => {
       testComponent.foodControl.setValue('tacos-2');
       flush();
-
-      expect(testInstance.getValue()).toBe('tacos-2');
-    }));
-
-    it('should be able to focus the select trigger', fakeAsync(() => {
-      expect(testInstance.focused).toBe(false);
-      document.body.focus(); // ensure that focus isn't on the trigger already
-      testInstance.focus();
-
-      expect(testInstance.focused).toBe(true);
-      expect(document.activeElement).toBe(testInstance._nativeSelect.nativeElement,
-        'Expected select element to be focused.');
+      expect(testInstance.value).toBe('tacos-2');
     }));
   });
 
@@ -215,8 +191,7 @@ describe('MdcSelectModule', () => {
       testComponent.loadFoods();
       fixture.detectChanges();
       flush();
-
-      expect(testInstance.getValue()).toBe('pizza-1');
+      expect(testInstance.value).toBe('pizza-1');
       testComponent.reset();
     }));
 
@@ -227,7 +202,7 @@ describe('MdcSelectModule', () => {
       testComponent.loadFoods();
       fixture.detectChanges();
 
-      expect(testInstance.getValue()).toBe('pizza-1');
+      expect(testInstance.value).toBe('pizza-1');
       testComponent.reset();
     }));
 
@@ -245,7 +220,7 @@ describe('MdcSelectModule', () => {
     });
   });
 
-  describe('Enhanced select', () => {
+  describe('Select', () => {
     let testDebugElement: DebugElement;
     let testNativeElement: HTMLElement;
     let testInstance: MdcSelect;
@@ -285,27 +260,35 @@ describe('MdcSelectModule', () => {
     }));
 
     it('#should handle mouse events', fakeAsync(() => {
-      dispatchMouseEvent(testDebugElement.nativeElement, 'mousedown');
+      dispatchMouseEvent(testInstance._selectedText.root, 'click');
       fixture.detectChanges();
       testInstance.focus();
+      dispatchKeyboardEvent(testInstance._selectedText.root, 'keydown', DOWN_ARROW);
       dispatchKeyboardEvent(testInstance.elementRef.nativeElement, 'keydown', DOWN_ARROW);
       fixture.detectChanges();
 
       flush();
     }));
 
-    it('#should reset', fakeAsync(() => {
-      testInstance.reset();
+    it('#should handle keydown events', fakeAsync(() => {
+      dispatchKeyboardEvent(testInstance._selectedText.root, 'keydown', DOWN_ARROW);
       fixture.detectChanges();
-      expect(testInstance.getSelectedIndex()).toBe(-1);
+      flush();
     }));
 
     it('#should handle mouse events', fakeAsync(() => {
       testComponent.open = true;
       fixture.detectChanges();
-      dispatchMouseEvent(testInstance._list.getListItemByIndex(1).getListItemElement(), 'mousedown');
+      dispatchMouseEvent(testInstance._menu._list.getListItemByIndex(1).getListItemElement(), 'mousedown');
       fixture.detectChanges();
       flush();
+    }));
+
+    it('#should select fruit-3', fakeAsync(() => {
+      testInstance.setSelectionByValue('fruit-3', true, 3);
+      fixture.detectChanges();
+      expect(testInstance.getSelectedIndex()).toBe(3);
+      expect(testInstance._hasValue).toBe(true);
     }));
 
     it('#should select first item', fakeAsync(() => {
@@ -325,37 +308,28 @@ describe('MdcSelectModule', () => {
       fixture.detectChanges();
       expect(testInstance._menu.open).toBe(true);
     }));
-
-    it('#should handle blur event', () => {
-      spyOn(testComponent, 'handleBlur');
-      fixture.detectChanges();
-
-      dispatchFakeEvent(testInstance._selectedText.nativeElement, 'blur');
-      fixture.detectChanges();
-      expect(testComponent.handleBlur).toHaveBeenCalledTimes(1);
-    });
   });
 });
 
-describe('MDC_SELECT_DEFAULT_OPTIONS', () => {
-  it('should be no default options provided', fakeAsync(() => {
-    const fixture = createComponent(SelectFormControl);
-    fixture.detectChanges();
-    flush();
-    expect(fixture.componentInstance.outlined).toBe(undefined);
-  }));
+// describe('MDC_SELECT_DEFAULT_OPTIONS', () => {
+//   it('should be no default options provided', fakeAsync(() => {
+//     const fixture = createComponent(SelectFormControl);
+//     fixture.detectChanges();
+//     flush();
+//     expect(fixture.componentInstance.outlined).toBe(undefined);
+//   }));
 
-  // it('should be default of outlined, if specified in default options',
-  //   fakeAsync(() => {
-  //     const fixture = createComponent(SelectFormControl, [{
-  //       provide: MDC_SELECT_DEFAULT_OPTIONS, useValue: { outlined: true }
-  //     }
-  //     ]);
-  //     fixture.detectChanges();
-  //     flush();
-  //     expect(fixture.componentInstance.outlined).toBe(true);
-  //   }));
-});
+//   it('should be default of outlined, if specified in default options',
+//     fakeAsync(() => {
+//       const fixture = createComponent(SelectFormControl, [{
+//         provide: MDC_SELECT_DEFAULT_OPTIONS, useValue: { outlined: true }
+//       }
+//       ]);
+//       fixture.detectChanges();
+//       flush();
+//       expect(fixture.componentInstance.outlined).toBe(true);
+//     }));
+// });
 
 function createComponent<T>(component: Type<T>,
   providers: any[] = [],
@@ -384,9 +358,11 @@ function createComponent<T>(component: Type<T>,
          [disabled]="disabled" [floatLabel]="floatLabel" [required]="required" [valid]="valid"
          [value]="testValue" [outlined]="outlined"
          (valueChange)="handleValueChange($event)" (selectionChange)="handleSelectedChange($event)">
-          <option *ngFor="let food of foods" [value]="food.value" disabled="food.disabled">
-            {{food.description}}
-          </option>
+          <mdc-menu>
+            <mdc-list>
+              <mdc-list-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">{{food.description}}</mdc-list-item>
+            </mdc-list>
+          </mdc-menu>
         </mdc-select>
         <mdc-select-helper-text
           [validation]="true"
@@ -419,18 +395,19 @@ class SimpleTest {
 
 @Component({
   template: `
-  <mdc-select placeholder="Favorite food" [formControl]="foodControl" [autosize]="autosize"
+  <mdc-select placeholder="Favorite food" [formControl]="foodControl"
    [outlined]="outlined" (blur)="handleBlur()" [compareWith]="compareFn">
-    <option *ngFor="let food of foods" [value]="food.value" disabled="food.disabled">
-      {{food.description}}
-    </option>
+   <mdc-menu>
+      <mdc-list>
+        <mdc-list-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">{{food.description}}</mdc-list-item>
+      </mdc-list>
+    </mdc-menu>
   </mdc-select>
   `,
 })
 class SelectFormControl {
   foodControl = new FormControl();
   outlined: boolean;
-  autosize: boolean = true;
 
   compareFn(f1: any, f2: any): boolean {
     return f1 && f2 ? f1.id === f2.id : f1 === f2;
@@ -450,7 +427,11 @@ class SelectFormControl {
   template: `
   <form [formGroup]="lazyLoadForm" #formDirectiveLazy="ngForm">
     <mdc-select [outlined]="outlined" formControlName="lazySelect" [helperText]="lazyHelper">
-      <option *ngFor="let food of lazyFoods" [value]="food.value" [disabled]="food.disabled">{{food.viewValue}}</option>
+      <mdc-menu>
+        <mdc-list>
+          <mdc-list-item *ngFor="let food of lazyFoods" [value]="food.value" [disabled]="food.disabled">{{food.viewValue}}</mdc-list-item>
+        </mdc-list>
+      </mdc-menu>
     </mdc-select>
     <mdc-select-helper-text #lazyHelper validation>
       <span *ngIf="lazyLoadForm.controls['lazySelect'].hasError('required')">Selection

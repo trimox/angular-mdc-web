@@ -10,7 +10,7 @@ import {
   MdcChipsModule,
   MdcChip,
   MdcChipSet,
-  MdcChipRemovedEvent,
+  MdcChipInteractionEvent,
   MdcChipSelectionEvent,
   MdcIcon,
   MdcChipSetChange
@@ -25,6 +25,7 @@ describe('Chips', () => {
       declarations: [
         ChipTest,
         ChipValue,
+        TestChip,
         ChipModel,
         ChipInput,
         ChipChoice,
@@ -66,32 +67,16 @@ describe('Chips', () => {
       expect(testInstance._icons.last.trailing).toBe(true);
     });
 
-    it('should make disabled chips non-focusable', () => {
-      expect(testNativeElement.getAttribute('tabIndex')).toBe('0');
+    // it('should emit icon click event', () => {
+    //   spyOn(testComponent, 'iconInteraction');
 
-      testComponent.disabled = true;
-      fixture.detectChanges();
-
-      expect(testNativeElement.getAttribute('tabIndex')).toBeFalsy();
-    });
-
-    it('should emit icon click event', () => {
-      spyOn(testComponent, 'iconInteraction');
-
-      testComponent.trailingIcon.elementRef.nativeElement.click();
-      fixture.detectChanges();
-      expect(testComponent.iconInteraction).toHaveBeenCalledTimes(1);
-    });
+    //   testComponent.trailingIcon.elementRef.nativeElement.click();
+    //   fixture.detectChanges();
+    //   expect(testComponent.iconInteraction).toHaveBeenCalledTimes(1);
+    // });
 
     it('expect disableRipple to be false', () => {
       expect(testInstance.disableRipple).toBe(false);
-    });
-
-    it('handles focus event', () => {
-      testInstance.focus();
-      fixture.detectChanges();
-
-      expect(document.activeElement).toBe(testNativeElement);
     });
 
     it('handles click event', () => {
@@ -102,18 +87,6 @@ describe('Chips', () => {
     it('is removable', () => {
       testComponent.removable = false;
       fixture.detectChanges();
-    });
-
-    it('#should apply primary class modifier', () => {
-      testComponent.primary = true;
-      fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList.contains('ngx-mdc-chip--primary')).toBe(true);
-    });
-
-    it('#should apply secondary class modifier', () => {
-      testComponent.secondary = true;
-      fixture.detectChanges();
-      expect(testDebugElement.nativeElement.classList.contains('ngx-mdc-chip--secondary')).toBe(true);
     });
   });
 
@@ -171,6 +144,58 @@ describe('Chips', () => {
     }));
   });
 
+  describe('MdcChip', () => {
+    let testDebugElement: DebugElement;
+    let testNativeElement: HTMLElement;
+    let testInstance: MdcChip;
+    let testComponent: TestChip;
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(TestChip);
+      fixture.detectChanges();
+
+      testDebugElement = fixture.debugElement.query(By.directive(MdcChip));
+      testNativeElement = testDebugElement.nativeElement;
+      testInstance = testDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+    });
+
+    it('#should set primary focus on chip', () => {
+      testInstance.focusPrimaryAction();
+      fixture.detectChanges();
+    });
+
+    it('#should set trailing icon focus on chip', () => {
+      testInstance.focusTrailingAction();
+      fixture.detectChanges();
+    });
+
+    it('#should default be removable', () => {
+      expect(testInstance.removable).toBe(true);
+    });
+
+    it('#should not be input', () => {
+      expect(testInstance.input).toBe(false);
+    });
+
+    it('#should run beginExit', () => {
+      testInstance.remove();
+      fixture.detectChanges();
+    });
+
+    it('#should not run beginExit', () => {
+      testInstance.removable = false;
+      fixture.detectChanges();
+      testInstance.remove();
+      fixture.detectChanges();
+    });
+
+    it('#should focus on chip when focus() is called', () => {
+      testInstance.focus();
+      fixture.detectChanges();
+    });
+  });
+
   describe('MdcChip value', () => {
     let testDebugElement: DebugElement;
     let testNativeElement: HTMLElement;
@@ -198,21 +223,18 @@ describe('Chips', () => {
       testComponent.value = 'weather-1';
       fixture.detectChanges();
       expect(testInstance.value).toBe('weather-1');
-      expect(testInstance.chips.first.selected).toBe(false);
     });
 
     it('#should set value on chip with selectByValue', () => {
       testInstance.selectByValue('weather-1');
       fixture.detectChanges();
       expect(testInstance.value).toBe('weather-1');
-      expect(testInstance.chips.first.selected).toBe(false);
     });
 
     it('#should set value on chip with selectByValue', () => {
       testInstance.selectByValue(['weather-1']);
       fixture.detectChanges();
-      expect(testInstance.value).toBe('weather-1');
-      expect(testInstance.chips.first.selected).toBe(false);
+      expect(testInstance.value).toEqual(['weather-1']);
     });
 
     it('should emit changed event', () => {
@@ -281,13 +303,13 @@ describe('Chips', () => {
       expect(testInstance.chips.first.value).toBeDefined();
     });
 
-    it('should emit removed event', () => {
-      spyOn(testComponent, 'chipRemoved');
+    it('should emit trailingIconInteraction event', () => {
+      spyOn(testComponent, 'onTrailingIconInteraction');
       fixture.detectChanges();
 
       testInstance.chips.first._icons.first.elementRef.nativeElement.click();
       fixture.detectChanges();
-      expect(testComponent.chipRemoved).toHaveBeenCalledTimes(1);
+      expect(testComponent.onTrailingIconInteraction).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -353,10 +375,7 @@ describe('Chips', () => {
   template: `
   <mdc-chip-set filter>
     <mdc-chip
-      [disabled]="disabled"
       [removable]="removable"
-      [primary]="primary"
-      [secondary]="secondary"
       (trailingIconInteraction)="iconInteraction()"
       (selectionChange)="chipSelectionChange($event)">
       <mdc-chip-icon leading>face</mdc-chip-icon>
@@ -373,9 +392,6 @@ describe('Chips', () => {
 })
 class ChipTest {
   removable: boolean = true;
-  disabled: boolean;
-  primary: boolean;
-  secondary: boolean;
   disableRipple: boolean;
 
   @ViewChild('trailingIcon', {static: false}) trailingIcon: MdcIcon;
@@ -389,7 +405,7 @@ class ChipTest {
   <mdc-chip>
     <mdc-chip-icon #icon leading>face</mdc-chip-icon>
     <mdc-chip-text>Alice</mdc-chip-text>
-</mdc-chip>
+  </mdc-chip>
 </mdc-chip-set>`
 })
 class ChipFilter {
@@ -398,13 +414,21 @@ class ChipFilter {
 
 @Component({
   template: `<mdc-chip-set input>
-  <mdc-chip label="Alice" (removed)="chipRemoved($event)">
+  <mdc-chip label="Alice" (trailingIconInteraction)="onTrailingIconInteraction($event)">
     <mdc-chip-icon trailing>cancel</mdc-chip-icon>
   </mdc-chip>
 </mdc-chip-set>`
 })
 class ChipInput {
-  chipRemoved: (event?: MdcChipRemovedEvent) => void = () => {};
+  onTrailingIconInteraction: (event?: MdcChipInteractionEvent) => void = () => {};
+}
+
+@Component({
+  template: `<mdc-chip>
+  <mdc-chip-icon trailing>cancel</mdc-chip-icon>
+</mdc-chip>`
+})
+class TestChip {
 }
 
 @Component({
@@ -421,7 +445,7 @@ class ChipChoice {
 @Component({
   template: `
   <mdc-chip-set [choice]="choice" [value]="value" (change)="onChipSetChange($event)">
-    <mdc-chip [disabled]="disabled" value="directions-1">
+    <mdc-chip value="directions-1">
       <mdc-chip-text>Get Directions</mdc-chip-text>
     </mdc-chip>
     <mdc-chip value="weather-1">
@@ -433,7 +457,6 @@ class ChipChoice {
   </mdc-chip-set>`,
 })
 class ChipValue {
-  disabled: boolean;
   choice: boolean = true;
   value: any;
 

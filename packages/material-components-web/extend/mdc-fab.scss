@@ -1,5 +1,7 @@
+@use '@material/fab/mixins';
+
 .ngx-mdc-fab-extended--fluid {
-  @include mdc-fab-extended-fluid;
+  @include mixins.extended-fluid;
 }
 
 .ngx-mdc-fab--bottom-right {

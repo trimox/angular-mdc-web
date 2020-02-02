@@ -1,2 +1,2 @@
-export * from './typography-module';
+export * from './module';
 export * from './typography';

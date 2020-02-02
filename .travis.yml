@@ -1,10 +1,8 @@
 language: node_js
-sudo: required
-
 dist: bionic
 
 node_js:
-  - 11
+  - 12
 
 cache:
   yarn: true
@@ -15,7 +13,7 @@ before_install:
   - sudo apt-key adv --fetch-keys http://dl.yarnpkg.com/debian/pubkey.gpg
   - echo "deb http://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
   - sudo apt-get update -qq
-  - sudo apt-get install -y -qq yarn=1.17.3-1
+  - sudo apt-get install -y -qq yarn=1.21.1-1
 
 stages:
   - test
@@ -43,8 +41,6 @@ jobs:
         - cd demos
         - npm install
         - npm install -g @angular/cli
-        - rm -rf node_modules/@material/data-table/*.ts # Remove if #1959 is fixed
-        - rm -rf ../node_modules/@material/data-table/*.ts # Remove if #1959 is fixed
         - ng build --prod
       deploy:
         provider: pages

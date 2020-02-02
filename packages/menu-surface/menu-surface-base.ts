@@ -1,5 +1,6 @@
 import {
   ChangeDetectorRef,
+  Directive,
   ElementRef,
   EventEmitter,
   NgZone,
@@ -41,11 +42,12 @@ const ANCHOR_CORNER_MAP = {
   bottomStart: Corner.BOTTOM_START
 };
 
+@Directive()
 export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoundation> {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
-  private _previousFocus: Element | null = null;
+  private _previousFocus?: Element;
 
   @Input()
   get open(): boolean {
@@ -55,26 +57,30 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._open) {
       this._open = coerceBooleanProperty(value);
-      this.setOpen();
+      if (this._open) {
+        this._foundation.open();
+      } else {
+        this._foundation.close();
+      }
     }
   }
   private _open: boolean = false;
 
   @Input()
-  get anchorElement(): HTMLElement | null {
+  get anchorElement(): HTMLElement | undefined {
     return this._anchorElement;
   }
-  set anchorElement(element: HTMLElement | null) {
+  set anchorElement(element: HTMLElement | undefined) {
     this._anchorElement = element;
   }
-  private _anchorElement: HTMLElement | null = null;
+  private _anchorElement?: HTMLElement;
 
   @Input()
   get anchorCorner(): AnchorCorner {
     return this._anchorCorner;
   }
   set anchorCorner(value: AnchorCorner) {
-    this._anchorCorner = value || 'topStart';
+    this._anchorCorner = value ?? 'topStart';
     this._foundation.setAnchorCorner(ANCHOR_CORNER_MAP[this._anchorCorner]);
   }
   private _anchorCorner: AnchorCorner = 'topStart';
@@ -95,8 +101,11 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
   }
   set fixed(value: boolean) {
     this._fixed = coerceBooleanProperty(value);
-    this._fixed ? this._getHostElement().classList.add('mdc-menu-surface--fixed') :
+    if (this._fixed) {
+      this._getHostElement().classList.add('mdc-menu-surface--fixed');
+    } else {
       this._getHostElement().classList.remove('mdc-menu-surface--fixed');
+    }
     this._foundation.setFixedPosition(this._fixed);
   }
   private _fixed: boolean = false;
@@ -162,12 +171,12 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
       setTransformOrigin: (origin: string) =>
         this.platform.isBrowser ?
           this._getHostElement().style[`${util.getTransformPropertyName(window)}-origin` as any] = origin : false,
-      isFocused: () => this.platform.isBrowser ? document.activeElement! === this._getHostElement() : false,
-      saveFocus: () => this.platform.isBrowser ? this._previousFocus = document.activeElement! : {},
+      isFocused: () => document?.activeElement === this._getHostElement() ?? false,
+      saveFocus: () => this._previousFocus = document?.activeElement ?? undefined,
       restoreFocus: () => {
-        if (!this.platform.isBrowser && this._getHostElement().contains(document.activeElement!)) {
-          if (this._previousFocus && (<any>this._previousFocus).focus) {
-            (<any>this._previousFocus).focus();
+        if (this.platform.isBrowser) {
+          if (this._getHostElement().contains(document.activeElement)) {
+            (<HTMLElement>this._previousFocus)?.focus();
           }
         }
       },
@@ -209,6 +218,7 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
 
   protected initMenuSurface(): void {
     this._foundation.init();
+    this.anchorElement = this._getHostElement().parentElement ?? this.anchorElement;
     this._registerKeydownListener();
   }
 
@@ -228,10 +238,6 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
     }
   }
 
-  protected setOpen(): void {
-    this._open ? this._foundation.open() : this._foundation.close();
-  }
-
   /**
    * Removes the menu-surface from it's current location and appends it to the
    * body to overcome any overflow:hidden issues.
@@ -249,9 +255,12 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
   }
 
   private _registerKeydownListener(): void {
-    this._ngZone.runOutsideAngular(() =>
-      fromEvent<KeyboardEvent>(this._getHostElement(), 'keydown').pipe(takeUntil(this._destroy))
-        .subscribe(evt => this._ngZone.run(() => this._foundation.handleKeydown(evt))));
+    fromEvent<KeyboardEvent>(this._getHostElement(), 'keydown')
+      .pipe(takeUntil(this._destroy))
+      .subscribe(evt => {
+        this._foundation.handleKeydown(evt);
+        this._open = this._foundation.isOpen();
+      });
   }
 
   private _registerWindowClickListener(): void {
@@ -269,9 +278,7 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
   }
 
   private _deregisterWindowClickListener(): void {
-    if (this._windowClickSubscription) {
-      this._windowClickSubscription.unsubscribe();
-    }
+    this._windowClickSubscription?.unsubscribe();
   }
 
   /** Retrieves the DOM element of the component host. */

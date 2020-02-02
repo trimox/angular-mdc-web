@@ -19,8 +19,15 @@
       "dom"
     ],
     "paths": {
-      "@angular-mdc/web/*": ["../../packages/*"],
-      "@angular-mdc/web": ["../../packages/public-api.ts"]
+      "@angular-mdc/web/*": [
+        "../../packages/*"
+      ],
+      "@angular-mdc/web": [
+        "../../packages/public-api.ts"
+      ]
     }
+  },
+  "angularCompilerOptions": {
+    "enableIvy": false
   }
 }

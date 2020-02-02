@@ -1,2 +1,10 @@
-@import './styles/app.scss';
+@use './styles/global';
+@use './styles/material-components';
+@use './styles/demo';
+@use './styles/layout';
+
+// Import Angular MDC
+@use '../../packages/material-components-web/material';
+
+// highlight.js for examples
 @import '~highlight.js/styles/atom-one-dark.css';

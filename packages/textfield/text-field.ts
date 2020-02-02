@@ -23,6 +23,7 @@ import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion
 import {Platform} from '@angular/cdk/platform';
 
 import {MdcRipple} from '@angular-mdc/web/ripple';
+import {MDCComponent} from '@angular-mdc/web/base';
 import {MdcFloatingLabel} from '@angular-mdc/web/floating-label';
 import {MdcLineRipple} from '@angular-mdc/web/line-ripple';
 import {MdcNotchedOutline} from '@angular-mdc/web/notched-outline';
@@ -39,11 +40,13 @@ import {
 import {MdcTextFieldIcon} from './text-field-icon';
 
 import {
+  MDCTextFieldAdapter,
   MDCTextFieldFoundation,
   MDCTextFieldHelperTextFoundation,
+  MDCTextFieldFoundationMap,
+  MDCTextFieldInputAdapter,
   MDCTextFieldOutlineAdapter,
   MDCTextFieldLabelAdapter,
-  MDCTextFieldRootAdapter,
   MDCTextFieldLineRippleAdapter
 } from '@material/textfield';
 
@@ -62,12 +65,15 @@ export interface MdcTextFieldDefaultOptions {
 export const MDC_TEXT_FIELD_DEFAULT_OPTIONS =
   new InjectionToken<MdcTextFieldDefaultOptions>('MDC_TEXT_FIELD_DEFAULT_OPTIONS');
 
-class MdcTextFieldBase {
+class MdcTextFieldBase extends MDCComponent<MDCTextFieldFoundation> {
   constructor(
+    public _elementRef: ElementRef<HTMLElement>,
     public _defaultErrorStateMatcher: ErrorStateMatcher,
     public _parentForm: NgForm,
     public _parentFormGroup: FormGroupDirective,
-    public ngControl: NgControl) {}
+    public ngControl: NgControl) {
+    super(_elementRef);
+  }
 }
 
 const _MdcTextFieldMixinBase: CanUpdateErrorStateCtor & typeof MdcTextFieldBase =
@@ -91,7 +97,6 @@ const MOUSE_EVENT_IGNORE_TIME = 800;
     'class': 'mdc-text-field',
     '[class.mdc-text-field--disabled]': 'disabled',
     '[class.mdc-text-field--outlined]': 'outlined',
-    '[class.mdc-text-field--dense]': 'dense',
     '[class.mdc-text-field--fullwidth]': 'fullwidth',
     '[class.mdc-text-field--with-leading-icon]': 'leadingIcon',
     '[class.mdc-text-field--with-trailing-icon]': 'trailingIcon',
@@ -106,6 +111,7 @@ const MOUSE_EVENT_IGNORE_TIME = 800;
     [id]="id"
     [type]="type"
     [tabindex]="tabIndex"
+    [attr.name]="name"
     [attr.aria-invalid]="errorState"
     [attr.autocomplete]="autocomplete"
     [attr.pattern]="pattern"
@@ -146,6 +152,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
 
   controlType: string = 'mdc-text-field';
 
+  @Input() name?: string;
   @Input() label: string | null = null;
   @Input() maxlength?: number;
   @Input() minlength?: number;
@@ -246,15 +253,6 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   private _fullwidth: boolean = false;
 
   @Input()
-  get dense(): boolean {
-    return this._dense;
-  }
-  set dense(value: boolean) {
-    this._dense = coerceBooleanProperty(value);
-  }
-  private _dense: boolean = false;
-
-  @Input()
   get helperText(): MdcHelperText | null {
     return this._helperText;
   }
@@ -329,6 +327,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   @Output() readonly change = new EventEmitter<any>();
   @Output() readonly input = new EventEmitter<any>();
   @Output() readonly blur = new EventEmitter<any>();
+  @Output('focus') readonly _onFocus = new EventEmitter<boolean>();
 
   @ViewChild('inputElement', {static: true}) _input!: ElementRef<HTMLInputElement | HTMLTextAreaElement>;
   @ViewChild(MdcLineRipple, {static: false}) _lineRipple?: MdcLineRipple;
@@ -345,38 +344,37 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   get textarea(): boolean {
     return this._getHostElement().nodeName.toLowerCase() === 'mdc-textarea';
   }
-  get focused(): boolean {
-    return this._platform.isBrowser ?
-      document.activeElement! === this._getInputElement() : false;
-  }
   get leadingIcon(): MdcTextFieldIcon | undefined {
-    return this._icons ?
-      this._icons.find(icon => icon.leading) : undefined;
+    return this._icons?.find(icon => icon.leading);
   }
   get trailingIcon(): MdcTextFieldIcon | undefined {
-    return this._icons ?
-      this._icons.find(icon => icon.trailing) : undefined;
+    return this._icons?.find(icon => icon.trailing);
   }
 
-  private _createAdapter(): MDCTextFieldRootAdapter {
-    return Object.assign({
+  getDefaultFoundation() {
+    const adapter: MDCTextFieldAdapter = {
+      ...this._getRootAdapterMethods(),
+      ...this._getInputAdapterMethods(),
+      ...this._getLabelAdapterMethods(),
+      ...this._getLineRippleAdapterMethods(),
+      ...this._getOutlineAdapterMethods()
+    };
+    return new MDCTextFieldFoundation(adapter, this._getFoundationMap());
+  }
+
+  private _getRootAdapterMethods(): any {
+    return {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
-      hasClass: (className: string) => this._getHostElement().classList.contains(className),
-      isFocused: () => this._platform.isBrowser ? document.activeElement! === this._getInputElement() : false
-    },
-      this._getInputAdapterMethods(),
-      this._getLabelAdapterMethods(),
-      this._getLineRippleAdapterMethods(),
-      this._getOutlineAdapterMethods()
-    );
+      hasClass: (className: string) => this._getHostElement().classList.contains(className)
+    };
   }
 
-  private _getInputAdapterMethods(): any {
+  private _getInputAdapterMethods(): MDCTextFieldInputAdapter {
     return {
       getNativeInput: () => {
         return {
-          maxLength: this.maxlength,
+          maxLength: this.maxlength ?? 0,
           type: this._type,
           value: this._platform.isBrowser ? this._input.nativeElement.value : this._value,
           disabled: this._disabled,
@@ -385,7 +383,10 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
             badInput: this._platform.isBrowser ? this._input.nativeElement.validity.badInput : false
           }
         };
-      }
+      },
+      isFocused: () => this._platform.isBrowser ? document.activeElement === this._getInputElement() : false,
+      registerInputInteractionHandler: () => {},
+      deregisterInputInteractionHandler: () => {}
     };
   }
 
@@ -400,21 +401,9 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
 
   private _getLineRippleAdapterMethods(): MDCTextFieldLineRippleAdapter {
     return {
-      activateLineRipple: () => {
-        if (this._lineRipple) {
-          this._lineRipple.activate();
-        }
-      },
-      deactivateLineRipple: () => {
-        if (this._lineRipple) {
-          this._lineRipple.deactivate();
-        }
-      },
-      setLineRippleTransformOrigin: (normalizedX: number) => {
-        if (this._lineRipple) {
-          this._lineRipple.setRippleCenter(normalizedX);
-        }
-      }
+      activateLineRipple: () => this._lineRipple?.activate(),
+      deactivateLineRipple: () => this._lineRipple?.deactivate(),
+      setLineRippleTransformOrigin: (normalizedX: number) => this._lineRipple?.setRippleCenter(normalizedX)
     };
   }
 
@@ -427,28 +416,12 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   }
 
   /** Returns a map of all subcomponents to subfoundations.*/
-  private _getFoundationMap() {
+  private _getFoundationMap(): Partial<MDCTextFieldFoundationMap> {
     return {
-      helperText: this._helperText ? this._helperText.foundation : undefined,
+      helperText: this._helperText?.foundation,
       characterCounter: this.characterCounterFoundation()
     };
   }
-
-  private _foundation: {
-    init(): void,
-    destroy(): void,
-    setDisabled(disabled: boolean): void,
-    setValid(isValid: boolean): void,
-    setValue(value: any): void,
-    readonly shouldFloat: boolean,
-    notchOutline(openNotch: boolean): void,
-    setUseNativeValidation(useNativeValidation: boolean): void,
-    setTransformOrigin(evt: MouseEvent | TouchEvent): void,
-    handleTextFieldInteraction(): void,
-    activateFocus(): void,
-    deactivateFocus(): void,
-    handleInput(): void
-  } = new MDCTextFieldFoundation(this._createAdapter());
 
   constructor(
     private _platform: Platform,
@@ -462,7 +435,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
     @Optional() _parentFormGroup: FormGroupDirective,
     @Optional() @Inject(MDC_TEXT_FIELD_DEFAULT_OPTIONS) private _defaults: MdcTextFieldDefaultOptions) {
 
-    super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
+    super(elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
 
     if (this.ngControl) {
       // Note: we provide the value accessor through here, instead of
@@ -497,10 +470,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   }
 
   init(): void {
-    setTimeout(() => {
-      this._foundation = new MDCTextFieldFoundation(this._createAdapter(), this._getFoundationMap());
-      this._foundation.init();
-    });
+    this._foundation.init();
 
     if (!this.fullwidth && !this.outlined && !this.textarea) {
       this._ripple = new MdcRipple(this.elementRef);
@@ -547,6 +517,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   onFocus(): void {
     if (this._initialized) {
       this._foundation.activateFocus();
+      this._onFocus.emit(true);
     }
   }
 
@@ -561,6 +532,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
     this._onTouched();
     this._foundation.deactivateFocus();
     this.blur.emit(this.value);
+    this._onFocus.emit(false);
   }
 
   writeValue(value: any): void {

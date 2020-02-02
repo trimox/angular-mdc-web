@@ -23,18 +23,22 @@ import {coerceBooleanProperty} from '@angular/cdk/coercion';
 })
 export class MdcListDivider {
   @Input()
-  get inset(): boolean { return this._inset; }
+  get inset(): boolean {
+    return this._inset;
+  }
   set inset(value: boolean) {
     this._inset = coerceBooleanProperty(value);
   }
-  private _inset: boolean = false;
+  private _inset = false;
 
   @Input()
-  get padded(): boolean { return this._padded; }
+  get padded(): boolean {
+    return this._padded;
+  }
   set padded(value: boolean) {
     this._padded = coerceBooleanProperty(value);
   }
-  private _padded: boolean = false;
+  private _padded = false;
 
-  constructor(public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef) {}
 }

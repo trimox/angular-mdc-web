@@ -1,45 +1,32 @@
 <div class="demo-content">
-  <h3 class="demo-content__headline">Simple Native - FormControl</h3>
-  <form [formGroup]="simpleNativeForm">
-    <mdc-select formControlName="simpleNative">
-      <option value="one">One</option>
-      <option value="two">Two</option>
-    </mdc-select>
-  </form>
-  <p>Dirty: {{ simpleNativeForm.dirty }}</p>
-  <p>Valid: {{ simpleNativeForm.valid }}</p>
-  <p>Pristine: {{ simpleNativeForm.pristine }}</p>
-  <p>Touched: {{ simpleNativeForm.touched }}</p>
-  <p>Value: {{ simpleNativeForm.value | json }}</p>
-  <example-viewer [example]="exampleSimpleNativeFormControl"></example-viewer>
-</div>
-
-<div class="demo-content">
-  <h3 class="demo-content__headline">Enhanced Select</h3>
+  <h3 class="demo-content__headline">Select</h3>
   <div class="demo-layout__row">
     <button mdc-button
-      (click)="enhanced.outlined = !enhanced.outlined">Outlined:
-      {{enhanced.outlined ? 'On' : 'Off'}}</button>
+      (click)="standardSelect.outlined = !standardSelect.outlined">Outlined:
+      {{standardSelect.outlined ? 'On' : 'Off'}}</button>
     <button mdc-button
-      (click)="enhanced.required = !enhanced.required">Required:
-      {{enhanced.required ? 'On' : 'Off'}}</button>
+      (click)="standardSelect.required = !standardSelect.required">Required:
+      {{standardSelect.required ? 'On' : 'Off'}}</button>
     <button mdc-button
-      (click)="enhanced.disabled = !enhanced.disabled">Disabled:
-      {{enhanced.disabled ? 'On' : 'Off'}}</button>
+      (click)="standardSelect.disabled = !standardSelect.disabled">Disabled:
+      {{standardSelect.disabled ? 'On' : 'Off'}}</button>
     <button mdc-button
-      (click)="enhanced.floatLabel = !enhanced.floatLabel">Float
-      Label: {{enhanced.floatLabel ? 'On' :
+      (click)="standardSelect.floatLabel = !standardSelect.floatLabel">Float
+      Label: {{standardSelect.floatLabel ? 'On' :
       'Off'}}</button>
-    <button mdc-button (click)="enhanced.setSelectionByValue('banana')">Select
+    <button mdc-button
+      (click)="standardSelect.setSelectionByValue('banana')">Select
       Banana</button>
-    <button mdc-button (click)="enhanced.setSelectedIndex(2)">Set Index
+    <button mdc-button (click)="standardSelect.setSelectedIndex(2)">Set Index
       (2)</button>
-    <button mdc-button (click)="enhanced.reset()">Reset</button>
+    <button mdc-button (click)="standardSelect.setSelectedIndex(-1)">Set Index
+      (-1)</button>
+    <button mdc-button (click)="standardSelect.focus()">Focus</button>
   </div>
-  <mdc-select #enhanced placeholder="Fruit" required
-    [helperText]="enhancedHelper" (selectionChange)="onSelectionChange($event)"
-    class="demo-enhanced-width">
-    <mdc-menu>
+  <mdc-select #standardSelect placeholder="Fruit" name="my-select" required
+    [helperText]="standardSelectHelper"
+    (selectionChange)="onSelectionChange($event)">
+    <mdc-menu class="demo-select-width" [anchorMargin]="{top: 10}">
       <mdc-list>
         <mdc-list-item></mdc-list-item>
         <mdc-list-item value="apple">Apple</mdc-list-item>
@@ -49,34 +36,31 @@
       </mdc-list>
     </mdc-menu>
   </mdc-select>
-  <mdc-select-helper-text #enhancedHelper validation>Field is required
+  <mdc-select-helper-text #standardSelectHelper validation>Field is required
   </mdc-select-helper-text>
-  <p> Value: {{ enhanced.value }}</p>
-  <p> Index: {{ enhanced.getSelectedIndex() }}</p>
-  <example-viewer [example]="exampleEnhanced"></example-viewer>
+  <p> Value: {{ standardSelect.value }}</p>
+  <p> Index: {{ standardSelect.getSelectedIndex() }}</p>
+  <example-viewer [example]="exampleStandard"></example-viewer>
 </div>
 
 <div class="demo-content">
-  <h3 class="demo-content__headline">Simple Native</h3>
-  <div class="demo-layout__row">
-    <div class="demo-container">
-      <mdc-select>
-        <option value="apple">Apple</option>
-        <option value="orange">Orange</option>
-      </mdc-select>
-    </div>
-    <div class="demo-container">
-      <mdc-select placeholder="Unit">
-        <option value="kg">kg</option>
-        <option value="ml">ml</option>
-      </mdc-select>
-    </div>
-  </div>
-  <example-viewer [example]="exampleSimpleNative"></example-viewer>
+  <h3 class="demo-content__headline">No label</h3>
+  <mdc-select>
+    <mdc-menu class="demo-select-width" [anchorMargin]="{top: 10}">
+      <mdc-list>
+        <mdc-list-item></mdc-list-item>
+        <mdc-list-item value="apple">Apple</mdc-list-item>
+        <mdc-list-item value="orange">Orange</mdc-list-item>
+        <mdc-list-item value="banana">Banana</mdc-list-item>
+        <mdc-list-item value="mango">Mango</mdc-list-item>
+      </mdc-list>
+    </mdc-menu>
+  </mdc-select>
+  <example-viewer [example]="exampleNoLabel"></example-viewer>
 </div>
 
 <div class="demo-content">
-  <h3 class="demo-content__headline">Native Select - Leading Icon</h3>
+  <h3 class="demo-content__headline">Leading Icon</h3>
   <div class="demo-layout__row">
     <button mdc-button (click)="meal.outlined = !meal.outlined">Outlined:
       {{meal.outlined ? 'On' : 'Off'}}</button>
@@ -94,15 +78,19 @@
   <mdc-select #meal [helperText]="mealHelper" required placeholder="Pick a Meal"
     autosize>
     <mdc-icon mdcSelectIcon>fastfood</mdc-icon>
-    <option *ngFor="let food of foods" [value]="food.value"
-      [disabled]="food.disabled">
-      {{food.viewValue}}
-    </option>
+    <mdc-menu class="demo-select-width">
+      <mdc-list>
+        <mdc-list-item *ngFor="let food of foods" [value]="food.value"
+          [disabled]="food.disabled">
+          {{food.viewValue}}
+        </mdc-list-item>
+      </mdc-list>
+    </mdc-menu>
   </mdc-select>
   <mdc-select-helper-text #mealHelper validation>
     <span *ngIf="!meal.value">Meal selection is required</span>
   </mdc-select-helper-text>
-  <example-viewer [example]="exampleNativeSelect"></example-viewer>
+  <example-viewer [example]="exampleLeadingIcon"></example-viewer>
 </div>
 
 <div class="demo-content">
@@ -110,7 +98,7 @@
   <div class="demo-layout__row">
     <div class="demo-container">
       <mdc-select placeholder="Standard" class="custom-select-shape-radius">
-        <mdc-menu>
+        <mdc-menu class="demo-select-width">
           <mdc-list>
             <mdc-list-item *ngFor="let food of foods" [value]="food.value"
               [disabled]="food.disabled">
@@ -123,7 +111,7 @@
     <div class="demo-container">
       <mdc-select placeholder="Standard" outlined
         class="custom-select-outline-shape-radius">
-        <mdc-menu>
+        <mdc-menu class="demo-select-width">
           <mdc-list>
             <mdc-list-item *ngFor="let food of foods" [value]="food.value"
               [disabled]="food.disabled">
@@ -136,7 +124,7 @@
     <div class="demo-container">
       <mdc-select placeholder="Standard" outlined
         class="custom-select-outline-color">
-        <mdc-menu>
+        <mdc-menu class="demo-select-width">
           <mdc-list>
             <mdc-list-item *ngFor="let food of foods" [value]="food.value"
               [disabled]="food.disabled">
@@ -153,10 +141,13 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Lazy Load</h3>
   <form [formGroup]="lazyLoadForm" #formDirectiveLazy="ngForm">
-    <mdc-select outlined formControlName="lazySelect" [helperText]="lazyHelper"
-      class="demo-enhanced-width">
-      <option *ngFor="let food of lazyFoods" [value]="food.value"
-        [disabled]="food.disabled">{{food.viewValue}}</option>
+    <mdc-select outlined formControlName="lazySelect" [helperText]="lazyHelper">
+      <mdc-menu class="demo-select-width">
+        <mdc-list>
+          <mdc-list-item *ngFor="let food of lazyFoods" [value]="food.value"
+            [disabled]="food.disabled">{{food.viewValue}}</mdc-list-item>
+        </mdc-list>
+      </mdc-menu>
     </mdc-select>
     <mdc-select-helper-text #lazyHelper validation>
       <span
@@ -170,10 +161,10 @@
         (click)="resetLazyLoaded(formDirectiveLazy)">Reset</button>
     </div>
   </form>
-  <example-viewer [example]="exampleLazyLoadedNative"></example-viewer>
+  <example-viewer [example]="exampleLazyLoaded"></example-viewer>
 </div>
 
-<div class="demo-content">
+<!-- <div class="demo-content">
   <h3 class="demo-content__headline">Select with [compareWith]</h3>
   <form [formGroup]="formCompareWith">
     <mdc-select formControlName="fruit" [compareWith]="compareFn">
@@ -183,7 +174,7 @@
     </mdc-select>
   </form>
   <p> Value: {{ formCompareWith.value | json}} </p>
-</div>
+</div> -->
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Select with ngModel</h3>
@@ -205,17 +196,18 @@
     <mdc-select #select placeholder="Favorite food" name="food" required
       outlined ngModel #demoNgModel="ngModel"
       (selectionChange)="onSelectionChange($event)">
-      <option *ngFor="let food of foods" [value]="food.value"
-        [disabled]="food.disabled">
-        {{food.viewValue}}
-      </option>
+      <mdc-menu class="demo-select-width">
+        <mdc-list>
+          <mdc-list-item *ngFor="let food of foods" [value]="food.value"
+            [disabled]="food.disabled">{{food.viewValue}}</mdc-list-item>
+        </mdc-list>
+      </mdc-menu>
     </mdc-select>
   </form>
   <p>Value: {{ demoNgModel.value }}</p>
   <p>Index: {{ select.getSelectedIndex() }}</p>
   <p>Touched: {{ demoForm.touched }}</p>
   <p>Dirty: {{ demoForm.dirty }}</p>
-
   <example-viewer [example]="exampleNgModel"></example-viewer>
 </div>
 
@@ -247,10 +239,12 @@
     #formDirective="ngForm">
     <mdc-select #favoriteFood placeholder="Favorite food"
       formControlName="favoriteFood" [helperText]="reactiveHelper">
-      <option *ngFor="let food of foods" [value]="food.value"
-        [disabled]="food.disabled">
-        {{food.viewValue}}
-      </option>
+      <mdc-menu class="demo-select-width">
+        <mdc-list>
+          <mdc-list-item *ngFor="let food of foods" [value]="food.value"
+            [disabled]="food.disabled">{{food.viewValue}}</mdc-list-item>
+        </mdc-list>
+      </mdc-menu>
     </mdc-select>
     <mdc-select-helper-text #reactiveHelper validation>
       <span

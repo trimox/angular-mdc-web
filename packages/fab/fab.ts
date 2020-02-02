@@ -33,6 +33,7 @@ export class MdcFabLabel {}
     '[class.ngx-mdc-fab-extended--fluid]': 'fluid'
   },
   template: `
+  <div class="mdc-fab__ripple"></div>
   <ng-content></ng-content>
   <mdc-icon class="mdc-fab__icon" *ngIf="icon">{{icon}}</mdc-icon>
   <span class="mdc-fab__label" *ngIf="label">{{label}}</span>

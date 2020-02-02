@@ -1,16 +1,16 @@
-import { appendFileSync } from 'fs';
-import { mkdirpSync } from 'fs-extra';
-import { join } from 'path';
-import { buildConfig } from './build-config';
-import { BuildPackage } from './build-package';
-import { copyFiles } from './copy-files';
-import { createEntryPointPackageJson } from './entry-point-package-json';
-import { inlinePackageMetadataFiles } from './metadata-inlining';
-import { createMetadataReexportFile } from './metadata-reexport';
-import { createTypingsReexportFile } from './typings-reexport';
-import { replaceVersionPlaceholders } from './version-placeholders';
+import {appendFileSync} from 'fs';
+import {mkdirpSync} from 'fs-extra';
+import {join} from 'path';
+import {buildConfig} from './build-config';
+import {BuildPackage} from './build-package';
+import {copyFiles} from './copy-files';
+import {createEntryPointPackageJson} from './entry-point-package-json';
+import {inlinePackageMetadataFiles} from './metadata-inlining';
+import {createMetadataReexportFile} from './metadata-reexport';
+import {createTypingsReexportFile} from './typings-reexport';
+import {replaceVersionPlaceholders} from './version-placeholders';
 
-const { outputDir } = buildConfig;
+const {outputDir} = buildConfig;
 
 /** Directory where all bundles will be created in. */
 const bundlesDir = join(outputDir, 'bundles');
@@ -21,7 +21,7 @@ const bundlesDir = join(outputDir, 'bundles');
  * file. Additionally the package will be Closure Compiler and AOT compatible.
  */
 export function composeRelease(buildPackage: BuildPackage) {
-  const { name, sourceDir } = buildPackage;
+  const {name, sourceDir} = buildPackage;
   const packageOut = buildPackage.outputDir;
   const releasePath = join(outputDir, 'releases', name);
   const importAsName = `@angular-mdc/${name}`;
@@ -74,7 +74,7 @@ export function composeRelease(buildPackage: BuildPackage) {
 
 /** Creates files necessary for a secondary entry-point. */
 function createFilesForSecondaryEntryPoint(buildPackage: BuildPackage, releasePath: string) {
-  const { name } = buildPackage;
+  const {name} = buildPackage;
   const packageOut = buildPackage.outputDir;
 
   buildPackage.secondaryEntryPoints.forEach(entryPointName => {

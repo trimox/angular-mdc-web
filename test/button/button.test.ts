@@ -1,8 +1,8 @@
-import { Component, DebugElement } from '@angular/core';
-import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import {Component, DebugElement} from '@angular/core';
+import {fakeAsync, ComponentFixture, TestBed} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
 
-import { MdcButton, MdcButtonLabel, MdcIcon, MdcIconModule, MdcButtonModule } from '@angular-mdc/web';
+import {MdcButton, MdcButtonLabel, MdcIcon, MdcIconModule, MdcButtonModule} from '@angular-mdc/web';
 
 describe('MdcButton', () => {
   let fixture: ComponentFixture<any>;
@@ -48,10 +48,6 @@ describe('MdcButton', () => {
       fixture.detectChanges();
       expect(buttonDebugElement.nativeElement.classList.contains('mdc-button--raised')).toBe(true);
 
-      testComponent.isDense = true;
-      fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.classList.contains('mdc-button--dense')).toBe(true);
-
       testComponent.isUnelevated = true;
       fixture.detectChanges();
       expect(buttonDebugElement.nativeElement.classList.contains('mdc-button--unelevated')).toBe(true);
@@ -59,14 +55,6 @@ describe('MdcButton', () => {
       testComponent.outlined = true;
       fixture.detectChanges();
       expect(buttonDebugElement.nativeElement.classList.contains('mdc-button--outlined')).toBe(true);
-
-      testComponent.isPrimary = true;
-      fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.classList.contains('ngx-mdc-button--primary')).toBe(true);
-
-      testComponent.isSecondary = true;
-      fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.classList.contains('ngx-mdc-button--secondary')).toBe(true);
     });
 
     it('#should handle a click on the button', () => {
@@ -222,9 +210,6 @@ describe('MdcButton', () => {
       (click)="increment()"
       [disabled]="isDisabled"
       [raised]="isRaised"
-      [primary]="isPrimary"
-      [secondary]="isSecondary"
-      [dense]="isDense"
       [unelevated]="isUnelevated"
       [outlined]="outlined">
       My label
@@ -234,9 +219,6 @@ describe('MdcButton', () => {
 class SimpleButton {
   isDisabled: boolean = false;
   isRaised: boolean = false;
-  isDense: boolean = false;
-  isPrimary: boolean = false;
-  isSecondary: boolean = false;
   isUnelevated: boolean = false;
   outlined: boolean = false;
   clickCount: number = 0;
@@ -264,7 +246,7 @@ class HrefButton {
     </button>
   `,
 })
-class SimpleButtonWithIcon { }
+class SimpleButtonWithIcon {}
 
 @Component({
   template: `
@@ -274,7 +256,7 @@ class SimpleButtonWithIcon { }
     </button>
   `,
 })
-class SimpleButtonWithTrailingIcon { }
+class SimpleButtonWithTrailingIcon {}
 
 @Component({
   template: `
@@ -284,7 +266,7 @@ class SimpleButtonWithTrailingIcon { }
     </button>
   `,
 })
-class SimpleButtonWithTrailingIconLabelElement { }
+class SimpleButtonWithTrailingIconLabelElement {}
 
 @Component({
   template: `
@@ -293,4 +275,4 @@ class SimpleButtonWithTrailingIconLabelElement { }
     </button>
   `,
 })
-class SimpleButtonWithTrailingIconLabelAttr { }
+class SimpleButtonWithTrailingIconLabelAttr {}

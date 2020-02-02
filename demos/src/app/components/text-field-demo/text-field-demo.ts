@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {DomSanitizer} from '@angular/platform-browser';
 
-import { MdcTextField, ErrorStateMatcher, MdcIconRegistry } from '@angular-mdc/web';
-import { environment } from '../../../environments/environment';
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
+import {MdcTextField, ErrorStateMatcher, MdcIconRegistry} from '@angular-mdc/web';
+import {environment} from '../../../environments/environment';
+import {ComponentViewer, ComponentView} from '../../shared/component-viewer';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -14,7 +14,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
-@Component({ template: '<component-viewer></component-viewer>' })
+@Component({template: '<component-viewer></component-viewer>'})
 export class TextFieldDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
@@ -34,21 +34,21 @@ export class TextFieldDemo implements OnInit {
   }
 }
 
-@Component({ templateUrl: './api.html' })
-export class Api { }
+@Component({templateUrl: './api.html'})
+export class Api {}
 
-@Component({ templateUrl: './sass.html' })
-export class Sass { }
+@Component({templateUrl: './sass.html'})
+export class Sass {}
 
 class Directions {
   dt: number;
 }
 
-@Component({ templateUrl: './examples.html' })
+@Component({templateUrl: './examples.html'})
 export class Examples {
   demoForm = new FormGroup({
     username: new FormControl(
-      { value: null, disabled: false },
+      {value: null, disabled: false},
       [
         Validators.required,
         Validators.minLength(3),
@@ -66,6 +66,7 @@ export class Examples {
 
   inputEvent: string = '';
   changeEvent: string = '';
+  focusEvent = false;
 
   constructor(iconRegistry: MdcIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
@@ -79,6 +80,10 @@ export class Examples {
 
   onChange(value: any): void {
     this.changeEvent = value;
+  }
+
+  onFocus(focused: boolean): void {
+    this.focusEvent = focused;
   }
 
   submit(f: NgForm | FormGroup) {
@@ -119,21 +124,30 @@ export class Examples {
   //
 
   exampleStandard = {
-    html: `<mdc-text-field label="Standard" required [helperText]="standardHelper"></mdc-text-field>
+    html: `<mdc-text-field label="Standard"
+  name="txt-field-standard"
+  required
+  [helperText]="standardHelper"></mdc-text-field>
 <mdc-helper-text #standardHelper validation persistent>Helper Text</mdc-helper-text>`
   };
 
   exampleEvents = {
     html: `<mdc-text-field label="Standard"
-  (input)="onInput($event)" (change)="onChange($event)"></mdc-text-field>`,
+  (input)="onInput($event)"
+  (focus)="onFocus($event)"
+  (change)="onChange($event)"></mdc-text-field>`,
     ts: `onInput(value: any): void {
   this.inputEvent = value;
 }
 
 onChange(value: any): void {
   this.changeEvent = value;
+}
+
+onFocus(focused: boolean): void {
+  this.focusEvent = focused;
 }`
-  };
+};
 
   exampleReactive = {
     html: `<form [formGroup]="demoForm" (ngSubmit)="submit(demoForm)" #formDirective="ngForm">
@@ -313,9 +327,7 @@ waypoint = new Directions();`
   };
 
   examplePrefilled = {
-    html: `<mdc-text-field [(ngModel)]="prefilledText" label="Username"></mdc-text-field>
-
-<p>ngModel: {{prefilledText}}`,
+    html: `<mdc-text-field [(ngModel)]="prefilledText" label="Username"></mdc-text-field>`,
     ts: `prefilledText: string = 'Prefilled';`
   };
 

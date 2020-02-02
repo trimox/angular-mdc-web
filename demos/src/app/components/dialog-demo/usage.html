@@ -103,7 +103,7 @@ import {
 export class YourDialog {
   constructor(
     public dialogRef: MdcDialogRef<YourDialog>,
-    @Inject(MDC_DIALOG_DATA) data: DialogData) {
+    @Inject(MDC_DIALOG_DATA) public data: DialogData) {
     userName: string = data.name;
   }
 }"></code></pre>

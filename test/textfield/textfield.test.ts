@@ -54,13 +54,6 @@ describe('MdcTextField', () => {
         .toContain('mdc-text-field', 'Expected to have mdc-text-field class');
     });
 
-    it('#should apply class dense on property', fakeAsync(() => {
-      testComponent.isDense = true;
-      fixture.detectChanges();
-      flush();
-      expect(textFieldDebugElement.nativeElement.classList.contains('mdc-text-field--dense')).toBe(true);
-    }));
-
     it('#should apply class fullwidth on property', fakeAsync(() => {
       testComponent.isFullwidth = true;
       fixture.detectChanges();
@@ -257,11 +250,6 @@ describe('MdcTextField', () => {
       expect(testInstance.helperText).toBeNull();
     }));
 
-    it('#should check for browser', fakeAsync(() => {
-      platform.isBrowser = false;
-      expect(testInstance.focused).toBe(false);
-    }));
-
     it('#should call OnInput', fakeAsync(() => {
       spyOn(testComponent, 'onInput');
 
@@ -272,7 +260,6 @@ describe('MdcTextField', () => {
     }));
 
     it('#should handle touch event', fakeAsync(() => {
-      expect(testInstance.focused).toBe(false);
       testInstance._input.nativeElement.focus();
       fixture.detectChanges();
 
@@ -285,8 +272,6 @@ describe('MdcTextField', () => {
       dispatchMouseEvent(testInstance._input.nativeElement, 'mousedown');
       fixture.detectChanges();
       tick(300);
-
-      expect(testInstance.focused).toBe(true);
 
       document.body.focus();
       fixture.detectChanges();
@@ -404,7 +389,6 @@ function createComponent<T>(component: Type<T>,
       label="Username"
       [type]="myType"
       [tabIndex]="1"
-      [dense]="isDense"
       [characterCounter]="characterCounter"
       [outlined]="outlined"
       [value]="value"
@@ -427,7 +411,6 @@ class SimpleTextfield {
   myModel: string = 'Test';
   myType: string = 'text';
   disabled: boolean;
-  isDense: boolean;
   isFullwidth: boolean;
   outlined: boolean;
   required: boolean;

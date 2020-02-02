@@ -7,7 +7,6 @@ import {
   Component,
   ContentChild,
   ContentChildren,
-  Directive,
   ElementRef,
   EventEmitter,
   forwardRef,
@@ -19,6 +18,7 @@ import {
   Optional,
   Output,
   QueryList,
+  ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
@@ -36,44 +36,20 @@ import {
   MDC_ICON_LOCATION,
   MdcIconRegistry
 } from '@angular-mdc/web/icon';
+import {EventSource} from './constants';
+import {
+  MdcChipSetParentComponent,
+  MdcChipInteractionEvent,
+  MdcChipNavigationEvent,
+  MdcChipRemovalEvent,
+  MdcChipSelectionEvent
+} from './types';
+import {MdcChipText} from './chip-directives';
 
 import {
-  chipCssClasses,
   MDCChipAdapter,
   MDCChipFoundation
-} from '@material/chips';
-
-export interface MdcChipInteractionEvent {
-  detail: {
-    chipId: string
-  };
-}
-
-export interface MdcChipSelectionEvent extends MdcChipInteractionEvent {
-  isUserInput?: boolean;
-  detail: {
-    chipId: string,
-    selected: boolean,
-    value: any
-  };
-}
-
-export interface MdcChipRemovedEvent extends MdcChipInteractionEvent {
-  detail: {
-    chipId: string,
-    root: MdcChip
-  };
-}
-
-/**
- * Describes a parent MdcChipSet component.
- * Contains properties that MdcChip can inherit.
- */
-export interface MdcChipSetParentComponent {
-  input: boolean;
-  filter: boolean;
-  choice: boolean;
-}
+} from '@material/chips/chip';
 
 /**
  * Injection token used to provide the parent MdcChipSet component to MdcChip.
@@ -87,27 +63,19 @@ let nextUniqueId = 0;
   moduleId: module.id,
   selector: 'mdc-chip-checkmark',
   exportAs: 'mdcChipCheckmark',
+  host: {
+    'class': 'mdc-chip__checkmark'
+  },
   template: `
-  <div class="mdc-chip__checkmark">
-    <svg
-      class="mdc-chip__checkmark-svg"
-      viewBox="-2 -3 30 30"
-      focusable="false">
-      <path class="mdc-chip__checkmark-path" fill="none" stroke="black" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
-    </svg>
-  </div>`,
+  <svg class="mdc-chip__checkmark-svg"
+    viewBox="-2 -3 30 30"
+    focusable="false">
+    <path class="mdc-chip__checkmark-path" fill="none" stroke="black" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+  </svg>`,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcChipCheckmark {
-  constructor(public elementRef: ElementRef<HTMLElement>) {}
-}
-
-@Directive({
-  selector: 'mdc-chip-text, [mdcChipText]',
-  host: {'class': 'mdc-chip__text'}
-})
-export class MdcChipText {
   constructor(public elementRef: ElementRef<HTMLElement>) {}
 }
 
@@ -117,18 +85,23 @@ export class MdcChipText {
   exportAs: 'mdcChip',
   host: {
     '[id]': 'id',
-    '[attr.tabindex]': 'disabled ? null : 0',
+    'role': 'row',
     'class': 'mdc-chip',
-    '[class.ngx-mdc-chip--primary]': 'primary',
-    '[class.ngx-mdc-chip--secondary]': 'secondary',
+    '[class.mdc-chip--selected]': 'selected',
     '(click)': '_handleInteraction($event)',
-    '(keydown)': '_handleInteraction($event)'
+    '(keydown)': '_onKeydown($event)'
   },
   template: `
+  <div class="mdc-chip__ripple"></div>
   <ng-content select="mdc-chip-icon[leading]"></ng-content>
   <mdc-chip-checkmark *ngIf="filter"></mdc-chip-checkmark>
-  <div class="mdc-chip__text" *ngIf="label">{{label}}</div>
-  <ng-content></ng-content>`,
+  <span role="gridcell" *ngIf="label">
+    <mdc-chip-text>{{label}}</mdc-chip-text>
+  </span>
+  <span role="gridcell">
+    <ng-content></ng-content>
+  </span>
+  `,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [MdcRipple]
@@ -141,6 +114,7 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
   _root!: Element;
 
   private _id = `mdc-chip-${nextUniqueId++}`;
+  @Input() selected?: boolean;
 
   /** The unique ID of the chip. */
   get id(): string {
@@ -151,22 +125,11 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
     return this._icons.find((_: MdcChipIcon) => _.leading);
   }
 
+  get trailingIcon(): MdcChipIcon | undefined {
+    return this._icons.find((_: MdcChipIcon) => _.trailing);
+  }
+
   @Input() label?: string;
-
-  @Input()
-  get selected(): boolean {
-    return this._selected;
-  }
-  set selected(value: boolean) {
-    const newValue = coerceBooleanProperty(value);
-    this._selected = newValue;
-    this._foundation.setSelected(newValue);
-
-    if (this.filter && this.leadingIcon) {
-      this.leadingIcon.elementRef.nativeElement.classList.remove(chipCssClasses.HIDDEN_LEADING_ICON);
-    }
-  }
-  private _selected: boolean = false;
 
   @Input()
   get filter(): boolean {
@@ -178,7 +141,7 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
       this._filter = newValue;
     }
   }
-  private _filter: boolean = false;
+  private _filter = false;
 
   @Input()
   get choice(): boolean {
@@ -187,7 +150,7 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
   set choice(value: boolean) {
     this._choice = coerceBooleanProperty(value);
   }
-  private _choice: boolean = false;
+  private _choice = false;
 
   @Input()
   get input(): boolean {
@@ -196,25 +159,7 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
   set input(value: boolean) {
     this._input = coerceBooleanProperty(value);
   }
-  private _input: boolean = false;
-
-  @Input()
-  get primary(): boolean {
-    return this._primary;
-  }
-  set primary(value: boolean) {
-    this._primary = coerceBooleanProperty(value);
-  }
-  private _primary: boolean = false;
-
-  @Input()
-  get secondary(): boolean {
-    return this._secondary;
-  }
-  set secondary(value: boolean) {
-    this._secondary = coerceBooleanProperty(value);
-  }
-  private _secondary: boolean = false;
+  private _input = false;
 
   /** Determines whether or not the chip displays the remove styling and emits (removed) events. */
   @Input()
@@ -228,17 +173,7 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
       this._foundation.setShouldRemoveOnTrailingIconClick(this._removable);
     }
   }
-  private _removable: boolean = true;
-
-  /** Whether the chip is disabled. */
-  @Input()
-  get disabled(): boolean {
-    return this._disabled;
-  }
-  set disabled(value: boolean) {
-    this._disabled = coerceBooleanProperty(value);
-  }
-  private _disabled: boolean = false;
+  private _removable = true;
 
   /** Whether the chip ripple is disabled. */
   @Input()
@@ -248,68 +183,97 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
   set disableRipple(value: boolean) {
     this._disableRipple = coerceBooleanProperty(value);
   }
-  private _disableRipple: boolean = false;
+  private _disableRipple = false;
 
   /** The value of the chip. Defaults to the content inside `<mdc-chip>` tags. */
   @Input()
-  get value(): any {
-    return this._value !== undefined
-      ? this._value
-      : this.elementRef.nativeElement.textContent;
+  get value(): string | undefined {
+    return this._value ?? this._root.textContent ?? undefined;
   }
-  set value(value: any) {
+  set value(value: string | undefined) {
     this._value = value;
   }
-  protected _value: any;
+  protected _value?: string;
+
+  /** Emitted when the chip is interacted with. */
+  @Output() readonly interactionEvent: EventEmitter<MdcChipInteractionEvent>
+    = new EventEmitter<MdcChipInteractionEvent>();
 
   /** Emitted when the chip is selected or deselected. */
   @Output() readonly selectionChange: EventEmitter<MdcChipSelectionEvent> =
     new EventEmitter<MdcChipSelectionEvent>();
 
-  /** Emitted when the chip icon is interacted with. */
-  @Output() readonly trailingIconInteraction: EventEmitter<MdcChipInteractionEvent> =
-    new EventEmitter<MdcChipInteractionEvent>();
+  /** Emitted as chip navigation event. */
+  @Output() readonly navigationEvent: EventEmitter<MdcChipNavigationEvent> =
+    new EventEmitter<MdcChipNavigationEvent>();
+
+  /** Emitted when trailing icon is interacted with. */
+  @Output() readonly trailingIconInteraction: EventEmitter<MdcChipInteractionEvent>
+    = new EventEmitter<MdcChipInteractionEvent>();
 
   /** Emitted when a chip is to be removed. */
-  @Output() readonly removed: EventEmitter<MdcChipRemovedEvent> =
-    new EventEmitter<MdcChipRemovedEvent>();
+  @Output() readonly removalEvent: EventEmitter<MdcChipRemovalEvent>
+    = new EventEmitter<MdcChipRemovalEvent>();
 
   @ContentChild(MdcChipCheckmark, {static: false}) _checkmark?: MdcChipCheckmark;
   @ContentChildren(forwardRef(() => MdcChipIcon), {descendants: true}) _icons!: QueryList<MdcChipIcon>;
+  @ViewChild(MdcChipText, {static: true}) _primaryAction!: ElementRef<HTMLElement>;
 
   getDefaultFoundation() {
     const adapter: MDCChipAdapter = {
-      addClass: (className: string) => this._getHostElement().classList.add(className),
-      removeClass: (className: string) => this._getHostElement().classList.remove(className),
-      hasClass: (className: string) => this._getHostElement().classList.contains(className),
-      addClassToLeadingIcon: (className: string) => {
-        if (this.leadingIcon) {
-          this.leadingIcon.elementRef.nativeElement.classList.add(className);
-        }
-      },
-      removeClassFromLeadingIcon: (className: string) => {
-        if (this.leadingIcon) {
-          this.leadingIcon.elementRef.nativeElement.classList.remove(className);
-        }
-      },
-      eventTargetHasClass: (target: HTMLElement, className: string) => target.classList.contains(className),
-      notifyInteraction: () => this._emitSelectionChangeEvent(true),
-      notifySelection: () => {},
-      notifyTrailingIconInteraction: () => this.trailingIconInteraction.emit({detail: {chipId: this.id}}),
-      notifyRemoval: () => this.removed.emit({detail: {chipId: this.id, root: this}}),
-      getComputedStyleValue: (propertyName: string) => {
-        if (!this._platform.isBrowser) {
-          return '';
-        }
-        return window.getComputedStyle(this._getHostElement()).getPropertyValue(propertyName);
-      },
+      addClass: (className: string) => this._root.classList.add(className),
+      removeClass: (className: string) => this._root.classList.remove(className),
+      hasClass: (className: string) => this._root.classList.contains(className),
+      addClassToLeadingIcon: (className: string) =>
+        this.leadingIcon?.elementRef?.nativeElement?.classList?.add(className),
+      removeClassFromLeadingIcon: (className: string) =>
+        this.leadingIcon?.elementRef?.nativeElement?.classList?.remove(className),
+      eventTargetHasClass: (target: EventTarget | null, className: string) =>
+        (target && (target as Element).classList) ? (target as Element).classList.contains(className) : false,
+      focusPrimaryAction: () => this._primaryAction?.nativeElement?.focus(),
+      focusTrailingAction: () => this.trailingIcon?.elementRef?.nativeElement?.focus(),
+      notifyInteraction: () => this.interactionEvent.emit({
+        chipId: this._id,
+        value: this._value
+      }),
+      notifySelection: (selected: boolean, chipSetShouldIgnore: boolean) =>
+        this.selectionChange.emit({
+          chipId: this._id,
+          selected: selected,
+          value: selected ? this._value : undefined,
+          shouldIgnore: chipSetShouldIgnore
+        }),
+      notifyNavigation: (key: string, source: EventSource) =>
+        this.navigationEvent.emit({
+          chipId: this.id,
+          value: this._value,
+          key: key,
+          source: source
+        }),
+      notifyTrailingIconInteraction: () => this.trailingIconInteraction.emit({
+        chipId: this.id,
+        value: this._value
+      }),
+      notifyRemoval: () => this.removalEvent.emit({
+        chipId: this.id,
+        value: this._value,
+        removedAnnouncement: null
+      }),
+      getComputedStyleValue: (propertyName: string) =>
+        this._platform.isBrowser ? window.getComputedStyle(this._root).getPropertyValue(propertyName) : '',
       setStyleProperty: (propertyName: string, value: string) =>
-        this._getHostElement().style.setProperty(propertyName, value),
+        (<HTMLElement>this._root).style.setProperty(propertyName, value),
+      setTrailingActionAttr: (attr: string, value: string) =>
+        this.trailingIcon?.elementRef?.nativeElement?.setAttribute(attr, value),
       hasLeadingIcon: () => !!this.leadingIcon,
-      setAttr: (name: string, value: string) => this._elementRef.nativeElement.setAttribute(name, value),
-      getRootBoundingClientRect: () => this._getHostElement().getBoundingClientRect(),
-      getCheckmarkBoundingClientRect: () => this._checkmark ?
-        this._checkmark.elementRef.nativeElement.getBoundingClientRect() : null
+      hasTrailingAction: () => !!this.trailingIcon,
+      setPrimaryActionAttr: (attr: string, value: string) => this._elementRef.nativeElement.setAttribute(attr, value),
+      getRootBoundingClientRect: () => this._root.getBoundingClientRect(),
+      getCheckmarkBoundingClientRect: () =>
+        this._checkmark?.elementRef?.nativeElement?.getBoundingClientRect() ?? null,
+      isRTL: () => typeof window !== 'undefined' ?
+        window.getComputedStyle(this._root).getPropertyValue('direction') === 'rtl' : false,
+      getAttribute: (attr: string) => this._root.getAttribute(attr)
     };
     return new MDCChipFoundation(adapter);
   }
@@ -322,6 +286,7 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
     public elementRef: ElementRef<HTMLElement>,
     @Optional() @Inject(MDC_CHIPSET_PARENT_COMPONENT) private _parent: MdcChipSetParentComponent) {
     super(elementRef);
+
     this._root = this.elementRef.nativeElement;
     this._ripple = this._createRipple();
     this._ripple.init();
@@ -337,44 +302,48 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
     this._destroyed.next();
     this._destroyed.complete();
 
-    this._ripple.destroy();
-    if (this._foundation) {
-      this._foundation.destroy();
-    }
+    this._ripple?.destroy();
+    this._foundation?.destroy();
   }
 
-  /** Selects the chip. */
-  select(): void {
-    if (!this._selected) {
-      this._selected = true;
-      this._emitSelectionChangeEvent();
-    }
-  }
-
-  /** Deselects the chip. */
-  deselect(): void {
-    if (this._selected) {
-      this._selected = false;
-      this._emitSelectionChangeEvent();
-    }
-  }
-
-  /** Select this chip and emit selected event */
-  selectViaInteraction(): void {
-    if (!this._selected) {
-      this._selected = true;
-      this._emitSelectionChangeEvent(true);
-    }
+  setSelectedFromChipSet(selected: boolean, shouldNotifyClients: boolean): void {
+    this._foundation.setSelectedFromChipSet(selected, shouldNotifyClients);
   }
 
   /** Allows for programmatic focusing of the chip. */
   focus(): void {
-    this._getHostElement().focus();
+    this.focusPrimaryAction();
+  }
+
+  focusPrimaryAction(): void {
+    this._foundation.focusPrimaryAction();
+  }
+
+  focusTrailingAction(): void {
+    this._foundation.focusTrailingAction();
+  }
+
+  removeFocus(): void {
+    this._foundation.removeFocus();
+  }
+
+  /**
+   * Allows for programmatic removal of the chip.
+   * Informs any listeners of the removal request. Does not remove the chip from the DOM.
+   */
+  remove(): void {
+    if (this.removable) {
+      this._foundation.beginExit();
+    }
   }
 
   _handleInteraction(evt: KeyboardEvent | MouseEvent): void {
-    this._selected = !this._selected;
     this._foundation.handleInteraction(evt);
+  }
+
+  _onKeydown(evt: KeyboardEvent): void {
+    this._foundation.handleInteraction(evt);
+    this._foundation.handleKeydown(evt);
   }
 
   _handleTrailingIconInteraction(evt: KeyboardEvent | MouseEvent): void {
@@ -402,27 +371,9 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
 
   private _loadListeners(): void {
     this._ngZone.runOutsideAngular(() =>
-      fromEvent<TransitionEvent>(this._getHostElement(), 'transitionend')
+      fromEvent<TransitionEvent>(this._root, 'transitionend')
         .pipe(takeUntil(this._destroyed))
         .subscribe(evt => this._ngZone.run(() => this._foundation.handleTransitionEnd(evt))));
-  }
-
-  /** Emits the removed event. */
-  _emitRemovedEvent(): void {
-    this.removed.emit({detail: {chipId: this.id, root: this}});
-  }
-
-  /** Emits the selection change event. */
-  private _emitSelectionChangeEvent(isUserInput?: boolean): void {
-    this.selectionChange.emit({
-      isUserInput: isUserInput,
-      detail: {chipId: this.id, selected: this._selected, value: this._value}
-    });
-  }
-
-  /** Retrieves the DOM element of the component host. */
-  private _getHostElement(): HTMLElement {
-    return this.elementRef.nativeElement;
   }
 }
 
@@ -434,10 +385,9 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
     'class': 'mdc-chip__icon ngx-mdc-icon',
     '[attr.role]': 'role',
     '[attr.tabindex]': 'tabIndex',
-    '[class.ngx-mdc-icon--clickable]': 'clickable',
-    '[class.ngx-mdc-icon--inline]': 'inline',
     '[class.mdc-chip__icon--leading]': 'leading',
     '[class.mdc-chip__icon--trailing]': 'trailing',
+    '[class.mdc-chip__trailing-action]': 'trailing',
     '(click)': '_onIconInteraction($event)',
     '(keydown)': '_onIconInteraction($event)'
   },
@@ -484,9 +434,6 @@ export class MdcChipIcon extends MdcIcon implements AfterContentInit {
   _onIconInteraction(evt: KeyboardEvent | MouseEvent): void {
     if (this.trailing) {
       this._parentChip._handleTrailingIconInteraction(evt);
-      if (this._parentChip.removable && this._parentChip.input) {
-        this._parentChip._emitRemovedEvent();
-      }
     }
   }
 }

@@ -14,7 +14,9 @@ import {
   moduleId: module.id,
   selector: '[mdcCharacterCounter]',
   exportAs: 'mdcCharacterCounter',
-  host: { 'class': 'mdc-text-field-character-counter' },
+  host: {
+    'class': 'mdc-text-field-character-counter'
+  },
   template: '<ng-content></ng-content>'
 })
 export class MdcCharacterCounter extends MDCComponent<MDCTextFieldCharacterCounterFoundation> implements OnDestroy {

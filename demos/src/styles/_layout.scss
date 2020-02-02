@@ -1,3 +1,8 @@
+@use '@material/typography/mixins' as typography-mixins;
+@use "@material/shape/mixins" as shape-mixins;
+@use "@material/top-app-bar/mixins" as top-app-bar-mixins;
+@use './color-palette' as demo-color;
+
 //
 // Row
 //
@@ -81,7 +86,7 @@
 }
 
 .demo-panel-title {
-  @include mdc-typography(headline4);
+  @include typography-mixins.typography(headline4);
 
   margin: 16px 16px 16px 0;
   line-height: 1.25;
@@ -91,7 +96,7 @@
 }
 
 .demo-panel-references {
-  @include mdc-typography(headline6);
+  @include typography-mixins.typography(headline6);
 
   margin: 24px 16px 16px 0;
   line-height: 1.25;
@@ -114,14 +119,14 @@
 }
 
 .demo-content {
-  @include mdc-shape-radius(12px);
+  @include shape-mixins.radius(12px);
 
   border: 1px solid rgba(0, 0, 0, .15);
   margin: 1.5rem 1rem;
   padding: 1rem;
 
   &__headline {
-    @include mdc-typography(headline6);
+    @include typography-mixins.typography(headline6);
 
     margin-top: .1em;
     margin-bottom: .3em;
@@ -133,7 +138,7 @@
 //
 
 .demo-top-app-bar {
-  @include mdc-top-app-bar-fill-color($color-rally);
+  @include top-app-bar-mixins.fill-color(demo-color.$color-rally);
 
   // only apply this style if below top app bar
   z-index: 7;

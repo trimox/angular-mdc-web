@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {
   MdcButtonModule,
   MdcCardModule,
@@ -56,4 +56,4 @@ import {
     MdcTypographyModule
   ]
 })
-export class MaterialModule { }
+export class MaterialModule {}

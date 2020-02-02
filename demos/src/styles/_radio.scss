@@ -1,9 +1,13 @@
-.demo-radio--custom {
-  $color: $material-color-red-500;
+@use '@material/radio/mixins';
+@use '@material/ripple/mixins' as mdc;
+@use '@material/theme/color-palette' as material-color;
 
-  @include mdc-radio-unchecked-stroke-color($color);
-  @include mdc-radio-checked-stroke-color($color);
-  @include mdc-radio-ink-color($material-color-orange-500);
-  @include mdc-radio-focus-indicator-color($color);
-  @include mdc-states($color);
+.demo-radio--custom {
+  $color: material-color.$red-500;
+
+  @include mixins.unchecked-stroke-color($color);
+  @include mixins.checked-stroke-color($color);
+  @include mixins.ink-color(material-color.$orange-500);
+  @include mixins.focus-indicator-color($color);
+  @include mdc.states($color);
 }

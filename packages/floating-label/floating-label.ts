@@ -32,8 +32,8 @@ export class MdcFloatingLabel extends MDCComponent<MDCFloatingLabelFoundation>
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
       getWidth: () => this._getHostElement().scrollWidth,
-      registerInteractionHandler: () => { },
-      deregisterInteractionHandler: () => { }
+      registerInteractionHandler: () => {},
+      deregisterInteractionHandler: () => {}
     };
     return new MDCFloatingLabelFoundation(adapter);
   }

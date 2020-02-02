@@ -1,2 +1,2 @@
-export * from './line-ripple-module';
+export * from './module';
 export * from './line-ripple';

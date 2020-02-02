@@ -3,17 +3,13 @@ import {
   ChangeDetectionStrategy,
   Component,
   ContentChild,
-  ContentChildren,
-  Directive,
-  ElementRef,
   EventEmitter,
   Input,
   OnDestroy,
   Output,
-  ViewEncapsulation,
-  QueryList
+  ViewEncapsulation
 } from '@angular/core';
-import {coerceBooleanProperty} from '@angular/cdk/coercion';
+import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -21,7 +17,12 @@ import {MdcList, MdcListItem, MdcListItemAction} from '@angular-mdc/web/list';
 import {MdcMenuSurfaceBase} from '@angular-mdc/web/menu-surface';
 
 import {closest} from '@material/dom/ponyfill';
-import {cssClasses, strings, DefaultFocusState, MDCMenuFoundation} from '@material/menu';
+import {
+  cssClasses,
+  DefaultFocusState,
+  MDCMenuAdapter,
+  MDCMenuFoundation
+} from '@material/menu';
 
 export class MdcMenuSelectedEvent {
   constructor(
@@ -30,33 +31,6 @@ export class MdcMenuSelectedEvent {
 }
 
 let nextUniqueId = 0;
-
-export type MdcMenuFocusState = 'none' | 'list' | 'firstItem' | 'lastItem';
-
-const DEFAULT_FOCUS_STATE_MAP = {
-  none: DefaultFocusState.NONE,
-  list: DefaultFocusState.LIST_ROOT,
-  firstItem: DefaultFocusState.FIRST_ITEM,
-  lastItem: DefaultFocusState.LAST_ITEM
-};
-
-@Directive({
-  selector: '[mdcMenuSelectionGroup], mdc-menu-selection-group',
-  host: {'class': 'mdc-menu__selection-group'},
-  exportAs: 'mdcMenuSelectionGroup'
-})
-export class MdcMenuSelectionGroup {
-  constructor(public elementRef: ElementRef<HTMLElement>) {}
-}
-
-@Directive({
-  selector: '[mdcMenuSelectionGroupIcon], mdc-menu-selection-group-icon',
-  host: {'class': 'mdc-menu__selection-group-icon'},
-  exportAs: 'mdcMenuSelectionGroupIcon'
-})
-export class MdcMenuSelectionGroupIcon {
-  constructor(public elementRef: ElementRef<HTMLElement>) {}
-}
 
 @Component({
   moduleId: module.id,
@@ -87,10 +61,10 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._wrapFocus) {
       this._wrapFocus = newValue;
-      this._list.wrapFocus = newValue;
+      this._list!.wrapFocus = newValue;
     }
   }
-  private _wrapFocus: boolean = false;
+  private _wrapFocus = false;
 
   @Input()
   get closeSurfaceOnSelection(): boolean {
@@ -102,52 +76,54 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
       this._closeSurfaceOnSelection = newValue;
     }
   }
-  private _closeSurfaceOnSelection: boolean = true;
+  private _closeSurfaceOnSelection = true;
 
   @Input()
-  get defaultFocusState(): MdcMenuFocusState {
+  get defaultFocusState(): DefaultFocusState | undefined {
     return this._defaultFocusState;
   }
-  set defaultFocusState(value: MdcMenuFocusState) {
+  set defaultFocusState(value: DefaultFocusState | undefined) {
     if (value !== this._defaultFocusState) {
-      this._defaultFocusState = value;
-      this._menuFoundation.setDefaultFocusState(DEFAULT_FOCUS_STATE_MAP[this._defaultFocusState]);
+      this._defaultFocusState = coerceNumberProperty(value, 0);
+      this._menuFoundation.setDefaultFocusState(this._defaultFocusState);
     }
   }
-  private _defaultFocusState: MdcMenuFocusState = 'list';
+  private _defaultFocusState?: DefaultFocusState;
 
   @Output() readonly selected: EventEmitter<MdcMenuSelectedEvent> = new EventEmitter<MdcMenuSelectedEvent>();
 
-  @ContentChild(MdcList, {static: false}) _list!: MdcList;
-  @ContentChildren(MdcListItem, {descendants: true}) listItems!: QueryList<MdcListItem>;
+  @ContentChild(MdcList, {static: false}) _list?: MdcList;
 
-  private _createAdapter() {
+  private _createAdapter(): MDCMenuAdapter {
     return Object.assign({
       addClassToElementAtIndex: (index: number, className: string) =>
-        this.listItems.toArray()[index].getListItemElement().classList.add(className),
+        this._list!.items.toArray()[index].getListItemElement().classList.add(className),
       removeClassFromElementAtIndex: (index: number, className: string) =>
-        this.listItems.toArray()[index].getListItemElement().classList.remove(className),
+        this._list!.items.toArray()[index].getListItemElement().classList.remove(className),
       addAttributeToElementAtIndex: (index: number, attr: string, value: string) =>
-        this.listItems.toArray()[index].getListItemElement().setAttribute(attr, value),
+        this._list!.items.toArray()[index].getListItemElement().setAttribute(attr, value),
       removeAttributeFromElementAtIndex: (index: number, attr: string) =>
-        this.listItems.toArray()[index].getListItemElement().removeAttribute(attr),
+        this._list!.items.toArray()[index].getListItemElement().removeAttribute(attr),
       elementContainsClass: (element: HTMLElement, className: string) => element.classList.contains(className),
-      closeSurface: (skipRestoreFocus: boolean) =>
-        this.closeSurfaceOnSelection ? this._foundation.close(skipRestoreFocus) : {},
+      closeSurface: (skipRestoreFocus: boolean) => {
+        if (this.closeSurfaceOnSelection) {
+          this._foundation.close(skipRestoreFocus);
+        }
+      },
       getElementIndex: (element: HTMLElement) =>
-        this.listItems.toArray().findIndex(_ => _.getListItemElement() === element),
+        this._list!.items.toArray().findIndex(_ => _.getListItemElement() === element),
       notifySelected: (evtData: {index: number}) =>
-        this.selected.emit(new MdcMenuSelectedEvent(evtData.index, this.listItems.toArray()[evtData.index])),
-      getMenuItemCount: () => this.listItems.toArray().length,
-      focusItemAtIndex: (index: number) => this.listItems.toArray()[index].focus(),
-      focusListRoot: () => (this.elementRef.nativeElement.querySelector(strings.LIST_SELECTOR) as HTMLElement).focus(),
+        this.selected.emit(new MdcMenuSelectedEvent(evtData.index, this._list!.items.toArray()[evtData.index])),
+      getMenuItemCount: () => this._list!.items.toArray().length,
+      focusItemAtIndex: (index: number) => this._list!.items.toArray()[index].focus(),
+      focusListRoot: () => this._list!.focus(),
       isSelectableItemAtIndex: (index: number) =>
-        !!closest(this.listItems.toArray()[index].getListItemElement(), `.${cssClasses.MENU_SELECTION_GROUP}`),
+        !!closest(this._list!.items.toArray()[index].getListItemElement(), `.${cssClasses.MENU_SELECTION_GROUP}`),
       getSelectedSiblingOfItemAtIndex: (index: number) => {
-        const selectionGroupEl = closest(this.listItems.toArray()[index].getListItemElement(),
+        const selectionGroupEl = closest(this._list!.items.toArray()[index].getListItemElement(),
           `.${cssClasses.MENU_SELECTION_GROUP}`) as HTMLElement;
         const selectedItemEl = selectionGroupEl.querySelector<HTMLElement>(`.${cssClasses.MENU_SELECTED_LIST_ITEM}`);
-        return selectedItemEl ? this.listItems.toArray().findIndex(_ =>
+        return selectedItemEl ? this._list!.items.toArray().findIndex(_ =>
           _.elementRef.nativeElement === selectedItemEl) : -1;
       }
     });
@@ -164,7 +140,6 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
   ngAfterContentInit(): void {
     this.initMenuSurface();
     this._initList();
-    this._listenForListItemActions();
 
     this.opened.pipe(takeUntil(this._destroyed))
       .subscribe(() => this._menuFoundation.handleMenuSurfaceOpened());
@@ -193,13 +168,10 @@ export class MdcMenu extends MdcMenuSurfaceBase implements AfterContentInit, OnD
 
     // When the list items change, re-subscribe
     this._list.items.changes.pipe(takeUntil(this._destroyed))
-      .subscribe(() => this._list.items.forEach(item => item.setRole('menuitem')));
-  }
+      .subscribe(() => this._list!.items.forEach(item => item.setRole('menuitem')));
 
-  /** Listens to action events on each list item. */
-  private _listenForListItemActions(): void {
-    this._list.actionEvent.pipe(takeUntil(this._destroyed))
+    this._list!.actionEvent.pipe(takeUntil(this._destroyed))
       .subscribe((event: MdcListItemAction) =>
-        this._menuFoundation.handleItemAction(this.listItems.toArray()[event.index].getListItemElement()));
+        this._menuFoundation.handleItemAction(this._list!.items.toArray()[event.index].getListItemElement()));
   }
 }

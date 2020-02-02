@@ -1,2 +1,2 @@
-export * from './elevation-module';
+export * from './module';
 export * from './elevation';

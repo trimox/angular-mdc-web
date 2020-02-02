@@ -1,6 +1,6 @@
-import { Component, DebugElement } from '@angular/core';
-import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import {Component, DebugElement} from '@angular/core';
+import {fakeAsync, ComponentFixture, TestBed} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
 
 import {
   MdcElevationModule,
@@ -38,7 +38,9 @@ describe('MdcElevation', () => {
 
     it('#should throw error', () => {
       testComponent.elevation = 30;
-      expect(() => { fixture.detectChanges() }).toThrow();
+      expect(() => {
+        fixture.detectChanges();
+      }).toThrow();
     });
 
     it('#should have mdc-elevation--z3 by default', () => {

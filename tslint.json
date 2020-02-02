@@ -111,13 +111,23 @@
     // Bans jasmine helper functions that will prevent the CI from properly running tests.
     "ban": [
       true,
-      ["fit"],
-      ["fdescribe"],
-      ["xit"],
-      ["xdescribe"],
-      {"name": "Object.assign", "message": "Use the spread operator instead."}
+      [
+        "fit"
+      ],
+      [
+        "fdescribe"
+      ],
+      [
+        "xit"
+      ],
+      [
+        "xdescribe"
+      ],
+      {
+        "name": "Object.assign",
+        "message": "Use the spread operator instead."
+      }
     ],
-
     // Codelyzer
     "template-banana-in-box": true,
     "contextual-lifecycle": true,
@@ -143,14 +153,14 @@
     "use-pipe-transform-interface": true,
     "component-class-suffix": false,
     "directive-class-suffix": false,
-
     // Custom Rules
     "ts-loader": true,
     "no-import-spacing": true,
     "no-private-getters": true,
+    "no-undecorated-base-class-di": true,
+    "no-undecorated-class-with-ng-fields": true,
     "setters-after-getters": true,
     "rxjs-imports": true,
-    "static-query": true,
     "no-host-decorator-in-concrete": [
       true,
       "HostBinding",
@@ -159,18 +169,36 @@
     "validate-decorators": [
       true,
       {
-      "Component": {
-        "!host": "\\[class\\]",
-        "!preserveWhitespaces": ".*",
-        "!styles": ".*",
-        "changeDetection": "\\.OnPush$",
-        "encapsulation": "\\.None$",
-        "moduleId": "^module\\.id$"
-      },
-      "Directive": {
-        "!host": "\\[class\\]"
-      },
-      "NgModule": "^(?!\\s*$).+"
+        "Component": {
+          "argument": 0,
+          "properties": {
+            "!host": "\\[class\\]",
+            "!preserveWhitespaces": ".*",
+            "!styles": ".*",
+            "!moduleId": ".*",
+            "changeDetection": "\\.OnPush$",
+            "encapsulation": "\\.None$"
+          }
+        },
+        "Directive": {
+          "argument": 0,
+          "properties": {
+            "!host": "\\[class\\]"
+          }
+        },
+        "NgModule": {
+          "argument": 0,
+          "properties": {
+            "*": "^(?!\\s*$).+"
+          }
+        },
+        "ContentChildren": {
+          "argument": 1,
+          "required": true,
+          "properties": {
+            "descendants": "^(true|false)$"
+          }
+        }
       },
       "packages/**/"
     ],

@@ -17,7 +17,6 @@ import {MdcTextField} from './text-field';
     'class': 'mdc-text-field',
     '[class.mdc-text-field--textarea]': 'true',
     '[class.mdc-text-field--no-label]': '!label',
-    '[class.mdc-text-field--dense]': 'dense',
     '[class.mdc-text-field--fullwidth]': 'fullwidth',
     '[class.mdc-text-field--invalid]': 'errorState'
   },
@@ -28,6 +27,7 @@ import {MdcTextField} from './text-field';
     [rows]="rows"
     [cols]="cols"
     [tabindex]="tabIndex"
+    [attr.name]="name"
     [attr.aria-invalid]="errorState"
     [attr.maxlength]="maxlength"
     [attr.minlength]="minlength"
@@ -51,6 +51,6 @@ export class MdcTextarea extends MdcTextField {
   @ViewChild(MdcCharacterCounter, {static: false}) _characterCounterElement!: MdcCharacterCounter;
 
   protected characterCounterFoundation(): any {
-    return this.characterCounter ? this._characterCounterElement.getDefaultFoundation() : undefined;
+    return this._characterCounterElement?.getDefaultFoundation() ?? undefined;
   }
 }

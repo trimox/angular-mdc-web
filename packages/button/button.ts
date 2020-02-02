@@ -27,15 +27,13 @@ export class MdcButtonLabel {}
   host: {
     '[tabIndex]': 'disabled ? -1 : 0',
     'class': 'mdc-button',
-    '[class.ngx-mdc-button--primary]': 'primary',
-    '[class.ngx-mdc-button--secondary]': 'secondary',
     '[class.mdc-button--raised]': 'raised',
-    '[class.mdc-button--dense]': 'dense',
     '[class.mdc-button--unelevated]': 'unelevated',
     '[class.mdc-button--outlined]': 'outlined',
     '(click)': 'onClick($event)'
   },
   template: `
+  <div class="mdc-button__ripple"></div>
   <mdc-button-label *ngIf="label">{{label}}</mdc-button-label>
   <ng-content></ng-content>
   `,
@@ -52,33 +50,6 @@ export class MdcButton implements OnInit, OnDestroy {
     this._raised = coerceBooleanProperty(value);
   }
   private _raised: boolean = false;
-
-  @Input()
-  get primary(): boolean {
-    return this._primary;
-  }
-  set primary(value: boolean) {
-    this._primary = coerceBooleanProperty(value);
-  }
-  private _primary: boolean = false;
-
-  @Input()
-  get dense(): boolean {
-    return this._dense;
-  }
-  set dense(value: boolean) {
-    this._dense = coerceBooleanProperty(value);
-  }
-  private _dense: boolean = false;
-
-  @Input()
-  get secondary(): boolean {
-    return this._secondary;
-  }
-  set secondary(value: boolean) {
-    this._secondary = coerceBooleanProperty(value);
-  }
-  private _secondary: boolean = false;
 
   @Input()
   get unelevated(): boolean {

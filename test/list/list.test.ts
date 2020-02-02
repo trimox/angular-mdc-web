@@ -174,6 +174,20 @@ describe('MdcListModule', () => {
       expect(listItemInstance.selected).toBe(false);
     });
 
+    it('#should have value of `my-value` as selected', () => {
+      testInstance.setSelectedValue('my-value');
+      expect(testInstance.getSelectedValue()).toBe('my-value');
+      expect(testInstance.getListItemByValue('my-value')).toBeDefined();
+      expect(testInstance.getListItemIndexByValue('my-value')).toBe(0);
+    });
+
+    it('#should set selected index to list item index (1)', () => {
+      testInstance.setSelectedIndex(1);
+      fixture.detectChanges();
+      expect(testInstance.getSelectedIndex()).toBe(1);
+      expect(testInstance.getSelectedText()).toBe('Test info');
+    });
+
     it('#should set focus to list item index (0)', () => {
       const listItemDebugElement = fixture.debugElement.query(By.directive(MdcListItem));
 
@@ -210,7 +224,7 @@ describe('MdcListModule', () => {
       <mdc-list [dense]="isDense" [border]="isBordered" [wrapFocus]="wrapFocus" [twoLine]="twoLine"
        [singleSelection]="singleSelection" [disableRipple]="disableRipple"
        [avatar]="isAvatar" [interactive]="isInteractive" useSelectedClass [verticalOrientation]="verticalOrientation">
-        <mdc-list-item #listitem mdcListItemGraphic [selected]="isItemSelected" [disabled]="disabled">Test
+        <mdc-list-item #listitem mdcListItemGraphic [selected]="isItemSelected" [disabled]="disabled" value="my-value">Test
           <mdc-icon mdcListItemMeta>info</mdc-icon>
         </mdc-list-item>
         <mdc-list-item mdcListItemGraphic>Test

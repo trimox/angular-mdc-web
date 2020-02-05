@@ -19,7 +19,10 @@ import {strings, MDCLinearProgressFoundation, MDCLinearProgressAdapter} from '@m
   host: {
     'role': 'progressbar',
     'class': 'mdc-linear-progress',
-    '[class.mdc-linear-progress--indeterminate]': '!determinate'
+    '[class.mdc-linear-progress--indeterminate]': '!determinate',
+    'aria-label': 'label',
+    'aria-valuemin': '0',
+    'aria-valuemax': '100'
   },
   template: `
   <div class="mdc-linear-progress__buffering-dots"></div>
@@ -36,13 +39,20 @@ import {strings, MDCLinearProgressFoundation, MDCLinearProgressAdapter} from '@m
 export class MdcLinearProgress implements AfterViewInit, OnDestroy {
   private _foundation: MDCLinearProgressFoundation | undefined;
 
+  /* Label indicating how the progress bar should be announced to the user. */
+  @Input() label?: string;
+
   @Input()
   get open(): boolean {
     return this._open;
   }
   set open(value: boolean) {
     this._open = coerceBooleanProperty(value);
-    this._open ? this._foundation?.open() : this._foundation?.close();
+    if (this._open) {
+      this._foundation?.open();
+    } else {
+      this._foundation?.close();
+    }
   }
   private _open = true;
 
@@ -81,7 +91,7 @@ export class MdcLinearProgress implements AfterViewInit, OnDestroy {
 
   @Input()
   get buffer(): number {
-    return this._buffer || 0;
+    return this._buffer ?? 0;
   }
   set buffer(value: number) {
     this._buffer = coerceNumberProperty(value);

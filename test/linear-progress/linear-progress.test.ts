@@ -89,6 +89,12 @@ describe('MdcLinearProgress', () => {
       expect(testDebugElement.nativeElement.classList.contains('mdc-linear-progress--reversed')).toBe(true);
       expect(testInstance.reversed).toBe(true);
     });
+
+    it('#should have aria-label', () => {
+      testComponent.label = 'example';
+      fixture.detectChanges();
+      expect(testNativeElement.hasAttribute('aria-label')).toBe(true);
+    });
   });
 });
 
@@ -97,6 +103,7 @@ describe('MdcLinearProgress', () => {
     <mdc-linear-progress
       [reversed]="reversed"
       [open]="open"
+      [label]="label"
       [progress]="0.5"
       [buffer]="0.75"
       [determinate]="determinate">
@@ -107,4 +114,5 @@ class SimpleTest {
   reversed: boolean = false;
   determinate: boolean = false;
   open: boolean;
+  label: string;
 }

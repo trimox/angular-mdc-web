@@ -334,7 +334,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
       removeClass: (className: string) => this._root.classList.remove(className),
       hasClass: (className: string) => this._root.classList.contains(className),
       setRippleCenter: (normalizedX: number) => this._lineRipple?.setRippleCenter(normalizedX),
-      activateBottomLine: () => this._lineRipple!.activate(),
+      activateBottomLine: () => this._lineRipple?.activate(),
       deactivateBottomLine: () => this._lineRipple?.deactivate(),
       notifyChange: () => {}
     };

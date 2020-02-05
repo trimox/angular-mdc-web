@@ -1,15 +1,15 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
   Input,
-  OnDestroy,
+  OnInit,
   ViewEncapsulation
 } from '@angular/core';
 import {Platform} from '@angular/cdk/platform';
 import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion';
+import {MDCComponent} from '@angular-mdc/web/base';
 import {strings, MDCLinearProgressFoundation, MDCLinearProgressAdapter} from '@material/linear-progress';
 
 @Component({
@@ -20,7 +20,7 @@ import {strings, MDCLinearProgressFoundation, MDCLinearProgressAdapter} from '@m
     'role': 'progressbar',
     'class': 'mdc-linear-progress',
     '[class.mdc-linear-progress--indeterminate]': '!determinate',
-    'aria-label': 'label',
+    '[attr.aria-label]': 'label',
     'aria-valuemin': '0',
     'aria-valuemax': '100'
   },
@@ -36,11 +36,11 @@ import {strings, MDCLinearProgressFoundation, MDCLinearProgressAdapter} from '@m
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcLinearProgress implements AfterViewInit, OnDestroy {
-  private _foundation: MDCLinearProgressFoundation | undefined;
+export class MdcLinearProgress extends MDCComponent<MDCLinearProgressFoundation> implements OnInit {
+  _root!: Element;
 
   /* Label indicating how the progress bar should be announced to the user. */
-  @Input() label?: string;
+  @Input() label?: string = undefined;
 
   @Input()
   get open(): boolean {
@@ -49,34 +49,12 @@ export class MdcLinearProgress implements AfterViewInit, OnDestroy {
   set open(value: boolean) {
     this._open = coerceBooleanProperty(value);
     if (this._open) {
-      this._foundation?.open();
+      this._foundation.open();
     } else {
-      this._foundation?.close();
+      this._foundation.close();
     }
   }
   private _open = true;
-
-  @Input()
-  get determinate(): boolean {
-    return this._determinate;
-  }
-  set determinate(value: boolean) {
-    this._determinate = coerceBooleanProperty(value);
-    this._foundation?.setDeterminate(this._determinate);
-    this._changeDetectorRef.markForCheck();
-  }
-  private _determinate = false;
-
-  @Input()
-  get reversed(): boolean {
-    return this._reversed;
-  }
-  set reversed(value: boolean) {
-    this._reversed = coerceBooleanProperty(value);
-    this._foundation?.setReverse(this._reversed);
-    this._changeDetectorRef.markForCheck();
-  }
-  private _reversed = false;
 
   @Input()
   get progress(): number {
@@ -84,64 +62,80 @@ export class MdcLinearProgress implements AfterViewInit, OnDestroy {
   }
   set progress(value: number) {
     this._progress = coerceNumberProperty(value);
-    this._foundation?.setProgress(this._progress);
+    this._foundation.setProgress(this._progress);
     this._changeDetectorRef.markForCheck();
   }
   private _progress = 0;
 
   @Input()
+  get determinate(): boolean {
+    return this._determinate;
+  }
+  set determinate(value: boolean) {
+    this._determinate = coerceBooleanProperty(value);
+    this._foundation.setDeterminate(this._determinate);
+    this._changeDetectorRef.markForCheck();
+  }
+  private _determinate = false;
+
+  @Input()
   get buffer(): number {
-    return this._buffer ?? 0;
+    return this._buffer;
   }
   set buffer(value: number) {
     this._buffer = coerceNumberProperty(value);
-    this._foundation?.setBuffer(this._buffer);
+    this._foundation.setBuffer(this._buffer);
     this._changeDetectorRef.markForCheck();
   }
   private _buffer = 0;
 
-  private _adapter: MDCLinearProgressAdapter = {
-    addClass: (className: string) => this._getHostElement().classList.add(className),
-    forceLayout: () => this._getHostElement().offsetWidth,
-    getPrimaryBar: () => this._getHostElement().querySelector(strings.PRIMARY_BAR_SELECTOR),
-    getBuffer: () => this._getHostElement().querySelector(strings.BUFFER_SELECTOR),
-    hasClass: (className: string) => this._getHostElement().classList.contains(className),
-    removeClass: (className: string) => this._getHostElement().classList.remove(className),
-    setStyle: (el: HTMLElement, styleProperty: string, value: string) => el.style.setProperty(styleProperty, value),
-    removeAttribute: (name: string) => this._getHostElement().removeAttribute(name),
-    setAttribute: (name: string, value: string) => this._getHostElement().setAttribute(name, value)
-  };
+  @Input()
+  get reversed(): boolean {
+    return this._reversed;
+  }
+  set reversed(value: boolean) {
+    this._reversed = coerceBooleanProperty(value);
+    this._foundation.setReverse(this._reversed);
+    this._changeDetectorRef.markForCheck();
+  }
+  private _reversed = false;
 
+  getDefaultFoundation() {
+    const adapter: MDCLinearProgressAdapter = {
+      addClass: (className: string) => this._root.classList.add(className),
+      forceLayout: () => (<HTMLElement>this._root).offsetWidth,
+      getPrimaryBar: () => this._root.querySelector(strings.PRIMARY_BAR_SELECTOR),
+      getBuffer: () => this._root.querySelector(strings.BUFFER_SELECTOR),
+      hasClass: (className: string) => this._root.classList.contains(className),
+      removeClass: (className: string) => this._root.classList.remove(className),
+      setStyle: (el: HTMLElement, styleProperty: string, value: string) => el.style.setProperty(styleProperty, value),
+      removeAttribute: (name: string) => this._root.removeAttribute(name),
+      setAttribute: (name: string, value: string) => this._root.setAttribute(name, value)
+    };
+    return new MDCLinearProgressFoundation(adapter);
+  }
   constructor(
     private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
-    public elementRef: ElementRef) {}
+    public elementRef: ElementRef) {
+    super(elementRef);
 
-  ngAfterViewInit(): void {
-    this._foundation = new MDCLinearProgressFoundation(this._adapter);
+    this._root = this.elementRef.nativeElement;
+  }
+
+  ngOnInit(): void {
     if (this._platform.isBrowser) {
-      this._foundation.init();
-      this._changeDetectorRef.markForCheck();
-      this._syncProgressWithFoundation();
+      this._asyncInitializeValues()
+        .then(() => {
+          this.progress = this._progress;
+          this.buffer = this._buffer;
+          this.determinate = this._determinate;
+          this._changeDetectorRef.markForCheck();
+        });
     }
   }
 
-  private _syncProgressWithFoundation(): void {
-    Promise.resolve().then(() => {
-      this.determinate = this._determinate;
-      this.progress = this._progress;
-      this.buffer = this._buffer;
-    });
-  }
-
-  ngOnDestroy() {
-    if (this._foundation) {
-      this._foundation.destroy();
-    }
-  }
-
-  /** Retrieves the DOM element of the component host. */
-  private _getHostElement(): HTMLElement {
-    return this.elementRef.nativeElement;
+  async _asyncInitializeValues(): Promise<void> {
+    this._foundation.init();
   }
 }

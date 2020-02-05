@@ -32,6 +32,6 @@ export class MDCComponent<FoundationType extends any> {
   destroy() {
     // Subclasses may implement this method to release any resources / deregister any listeners they have
     // attached. An example of this might be deregistering a resize event from the window object.
-    this._foundation.destroy();
+    this._foundation?.destroy();
   }
 }

@@ -106,6 +106,7 @@ const MOUSE_EVENT_IGNORE_TIME = 800;
     '(keydown)': 'onTextFieldInteraction()'
   },
   template: `
+  <div class="mdc-text-field__ripple"></div>
   <ng-content *ngIf="leadingIcon"></ng-content>
   <input #inputElement class="mdc-text-field__input"
     [id]="id"

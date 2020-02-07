@@ -10,6 +10,7 @@ import {
 import {Platform} from '@angular/cdk/platform';
 import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion';
 import {MDCComponent} from '@angular-mdc/web/base';
+import {MDCProgressIndicator} from '@material/progress-indicator/component';
 import {strings, MDCLinearProgressFoundation, MDCLinearProgressAdapter} from '@material/linear-progress';
 
 @Component({
@@ -36,25 +37,12 @@ import {strings, MDCLinearProgressFoundation, MDCLinearProgressAdapter} from '@m
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcLinearProgress extends MDCComponent<MDCLinearProgressFoundation> implements OnInit {
+export class MdcLinearProgress extends MDCComponent<MDCLinearProgressFoundation>
+  implements MDCProgressIndicator, OnInit {
   _root!: Element;
 
   /* Label indicating how the progress bar should be announced to the user. */
   @Input() label?: string = undefined;
-
-  @Input()
-  get open(): boolean {
-    return this._open;
-  }
-  set open(value: boolean) {
-    this._open = coerceBooleanProperty(value);
-    if (this._open) {
-      this._foundation.open();
-    } else {
-      this._foundation.close();
-    }
-  }
-  private _open = true;
 
   @Input()
   get progress(): number {
@@ -125,7 +113,7 @@ export class MdcLinearProgress extends MDCComponent<MDCLinearProgressFoundation>
 
   ngOnInit(): void {
     if (this._platform.isBrowser) {
-      this._asyncInitializeValues()
+      this._asyncInitializeFoundation()
         .then(() => {
           this.progress = this._progress;
           this.buffer = this._buffer;
@@ -135,7 +123,15 @@ export class MdcLinearProgress extends MDCComponent<MDCLinearProgressFoundation>
     }
   }
 
-  async _asyncInitializeValues(): Promise<void> {
+  open(): void {
+    this._foundation.open();
+  }
+
+  close(): void {
+    this._foundation.close();
+  }
+
+  async _asyncInitializeFoundation(): Promise<void> {
     this._foundation.init();
   }
 }

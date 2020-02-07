@@ -23,7 +23,7 @@
   "private": false,
   "dependencies": {
     "@angular-mdc/theme": "0.0.0-PLACEHOLDER",
-    "material-components-web": "5.0.0-canary.3e782d8f8.0",
+    "material-components-web": "5.0.0-canary.ab5f49a2c.0",
     "@angular/cdk": "^9.0.0-rc.9"
   },
   "peerDependencies": {

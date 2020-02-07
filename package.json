@@ -13,7 +13,7 @@
     "node": ">= 12.0.0",
     "yarn": ">= 1.19.1"
   },
-  "requiredAngularVersion": "^8.0.0 || ^9.0.0-rc.14",
+  "requiredAngularVersion": "^8.0.0 || ^9.0.0",
   "scripts": {
     "build": "gulp web:build",
     "build:release": "gulp web:build-release",
@@ -25,12 +25,12 @@
     "test:watch": "karma start --auto-watch"
   },
   "dependencies": {
-    "@angular/cdk": "^9.0.0-rc.9",
-    "@angular/common": "^9.0.0-rc.14",
-    "@angular/compiler": "^9.0.0-rc.14",
-    "@angular/core": "^9.0.0-rc.14",
-    "@angular/forms": "^9.0.0-rc.14",
-    "@angular/platform-browser": "^9.0.0-rc.14",
+    "@angular/cdk": "^9.0.0",
+    "@angular/common": "^9.0.0",
+    "@angular/compiler": "^9.0.0",
+    "@angular/core": "^9.0.0",
+    "@angular/forms": "^9.0.0",
+    "@angular/platform-browser": "^9.0.0",
     "core-js": "2.6.9",
     "material-components-web": "5.0.0-canary.ab5f49a2c.0",
     "rxjs": "^6.5.3",
@@ -39,12 +39,12 @@
     "zone.js": "^0.10.2"
   },
   "devDependencies": {
-    "@angular/compiler-cli": "^9.0.0-rc.14",
-    "@angular/platform-browser-dynamic": "^9.0.0-rc.14",
+    "@angular/compiler-cli": "^9.0.0",
+    "@angular/platform-browser-dynamic": "^9.0.0",
     "@babel/core": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
     "@rollup/plugin-alias": "^3.0.1",
-    "@rollup/plugin-node-resolve": "7.0.0",
+    "@rollup/plugin-node-resolve": "7.1.1",
     "@types/fs-extra": "^8.0.0",
     "@types/glob": "^7.1.1",
     "@types/gulp": "^4.0.6",

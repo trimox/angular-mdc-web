@@ -18,7 +18,8 @@ export class TypographyDemo implements OnInit {
         url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-typography/README.md'
       }],
       code: `import {MdcTypographyModule} from '@angular-mdc/web';`,
-      sass: `@use '@material/typography';`
+      sass: `@use '@material/typography/mdc-typography';
+@use '@material/typography';`
     };
   }
 }

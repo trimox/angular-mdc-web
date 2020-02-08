@@ -16,7 +16,7 @@ export class Usage {
 @use "@material/button/mdc-button";`;
 }
 
-@Component({template: '<example-viewer label="Show Material Colors" [example]="exampleColors"></example-viewer>'})
+@Component({template: '<example-viewer label="Material Colors" [example]="exampleColors"></example-viewer>'})
 export class Colors {
   exampleColors = { sass: `https://raw.githubusercontent.com/material-components/material-components-web/master/packages/mdc-theme/_color-palette.scss` };
 }
@@ -41,7 +41,7 @@ export class ThemeDocs implements OnInit {
         label: 'Usage',
         route: './usage'
       }, {
-        label: 'Style Customization',
+        label: 'Sass',
         route: './sass'
       }, {
         label: 'Material Colors',

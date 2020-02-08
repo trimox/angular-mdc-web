@@ -30,7 +30,7 @@ export class ComponentViewer implements OnInit {
     label: 'Api',
     route: './api'
   }, {
-    label: 'Style Customization',
+    label: 'Sass',
     route: './sass'
   }, {
     label: 'Examples',

@@ -9,7 +9,7 @@
 Third-party integration incorporating [Google Material Components](https://github.com/material-components/material-components-web) for building beautiful, usable products using Material Design.
 
 #### Quick Links
-*  [Getting Started](https://github.com/trimox/angular-mdc-web/blob/master/docs/getting-started.md)
+*  [Getting Started](https://trimox.github.io/angular-mdc-web/#/angular-mdc-web/getting-started)
 *  [Changelog](https://github.com/trimox/angular-mdc-web/blob/master/CHANGELOG.md)
 *  [Documentation and demos](https://trimox.github.io/angular-mdc-web/)
 *  [StackBlitz Template](https://stackblitz.com/edit/angular-mdc)

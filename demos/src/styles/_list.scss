@@ -1,19 +1,19 @@
-@use '@material/list/mixins';
+@use '@material/list/_index' as list;
 @use '@material/theme/color-palette' as material-color;
 
 .demo-list--custom {
-  @include mixins.item-graphic-ink-color(white);
-  @include mixins.item-graphic-fill-color(text-icon-on-background);
+  @include list.item-graphic-ink-color(white);
+  @include list.item-graphic-fill-color(text-icon-on-background);
 
-  @include mixins.divider-color(material-color.$pink-50);
+  @include list.divider-color(material-color.$pink-50);
 
-  @include mixins.item-primary-text-ink-color(material-color.$blue-600);
-  @include mixins.item-secondary-text-ink-color(material-color.$purple-600);
-  @include mixins.item-graphic-fill-color(material-color.$pink-400);
-  @include mixins.item-graphic-ink-color(material-color.$pink-50);
-  @include mixins.item-meta-ink-color(material-color.$orange-500);
+  @include list.item-primary-text-ink-color(material-color.$blue-600);
+  @include list.item-secondary-text-ink-color(material-color.$purple-600);
+  @include list.item-graphic-fill-color(material-color.$pink-400);
+  @include list.item-graphic-ink-color(material-color.$pink-50);
+  @include list.item-meta-ink-color(material-color.$orange-500);
 }
 
 .demo-list--shaped {
-  @include mixins.single-line-shape-radius(0 50px 50px 0);
+  @include list.single-line-shape-radius(0 50px 50px 0);
 }

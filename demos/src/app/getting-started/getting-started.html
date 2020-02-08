@@ -24,7 +24,8 @@
     <h2 class="demo-panel-heading">Material Icons</h2>
     If you want to use the <code mdcSubtitle2>mdc-icon</code> component with the
     official
-    Material Design Icons, load the icon font in your index.html:
+    Material Design Icons, load the icon font in your <code
+      mdcSubtitle2>index.html</code>:
 
     <pre><code [highlight]="materialIconsLink"></code></pre>
 
@@ -33,6 +34,12 @@
       rel="noopener">Material Icons Guide.</a>
     Note that mdc-icon supports any font or svg icons; using Material Icons is
     one of many options.
+
+    <h2 class="demo-panel-heading">Sample index.html</h2>
+    Here's an example <code mdcSubtitle2>index.html</code> demonstrating Roboto
+    Font applied to the body element with <code
+      mdcSubtitle2>mdc-typography</code>.
+    <pre><code [highlight]="indexHtml"></code></pre>
 
     <h2 class="demo-panel-heading">MDC Sass modules</h2>
     In your <code mdcSubtitle2>angular.json</code>, make sure <code
@@ -58,6 +65,9 @@
   $secondary: #faab1a,
   $background: #fff,
 );
+
+// MDC Typography
+@use '@material/typography/mdc-typography';
 
 // MDC Button
 @use './styles/button';

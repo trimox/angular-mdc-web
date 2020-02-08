@@ -6,8 +6,8 @@ import {HighlightModule} from 'ngx-highlightjs';
 import {HighlightPlusModule} from 'ngx-highlightjs/plus';
 
 import {MaterialModule} from './material.module';
-import {ComponentViewer} from './shared/component-viewer';
-import {ExampleViewer} from './shared/example-viewer';
+import {ComponentViewer} from './shared/component-viewer/component-viewer';
+import {ExampleViewer} from './shared/example-viewer/example-viewer';
 import {ActiveTabRouterModule} from './shared';
 
 const SHARED_DECLARATIONS = [

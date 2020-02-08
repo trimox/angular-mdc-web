@@ -1,31 +1,32 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
+import {ComponentViewer} from '../../shared/component-viewer';
 
-@Component({ template: '<component-viewer></component-viewer>' })
+@Component({template: '<component-viewer></component-viewer>'})
 export class TypographyDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
-    this._componentViewer.componentView = new ComponentView(
-      'Typography',
-      `Use typography to present your design and content as clearly and efficiently as possible.`,
-      "import { MdcTypographyModule } from '@angular-mdc/web';");
-
-    this._componentViewer.componentView.references = [{
-      name: 'Material Design guidelines: Typography',
-      url: 'https://material.io/design/typography/#type-scale'
-    }, {
-      name: 'Material Components Web',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-typography/README.md'
-    }];
+    this._componentViewer.template = {
+      title: 'Typography',
+      description: 'Use typography to present your design and content as clearly and efficiently as possible.',
+      references: [{
+        name: 'Material Design guidelines: Typography',
+        url: 'https://material.io/design/typography/#type-scale'
+      }, {
+        name: 'Material Components Web',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-typography/README.md'
+      }],
+      code: `import {MdcTypographyModule} from '@angular-mdc/web';`,
+      sass: `@use '@material/typography';`
+    };
   }
 }
 
-@Component({ templateUrl: './api.html' })
-export class Api { }
+@Component({templateUrl: './api.html'})
+export class Api {}
 
-@Component({ templateUrl: './sass.html' })
+@Component({templateUrl: './sass.html'})
 export class Sass {
   exampleOverrideButton = {
     sass: `$mdc-typography-styles-button: (
@@ -48,7 +49,7 @@ $mdc-typography-styles-headline2: (
   };
 }
 
-@Component({ templateUrl: './examples.html' })
+@Component({templateUrl: './examples.html'})
 export class Examples {
   exampleRoboto = {
     html: `<body class="mdc-typography">

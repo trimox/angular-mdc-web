@@ -10,4 +10,4 @@ import {RoutingModule, ROUTE_DECLARATIONS} from './routing.module';
   ],
   declarations: [ROUTE_DECLARATIONS]
 })
-export class TextFieldModule {}
+export class IconModule {}

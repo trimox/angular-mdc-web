@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, FormGroupDirective, FormBuilder, Validators} from '@angular/forms';
 
-import {ComponentViewer, ComponentView} from '../../shared/component-viewer';
+import {ComponentViewer} from '../../shared/component-viewer';
 
 interface Food {
   value: string;
@@ -10,24 +10,24 @@ interface Food {
 }
 
 @Component({template: '<component-viewer></component-viewer>'})
-export class SelectDemo implements OnInit {
+export class Select implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
-    this._componentViewer.componentView = new ComponentView(
-      'Select Menus',
-      `MDC Select provides Material Design single-option select menus.
-       It supports using the browser's native <select> element, or a MDC Menu.
-       It is fully accessible, and fully RTL-aware.`,
-      "import { MdcSelectModule } from '@angular-mdc/web';");
-
-    this._componentViewer.componentView.references = [{
-      name: 'Material Design guidelines: Menus',
-      url: 'https://material.io/guidelines/components/menus.html'
-    }, {
-      name: 'Material Components Web',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-select/README.md'
-    }];
+    this._componentViewer.template = {
+      title: 'Select Menus',
+      description: 'MDC Select provides Material Design single-option select menus, using the MDC menu. The Select component is fully accessible, and supports RTL rendering.',
+      references: [{
+        name: 'Material Design guidelines: Menus',
+        url: 'https://material.io/guidelines/components/menus.html'
+      }, {
+        name: 'Material Components Web',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-select/README.md'
+      }],
+      code: `import {MdcSelectModule} from '@angular-mdc/web';`,
+      sass: `@use '@material/select/mdc-select';
+@use '@material/select';`
+    };
   }
 }
 
@@ -126,11 +126,12 @@ export class Examples {
   //
 
   exampleStandard = {
-    html: `<mdc-select #enhanced placeholder="Fruit" [helperText]="enhancedHelper"
-  required class="demo-enhanced-width">
-  <mdc-menu>
+    html: `<mdc-select #standardSelect placeholder="Fruit" name="my-select" required
+  [helperText]="standardSelectHelper"
+  (selectionChange)="onSelectionChange($event)">
+  <mdc-menu class="demo-select-width" [anchorMargin]="{top: 10}">
     <mdc-list>
-      <mdc-list-item selected></mdc-list-item>
+      <mdc-list-item></mdc-list-item>
       <mdc-list-item value="apple">Apple</mdc-list-item>
       <mdc-list-item value="orange">Orange</mdc-list-item>
       <mdc-list-item value="banana">Banana</mdc-list-item>
@@ -138,13 +139,9 @@ export class Examples {
     </mdc-list>
   </mdc-menu>
 </mdc-select>
-<mdc-select-helper-text #enhancedHelper validation>Field is required</mdc-select-helper-text>
-
-<p> Value: {{ enhanced.value }}</p>
-<p> Index: {{ enhanced.getSelectedIndex() }}</p>`,
-    sass: `.demo-select-width {
-  width: 200px;
-}`
+<mdc-select-helper-text #standardSelectHelper validation>Field is required
+</mdc-select-helper-text>`,
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_select.scss`
   };
 
   exampleNoLabel = {
@@ -159,9 +156,7 @@ export class Examples {
     </mdc-list>
   </mdc-menu>
 </mdc-select>`,
-sass: `.demo-select-width {
-  width: 200px;
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_select.scss`
   };
 
   exampleCustomEnhanced = {
@@ -194,17 +189,7 @@ sass: `.demo-select-width {
     </mdc-list>
   </mdc-menu>
 </mdc-select>`,
-    sass: `.custom-select-shape-radius {
-  @include mdc-select-shape-radius(50%);
-}
-
-.custom-select-outline-shape-radius {
-  @include mdc-select-outline-shape-radius(50%);
-}
-
-.custom-select-outline-color {
-  @include mdc-select-outline-color(green);
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_select.scss`
   };
 
   exampleLeadingIcon = {
@@ -233,23 +218,17 @@ sass: `.demo-select-width {
 
   exampleNgModel = {
     html: `<form #demoForm="ngForm">
-  <mdc-select #select placeholder="Favorite food" name="food" required outlined ngModel #demoNgModel="ngModel"
+  <mdc-select #select placeholder="Favorite food" name="food" required
+    outlined ngModel #demoNgModel="ngModel"
     (selectionChange)="onSelectionChange($event)">
-    <mdc-menu>
+    <mdc-menu class="demo-select-width">
       <mdc-list>
         <mdc-list-item *ngFor="let food of foods" [value]="food.value"
-          [disabled]="food.disabled">
-          {{food.viewValue}}
-        </mdc-list-item>
+          [disabled]="food.disabled">{{food.viewValue}}</mdc-list-item>
       </mdc-list>
     </mdc-menu>
   </mdc-select>
-</form>
-
-<p>Value: {{ demoNgModel.value }}</p>
-<p>Index: {{ select.getSelectedIndex() }}</p>
-<p>Touched: {{ demoForm.touched }}</p>
-<p>Dirty: {{ demoForm.dirty }}</p>`,
+</form>`,
     ts: `foods = [
   { value: '', disabled: false },
   { value: 'steak-0', viewValue: 'Steak' },

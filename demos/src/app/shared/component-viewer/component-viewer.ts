@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import {OnInit, Component, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 
 interface Reference {
   name: string;
@@ -6,41 +6,42 @@ interface Reference {
 }
 
 interface Tab {
-  label: string;
+  label?: string;
   route: string;
 }
 
-const DEFAULT_TABS = [{
-  label: 'Api',
-  route: './api'
-}, {
-  label: 'Sass Mixins',
-  route: './sass'
-}, {
-  label: 'Examples',
-  route: './examples'
-}];
-
-export class ComponentView {
-  name: string;
-  description: string;
+interface ComponentTemplate {
+  title?: string;
+  description?: string;
   references?: Reference[];
-  importCode: string;
-  tabs: Tab[];
-
-  constructor(name: string, description: string, importCode: string = null, tabs?: Tab[]) {
-    this.name = name;
-    this.description = description;
-    this.importCode = importCode;
-    this.tabs = tabs || DEFAULT_TABS;
-  }
+  code?: string;
+  sass?: string;
+  tabs?: Tab[];
 }
 
 @Component({
   selector: 'component-viewer',
   templateUrl: './component-viewer.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class ComponentViewer {
-  componentView: ComponentView;
+export class ComponentViewer implements OnInit {
+  defaultTabs = [{
+    label: 'Api',
+    route: './api'
+  }, {
+    label: 'Style Customization',
+    route: './sass'
+  }, {
+    label: 'Examples',
+    route: './examples'
+  }];
+
+  template: ComponentTemplate;
+
+  ngOnInit() {
+    if (!this.template.tabs) {
+      this.template.tabs = this.defaultTabs;
+    }
+  }
 }

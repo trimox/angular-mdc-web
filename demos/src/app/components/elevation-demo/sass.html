@@ -10,8 +10,36 @@
     <tbody>
       <tr>
         <td><code>mdc-elevation($z-value, $color, $opacity-boost)</code></td>
-        <td>Sets the elevation to the z-space for that given elevation, and optionally sets the color and/or boosts the
-          opacity of the shadow</td>
+        <td>Sets the elevation to the z-space for that given elevation, and
+          optionally sets the color and/or boosts the opacity of the shadow</td>
+      </tr>
+      <tr>
+        <td><code>overlay-common</code></td>
+        <td>Called once per application to setup the universal elevation overlay
+          styles</td>
+      </tr>
+      <tr>
+        <td><code>shadow($box-shadow)</code></td>
+        <td>Sets the <code>box-shadow</code> of the closest parent selector</td>
+      </tr>
+      <tr>
+        <td><code>overlay-surface-position</code></td>
+        <td>Sets the positioning of the overlay's surface element so that the
+          overlay can be appropriately centered</td>
+      </tr>
+      <tr>
+        <td>
+          <code>overlay-dimensions($width, $height: $width, $has-content-sizing: true)</code>
+        </td>
+        <td>Sets the dimensions of the elevation overlay</td>
+      </tr>
+      <tr>
+        <td><code>overlay-fill-color($color)</code></td>
+        <td>Sets the color of the elevation overlay</td>
+      </tr>
+      <tr>
+        <td><code>overlay-opacity($opacity)</code></td>
+        <td>Sets the opacity of the elevation overlay</td>
       </tr>
     </tbody>
   </table>
@@ -25,8 +53,16 @@
     </thead>
     <tbody>
       <tr>
-        <td><code>mdc-elevation-transition-value($duration, $easing)</code></td>
-        <td>Returns a value for the <code>transition</code> property to transition an element between elevations</td>
+        <td><code>transition-value($duration, $easing)</code></td>
+        <td>Returns a value for the <code>transition</code> property to
+          transition an element between elevations</td>
+      </tr>
+      <tr>
+        <td>
+          <code>overlay-transition-value($duration, $easing)</code>
+        </td>
+        <td>Returns a value for the <code>transition</code> property to
+          transition the elevation overlay between elevations</td>
       </tr>
     </tbody>
   </table>
@@ -40,16 +76,24 @@
     </thead>
     <tbody>
       <tr>
-        <td><code>$mdc-elevation-property</code></td>
+        <td><code>$property</code></td>
         <td>Default property for elevation transitions</td>
       </tr>
       <tr>
-        <td><code>$mdc-elevation-transition-duration</code></td>
+        <td><code>$transition-duration</code></td>
         <td>Default duration value for elevation transitions</td>
       </tr>
       <tr>
-        <td><code>$mdc-elevation-transition-timing-function</code></td>
+        <td><code>$transition-timing-function</code></td>
         <td>Default easing value for elevation transitions</td>
+      </tr>
+      <tr>
+        <td><code>$overlay-color</code></td>
+        <td>Default color for the elevation overlay</td>
+      </tr>
+      <tr>
+        <td><code>$overlay-property</code></td>
+        <td>Default property for the elevation overlay transitions</td>
       </tr>
     </tbody>
   </table>

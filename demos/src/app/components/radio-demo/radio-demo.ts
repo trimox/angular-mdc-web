@@ -1,37 +1,39 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
-import { FormGroup, FormControl } from '@angular/forms';
+import {ComponentViewer} from '../../shared/component-viewer';
+import {FormGroup, FormControl} from '@angular/forms';
 
-import { MdcRadio } from '@angular-mdc/web';
+import {MdcRadio} from '@angular-mdc/web';
 
-@Component({ template: '<component-viewer></component-viewer>' })
+@Component({template: '<component-viewer></component-viewer>'})
 export class RadioDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
-    this._componentViewer.componentView = new ComponentView(
-      'Radio Buttons',
-      `Radio buttons allow the user to select one option from a set while seeing all available options.`,
-      "import { MdcRadioModule } from '@angular-mdc/web';");
-
-    this._componentViewer.componentView.references = [{
-      name: 'Material Design guidelines: Radio Buttons',
-      url: 'https://material.io/design/components/selection-controls.html#radio-buttons'
-    }, {
-      name: 'Material Components Web',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-radio/README.md'
-    }];
+    this._componentViewer.template = {
+      title: 'Radio Buttons',
+      description: 'Radio buttons allow the user to select one option from a set while seeing all available options.',
+      references: [{
+        name: 'Material Design guidelines: Radio Buttons',
+        url: 'https://material.io/design/components/selection-controls.html#radio-buttons'
+      }, {
+        name: 'Material Components Web',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-radio/README.md'
+      }],
+      code: `import {MdcRadioModule} from '@angular-mdc/web';`,
+      sass: `@use '@material/radio/mdc-radio';
+@use '@material/radio';`
+    };
   }
 }
 
-@Component({ templateUrl: './api.html' })
-export class Api { }
+@Component({templateUrl: './api.html'})
+export class Api {}
 
-@Component({ templateUrl: './sass.html' })
-export class Sass { }
+@Component({templateUrl: './sass.html'})
+export class Sass {}
 
-@Component({ templateUrl: './examples.html' })
+@Component({templateUrl: './examples.html'})
 export class Examples {
   favoriteSeason: string;
   seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
@@ -68,15 +70,7 @@ export class Examples {
   <mdc-radio [disabled]="false" class="demo-radio--custom"></mdc-radio>
   <label>Radio Button</label>
 </mdc-form-field>`,
-    sass: `.demo-radio--custom {
-  $color: $material-color-red-500;
-
-  @include mdc-radio-unchecked-stroke-color($color);
-  @include mdc-radio-checked-stroke-color($color);
-  @include mdc-radio-ink-color($material-color-orange-500);
-  @include mdc-radio-focus-indicator-color($color);
-  @include mdc-states($color);
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_radio.scss`
   };
 
   exampleRadioGroup = {

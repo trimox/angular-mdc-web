@@ -1,49 +1,49 @@
-@use '@material/chips/mixins';
+@use '@material/chips/_index' as chips;
+@use "@material/theme";
 @use '@material/theme/color-palette' as material-color;
-@use './color-palette' as demo-color;
 
 $custom-chip-fill-color: material-color.$red-500;
 $custom-chip-ink-color: material-color.$blue-500;
 
 .custom-chip-secondary {
-  @include mixins.fill-color(white);
-  @include mixins.ink-color(demo-color.$mdc-theme-secondary);
-  @include mixins.selected-ink-color(demo-color.$mdc-theme-secondary);
-  @include mixins.outline(2px, solid, demo-color.$mdc-theme-secondary);
+  @include chips.fill-color(white);
+  @include chips.ink-color(theme.$secondary);
+  @include chips.selected-ink-color(theme.$secondary);
+  @include chips.outline(2px, solid, theme.$secondary);
 }
 
 .custom-chip--shape-radius {
-  @include mixins.shape-radius(4px);
+  @include chips.shape-radius(4px);
 }
 
 .custom-chip--height {
-  @include mixins.height(40px);
+  @include chips.height(40px);
 }
 
 .custom-chip--leading-icon-color {
-  @include mixins.leading-icon-color($custom-chip-fill-color, .5);
+  @include chips.leading-icon-color($custom-chip-fill-color, .5);
 }
 
 .custom-chip--trailing-icon-color {
-  @include mixins.trailing-icon-color($custom-chip-fill-color, .5);
+  @include chips.trailing-icon-color($custom-chip-fill-color, .5);
 }
 
 .custom-chip--leading-icon-size {
-  @include mixins.leading-icon-size(25px);
+  @include chips.leading-icon-size(25px);
 }
 
 .custom-chip--trailing-icon-size {
-  @include mixins.trailing-icon-size(25px);
+  @include chips.trailing-icon-size(25px);
 }
 
 .custom-chip--leading-icon-margin {
-  @include mixins.leading-icon-margin(5px, 5px);
+  @include chips.leading-icon-margin(5px, 5px);
 }
 
 .custom-chip--trailing-icon-margin {
-  @include mixins.trailing-icon-margin(5px, 5px);
+  @include chips.trailing-icon-margin(5px, 5px);
 }
 
 .custom-chip--horizontal-padding {
-  @include mixins.horizontal-padding(25px);
+  @include chips.horizontal-padding(25px);
 }

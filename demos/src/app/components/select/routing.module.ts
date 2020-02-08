@@ -1,18 +1,18 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
-import {Api, Examples, Sass, TextFieldDemo} from './text-field-demo';
+import {Api, Examples, Sass, Select} from './select';
 
 export const ROUTE_DECLARATIONS = [
   Api,
   Examples,
   Sass,
-  TextFieldDemo
+  Select
 ];
 
 const ROUTES: Routes = [
   {
-    path: '', component: TextFieldDemo,
+    path: '', component: Select,
     children: [
       {path: '', redirectTo: 'api'},
       {path: 'api', component: Api},

@@ -1,59 +1,67 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
-import { MdcTabActivatedEvent } from '@angular-mdc/web';
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
+import {MdcTabActivatedEvent} from '@angular-mdc/web';
+import {ComponentViewer} from '../../shared/component-viewer';
 
-@Component({ template: '<component-viewer></component-viewer>' })
+@Component({template: '<component-viewer></component-viewer>'})
 export class TabsDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
-    this._componentViewer.componentView = new ComponentView(
-      'Tabs',
-      'Tabs organize content across different screens, data sets, and other interactions.',
-      "import { MdcTabBarModule } from '@angular-mdc/web';");
-
-    this._componentViewer.componentView.references = [{
-      name: 'Material Design guidelines: Tabs',
-      url: 'https://material.io/design/components/tabs.html'
-    }, {
-      name: 'Material Components Web: Tab Bar',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-tab-bar/README.md'
-    }, {
-      name: 'Material Components Web: Tab Scroller',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-tab-scroller/README.md'
-    }, {
-      name: 'Material Components Web: Tab',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-tab/README.md'
-    }, {
-      name: 'Material Components Web: Tab Indicator',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-tab-indicator/README.md'
-    }];
+    this._componentViewer.template = {
+      title: 'Tabs',
+      description: 'Tabs organize content across different screens, data sets, and other interactions.',
+      references: [{
+        name: 'Material Design guidelines: Tabs',
+        url: 'https://material.io/design/components/tabs.html'
+      }, {
+        name: 'Material Components Web: Tab Bar',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-tab-bar/README.md'
+      }, {
+        name: 'Material Components Web: Tab Scroller',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-tab-scroller/README.md'
+      }, {
+        name: 'Material Components Web: Tab',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-tab/README.md'
+      }, {
+        name: 'Material Components Web: Tab Indicator',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-tab-indicator/README.md'
+      }],
+      code: `import {MdcTabBarModule} from '@angular-mdc/web';`,
+      sass: `@use '@material/tab-bar/mdc-tab-bar';
+@use '@material/tab-bar';
+@use '@material/tab-scroller/mdc-tab-scroller';
+@use '@material/tab-scroller';
+@use '@material/tab-indicator/mdc-tab-indicator';
+@use '@material/tab-indicator';
+@use '@material/tab/mdc-tab';
+@use '@material/tab';`
+    };
   }
 }
 
-@Component({ templateUrl: './api.html' })
-export class Api { }
+@Component({templateUrl: './api.html'})
+export class Api {}
 
-@Component({ templateUrl: './sass.html' })
-export class Sass { }
+@Component({templateUrl: './sass.html'})
+export class Sass {}
 
-@Component({ templateUrl: './examples.html' })
+@Component({templateUrl: './examples.html'})
 export class Examples {
   tabs = [
-    { label: 'Flights', icon: 'airplanemode_active' },
-    { label: 'Hotel', icon: 'hotel' },
-    { label: 'Favorites', icon: 'favorite' }
+    {label: 'Flights', icon: 'airplanemode_active'},
+    {label: 'Hotel', icon: 'hotel'},
+    {label: 'Favorites', icon: 'favorite'}
   ];
 
   scrollingTabs = [
-    { label: 'Person', icon: 'person' },
-    { label: 'Explore', icon: 'explore' },
-    { label: 'Build', icon: 'build' },
-    { label: 'Accessibility', icon: 'accessibility' },
-    { label: 'Flights', icon: 'airplanemode_active' },
-    { label: 'Hotel', icon: 'hotel' },
-    { label: 'Favorites', icon: 'favorite' }
+    {label: 'Person', icon: 'person'},
+    {label: 'Explore', icon: 'explore'},
+    {label: 'Build', icon: 'build'},
+    {label: 'Accessibility', icon: 'accessibility'},
+    {label: 'Flights', icon: 'airplanemode_active'},
+    {label: 'Hotel', icon: 'hotel'},
+    {label: 'Favorites', icon: 'favorite'}
   ];
 
   logTab(event: MdcTabActivatedEvent): void {

@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
+import {ComponentViewer} from '../../shared/component-viewer';
 
-import { MdcSnackbar } from '@angular-mdc/web';
+import {MdcSnackbar} from '@angular-mdc/web';
 
 interface CustomClasses {
   classes?: string | string[];
@@ -10,35 +10,37 @@ interface CustomClasses {
   dismissClasses?: string | string[];
 }
 
-@Component({ template: '<component-viewer></component-viewer>' })
+@Component({template: '<component-viewer></component-viewer>'})
 export class SnackbarDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
-    this._componentViewer.componentView = new ComponentView(
-      'Snackbars',
-      `Snackbars provide brief messages about app processes at the bottom of the screen.`,
-      "import { MdcSnackbarModule } from '@angular-mdc/web';");
-
-    this._componentViewer.componentView.references = [{
-      name: 'Material Design guidelines: Snackbars',
-      url: 'https://material.io/design/components/snackbars.html'
-    }, {
-      name: 'Material Components Web',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-snackbar/README.md'
-    }];
+    this._componentViewer.template = {
+      title: 'Snackbars',
+      description: 'Snackbars provide brief messages about app processes at the bottom of the screen.',
+      references: [{
+        name: 'Material Design guidelines: Snackbars',
+        url: 'https://material.io/design/components/snackbars.html'
+      }, {
+        name: 'Material Components Web',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-snackbar/README.md'
+      }],
+      code: `import {MdcSnackbarModule} from '@angular-mdc/web';`,
+      sass: `@use '@material/snackbar/mdc-snackbar';
+@use '@material/snackbar';`
+    };
   }
 }
 
-@Component({ templateUrl: './api.html' })
-export class Api { }
+@Component({templateUrl: './api.html'})
+export class Api {}
 
-@Component({ templateUrl: './sass.html' })
-export class Sass { }
+@Component({templateUrl: './sass.html'})
+export class Sass {}
 
-@Component({ templateUrl: './examples.html' })
+@Component({templateUrl: './examples.html'})
 export class Examples {
-  constructor(private snackbar: MdcSnackbar) { }
+  constructor(private snackbar: MdcSnackbar) {}
 
   simple() {
     const snackbarRef = this.snackbar.open('Marked as favorite.');
@@ -68,9 +70,9 @@ export class Examples {
     const snackbarRef = this.snackbar.open(
       `This item already has the label "travel". You can add a new label.`,
       'Add a new label', {
-        stacked: true,
-        dismiss: true
-      });
+      stacked: true,
+      dismiss: true
+    });
 
     snackbarRef.afterDismiss().subscribe(reason => {
       console.log(`The snack-bar was dismissed: ${reason}`);
@@ -263,25 +265,7 @@ export class Examples {
     });
   }
 }`,
-    sass: `.custom-snackbar--shape-radius {
-  @include mdc-snackbar-shape-radius(10px);
-}
-
-.custom-snackbar--viewport-margin {
-  @include mdc-snackbar-viewport-margin(50px);
-}
-
-.custom-snackbar--elevation {
-  @include mdc-snackbar-elevation(16);
-}
-
-.custom-snackbar--max-width {
-  @include mdc-snackbar-max-width(200px);
-}
-
-.custom-snackbar--min-width {
-  @include mdc-snackbar-min-width(800px);
-}`,
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_snackbar.scss`
   };
 
   exampleTheme = {
@@ -300,20 +284,6 @@ export class Examples {
 <button mdc-button raised
   (click)="openCustom({dismissClasses: 'demo-icon-button-custom'})">Custom Dismiss Icon</button>`,
     ts: this.exampleCustomTS,
-    sass: `.custom-snackbar--fill-color {
-  @include mdc-snackbar-fill-color($material-color-red-500);
-}
-
-.custom-snackbar--label-ink-color {
-  @include mdc-snackbar-label-ink-color($material-color-yellow-500);
-}
-
-.demo-icon-button-custom {
-  @include mdc-icon-button-ink-color(#de442c);
-  @include mdc-states-base-color(#de442c);
-  @include mdc-states-hover-opacity(.09);
-  @include mdc-states-focus-opacity(.26);
-  @include mdc-states-press-opacity(.35);
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_snackbar.scss`
   };
 }

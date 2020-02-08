@@ -1,34 +1,36 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
+import {ComponentViewer} from '../../shared/component-viewer';
 
-@Component({ templateUrl: './api.html' })
-export class Api { }
+@Component({templateUrl: './api.html'})
+export class Api {}
 
-@Component({ templateUrl: './sass.html' })
-export class Sass { }
+@Component({templateUrl: './sass.html'})
+export class Sass {}
 
-@Component({ template: '<component-viewer></component-viewer>' })
+@Component({template: '<component-viewer></component-viewer>'})
 export class CardDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
-    this._componentViewer.componentView = new ComponentView(
-      'Card',
-      'Cards contain content and actions about a single subject.',
-      "import { MdcCardModule } from '@angular-mdc/web';");
-
-    this._componentViewer.componentView.references = [{
-      name: 'Material Design guidelines: Cards',
-      url: 'https://material.io/design/components/cards.html'
-    }, {
-      name: 'Material Components Web',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-card/README.md'
-    }];
+    this._componentViewer.template = {
+      title: 'Card',
+      description: 'Cards contain content and actions about a single subject.',
+      references: [{
+        name: 'Material Design guidelines: Cards',
+        url: 'https://material.io/design/components/cards.html'
+      }, {
+        name: 'Material Components Web',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-card/README.md'
+      }],
+      code: `import {MdcCardModule} from '@angular-mdc/web';`,
+      sass: `@use '@material/card/mdc-card';
+@use '@material/card';`
+    };
   }
 }
 
-@Component({ templateUrl: './examples.html' })
+@Component({templateUrl: './examples.html'})
 export class Examples {
   example1 = {
     html: `<mdc-card class="demo-card">
@@ -57,34 +59,7 @@ export class Examples {
     </mdc-card-action-icons>
   </mdc-card-actions>
 </mdc-card>`,
-    sass: `.demo-card {
-  width: 350px;
-  margin: 28px;
-}
-
-.demo-card__primary {
-  padding: 1rem;
-}
-
-.demo-card__title {
-  margin: 0;
-}
-
-.demo-card__subtitle {
-  @include mdc-theme-prop(color, text-secondary-on-background);
-
-  margin: 0;
-}
-
-.demo-card__secondary {
-  @include mdc-theme-prop(color, text-secondary-on-background);
-
-  padding: 0 1rem 8px 1rem;
-}
-
-.demo-card__media--16-9 {
-  background-image: url(https://material-components-web.appspot.com/images/16-9.jpg);
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_card.scss`
   };
 
   example2 = {
@@ -120,32 +95,7 @@ export class Examples {
     </button>
   </mdc-card-actions>
 </mdc-card>`,
-    sass: `.demo-card {
-  width: 350px;
-  margin: 28px;
-}
-
-.demo-card-article {
-  padding: 16px;
-  text-decoration: none;
-  color: inherit;
-}
-
-.demo-card-article-group-heading {
-  @include mdc-theme-prop(color, text-secondary-on-light);
-
-  padding: 8px 16px;
-}
-
-.demo-card-article__title {
-  margin: 0 0 4px 0;
-}
-
-.demo-card-article__snippet {
-  @include mdc-theme-prop(color, text-secondary-on-light);
-
-  margin: 0;
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_card.scss`
   };
 
   example3 = {
@@ -171,30 +121,7 @@ export class Examples {
     </mdc-card-action-icons>
   </mdc-card-actions>
 </mdc-card>`,
-    sass: `.demo-card {
-  width: 350px;
-  margin: 28px;
-}
-
-.demo-card--photo {
-  width: 200px;
-}
-
-.demo-card__media {
-  background-image: url(https://material-components-web.appspot.com/images/1-1.jpg);
-}
-
-.demo-card__media-content--with-title {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
-.demo-card__media-title {
-  padding: 8px 16px;
-  background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%);
-  color: white;
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_card.scss`
   };
 
   example4 = {
@@ -236,47 +163,6 @@ export class Examples {
     </mdc-card-action-icons>
   </mdc-card-actions>
 </mdc-card>`,
-    sass: `.demo-card {
-  width: 350px;
-  margin: 28px;
-}
-
-.demo-card--music {
-  @include mdc-card-shape-radius(24px 4px);
-
-  @include mdc-rtl {
-    @include mdc-card-shape-radius(4px 24px);
-  }
-}
-
-.demo-card__music-row {
-  display: flex;
-  border-top-left-radius: inherit;
-
-  @include mdc-rtl {
-    border-top-left-radius: 0;
-    border-top-right-radius: inherit;
-  }
-}
-
-.demo-card__media--music {
-  width: 110px;
-  border-top-left-radius: inherit;
-
-  @include mdc-rtl {
-    border-top-left-radius: 0;
-    border-top-right-radius: inherit;
-  }
-}
-
-.demo-card__music-info {
-  display: flex;
-  flex-direction: column;
-  padding: 8px 16px;
-}
-
-.demo-card__action-buttons--text-only {
-  margin-left: 8px;
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_card.scss`
   };
 }

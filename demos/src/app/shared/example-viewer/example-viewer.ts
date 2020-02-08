@@ -1,15 +1,12 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 
 import {MdcTabActivatedEvent} from '@angular-mdc/web';
 import {MdcSnackbar} from '@angular-mdc/web/snackbar';
 
-interface Example {
+interface HighlightConfig {
   label?: string;
-  source?: any;
-}
-
-export class ExampleTab {
-  constructor(public label: string, public source: any) { }
+  code?: any;
+  url?: boolean;
 }
 
 @Component({
@@ -20,34 +17,44 @@ export class ExampleTab {
   encapsulation: ViewEncapsulation.None
 })
 export class ExampleViewer implements OnInit {
-  currentExample: any;
-  tabs: ExampleTab[] = [];
+  tabs: HighlightConfig[] = [];
+  config: HighlightConfig = {};
 
-  @Input() open: boolean = false;
+  open: boolean = false;
+
+  @Input() label?: string = 'View Source';
 
   @Input()
-  get example(): Example { return this._example; }
-  set example(value: Example) {
+  get example(): HighlightConfig {
+    return this._example;
+  }
+  set example(value: HighlightConfig) {
     if (value !== this._example) {
       this._example = value;
 
       if (Object.entries(value).length) {
-         Object.entries(value).forEach(([key, source]) => {
-          this.tabs.push(new ExampleTab(key, source));
-        });
+        Object.entries(value).forEach(([key, source]) =>
+          this.tabs.push({label: key, code: source, url: this.isUrl(source)}));
       }
     }
   }
-  private _example: Example;
+  private _example: HighlightConfig;
 
-  constructor(private snackbar: MdcSnackbar) {}
+  constructor(
+    private _changeDetectorRef: ChangeDetectorRef,
+    private snackbar: MdcSnackbar) {}
 
   ngOnInit(): void {
-    this.currentExample = this.tabs[0].source;
+    this.config = this.tabs[0];
   }
 
   onActivatedTab(event: MdcTabActivatedEvent): void {
-    this.currentExample = this.tabs[event.index].source;
+    this.config = this.tabs[event.index];
+  }
+
+  isUrl(url: string): boolean {
+    const regExp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+    return regExp.test(url);
   }
 
   copyCode(): void {
@@ -57,7 +64,7 @@ export class ExampleViewer implements OnInit {
     tempTextarea.style.top = '0';
     tempTextarea.style.left = '0';
     tempTextarea.style.opacity = '0';
-    tempTextarea.value = this.currentExample;
+    tempTextarea.textContent = this.config.code;
     document.body.appendChild(tempTextarea);
     tempTextarea.select();
 
@@ -67,7 +74,7 @@ export class ExampleViewer implements OnInit {
         this.snackbar.open('Code copied');
       }
     } catch (err) {
-      this.snackbar.open('Unable to copy.');
+      this.snackbar.open('Unable to copy');
     } finally {
       document.body.removeChild(tempTextarea);
     }

@@ -1,40 +1,42 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
+import {ComponentViewer} from '../../shared/component-viewer';
 
-@Component({ templateUrl: './api.html' })
-export class Api { }
+@Component({templateUrl: './api.html'})
+export class Api {}
 
-@Component({ templateUrl: './sass.html' })
-export class Sass { }
+@Component({templateUrl: './sass.html'})
+export class Sass {}
 
-@Component({ template: '<component-viewer></component-viewer>' })
+@Component({template: '<component-viewer></component-viewer>'})
 export class DrawerDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
-    this._componentViewer.componentView = new ComponentView(
-      'Drawers',
-      'Navigation drawers provide access to destinations in your app.',
-      "import { MdcDrawerModule } from '@angular-mdc/web';");
-
-    this._componentViewer.componentView.references = [{
-      name: 'Material Design guidelines: Navigation Drawer',
-      url: 'https://material.io/design/components/navigation-drawer.html'
-    }, {
-      name: 'Material Components Web',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-drawer/README.md'
-    }];
+    this._componentViewer.template = {
+      title: 'Drawers',
+      description: 'The MDC Navigation Drawer is used to organize access to destinations and other functionality on an app.',
+      references: [{
+        name: 'Material Design guidelines: Navigation Drawer',
+        url: 'https://material.io/design/components/navigation-drawer.html'
+      }, {
+        name: 'Material Components Web',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-drawer/README.md'
+      }],
+      code: `import {MdcDrawerModule} from '@angular-mdc/web';`,
+      sass: `@use '@material/drawer/mdc-drawer';
+@use '@material/drawer';`
+    };
   }
 }
 
-@Component({ templateUrl: './examples.html' })
+@Component({templateUrl: './examples.html'})
 export class Examples {
   destinations = [
-    { label: 'Inbox', icon: 'inbox', activated: true },
-    { label: 'Star', icon: 'star', activated: false },
-    { label: 'Sent Mail', icon: 'send', activated: false },
-    { label: 'Drafts', icon: 'drafts', activated: false }
+    {label: 'Inbox', icon: 'inbox', activated: true},
+    {label: 'Star', icon: 'star', activated: false},
+    {label: 'Sent Mail', icon: 'send', activated: false},
+    {label: 'Drafts', icon: 'drafts', activated: false}
   ];
 
   alternateColors(input: any, className: string) {
@@ -49,25 +51,6 @@ export class Examples {
   { label: 'Sent Mail', icon: 'send', activated: false },
   { label: 'Drafts', icon: 'drafts', activated: false }
 ];`;
-
-  genericSass = `.demo-drawer--custom {
-  @include mdc-drawer-border-color(lightblue);
-  @include mdc-drawer-subtitle-ink-color(darkolivegreen);
-  @include mdc-drawer-surface-fill-color(black);
-  @include mdc-drawer-item-icon-ink-color(darkolivegreen);
-  @include mdc-drawer-title-ink-color(darkolivegreen);
-  @include mdc-drawer-activated-overlay-color(darkcyan);
-  @include mdc-drawer-item-text-ink-color(darkolivegreen);
-  @include mdc-drawer-item-activated-text-ink-color(darkcyan);
-  @include mdc-drawer-item-activated-icon-ink-color(darkcyan);
-}
-
-.demo-drawer--accessible {
-  @include mdc-drawer-fill-color-accessible(darkcyan);
-  @include mdc-drawer-activated-overlay-color(pink);
-  @include mdc-drawer-item-activated-text-ink-color(pink);
-  @include mdc-drawer-item-activated-icon-ink-color(pink);
-}`;
 
   examplePerm = {
     html: `<mdc-drawer>
@@ -99,7 +82,7 @@ export class Examples {
   </mdc-drawer-content>
 </mdc-drawer>`,
     ts: this.genericTS,
-    sass: this.genericSass
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_drawer.scss`
   };
 
   exampleDismissible = {
@@ -119,7 +102,7 @@ export class Examples {
   legere iriure blandit. Veri iisque accusamus an pri.
 </div>`,
     ts: this.genericTS,
-    sass: this.genericSass
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_drawer.scss`
   };
 
   exampleModal = {
@@ -142,7 +125,7 @@ export class Examples {
   legere iriure blandit. Veri iisque accusamus an pri.
 </div>`,
     ts: this.genericTS,
-    sass: this.genericSass
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_drawer.scss`
   };
 
   exampleRtl = {
@@ -165,7 +148,7 @@ export class Examples {
   Veri iisque accusamus an pri.
 </div>`,
     ts: this.genericTS,
-    sass: this.genericSass
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_drawer.scss`
   };
 
   exampleShaped = {
@@ -185,8 +168,6 @@ export class Examples {
   legere iriure blandit. Veri iisque accusamus an pri.
 </div>`,
     ts: this.genericTS,
-    sass: `.demo-list--shaped {
-  @include mdc-list-item-shape-radius(0 50px 50px 0);
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_drawer.scss`
   };
 }

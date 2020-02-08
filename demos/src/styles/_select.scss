@@ -1,39 +1,39 @@
-@use '@material/select/mixins';
+@use '@material/select/_index' as select;
 
 .custom-select-ink-color {
-  @include mixins.ink-color(green);
+  @include select.ink-color(green);
 }
 
 .custom-select-container-fill-color {
-  @include mixins.container-fill-color(green);
+  @include select.container-fill-color(green);
 }
 
 .custom-select-label-color {
-  @include mixins.label-color(green);
+  @include select.label-color(green);
 }
 
 .custom-select-bottom-line-color {
-  @include mixins.bottom-line-color(green);
+  @include select.bottom-line-color(green);
 }
 
 .custom-select-shape-radius {
-  @include mixins.shape-radius(50%);
+  @include select.shape-radius(50%);
 }
 
 .custom-select-outline-color {
-  @include mixins.outline-color(green);
+  @include select.outline-color(green);
 }
 
 .custom-select-outline-shape-radius {
-  @include mixins.outline-shape-radius(50%);
+  @include select.outline-shape-radius(50%);
 }
 
 .custom-select-shape-radius {
-  @include mixins.shape-radius(50%);
+  @include select.shape-radius(50%);
 }
 
 .custom-select-outline-shape-radius {
-  @include mixins.outline-shape-radius(50%);
+  @include select.outline-shape-radius(50%);
 }
 
 .demo-select-width {

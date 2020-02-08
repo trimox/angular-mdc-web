@@ -1,34 +1,36 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
+import {ComponentViewer} from '../../shared/component-viewer';
 
-@Component({ template: '<component-viewer></component-viewer>' })
+@Component({template: '<component-viewer></component-viewer>'})
 export class IconButtonDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
-    this._componentViewer.componentView = new ComponentView(
-      'Icon Buttons',
-      `Icon buttons allow users to take actions, and make choices, with a single tap.`,
-      "import { MdcIconButtonModule } from '@angular-mdc/web';");
-
-    this._componentViewer.componentView.references = [{
-      name: 'Material Design guidelines: Toggle Buttons',
-      url: 'https://material.io/design/components/buttons.html#toggle-button'
-    }, {
-      name: 'Material Components Web',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-icon-button/README.md'
-    }];
+    this._componentViewer.template = {
+      title: 'Icon Buttons',
+      description: `Icon buttons allow users to take actions, and make choices, with a single tap.`,
+      references: [{
+        name: 'Material Design guidelines: Toggle Buttons',
+        url: 'https://material.io/design/components/buttons.html#toggle-button'
+      }, {
+        name: 'Material Components Web',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-icon-button/README.md'
+      }],
+      code: `import {MdcIconButtonModule} from '@angular-mdc/web';`,
+      sass: `@use '@material/icon-button/mdc-icon-button';
+@use '@material/icon-button';`
+    };
   }
 }
 
-@Component({ templateUrl: './api.html' })
-export class Api { }
+@Component({templateUrl: './api.html'})
+export class Api {}
 
-@Component({ templateUrl: './sass.html' })
-export class Sass { }
+@Component({templateUrl: './sass.html'})
+export class Sass {}
 
-@Component({ templateUrl: './examples.html' })
+@Component({templateUrl: './examples.html'})
 export class Examples {
   example1 = {
     html: `<button mdc-icon-button icon="keyboard_arrow_left"></button>
@@ -93,9 +95,7 @@ export class Examples {
     </svg>
   </mdc-icon>
 </button>`,
-    sass: `.demo-icon-button-large {
-  @include mdc-icon-button-size(36px);
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_icon-button.scss`
   };
 
   example6 = {
@@ -113,20 +113,6 @@ export class Examples {
   <mdc-icon mdcIconOn>favorite</mdc-icon>
   <mdc-icon>favorite_border</mdc-icon>
 </button>`,
-    sass: `.demo-icon-button-custom {
-  @include mdc-icon-button-ink-color(#de442c);
-  @include mdc-states-base-color(#de442c);
-  @include mdc-states-hover-opacity(.09);
-  @include mdc-states-focus-opacity(.26);
-  @include mdc-states-press-opacity(.35);
-}
-
-.demo-icon-button-primary {
-  @include mdc-icon-button-ink-color($mdc-theme-primary);
-}
-
-.demo-icon-button-secondary {
-  @include mdc-icon-button-ink-color($mdc-theme-secondary);
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_icon-button.scss`
   };
 }

@@ -1,50 +1,52 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
+import {ComponentViewer} from '../../shared/component-viewer';
 
-@Component({ template: '<component-viewer></component-viewer>' })
+@Component({template: '<component-viewer></component-viewer>'})
 export class ListDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
-    this._componentViewer.componentView = new ComponentView(
-      'Lists',
-      `Lists are continuous, vertical indexes of text or images.`,
-      "import { MdcListModule } from '@angular-mdc/web';");
-
-    this._componentViewer.componentView.references = [{
-      name: 'Material Design guidelines: Lists',
-      url: 'https://material.io/design/components/lists.html'
-    }, {
-      name: 'Material Components Web',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-list/README.md'
-    }];
+    this._componentViewer.template = {
+      title: 'Lists',
+      description: 'Lists are continuous, vertical indexes of text or images.',
+      references: [{
+        name: 'Material Design guidelines: Lists',
+        url: 'https://material.io/design/components/lists.html'
+      }, {
+        name: 'Material Components Web',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-list/README.md'
+      }],
+      code: `import {MdcListModule} from '@angular-mdc/web';`,
+      sass: `@use '@material/list/mdc-list';
+@use '@material/list';`
+    };
   }
 }
 
-@Component({ templateUrl: './api.html' })
-export class Api { }
+@Component({templateUrl: './api.html'})
+export class Api {}
 
-@Component({ templateUrl: './sass.html' })
-export class Sass { }
+@Component({templateUrl: './sass.html'})
+export class Sass {}
 
-@Component({ templateUrl: './examples.html' })
+@Component({templateUrl: './examples.html'})
 export class Examples {
   items = [
-    { label: 'Wi-Fi', icon: 'network_wifi' },
-    { label: 'Bluetooth', icon: 'bluetooth' },
-    { label: 'Data Usage', icon: 'data_usage' }
+    {label: 'Wi-Fi', icon: 'network_wifi'},
+    {label: 'Bluetooth', icon: 'bluetooth'},
+    {label: 'Data Usage', icon: 'data_usage'}
   ];
 
   folders = [
-    { name: 'Photos', icon: 'folder', addDate: 'Jan 9, 2015' },
-    { name: 'Recipes', icon: 'folder', addDate: 'Jan 17, 2015' },
-    { name: 'Work', icon: 'folder', addDate: 'Jan 28, 2015' }
+    {name: 'Photos', icon: 'folder', addDate: 'Jan 9, 2015'},
+    {name: 'Recipes', icon: 'folder', addDate: 'Jan 17, 2015'},
+    {name: 'Work', icon: 'folder', addDate: 'Jan 28, 2015'}
   ];
 
   files = [
-    { name: 'Vacation Itinerary', icon: 'insert_drive_file', addDate: 'Jan 10, 2015' },
-    { name: 'Kitchen Remodel', icon: 'insert_drive_file', addDate: 'Jan 20, 2015' }
+    {name: 'Vacation Itinerary', icon: 'insert_drive_file', addDate: 'Jan 10, 2015'},
+    {name: 'Kitchen Remodel', icon: 'insert_drive_file', addDate: 'Jan 20, 2015'}
   ];
 
   //
@@ -84,18 +86,7 @@ files = [
   { name: 'Vacation Itinerary', icon: 'insert_drive_file', addDate: 'Jan 10, 2015' },
   { name: 'Kitchen Remodel', icon: 'insert_drive_file', addDate: 'Jan 20, 2015' }
 ];`,
-    sass: `.demo-list--custom {
-  @include mdc-list-item-graphic-ink-color(white);
-  @include mdc-list-item-graphic-fill-color(text-icon-on-background);
-
-  @include mdc-list-divider-color($material-color-pink-50);
-
-  @include mdc-list-item-primary-text-ink-color($material-color-blue-600);
-  @include mdc-list-item-secondary-text-ink-color($material-color-purple-600);
-  @include mdc-list-item-graphic-fill-color($material-color-pink-400);
-  @include mdc-list-item-graphic-ink-color($material-color-pink-50);
-  @include mdc-list-item-meta-ink-color($material-color-orange-500);
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_list.scss`
   };
 
   exampleSingleLine = {
@@ -254,9 +245,7 @@ files = [
   </mdc-list-item>
 </mdc-list>`,
     ts: this.exampleItemsArray,
-    sass: `.demo-list--shaped {
-  @include mdc-list-item-shape-radius(0 50px 50px 0);
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_list.scss`
   };
 
   exampleRippleDisabled = {

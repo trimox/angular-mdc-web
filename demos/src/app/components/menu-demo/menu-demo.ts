@@ -1,25 +1,27 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {MdcListItem} from '@angular-mdc/web';
-import {ComponentViewer, ComponentView} from '../../shared/component-viewer';
+import {ComponentViewer} from '../../shared/component-viewer';
 
 @Component({template: '<component-viewer></component-viewer>'})
 export class MenuDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
-    this._componentViewer.componentView = new ComponentView(
-      'Menus',
-      `Menus display a list of choices on temporary surfaces.`,
-      "import { MdcMenuModule } from '@angular-mdc/web';");
-
-    this._componentViewer.componentView.references = [{
-      name: 'Material Design guidelines: Menus',
-      url: 'https://material.io/design/components/menus.html'
-    }, {
-      name: 'Material Components Web',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-menu/README.md'
-    }];
+    this._componentViewer.template = {
+      title: 'Menus',
+      description: 'A menu displays a list of choices on a temporary surface. They appear when users interact with a button, action, or other control.',
+      references: [{
+        name: 'Material Design guidelines: Menus',
+        url: 'https://material.io/design/components/menus.html'
+      }, {
+        name: 'Material Components Web',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-menu/README.md'
+      }],
+      code: `import {MdcMenuModule} from '@angular-mdc/web';`,
+      sass: `@use '@material/menu/mdc-menu';
+@use '@material/menu';`
+    };
   }
 }
 

@@ -1,9 +1,9 @@
-@use '@material/top-app-bar/mixins' as top-app-bar-mixins;
-@use '@material/tab/mixins' as tab-mixins;
-@use '@material/tab-indicator/mixins' as indicator-mixins;
-@use '@material/ripple/mixins' as mdc;
+@use '@material/top-app-bar/_index' as top-app-bar;
+@use '@material/tab/_index' as tab;
+@use '@material/tab-indicator/_index' as tab-indicator;
+@use '@material/ripple/_index' as ripple;
 @use '@material/theme/color-palette' as material-color;
-@use './color-palette' as demo-color;
+@use '@material/theme';
 
 .demo-app-bar-content {
   padding-left: 16px;
@@ -13,12 +13,12 @@
 }
 
 .demo-top-app-bar-themed {
-  @include top-app-bar-mixins.fill-color(material-color.$yellow-800);
-  @include top-app-bar-mixins.icon-ink-color(material-color.$blue-900)
+  @include top-app-bar.fill-color(material-color.$yellow-800);
+  @include top-app-bar.icon-ink-color(material-color.$blue-900)
 }
 
 .demo-top-app-bar-with-tabs {
-  @include top-app-bar-mixins.fill-color(demo-color.$color-rally);
+  @include top-app-bar.fill-color(theme.$secondary);
 
   .mdc-tab-bar {
     margin-top: 1em;
@@ -28,17 +28,17 @@
     }
 
     .mdc-tab {
-      @include tab-mixins.text-label-color(on-primary);
-      @include tab-mixins.icon-color(on-primary);
+      @include tab.text-label-color(on-primary);
+      @include tab.icon-color(on-primary);
     }
   
     .mdc-tab__ripple {
-      @include mdc.states(material-color.$blue-700);
+      @include ripple.states(material-color.$blue-700);
     }
   
     .mdc-tab-indicator {
-      @include indicator-mixins.underline-color(material-color.$blue-700);
-      @include indicator-mixins.underline-height(3px);
+      @include tab-indicator.underline-color(material-color.$blue-700);
+      @include tab-indicator.underline-height(3px);
     }
   }
 }

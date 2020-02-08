@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
-import { Usage, ShapeDocs } from './shape';
+import {Usage, ShapeDocs} from './shape';
 
 export const ROUTE_DECLARATIONS = [
   Usage,
@@ -12,8 +12,8 @@ const ROUTES: Routes = [
   {
     path: '', component: ShapeDocs,
     children: [
-      { path: '', redirectTo: 'usage' },
-      { path: 'usage', component: Usage }
+      {path: '', redirectTo: 'usage'},
+      {path: 'usage', component: Usage}
     ]
   }
 ];
@@ -22,4 +22,4 @@ const ROUTES: Routes = [
   imports: [RouterModule.forChild(ROUTES)],
   exports: [RouterModule]
 })
-export class RoutingModule { }
+export class RoutingModule {}

@@ -9,16 +9,18 @@
     </thead>
     <tbody>
       <tr>
-        <td><code>mdc-ripple-surface</code></td>
+        <td><code>surface</code></td>
         <td>Mandatory. Adds base styles for a ripple surface</td>
       </tr>
       <tr>
-        <td><code>mdc-ripple-radius-bounded($radius)</code></td>
-        <td>Adds styles for the radius of the ripple effect,<br>for bounded ripple surfaces</td>
+        <td><code>radius-bounded($radius)</code></td>
+        <td>Adds styles for the radius of the ripple effect,<br>for bounded
+          ripple surfaces</td>
       </tr>
       <tr>
-        <td><code>mdc-ripple-radius-unbounded($radius)</code></td>
-        <td>Adds styles for the radius of the ripple effect,<br>for unbounded ripple surfaces</td>
+        <td><code>radius-unbounded($radius)</code></td>
+        <td>Adds styles for the radius of the ripple effect,<br>for unbounded
+          ripple surfaces</td>
       </tr>
     </tbody>
   </table>
@@ -33,16 +35,22 @@
     </thead>
     <tbody>
       <tr>
-        <td><code>mdc-states($color, $has-nested-focusable-element)</code></td>
+        <td><code>states($color, $has-nested-focusable-element)</code></td>
         <td>Mandatory. Adds state and ripple styles in the given color</td>
       </tr>
       <tr>
-        <td><code>mdc-states-activated($color, $has-nested-focusable-element)</code></td>
-        <td>Optional. Adds state and ripple styles for activated states in the given color</td>
+        <td>
+          <code>states-activated($color, $has-nested-focusable-element)</code>
+        </td>
+        <td>Optional. Adds state and ripple styles for activated states in the
+          given color</td>
       </tr>
       <tr>
-        <td><code>mdc-states-selected($color, $has-nested-focusable-element)</code></td>
-        <td>Optional. Adds state and ripple styles for selected states in the given color</td>
+        <td>
+          <code>states-selected($color, $has-nested-focusable-element)</code>
+        </td>
+        <td>Optional. Adds state and ripple styles for selected states in the
+          given color</td>
       </tr>
     </tbody>
   </table>
@@ -57,20 +65,18 @@
     </thead>
     <tbody>
       <tr>
-        <td><code>mdc-states-base-color($color)</code></td>
+        <td><code>states-base-color($color)</code></td>
         <td>Mandatory. Sets up base state styles using the provided color</td>
       </tr>
       <tr>
-        <td><code>mdc-states-hover-opacity($opacity)</code></td>
-        <td>Mandatory. Adds styles for hover state using the provided opacity</td>
-      </tr>
-      <tr>
-        <td><code>mdc-states-focus-opacity($opacity, $has-nested-focusable-element)</code></td>
-        <td>Mandatory. Adds styles for focus state using the provided opacity</td>
-      </tr>
-      <tr>
-        <td><code>mdc-states-press-opacity($opacity)</code></td>
-        <td>Mandatory. Adds styles for press state using the provided opacity</td>
+        <td>
+          <code>states-opacities($opacity-map, $has-nested-focusable-element)</code>
+        </td>
+        <td>Sets the opacity of the ripple in any of the <code>hover</code>,
+          <code>focus</code>, or <code>press</code> states. The
+          <code>opacity-map</code> can specify one or more of these states as
+          keys. States not specified in the map resort to default opacity
+          values.</td>
       </tr>
     </tbody>
   </table>
@@ -85,8 +91,9 @@
     </thead>
     <tbody>
       <tr>
-        <td><code>mdc-states-opacity($color, $state)</code></td>
-        <td>Returns the appropriate default opacity to apply to the given color in the given state (hover, focus,
+        <td><code>states-opacity($color, $state)</code></td>
+        <td>Returns the appropriate default opacity to apply to the given color
+          in the given state (hover, focus,
           press, selected, or activated)</td>
       </tr>
     </tbody>

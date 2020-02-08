@@ -1,24 +1,24 @@
-@use '@material/image-list/mixins';
+@use '@material/image-list';
 
 .standard-image-list {
-  @include mixins.aspect(1.5); // Images are 3:2
-  @include mixins.standard-columns(5);
+  @include image-list.aspect(1.5); // Images are 3:2
+  @include image-list.standard-columns(5);
 }
 
 .masonry-image-list {
-  @include mixins.masonry-columns(5);
+  @include image-list.masonry-columns(5);
 }
 
 @media (max-width: 599px) {
   .standard-image-list {
-    @include mixins.standard-columns(3);
+    @include image-list.standard-columns(3);
   }
 
   .masonry-image-list {
-    @include mixins.masonry-columns(3);
+    @include image-list.masonry-columns(3);
   }
 }
 
 .image-list--rounded-corners {
-  @include mixins.shape-radius(8px);
+  @include image-list.shape-radius(8px);
 }

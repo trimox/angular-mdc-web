@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
-import {ComponentViewer, ComponentView} from '../../shared/component-viewer';
+import {ComponentViewer} from '../../shared/component-viewer';
 import {MDCDataTableRowSelectionChangedEvent} from '@angular-mdc/web';
 
 @Component({templateUrl: './api.html'})
@@ -14,20 +14,21 @@ export class DataTableDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
-    this._componentViewer.componentView = new ComponentView(
-      'Data Table',
-      `Data tables display information in a grid-like format of rows and
-       columns. They organize information in a way that's easy to scan, so
-       that users can look for patterns and insights.`,
-      "import { MDCDataTableModule } from '@angular-mdc/web';");
-
-    this._componentViewer.componentView.references = [{
-      name: 'Material Design guidelines: Data Tables',
-      url: 'https://material.io/design/components/data-tables.html'
-    }, {
-      name: 'Material Components Web',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-data-table/README.md'
-    }];
+    this._componentViewer.template = {
+      title: 'Data Table',
+      description: `Data tables display information in a grid-like format of rows and columns. 
+      They organize information in a way that's easy to scan, so that users can look for patterns and insights.`,
+      references: [{
+        name: 'Material Design guidelines: Data Tables',
+        url: 'https://material.io/design/components/data-tables.html'
+      }, {
+        name: 'Material Components Web',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-data-table/README.md'
+      }],
+      code: `import {MDCDataTableModule} from '@angular-mdc/web';`,
+      sass: `@use '@material/data-table/mdc-data-table';
+@use '@material/data-table';`
+    };
   }
 }
 

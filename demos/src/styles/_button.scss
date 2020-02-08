@@ -1,31 +1,36 @@
-@use '@material/button/mixins';
-@use '@material/ripple/mixins' as ripple-mixins;
+@use '@material/button';
+@use '@material/ripple/_index' as ripple;
+@use '@material/theme';
 @use '@material/theme/color-palette' as material-color;
-@use './color-palette' as demo-color;
 
 .big-round-shape-button {
-  @include mixins.shape-radius(8px);
+  @include button.shape-radius(8px);
 }
 
-.thick-outline-button {
-  @include mixins.outline-width(4px);
+.demo-thick-outline-button {
+  @include button.outline-width(4px);
 }
 
 .demo-button-ink-color {
-  @include mixins.container-fill-color(material-color.$purple-500);
-  @include mixins.icon-color(white);
-  @include mixins.ink-color(orange);
-  @include ripple-mixins.states(orange);
+  @include button.container-fill-color(material-color.$purple-500);
+  @include button.icon-color(white);
+  @include button.ink-color(orange);
+  @include ripple.states(orange);
 }
 
 .demo-button-icon-color {
-  @include mixins.icon-color(orange);
+  @include button.icon-color(orange);
 }
 
 .demo-button-primary {
-  @include mixins.filled-accessible(demo-color.$mdc-theme-primary);
+  @include button.filled-accessible(theme.$primary);
 }
 
 .demo-button-secondary {
-  @include mixins.filled-accessible(demo-color.$mdc-theme-secondary);
+  @include button.filled-accessible(theme.$secondary);
+}
+
+.demo-density-button {
+  // Sets button density scale to `-3`, i.e. button height to `24px`.
+  @include button.density(-3);
 }

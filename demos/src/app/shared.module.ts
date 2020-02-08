@@ -3,16 +3,16 @@ import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {HighlightModule} from 'ngx-highlightjs';
+import {HighlightPlusModule} from 'ngx-highlightjs/plus';
 
 import {MaterialModule} from './material.module';
 import {ComponentViewer} from './shared/component-viewer';
 import {ExampleViewer} from './shared/example-viewer';
-import {ActiveTabRouterModule, Markdown} from './shared';
+import {ActiveTabRouterModule} from './shared';
 
 const SHARED_DECLARATIONS = [
   ComponentViewer,
-  ExampleViewer,
-  Markdown
+  ExampleViewer
 ];
 
 @NgModule({
@@ -23,6 +23,7 @@ const SHARED_DECLARATIONS = [
     ReactiveFormsModule,
     RouterModule,
     ActiveTabRouterModule,
+    HighlightPlusModule,
     HighlightModule
   ],
   declarations: [SHARED_DECLARATIONS],
@@ -31,6 +32,7 @@ const SHARED_DECLARATIONS = [
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    HighlightPlusModule,
     HighlightModule,
     SHARED_DECLARATIONS
   ]

@@ -1,36 +1,38 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
+import {ComponentViewer} from '../../shared/component-viewer';
 
-import { MdcSliderChange } from '@angular-mdc/web';
+import {MdcSliderChange} from '@angular-mdc/web';
 
-@Component({ template: '<component-viewer></component-viewer>' })
+@Component({template: '<component-viewer></component-viewer>'})
 export class SliderDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
-    this._componentViewer.componentView = new ComponentView(
-      'Slider',
-      `Sliders allow users to make selections from a range of values.`,
-      "import { MdcSliderModule } from '@angular-mdc/web';");
-
-    this._componentViewer.componentView.references = [{
-      name: 'Material Design guidelines: Sliders',
-      url: 'https://material.io/guidelines/components/sliders.html'
-    }, {
-      name: 'Material Components Web',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-slider/README.md'
-    }];
+    this._componentViewer.template = {
+      title: 'Slider',
+      description: 'Sliders allow users to make selections from a range of values.',
+      references: [{
+        name: 'Material Design guidelines: Sliders',
+        url: 'https://material.io/guidelines/components/sliders.html'
+      }, {
+        name: 'Material Components Web',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-slider/README.md'
+      }],
+      code: `import {MdcSliderModule} from '@angular-mdc/web';`,
+      sass: `@use '@material/slider/mdc-slider';
+@use '@material/slider';`
+    };
   }
 }
 
-@Component({ templateUrl: './api.html' })
-export class Api { }
+@Component({templateUrl: './api.html'})
+export class Api {}
 
-@Component({ templateUrl: './sass.html' })
-export class Sass { }
+@Component({templateUrl: './sass.html'})
+export class Sass {}
 
-@Component({ templateUrl: './examples.html' })
+@Component({templateUrl: './examples.html'})
 export class Examples {
   max: number = 50;
   min: number = 10;
@@ -101,13 +103,6 @@ value: number = 25;`
 
   exampleTheme = {
     html: `<mdc-slider discrete markers class="demo-slider--custom" value="20"></mdc-slider>`,
-    sass: `.demo-slider--custom {
-  @include mdc-slider-highlight-color($material-color-red-700);
-  @include mdc-slider-rail-color($material-color-yellow-600, 1);
-  @include mdc-slider-rail-tick-mark-color(white);
-  @include mdc-slider-thumb-color($material-color-orange-500);
-  @include mdc-slider-focus-halo-color($material-color-yellow-900);
-  @include mdc-slider-value-pin-fill-color-accessible($material-color-pink-500);
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_slider.scss`
   };
 }

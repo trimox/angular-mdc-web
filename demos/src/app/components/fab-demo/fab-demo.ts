@@ -1,34 +1,36 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
+import {ComponentViewer} from '../../shared/component-viewer';
 
-@Component({ templateUrl: './api.html' })
-export class Api { }
+@Component({templateUrl: './api.html'})
+export class Api {}
 
-@Component({ templateUrl: './sass.html' })
-export class Sass { }
+@Component({templateUrl: './sass.html'})
+export class Sass {}
 
-@Component({ template: '<component-viewer></component-viewer>' })
+@Component({template: '<component-viewer></component-viewer>'})
 export class FabDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
-    this._componentViewer.componentView = new ComponentView(
-      'Floating Action Button',
-      'A floating action button represents the primary action in an application.',
-      "import { MdcFabModule } from '@angular-mdc/web';");
-
-    this._componentViewer.componentView.references = [{
-      name: 'Material Design guidelines: Floating Action Button',
-      url: 'https://material.io/design/components/buttons-floating-action-button.html'
-    }, {
-      name: 'Material Components Web',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-fab/README.md'
-    }];
+    this._componentViewer.template = {
+      title: 'Floating Action Button',
+      description: 'A floating action button represents the primary action in an application.',
+      references: [{
+        name: 'Material Design guidelines: Floating Action Button',
+        url: 'https://material.io/design/components/buttons-floating-action-button.html'
+      }, {
+        name: 'Material Components Web',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-fab/README.md'
+      }],
+      code: `import {MdcFabModule} from '@angular-mdc/web';`,
+      sass: `@use '@material/fab/mdc-fab';
+@use '@material/fab';`
+    };
   }
 }
 
-@Component({ templateUrl: './examples.html' })
+@Component({templateUrl: './examples.html'})
 export class Examples {
   example1 = {
     html: `<button mdc-fab>
@@ -60,17 +62,7 @@ export class Examples {
 <button mdc-fab class="demo-fab-shape-radius">
   <mdc-icon>favorite_border</mdc-icon>
 </button>`,
-    sass: `.demo-fab-shaped--one {
-  @include mdc-fab-shape-radius(28px 0);
-}
-
-.demo-fab-shaped--two {
-  @include mdc-fab-shape-radius(8px);
-}
-
-.demo-fab-shape-radius {
-  @include mdc-fab-shape-radius(50% 0 0 0);
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_fab.scss`
   };
 
   exampleTheme = {
@@ -79,17 +71,7 @@ export class Examples {
 <button mdc-fab class="yellow800Fab" icon="edit"></button>
 
 <button mdc-fab class="purple500Fab" icon="edit"></button>`,
-    sass: `.mdc-fab.red800Fab {
-  @include mdc-fab-accessible($material-color-red-800);
-}
-
-.mdc-fab.yellow800Fab {
-  @include mdc-fab-accessible($material-color-yellow-800);
-}
-
-.mdc-fab.purple500Fab {
-  @include mdc-fab-accessible($material-color-purple-500);
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_fab.scss`
   };
 
   exampleExtended = {
@@ -110,17 +92,7 @@ export class Examples {
   <mdc-fab-label>Shaped</mdc-fab-label>
   <mdc-icon>add</mdc-icon>
 </button>`,
-    sass: `.mdc-fab.blackFab {
-  @include mdc-fab-accessible(black);
-}
-
-.mdc-fab.purple500Fab {
-  @include mdc-fab-accessible($material-color-purple-500);
-}
-
-.demo-fab-extended-shape-radius {
-  @include mdc-fab-extended-shape-radius(25%);
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_fab.scss`
   };
 
   exampleExtendedFluid = {
@@ -137,9 +109,7 @@ export class Examples {
 
   exampleCustom = {
     html: `<button mdc-fab class="demo-fab-icon-size" icon="edit"></button>`,
-    sass: `.demo-fab-icon-size {
-  @include mdc-fab-icon-size(36px);
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_fab.scss`
   };
 
   examplePosition = {

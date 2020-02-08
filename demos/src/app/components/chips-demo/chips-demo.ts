@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, NgForm, Validators} from '@angular/forms';
 
-import {ComponentViewer, ComponentView} from '../../shared/component-viewer';
+import {ComponentViewer} from '../../shared/component-viewer';
 
 import {MdcChipSetChange, MdcChipSelectionEvent, MdcChipRemovalEvent, MdcChipInteractionEvent} from '@angular-mdc/web';
 
@@ -16,19 +16,20 @@ export class ChipsDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
-    this._componentViewer.componentView = new ComponentView(
-      'Chips',
-      `Chips are compact elements that allow users to enter information,
-       select a choice, filter content, or trigger an action.`,
-      "import { MdcChipsModule } from '@angular-mdc/web';");
-
-    this._componentViewer.componentView.references = [{
-      name: 'Material Design guidelines: Chips',
-      url: 'https://material.io/guidelines/components/chips.html'
-    }, {
-      name: 'Material Components Web',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-chips/README.md'
-    }];
+    this._componentViewer.template = {
+      title: 'Chips',
+      description: `Chips are compact elements that allow users to enter information, select a choice, filter content, or trigger an action.`,
+      references: [{
+        name: 'Material Design guidelines: Chips',
+        url: 'https://material.io/guidelines/components/chips.html'
+      }, {
+        name: 'Material Components Web',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-chips/README.md'
+      }],
+      code: `import {MdcChipsModule} from '@angular-mdc/web';`,
+      sass: `@use '@material/chips/mdc-chips';
+@use '@material/chips';`
+    };
   }
 }
 
@@ -72,11 +73,11 @@ export class Examples {
   // Examples
   //
 
-  reuseFoods = `foods: any[] = [
-  { value: 'steak-0', viewValue: 'Steak', selected: false },
-  { value: 'pizza-1', viewValue: 'Pizza', selected: false },
-  { value: 'tacos-2', viewValue: 'Tacos', selected: false },
-];`;
+  reuseFoods = `foods: ChipFood[] = [
+    {value: 'steak-0', viewValue: 'Steak'},
+    {value: 'pizza-1', viewValue: 'Pizza'},
+    {value: 'tacos-2', viewValue: 'Tacos'},
+  ];`;
 
   exampleSimple = {
     html: `<mdc-chip-set>
@@ -89,19 +90,19 @@ export class Examples {
 
   exampleInput = {
     html: `<mdc-chip-set input>
-  <mdc-chip label="Alice">
+  <mdc-chip label="Alice" (removalEvent)="onChipRemoved($event)">
     <mdc-chip-icon leading>face</mdc-chip-icon>
     <mdc-chip-icon trailing>cancel</mdc-chip-icon>
   </mdc-chip>
-  <mdc-chip label="Bob">
+  <mdc-chip label="Bob" (removalEvent)="onChipRemoved($event)">
     <mdc-chip-icon leading>face</mdc-chip-icon>
     <mdc-chip-icon trailing>cancel</mdc-chip-icon>
   </mdc-chip>
-  <mdc-chip label='Charlie'>
+  <mdc-chip label='Charlie' (removalEvent)="onChipRemoved($event)">
     <mdc-chip-icon leading>face</mdc-chip-icon>
     <mdc-chip-icon trailing>cancel</mdc-chip-icon>
   </mdc-chip>
-  <mdc-chip label='David'>
+  <mdc-chip label='David' (removalEvent)="onChipRemoved($event)">
     <mdc-chip-icon leading>face</mdc-chip-icon>
     <mdc-chip-icon trailing>cancel</mdc-chip-icon>
   </mdc-chip>
@@ -196,9 +197,7 @@ export class Examples {
     <mdc-chip-text>Get Directions</mdc-chip-text>
   </mdc-chip>
 </mdc-chip-set>`,
-    sass: `.custom-chip--shape-radius {
-  @include mdc-chip-shape-radius(4px);
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_chips.scss`
   };
 
   exampleTheme = {
@@ -216,12 +215,7 @@ export class Examples {
     <mdc-chip-text>Get Directions</mdc-chip-text>
   </mdc-chip>
 </mdc-chip-set>`,
-    sass: `.custom-chip-secondary {
-  @include mdc-chip-fill-color(white);
-  @include mdc-chip-ink-color($mdc-theme-secondary);
-  @include mdc-chip-selected-ink-color($mdc-theme-secondary);
-  @include mdc-chip-outline(2px, solid, $mdc-theme-secondary);
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_chips.scss`
   };
 
   exampleCustom = {
@@ -257,81 +251,56 @@ export class Examples {
     <mdc-chip-icon trailing>wb_sunny</mdc-chip-icon>
   </mdc-chip>
 </mdc-chip-set>`,
-    sass: `.custom-chip--height {
-  @include mdc-chip-height(40px);
-}
-
-.custom-chip--leading-icon-color {
-  @include mdc-chip-leading-icon-color($custom-chip-fill-color, .5);
-}
-
-.custom-chip--trailing-icon-color {
-  @include mdc-chip-trailing-icon-color($custom-chip-fill-color, .5);
-}
-
-.custom-chip--leading-icon-size {
-  @include mdc-chip-leading-icon-size(25px);
-}
-
-.custom-chip--trailing-icon-size {
-  @include mdc-chip-trailing-icon-size(25px);
-}
-
-.custom-chip--leading-icon-margin {
-  @include mdc-chip-leading-icon-margin(5px, 5px, 5px, 5px);
-}
-
-.custom-chip--trailing-icon-margin {
-  @include mdc-chip-trailing-icon-margin(5px, 5px, 5px, 5px);
-}
-
-.custom-chip--horizontal-padding {
-  @include mdc-chip-horizontal-padding(25px);
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_chips.scss`
   };
 
   exampleValue = {
     html: `<mdc-chip-set choice #chipSetValue (change)="onChipSetChange($event)" [value]="demoChipValue">
-  <mdc-chip *ngFor="let food of foods" [value]="food.value" [selected]="food.selected"
+  <mdc-chip *ngFor="let food of foods" [value]="food.value"
+    (interaction)="onChipInteraction($event)"
     (selectionChange)="onChipInteraction($event)">
     {{food.viewValue}}
   </mdc-chip>
-</mdc-chip-set>
-<p>Value: {{chipSetValue.value}}</p>`,
+</mdc-chip-set>`,
     ts: `${this.reuseFoods}
 
 demoChipValue = 'pizza-1';
 
 onChipSetChange(evt: MdcChipSetChange): void {
-  console.log(evt);
+  // do something
 }
 
 onChipInteraction(evt: MdcChipInteractionEvent): void {
-  console.log(evt);
+  // do something
+}
+
+onChipSelection(evt: MdcChipSelectionEvent): void {
+  // do something
 }`
   };
 
   exampleNgModel = {
-    html: `<mdc-chip-set choice [(ngModel)]="selectedFood">
-  <mdc-chip *ngFor="let food of foods" [value]="food.value" [selected]="food.selected">
+    html: `<mdc-chip-set choice [(ngModel)]="ngModelValue">
+  <mdc-chip *ngFor="let food of foods" [value]="food.value">
     {{food.viewValue}}
   </mdc-chip>
-</mdc-chip-set>
-<p>Value: {{selectedFood}}</p>`,
-    ts: this.reuseFoods
+</mdc-chip-set>`,
+    ts: `ngModelValue = 'tacos-2';
+
+${this.reuseFoods}`
   };
 
   exampleFormControl = {
     html: `<form #form="ngForm" novalidate>
   <mdc-chip-set choice [formControl]="formControl">
-    <mdc-chip *ngFor="let food of foods" [value]="food.value" [selected]="food.selected">
+    <mdc-chip *ngFor="let food of foods" [value]="food.value">
       {{food.viewValue}}
     </mdc-chip>
   </mdc-chip-set>
 </form>`,
     ts: `${this.reuseFoods}
 
-formControl = new FormControl('', Validators.required);
+formControl = new FormControl('steak-0', Validators.required);
 
 @ViewChild('form') form: NgForm;`
   };

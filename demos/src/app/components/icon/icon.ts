@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {DomSanitizer} from '@angular/platform-browser';
 
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
-import { environment } from '../../../environments/environment';
-import { MdcIcon, MdcIconRegistry } from '@angular-mdc/web';
+import {ComponentViewer} from '../../shared/component-viewer';
+import {environment} from '../../../environments/environment';
+import {MdcIcon, MdcIconRegistry} from '@angular-mdc/web';
 
 const BIKE_ICON =
   `<svg xmlns="http://www.w3.org/2000/svg">
@@ -38,34 +38,35 @@ const INLINE_ICON_SET =
   </defs>
 </svg>`;
 
-@Component({ template: '<component-viewer></component-viewer>' })
-export class IconDemo implements OnInit {
+@Component({template: '<component-viewer></component-viewer>'})
+export class Icon implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
-    this._componentViewer.componentView = new ComponentView(
-      'Icons',
-      `Material icons use geometric shapes to visually represent core ideas, capabilities, or topics.`,
-      "import { MdcIconModule } from '@angular-mdc/web';",
-      [{
+    this._componentViewer.template = {
+      title: 'Icons',
+      description: 'Material icons use geometric shapes to visually represent core ideas, capabilities, or topics.',
+      references: [{
+        name: 'Material Design guidelines: Icons',
+        url: 'https://material.io/guidelines/style/icons.html'
+      }],
+      code: `import {MdcIconModule} from '@angular-mdc/web';`,
+      tabs: [{
         label: 'Api',
         route: './api'
-      }, {
+      },
+      {
         label: 'Examples',
         route: './examples'
-      }]);
-
-    this._componentViewer.componentView.references = [{
-      name: 'Material Design guidelines: Icons',
-      url: 'https://material.io/guidelines/style/icons.html'
-    }];
+      }]
+    };
   }
 }
 
-@Component({ templateUrl: './api.html' })
-export class Api { }
+@Component({templateUrl: './api.html'})
+export class Api {}
 
-@Component({ templateUrl: './examples.html' })
+@Component({templateUrl: './examples.html'})
 export class Examples {
   constructor(iconRegistry: MdcIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry

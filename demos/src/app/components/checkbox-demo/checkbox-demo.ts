@@ -1,37 +1,38 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
-import { MdcCheckbox, MdcCheckboxChange } from '@angular-mdc/web';
+import {MdcCheckbox, MdcCheckboxChange} from '@angular-mdc/web';
 
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
+import {ComponentViewer} from '../../shared/component-viewer';
 
-@Component({ templateUrl: './api.html' })
-export class Api { }
+@Component({templateUrl: './api.html'})
+export class Api {}
 
-@Component({ templateUrl: './sass.html' })
-export class Sass { }
+@Component({templateUrl: './sass.html'})
+export class Sass {}
 
-@Component({ template: '<component-viewer></component-viewer>' })
+@Component({template: '<component-viewer></component-viewer>'})
 export class CheckboxDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
-    this._componentViewer.componentView = new ComponentView(
-      'Checkbox',
-      `Checkboxes allow the user to select one or more items from a set.
-       Checkboxes can be used to turn an option on or off.`,
-      "import { MdcCheckboxModule } from '@angular-mdc/web';");
-
-    this._componentViewer.componentView.references = [{
-      name: 'Material Design guidelines: Checkbox',
-      url: 'https://material.io/design/components/selection-controls.html#checkboxes'
-    }, {
-      name: 'Material Components Web',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-checkbox/README.md'
-    }];
+    this._componentViewer.template = {
+      title: 'Checkbox',
+      description: 'Checkboxes allow the user to select one or more items from a set.',
+      references: [{
+        name: 'Material Design guidelines: Checkbox',
+        url: 'https://material.io/design/components/selection-controls.html#checkboxes'
+      }, {
+        name: 'Material Components Web',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-checkbox/README.md'
+      }],
+      code: `import {MdcCheckboxModule} from '@angular-mdc/web';`,
+      sass: `@use '@material/checkbox/mdc-checkbox';
+@use '@material/checkbox';`
+    };
   }
 }
 
-@Component({ templateUrl: './examples.html' })
+@Component({templateUrl: './examples.html'})
 export class Examples {
   onChange(event: MdcCheckboxChange) {
     console.log(event.checked);

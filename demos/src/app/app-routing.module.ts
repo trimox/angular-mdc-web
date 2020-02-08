@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
-import {GettingStarted} from './getting-started';
+import {GettingStarted} from './getting-started/getting-started';
 import {Home} from './home/home';
 
 export const DEMO_DECLARATIONS = [
@@ -41,7 +41,7 @@ const routes: Routes = [
   },
   {path: 'getting-started', component: GettingStarted},
   {path: 'home', component: Home, pathMatch: 'full'},
-  {path: 'icon-demo', loadChildren: () => import('./components/icon-demo/icon.module').then(m => m.IconModule)},
+  {path: 'icon-demo', loadChildren: () => import('./components/icon/module').then(m => m.IconModule)},
   {
     path: 'icon-button-demo', loadChildren: () =>
       import('./components/icon-button-demo/icon-button.module').then(m => m.IconButtonModule)
@@ -52,7 +52,7 @@ const routes: Routes = [
   },
   {
     path: 'linear-progress-demo', loadChildren: () =>
-      import('./components/linear-progress-demo/linear-progress.module').then(m => m.LinearProgressModule)
+      import('./components/linear-progress/module').then(m => m.LinearProgressModule)
   },
   {path: 'list-demo', loadChildren: () => import('./components/list-demo/list.module').then(m => m.ListModule)},
   {path: 'menu-demo', loadChildren: () => import('./components/menu-demo/menu.module').then(m => m.MenuModule)},
@@ -62,7 +62,7 @@ const routes: Routes = [
   },
   {path: 'radio-demo', loadChildren: () => import('./components/radio-demo/radio.module').then(m => m.RadioModule)},
   {path: 'ripple-demo', loadChildren: () => import('./components/ripple-demo/ripple.module').then(m => m.RippleModule)},
-  {path: 'select-demo', loadChildren: () => import('./components/select-demo/select.module').then(m => m.SelectModule)},
+  {path: 'select-demo', loadChildren: () => import('./components/select/module').then(m => m.SelectModule)},
   {path: 'shape-docs', loadChildren: () => import('./components/shape-docs/shape.module').then(m => m.ShapeModule)},
   {path: 'slider-demo', loadChildren: () => import('./components/slider-demo/slider.module').then(m => m.SliderModule)},
   {

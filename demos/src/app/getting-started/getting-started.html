@@ -1,65 +1,122 @@
 <div class="demo-panel-content">
   <div class="demo-panel-transition">
     <h1 class="demo-panel-title">Getting started</h1>
-    <p>For help getting started with a new Angular app, check out the <a href="https://cli.angular.io/"
-        target="_blank" rel="noopener">Angular CLI</a>.</p>
-    <p>For existing apps, follow these steps to begin using Angular MDC.</p>
-    <h2 class="demo-panel-references">Step 1: Install Angular MDC</h2>
-    <h4>npm</h4>
+    <p>For help getting started with a new Angular app, check out the <a
+        href="https://cli.angular.io/" target="_blank" rel="noopener">Angular
+        CLI</a>.</p>
+    <p>For existing apps, follow this guide to use Angular MDC.</p>
+    <h2 class="demo-panel-heading">Install Angular MDC</h2>
+    <h4 mdcSubtitle2>npm</h4>
     <pre><code [highlight]="npmCmd" [languages]="langShell"></code></pre>
 
-    <h4>yarn</h4>
+    <h4 mdcSubtitle2>yarn</h4>
     <pre><code [highlight]="yarnCmd" [languages]="langShell"></code></pre>
 
-    <h2 class="demo-panel-references">Step 2: Use Roboto font</h2>
+    <h2 class="demo-panel-heading">Roboto font</h2>
     To get started, first include the Roboto font with the 300, 400 and 500
     weights.
-    You can host it yourself or include it from <a href="https://fonts.google.com/"
-      target="_blank" rel="noopener">Google Fonts:</a>
+    You can host it yourself or include it from <a
+      href="https://fonts.google.com/" target="_blank" rel="noopener">Google
+      Fonts:</a>
 
     <pre><code [highlight]="robotoLink"></code></pre>
 
-    <h2 class="demo-panel-references">Step 3 (optional): Add Material Icons</h2>
-    If you want to use the <code>mdc-icon</code> component with the official
+    <h2 class="demo-panel-heading">Material Icons</h2>
+    If you want to use the <code mdcSubtitle2>mdc-icon</code> component with the
+    official
     Material Design Icons, load the icon font in your index.html:
 
     <pre><code [highlight]="materialIconsLink"></code></pre>
 
-    For more information on using Material Icons, check out the <a href="https://material.io/tools/icons/?style=baseline"
-      target="_blank" rel="noopener">Material Icons Guide.</a>
+    For more information on using Material Icons, check out the <a
+      href="https://material.io/tools/icons/?style=baseline" target="_blank"
+      rel="noopener">Material Icons Guide.</a>
     Note that mdc-icon supports any font or svg icons; using Material Icons is
     one of many options.
 
-    <h2 class="demo-panel-references">Step 4: Import MDC Sass</h2>
-    In styles.scss add the following:
+    <h2 class="demo-panel-heading">MDC Sass modules</h2>
+    In your <code mdcSubtitle2>angular.json</code>, make sure <code
+      mdcSubtitle2>node_modules/</code> is listed as a Sass include path. This
+    is needed for the Sass compiler to be able to find the MDC Web Sass files.
+    <pre><code highlight='...
+"styles": [
+  "src/styles.scss"
+],      
+"stylePreprocessorOptions": {
+  "includePaths": [
+    "node_modules/"
+  ]
+},
+...'></code></pre>
 
-    <pre><code [highlight]="sassHelp"></code></pre>
+    <pre><code highlight="// styles.scss
 
-    <h2 class="demo-panel-references">Step 5: Import component modules</h2>
-    Now just import the NgModule for each component you want to use.
-    <pre><code highlight="import {
-  MdcFabModule,
-  MdcIconModule,
-  MdcMenuModule
-} from '@angular-mdc/web';
+@use './styles/body';
+
+@use '@material/theme' with (
+  $primary: #6200ee,
+  $secondary: #faab1a,
+  $background: #fff,
+);
+
+// MDC Button
+@use './styles/button';
+
+// Angular MDC
+@use '@angular-mdc/theme/material';"></code></pre>
+
+    <pre><code highlight="// styles/_body.scss
+
+// Override user agent body margin for mdc-top-app-bar
+body {
+  margin: 0;
+}"></code></pre>
+
+
+    <pre><code highlight="// styles/_button.scss
+
+@use '@material/button/mdc-button';
+@use '@material/button';
+@use '@material/theme';
+
+.button-primary {
+  @include button.filled-accessible(theme.$primary);
+}
+
+.button-secondary {
+  @include button.filled-accessible(theme.$secondary);
+}"></code></pre>
+
+    <h2 class="demo-panel-heading">Import Angular MDC components</h2>
+    Create module file `./app/material.module.ts`, and import the NgModule for
+    each component you want to use.
+    <pre><code highlight="import {NgModule} from '@angular/core';
+import {MdcButtonModule} from '@angular-mdc/web';
 
 @NgModule({
-...
-imports: [
-  MdcFabModule,
-  MdcIconModule
-  MdcMenuModule,
-  ...
-],
-...
+  exports: [
+    ...
+    MdcButtonModule,
+    ...
+  ]
 })
-export class ExampleModule { }"></code></pre>
+export class MaterialModule {}"></code></pre>
 
+    <h2 class="demo-panel-heading">Import Material module</h2>
+    Now, import MaterialModule into AppModule.
+    <pre><code highlight="import {MaterialModule} from './material.module';
+
+@NgModule({
+  imports: [
+    ...
+    MaterialModule,
+    ...
+  ]
+})
+export class AppModule {}"></code></pre>
+
+    <h2 class="demo-panel-heading">Start designing</h2>
     Open app.component.html and add the following markup:
-    <pre><code highlight="<button mdc-button raised>My Button</button>
-
-<button mdc-fab>
-  <mdc-icon>edit</mdc-icon>
-</button>"></code></pre>
+    <pre><code highlight="<button mdc-button raised>Example</button>"></code></pre>
   </div>
 </div>

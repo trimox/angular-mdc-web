@@ -1,46 +1,48 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
+import {ComponentViewer} from '../../shared/component-viewer';
 
-@Component({ template: '<component-viewer></component-viewer>' })
+@Component({template: '<component-viewer></component-viewer>'})
 export class TopAppBarDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
-    this._componentViewer.componentView = new ComponentView(
-      'Top App Bar',
-      `The top app bar displays information and actions relating to the current screen.`,
-      "import { MdcTopAppBarModule } from '@angular-mdc/web';");
-
-    this._componentViewer.componentView.references = [{
-      name: 'Material Design guidelines: App bars: top',
-      url: 'https://material.io/design/components/app-bars-top.html'
-    }, {
-      name: 'Material Components Web',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-top-app-bar/README.md'
-    }];
+    this._componentViewer.template = {
+      title: 'Top App Bar',
+      description: 'The top app bar displays information and actions relating to the current screen.',
+      references: [{
+        name: 'Material Design guidelines: App bars: top',
+        url: 'https://material.io/design/components/app-bars-top.html'
+      }, {
+        name: 'Material Components Web',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-top-app-bar/README.md'
+      }],
+      code: `import {MdcTopAppBarModule} from '@angular-mdc/web';`,
+      sass: `@use '@material/top-app-bar/mdc-top-app-bar';
+@use '@material/top-app-bar';`
+    };
   }
 }
 
-@Component({ templateUrl: './api.html' })
-export class Api { }
+@Component({templateUrl: './api.html'})
+export class Api {}
 
-@Component({ templateUrl: './sass.html' })
-export class Sass { }
+@Component({templateUrl: './sass.html'})
+export class Sass {}
 
-@Component({ templateUrl: './examples.html' })
+@Component({templateUrl: './examples.html'})
 export class Examples {
   tabs = [
-    { label: 'Flights', icon: 'airplanemode_active' },
-    { label: 'Hotel', icon: 'hotel' },
-    { label: 'Favorites', icon: 'favorite' }
+    {label: 'Flights', icon: 'airplanemode_active'},
+    {label: 'Hotel', icon: 'hotel'},
+    {label: 'Favorites', icon: 'favorite'}
   ];
 
   links = [
-    { label: 'Inbox', icon: 'inbox' },
-    { label: 'Star', icon: 'star' },
-    { label: 'Sent Mail', icon: 'send' },
-    { label: 'Drafts', icon: 'drafts' }
+    {label: 'Inbox', icon: 'inbox'},
+    {label: 'Star', icon: 'star'},
+    {label: 'Sent Mail', icon: 'send'},
+    {label: 'Drafts', icon: 'drafts'}
   ];
 
   text = `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Necessitatibus, incidunt. Debitis,
@@ -181,10 +183,7 @@ lorems = Array(5).fill(this.text);`
 <div #themeContent>
   <p *ngFor="let lorem of lorems">{{lorem}}</p>
 </div>`,
-    sass: `.demo-top-app-bar-themed {
-  @include mdc-top-app-bar-fill-color($material-color-yellow-800);
-  @include mdc-top-app-bar-icon-ink-color($material-color-blue-900)
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_top-app-bar.scss`
   };
 
   exampleWithTabsDrawer = {
@@ -252,35 +251,6 @@ links = [
   { label: 'Sent Mail', icon: 'send' },
   { label: 'Drafts', icon: 'drafts' }
 ];`,
-    sass: `.demo-top-app-bar-with-tabs {
-  @include mdc-top-app-bar-fill-color(#363640);
-
-  .mdc-tab-bar {
-    margin-top: 1em;
-
-    @media (max-width: 599px) {
-      margin-top: .5em;
-    }
-
-    .mdc-tab {
-      @include mdc-tab-text-label-color(on-primary);
-      @include mdc-tab-icon-color(on-primary);
-    }
-
-    .mdc-tab__ripple {
-      @include mdc-states($material-color-blue-700);
-    }
-
-    .mdc-tab-indicator {
-      @include mdc-tab-indicator-underline-color($material-color-blue-700);
-      @include mdc-tab-indicator-underline-height(3px);
-    }
-  }
-}
-
-.demo-drawer-app-content {
-  overflow: hidden;
-  position: relative;
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_top-app-bar.scss`
   };
 }

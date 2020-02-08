@@ -1,8 +1,8 @@
-import {Component, Inject, OnInit, ViewChild, ContentChild} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {MdcDialog, MdcDialogRef, MDC_DIALOG_DATA, MdcDialogComponent} from '@angular-mdc/web';
-import {ComponentViewer, ComponentView} from '../../shared/component-viewer';
+import {ComponentViewer} from '../../shared/component-viewer';
 
 export interface DialogData {
   first: string;
@@ -24,24 +24,24 @@ export class DialogDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
-    this._componentViewer.componentView = new ComponentView(
-      'Dialog',
-      `Dialogs inform users about a task and can contain critical information,
-      require decisions, or involve multiple tasks.`,
-      "import { MdcDialogModule } from '@angular-mdc/web';");
-
-    this._componentViewer.componentView.references = [{
-      name: 'Material Design guidelines: Dialog',
-      url: 'https://material.io/guidelines/components/dialogs.html'
-    }, {
-      name: 'Material Components Web',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-dialog/README.md'
-    }];
-
-    this._componentViewer.componentView.tabs = [{
-      label: 'Usage',
-      route: './usage'
-    }, ...this._componentViewer.componentView.tabs];
+    this._componentViewer.template = {
+      title: 'Dialog',
+      description: 'Dialogs inform users about a task and can contain critical information, require decisions, or involve multiple tasks.',
+      references: [{
+        name: 'Material Design guidelines: Dialog',
+        url: 'https://material.io/guidelines/components/dialogs.html'
+      }, {
+        name: 'Material Components Web',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-dialog/README.md'
+      }],
+      code: `import {MdcDialogModule} from '@angular-mdc/web';`,
+      sass: `@use '@material/dialog/mdc-dialog';
+@use '@material/dialog';`,
+      tabs: [{
+        label: 'Usage',
+        route: './usage'
+      }, ...this._componentViewer.defaultTabs]
+    };
   }
 }
 

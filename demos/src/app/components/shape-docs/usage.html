@@ -1,11 +1,4 @@
 <div class="docs-api">
-  <h3 mdcHeadline6>Shape</h3>
-
-  <h4 mdcSubtitle2>Basic Usage</h4>
-  <pre><code [highlight]="basicUsage"></code></pre>
-
-  <h3 mdcHeadline6>Customization</h3>
-
   <h4 mdcSubtitle2>Sass Variables</h4>
   <table>
     <thead>
@@ -16,16 +9,16 @@
     </thead>
     <tbody>
       <tr>
-        <td><code>$mdc-shape-small-component-radius</code></td>
+        <td><code>$small-component-radius</code></td>
         <td>Rounded shape radius size for small components. Default value <code>4px</code>.</td>
       </tr>
       <tr>
-        <td><code>$mdc-shape-medium-component-radius</code></td>
+        <td><code>$medium-component-radius</code></td>
         <td>Rounded shape radius size for medium components. Default value
           <code>4px</code>.</td>
       </tr>
       <tr>
-        <td><code>$mdc-shape-large-component-radius</code></td>
+        <td><code>$large-component-radius</code></td>
         <td>Rounded shape radius size for large components. Default value <code>0</code>.</td>
       </tr>
     </tbody>
@@ -41,7 +34,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><code>mdc-shape-radius($radius, $rtl-reflexive)</code></td>
+        <td><code>radius($radius, $rtl-reflexive)</code></td>
         <td>Shape API used by all other components to apply radius to
           appropriate corners. <code>$radius</code> can be single value or list
           of up to 4 radius corner values. Set <code>$rtl-reflexive</code> to
@@ -60,22 +53,22 @@
     </thead>
     <tbody>
       <tr>
-        <td><code>mdc-shape-flip-radius($radius)</code></td>
+        <td><code>flip-radius($radius)</code></td>
         <td>Flips the radius values in RTL context. <code>$radius</code> is
           list of 2-4 corner values.</td>
       </tr>
       <tr>
-        <td><code>mdc-shape-resolve-percentage-radius($component-height, $radius)</code></td>
+        <td><code>resolve-percentage-radius($component-height, $radius)</code></td>
         <td>Calculates the absolute radius value based on its component height.
           Use this for fixed height components only.</td>
       </tr>
       <tr>
-        <td><code>mdc-shape-mask-radius($radius, $masked-corners)</code></td>
+        <td><code>mask-radius($radius, $masked-corners)</code></td>
         <td>Accepts radius number or list of 2-4 radius values and returns 4
           value list with masked corners as mentioned in <code>$masked-corners</code>.</td>
       </tr>
       <tr>
-        <td><code>mdc-shape-prop-value($radius)</code></td>
+        <td><code>prop-value($radius)</code></td>
         <td>Returns <code>$radius</code> value of shape category - <code>large</code>,
           <code>medium</code> or <code>small</code>. Otherwise, it returns the
           <code>$radius</code> itself if valid. <code>$radius</code> can be a
@@ -88,23 +81,23 @@
   <h4 mdcSubtitle2>Shapes for fixed height components</h4>
   Styles for applying shape to a fixed height component such as button looks
   like this:
-  <pre><code highlight="@include mdc-shape-radius(mdc-shape-resolve-percentage-radius($mdc-button-height, $radius));"></code></pre>
-  Where, <code class="markdown-code">$mdc-button-height</code> is the height of
+  <pre><code highlight="@include radius(resolve-percentage-radius($mdc-button-height, $radius));"></code></pre>
+  Where, <code class="markdown-code">button.$height</code> is the height of
   standard button and <code class="markdown-code">$radius</code> is
-  the size of shape. <code class="markdown-code">mdc-shape-resolve-percentage-radius</code>
+  the size of shape. <code class="markdown-code">resolve-percentage-radius</code>
   function is used to resolve percentage unit value to absolute <code class="markdown-code">$radius</code>
   value based on component height.
 
   <h4 mdcSubtitle2>Shapes for dynamic height components</h4>
   Styles for applying shapes to dynamic height component such as card looks
   like this:
-  <pre><code highlight="@include mdc-shape-radius($radius);"></code></pre>
+  <pre><code highlight="@include radius($radius);"></code></pre>
   Where, <code class="markdown-code">$radius</code> is absolute value only.
 
   <h4 mdcSubtitle2>Shapes for components on specific corners</h4>
   Styles for applying shapes for specific corners such as drawer looks like
   this:
-  <pre><code highlight="@include mdc-shape-radius(0 $radius $radius 0, $rtl-reflexive: true);"></code></pre>
+  <pre><code highlight="@include radius(0 $radius $radius 0, $rtl-reflexive: true);"></code></pre>
   Where, only top-right & bottom-right corners are customizable and it
   automatically flips radius values based on RTL context when <code class="markdown-code">$rtl-reflexive</code>
   is set to true.

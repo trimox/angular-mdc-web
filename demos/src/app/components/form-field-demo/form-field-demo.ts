@@ -1,37 +1,39 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
+import {ComponentViewer} from '../../shared/component-viewer';
 
-@Component({ template: '<component-viewer></component-viewer>' })
+@Component({template: '<component-viewer></component-viewer>'})
 export class FormFieldDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
-    this._componentViewer.componentView = new ComponentView(
-      'Form Fields',
-      `MDC Form Field aligns an MDC Web form field (for example, a checkbox)
+    this._componentViewer.template = {
+      title: 'Form Fields',
+      description: `MDC Form Field aligns an MDC Web form field (for example, a checkbox)
       with its label and makes it RTL-aware. It also activates a ripple effect
       upon interacting with the label.`,
-      "import { MdcFormFieldModule } from '@angular-mdc/web';",
-      [{
+      references: [{
+        name: 'Material Components Web',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-form-field/README.md'
+      }],
+      code: `import {MdcFormFieldModule} from '@angular-mdc/web';`,
+      sass: `@use '@material/form-field/mdc-form-field';
+@use '@material/form-field';`,
+      tabs: [{
         label: 'Api',
         route: './api'
       }, {
         label: 'Examples',
         route: './examples'
-      }]);
-
-    this._componentViewer.componentView.references = [{
-      name: 'Material Components Web',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-form-field/README.md'
-    }];
+      }]
+    };
   }
 }
 
-@Component({ templateUrl: './api.html' })
-export class Api { }
+@Component({templateUrl: './api.html'})
+export class Api {}
 
-@Component({ templateUrl: './examples.html' })
+@Component({templateUrl: './examples.html'})
 export class Examples {
   example1 = {
     html: `<mdc-form-field fluid>

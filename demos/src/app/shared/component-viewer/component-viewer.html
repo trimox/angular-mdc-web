@@ -1,19 +1,32 @@
 <div class="demo-panel-content">
   <div class="demo-panel-transition">
-    <h1 class="demo-panel-title">{{componentView.name}}</h1>
-    {{componentView.description}}
+    <h1 class="demo-panel-title">{{template?.title}}</h1>
+    {{template?.description}}
 
-    <div *ngIf="componentView.references">
-      <h2 class="demo-panel-references">References</h2>
+    <div *ngIf="template?.references">
+      <h2 class="demo-panel-heading">References</h2>
       <ul>
-        <li *ngFor="let ref of componentView.references"><a mdc-button [href]="ref.url" target="_blank" rel="noopener">{{ref.name}}</a></li>
+        <li *ngFor="let ref of template.references"><a mdc-button
+            [href]="ref.url" target="_blank" rel="noopener">{{ref.name}}</a>
+        </li>
       </ul>
     </div>
-    <pre *ngIf="componentView.importCode"><code [highlight]="componentView.importCode"></code></pre>
 
-    <mdc-tab-bar activeTabRouter [activeTabIndex]="-1" *ngIf="componentView.tabs">
+    <div *ngIf="template?.code">
+      <h2 class="demo-panel-heading">Module</h2>
+      <pre
+        *ngIf="template.code"><code [highlight]="template.code"></code></pre>
+    </div>
+
+    <div *ngIf="template?.sass">
+      <h2 class="demo-panel-heading">Styles</h2>
+      <pre
+        *ngIf="template.sass"><code [highlight]="template.sass"></code></pre>
+    </div>
+    <mdc-tab-bar activeTabRouter [activeTabIndex]="-1" *ngIf="template?.tabs">
       <mdc-tab-scroller>
-        <mdc-tab *ngFor="let tab of componentView.tabs" [label]="tab.label" [routerLink]="tab.route"></mdc-tab>
+        <mdc-tab *ngFor="let tab of template.tabs" [label]="tab.label"
+          [routerLink]="tab.route"></mdc-tab>
       </mdc-tab-scroller>
     </mdc-tab-bar>
     <ng-content></ng-content>

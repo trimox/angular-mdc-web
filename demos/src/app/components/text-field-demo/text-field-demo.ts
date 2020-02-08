@@ -4,7 +4,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 
 import {MdcTextField, ErrorStateMatcher, MdcIconRegistry} from '@angular-mdc/web';
 import {environment} from '../../../environments/environment';
-import {ComponentViewer, ComponentView} from '../../shared/component-viewer';
+import {ComponentViewer} from '../../shared/component-viewer';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -19,18 +19,20 @@ export class TextFieldDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
-    this._componentViewer.componentView = new ComponentView(
-      'Text Field',
-      `Text fields let users enter and edit text.`,
-      "import { MdcTextFieldModule } from '@angular-mdc/web';");
-
-    this._componentViewer.componentView.references = [{
-      name: 'Material Design guidelines: Text Fields',
-      url: 'https://material.io/design/components/text-fields.html'
-    }, {
-      name: 'Material Components Web',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-textfield/README.md'
-    }];
+    this._componentViewer.template = {
+      title: 'Text Field',
+      description: 'Text fields let users enter and edit text.',
+      references: [{
+        name: 'Material Design guidelines: Text Fields',
+        url: 'https://material.io/design/components/text-fields.html'
+      }, {
+        name: 'Material Components Web',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-textfield/README.md'
+      }],
+      code: `import {MdcTextFieldModule} from '@angular-mdc/web';`,
+      sass: `@use '@material/textfield/mdc-text-field';
+@use '@material/textfield';`
+    };
   }
 }
 
@@ -140,14 +142,18 @@ export class Examples {
   this.inputEvent = value;
 }
 
+onInput(value: any): void {
+  // do something
+}
+
 onChange(value: any): void {
-  this.changeEvent = value;
+  // do something
 }
 
 onFocus(focused: boolean): void {
-  this.focusEvent = focused;
+  // do something
 }`
-};
+  };
 
   exampleReactive = {
     html: `<form [formGroup]="demoForm" (ngSubmit)="submit(demoForm)" #formDirective="ngForm">
@@ -258,13 +264,7 @@ constructor(iconRegistry: MdcIconRegistry, sanitizer: DomSanitizer) {
   iconRegistry.addSvgIcon(
     'thumbup', sanitizer.bypassSecurityTrustResourceUrl('/assets/thumbup-icon.svg'));
 }`,
-    sass: `.temporary-workaround-for-text-field-svg {
-  top: .90em
-}
-
-.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__icon {
-  fill: rgba(0, 0, 0, .54);
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_text-field.scss`
   };
 
   exampleShape = {
@@ -273,36 +273,7 @@ constructor(iconRegistry: MdcIconRegistry, sanitizer: DomSanitizer) {
 <mdc-text-field label="Standard" class="demo-shaped-text-field"></mdc-text-field>
 
 <mdc-text-field label="Standard" outlined class="demo-shaped-text-field--outline"></mdc-text-field>`,
-    sass: `.demo-text-field-custom-colors:not(.mdc-text-field--invalid) {
-  $idle-border: rgba(blue, .38);
-  $hover-border: rgba(blue, .6);
-  $focused-border: rgba(blue, 1);
-
-  @include mdc-text-field-bottom-line-color($idle-border);
-  @include mdc-text-field-hover-bottom-line-color($hover-border);
-  @include mdc-text-field-line-ripple-color($focused-border);
-  @include mdc-text-field-ink-color(black);
-  @include mdc-text-field-label-color(rgba(blue, .5));
-  @include mdc-text-field-outline-color($idle-border);
-  @include mdc-text-field-hover-outline-color($hover-border);
-  @include mdc-text-field-focused-outline-color($focused-border);
-  @include mdc-text-field-helper-text-color($idle-border);
-  @include mdc-text-field-textarea-stroke-color($idle-border);
-  @include mdc-text-field-icon-color($hover-border);
-
-  &.mdc-text-field--focused {
-    @include mdc-text-field-label-color(rgba(blue, .87));
-    @include mdc-text-field-icon-color($focused-border);
-  }
-}
-
-.demo-shaped-text-field {
-  @include mdc-text-field-shape-radius(50%);
-}
-
-.demo-shaped-text-field--outline {
-  @include mdc-text-field-outline-shape-radius(50%);
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_text-field.scss`
   };
 
   exampleClickableIcon = {
@@ -351,28 +322,7 @@ waypoint = new Directions();`
 
   exampleFullWithSingleLine = {
     html: `<mdc-text-field label="Subject" fullwidth></mdc-text-field>`,
-    sass: `.demo-fullwidth-input:not(.mdc-text-field--invalid) {
-  @include mdc-text-field-fullwidth-bottom-line-color(rgba(blue, .38));
-  @include mdc-text-field-ink-color(black);
-  @include mdc-text-field-label-color(rgba(blue, .5));
-  @include mdc-text-field-line-ripple-color(blue);
-
-  &.mdc-text-field--focused {
-    @include mdc-text-field-label-color(rgba(blue, .87));
-  }
-}
-
-.demo-fullwidth-input.mdc-text-field--invalid {
-  @include mdc-text-field-fullwidth-bottom-line-color(rgba(orange, .38));
-  @include mdc-text-field-ink-color(orange);
-  @include mdc-text-field-label-color(rgba(orange, .5));
-  @include mdc-text-field-line-ripple-color(orange);
-
-  &.mdc-text-field--focused {
-    @include mdc-text-field-label-color(rgba(orange, .87));
-    @include mdc-text-field-fullwidth-bottom-line-color(orange);
-  }
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_text-field.scss`
   };
 
   exampleNoLabel = {
@@ -395,9 +345,7 @@ waypoint = new Directions();`
   <mdc-helper-text persistent>Helper Text
   </mdc-helper-text>
 </mdc-form-field>`,
-    sass: `.demo-shaped-text-field--outline {
-  @include mdc-text-field-outline-shape-radius(50%);
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_text-field.scss`
   };
 
   exampleCharacterCounter = {
@@ -424,58 +372,13 @@ waypoint = new Directions();`
   exampleTextarea = {
     html: `<mdc-textarea label="Comments" rows="8" cols="40" required [helperText]="commentsHelper"></mdc-textarea>
 <mdc-helper-text #commentsHelper validation>Helper Text</mdc-helper-text>`,
-    sass: `.demo-textarea:not(.mdc-text-field--invalid) {
-  $idle-border: rgba(blue, .38);
-  $hover-border: rgba(blue, .6);
-  $focused-border: rgba(blue, 1);
-
-  @include mdc-text-field-ink-color(black);
-  @include mdc-text-field-label-color(rgba(blue, .5));
-  @include mdc-text-field-textarea-stroke-color($idle-border);
-
-  &.mdc-text-field--focused {
-    @include mdc-text-field-label-color(rgba(blue, .87));
-    @include mdc-text-field-textarea-stroke-color($focused-border);
-  }
-}
-
-.demo-textarea.mdc-text-field--invalid {
-  @include mdc-text-field-ink-color(orange);
-  @include mdc-text-field-label-color(rgba(orange, .5));
-  @include mdc-text-field-textarea-stroke-color(rgba(orange, .38));
-
-  &.mdc-text-field--focused {
-    @include mdc-text-field-label-color(rgba(orange, .87));
-    @include mdc-text-field-textarea-stroke-color(orange);
-  }
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_text-field.scss`
   };
 
   exampleFullWidth = {
     html: `<mdc-textarea label="Type your message here" fullwidth required rows="8"
   [helperText]="fullWidthHelper"></mdc-textarea>
 <mdc-helper-text #fullWidthHelper validation>Helper Text</mdc-helper-text>`,
-    sass: `.demo-fullwidth-input:not(.mdc-text-field--invalid) {
-  @include mdc-text-field-fullwidth-bottom-line-color(rgba(blue, .38));
-  @include mdc-text-field-ink-color(black);
-  @include mdc-text-field-label-color(rgba(blue, .5));
-  @include mdc-text-field-line-ripple-color(blue);
-
-  &.mdc-text-field--focused {
-    @include mdc-text-field-label-color(rgba(blue, .87));
-  }
-}
-
-.demo-fullwidth-input.mdc-text-field--invalid {
-  @include mdc-text-field-fullwidth-bottom-line-color(rgba(orange, .38));
-  @include mdc-text-field-ink-color(orange);
-  @include mdc-text-field-label-color(rgba(orange, .5));
-  @include mdc-text-field-line-ripple-color(orange);
-
-  &.mdc-text-field--focused {
-    @include mdc-text-field-label-color(rgba(orange, .87));
-    @include mdc-text-field-fullwidth-bottom-line-color(orange);
-  }
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_text-field.scss`
   };
 }

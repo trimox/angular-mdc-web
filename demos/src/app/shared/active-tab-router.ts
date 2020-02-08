@@ -13,18 +13,18 @@ import {
   Router,
   RouterLink
 } from '@angular/router';
-import { filter, takeUntil, startWith } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import {filter, takeUntil, startWith} from 'rxjs/operators';
+import {Subject} from 'rxjs';
 
-import { MDC_TAB_BAR_PARENT_COMPONENT, MdcTabBarParentComponent } from '@angular-mdc/web';
+import {MDC_TAB_BAR_PARENT_COMPONENT, MdcTabBarParentComponent} from '@angular-mdc/web';
 
-@Directive({ selector: '[activeTabRouter]' })
+@Directive({selector: '[activeTabRouter]'})
 export class ActiveTabRouter implements AfterContentInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroyed = new Subject<void>();
 
-  @Input() routerLinkActiveOptions: { exact: boolean } = { exact: false };
-  @ContentChildren(RouterLink, { descendants: true }) links: QueryList<RouterLink>;
+  @Input() routerLinkActiveOptions: {exact: boolean} = {exact: false};
+  @ContentChildren(RouterLink, {descendants: true}) links: QueryList<RouterLink>;
 
   constructor(
     private _router: Router,
@@ -46,7 +46,7 @@ export class ActiveTabRouter implements AfterContentInit, OnDestroy {
   }
 
   private _detectChanges(): void {
-    if (!this.links || !this._router.navigated) { return; }
+    if (!this.links || !this._router.navigated) {return;}
 
     const hasActiveLinks = this._hasActiveLinks();
     if (hasActiveLinks) {
@@ -73,4 +73,4 @@ export class ActiveTabRouter implements AfterContentInit, OnDestroy {
   declarations: [ActiveTabRouter],
   exports: [ActiveTabRouter]
 })
-export class ActiveTabRouterModule { }
+export class ActiveTabRouterModule {}

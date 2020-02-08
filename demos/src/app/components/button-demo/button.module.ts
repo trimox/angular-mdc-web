@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 
-import { SharedModule } from '../../shared.module';
-import { RoutingModule, ROUTE_DECLARATIONS } from './routing.module';
+import {SharedModule} from '../../shared.module';
+import {RoutingModule, ROUTE_DECLARATIONS} from './routing.module';
 
 @NgModule({
   imports: [
@@ -10,4 +10,4 @@ import { RoutingModule, ROUTE_DECLARATIONS } from './routing.module';
   ],
   declarations: [ROUTE_DECLARATIONS]
 })
-export class ButtonModule { }
+export class ButtonModule {}

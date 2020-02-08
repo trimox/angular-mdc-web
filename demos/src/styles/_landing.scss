@@ -1,15 +1,14 @@
-@use '@material/typography/mixins' as typography-mixins;
-@use "@material/theme/mixins" as theme-mixins;
-@use './color-palette' as demo-color;
+@use '@material/typography';
+@use '@material/theme';
 
 .demo-landing {
-  @include theme-mixins.prop(color, demo-color.$color-white);
-  @include theme-mixins.prop(background-color, demo-color.$color-rally);
+  @include theme.prop(color, #fff);
+  @include theme.prop(background-color, #363640);
 
   height: 40vh;
 
   &__title {
-    @include typography-mixins.typography(headline2);
+    @include typography.typography(headline2);
 
     margin-top: 20px;
     margin-bottom: 0;
@@ -20,7 +19,7 @@
   }
 
   &__label {
-    @include typography-mixins.typography(headline4);
+    @include typography.typography(headline4);
 
     margin-top: 20px;
     margin-bottom: 0;
@@ -32,8 +31,8 @@
   }
 
   &__subtitle {
-    @include typography-mixins.typography(body1);
-    @include theme-mixins.prop(color, text-secondary-on-background);
+    @include typography.typography(body1);
+    @include theme.prop(color, text-secondary-on-background);
 
     padding-left: 25px;
     padding-right: 25px;

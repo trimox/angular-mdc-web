@@ -1,18 +1,18 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
-import {Api, Examples, Sass, TextFieldDemo} from './text-field-demo';
+import {Api, Examples, Sass, LinearProgress} from './linear-progress';
 
 export const ROUTE_DECLARATIONS = [
   Api,
   Examples,
   Sass,
-  TextFieldDemo
+  LinearProgress
 ];
 
 const ROUTES: Routes = [
   {
-    path: '', component: TextFieldDemo,
+    path: '', component: LinearProgress,
     children: [
       {path: '', redirectTo: 'api'},
       {path: 'api', component: Api},

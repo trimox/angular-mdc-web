@@ -1,6 +1,6 @@
-@use "@material/card/mixins";
-@use "@material/theme/mixins" as theme-mixins;
-@use "@material/rtl/mixins" as rtl-mixins;
+@use "@material/card";
+@use "@material/theme";
+@use "@material/rtl";
 
 .demo-card {
   width: 350px;
@@ -16,13 +16,13 @@
 }
 
 .demo-card__subtitle {
-  @include theme-mixins.prop(color, text-secondary-on-background);
+  @include theme.prop(color, text-secondary-on-background);
 
   margin: 0;
 }
 
 .demo-card__secondary {
-  @include theme-mixins.prop(color, text-secondary-on-background);
+  @include theme.prop(color, text-secondary-on-background);
 
   padding: 0 1rem 8px 1rem;
 }
@@ -34,7 +34,7 @@
 }
 
 .demo-card-article-group-heading {
-  @include theme-mixins.prop(color, text-secondary-on-light);
+  @include theme.prop(color, text-secondary-on-light);
 
   padding: 8px 16px;
 }
@@ -44,7 +44,7 @@
 }
 
 .demo-card-article__snippet {
-  @include theme-mixins.prop(color, text-secondary-on-light);
+  @include theme.prop(color, text-secondary-on-light);
 
   margin: 0;
 }
@@ -74,10 +74,10 @@
 }
 
 .demo-card--music {
-  @include mixins.shape-radius(24px 4px);
+  @include card.shape-radius(24px 4px);
 
-  @include rtl-mixins.rtl {
-    @include mixins.shape-radius(4px 24px);
+  @include rtl.rtl {
+    @include card.shape-radius(4px 24px);
   }
 }
 
@@ -85,7 +85,7 @@
   display: flex;
   border-top-left-radius: inherit;
 
-  @include rtl-mixins.rtl {
+  @include rtl.rtl {
     border-top-left-radius: 0;
     border-top-right-radius: inherit;
   }
@@ -95,7 +95,7 @@
   width: 110px;
   border-top-left-radius: inherit;
 
-  @include rtl-mixins.rtl {
+  @include rtl.rtl {
     border-top-left-radius: 0;
     border-top-right-radius: inherit;
   }

@@ -1,37 +1,36 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
+import {ComponentViewer} from '../../shared/component-viewer';
 
-@Component({ templateUrl: './usage.html' })
+@Component({templateUrl: './usage.html'})
 export class Usage {
-  basicUsage = `@import "@angular-mdc/theme/shape/mixins";
-@import "@angular-mdc/theme/shape/functions";`;
+  customTheming = `@use '@material/button';
 
-  customTheming = `.my-custom-button {
-  @include mdc-button-shape-radius(50%);
+.my-custom-button {
+  @include button.shape-radius(50%);
 }`;
 }
 
-@Component({ template: '<component-viewer></component-viewer>' })
+@Component({template: '<component-viewer></component-viewer>'})
 export class ShapeDocs implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
-    this._componentViewer.componentView = new ComponentView(
-      'Shape',
-      'Shapes direct attention, identify components, communicate state, and express brand.');
-
-    this._componentViewer.componentView.references = [{
-      name: 'Material Design guidelines: Shape',
-      url: 'https://material.io/go/design-shape'
-    }, {
-      name: 'Material Components Web',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-shape/README.md'
-    }];
-
-    this._componentViewer.componentView.tabs = [{
-      label: 'Usage',
-      route: './usage'
-    }];
+    this._componentViewer.template = {
+      title: 'Shape',
+      description: 'Shapes direct attention, identify components, communicate state, and express brand.',
+      references: [{
+        name: 'Material Design guidelines: Shape',
+        url: 'https://material.io/go/design-shape'
+      }, {
+        name: 'Material Components Web',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-shape/README.md'
+      }],
+      sass: `@use '@material/shape';`,
+      tabs: [{
+        label: 'Usage',
+        route: './usage'
+      }]
+    };
   }
 }

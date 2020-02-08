@@ -1,36 +1,37 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, ReactiveFormsModule, FormGroup, NgForm, Validators } from '@angular/forms';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
-import { MdcSwitchChange } from '@angular-mdc/web';
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
+import {MdcSwitchChange} from '@angular-mdc/web';
+import {ComponentViewer} from '../../shared/component-viewer';
 
-@Component({ template: '<component-viewer></component-viewer>' })
+@Component({template: '<component-viewer></component-viewer>'})
 export class SwitchDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
-    this._componentViewer.componentView = new ComponentView(
-      'Switches',
-      'Switches toggle the state of a single setting on or off.',
-      "import { MdcSwitchModule } from '@angular-mdc/web';");
-
-    this._componentViewer.componentView.references = [{
-      name: 'Material Design guidelines: Switches',
-      url: 'https://material.io/design/components/selection-controls.html#switches'
-    }, {
-      name: 'Material Components Web',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-switch/README.md'
-    }];
+    this._componentViewer.template = {
+      title: 'Switches',
+      description: 'Buttons allow users to take actions, and make choices, with a single tap.',
+      references: [{
+        name: 'Material Design guidelines: Switches',
+        url: 'https://material.io/design/components/selection-controls.html#switches'
+      }, {
+        name: 'Material Components Web',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-switch/README.md'
+      }],
+      code: `import {MdcSwitchModule} from '@angular-mdc/web';`,
+      sass: `@use '@material/switch/mdc-switch';
+@use '@material/switch';`
+    };
   }
 }
 
-@Component({ templateUrl: './api.html' })
-export class Api { }
+@Component({templateUrl: './api.html'})
+export class Api {}
 
-@Component({ templateUrl: './sass.html' })
-export class Sass { }
+@Component({templateUrl: './sass.html'})
+export class Sass {}
 
-@Component({ templateUrl: './examples.html' })
+@Component({templateUrl: './examples.html'})
 export class Examples {
   isSwitchOn: boolean = false;
   changeEvent: boolean;
@@ -79,11 +80,7 @@ onChange(evt: MdcSwitchChange): void {
   <mdc-switch></mdc-switch>
   <label>Label margin</label>
 </mdc-form-field>`,
-    sass: `.custom-switch__label-left-margin {
-  .mdc-switch + label {
-    margin-left: 10px;
-  }
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_switch.scss`
   };
 
   exampleNgModel = {
@@ -124,20 +121,6 @@ onChange(evt: MdcSwitchChange): void {
   <mdc-switch class="custom-switch--track-color"></mdc-switch>
   <label>Track Color</label>
 </mdc-form-field>`,
-    sass: `$custom-switch-color: $material-color-red-500;
-
-.demo-switch--custom {
-  @include mdc-switch-toggled-on-color($custom-switch-color);
-}
-
-.custom-switch--thumb-color {
-  @include mdc-switch-toggled-on-thumb-color($custom-switch-color);
-  @include mdc-switch-toggled-off-thumb-color($custom-switch-color);
-}
-
-.custom-switch--track-color {
-  @include mdc-switch-toggled-on-track-color($custom-switch-color);
-  @include mdc-switch-toggled-off-track-color($custom-switch-color);
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_switch.scss`
   };
 }

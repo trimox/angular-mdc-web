@@ -1,69 +1,88 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
-import { ComponentViewer, ComponentView } from '../../shared/component-viewer';
+import {ComponentViewer} from '../../shared/component-viewer';
 
-@Component({ templateUrl: './api.html' })
-export class Api { }
+@Component({templateUrl: './api.html'})
+export class Api {}
 
-@Component({ templateUrl: './sass.html' })
-export class Sass { }
+@Component({templateUrl: './sass.html'})
+export class Sass {}
 
-@Component({ template: '<component-viewer></component-viewer>' })
+@Component({
+  template: '<component-viewer></component-viewer>'
+})
 export class ButtonDemo implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
-    this._componentViewer.componentView = new ComponentView(
-      'Button',
-      'Buttons allow users to take actions, and make choices, with a single tap.',
-      "import { MdcButtonModule } from '@angular-mdc/web';");
-
-    this._componentViewer.componentView.references = [{
-      name: 'Material Design guidelines: Buttons',
-      url: 'https://material.io/design/components/buttons.html'
-    }, {
-      name: 'Material Components Web',
-      url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-button/README.md'
-    }];
+    this._componentViewer.template = {
+      title: 'Button',
+      description: 'Buttons allow users to take actions, and make choices, with a single tap.',
+      references: [{
+        name: 'Material Design guidelines: Buttons',
+        url: 'https://material.io/design/components/buttons.html'
+      }, {
+        name: 'Material Components Web',
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-button/README.md'
+      }],
+      code: `import {MdcButtonModule} from '@angular-mdc/web';`,
+      sass: `@use '@material/button/mdc-button';
+@use '@material/button';`
+    };
   }
 }
 
-@Component({ templateUrl: './examples.html' })
+@Component({templateUrl: './examples.html'})
 export class Examples {
-  example1 = {
-    html: `<button mdc-button primary>Primary Color</button>
+  exampleDefault = {
+    html: `<button mdc-button>Default</button>
 
-<button mdc-button secondary>Secondary Color</button>
+<a mdc-button href="#/button-demo/examples">Href link</a>
 
-<a mdc-button raised href="#/button-demo/examples">Href link</a>`
+<a mdc-button raised href="#/button-demo/examples">Href link</a>
+
+<button mdc-button raised>Raised</button>
+
+<button mdc-button unelevated>Unelevated</button>
+
+<button mdc-button outlined>Outlined</button>
+
+<button mdc-button outlined class="demo-thick-outline-button">Thick Outlined</button>
+
+<button mdc-button disabled>Disabled</button>
+
+<button mdc-button class="demo-button-primary">Primary Color</button>
+
+<button mdc-button class="demo-button-secondary">Secondary Color</button>`,
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_button.scss`
   };
 
-  example2 = {
-    html: `<button mdc-button>
-  <mdc-icon>favorite</mdc-icon>Icon
-</button>
+  exampleDensity = {
+    html: `<button mdc-button class="demo-density-button">Density (-3)</button>
 
-<button mdc-button secondary raised>
+<button mdc-button raised class="demo-density-button">Density (-3)</button>
+
+<button mdc-button outlined class="demo-density-button">Density (-3)</button>`,
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_button.scss`
+  };
+
+  exampleIcon = {
+    html: `<button mdc-button>
   <mdc-icon>favorite</mdc-icon>Icon
 </button>
 
 <button mdc-button outlined>
   <mdc-icon>favorite</mdc-icon>Icon
-</button>`
-  };
+</button>
 
-  example3 = {
-    html: `<button mdc-button unelevated>Unelevated</button>
+<button mdc-button raised class="demo-button-primary">
+  <mdc-icon>favorite</mdc-icon>Icon
+</button>
 
-<button mdc-button outlined>Outlined</button>`
-  };
-
-  example4 = {
-    html: `<button mdc-button raised>Raised</button>
-
-<button mdc-button dense raised>Dense and Raised</button>
-
-<button mdc-button disabled>Disabled</button>`
+<button mdc-button raised class="demo-button-secondary">
+  <mdc-icon>favorite</mdc-icon>Icon
+</button>`,
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_button.scss`
   };
 
   svgExample = {
@@ -89,16 +108,7 @@ export class Examples {
 <button mdc-button outlined class="demo-button-icon-color">
   <mdc-icon>favorite</mdc-icon>Icon Color
 </button>`,
-    sass: `.demo-button-ink-color {
-  @include mdc-button-container-fill-color($material-color-purple-500);
-  @include mdc-button-icon-color(white);
-  @include mdc-button-ink-color(orange);
-  @include mdc-states(orange);
-}
-
-.demo-button-icon-color {
-  @include mdc-button-icon-color(orange);
-}`
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_button.scss`
   };
 
   shapedExample = {
@@ -106,11 +116,8 @@ export class Examples {
 
 <button mdc-button raised class="big-round-shape-button">
   <mdc-icon>favorite</mdc-icon>Icon
-</button>
-`,
-    sass: `.big-round-shape-button {
-  @include mdc-button-shape-radius(8px);
-}`
+</button>`,
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_button.scss`
   };
 
   trailingIconExample = {
@@ -119,13 +126,14 @@ export class Examples {
   <mdc-icon>favorite</mdc-icon>
 </button>
 
-<button mdc-button secondary raised>
+<button mdc-button raised class="demo-button-primary">
   <mdc-button-label>Trailing Icon</mdc-button-label>
   <mdc-icon>favorite</mdc-icon>
 </button>
 
 <button mdc-button outlined label="Trailing Icon">
   <mdc-icon>favorite</mdc-icon>
-</button>`
+</button>`,
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_button.scss`
   };
 }

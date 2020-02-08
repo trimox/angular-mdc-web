@@ -1,4 +1,4 @@
-# [5.0.0-canary](https://github.com/trimox/angular-mdc-web/compare/v4.0.0-canary.1...v5.0.0-canary) (2020-02-08)
+# [5.0.0](https://github.com/trimox/angular-mdc-web/compare/v4.0.0-canary.1...v5.0.0) (2020-02-08)
 
 ### Bug fixes:
 * **build**: Fix build failure when using node versions 9+

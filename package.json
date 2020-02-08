@@ -8,12 +8,12 @@
     "url": "https://github.com/trimox/angular-mdc-web.git"
   },
   "license": "MIT",
-  "version": "5.0.0-canary",
+  "version": "5.0.0",
   "engines": {
     "node": ">= 12.0.0",
     "yarn": ">= 1.19.1"
   },
-  "requiredAngularVersion": "^8.0.0 || ^9.0.0",
+  "requiredAngularVersion": "^9.0.0",
   "scripts": {
     "build": "gulp web:build",
     "build:release": "gulp web:build-release",

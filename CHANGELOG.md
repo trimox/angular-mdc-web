@@ -1,3 +1,86 @@
+# [5.0.0-canary](https://github.com/trimox/angular-mdc-web/compare/v4.0.0-canary.1...v5.0.0-canary) (2020-02-08)
+
+### Bug fixes:
+* **build**: Fix build failure when using node versions 9+
+* **ripple**: Fix `mdcRipple` directive not working
+* **menu-surface**: Add Ivy compatible directive decorator
+* **select**: Should not emit `touch` event until menu closes
+* **select**: Should keep focus after selection
+* **select**: Should re-open if closed by `escape` key
+* **select**: Should handle keyboard events
+* **menu**: Should handle keyboard events
+* **chips**: Should update value if choice chip deselected
+* Upstream MDC v4 [bug fixes](https://github.com/material-components/material-components-web/blob/chore/release/CHANGELOG.md#bug-fixes-1)
+* Upstream MDC v5 [bug fixes](https://github.com/material-components/material-components-web/blob/chore/release/CHANGELOG.md#bug-fixes)
+
+### Features:
+* Upgrade to Material Components Web v5.0.0-canary branch
+* Migrate to MDC Sass module system
+* Upgrade to **@angular 9.0.0**
+* Upgrade to TypeScript 3.7
+* **chips**: Add attribute `role="grid"` to `mdc-chip-set`
+* **chips**: Add attribute `role` to `mdc-chip-text`
+* **chips**: Add attribute `tabindex` to `mdc-chip-text`
+* **chips**: Add attribute `role="row"` to `mdc-chip`
+* **chips**: Add `interaction` event to chip set
+* **chips**: Add `interactionEvent` event to chip
+* **chips**: Add `removalEvent` event to chip
+* **chips**: Add `navigationEvent` event to chip
+* **chips**: Add `trailingIconInteraction` event to chip
+* **text-field**: Add new leading and trailing classes to `mdcTextFieldIcon`
+* **ripple**: Complete rewrite of `mdcRipple` directive
+* **text-field**: Add `name` property to support name attribute on input element
+* **text-field**: Add `focus` event emitter
+* **select**: Re-implement MDC select component
+* **select**: Support a11y attribute `aria-labelledby`
+* **select**: Support a11y attribute `aria-required`
+* **select**: Add `focus` event emitter
+* **select**: Add `focus()` method
+* **list**: Add `data-value` attribute for use in select component
+* **linear-progress**: Adds support for `aria-label`, `aria-valuemin` and `aria-valuemax`
+* **progress-indicator**: Add MDC progress indicator interface
+* Upstream MDC v4 [new features](https://github.com/material-components/material-components-web/blob/chore/release/CHANGELOG.md#features-1)
+* Upstream MDC v5 [new features](https://github.com/material-components/material-components-web/blob/chore/release/CHANGELOG.md#features)
+
+### Refactor:
+* **linear-progress**: Sync progress with foundation + refactoring
+* **base**: Remove unneeded `foundation.ts` class
+* **text-field**: Improved MDC foundation adapter implementation
+* **text-field**: Use Typescript 3.7 optional chaining and null coalescing to reduce code
+* Renamed each package `foo-module.ts` to `module.ts`
+
+### Documentation:
+* **ripple**: New `mdcRipple` examples
+* **checkbox**: Fixed API description for `change` event
+* **chips**: Custom chip examples w/trailing actions should not be removable
+* **chips**: Add example for `NgModel` and `FormControl` default value
+* **dialog**: Fix missing access modifier in usage guide
+* **select**: Add example select with no label
+* **chips**: Add `focus()` method to API guide
+* Load Sass examples from url
+* Refactor and improve performance of template page component
+* Switch `highlight.js` theme to `scss/github`
+* Density mixin examples
+* Component pages updated to show MDC Sass module system
+* Usage guide for MDC Sass module system
+
+### BREAKING CHANGES:
+* **select**: MDC dropped support for native select options
+* **select**: Removed `autosize` property
+* **select**: Removed `reset()` method
+* **select**: Removed `getValue()` method
+* **button**: Removed `dense` property, use button's `density` mixin instead
+* **button**: Removed `primary` property, use button's `filled-accessible` mixin instead
+* **button**: Removed `secondary` property, use button's `filled-accessible` mixin instead
+* **chips**: Removed `primary` property, use chip's `fill-color-accessible` mixin instead
+* **chips**: Removed `secondary` property, use chip's `fill-color-accessible` mixin instead
+* **chips**: Removed `removed` event, use `removalEvent` instead
+* **linear-progress**: Removed `secondary` property, use linear-progress's `bar-color` mixin instead
+* **progress-indicator**: Removed `open: boolean` property, please use `open()` and `close()` methods
+* **text-field**: Removed `dense` property, use text-field's `density` mixin instead
+* **Sass**: Migrated to MDC's Sass module system, please reference the getting started guide
+
+
 ## [3.2.1](https://github.com/trimox/angular-mdc-web/compare/v3.2.0...v3.2.1) (2019-09-13)
 
 

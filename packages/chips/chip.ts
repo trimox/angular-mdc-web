@@ -49,7 +49,7 @@ import {MdcChipText} from './chip-directives';
 import {
   MDCChipAdapter,
   MDCChipFoundation
-} from '@material/chips/chip';
+} from '@material/chips';
 
 /**
  * Injection token used to provide the parent MdcChipSet component to MdcChip.

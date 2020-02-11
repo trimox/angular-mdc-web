@@ -101,13 +101,7 @@ export class Examples {
   }
 
   loadFoods(): void {
-    this.lazyFoods = [
-      {value: '', disabled: false},
-      {value: 'steak-0', viewValue: 'Steak'},
-      {value: 'pizza-1', viewValue: 'Pizza'},
-      {value: 'tacos-2', viewValue: 'Tacos is disabled', disabled: true},
-      {value: 'fruit-3', viewValue: 'Fruit'},
-    ];
+    this.lazyFoods = this.foods;
 
     // Patch the form
     this.lazyLoadForm.patchValue({

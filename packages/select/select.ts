@@ -570,6 +570,10 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
   }
 
   private _subscribeToMenuEvents(): void {
+    // When the list items change, re-subscribe
+    this._menu._list!.items.changes.pipe(takeUntil(this._destroyed))
+      .subscribe(() => this.layout());
+
     // Subscribe to menu opened event
     this._menu.opened.pipe(takeUntil(this._destroyed))
       .subscribe(() => this._foundation.handleMenuOpened());

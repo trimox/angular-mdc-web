@@ -12,7 +12,7 @@ export class Usage {
 }
 
 @Component({template: '<component-viewer></component-viewer>'})
-export class ShapeDocs implements OnInit {
+export class Shape implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {

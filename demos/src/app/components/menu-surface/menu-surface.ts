@@ -3,7 +3,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ComponentViewer} from '../../shared/component-viewer';
 
 @Component({template: '<component-viewer></component-viewer>'})
-export class MenuSurfaceDemo implements OnInit {
+export class MenuSurface implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
@@ -41,7 +41,7 @@ export class Examples {
     <mdc-image-list class="menu-surface-image-list">
       <mdc-image-list-item *ngFor="let i of images">
         <mdc-image-list-image-aspect>
-          <img mdcImageListImage src="https://material-components-web.appspot.com/images/photos/3x2/{{i+1}}.jpg" />
+          <img mdcImageListImage src="<image source>" />
         </mdc-image-list-image-aspect>
         <mdc-image-list-supporting>
           <span mdcImageListLabel>Text label</span>

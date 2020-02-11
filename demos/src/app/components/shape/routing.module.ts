@@ -1,16 +1,16 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
-import {Usage, ShapeDocs} from './shape';
+import {Usage, Shape} from './shape';
 
 export const ROUTE_DECLARATIONS = [
   Usage,
-  ShapeDocs
+  Shape
 ];
 
 const ROUTES: Routes = [
   {
-    path: '', component: ShapeDocs,
+    path: '', component: Shape,
     children: [
       {path: '', redirectTo: 'usage'},
       {path: 'usage', component: Usage}

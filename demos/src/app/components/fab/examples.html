@@ -1,7 +1,8 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">FAB</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="demofab.mini = !demofab.mini">Mini: {{demofab.mini ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="demofab.mini = !demofab.mini">Mini:
+      {{demofab.mini ? 'On' : 'Off'}}</button>
   </div>
   <button mdc-fab #demofab>
     <mdc-icon>edit</mdc-icon>
@@ -12,7 +13,8 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Using Font Awesome</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="demoFA.mini = !demoFA.mini">Mini: {{demoFA.mini ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="demoFA.mini = !demoFA.mini">Mini:
+      {{demoFA.mini ? 'On' : 'Off'}}</button>
   </div>
   <button mdc-fab #demoFA>
     <mdc-icon fontSet="fa" fontIcon="fa-keyboard-o"></mdc-icon>
@@ -32,7 +34,8 @@
   <h3 class="demo-content__headline">Extended FAB</h3>
   <div class="demo-layout__row">
     <div class="demo-container">
-      <button mdc-fab extended icon="add_shopping_cart" label="Add to cart" class="blackFab"></button>
+      <button mdc-fab extended icon="add_shopping_cart" label="Add to cart"
+        class="blackFab"></button>
     </div>
     <div class="demo-container">
       <button mdc-fab extended label="Create" class="blackFab"></button>
@@ -63,7 +66,8 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Extended FAB (Fluid)</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="extended.fluid = !extended.fluid">Fluid: {{extended.fluid ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="extended.fluid = !extended.fluid">Fluid:
+      {{extended.fluid ? 'On' : 'Off'}}</button>
   </div>
   <div class="demo-layout__row">
     <button #extended mdc-fab extended fluid label="Add to cart">
@@ -77,7 +81,8 @@
   <h3 class="demo-content__headline">Exit/Entry Animation</h3>
   <div class="demo-layout__row">
     <button mdc-button (click)="exited.toggleExited()">Toggle Exited</button>
-    <button mdc-button (click)="exited.mini = !exited.mini">Mini: {{exited.mini ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="exited.mini = !exited.mini">Mini:
+      {{exited.mini ? 'On' : 'Off'}}</button>
   </div>
   <button mdc-fab #exited (click)="exited.toggleExited()">
     <mdc-icon>save</mdc-icon>
@@ -136,11 +141,35 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Absolute Position</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="demoPosition.position = 'bottomLeft'">Bottom Left</button>
-    <button mdc-button (click)="demoPosition.position = 'bottomRight'">Bottom Right</button>
+    <button mdc-button (click)="demoPosition.position = 'bottomLeft'">Bottom
+      Left</button>
+    <button mdc-button (click)="demoPosition.position = 'bottomRight'">Bottom
+      Right</button>
     <button mdc-button (click)="demoPosition.mini = !demoPosition.mini">Mini: {{demoPosition.mini ? 'On' :
       'Off'}}</button>
   </div>
-  <button #demoPosition mdc-fab position='bottomRight' icon="add" class="demo-fab-position-zindex"></button>
+  <button #demoPosition mdc-fab position='bottomRight' icon="add"
+    class="demo-fab-position-zindex"></button>
   <example-viewer [example]="examplePosition"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Accessibility</h3>
+  <p>
+    Material Design spec advises that touch targets should be at least 48x48px.
+    While the FAB is 48x48px by default, the mini FAB is 40x40px. To meet this
+    requirement, add the `touch` property.
+  </p>
+  <p>
+    Note that the outer mdc-touch-target-wrapper element is only necessary if
+    you want to avoid potentially overlapping touch targets on adjacent elements
+    (due to collapsing margins). </p>
+  <div class="demo-layout__row">
+    <div class="mdc-touch-target-wrapper">
+      <button mdc-fab mini touch>
+        <mdc-icon>edit</mdc-icon>
+      </button>
+    </div>
+  </div>
+  <example-viewer [example]="exampleAccessibility"></example-viewer>
 </div>

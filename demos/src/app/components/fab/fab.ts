@@ -9,7 +9,7 @@ export class Api {}
 export class Sass {}
 
 @Component({template: '<component-viewer></component-viewer>'})
-export class FabDemo implements OnInit {
+export class Fab implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
@@ -114,5 +114,13 @@ export class Examples {
 
   examplePosition = {
     html: `<button mdc-fab position='bottomRight' icon="add"></button>`
+  };
+
+  exampleAccessibility = {
+    html: `<div class="mdc-touch-target-wrapper">
+  <button mdc-fab mini touch>
+    <mdc-icon>edit</mdc-icon>
+  </button>
+</div>`
   };
 }

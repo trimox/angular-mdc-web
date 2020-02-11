@@ -1,8 +1,8 @@
-import { Component, DebugElement } from '@angular/core';
-import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import {Component, DebugElement} from '@angular/core';
+import {fakeAsync, ComponentFixture, TestBed} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
 
-import { MdcFab, MdcFabModule, MdcIconModule } from '@angular-mdc/web';
+import {MdcFab, MdcFabModule, MdcIconModule} from '@angular-mdc/web';
 
 describe('MdcFab', () => {
   let fixture: ComponentFixture<any>;
@@ -64,6 +64,19 @@ describe('MdcFab', () => {
       testComponent.isExited = true;
       fixture.detectChanges();
       expect(buttonDebugElement.nativeElement.classList.contains('mdc-fab--exited')).toBe(true);
+    });
+
+    it('#should not apply class `touch` to normal fab', () => {
+      testComponent.touch = true;
+      fixture.detectChanges();
+      expect(buttonDebugElement.nativeElement.classList.contains('mdc-fab--touch')).toBe(false);
+    });
+
+    it('#should apply class `touch` to mini fab', () => {
+      testComponent.touch = true;
+      testComponent.mini = true;
+      fixture.detectChanges();
+      expect(buttonDebugElement.nativeElement.classList.contains('mdc-fab--touch')).toBe(true);
     });
 
     it('#should apply class `exited` after toggleExited(true)', () => {
@@ -166,6 +179,7 @@ describe('MdcFab', () => {
       [position]="myPosition"
       [extended]="extended"
       [fluid]="fluid"
+      [touch]="touch"
       [mini]="mini">
       <mdc-icon>search</mdc-icon>
     </button>
@@ -175,6 +189,7 @@ class SimpleButton {
   mini: boolean = false;
   extended: boolean;
   fluid: boolean;
+  touch: boolean = false;
   isExited: boolean = false;
   clickCount: number = 0;
   myPosition: string = 'bottomLeft';
@@ -185,8 +200,6 @@ class SimpleButton {
 }
 
 @Component({
-  template: `
-    <button mdc-fab [icon]="favorite"></button>
-  `,
+  template: `<button mdc-fab [icon]="favorite"></button>`,
 })
-class SimpleFabButton { }
+class SimpleFabButton {}

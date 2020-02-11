@@ -30,14 +30,15 @@ export class MdcFabLabel {}
     '[class.mdc-fab--mini]': 'mini',
     '[class.mdc-fab--exited]': 'exited',
     '[class.mdc-fab--extended]': 'extended',
-    '[class.ngx-mdc-fab-extended--fluid]': 'fluid'
+    '[class.ngx-mdc-fab-extended--fluid]': 'fluid',
+    '[class.mdc-fab--touch]': 'touch && mini',
   },
   template: `
   <div class="mdc-fab__ripple"></div>
   <ng-content></ng-content>
   <mdc-icon class="mdc-fab__icon" *ngIf="icon">{{icon}}</mdc-icon>
   <span class="mdc-fab__label" *ngIf="label">{{label}}</span>
-  `,
+  <div class="mdc-fab__touch" *ngIf="touch && mini"></div>`,
   providers: [MdcRipple],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -51,6 +52,15 @@ export class MdcFab implements AfterContentInit, OnDestroy {
     this._mini = coerceBooleanProperty(value);
   }
   private _mini: boolean = false;
+
+  @Input()
+  get touch(): boolean {
+    return this._touch;
+  }
+  set touch(value: boolean) {
+    this._touch = coerceBooleanProperty(value);
+  }
+  private _touch: boolean = false;
 
   @Input()
   get exited(): boolean {

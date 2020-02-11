@@ -34,7 +34,7 @@ const routes: Routes = [
     path: 'elevation-demo', loadChildren: () =>
       import('./components/elevation-demo/elevation.module').then(m => m.ElevationModule)
   },
-  {path: 'fab-demo', loadChildren: () => import('./components/fab-demo/fab.module').then(m => m.FabModule)},
+  {path: 'fab-demo', loadChildren: () => import('./components/fab/module').then(m => m.FabModule)},
   {
     path: 'form-field-demo', loadChildren: () =>
       import('./components/form-field-demo/form-field.module').then(m => m.FormFieldModule)

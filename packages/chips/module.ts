@@ -3,13 +3,14 @@ import {CommonModule} from '@angular/common';
 
 import {MdcIconModule} from '@angular-mdc/web/icon';
 import {MdcChip, MdcChipIcon, MdcChipCheckmark} from './chip';
-import {MdcChipText} from './chip-directives';
+import {MdcChipPrimaryAction, MdcChipText} from './chip-directives';
 import {MdcChipSet} from './chip-set';
 
 export const CHIP_DECLARATIONS = [
   MdcChip,
   MdcChipCheckmark,
   MdcChipIcon,
+  MdcChipPrimaryAction,
   MdcChipSet,
   MdcChipText
 ];

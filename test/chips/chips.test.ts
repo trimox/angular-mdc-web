@@ -376,6 +376,7 @@ describe('Chips', () => {
   <mdc-chip-set filter>
     <mdc-chip
       [removable]="removable"
+      [touch]="touch"
       (trailingIconInteraction)="iconInteraction()"
       (selectionChange)="chipSelectionChange($event)">
       <mdc-chip-icon leading>face</mdc-chip-icon>
@@ -393,6 +394,7 @@ describe('Chips', () => {
 class ChipTest {
   removable: boolean = true;
   disableRipple: boolean;
+  touch: boolean;
 
   @ViewChild('trailingIcon', {static: false}) trailingIcon: MdcIcon;
 

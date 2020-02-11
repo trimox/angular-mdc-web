@@ -44,7 +44,7 @@ import {
   MdcChipRemovalEvent,
   MdcChipSelectionEvent
 } from './types';
-import {MdcChipText} from './chip-directives';
+import {MdcChipPrimaryAction, MdcChipText} from './chip-directives';
 
 import {
   MDCChipAdapter,
@@ -88,6 +88,7 @@ export class MdcChipCheckmark {
     'role': 'row',
     'class': 'mdc-chip',
     '[class.mdc-chip--selected]': 'selected',
+    '[class.mdc-chip--touch]': 'touch',
     '(click)': '_handleInteraction($event)',
     '(keydown)': '_onKeydown($event)'
   },
@@ -95,13 +96,13 @@ export class MdcChipCheckmark {
   <div class="mdc-chip__ripple"></div>
   <ng-content select="mdc-chip-icon[leading]"></ng-content>
   <mdc-chip-checkmark *ngIf="filter"></mdc-chip-checkmark>
-  <span role="gridcell" *ngIf="label">
-    <mdc-chip-text>{{label}}</mdc-chip-text>
-  </span>
   <span role="gridcell">
-    <ng-content></ng-content>
-  </span>
-  `,
+    <mdc-chip-primary-action>
+      <div class="mdc-chip__touch" *ngIf="touch"></div>
+      <mdc-chip-text *ngIf="label">{{label}}</mdc-chip-text>
+      <ng-content></ng-content>
+    </mdc-chip-primary-action>
+  </span>`,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [MdcRipple]
@@ -175,6 +176,15 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
   }
   private _removable = true;
 
+  @Input()
+  get touch(): boolean {
+    return this._touch;
+  }
+  set touch(value: boolean) {
+    this._touch = coerceBooleanProperty(value);
+  }
+  private _touch: boolean = false;
+
   /** Whether the chip ripple is disabled. */
   @Input()
   get disableRipple(): boolean {
@@ -217,7 +227,8 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
 
   @ContentChild(MdcChipCheckmark, {static: false}) _checkmark?: MdcChipCheckmark;
   @ContentChildren(forwardRef(() => MdcChipIcon), {descendants: true}) _icons!: QueryList<MdcChipIcon>;
-  @ViewChild(MdcChipText, {static: true}) _primaryAction!: ElementRef<HTMLElement>;
+  @ViewChild(MdcChipPrimaryAction, {static: true}) _primaryAction!: MdcChipPrimaryAction;
+  @ViewChild(MdcChipText, {static: true}) _chipText!: MdcChipText;
 
   getDefaultFoundation() {
     const adapter: MDCChipAdapter = {
@@ -230,7 +241,7 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
         this.leadingIcon?.elementRef?.nativeElement?.classList?.remove(className),
       eventTargetHasClass: (target: EventTarget | null, className: string) =>
         (target && (target as Element).classList) ? (target as Element).classList.contains(className) : false,
-      focusPrimaryAction: () => this._primaryAction?.nativeElement?.focus(),
+      focusPrimaryAction: () => this._primaryAction._root.focus(),
       focusTrailingAction: () => this.trailingIcon?.elementRef?.nativeElement?.focus(),
       notifyInteraction: () => this.interactionEvent.emit({
         chipId: this._id,
@@ -267,7 +278,7 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
         this.trailingIcon?.elementRef?.nativeElement?.setAttribute(attr, value),
       hasLeadingIcon: () => !!this.leadingIcon,
       hasTrailingAction: () => !!this.trailingIcon,
-      setPrimaryActionAttr: (attr: string, value: string) => this._elementRef.nativeElement.setAttribute(attr, value),
+      setPrimaryActionAttr: (attr: string, value: string) => this._primaryAction._root.setAttribute(attr, value),
       getRootBoundingClientRect: () => this._root.getBoundingClientRect(),
       getCheckmarkBoundingClientRect: () =>
         this._checkmark?.elementRef?.nativeElement?.getBoundingClientRect() ?? null,

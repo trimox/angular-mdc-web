@@ -12,7 +12,7 @@ export class Api {}
 export class Sass {}
 
 @Component({template: '<component-viewer></component-viewer>'})
-export class ChipsDemo implements OnInit {
+export class Chips implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
@@ -303,5 +303,11 @@ ${this.reuseFoods}`
 formControl = new FormControl('steak-0', Validators.required);
 
 @ViewChild('form') form: NgForm;`
+  };
+
+  exampleAccessibility = {
+    html: `<div class="mdc-touch-target-wrapper">
+  <mdc-chip touch label="My Accessibility Chip"></mdc-chip>
+</div>`
   };
 }

@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'chips-demo', loadChildren: () =>
-      import('./components/chips-demo/chips.module').then(m => m.ChipsModule)
+      import('./components/chips/module').then(m => m.ChipsModule)
   },
   {path: 'theme-docs', loadChildren: () => import('./components/theme-docs/theme.module').then(m => m.ThemeModule)},
   {

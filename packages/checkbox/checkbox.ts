@@ -56,7 +56,8 @@ export const MDC_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
   exportAs: 'mdcCheckbox',
   host: {
     '[id]': 'id',
-    'class': 'mdc-checkbox'
+    'class': 'mdc-checkbox',
+    '[class.mdc-checkbox--touch]': 'touch',
   },
   template: `
   <input type="checkbox"
@@ -124,6 +125,15 @@ export class MdcCheckbox extends MDCComponent<MDCCheckboxFoundation> implements 
     }
   }
   private _checked: boolean = false;
+
+  @Input()
+  get touch(): boolean {
+    return this._touch;
+  }
+  set touch(value: boolean) {
+    this._touch = coerceBooleanProperty(value);
+  }
+  private _touch: boolean = false;
 
   @Input()
   get disabled(): boolean {

@@ -334,6 +334,7 @@ describe('MdcCheckbox', () => {
       [id]="checkboxId"
       [(ngModel)]="checkboxValue"
       [checked]="checkboxValue"
+      [touch]="touch"
       [indeterminateToChecked]="indeterminateToChecked"
       [indeterminate]="indeterminate"
       [disableRipple]="disableRipple"
@@ -348,6 +349,7 @@ class SingleCheckbox {
   checkboxValue: boolean = false;
   indeterminateToChecked: boolean = true;
   disableRipple: boolean = false;
+  touch: boolean = false;
 }
 
 /** Simple test component with an aria-label set. */

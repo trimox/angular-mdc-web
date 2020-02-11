@@ -41,15 +41,20 @@
     <button mdc-button (click)="toggle(cb)">Toggle</button>
   </div>
   <div class="demo-layout__row">
-    <button mdc-button (click)="cb.indeterminateToChecked = !cb.indeterminateToChecked">
-      Indeterminate To Checked: {{cb.indeterminateToChecked ? 'On' : 'Off'}}</button>
+    <button mdc-button
+      (click)="cb.indeterminateToChecked = !cb.indeterminateToChecked">
+      Indeterminate To Checked:
+      {{cb.indeterminateToChecked ? 'On' : 'Off'}}</button>
     <button mdc-button (click)="formField.alignEnd = !formField.alignEnd">RTL: {{formField.alignEnd ? 'On'
       : 'Off'}}</button>
-    <button mdc-button (click)="cb.disabled = !cb.disabled">Disabled: {{cb.disabled ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="cb.disableRipple = !cb.disableRipple">Ripple: {{!cb.disableRipple ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="cb.disabled = !cb.disabled">Disabled:
+      {{cb.disabled ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="cb.disableRipple = !cb.disableRipple">Ripple:
+      {{!cb.disableRipple ? 'On' : 'Off'}}</button>
   </div>
   <mdc-form-field #formField>
-    <mdc-checkbox #cb indeterminateToChecked (change)="onChange($event)"></mdc-checkbox>
+    <mdc-checkbox #cb indeterminateToChecked (change)="onChange($event)">
+    </mdc-checkbox>
     <label>Checkbox value is {{cb.checked}}</label>
   </mdc-form-field>
 
@@ -68,10 +73,32 @@
 
     <div class="demo-container">
       <mdc-form-field>
-        <mdc-checkbox class="demo-checkbox--custom-stroke-and-fill"></mdc-checkbox>
+        <mdc-checkbox class="demo-checkbox--custom-stroke-and-fill">
+        </mdc-checkbox>
         <label>Custom Stroke and Fill</label>
       </mdc-form-field>
     </div>
   </div>
   <example-viewer [example]="exampleTheme"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Accessibility</h3>
+  <p>
+    Material Design spec advises that touch targets should be at least 48 x 48
+    px. To meet this requirement, add the `touch` property.
+  </p>
+  <p>
+    Note that the outer mdc-touch-target-wrapper element is only necessary if
+    you want to avoid potentially overlapping touch targets on adjacent elements
+    (due to collapsing margins). </p>
+  <div class="demo-layout__row">
+    <div class="mdc-touch-target-wrapper">
+      <mdc-form-field>
+        <mdc-checkbox touch></mdc-checkbox>
+        <label>My Accessible Checkbox</label>
+      </mdc-form-field>
+    </div>
+  </div>
+  <example-viewer [example]="exampleAccessibility"></example-viewer>
 </div>

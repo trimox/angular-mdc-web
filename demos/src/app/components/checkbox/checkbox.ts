@@ -11,7 +11,7 @@ export class Api {}
 export class Sass {}
 
 @Component({template: '<component-viewer></component-viewer>'})
-export class CheckboxDemo implements OnInit {
+export class Checkbox implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
@@ -103,23 +103,15 @@ toggle(cb: MdcCheckbox): void {
   <mdc-checkbox class="demo-checkbox--custom-stroke-and-fill"></mdc-checkbox>
   <label>Custom Stroke and Fill</label>
 </mdc-form-field>`,
-    sass: `.demo-checkbox--custom-all {
-  $color: $material-color-red-500;
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_checkbox.scss`
+  };
 
-  @include mdc-checkbox-focus-indicator-color($color);
-  @include mdc-states($color);
-  @include mdc-checkbox-container-colors(
-    $unmarked-stroke-color: $color,
-    $unmarked-fill-color: rgba($color, .25),
-    $marked-fill-color: $color,
-    $generate-keyframes: false);
-}
-
-.demo-checkbox--custom-stroke-and-fill {
-  @include mdc-checkbox-container-colors(
-    $unmarked-stroke-color: $material-color-blue-500,
-    $marked-fill-color: $material-color-purple-500,
-    $generate-keyframes: false);
-}`
+  exampleAccessibility = {
+    html: `<div class="mdc-touch-target-wrapper">
+  <mdc-form-field>
+    <mdc-checkbox touch></mdc-checkbox>
+    <label>My Accessible Checkbox</label>
+  </mdc-form-field>
+</div>`
   };
 }

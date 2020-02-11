@@ -12,7 +12,7 @@ export const DEMO_DECLARATIONS = [
 const routes: Routes = [
   {
     path: 'button-demo', loadChildren: () =>
-      import('./components/button-demo/button.module').then(m => m.ButtonModule)
+      import('./components/button/module').then(m => m.ButtonModule)
   },
   {path: 'card-demo', loadChildren: () => import('./components/card-demo/card.module').then(m => m.CardModule)},
   {

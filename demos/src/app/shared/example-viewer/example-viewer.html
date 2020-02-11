@@ -1,7 +1,6 @@
 <mdc-list-divider class="example-divider"></mdc-list-divider>
 <button mdc-button raised class="example-opener" *ngIf="!open"
   (click)="open = !open" [label]="label">
-  <mdc-icon>code</mdc-icon>
 </button>
 <mdc-tab-bar fixed [focusOnActivate]="false" *ngIf="open"
   (activated)="onActivatedTab($event)">

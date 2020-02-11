@@ -53,7 +53,7 @@ export class ExampleViewer implements OnInit {
   }
 
   isUrl(url: string): boolean {
-    const regExp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+    const regExp = /(https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
     return regExp.test(url);
   }
 

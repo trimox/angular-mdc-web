@@ -30,11 +30,13 @@ export class MdcButtonLabel {}
     '[class.mdc-button--raised]': 'raised',
     '[class.mdc-button--unelevated]': 'unelevated',
     '[class.mdc-button--outlined]': 'outlined',
+    '[class.mdc-button--touch]': 'touch',
     '(click)': 'onClick($event)'
   },
   template: `
   <div class="mdc-button__ripple"></div>
   <mdc-button-label *ngIf="label">{{label}}</mdc-button-label>
+  <div class="mdc-button__touch" *ngIf="touch"></div>
   <ng-content></ng-content>
   `,
   providers: [MdcRipple],
@@ -68,6 +70,15 @@ export class MdcButton implements OnInit, OnDestroy {
     this._outlined = coerceBooleanProperty(value);
   }
   private _outlined: boolean = false;
+
+  @Input()
+  get touch(): boolean {
+    return this._touch;
+  }
+  set touch(value: boolean) {
+    this._touch = coerceBooleanProperty(value);
+  }
+  private _touch: boolean = false;
 
   @Input()
   get disabled(): boolean {

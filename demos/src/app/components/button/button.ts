@@ -11,7 +11,7 @@ export class Sass {}
 @Component({
   template: '<component-viewer></component-viewer>'
 })
-export class ButtonDemo implements OnInit {
+export class Button implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
@@ -135,5 +135,11 @@ export class Examples {
   <mdc-icon>favorite</mdc-icon>
 </button>`,
     sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_button.scss`
+  };
+
+  exampleAccessibility = {
+html: `<div class="mdc-touch-target-wrapper">
+  <button mdc-button touch>My Accessible Button</button>
+</div>`
   };
 }

@@ -159,3 +159,21 @@
   </div>
   <example-viewer [example]="trailingIconExample"></example-viewer>
 </div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Accessibility</h3>
+  <p>
+    Material Design spec advises that touch targets should be at least 48 x 48
+    px. To meet this requirement, add the `touch` property.
+  </p>
+  <p>
+    Note that the outer mdc-touch-target-wrapper element is only necessary if
+    you want to avoid potentially overlapping touch targets on adjacent elements
+    (due to collapsing margins). </p>
+  <div class="demo-layout__row">
+    <div class="mdc-touch-target-wrapper">
+      <button mdc-button touch>My Accessible Button</button>
+    </div>
+  </div>
+  <example-viewer [example]="exampleAccessibility"></example-viewer>
+</div>

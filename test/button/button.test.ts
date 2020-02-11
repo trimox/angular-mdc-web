@@ -211,6 +211,7 @@ describe('MdcButton', () => {
       [disabled]="isDisabled"
       [raised]="isRaised"
       [unelevated]="isUnelevated"
+      [touch]="touch"
       [outlined]="outlined">
       My label
     </button>
@@ -221,6 +222,7 @@ class SimpleButton {
   isRaised: boolean = false;
   isUnelevated: boolean = false;
   outlined: boolean = false;
+  touch: boolean = false;
   clickCount: number = 0;
 
   increment() {

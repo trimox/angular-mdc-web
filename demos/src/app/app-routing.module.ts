@@ -60,7 +60,7 @@ const routes: Routes = [
     path: 'menu-surface-demo', loadChildren: () =>
       import('./components/menu-surface-demo/menu-surface.module').then(m => m.MenuSurfaceModule)
   },
-  {path: 'radio-demo', loadChildren: () => import('./components/radio-demo/radio.module').then(m => m.RadioModule)},
+  {path: 'radio-demo', loadChildren: () => import('./components/radio/module').then(m => m.RadioModule)},
   {path: 'ripple-demo', loadChildren: () => import('./components/ripple-demo/ripple.module').then(m => m.RippleModule)},
   {path: 'select-demo', loadChildren: () => import('./components/select/module').then(m => m.SelectModule)},
   {path: 'shape-docs', loadChildren: () => import('./components/shape-docs/shape.module').then(m => m.ShapeModule)},

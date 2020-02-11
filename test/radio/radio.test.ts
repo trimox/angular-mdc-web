@@ -631,7 +631,7 @@ class RadiosInsideRadioGroup {
                      [aria-labelledby]="ariaLabelledby"
                      [aria-describedby]="ariaDescribedby">
     </mdc-radio>
-    <mdc-radio name="fruit" value="raspberry">Raspberry</mdc-radio>
+    <mdc-radio name="fruit" [touch]="touch" value="raspberry">Raspberry</mdc-radio>
     <mdc-radio id="nameless" value="no-name">No name</mdc-radio>
   `
 })
@@ -639,6 +639,7 @@ class StandaloneRadioButtons {
   ariaLabel: string = 'Banana';
   ariaLabelledby: string = 'xyz';
   ariaDescribedby: string = 'abc';
+  touch: boolean = false;
 }
 
 

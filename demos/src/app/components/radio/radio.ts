@@ -6,7 +6,7 @@ import {FormGroup, FormControl} from '@angular/forms';
 import {MdcRadio} from '@angular-mdc/web';
 
 @Component({template: '<component-viewer></component-viewer>'})
-export class RadioDemo implements OnInit {
+export class Radio implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
@@ -100,5 +100,14 @@ seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];`
 form = new FormGroup({
   season: new FormControl(''),
 });`
+  };
+
+  exampleAccessibility = {
+    html: `<div class="mdc-touch-target-wrapper">
+  <mdc-form-field>
+    <mdc-radio name="demo-radio-set" touch></mdc-radio>
+    <label>My Accessibility Radio</label>
+  </mdc-form-field>
+</div>`
   };
 }

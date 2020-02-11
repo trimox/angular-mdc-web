@@ -65,7 +65,8 @@ let nextUniqueId = 0;
     'class': 'mdc-radio',
     '(focus)': 'input.nativeElement.focus()',
     '[attr.tabindex]': '-1',
-    '[attr.name]': 'null'
+    '[attr.name]': 'null',
+    '[class.mdc-radio--touch]': 'touch',
   },
   template: `
   <input type="radio"
@@ -118,6 +119,15 @@ export class MdcRadio extends MDCComponent<MDCRadioFoundation>
   get inputId(): string {
     return `${this.id || this._uniqueId}-input`;
   }
+
+  @Input()
+  get touch(): boolean {
+    return this._touch;
+  }
+  set touch(value: boolean) {
+    this._touch = coerceBooleanProperty(value);
+  }
+  private _touch: boolean = false;
 
   @Input()
   get value(): any {

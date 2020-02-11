@@ -1,5 +1,5 @@
 @use '@material/radio/_index' as radio;
-@use '@material/ripple/mixins' as ripple;
+@use '@material/ripple/_index' as ripple;
 @use '@material/theme/color-palette' as material-color;
 
 .demo-radio--custom {

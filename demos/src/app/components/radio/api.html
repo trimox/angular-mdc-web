@@ -29,11 +29,13 @@
       </tr>
       <tr>
         <td>ariaLabel: string</td>
-        <td>Used to set the 'aria-label' attribute on the underlying input element.</td>
+        <td>Used to set the 'aria-label' attribute on the underlying input
+          element.</td>
       </tr>
       <tr>
         <td>ariaLabelledby: string</td>
-        <td>The 'aria-labelledby' attribute takes precedence as the element's text alternative.</td>
+        <td>The 'aria-labelledby' attribute takes precedence as the element's
+          text alternative.</td>
       </tr>
       <tr>
         <td>checked: boolean</td>
@@ -46,6 +48,10 @@
       <tr>
         <td>required: boolean</td>
         <td>Whether the radio button is required.</td>
+      </tr>
+      <tr>
+        <td>touch: boolean</td>
+        <td>Set the component touch target to 48 x 48 px.</td>
       </tr>
     </tbody>
   </table>
@@ -65,7 +71,8 @@
     <tbody>
       <tr>
         <td>change(source: MdcRadio, value: any)</td>
-        <td>Event emitted when the group value changes. Change events are only emitted when the value changes due to
+        <td>Event emitted when the group value changes. Change events are only
+          emitted when the value changes due to
           user interaction with a radio button.</td>
       </tr>
     </tbody>
@@ -103,14 +110,18 @@
       </tr>
       <tr>
         <td>selected: MdcRadio | null</td>
-        <td>The currently selected radio button. If set to a new radio button, the radio group value will be updated to
+        <td>The currently selected radio button. If set to a new radio button,
+          the radio group value will be updated to
           match the new selected button.</td>
       </tr>
       <tr>
         <td>value: any</td>
-        <td>Value for the radio-group. Should equal the value of the selected radio button if there is a corresponding
-          radio button with a matching value. If there is not such a corresponding radio button, this value persists to
-          be applied in case a new radio button is added with a matching value.</td>
+        <td>Value for the radio-group. Should equal the value of the selected
+          radio button if there is a corresponding
+          radio button with a matching value. If there is not such a
+          corresponding radio button, this value persists to
+          be applied in case a new radio button is added with a matching value.
+        </td>
       </tr>
     </tbody>
   </table>
@@ -120,7 +131,8 @@
     <tbody>
       <tr>
         <td>change(source: MdcRadio, value: any)</td>
-        <td>Event emitted when the group value changes. Change events are only emitted when the value changes due to
+        <td>Event emitted when the group value changes. Change events are only
+          emitted when the value changes due to
           user interaction with a radio button.</td>
       </tr>
     </tbody>

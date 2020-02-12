@@ -75,7 +75,7 @@ export class MdcDialog implements OnDestroy {
    * @param config Extra configuration options.
    * @returns Reference to the newly-opened dialog.
    */
-  open<T, D = any, R = {}>(componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
+  open<T, D = any, R = any>(componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
     config?: MdcDialogConfig<D>): MdcDialogRef<T, R> {
 
     config = _applyConfigDefaults(config, this._defaultOptions || new MdcDialogConfig());
@@ -86,7 +86,7 @@ export class MdcDialog implements OnDestroy {
 
     const overlayRef = this._createOverlay();
     const dialogContainer = this._attachDialogContainer(overlayRef, config);
-    const dialogRef = this._attachDialogContent<T>(componentOrTemplateRef,
+    const dialogRef = this._attachDialogContent<T, R>(componentOrTemplateRef,
       dialogContainer,
       overlayRef,
       config);
@@ -154,15 +154,15 @@ export class MdcDialog implements OnDestroy {
    * @param config The dialog configuration.
    * @returns A promise resolving to the MdcDialogRef that should be returned to the user.
    */
-  private _attachDialogContent<T>(
+  private _attachDialogContent<T, R>(
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
     dialogContainer: MdcDialogPortal,
     overlayRef: OverlayRef,
-    config: MdcDialogConfig): MdcDialogRef<T> {
+    config: MdcDialogConfig): MdcDialogRef<T, R> {
 
     // Create a reference to the dialog we're creating in order to give the user a handle
     // to modify and close it.
-    const dialogRef = new MdcDialogRef<T>(overlayRef, dialogContainer, config.id);
+    const dialogRef = new MdcDialogRef<T, R>(overlayRef, dialogContainer, config.id);
 
     if (componentOrTemplateRef instanceof TemplateRef) {
       dialogContainer.attachTemplatePortal(
@@ -171,7 +171,7 @@ export class MdcDialog implements OnDestroy {
     } else {
       const injector = this._createInjector<T>(config, dialogRef, dialogContainer);
       const contentRef = dialogContainer.attachComponentPortal<T>(
-        new ComponentPortal(componentOrTemplateRef, undefined, injector));
+        new ComponentPortal(componentOrTemplateRef, config.viewContainerRef, injector));
       dialogRef.componentInstance = contentRef.instance;
     }
 

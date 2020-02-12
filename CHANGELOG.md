@@ -1,3 +1,22 @@
+## [5.0.1](https://github.com/trimox/angular-mdc-web/compare/v5.0.0...v5.0.1) (2020-02-12)
+
+
+### Bug Fixes
+
+* **select:** Should listen for item changes ([#2060](https://github.com/trimox/angular-mdc-web/issues/2060)) ([aabb65f](https://github.com/trimox/angular-mdc-web/commit/aabb65f18b1b936fb2e6f7ac8c8ab8cedba90a6a)), closes [#2059](https://github.com/trimox/angular-mdc-web/issues/2059)
+
+
+### Features
+
+* **button:** Add touch target ([#2066](https://github.com/trimox/angular-mdc-web/issues/2066)) ([7fd16cb](https://github.com/trimox/angular-mdc-web/commit/7fd16cb9906ab29ff24f5acc35f651d71d56df50)), closes [#2061](https://github.com/trimox/angular-mdc-web/issues/2061)
+* **checkbox:** Add touch target ([#2067](https://github.com/trimox/angular-mdc-web/issues/2067)) ([6053007](https://github.com/trimox/angular-mdc-web/commit/6053007a2e5fc4860e1920f08fd988fe48b61774)), closes [#2062](https://github.com/trimox/angular-mdc-web/issues/2062)
+* **chips:** Add touch target ([#2071](https://github.com/trimox/angular-mdc-web/issues/2071)) ([8e5f85b](https://github.com/trimox/angular-mdc-web/commit/8e5f85b9af14b7d7fe028d6608f5f5effc2d7053)), closes [#2063](https://github.com/trimox/angular-mdc-web/issues/2063)
+* **dialog:** Add generic parameter for dialog result ([#2074](https://github.com/trimox/angular-mdc-web/issues/2074)) ([7dbcadd](https://github.com/trimox/angular-mdc-web/commit/7dbcadd0ce9432d763c5a87adc36a678441198c8))
+* **fab:** Add touch target ([#2069](https://github.com/trimox/angular-mdc-web/issues/2069)) ([80cc2c6](https://github.com/trimox/angular-mdc-web/commit/80cc2c694310202f1c9233fdd84f806ddea6cefa)), closes [#2064](https://github.com/trimox/angular-mdc-web/issues/2064)
+* **radio:** Add touch target ([#2068](https://github.com/trimox/angular-mdc-web/issues/2068)) ([0544839](https://github.com/trimox/angular-mdc-web/commit/0544839edd727f6a15f4062418e9ffbc6cd8ed3b)), closes [#2065](https://github.com/trimox/angular-mdc-web/issues/2065)
+
+
+
 # [5.0.0](https://github.com/trimox/angular-mdc-web/compare/v4.0.0-canary.1...v5.0.0) (2020-02-08)
 
 ### Bug fixes:

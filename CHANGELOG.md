@@ -1,3 +1,12 @@
+## [5.0.2](https://github.com/trimox/angular-mdc-web/compare/v5.0.1...v5.0.2) (2020-02-13)
+
+
+### Bug Fixes
+
+* **textfield:** Outlined error due to init() race condition ([#2077](https://github.com/trimox/angular-mdc-web/issues/2077)) ([555b2f0](https://github.com/trimox/angular-mdc-web/commit/555b2f0ebb3109344c2f3c2cff5d7fc94dba8b88)), closes [#2075](https://github.com/trimox/angular-mdc-web/issues/2075)
+
+
+
 ## [5.0.1](https://github.com/trimox/angular-mdc-web/compare/v5.0.0...v5.0.1) (2020-02-12)
 
 

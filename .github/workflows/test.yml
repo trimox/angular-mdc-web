@@ -1,0 +1,52 @@
+name: Run tests
+
+# Run on pull requests and pushs if branch is not master
+on:
+  pull_request:
+    branches:
+      - '*'
+      - '!master'
+      - '!gh-pages'
+  push:
+    branches:
+      - '*'
+      - '!master'
+      - '!gh-pages'
+
+jobs:
+  run:
+    name: Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [10, 11]
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 3
+
+      - name: Set Node.js version
+        uses: actions/setup-node@v1.1.0
+        with:
+          version: ${{ matrix.node }}
+
+      - run: node --version
+      - run: npm --version
+      - run: yarn --version
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Run tests
+        run: | 
+          yarn lint
+          yarn test
+
+      - name: Run Codecov
+        uses: codecov/codecov-action@v1.0.2
+        with:
+          token: ${{secrets.CODECOV_TOKEN}}

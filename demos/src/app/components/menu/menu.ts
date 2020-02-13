@@ -4,7 +4,7 @@ import {MdcListItem} from '@angular-mdc/web';
 import {ComponentViewer} from '../../shared/component-viewer';
 
 @Component({template: '<component-viewer></component-viewer>'})
-export class MenuDemo implements OnInit {
+export class Menu implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
@@ -20,7 +20,9 @@ export class MenuDemo implements OnInit {
       }],
       code: `import {MdcMenuModule} from '@angular-mdc/web';`,
       sass: `@use '@material/menu/mdc-menu';
-@use '@material/menu';`
+@use '@material/menu';
+@use '@material/list/mdc-list';
+@use '@material/menu-surface/mdc-menu-surface';`
     };
   }
 }

@@ -3,7 +3,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ComponentViewer} from '../../shared/component-viewer';
 
 @Component({template: '<component-viewer></component-viewer>'})
-export class TopAppBarDemo implements OnInit {
+export class TopAppBar implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
@@ -19,7 +19,8 @@ export class TopAppBarDemo implements OnInit {
       }],
       code: `import {MdcTopAppBarModule} from '@angular-mdc/web';`,
       sass: `@use '@material/top-app-bar/mdc-top-app-bar';
-@use '@material/top-app-bar';`
+@use '@material/top-app-bar';
+@use '@material/icon-button/mdc-icon-button';`
     };
   }
 }

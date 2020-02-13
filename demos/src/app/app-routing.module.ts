@@ -55,7 +55,7 @@ const routes: Routes = [
       import('./components/linear-progress/module').then(m => m.LinearProgressModule)
   },
   {path: 'list-demo', loadChildren: () => import('./components/list-demo/list.module').then(m => m.ListModule)},
-  {path: 'menu-demo', loadChildren: () => import('./components/menu-demo/menu.module').then(m => m.MenuModule)},
+  {path: 'menu-demo', loadChildren: () => import('./components/menu/module').then(m => m.MenuModule)},
   {
     path: 'menu-surface-demo', loadChildren: () =>
       import('./components/menu-surface/module').then(m => m.MenuSurfaceModule)
@@ -73,11 +73,11 @@ const routes: Routes = [
   {path: 'tabs-demo', loadChildren: () => import('./components/tabs-demo/tabs.module').then(m => m.TabsModule)},
   {
     path: 'text-field-demo', loadChildren: () =>
-      import('./components/text-field-demo/text-field.module').then(m => m.TextFieldModule)
+      import('./components/text-field/module').then(m => m.TextFieldModule)
   },
   {
     path: 'top-app-bar-demo', loadChildren: () =>
-      import('./components/top-app-bar-demo/top-app-bar.module').then(m => m.TopAppBarModule)
+      import('./components/top-app-bar/module').then(m => m.TopAppBarModule)
   },
   {
     path: 'typography-demo', loadChildren: () =>

@@ -26,7 +26,10 @@ export class Select implements OnInit {
       }],
       code: `import {MdcSelectModule} from '@angular-mdc/web';`,
       sass: `@use '@material/select/mdc-select';
-@use '@material/select';`
+@use '@material/select';
+@use '@material/list/mdc-list';
+@use '@material/menu-surface/mdc-menu-surface';
+@use '@material/menu/mdc-menu';`
     };
   }
 }

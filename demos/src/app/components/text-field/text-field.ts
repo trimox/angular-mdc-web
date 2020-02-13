@@ -15,7 +15,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({template: '<component-viewer></component-viewer>'})
-export class TextFieldDemo implements OnInit {
+export class TextField implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
@@ -31,7 +31,8 @@ export class TextFieldDemo implements OnInit {
       }],
       code: `import {MdcTextFieldModule} from '@angular-mdc/web';`,
       sass: `@use '@material/textfield/mdc-text-field';
-@use '@material/textfield';`
+@use '@material/textfield';
+@use '@material/form-field/mdc-form-field';`
     };
   }
 }

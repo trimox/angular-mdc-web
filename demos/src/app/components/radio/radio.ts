@@ -22,7 +22,8 @@ export class Radio implements OnInit {
       }],
       code: `import {MdcRadioModule} from '@angular-mdc/web';`,
       sass: `@use '@material/radio/mdc-radio';
-@use '@material/radio';`
+@use '@material/radio';
+@use '@material/form-field/mdc-form-field';`
     };
   }
 }

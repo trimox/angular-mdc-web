@@ -21,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: [10, 11]
+        node: [12]
 
     steps:
       - name: Clone repository
@@ -30,7 +30,7 @@ jobs:
           fetch-depth: 3
 
       - name: Set Node.js version
-        uses: actions/setup-node@v1.1.0
+        uses: actions/setup-node@v1.4.0
         with:
           version: ${{ matrix.node }}
 
@@ -47,6 +47,6 @@ jobs:
           yarn test
 
       - name: Run Codecov
-        uses: codecov/codecov-action@v1.0.2
+        uses: codecov/codecov-action@v1.0.5
         with:
           token: ${{secrets.CODECOV_TOKEN}}

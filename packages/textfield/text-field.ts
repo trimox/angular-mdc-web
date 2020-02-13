@@ -471,7 +471,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   }
 
   init(): void {
-    this._foundation.init();
+    setTimeout(() => this._foundation.init());
 
     if (!this.fullwidth && !this.outlined && !this.textarea) {
       this._ripple = new MdcRipple(this.elementRef);

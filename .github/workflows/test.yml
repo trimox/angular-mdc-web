@@ -1,52 +1,44 @@
-name: Run tests
+name: Angular MDC Test
 
-# Run on pull requests and pushs if branch is not master
 on:
-  pull_request:
-    branches:
-      - '*'
-      - '!master'
-      - '!gh-pages'
   push:
     branches:
-      - '*'
-      - '!master'
+      - master
       - '!gh-pages'
+  pull_request:
 
 jobs:
-  run:
-    name: Node ${{ matrix.node }}
+  lint:
     runs-on: ubuntu-latest
-
-    strategy:
-      fail-fast: false
-      matrix:
-        node: [12, 13]
-
     steps:
-      - name: Clone repository
-        uses: actions/checkout@master
+      - uses: actions/checkout@v2.0.0
+      - uses: actions/setup-node@v1.4.0
         with:
-          fetch-depth: 3
-
-      - name: Set Node.js version
-        uses: actions/setup-node@v1.4.0
+          node-version: 13
+      - run: yarn
+      - run: yarn lint
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.0.0
+      - uses: actions/setup-node@v1.4.0
         with:
-          node-version: ${{ matrix.node }}
-
-      - run: node --version
-      - run: npm --version
-      - run: yarn --version
-
-      - name: Install dependencies
-        run: yarn
-
-      - name: Run tests
-        run: | 
-          yarn lint
-          yarn test
-
-      - name: Run Codecov
+          node-version: 13
+      - run: yarn
+      - name: Run unit tests
+        run: yarn test
+      - name: Upload coverage to Codecov 
         uses: codecov/codecov-action@v1.0.5
         with:
           token: ${{secrets.CODECOV_TOKEN}}
+  sass-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.0.0
+      - uses: actions/setup-node@v1.4.0
+        with:
+          node-version: 13
+      - run: yarn
+      - name: Run Sass tests
+        run: |
+          yarn lint:css

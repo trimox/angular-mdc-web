@@ -24,6 +24,9 @@
       ],
       "@angular-mdc/web": [
         "../../packages/public-api.ts"
+      ],
+      "@material/*": [
+        "../../node_modules/*"
       ]
     }
   },

@@ -1,0 +1,45 @@
+name: Build Deploy Docs
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'packages/**/*.ts'
+      - 'demos/**/*.ts'
+      - 'demos/**/*.scss'
+      - '**/package*.json'
+      - '**/.npmignore'
+      - '**/*.md'
+      
+jobs:
+  build-deploy-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2.0.0
+      - name: Checkout master branch
+        # GITHUB_REF:11 gets `refs/heads/master` => `master`.
+        # See https://github.com/actions/checkout/issues/6
+        run: |
+          git checkout "${GITHUB_REF:11}"
+          git pull
+      - name: Setup node
+        uses: actions/setup-node@v1.4.0
+        with:
+          node-version: 13
+      
+      - name: Install dependencies
+        run: |
+          yarn
+     
+      - name: Build angular-mdc-web
+        run: yarn run build:release
+
+      - name: Deploy documentation
+        uses: JamesIves/github-pages-deploy-action@v3.2.1
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: demos/dist/angular-mdc-demos/
+          BUILD_SCRIPT: cd demos && npm install -g @angular/cli && npm install && ng build --prod && cd ..        

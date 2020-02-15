@@ -13,39 +13,39 @@
   <table>
     <tbody>
       <tr>
-        <td>addSvgIcon()</td>
+        <td>addSvgIcon(iconName: string, url: SafeResourceUrl, options?: IconOptions)</td>
         <td>Registers an icon by URL in the default namespace.</td>
       </tr>
       <tr>
-        <td>addSvgIconInNamespace()</td>
+        <td>addSvgIconInNamespace(namespace: string, iconName: string, url: SafeResourceUrl, options?: IconOptions)</td>
         <td>Registers an icon by URL in the specified namespace.</td>
       </tr>
       <tr>
-        <td>addSvgIconLiteral()</td>
+        <td>addSvgIconLiteral(iconName: string, literal: SafeHtml, options?: IconOptions)</td>
         <td>Registers an icon using an HTML string in the default namespace.</td>
       </tr>
       <tr>
-        <td>addSvgIconLiteralInNamespace()</td>
+        <td>addSvgIconLiteralInNamespace(namespace: string, iconName: string, literal: SafeHtml, options?: IconOptions)</td>
         <td>Registers an icon using an HTML string in the specified namespace.</td>
       </tr>
       <tr>
-        <td>addSvgIconSet()</td>
+        <td>addSvgIconSet(url: SafeResourceUrl, options?: IconOptions)</td>
         <td>Registers an icon set by URL in the default namespace.</td>
       </tr>
       <tr>
-        <td>addSvgIconSetInNamespace()</td>
+        <td>addSvgIconSetInNamespace(namespace: string, url: SafeResourceUrl, options?: IconOptions)</td>
         <td>Registers an icon set by URL in the specified namespace.</td>
       </tr>
       <tr>
-        <td>addSvgIconSetLiteral()</td>
+        <td>addSvgIconSetLiteral(literal: SafeHtml, options?: IconOptions)</td>
         <td>Registers an icon set using an HTML string in the default namespace.</td>
       </tr>
       <tr>
-        <td>addSvgIconSetLiteralInNamespace()</td>
+        <td>addSvgIconSetLiteralInNamespace(namespace: string, literal: SafeHtml, options?: IconOptions)</td>
         <td>Registers an icon set using an HTML string in the specified namespace.</td>
       </tr>
       <tr>
-        <td>classNameForFontAlias()</td>
+        <td>classNameForFontAlias(alias: string)</td>
         <td>Returns the CSS class name associated with the alias by a previous call to registerFontClassAlias. If no
           CSS class has been associated, returns the alias unmodified.</td>
       </tr>
@@ -55,26 +55,26 @@
           not have a fontSet input value, and is not loading an icon by name or URL.</td>
       </tr>
       <tr>
-        <td>getNamedSvgIcon()</td>
+        <td>getNamedSvgIcon(name: string, namespace: string)</td>
         <td>Returns an Observable that produces the icon (as an <code>&lt;svg&gt;</code> DOM element) with the given
           name and namespace. The icon must have been previously registered with addIcon or addIconSet; if not, the
           Observable will throw an error.</td>
       </tr>
       <tr>
-        <td>getSvgIconFromUrl()</td>
+        <td>getSvgIconFromUrl(safeUrl: SafeResourceUrl)</td>
         <td>Returns an Observable that produces the icon (as an <code>&lt;svg&gt;</code> DOM element) from the given
           URL. The response from the URL may be cached so this will not always cause an HTTP request, but the produced
           element will always be a new copy of the originally fetched icon. (That is, it will not contain any
           modifications made to elements previously returned).</td>
       </tr>
       <tr>
-        <td>registerFontClassAlias()</td>
+        <td>registerFontClassAlias(alias: string, className: string = alias)</td>
         <td>Defines an alias for a CSS class name to be used for icon fonts. Creating an mdcIcon component with the
           alias as the fontSet input will cause the class name to be applied to the <code>&lt;mdc-icon&gt;</code>
           element.</td>
       </tr>
       <tr>
-        <td>setDefaultFontSetClass()</td>
+        <td>setDefaultFontSetClass(className: string)</td>
         <td>Sets the CSS class name to be used for icon fonts when an <code>&lt;mdc-icon&gt;</code> component does not
           have a fontSet input value, and is not loading an icon by name or URL.</td>
       </tr>
@@ -147,4 +147,21 @@
       </tr>
     </tbody>
   </table>
-</div>
+
+  <h4 mdcSubtitle2>Interfaces</h4>
+  Options that can be used to configure how an icon or the icons in an icon set are presented.
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>viewBox: string</td>
+        <td>View box to set on the icon.</td>
+      </tr>
+    </tbody>
+  </table></div>

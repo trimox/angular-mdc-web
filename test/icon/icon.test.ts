@@ -265,6 +265,64 @@ describe('MdcIcon', () => {
       verifyPathChildElement(svgChild, 'oink');
     });
 
+    it('should be able to set the viewBox when registering a single SVG icon', fakeAsync(() => {
+      iconRegistry.addSvgIcon('fluffy', trustUrl('cat.svg'), {viewBox: '0 0 27 27'});
+      iconRegistry.addSvgIcon('fido', trustUrl('dog.svg'), {viewBox: '0 0 43 43'});
+
+      let fixture = TestBed.createComponent(IconFromSvgName);
+      let svgElement: SVGElement;
+      const testComponent = fixture.componentInstance;
+      const iconElement = fixture.debugElement.nativeElement.querySelector('mdc-icon');
+
+      testComponent.iconName = 'fido';
+      fixture.detectChanges();
+      http.expectOne('dog.svg').flush(FAKE_SVGS.dog);
+      svgElement = verifyAndGetSingleSvgChild(iconElement);
+      expect(svgElement.getAttribute('viewBox')).toBe('0 0 43 43');
+
+      // Change the icon, and the SVG element should be replaced.
+      testComponent.iconName = 'fluffy';
+      fixture.detectChanges();
+      http.expectOne('cat.svg').flush(FAKE_SVGS.cat);
+      svgElement = verifyAndGetSingleSvgChild(iconElement);
+      expect(svgElement.getAttribute('viewBox')).toBe('0 0 27 27');
+    }));
+
+    it('should be able to configure the icon viewBox', fakeAsync(() => {
+      iconRegistry.addSvgIconLiteral('fluffy', trustHtml(FAKE_SVGS.cat), {viewBox: '0 0 43 43'});
+      iconRegistry.addSvgIconLiteral('fido', trustHtml(FAKE_SVGS.dog), {viewBox: '0 0 27 27'});
+
+      let fixture = TestBed.createComponent(IconFromSvgName);
+      let svgElement: SVGElement;
+      const testComponent = fixture.componentInstance;
+      const iconElement = fixture.debugElement.nativeElement.querySelector('mdc-icon');
+
+      testComponent.iconName = 'fido';
+      fixture.detectChanges();
+      svgElement = verifyAndGetSingleSvgChild(iconElement);
+      expect(svgElement.getAttribute('viewBox')).toBe('0 0 27 27');
+
+      testComponent.iconName = 'fluffy';
+      fixture.detectChanges();
+      svgElement = verifyAndGetSingleSvgChild(iconElement);
+      expect(svgElement.getAttribute('viewBox')).toBe('0 0 43 43');
+    }));
+
+    it('should be able to configure the viewBox for the icon set', () => {
+      iconRegistry.addSvgIconSetLiteral(trustHtml(FAKE_SVGS.arrows), {viewBox: '0 0 43 43'});
+
+      const fixture = TestBed.createComponent(IconFromSvgName);
+      const testComponent = fixture.componentInstance;
+      const mdcIconElement = fixture.debugElement.nativeElement.querySelector('mdc-icon');
+      let svgElement: any;
+
+      testComponent.iconName = 'left-arrow';
+      fixture.detectChanges();
+      svgElement = verifyAndGetSingleSvgChild(mdcIconElement);
+
+      expect(svgElement.getAttribute('viewBox')).toBe('0 0 43 43');
+    });
+
     it('should never parse the same icon set multiple times', () => {
       // Normally we avoid spying on private methods like this, but the parsing is a private
       // implementation detail that should not be exposed to the public API. This test, though,
@@ -423,6 +481,22 @@ describe('MdcIcon', () => {
       expect(svgElement.getAttribute('viewBox')).toBeTruthy();
     });
 
+    it('should be able to configure the viewBox for the icon set', () => {
+      iconRegistry.addSvgIconSet(trustUrl('arrow-set.svg'), {viewBox: '0 0 43 43'});
+
+      const fixture = TestBed.createComponent(IconFromSvgName);
+      const testComponent = fixture.componentInstance;
+      const mdcIconElement = fixture.debugElement.nativeElement.querySelector('mdc-icon');
+      let svgElement: any;
+
+      testComponent.iconName = 'left-arrow';
+      fixture.detectChanges();
+      http.expectOne('arrow-set.svg').flush(FAKE_SVGS.arrows);
+      svgElement = verifyAndGetSingleSvgChild(mdcIconElement);
+
+      expect(svgElement.getAttribute('viewBox')).toBe('0 0 43 43');
+    });
+
     it('should not throw when toggling an icon that has a binding in IE11', () => {
       iconRegistry.addSvgIcon('fluffy', trustUrl('cat.svg'));
 
@@ -478,7 +552,6 @@ describe('MdcIcon', () => {
 
       tick();
     }));
-
   });
 
   describe('Icons from HTML string', () => {

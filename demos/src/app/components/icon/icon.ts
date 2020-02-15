@@ -94,7 +94,7 @@ export class Examples {
   }
 
   customHeader = `import { DomSanitizer } from '@angular/platform-browser';
-import { MdcIconRegistry } from '@angular-mdc/web';
+import {MdcIconRegistry} from '@angular-mdc/web';
 
 constructor(iconRegistry: MdcIconRegistry, sanitizer: DomSanitizer) {
   iconRegistry`;

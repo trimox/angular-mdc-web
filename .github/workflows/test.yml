@@ -17,6 +17,15 @@ jobs:
           node-version: 13
       - run: yarn
       - run: yarn lint
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.0.0
+      - uses: actions/setup-node@v1.4.0
+        with:
+          node-version: 13
+      - run: yarn
+      - run: yarn build
   unit-test:
     runs-on: ubuntu-latest
     steps:

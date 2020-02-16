@@ -71,12 +71,9 @@
     <button mdc-button (click)="meal.floatLabel = !meal.floatLabel">Float
       Label: {{meal.floatLabel ? 'On' :
       'Off'}}</button>
-    <button mdc-button (click)="meal.autosize = !meal.autosize">Autosize:
-      {{meal.autosize ? 'On' : 'Off'}}</button>
     <button mdc-button (click)="meal.setSelectedIndex(2)">Set Index (2)</button>
   </div>
-  <mdc-select #meal [helperText]="mealHelper" required placeholder="Pick a Meal"
-    autosize>
+  <mdc-select #meal [helperText]="mealHelper" required placeholder="Pick a Meal">
     <mdc-icon mdcSelectIcon>fastfood</mdc-icon>
     <mdc-menu class="demo-select-width">
       <mdc-list>

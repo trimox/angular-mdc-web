@@ -190,7 +190,7 @@ export class Examples {
   };
 
   exampleLeadingIcon = {
-    html: `<mdc-select #meal [helperText]="mealHelper" required placeholder="Pick a Meal" autosize>
+    html: `<mdc-select #meal [helperText]="mealHelper" required placeholder="Pick a Meal">
   <mdc-icon mdcSelectIcon>fastfood</mdc-icon>
   <mdc-menu>
     <mdc-list>

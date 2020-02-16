@@ -1,5 +1,4 @@
 import {
-  AfterContentInit,
   AfterViewInit,
   Attribute,
   ChangeDetectionStrategy,
@@ -394,8 +393,8 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
   exportAs: 'mdcChipIcon',
   host: {
     'class': 'mdc-chip__icon ngx-mdc-icon',
-    '[attr.role]': 'role',
-    '[attr.tabindex]': 'tabIndex',
+    '[attr.role]': 'trailing ? "button" : "img"',
+    '[attr.tabindex]': 'trailing ? 1 : -1',
     '[class.mdc-chip__icon--leading]': 'leading',
     '[class.mdc-chip__icon--trailing]': 'trailing',
     '[class.mdc-chip__trailing-action]': 'trailing',
@@ -406,7 +405,7 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcChipIcon extends MdcIcon implements AfterContentInit {
+export class MdcChipIcon extends MdcIcon {
   @Input()
   get leading(): boolean {
     return this._leading;
@@ -431,15 +430,7 @@ export class MdcChipIcon extends MdcIcon implements AfterContentInit {
     iconRegistry: MdcIconRegistry,
     @Attribute('aria-hidden') ariaHidden: string,
     @Inject(MDC_ICON_LOCATION) location?: MdcIconLocation) {
-
     super(elementRef, iconRegistry, ariaHidden, location);
-  }
-
-  ngAfterContentInit(): void {
-    if (this.trailing) {
-      this.tabIndex = 0;
-      this.role = 'button';
-    }
   }
 
   _onIconInteraction(evt: KeyboardEvent | MouseEvent): void {

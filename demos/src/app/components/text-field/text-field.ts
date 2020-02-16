@@ -251,6 +251,15 @@ resetForm(formDirective: FormGroupDirective) {
     html: `<mdc-text-field autocomplete="tel" type="tel" label="Phone number">
   <mdc-icon mdcTextFieldIcon leading>phone</mdc-icon>
   <mdc-icon mdcTextFieldIcon trailing>event</mdc-icon>
+</mdc-text-field>
+<mdc-text-field type="date" outlined label="Event date">
+  <mdc-icon mdcTextFieldIcon leading>event</mdc-icon>
+</mdc-text-field>
+<mdc-text-field type="date" outlined label="Event date">
+  <button mdc-icon-button mdcTextFieldIcon trailing icon="event"></button>
+</mdc-text-field>
+<mdc-text-field disabled label="Disabled">
+  <mdc-icon mdcTextFieldIcon leading>event</mdc-icon>
 </mdc-text-field>`
   };
 
@@ -275,16 +284,6 @@ constructor(iconRegistry: MdcIconRegistry, sanitizer: DomSanitizer) {
 
 <mdc-text-field label="Standard" outlined class="demo-shaped-text-field--outline"></mdc-text-field>`,
     sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_text-field.scss`
-  };
-
-  exampleClickableIcon = {
-    html: `<mdc-text-field type="date" outlined label="Event date" required>
-  <mdc-icon mdcTextFieldIcon leading clickable>event</mdc-icon>
-</mdc-text-field>
-
-<mdc-text-field type="date" outlined label="Event date">
-  <mdc-icon mdcTextFieldIcon trailing clickable>event</mdc-icon>
-</mdc-text-field>`
   };
 
   exampleNumeric = {

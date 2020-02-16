@@ -1,5 +1,5 @@
 import {
-  AfterContentInit,
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -143,7 +143,7 @@ const MOUSE_EVENT_IGNORE_TIME = 800;
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContentInit, DoCheck,
+export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewInit, DoCheck,
   OnDestroy, ControlValueAccessor, MdcFormFieldControl<any>, CanUpdateErrorState {
   private _uid = `mdc-input-${nextUniqueId++}`;
   private _initialized: boolean = false;
@@ -193,7 +193,9 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
     const newValue = coerceBooleanProperty(value);
     if (newValue !== this._outlined) {
       this._outlined = newValue || (this._defaults && this._defaults.outlined) || false;
-      this.layout();
+      if (this._initialized) {
+        this._layout();
+      }
     }
   }
   private _outlined: boolean = false;
@@ -420,7 +422,9 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   private _getFoundationMap(): Partial<MDCTextFieldFoundationMap> {
     return {
       helperText: this._helperText?.foundation,
-      characterCounter: this.characterCounterFoundation()
+      characterCounter: this.helperText?._characterCounterElement?.foundation,
+      leadingIcon: this.leadingIcon?.foundation,
+      trailingIcon: this.trailingIcon?.foundation
     };
   }
 
@@ -435,7 +439,6 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
     @Optional() _parentForm: NgForm,
     @Optional() _parentFormGroup: FormGroupDirective,
     @Optional() @Inject(MDC_TEXT_FIELD_DEFAULT_OPTIONS) private _defaults: MdcTextFieldDefaultOptions) {
-
     super(elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
 
     if (this.ngControl) {
@@ -452,13 +455,15 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
     this.id = this.id;
   }
 
-  ngAfterContentInit(): void {
-    this._setDefaultOptions();
-    this.init();
+  ngAfterViewInit(): void {
+    this._asyncBuildFoundation()
+      .then(() => {
+        this.init();
+      });
   }
 
   ngOnDestroy(): void {
-    this._destroy();
+    this.destroy();
   }
 
   ngDoCheck(): void {
@@ -470,20 +475,32 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
     }
   }
 
+  async _asyncBuildFoundation(): Promise<void> {
+    this._foundation = this.getDefaultFoundation();
+  }
+
+  async _asyncInitFoundation(): Promise<void> {
+    this._foundation.init();
+  }
+
   init(): void {
-    setTimeout(() => this._foundation.init());
+    this._asyncInitFoundation()
+      .then(() => {
+        this._initialized = true;
+        this._setDefaultOptions();
 
-    if (!this.fullwidth && !this.outlined && !this.textarea) {
-      this._ripple = new MdcRipple(this.elementRef);
-      this._ripple.init();
-    } else {
-      if (this._ripple) {
-        this._ripple.destroy();
-      }
-    }
-    this._checkCustomValidity();
+        if (!this.fullwidth && !this.outlined && !this.textarea) {
+          this._ripple = new MdcRipple(this.elementRef);
+          this._ripple.init();
+        } else {
+          this._ripple?.destroy();
+        }
 
-    this._initialized = true;
+        this._checkCustomValidity();
+        this.leadingIcon?.foundation?.init();
+        this.trailingIcon?.foundation?.init();
+        this.disabled = this._input.nativeElement.disabled;
+      });
   }
 
   onTextFieldInteraction(): void {
@@ -591,8 +608,8 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   }
 
   /** Initializes Text Field's internal state based on the environment state */
-  private layout(): void {
-    this._destroy();
+  private _layout(): void {
+    this.destroy();
     this.init();
     this._changeDetectorRef.markForCheck();
 
@@ -609,12 +626,13 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
   /** Implemented as part of ControlValueAccessor. */
   setDisabledState(isDisabled: boolean) {
     const newValue = coerceBooleanProperty(isDisabled);
-
     if (newValue !== this._disabled) {
       this._disabled = newValue;
-      this._foundation.setDisabled(this._disabled);
+      if (this._initialized) {
+        this._foundation?.setDisabled(newValue);
+      }
+      this._changeDetectorRef.markForCheck();
     }
-    this._changeDetectorRef.markForCheck();
   }
 
   /** Set the default options here. */
@@ -640,14 +658,11 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
     }
   }
 
-  private _destroy(): void {
-    if (this._lineRipple) {
-      this._lineRipple.destroy();
-    }
-    if (this._ripple) {
-      this._ripple.destroy();
-    }
-    this._foundation.destroy();
+  /** Override MDCComponent destroy */
+  destroy(): void {
+    this._lineRipple?.destroy();
+    this._ripple?.destroy();
+    this._foundation?.destroy();
   }
 
   private _isValid(): boolean {
@@ -665,11 +680,6 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterContent
 
   private _getFloatingLabel(): MdcFloatingLabel {
     return this._floatingLabel || this._notchedOutline!.floatingLabel;
-  }
-
-  protected characterCounterFoundation(): any {
-    return this.helperText && this.characterCounter ?
-      this.helperText._characterCounterElement!.getDefaultFoundation() : undefined;
   }
 
   private _getInputElement(): HTMLInputElement | HTMLTextAreaElement {

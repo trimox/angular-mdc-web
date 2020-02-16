@@ -25,10 +25,8 @@
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Input and Change events</h3>
-  <mdc-text-field label="Standard"
-   (input)="onInput($event)"
-   (focus)="onFocus($event)"
-   (change)="onChange($event)"></mdc-text-field>
+  <mdc-text-field label="Standard" (input)="onInput($event)"
+    (focus)="onFocus($event)" (change)="onChange($event)"></mdc-text-field>
   <p>Input event: {{inputEvent}}</p>
   <p>Change event: {{changeEvent}}</p>
   <p>Focus event: {{focusEvent}}</p>
@@ -201,6 +199,21 @@
       <mdc-icon mdcTextFieldIcon trailing>event</mdc-icon>
     </mdc-text-field>
   </div>
+  <div class="demo-container">
+    <mdc-text-field type="date" outlined label="Event date">
+      <mdc-icon mdcTextFieldIcon leading>event</mdc-icon>
+    </mdc-text-field>
+  </div>
+  <div class="demo-container">
+    <mdc-text-field type="date" outlined label="Event date">
+      <button mdc-icon-button mdcTextFieldIcon trailing icon="event"></button>
+    </mdc-text-field>
+  </div>
+  <div class="demo-container">
+    <mdc-text-field disabled label="Disabled">
+      <mdc-icon mdcTextFieldIcon leading>event</mdc-icon>
+    </mdc-text-field>
+  </div>
   <example-viewer [example]="exampleIcons"></example-viewer>
 </div>
 
@@ -231,32 +244,6 @@
   </div>
 
   <example-viewer [example]="exampleShape"></example-viewer>
-</div>
-
-<div class="demo-content">
-  <h3 class="demo-content__headline">Clickable Icon</h3>
-  <div class="demo-layout__row">
-    <button mdc-button
-      (click)="leadingicon.clickable = !leadingicon.clickable">Clickable
-      Icon:
-      {{leadingicon.clickable ? 'On' : 'Off'}}</button>
-  </div>
-  <mdc-text-field type="date" #outlinedicon outlined label="Event date"
-    required>
-    <mdc-icon mdcTextFieldIcon leading #leadingicon>event</mdc-icon>
-  </mdc-text-field>
-
-  <div class="demo-layout__row">
-    <button mdc-button
-      (click)="trailingicon.clickable = !trailingicon.clickable">Clickable
-      Icon:
-      {{trailingicon.clickable ? 'On' : 'Off'}}</button>
-  </div>
-  <mdc-text-field type="date" #outlinedtrailing outlined label="Event date">
-    <mdc-icon mdcTextFieldIcon trailing #trailingicon>event</mdc-icon>
-  </mdc-text-field>
-
-  <example-viewer [example]="exampleClickableIcon"></example-viewer>
 </div>
 
 <div class="demo-content">

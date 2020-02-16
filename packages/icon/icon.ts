@@ -80,7 +80,6 @@ const funcIriPattern = /^url\(['"]?#(.*?)['"]?\)$/;
   exportAs: 'mdcIcon',
   host: {
     '[attr.role]': 'role',
-    '[attr.tabindex]': 'tabIndex',
     'class': 'ngx-mdc-icon',
     '[class.ngx-mdc-icon--clickable]': 'clickable',
     '[class.ngx-mdc-icon--inline]': 'inline'
@@ -97,14 +96,16 @@ export class MdcIcon implements AfterViewChecked, OnDestroy, OnChanges, OnInit {
   private _previousPath?: string;
 
   /** Keeps track of the elements and attributes that we've prefixed with the current path. */
-  private _elementsWithExternalReferences?: Map<Element, { name: string, value: string }[]>;
+  private _elementsWithExternalReferences?: Map<Element, {name: string, value: string}[]>;
 
   /**
    * Whether the icon should be inlined, automatically sizing the icon to match the font size of
    * the element the icon is contained in.
    */
   @Input()
-  get inline(): boolean { return this._inline; }
+  get inline(): boolean {
+    return this._inline;
+  }
   set inline(inline: boolean) {
     this._inline = coerceBooleanProperty(inline);
   }
@@ -114,11 +115,12 @@ export class MdcIcon implements AfterViewChecked, OnDestroy, OnChanges, OnInit {
   @Input() svgIcon?: string;
 
   @Input() role: string | null = 'img';
-  @Input() tabIndex: number | null = null;
 
   /** Font set that the icon is a part of. */
   @Input()
-  get fontSet(): string { return this._fontSet; }
+  get fontSet(): string {
+    return this._fontSet;
+  }
   set fontSet(value: string) {
     this._fontSet = this._cleanupFontValue(value);
   }
@@ -126,22 +128,24 @@ export class MdcIcon implements AfterViewChecked, OnDestroy, OnChanges, OnInit {
 
   /** Name of an icon within a font set. */
   @Input()
-  get fontIcon(): string { return this._fontIcon; }
+  get fontIcon(): string {
+    return this._fontIcon;
+  }
   set fontIcon(value: string) {
     this._fontIcon = this._cleanupFontValue(value);
   }
   private _fontIcon: string = '';
 
   @Input()
-  get clickable(): boolean { return this._clickable; }
+  get clickable(): boolean {
+    return this._clickable;
+  }
   set clickable(value: boolean) {
     this._clickable = coerceBooleanProperty(value);
 
     if (this._clickable) {
-      this.tabIndex = 0;
       this.role = 'button';
     } else {
-      this.tabIndex = null;
       this.role = null;
     }
   }
@@ -176,9 +180,7 @@ export class MdcIcon implements AfterViewChecked, OnDestroy, OnChanges, OnInit {
   }
 
   ngOnDestroy() {
-    if (this._elementsWithExternalReferences) {
-      this._elementsWithExternalReferences.clear();
-    }
+    this._elementsWithExternalReferences?.clear();
   }
 
   /**
@@ -356,7 +358,7 @@ export class MdcIcon implements AfterViewChecked, OnDestroy, OnChanges, OnInit {
             attributes = [];
             elements.set(elementWithReference, attributes);
           }
-          attributes!.push({ name: attr, value: match[1] });
+          attributes!.push({name: attr, value: match[1]});
         }
       });
     }

@@ -82,7 +82,7 @@ export class Examples {
         sanitizer.bypassSecurityTrustHtml(INLINE_ICON_SET))
       .registerFontClassAlias('fontawesome', 'fa');
 
-    console.log(iconRegistry)
+    console.log(iconRegistry);
   }
 
   alternateColors(icon: MdcIcon) {

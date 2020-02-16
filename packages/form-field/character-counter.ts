@@ -20,6 +20,10 @@ import {
   template: '<ng-content></ng-content>'
 })
 export class MdcCharacterCounter extends MDCComponent<MDCTextFieldCharacterCounterFoundation> implements OnDestroy {
+  get foundation(): MDCTextFieldCharacterCounterFoundation {
+    return this._foundation;
+  }
+
   getDefaultFoundation() {
     const adapter: MDCTextFieldCharacterCounterAdapter = {
       setContent: (content: string) => this.elementRef.nativeElement.textContent = content
@@ -32,6 +36,6 @@ export class MdcCharacterCounter extends MDCComponent<MDCTextFieldCharacterCount
   }
 
   ngOnDestroy(): void {
-    this.getDefaultFoundation().destroy();
+    this.destroy();
   }
 }

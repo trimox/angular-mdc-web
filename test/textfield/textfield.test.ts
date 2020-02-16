@@ -14,7 +14,8 @@ import {
   MdcTextField,
   MdcTextFieldModule,
   MdcIconModule,
-  MDC_TEXT_FIELD_DEFAULT_OPTIONS
+  MDC_TEXT_FIELD_DEFAULT_OPTIONS,
+  MdcTextFieldIcon
 } from '@angular-mdc/web';
 
 describe('MdcTextField', () => {
@@ -27,7 +28,7 @@ describe('MdcTextField', () => {
 
     TestBed.configureTestingModule({
       imports: [MdcTextFieldModule, MdcIconModule, FormsModule],
-      declarations: [SimpleTextfield, TextFieldTestWithValue],
+      declarations: [SimpleTextfield, TextFieldTestWithValue, TextFieldWithIcons],
       providers: [{provide: Platform, useFactory: () => platform}]
     });
     TestBed.compileComponents();
@@ -218,6 +219,29 @@ describe('MdcTextField', () => {
     });
   });
 
+  describe('textfield with icons', () => {
+    let textFieldDebugElement: DebugElement;
+    let textFieldNativeElement: HTMLElement;
+    let testInstance: MdcTextField;
+    let testComponent: TextFieldWithIcons;
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(TextFieldWithIcons);
+      fixture.detectChanges();
+
+      textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextField));
+      textFieldNativeElement = textFieldDebugElement.nativeElement;
+      testInstance = textFieldDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+    });
+
+    it('#should be disabled', () => {
+      testComponent.disabled = true;
+      fixture.detectChanges();
+      expect(testInstance.disabled).toBe(true);
+    });
+  });
+
   describe('basic behaviors', () => {
     let textFieldDebugElement: DebugElement;
     let textFieldNativeElement: HTMLElement;
@@ -354,7 +378,7 @@ describe('MDC_TEXT_FIELD_DEFAULT_OPTIONS', () => {
   // it('should be default of outlined, if specified in default options',
   //   fakeAsync(() => {
   //     const fixture = createComponent(SimpleTextfield, [{
-  //       provide: MDC_TEXT_FIELD_DEFAULT_OPTIONS, useValue: { outlined: true }
+  //       provide: MDC_TEXT_FIELD_DEFAULT_OPTIONS, useValue: {outlined: true}
   //     }
   //     ]);
   //     fixture.detectChanges();
@@ -442,4 +466,14 @@ class TextFieldTestWithValue {
 
   onInput: (value: any) => void = () => {};
   onChange(value: any) {}
+}
+
+@Component({
+  template: `
+<mdc-text-field [disabled]="disabled" label="Textfield with icon">
+  <mdc-icon mdcTextFieldIcon leading>phone</mdc-icon>
+</mdc-text-field>`,
+})
+class TextFieldWithIcons {
+  disabled: boolean = false;
 }

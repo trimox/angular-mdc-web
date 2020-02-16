@@ -1,4 +1,4 @@
-name: Build Deploy Docs
+name: Build and Deploy
 
 on:
   push:
@@ -13,7 +13,7 @@ on:
       - '**/*.md'
       
 jobs:
-  build-deploy-docs:
+  build-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
@@ -38,7 +38,7 @@ jobs:
 
       - name: Deploy documentation
         uses: JamesIves/github-pages-deploy-action@releases/v3
-        env:
+        with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
           FOLDER: demos/dist/angular-mdc-demos/

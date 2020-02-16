@@ -9,6 +9,7 @@ on:
       - 'demos/**/*.ts'
       - 'demos/**/*.scss'
       - '**/package*.json'
+      - 'package.json'
       - '**/.npmignore'
       - '**/*.md'
       
@@ -42,7 +43,6 @@ jobs:
           npm install -g @angular/cli
           npm install
           ng build --prod
-          cd ..
         
       - name: Deploy documentation
         uses: JamesIves/github-pages-deploy-action@releases/v3

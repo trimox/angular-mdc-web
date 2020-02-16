@@ -9,7 +9,7 @@ export class Api {}
 export class Sass {}
 
 @Component({template: '<component-viewer></component-viewer>'})
-export class CardDemo implements OnInit {
+export class Card implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {

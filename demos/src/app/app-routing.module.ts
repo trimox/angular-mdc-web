@@ -14,7 +14,7 @@ const routes: Routes = [
     path: 'button-demo', loadChildren: () =>
       import('./components/button/module').then(m => m.ButtonModule)
   },
-  {path: 'card-demo', loadChildren: () => import('./components/card-demo/card.module').then(m => m.CardModule)},
+  {path: 'card-demo', loadChildren: () => import('./components/card/module').then(m => m.CardModule)},
   {
     path: 'checkbox-demo', loadChildren: () =>
       import('./components/checkbox/module').then(m => m.CheckboxModule)

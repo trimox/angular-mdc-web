@@ -36,10 +36,17 @@ jobs:
       - name: Build angular-mdc-web
         run: yarn run build:release
 
+      - name: Build documentation
+        run: |
+          cd demos
+          npm install -g @angular/cli
+          npm install
+          ng build --prod
+          cd ..
+        
       - name: Deploy documentation
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
           FOLDER: demos/dist/angular-mdc-demos/
-          BUILD_SCRIPT: cd demos && npm install -g @angular/cli && npm install && ng build --prod && cd ..        

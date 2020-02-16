@@ -37,7 +37,7 @@ jobs:
         run: yarn run build:release
 
       - name: Deploy documentation
-        uses: JamesIves/github-pages-deploy-action@v3.2.1
+        uses: JamesIves/github-pages-deploy-action@releases/v3
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages

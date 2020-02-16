@@ -101,7 +101,11 @@ export class MdcChipCheckmark {
       <mdc-chip-text *ngIf="label">{{label}}</mdc-chip-text>
       <ng-content></ng-content>
     </mdc-chip-primary-action>
-  </span>`,
+  </span>
+  <span role="gridcell" *ngIf="!!trailingIcon">
+    <ng-content select="mdc-chip-icon[trailing]"></ng-content>
+  </span>
+  `,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [MdcRipple]

@@ -216,6 +216,7 @@ export class MdcChipSet extends MDCComponent<MDCChipSetFoundation>
 
     this._dropSubscriptions();
     this._chipRemovalSubscription?.unsubscribe();
+    this._foundation?.destroy();
   }
 
   // Implemented as part of ControlValueAccessor.

@@ -45,6 +45,10 @@
         <td>disabled: boolean</td>
         <td>Disables the slider.</td>
       </tr>
+      <tr>
+        <td>tabIndex: number</td>
+        <td>Set the underlying tab index of the component. (Default is 0)</td>
+      </tr>
     </tbody>
   </table>
 
@@ -81,6 +85,12 @@
         <td>Broadcasts when slider value is changed by way of a user event, e.g.
           when a user is dragging the slider or
           changing the value using the arrow keys.</td>
+      </tr>
+      <tr>
+        <td>
+          valueChange(value: number)
+        </td>
+        <td>Emits when the value of the slider changes.</td>
       </tr>
     </tbody>
   </table>

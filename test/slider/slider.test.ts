@@ -94,29 +94,28 @@ describe('MdcSlider', () => {
     });
 
     it('#should apply class mdc-slider--discrete based on property', fakeAsync(() => {
-      testComponent.isDiscrete = true;
+      testComponent.discrete = true;
       fixture.detectChanges();
       expect(sliderDebugElement.nativeElement.classList.contains('mdc-slider--discrete')).toBe(true);
     }));
 
     it('#should NOT apply class mdc-slider--display-markers unless discrete is true', () => {
-      testComponent.hasMarkers = true;
+      testComponent.markers = true;
       fixture.detectChanges();
       expect(sliderDebugElement.nativeElement.classList.contains('mdc-slider--display-markers')).toBe(false);
     });
 
     it('#should apply class mdc-slider--display-markers if discrete is true', () => {
-      testComponent.hasMarkers = true;
-      fixture.detectChanges();
-      testComponent.isDiscrete = true;
+      testComponent.markers = true;
+      testComponent.discrete = true;
       fixture.detectChanges();
       expect(sliderDebugElement.nativeElement.classList.contains('mdc-slider--display-markers')).toBe(true);
     });
 
     it('#should apply class mdc-slider--display-markers if discrete is true', () => {
-      testComponent.isDiscrete = true;
+      testComponent.discrete = true;
       fixture.detectChanges();
-      testComponent.hasMarkers = true;
+      testComponent.markers = true;
       fixture.detectChanges();
       dispatchMouseEvent(sliderInstance.thumbContainer.nativeElement, 'mousedown');
       fixture.detectChanges();
@@ -132,60 +131,54 @@ describe('MdcSlider', () => {
     });
 
     it('#should set step to 2', () => {
-      sliderInstance.step = 2;
+      testComponent.step = 2;
       fixture.detectChanges();
       expect(sliderInstance.step).toBe(2);
       expect(sliderInstance.value).toBe(10);
     });
 
+    it('#should not re-set step to 3', () => {
+      sliderInstance.step = 3;
+      fixture.detectChanges();
+      sliderInstance.step = 3;
+      fixture.detectChanges();
+      expect(sliderInstance.step).toBe(3);
+    });
+
     it('#should set min to 10', () => {
-      sliderInstance.min = 10;
+      testComponent.min = 10;
       fixture.detectChanges();
       expect(sliderInstance.min).toBe(10);
     });
 
-    it('#should NOT set min to 101', () => {
-      sliderInstance.min = 101;
-      fixture.detectChanges();
-      expect(sliderInstance.min).toBeLessThanOrEqual(100);
-    });
-
     it('#should set max to 150', () => {
-      sliderInstance.max = 150;
+      testComponent.max = 150;
       fixture.detectChanges();
       expect(sliderInstance.max).toBe(150);
     });
 
-    it('#should NOT set max to -1', () => {
-      sliderInstance.max = -1;
-      fixture.detectChanges();
-      expect(sliderInstance.max).toBeGreaterThan(0);
-    });
-
     it('#should set disabled to true', () => {
-      testComponent.isDisabled = true;
+      testComponent.disabled = true;
       fixture.detectChanges();
       expect(sliderInstance.disabled).toBe(true);
     });
 
-    it('#should not set value if disabled', fakeAsync(() => {
-      testComponent.isDisabled = true;
-      fixture.detectChanges();
-      testComponent.myValue = 70;
-      fixture.detectChanges();
-      expect(sliderInstance.value).toBe(10);
-    }));
-
     it('#should return value of 15', fakeAsync(() => {
-      testComponent.myValue = 15;
+      testComponent.value = 15;
       fixture.detectChanges();
       expect(sliderInstance.value).toBe(15);
     }));
 
-    it('#should return value of 15', fakeAsync(() => {
-      sliderInstance.setValue(25);
+    it('#should return value of 25', fakeAsync(() => {
+      sliderInstance.value = 25;
       fixture.detectChanges();
       expect(sliderInstance.value).toBe(25);
+    }));
+
+    it('#should set null value to min', fakeAsync(() => {
+      testComponent.value = null;
+      fixture.detectChanges();
+      expect(sliderInstance.value).toBe(testComponent.min);
     }));
 
     it('#should dispatch an event when the window is resized', fakeAsync(() => {
@@ -226,24 +219,24 @@ describe('MdcSlider', () => {
 @Component({
   template: `
     <mdc-slider
-      [value]="myValue"
-      [max]="myMax"
-      [min]="myMin"
-      [step]="myStep"
-      [discrete]="isDiscrete"
-      [markers]="hasMarkers"
-      [disabled]="isDisabled">
+      [value]="value"
+      [max]="max"
+      [min]="min"
+      [step]="step"
+      [discrete]="discrete"
+      [markers]="markers"
+      [disabled]="disabled">
     </mdc-slider>
   `,
 })
 class SingleSlider {
-  isDisabled: boolean;
-  isDiscrete: boolean;
-  hasMarkers: boolean;
-  myValue: number = 10;
-  myMax: number = 100;
-  myMin: number = 0;
-  myStep: number = 0;
+  disabled: boolean;
+  discrete: boolean;
+  markers: boolean;
+  value: number = 10;
+  max: number = 100;
+  min: number = 0;
+  step: number = 0;
 }
 
 @Component({

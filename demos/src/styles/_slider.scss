@@ -1,10 +1,10 @@
 @use '@material/slider/_index' as slider;
 @use '@material/theme/color-palette' as material-color;
 
-.demo-slider--custom {
+.demo-slider-custom {
   @include slider.highlight-color(material-color.$red-700);
   @include slider.rail-color(material-color.$yellow-600, 1);
-  @include slider.rail-tick-mark-color(white);
+  @include slider.rail-tick-mark-color(blue);
   @include slider.thumb-color(material-color.$orange-500);
   @include slider.focus-halo-color(material-color.$yellow-900);
   @include slider.value-pin-fill-color-accessible(material-color.$pink-500);

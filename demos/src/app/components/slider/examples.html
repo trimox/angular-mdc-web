@@ -1,23 +1,17 @@
 <div class="demo-content">
-  <mdc-slider #simple discrete [min]="min" [max]="max" [value]="value"></mdc-slider>
-  <p>Min: {{ simple.min }}</p>
-  <p>Max: {{ simple.max }}</p>
-  <p>Value: {{ simple.value }}</p>
-  <example-viewer [example]="exampleSimple"></example-viewer>
-</div>
-
-<div class="demo-content">
   <h3 class="demo-content__headline">Continuous</h3>
-  <mdc-slider #continuous [min]="continuousMin.value" [max]="continuousMax.value"
-    value="50" (input)="onInput($event)" (change)="onChange($event)" name="test"></mdc-slider>
+  <mdc-slider #continuous [min]="continuousMin.value"
+    [max]="continuousMax.value" value="50" (input)="onInput($event)"
+    (change)="onChange($event)" name="test"></mdc-slider>
 
-  <mdc-text-field #continuousMin label="Min" size="1" min="0" max="200" type="number"
-    value="0"></mdc-text-field>
-  <mdc-text-field #continuousMax label="Max" type="number" size="1" min="0" max="200"
-    value="100"></mdc-text-field>
+  <mdc-text-field #continuousMin label="Min" size="1" min="0" max="200"
+    type="number" value="0"></mdc-text-field>
+  <mdc-text-field #continuousMax label="Max" type="number" size="1" min="0"
+    max="200" value="100"></mdc-text-field>
   <div class="demo-layout__row">
     <mdc-form-field>
-      <mdc-checkbox (change)="continuous.disabled = !continuous.disabled"></mdc-checkbox>
+      <mdc-checkbox (change)="continuous.disabled = !continuous.disabled">
+      </mdc-checkbox>
       <label>Disabled</label>
     </mdc-form-field>
   </div>
@@ -29,16 +23,19 @@
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Discrete</h3>
-  <mdc-slider #discrete discrete [min]="discreteMin.value" [max]="discreteMax.value"
-    value="25" (input)="discreteInputEventValue = $event.value" (change)="discreteChangeEventValue = $event.value"></mdc-slider>
+  <mdc-slider #discrete discrete [min]="discreteMin.value"
+    [max]="discreteMax.value" [value]="discreteValue"
+    (input)="discreteInputEventValue = $event.value"
+    (change)="discreteChangeEventValue = $event.value"></mdc-slider>
 
-  <mdc-text-field #discreteMin label="Min" type="number" size="1" min="0" max="200"
-    value="0"></mdc-text-field>
-  <mdc-text-field #discreteMax label="Max" type="number" size="1" min="0" max="200"
-    value="100"></mdc-text-field>
+  <mdc-text-field #discreteMin label="Min" type="number" size="1" min="0"
+    max="200" value="0"></mdc-text-field>
+  <mdc-text-field #discreteMax label="Max" type="number" size="1" min="0"
+    max="200" value="100"></mdc-text-field>
   <div class="demo-layout__row">
     <mdc-form-field>
-      <mdc-checkbox (change)="discrete.disabled = !discrete.disabled"></mdc-checkbox>
+      <mdc-checkbox (change)="discrete.disabled = !discrete.disabled">
+      </mdc-checkbox>
       <label>Disabled</label>
     </mdc-form-field>
   </div>
@@ -50,8 +47,9 @@
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Discrete with Tick Marks</h3>
-  <mdc-slider #demomarkers discrete markers [min]="dmMin.value" [max]="dmMax.value"
-    [step]="dmStep.value" value="20" (input)="markersInputEventValue = $event.value"
+  <mdc-slider #demomarkers discrete markers [min]="dmMin.value"
+    [max]="dmMax.value" [step]="dmStep.value" value="20"
+    (input)="markersInputEventValue = $event.value"
     (change)="markersChangeEventValue = $event.value"></mdc-slider>
   <mdc-text-field #dmMin label="Min" type="number" size="1" min="0" max="200"
     value="0"></mdc-text-field>
@@ -61,7 +59,8 @@
     value="5"></mdc-text-field>
   <div class="demo-layout__row">
     <mdc-form-field>
-      <mdc-checkbox (change)="demomarkers.disabled = !demomarkers.disabled"></mdc-checkbox>
+      <mdc-checkbox (change)="demomarkers.disabled = !demomarkers.disabled">
+      </mdc-checkbox>
       <label>Disabled</label>
     </mdc-form-field>
   </div>
@@ -72,14 +71,25 @@
 </div>
 
 <div class="demo-content">
+  <h3 class="demo-content__headline">Custom range</h3>
+  <mdc-slider #ranged discrete min="500" max="1000" value="500"></mdc-slider>
+  <p>Min: {{ ranged.min }}</p>
+  <p>Max: {{ ranged.max }}</p>
+  <p>Value: {{ ranged.value }}</p>
+  <example-viewer [example]="exampleCustomRange"></example-viewer>
+</div>
+
+<div class="demo-content">
   <h3 class="demo-content__headline">ngModel</h3>
-  <mdc-slider #demoModel [min]="0" [max]="100" [(ngModel)]="sliderModel"></mdc-slider>
+  <mdc-slider #demoModel [min]="0" [max]="100" [(ngModel)]="sliderModel">
+  </mdc-slider>
   <p>Value: {{ demoModel.value }}</p>
   <example-viewer [example]="exampleNgModel"></example-viewer>
 </div>
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Theme</h3>
-  <mdc-slider discrete markers class="demo-slider--custom" value="20"></mdc-slider>
+  <mdc-slider discrete markers class="demo-slider-custom" value="20">
+  </mdc-slider>
   <example-viewer [example]="exampleTheme"></example-viewer>
 </div>

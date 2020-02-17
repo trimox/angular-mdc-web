@@ -64,7 +64,7 @@ const routes: Routes = [
   {path: 'ripple-demo', loadChildren: () => import('./components/ripple-demo/ripple.module').then(m => m.RippleModule)},
   {path: 'select-demo', loadChildren: () => import('./components/select/module').then(m => m.SelectModule)},
   {path: 'shape-docs', loadChildren: () => import('./components/shape/module').then(m => m.ShapeModule)},
-  {path: 'slider-demo', loadChildren: () => import('./components/slider-demo/slider.module').then(m => m.SliderModule)},
+  {path: 'slider-demo', loadChildren: () => import('./components/slider/module').then(m => m.SliderModule)},
   {
     path: 'snackbar-demo', loadChildren: () =>
       import('./components/snackbar-demo/snackbar.module').then(m => m.SnackbarModule)

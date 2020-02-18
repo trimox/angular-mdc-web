@@ -1,3 +1,22 @@
+## [5.0.3](https://github.com/trimox/angular-mdc-web/compare/v5.0.2...v5.0.3) (2020-02-18)
+
+
+### Bug Fixes
+
+* **chips:** Move trailing icon to isolated gridcell ([#2097](https://github.com/trimox/angular-mdc-web/issues/2097)) ([4f3ac9d](https://github.com/trimox/angular-mdc-web/commit/4f3ac9dee90b7576d85be70d247efdbe2908516d)), closes [#2096](https://github.com/trimox/angular-mdc-web/issues/2096)
+* **docs:** Enable AOT build optimizer ([#2102](https://github.com/trimox/angular-mdc-web/issues/2102)) ([37a4a20](https://github.com/trimox/angular-mdc-web/commit/37a4a20fac28ed33099641c47c41bf49ec653964))
+* **select:** Improve async load of foundation ([#2103](https://github.com/trimox/angular-mdc-web/issues/2103)) ([5fd2c2b](https://github.com/trimox/angular-mdc-web/commit/5fd2c2bdc9206c93bde9df0b690fe88af4e4d641))
+* **slider:** Min and max values + improvements ([#2073](https://github.com/trimox/angular-mdc-web/issues/2073)) ([c8519ec](https://github.com/trimox/angular-mdc-web/commit/c8519ec082f4a6a58d81990c9aa2671186db5a66)), closes [#2019](https://github.com/trimox/angular-mdc-web/issues/2019)
+* **text-field:** Initialization race conditions with Ivy ([#2094](https://github.com/trimox/angular-mdc-web/issues/2094)) ([0572a82](https://github.com/trimox/angular-mdc-web/commit/0572a82cc4cb248535891e809558a1a0deb260c9)), closes [#2091](https://github.com/trimox/angular-mdc-web/issues/2091)
+* **text-field:** Support projected trailing icon ([#2081](https://github.com/trimox/angular-mdc-web/issues/2081)) ([25462a2](https://github.com/trimox/angular-mdc-web/commit/25462a202dcd2cb5c586c23c5e7fba1b03178ede)), closes [#2080](https://github.com/trimox/angular-mdc-web/issues/2080)
+
+
+### Features
+
+* **icon:** Allow viewBox to be configured when registering icons ([#2089](https://github.com/trimox/angular-mdc-web/issues/2089)) ([db0fe67](https://github.com/trimox/angular-mdc-web/commit/db0fe67596c4f04051e0e95c1bd1f04bb8d289e8))
+
+
+
 ## [5.0.2](https://github.com/trimox/angular-mdc-web/compare/v5.0.1...v5.0.2) (2020-02-13)
 
 

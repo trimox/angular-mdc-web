@@ -1,4 +1,4 @@
-name: Angular MDC Test
+name: tests
 
 on:
   push:

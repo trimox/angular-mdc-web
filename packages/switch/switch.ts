@@ -86,6 +86,8 @@ export class MdcSwitch extends MDCComponent<MDCSwitchFoundation> implements MdcF
   AfterViewInit, ControlValueAccessor, OnDestroy, MDCRippleCapableSurface {
   private _uniqueId: string = `mdc-switch-${++nextUniqueId}`;
 
+  private _initialized: boolean = false;
+
   _root!: Element;
 
   @Input() id: string = this._uniqueId;
@@ -148,7 +150,12 @@ export class MdcSwitch extends MDCComponent<MDCSwitchFoundation> implements MdcF
     return `${this.id || this._uniqueId}-input`;
   }
 
-  getDefaultFoundation() {
+  getDefaultFoundation(): any {
+    // Do not initialize foundation until ngAfterViewInit runs
+    if (!this._initialized) {
+      return undefined;
+    }
+
     const adapter: MDCSwitchAdapter = {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
@@ -173,21 +180,28 @@ export class MdcSwitch extends MDCComponent<MDCSwitchFoundation> implements MdcF
   }
 
   ngAfterViewInit(): void {
+    this._initialized = true;
     this.ripple = this._createRipple();
     this.ripple.init();
-    this._foundation.init();
+
+    this._asyncBuildFoundation()
+      .then(() => {
+        this._foundation.init();
+        this.setDisabledState(this._inputElement.nativeElement.disabled);
+      });
   }
 
   ngOnDestroy(): void {
     this.ripple.destroy();
+    this.destroy();
+  }
+
+  async _asyncBuildFoundation(): Promise<void> {
+    this._foundation = this.getDefaultFoundation();
   }
 
   onChange(evt: Event): void {
     evt.stopPropagation();
-
-    if (this.disabled) {
-      return;
-    }
 
     this._foundation.handleChange(evt);
     this._checked = this._inputElement.nativeElement.checked;
@@ -224,9 +238,13 @@ export class MdcSwitch extends MDCComponent<MDCSwitchFoundation> implements MdcF
   }
 
   setDisabledState(disabled: boolean): void {
-    this._disabled = coerceBooleanProperty(disabled);
-    this._foundation.setDisabled(this._disabled);
-    this._changeDetectorRef.markForCheck();
+    const newValue = coerceBooleanProperty(disabled);
+
+    if (newValue !== this._disabled) {
+      this._disabled = newValue;
+      this._foundation?.setDisabled(newValue);
+      this._changeDetectorRef.markForCheck();
+    }
   }
 
   focus(): void {

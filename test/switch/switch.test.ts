@@ -1,11 +1,11 @@
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, fakeAsync, flushMicrotasks, TestBed, tick, flush } from '@angular/core/testing';
-import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
+import {Component, DebugElement} from '@angular/core';
+import {ComponentFixture, fakeAsync, flushMicrotasks, TestBed, tick, flush, async} from '@angular/core/testing';
+import {FormControl, FormsModule, NgModel, ReactiveFormsModule} from '@angular/forms';
+import {By} from '@angular/platform-browser';
 
-import { dispatchFakeEvent, dispatchMouseEvent } from '../testing/dispatch-events';
+import {dispatchFakeEvent, dispatchMouseEvent} from '../testing/dispatch-events';
 
-import { MdcSwitch, MdcSwitchModule } from '@angular-mdc/web';
+import {MdcSwitch, MdcSwitchModule} from '@angular-mdc/web';
 
 describe('MdcSwitch', () => {
   let fixture: ComponentFixture<any>;
@@ -16,12 +16,35 @@ describe('MdcSwitch', () => {
       declarations: [
         SingleSwitch,
         SwitchWithModel,
-        SwitchWithFormControl
+        SwitchWithFormControl,
+        DisabledSwitch
       ]
     });
 
     TestBed.compileComponents();
   }));
+
+  describe('disabled switch', () => {
+    let switchDebugElement: DebugElement;
+    let switchNativeElement: HTMLElement;
+    let switchInstance: MdcSwitch;
+    let testComponent: DisabledSwitch;
+
+    beforeEach(async(() => {
+      fixture = TestBed.createComponent(DisabledSwitch);
+      fixture.detectChanges();
+
+      switchDebugElement = fixture.debugElement.query(By.directive(MdcSwitch));
+      switchNativeElement = switchDebugElement.nativeElement;
+      switchInstance = switchDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+    }));
+
+    it('#should be disabled', () => {
+      fixture.detectChanges();
+      expect(switchInstance._inputElement.nativeElement.disabled).toBe(true);
+    });
+  });
 
   describe('basic behaviors', () => {
     let switchDebugElement: DebugElement;
@@ -243,7 +266,7 @@ describe('MdcSwitch with forms', () => {
       fixture.detectChanges();
       tick();
 
-      expect(spy).toHaveBeenCalledWith(jasmine.objectContaining({ checked: true }));
+      expect(spy).toHaveBeenCalledWith(jasmine.objectContaining({checked: true}));
       subscription.unsubscribe();
     }));
 
@@ -313,7 +336,7 @@ class SingleSwitch {
   slideTabindex: number;
   switchValue: string = 'single_switch';
 
-  onChange: () => void = () => { };
+  onChange: () => void = () => {};
 }
 
 @Component({
@@ -328,11 +351,16 @@ class SwitchWithFormControl {
   formControl = new FormControl();
 }
 
+@Component({
+  template: `<mdc-switch disabled></mdc-switch>`,
+})
+class DisabledSwitch {}
+
 /** Simple component for testing with ngModel in a form. */
 @Component({
   template: `<mdc-switch name="cb" [(ngModel)]="modelValue" (change)="onChange()">Be good</mdc-switch>`,
 })
 class SwitchWithModel {
   modelValue: boolean = false;
-  onChange: () => void = () => { };
+  onChange: () => void = () => {};
 }

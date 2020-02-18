@@ -1,13 +1,15 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 
-import { SharedModule } from '../../shared.module';
-import { RoutingModule, ROUTE_DECLARATIONS } from './routing.module';
+import {SharedModule} from '../../shared.module';
+import {RoutingModule, ROUTE_DECLARATIONS} from './routing.module';
+import {MDC_SELECT_DEFAULT_OPTIONS} from '@angular-mdc/web';
 
 @NgModule({
   imports: [
     SharedModule,
     RoutingModule
   ],
-  declarations: [ROUTE_DECLARATIONS]
+  declarations: [ROUTE_DECLARATIONS],
+  providers: [{ provide: MDC_SELECT_DEFAULT_OPTIONS, useValue: {outlined: true}}],
 })
-export class SelectModule { }
+export class SelectModule {}

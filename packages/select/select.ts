@@ -131,7 +131,7 @@ let nextUniqueId = 0;
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, AfterViewInit, DoCheck,
+export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoCheck,
   OnDestroy, ControlValueAccessor, CanUpdateErrorState, MDCRippleCapableSurface {
   /** Emits whenever the component is destroyed. */
   private _destroyed = new Subject<void>();
@@ -175,10 +175,8 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
   }
   set outlined(value: boolean) {
     const newValue = coerceBooleanProperty(value);
-    if (newValue !== this._outlined) {
-      this._outlined = newValue || (this._defaults && this._defaults.outlined) || false;
-      this.layout();
-    }
+    this._outlined = newValue;
+    this.layout();
   }
   private _outlined = false;
 
@@ -204,13 +202,8 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
   }
   set valid(value: boolean | undefined) {
     const newValue = coerceBooleanProperty(value);
-    if (newValue !== this._valid) {
-      this._valid = newValue;
-
-      if (this._foundation && this._valid !== undefined) {
-        this._foundation.setValid(this._valid);
-      }
-    }
+    this._valid = newValue;
+    this._foundation?.setValid(this._valid);
   }
   private _valid?: boolean;
 
@@ -240,10 +233,8 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
     return this._helperText;
   }
   set helperText(helperText: MDCSelectHelperText | undefined) {
-    if (this._helperText !== helperText) {
-      this._helperText = helperText;
-      this.helperText?.init();
-    }
+    this._helperText = helperText;
+    this.helperText?.init();
   }
   private _helperText?: MDCSelectHelperText;
 
@@ -359,7 +350,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
   /** Returns a map of all subcomponents to subfoundations.*/
   private _getFoundationMap(): Partial<MDCSelectFoundationMap> {
     return {
-      helperText: this._helperText?.getDefaultFoundation()
+      helperText: this._helperText?.foundation
     };
   }
 
@@ -373,7 +364,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
     @Self() @Optional() public ngControl: NgControl,
     @Optional() _parentForm: NgForm,
     @Optional() _parentFormGroup: FormGroupDirective,
-    @Optional() @Inject(MDC_SELECT_DEFAULT_OPTIONS) private _defaults: MdcSelectDefaultOptions) {
+    @Optional() @Inject(MDC_SELECT_DEFAULT_OPTIONS) private _defaults?: MdcSelectDefaultOptions) {
     super(elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
 
     this._root = this.elementRef.nativeElement;
@@ -390,18 +381,30 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
 
     // Force setter to be called in case id was not specified.
     this.id = this.id;
-  }
 
-  ngAfterContentInit(): void {
     this._setDefaultGlobalOptions();
   }
 
   ngAfterViewInit(): void {
-    this._selectBuilder();
+    this._initialized = true;
+    this._asyncBuildFoundation()
+      .then(() => {
+        this._selectBuilder();
+      });
   }
 
   ngOnDestroy(): void {
-    this._destroy();
+    this.destroy();
+  }
+
+  /** Override MdcSelectBase destroy method */
+  destroy(): void {
+    this._destroyed.next();
+    this._destroyed.complete();
+
+    this._lineRipple?.destroy();
+    this._ripple.destroy();
+    this._foundation.destroy();
   }
 
   ngDoCheck(): void {
@@ -500,13 +503,8 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
 
   /** Initialize Select internal state based on the environment state */
   private layout(): void {
-    if (this._foundation) {
-      this._destroy();
-    }
-
     if (this._initialized) {
       this._selectBuilder();
-      this._changeDetectorRef.markForCheck();
 
       if (this._outlined) {
         this._foundation.layout();
@@ -528,44 +526,42 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterContentInit, 
 
   /** Set the default options. */
   private _setDefaultGlobalOptions(): void {
-    if (this._defaults?.outlined) {
-      this._outlined = this._defaults.outlined;
+    if (this._defaults) {
+      if (this._defaults.outlined != null) {
+        this.outlined = this._defaults.outlined;
+      }
     }
   }
 
-  private _destroy(): void {
-    this._destroyed.next();
-    this._destroyed.complete();
-
-    this._lineRipple?.destroy();
-    this._ripple?.destroy();
+  async _asyncBuildFoundation(): Promise<void> {
+    this._foundation = this.getDefaultFoundation();
   }
 
   async _asyncInitFoundation(): Promise<void> {
-    this._foundation = this.getDefaultFoundation();
+    this._foundation.init();
   }
 
   private _selectBuilder(): void {
     this._changeDetectorRef.detectChanges();
 
-    // initialize after running a detectChanges()
-    if (!this.outlined) {
-      this._ripple = this._createRipple();
-      this._ripple.init();
-    }
-    this._initializeSelection();
-    this._initialized = true;
+    this._asyncInitFoundation()
+      .then(() => {
+        // initialize after running a detectChanges()
+        if (!this.outlined) {
+          this._ripple = this._createRipple();
+          this._ripple.init();
+        }
+        this._initializeSelection();
 
-    this._asyncInitFoundation().then(() => this._foundation.init());
+        this._menu.wrapFocus = false;
+        this._menu.elementRef.nativeElement.setAttribute('role', 'listbox');
+        this._menu.elementRef.nativeElement.classList.add('mdc-select__menu');
 
-    this._menu.wrapFocus = false;
-    this._menu.elementRef.nativeElement.setAttribute('role', 'listbox');
-    this._menu.elementRef.nativeElement.classList.add('mdc-select__menu');
-
-    if (this._menu._list) {
-      this._menu._list.useSelectedClass = true;
-      this._menu._list.singleSelection = true;
-    }
+        if (this._menu._list) {
+          this._menu._list.useSelectedClass = true;
+          this._menu._list.singleSelection = true;
+        }
+      });
     this._subscribeToMenuEvents();
   }
 

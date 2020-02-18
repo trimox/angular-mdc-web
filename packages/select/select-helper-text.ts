@@ -46,6 +46,10 @@ export class MDCSelectHelperText extends MDCComponent<MDCSelectHelperTextFoundat
     super(elementRef);
   }
 
+  get foundation(): MDCSelectHelperTextFoundation {
+    return this._foundation;
+  }
+
   getDefaultFoundation() {
     const adapter: MDCSelectHelperTextAdapter = {
       addClass: (className: string) => this.elementRef.nativeElement.classList.add(className),

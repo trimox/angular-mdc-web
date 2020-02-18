@@ -1,4 +1,4 @@
-import {Component, DebugElement, Type} from '@angular/core';
+import {Component, DebugElement, ViewChild, Provider} from '@angular/core';
 import {
   FormControl,
   FormsModule,
@@ -6,33 +6,44 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import {fakeAsync, ComponentFixture, TestBed, flush} from '@angular/core/testing';
+import {async, fakeAsync, ComponentFixture, TestBed, flush} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {DOWN_ARROW} from '@angular/cdk/keycodes';
 
-import {dispatchKeyboardEvent, dispatchMouseEvent, dispatchFakeEvent} from '../testing/dispatch-events';
+import {dispatchKeyboardEvent, dispatchMouseEvent} from '../testing/dispatch-events';
 
 import {
   MdcSelectModule,
   MdcSelect,
-  MdcListModule,
-  MDC_SELECT_DEFAULT_OPTIONS
+  MDC_SELECT_DEFAULT_OPTIONS,
+  MdcSelectDefaultOptions
 } from '@angular-mdc/web';
+
+function configureMdcSelectTestingModule(declarations: any[], providers: Provider[] = []) {
+  TestBed.configureTestingModule({
+    imports: [
+      MdcSelectModule,
+      ReactiveFormsModule,
+      FormsModule,
+    ],
+    declarations: declarations,
+    providers: [
+      ...providers
+    ],
+  }).compileComponents();
+}
 
 describe('MdcSelectModule', () => {
   let fixture: ComponentFixture<any>;
 
-  beforeEach(fakeAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [FormsModule, ReactiveFormsModule, MdcSelectModule, MdcListModule],
-      declarations: [
-        SimpleTest,
-        SelectFormControl,
-        EnhancedSelect,
-        SelectLazyLoad
-      ]
-    });
-    TestBed.compileComponents();
+  beforeEach(async(() => {
+    configureMdcSelectTestingModule([
+      SimpleTest,
+      SelectFormControl,
+      EnhancedSelect,
+      SelectLazyLoad,
+      NgModelSelect
+    ]);
   }));
 
   describe('basic behaviors', () => {
@@ -154,7 +165,7 @@ describe('MdcSelectModule', () => {
     });
 
     it('#should remove helper text linkage', () => {
-      testInstance.helperText = null;
+      testInstance.helperText = undefined;
       fixture.detectChanges();
     });
 
@@ -226,7 +237,7 @@ describe('MdcSelectModule', () => {
     let testInstance: MdcSelect;
     let testComponent: EnhancedSelect;
 
-    beforeEach(() => {
+    beforeEach(fakeAsync(() => {
       fixture = TestBed.createComponent(EnhancedSelect);
       fixture.detectChanges();
 
@@ -236,7 +247,7 @@ describe('MdcSelectModule', () => {
       testComponent = fixture.debugElement.componentInstance;
 
       fixture.detectChanges();
-    });
+    }));
 
     it('#should apply class outlined', fakeAsync(() => {
       testComponent.outlined = true;
@@ -308,47 +319,40 @@ describe('MdcSelectModule', () => {
       fixture.detectChanges();
       expect(testInstance._menu.open).toBe(true);
     }));
+
+    it('#should set valid to undefined', fakeAsync(() => {
+      testInstance.valid = undefined;
+      fixture.detectChanges();
+      expect(testInstance.valid).toBe(false);
+    }));
   });
 });
 
-// describe('MDC_SELECT_DEFAULT_OPTIONS', () => {
-//   it('should be no default options provided', fakeAsync(() => {
-//     const fixture = createComponent(SelectFormControl);
-//     fixture.detectChanges();
-//     flush();
-//     expect(fixture.componentInstance.outlined).toBe(undefined);
-//   }));
+it('should be able to provide default values through an injection token', () => {
+  configureMdcSelectTestingModule([NgModelSelect], [{
+    provide: MDC_SELECT_DEFAULT_OPTIONS,
+    useValue: {
+      outlined: true
+    }
+  }]);
+  const fixture = TestBed.createComponent(NgModelSelect);
+  fixture.detectChanges();
+  const select = fixture.componentInstance.select;
+  expect(select.outlined).toBe(true);
+});
 
-//   it('should be default of outlined, if specified in default options',
-//     fakeAsync(() => {
-//       const fixture = createComponent(SelectFormControl, [{
-//         provide: MDC_SELECT_DEFAULT_OPTIONS, useValue: { outlined: true }
-//       }
-//       ]);
-//       fixture.detectChanges();
-//       flush();
-//       expect(fixture.componentInstance.outlined).toBe(true);
-//     }));
-// });
-
-function createComponent<T>(component: Type<T>,
-  providers: any[] = [],
-  imports: any[] = [],
-  declarations: any[] = []): ComponentFixture<T> {
-  TestBed.configureTestingModule({
-    imports: [
-      FormsModule,
-      MdcSelectModule,
-      ReactiveFormsModule,
-      ...imports
-    ],
-    declarations: [component, ...declarations],
-    providers: [
-      {provide: MDC_SELECT_DEFAULT_OPTIONS, useValue: {outlined: true}}]
-  }).compileComponents();
-
-  return TestBed.createComponent<T>(component);
-}
+it('should be able to provide default values through an injection token', () => {
+  configureMdcSelectTestingModule([NgModelSelect], [{
+    provide: MDC_SELECT_DEFAULT_OPTIONS,
+    useValue: {
+      outlined: null
+    }
+  }]);
+  const fixture = TestBed.createComponent(NgModelSelect);
+  fixture.detectChanges();
+  const select = fixture.componentInstance.select;
+  expect(select.outlined).toBe(false);
+});
 
 @Component({
   template: `
@@ -356,7 +360,7 @@ function createComponent<T>(component: Type<T>,
       <mdc-form-field>
         <mdc-select #select placeholder="Favorite food" ngModel #demoSelectModel="ngModel" name="food"
          [disabled]="disabled" [floatLabel]="floatLabel" [required]="required" [valid]="valid"
-         [value]="testValue" [outlined]="outlined"
+         [value]="testValue" [outlined]="outlined" (blur)="handleBlur()"
          (valueChange)="handleValueChange($event)" (selectionChange)="handleSelectedChange($event)">
           <mdc-menu>
             <mdc-list>
@@ -391,6 +395,32 @@ class SimpleTest {
 
   handleValueChange(event: {index: number, value: string}) {}
   handleSelectedChange(event: {index: number, value: string}) {}
+  handleBlur: (event?: any) => void = () => {};
+}
+
+@Component({
+  selector: 'ng-model-select',
+  template: `
+    <mdc-form-field>
+      <mdc-select placeholder="Food" ngModel [disabled]="isDisabled">
+      <mdc-menu>
+        <mdc-list>
+          <mdc-list-item *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">{{food.description}}</mdc-list-item>
+        </mdc-list>
+      </mdc-menu>
+      </mdc-select>
+    </mdc-form-field>
+  `
+})
+class NgModelSelect {
+  foods: any[] = [
+    {value: 'steak-0', viewValue: 'Steak'},
+    {value: 'pizza-1', viewValue: 'Pizza'},
+    {value: 'tacos-2', viewValue: 'Tacos'},
+  ];
+  isDisabled: boolean;
+
+  @ViewChild(MdcSelect) select: MdcSelect;
 }
 
 @Component({

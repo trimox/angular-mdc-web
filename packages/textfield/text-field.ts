@@ -658,7 +658,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     }
   }
 
-  /** Override MDCComponent destroy */
+  /** Override MdcTextFieldBase destroy method */
   destroy(): void {
     this._lineRipple?.destroy();
     this._ripple?.destroy();

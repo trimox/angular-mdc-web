@@ -65,25 +65,25 @@ describe('MdcLinearProgress', () => {
     });
 
     it('#should set buffer to value', () => {
-      testInstance.buffer = 50;
+      testComponent.buffer = 50;
       fixture.detectChanges();
       expect(testInstance.buffer).toBe(50);
     });
 
     it('#should set progress to value', () => {
-      testInstance.progress = 20;
+      testComponent.progress = 20;
       fixture.detectChanges();
       expect(testInstance.progress).toBe(20);
     });
 
     it('#should not apply indeterminate class', () => {
-      testInstance.determinate = true;
+      testComponent.determinate = true;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-linear-progress--indeterminate')).toBe(false);
     });
 
-    it('#should not apply reverse class', () => {
-      testInstance.reversed = true;
+    it('#should apply reverse class', () => {
+      testComponent.reversed = true;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-linear-progress--reversed')).toBe(true);
       expect(testInstance.reversed).toBe(true);
@@ -102,14 +102,16 @@ describe('MdcLinearProgress', () => {
     <mdc-linear-progress
       [reversed]="reversed"
       [label]="label"
-      [progress]="0.5"
-      [buffer]="0.75"
+      [progress]="progress"
+      [buffer]="buffer"
       [determinate]="determinate">
     </mdc-linear-progress>
   `,
 })
 class SimpleTest {
-  reversed: boolean = false;
-  determinate: boolean = false;
+  reversed: boolean;
+  determinate: boolean;
+  buffer = 0.75;
+  progress = 0.5;
   label: string;
 }

@@ -4,7 +4,9 @@ import {
   Component,
   ElementRef,
   Input,
+  OnChanges,
   OnInit,
+  SimpleChanges,
   ViewEncapsulation
 } from '@angular/core';
 import {Platform} from '@angular/cdk/platform';
@@ -38,8 +40,10 @@ import {strings, MDCLinearProgressFoundation, MDCLinearProgressAdapter} from '@m
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcLinearProgress extends MDCComponent<MDCLinearProgressFoundation>
-  implements MDCProgressIndicator, OnInit {
+  implements MDCProgressIndicator, OnChanges, OnInit {
   _root!: Element;
+
+  private _initialized: boolean = false;
 
   /* Label indicating how the progress bar should be announced to the user. */
   @Input() label?: string = undefined;
@@ -50,8 +54,6 @@ export class MdcLinearProgress extends MDCComponent<MDCLinearProgressFoundation>
   }
   set progress(value: number) {
     this._progress = coerceNumberProperty(value);
-    this._foundation.setProgress(this._progress);
-    this._changeDetectorRef.markForCheck();
   }
   private _progress = 0;
 
@@ -61,8 +63,6 @@ export class MdcLinearProgress extends MDCComponent<MDCLinearProgressFoundation>
   }
   set determinate(value: boolean) {
     this._determinate = coerceBooleanProperty(value);
-    this._foundation.setDeterminate(this._determinate);
-    this._changeDetectorRef.markForCheck();
   }
   private _determinate = false;
 
@@ -72,8 +72,6 @@ export class MdcLinearProgress extends MDCComponent<MDCLinearProgressFoundation>
   }
   set buffer(value: number) {
     this._buffer = coerceNumberProperty(value);
-    this._foundation.setBuffer(this._buffer);
-    this._changeDetectorRef.markForCheck();
   }
   private _buffer = 0;
 
@@ -83,8 +81,7 @@ export class MdcLinearProgress extends MDCComponent<MDCLinearProgressFoundation>
   }
   set reversed(value: boolean) {
     this._reversed = coerceBooleanProperty(value);
-    this._foundation.setReverse(this._reversed);
-    this._changeDetectorRef.markForCheck();
+    this._syncReversedWithFoundation();
   }
   private _reversed = false;
 
@@ -113,13 +110,34 @@ export class MdcLinearProgress extends MDCComponent<MDCLinearProgressFoundation>
 
   ngOnInit(): void {
     if (this._platform.isBrowser) {
-      this._asyncInitializeFoundation()
-        .then(() => {
-          this.progress = this._progress;
-          this.buffer = this._buffer;
-          this.determinate = this._determinate;
-          this._changeDetectorRef.markForCheck();
-        });
+      this._initialized = true;
+
+      this._foundation.init();
+      this._syncProgressWithFoundation();
+      this._syncBufferWithFoundation();
+      this._syncDeterminateWithFoundation();
+      this._syncReversedWithFoundation();
+
+      this._changeDetectorRef.markForCheck();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (!this._initialized) {
+      return;
+    }
+
+    if (changes['progress']) {
+      this._syncProgressWithFoundation();
+    }
+    if (changes['buffer']) {
+      this._syncBufferWithFoundation();
+    }
+    if (changes['determinate']) {
+      this._syncDeterminateWithFoundation();
+    }
+    if (changes['reversed']) {
+      this._syncReversedWithFoundation();
     }
   }
 
@@ -131,7 +149,19 @@ export class MdcLinearProgress extends MDCComponent<MDCLinearProgressFoundation>
     this._foundation.close();
   }
 
-  async _asyncInitializeFoundation(): Promise<void> {
-    this._foundation.init();
+  private _syncProgressWithFoundation(): void {
+    this._foundation.setProgress(this.progress);
+  }
+
+  private _syncBufferWithFoundation(): void {
+    this._foundation.setBuffer(this.buffer);
+  }
+
+  private _syncDeterminateWithFoundation(): void {
+    this._foundation.setDeterminate(this.determinate);
+  }
+
+  private _syncReversedWithFoundation(): void {
+    this._foundation.setReverse(this.reversed);
   }
 }

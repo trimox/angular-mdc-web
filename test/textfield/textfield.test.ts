@@ -1,8 +1,7 @@
-import {Component, DebugElement, Type} from '@angular/core';
-import {ComponentFixture, fakeAsync, TestBed, flush, tick} from '@angular/core/testing';
+import {Component, DebugElement, Provider, ViewChild, Type} from '@angular/core';
+import {async, ComponentFixture, fakeAsync, TestBed, flush, tick} from '@angular/core/testing';
 import {FormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
-import {Platform} from '@angular/cdk/platform';
 
 import {
   dispatchFakeEvent,
@@ -15,24 +14,57 @@ import {
   MdcTextFieldModule,
   MdcIconModule,
   MDC_TEXT_FIELD_DEFAULT_OPTIONS,
-  MdcTextFieldIcon
 } from '@angular-mdc/web';
+
+function configureMdcTestingModule(declarations: any[], providers: Provider[] = []) {
+  TestBed.configureTestingModule({
+    imports: [
+      MdcTextFieldModule,
+      MdcIconModule,
+      FormsModule,
+    ],
+    declarations: declarations,
+    providers: [
+      ...providers
+    ],
+  }).compileComponents();
+}
 
 describe('MdcTextField', () => {
   let fixture: ComponentFixture<any>;
   let platform: {isBrowser: boolean};
 
-  beforeEach(fakeAsync(() => {
-    // Set the default Platform override that can be updated before component creation.
-    platform = {isBrowser: true};
-
-    TestBed.configureTestingModule({
-      imports: [MdcTextFieldModule, MdcIconModule, FormsModule],
-      declarations: [SimpleTextfield, TextFieldTestWithValue, TextFieldWithIcons],
-      providers: [{provide: Platform, useFactory: () => platform}]
-    });
-    TestBed.compileComponents();
+  beforeEach(async(() => {
+    configureMdcTestingModule([
+      SimpleTextfield,
+      TextFieldTestWithValue,
+      TextFieldWithIcons,
+      DefaultTextField
+    ]);
   }));
+
+  describe('Tests for SSR', () => {
+    let testDebugElement: DebugElement;
+    let testInstance: MdcTextField;
+    let testComponent: SimpleTextfield;
+
+    beforeEach(() => {
+      // Set the default Platform override that can be updated before component creation.
+      platform = {isBrowser: false};
+
+      fixture = TestBed.createComponent(SimpleTextfield);
+      fixture.detectChanges();
+
+      testDebugElement = fixture.debugElement.query(By.directive(MdcTextField));
+      testInstance = testDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+    });
+
+    it('#should have mdc-text-field by default', () => {
+      expect(testDebugElement.nativeElement.classList)
+        .toContain('mdc-text-field', 'Expected to have mdc-text-field');
+    });
+  });
 
   describe('basic behaviors', () => {
     let textFieldDebugElement: DebugElement;
@@ -197,6 +229,7 @@ describe('MdcTextField', () => {
     it('handles transitionend event', fakeAsync(() => {
       testComponent.outlined = false;
       fixture.detectChanges();
+      flush();
 
       dispatchFakeEvent(testInstance._lineRipple.elementRef.nativeElement, 'transitionend');
     }));
@@ -303,107 +336,31 @@ describe('MdcTextField', () => {
   });
 });
 
-describe('MDC_TEXT_FIELD_DEFAULT_OPTIONS', () => {
-  let fixture: ComponentFixture<any>;
-  let defaultOptions: {outlined?: boolean};
-
-  beforeEach(fakeAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [MdcTextFieldModule, MdcIconModule, FormsModule],
-      declarations: [SimpleTextfield, TextFieldTestWithValue],
-      providers: [
-        {provide: MDC_TEXT_FIELD_DEFAULT_OPTIONS, useFactory: () => defaultOptions}
-      ]
-    });
-    TestBed.compileComponents();
-  }));
-
-  describe('basic behaviors', () => {
-    let textFieldDebugElement: DebugElement;
-    let textFieldNativeElement: HTMLElement;
-    let testInstance: MdcTextField;
-    let testComponent: SimpleTextfield;
-
-    beforeEach(() => {
-      defaultOptions = {outlined: true};
-
-      fixture = TestBed.createComponent(SimpleTextfield);
-      fixture.detectChanges();
-
-      textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextField));
-      textFieldNativeElement = textFieldDebugElement.nativeElement;
-      testInstance = textFieldDebugElement.componentInstance;
-      testComponent = fixture.debugElement.componentInstance;
-    });
-
-    it('#should have mdc-text-field by default', () => {
-      expect(textFieldDebugElement.nativeElement.classList)
-        .toContain('mdc-text-field', 'Expected to have mdc-text-field class');
-    });
-  });
-
-  describe('basic behaviors', () => {
-    let textFieldDebugElement: DebugElement;
-    let textFieldNativeElement: HTMLElement;
-    let testInstance: MdcTextField;
-    let testComponent: SimpleTextfield;
-
-    beforeEach(() => {
-      defaultOptions = undefined;
-
-      fixture = TestBed.createComponent(SimpleTextfield);
-      fixture.detectChanges();
-
-      textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextField));
-      textFieldNativeElement = textFieldDebugElement.nativeElement;
-      testInstance = textFieldDebugElement.componentInstance;
-      testComponent = fixture.debugElement.componentInstance;
-    });
-
-    it('#should have mdc-text-field by default', () => {
-      expect(textFieldDebugElement.nativeElement.classList)
-        .toContain('mdc-text-field', 'Expected to have mdc-text-field class');
-    });
-  });
+it('should be able to provide default values through an injection token', () => {
+  configureMdcTestingModule([DefaultTextField], [{
+    provide: MDC_TEXT_FIELD_DEFAULT_OPTIONS,
+    useValue: {
+      outlined: true
+    }
+  }]);
+  const fixture = TestBed.createComponent(DefaultTextField);
+  fixture.detectChanges();
+  const textfield = fixture.componentInstance.textfield;
+  expect(textfield.outlined).toBe(true);
 });
 
-describe('MDC_TEXT_FIELD_DEFAULT_OPTIONS', () => {
-  it('should be no default options provided', fakeAsync(() => {
-    const fixture = createComponent(SimpleTextfield);
-    fixture.detectChanges();
-    flush();
-    expect(fixture.componentInstance.outlined).toBe(undefined);
-  }));
-
-  // it('should be default of outlined, if specified in default options',
-  //   fakeAsync(() => {
-  //     const fixture = createComponent(SimpleTextfield, [{
-  //       provide: MDC_TEXT_FIELD_DEFAULT_OPTIONS, useValue: {outlined: true}
-  //     }
-  //     ]);
-  //     fixture.detectChanges();
-  //     flush();
-  //     expect(fixture.componentInstance.outlined).toBe(true);
-  //   }));
+it('should be able to provide default values through an injection token', () => {
+  configureMdcTestingModule([DefaultTextField], [{
+    provide: MDC_TEXT_FIELD_DEFAULT_OPTIONS,
+    useValue: {
+      outlined: null
+    }
+  }]);
+  const fixture = TestBed.createComponent(DefaultTextField);
+  fixture.detectChanges();
+  const textfield = fixture.componentInstance.textfield;
+  expect(textfield.outlined).toBe(false);
 });
-
-function createComponent<T>(component: Type<T>,
-  providers: any[] = [],
-  imports: any[] = [],
-  declarations: any[] = []): ComponentFixture<T> {
-  TestBed.configureTestingModule({
-    imports: [
-      FormsModule,
-      MdcTextFieldModule,
-      MdcIconModule,
-      ...imports
-    ],
-    declarations: [component, ...declarations],
-    providers,
-  }).compileComponents();
-
-  return TestBed.createComponent<T>(component);
-}
 
 @Component({
   template: `
@@ -476,4 +433,13 @@ class TextFieldTestWithValue {
 })
 class TextFieldWithIcons {
   disabled: boolean = false;
+}
+
+@Component({
+  selector: 'default-text-field',
+  template: `
+<mdc-text-field label="Example"></mdc-text-field>`
+})
+class DefaultTextField {
+  @ViewChild(MdcTextField) textfield: MdcTextField;
 }

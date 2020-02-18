@@ -15,11 +15,10 @@ import {dispatchKeyboardEvent, dispatchMouseEvent} from '../testing/dispatch-eve
 import {
   MdcSelectModule,
   MdcSelect,
-  MDC_SELECT_DEFAULT_OPTIONS,
-  MdcSelectDefaultOptions
+  MDC_SELECT_DEFAULT_OPTIONS
 } from '@angular-mdc/web';
 
-function configureMdcSelectTestingModule(declarations: any[], providers: Provider[] = []) {
+function configureMdcTestingModule(declarations: any[], providers: Provider[] = []) {
   TestBed.configureTestingModule({
     imports: [
       MdcSelectModule,
@@ -35,9 +34,10 @@ function configureMdcSelectTestingModule(declarations: any[], providers: Provide
 
 describe('MdcSelectModule', () => {
   let fixture: ComponentFixture<any>;
+  let platform: {isBrowser: boolean};
 
   beforeEach(async(() => {
-    configureMdcSelectTestingModule([
+    configureMdcTestingModule([
       SimpleTest,
       SelectFormControl,
       EnhancedSelect,
@@ -45,6 +45,46 @@ describe('MdcSelectModule', () => {
       NgModelSelect
     ]);
   }));
+
+  describe('Tests for SSR', () => {
+    let testDebugElement: DebugElement;
+    let testInstance: MdcSelect;
+    let testComponent: SimpleTest;
+
+    beforeEach(() => {
+      // Set the default Platform override that can be updated before component creation.
+      platform = {isBrowser: false};
+
+      fixture = TestBed.createComponent(SimpleTest);
+      fixture.detectChanges();
+
+      testDebugElement = fixture.debugElement.query(By.directive(MdcSelect));
+      testInstance = testDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+    });
+
+    it('#should have mdc-select by default', () => {
+      expect(testDebugElement.nativeElement.classList)
+        .toContain('mdc-select', 'Expected to have mdc-select');
+    });
+
+    it('#should handle mouse events', () => {
+      testInstance.focus();
+      dispatchKeyboardEvent(testInstance.elementRef.nativeElement, 'keydown', DOWN_ARROW);
+      fixture.detectChanges();
+    });
+
+    it('#should handle mouse events', fakeAsync(() => {
+      dispatchMouseEvent(testInstance._selectedText.root, 'click');
+      fixture.detectChanges();
+      testInstance.focus();
+      dispatchKeyboardEvent(testInstance._selectedText.root, 'keydown', DOWN_ARROW);
+      dispatchKeyboardEvent(testInstance.elementRef.nativeElement, 'keydown', DOWN_ARROW);
+      fixture.detectChanges();
+
+      flush();
+    }));
+  });
 
   describe('basic behaviors', () => {
     let testDebugElement: DebugElement;
@@ -329,7 +369,7 @@ describe('MdcSelectModule', () => {
 });
 
 it('should be able to provide default values through an injection token', () => {
-  configureMdcSelectTestingModule([NgModelSelect], [{
+  configureMdcTestingModule([NgModelSelect], [{
     provide: MDC_SELECT_DEFAULT_OPTIONS,
     useValue: {
       outlined: true
@@ -342,7 +382,7 @@ it('should be able to provide default values through an injection token', () => 
 });
 
 it('should be able to provide default values through an injection token', () => {
-  configureMdcSelectTestingModule([NgModelSelect], [{
+  configureMdcTestingModule([NgModelSelect], [{
     provide: MDC_SELECT_DEFAULT_OPTIONS,
     useValue: {
       outlined: null

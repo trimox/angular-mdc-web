@@ -191,14 +191,10 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   }
   set outlined(value: boolean) {
     const newValue = coerceBooleanProperty(value);
-    if (newValue !== this._outlined) {
-      this._outlined = newValue || (this._defaults && this._defaults.outlined) || false;
-      if (this._initialized) {
-        this._layout();
-      }
-    }
+    this._outlined = newValue;
+    this._layout();
   }
-  private _outlined: boolean = false;
+  private _outlined = false;
 
   @Input()
   get disabled(): boolean {
@@ -207,7 +203,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   set disabled(value: boolean) {
     this.setDisabledState(value);
   }
-  private _disabled: boolean = false;
+  private _disabled = false;
 
   @Input()
   get required(): boolean {
@@ -240,7 +236,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   set readonly(value: boolean) {
     this._readonly = coerceBooleanProperty(value);
   }
-  private _readonly: boolean = false;
+  private _readonly = false;
 
   @Input()
   get fullwidth(): boolean {
@@ -253,7 +249,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
       this.placeholder = this.fullwidth ? this.label : '';
     }
   }
-  private _fullwidth: boolean = false;
+  private _fullwidth = false;
 
   @Input()
   get helperText(): MdcHelperText | null {
@@ -294,7 +290,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
       this._foundation.setUseNativeValidation(this._useNativeValidation);
     }
   }
-  private _useNativeValidation: boolean = true;
+  private _useNativeValidation = true;
 
   @Input()
   get characterCounter(): boolean {
@@ -309,7 +305,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
       }
     }
   }
-  private _characterCounter: boolean = false;
+  private _characterCounter = false;
 
   @Input()
   get value(): any {
@@ -453,6 +449,8 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
 
     // Force setter to be called in case id was not specified.
     this.id = this.id;
+
+    this._setDefaultGlobalOptions();
   }
 
   ngAfterViewInit(): void {
@@ -487,7 +485,6 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     this._asyncInitFoundation()
       .then(() => {
         this._initialized = true;
-        this._setDefaultOptions();
 
         if (!this.fullwidth && !this.outlined && !this.textarea) {
           this._ripple = new MdcRipple(this.elementRef);
@@ -629,14 +626,14 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     if (newValue !== this._disabled) {
       this._disabled = newValue;
       if (this._initialized) {
-        this._foundation?.setDisabled(newValue);
+        this._foundation.setDisabled(newValue);
       }
       this._changeDetectorRef.markForCheck();
     }
   }
 
   /** Set the default options here. */
-  private _setDefaultOptions(): void {
+  private _setDefaultGlobalOptions(): void {
     if (this._defaults && this._defaults.outlined) {
       this._outlined = this._defaults.outlined;
     }

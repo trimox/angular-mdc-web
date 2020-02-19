@@ -192,7 +192,9 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   set outlined(value: boolean) {
     const newValue = coerceBooleanProperty(value);
     this._outlined = newValue;
-    this._layout();
+    if (this._initialized) {
+      this._layout();
+    }
   }
   private _outlined = false;
 
@@ -453,15 +455,17 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     this._setDefaultGlobalOptions();
   }
 
+  async _asyncBuildFoundation(): Promise<void> {
+    this._foundation = this.getDefaultFoundation();
+  }
+
   ngAfterViewInit(): void {
-    this._asyncBuildFoundation()
-      .then(() => {
-        this.init();
-      });
+    this.init();
   }
 
   ngOnDestroy(): void {
     this.destroy();
+    this._foundation.destroy();
   }
 
   ngDoCheck(): void {
@@ -473,18 +477,12 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     }
   }
 
-  async _asyncBuildFoundation(): Promise<void> {
-    this._foundation = this.getDefaultFoundation();
-  }
-
-  async _asyncInitFoundation(): Promise<void> {
-    this._foundation.init();
-  }
-
   init(): void {
-    this._asyncInitFoundation()
+    this._initialized = true;
+
+    this._asyncBuildFoundation()
       .then(() => {
-        this._initialized = true;
+        this._foundation.init();
 
         if (!this.fullwidth && !this.outlined && !this.textarea) {
           this._ripple = new MdcRipple(this.elementRef);
@@ -599,14 +597,13 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   }
 
   focus(): void {
-    if (!this.disabled) {
-      this._getInputElement().focus();
-    }
+    this._getInputElement()?.focus();
   }
 
   /** Initializes Text Field's internal state based on the environment state */
   private _layout(): void {
     this.destroy();
+
     this.init();
     this._changeDetectorRef.markForCheck();
 
@@ -657,9 +654,10 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
 
   /** Override MdcTextFieldBase destroy method */
   destroy(): void {
+    this._initialized = false;
+
     this._lineRipple?.destroy();
     this._ripple?.destroy();
-    this._foundation?.destroy();
   }
 
   private _isValid(): boolean {

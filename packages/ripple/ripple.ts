@@ -1,4 +1,4 @@
-import {AfterViewInit, Directive, ElementRef, Input, OnDestroy} from '@angular/core';
+import {AfterViewInit, Directive, ElementRef, Input, OnChanges, OnDestroy, SimpleChanges} from '@angular/core';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {supportsPassiveEventListeners} from '@angular/cdk/platform';
 
@@ -10,7 +10,7 @@ import {MDCRippleFoundation, MDCRippleAdapter} from '@material/ripple';
   selector: '[mdcRipple], mdc-ripple',
   providers: [MdcRipple],
 })
-export class MdcRippleDirective implements AfterViewInit, OnDestroy, MDCRippleCapableSurface {
+export class MdcRippleDirective implements AfterViewInit, OnChanges, OnDestroy, MDCRippleCapableSurface {
   _root!: Element;
 
   @Input()
@@ -29,11 +29,6 @@ export class MdcRippleDirective implements AfterViewInit, OnDestroy, MDCRippleCa
   }
   set primary(value: boolean) {
     this._primary = coerceBooleanProperty(value);
-    if (this._primary) {
-      this.attachTo.classList.add('mdc-ripple-surface--primary');
-    } else {
-      this.attachTo.classList.remove('mdc-ripple-surface--primary');
-    }
   }
   private _primary = false;
 
@@ -43,11 +38,6 @@ export class MdcRippleDirective implements AfterViewInit, OnDestroy, MDCRippleCa
   }
   set secondary(value: boolean) {
     this._secondary = coerceBooleanProperty(value);
-    if (this._secondary) {
-      this.attachTo.classList.add('mdc-ripple-surface--accent');
-    } else {
-      this.attachTo.classList.remove('mdc-ripple-surface--accent');
-    }
   }
   private _secondary = false;
 
@@ -74,6 +64,24 @@ export class MdcRippleDirective implements AfterViewInit, OnDestroy, MDCRippleCa
     public elementRef: ElementRef<HTMLElement>) {
     this._root = this.elementRef.nativeElement;
     this._ripple = this._createRipple();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['primary'] && this.attachTo) {
+      if (this._primary) {
+        this.attachTo.classList.add('mdc-ripple-surface--primary');
+      } else {
+        this.attachTo.classList.remove('mdc-ripple-surface--primary');
+      }
+    }
+
+    if (changes['secondary'] && this.attachTo) {
+      if (this._secondary) {
+        this.attachTo.classList.add('mdc-ripple-surface--accent');
+      } else {
+        this.attachTo.classList.remove('mdc-ripple-surface--accent');
+      }
+    }
   }
 
   ngAfterViewInit(): void {

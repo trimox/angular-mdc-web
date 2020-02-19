@@ -40,7 +40,7 @@ export class Examples {
   seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
 
   form = new FormGroup({
-    season: new FormControl(''),
+    season: new FormControl('Spring'),
   });
 
   alternateColors(input: MdcRadio) {
@@ -99,7 +99,7 @@ seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];`
     ts: `seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
 
 form = new FormGroup({
-  season: new FormControl(''),
+  season: new FormControl('Spring'),
 });`
   };
 

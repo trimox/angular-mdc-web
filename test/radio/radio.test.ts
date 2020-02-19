@@ -421,6 +421,12 @@ describe('MdcRadio', () => {
       expect(fruitRadioNativeInputs[0].getAttribute('aria-label')).toBe('Pineapple');
     });
 
+    it('should toggle', () => {
+      testComponent.value = 'Pineapple';
+      fixture.detectChanges();
+      expect(fruitRadioInstances[0].value).toBe('Pineapple');
+    });
+
     it('should add aria-labelledby attribute to the underlying input element if defined', () => {
       expect(fruitRadioNativeInputs[0].getAttribute('aria-labelledby')).toBe('xyz');
     });
@@ -506,7 +512,6 @@ describe('MdcRadio', () => {
 
       expect(radioButtonEl.getAttribute('tabindex')).toBe('-1');
     });
-
   });
 
   describe('group interspersed with other tags', () => {
@@ -626,7 +631,7 @@ class RadiosInsideRadioGroup {
     <span id="xyz">Baby Banana</span>
     <span id="abc">A smaller banana</span>
     <mdc-radio name="fruit"
-                     value="banana"
+                     [value]="value"
                      [aria-label]="ariaLabel"
                      [aria-labelledby]="ariaLabelledby"
                      [aria-describedby]="ariaDescribedby">
@@ -640,6 +645,7 @@ class StandaloneRadioButtons {
   ariaLabelledby: string = 'xyz';
   ariaDescribedby: string = 'abc';
   touch: boolean = false;
+  value = 'banana';
 }
 
 

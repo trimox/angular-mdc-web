@@ -16,6 +16,7 @@ import {
 } from '@angular/core';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {UniqueSelectionDispatcher} from '@angular/cdk/collections';
+import {supportsPassiveEventListeners} from '@angular/cdk/platform';
 
 import {MDCRippleFoundation, MDCRippleAdapter} from '@material/ripple';
 import {MDCRadioFoundation, MDCRadioAdapter} from '@material/radio';
@@ -100,6 +101,8 @@ export class MdcRadio extends MDCComponent<MDCRadioFoundation>
   implements AfterViewInit, OnDestroy, MdcFormFieldControl<any>, MDCRippleCapableSurface {
   private _uniqueId: string = `mdc-radio-${++nextUniqueId}`;
 
+  private _initialized: boolean = false;
+
   _root!: Element;
 
   /** The unique ID for the radio button. */
@@ -178,8 +181,8 @@ export class MdcRadio extends MDCComponent<MDCRadioFoundation>
 
   getDefaultFoundation() {
     const adapter: MDCRadioAdapter = {
-      addClass: (className: string) => this._getHostElement().classList.add(className),
-      removeClass: (className: string) => this._getHostElement().classList.remove(className),
+      addClass: (className: string) => this._root.classList.add(className),
+      removeClass: (className: string) => this._root.classList.remove(className),
       setNativeControlDisabled: (disabled: boolean) => this.disabled = disabled
     };
     return new MDCRadioFoundation(adapter);
@@ -212,6 +215,7 @@ export class MdcRadio extends MDCComponent<MDCRadioFoundation>
   }
 
   ngAfterViewInit(): void {
+    this._initialized = true;
     this._foundation.init();
 
     if (this.radioGroup) {
@@ -220,6 +224,8 @@ export class MdcRadio extends MDCComponent<MDCRadioFoundation>
         this.checked = this.radioGroup.value === this._value;
         // Copy name from parent radio group
         this.name = this.radioGroup.name;
+
+        this.setChecked(this.checked);
         this._changeDetectorRef.markForCheck();
       });
     }
@@ -254,6 +260,10 @@ export class MdcRadio extends MDCComponent<MDCRadioFoundation>
   }
 
   setChecked(checked: boolean): void {
+    if (!this._initialized) {
+      return;
+    }
+
     const newCheckedState = coerceBooleanProperty(checked);
 
     if (this._checked !== newCheckedState) {
@@ -279,18 +289,16 @@ export class MdcRadio extends MDCComponent<MDCRadioFoundation>
   }
 
   setValue(value: any): void {
-    if (this._value !== value) {
-      this._value = value;
-      this.input.nativeElement.value = this._value;
+    this._value = value;
+    this.input.nativeElement.value = this._value;
 
-      if (this.radioGroup !== null) {
-        if (!this.checked) {
-          // Update checked when the value changed to match the radio group's value
-          this.checked = this.radioGroup.value === value;
-        }
-        if (this.checked) {
-          this.radioGroup.selected = this;
-        }
+    if (this.radioGroup !== null) {
+      if (!this.checked) {
+        // Update checked when the value changed to match the radio group's value
+        this.checked = this.radioGroup.value === value;
+      }
+      if (this.checked) {
+        this.radioGroup.selected = this;
       }
     }
   }
@@ -307,7 +315,11 @@ export class MdcRadio extends MDCComponent<MDCRadioFoundation>
     const adapter: MDCRippleAdapter = {
       ...MdcRipple.createAdapter(this),
       isSurfaceActive: () => false,
-      isUnbounded: () => true
+      isUnbounded: () => true,
+      deregisterInteractionHandler: (evtType: any, handler: any) =>
+        this.input.nativeElement.removeEventListener(evtType, handler, supportsPassiveEventListeners()),
+      registerInteractionHandler: (evtType: any, handler: any) =>
+        this.input.nativeElement.addEventListener(evtType, handler, supportsPassiveEventListeners()),
     };
     return new MdcRipple(this.elementRef, new MDCRippleFoundation(adapter));
   }
@@ -315,10 +327,5 @@ export class MdcRadio extends MDCComponent<MDCRadioFoundation>
   /** Dispatch change event with current value. */
   private _emitChangeEvent(): void {
     this.change.emit(new MdcRadioChange(this, this._value));
-  }
-
-  /** Retrieves the DOM element of the component host. */
-  private _getHostElement(): HTMLElement {
-    return this.elementRef.nativeElement;
   }
 }

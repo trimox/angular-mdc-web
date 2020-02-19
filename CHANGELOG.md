@@ -1,3 +1,16 @@
+## [5.0.4](https://github.com/trimox/angular-mdc-web/compare/v5.0.3...v5.0.4) (2020-02-19)
+
+
+### Bug Fixes
+
+* **checkbox:** Throws exception with Ivy ([#2115](https://github.com/trimox/angular-mdc-web/issues/2115)) ([18d3e37](https://github.com/trimox/angular-mdc-web/commit/18d3e37f544bee130c51fc4285b41b439cc7c27b)), closes [#2109](https://github.com/trimox/angular-mdc-web/issues/2109)
+* **linear-progress:** Throws exception using Ivy ([#2112](https://github.com/trimox/angular-mdc-web/issues/2112)) ([cdf889c](https://github.com/trimox/angular-mdc-web/commit/cdf889c321e40c036bd8235e9fcac658a7fe61a2)), closes [#2108](https://github.com/trimox/angular-mdc-web/issues/2108)
+* **ripple:** Throws exception with Ivy ([#2116](https://github.com/trimox/angular-mdc-web/issues/2116)) ([244e62c](https://github.com/trimox/angular-mdc-web/commit/244e62c3bee19becc0ad37814d8f4d085877aa53)), closes [#2110](https://github.com/trimox/angular-mdc-web/issues/2110)
+* **switch:** Exception thrown in foundation if disabled ([#2111](https://github.com/trimox/angular-mdc-web/issues/2111)) ([ec8183e](https://github.com/trimox/angular-mdc-web/commit/ec8183e31021ad9e2abd3527b28cdf5d1d378231)), closes [#2107](https://github.com/trimox/angular-mdc-web/issues/2107)
+* **textfield:** Throws exception with Ivy ([#2114](https://github.com/trimox/angular-mdc-web/issues/2114)) ([abfd276](https://github.com/trimox/angular-mdc-web/commit/abfd276e88ec4d55207a4dc456cc90ae4dcf16db)), closes [#2113](https://github.com/trimox/angular-mdc-web/issues/2113)
+
+
+
 ## [5.0.3](https://github.com/trimox/angular-mdc-web/compare/v5.0.2...v5.0.3) (2020-02-18)
 
 

@@ -1,7 +1,8 @@
 import {Component, DebugElement} from '@angular/core';
-import {ComponentFixture, fakeAsync, flushMicrotasks, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed} from '@angular/core/testing';
 import {FormsModule, NgModel, ReactiveFormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
+import {Platform} from '@angular/cdk/platform';
 
 import {dispatchFakeEvent, dispatchMouseEvent} from '../testing/dispatch-events';
 
@@ -9,8 +10,12 @@ import {MdcCheckbox, MdcCheckboxModule} from '@angular-mdc/web';
 
 describe('MdcCheckbox', () => {
   let fixture: ComponentFixture<any>;
+  let platform: {isBrowser: boolean};
 
   beforeEach(fakeAsync(() => {
+    // Set the default Platform override that can be updated before component creation.
+    platform = {isBrowser: true};
+
     TestBed.configureTestingModule({
       imports: [MdcCheckboxModule, FormsModule, ReactiveFormsModule],
       declarations: [
@@ -19,10 +24,59 @@ describe('MdcCheckbox', () => {
         CheckboxWithAriaLabel,
         CheckboxWithTabIndex,
         CheckboxWithFormDirectives,
+        DisabledCheckbox,
+      ],
+      providers: [
+        {provide: Platform, useFactory: () => platform}
       ]
     });
     TestBed.compileComponents();
   }));
+
+  describe('Tests for SSR', () => {
+    let testDebugElement: DebugElement;
+    let testInstance: MdcCheckbox;
+    let testComponent: SingleCheckbox;
+
+    beforeEach(() => {
+      // Set the default Platform override that can be updated before component creation.
+      platform = {isBrowser: false};
+
+      fixture = TestBed.createComponent(SingleCheckbox);
+      fixture.detectChanges();
+
+      testDebugElement = fixture.debugElement.query(By.directive(MdcCheckbox));
+      testInstance = testDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+    });
+
+    it('#should have mdc-checkbox by default', () => {
+      expect(testDebugElement.nativeElement.classList)
+        .toContain('mdc-checkbox', 'Expected to have mdc-checkbox');
+    });
+  });
+
+  describe('disabled checkbox', () => {
+    let testDebugElement: DebugElement;
+    let testNativeElement: HTMLElement;
+    let testInstance: MdcCheckbox;
+    let testComponent: DisabledCheckbox;
+
+    beforeEach(async(() => {
+      fixture = TestBed.createComponent(DisabledCheckbox);
+      fixture.detectChanges();
+
+      testDebugElement = fixture.debugElement.query(By.directive(MdcCheckbox));
+      testNativeElement = testDebugElement.nativeElement;
+      testInstance = testDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+    }));
+
+    it('#should be disabled', () => {
+      fixture.detectChanges();
+      expect(testInstance._inputElement.nativeElement.disabled).toBe(true);
+    });
+  });
 
   describe('basic behaviors', () => {
     let checkboxDebugElement: DebugElement;
@@ -194,10 +248,6 @@ describe('MdcCheckbox', () => {
       expect(checkboxInstance.indeterminate).toBe(true);
     });
 
-    it('expect disableRipple to be false', () => {
-      expect(testComponent.disableRipple).toBe(false);
-    });
-
     it('expect disableRipple to be true', () => {
       testComponent.disableRipple = true;
       fixture.detectChanges();
@@ -348,7 +398,7 @@ class SingleCheckbox {
   indeterminate: boolean;
   checkboxValue: boolean = false;
   indeterminateToChecked: boolean = true;
-  disableRipple: boolean = false;
+  disableRipple: boolean;
   touch: boolean = false;
 }
 
@@ -388,3 +438,8 @@ class CheckboxWithTabIndex {
 class CheckboxWithFormDirectives {
   isGood: boolean = false;
 }
+
+@Component({
+  template: `<mdc-checkbox disabled></mdc-checkbox>`,
+})
+class DisabledCheckbox {}

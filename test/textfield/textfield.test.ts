@@ -2,6 +2,7 @@ import {Component, DebugElement, Provider, ViewChild, Type} from '@angular/core'
 import {async, ComponentFixture, fakeAsync, TestBed, flush, tick} from '@angular/core/testing';
 import {FormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
+import {Platform} from '@angular/cdk/platform';
 
 import {
   dispatchFakeEvent,
@@ -17,6 +18,11 @@ import {
 } from '@angular-mdc/web';
 
 function configureMdcTestingModule(declarations: any[], providers: Provider[] = []) {
+  let platform: {isBrowser: boolean};
+
+  // Set the default Platform override that can be updated before component creation.
+  platform = {isBrowser: true};
+
   TestBed.configureTestingModule({
     imports: [
       MdcTextFieldModule,
@@ -25,6 +31,7 @@ function configureMdcTestingModule(declarations: any[], providers: Provider[] = 
     ],
     declarations: declarations,
     providers: [
+      {provide: Platform, useFactory: () => platform},
       ...providers
     ],
   }).compileComponents();

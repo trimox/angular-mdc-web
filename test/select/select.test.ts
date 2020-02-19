@@ -9,6 +9,7 @@ import {
 import {async, fakeAsync, ComponentFixture, TestBed, flush} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {DOWN_ARROW} from '@angular/cdk/keycodes';
+import {Platform} from '@angular/cdk/platform';
 
 import {dispatchKeyboardEvent, dispatchMouseEvent} from '../testing/dispatch-events';
 
@@ -19,6 +20,11 @@ import {
 } from '@angular-mdc/web';
 
 function configureMdcTestingModule(declarations: any[], providers: Provider[] = []) {
+  let platform: {isBrowser: boolean};
+
+  // Set the default Platform override that can be updated before component creation.
+  platform = {isBrowser: true};
+
   TestBed.configureTestingModule({
     imports: [
       MdcSelectModule,
@@ -27,6 +33,7 @@ function configureMdcTestingModule(declarations: any[], providers: Provider[] = 
     ],
     declarations: declarations,
     providers: [
+      {provide: Platform, useFactory: () => platform},
       ...providers
     ],
   }).compileComponents();

@@ -28,7 +28,7 @@ const routes: Routes = [
     path: 'data-table-demo', loadChildren: () =>
       import('./components/data-table-demo/data-table.module').then(m => m.DataTableModule)
   },
-  {path: 'dialog-demo', loadChildren: () => import('./components/dialog-demo/dialog.module').then(m => m.DialogModule)},
+  {path: 'dialog-demo', loadChildren: () => import('./components/dialog/module').then(m => m.DialogModule)},
   {path: 'drawer-demo', loadChildren: () => import('./components/drawer-demo/drawer.module').then(m => m.DrawerModule)},
   {
     path: 'elevation-demo', loadChildren: () =>

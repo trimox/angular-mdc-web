@@ -3,10 +3,11 @@ import {
   Injector, TemplateRef, ViewContainerRef, ViewChild,
   ComponentFactoryResolver
 } from '@angular/core';
-import {inject, flush, fakeAsync, flushMicrotasks, tick, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, inject, flush, fakeAsync, flushMicrotasks, tick, ComponentFixture, TestBed} from '@angular/core/testing';
 import {Location} from '@angular/common';
 import {SpyLocation} from '@angular/common/testing';
 import {DOWN_ARROW, ESCAPE, TAB} from '@angular/cdk/keycodes';
+import {Platform} from '@angular/cdk/platform';
 
 import {dispatchKeyboardEvent, dispatchFakeEvent} from '../testing/dispatch-events';
 
@@ -25,26 +26,30 @@ import {OverlayContainer} from '@angular/cdk/overlay';
 
 describe('MdcDialog Service', () => {
   let dialog: MdcDialog;
+  let platform: {isBrowser: boolean};
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
 
   let testViewContainerRef: ViewContainerRef;
   let viewContainerFixture: ComponentFixture<ComponentWithChildViewContainer>;
-  let mockLocation: SpyLocation;
 
   beforeEach(fakeAsync(() => {
+    // Set the default Platform override that can be updated before component creation.
+    platform = {isBrowser: true};
+
     TestBed.configureTestingModule({
       imports: [MdcDialogModule, DialogTestModule],
-      providers: [{provide: Location, useClass: SpyLocation}]
+      providers: [
+        {provide: Platform, useFactory: () => platform}
+      ]
     });
 
     TestBed.compileComponents();
   }));
 
-  beforeEach(inject([MdcDialog, Location, OverlayContainer],
-    (d: MdcDialog, l: Location, oc: OverlayContainer) => {
+  beforeEach(inject([MdcDialog, OverlayContainer],
+    (d: MdcDialog, oc: OverlayContainer) => {
       dialog = d;
-      mockLocation = l as SpyLocation;
       overlayContainer = oc;
       overlayContainerElement = oc.getContainerElement();
     }));
@@ -366,6 +371,64 @@ describe('MdcDialog Service', () => {
   });
 });
 
+describe('Tests for SSR', () => {
+  let platform: {isBrowser: boolean};
+
+  let dialog: MdcDialog;
+  let overlayContainer: OverlayContainer;
+  let overlayContainerElement: HTMLElement;
+
+  let testViewContainerRef: ViewContainerRef;
+  let viewContainerFixture: ComponentFixture<ComponentWithChildViewContainer>;
+
+  beforeEach(fakeAsync(() => {
+    // Set the default Platform override that can be updated before component creation.
+    platform = {isBrowser: false};
+
+    TestBed.configureTestingModule({
+      imports: [MdcDialogModule, DialogTestModule],
+      providers: [
+        {provide: Platform, useFactory: () => platform}
+      ]
+    });
+
+    TestBed.compileComponents();
+  }));
+
+  beforeEach(inject([MdcDialog, OverlayContainer],
+    (d: MdcDialog, oc: OverlayContainer) => {
+      dialog = d;
+      overlayContainer = oc;
+      overlayContainerElement = oc.getContainerElement();
+    }));
+
+  afterEach(() => {
+    overlayContainer.ngOnDestroy();
+  });
+
+  beforeEach(() => {
+    viewContainerFixture = TestBed.createComponent(ComponentWithChildViewContainer);
+
+    viewContainerFixture.detectChanges();
+    testViewContainerRef = viewContainerFixture.componentInstance.childViewContainer;
+  });
+
+  it('should default to null if no data is passed', () => {
+    const dialogRef = dialog.open(SimpleDialog, {
+      viewContainerRef: testViewContainerRef
+    });
+
+    viewContainerFixture.detectChanges();
+
+    expect(dialogRef.componentInstance.dialogRef).toBe(dialogRef);
+    viewContainerFixture.detectChanges();
+
+    const actionButtonDebugElement = overlayContainerElement.querySelector('button');
+    dispatchFakeEvent(actionButtonDebugElement, 'click');
+    viewContainerFixture.detectChanges();
+  });
+});
+
 describe('MdcDialog with a parent MdcDialog', () => {
   let parentDialog: MdcDialog;
   let childDialog: MdcDialog;
@@ -382,8 +445,7 @@ describe('MdcDialog with a parent MdcDialog', () => {
             overlayContainerElement = document.createElement('div');
             return {getContainerElement: () => overlayContainerElement};
           }
-        },
-        {provide: Location, useClass: SpyLocation}
+        }
       ],
     });
 

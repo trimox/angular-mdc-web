@@ -20,7 +20,7 @@ export class Api {}
 export class Sass {}
 
 @Component({template: '<component-viewer></component-viewer>'})
-export class DialogDemo implements OnInit {
+export class Dialog implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
@@ -84,7 +84,6 @@ export class Examples {
     const dialogRef = this.dialog.open(DialogConfirmation);
 
     dialogRef.afterOpened().subscribe(() => {
-      dialogRef.componentInstance.dialogComponent.layout();
       console.log('Dialog opened');
     });
 

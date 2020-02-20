@@ -1,3 +1,12 @@
+## [5.0.5](https://github.com/trimox/angular-mdc-web/compare/v5.0.4...v5.0.5) (2020-02-20)
+
+
+### Bug Fixes
+
+* **radio:** Ivy exception ([#2118](https://github.com/trimox/angular-mdc-web/issues/2118)) ([8a89014](https://github.com/trimox/angular-mdc-web/commit/8a890147adcdebcadc1a63d9840c0a26048226b6)), closes [#2117](https://github.com/trimox/angular-mdc-web/issues/2117)
+
+
+
 ## [5.0.4](https://github.com/trimox/angular-mdc-web/compare/v5.0.3...v5.0.4) (2020-02-19)
 
 

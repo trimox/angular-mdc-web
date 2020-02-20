@@ -11,7 +11,7 @@ interface CustomClasses {
 }
 
 @Component({template: '<component-viewer></component-viewer>'})
-export class SnackbarDemo implements OnInit {
+export class Snackbar implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
@@ -37,6 +37,9 @@ export class Api {}
 
 @Component({templateUrl: './sass.html'})
 export class Sass {}
+
+@Component({template: '<p>Burritos are on the way.</p>'})
+export class BurritosNotification {}
 
 @Component({templateUrl: './examples.html'})
 export class Examples {
@@ -114,6 +117,10 @@ export class Examples {
       actionClasses: customClasses.actionClasses,
       dismissClasses: customClasses.dismissClasses
     });
+  }
+
+  openFromComponent() {
+    this.snackbar.openFromComponent(BurritosNotification);
   }
 
   //

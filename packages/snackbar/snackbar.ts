@@ -7,17 +7,19 @@ import {
   Injector,
   OnDestroy,
   Optional,
-  SkipSelf
+  SkipSelf,
+  TemplateRef
 } from '@angular/core';
 import {Overlay, OverlayRef} from '@angular/cdk/overlay';
-import {ComponentPortal, ComponentType, PortalInjector} from '@angular/cdk/portal';
+import {ComponentPortal, ComponentType, PortalInjector, TemplatePortal} from '@angular/cdk/portal';
 
 import {MdcSnackbarModule} from './module';
 
 import {MdcSnackbarRef} from './snackbar-ref';
-import {MdcSnackbarComponent} from './snackbar.component';
+import {MdcSnackbarBase} from './snackbar-base';
 import {MDC_SNACKBAR_DATA, MdcSnackbarConfig} from './snackbar-config';
 import {MdcSnackbarContainer} from './snackbar-container';
+import {MdcSnackbarComponent} from './snackbar.component';
 
 /** Injection token that can be used to specify default snackbar. */
 export const MDC_SNACKBAR_DEFAULT_OPTIONS =
@@ -36,7 +38,7 @@ export class MdcSnackbar implements OnDestroy {
   /**
    * Reference to the current snackbar in the view *at this level* (in the Angular injector tree).
    * If there is a parent snack-bar service, all operations should delegate to that parent
-   * via `_openedSnackBarRef`.
+   * via `_openedSnackbarRef`.
    */
   private _snackBarRefAtThisLevel: MdcSnackbarRef<any> | null = null;
 
@@ -70,6 +72,18 @@ export class MdcSnackbar implements OnDestroy {
   openFromComponent<T>(component: ComponentType<T>, config?: MdcSnackbarConfig):
     MdcSnackbarRef<T> {
     return this._attach(component, config) as MdcSnackbarRef<T>;
+  }
+
+  /**
+   * Creates and dispatches a snackbar with a custom template for the content, removing any
+   * currently opened snackbars.
+   *
+   * @param template Template to be instantiated.
+   * @param config Extra configuration for the snackbar.
+   */
+  openFromTemplate(template: TemplateRef<any>, config?: MdcSnackbarConfig):
+    MdcSnackbarRef<EmbeddedViewRef<any>> {
+    return this._attach(template, config);
   }
 
   /**
@@ -129,7 +143,7 @@ export class MdcSnackbar implements OnDestroy {
   /**
    * Places a new component or a template as the content of the snackbar container.
    */
-  private _attach<T>(content: ComponentType<T>, userConfig?: MdcSnackbarConfig):
+  private _attach<T>(content: ComponentType<T> | TemplateRef<T>, userConfig?: MdcSnackbarConfig):
     MdcSnackbarRef<T | EmbeddedViewRef<any>> {
 
     const config = {...new MdcSnackbarConfig(), ...this._defaultConfig, ...userConfig};
@@ -137,12 +151,21 @@ export class MdcSnackbar implements OnDestroy {
     const container = this._attachSnackbarContainer(overlayRef, config);
     const snackbarRef = new MdcSnackbarRef<T | EmbeddedViewRef<any>>(container, overlayRef);
 
-    const injector = this._createInjector(config, snackbarRef);
-    const portal = new ComponentPortal(content, undefined, injector);
-    const contentRef = container.attachComponentPortal<T>(portal);
+    if (content instanceof TemplateRef) {
+      const portal = new TemplatePortal(content, null!, {
+        $implicit: config.data,
+        snackbarRef
+      } as any);
 
-    // We can't pass this via the injector, because the injector is created earlier.
-    snackbarRef.instance = contentRef.instance;
+      snackbarRef.instance = container.attachTemplatePortal(portal);
+    } else {
+      const injector = this._createInjector(config, snackbarRef);
+      const portal = new ComponentPortal(content, undefined, injector);
+      const contentRef = container.attachComponentPortal<T>(portal);
+
+      // We can't pass this via the injector, because the injector is created earlier.
+      snackbarRef.instance = contentRef.instance;
+    }
 
     this._loadListeners(snackbarRef);
     this._openedSnackbarRef = snackbarRef;
@@ -162,9 +185,7 @@ export class MdcSnackbar implements OnDestroy {
       }
     });
 
-    if (this._openedSnackbarRef) {
-      this._openedSnackbarRef.dismiss();
-    }
+    this._openedSnackbarRef?.dismiss();
   }
 
   /**

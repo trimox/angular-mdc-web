@@ -1,10 +1,4 @@
 import {
-  BasePortalOutlet,
-  CdkPortalOutlet,
-  ComponentPortal,
-  TemplatePortal,
-} from '@angular/cdk/portal';
-import {
   ChangeDetectionStrategy,
   Component,
   ComponentRef,
@@ -14,9 +8,16 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import {
+  BasePortalOutlet,
+  CdkPortalOutlet,
+  ComponentPortal,
+  TemplatePortal,
+} from '@angular/cdk/portal';
 import {Subject} from 'rxjs';
 import {take} from 'rxjs/operators';
 import {MdcSnackbarConfig} from './snackbar-config';
+
 
 @Component({
   moduleId: module.id,
@@ -35,17 +36,18 @@ export class MdcSnackbarContainer extends BasePortalOutlet implements OnDestroy 
   constructor(
     private _ngZone: NgZone,
     public snackbarConfig: MdcSnackbarConfig) {
-
     super();
   }
 
   /** Attach a component portal as content to this snackbar container. */
   attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T> {
+    this._assertNotAttached();
     return this._portalOutlet.attachComponentPortal(portal);
   }
 
   /** Attach a template portal as content to this snackbar container. */
   attachTemplatePortal<C>(portal: TemplatePortal<C>): EmbeddedViewRef<C> {
+    this._assertNotAttached();
     return this._portalOutlet.attachTemplatePortal(portal);
   }
 
@@ -62,5 +64,12 @@ export class MdcSnackbarContainer extends BasePortalOutlet implements OnDestroy 
       this._onExit.next();
       this._onExit.complete();
     });
+  }
+
+  /** Asserts that no content is already attached to the container. */
+  private _assertNotAttached() {
+    if (this._portalOutlet.hasAttached()) {
+      throw Error('Attempting to attach snackbar content after content is already attached');
+    }
   }
 }

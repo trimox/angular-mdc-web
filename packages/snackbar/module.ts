@@ -4,8 +4,9 @@ import {OverlayModule} from '@angular/cdk/overlay';
 import {PortalModule} from '@angular/cdk/portal';
 import {MdcButtonModule} from '@angular-mdc/web/button';
 
-import {MdcSnackbarComponent} from './snackbar.component';
+import {MdcSnackbarBase} from './snackbar-base';
 import {MdcSnackbarContainer} from './snackbar-container';
+import {MdcSnackbarComponent} from './snackbar.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,7 @@ import {MdcSnackbarContainer} from './snackbar-container';
     MdcButtonModule
   ],
   exports: [MdcSnackbarContainer],
-  declarations: [MdcSnackbarContainer, MdcSnackbarComponent],
-  entryComponents: [MdcSnackbarContainer, MdcSnackbarComponent]
+  declarations: [MdcSnackbarContainer, MdcSnackbarBase, MdcSnackbarComponent],
+  entryComponents: [MdcSnackbarContainer, MdcSnackbarComponent, MdcSnackbarBase]
 })
 export class MdcSnackbarModule { }

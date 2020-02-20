@@ -16,7 +16,8 @@
         <td>afterDismiss: Observable
           <pre>MdcSnackbarDismissReason</pre>
         </td>
-        <td>Gets an observable that is notified when the snackbar is finished closing.
+        <td>Gets an observable that is notified when the snackbar is finished
+          closing.
           <pre><code highlight="/** Event that is emitted when a snackbar is dismissed. */
 export interface MdcSnackbarDismissReason {
   /** Whether the snackbar was dismissed using the action button. */
@@ -42,8 +43,13 @@ export interface MdcSnackbarDismissReason {
         <td>Opens snackbar message and action.</td>
       </tr>
       <tr>
-        <td>open(message: string, action: string, config?: MdcSnackbarConfig)</td>
+        <td>open(message: string, action: string, config?: MdcSnackbarConfig)
+        </td>
         <td>Opens the snackbar with optional configuration.</td>
+      </tr>
+      <tr>
+        <td><code highlight='openFromComponent(component: Component<T>, config?: MdcSnackbarConfig)'></code></td>
+        <td>Creates and dispatches a snackbar with a custom component for the content, removing any currently opened snackbars.</td>
       </tr>
     </tbody>
   </table>
@@ -53,11 +59,13 @@ export interface MdcSnackbarDismissReason {
     <tbody>
       <tr>
         <td>timeoutMs?: number</td>
-        <td>Value must be between 4000 and 10000 or an error will be thrown. Defaults to 5000 (5 seconds).</td>
+        <td>Value must be between 4000 and 10000 or an error will be thrown.
+          Defaults to 5000 (5 seconds).</td>
       </tr>
       <tr>
         <td>stacked?: boolean</td>
-        <td>Positions the action button/icon below the label instead of alongside it. Defaults to false.</td>
+        <td>Positions the action button/icon below the label instead of
+          alongside it. Defaults to false.</td>
       </tr>
       <tr>
         <td>leading?: boolean</td>
@@ -65,7 +73,8 @@ export interface MdcSnackbarDismissReason {
       </tr>
       <tr>
         <td>trailing?: boolean</td>
-        <td>Positions the snackbar on the trailing (right) edge of the screen.</td>
+        <td>Positions the snackbar on the trailing (right) edge of the screen.
+        </td>
       </tr>
       <tr>
         <td>direction?: string</td>
@@ -77,7 +86,8 @@ export interface MdcSnackbarDismissReason {
       </tr>
       <tr>
         <td>closeOnEscape?: boolean</td>
-        <td>Whether the snackbar closes when it is focused and the user presses the ESC key. Default is true.</td>
+        <td>Whether the snackbar closes when it is focused and the user presses
+          the ESC key. Default is true.</td>
       </tr>
       <tr>
         <td>classes?: string | string[]</td>
@@ -93,7 +103,8 @@ export interface MdcSnackbarDismissReason {
       </tr>
       <tr>
         <td>politeness?: AriaLivePoliteness</td>
-        <td>The politeness level for the screen reader announcement. Default is 'polite'</td>
+        <td>The politeness level for the screen reader announcement. Default is
+          'polite'</td>
       </tr>
     </tbody>
   </table>

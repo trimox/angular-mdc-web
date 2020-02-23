@@ -3,7 +3,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ComponentViewer} from '../../shared/component-viewer';
 
 @Component({template: '<component-viewer></component-viewer>'})
-export class TypographyDemo implements OnInit {
+export class Typography implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
@@ -29,25 +29,15 @@ export class Api {}
 
 @Component({templateUrl: './sass.html'})
 export class Sass {
-  exampleOverrideButton = {
-    sass: `$mdc-typography-styles-button: (
-  font-size: 16px,
-  text-transform: none
-);`
-  };
+  exampleFontFamilySimple = `@use '@material/typography' with (
+  $font-family: Arial
+);`;
 
-  exampleOverrideGlobalFontFamily = {
-    sass: `$mdc-typography-font-family: "Arial, Helvetica, sans-serif";`
-  };
-  exampleOverrideFontFamily = {
-    sass: `$mdc-typography-styles-headline1: (
-  font-family: unquote("Arial, Helvetica, sans-serif")
-);
-$mdc-typography-styles-headline2: (
-  font-family: unquote("Arial, Helvetica, sans-serif"),
-  font-size: 3.25rem
-);`
-  };
+  exampleOverrideFontFamilyGotham = `$gotham-font-family: unquote("'Gotham SSm A', 'Gotham SSm B', arial, sans-serif");
+
+@use '@material/typography' with (
+  $font-family: $gotham-font-family,
+);`;
 }
 
 @Component({templateUrl: './examples.html'})

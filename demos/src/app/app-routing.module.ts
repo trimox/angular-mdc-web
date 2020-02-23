@@ -81,7 +81,7 @@ const routes: Routes = [
   },
   {
     path: 'typography-demo', loadChildren: () =>
-      import('./components/typography-demo/typography.module').then(m => m.TypographyModule)
+      import('./components/typography/module').then(m => m.TypographyModule)
   },
   {path: '**', redirectTo: 'home'}
 ];

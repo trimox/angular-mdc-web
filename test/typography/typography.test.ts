@@ -1,6 +1,6 @@
-import { Component, DebugElement } from '@angular/core';
-import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import {Component, DebugElement} from '@angular/core';
+import {fakeAsync, ComponentFixture, TestBed} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
 
 import {
   MdcTypographyModule,
@@ -53,4 +53,4 @@ describe('MdcTypography', () => {
   </div>
   `,
 })
-class SimpleTest { }
+class SimpleTest {}

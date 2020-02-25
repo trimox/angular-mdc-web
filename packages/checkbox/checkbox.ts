@@ -20,7 +20,7 @@ import {Platform, supportsPassiveEventListeners} from '@angular/cdk/platform';
 import {fromEvent, Subject} from 'rxjs';
 import {takeUntil, filter} from 'rxjs/operators';
 
-import {matches} from '@material/dom/ponyfill';
+import {matches} from '@angular-mdc/web/dom';
 import {MDCRippleFoundation, MDCRippleAdapter} from '@material/ripple';
 import {MDCCheckboxFoundation, MDCCheckboxAdapter} from '@material/checkbox';
 

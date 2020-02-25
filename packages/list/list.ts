@@ -22,7 +22,7 @@ import {MDCComponent} from '@angular-mdc/web/base';
 
 import {MdcListItem, MdcListSelectionChange, MDC_LIST_PARENT_COMPONENT} from './list-item';
 
-import {matches} from '@material/dom/ponyfill';
+import {matches} from '@angular-mdc/web/dom';
 import {cssClasses, strings, MDCListFoundation, MDCListAdapter} from '@material/list';
 
 /** Change event that is being fired whenever the selected state of an option changes. */

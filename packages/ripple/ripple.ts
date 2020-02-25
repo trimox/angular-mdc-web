@@ -3,7 +3,7 @@ import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {supportsPassiveEventListeners} from '@angular/cdk/platform';
 
 import {MdcRipple, MDCRippleCapableSurface} from './ripple.service';
-import {matches} from '@material/dom/ponyfill';
+import {matches} from '@angular-mdc/web/dom';
 import {MDCRippleFoundation, MDCRippleAdapter} from '@material/ripple';
 
 @Directive({

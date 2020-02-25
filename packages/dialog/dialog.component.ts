@@ -24,7 +24,7 @@ import {
 import {MdcDialogRef} from './dialog-ref';
 import {MdcDialogConfig} from './dialog-config';
 
-import {closest, matches} from '@material/dom/ponyfill';
+import {closest, matches} from '@angular-mdc/web/dom';
 import {MDCDialogFoundation, MDCDialogAdapter, strings, util} from '@material/dialog';
 
 const LAYOUT_EVENTS = ['resize', 'orientationchange'];

@@ -30,8 +30,6 @@ export const rollupGlobals = {
   '@material/base': 'mdc.base',
   '@material/checkbox': 'mdc.checkbox',
   '@material/chips': 'mdc.chips',
-  '@material/dom': 'mdc.dom',
-  '@material/dom/ponyfill': 'mdc.dom.ponyfill',
   '@material/dialog': 'mdc.dialog',
   '@material/data-table': 'mdc.dataTable',
   '@material/drawer': 'mdc.drawer',

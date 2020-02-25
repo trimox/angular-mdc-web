@@ -20,7 +20,7 @@ import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
 import {MDCSwitchFoundation, MDCSwitchAdapter} from '@material/switch';
 import {MDCRippleAdapter, MDCRippleFoundation} from '@material/ripple';
-import {matches} from '@material/dom/ponyfill';
+import {matches} from '@angular-mdc/web/dom';
 
 import {MDCComponent} from '@angular-mdc/web/base';
 import {MdcRipple, MDCRippleCapableSurface} from '@angular-mdc/web/ripple';

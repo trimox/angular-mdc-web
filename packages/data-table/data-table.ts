@@ -21,7 +21,7 @@ import {
   MDCDataTableRow,
 } from './data-table.directives';
 
-import {closest} from '@material/dom/ponyfill';
+import {closest} from '@angular-mdc/web/dom';
 import {
   strings,
   MDCDataTableRowSelectionChangedEventDetail,

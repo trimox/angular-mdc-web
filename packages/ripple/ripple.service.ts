@@ -8,7 +8,7 @@ import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {supportsPassiveEventListeners} from '@angular/cdk/platform';
 
 import {EventType, SpecificEventListener} from '@material/base';
-import {matches} from '@material/dom/ponyfill';
+import {matches} from '@angular-mdc/web/dom';
 import {supportsCssVariables} from '@material/ripple/util';
 import {MDCRippleFoundation, MDCRippleAdapter} from '@material/ripple';
 

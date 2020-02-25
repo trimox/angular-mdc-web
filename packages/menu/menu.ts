@@ -16,7 +16,7 @@ import {takeUntil} from 'rxjs/operators';
 import {MdcList, MdcListItem, MdcListItemAction} from '@angular-mdc/web/list';
 import {MdcMenuSurfaceBase} from '@angular-mdc/web/menu-surface';
 
-import {closest} from '@material/dom/ponyfill';
+import {closest} from '@angular-mdc/web/dom';
 import {
   cssClasses,
   DefaultFocusState,

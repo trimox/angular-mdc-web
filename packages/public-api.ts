@@ -6,6 +6,7 @@ export * from '@angular-mdc/web/checkbox';
 export * from '@angular-mdc/web/chips';
 export * from '@angular-mdc/web/data-table';
 export * from '@angular-mdc/web/dialog';
+export * from '@angular-mdc/web/dom';
 export * from '@angular-mdc/web/drawer';
 export * from '@angular-mdc/web/elevation';
 export * from '@angular-mdc/web/fab';

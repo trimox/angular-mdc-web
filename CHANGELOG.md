@@ -1,3 +1,13 @@
+# [5.1.0](https://github.com/trimox/angular-mdc-web/compare/v5.0.5...v5.1.0) (2020-02-26)
+
+
+### Bug Fixes
+
+* Replace `@material/dom` with SSR compatible code ([#2106](https://github.com/trimox/angular-mdc-web/issues/2106)) ([27dad44](https://github.com/trimox/angular-mdc-web/commit/27dad44eab092983de90dd6c570352d188778844)), closes [#2031](https://github.com/trimox/angular-mdc-web/issues/2031)
+* **textfield:** Replace notched outline `<div>`s with `<span>` ([#2128](https://github.com/trimox/angular-mdc-web/issues/2128)) ([8a84469](https://github.com/trimox/angular-mdc-web/commit/8a84469c66ab8273003cf1073c79e15032576094))
+* Upstream MDC v5.1.0 [bug fixes](https://github.com/material-components/material-components-web/releases/tag/v5.1.0)
+
+
 ## [5.0.5](https://github.com/trimox/angular-mdc-web/compare/v5.0.4...v5.0.5) (2020-02-20)
 
 

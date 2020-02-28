@@ -1,0 +1,13 @@
+body {
+  margin: 0;
+}
+
+// Remove clear button for IE inputs
+::-ms-clear {
+  display: none;
+}
+
+// Remove pseudo-element for password field from IE
+::-ms-reveal {
+  display: none;
+}

@@ -1,0 +1,13 @@
+@use './styles/body';
+
+@use '@material/theme' with (
+  $primary: #6200ee,
+  $secondary: #faab1a,
+  $background: #fff,
+);
+
+// Material Components Web
+@use './styles/mdc';
+
+// Angular MDC
+@use '@angular-mdc/theme/material';

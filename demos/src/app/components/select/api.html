@@ -51,6 +51,11 @@
         <td>helperText: MdcHelperText</td>
         <td>Reference to related <code>MdcHelperText</code></td>
       </tr>
+      <tr>
+        <td>compareWith: (o1: any, o2: any) => boolean</td>
+        <td>Function to compare the option values with the selected values. The
+          first argument is a value from an option. The second is a value from
+          the selection. A boolean should be returned.</td>
     </tbody>
   </table>
 
@@ -59,7 +64,8 @@
     <tbody>
       <tr>
         <td>getSelectedIndex(): number</td>
-        <td>Returns the index of the currently selected option. Returns -1 if no option is currently selected.</td>
+        <td>Returns the index of the currently selected option. Returns -1 if no
+          option is currently selected.</td>
       </tr>
       <tr>
         <td>setSelectionByValue(value)</td>
@@ -119,7 +125,8 @@
     <tbody>
       <tr>
         <td>validation: boolean</td>
-        <td>Help text can be used to provide additional validation messages.</td>
+        <td>Help text can be used to provide additional validation messages.
+        </td>
       </tr>
       <tr>
         <td>persistent: boolean</td>

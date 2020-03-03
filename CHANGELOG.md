@@ -1,3 +1,12 @@
+## [5.1.1](https://github.com/trimox/angular-mdc-web/compare/v5.1.0...v5.1.1) (2020-03-03)
+
+
+### Bug Fixes
+
+* **select:** Fix comparing objects as values + lazy loading ([#2125](https://github.com/trimox/angular-mdc-web/issues/2125)) ([fe306e0](https://github.com/trimox/angular-mdc-web/commit/fe306e0b2320e1a0dee131ef132949bd583f8835)), closes [#2058](https://github.com/trimox/angular-mdc-web/issues/2058) [#2141](https://github.com/trimox/angular-mdc-web/issues/2141) [#2035](https://github.com/trimox/angular-mdc-web/issues/2035)
+
+
+
 # [5.1.0](https://github.com/trimox/angular-mdc-web/compare/v5.0.5...v5.1.0) (2020-02-26)
 
 

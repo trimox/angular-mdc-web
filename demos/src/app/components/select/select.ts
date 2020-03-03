@@ -9,6 +9,11 @@ interface Food {
   disabled?: boolean;
 }
 
+interface Fruit {
+  id: number;
+  name: string;
+}
+
 @Component({template: '<component-viewer></component-viewer>'})
 export class Select implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
@@ -47,7 +52,7 @@ export class Examples {
   foodControl = new FormControl();
 
   foodForm = new FormGroup({
-    favoriteFood: new FormControl(null, [Validators.required])
+    favoriteFood: new FormControl('pizza-1', [Validators.required])
   });
 
   lazyLoadForm = new FormGroup({
@@ -55,16 +60,14 @@ export class Examples {
   });
 
   formCompareWith: FormGroup;
-  fruits: object[] = [
+  fruits: Fruit[] = [
     {
       id: 1,
-      name: 'Pineapple',
-      tasty: true
+      name: 'Pineapple'
     },
     {
       id: 2,
-      name: 'Watermelon',
-      tasty: false
+      name: 'Watermelon'
     }
   ];
 
@@ -76,13 +79,13 @@ export class Examples {
     {value: 'fruit-3', viewValue: 'Fruit'},
   ];
 
-  compareFn(f1: any, f2: any): boolean {
+  compareFn(f1: Fruit, f2: Fruit): boolean {
     return f1 && f2 ? f1.id === f2.id : f1 === f2;
   }
 
   constructor(private fb: FormBuilder) {
     this.formCompareWith = this.fb.group({
-      fruit: [undefined]
+      fruit: this.fruits[0]
     });
 
     this.foodControl.setValue('fruit-3');
@@ -286,6 +289,45 @@ submitForm() {
 resetForm(formDirective: FormGroupDirective) {
   formDirective.resetForm();
   this.foodForm.reset();
+}`
+  };
+
+  exampleCompareWith = {
+    html: `<form [formGroup]="formCompareWith">
+  <mdc-select formControlName="fruit" [compareWith]="compareFn">
+    <mdc-menu class="demo-select-width">
+      <mdc-list>
+        <mdc-list-item *ngFor="let fruit of fruits" [value]="fruit">{{fruit.name}}</mdc-list-item>
+      </mdc-list>
+    </mdc-menu>
+  </mdc-select>
+</form>`,
+ts: `formCompareWith: FormGroup;
+
+interface Fruit {
+  id: number;
+  name: string;
+}
+
+fruits: Fruit[] = [
+  {
+    id: 1,
+    name: 'Pineapple'
+  },
+  {
+    id: 2,
+    name: 'Watermelon'
+  }
+];
+
+constructor(private fb: FormBuilder) {
+  this.formCompareWith = this.fb.group({
+    fruit: [undefined]
+  });
+}
+
+compareFn(f1: Fruit, f2: Fruit): boolean {
+  return f1 && f2 ? f1.id === f2.id : f1 === f2;
 }`
   };
 

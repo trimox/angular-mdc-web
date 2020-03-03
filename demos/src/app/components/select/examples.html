@@ -73,7 +73,8 @@
       'Off'}}</button>
     <button mdc-button (click)="meal.setSelectedIndex(2)">Set Index (2)</button>
   </div>
-  <mdc-select #meal [helperText]="mealHelper" required placeholder="Pick a Meal">
+  <mdc-select #meal [helperText]="mealHelper" required
+    placeholder="Pick a Meal">
     <mdc-icon mdcSelectIcon>fastfood</mdc-icon>
     <mdc-menu class="demo-select-width">
       <mdc-list>
@@ -138,7 +139,8 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Lazy Load</h3>
   <form [formGroup]="lazyLoadForm" #formDirectiveLazy="ngForm">
-    <mdc-select outlined formControlName="lazySelect" [helperText]="lazyHelper" placeholder="Example">
+    <mdc-select outlined formControlName="lazySelect" [helperText]="lazyHelper"
+      placeholder="Example">
       <mdc-menu class="demo-select-width">
         <mdc-list>
           <mdc-list-item *ngFor="let food of lazyFoods" [value]="food.value"
@@ -161,17 +163,21 @@
   <example-viewer [example]="exampleLazyLoaded"></example-viewer>
 </div>
 
-<!-- <div class="demo-content">
+<div class="demo-content">
   <h3 class="demo-content__headline">Select with [compareWith]</h3>
   <form [formGroup]="formCompareWith">
     <mdc-select formControlName="fruit" [compareWith]="compareFn">
-      <option *ngFor="let fruit of fruits" [ngValue]="fruit">
-        {{ fruit.name }}
-      </option>
+      <mdc-menu class="demo-select-width">
+        <mdc-list>
+          <mdc-list-item *ngFor="let fruit of fruits" [value]="fruit">
+            {{fruit.name}}</mdc-list-item>
+        </mdc-list>
+      </mdc-menu>
     </mdc-select>
   </form>
   <p> Value: {{ formCompareWith.value | json}} </p>
-</div> -->
+  <example-viewer [example]="exampleCompareWith"></example-viewer>
+</div>
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Select with ngModel</h3>

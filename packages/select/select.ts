@@ -206,14 +206,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   }
   private _valid?: boolean;
 
-  @Input()
-  get compareWith() {
-    return this._compareWith;
-  }
-  set compareWith(fn: (o1: any, o2: any) => boolean) {
-    this._compareWith = fn;
-  }
-  private _compareWith = (o1: any, o2: any) => o1 === o2;
+  @Input() compareWith: (o1: any, o2: any) => boolean = (a1, a2) => a1 === a2;
 
   /** Value of the select */
   @Input()
@@ -390,6 +383,8 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
       .then(() => {
         this._selectBuilder();
       });
+    this._initializeSelection();
+    this._subscribeToMenuEvents();
   }
 
   ngOnDestroy(): void {
@@ -416,7 +411,9 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   }
 
   writeValue(value: any): void {
-    this.setSelectionByValue(value, false);
+    if (this._initialized) {
+      this.setSelectionByValue(value, false);
+    }
   }
 
   registerOnChange(fn: (value: any) => void): void {
@@ -455,8 +452,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   }
 
   setSelectedIndex(index: number): void {
-    this._foundation.setSelectedIndex(index, this._menu.closeSurfaceOnSelection);
-    this.setSelectionByValue(this._menu._list?.getListItemByIndex(index)?.value);
+    this.setSelectionByValue(this._menu._list?.getListItemByIndex(index)?.value, true, index);
   }
 
   setSelectionByValue(value: any, isUserInput = true, index?: number): void {
@@ -464,14 +460,12 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
       return;
     }
 
-    if (index) {
-      // This method was called directly, not called from setSelectedIndex
-      this._foundation.setSelectedIndex(index, this._menu.closeSurfaceOnSelection);
-      value = this._menu._list?.getListItemByIndex(index)?.value;
+    if (!index) {
+      index = this._menu._list?.getListItemIndexByValue(value);
     }
 
     this._value = value;
-    this._foundation?.setValue(this._value);
+    this._foundation.setSelectedIndex(index ?? -1, this._menu.closeSurfaceOnSelection);
 
     if (isUserInput) {
       this._onChange(this._value);
@@ -482,15 +476,13 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
       index: this.getSelectedIndex(),
       value: this._value
     });
+
+    this._foundation.handleChange();
     this._changeDetectorRef.markForCheck();
   }
 
-  async _asyncSetSelectionByValue(value: any, isUserInput: boolean = true): Promise<void> {
-    return this.setSelectionByValue(value, isUserInput);
-  }
-
   // Implemented as part of ControlValueAccessor.
-  setDisabledState(disabled: boolean) {
+  setDisabledState(disabled: boolean): void {
     this._disabled = coerceBooleanProperty(disabled);
     this._foundation?.setDisabled(this._disabled);
     this._changeDetectorRef.markForCheck();
@@ -503,11 +495,10 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   /** Initialize Select internal state based on the environment state */
   private layout(): void {
     if (this._initialized) {
-      this._selectBuilder();
-
-      if (this._outlined) {
+      this._asyncBuildFoundation().then(() => {
+        this._selectBuilder();
         this._foundation.layout();
-      }
+      });
     }
   }
 
@@ -518,7 +509,6 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
       const value = this.ngControl?.value ?? this._value;
       if (value) {
         this.setSelectionByValue(value, false);
-        this._foundation.layout();
       }
     });
   }
@@ -543,14 +533,13 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   private _selectBuilder(): void {
     this._changeDetectorRef.detectChanges();
 
+    // initialize after running a detectChanges()
     this._asyncInitFoundation()
       .then(() => {
-        // initialize after running a detectChanges()
         if (!this.outlined) {
           this._ripple = this._createRipple();
           this._ripple.init();
         }
-        this._initializeSelection();
 
         this._menu.wrapFocus = false;
         this._menu.elementRef.nativeElement.setAttribute('role', 'listbox');
@@ -561,13 +550,12 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
           this._menu._list.singleSelection = true;
         }
       });
-    this._subscribeToMenuEvents();
   }
 
   private _subscribeToMenuEvents(): void {
     // When the list items change, re-subscribe
     this._menu._list!.items.changes.pipe(takeUntil(this._destroyed))
-      .subscribe(() => this.layout());
+      .subscribe(() => this._initializeSelection());
 
     // Subscribe to menu opened event
     this._menu.opened.pipe(takeUntil(this._destroyed))

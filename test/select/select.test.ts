@@ -139,8 +139,8 @@ describe('MdcSelectModule', () => {
 
     it('#should set outlined and floating label with value', () => {
       testInstance.setSelectionByValue('fruit-3');
-      testInstance.outlined = true;
-      testInstance.floatLabel = true;
+      testComponent.outlined = true;
+      testComponent.floatLabel = true;
       fixture.detectChanges();
 
       expect(testInstance.floatLabel).toBe(true);
@@ -180,11 +180,11 @@ describe('MdcSelectModule', () => {
       fixture.detectChanges();
     });
 
-    it('#should reset', fakeAsync(() => {
+    it('#should reset', () => {
       testComponent.testValue = '';
       fixture.detectChanges();
       expect(testInstance.getSelectedIndex()).toBe(-1);
-    }));
+    });
   });
 
   describe('form control basic behaviors', () => {
@@ -222,11 +222,10 @@ describe('MdcSelectModule', () => {
       expect(testInstance.compareWith).toBe(undefined);
     });
 
-    it('#should set value to tacos-2', fakeAsync(() => {
+    it('#should set value to tacos-2', () => {
       testComponent.foodControl.setValue('tacos-2');
-      flush();
       expect(testInstance.value).toBe('tacos-2');
-    }));
+    });
   });
 
   describe('Lazy Loaded', () => {
@@ -254,7 +253,7 @@ describe('MdcSelectModule', () => {
     }));
 
     it('#should load data if not outlined', fakeAsync(() => {
-      testInstance.outlined = false;
+      testComponent.outlined = false;
       fixture.detectChanges();
 
       testComponent.loadFoods();
@@ -284,7 +283,7 @@ describe('MdcSelectModule', () => {
     let testInstance: MdcSelect;
     let testComponent: EnhancedSelect;
 
-    beforeEach(fakeAsync(() => {
+    beforeEach(() => {
       fixture = TestBed.createComponent(EnhancedSelect);
       fixture.detectChanges();
 
@@ -294,13 +293,13 @@ describe('MdcSelectModule', () => {
       testComponent = fixture.debugElement.componentInstance;
 
       fixture.detectChanges();
-    }));
+    });
 
-    it('#should apply class outlined', fakeAsync(() => {
+    it('#should apply class outlined', () => {
       testComponent.outlined = true;
       fixture.detectChanges();
       expect(testDebugElement.nativeElement.classList.contains('mdc-select--outlined')).toBe(true);
-    }));
+    });
 
     it('#should be disabled', fakeAsync(() => {
       testComponent.disabled = true;
@@ -308,14 +307,14 @@ describe('MdcSelectModule', () => {
       expect(testInstance.disabled).toBe(true);
     }));
 
-    it('#should set required to true and valid to true', fakeAsync(() => {
+    it('#should set required to true and valid to true', () => {
       testInstance.valid = true;
       fixture.detectChanges();
       testComponent.required = false;
       fixture.detectChanges();
 
       expect(testInstance.required).toBe(false);
-    }));
+    });
 
     it('#should handle mouse events', fakeAsync(() => {
       dispatchMouseEvent(testInstance._selectedText.root, 'click');
@@ -367,11 +366,11 @@ describe('MdcSelectModule', () => {
       expect(testInstance._menu.open).toBe(true);
     }));
 
-    it('#should set valid to undefined', fakeAsync(() => {
+    it('#should set valid to undefined', () => {
       testInstance.valid = undefined;
       fixture.detectChanges();
       expect(testInstance.valid).toBe(false);
-    }));
+    });
   });
 });
 

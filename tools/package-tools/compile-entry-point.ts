@@ -51,6 +51,7 @@ function addIdToGlob(outputPath: string, entryPointId: number): void {
     fileContent = fileContent.replace(/ɵ(ɵ)?[a-z]+/g,
       (match, isDoubleTheta) => {
         return isDoubleTheta ? match : match + entryPointId;
-      }); writeFileSync(filePath, fileContent, 'utf-8');
+      });
+      writeFileSync(filePath, fileContent, 'utf-8');
   });
 }

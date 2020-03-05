@@ -14,6 +14,7 @@
     "yarn": ">= 1.19.1"
   },
   "requiredAngularVersion": "^9.0.0",
+  "requiredMDCVersion": "^5.1.0",
   "scripts": {
     "build": "gulp web:build",
     "build:release": "gulp web:build-release",
@@ -31,9 +32,8 @@
     "@angular/core": "^9.0.4",
     "@angular/forms": "^9.0.4",
     "@angular/platform-browser": "^9.0.4",
-    "core-js": "2.6.9",
+    "core-js": "^2.6.9",
     "material-components-web": "^5.1.0",
-    "rollup-plugin-alias": "1.5.2",
     "rxjs": "^6.5.3",
     "tsickle": "0.38.0",
     "tslib": "1.11.1",
@@ -44,6 +44,7 @@
     "@angular/platform-browser-dynamic": "^9.0.4",
     "@babel/core": "^7.8.6",
     "@babel/preset-env": "^7.8.6",
+    "@rollup/plugin-alias": "^3.0.1",
     "@rollup/plugin-node-resolve": "7.1.1",
     "@types/fs-extra": "^8.1.0",
     "@types/glob": "^7.1.1",

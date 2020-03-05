@@ -5,6 +5,8 @@ export interface BuildConfig {
   projectVersion: string;
   /** Required Angular version for the project. */
   angularVersion: string;
+  /** Required MDC Web version for the project. */
+  mdcVersion: string;
   /** Path to the root of the project. */
   projectDir: string;
   /** Path to the directory where all packages are living. */
@@ -17,11 +19,6 @@ export interface BuildConfig {
 
 // Search for a build config by walking up the current working directory of the Node process.
 const buildConfigPath = findBuildConfig();
-
-if (!buildConfigPath) {
-  throw 'Angular MDC build tools were not able to find a build config. ' +
-  'Please create a "build-config.js" file in your project.';
-}
 
 // Load the config file using a basic CommonJS import.
 export const buildConfig = require(buildConfigPath) as BuildConfig;

@@ -7,7 +7,7 @@ import {spawn} from 'child_process';
  * @param flags Command-line flags to be passed to binary.
  * @returns Promise that resolves/rejects when the child process exits.
  */
-export function tsCompile(binary: 'tsc' | 'ngc', flags: string[]) {
+export function tsCompile(binary: 'ngc', flags: string[]) {
   return new Promise((resolve, reject) => {
     const binaryPath = resolvePath(`./node_modules/.bin/${binary}`);
     const childProcess = spawn(binaryPath, flags, {shell: true});

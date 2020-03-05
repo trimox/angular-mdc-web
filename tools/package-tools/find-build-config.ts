@@ -1,5 +1,5 @@
-import { resolve, dirname, join } from 'path';
-import { existsSync } from 'fs';
+import {resolve, dirname, join} from 'path';
+import {existsSync} from 'fs';
 
 /** Name of the build config file. */
 const BUILD_CONFIG_FILENAME = 'build-config.js';

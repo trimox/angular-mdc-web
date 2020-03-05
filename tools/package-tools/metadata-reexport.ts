@@ -1,5 +1,5 @@
-import { writeFileSync } from 'fs';
-import { join } from 'path';
+import {writeFileSync} from 'fs';
+import {join} from 'path';
 
 /** Creates a metadata file that re-exports the metadata bundle inside of the typings. */
 export function createMetadataReexportFile(destDir: string, from: string | string[],
@@ -10,7 +10,7 @@ export function createMetadataReexportFile(destDir: string, from: string | strin
     __symbolic: 'module',
     version: 3,
     metadata: {},
-    exports: from.map(f => ({ from: f })),
+    exports: from.map(f => ({from: f})),
     flatModuleIndexRedirect: true,
     importAs: importAsName
   }, null, 2);

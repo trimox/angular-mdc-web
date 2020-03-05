@@ -1,5 +1,5 @@
-import { join } from 'path';
-import { writeFileSync } from 'fs';
+import {join} from 'path';
+import {writeFileSync} from 'fs';
 
 /** Creates a package.json for a secondary entry-point with the different bundle locations. */
 export function createEntryPointPackageJson(destDir: string, packageName: string,

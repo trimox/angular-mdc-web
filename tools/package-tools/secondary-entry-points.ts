@@ -1,8 +1,8 @@
-import { join } from 'path';
-import { readdirSync, lstatSync, existsSync } from 'fs';
-import { spawnSync } from 'child_process';
-import { BuildPackage } from './build-package';
-import { platform } from 'os';
+import {join} from 'path';
+import {readdirSync, lstatSync, existsSync} from 'fs';
+import {spawnSync} from 'child_process';
+import {BuildPackage} from './build-package';
+import {platform} from 'os';
 
 /**
  * Gets secondary entry-points for a given package in the order they should be built.
@@ -23,7 +23,7 @@ export function getSecondaryEntryPointsForPackage(pkg: BuildPackage) {
     .filter(d => existsSync(join(packageDir, d, 'tsconfig-build.json')));
 
   // Create nodes that comprise the build graph.
-  const buildNodes: BuildNode[] = entryPoints.map(p => ({ name: p, deps: [], depth: 0 }));
+  const buildNodes: BuildNode[] = entryPoints.map(p => ({name: p, deps: [], depth: 0}));
 
   // Create a lookup for name -> build graph node.
   const nodeLookup = buildNodes.reduce((lookup, node) => {

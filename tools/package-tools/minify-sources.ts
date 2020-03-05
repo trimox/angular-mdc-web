@@ -5,13 +5,13 @@ const terser = require('terser');
 
 /** Minifies a JavaScript file by using terser-js. Also writes sourcemaps to the output. */
 export function terserJs(inputPath: string, outputPath: string) {
-  // const sourceMapPath = `${outputPath}.map`;
+  const sourceMapPath = `${outputPath}.map`;
 
   const result = terser.minify(readFileSync(inputPath, 'utf8'), {
-    // sourceMap: {
-    //   content: `${inputPath}.map`,
-    //   url: sourceMapPath
-    // },
+    sourceMap: {
+      filename: `${inputPath}.map`,
+      url: sourceMapPath
+    },
     output: {
       comments: 'some'
     }
@@ -20,5 +20,5 @@ export function terserJs(inputPath: string, outputPath: string) {
   // console.log(result.error); // runtime error, `undefined` in this case
   // console.log(result.warnings); // [ 'Dropping unused variable u [0:1,18]' ]
   writeFileSync(outputPath, result.code);
-  // writeFileSync(sourceMapPath, result.map);
+  writeFileSync(sourceMapPath, result.map);
 }

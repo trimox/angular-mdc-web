@@ -8,7 +8,7 @@ import {remapSourcemap} from './sourcemap-remap';
 
 // There are no type definitions available for these imports.
 const rollup = require('rollup');
-const rollupNodeResolutionPlugin = require('@rollup/plugin-node-resolve');
+const rollupNodeResolve = require('@rollup/plugin-node-resolve');
 const rollupAlias = require('@rollup/plugin-alias');
 const babel = require('rollup-plugin-babel');
 
@@ -20,13 +20,13 @@ export class PackageBundler {
   /** Name of the AMD module for the primary entry point of the build package. */
   private readonly primaryAmdModuleName: string;
 
-  constructor(private buildPackage: BuildPackage) {
-    this.primaryAmdModuleName = this.getAmdModuleName(buildPackage.name);
+  constructor(private _buildPackage: BuildPackage) {
+    this.primaryAmdModuleName = this._getAmdModuleName(_buildPackage.name);
   }
 
   /** Creates all bundles for the package and all associated entry points (UMD, ES5, ES2015). */
   async createBundles() {
-    for (const entryPoint of this.buildPackage.secondaryEntryPoints) {
+    for (const entryPoint of this._buildPackage.secondaryEntryPoints) {
       await this.bundleSecondaryEntryPoint(entryPoint);
     }
 
@@ -35,11 +35,11 @@ export class PackageBundler {
 
   /** Bundles the primary entry-point w/ given entry file, e.g. @angular-mdc/web */
   private async bundlePrimaryEntryPoint() {
-    const packageName = this.buildPackage.name;
+    const packageName = this._buildPackage.name;
 
     return this.bundleEntryPoint({
-      entryFile: this.buildPackage.entryFilePath,
-      esm5EntryFile: join(this.buildPackage.esm5OutputDir, 'index.js'),
+      entryFile: this._buildPackage.entryFilePath,
+      esm5EntryFile: join(this._buildPackage.esm5OutputDir, 'index.js'),
       importName: `@angular-mdc/${packageName}`,
       moduleName: this.primaryAmdModuleName,
       esm2015Dest: join(bundlesDir, `${packageName}.js`),
@@ -51,15 +51,15 @@ export class PackageBundler {
 
   /** Bundles a single secondary entry-point w/ given entry file, e.g. @angular-mdc/web/button */
   private async bundleSecondaryEntryPoint(entryPointName: string) {
-    const packageName = this.buildPackage.name;
-    const entryFile = join(this.buildPackage.outputDir, entryPointName, 'index.js');
-    const esm5EntryFile = join(this.buildPackage.esm5OutputDir, entryPointName, 'index.js');
+    const packageName = this._buildPackage.name;
+    const entryFile = join(this._buildPackage.outputDir, entryPointName, 'index.js');
+    const esm5EntryFile = join(this._buildPackage.esm5OutputDir, entryPointName, 'index.js');
 
     return this.bundleEntryPoint({
       entryFile,
       esm5EntryFile,
       importName: `@angular-mdc/${packageName}/${entryPointName}`,
-      moduleName: this.getAmdModuleName(packageName, entryPointName),
+      moduleName: this._getAmdModuleName(packageName, entryPointName),
       esm2015Dest: join(bundlesDir, `${packageName}`, `${entryPointName}.js`),
       esm5Dest: join(bundlesDir, `${packageName}`, `${entryPointName}.es5.js`),
       umdDest: join(bundlesDir, `${packageName}-${entryPointName}.umd.js`),
@@ -70,7 +70,7 @@ export class PackageBundler {
   /**
    * Creates the ES5, ES2015, and UMD bundles for the specified entry-point.
    * @param config Configuration that specifies the entry-point, module name, and output
-   *     bundle paths.
+   * bundle paths.
    */
   private async bundleEntryPoint(config: BundlesConfig) {
     // Build FESM-2015 bundle file.
@@ -107,7 +107,6 @@ export class PackageBundler {
     await remapSourcemap(config.esm2015Dest);
     await remapSourcemap(config.esm5Dest);
     await remapSourcemap(config.umdDest);
-    // await remapSourcemap(config.umdMinDest);
   }
 
   /** Creates a rollup bundle of a specified JavaScript file.*/
@@ -164,7 +163,7 @@ export class PackageBundler {
     // For UMD bundles, we need to adjust the `external` bundle option in order to include
     // all necessary code in the bundle.
     if (config.format === 'umd') {
-      bundleOptions.plugins.push(rollupNodeResolutionPlugin());
+      bundleOptions.plugins.push(rollupNodeResolve());
       // For all UMD bundles, we want to exclude tslib from the `external` bundle option so that
       // it is inlined into the bundle.
       let external = Object.keys(rollupGlobals);
@@ -173,17 +172,18 @@ export class PackageBundler {
       // If each secondary entry-point is re-exported at the root, we want to exclude those
       // secondary entry-points from the rollup globals because we want the UMD for the
       // primary entry-point to include *all* of the sources for those entry-points.
-      if (this.buildPackage.exportsSecondaryEntryPointsAtRoot &&
+      if (this._buildPackage.exportsSecondaryEntryPointsAtRoot &&
         config.moduleName === this.primaryAmdModuleName) {
 
-        const importRegex = new RegExp(`@angular-mdc/${this.buildPackage.name}/.+`);
+        const importRegex = new RegExp(`@angular-mdc/${this._buildPackage.name}/.+`);
         external = external.filter(e => !importRegex.test(e));
 
         // Use the rollup-alias plugin to map imports of the form `@angular-mdc/web/button`
         // to the actual file location so that rollup can resolve the imports (otherwise they
         // will be treated as external dependencies and not included in the bundle).
-        bundleOptions.plugins.push(
-          rollupAlias(this.getResolvedSecondaryEntryPointImportPaths(config.dest)));
+        bundleOptions.plugins.push(rollupAlias({
+          entries: this._getResolvedSecondaryEntryPointImportPaths(config.dest)
+        }));
       }
       bundleOptions.external = external;
     }
@@ -192,24 +192,25 @@ export class PackageBundler {
   }
 
   /**
-   * Gets mapping of import aliases (e.g. `@angular-mdc/web/button`) to the path of the es5
+   * Gets array of import aliases (e.g. `@angular-mdc/web/button`) with the path of the es5
    * bundle output.
    * @param bundleOutputDir Path to the bundle output directory.
-   * @returns Map of alias to resolved path.
+   * @returns Array of alias with resolved path.
    */
-  private getResolvedSecondaryEntryPointImportPaths(bundleOutputDir: string) {
-    return this.buildPackage.secondaryEntryPoints.reduce((map, p) => {
-      map[`@angular-mdc/${this.buildPackage.name}/${p}`] =
-        join(dirname(bundleOutputDir), this.buildPackage.name, `${p}.es5.js`);
-      return map;
-    }, {} as {[key: string]: string});
+  private _getResolvedSecondaryEntryPointImportPaths(bundleOutputDir: string) {
+    return this._buildPackage.secondaryEntryPoints.map(p => {
+      return {
+        find: `@angular-mdc/${this._buildPackage.name}/${p}`,
+        replacement: join(dirname(bundleOutputDir), this._buildPackage.name, `${p}.es5.js`)
+      };
+    });
   }
 
   /**
    * Gets the AMD module name for a package and an optional entry point. This is consistent
    * to the module name format being used in "angular/angular".
    */
-  private getAmdModuleName(packageName: string, entryPointName?: string) {
+  private _getAmdModuleName(packageName: string, entryPointName?: string) {
     let amdModuleName = `ng.${dashCaseToCamelCase(packageName)}`;
 
     if (entryPointName) {

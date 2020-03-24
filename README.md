@@ -24,6 +24,7 @@ Using Google Material Components [foundations and adapters](https://github.com/m
 | card | Available | [View](https://trimox.github.io/angular-mdc-web/#/card-demo) |
 | checkbox | Available | [View](https://trimox.github.io/angular-mdc-web/#/checkbox-demo) |
 | chips | Available | [View](https://trimox.github.io/angular-mdc-web/#/chips-demo) |
+| circular-progress | Available | [View](https://trimox.github.io/angular-mdc-web/#/circular-progress) |
 | data-table | Available | [View](https://trimox.github.io/angular-mdc-web/#/data-table-demo) |
 | dialog | Available | [View](https://trimox.github.io/angular-mdc-web/#/dialog-demo) |
 | drawer | Available | [View](https://trimox.github.io/angular-mdc-web/#/drawer-demo) |

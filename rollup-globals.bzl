@@ -40,6 +40,7 @@ ROLLUP_GLOBALS = {
     "@material/base": "mdc.base",
     "@material/checkbox": "mdc.checkbox",
     "@material/chips": "mdc.chips",
+    "@material/circular-progress": "mdc.circularProgress",
     "@material/dialog": "mdc.dialog",
     "@material/data-table": "mdc.dataTable",
     "@material/drawer": "mdc.drawer",

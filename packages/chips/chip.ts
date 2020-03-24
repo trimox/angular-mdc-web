@@ -391,7 +391,7 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
   selector: 'mdc-chip-icon, [mdcChipIcon]',
   exportAs: 'mdcChipIcon',
   host: {
-    'class': 'mdc-chip__icon ngx-mdc-icon',
+    'class': 'mdc-chip__icon',
     '[attr.role]': 'trailing ? "button" : "img"',
     '[attr.tabindex]': 'trailing ? 1 : -1',
     '[class.mdc-chip__icon--leading]': 'leading',

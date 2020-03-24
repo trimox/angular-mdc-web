@@ -25,7 +25,7 @@ export function getHighlightLanguages() {
     HttpClientModule,
     AppRoutingModule,
     SharedModule,
-    HighlightModule
+    HighlightModule,
   ],
   declarations: [
     AppComponent,

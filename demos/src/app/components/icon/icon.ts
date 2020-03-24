@@ -3,7 +3,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 
 import {ComponentViewer} from '../../shared/component-viewer';
 import {environment} from '../../../environments/environment';
-import {MdcIcon, MdcIconRegistry} from '@angular-mdc/web';
+import {MdcIcon, MdcIconRegistry} from '@angular-mdc/web/icon';
 
 const BIKE_ICON =
   `<svg xmlns="http://www.w3.org/2000/svg">

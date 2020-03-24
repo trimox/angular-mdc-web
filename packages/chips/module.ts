@@ -6,7 +6,7 @@ import {MdcChip, MdcChipIcon, MdcChipCheckmark} from './chip';
 import {MdcChipPrimaryAction, MdcChipText} from './chip-directives';
 import {MdcChipSet} from './chip-set';
 
-export const CHIP_DECLARATIONS = [
+const CHIP_DECLARATIONS = [
   MdcChip,
   MdcChipCheckmark,
   MdcChipIcon,

@@ -1,0 +1,23 @@
+package(default_visibility = ["//visibility:public"])
+
+load(
+    "//tools:defaults.bzl",
+    "ng_module",
+)
+
+ng_module(
+    name = "ripple",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+        ],
+    ),
+    module_name = "@angular-mdc/web/ripple",
+    deps = [
+        "//packages/dom",
+        "@npm//@angular/cdk",
+        "@npm//@material/base",
+        "@npm//@material/ripple",
+    ],
+)

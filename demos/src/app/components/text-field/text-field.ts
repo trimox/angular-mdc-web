@@ -2,7 +2,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {DomSanitizer} from '@angular/platform-browser';
 
-import {MdcTextField, ErrorStateMatcher, MdcIconRegistry} from '@angular-mdc/web';
+import {MdcTextField} from '@angular-mdc/web/textfield';
+import {MdcIconRegistry} from '@angular-mdc/web/icon';
+import {ErrorStateMatcher} from '@angular-mdc/web/form-field';
 import {environment} from '../../../environments/environment';
 import {ComponentViewer} from '../../shared/component-viewer';
 

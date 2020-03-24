@@ -90,7 +90,6 @@ let nextUniqueId = 0;
 const MOUSE_EVENT_IGNORE_TIME = 800;
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-text-field',
   exportAs: 'mdcTextField',
   host: {

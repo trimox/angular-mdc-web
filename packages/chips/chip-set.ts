@@ -25,7 +25,7 @@ import {
   MdcChipNavigationEvent,
   MdcChipSelectionEvent,
   MdcChipRemovalEvent
-} from './types';
+} from './chip-config';
 import {
   MdcChip,
   MDC_CHIPSET_PARENT_COMPONENT
@@ -40,7 +40,6 @@ export class MdcChipSetChange {
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-chip-set',
   exportAs: 'mdcChipSet',
   host: {

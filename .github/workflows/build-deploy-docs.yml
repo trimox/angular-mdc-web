@@ -35,7 +35,7 @@ jobs:
           yarn
      
       - name: Build angular-mdc-web
-        run: yarn run build:release
+        run: sudo yarn run build
 
       - name: Build documentation
         run: |

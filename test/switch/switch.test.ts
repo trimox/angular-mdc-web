@@ -5,7 +5,7 @@ import {By} from '@angular/platform-browser';
 
 import {dispatchFakeEvent, dispatchMouseEvent} from '../testing/dispatch-events';
 
-import {MdcSwitch, MdcSwitchModule} from '@angular-mdc/web';
+import {MdcSwitch, MdcSwitchModule} from '@angular-mdc/web/switch';
 
 describe('MdcSwitch', () => {
   let fixture: ComponentFixture<any>;

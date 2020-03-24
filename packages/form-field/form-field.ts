@@ -20,7 +20,6 @@ import {MdcFormFieldControl} from './form-field-control';
 import {MdcHelperText} from './helper-text';
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-form-field',
   exportAs: 'mdcFormField',
   host: {

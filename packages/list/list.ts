@@ -40,7 +40,6 @@ export interface MdcListItemAction {
 }
 
 @Component({
-  moduleId: module.id,
   selector: '[mdcListGroup], mdc-list-group',
   exportAs: 'mdcListGroup',
   host: {'class': 'mdc-list-group'},
@@ -66,7 +65,6 @@ export class MdcListGroupSubheader {
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-list',
   exportAs: 'mdcList',
   host: {

@@ -11,7 +11,6 @@ import {MDCComponent} from '@angular-mdc/web/base';
 import {MDCSelectHelperTextFoundation, MDCSelectHelperTextAdapter} from '@material/select';
 
 @Component({
-  moduleId: module.id,
   selector: `mdc-select-helper-text, [mdcSelectHelperText]`,
   exportAs: 'mdcSelectHelperText',
   host: {'class': 'mdc-select-helper-text'},

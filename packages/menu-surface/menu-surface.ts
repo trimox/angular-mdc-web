@@ -9,7 +9,6 @@ import {
 import {MdcMenuSurfaceBase} from './menu-surface-base';
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-menu-surface',
   exportAs: 'mdcMenuSurface',
   host: { 'class': 'mdc-menu-surface' },

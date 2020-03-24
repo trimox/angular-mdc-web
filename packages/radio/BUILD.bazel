@@ -1,0 +1,26 @@
+package(default_visibility = ["//visibility:public"])
+
+load(
+    "//tools:defaults.bzl",
+    "ng_module",
+)
+
+ng_module(
+    name = "radio",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+        ],
+    ),
+    module_name = "@angular-mdc/web/radio",
+    deps = [
+        "//packages/base",
+        "//packages/form-field",
+        "//packages/ripple",
+        "@npm//@angular/cdk",
+        "@npm//@angular/forms",
+        "@npm//@material/radio",
+        "@npm//@material/ripple",
+    ],
+)

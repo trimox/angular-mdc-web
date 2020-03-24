@@ -16,7 +16,6 @@ import {MDCProgressIndicator} from '@material/progress-indicator/component';
 import {strings, MDCLinearProgressFoundation, MDCLinearProgressAdapter} from '@material/linear-progress';
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-linear-progress',
   exportAs: 'mdcLinearProgress',
   host: {

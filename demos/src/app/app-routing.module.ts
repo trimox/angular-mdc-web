@@ -26,10 +26,10 @@ const routes: Routes = [
   {path: 'theme-docs', loadChildren: () => import('./components/theme-docs/theme.module').then(m => m.ThemeModule)},
   {
     path: 'data-table-demo', loadChildren: () =>
-      import('./components/data-table-demo/data-table.module').then(m => m.DataTableModule)
+      import('./components/data-table/module').then(m => m.DataTableModule)
   },
   {path: 'dialog-demo', loadChildren: () => import('./components/dialog/module').then(m => m.DialogModule)},
-  {path: 'drawer-demo', loadChildren: () => import('./components/drawer-demo/drawer.module').then(m => m.DrawerModule)},
+  {path: 'drawer-demo', loadChildren: () => import('./components/drawer/module').then(m => m.DrawerModule)},
   {
     path: 'elevation-demo', loadChildren: () =>
       import('./components/elevation-demo/elevation.module').then(m => m.ElevationModule)
@@ -54,7 +54,7 @@ const routes: Routes = [
     path: 'linear-progress-demo', loadChildren: () =>
       import('./components/linear-progress/module').then(m => m.LinearProgressModule)
   },
-  {path: 'list-demo', loadChildren: () => import('./components/list-demo/list.module').then(m => m.ListModule)},
+  {path: 'list-demo', loadChildren: () => import('./components/list/module').then(m => m.ListModule)},
   {path: 'menu-demo', loadChildren: () => import('./components/menu/module').then(m => m.MenuModule)},
   {
     path: 'menu-surface-demo', loadChildren: () =>

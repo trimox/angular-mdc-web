@@ -1,0 +1,25 @@
+package(default_visibility = ["//visibility:public"])
+
+load(
+    "//tools:defaults.bzl",
+    "ng_module",
+)
+
+ng_module(
+    name = "tab-bar",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+        ],
+    ),
+    module_name = "@angular-mdc/web/tab-bar",
+    deps = [
+        "//packages/base",
+        "//packages/tab",
+        "//packages/tab-indicator",
+        "//packages/tab-scroller",
+        "@npm//@angular/cdk",
+        "@npm//@material/tab-bar",
+    ],
+)

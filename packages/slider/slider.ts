@@ -40,7 +40,6 @@ export class MdcSliderChange {
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-slider',
   exportAs: 'mdcSlider',
   host: {

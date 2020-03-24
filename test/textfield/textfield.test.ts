@@ -13,9 +13,9 @@ import {
 import {
   MdcTextField,
   MdcTextFieldModule,
-  MdcIconModule,
   MDC_TEXT_FIELD_DEFAULT_OPTIONS,
-} from '@angular-mdc/web';
+} from '@angular-mdc/web/textfield';
+import {MdcIconModule} from '@angular-mdc/web/icon';
 
 function configureMdcTestingModule(declarations: any[], providers: Provider[] = []) {
   let platform: {isBrowser: boolean};

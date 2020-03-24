@@ -1,0 +1,24 @@
+package(default_visibility = ["//visibility:public"])
+
+load(
+    "//tools:defaults.bzl",
+    "ng_module",
+)
+
+ng_module(
+    name = "top-app-bar",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+        ],
+    ),
+    module_name = "@angular-mdc/web/top-app-bar",
+    deps = [
+        "//packages/base",
+        "//packages/ripple",
+        "@npm//@angular/cdk",
+        "@npm//@material/ripple",
+        "@npm//@material/top-app-bar",
+    ],
+)

@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ComponentRef,
   ElementRef,
@@ -17,24 +18,15 @@ import {
   TemplatePortal
 } from '@angular/cdk/portal';
 import {Subject} from 'rxjs';
-
 import {MdcDialogConfig} from './dialog-config';
 
-/**
- * Throws an exception for the case when a ComponentPortal is
- * attached to a DomPortalOutlet without an origin.
- */
-export function throwMdcDialogContentAlreadyAttachedError() {
-  throw Error('Attempting to attach dialog content after content is already attached');
-}
-
 @Component({
-  moduleId: module.id,
   selector: 'mdc-dialog-portal',
   host: {
     '[attr.id]': '_id'
   },
   template: '<ng-template cdkPortalOutlet></ng-template>',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 export class MdcDialogPortal extends BasePortalOutlet {
@@ -57,10 +49,6 @@ export class MdcDialogPortal extends BasePortalOutlet {
    * @param portal Portal to be attached as the dialog content.
    */
   attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T> {
-    if (this._portalOutlet.hasAttached()) {
-      throwMdcDialogContentAlreadyAttachedError();
-    }
-
     this._savePreviouslyFocusedElement();
     return this._portalOutlet.attachComponentPortal(portal);
   }
@@ -70,10 +58,6 @@ export class MdcDialogPortal extends BasePortalOutlet {
    * @param portal Portal to be attached as the dialog content.
    */
   attachTemplatePortal<C>(portal: TemplatePortal<C>): EmbeddedViewRef<C> {
-    if (this._portalOutlet.hasAttached()) {
-      throwMdcDialogContentAlreadyAttachedError();
-    }
-
     this._savePreviouslyFocusedElement();
     return this._portalOutlet.attachTemplatePortal(portal);
   }

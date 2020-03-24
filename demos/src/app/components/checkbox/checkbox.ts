@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
-import {MdcCheckbox, MdcCheckboxChange} from '@angular-mdc/web';
+import {MdcCheckbox, MdcCheckboxChange} from '@angular-mdc/web/checkbox';
 
 import {ComponentViewer} from '../../shared/component-viewer';
 

@@ -4,10 +4,9 @@ import {By} from '@angular/platform-browser';
 
 import {
   MDCDataTableModule,
-  MdcCheckboxModule,
   MDCDataTable,
-  MdcCheckbox,
-} from '@angular-mdc/web';
+} from '@angular-mdc/web/data-table';
+import {MdcCheckboxModule, MdcCheckbox} from '@angular-mdc/web/checkbox';
 
 describe('MDCDataTable', () => {
   let fixture: ComponentFixture<any>;

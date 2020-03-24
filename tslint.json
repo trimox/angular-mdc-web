@@ -26,7 +26,11 @@
     "label-position": true,
     "max-line-length": [
       true,
-      120
+      {
+        "check-strings": true,
+        "check-regex": true,
+        "ignore-pattern": "//\\s+https?://"
+      }
     ],
     "member-access": false,
     "no-arg": true,
@@ -200,8 +204,15 @@
           }
         }
       },
-      "packages/**/"
+      "packages/!(overlay|scrolling)/**/!(*.spec).ts"
     ],
     "no-unescaped-html-tag": true
+  },
+  "linterOptions": {
+    "exclude": [
+      "tools/**/*.ts",
+      "packages/overlay/**/*.ts",
+      "packages/scrolling/**/*.ts"
+    ]
   }
 }

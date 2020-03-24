@@ -6,8 +6,8 @@ import {Platform} from '@angular/cdk/platform';
 import {
   MdcMenuSurface,
   MdcMenuSurfaceModule,
-  MdcImageListModule
-} from '@angular-mdc/web';
+} from '@angular-mdc/web/menu-surface';
+import {MdcImageListModule} from '@angular-mdc/web/image-list';
 
 describe('MdcMenuSurface', () => {
   let fixture: ComponentFixture<any>;

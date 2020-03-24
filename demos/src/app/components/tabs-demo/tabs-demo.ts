@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
-import {MdcTabActivatedEvent} from '@angular-mdc/web';
+import {MdcTabActivatedEvent} from '@angular-mdc/web/tab-bar';
 import {ComponentViewer} from '../../shared/component-viewer';
 
 @Component({template: '<component-viewer></component-viewer>'})

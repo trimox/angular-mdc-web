@@ -6,7 +6,7 @@ import {Component} from '@angular/core';
 import {wrappedErrorMessage} from '../testing/wrapped-error-message';
 import {FAKE_SVGS} from '../testing/fake-svgs';
 
-import {MdcIconModule, MDC_ICON_LOCATION, MdcIconRegistry, getMdcIconNoHttpProviderError} from '@angular-mdc/web';
+import {MdcIconModule, MDC_ICON_LOCATION, MdcIconRegistry, getMdcIconNoHttpProviderError} from '@angular-mdc/web/icon';
 
 /** Returns the CSS classes assigned to an element as a sorted array. */
 function sortedClassNames(element: Element): string[] {

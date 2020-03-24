@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
-import {MdcListItem} from '@angular-mdc/web';
+import {MdcListItem} from '@angular-mdc/web/list';
 import {ComponentViewer} from '../../shared/component-viewer';
 
 @Component({template: '<component-viewer></component-viewer>'})

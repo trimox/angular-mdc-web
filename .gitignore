@@ -4,11 +4,12 @@
 /dist
 /tmp
 /out-tsc
+/bazel-out
+/demos/node_modules
+/demos/dist
 
 # dependencies
 /node_modules
-/demos/node_modules
-/demos/dist
 
 # IDEs and editors
 /.idea
@@ -20,18 +21,20 @@
 *.sublime-workspace
 
 # IDE - VSCode
-.vscode/*
+/.idea
+/.vscode/launch.json
+/*.iml
 
 # misc
+.DS_Store
 /.sass-cache
 /connect.lock
-/coverage
 /libpeerconnection.log
 npm-debug.log
+yarn-debug.log
 yarn-error.log
 testem.log
-/typings
-
-# System Files
-.DS_Store
-Thumbs.db
+/.chrome
+/.git
+/.firebase
+/.bazelrc.user

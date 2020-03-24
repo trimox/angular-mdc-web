@@ -13,17 +13,16 @@ import {startWith} from 'rxjs/operators';
 import {
   Overlay,
   OverlayRef
-} from '@angular/cdk/overlay';
+} from '@angular-mdc/web/overlay';
 import {
   ComponentPortal,
   ComponentType,
   PortalInjector,
   TemplatePortal
 } from '@angular/cdk/portal';
-
-import {MdcDialogRef} from './dialog-ref';
-import {MdcDialogPortal} from './dialog-portal';
 import {MdcDialogConfig} from './dialog-config';
+import {MdcDialogPortal} from './dialog-portal';
+import {MdcDialogRef} from './dialog-ref';
 
 /** Injection token that can be used to access the data that was passed in to a dialog. */
 export const MDC_DIALOG_DATA = new InjectionToken<any>('MdcDialogData');

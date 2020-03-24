@@ -1,0 +1,27 @@
+package(default_visibility = ["//visibility:public"])
+
+load(
+    "//tools:defaults.bzl",
+    "ng_module",
+)
+
+ng_module(
+    name = "switch",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+        ],
+    ),
+    module_name = "@angular-mdc/web/switch",
+    deps = [
+        "//packages/base",
+        "//packages/dom",
+        "//packages/form-field",
+        "//packages/ripple",
+        "@npm//@angular/cdk",
+        "@npm//@angular/forms",
+        "@npm//@material/ripple",
+        "@npm//@material/switch",
+    ],
+)

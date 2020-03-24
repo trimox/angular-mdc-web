@@ -23,14 +23,15 @@
       "@angular-mdc/web/*": [
         "../../packages/*"
       ],
-      "@angular-mdc/web": [
-        "../../packages/public-api.ts"
-      ],
       "@material/*": [
         "../../node_modules/*"
       ]
     }
   },
+  "files": [
+    "src/main.ts",
+    "src/polyfills.ts"
+  ],
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true

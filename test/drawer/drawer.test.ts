@@ -7,13 +7,11 @@ import {dispatchFakeEvent, dispatchMouseEvent, dispatchKeyboardEvent} from '../t
 
 import {
   MdcDrawerModule,
-  MdcListModule,
-  MdcIconModule,
-  MdcListItem,
   MdcDrawer,
-  MdcButtonModule,
-  MdcButton
-} from '@angular-mdc/web';
+} from '@angular-mdc/web/drawer';
+import {MdcIconModule} from '@angular-mdc/web/icon';
+import {MdcListModule, MdcListItem} from '@angular-mdc/web/list';
+import {MdcButtonModule, MdcButton} from '@angular-mdc/web/button';
 
 describe('MdcDrawer', () => {
   let fixture: ComponentFixture<any>;

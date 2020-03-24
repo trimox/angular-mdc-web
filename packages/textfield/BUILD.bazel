@@ -1,0 +1,28 @@
+package(default_visibility = ["//visibility:public"])
+
+load(
+    "//tools:defaults.bzl",
+    "ng_module",
+)
+
+ng_module(
+    name = "textfield",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+        ],
+    ),
+    module_name = "@angular-mdc/web/textfield",
+    deps = [
+        "//packages/base",
+        "//packages/floating-label",
+        "//packages/form-field",
+        "//packages/line-ripple",
+        "//packages/notched-outline",
+        "//packages/ripple",
+        "@npm//@angular/cdk",
+        "@npm//@material/ripple",
+        "@npm//@material/textfield",
+    ],
+)

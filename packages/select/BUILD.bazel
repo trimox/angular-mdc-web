@@ -1,0 +1,30 @@
+package(default_visibility = ["//visibility:public"])
+
+load(
+    "//tools:defaults.bzl",
+    "ng_module",
+)
+
+ng_module(
+    name = "select",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+        ],
+    ),
+    module_name = "@angular-mdc/web/select",
+    deps = [
+        "//packages/base",
+        "//packages/floating-label",
+        "//packages/form-field",
+        "//packages/line-ripple",
+        "//packages/menu",
+        "//packages/notched-outline",
+        "//packages/ripple",
+        "@npm//@angular/cdk",
+        "@npm//@angular/forms",
+        "@npm//@material/ripple",
+        "@npm//@material/select",
+    ],
+)

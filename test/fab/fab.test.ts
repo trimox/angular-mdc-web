@@ -2,7 +2,8 @@ import {Component, DebugElement} from '@angular/core';
 import {fakeAsync, ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 
-import {MdcFab, MdcFabModule, MdcIconModule} from '@angular-mdc/web';
+import {MdcFab, MdcFabModule} from '@angular-mdc/web/fab';
+import {MdcIconModule} from '@angular-mdc/web/icon';
 
 describe('MdcFab', () => {
   let fixture: ComponentFixture<any>;

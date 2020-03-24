@@ -20,7 +20,6 @@ export class MdcCardMediaContent {
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-card-media, [mdcCardMedia]',
   exportAs: 'mdcCardMedia',
   host: {
@@ -55,7 +54,6 @@ export class MdcCardMedia {
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-card-primary-action, [mdcCardPrimaryAction]',
   exportAs: 'mdcCardPrimaryAction',
   host: {'class': 'mdc-card__primary-action'},
@@ -78,7 +76,6 @@ export class MdcCardPrimaryAction implements OnDestroy {
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-card-actions, [mdcCardActions]',
   template: '<ng-content></ng-content>',
   exportAs: 'mdcCardActions',
@@ -153,7 +150,6 @@ export class MdcCardAction {
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-card',
   exportAs: 'mdcCard',
   host: {

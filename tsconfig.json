@@ -4,7 +4,7 @@
   "compilerOptions": {
     "outDir": "./dist/packages/all",
     "experimentalDecorators": true,
-    "module": "es2015",
+    "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
     "noUnusedParameters": true,
@@ -12,8 +12,23 @@
     "noUnusedLocals": true,
     "skipLibCheck": true,
     "target": "es2015",
-    "lib": ["es5", "es2015", "dom"],
-    "types": ["jasmine"]
+    "lib": [
+      "es5",
+      "es2015",
+      "dom"
+    ],
+    "types": [
+      "jasmine"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@angular-mdc/web": [
+        "./packages"
+      ],
+      "@angular-mdc/web/*": [
+        "./packages/*"
+      ]
+    }
   },
   "include": [
     "packages/**/*.ts",

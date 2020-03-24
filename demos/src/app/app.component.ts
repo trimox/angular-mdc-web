@@ -3,7 +3,8 @@ import {Router, NavigationEnd} from '@angular/router';
 
 import {environment} from '../environments/environment';
 
-import {MdcDrawer, MdcTopAppBar} from '@angular-mdc/web';
+import {MdcDrawer} from '@angular-mdc/web/drawer';
+import {MdcTopAppBar} from '@angular-mdc/web/top-app-bar';
 
 const SMALL_WIDTH_BREAKPOINT = 1240;
 

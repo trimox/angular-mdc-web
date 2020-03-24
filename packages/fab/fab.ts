@@ -22,7 +22,6 @@ import {MdcIcon} from '@angular-mdc/web/icon';
 export class MdcFabLabel {}
 
 @Component({
-  moduleId: module.id,
   selector: 'button[mdc-fab], a[mdc-fab]',
   host: {
     '[attr.tabindex]': 'exited ? -1 : 0',

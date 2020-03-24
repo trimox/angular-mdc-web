@@ -34,7 +34,6 @@ import {
 export type MdcDrawerType = 'dismissible' | 'modal';
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-drawer-header',
   template: `
   <ng-content></ng-content>
@@ -52,7 +51,6 @@ export class MdcDrawerHeader {
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-drawer',
   exportAs: 'mdcDrawer',
   host: {

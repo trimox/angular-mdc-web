@@ -1,8 +1,9 @@
 import {NgModule} from '@angular/core';
 
-import {OverlayModule} from '@angular/cdk/overlay';
+import {OverlayModule} from '@angular-mdc/web/overlay';
 import {PortalModule} from '@angular/cdk/portal';
 
+import {MdcButtonModule} from '@angular-mdc/web/button';
 import {MdcDialogComponent} from './dialog.component';
 import {MdcDialogPortal} from './dialog-portal';
 import {MdcDialog} from './dialog';
@@ -35,7 +36,8 @@ const DIALOG_DECLARATIONS = [
 @NgModule({
   imports: [
     OverlayModule,
-    PortalModule
+    PortalModule,
+    MdcButtonModule,
   ],
   exports: DIALOG_DECLARATIONS,
   declarations: DIALOG_DECLARATIONS,

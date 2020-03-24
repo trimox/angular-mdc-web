@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
-import {MdcSwitchChange} from '@angular-mdc/web';
+import {MdcSwitchChange} from '@angular-mdc/web/switch';
 import {ComponentViewer} from '../../shared/component-viewer';
 
 @Component({template: '<component-viewer></component-viewer>'})

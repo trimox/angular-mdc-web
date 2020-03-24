@@ -1,0 +1,24 @@
+package(default_visibility = ["//visibility:public"])
+
+load(
+    "//tools:defaults.bzl",
+    "ng_module",
+)
+
+ng_module(
+    name = "form-field",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+        ],
+    ),
+    module_name = "@angular-mdc/web/form-field",
+    deps = [
+        "//packages/base",
+        "//packages/ripple",
+        "@npm//@angular/cdk",
+        "@npm//@angular/forms",
+        "@npm//@material/textfield",
+    ],
+)

@@ -1,10 +1,10 @@
-import { Component, DebugElement } from '@angular/core';
-import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import {Component, DebugElement} from '@angular/core';
+import {fakeAsync, ComponentFixture, TestBed} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
 
 import {
   MdcIconModule, MdcMaterialIcons
-} from '@angular-mdc/web';
+} from '@angular-mdc/web/icon';
 
 describe('MdcMaterialIcon', () => {
   let fixture: ComponentFixture<any>;
@@ -40,4 +40,4 @@ describe('MdcMaterialIcon', () => {
 @Component({
   template: '<i materialIcons>home</i>',
 })
-class SimpleTest { }
+class SimpleTest {}

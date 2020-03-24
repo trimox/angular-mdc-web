@@ -10,10 +10,10 @@ import {
   MdcListItem,
   MdcListGroup,
   MdcListDivider,
-  MdcCheckboxModule,
   MdcListModule,
-  MdcIconModule,
-} from '@angular-mdc/web';
+} from '@angular-mdc/web/list';
+import {MdcIconModule} from '@angular-mdc/web/icon';
+import {MdcCheckboxModule} from '@angular-mdc/web/checkbox';
 
 describe('MdcListModule', () => {
   let fixture: ComponentFixture<any>;

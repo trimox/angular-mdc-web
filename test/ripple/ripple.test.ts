@@ -8,7 +8,7 @@ import {dispatchMouseEvent} from '../testing/dispatch-events';
 import {
   MdcRippleModule,
   MdcRippleDirective
-} from '@angular-mdc/web';
+} from '@angular-mdc/web/ripple';
 
 describe('MdcRippleComponent', () => {
   let fixture: ComponentFixture<any>;

@@ -10,19 +10,16 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {LiveAnnouncer} from '@angular/cdk/a11y';
-
 import {MDCComponent} from '@angular-mdc/web/base';
 import {MdcSnackbarRef, MdcSnackbarDismissReason} from './snackbar-ref';
 import {MDC_SNACKBAR_DATA, MdcSnackbarConfig} from './snackbar-config';
-
 import {MDCSnackbarFoundation, MDCSnackbarAdapter} from '@material/snackbar';
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-snackbar',
   host: {
     'class': 'mdc-snackbar',
-    '[dir]': 'this.config.direction',
+    '[dir]': 'config.direction',
     '[class.mdc-snackbar--stacked]': 'config.stacked',
     '[class.mdc-snackbar--leading]': 'config.leading',
     '[class.ngx-mdc-snackbar--trailing]': 'config.trailing',

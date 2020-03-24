@@ -31,7 +31,6 @@ export class MDCDataTableHeaderRow {
 }
 
 @Component({
-  moduleId: module.id,
   selector: '[mdcDataTableHeaderCell]',
   exportAs: 'mdcDataTableHeaderCell',
   host: {
@@ -70,7 +69,6 @@ export class MDCDataTableContent {
 }
 
 @Component({
-  moduleId: module.id,
   selector: '[mdcDataTableRow]',
   exportAs: 'mdcDataTableRow',
   host: {
@@ -110,7 +108,6 @@ export class MDCDataTableRow {
 }
 
 @Component({
-  moduleId: module.id,
   selector: '[mdcDataTableCell]',
   exportAs: 'mdcDataTableCell',
   host: {

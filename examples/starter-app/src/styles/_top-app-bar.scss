@@ -1,0 +1,29 @@
+@use '@material/top-app-bar/_index' as top-app-bar;
+@use '@material/tab/_index' as tab;
+@use '@material/tab-indicator/_index' as tab-indicator;
+@use '@material/ripple/_index' as ripple;
+@use '@material/theme';
+
+.top-app-bar-with-tabs {
+  .mdc-tab-bar {
+    margin-top: 1em;
+
+    @media (max-width: 599px) {
+      margin-top: .5em;
+    }
+
+    .mdc-tab {
+      @include tab.text-label-color(on-primary);
+      @include tab.icon-color(on-primary);
+    }
+  
+    .mdc-tab__ripple {
+      @include ripple.states(on-primary);
+    }
+  
+    .mdc-tab-indicator {
+      @include tab-indicator.underline-color(on-primary);
+      @include tab-indicator.underline-height(2px);
+    }
+  }
+}

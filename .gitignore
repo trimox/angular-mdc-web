@@ -38,3 +38,4 @@ testem.log
 /.git
 /.firebase
 /.bazelrc.user
+/examples/**/*.lock

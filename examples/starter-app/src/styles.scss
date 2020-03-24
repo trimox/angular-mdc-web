@@ -11,3 +11,6 @@
 
 // Angular MDC
 @use '@angular-mdc/theme/material';
+
+@use './styles/top-app-bar';
+@use './styles/drawer-content';

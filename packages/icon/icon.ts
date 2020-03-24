@@ -80,7 +80,6 @@ const funcIriPattern = /^url\(['"]?#(.*?)['"]?\)$/;
   host: {
     '[attr.role]': 'role',
     'class': 'ngx-mdc-icon',
-    '[class.ngx-mdc-icon--clickable]': 'clickable',
     '[class.ngx-mdc-icon--inline]': 'inline'
   },
   template: '<ng-content></ng-content>',
@@ -134,21 +133,6 @@ export class MdcIcon implements AfterViewChecked, OnDestroy, OnChanges, OnInit {
     this._fontIcon = this._cleanupFontValue(value);
   }
   private _fontIcon: string = '';
-
-  @Input()
-  get clickable(): boolean {
-    return this._clickable;
-  }
-  set clickable(value: boolean) {
-    this._clickable = coerceBooleanProperty(value);
-
-    if (this._clickable) {
-      this.role = 'button';
-    } else {
-      this.role = null;
-    }
-  }
-  private _clickable: boolean = false;
 
   constructor(
     public elementRef: ElementRef<HTMLElement>,

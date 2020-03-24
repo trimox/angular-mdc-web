@@ -904,7 +904,7 @@ class IconWithLigature {
   iconName = '';
 }
 
-@Component({template: `<mdc-icon [clickable]="false" [fontSet]="fontSet" [fontIcon]="fontIcon"></mdc-icon>`})
+@Component({template: `<mdc-icon [fontSet]="fontSet" [fontIcon]="fontIcon"></mdc-icon>`})
 class IconWithCustomFontCss {
   fontSet = '';
   fontIcon = '';
@@ -929,7 +929,7 @@ class InlineIcon {
   inline = false;
 }
 
-@Component({template: `<mdc-icon clickable [svgIcon]="iconName"><div>Hello</div></mdc-icon>`})
+@Component({template: `<mdc-icon [svgIcon]="iconName"><div>Hello</div></mdc-icon>`})
 class SvgIconWithUserContent {
   iconName: string | undefined = '';
 }

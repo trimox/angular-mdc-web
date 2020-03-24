@@ -1,18 +1,18 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
-import {Api, Examples, Sass, SnackbarDemo} from './snackbar-demo';
+import {Api, Examples, Sass, Snackbar} from './snackbar';
 
 export const ROUTE_DECLARATIONS = [
   Api,
   Examples,
   Sass,
-  SnackbarDemo
+  Snackbar
 ];
 
 const ROUTES: Routes = [
   {
-    path: '', component: SnackbarDemo,
+    path: '', component: Snackbar,
     children: [
       {path: '', redirectTo: 'api'},
       {path: 'api', component: Api},

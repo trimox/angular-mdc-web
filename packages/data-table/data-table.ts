@@ -73,7 +73,7 @@ export class MDCDataTable extends MDCComponent<MDCDataTableFoundation> implement
   @ContentChildren(MDCDataTableHeaderCell, {descendants: true}) headerCells!: QueryList<MDCDataTableHeaderCell>;
 
   getDefaultFoundation() {
-    const adapter: MDCDataTableAdapter = {
+    const adapter: Partial<MDCDataTableAdapter> = {
       addClassAtRowIndex: (rowIndex: number, className: string) =>
         this.getRows()[rowIndex].getNativeElement().classList.add(className),
       getRowCount: () => this.getRows().length,

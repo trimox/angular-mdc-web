@@ -8,7 +8,7 @@
     "url": "https://github.com/trimox/angular-mdc-web.git"
   },
   "license": "MIT",
-  "version": "6.0.0-canary.0",
+  "version": "6.0.0-canary.1",
   "engines": {
     "node": ">= 12.0.0",
     "yarn": ">= 1.19.1"
@@ -38,7 +38,7 @@
     "@angular/forms": "^9.1.0-rc.1",
     "@angular/platform-browser": "^9.1.0-rc.1",
     "core-js": "^2.6.9",
-    "material-components-web": "^5.1.0",
+    "material-components-web": "6.0.0-canary.e75deb854.0",
     "rxjs": "^6.5.3",
     "tsickle": "0.38.1",
     "tslib": "1.11.1",

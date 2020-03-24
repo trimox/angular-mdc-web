@@ -13,7 +13,7 @@ import {Platform} from '@angular/cdk/platform';
 import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion';
 import {MDCComponent} from '@angular-mdc/web/base';
 import {MDCProgressIndicator} from '@material/progress-indicator/component';
-import {strings, MDCLinearProgressFoundation, MDCLinearProgressAdapter} from '@material/linear-progress';
+import {MDCLinearProgressFoundation, MDCLinearProgressAdapter} from '@material/linear-progress';
 
 @Component({
   selector: 'mdc-linear-progress',
@@ -27,8 +27,10 @@ import {strings, MDCLinearProgressFoundation, MDCLinearProgressAdapter} from '@m
     'aria-valuemax': '100'
   },
   template: `
-  <div class="mdc-linear-progress__buffering-dots"></div>
-  <div class="mdc-linear-progress__buffer"></div>
+  <div class="mdc-linear-progress__buffer">
+    <div class="mdc-linear-progress__buffer-bar"></div>
+    <div class="mdc-linear-progress__buffer-dots"></div>
+  </div>
   <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
    <span class="mdc-linear-progress__bar-inner"></span>
   </div>
@@ -88,11 +90,20 @@ export class MdcLinearProgress extends MDCComponent<MDCLinearProgressFoundation>
     const adapter: MDCLinearProgressAdapter = {
       addClass: (className: string) => this._root.classList.add(className),
       forceLayout: () => (<HTMLElement>this._root).offsetWidth,
-      getPrimaryBar: () => this._root.querySelector(strings.PRIMARY_BAR_SELECTOR),
-      getBuffer: () => this._root.querySelector(strings.BUFFER_SELECTOR),
+      setBufferBarStyle: (styleProperty: string, value: string) => {
+        (this._root.querySelector(
+          MDCLinearProgressFoundation.strings.BUFFER_BAR_SELECTOR) as
+          HTMLElement)
+          .style.setProperty(styleProperty, value);
+      },
+      setPrimaryBarStyle: (styleProperty: string, value: string) => {
+        (this._root.querySelector(
+          MDCLinearProgressFoundation.strings.PRIMARY_BAR_SELECTOR) as
+          HTMLElement)
+          .style.setProperty(styleProperty, value);
+      },
       hasClass: (className: string) => this._root.classList.contains(className),
       removeClass: (className: string) => this._root.classList.remove(className),
-      setStyle: (el: HTMLElement, styleProperty: string, value: string) => el.style.setProperty(styleProperty, value),
       removeAttribute: (name: string) => this._root.removeAttribute(name),
       setAttribute: (name: string, value: string) => this._root.setAttribute(name, value)
     };

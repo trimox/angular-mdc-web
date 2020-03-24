@@ -9,8 +9,7 @@ import {supportsPassiveEventListeners} from '@angular/cdk/platform';
 
 import {EventType, SpecificEventListener} from '@material/base';
 import {matches} from '@angular-mdc/web/dom';
-import {supportsCssVariables} from '@material/ripple/util';
-import {MDCRippleFoundation, MDCRippleAdapter} from '@material/ripple';
+import {MDCRippleFoundation, MDCRippleAdapter, util} from '@material/ripple';
 
 export interface MDCRippleCapableSurface {
   readonly _root: Element;
@@ -27,7 +26,7 @@ export class MdcRipple implements OnDestroy {
     const adapter = {
       addClass: (className: string) => instance._root.classList.add(className),
       removeClass: (className: string) => instance._root.classList.remove(className),
-      browserSupportsCssVars: () => typeof window !== 'undefined' ? supportsCssVariables(window) : false,
+      browserSupportsCssVars: () => typeof window !== 'undefined' ? util.supportsCssVariables(window) : false,
       isUnbounded: () => coerceBooleanProperty(instance.unbounded),
       isSurfaceActive: () => matches(instance._root, ':active'),
       isSurfaceDisabled: () => coerceBooleanProperty(instance.disabled),

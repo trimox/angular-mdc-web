@@ -1,0 +1,22 @@
+package(default_visibility = ["//visibility:public"])
+
+load(
+    "//tools:defaults.bzl",
+    "ng_module",
+)
+
+ng_module(
+    name = "menu-surface",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+        ],
+    ),
+    module_name = "@angular-mdc/web/menu-surface",
+    deps = [
+        "//packages/base",
+        "@npm//@angular/cdk",
+        "@npm//@material/menu-surface",
+    ],
+)

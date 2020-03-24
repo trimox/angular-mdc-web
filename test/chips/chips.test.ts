@@ -12,9 +12,9 @@ import {
   MdcChipSet,
   MdcChipInteractionEvent,
   MdcChipSelectionEvent,
-  MdcIcon,
   MdcChipSetChange
-} from '@angular-mdc/web';
+} from '@angular-mdc/web/chips';
+import {MdcIcon} from '@angular-mdc/web/icon';
 
 describe('Chips', () => {
   let fixture: ComponentFixture<any>;

@@ -1,0 +1,28 @@
+package(default_visibility = ["//visibility:public"])
+
+load(
+    "//tools:defaults.bzl",
+    "ng_module",
+)
+
+ng_module(
+    name = "dialog",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+        ],
+    ),
+    module_name = "@angular-mdc/web/dialog",
+    deps = [
+        "//packages/base",
+        "//packages/button",
+        "//packages/dom",
+        "//packages/overlay",
+        "//packages/ripple",
+        "@npm//@angular/cdk",
+        "@npm//@angular/core",
+        "@npm//@material/dialog",
+        "@npm//rxjs",
+    ],
+)

@@ -1,8 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {OverlayModule} from '@angular/cdk/overlay';
+import {OverlayModule} from '@angular-mdc/web/overlay';
 import {PortalModule} from '@angular/cdk/portal';
-import {MdcButtonModule} from '@angular-mdc/web/button';
 
 import {MdcSnackbarComponent} from './snackbar.component';
 import {MdcSnackbarContainer} from './snackbar-container';
@@ -12,7 +11,6 @@ import {MdcSnackbarContainer} from './snackbar-container';
     CommonModule,
     OverlayModule,
     PortalModule,
-    MdcButtonModule
   ],
   exports: [MdcSnackbarContainer],
   declarations: [MdcSnackbarContainer, MdcSnackbarComponent],

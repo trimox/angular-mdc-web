@@ -1,0 +1,30 @@
+package(default_visibility = ["//visibility:public"])
+
+load("@npm_bazel_typescript//:index.bzl", "ts_config")
+load("//packages:config.bzl", "MDC_TARGETS")
+load("//tools:defaults.bzl", "ng_package", "ts_library")
+
+exports_files([
+    "bazel-tsconfig-build.json",
+])
+
+ts_config(
+    name = "tsconfig",
+    src = "tsconfig-build.json",
+    deps = ["//packages:bazel-tsconfig-build.json"],
+)
+
+ts_library(
+    name = "packages",
+    srcs = ["index.ts"],
+    module_name = "@angular-mdc/web",
+)
+
+ng_package(
+    name = "npm_package",
+    srcs = ["package.json"],
+    entry_point = ":index.ts",
+    entry_point_name = "web",
+    tags = ["release-package"],
+    deps = MDC_TARGETS,
+)

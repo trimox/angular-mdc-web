@@ -4,7 +4,8 @@ import {
   Directive,
   ElementRef,
   Input,
-  OnDestroy
+  OnDestroy,
+  ViewEncapsulation
 } from '@angular/core';
 import {MDCRippleAdapter, MDCRippleFoundation} from '@material/ripple';
 
@@ -28,7 +29,6 @@ export class MdcTopAppBarRow {
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-top-app-bar-section, [mdcTopAppBarSection]',
   exportAs: 'mdcTopAppBarSection',
   host: {
@@ -40,7 +40,8 @@ export class MdcTopAppBarRow {
   template: `
   <ng-content></ng-content>
   <span class="mdc-top-app-bar__title" *ngIf="title">{{title}}</span>`,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class MdcTopAppBarSection {
   @Input() title?: string;

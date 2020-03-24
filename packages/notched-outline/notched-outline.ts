@@ -13,7 +13,6 @@ import {MdcFloatingLabel} from '@angular-mdc/web/floating-label';
 import {MDCNotchedOutlineFoundation, MDCNotchedOutlineAdapter} from '@material/notched-outline';
 
 @Component({
-  moduleId: module.id,
   selector: '[mdcNotchedOutline], mdc-notched-outline',
   exportAs: 'mdcNotchedOutline',
   host: {

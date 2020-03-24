@@ -58,7 +58,6 @@ export class MdcRadioChange {
 let nextUniqueId = 0;
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-radio',
   exportAs: 'mdcRadio',
   host: {

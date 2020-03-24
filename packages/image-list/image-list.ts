@@ -18,7 +18,6 @@ export class MdcImageListItem {
 }
 
 @Component({
-  moduleId: module.id,
   selector: '[mdcImageListImageAspect], mdc-image-list-image-aspect',
   exportAs: 'mdcImageListImageAspect',
   template: `
@@ -26,7 +25,8 @@ export class MdcImageListItem {
     <ng-content></ng-content>
   </div>
   `,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcImageListImageAspect {
   constructor(public elementRef: ElementRef) { }
@@ -60,7 +60,6 @@ export class MdcImageListLabel {
 }
 
 @Component({
-  moduleId: module.id,
   selector: '[mdc-image-list], mdc-image-list',
   exportAs: 'mdcImageList',
   host: {

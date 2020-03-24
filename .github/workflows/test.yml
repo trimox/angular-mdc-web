@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: 13
       - run: yarn
-      - run: yarn build
+      - run: sudo yarn build
   unit-test:
     runs-on: ubuntu-latest
     steps:

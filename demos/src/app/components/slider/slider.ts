@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {ComponentViewer} from '../../shared/component-viewer';
 
-import {MdcSliderChange} from '@angular-mdc/web';
+import {MdcSliderChange} from '@angular-mdc/web/slider';
 
 @Component({template: '<component-viewer></component-viewer>'})
 export class Slider implements OnInit {

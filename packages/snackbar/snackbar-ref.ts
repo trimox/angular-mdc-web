@@ -1,6 +1,5 @@
 import {Observable, Subject} from 'rxjs';
-import {OverlayRef} from '@angular/cdk/overlay';
-
+import {OverlayRef} from '@angular-mdc/web/overlay';
 import {MdcSnackbarContainer} from './snackbar-container';
 
 /** Event that is emitted when a snackbar is dismissed. */

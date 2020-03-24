@@ -6,7 +6,7 @@ import {MdcRadioGroup} from './radio-group';
 
 @NgModule({
   imports: [MdcFormFieldModule],
-  exports: [MdcRadioGroup, MdcRadio],
+  exports: [MdcRadioGroup, MdcRadio, MdcFormFieldModule],
   declarations: [MdcRadioGroup, MdcRadio]
 })
 export class MdcRadioModule { }

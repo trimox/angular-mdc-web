@@ -7,10 +7,10 @@ import {dispatchFakeEvent} from '../testing/dispatch-events';
 import {
   MdcFormField,
   MdcFormFieldModule,
-  MdcCheckboxModule,
-  MdcRadioModule,
-  MdcSwitchModule
-} from '@angular-mdc/web';
+} from '@angular-mdc/web/form-field';
+import {MdcCheckboxModule} from '@angular-mdc/web/checkbox';
+import {MdcSwitchModule} from '@angular-mdc/web/switch';
+import {MdcRadioModule} from '@angular-mdc/web/radio';
 
 describe('MdcFormField', () => {
   let fixture: ComponentFixture<any>;

@@ -19,7 +19,6 @@ import {take} from 'rxjs/operators';
 import {MdcSnackbarConfig} from './snackbar-config';
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-snackbar-container',
   template: '<ng-template cdkPortalOutlet></ng-template>',
   changeDetection: ChangeDetectionStrategy.OnPush,

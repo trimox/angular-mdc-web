@@ -1,0 +1,21 @@
+package(default_visibility = ["//visibility:public"])
+
+load(
+    "//tools:defaults.bzl",
+    "ng_module",
+)
+
+ng_module(
+    name = "snackbar",
+    srcs = glob(["*.ts"]),
+    module_name = "@angular-mdc/web/snackbar",
+    deps = [
+        "//packages/base",
+        "//packages/overlay",
+        "@npm//@angular/cdk",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@material/snackbar",
+        "@npm//rxjs",
+    ],
+)

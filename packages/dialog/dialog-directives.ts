@@ -7,69 +7,71 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
-
 import {MdcButton} from '@angular-mdc/web/button';
 import {MdcRipple} from '@angular-mdc/web/ripple';
 
-@Directive({ selector: '[mdcDialogAction]' })
+@Directive({selector: '[mdcDialogAction]'})
 export class MdcDialogAction {
   @Input('mdcDialogAction')
-  get action(): string { return this._action; }
+  get action(): string {
+    return this._action;
+  }
   set action(action: string) {
     // If the directive is set without a name (updated programatically), then this setter will
     // trigger with an empty string and should not overwrite the programatically set value.
-    if (!action) { return; }
+    if (!action) {
+      return;
+    }
 
     this._action = action;
     this.elementRef.nativeElement.setAttribute('data-mdc-dialog-action', this._action);
   }
   private _action: string = '';
 
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
 }
 
 @Directive({
   selector: 'mdc-dialog-scrim',
-  host: { 'class': 'mdc-dialog__scrim' }
+  host: {'class': 'mdc-dialog__scrim'}
 })
 export class MdcDialogScrim {
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
 }
 
 @Directive({
   selector: '[mdcDialogContainer], mdc-dialog-container',
-  host: { 'class': 'mdc-dialog__container' }
+  host: {'class': 'mdc-dialog__container'}
 })
 export class MdcDialogContainer {
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
 }
 
 @Directive({
   selector: '[mdcDialogSurface], mdc-dialog-surface',
-  host: { 'class': 'mdc-dialog__surface' }
+  host: {'class': 'mdc-dialog__surface'}
 })
 export class MdcDialogSurface {
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
 }
 
 @Directive({
   selector: '[mdcDialogTitle], mdc-dialog-title',
-  host: { 'class': 'mdc-dialog__title' }
+  host: {'class': 'mdc-dialog__title'}
 })
 export class MdcDialogTitle {
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
 }
 
 @Directive({
   selector: '[mdcDialogContent], mdc-dialog-content',
-  host: { 'class': 'mdc-dialog__content' }
+  host: {'class': 'mdc-dialog__content'}
 })
 export class MdcDialogContent {
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-dialog-actions, [mdcDialogActions]',
   template: '<ng-content></ng-content>',
   exportAs: 'mdcDialogActions',
@@ -82,17 +84,18 @@ export class MdcDialogContent {
 })
 export class MdcDialogActions {
   @Input()
-  get stacked(): boolean { return this._stacked; }
+  get stacked(): boolean {
+    return this._stacked;
+  }
   set stacked(value: boolean) {
     this._stacked = coerceBooleanProperty(value);
   }
   private _stacked: boolean = false;
 
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
 }
 
 @Component({
-  moduleId: module.id,
   selector: '[mdcDialogButton]',
   exportAs: 'mdcDialogButton',
   host: {
@@ -109,7 +112,9 @@ export class MdcDialogActions {
 })
 export class MdcDialogButton extends MdcButton {
   @Input()
-  get default(): boolean { return this._default; }
+  get default(): boolean {
+    return this._default;
+  }
   set default(value: boolean) {
     this._default = coerceBooleanProperty(value);
   }

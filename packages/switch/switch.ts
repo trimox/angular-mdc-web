@@ -44,7 +44,6 @@ export class MdcSwitchChange {
 let nextUniqueId = 0;
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-switch',
   host: {
     '[id]': 'id',

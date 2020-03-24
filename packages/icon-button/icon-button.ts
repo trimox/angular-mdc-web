@@ -50,7 +50,6 @@ let nextUniqueId = 0;
 export class MdcIconOn {}
 
 @Component({
-  moduleId: module.id,
   selector: '[mdc-icon-button], button[mdcIconButton], a[mdcIconButton]',
   exportAs: 'mdcIconButton',
   host: {

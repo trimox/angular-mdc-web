@@ -8,7 +8,6 @@ import {
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
 @Component({
-  moduleId: module.id,
   selector: '[mdcListDivider], mdc-list-divider',
   exportAs: 'mdcListDivider',
   host: {

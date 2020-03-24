@@ -13,9 +13,9 @@ import {
 import {Platform} from '@angular/cdk/platform';
 import {merge, Observable, fromEvent, Subject, Subscription} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-
 import {MDCComponent} from '@angular-mdc/web/base';
-
+import {closest, matches} from '@angular-mdc/web/dom';
+import {MDCDialogFoundation, MDCDialogAdapter, strings, util} from '@material/dialog';
 import {
   MdcDialogButton,
   MdcDialogContent,
@@ -24,13 +24,9 @@ import {
 import {MdcDialogRef} from './dialog-ref';
 import {MdcDialogConfig} from './dialog-config';
 
-import {closest, matches} from '@angular-mdc/web/dom';
-import {MDCDialogFoundation, MDCDialogAdapter, strings, util} from '@material/dialog';
-
 const LAYOUT_EVENTS = ['resize', 'orientationchange'];
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-dialog',
   exportAs: 'mdc-dialog',
   host: {

@@ -8,15 +8,12 @@ import {dispatchFakeEvent, dispatchKeyboardEvent} from '../testing/dispatch-even
 
 import {
   MdcTabBarModule,
-  MdcIconModule,
-  MdcTabIndicatorModule,
-  MdcTabIndicator,
   MdcTabBar,
-  MdcTab,
-  MdcTabScroller,
-  MdcTabScrollerModule,
-  MdcTabScrollerAlignment
-} from '@angular-mdc/web';
+} from '@angular-mdc/web/tab-bar';
+import {MdcTab} from '@angular-mdc/web/tab';
+import {MdcTabScrollerModule, MdcTabScroller, MdcTabScrollerAlignment} from '@angular-mdc/web/tab-scroller';
+import {MdcTabIndicatorModule, MdcTabIndicator} from '@angular-mdc/web/tab-indicator';
+import {MdcIconModule} from '@angular-mdc/web/icon';
 
 describe('MDC Tabs', () => {
   let fixture: ComponentFixture<any>;

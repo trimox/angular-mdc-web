@@ -10,7 +10,6 @@ import {MdcCharacterCounter} from '@angular-mdc/web/form-field';
 import {MdcTextField} from './text-field';
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-textarea',
   exportAs: 'mdcTextarea',
   host: {

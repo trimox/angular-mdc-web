@@ -1,14 +1,14 @@
-import { Component, DebugElement } from '@angular/core';
-import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import {Component, DebugElement} from '@angular/core';
+import {fakeAsync, ComponentFixture, TestBed} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
 
 import {
   MdcCardModule,
   MdcCard,
   MdcCardMedia,
-  MdcCardAction,
-  MdcIconModule
-} from '@angular-mdc/web';
+  MdcCardAction
+} from '@angular-mdc/web/card';
+import {MdcIconModule} from '@angular-mdc/web/icon';
 
 describe('MdcCard', () => {
   let fixture: ComponentFixture<any>;

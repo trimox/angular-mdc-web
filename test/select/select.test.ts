@@ -17,7 +17,7 @@ import {
   MdcSelectModule,
   MdcSelect,
   MDC_SELECT_DEFAULT_OPTIONS
-} from '@angular-mdc/web';
+} from '@angular-mdc/web/select';
 
 function configureMdcTestingModule(declarations: any[], providers: Provider[] = []) {
   let platform: {isBrowser: boolean};

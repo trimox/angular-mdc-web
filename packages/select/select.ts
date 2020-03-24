@@ -92,7 +92,6 @@ export class MdcSelectChange {
 let nextUniqueId = 0;
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-select',
   exportAs: 'mdcSelect',
   host: {

@@ -25,8 +25,6 @@ import {Platform} from '@angular/cdk/platform';
 import {fromEvent, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-import {MDCRippleFoundation, MDCRippleAdapter} from '@material/ripple';
-
 import {MDCComponent} from '@angular-mdc/web/base';
 import {MdcRipple, MDCRippleCapableSurface} from '@angular-mdc/web/ripple';
 import {
@@ -35,16 +33,16 @@ import {
   MDC_ICON_LOCATION,
   MdcIconRegistry
 } from '@angular-mdc/web/icon';
-import {EventSource} from './constants';
 import {
   MdcChipSetParentComponent,
   MdcChipInteractionEvent,
   MdcChipNavigationEvent,
   MdcChipRemovalEvent,
   MdcChipSelectionEvent
-} from './types';
+} from './chip-config';
 import {MdcChipPrimaryAction, MdcChipText} from './chip-directives';
 
+import {MDCRippleFoundation, MDCRippleAdapter} from '@material/ripple';
 import {
   MDCChipAdapter,
   MDCChipFoundation
@@ -59,7 +57,6 @@ export const MDC_CHIPSET_PARENT_COMPONENT =
 let nextUniqueId = 0;
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-chip-checkmark',
   exportAs: 'mdcChipCheckmark',
   host: {
@@ -79,7 +76,6 @@ export class MdcChipCheckmark {
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-chip',
   exportAs: 'mdcChip',
   host: {
@@ -257,7 +253,7 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
           value: selected ? this._value : undefined,
           shouldIgnore: chipSetShouldIgnore
         }),
-      notifyNavigation: (key: string, source: EventSource) =>
+      notifyNavigation: (key: string, source: any) =>
         this.navigationEvent.emit({
           chipId: this.id,
           value: this._value,
@@ -392,7 +388,6 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-chip-icon, [mdcChipIcon]',
   exportAs: 'mdcChipIcon',
   host: {

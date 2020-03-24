@@ -3,27 +3,6 @@ import * as ts from 'typescript';
 import * as Lint from 'tslint';
 import * as minimatch from 'minimatch';
 
-/**
- * Rule that enforces certain decorator properties to be defined and to match a pattern.
- * Properties can be forbidden by prefixing their name with a `!`. Supports whitelisting
- * files via the third argument, as well as validating all the arguments by passing in a regex. E.g.
- *
- * ```
- * "validate-decorators": [true, {
- *   "Component": {
- *     "argument": 0,
- *     "properties": {
- *       "encapsulation": "\\.None$",
- *       "!styles": ".*"
- *     }
- *   },
- *   "NgModule": {
- *      "argument": 0,
- *      "properties": "^(?!\\s*$).+"
- *    }
- * }, "src/material"]
- * ```
- */
 export class Rule extends Lint.Rules.AbstractRule {
   apply(sourceFile: ts.SourceFile) {
     return this.applyWithWalker(new Walker(sourceFile, this.getOptions()));

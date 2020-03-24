@@ -3,9 +3,7 @@ import {
   Injector, TemplateRef, ViewContainerRef, ViewChild,
   ComponentFactoryResolver
 } from '@angular/core';
-import {async, inject, flush, fakeAsync, flushMicrotasks, tick, ComponentFixture, TestBed} from '@angular/core/testing';
-import {Location} from '@angular/common';
-import {SpyLocation} from '@angular/common/testing';
+import {inject, flush, fakeAsync, flushMicrotasks, tick, ComponentFixture, TestBed} from '@angular/core/testing';
 import {DOWN_ARROW, ESCAPE, TAB} from '@angular/cdk/keycodes';
 import {Platform} from '@angular/cdk/platform';
 
@@ -19,10 +17,10 @@ import {
   MdcDialogRef,
   MdcDialogButton,
   MdcDialogAction,
-  MdcListModule,
-  MdcIconModule
-} from '@angular-mdc/web';
-import {OverlayContainer} from '@angular/cdk/overlay';
+} from '@angular-mdc/web/dialog';
+import {MdcIconModule} from '@angular-mdc/web/icon';
+import {MdcListModule} from '@angular-mdc/web/list';
+import {OverlayContainer} from '@angular-mdc/web/overlay';
 
 describe('MdcDialog Service', () => {
   let dialog: MdcDialog;

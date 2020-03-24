@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 
-import {MdcTabActivatedEvent} from '@angular-mdc/web';
+import {MdcTabActivatedEvent} from '@angular-mdc/web/tab-bar';
 import {MdcSnackbar} from '@angular-mdc/web/snackbar';
 
 interface HighlightConfig {

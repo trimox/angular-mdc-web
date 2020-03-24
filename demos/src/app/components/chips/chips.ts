@@ -3,7 +3,7 @@ import {FormControl, NgForm, Validators} from '@angular/forms';
 
 import {ComponentViewer} from '../../shared/component-viewer';
 
-import {MdcChipSetChange, MdcChipSelectionEvent, MdcChipRemovalEvent, MdcChipInteractionEvent} from '@angular-mdc/web';
+import {MdcChipSetChange, MdcChipSelectionEvent, MdcChipRemovalEvent, MdcChipInteractionEvent} from '@angular-mdc/web/chips';
 
 @Component({templateUrl: './api.html'})
 export class Api {}

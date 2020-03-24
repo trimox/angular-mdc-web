@@ -65,7 +65,6 @@ export class MdcListItemMeta {
 }
 
 @Component({
-  moduleId: module.id,
   selector: '[mdcListItemText], mdc-list-item-text',
   exportAs: 'mdcListItemText',
   host: {'class': 'mdc-list-item__text'},
@@ -93,7 +92,6 @@ export class MdcListItemSecondary {
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-list-item, a[mdc-list-item]',
   exportAs: 'mdcListItem',
   host: {

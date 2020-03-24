@@ -32,7 +32,6 @@ export class MdcTabActivatedEvent {
 }
 
 @Component({
-  moduleId: module.id,
   selector: '[mdcTabBar], mdc-tab-bar',
   exportAs: 'mdcTabBar',
   host: {

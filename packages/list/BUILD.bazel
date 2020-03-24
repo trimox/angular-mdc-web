@@ -1,0 +1,25 @@
+package(default_visibility = ["//visibility:public"])
+
+load(
+    "//tools:defaults.bzl",
+    "ng_module",
+)
+
+ng_module(
+    name = "list",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+        ],
+    ),
+    module_name = "@angular-mdc/web/list",
+    deps = [
+        "//packages/base",
+        "//packages/dom",
+        "//packages/ripple",
+        "@npm//@angular/cdk",
+        "@npm//@material/list",
+        "@npm//@material/ripple",
+    ],
+)

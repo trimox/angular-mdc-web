@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
-import {MdcLinearProgress} from '@angular-mdc/web';
+import {MdcLinearProgress} from '@angular-mdc/web/linear-progress';
 import {ComponentViewer} from '../../shared/component-viewer';
 
 @Component({template: '<component-viewer></component-viewer>'})

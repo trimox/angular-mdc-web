@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {ComponentViewer} from '../../shared/component-viewer';
 
-import {MdcSnackbar} from '@angular-mdc/web';
+import {MdcSnackbar} from '@angular-mdc/web/snackbar';
 
 interface CustomClasses {
   classes?: string | string[];

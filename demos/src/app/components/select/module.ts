@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 
 import {SharedModule} from '../../shared.module';
 import {RoutingModule, ROUTE_DECLARATIONS} from './routing.module';
-import {MDC_SELECT_DEFAULT_OPTIONS} from '@angular-mdc/web';
+import {MDC_SELECT_DEFAULT_OPTIONS} from '@angular-mdc/web/select';
 
 @NgModule({
   imports: [

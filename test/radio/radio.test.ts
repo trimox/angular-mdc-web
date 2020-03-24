@@ -3,12 +3,12 @@ import {FormControl, FormsModule, NgModel, ReactiveFormsModule} from '@angular/f
 import {Component, DebugElement, ViewChild} from '@angular/core';
 import {By} from '@angular/platform-browser';
 
-import {MdcRadio, MdcRadioChange, MdcRadioGroup, MdcRadioModule, MdcFormFieldModule} from '@angular-mdc/web';
+import {MdcRadio, MdcRadioChange, MdcRadioGroup, MdcRadioModule} from '@angular-mdc/web/radio';
 
 describe('MdcRadio', () => {
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
-      imports: [MdcRadioModule, MdcFormFieldModule, FormsModule, ReactiveFormsModule],
+      imports: [MdcRadioModule, FormsModule, ReactiveFormsModule],
       declarations: [
         DisableableRadioButton,
         FocusableRadioButton,

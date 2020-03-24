@@ -6,7 +6,7 @@ import {Platform} from '@angular/cdk/platform';
 
 import {dispatchMouseEvent, dispatchFakeEvent} from '../testing/dispatch-events';
 
-import {MdcSlider, MdcSliderModule} from '@angular-mdc/web';
+import {MdcSlider, MdcSliderModule} from '@angular-mdc/web/slider';
 
 describe('MdcSlider', () => {
   let fixture: ComponentFixture<any>;

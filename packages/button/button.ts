@@ -21,7 +21,6 @@ import {MdcIcon} from '@angular-mdc/web/icon';
 export class MdcButtonLabel {}
 
 @Component({
-  moduleId: module.id,
   exportAs: 'mdcButton',
   selector: 'button[mdc-button], a[mdc-button]',
   host: {

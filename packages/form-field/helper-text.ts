@@ -11,7 +11,6 @@ import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {MdcCharacterCounter} from './character-counter';
 
 @Component({
-  moduleId: module.id,
   selector: `mdc-helper-text, [mdcHelperText], mdc-text-field-helper-text, [mdcTextFieldHelperText]`,
   exportAs: 'mdcHelperText',
   host: {'class': 'mdc-text-field-helper-line'},

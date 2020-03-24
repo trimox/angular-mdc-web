@@ -5,10 +5,10 @@ import {RouterModule} from '@angular/router';
 import {HighlightModule} from 'ngx-highlightjs';
 import {HighlightPlusModule} from 'ngx-highlightjs/plus';
 
-import {MaterialModule} from './material.module';
 import {ComponentViewer} from './shared/component-viewer/component-viewer';
 import {ExampleViewer} from './shared/example-viewer/example-viewer';
 import {ActiveTabRouterModule} from './shared';
+import {MaterialModule} from './material.module';
 
 const SHARED_DECLARATIONS = [
   ComponentViewer,
@@ -24,7 +24,7 @@ const SHARED_DECLARATIONS = [
     RouterModule,
     ActiveTabRouterModule,
     HighlightPlusModule,
-    HighlightModule
+    HighlightModule,
   ],
   declarations: [SHARED_DECLARATIONS],
   exports: [

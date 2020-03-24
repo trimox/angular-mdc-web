@@ -1,35 +1,33 @@
 {
   "name": "@angular-mdc/web",
+  "version": "0.0.0-PLACEHOLDER",
   "description": "Angular MDC",
-  "homepage": "https://github.com/trimox/angular-mdc-web",
-  "bugs": "https://github.com/trimox/angular-mdc-web/issues",
+  "main": "./bundles/web.umd.js",
+  "fesm5": "./fesm5/web.js",
+  "fesm2015": "./fesm2015/web.js",
+  "esm5": "./esm5/index.js",
+  "esm2015": "./esm2015/index.js",
+  "typings": "./index.d.ts",
+  "module": "./fesm5/web.js",
+  "es2015": "./fesm2015/web.js",
+  "private": false,
   "repository": {
     "type": "git",
     "url": "https://github.com/trimox/angular-mdc-web.git"
   },
-  "version": "0.0.0-PLACEHOLDER",
   "license": "MIT",
-  "keywords": [
-    "angular-mdc",
-    "material-components",
-    "material-components-web",
-    "material",
-    "mdc"
-  ],
-  "main": "./bundles/web.umd.js",
-  "module": "./esm5/web.es5.js",
-  "es2015": "./esm2015/web.js",
-  "typings": "./web.d.ts",
-  "private": false,
+  "bugs": {
+    "url": "https://github.com/trimox/angular-mdc-web/issues"
+  },
+  "homepage": "https://github.com/trimox/angular-mdc-web",
   "dependencies": {
     "@angular-mdc/theme": "0.0.0-PLACEHOLDER",
     "material-components-web": "0.0.0-MDC",
-    "@angular/cdk": "^9.1.0"
+    "@angular/cdk": "0.0.0-CDK"
   },
   "peerDependencies": {
     "@angular/core": "0.0.0-NG",
-    "@angular/common": "0.0.0-NG",
-    "@angular/forms": "0.0.0-NG"
+    "tslib": "0.0.0-TSLIB"
   },
   "sideEffects": false
 }

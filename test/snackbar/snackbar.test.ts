@@ -23,8 +23,8 @@ import {
   MdcSnackbarConfig,
   MdcSnackbarModule,
   MdcSnackbarRef
-} from '@angular-mdc/web';
-import {OverlayContainer} from '@angular/cdk/overlay';
+} from '@angular-mdc/web/snackbar';
+import {OverlayContainer} from '@angular-mdc/web/overlay';
 
 describe('MdcSnackbar', () => {
   let snackBar: MdcSnackbar;

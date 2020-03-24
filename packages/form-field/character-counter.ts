@@ -1,7 +1,9 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
-  OnDestroy
+  OnDestroy,
+  ViewEncapsulation
 } from '@angular/core';
 
 import {MDCComponent} from '@angular-mdc/web/base';
@@ -11,13 +13,14 @@ import {
 } from '@material/textfield';
 
 @Component({
-  moduleId: module.id,
   selector: '[mdcCharacterCounter]',
   exportAs: 'mdcCharacterCounter',
   host: {
     'class': 'mdc-text-field-character-counter'
   },
-  template: '<ng-content></ng-content>'
+  template: '<ng-content></ng-content>',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcCharacterCounter extends MDCComponent<MDCTextFieldCharacterCounterFoundation> implements OnDestroy {
   get foundation(): MDCTextFieldCharacterCounterFoundation {

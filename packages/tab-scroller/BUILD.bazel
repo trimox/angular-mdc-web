@@ -1,0 +1,23 @@
+package(default_visibility = ["//visibility:public"])
+
+load(
+    "//tools:defaults.bzl",
+    "ng_module",
+)
+
+ng_module(
+    name = "tab-scroller",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+        ],
+    ),
+    module_name = "@angular-mdc/web/tab-scroller",
+    deps = [
+        "//packages/base",
+        "//packages/dom",
+        "@npm//@angular/cdk",
+        "@npm//@material/tab-scroller",
+    ],
+)

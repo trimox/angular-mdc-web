@@ -6,10 +6,10 @@ import {DOWN_ARROW} from '@angular/cdk/keycodes';
 import {dispatchFakeEvent, dispatchKeyboardEvent} from '../testing/dispatch-events';
 
 import {
-  MdcIconModule,
   MdcTopAppBarModule,
   MdcTopAppBar
-} from '@angular-mdc/web';
+} from '@angular-mdc/web/top-app-bar';
+import {MdcIconModule} from '@angular-mdc/web/icon';
 
 describe('MdcTopAppBar', () => {
   let fixture: ComponentFixture<any>;

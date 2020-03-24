@@ -16,7 +16,7 @@ import {
 import {filter, takeUntil, startWith} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 
-import {MDC_TAB_BAR_PARENT_COMPONENT, MdcTabBarParentComponent} from '@angular-mdc/web';
+import {MDC_TAB_BAR_PARENT_COMPONENT, MdcTabBarParentComponent} from '@angular-mdc/web/tab';
 
 @Directive({selector: '[activeTabRouter]'})
 export class ActiveTabRouter implements AfterContentInit, OnDestroy {

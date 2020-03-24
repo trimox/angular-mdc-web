@@ -75,7 +75,6 @@ const funcIriAttributeSelector = funcIriAttributes.map(attr => `[${attr}]`).join
 const funcIriPattern = /^url\(['"]?#(.*?)['"]?\)$/;
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-icon, [mdcIcon]',
   exportAs: 'mdcIcon',
   host: {

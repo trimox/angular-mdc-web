@@ -1,0 +1,24 @@
+package(default_visibility = ["//visibility:public"])
+
+load(
+    "//tools:defaults.bzl",
+    "ng_module",
+)
+
+ng_module(
+    name = "data-table",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+        ],
+    ),
+    module_name = "@angular-mdc/web/data-table",
+    deps = [
+        "//packages/base",
+        "//packages/checkbox",
+        "//packages/dom",
+        "@npm//@angular/cdk",
+        "@npm//@material/data-table",
+    ],
+)

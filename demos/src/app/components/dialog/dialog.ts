@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-import {MdcDialog, MdcDialogRef, MDC_DIALOG_DATA, MdcDialogComponent} from '@angular-mdc/web';
+import {MdcDialog, MdcDialogRef, MDC_DIALOG_DATA, MdcDialogComponent} from '@angular-mdc/web/dialog';
 import {ComponentViewer} from '../../shared/component-viewer';
 
 export interface DialogData {

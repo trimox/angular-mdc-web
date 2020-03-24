@@ -14,7 +14,6 @@ import {merge, fromEvent, Subject, Subscription, Observable} from 'rxjs';
 import {filter, takeUntil} from 'rxjs/operators';
 
 import {MDCComponent} from '@angular-mdc/web/base';
-
 import {matches} from '@angular-mdc/web/dom';
 import {MDCTabScrollerFoundation, MDCTabScrollerAdapter, util} from '@material/tab-scroller';
 
@@ -30,7 +29,6 @@ const SCROLLER_EVENTS = [
 ];
 
 @Component({
-  moduleId: module.id,
   selector: '[mdcTabScroller], mdc-tab-scroller',
   exportAs: 'mdcTabScroller',
   host: {
@@ -46,7 +44,7 @@ const SCROLLER_EVENTS = [
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class MdcTabScroller extends MDCComponent<any> implements AfterViewInit, OnDestroy {
+export class MdcTabScroller extends MDCComponent<MDCTabScrollerFoundation> implements AfterViewInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
@@ -143,9 +141,9 @@ export class MdcTabScroller extends MDCComponent<any> implements AfterViewInit, 
   }
 
   /** Increments the scroll value by the given amount */
-  incrementScroll(scrollXIncrement: number) {
+  incrementScroll(scrollXIncrement: number): void {
     if (!this._platform.isBrowser) {
-      return -1;
+      return;
     }
 
     this._foundation.incrementScroll(scrollXIncrement);

@@ -20,7 +20,6 @@ import {
 } from '@material/tab-indicator';
 
 @Component({
-  moduleId: module.id,
   selector: '[mdcTabIndicator], mdc-tab-indicator',
   exportAs: 'mdcTabIndicator',
   host: {

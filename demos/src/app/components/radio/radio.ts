@@ -3,7 +3,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ComponentViewer} from '../../shared/component-viewer';
 import {FormGroup, FormControl} from '@angular/forms';
 
-import {MdcRadio} from '@angular-mdc/web';
+import {MdcRadio} from '@angular-mdc/web/radio';
 
 @Component({template: '<component-viewer></component-viewer>'})
 export class Radio implements OnInit {

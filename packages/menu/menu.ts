@@ -33,7 +33,6 @@ export class MdcMenuSelectedEvent {
 let nextUniqueId = 0;
 
 @Component({
-  moduleId: module.id,
   selector: 'mdc-menu',
   exportAs: 'mdcMenu',
   host: {

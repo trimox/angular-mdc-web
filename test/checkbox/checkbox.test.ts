@@ -6,7 +6,7 @@ import {Platform} from '@angular/cdk/platform';
 
 import {dispatchFakeEvent, dispatchMouseEvent} from '../testing/dispatch-events';
 
-import {MdcCheckbox, MdcCheckboxModule} from '@angular-mdc/web';
+import {MdcCheckbox, MdcCheckboxModule} from '@angular-mdc/web/checkbox';
 
 describe('MdcCheckbox', () => {
   let fixture: ComponentFixture<any>;

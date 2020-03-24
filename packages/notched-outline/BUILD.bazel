@@ -1,0 +1,22 @@
+package(default_visibility = ["//visibility:public"])
+
+load(
+    "//tools:defaults.bzl",
+    "ng_module",
+)
+
+ng_module(
+    name = "notched-outline",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+        ],
+    ),
+    module_name = "@angular-mdc/web/notched-outline",
+    deps = [
+        "//packages/base",
+        "//packages/floating-label",
+        "@npm//@material/notched-outline",
+    ],
+)

@@ -21,7 +21,7 @@
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",
+            "tsConfig": "tsconfig.json",
             "assets": [
               "src/favicon.png",
               "src/assets"
@@ -50,7 +50,7 @@
               "extractCss": true,
               "namedChunks": false,
               "aot": true,
-	      "extractLicenses": true,
+              "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
               "budgets": [

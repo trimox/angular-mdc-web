@@ -70,7 +70,7 @@ const routes: Routes = [
       import('./components/snackbar/module').then(m => m.SnackbarModule)
   },
   {path: 'switch-demo', loadChildren: () => import('./components/switch-demo/switch.module').then(m => m.SwitchModule)},
-  {path: 'tabs-demo', loadChildren: () => import('./components/tabs-demo/tabs.module').then(m => m.TabsModule)},
+  {path: 'tabs-demo', loadChildren: () => import('./components/tabs/module').then(m => m.TabsModule)},
   {
     path: 'text-field-demo', loadChildren: () =>
       import('./components/text-field/module').then(m => m.TextFieldModule)

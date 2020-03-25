@@ -4,7 +4,7 @@ import {MdcTabActivatedEvent} from '@angular-mdc/web/tab-bar';
 import {ComponentViewer} from '../../shared/component-viewer';
 
 @Component({template: '<component-viewer></component-viewer>'})
-export class TabsDemo implements OnInit {
+export class Tabs implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
@@ -104,7 +104,7 @@ addTab(): void {
   });
 }`;
 
-  example1 = {
+exampleDynamicTabs = {
     html: `<mdc-tab-bar #example1 (activated)="logTab($event)" [activeTabIndex]="1" useAutomaticActivation>
   <mdc-tab-scroller>
     <mdc-tab *ngFor="let tab of tabs" [label]="tab.label" [icon]="tab.icon"></mdc-tab>
@@ -115,7 +115,7 @@ addTab(): void {
     ts: this.exampleFullTS
   };
 
-  example2 = {
+  exampleTabNoSelection = {
     html: `<mdc-tab-bar [activeTabIndex]="-1">
   <mdc-tab-scroller>
     <mdc-tab label="Flights"></mdc-tab>
@@ -126,7 +126,7 @@ addTab(): void {
     ts: this.exampleTS
   };
 
-  example3 = {
+  exampleIconOnLeft = {
     html: `<mdc-tab-bar>
   <mdc-tab-scroller>
     <mdc-tab>
@@ -139,7 +139,7 @@ addTab(): void {
 </mdc-tab-bar>`
   };
 
-  example4 = {
+  exampleStacked = {
     html: `<mdc-tab-bar stacked>
   <mdc-tab-scroller>
     <mdc-tab *ngFor="let tab of tabs" [label]="tab.label" [icon]="tab.icon"></mdc-tab>
@@ -157,7 +157,7 @@ addTab(): void {
     ts: this.exampleTS
   };
 
-  example5 = {
+  exampleIconIndicatorLabels = {
     html: `<mdc-tab-bar iconIndicator='star'>
   <mdc-tab-scroller>
     <mdc-tab *ngFor="let tab of tabs" [label]="tab.label"></mdc-tab>
@@ -166,7 +166,17 @@ addTab(): void {
     ts: this.exampleTS
   };
 
-  example6 = {
+  exampleIconIndicator = {
+    html: `<mdc-tab-bar iconIndicator='donut_large'>
+  <mdc-tab-scroller>
+    <mdc-tab icon="camera"></mdc-tab>
+    <mdc-tab icon="accessibility"></mdc-tab>
+    <mdc-tab icon="exit_to_app"></mdc-tab>
+  </mdc-tab-scroller>
+</mdc-tab-bar>`
+};
+
+  exampleFixedTabs = {
     html: `<mdc-tab-bar fixed>
   <mdc-tab-scroller>
     <mdc-tab *ngFor="let tab of tabs" [label]="tab.label" [icon]="tab.icon"></mdc-tab>
@@ -175,7 +185,7 @@ addTab(): void {
     ts: this.exampleTS
   };
 
-  example7 = {
+  exampleScrollingTabs = {
     html: `<mdc-tab-bar>
   <mdc-tab-scroller>
     <mdc-tab *ngFor="let tab of scrollingTabs" [label]="tab.label" [icon]="tab.icon"></mdc-tab>
@@ -190,5 +200,14 @@ addTab(): void {
   { label: 'Hotel', icon: 'hotel' },
   { label: 'Favorites', icon: 'favorite' }
 ];`
+  };
+
+  exampleTabNoLabels = {
+    html: `<mdc-tab-bar>
+  <mdc-tab-scroller>
+    <mdc-tab *ngFor="let tab of tabs" [icon]="tab.icon"></mdc-tab>
+  </mdc-tab-scroller>
+</mdc-tab-bar>`,
+    ts: this.exampleTS
   };
 }

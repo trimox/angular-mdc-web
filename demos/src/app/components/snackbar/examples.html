@@ -10,6 +10,9 @@
       <button mdc-button raised (click)="dismissIcon()">Dismiss Icon</button>
     </div>
     <div class="demo-container">
+      <button mdc-button raised (click)="dismissIconOnly()">Icon Only</button>
+    </div>
+    <div class="demo-container">
       <button mdc-button raised (click)="stacked()">Stacked</button>
     </div>
     <div class="demo-container">
@@ -73,7 +76,7 @@
       <button mdc-button raised (click)="openCustom({actionClasses: 'mdc-button--outlined'})">Action Outlined</button>
     </div>
     <div class="demo-container">
-      <button mdc-button raised (click)="openCustom({dismissClasses: 'demo-icon-button-custom'})">Dismiss Icon</button>
+      <button mdc-button raised (click)="openCustom({dismissClasses: 'demo-icon-button-custom'})">Icon Color</button>
     </div>
   </div>
   <example-viewer [example]="exampleTheme"></example-viewer>

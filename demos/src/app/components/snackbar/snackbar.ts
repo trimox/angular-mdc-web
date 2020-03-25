@@ -11,7 +11,7 @@ interface CustomClasses {
 }
 
 @Component({template: '<component-viewer></component-viewer>'})
-export class SnackbarDemo implements OnInit {
+export class Snackbar implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
 
   ngOnInit(): void {
@@ -63,6 +63,12 @@ export class Examples {
 
     snackbarRef.afterDismiss().subscribe(reason => {
       console.log(`The snack-bar was dismissed: ${reason}`);
+    });
+  }
+
+  dismissIconOnly() {
+    this.snackbar.open(`Can't send photo. Retry in 5 seconds.`, undefined, {
+      dismiss: true
     });
   }
 
@@ -156,6 +162,8 @@ export class Examples {
 
 <button mdc-button raised (click)="dismissIcon()">Dismiss Icon</button>
 
+<button mdc-button raised (click)="dismissIconOnly()">Icon Only</button>
+
 <button mdc-button raised (click)="stacked()">Stacked</button>
 
 <button mdc-button raised (click)="maxTimeout()">Max Timeout</button>`,
@@ -181,6 +189,12 @@ export class Examples {
 
     snackbarRef.afterDismiss().subscribe(reason => {
       console.log(reason);
+    });
+  }
+
+  dismissIconOnly() {
+    this.snackbar.open(\`Can't send photo. Retry in 5 seconds.\`, undefined, {
+      dismiss: true
     });
   }
 

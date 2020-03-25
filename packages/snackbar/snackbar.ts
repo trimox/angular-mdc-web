@@ -34,28 +34,28 @@ export class MdcSnackbar implements OnDestroy {
   /**
    * Reference to the current snackbar in the view *at this level* (in the Angular injector tree).
    * If there is a parent snack-bar service, all operations should delegate to that parent
-   * via `_openedSnackBarRef`.
+   * via `_openedSnackbarRef`.
    */
-  private _snackBarRefAtThisLevel: MdcSnackbarRef<any> | null = null;
+  private _snackbarRefAtThisLevel: MdcSnackbarRef<any> | null = null;
 
   /** Reference to the currently opened snackbar at *any* level. */
   get _openedSnackbarRef(): MdcSnackbarRef<any> | null {
-    const parent = this._parentSnackBar;
-    return parent ? parent._openedSnackbarRef : this._snackBarRefAtThisLevel;
+    const parent = this._parentSnackbar;
+    return parent ? parent._openedSnackbarRef : this._snackbarRefAtThisLevel;
   }
 
   set _openedSnackbarRef(value: MdcSnackbarRef<any> | null) {
-    if (this._parentSnackBar) {
-      this._parentSnackBar._openedSnackbarRef = value;
+    if (this._parentSnackbar) {
+      this._parentSnackbar._openedSnackbarRef = value;
     } else {
-      this._snackBarRefAtThisLevel = value;
+      this._snackbarRefAtThisLevel = value;
     }
   }
 
   constructor(
     private _overlay: Overlay,
     private _injector: Injector,
-    @Optional() @SkipSelf() private _parentSnackBar: MdcSnackbar,
+    @Optional() @SkipSelf() private _parentSnackbar: MdcSnackbar,
     @Inject(MDC_SNACKBAR_DEFAULT_OPTIONS) private _defaultConfig: MdcSnackbarConfig) {}
 
   /**
@@ -73,10 +73,10 @@ export class MdcSnackbar implements OnDestroy {
   /**
    * Opens a snackbar with a message and an optional action.
    * @param message Message text.
-   * @param action The label for the snackbar action.
-   * @param config Additional configuration options for the snackbar.
+   * @param action Optional label for the snackbar action.
+   * @param config Optional additional configuration options for the snackbar.
    */
-  open(message: string, action: string = '', config?: MdcSnackbarConfig):
+  open(message: string, action?: string, config?: MdcSnackbarConfig):
     MdcSnackbarRef<MdcSnackbarComponent> {
     const _config = {...this._defaultConfig, ...config};
 
@@ -101,9 +101,7 @@ export class MdcSnackbar implements OnDestroy {
 
   ngOnDestroy() {
     // Only dismiss the snackbar at the current level on destroy.
-    if (this._snackBarRefAtThisLevel) {
-      this._snackBarRefAtThisLevel.dismiss();
-    }
+    this._snackbarRefAtThisLevel?.dismiss();
   }
 
   /**
@@ -160,9 +158,7 @@ export class MdcSnackbar implements OnDestroy {
       }
     });
 
-    if (this._openedSnackbarRef) {
-      this._openedSnackbarRef.dismiss();
-    }
+    this._openedSnackbarRef?.dismiss();
   }
 
   /**

@@ -68,10 +68,10 @@ describe('MdcSnackbar', () => {
     viewContainerFixture.detectChanges();
 
     expect(snackBarRef.instance instanceof MdcSnackbarComponent)
-      .toBe(true, 'Expected the snack bar content component to be MdcSnackbarComponent');
+      .toBe(true, 'Expected the snackbar content component to be MdcSnackbarComponent');
     expect(snackBarRef.instance.snackbarRef)
       .toBe(snackBarRef,
-        'Expected the snack bar reference to be placed in the component instance');
+        'Expected the snackbar reference to be placed in the component instance');
   });
 
   it('should open a snackbar with non-array CSS classes to apply', () => {
@@ -85,10 +85,10 @@ describe('MdcSnackbar', () => {
     viewContainerFixture.detectChanges();
 
     expect(snackBarRef.instance instanceof MdcSnackbarComponent)
-      .toBe(true, 'Expected the snack bar content component to be MdcSnackbarComponent');
+      .toBe(true, 'Expected the snackbar content component to be MdcSnackbarComponent');
     expect(snackBarRef.instance.snackbarRef)
       .toBe(snackBarRef,
-        'Expected the snack bar reference to be placed in the component instance');
+        'Expected the snackbar reference to be placed in the component instance');
   });
 
   it('should open a snackbar with an array of CSS classes to apply', () => {
@@ -102,10 +102,10 @@ describe('MdcSnackbar', () => {
     viewContainerFixture.detectChanges();
 
     expect(snackBarRef.instance instanceof MdcSnackbarComponent)
-      .toBe(true, 'Expected the snack bar content component to be MdcSnackbarComponent');
+      .toBe(true, 'Expected the snackbar content component to be MdcSnackbarComponent');
     expect(snackBarRef.instance.snackbarRef)
       .toBe(snackBarRef,
-        'Expected the snack bar reference to be placed in the component instance');
+        'Expected the snackbar reference to be placed in the component instance');
   });
 
   it('should open a snackbar with 10000 timeoutMs', () => {
@@ -136,12 +136,12 @@ describe('MdcSnackbar', () => {
     viewContainerFixture.detectChanges();
 
     expect(snackBarRef.instance instanceof MdcSnackbarComponent)
-      .toBe(true, 'Expected the snack bar content component to be MdcSnackbarComponent');
+      .toBe(true, 'Expected the snackbar content component to be MdcSnackbarComponent');
     expect(snackBarRef.instance.snackbarRef)
-      .toBe(snackBarRef, 'Expected the snack bar reference to be placed in the component instance');
+      .toBe(snackBarRef, 'Expected the snackbar reference to be placed in the component instance');
   });
 
-  it('should dismiss the snack bar and remove itself from the view', fakeAsync(() => {
+  it('should dismiss the snackbar and remove itself from the view', fakeAsync(() => {
     const config: MdcSnackbarConfig = {viewContainerRef: testViewContainerRef};
     const dismissCompleteSpy = jasmine.createSpy('dismiss complete spy');
 
@@ -246,7 +246,7 @@ describe('MdcSnackbar', () => {
     expect(viewContainerFixture.isStable()).toBe(true);
   }));
 
-  it('should dismiss the open snack bar on destroy', fakeAsync(() => {
+  it('should dismiss the open snackbar on destroy', fakeAsync(() => {
     snackBar.open(simpleMessage);
     viewContainerFixture.detectChanges();
     expect(overlayContainerElement.childElementCount).toBeGreaterThan(0);
@@ -320,7 +320,7 @@ describe('MdcSnackbar with parent MdcSnackbar', () => {
     flush();
   }));
 
-  it('should not dismiss parent snack bar if child is destroyed', fakeAsync(() => {
+  it('should not dismiss parent snackbar if child is destroyed', fakeAsync(() => {
     parentSnackBar.open('Pizza');
     fixture.detectChanges();
     tick(110);
@@ -383,7 +383,7 @@ class ComponentThatProvidesMdcSnackBar {
 }
 
 /**
- * Simple component to open snack bars from.
+ * Simple component to open snackbars from.
  * Create a real (non-test) NgModule as a workaround forRoot
  * https://github.com/angular/angular/issues/10760
  */

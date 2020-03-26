@@ -74,6 +74,8 @@ export class MDCDataTable extends MDCComponent<MDCDataTableFoundation> implement
 
   getDefaultFoundation() {
     const adapter: Partial<MDCDataTableAdapter> = {
+      addClass: (className: string) => this._elementRef.nativeElement.classList.add(className),
+      removeClass: (className: string) => this._elementRef.nativeElement.classList.remove(className),
       addClassAtRowIndex: (rowIndex: number, className: string) =>
         this.getRows()[rowIndex].getNativeElement().classList.add(className),
       getRowCount: () => this.getRows().length,
@@ -169,6 +171,14 @@ export class MDCDataTable extends MDCComponent<MDCDataTableFoundation> implement
 
   getHeaderCheckbox(): MdcCheckbox | undefined {
     return this._headerCheckbox;
+  }
+
+  showProgress(): void {
+    this._foundation.showProgress();
+  }
+
+  hideProgress(): void {
+    this._foundation.hideProgress();
   }
 
   private _unsubscribeHeaderCheckbox(): void {

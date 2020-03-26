@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import {FormControl, NgForm, Validators} from '@angular/forms';
 
 import {ComponentViewer} from '../../shared/component-viewer';
@@ -39,11 +39,11 @@ export interface ChipFood {
 }
 
 @Component({templateUrl: './examples.html'})
-export class Examples {
+export class Examples implements AfterViewInit {
   demoChipValue = 'pizza-1';
   ngModelValue = 'tacos-2';
 
-  formControl = new FormControl('steak-0', Validators.required);
+  formControl = new FormControl();
 
   foods: ChipFood[] = [
     {value: 'steak-0', viewValue: 'Steak'},
@@ -52,6 +52,10 @@ export class Examples {
   ];
 
   @ViewChild('form', {static: false}) form: NgForm;
+
+  ngAfterViewInit(): void {
+    this.formControl = new FormControl('steak-0', Validators.required);
+  }
 
   onChipSetChange(evt: MdcChipSetChange): void {
     console.log(evt);
@@ -74,10 +78,10 @@ export class Examples {
   //
 
   reuseFoods = `foods: ChipFood[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'},
-  ];`;
+  {value: 'steak-0', viewValue: 'Steak'},
+  {value: 'pizza-1', viewValue: 'Pizza'},
+  {value: 'tacos-2', viewValue: 'Tacos'},
+];`;
 
   exampleSimple = {
     html: `<mdc-chip-set>
@@ -300,9 +304,11 @@ ${this.reuseFoods}`
 </form>`,
     ts: `${this.reuseFoods}
 
-formControl = new FormControl('steak-0', Validators.required);
+@ViewChild('form') form: NgForm;
 
-@ViewChild('form') form: NgForm;`
+ngAfterViewInit(): void {
+  this.formControl = new FormControl('steak-0', Validators.required);
+}`
   };
 
   exampleAccessibility = {

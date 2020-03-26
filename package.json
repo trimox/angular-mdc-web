@@ -30,13 +30,13 @@
     "test:watch": "karma start --auto-watch"
   },
   "dependencies": {
-    "@angular/animations": "^9.1.0-rc.1",
-    "@angular/cdk": "^9.2.0-next.0",
-    "@angular/common": "^9.1.0-rc.1",
-    "@angular/compiler": "^9.1.0-rc.1",
-    "@angular/core": "^9.1.0-rc.1",
-    "@angular/forms": "^9.1.0-rc.1",
-    "@angular/platform-browser": "^9.1.0-rc.1",
+    "@angular/animations": "^9.1.0",
+    "@angular/cdk": "^9.2.0",
+    "@angular/common": "^9.1.0",
+    "@angular/compiler": "^9.1.0",
+    "@angular/core": "^9.1.0",
+    "@angular/forms": "^9.1.0",
+    "@angular/platform-browser": "^9.1.0",
     "core-js": "^2.6.9",
     "material-components-web": "6.0.0-canary.e75deb854.0",
     "rxjs": "^6.5.3",
@@ -45,9 +45,9 @@
     "zone.js": "^0.10.2"
   },
   "devDependencies": {
-    "@angular/bazel": "^9.1.0-rc.1",
-    "@angular/compiler-cli": "^9.1.0-rc.1",
-    "@angular/platform-browser-dynamic": "^9.1.0-rc.1",
+    "@angular/bazel": "^9.1.0",
+    "@angular/compiler-cli": "^9.1.0",
+    "@angular/platform-browser-dynamic": "^9.1.0",
     "@bazel/bazelisk": "^1.3.0",
     "@bazel/buildifier": "^0.29.0",
     "@bazel/ibazel": "^0.12.3",

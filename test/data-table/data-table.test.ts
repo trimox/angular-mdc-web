@@ -112,6 +112,16 @@ describe('MDCDataTable', () => {
       fixture.detectChanges();
     });
 
+    it('should show and hide loading state', () => {
+      testInstance.showProgress();
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList).toContain('mdc-data-table--in-progress');
+
+      testInstance.hideProgress();
+      fixture.detectChanges();
+      expect(testDebugElement.nativeElement.classList).not.toContain('mdc-data-table--in-progress');
+    });
+
     it('should emit selectedAll event', () => {
       spyOn(testComponent, 'onSelectedAll');
       fixture.detectChanges();

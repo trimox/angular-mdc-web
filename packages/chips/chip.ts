@@ -250,7 +250,7 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
         this.selectionChange.emit({
           chipId: this._id,
           selected: selected,
-          value: selected ? this._value : undefined,
+          value: this._value,
           shouldIgnore: chipSetShouldIgnore
         }),
       notifyNavigation: (key: string, source: any) =>

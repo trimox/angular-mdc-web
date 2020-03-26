@@ -7,6 +7,7 @@
 /bazel-out
 /demos/node_modules
 /demos/dist
+/coverage
 
 # dependencies
 /node_modules
@@ -39,3 +40,4 @@ testem.log
 /.firebase
 /.bazelrc.user
 /examples/**/*.lock
+packages/__ngcc_entry_points__.json

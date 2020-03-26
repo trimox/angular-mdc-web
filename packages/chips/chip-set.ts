@@ -6,14 +6,14 @@ import {
   ContentChildren,
   ElementRef,
   EventEmitter,
+  forwardRef,
   Input,
   OnDestroy,
-  Optional,
   Output,
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
-import {ControlValueAccessor, FormGroupDirective, NgControl, NgForm} from '@angular/forms';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {merge, Observable, Subject, Subscription} from 'rxjs';
 import {startWith, takeUntil} from 'rxjs/operators';
@@ -32,6 +32,16 @@ import {
 } from './chip';
 
 import {MDCChipSetFoundation, MDCChipSetAdapter} from '@material/chips';
+
+/**
+ * Provider Expression that allows mdc-chip-set to register as a ControlValueAccessor. This
+ * allows it to support [(ngModel)] and ngControl.
+ */
+export const MDC_CHIP_SET_CONTROL_VALUE_ACCESSOR: any = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => MdcChipSet),
+  multi: true
+};
 
 export class MdcChipSetChange {
   constructor(
@@ -52,7 +62,10 @@ export class MdcChipSetChange {
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{provide: MDC_CHIPSET_PARENT_COMPONENT, useExisting: MdcChipSet}]
+  providers: [
+    MDC_CHIP_SET_CONTROL_VALUE_ACCESSOR,
+    {provide: MDC_CHIPSET_PARENT_COMPONENT, useExisting: MdcChipSet}
+  ]
 })
 export class MdcChipSet extends MDCComponent<MDCChipSetFoundation>
   implements AfterContentInit, OnDestroy, ControlValueAccessor {
@@ -187,15 +200,8 @@ export class MdcChipSet extends MDCComponent<MDCChipSetFoundation>
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    public elementRef: ElementRef<HTMLElement>,
-    @Optional() _parentForm: NgForm,
-    @Optional() _parentFormGroup: FormGroupDirective,
-    @Optional() public ngControl: NgControl) {
+    public elementRef: ElementRef<HTMLElement>) {
     super(elementRef);
-
-    if (this.ngControl) {
-      this.ngControl.valueAccessor = this;
-    }
   }
 
   ngAfterContentInit(): void {
@@ -275,8 +281,8 @@ export class MdcChipSet extends MDCComponent<MDCChipSetFoundation>
     // Defer setting the value in order to avoid the "Expression
     // has changed after it was checked" errors from Angular.
     Promise.resolve().then(() => {
-      if (this.ngControl || this._value) {
-        this.selectByValue(this.ngControl?.value ?? this._value, false);
+      if (this._value) {
+        this.selectByValue(this._value, false);
       }
     });
   }

@@ -1,7 +1,7 @@
 package(default_visibility = ["//visibility:public"])
 
 load("//:rollup-globals.bzl", "ROLLUP_GLOBALS")
-load("//packages:config.bzl", "MDC_ENTRYPOINTS")
+load("//packages:config.bzl", "MDC_ENTRYPOINTS", "MDC_TESTING_ENTRYPOINTS")
 
 exports_files([
     "LICENSE",
@@ -14,7 +14,7 @@ genrule(
     cmd = "echo '%s' > $@" % ROLLUP_GLOBALS,
 )
 
-entryPoints = ["web/%s" % e for e in MDC_ENTRYPOINTS]
+entryPoints = ["web/%s" % e for e in MDC_ENTRYPOINTS + MDC_TESTING_ENTRYPOINTS]
 
 genrule(
     name = "entry_points_manifest",

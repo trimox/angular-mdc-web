@@ -1,5 +1,5 @@
-import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
-import {FormControl, NgForm, Validators} from '@angular/forms';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormGroup, FormControl} from '@angular/forms';
 
 import {ComponentViewer} from '../../shared/component-viewer';
 
@@ -39,23 +39,19 @@ export interface ChipFood {
 }
 
 @Component({templateUrl: './examples.html'})
-export class Examples implements AfterViewInit {
+export class Examples {
   demoChipValue = 'pizza-1';
   ngModelValue = 'tacos-2';
 
-  formControl = new FormControl();
+  chipForm = new FormGroup({
+    chipFood: new FormControl('steak-0')
+  });
 
   foods: ChipFood[] = [
     {value: 'steak-0', viewValue: 'Steak'},
     {value: 'pizza-1', viewValue: 'Pizza'},
     {value: 'tacos-2', viewValue: 'Tacos'},
   ];
-
-  @ViewChild('form', {static: false}) form: NgForm;
-
-  ngAfterViewInit(): void {
-    this.formControl = new FormControl('steak-0', Validators.required);
-  }
 
   onChipSetChange(evt: MdcChipSetChange): void {
     console.log(evt);
@@ -294,9 +290,9 @@ onChipSelection(evt: MdcChipSelectionEvent): void {
 ${this.reuseFoods}`
   };
 
-  exampleFormControl = {
-    html: `<form #form="ngForm" novalidate>
-  <mdc-chip-set choice [formControl]="formControl">
+  exampleReactiveForm = {
+    html: `<form [formGroup]="chipForm" novalidate>
+  <mdc-chip-set choice formControlName="chipFood">
     <mdc-chip *ngFor="let food of foods" [value]="food.value">
       {{food.viewValue}}
     </mdc-chip>
@@ -304,11 +300,9 @@ ${this.reuseFoods}`
 </form>`,
     ts: `${this.reuseFoods}
 
-@ViewChild('form') form: NgForm;
-
-ngAfterViewInit(): void {
-  this.formControl = new FormControl('steak-0', Validators.required);
-}`
+chipForm = new FormGroup({
+  chipFood: new FormControl('steak-0')
+});`
   };
 
   exampleAccessibility = {

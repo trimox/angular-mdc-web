@@ -5,9 +5,12 @@ import {MdcButton, MdcButtonLabel} from './button';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
   ],
-  exports: [MdcButton, MdcButtonLabel],
+  exports: [
+    MdcButton,
+    MdcButtonLabel,
+  ],
   declarations: [MdcButton, MdcButtonLabel]
 })
 export class MdcButtonModule { }

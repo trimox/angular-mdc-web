@@ -87,21 +87,7 @@ export class MdcChipCheckmark {
     '(click)': '_handleInteraction($event)',
     '(keydown)': '_onKeydown($event)'
   },
-  template: `
-  <div class="mdc-chip__ripple"></div>
-  <ng-content select="mdc-chip-icon[leading]"></ng-content>
-  <mdc-chip-checkmark *ngIf="filter"></mdc-chip-checkmark>
-  <span role="gridcell">
-    <mdc-chip-primary-action>
-      <div class="mdc-chip__touch" *ngIf="touch"></div>
-      <mdc-chip-text *ngIf="label">{{label}}</mdc-chip-text>
-      <ng-content></ng-content>
-    </mdc-chip-primary-action>
-  </span>
-  <span role="gridcell" *ngIf="!!trailingIcon">
-    <ng-content select="mdc-chip-icon[trailing]"></ng-content>
-  </span>
-  `,
+  templateUrl: 'chip.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [MdcRipple]

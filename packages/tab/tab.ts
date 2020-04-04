@@ -79,22 +79,7 @@ export class MdcTabIcon {
     '[class.mdc-tab--min-width]': 'fixed',
     '[class.ngx-mdc-tab--disabled]': 'disabled'
   },
-  template: `
-  <div #content class="mdc-tab__content">
-    <mdc-icon class="mdc-tab__icon" *ngIf="icon">{{icon}}</mdc-icon>
-    <ng-content select="mdc-icon"></ng-content>
-    <span class="mdc-tab__text-label" *ngIf="label">{{label}}</span>
-    <ng-content></ng-content>
-    <ng-container *ngIf="fixed">
-      <ng-container *ngTemplateOutlet="indicator"></ng-container>
-    </ng-container>
-  </div>
-  <ng-container *ngIf="!fixed">
-    <ng-container *ngTemplateOutlet="indicator"></ng-container>
-  </ng-container>
-  <ng-template #indicator><mdc-tab-indicator></mdc-tab-indicator></ng-template>
-  <div #ripplesurface class="mdc-tab__ripple"></div>
-  `,
+  templateUrl: 'tab.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   providers: [MdcRipple]

@@ -52,27 +52,7 @@ let nextUniqueId = 0;
     '[class.mdc-switch--disabled]': 'disabled',
     '(focus)': '_inputElement.nativeElement.focus()'
   },
-  template: `
-  <div class="mdc-switch__track"></div>
-  <div #thumbUnderlay class="mdc-switch__thumb-underlay">
-    <div class="mdc-switch__thumb"></div>
-    <input type="checkbox"
-      #input
-      role="switch"
-      class="mdc-switch__native-control"
-      [id]="inputId"
-      [attr.name]="name"
-      [attr.aria-label]="ariaLabel"
-      [attr.aria-labelledby]="ariaLabelledby"
-      [tabIndex]="tabIndex"
-      [disabled]="disabled"
-      [required]="required"
-      [checked]="checked"
-      (blur)="onBlur()"
-      (click)="onInputClick($event)"
-      (change)="onChange($event)"/>
-  </div>
-  `,
+  templateUrl: 'switch.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   providers: [

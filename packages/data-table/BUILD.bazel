@@ -3,6 +3,8 @@ package(default_visibility = ["//visibility:public"])
 load(
     "//tools:defaults.bzl",
     "ng_module",
+    "ng_test_library",
+    "ng_web_test_suite",
 )
 
 ng_module(
@@ -13,6 +15,7 @@ ng_module(
             "**/*.spec.ts",
         ],
     ),
+    assets = glob(["**/*.html"]),
     module_name = "@angular-mdc/web/data-table",
     deps = [
         "//packages/base",
@@ -20,5 +23,29 @@ ng_module(
         "//packages/dom",
         "@npm//@angular/cdk",
         "@npm//@material/data-table",
+    ],
+)
+
+ng_test_library(
+    name = "unit_test_sources",
+    srcs = glob(["**/*.spec.ts"]),
+    deps = [
+        ":data-table",
+        "//packages/checkbox",
+        "@npm//@angular/platform-browser",
+    ],
+)
+
+ng_web_test_suite(
+    name = "unit_tests",
+    static_files = [
+        "@npm//:node_modules/@material/data-table/dist/mdc.dataTable.js",
+        "@npm//:node_modules/@material/ripple/dist/mdc.ripple.js",
+        "@npm//:node_modules/@material/textfield/dist/mdc.textfield.js",
+        "@npm//:node_modules/@material/checkbox/dist/mdc.checkbox.js",
+    ],
+    deps = [
+        ":unit_test_sources",
+        "//packages:mdc_require_config.js",
     ],
 )

@@ -5,7 +5,6 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-
 import {MdcCharacterCounter} from '@angular-mdc/web/form-field';
 import {MdcTextField} from './text-field';
 
@@ -19,27 +18,7 @@ import {MdcTextField} from './text-field';
     '[class.mdc-text-field--fullwidth]': 'fullwidth',
     '[class.mdc-text-field--invalid]': 'errorState'
   },
-  template: `
-  <div mdcCharacterCounter *ngIf="characterCounter"></div>
-  <textarea #inputElement class="mdc-text-field__input"
-    [id]="id"
-    [rows]="rows"
-    [cols]="cols"
-    [tabindex]="tabIndex"
-    [attr.name]="name"
-    [attr.aria-invalid]="errorState"
-    [attr.maxlength]="maxlength"
-    [attr.minlength]="minlength"
-    [disabled]="disabled"
-    [required]="required"
-    [readonly]="readonly"
-    (mousedown)="onInputInteraction($event)"
-    (touchstart)="onInputInteraction($event)"
-    (focus)="onFocus()"
-    (input)="onInput($event)"
-    (change)="onChange($event)"
-    (blur)="onBlur()"></textarea>
-  <mdc-notched-outline [label]="label" [for]="id"></mdc-notched-outline>`,
+  templateUrl: 'textarea.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })

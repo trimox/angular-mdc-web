@@ -22,8 +22,5 @@
       "node"
     ],
     "baseUrl": "."
-  },
-  "files": [
-    "gulpfile.ts"
-  ]
+  }
 }

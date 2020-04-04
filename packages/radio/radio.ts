@@ -68,27 +68,7 @@ let nextUniqueId = 0;
     '[attr.name]': 'null',
     '[class.mdc-radio--touch]': 'touch',
   },
-  template: `
-  <input type="radio"
-    #input
-    class="mdc-radio__native-control"
-    [id]="inputId"
-    [attr.name]="name"
-    [tabIndex]="tabIndex"
-    [attr.aria-label]="ariaLabel"
-    [attr.aria-labelledby]="ariaLabelledby"
-    [attr.aria-describedby]="ariaDescribedby"
-    [disabled]="disabled"
-    [required]="required"
-    [checked]="checked"
-    (click)="onInputClick($event)"
-    (change)="onInputChange($event)" />
-    <div class="mdc-radio__background">
-      <div class="mdc-radio__outer-circle"></div>
-      <div class="mdc-radio__inner-circle"></div>
-    </div>
-    <div class="mdc-radio__ripple"></div>
-  `,
+  templateUrl: 'radio.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [

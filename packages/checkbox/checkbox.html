@@ -1,0 +1,26 @@
+<input type="checkbox"
+    #input
+    class="mdc-checkbox__native-control"
+    [id]="inputId"
+    [attr.name]="name"
+    [tabIndex]="tabIndex"
+    [attr.aria-label]="ariaLabel || null"
+    [attr.aria-labelledby]="ariaLabelledby"
+    [disabled]="disabled"
+    [checked]="checked"
+    [attr.value]="value"
+    [indeterminate]="indeterminate"
+    (change)="_onInteraction($event)"
+    (click)="_onInputClick($event)"/>
+  <div class="mdc-checkbox__background">
+    <svg
+      class="mdc-checkbox__checkmark"
+      viewBox="0 0 24 24"
+      focusable="false">
+      <path class="mdc-checkbox__checkmark-path"
+        fill="none"
+        d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+    </svg>
+    <div class="mdc-checkbox__mixedmark"></div>
+  </div>
+  <div *ngIf="!disableRipple && !disabled" class="mdc-checkbox__ripple"></div>

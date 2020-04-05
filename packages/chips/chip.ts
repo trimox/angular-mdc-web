@@ -85,7 +85,9 @@ export class MdcChipCheckmark {
     '[class.mdc-chip--selected]': 'selected',
     '[class.mdc-chip--touch]': 'touch',
     '(click)': '_handleInteraction($event)',
-    '(keydown)': '_onKeydown($event)'
+    '(keydown)': '_onKeydown($event)',
+    '(focusin)': '_onFocusIn($event)',
+    '(focusout)': '_onFocusOut($event)',
   },
   templateUrl: 'chip.html',
   encapsulation: ViewEncapsulation.None,
@@ -340,6 +342,14 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
   _onKeydown(evt: KeyboardEvent): void {
     this._foundation.handleInteraction(evt);
     this._foundation.handleKeydown(evt);
+  }
+
+  _onFocusIn(evt: FocusEvent): void {
+    this._foundation.handleFocusIn(evt);
+  }
+
+  _onFocusOut(evt: FocusEvent): void {
+    this._foundation.handleFocusOut(evt);
   }
 
   _handleTrailingIconInteraction(evt: KeyboardEvent | MouseEvent): void {

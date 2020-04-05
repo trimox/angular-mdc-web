@@ -1,8 +1,8 @@
-package(default_visibility = ["//visibility:public"])
-
 load("@npm_bazel_typescript//:index.bzl", "ts_config")
 load("//packages:config.bzl", "MDC_TARGETS", "MDC_TESTING_TARGETS")
 load("//tools:defaults.bzl", "ng_package", "ts_library")
+
+package(default_visibility = ["//visibility:public"])
 
 exports_files([
     "bazel-tsconfig-build.json",

@@ -39,4 +39,4 @@ testem.log
 /.git
 /.firebase
 /.bazelrc.user
-packages/__ngcc_entry_points__.json
+__ngcc_entry_points__.json

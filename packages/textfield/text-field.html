@@ -1,0 +1,30 @@
+<div class="mdc-text-field__ripple"></div>
+<ng-content *ngIf="leadingIcon || trailingIcon"></ng-content>
+<input #inputElement class="mdc-text-field__input"
+  [id]="id"
+  [type]="type"
+  [tabindex]="tabIndex"
+  [attr.name]="name"
+  [attr.aria-invalid]="errorState"
+  [attr.autocomplete]="autocomplete"
+  [attr.pattern]="pattern"
+  [attr.placeholder]="placeholder"
+  [attr.maxlength]="maxlength"
+  [attr.minlength]="minlength"
+  [attr.max]="max"
+  [attr.min]="min"
+  [attr.size]="size"
+  [attr.step]="step"
+  [disabled]="disabled"
+  [readonly]="readonly"
+  [required]="required"
+  (mousedown)="onInputInteraction($event)"
+  (touchstart)="onInputInteraction($event)"
+  (focus)="onFocus()"
+  (input)="onInput($event)"
+  (change)="onChange($event)"
+  (blur)="onBlur()" />
+<ng-content></ng-content>
+<label mdcFloatingLabel [for]="id" *ngIf="!placeholder && !outlined">{{label}}</label>
+<mdc-line-ripple *ngIf="!outlined"></mdc-line-ripple>
+<mdc-notched-outline *ngIf="outlined" [label]="label" [for]="id"></mdc-notched-outline>

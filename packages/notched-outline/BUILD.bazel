@@ -13,6 +13,7 @@ ng_module(
             "**/*.spec.ts",
         ],
     ),
+    assets = glob(["**/*.html"]),
     module_name = "@angular-mdc/web/notched-outline",
     deps = [
         "//packages/base",

@@ -25,19 +25,7 @@ import {MDCSnackbarFoundation, MDCSnackbarAdapter} from '@material/snackbar';
     '[class.ngx-mdc-snackbar--trailing]': 'config.trailing',
     '(keydown)': '_onKeydown($event)'
   },
-  template: `
-  <div #surface class="mdc-snackbar__surface">
-    <div #label class="mdc-snackbar__label"
-      role="status"
-      aria-live="polite">{{data.message}}</div>
-    <div class="mdc-snackbar__actions">
-      <button #action type="button" class="mdc-button mdc-snackbar__action"
-        (click)="_onActionClick($event)">{{data.action}}</button>
-      <button #dismiss *ngIf="config.dismiss"
-        class="mdc-icon-button mdc-snackbar__dismiss material-icons"
-        title="Dismiss" (click)="_onActionIconClick($event)">close</button>
-    </div>
-  </div>`,
+  templateUrl: 'snackbar.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   providers: [LiveAnnouncer]

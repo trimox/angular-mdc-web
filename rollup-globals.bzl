@@ -1,4 +1,4 @@
-load("//packages:config.bzl", "MDC_ENTRYPOINTS")
+load("//packages:config.bzl", "MDC_ENTRYPOINTS", "MDC_TESTING_ENTRYPOINTS")
 
 # Base rollup globals for everything in the repo. Note that we want to disable
 # sorting of the globals as we manually group dict entries.
@@ -92,5 +92,5 @@ def create_globals(packageName, entryPoints):
 
 create_globals(
     "web",
-    MDC_ENTRYPOINTS,
+    MDC_ENTRYPOINTS + MDC_TESTING_ENTRYPOINTS,
 )

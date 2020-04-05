@@ -1,14 +1,20 @@
 # Re-export of Bazel rules with repository-wide defaults
 
 load("@npm_angular_bazel//:index.bzl", _ng_module = "ng_module", _ng_package = "ng_package")
+load("@npm_bazel_jasmine//:index.bzl", _jasmine_node_test = "jasmine_node_test")
+load("@npm_bazel_karma//:index.bzl", _karma_web_test = "karma_web_test", _karma_web_test_suite = "karma_web_test_suite")
 load("@npm_bazel_typescript//:index.bzl", _ts_library = "ts_library")
-load("//:packages.bzl", "VERSION_PLACEHOLDER_REPLACEMENTS")
+load("//:packages.bzl", "VERSION_PLACEHOLDER_REPLACEMENTS", "getAngularUmdTargets")
 load("//:rollup-globals.bzl", "ROLLUP_GLOBALS")
 
 _DEFAULT_TSCONFIG_BUILD = "//packages:bazel-tsconfig-build.json"
+_DEFAULT_TSCONFIG_TEST = "//packages:tsconfig-test"
 
 def _getDefaultTsConfig(testonly):
-    return _DEFAULT_TSCONFIG_BUILD
+    if testonly:
+        return _DEFAULT_TSCONFIG_TEST
+    else:
+        return _DEFAULT_TSCONFIG_BUILD
 
 def ts_library(tsconfig = None, deps = [], testonly = False, **kwargs):
     # Add tslib because we use import helpers for all public packages.
@@ -19,6 +25,7 @@ def ts_library(tsconfig = None, deps = [], testonly = False, **kwargs):
 
     _ts_library(
         tsconfig = tsconfig,
+        testonly = testonly,
         # The default "ts_library" compiler does not come with "tsickle" available. Since
         # we have targets that use "tsickle" decorator processing, we need to ensure that
         # the compiler could load "tsickle" if needed.
@@ -78,7 +85,7 @@ def ng_module(
         **kwargs
     )
 
-def ng_package(name, data = [], deps = [], globals = ROLLUP_GLOBALS, **kwargs):
+def ng_package(name, data = [], deps = [], globals = ROLLUP_GLOBALS, readme_md = None, **kwargs):
     # We need a genrule that copies the license into the current package. This
     # allows us to include the license in the "ng_package".
     native.genrule(
@@ -106,5 +113,75 @@ def ng_package(name, data = [], deps = [], globals = ROLLUP_GLOBALS, **kwargs):
         # entry-points passed to `ng_package`, but the rule does not collect transitive deps.
         deps = deps + ["@npm//tslib"],
         substitutions = VERSION_PLACEHOLDER_REPLACEMENTS,
+        **kwargs
+    )
+
+def jasmine_node_test(**kwargs):
+    _jasmine_node_test(**kwargs)
+
+def ng_test_library(deps = [], tsconfig = None, **kwargs):
+    local_deps = [
+        # We declare "@angular/core" as default dependencies because
+        # all Angular component unit tests use the `TestBed` and `Component` exports.
+        "@npm//@angular/core",
+        "@npm//@types/jasmine",
+    ] + deps
+
+    ts_library(
+        testonly = 1,
+        deps = local_deps,
+        **kwargs
+    )
+
+def karma_web_test_suite(name, **kwargs):
+    web_test_args = {}
+    kwargs["srcs"] = ["@npm//:node_modules/tslib/tslib.js"] + getAngularUmdTargets() + kwargs.get("srcs", [])
+    kwargs["deps"] = ["//tools/rxjs:rxjs_umd_modules"] + kwargs.get("deps", [])
+
+    for opt_name in kwargs.keys():
+        # Filter out options which are specific to "karma_web_test" targets. We cannot
+        # pass options like "browsers" to the local web test target.
+        if not opt_name in ["wrapped_test_tags", "browsers", "wrapped_test_tags", "tags"]:
+            web_test_args[opt_name] = kwargs[opt_name]
+
+    # Custom standalone web test that can be run to test against any browser
+    # that is manually connected to.
+    _karma_web_test(
+        name = "%s_local_bin" % name,
+        config_file = "//test:bazel-karma-local-config.js",
+        tags = ["manual"],
+        **web_test_args
+    )
+
+    # Workaround for: https://github.com/bazelbuild/rules_nodejs/issues/1429
+    native.sh_test(
+        name = "%s_local" % name,
+        srcs = ["%s_local_bin" % name],
+        tags = ["manual", "local", "ibazel_notify_changes"],
+        testonly = True,
+    )
+
+    # Default test suite with all configured browsers.
+    _karma_web_test_suite(
+        name = name,
+        **kwargs
+    )
+
+def ng_web_test_suite(deps = [], static_css = [], bootstrap = [], tags = [], **kwargs):
+    karma_web_test_suite(
+        # Depend on our custom test initialization script. This needs to be the first dependency.
+        deps = [
+            "//test:angular_test_init",
+        ] + deps,
+        browsers = [
+            # Note: when changing the browser names here, also update the "yarn test"
+            # script to reflect the new browser names.
+            "@io_bazel_rules_webtesting//browsers:chromium-local",
+        ],
+        bootstrap = [
+            "@npm//:node_modules/zone.js/dist/zone-testing-bundle.js",
+            "@npm//:node_modules/reflect-metadata/Reflect.js",
+        ] + bootstrap,
+        tags = ["native"] + tags,
         **kwargs
     )

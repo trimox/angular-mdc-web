@@ -27,11 +27,7 @@ import {
     '[class.mdc-tab-indicator--active]': 'active',
     '[class.mdc-tab-indicator--fade]': 'fade'
   },
-  template: `
-  <span #content class="mdc-tab-indicator__content">
-    <ng-container *ngIf="icon">{{icon}}</ng-container>
-  </span>
-  `,
+  templateUrl: 'tab-indicator.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })

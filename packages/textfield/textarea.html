@@ -1,0 +1,21 @@
+<div class="mdc-text-field__ripple"></div>
+<div mdcCharacterCounter *ngIf="characterCounter"></div>
+<textarea #inputElement class="mdc-text-field__input"
+  [id]="id"
+  [rows]="rows"
+  [cols]="cols"
+  [tabindex]="tabIndex"
+  [attr.name]="name"
+  [attr.aria-invalid]="errorState"
+  [attr.maxlength]="maxlength"
+  [attr.minlength]="minlength"
+  [disabled]="disabled"
+  [required]="required"
+  [readonly]="readonly"
+  (mousedown)="onInputInteraction($event)"
+  (touchstart)="onInputInteraction($event)"
+  (focus)="onFocus()"
+  (input)="onInput($event)"
+  (change)="onChange($event)"
+  (blur)="onBlur()"></textarea>
+<mdc-notched-outline [label]="label" [for]="id"></mdc-notched-outline>

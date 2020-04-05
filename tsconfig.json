@@ -22,9 +22,6 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@angular-mdc/web": [
-        "./packages"
-      ],
       "@angular-mdc/web/*": [
         "./packages/*"
       ]
@@ -32,7 +29,8 @@
   },
   "include": [
     "packages/**/*.ts",
-    "tools/**/*.ts"
+    "tools/**/*.ts",
+    "test/**/*.ts"
   ],
   "exclude": [
     // IDEs should not type-check the different node_modules directories of the different packages.

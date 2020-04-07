@@ -85,5 +85,8 @@
     "tslint": "^6.0.0",
     "typescript": "~3.8.3"
   },
+  "resolutions": {
+    "**/graceful-fs": "4.2.2"
+  },
   "private": true
 }

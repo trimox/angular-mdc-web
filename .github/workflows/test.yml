@@ -11,8 +11,8 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.0.0
-      - uses: actions/setup-node@v1.4.0
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1.4.1
         with:
           node-version: 13
       - run: yarn
@@ -20,8 +20,8 @@ jobs:
   build-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.0.0
-      - uses: actions/setup-node@v1.4.0
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1.4.1
         with:
           node-version: 13
       - run: yarn
@@ -29,22 +29,18 @@ jobs:
   unit-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.0.0
-      - uses: actions/setup-node@v1.4.0
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1.4.1
         with:
           node-version: 13
       - run: yarn
       - name: Run unit tests
-        run: yarn test
-      - name: Upload coverage to Codecov 
-        uses: codecov/codecov-action@v1.0.5
-        with:
-          token: ${{secrets.CODECOV_TOKEN}}
+        run: yarn test all --no-watch
   sass-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.0.0
-      - uses: actions/setup-node@v1.4.0
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1.4.1
         with:
           node-version: 13
       - run: yarn

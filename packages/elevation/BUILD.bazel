@@ -1,9 +1,11 @@
-package(default_visibility = ["//visibility:public"])
-
 load(
     "//tools:defaults.bzl",
     "ng_module",
+    "ng_test_library",
+    "ng_web_test_suite",
 )
+
+package(default_visibility = ["//visibility:public"])
 
 ng_module(
     name = "elevation",
@@ -13,5 +15,23 @@ ng_module(
             "**/*.spec.ts",
         ],
     ),
+    assets = glob(["**/*.html"]),
     module_name = "@angular-mdc/web/elevation",
+)
+
+ng_test_library(
+    name = "unit_test_sources",
+    srcs = glob(["**/*.spec.ts"]),
+    deps = [
+        ":elevation",
+        "@npm//@angular/platform-browser",
+    ],
+)
+
+ng_web_test_suite(
+    name = "unit_tests",
+    deps = [
+        ":unit_test_sources",
+        "//packages:mdc_require_config.js",
+    ],
 )

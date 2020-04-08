@@ -1,59 +1,42 @@
-# Developing for Angular MDC
-
- - [Infrastructure and Tooling](#tools)
- - [Setup your development environment](#setup)
- - [Install demo dependencies](#setupdemos)
- - [Running the Demos](#demo-server)
- - [Linting](#lint)
- - [Testing / Coverage Enforcement](#test)
- - [Building](#build)
- - [Code Style](#code-style)
+# Developer guide
 
 ## <a name="setup"></a> Setup your development environment
-You'll need a recent version of nodejs and yarn.
-Once ready, simply clone our repo (or your fork of it) and install developer dependencies.
-```
-git clone https://github.com/trimox/angular-mdc-web.git  # or a path to your fork
-cd angular-mdc-web
-yarn
-```
+
+1. Make sure you have both `node` and `yarn` installed.
+2. Angular MDC uses Bazel which requires certain Bash and UNIX tools.
+   - On Windows: Follow the [instructions](https://docs.bazel.build/versions/master/install-windows.html#5-optional-install-compilers-and-language-runtimes)
+   to install [`MSYS2`](https://www.msys2.org/) and the listed "Common MSYS2 packages".
+   Afterwards add `C:\msys64\usr\bin` to the `PATH` environment variable.
+3. Fork the `angular-mdc/web` repo on GitHub.
+4. Clone your fork to your machine with `git clone`.
+5. From the root of the project, run `yarn` to install the dependencies.
 
 ## <a name="setupdemos"></a> Install demo dependencies
-Change path to `/path/to/angular-mdc-web/demos`
-```
-cd /path/to/angular-mdc-web/demos
-yarn
-```
+Change path to `/demos`, run `yarn` to install dependencies.
 
-## <a name="demo-server"></a> Running the demos
-Change path to `/path/to/angular-mdc-web/demos`
-```
-cd /path/to/angular-mdc-web/demos
-yarn start
-```
+## <a name="demo-server"></a> Run demo application
+Change path to `/demos`, run `yarn start`.
+
 After your development server is running, open a browser to url: http://localhost:4200
 
 ## <a name="lint"></a> Linting
-Change path to `/path/to/angular-mdc-web`
+From the root of the project,
 ```
-cd /path/to/angular-mdc-web
 yarn lint # Lints typescript using tslint
 yarn lint:css # Lints (S)CSS using stylelint
 ```
 
 ## <a name="test"></a> Testing / Coverage Enforcement
-Change path to `/path/to/angular-mdc-web`
+From the root of the project,
 ```
-cd /path/to/angular-mdc-web
 yarn test:watch # Runs karma on ChromeHeadless, re-running when source files change
-yarn test # Runs karma, and then runs coverage enforcement checks a single time.
+yarn test # Runs karma, and then runs coverage enforcement checks a single time
 ```
 
-## <a name="build"></a> Building Angular MDC
-Change path to `/path/to/angular-mdc-web`
+## <a name="build"></a> Build release
+From the root of the project,
 ```
-cd /path/to/angular-mdc-web
-yarn build:release # Builds Angular MDC inside of dist/releases/web
+yarn build # Builds Angular MDC inside of dist/releases/packages
 ```
 
 ## <a name="code-style"></a> Code Style

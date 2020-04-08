@@ -1,9 +1,11 @@
-package(default_visibility = ["//visibility:public"])
-
 load(
     "//tools:defaults.bzl",
     "ng_module",
+    "ng_test_library",
+    "ng_web_test_suite",
 )
+
+package(default_visibility = ["//visibility:public"])
 
 ng_module(
     name = "list",
@@ -13,6 +15,7 @@ ng_module(
             "**/*.spec.ts",
         ],
     ),
+    assets = glob(["**/*.html"]),
     module_name = "@angular-mdc/web/list",
     deps = [
         "//packages/base",
@@ -21,5 +24,33 @@ ng_module(
         "@npm//@angular/cdk",
         "@npm//@material/list",
         "@npm//@material/ripple",
+    ],
+)
+
+ng_test_library(
+    name = "unit_test_sources",
+    srcs = glob(["**/*.spec.ts"]),
+    deps = [
+        ":list",
+        "//packages/checkbox",
+        "//packages/icon",
+        "//packages/testing",
+        "@npm//@angular/cdk",
+        "@npm//@angular/forms",
+        "@npm//@angular/platform-browser",
+    ],
+)
+
+ng_web_test_suite(
+    name = "unit_tests",
+    static_files = [
+        "@npm//:node_modules/@material/list/dist/mdc.list.js",
+        "@npm//:node_modules/@material/textfield/dist/mdc.textfield.js",
+        "@npm//:node_modules/@material/checkbox/dist/mdc.checkbox.js",
+        "@npm//:node_modules/@material/ripple/dist/mdc.ripple.js",
+    ],
+    deps = [
+        ":unit_test_sources",
+        "//packages:mdc_require_config.js",
     ],
 )

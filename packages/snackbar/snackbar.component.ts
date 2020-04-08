@@ -25,24 +25,14 @@ import {MDCSnackbarFoundation, MDCSnackbarAdapter} from '@material/snackbar';
     '[class.ngx-mdc-snackbar--trailing]': 'config.trailing',
     '(keydown)': '_onKeydown($event)'
   },
-  template: `
-  <div #surface class="mdc-snackbar__surface">
-    <div #label class="mdc-snackbar__label"
-      role="status"
-      aria-live="polite">{{data.message}}</div>
-    <div class="mdc-snackbar__actions" *ngIf="data.action">
-      <button #action type="button" class="mdc-button mdc-snackbar__action"
-        (click)="_onActionClick($event)">{{data.action}}</button>
-      <button #dismiss *ngIf="config.dismiss"
-        class="mdc-icon-button mdc-snackbar__dismiss material-icons"
-        title="Dismiss" (click)="_onActionIconClick($event)">close</button>
-    </div>
-  </div>`,
+  templateUrl: 'snackbar.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   providers: [LiveAnnouncer]
 })
 export class MdcSnackbarComponent extends MDCComponent<MDCSnackbarFoundation> implements OnInit, OnDestroy {
+  _root!: Element;
+
   @ViewChild('label', {static: true}) label!: ElementRef<HTMLElement>;
   @ViewChild('action', {static: false}) action?: ElementRef<HTMLButtonElement>;
   @ViewChild('dismiss', {static: false}) dismiss?: ElementRef<HTMLButtonElement>;
@@ -52,14 +42,11 @@ export class MdcSnackbarComponent extends MDCComponent<MDCSnackbarFoundation> im
   }
 
   getDefaultFoundation() {
-    const adapter: MDCSnackbarAdapter = {
-      addClass: (className: string) => this._getHostElement().classList.add(className),
-      removeClass: (className: string) => this._getHostElement().classList.remove(className),
+    const adapter: Omit<MDCSnackbarAdapter, 'notifyClosing' | 'notifyOpened' | 'notifyOpening'> = {
+      addClass: (className: string) => this._root.classList.add(className),
+      removeClass: (className: string) => this._root.classList.remove(className),
       announce: () => this.label.nativeElement ? this._liveAnnouncer.announce(this.config.data.message,
         this.config.politeness, this.config.timeoutMs || MDCSnackbarFoundation.numbers.ARIA_LIVE_DELAY_MS) : {},
-      notifyClosing: () => {},
-      notifyOpened: () => {},
-      notifyOpening: () => {},
       notifyClosed: (reason: MdcSnackbarDismissReason | string) => this.snackbarRef.dismiss(reason)
     };
     return new MDCSnackbarFoundation(adapter);
@@ -72,6 +59,8 @@ export class MdcSnackbarComponent extends MDCComponent<MDCSnackbarFoundation> im
     public snackbarRef: MdcSnackbarRef<MdcSnackbarComponent>,
     @Inject(MDC_SNACKBAR_DATA) public data: any) {
     super(elementRef);
+
+    this._root = this.elementRef.nativeElement;
   }
 
   ngOnInit(): void {
@@ -111,9 +100,9 @@ export class MdcSnackbarComponent extends MDCComponent<MDCSnackbarFoundation> im
     const classes = this.config.classes;
     if (classes) {
       if (classes instanceof Array) {
-        this._getHostElement().classList.add(...this.config.classes as string[]);
+        this._elementRef.nativeElement.classList.add(...this.config.classes as string[]);
       } else {
-        this._getHostElement().classList.toggle(classes);
+        this._root.classList.toggle(classes);
       }
     }
 
@@ -145,10 +134,5 @@ export class MdcSnackbarComponent extends MDCComponent<MDCSnackbarFoundation> im
     if (this.config.dismiss) {
       this._foundation.setCloseOnEscape(this.config.closeOnEscape ? true : false);
     }
-  }
-
-  /** Retrieves the DOM element of the component host. */
-  private _getHostElement(): HTMLElement {
-    return this.elementRef.nativeElement;
   }
 }

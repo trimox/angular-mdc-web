@@ -54,22 +54,14 @@ function buildReleasePackages(useIvy, distPath) {
   console.log(`  Compiling with Ivy: ${useIvy}`);
   console.log('######################################');
 
-  // List of targets to build. e.g. "packages:npm_package", or "packages:npm_package".
   const targets = exec(queryPackagesCmd, true).split(/\r?\n/);
-  const packageNames = getPackageNamesOfTargets(targets);
   const bazelBinPath = exec(`${bazelCmd} info bazel-bin`, true);
-  const getOutputPath = pkgName => join(bazelBinPath, '', pkgName, 'npm_package');
+  const outputPath = join(bazelBinPath, 'packages', 'npm_package');
 
-  // Walk through each release package and clear previous "npm_package" outputs. This is
-  // a workaround for: https://github.com/bazelbuild/rules_nodejs/issues/1219. We need to
-  // do this to ensure that the version placeholders are properly populated.
-  packageNames.forEach(pkgName => {
-    const outputPath = getOutputPath(pkgName);
-    if (test('-d', outputPath)) {
-      chmod('-R', 'u+w', outputPath);
-      rm('-rf', outputPath);
-    }
-  });
+  if (test('-d', outputPath)) {
+    chmod('-R', 'u+w', outputPath);
+    rm('-rf', outputPath);
+  }
 
   // Build with "--config=release" so that Bazel runs the workspace stamping script. The
   // stamping script ensures that the version placeholder is populated in the release output.
@@ -81,27 +73,10 @@ function buildReleasePackages(useIvy, distPath) {
   mkdir('-p', distPath);
 
   // Copy the package output into the specified distribution folder.
-  packageNames.forEach(pkgName => {
-    const outputPath = getOutputPath(pkgName);
-    const targetFolder = join(distPath, pkgName);
-    console.log(`> Copying package output to "${targetFolder}"`);
-    cp('-R', outputPath, targetFolder);
-    chmod('-R', 'u+w', targetFolder);
-  });
-}
-
-/**
- * Gets the package names of the specified Bazel targets.
- * e.g. //packages:npm_package -> packages
- */
-function getPackageNamesOfTargets(targets) {
-  return targets.map(targetName => {
-    const matches = targetName.match(/(.*):npm_package/);
-    if (matches === null) {
-      throw Error(`Found Bazel target with "${releaseTargetTag}" tag, but could not determine release output name: ${targetName}`);
-    }
-    return matches[1];
-  });
+  const targetFolder = join(distPath, 'packages');
+  console.log(`> Copying package output to "${targetFolder}"`);
+  cp('-R', outputPath, targetFolder);
+  chmod('-R', 'u+w', targetFolder);
 }
 
 /**

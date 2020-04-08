@@ -1,0 +1,16 @@
+<div class="mdc-slider__track-container">
+  <div #track class="mdc-slider__track"></div>
+  <div #markercontainer *ngIf="markers" class="mdc-slider__track-marker-container"></div>
+</div>
+<div #thumbcontainer class="mdc-slider__thumb-container">
+  <div *ngIf="discrete" class="mdc-slider__pin">
+    <span #pin class="mdc-slider__pin-value-marker"></span>
+  </div>
+  <svg #sliderThumb
+    class="mdc-slider__thumb"
+    width="21" height="21"
+    focusable="false">
+    <circle cx="10.5" cy="10.5" r="7.875"></circle>
+  </svg>
+  <div class="mdc-slider__focus-ring"></div>
+</div>

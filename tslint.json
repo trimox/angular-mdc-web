@@ -212,7 +212,8 @@
     "exclude": [
       "tools/**/*.ts",
       "packages/overlay/**/*.ts",
-      "packages/scrolling/**/*.ts"
+      "packages/scrolling/**/*.ts",
+      "packages/**/*spec.ts"
     ]
   }
 }

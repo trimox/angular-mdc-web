@@ -67,10 +67,10 @@ const routes: Routes = [
   {path: 'slider-demo', loadChildren: () => import('./components/slider/module').then(m => m.SliderModule)},
   {
     path: 'snackbar-demo', loadChildren: () =>
-      import('./components/snackbar-demo/snackbar.module').then(m => m.SnackbarModule)
+      import('./components/snackbar/module').then(m => m.SnackbarModule)
   },
   {path: 'switch-demo', loadChildren: () => import('./components/switch-demo/switch.module').then(m => m.SwitchModule)},
-  {path: 'tabs-demo', loadChildren: () => import('./components/tabs-demo/tabs.module').then(m => m.TabsModule)},
+  {path: 'tabs-demo', loadChildren: () => import('./components/tabs/module').then(m => m.TabsModule)},
   {
     path: 'text-field-demo', loadChildren: () =>
       import('./components/text-field/module').then(m => m.TextFieldModule)

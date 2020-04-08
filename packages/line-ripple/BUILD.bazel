@@ -1,9 +1,9 @@
-package(default_visibility = ["//visibility:public"])
-
 load(
     "//tools:defaults.bzl",
     "ng_module",
 )
+
+package(default_visibility = ["//visibility:public"])
 
 ng_module(
     name = "line-ripple",
@@ -13,6 +13,7 @@ ng_module(
             "**/*.spec.ts",
         ],
     ),
+    assets = glob(["**/*.html"]),
     module_name = "@angular-mdc/web/line-ripple",
     deps = [
         "//packages/base",

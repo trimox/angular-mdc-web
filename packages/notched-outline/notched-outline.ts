@@ -20,13 +20,7 @@ import {MDCNotchedOutlineFoundation, MDCNotchedOutlineAdapter} from '@material/n
     '[class.mdc-notched-outline--upgraded]': 'label',
     '[class.mdc-notched-outline--no-label]': '!label'
   },
-  template: `
-  <span class="mdc-notched-outline__leading"></span>
-  <span #notch class="mdc-notched-outline__notch">
-    <label mdcFloatingLabel [for]="for">{{label}}</label>
-  </span>
-  <span class="mdc-notched-outline__trailing"></span>
-  `,
+  templateUrl: 'notched-outline.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })

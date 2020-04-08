@@ -26,17 +26,7 @@ import {MDCLinearProgressFoundation, MDCLinearProgressAdapter} from '@material/l
     'aria-valuemin': '0',
     'aria-valuemax': '100'
   },
-  template: `
-  <div class="mdc-linear-progress__buffer">
-    <div class="mdc-linear-progress__buffer-bar"></div>
-    <div class="mdc-linear-progress__buffer-dots"></div>
-  </div>
-  <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
-   <span class="mdc-linear-progress__bar-inner"></span>
-  </div>
-  <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
-   <span class="mdc-linear-progress__bar-inner"></span>
-  </div>`,
+  templateUrl: 'linear-progress.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -104,37 +104,7 @@ const MOUSE_EVENT_IGNORE_TIME = 800;
     '(click)': 'onTextFieldInteraction()',
     '(keydown)': 'onTextFieldInteraction()'
   },
-  template: `
-  <div class="mdc-text-field__ripple"></div>
-  <ng-content *ngIf="leadingIcon || trailingIcon"></ng-content>
-  <input #inputElement class="mdc-text-field__input"
-    [id]="id"
-    [type]="type"
-    [tabindex]="tabIndex"
-    [attr.name]="name"
-    [attr.aria-invalid]="errorState"
-    [attr.autocomplete]="autocomplete"
-    [attr.pattern]="pattern"
-    [attr.placeholder]="placeholder"
-    [attr.maxlength]="maxlength"
-    [attr.minlength]="minlength"
-    [attr.max]="max"
-    [attr.min]="min"
-    [attr.size]="size"
-    [attr.step]="step"
-    [disabled]="disabled"
-    [readonly]="readonly"
-    [required]="required"
-    (mousedown)="onInputInteraction($event)"
-    (touchstart)="onInputInteraction($event)"
-    (focus)="onFocus()"
-    (input)="onInput($event)"
-    (change)="onChange($event)"
-    (blur)="onBlur()" />
-    <ng-content></ng-content>
-    <label mdcFloatingLabel [for]="id" *ngIf="!this.placeholder && !outlined">{{label}}</label>
-    <mdc-line-ripple *ngIf="!this.outlined && !this.textarea"></mdc-line-ripple>
-    <mdc-notched-outline *ngIf="outlined" [label]="label" [for]="id"></mdc-notched-outline>`,
+  templateUrl: 'text-field.html',
   providers: [
     MdcRipple,
     {provide: MdcFormFieldControl, useExisting: MdcTextField}
@@ -153,7 +123,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   controlType: string = 'mdc-text-field';
 
   @Input() name?: string;
-  @Input() label: string | null = null;
+  @Input() label: string | undefined = undefined;
   @Input() maxlength?: number;
   @Input() minlength?: number;
   @Input() pattern?: string;
@@ -162,7 +132,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   @Input() min?: number;
   @Input() size?: number;
   @Input() step?: number;
-  @Input() placeholder: string | null = null;
+  @Input() placeholder: string | undefined = undefined;
   @Input() tabIndex: number = 0;
 
   @Input()
@@ -189,8 +159,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     return this._outlined;
   }
   set outlined(value: boolean) {
-    const newValue = coerceBooleanProperty(value);
-    this._outlined = newValue;
+    this._outlined = coerceBooleanProperty(value);
     if (this._initialized) {
       this._layout();
     }
@@ -518,7 +487,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     this._foundation.setTransformOrigin(evt);
   }
 
-  onInput(evt: KeyboardEvent): void {
+  onInput(evt: Event): void {
     const value = (<any>evt.target).value;
     this.setValue(value, true);
     this._foundation.handleInput();

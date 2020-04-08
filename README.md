@@ -1,7 +1,7 @@
 # Angular MDC
 
 [![npm version](https://badge.fury.io/js/%40angular-mdc%2Fweb.svg)](https://badge.fury.io/js/%40angular-mdc%2Fweb)
-[![codecov](https://codecov.io/gh/trimox/angular-mdc-web/branch/master/graph/badge.svg)](https://codecov.io/gh/trimox/angular-mdc-web)
+![tests](https://github.com/trimox/angular-mdc-web/workflows/tests/badge.svg)
 
 [Demos, documentation and guides](https://trimox.github.io/angular-mdc-web/)
 

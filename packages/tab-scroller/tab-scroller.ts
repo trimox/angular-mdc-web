@@ -34,13 +34,7 @@ const SCROLLER_EVENTS = [
   host: {
     'class': 'mdc-tab-scroller'
   },
-  template: `
-  <div #area class="mdc-tab-scroller__scroll-area">
-    <div #content class="mdc-tab-scroller__scroll-content">
-      <ng-content></ng-content>
-    </div>
-  </div>
-  `,
+  templateUrl: 'tab-scroller.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })

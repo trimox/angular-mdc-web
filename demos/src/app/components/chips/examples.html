@@ -153,16 +153,16 @@
 </div>
 
 <div class="demo-content">
-  <h3 class="demo-content__headline">FormControl</h3>
-  <form #form="ngForm" novalidate>
-    <mdc-chip-set choice [formControl]="formControl">
+  <h3 class="demo-content__headline">Reactive Form</h3>
+  <form [formGroup]="chipForm" novalidate>
+    <mdc-chip-set choice formControlName="chipFood">
       <mdc-chip *ngFor="let food of foods" [value]="food.value">
         {{food.viewValue}}
       </mdc-chip>
     </mdc-chip-set>
   </form>
-  <p>Value: {{formControl.value}}</p>
-  <example-viewer [example]="exampleFormControl"></example-viewer>
+  <p>Value: {{chipForm.controls['chipFood'].value}}</p>
+  <example-viewer [example]="exampleReactiveForm"></example-viewer>
 </div>
 
 <div class="demo-content">

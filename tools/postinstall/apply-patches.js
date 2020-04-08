@@ -33,36 +33,36 @@ shelljs.exec('ngc -p angular-tsconfig.json');
 // enable tsickle decorator processing without enabling import rewriting to closure.
 // This replacement allows us to enable decorator processing without rewriting imports.
 searchAndReplace(
-    /(this\.transformTypesToClosure) = bazelOpts\.tsickle;/, '$1 = false;',
-    'node_modules/@bazel/typescript/internal/tsc_wrapped/compiler_host.js');
+  /(this\.transformTypesToClosure) = bazelOpts\.tsickle;/, '$1 = false;',
+  'node_modules/@bazel/typescript/internal/tsc_wrapped/compiler_host.js');
 
 // Workaround for https://github.com/angular/angular/issues/32389. We need to ensure
 // that tsickle is available for esm5 output re-compilations.
 searchAndReplace(
-    '@npm//@bazel/typescript/bin:tsc_wrapped',
-    '@angular_mdc//tools:tsc_wrapped_with_tsickle',
-    'node_modules/@angular/bazel/src/esm5.bzl');
+  '@npm//@bazel/typescript/bin:tsc_wrapped',
+  '@angular_mdc//tools:tsc_wrapped_with_tsickle',
+  'node_modules/@angular/bazel/src/esm5.bzl');
 
 // Workaround for: https://github.com/angular/angular/issues/32651. We just do not
 // generate re-exports for secondary entry-points. Similar to what "ng-packagr" does.
 searchAndReplace(
-    /(?!function\s+)createMetadataReexportFile\([^)]+\);/, '',
-    'node_modules/@angular/bazel/src/ng_package/packager.js');
+  /(?!function\s+)createMetadataReexportFile\([^)]+\);/, '',
+  'node_modules/@angular/bazel/src/ng_package/packager.js');
 searchAndReplace(
-    /(?!function\s+)createTypingsReexportFile\([^)]+\);/, '',
-    'node_modules/@angular/bazel/src/ng_package/packager.js');
+  /(?!function\s+)createTypingsReexportFile\([^)]+\);/, '',
+  'node_modules/@angular/bazel/src/ng_package/packager.js');
 
 // Workaround for: https://github.com/angular/angular/pull/32650
 searchAndReplace(
-    'var indexFile;', `
+  'var indexFile;', `
   var indexFile = files.find(f => f.endsWith('/public-api.ts'));
 `,
-    'node_modules/@angular/compiler-cli/src/metadata/bundle_index_host.js');
+  'node_modules/@angular/compiler-cli/src/metadata/bundle_index_host.js');
 searchAndReplace(
-    'var resolvedEntryPoint = null;', `
+  'var resolvedEntryPoint = null;', `
   var resolvedEntryPoint = tsFiles.find(f => f.endsWith('/public-api.ts')) || null;
 `,
-    'node_modules/@angular/compiler-cli/src/ngtsc/entry_point/src/logic.js');
+  'node_modules/@angular/compiler-cli/src/ngtsc/entry_point/src/logic.js');
 
 // Workaround for: https://hackmd.io/MlqFp-yrSx-0mw4rD7dnQQ?both. We only want to discard
 // the metadata of files in the bazel managed node modules. That way we keep the default
@@ -70,33 +70,37 @@ searchAndReplace(
 // the "generateCodeForLibraries" flag more accurate in the Bazel environment where previous
 // compilations should not be treated as external libraries. Read more about this in the document.
 searchAndReplace(
-    /if \((this\.options\.generateCodeForLibraries === false)/, `
+  /if \((this\.options\.generateCodeForLibraries === false)/, `
   const fs = require('fs');
   const hasFlatModuleBundle = fs.existsSync(filePath.replace('.d.ts', '.metadata.json'));
   if ((filePath.includes('node_modules/') || !hasFlatModuleBundle) && $1`,
-    'node_modules/@angular/compiler-cli/src/transformers/compiler_host.js');
+  'node_modules/@angular/compiler-cli/src/transformers/compiler_host.js');
 applyPatch(path.join(__dirname, './flat_module_factory_resolution.patch'));
 // The three replacements below ensure that metadata files can be read by NGC and
 // that metadata files are collected as Bazel action inputs.
 searchAndReplace(
-    /(const NGC_ASSETS = \/[^(]+\()([^)]*)(\).*\/;)/, '$1$2|metadata.json$3',
-    'node_modules/@angular/bazel/src/ngc-wrapped/index.js');
+  /(const NGC_ASSETS = \/[^(]+\()([^)]*)(\).*\/;)/, '$1$2|metadata.json$3',
+  'node_modules/@angular/bazel/src/ngc-wrapped/index.js');
 searchAndReplace(
-    /^((\s*)results = depset\(dep.angular.summaries, transitive = \[results]\))$/m,
-    `$1#\n$2results = depset(dep.angular.metadata, transitive = [results])`,
-    'node_modules/@angular/bazel/src/ng_module.bzl');
+  /^((\s*)results = depset\(dep.angular.summaries, transitive = \[results]\))$/m,
+  `$1#\n$2results = depset(dep.angular.metadata, transitive = [results])`,
+  'node_modules/@angular/bazel/src/ng_module.bzl');
 searchAndReplace(
-    /^((\s*)results = depset\(target.angular.summaries if hasattr\(target, "angular"\) else \[]\))$/m,
-    `$1#\n$2results = depset(target.angular.metadata if hasattr(target, "angular") else [], transitive = [results])`,
-    'node_modules/@angular/bazel/src/ng_module.bzl');
+  /^((\s*)results = depset\(target.angular.summaries if hasattr\(target, "angular"\) else \[]\))$/m,
+  `$1#\n$2results = depset(target.angular.metadata if hasattr(target, "angular") else [], transitive = [results])`,
+  'node_modules/@angular/bazel/src/ng_module.bzl');
 // Ensure that "metadata" of transitive dependencies can be collected.
 searchAndReplace(
-    /("metadata": outs.metadata),/,
-    `$1 + [m for dep in ctx.attr.deps if hasattr(dep, "angular") for m in dep.angular.metadata],`,
-    'node_modules/@angular/bazel/src/ng_module.bzl');
+  /("metadata": outs.metadata),/,
+  `$1 + [m for dep in ctx.attr.deps if hasattr(dep, "angular") for m in dep.angular.metadata],`,
+  'node_modules/@angular/bazel/src/ng_module.bzl');
 
 // Workaround for: https://github.com/bazelbuild/rules_nodejs/issues/1208.
 applyPatch(path.join(__dirname, './manifest_externs_hermeticity.patch'));
+
+// Temporary patch pre-req for https://github.com/angular/angular/pull/36333.
+// Can be removed once @angular/bazel is updated here to include this patch.
+  applyPatch(path.join(__dirname, './@angular_bazel_ng_module.patch'));
 
 // Workaround for https://github.com/angular/angular/issues/33452:
 searchAndReplace(/angular_compiler_options = {/, `$&
@@ -157,8 +161,12 @@ Object.keys(PATCHES_PER_FILE).forEach(filePath => {
  * not apply cleanly.
  */
 function applyPatch(patchFile) {
-  const patchMarkerFileName = `${path.basename(patchFile)}.patch_marker`;
-  const patchMarkerPath = path.join(projectDir, 'node_modules/', patchMarkerFileName);
+  // Note: We replace non-word characters from the patch marker file name.
+  // This is necessary because Yarn throws if cached node modules are restored
+  // which contain files with special characters. Below is an example error:
+  // ENOTDIR: not a directory, scandir '/<...>/node_modules/@angular_bazel_ng_module.<..>'".
+  const patchMarkerBasename = `${path.basename(patchFile).replace(/[^\w]/, '_')}`;
+  const patchMarkerPath = path.join(projectDir, 'node_modules/', patchMarkerBasename);
 
   if (hasFileBeenPatched(patchMarkerPath)) {
     return;
@@ -195,5 +203,5 @@ function writePatchMarker(filePath) {
 function hasFileBeenPatched(filePath) {
   const markerFilePath = `${filePath}.patch_marker`;
   return shelljs.test('-e', markerFilePath) &&
-      shelljs.cat(markerFilePath).toString().trim() === `${PATCH_VERSION}`;
+    shelljs.cat(markerFilePath).toString().trim() === `${PATCH_VERSION}`;
 }

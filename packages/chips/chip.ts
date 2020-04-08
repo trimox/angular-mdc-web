@@ -85,23 +85,11 @@ export class MdcChipCheckmark {
     '[class.mdc-chip--selected]': 'selected',
     '[class.mdc-chip--touch]': 'touch',
     '(click)': '_handleInteraction($event)',
-    '(keydown)': '_onKeydown($event)'
+    '(keydown)': '_onKeydown($event)',
+    '(focusin)': '_onFocusIn($event)',
+    '(focusout)': '_onFocusOut($event)',
   },
-  template: `
-  <div class="mdc-chip__ripple"></div>
-  <ng-content select="mdc-chip-icon[leading]"></ng-content>
-  <mdc-chip-checkmark *ngIf="filter"></mdc-chip-checkmark>
-  <span role="gridcell">
-    <mdc-chip-primary-action>
-      <div class="mdc-chip__touch" *ngIf="touch"></div>
-      <mdc-chip-text *ngIf="label">{{label}}</mdc-chip-text>
-      <ng-content></ng-content>
-    </mdc-chip-primary-action>
-  </span>
-  <span role="gridcell" *ngIf="!!trailingIcon">
-    <ng-content select="mdc-chip-icon[trailing]"></ng-content>
-  </span>
-  `,
+  templateUrl: 'chip.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [MdcRipple]
@@ -250,7 +238,7 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
         this.selectionChange.emit({
           chipId: this._id,
           selected: selected,
-          value: selected ? this._value : undefined,
+          value: this._value,
           shouldIgnore: chipSetShouldIgnore
         }),
       notifyNavigation: (key: string, source: any) =>
@@ -354,6 +342,14 @@ export class MdcChip extends MDCComponent<MDCChipFoundation> implements AfterVie
   _onKeydown(evt: KeyboardEvent): void {
     this._foundation.handleInteraction(evt);
     this._foundation.handleKeydown(evt);
+  }
+
+  _onFocusIn(evt: FocusEvent): void {
+    this._foundation.handleFocusIn(evt);
+  }
+
+  _onFocusOut(evt: FocusEvent): void {
+    this._foundation.handleFocusOut(evt);
   }
 
   _handleTrailingIconInteraction(evt: KeyboardEvent | MouseEvent): void {

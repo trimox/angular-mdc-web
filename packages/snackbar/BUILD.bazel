@@ -1,13 +1,21 @@
-package(default_visibility = ["//visibility:public"])
-
 load(
     "//tools:defaults.bzl",
     "ng_module",
+    "ng_test_library",
+    "ng_web_test_suite",
 )
+
+package(default_visibility = ["//visibility:public"])
 
 ng_module(
     name = "snackbar",
-    srcs = glob(["*.ts"]),
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+        ],
+    ),
+    assets = glob(["**/*.html"]),
     module_name = "@angular-mdc/web/snackbar",
     deps = [
         "//packages/base",
@@ -17,5 +25,29 @@ ng_module(
         "@npm//@angular/core",
         "@npm//@material/snackbar",
         "@npm//rxjs",
+    ],
+)
+
+ng_test_library(
+    name = "unit_test_sources",
+    srcs = glob(["**/*.spec.ts"]),
+    deps = [
+        ":snackbar",
+        "//packages/overlay",
+        "//packages/testing",
+        "@npm//@angular/common",
+        "@npm//@angular/forms",
+        "@npm//@angular/platform-browser",
+    ],
+)
+
+ng_web_test_suite(
+    name = "unit_tests",
+    static_files = [
+        "@npm//:node_modules/@material/snackbar/dist/mdc.snackbar.js",
+    ],
+    deps = [
+        ":unit_test_sources",
+        "//packages:mdc_require_config.js",
     ],
 )

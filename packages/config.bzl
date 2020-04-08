@@ -46,5 +46,15 @@ MDC_ENTRYPOINTS = [
     if not "/testing" in ep
 ]
 
+# List of all testing entry-points of the Angular MDC package.
+MDC_TESTING_ENTRYPOINTS = [
+    ep
+    for ep in entryPoints
+    if not ep in MDC_ENTRYPOINTS
+]
+
 # List of all non-testing entry-point targets of the angular-mdc package.
 MDC_TARGETS = ["//packages"] + ["//packages/%s" % ep for ep in MDC_ENTRYPOINTS]
+
+# List of all testing entry-point targets of the Angular MDC package.
+MDC_TESTING_TARGETS = ["//packages/%s" % ep for ep in MDC_TESTING_ENTRYPOINTS]

@@ -32,12 +32,7 @@ export class MdcButtonLabel {}
     '[class.mdc-button--touch]': 'touch',
     '(click)': 'onClick($event)'
   },
-  template: `
-  <div class="mdc-button__ripple"></div>
-  <mdc-button-label *ngIf="label">{{label}}</mdc-button-label>
-  <div class="mdc-button__touch" *ngIf="touch"></div>
-  <ng-content></ng-content>
-  `,
+  templateUrl: 'button.html',
   providers: [MdcRipple],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush

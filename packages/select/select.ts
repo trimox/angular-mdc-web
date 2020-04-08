@@ -104,24 +104,7 @@ let nextUniqueId = 0;
     '[class.mdc-select--with-leading-icon]': 'leadingIcon',
     '[class.mdc-select--invalid]': 'errorState'
   },
-  template: `
-  <div mdcSelectAnchor>
-    <ng-content select="mdc-icon"></ng-content>
-    <i class="mdc-select__dropdown-icon"></i>
-    <div mdcSelectedText
-      [tabindex]="disabled ? '-1' : '0'"
-      (focus)="onFocus()"
-      (blur)="onBlur()"
-      (keydown)="onKeydown($event)"
-      (click)="onClick($event)"
-      [ariaRequired]="required"
-      [ariaLabelledby]="id"></div>
-      <label mdcFloatingLabel *ngIf="!outlined" [for]="id">{{placeholder}}</label>
-      <mdc-line-ripple *ngIf="!outlined"></mdc-line-ripple>
-      <mdc-notched-outline *ngIf="outlined" [label]="placeholder" [for]="id"></mdc-notched-outline>
-  </div>
-  <ng-content select="mdc-menu"></ng-content>
-  `,
+  templateUrl: 'select.html',
   providers: [
     MdcRipple,
     {provide: MdcFormFieldControl, useExisting: MdcSelect}

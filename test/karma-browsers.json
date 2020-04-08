@@ -1,0 +1,15 @@
+{
+  "ChromeHeadlessLocal": {
+    "base": "ChromeHeadless",
+    "flags": [
+      "--window-size=1024,768"
+    ]
+  },
+  "ChromeHeadlessCI": {
+    "base": "ChromeHeadless",
+    "flags": [
+      "--window-size=1024,768",
+      "--no-sandbox"
+    ]
+  }
+}

@@ -1,17 +1,19 @@
-package(default_visibility = ["//visibility:public"])
-
 load("@npm_bazel_typescript//:index.bzl", "ts_config")
-load("//packages:config.bzl", "MDC_TARGETS")
+load("//packages:config.bzl", "MDC_TARGETS", "MDC_TESTING_TARGETS")
 load("//tools:defaults.bzl", "ng_package", "ts_library")
+
+package(default_visibility = ["//visibility:public"])
 
 exports_files([
     "bazel-tsconfig-build.json",
+    "bazel-tsconfig-test.json",
+    "mdc_require_config.js",
 ])
 
 ts_config(
-    name = "tsconfig",
-    src = "tsconfig-build.json",
-    deps = ["//packages:bazel-tsconfig-build.json"],
+    name = "tsconfig-test",
+    src = "bazel-tsconfig-test.json",
+    deps = ["bazel-tsconfig-build.json"],
 )
 
 ts_library(
@@ -26,5 +28,5 @@ ng_package(
     entry_point = ":index.ts",
     entry_point_name = "web",
     tags = ["release-package"],
-    deps = MDC_TARGETS,
+    deps = MDC_TARGETS + MDC_TESTING_TARGETS,
 )

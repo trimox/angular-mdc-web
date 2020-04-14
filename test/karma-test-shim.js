@@ -8,11 +8,11 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 __karma__.loaded = function () {};
 
-var specFiles = Object.keys(window.__karma__.files).filter(isMaterialSpecFile);
+var specFiles = Object.keys(window.__karma__.files).filter(isMDCSpecFile);
 
 // Configure the Angular test bed and run all specs once configured.
 configureTestBed()
-  .then(runMaterialSpecs)
+  .then(runMDCSpecs)
   .then(__karma__.start, function(error) {
     // Passing in the error object directly to Karma won't log out the stack trace and
     // passing the `originalErr` doesn't work correctly either. We have to log out the
@@ -22,16 +22,16 @@ configureTestBed()
   });
 
 
-/** Runs the Angular Material specs in Karma. */
-function runMaterialSpecs() {
+/** Runs the Angular MDC specs in Karma. */
+function runMDCSpecs() {
   // By importing all spec files, Karma will run the tests directly.
   return Promise.all(specFiles.map(function(fileName) {
     return System.import(fileName);
   }));
 }
 
-/** Whether the specified file is part of Angular Material. */
-function isMaterialSpecFile(path) {
+/** Whether the specified file is part of Angular MDC. */
+function isMDCSpecFile(path) {
   return path.slice(-8) === '.spec.js' && path.indexOf('node_modules') === -1;
 }
 
@@ -62,7 +62,7 @@ function configureTestBed() {
  * destruction are thrown instead of silently logged. Also runs TestBed.resetTestingModule after
  * each unit test.
  *
- * Without this patch, the combination of two behaviors is problematic for Angular Material:
+ * Without this patch, the combination of two behaviors is problematic for Angular MDC:
  * - TestBed.resetTestingModule catches errors thrown on fixture destruction and logs them without
  *     the errors ever being thrown. This means that any component errors that occur in ngOnDestroy
  *     can encounter errors silently and still pass unit tests.

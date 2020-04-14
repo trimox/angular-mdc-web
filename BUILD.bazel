@@ -1,7 +1,7 @@
-package(default_visibility = ["//visibility:public"])
-
 load("//:rollup-globals.bzl", "ROLLUP_GLOBALS")
 load("//packages:config.bzl", "MDC_ENTRYPOINTS", "MDC_TESTING_ENTRYPOINTS")
+
+package(default_visibility = ["//visibility:public"])
 
 exports_files([
     "LICENSE",

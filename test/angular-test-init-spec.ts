@@ -5,7 +5,7 @@ import {
 } from '@angular/platform-browser-dynamic/testing';
 
 /*
- * Common setup / initialization for all unit tests in Angular Material and CDK.
+ * Common setup / initialization for all unit tests.
  */
 
 const testBed = TestBed.initTestEnvironment(
@@ -23,7 +23,7 @@ patchTestBedToDestroyFixturesAfterEveryTest(testBed);
  * destruction are thrown instead of silently logged. Also runs TestBed.resetTestingModule after
  * each unit test.
  *
- * Without this patch, the combination of two behaviors is problematic for Angular Material:
+ * Without this patch, the combination of two behaviors is problematic for Angular MDC:
  * - TestBed.resetTestingModule catches errors thrown on fixture destruction and logs them without
  *     the errors ever being thrown. This means that any component errors that occur in ngOnDestroy
  *     can encounter errors silently and still pass unit tests.

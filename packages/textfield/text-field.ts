@@ -134,6 +134,8 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   @Input() step?: number;
   @Input() placeholder: string | undefined = undefined;
   @Input() tabIndex: number = 0;
+  @Input() prefix: string | undefined = undefined;
+  @Input() suffix: string | undefined = undefined;
 
   @Input()
   get id(): string {

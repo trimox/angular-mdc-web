@@ -1,5 +1,6 @@
 <div class="mdc-text-field__ripple"></div>
 <ng-content *ngIf="leadingIcon || trailingIcon"></ng-content>
+<span class="mdc-text-field__affix mdc-text-field__affix--prefix" *ngIf="prefix">{{prefix}}</span>
 <input #inputElement class="mdc-text-field__input"
   [id]="id"
   [type]="type"
@@ -24,6 +25,7 @@
   (input)="onInput($event)"
   (change)="onChange($event)"
   (blur)="onBlur()" />
+<span class="mdc-text-field__affix mdc-text-field__affix--suffix" *ngIf="suffix">{{suffix}}</span>
 <ng-content></ng-content>
 <label mdcFloatingLabel [for]="id" *ngIf="!placeholder && !outlined">{{label}}</label>
 <mdc-line-ripple *ngIf="!outlined"></mdc-line-ripple>

@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 
 import {MdcTopAppBarModule} from '@angular-mdc/web/top-app-bar';
+import {MdcCircularProgressModule} from '@angular-mdc/web/circular-progress';
 import {MdcIconModule} from '@angular-mdc/web/icon';
 import {MdcDrawerModule} from '@angular-mdc/web/drawer';
 import {MdcListModule} from '@angular-mdc/web/list';
@@ -31,6 +32,7 @@ const MDC_MODULES = [
   MdcCardModule,
   MdcCheckboxModule,
   MdcChipsModule,
+  MdcCircularProgressModule,
   MDCDataTableModule,
   MdcDialogModule,
   MdcDrawerModule,

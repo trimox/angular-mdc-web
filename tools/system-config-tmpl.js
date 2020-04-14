@@ -37,6 +37,7 @@ var pathMapping = {
   '@material/base': 'node:@material/base/dist/mdc.base.js',
   '@material/checkbox': 'node:@material/checkbox/dist/mdc.checkbox.js',
   '@material/chips': 'node:@material/chips/dist/mdc.chips.js',
+  '@material/circular-progress': 'node:@material/circular-progress/dist/mdc.circularProgress.js',
   '@material/data-table': 'node:@material/data-table/dist/mdc.dataTable.js',
   '@material/dialog': 'node:@material/dialog/dist/mdc.dialog.js',
   '@material/dom': 'node:@material/dom/dist/mdc.dom.js',

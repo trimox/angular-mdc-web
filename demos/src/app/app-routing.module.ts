@@ -20,6 +20,10 @@ const routes: Routes = [
       import('./components/checkbox/module').then(m => m.CheckboxModule)
   },
   {
+    path: 'circular-progress', loadChildren: () =>
+      import('./components/circular-progress/module').then(m => m.CircularProgressModule)
+  },
+  {
     path: 'chips-demo', loadChildren: () =>
       import('./components/chips/module').then(m => m.ChipsModule)
   },

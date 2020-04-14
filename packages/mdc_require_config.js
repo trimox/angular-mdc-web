@@ -7,6 +7,7 @@ require.config({
     '@material/base': '/base/npm/node_modules/@material/base/dist/mdc.base',
     '@material/checkbox': '/base/npm/node_modules/@material/checkbox/dist/mdc.checkbox',
     '@material/chips': '/base/npm/node_modules/@material/chips/dist/mdc.chips',
+    '@material/circular-progress': '/base/npm/node_modules/@material/circular-progress/dist/mdc.circularProgress',
     '@material/data-table': '/base/npm/node_modules/@material/data-table/dist/mdc.dataTable',
     '@material/dialog': '/base/npm/node_modules/@material/dialog/dist/mdc.dialog',
     '@material/dom': '/base/npm/node_modules/@material/dom/dist/mdc.dom',

@@ -7,7 +7,7 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {Platform} from '@angular/cdk/platform';
 import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion';
@@ -16,17 +16,58 @@ import {MDCProgressIndicator} from '@material/progress-indicator/component';
 import {MDCCircularProgressFoundation, MDCCircularProgressAdapter} from '@material/circular-progress';
 
 @Component({
+  selector: 'mdc-circular-progress-large',
+  exportAs: 'mdcCircularProgressLarge',
+  templateUrl: 'circular-progress-large.html',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class MdcCircularProgressLarge {
+  @Input() determinate: boolean = false;
+
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
+}
+
+@Component({
+  selector: 'mdc-circular-progress-medium',
+  exportAs: 'mdcCircularProgressMedium',
+  templateUrl: 'circular-progress-medium.html',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class MdcCircularProgressMedium {
+  @Input() determinate: boolean = false;
+
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
+}
+
+@Component({
+  selector: 'mdc-circular-progress-small',
+  exportAs: 'mdcCircularProgressSmall',
+  templateUrl: 'circular-progress-small.html',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class MdcCircularProgressSmall {
+  determinate: boolean = false;
+
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
+}
+
+@Component({
   selector: 'mdc-circular-progress',
   exportAs: 'mdcCircularProgress',
   host: {
     'role': 'progressbar',
     'class': 'mdc-circular-progress',
-    '[class.mdc-circular-progress--indeterminate]': '!determinate',
+    '[class.mdc-circular-progress--large]': 'size == "large"',
+    '[class.mdc-circular-progress--medium]': 'size == "medium"',
+    '[class.mdc-circular-progress--small]': 'size == "small"',
     '[attr.aria-label]': 'label',
     'aria-valuemin': '0',
     'aria-valuemax': '100'
   },
-  template: ``,
+  templateUrl: 'circular-progress.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -59,6 +100,8 @@ export class MdcCircularProgress extends MDCComponent<MDCCircularProgressFoundat
 
   private _determinateCircle!: HTMLElement;
 
+  @Input() size: 'large' | 'medium' | 'small' = 'large';
+
   getDefaultFoundation() {
     const adapter: MDCCircularProgressAdapter = {
       addClass: (className: string) => this._root.classList.add(className),
@@ -67,9 +110,9 @@ export class MdcCircularProgress extends MDCComponent<MDCCircularProgressFoundat
       removeAttribute: (name: string) => this._root.removeAttribute(name),
       setAttribute: (name: string, value: string) => this._root.setAttribute(name, value),
       setDeterminateCircleAttribute: (attributeName: string, value: string) =>
-        this._determinateCircle.setAttribute(attributeName, value),
+        this._determinateCircle?.setAttribute(attributeName, value),
       getDeterminateCircleAttribute: (attributeName: string) =>
-        this._determinateCircle.getAttribute(attributeName)
+        this._determinateCircle?.getAttribute(attributeName)
     };
     return new MDCCircularProgressFoundation(adapter);
   }

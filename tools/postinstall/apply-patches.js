@@ -96,7 +96,7 @@ searchAndReplace(
   'node_modules/@angular/bazel/src/ng_module.bzl');
 
 // Workaround for: https://github.com/bazelbuild/rules_nodejs/issues/1208.
-applyPatch(path.join(__dirname, './manifest_externs_hermeticity.patch'));
+// applyPatch(path.join(__dirname, './manifest_externs_hermeticity.patch'));
 
 // Temporary patch pre-req for https://github.com/angular/angular/pull/36333.
 // Can be removed once @angular/bazel is updated here to include this patch.

@@ -117,6 +117,17 @@
 </div>
 
 <div class="demo-content">
+  <h3 class="demo-content__headline">Prefix and suffix text</h3>
+  <div class="demo-container">
+    <mdc-text-field label="Currency Value" prefix='$' suffix='.00'></mdc-text-field>
+  </div>
+  <div class="demo-container">
+    <mdc-text-field outlined label="Currency Value" prefix='$' suffix='.00'></mdc-text-field>
+  </div>
+  <example-viewer [example]="examplePrefixSuffix"></example-viewer>
+</div>
+
+<div class="demo-content">
   <h3 class="demo-content__headline">Character Counter</h3>
   <div class="demo-layout__row">
     <mdc-form-field>

@@ -249,6 +249,15 @@ resetForm(formDirective: FormGroupDirective) {
     ts: `demoInputValue: string;`
   };
 
+  exampleDensity = {
+    html: `<mdc-text-field class="demo-density-text-field" label="Density"></mdc-text-field>
+<mdc-text-field class="demo-density-outlined-text-field" outlined label="Density"></mdc-text-field>
+<mdc-text-field class="demo-density-outlined-text-field-with-leading-icon" outlined label="Event date">
+  <mdc-icon mdcTextFieldIcon leading>event</mdc-icon>
+</mdc-text-field>`,
+    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_text-field.scss`
+  };
+
   exampleIcons = {
     html: `<mdc-text-field autocomplete="tel" type="tel" label="Phone number">
   <mdc-icon mdcTextFieldIcon leading>phone</mdc-icon>

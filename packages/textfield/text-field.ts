@@ -65,6 +65,15 @@ export interface MdcTextFieldDefaultOptions {
 export const MDC_TEXT_FIELD_DEFAULT_OPTIONS =
   new InjectionToken<MdcTextFieldDefaultOptions>('MDC_TEXT_FIELD_DEFAULT_OPTIONS');
 
+/** An enumerated typeof HTMLInputElement.type */
+export type TextFieldType = 'text' | 'search' | 'tel' | 'url' | 'email' | 'password' |
+  'date' | 'month' | 'week' | 'time' | 'datetime-local' | 'number' | 'color';
+
+/** An enumerated typeof HTMLInputElement.inputMode */
+export type TextFieldInputMode =
+  'verbatim' | 'latin' | 'latin-name' | 'latin-prose' | 'full-width-latin' | 'kana' |
+  'kana-name' | 'katakana' | 'numeric' | 'tel' | 'email' | 'url';
+
 class MdcTextFieldBase extends MDCComponent<MDCTextFieldFoundation> {
   constructor(
     public _elementRef: ElementRef<HTMLElement>,
@@ -136,6 +145,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   @Input() tabIndex: number = 0;
   @Input() prefix: string | undefined = undefined;
   @Input() suffix: string | undefined = undefined;
+  @Input() inputmode?: TextFieldInputMode;
 
   @Input()
   get id(): string {
@@ -148,13 +158,13 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
 
   /** Input type of the element. */
   @Input()
-  get type(): string {
+  get type(): TextFieldType {
     return this._type;
   }
-  set type(value: string) {
+  set type(value: TextFieldType) {
     this._type = value || 'text';
   }
-  private _type = 'text';
+  private _type: TextFieldType = 'text';
 
   @Input()
   get outlined(): boolean {
@@ -346,7 +356,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
       getNativeInput: () => {
         return {
           maxLength: this.maxlength ?? 0,
-          type: this._type,
+          type: this.type,
           value: this._platform.isBrowser ? this._input.nativeElement.value : this._value,
           disabled: this._disabled,
           validity: {

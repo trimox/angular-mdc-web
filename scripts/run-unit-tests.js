@@ -36,9 +36,9 @@ shelljs.set('-e');
 shelljs.cd(projectDir);
 
 // Extracts the supported command line options.
-const { _: components, local, watch } = minimist(args, {
-  boolean: ['local', 'watch'],
-  default: { watch: true },
+const { _: components, local, firefox, watch, config } = minimist(args, {
+  boolean: ['local', 'firefox', 'watch'],
+  default: { watch: true, config: 'ivy' },
 });
 
 // Whether tests for all components should be run.
@@ -61,7 +61,7 @@ const testTargetName = 'unit_tests_chromium-local';
 if (all) {
   shelljs.exec(
     `${bazelBinary} test //packages/... --test_tag_filters=-e2e,-browser:${testTargetName} ` +
-    `--build_tag_filters=-browser:${testTargetName} --build_tests_only`);
+    `--build_tag_filters=-browser:${testTargetName} --build_tests_only --config=${config}`);
   return;
 }
 
@@ -81,7 +81,7 @@ const testLabels = components
   .map(t => `${getBazelPackageOfComponentName(t)}:${testTargetName}`);
 
 // Runs Bazel for the determined test labels.
-shelljs.exec(`${bazelBinary} ${bazelAction} ${testLabels.join(' ')}`);
+shelljs.exec(`${bazelBinary} ${bazelAction} ${testLabels.join(' ')} --config=${config}`);
 
 /**
  * Gets the Bazel package label for the specified component name. Throws if

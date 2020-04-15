@@ -209,6 +209,14 @@ describe('MdcTextField', () => {
       expect(testInstance.type).toBe('text');
     }));
 
+    it('add inputmode', fakeAsync(() => {
+      testComponent.inputMode = 'tel';
+      fixture.detectChanges();
+      flush();
+
+      expect(testInstance.inputmode).toBe('tel');
+    }));
+
     it('handles blur event', fakeAsync(() => {
       textFieldNativeElement.blur();
       fixture.detectChanges();
@@ -371,6 +379,7 @@ it('should be able to provide default values through an injection token', () => 
       [(ngModel)]="myModel"
       label="Username"
       [type]="myType"
+      [inputmode]="inputMode"
       [tabIndex]="1"
       [characterCounter]="characterCounter"
       [outlined]="outlined"
@@ -393,6 +402,7 @@ it('should be able to provide default values through an injection token', () => 
 class SimpleTextfield {
   myModel: string = 'Test';
   myType: string = 'text';
+  inputMode?: string;
   disabled: boolean;
   isFullwidth: boolean;
   outlined: boolean;

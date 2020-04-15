@@ -7,11 +7,13 @@ import {
   ContentChildren,
   ElementRef,
   EventEmitter,
+  OnChanges,
   Input,
   OnDestroy,
   Output,
   QueryList,
-  ViewEncapsulation
+  SimpleChanges,
+  ViewEncapsulation,
 } from '@angular/core';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Platform} from '@angular/cdk/platform';
@@ -28,7 +30,7 @@ export class MdcTabActivatedEvent {
   constructor(
     public source: MdcTabBar,
     public index: number,
-    public tab: MdcTab) { }
+    public tab: MdcTab) {}
 }
 
 @Component({
@@ -42,14 +44,18 @@ export class MdcTabActivatedEvent {
   template: '<ng-content></ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  providers: [{ provide: MDC_TAB_BAR_PARENT_COMPONENT, useExisting: MdcTabBar }]
+  providers: [{provide: MDC_TAB_BAR_PARENT_COMPONENT, useExisting: MdcTabBar}]
 })
-export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements AfterContentInit, OnDestroy {
+export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements AfterContentInit, OnChanges, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
+  private _initialized: boolean = false;
+
   @Input()
-  get fade(): boolean { return this._fade; }
+  get fade(): boolean {
+    return this._fade;
+  }
   set fade(value: boolean) {
     this._fade = coerceBooleanProperty(value);
     this._syncTabs();
@@ -57,7 +63,9 @@ export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements Afte
   private _fade: boolean = false;
 
   @Input()
-  get stacked(): boolean { return this._stacked; }
+  get stacked(): boolean {
+    return this._stacked;
+  }
   set stacked(value: boolean) {
     this._stacked = coerceBooleanProperty(value);
     this._syncTabs();
@@ -65,7 +73,9 @@ export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements Afte
   private _stacked: boolean = false;
 
   @Input()
-  get fixed(): boolean { return this._fixed; }
+  get fixed(): boolean {
+    return this._fixed;
+  }
   set fixed(value: boolean) {
     this._fixed = coerceBooleanProperty(value);
     this._syncTabs();
@@ -73,15 +83,19 @@ export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements Afte
   private _fixed: boolean = false;
 
   @Input()
-  get align(): MdcTabScrollerAlignment | null { return this._align; }
+  get align(): MdcTabScrollerAlignment | null {
+    return this._align;
+  }
   set align(value: MdcTabScrollerAlignment | null) {
     this._align = value || 'start';
-    this.tabScroller.align = this.align;
+    this._syncTabScroller();
   }
   private _align: MdcTabScrollerAlignment | null = null;
 
   @Input()
-  get iconIndicator(): string | null { return this._iconIndicator; }
+  get iconIndicator(): string | null {
+    return this._iconIndicator;
+  }
   set iconIndicator(value: string | null) {
     this._iconIndicator = value;
     this._syncTabs();
@@ -89,7 +103,9 @@ export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements Afte
   private _iconIndicator: string | null = null;
 
   @Input()
-  get useAutomaticActivation(): boolean { return this._useAutomaticActivation; }
+  get useAutomaticActivation(): boolean {
+    return this._useAutomaticActivation;
+  }
   set useAutomaticActivation(value: boolean) {
     this._useAutomaticActivation = coerceBooleanProperty(value);
     this._foundation.setUseAutomaticActivation(this._useAutomaticActivation);
@@ -97,7 +113,9 @@ export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements Afte
   private _useAutomaticActivation: boolean = true;
 
   @Input()
-  get activeTabIndex(): number { return this._activeTabIndex; }
+  get activeTabIndex(): number {
+    return this._activeTabIndex;
+  }
   set activeTabIndex(value: number) {
     if (this.activeTabIndex !== value) {
       this._activeTabIndex = value;
@@ -107,7 +125,9 @@ export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements Afte
   private _activeTabIndex: number = 0;
 
   @Input()
-  get focusOnActivate(): boolean { return this._focusOnActivate; }
+  get focusOnActivate(): boolean {
+    return this._focusOnActivate;
+  }
   set focusOnActivate(value: boolean) {
     this._focusOnActivate = coerceBooleanProperty(value);
     this._syncTabs();
@@ -117,8 +137,8 @@ export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements Afte
   @Output() readonly activated: EventEmitter<MdcTabActivatedEvent> =
     new EventEmitter<MdcTabActivatedEvent>();
 
-  @ContentChild(MdcTabScroller, { static: true }) tabScroller!: MdcTabScroller;
-  @ContentChildren(MdcTab, { descendants: true }) tabs!: QueryList<MdcTab>;
+  @ContentChild(MdcTabScroller, {static: true}) tabScroller!: MdcTabScroller;
+  @ContentChildren(MdcTab, {descendants: true}) tabs!: QueryList<MdcTab>;
 
   /** Subscription to changes in tabs. */
   private _changeSubscription: Subscription | null = null;
@@ -153,7 +173,9 @@ export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements Afte
       },
       focusTabAtIndex: (index: number) => this.tabs.toArray()[index].focus(),
       getTabIndicatorClientRectAtIndex: (previousActiveIndex: number) => {
-        if (!this._platform.isBrowser) { return { height: 0, width: 0, bottom: 0, top: 0, left: 0, right: 0 }; }
+        if (!this._platform.isBrowser) {
+          return {height: 0, width: 0, bottom: 0, top: 0, left: 0, right: 0};
+        }
         if (!this._indexIsInRange(previousActiveIndex)) {
           previousActiveIndex = this.activeTabIndex;
         }
@@ -167,7 +189,7 @@ export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements Afte
       getIndexOfTabById: (id: string) => this.tabs.toArray().findIndex(tab => id === tab.id),
       getTabListLength: () => this.tabs.length,
       notifyTabActivated: (index: number) =>
-        this.activated.emit({ source: this, index: index, tab: this.tabs.toArray()[index] })
+        this.activated.emit({source: this, index: index, tab: this.tabs.toArray()[index]})
     };
     return new MDCTabBarFoundation(adapter);
   }
@@ -176,11 +198,21 @@ export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements Afte
     private _platform: Platform,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef<HTMLElement>) {
-
     super(elementRef);
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (!this._initialized) {
+      return;
+    }
+
+    if (changes['align']) {
+      this._syncTabScroller();
+    }
+  }
+
   ngAfterContentInit(): void {
+    this._initialized = true;
     this._foundation.init();
 
     // When the list changes, re-subscribe
@@ -188,6 +220,7 @@ export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements Afte
       Promise.resolve().then(() => {
         if (this.tabs.length) {
           this._syncTabs();
+          this._syncTabScroller();
           this.activateTab(this.activeTabIndex);
           this._resetTabSubscriptions();
         }
@@ -207,7 +240,9 @@ export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements Afte
   }
 
   private _syncTabs(): void {
-    if (!this.tabs) { return; }
+    if (!this.tabs) {
+      return;
+    }
 
     this.tabs.forEach(tab => {
       tab.stacked = this._stacked;
@@ -216,6 +251,12 @@ export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements Afte
       tab.tabIndicator.icon = this._iconIndicator;
       tab.focusOnActivate = this._focusOnActivate;
     });
+  }
+
+  private _syncTabScroller(): void {
+    if (this.tabScroller) {
+      this.tabScroller.align = this.align;
+    }
   }
 
   private _resetTabSubscriptions(): void {
@@ -245,7 +286,9 @@ export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements Afte
 
   /** Activates the tab at the given index */
   activateTab(index: number): void {
-    if (!this.tabs) { return; }
+    if (!this.tabs) {
+      return;
+    }
 
     this.activeTabIndex = index;
 
@@ -275,7 +318,9 @@ export class MdcTabBar extends MDCComponent<MDCTabBarFoundation> implements Afte
 
   /** Disable or enable the tab at the given index */
   disableTab(index: number, disabled: boolean): void {
-    if (!this.tabs) { return; }
+    if (!this.tabs) {
+      return;
+    }
 
     this.tabs.toArray()[index].disabled = coerceBooleanProperty(disabled);
   }

@@ -277,7 +277,12 @@ resetForm(formDirective: FormGroupDirective) {
   examplePrefixSuffix = {
     html: `<mdc-text-field label="Currency Value" type="number" prefix="$" suffix=".00"></mdc-text-field>
 <mdc-text-field outlined label="Currency Value" type="number" prefix="$" suffix=".00"></mdc-text-field>
-<mdc-text-field outlined type="number" prefix="$" suffix=".00" endAligned></mdc-text-field>`
+<mdc-text-field outlined type="number" prefix="$" suffix=".00" endAligned></mdc-text-field>
+
+<div dir="rtl">
+  <mdc-text-field outlined label="Label" type="number"
+    suffix="/100" ltrText></mdc-text-field>
+</div>`
   };
 
   exampleSvgIcon = {

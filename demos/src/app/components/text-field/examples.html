@@ -128,14 +128,26 @@
   </div>
   <div class="demo-layout__row">
     <button mdc-button
-      (click)="prefixExample.endAligned = !prefixExample.endAligned">End
+      (click)="endAlignedExample.endAligned = !endAlignedExample.endAligned">End
       Aligned:
-      {{prefixExample.endAligned ? 'On' :
+      {{endAlignedExample.endAligned ? 'On' :
       'Off'}}</button>
   </div>
   <div class="demo-container">
-    <mdc-text-field #prefixExample outlined type="number" prefix="$"
+    <mdc-text-field #endAlignedExample outlined type="number" prefix="$"
       suffix=".00" endAligned></mdc-text-field>
+  </div>
+  <div class="demo-layout__row">
+    <button mdc-button
+      (click)="ltrTextExample.ltrText = !ltrTextExample.ltrText">LTR Text:
+      {{ltrTextExample.ltrText ? 'On' :
+      'Off'}}</button>
+  </div>
+  <div class="demo-container">
+    <div dir="rtl">
+      <mdc-text-field #ltrTextExample outlined label="Label" type="number"
+        suffix="/100" ltrText></mdc-text-field>
+    </div>
   </div>
   <example-viewer [example]="examplePrefixSuffix"></example-viewer>
 </div>

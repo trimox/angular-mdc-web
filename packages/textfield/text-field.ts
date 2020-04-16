@@ -107,6 +107,7 @@ const MOUSE_EVENT_IGNORE_TIME = 800;
     '[class.mdc-text-field--outlined]': 'outlined',
     '[class.mdc-text-field--fullwidth]': 'fullwidth',
     '[class.mdc-text-field--end-aligned]': 'endAligned',
+    '[class.mdc-text-field--ltr-text]': 'ltrText',
     '[class.mdc-text-field--with-leading-icon]': 'leadingIcon',
     '[class.mdc-text-field--with-trailing-icon]': 'trailingIcon',
     '[class.mdc-text-field--no-label]': '!label || label && fullwidth',
@@ -298,6 +299,15 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     this._endAligned = coerceBooleanProperty(value);
   }
   private _endAligned = false;
+
+  @Input()
+  get ltrText(): boolean {
+    return this._ltrText;
+  }
+  set ltrText(value: boolean) {
+    this._ltrText = coerceBooleanProperty(value);
+  }
+  private _ltrText = false;
 
   @Input()
   get value(): any {

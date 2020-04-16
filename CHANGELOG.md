@@ -1,3 +1,34 @@
+# [6.0.0-canary.5](https://github.com/trimox/angular-mdc-web/compare/v5.1.1...v6.0.0-canary.5) (2020-04-16)
+
+
+### Bug Fixes
+
+* **chip-set:** Set NG_VALUE_ACCESSOR provider ([#2173](https://github.com/trimox/angular-mdc-web/issues/2173)) ([4a18e98](https://github.com/trimox/angular-mdc-web/commit/4a18e98e765d6b6ab08045de2ff77234a780ad3a)), closes [#2157](https://github.com/trimox/angular-mdc-web/issues/2157)
+* **chips:** selectionChange should pass deselected value ([#2174](https://github.com/trimox/angular-mdc-web/issues/2174)) ([9fd8d06](https://github.com/trimox/angular-mdc-web/commit/9fd8d0674366014df6d007f4395ae5ff03dad5e3)), closes [#2159](https://github.com/trimox/angular-mdc-web/issues/2159)
+* **snackbar:** Should show dismiss icon without action text ([#2167](https://github.com/trimox/angular-mdc-web/issues/2167)) ([d3499ee](https://github.com/trimox/angular-mdc-web/commit/d3499ee77e113078d2c1ab9ad2223be5f8df0ecd)), closes [#2158](https://github.com/trimox/angular-mdc-web/issues/2158)
+* **tab-bar:** Ivy compatibility with align property ([#2204](https://github.com/trimox/angular-mdc-web/issues/2204)) ([4d82344](https://github.com/trimox/angular-mdc-web/commit/4d82344a2dbef89aba0caeb4eb6a5f0c04835700)), closes [#2179](https://github.com/trimox/angular-mdc-web/issues/2179)
+
+
+### Features
+
+* **chips:** Add focus{in|out} handlers ([#2182](https://github.com/trimox/angular-mdc-web/issues/2182)) ([06ee52b](https://github.com/trimox/angular-mdc-web/commit/06ee52b2ef0cd0d465ecea81ff15a3624e6d0293)), closes [#2175](https://github.com/trimox/angular-mdc-web/issues/2175)
+* **data-table:** Add support for loading state ([#2171](https://github.com/trimox/angular-mdc-web/issues/2171)) ([d99053e](https://github.com/trimox/angular-mdc-web/commit/d99053e4d6030a3867ec99fe0526fdb7bdf64d54)), closes [#2163](https://github.com/trimox/angular-mdc-web/issues/2163)
+* **icon:** Delete clickable property ([#2099](https://github.com/trimox/angular-mdc-web/issues/2099)) ([4ffdc88](https://github.com/trimox/angular-mdc-web/commit/4ffdc88751e13bb1149508ebdfad73502a4be7f9)), closes [#2093](https://github.com/trimox/angular-mdc-web/issues/2093)
+* **text-field:** Add inputmode attribute ([#2203](https://github.com/trimox/angular-mdc-web/issues/2203)) ([b29edab](https://github.com/trimox/angular-mdc-web/commit/b29edabe5f8e914fc15a2837c71e89f7b5efb0c2)), closes [#1951](https://github.com/trimox/angular-mdc-web/issues/1951)
+* **textfield:** Add endAligned property ([#2210](https://github.com/trimox/angular-mdc-web/issues/2210)) ([0d8e845](https://github.com/trimox/angular-mdc-web/commit/0d8e8454968e291de2d4a7eb1a6568dddbf44bbf)), closes [#2208](https://github.com/trimox/angular-mdc-web/issues/2208)
+* **textfield:** Add ltrText property ([#2211](https://github.com/trimox/angular-mdc-web/issues/2211)) ([1d824b5](https://github.com/trimox/angular-mdc-web/commit/1d824b58f3ecf6f5f34f5b14da9030b900afdebb)), closes [#2209](https://github.com/trimox/angular-mdc-web/issues/2209)
+* **textfield:** Add prefix and suffix ([#2197](https://github.com/trimox/angular-mdc-web/issues/2197)) ([d00888e](https://github.com/trimox/angular-mdc-web/commit/d00888e9497931b8012196035e91dcf3b8df36d8)), closes [#2124](https://github.com/trimox/angular-mdc-web/issues/2124)
+* Switch to external html templates + @bazel/karma ([#2181](https://github.com/trimox/angular-mdc-web/issues/2181)) ([26d042d](https://github.com/trimox/angular-mdc-web/commit/26d042d975980e9e90879885980c64a10311db8f)), closes [#2180](https://github.com/trimox/angular-mdc-web/issues/2180) [#2184](https://github.com/trimox/angular-mdc-web/issues/2184)
+* Upgrade to MDC v6.0.0-canary ([#2164](https://github.com/trimox/angular-mdc-web/issues/2164)) ([8a87024](https://github.com/trimox/angular-mdc-web/commit/8a870246d93cbce9a83902a6bd9f9dcd49a14aea)), closes [#2161](https://github.com/trimox/angular-mdc-web/issues/2161)
+* Use Bazel for builds ([#2152](https://github.com/trimox/angular-mdc-web/issues/2152)) ([0676c11](https://github.com/trimox/angular-mdc-web/commit/0676c11110ff26f7cff14d63a14a4c0b318f8abf)), closes [#2151](https://github.com/trimox/angular-mdc-web/issues/2151) [#2153](https://github.com/trimox/angular-mdc-web/issues/2153)
+
+
+### BREAKING CHANGES
+
+* **icon:** Removed `clickable` property, use `mdc-icon-button` component instead.
+
+
+
 ## [5.1.1](https://github.com/trimox/angular-mdc-web/compare/v5.1.0...v5.1.1) (2020-03-03)
 
 

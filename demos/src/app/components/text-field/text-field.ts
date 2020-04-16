@@ -275,8 +275,9 @@ resetForm(formDirective: FormGroupDirective) {
   };
 
   examplePrefixSuffix = {
-    html: `<mdc-text-field label="Currency Value" prefix='$' suffix='.00'></mdc-text-field>
-<mdc-text-field outlined label="Currency Value" prefix='$' suffix='.00'></mdc-text-field>`
+    html: `<mdc-text-field label="Currency Value" type="number" prefix="$" suffix=".00"></mdc-text-field>
+<mdc-text-field outlined label="Currency Value" type="number" prefix="$" suffix=".00"></mdc-text-field>
+<mdc-text-field outlined type="number" prefix="$" suffix=".00" endAligned></mdc-text-field>`
   };
 
   exampleSvgIcon = {
@@ -319,13 +320,13 @@ waypoint = new Directions();`
   };
 
   exampleDateTime = {
-    html: `<mdc-text-field type="date" label="Birthday" outlined></mdc-text-field>
+    html: `<mdc-text-field type="date" label="Birthday"></mdc-text-field>
 
-<mdc-text-field type="time" label="Time" outlined></mdc-text-field>
+<mdc-text-field type="time" label="Time"></mdc-text-field>
 
 <mdc-text-field type="password" label="Password" required outlined></mdc-text-field>
 
-<mdc-text-field type="color" label="Color" outlined></mdc-text-field>`
+<mdc-text-field type="color" label="Color"></mdc-text-field>`
   };
 
   exampleRtl = {

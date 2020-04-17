@@ -28,7 +28,7 @@ export class MdcNotchedOutline extends MDCComponent<MDCNotchedOutlineFoundation>
   @Input() label?: string;
   @Input() for?: string;
   @ViewChild('notch', {static: false}) _notchElement!: ElementRef<HTMLElement>;
-  @ViewChild(MdcFloatingLabel, {static: false}) floatingLabel!: MdcFloatingLabel;
+  @ViewChild(MdcFloatingLabel, {static: false}) floatingLabel?: MdcFloatingLabel;
 
   getDefaultFoundation() {
     const adapter: MDCNotchedOutlineAdapter = {

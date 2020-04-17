@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://github.com/trimox/angular-mdc-web.git"
   },
-  "version": "6.0.0-canary.5",
+  "version": "6.0.0-canary.6",
   "license": "MIT",
   "keywords": [
     "angular-mdc",

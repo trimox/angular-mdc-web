@@ -316,8 +316,8 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   private _getLabelAdapterMethods() {
     return {
       hasLabel: () => this._hasPlaceholder,
-      floatLabel: (shouldFloat: boolean) => this._getFloatingLabel().float(shouldFloat),
-      getLabelWidth: () => this._getFloatingLabel()?.getWidth()
+      floatLabel: (shouldFloat: boolean) => this._getFloatingLabel()?.float(shouldFloat),
+      getLabelWidth: () => this._getFloatingLabel()?.getWidth() ?? 0
     };
   }
 
@@ -561,8 +561,8 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
     this._onFocus.emit(false);
   }
 
-  private _getFloatingLabel(): MdcFloatingLabel {
-    return this._floatingLabel ?? this._notchedOutline!.floatingLabel;
+  private _getFloatingLabel(): MdcFloatingLabel | undefined {
+    return this._floatingLabel ?? this._notchedOutline?.floatingLabel;
   }
 
   /**

@@ -393,10 +393,10 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
 
   private _getLabelAdapterMethods(): MDCTextFieldLabelAdapter {
     return {
-      shakeLabel: (shouldShake: boolean) => this._getFloatingLabel().shake(shouldShake),
-      floatLabel: (shouldFloat: boolean) => this._getFloatingLabel().float(shouldFloat),
+      shakeLabel: (shouldShake: boolean) => this._getFloatingLabel()?.shake(shouldShake),
+      floatLabel: (shouldFloat: boolean) => this._getFloatingLabel()?.float(shouldFloat),
       hasLabel: () => this._hasFloatingLabel(),
-      getLabelWidth: () => this._hasFloatingLabel() ? this._getFloatingLabel().getWidth() : 0
+      getLabelWidth: () => this._getFloatingLabel()?.getWidth() ?? 0
     };
   }
 
@@ -611,9 +611,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
       if (this._outlined) {
         this._foundation.notchOutline(this._foundation.shouldFloat);
       }
-      if (this._hasFloatingLabel()) {
-        this._getFloatingLabel().float(this._foundation.shouldFloat);
-      }
+      this._getFloatingLabel()?.float(this._foundation.shouldFloat);
     });
   }
 
@@ -673,8 +671,8 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     return this.label && (this._floatingLabel || this._notchedOutline) ? true : false;
   }
 
-  private _getFloatingLabel(): MdcFloatingLabel {
-    return this._floatingLabel || this._notchedOutline!.floatingLabel;
+  private _getFloatingLabel(): MdcFloatingLabel | undefined {
+    return this._floatingLabel || this._notchedOutline?.floatingLabel;
   }
 
   private _getInputElement(): HTMLInputElement | HTMLTextAreaElement {

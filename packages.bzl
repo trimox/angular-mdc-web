@@ -2,7 +2,7 @@
 # all in-sync. This map is passed to each ng_package rule to stamp out the appropriate
 # version for the placeholders.
 ANGULAR_PACKAGE_VERSION = "^9.0.0 || ^10.0.0-0"
-ANGULAR_CDK_PACKAGE_VERSION = "^9.2.0"
+ANGULAR_CDK_PACKAGE_VERSION = "^9.2.1"
 MDC_PACKAGE_VERSION = "6.0.0-canary.490fbdc09.0"
 TSLIB_PACKAGE_VERSION = "^1.11.1"
 

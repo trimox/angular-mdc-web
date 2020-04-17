@@ -349,24 +349,25 @@ waypoint = new Directions();`
 
   exampleNoLabel = {
     html: `<mdc-form-field>
-  <mdc-text-field>
-  </mdc-text-field>
-  <mdc-helper-text persistent>Helper Text
-  </mdc-helper-text>
+  <mdc-text-field></mdc-text-field>
+  <mdc-helper-text persistent>Helper Text</mdc-helper-text>
 </mdc-form-field>
 
 <mdc-form-field>
   <mdc-text-field outlined></mdc-text-field>
-  <mdc-helper-text persistent>Helper Text
-  </mdc-helper-text>
+  <mdc-helper-text persistent>Helper Text</mdc-helper-text>
 </mdc-form-field>
 
 <mdc-form-field>
-  <mdc-text-field outlined class="demo-shaped-text-field--outline">
-  </mdc-text-field>
-  <mdc-helper-text persistent>Helper Text
-  </mdc-helper-text>
-</mdc-form-field>`,
+  <mdc-text-field outlined class="demo-shaped-text-field--outline"></mdc-text-field>
+  <mdc-helper-text persistent>Helper Text</mdc-helper-text>
+</mdc-form-field>
+
+<mdc-form-field>
+  <mdc-text-field outlined required></mdc-text-field>
+  <mdc-helper-text validation>Required with no label</mdc-helper-text>
+</mdc-form-field>
+`,
     sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_text-field.scss`
   };
 

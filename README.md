@@ -57,3 +57,6 @@ We officially support the last two versions of every major browser.
 - **Safari** on iOS and macOS
 - **Edge** on Windows
 - **IE 11** on Windows
+
+## Thank you
+To the [Angular Components](https://github.com/angular/components) team at Google for their instrumental community support of `@angular/cdk` components and to providing high-quality clean code!

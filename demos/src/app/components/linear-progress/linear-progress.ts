@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {MdcLinearProgress} from '@angular-mdc/web/linear-progress';
-import {ComponentViewer} from '../../shared/component-viewer';
+import {ComponentViewer, ComponentApi} from '../../shared/component-viewer';
 
 @Component({template: '<component-viewer></component-viewer>'})
 export class LinearProgress implements OnInit {
@@ -18,18 +18,53 @@ export class LinearProgress implements OnInit {
         name: 'Material Components Web',
         url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-linear-progress/README.md'
       }],
-      code: `import {MdcLinearProgressModule} from '@angular-mdc/web';`,
+      mdcUrls: [
+        {name: 'Sass Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-linear-progress/README.md#sass-mixins'},
+      ],
+      code: `import {MdcLinearProgressModule} from '@angular-mdc/web/linear-progress';`,
       sass: `@use '@material/linear-progress/mdc-linear-progress';
 @use '@material/linear-progress';`
     };
   }
 }
 
-@Component({templateUrl: './api.html'})
-export class Api {}
+@Component({template: '<component-api></component-api>'})
+export class Api implements OnInit {
+  @ViewChild(ComponentApi, {static: true}) _componentApi: ComponentApi;
 
-@Component({templateUrl: './sass.html'})
-export class Sass {}
+  ngOnInit() {
+    this._componentApi.docApi = {
+      sections: [
+        {
+          header: 'MdcLinearProgress',
+          selectors: [
+            'mdc-linear-progress',
+          ],
+          exportedAs: 'mdcLinearProgress',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'determinate: boolean', summary: 'Puts the linear progress indicator in an determinate or indeterminate state.'},
+                {name: 'reversed: boolean', summary: 'Reverses the direction of the linear progress indicator.'},
+                {name: 'progress: number', summary: 'Sets the progress bar to this value. Value should be between [0, 1].'},
+                {name: 'buffer: number', summary: 'Sets the buffer bar to this value. Value should be between [0, 1].'},
+                {name: 'label: string', summary: 'Label indicating how the progress bar should be announced to the user.'},
+              ]
+            },
+            {
+              name: 'Methods',
+              items: [
+                {name: 'open()', summary: 'Puts the component in the open state.'},
+                {name: 'close()', summary: 'Puts the component in the closed state.'},
+              ]
+            },
+          ]
+        },
+      ]
+    };
+  }
+}
 
 @Component({templateUrl: './examples.html'})
 export class Examples {

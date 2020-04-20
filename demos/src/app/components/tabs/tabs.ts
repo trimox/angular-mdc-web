@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {MdcTabActivatedEvent} from '@angular-mdc/web/tab-bar';
-import {ComponentViewer} from '../../shared/component-viewer';
+import {ComponentViewer, ComponentApi} from '../../shared/component-viewer';
 
 @Component({template: '<component-viewer></component-viewer>'})
 export class Tabs implements OnInit {
@@ -27,7 +27,13 @@ export class Tabs implements OnInit {
         name: 'Material Components Web: Tab Indicator',
         url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-tab-indicator/README.md'
       }],
-      code: `import {MdcTabBarModule} from '@angular-mdc/web';`,
+      mdcUrls: [
+        {name: 'Tab Bar Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-tab-bar/README.md#sass-mixins'},
+        {name: 'Scroller Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-tab-scroller/README.md#sass-mixins'},
+        {name: 'Tab Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-tab/README.md#sass-mixins'},
+        {name: 'Indicator Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-tab-indicator/README.md#sass-mixins'},
+      ],
+      code: `import {MdcTabBarModule} from '@angular-mdc/web/tab-bar';`,
       sass: `@use '@material/tab-bar/mdc-tab-bar';
 @use '@material/tab-bar';
 @use '@material/tab-scroller/mdc-tab-scroller';
@@ -40,11 +46,126 @@ export class Tabs implements OnInit {
   }
 }
 
-@Component({templateUrl: './api.html'})
-export class Api {}
+@Component({template: '<component-api></component-api>'})
+export class Api implements OnInit {
+  @ViewChild(ComponentApi, {static: true}) _componentApi: ComponentApi;
 
-@Component({templateUrl: './sass.html'})
-export class Sass {}
+  ngOnInit() {
+    this._componentApi.docApi = {
+      sections: [
+        {
+          header: 'MdcTabBar',
+          selectors: [
+            'mdc-tab-bar',
+          ],
+          exportedAs: 'mdcTabBar',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'stacked: boolean', summary: `Indicates that the tab icon and label should flow vertically instead of horizontally.`},
+                {name: 'fixed: boolean', summary: `Indicates that the tab should shrink in size to be as narrow as possible without causing text to wrap.`},
+                {name: 'fade: boolean', summary: `Sets up the tab indicator to fade in on activation and fade out on deactivation. Default is false.`},
+                {name: 'activeTabIndex: number', summary: `Set the active tab by index. (Default is 0). Set to -1 for no initially selected tab.`},
+                {name: 'iconIndicator: string', summary: `A material icon to display in the center of the tab.`},
+                {name: 'useAutomaticActivation: boolean', summary: `If true, permits using movement keys to switch tabs.`},
+                {name: 'focusOnActivate: boolean', summary: `Sets whether the tab should focus itself when activated. Defaults to true.`},
+                {
+                  name: 'align: string', summary: `Sets the elements inside the scroll content element to be aligned to the start, center or end of the scroll content element.
+                Valid values: 'start' | 'center' | 'end' * Only for Fixed Tabs.`},
+              ]
+            },
+            {
+              name: 'Methods',
+              items: [
+                {name: 'activateTab(index: number)', summary: `Activates the Tab at the given index.`},
+                {name: 'scrollIntoView(index: number)', summary: `Scrolls the Tab at the given index into view.`},
+                {name: 'getActiveTabIndex(): number', summary: `Returns the index of the active Tab.`},
+                {name: 'getActiveTab(): MdcTab | undefined', summary: `Returns the MdcTab that is active.`},
+                {name: 'getTabIndex(tab: MdcTab): number', summary: `Returns the MdcTab index for given tab.`},
+                {name: 'disableTab(index: number, disabled: boolean)', summary: `Control whether or not the tab is in a disable state.`},
+              ]
+            },
+            {
+              name: 'Events',
+              items: [
+                {name: 'activated: (source: MdcTabBar, index: number, tab: MdcTab)', summary: `Emitted when a tab is activated.`},
+              ]
+            },
+          ]
+        },
+        {
+          header: 'MdcTabBarScroller',
+          selectors: [
+            'mdc-tab-scroller',
+          ],
+          exportedAs: 'mdcTabBarScroller',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'scrollTo(scrollX: number)', summary: `Scrolls to the scrollX value.`},
+                {name: 'incrementScroll(scrollXIncrement: number)	', summary: `Increments the current scroll value by the scrollX value.`},
+                {name: 'getScrollPosition(): number', summary: `Returns the current visual scroll position.`},
+              ]
+            },
+          ]
+        },
+        {
+          header: 'MdcTab',
+          selectors: [
+            'mdc-tab',
+          ],
+          exportedAs: 'mdcTab',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'id: string', summary: `Unique id of the tab (auto generated if not supplied).`},
+                {name: 'label: string', summary: `Optional. Adds a label in the tab.`},
+                {name: 'icon: string', summary: `Optional. Indicates a leading icon in the tab.`},
+                {name: 'disabled: boolean', summary: `Optional. Control the disabled state of the tab.`},
+                {name: 'stacked: boolean', summary: `Indicates that the tab icon and label should flow vertically instead of horizontally.`},
+                {name: 'fixed: boolean', summary: `Indicates that the tab should shrink in size to be as narrow as possible without causing text to wrap.`},
+                {name: 'focusOnActivate: boolean', summary: `Sets whether the tab should focus itself when activated. Defaults to true.`},
+              ]
+            },
+            {
+              name: 'Methods',
+              items: [
+                {name: 'getTabBarParent(): MdcTabBarParentComponent', summary: `Interface for communicating with ancestor MdcTabBar.`},
+                {name: 'focus(): void', summary: `Sets focus to the tab.`},
+              ]
+            },
+            {
+              name: 'Events',
+              items: [
+                {name: 'interacted: (detail: MdcTab)', summary: `Emitted when a tab is interacted with.`},
+              ]
+            },
+          ]
+        },
+        {
+          header: 'MdcTabLabel',
+          summary: 'Optional. Allows customizing a label in the tab.',
+          selectors: [
+            'mdc-tab-label',
+            'mdcTabLabel'
+          ],
+          exportedAs: 'mdcTabLabel',
+        },
+        {
+          header: 'MdcTabIcon',
+          summary: 'Optional. Allows customizing a leading icon in the tab.',
+          selectors: [
+            'mdc-icon[mdcTabIcon]',
+          ],
+          exportedAs: 'mdcTabIcon',
+        },
+      ]
+    };
+  }
+}
 
 @Component({templateUrl: './examples.html'})
 export class Examples {
@@ -104,7 +225,7 @@ addTab(): void {
   });
 }`;
 
-exampleDynamicTabs = {
+  exampleDynamicTabs = {
     html: `<mdc-tab-bar #example1 (activated)="logTab($event)" [activeTabIndex]="1" useAutomaticActivation>
   <mdc-tab-scroller>
     <mdc-tab *ngFor="let tab of tabs" [label]="tab.label" [icon]="tab.icon"></mdc-tab>
@@ -174,7 +295,7 @@ exampleDynamicTabs = {
     <mdc-tab icon="exit_to_app"></mdc-tab>
   </mdc-tab-scroller>
 </mdc-tab-bar>`
-};
+  };
 
   exampleFixedTabs = {
     html: `<mdc-tab-bar fixed>

@@ -6,7 +6,7 @@ import {MdcTextField} from '@angular-mdc/web/textfield';
 import {MdcIconRegistry} from '@angular-mdc/web/icon';
 import {ErrorStateMatcher} from '@angular-mdc/web/form-field';
 import {environment} from '../../../environments/environment';
-import {ComponentViewer} from '../../shared/component-viewer';
+import {ComponentViewer, ComponentApi} from '../../shared/component-viewer';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -31,7 +31,13 @@ export class TextField implements OnInit {
         name: 'Material Components Web',
         url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-textfield/README.md'
       }],
-      code: `import {MdcTextFieldModule} from '@angular-mdc/web';`,
+      mdcUrls: [
+        {name: 'Sass Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-textfield/README.md#sass-mixins'},
+        {name: 'Character Counter Mixins', url: 'https://github.com/material-components/material-components-web/tree/master/packages/mdc-textfield/character-counter#sass-mixins'},
+        {name: 'Helper Text Mixins', url: 'https://github.com/material-components/material-components-web/tree/master/packages/mdc-textfield/helper-text#sass-mixins'},
+        {name: 'Icon Mixins', url: 'https://github.com/material-components/material-components-web/tree/master/packages/mdc-textfield/icon#sass-mixins'},
+      ],
+      code: `import {MdcTextFieldModule} from '@angular-mdc/web/textfield';`,
       sass: `@use '@material/textfield/mdc-text-field';
 @use '@material/textfield';
 @use '@material/form-field/mdc-form-field';`
@@ -39,11 +45,144 @@ export class TextField implements OnInit {
   }
 }
 
-@Component({templateUrl: './api.html'})
-export class Api {}
+@Component({template: '<component-api></component-api>'})
+export class Api implements OnInit {
+  @ViewChild(ComponentApi, {static: true}) _componentApi: ComponentApi;
 
-@Component({templateUrl: './sass.html'})
-export class Sass {}
+  ngOnInit() {
+    this._componentApi.docApi = {
+      sections: [
+        {
+          header: 'MdcTextField',
+          selectors: [
+            'mdc-text-field',
+          ],
+          exportedAs: 'mdcTextField',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'id: string', summary: `Unique id of the element.`},
+                {name: `type: string = 'text'`, summary: `Input type of textfield (e.g.: email, password, date, color).`},
+                {name: 'name: string', summary: `Name of the textfield.`},
+                {name: 'label: string', summary: `Shown to the user when there's no focus or values.`},
+                {name: 'value: string', summary: `The input element's value.`},
+                {name: 'outlined: boolean', summary: `Set a border around all sides of the text field.`},
+                {name: 'fullwidth: boolean', summary: `Set to fullwidth textfield. Do not use outlined to style a full width text field.`},
+                {name: 'disabled: boolean', summary: `Disables the component.`},
+                {name: 'prefix: string', summary: `Gets or sets the text content of the prefix, if it exists.`},
+                {name: 'suffix: string', summary: `Gets or sets the text content of the suffix, if it exists.`},
+                {name: 'readonly: boolean', summary: `Whether or not the textfield value is editable.`},
+                {name: 'required: boolean', summary: `Whether the element is required.`},
+                {
+                  name: 'characterCounter: boolean', summary: `Character counter is used if there is a character limit. It displays the ratio of characters used and the total character limit.
+                maxlength is required on MdcTextField.`},
+                {name: 'useNativeValidation: boolean', summary: `Sets whether to check native HTML validity state (true, default) or custom validity state when updating styles (false).`},
+                {name: 'valid: boolean', summary: `Updates input validity styling using passed value.`},
+                {name: 'empty: boolean', summary: `Returns whether the control is empty.`},
+                {name: 'endAligned: boolean', summary: `Styles the text field with an end-aligned input.`},
+                {name: 'ltrText: boolean', summary: `Styles the text field's text elements (input, prefix, and suffix) as LTR even when the direction is RTL. Useful for RTL languages that use LTR for fractional notations.`},
+                {
+                  name: 'inputmode: string', summary: `Provides a hint to browsers for devices with onscreen keyboards to help them decide which keyboard to display.
+                'verbatim' | 'latin' | 'latin-name' | 'latin-prose' | 'full-width-latin' | 'kana' | 'kana-name' | 'katakana' | 'numeric' | 'tel' | 'email' | 'url'`},
+                {name: 'autocomplete: string', summary: `Indicates if the input can be automatically completed by the browser, usually by remembering previous values the user has entered.`},
+                {name: 'tabIndex: number', summary: `Tab index of the text element.`},
+                {name: 'pattern: string', summary: `Regular expression that the control's value is checked against.`},
+                {name: 'maxlength: number', summary: `Maxlength of characters allowed to be entered.`},
+                {name: 'minlength: number', summary: `Specifies the minimum number of characters that the user can enter.`},
+                {name: 'max: number', summary: `The maximum numeric value for the input.`},
+                {name: 'min: number', summary: `The minimum numeric value for this input, which must not be greater than its maximum (max attribute) value.`},
+                {name: 'step: number', summary: `Works with the min and max attributes to limit the increments at which a numeric or date-time value can be set.`},
+                {name: 'size: number', summary: `The initial size of the control.`},
+                {name: 'helperText: MdcHelperText', summary: `Reference to related MdcHelperText`},
+              ]
+            },
+            {
+              name: 'Methods',
+              items: [
+                {name: 'focus()', summary: `Sets focus to the input.`},
+              ]
+            },
+            {
+              name: 'Events',
+              items: [
+                {name: 'change(value)', summary: `Emitted when an alteration to the element value is committed.`},
+                {name: 'blur(value)', summary: `Emitted whenever the input loses focus.`},
+                {name: 'input(value)', summary: `Emitted synchronously when the value has been altered.`},
+                {name: 'focus(boolean)', summary: `Emitted when the input gains or loses focus.`},
+              ]
+            },
+          ]
+        },
+        {
+          header: 'MdcHelperText',
+          selectors: [
+            'mdc-helper-text',
+            'mdcHelperText',
+          ],
+          exportedAs: 'mdcHelperText',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'validation: boolean', summary: `Help text can be used to provide additional validation messages.`},
+                {name: 'persistent: boolean', summary: `Help text will always be visible.`},
+              ]
+            },
+            {
+              name: 'Methods',
+              items: [
+                {name: 'showToScreenReader()', summary: `Makes the helper text visible to the screen reader.`},
+                {name: 'setValidity(inputIsValid: boolean)', summary: `Sets the validity of the helper text.`},
+              ]
+            },
+          ]
+        },
+        {
+          header: 'MdcTextFieldIcon',
+          selectors: [
+            'mdc-icon[mdcTextFieldIcon]',
+          ],
+          exportedAs: 'mdcTextFieldIcon',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'leading: boolean', summary: `Styles the text field as a text field with a leading icon.`},
+                {name: 'trailing: boolean	', summary: `Styles the text field as a text field with a trailing icon.`},
+              ]
+            },
+          ]
+        },
+        {
+          header: 'MdcTextarea',
+          summary: `Same properties, methods and events as MdcTextField`,
+          selectors: [
+            'mdc-textarea',
+          ],
+          exportedAs: 'mdcTextarea',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'rows: number', summary: `Number of rows for this textarea.`},
+                {name: 'cols: number', summary: `Number of columns for this textarea.`},
+                {name: 'characterCounter: boolean', summary: `Character counter is used if there is a character limit. It displays the ratio of characters used and the total character limit.
+                maxlength is required on MdcTextArea.`},
+              ]
+            },
+          ]
+        },
+        {
+          header: 'MDC_TEXT_FIELD_DEFAULT_OPTIONS',
+          summary: `Injection token that can be used to configure the default options for all text fields within an app.`,
+          summaryCode: `const MDC_TEXT_FIELD_DEFAULT_OPTIONS:
+  InjectionToken<MdcTextFieldDefaultOptions>;`
+        },
+      ]
+    };
+  }
+}
 
 class Directions {
   dt: number;

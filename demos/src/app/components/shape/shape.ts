@@ -2,15 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {ComponentViewer} from '../../shared/component-viewer';
 
-@Component({templateUrl: './usage.html'})
-export class Usage {
-  customTheming = `@use '@material/button';
-
-.my-custom-button {
-  @include button.shape-radius(50%);
-}`;
-}
-
 @Component({template: '<component-viewer></component-viewer>'})
 export class Shape implements OnInit {
   @ViewChild(ComponentViewer, {static: true}) _componentViewer: ComponentViewer;
@@ -27,10 +18,10 @@ export class Shape implements OnInit {
         url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-shape/README.md'
       }],
       sass: `@use '@material/shape';`,
-      tabs: [{
-        label: 'Usage',
-        route: './usage'
-      }]
+      mdcUrls: [
+        {name: 'Sass Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-shape/README.md#style-customization'},
+      ],
+      tabs: [],
     };
   }
 }

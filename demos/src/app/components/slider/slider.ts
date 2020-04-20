@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
-import {ComponentViewer} from '../../shared/component-viewer';
+import {ComponentViewer, ComponentApi} from '../../shared/component-viewer';
 
 import {MdcSliderChange} from '@angular-mdc/web/slider';
 
@@ -19,18 +19,62 @@ export class Slider implements OnInit {
         name: 'Material Components Web',
         url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-slider/README.md'
       }],
-      code: `import {MdcSliderModule} from '@angular-mdc/web';`,
+      mdcUrls: [
+        {name: 'Sass Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-slider/README.md#theming'},
+      ],
+      code: `import {MdcSliderModule} from '@angular-mdc/web/slider';`,
       sass: `@use '@material/slider/mdc-slider';
 @use '@material/slider';`
     };
   }
 }
 
-@Component({templateUrl: './api.html'})
-export class Api {}
+@Component({template: '<component-api></component-api>'})
+export class Api implements OnInit {
+  @ViewChild(ComponentApi, {static: true}) _componentApi: ComponentApi;
 
-@Component({templateUrl: './sass.html'})
-export class Sass {}
+  ngOnInit() {
+    this._componentApi.docApi = {
+      sections: [
+        {
+          header: 'MdcSlider',
+          selectors: [
+            'mdc-slider',
+          ],
+          exportedAs: 'mdcSlider',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'min: number', summary: `The minimum value that the slider can have.`},
+                {name: 'max: number', summary: `The maximum value that the slider can have.`},
+                {name: 'value: number', summary: `The current value of the slider.`},
+                {name: 'step: number', summary: `Specifies the increments at which a slider value can be set.`},
+                {name: 'discrete: boolean', summary: `Discrete sliders allow users to select a specific value from a range. (Default: false)`},
+                {name: 'markers: boolean', summary: `Show markers on track. Discrete sliders support displaying markers on their tracks. (Default: false)`},
+                {name: 'disabled: boolean', summary: `Disables the slider.`},
+                {name: 'tabIndex: number', summary: `Set the underlying tab index of the component. (Default is 0)`},
+              ]
+            },
+            {
+              name: 'Methods',
+              items: [
+                {name: 'layout()', summary: `Recomputes the dimensions and re-lays out the component. This should be called if the dimensions of the slider itself or any of its parent elements change programmatically (it is called automatically on resize).`},
+              ]
+            },
+            {
+              name: 'Events',
+              items: [
+                {name: 'change(source: MdcSlider, value: number)', summary: `Broadcast when slider value is changed and committed by way of a user event, e.g. when a user stops dragging the slider or changes the value using the arrow keys.`},
+                {name: 'input(source: MdcSlider, value: number)', summary: `Broadcasts when slider value is changed by way of a user event, e.g. when a user is dragging the slider or changing the value using the arrow keys.`},
+                {name: 'valueChange(value: number)', summary: `Emits when the value of the slider changes.`},
+              ]
+            },
+          ]
+        },
+      ]
+    };  }
+}
 
 @Component({templateUrl: './examples.html'})
 export class Examples {

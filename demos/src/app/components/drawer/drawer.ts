@@ -1,12 +1,113 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
-import {ComponentViewer} from '../../shared/component-viewer';
+import {ComponentViewer, ComponentApi} from '../../shared/component-viewer';
 
-@Component({templateUrl: './api.html'})
-export class Api {}
+@Component({template: '<component-api></component-api>'})
+export class Api implements OnInit {
+  @ViewChild(ComponentApi, {static: true}) _componentApi: ComponentApi;
 
-@Component({templateUrl: './sass.html'})
-export class Sass {}
+  ngOnInit() {
+    this._componentApi.docApi = {
+      sections: [
+        {
+          header: 'MdcDrawer',
+          selectors: [
+            'mdc-drawer',
+          ],
+          exportedAs: 'mdcDrawer',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: `drawer: string`, summary: `Set the drawer implementation. Valid values: dismissible | modal | empty`},
+                {name: `open: boolean`, summary: `Opens or closes the drawer.`},
+                {name: `fixedAdjustElement: any`, summary: `Optional. Reference to a drawer's attached body element.`},
+                {name: `dir: string`, summary: `Optional. If value is 'rtl', drawer opens from the right side of the screen.`},
+                {name: `autoFocus: boolean`, summary: `Whether the drawer should focus the first focusable element on open. (Default: true)`},
+                {name: `restoreFocus: boolean`, summary: `Whether the drawer should restore focus to the previously-focused element, after it's closed. (Default: true)`},
+              ]
+            },
+            {
+              name: 'Events',
+              items: [
+                {name: `opened()`, summary: `Event dispatched on drawer open.`},
+                {name: `closed()`, summary: `Event dispatched on drawer close.`},
+                {name: `openedChange(opened: boolean)`, summary: `Event dispatched on drawer open state changes.`},
+                {name: `drawerChange()`, summary: `Event dispatched when the drawer variant changes.`},
+              ]
+            },
+          ]
+        },
+        {
+          header: 'Focus Management',
+          summary: `By default, the first element within the drawer will receive focus upon open. This can be configured by setting the cdkFocusInitial attribute on another focusable element or setting autoFocus to false.`,
+          summaryCode: `<mdc-list-item cdkFocusInitial>
+  <mdc-icon mdcListItemGraphic>star</mdc-icon>
+  List item
+</mdc-list-item>`
+        },
+        {
+          header: 'MdcDrawerHeader',
+          summary: 'Optional. Non-scrollable element that exists at the top of the drawer.',
+          selectors: [
+            'mdc-drawer-header',
+          ],
+          exportedAs: 'mdcDrawerHeader',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'title: string', summary: `Optional. Title text element of the drawer.`},
+                {name: 'subtitle: string', summary: `Optional. Subtitle text element of the drawer.`},
+              ]
+            },
+          ]
+        },
+        {
+          header: 'MdcDrawerTitle',
+          summary: 'Optional. Title text element of the drawer.',
+          selectors: [
+            'mdcDrawerTitle',
+          ],
+          exportedAs: 'mdcDrawerTitle',
+        },
+        {
+          header: 'MdcDrawerSubtitle',
+          summary: 'Optional. Subtitle text element of the drawer.',
+          selectors: [
+            'mdcDrawerSubtitle',
+          ],
+          exportedAs: 'mdcDrawerSubtitle',
+        },
+        {
+          header: 'MdcDrawerContent',
+          summary: 'Scrollable content area of the drawer',
+          selectors: [
+            'mdc-drawer-content',
+            'mdcDrawerContent'
+          ],
+          exportedAs: 'mdcDrawerContent',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'dir: string', summary: `Optional. If value is 'rtl', content is displayed right to left.`},
+              ]
+            },
+          ]
+        },
+        {
+          header: 'MdcDrawerAppContent',
+          summary: 'Mandatory for dismissible variant only. Sibling element that is resized when the drawer opens/closes.',
+          selectors: [
+            'mdcDrawerAppContent',
+          ],
+          exportedAs: 'mdcDrawerAppContent',
+        },
+      ]
+    };
+  }
+}
 
 @Component({template: '<component-viewer></component-viewer>'})
 export class Drawer implements OnInit {
@@ -23,7 +124,10 @@ export class Drawer implements OnInit {
         name: 'Material Components Web',
         url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-drawer/README.md'
       }],
-      code: `import {MdcDrawerModule} from '@angular-mdc/web';`,
+      mdcUrls: [
+        {name: 'Sass Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-drawer/README.md#sass-mixins'},
+      ],
+      code: `import {MdcDrawerModule} from '@angular-mdc/web/drawer';`,
       sass: `@use '@material/drawer/mdc-drawer';
 @use '@material/drawer';`
     };

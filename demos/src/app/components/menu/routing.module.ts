@@ -1,12 +1,11 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
-import {Api, Examples, Sass, Menu} from './menu';
+import {Api, Examples, Menu} from './menu';
 
 export const ROUTE_DECLARATIONS = [
   Api,
   Examples,
-  Sass,
   Menu
 ];
 
@@ -16,7 +15,6 @@ const ROUTES: Routes = [
     children: [
       {path: '', redirectTo: 'api'},
       {path: 'api', component: Api},
-      {path: 'sass', component: Sass},
       {path: 'examples', component: Examples}
     ]
   }

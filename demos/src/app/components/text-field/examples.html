@@ -119,10 +119,35 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Prefix and suffix text</h3>
   <div class="demo-container">
-    <mdc-text-field label="Currency Value" prefix='$' suffix='.00'></mdc-text-field>
+    <mdc-text-field label="Currency Value" type="number" prefix="$"
+      suffix=".00"></mdc-text-field>
   </div>
   <div class="demo-container">
-    <mdc-text-field outlined label="Currency Value" prefix='$' suffix='.00'></mdc-text-field>
+    <mdc-text-field outlined label="Currency Value" type="number" prefix="$"
+      suffix=".00"></mdc-text-field>
+  </div>
+  <div class="demo-layout__row">
+    <button mdc-button
+      (click)="endAlignedExample.endAligned = !endAlignedExample.endAligned">End
+      Aligned:
+      {{endAlignedExample.endAligned ? 'On' :
+      'Off'}}</button>
+  </div>
+  <div class="demo-container">
+    <mdc-text-field #endAlignedExample outlined type="number" prefix="$"
+      suffix=".00" endAligned></mdc-text-field>
+  </div>
+  <div class="demo-layout__row">
+    <button mdc-button
+      (click)="ltrTextExample.ltrText = !ltrTextExample.ltrText">LTR Text:
+      {{ltrTextExample.ltrText ? 'On' :
+      'Off'}}</button>
+  </div>
+  <div class="demo-container">
+    <div dir="rtl">
+      <mdc-text-field #ltrTextExample outlined label="Label" type="number"
+        suffix="/100" ltrText></mdc-text-field>
+    </div>
   </div>
   <example-viewer [example]="examplePrefixSuffix"></example-viewer>
 </div>
@@ -176,6 +201,12 @@
       </mdc-helper-text>
     </mdc-form-field>
   </div>
+
+  <mdc-form-field>
+    <mdc-text-field outlined required></mdc-text-field>
+    <mdc-helper-text validation>Required with no label
+    </mdc-helper-text>
+  </mdc-form-field>
   <example-viewer [example]="exampleNoLabel"></example-viewer>
 </div>
 
@@ -242,13 +273,16 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Density</h3>
   <div class="demo-container">
-    <mdc-text-field class="demo-density-text-field" label="Density"></mdc-text-field>
+    <mdc-text-field class="demo-density-text-field" label="Density">
+    </mdc-text-field>
   </div>
   <div class="demo-container">
-    <mdc-text-field class="demo-density-outlined-text-field" outlined label="Density"></mdc-text-field>
+    <mdc-text-field class="demo-density-outlined-text-field" outlined
+      label="Density"></mdc-text-field>
   </div>
   <div class="demo-container">
-    <mdc-text-field class="demo-density-outlined-text-field-with-leading-icon" outlined label="Event date">
+    <mdc-text-field class="demo-density-outlined-text-field-with-leading-icon"
+      outlined label="Event date">
       <mdc-icon mdcTextFieldIcon leading>event</mdc-icon>
     </mdc-text-field>
   </div>
@@ -304,17 +338,17 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Date / Time / Color / Password</h3>
   <div class="demo-container">
-    <mdc-text-field type="date" label="Birthday" outlined></mdc-text-field>
+    <mdc-text-field type="date" label="Birthday"></mdc-text-field>
   </div>
   <div class="demo-container">
-    <mdc-text-field type="time" label="Time" outlined></mdc-text-field>
+    <mdc-text-field type="time" label="Time"></mdc-text-field>
   </div>
   <div class="demo-container">
     <mdc-text-field type="password" label="Password" required outlined>
     </mdc-text-field>
   </div>
   <div class="demo-container">
-    <mdc-text-field type="color" label="Color" style="width: 6rem" outlined>
+    <mdc-text-field type="color" label="Color" style="width: 6rem">
     </mdc-text-field>
   </div>
   <example-viewer [example]="exampleDateTime"></example-viewer>

@@ -16,26 +16,27 @@ interface ComponentTemplate {
   references?: Reference[];
   code?: string;
   sass?: string;
+  mdcUrls?: Reference[];
   tabs?: Tab[];
 }
 
 @Component({
   selector: 'component-viewer',
   templateUrl: './component-viewer.html',
+  styleUrls: ['./component-viewer.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 export class ComponentViewer implements OnInit {
-  defaultTabs = [{
-    label: 'Api',
-    route: './api'
-  }, {
-    label: 'Sass',
-    route: './sass'
-  }, {
-    label: 'Examples',
-    route: './examples'
-  }];
+  defaultTabs = [
+    {
+      label: 'Api',
+      route: './api'
+    },
+    {
+      label: 'Examples',
+      route: './examples'
+    }];
 
   template: ComponentTemplate;
 

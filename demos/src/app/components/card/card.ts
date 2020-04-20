@@ -1,12 +1,109 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
-import {ComponentViewer} from '../../shared/component-viewer';
+import {ComponentViewer, ComponentApi} from '../../shared/component-viewer';
 
-@Component({templateUrl: './api.html'})
-export class Api {}
+@Component({template: '<component-api></component-api>'})
+export class Api implements OnInit {
+  @ViewChild(ComponentApi, {static: true}) _componentApi: ComponentApi;
 
-@Component({templateUrl: './sass.html'})
-export class Sass {}
+  ngOnInit() {
+    this._componentApi.docApi = {
+      sections: [
+        {
+          header: 'MdcCard',
+          selectors: [
+            'mdc-card',
+          ],
+          exportedAs: 'mdcCard',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'outlined: boolean', summary: `Removes the shadow and displays a hairline stroke instead.`},
+              ]
+            },
+          ]
+        },
+        {
+          header: 'MdcCardPrimaryAction',
+          summary: `Optional. The main tappable area of the card. Typically contains most (or all) card content except mdc-card-actions. Only applicable to cards that have a primary action that the main surface should trigger.`,
+          selectors: [
+            'mdc-card-primary-action',
+            'mdcCardPrimaryAction',
+          ],
+          exportedAs: 'mdcCardPrimaryAction',
+        },
+        {
+          header: 'MdcCardMedia',
+          selectors: [
+            'mdc-card-media',
+          ],
+          exportedAs: 'mdcCardMedia',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'square: boolean', summary: `Automatically scales the media area's height to equal its width.`},
+                {name: 'wide: boolean', summary: `Automatically scales the media area's height according to its width, maintaining a 16:9 aspect ratio.`},
+              ]
+            },
+          ]
+        },
+        {
+          header: 'MdcCardMediaContent',
+          summary: `Optional. An absolutely-positioned box the same size as the media area, for displaying a title or icon on top of the background-image.`,
+          selectors: [
+            'mdc-card-media-content',
+            'mdcCardMediaContent',
+          ],
+          exportedAs: 'mdcCardMediaContent',
+        },
+        {
+          header: 'MdcCardActions',
+          selectors: [
+            'mdc-card-actions',
+          ],
+          exportedAs: 'mdcCardActions',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'fullBleed: boolean', summary: `Removes the action area's padding and causes its only child (an mdc-card__action element) to consume 100% of the action area's width.`},
+              ]
+            },
+          ]
+        },
+        {
+          header: 'MdcCardActionIcons',
+          summary: `Optional. A group of supplemental action icons, displayed on the right side of the card (in LTR).`,
+          selectors: [
+            'mdc-card-action-icons',
+            'mdcCardActionIcons',
+          ],
+          exportedAs: 'mdcCardActionIcons',
+        },
+        {
+          header: 'MdcCardActionButtons',
+          summary: `Optional. A group of action buttons, displayed on the left side of the card (in LTR).`,
+          selectors: [
+            'mdc-card-action-buttons',
+            'mdcCardActionButtons',
+          ],
+          exportedAs: 'mdcCardActionButtons',
+        },
+        {
+          header: 'MdcCardAction',
+          summary: `Optional. An individual action button or icon.`,
+          selectors: [
+            'mdcCardAction="icon"',
+            'mdcCardAction="button"',
+          ],
+          exportedAs: 'mdcCardAction',
+        },
+      ]
+    };
+  }
+}
 
 @Component({template: '<component-viewer></component-viewer>'})
 export class Card implements OnInit {
@@ -23,7 +120,10 @@ export class Card implements OnInit {
         name: 'Material Components Web',
         url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-card/README.md'
       }],
-      code: `import {MdcCardModule} from '@angular-mdc/web';`,
+      mdcUrls: [
+        {name: 'Sass Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-card/README.md#sass-mixins'},
+      ],
+      code: `import {MdcCardModule} from '@angular-mdc/web/card';`,
       sass: `@use '@material/card/mdc-card';
 @use '@material/card';`
     };

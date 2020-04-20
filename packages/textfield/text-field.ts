@@ -106,6 +106,8 @@ const MOUSE_EVENT_IGNORE_TIME = 800;
     '[class.mdc-text-field--disabled]': 'disabled',
     '[class.mdc-text-field--outlined]': 'outlined',
     '[class.mdc-text-field--fullwidth]': 'fullwidth',
+    '[class.mdc-text-field--end-aligned]': 'endAligned',
+    '[class.mdc-text-field--ltr-text]': 'ltrText',
     '[class.mdc-text-field--with-leading-icon]': 'leadingIcon',
     '[class.mdc-text-field--with-trailing-icon]': 'trailingIcon',
     '[class.mdc-text-field--no-label]': '!label || label && fullwidth',
@@ -290,6 +292,24 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   private _characterCounter = false;
 
   @Input()
+  get endAligned(): boolean {
+    return this._endAligned;
+  }
+  set endAligned(value: boolean) {
+    this._endAligned = coerceBooleanProperty(value);
+  }
+  private _endAligned = false;
+
+  @Input()
+  get ltrText(): boolean {
+    return this._ltrText;
+  }
+  set ltrText(value: boolean) {
+    this._ltrText = coerceBooleanProperty(value);
+  }
+  private _ltrText = false;
+
+  @Input()
   get value(): any {
     return this._value;
   }
@@ -373,10 +393,10 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
 
   private _getLabelAdapterMethods(): MDCTextFieldLabelAdapter {
     return {
-      shakeLabel: (shouldShake: boolean) => this._getFloatingLabel().shake(shouldShake),
-      floatLabel: (shouldFloat: boolean) => this._getFloatingLabel().float(shouldFloat),
+      shakeLabel: (shouldShake: boolean) => this._getFloatingLabel()?.shake(shouldShake),
+      floatLabel: (shouldFloat: boolean) => this._getFloatingLabel()?.float(shouldFloat),
       hasLabel: () => this._hasFloatingLabel(),
-      getLabelWidth: () => this._hasFloatingLabel() ? this._getFloatingLabel().getWidth() : 0
+      getLabelWidth: () => this._getFloatingLabel()?.getWidth() ?? 0
     };
   }
 
@@ -591,9 +611,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
       if (this._outlined) {
         this._foundation.notchOutline(this._foundation.shouldFloat);
       }
-      if (this._hasFloatingLabel()) {
-        this._getFloatingLabel().float(this._foundation.shouldFloat);
-      }
+      this._getFloatingLabel()?.float(this._foundation.shouldFloat);
     });
   }
 
@@ -653,8 +671,8 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     return this.label && (this._floatingLabel || this._notchedOutline) ? true : false;
   }
 
-  private _getFloatingLabel(): MdcFloatingLabel {
-    return this._floatingLabel || this._notchedOutline!.floatingLabel;
+  private _getFloatingLabel(): MdcFloatingLabel | undefined {
+    return this._floatingLabel || this._notchedOutline?.floatingLabel;
   }
 
   private _getInputElement(): HTMLInputElement | HTMLTextAreaElement {

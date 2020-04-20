@@ -2,6 +2,7 @@
 
 @use '@material/typography/mdc-typography';
 @use '@material/button/mdc-button';
+@use '@material/data-table/mdc-data-table';
 @use '@material/drawer/mdc-drawer';
 @use '@material/list/mdc-list';
 @use '@material/elevation/mdc-elevation';
@@ -14,7 +15,6 @@
 @use '@material/card/mdc-card';
 @use '@material/chips/mdc-chips';
 @use '@material/checkbox/mdc-checkbox';
-@use '@material/data-table/mdc-data-table';
 @use '@material/fab/mdc-fab';
 @use '@material/dialog/mdc-dialog';
 @use '@material/floating-label/mdc-floating-label';

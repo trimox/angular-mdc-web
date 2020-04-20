@@ -1,5 +1,5 @@
 <span class="mdc-notched-outline__leading"></span>
 <span #notch class="mdc-notched-outline__notch">
-  <label mdcFloatingLabel [for]="for">{{label}}</label>
+  <label mdcFloatingLabel [for]="for" *ngIf="!!label">{{label}}</label>
 </span>
 <span class="mdc-notched-outline__trailing"></span>

@@ -11,76 +11,76 @@ export const DEMO_DECLARATIONS = [
 
 const routes: Routes = [
   {
-    path: 'button-demo', loadChildren: () =>
+    path: 'button', loadChildren: () =>
       import('./components/button/module').then(m => m.ButtonModule)
   },
-  {path: 'card-demo', loadChildren: () => import('./components/card/module').then(m => m.CardModule)},
+  {path: 'card', loadChildren: () => import('./components/card/module').then(m => m.CardModule)},
   {
-    path: 'checkbox-demo', loadChildren: () =>
+    path: 'checkbox', loadChildren: () =>
       import('./components/checkbox/module').then(m => m.CheckboxModule)
   },
   {
-    path: 'chips-demo', loadChildren: () =>
+    path: 'chips', loadChildren: () =>
       import('./components/chips/module').then(m => m.ChipsModule)
   },
-  {path: 'theme-docs', loadChildren: () => import('./components/theme-docs/theme.module').then(m => m.ThemeModule)},
+  {path: 'theme', loadChildren: () => import('./components/theme/module').then(m => m.ThemeModule)},
   {
-    path: 'data-table-demo', loadChildren: () =>
+    path: 'data-table', loadChildren: () =>
       import('./components/data-table/module').then(m => m.DataTableModule)
   },
-  {path: 'dialog-demo', loadChildren: () => import('./components/dialog/module').then(m => m.DialogModule)},
-  {path: 'drawer-demo', loadChildren: () => import('./components/drawer/module').then(m => m.DrawerModule)},
+  {path: 'dialog', loadChildren: () => import('./components/dialog/module').then(m => m.DialogModule)},
+  {path: 'drawer', loadChildren: () => import('./components/drawer/module').then(m => m.DrawerModule)},
   {
-    path: 'elevation-demo', loadChildren: () =>
-      import('./components/elevation-demo/elevation.module').then(m => m.ElevationModule)
+    path: 'elevation', loadChildren: () =>
+      import('./components/elevation/module').then(m => m.ElevationModule)
   },
-  {path: 'fab-demo', loadChildren: () => import('./components/fab/module').then(m => m.FabModule)},
+  {path: 'fab', loadChildren: () => import('./components/fab/module').then(m => m.FabModule)},
   {
-    path: 'form-field-demo', loadChildren: () =>
-      import('./components/form-field-demo/form-field.module').then(m => m.FormFieldModule)
+    path: 'form-field', loadChildren: () =>
+      import('./components/form-field/module').then(m => m.FormFieldModule)
   },
   {path: 'getting-started', component: GettingStarted},
   {path: 'home', component: Home, pathMatch: 'full'},
-  {path: 'icon-demo', loadChildren: () => import('./components/icon/module').then(m => m.IconModule)},
+  {path: 'icon', loadChildren: () => import('./components/icon/module').then(m => m.IconModule)},
   {
-    path: 'icon-button-demo', loadChildren: () =>
-      import('./components/icon-button-demo/icon-button.module').then(m => m.IconButtonModule)
+    path: 'icon-button', loadChildren: () =>
+      import('./components/icon-button/module').then(m => m.IconButtonModule)
   },
   {
-    path: 'image-list-demo', loadChildren: () =>
-      import('./components/image-list-demo/image-list.module').then(m => m.ImageListModule)
+    path: 'image-list', loadChildren: () =>
+      import('./components/image-list/module').then(m => m.ImageListModule)
   },
   {
-    path: 'linear-progress-demo', loadChildren: () =>
+    path: 'linear-progress', loadChildren: () =>
       import('./components/linear-progress/module').then(m => m.LinearProgressModule)
   },
-  {path: 'list-demo', loadChildren: () => import('./components/list/module').then(m => m.ListModule)},
-  {path: 'menu-demo', loadChildren: () => import('./components/menu/module').then(m => m.MenuModule)},
+  {path: 'list', loadChildren: () => import('./components/list/module').then(m => m.ListModule)},
+  {path: 'menu', loadChildren: () => import('./components/menu/module').then(m => m.MenuModule)},
   {
-    path: 'menu-surface-demo', loadChildren: () =>
+    path: 'menu-surface', loadChildren: () =>
       import('./components/menu-surface/module').then(m => m.MenuSurfaceModule)
   },
-  {path: 'radio-demo', loadChildren: () => import('./components/radio/module').then(m => m.RadioModule)},
-  {path: 'ripple-demo', loadChildren: () => import('./components/ripple-demo/ripple.module').then(m => m.RippleModule)},
-  {path: 'select-demo', loadChildren: () => import('./components/select/module').then(m => m.SelectModule)},
-  {path: 'shape-docs', loadChildren: () => import('./components/shape/module').then(m => m.ShapeModule)},
-  {path: 'slider-demo', loadChildren: () => import('./components/slider/module').then(m => m.SliderModule)},
+  {path: 'radio', loadChildren: () => import('./components/radio/module').then(m => m.RadioModule)},
+  {path: 'ripple', loadChildren: () => import('./components/ripple/module').then(m => m.RippleModule)},
+  {path: 'select', loadChildren: () => import('./components/select/module').then(m => m.SelectModule)},
+  {path: 'shape', loadChildren: () => import('./components/shape/module').then(m => m.ShapeModule)},
+  {path: 'slider', loadChildren: () => import('./components/slider/module').then(m => m.SliderModule)},
   {
-    path: 'snackbar-demo', loadChildren: () =>
+    path: 'snackbar', loadChildren: () =>
       import('./components/snackbar/module').then(m => m.SnackbarModule)
   },
-  {path: 'switch-demo', loadChildren: () => import('./components/switch-demo/switch.module').then(m => m.SwitchModule)},
-  {path: 'tabs-demo', loadChildren: () => import('./components/tabs/module').then(m => m.TabsModule)},
+  {path: 'switch', loadChildren: () => import('./components/switch/module').then(m => m.SwitchModule)},
+  {path: 'tabs', loadChildren: () => import('./components/tabs/module').then(m => m.TabsModule)},
   {
-    path: 'text-field-demo', loadChildren: () =>
+    path: 'text-field', loadChildren: () =>
       import('./components/text-field/module').then(m => m.TextFieldModule)
   },
   {
-    path: 'top-app-bar-demo', loadChildren: () =>
+    path: 'top-app-bar', loadChildren: () =>
       import('./components/top-app-bar/module').then(m => m.TopAppBarModule)
   },
   {
-    path: 'typography-demo', loadChildren: () =>
+    path: 'typography', loadChildren: () =>
       import('./components/typography/module').then(m => m.TypographyModule)
   },
   {path: '**', redirectTo: 'home'}

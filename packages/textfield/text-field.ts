@@ -103,6 +103,7 @@ const MOUSE_EVENT_IGNORE_TIME = 800;
   exportAs: 'mdcTextField',
   host: {
     'class': 'mdc-text-field',
+    '[class.mdc-text-field--filled]': '!outlined',
     '[class.mdc-text-field--disabled]': 'disabled',
     '[class.mdc-text-field--outlined]': 'outlined',
     '[class.mdc-text-field--fullwidth]': 'fullwidth',

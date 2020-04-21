@@ -5,28 +5,35 @@
 
     <div *ngIf="template?.references">
       <h2 class="demo-panel-heading">References</h2>
-      <ul>
-        <li *ngFor="let ref of template.references"><a mdc-button
-            [href]="ref.url" target="_blank" rel="noopener">{{ref.name}}</a>
-        </li>
-      </ul>
+      <div *ngFor="let ref of template.references">
+        <a li mdc-button [href]="ref.url" target="_blank" rel="noopener">
+          <mdc-icon>link</mdc-icon>
+          {{ref.name}}
+        </a>
+      </div>
     </div>
 
     <div *ngIf="template?.code">
       <h2 class="demo-panel-heading">Module</h2>
-      <pre
-        *ngIf="template.code"><code [highlight]="template.code"></code></pre>
+      <pre *ngIf="template.code"><code [highlight]="template.code"></code></pre>
     </div>
 
     <div *ngIf="template?.sass">
       <h2 class="demo-panel-heading">Styles</h2>
-      <pre
-        *ngIf="template.sass"><code [highlight]="template.sass"></code></pre>
+      <pre *ngIf="template.sass"><code [highlight]="template.sass"></code></pre>
     </div>
+
+    <div *ngFor="let mdcUrl of template.mdcUrls" class="viewer-mdc-urls">
+      <a mdc-button href="{{mdcUrl.url}}" target="_blank" rel="noopener">
+        <mdc-icon>link</mdc-icon>
+        {{mdcUrl.name}}
+      </a>
+    </div>
+
     <mdc-tab-bar activeTabRouter [activeTabIndex]="-1" *ngIf="template?.tabs">
       <mdc-tab-scroller>
         <mdc-tab *ngFor="let tab of template.tabs" [label]="tab.label"
-          [routerLink]="tab.route"></mdc-tab>
+          [routerLink]="tab.route" class="viewer-tab"></mdc-tab>
       </mdc-tab-scroller>
     </mdc-tab-bar>
     <ng-content></ng-content>

@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
-import {ComponentViewer} from '../../shared/component-viewer';
+import {ComponentViewer, ComponentApi} from '../../shared/component-viewer';
 
 import {MdcSnackbar} from '@angular-mdc/web/snackbar';
 
@@ -25,18 +25,74 @@ export class Snackbar implements OnInit {
         name: 'Material Components Web',
         url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-snackbar/README.md'
       }],
-      code: `import {MdcSnackbarModule} from '@angular-mdc/web';`,
+      mdcUrls: [
+        {name: 'Sass Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-snackbar/README.md#sass-mixins'},
+      ],
+      code: `import {MdcSnackbarModule} from '@angular-mdc/web/snackbar';`,
       sass: `@use '@material/snackbar/mdc-snackbar';
 @use '@material/snackbar';`
     };
   }
 }
 
-@Component({templateUrl: './api.html'})
-export class Api {}
+@Component({template: '<component-api></component-api>'})
+export class Api implements OnInit {
+  @ViewChild(ComponentApi, {static: true}) _componentApi: ComponentApi;
 
-@Component({templateUrl: './sass.html'})
-export class Sass {}
+  ngOnInit() {
+    this._componentApi.docApi = {
+      sections: [
+        {
+          header: 'MdcSnackbar (Service)',
+          summary: 'Service to open MDC snackbars.',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {
+                  name: `afterDismiss: Observable<MdcSnackbarDismissReason>`,
+                  summary: `Gets an observable that is notified when the snackbar is finished closing.`,
+                  summaryCode: `/** Event that is emitted when a snackbar is dismissed. */
+export interface MdcSnackbarDismissReason {
+  /** Whether the snackbar was dismissed using the action button. */
+  action: boolean;
+
+  /** Whether the snackbar was dismissed using the dismiss icon button. */
+  dismiss: boolean;
+}`
+                },
+              ]
+            },
+            {
+              name: 'Methods',
+              items: [
+                {name: 'open(message: string)', summary: `Open snackbar with message.`},
+                {name: 'open(message: string, action: string)', summary: `Opens snackbar message and action.`},
+                {name: 'open(message: string, action: string, config?: MdcSnackbarConfig)', summary: `Opens the snackbar with optional configuration.`},
+              ]
+            },
+            {
+              name: 'MdcSnackbarConfig',
+              items: [
+                {name: 'timeoutMs?: number', summary: `Value must be between 4000 and 10000 or an error will be thrown. Defaults to 5000 (5 seconds).`},
+                {name: 'stacked?: boolean', summary: `Positions the action button/icon below the label instead of alongside it. Defaults to false.`},
+                {name: 'leading?: boolean', summary: `Positions the snackbar on the leading edge of the screen.`},
+                {name: 'trailing?: boolean', summary: `Positions the snackbar on the trailing (right) edge of the screen.`},
+                {name: 'direction?: string', summary: `The layout direction of the snackbar content. Default is 'ltr'.`},
+                {name: 'dismiss?: boolean', summary: `Show dismiss ("X") icon. Default is false.`},
+                {name: 'closeOnEscape?: boolean', summary: `Whether the snackbar closes when it is focused and the user presses the ESC key. Default is true.`},
+                {name: 'classes?: string | string[]', summary: `Add a CSS class or an array of classes.`},
+                {name: 'actionClasses?: string | string[]', summary: `Add a CSS class or an array of classes to the action button.`},
+                {name: 'dismissClasses?: string | string[]', summary: `Add a CSS class or an array of classes to the action icon.`},
+                {name: 'politeness?: AriaLivePoliteness', summary: `The politeness level for the screen reader announcement. Default is 'polite'`},
+              ]
+            },
+          ]
+        },
+      ]
+    };
+  }
+}
 
 @Component({templateUrl: './examples.html'})
 export class Examples {

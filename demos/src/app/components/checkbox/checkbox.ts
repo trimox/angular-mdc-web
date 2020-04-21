@@ -2,13 +2,60 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {MdcCheckbox, MdcCheckboxChange} from '@angular-mdc/web/checkbox';
 
-import {ComponentViewer} from '../../shared/component-viewer';
+import {ComponentViewer, ComponentApi} from '../../shared/component-viewer';
 
-@Component({templateUrl: './api.html'})
-export class Api {}
+@Component({template: '<component-api></component-api>'})
+export class Api implements OnInit {
+  @ViewChild(ComponentApi, {static: true}) _componentApi: ComponentApi;
 
-@Component({templateUrl: './sass.html'})
-export class Sass {}
+  ngOnInit() {
+    this._componentApi.docApi = {
+      sections: [
+        {
+          header: 'MdcCheckbox',
+          selectors: [
+            'mdc-checkbox',
+          ],
+          exportedAs: 'mdcCheckbox',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'id: string', summary: `Unique Id of the checkbox (auto generated if not supplied).`},
+                {name: 'name: string', summary: 'Name of the checkbox.'},
+                {name: 'checked: boolean', summary: 'Whether the checkbox is checked.'},
+                {name: 'value: string', summary: 'The value attribute of the native input element.'},
+                {name: 'tabIndex: number	', summary: 'Set the underlying tab index of the checkbox. (Default: 0)'},
+                {name: 'ariaLabel: string', summary: `Used to set the 'aria-label' attribute on the underlying input element.`},
+                {name: 'ariaLabelledby: string', summary: `The 'aria-labelledby' attribute takes precedence as the element's text alternative.`},
+                {name: 'indeterminate: boolean', summary: 'Represent a checkbox with three states (e.g. a nested list of checkable items).'},
+                {name: 'disabled: boolean', summary: 'Disables the component.'},
+                {name: 'disableRipple: boolean', summary: 'Whether ripple ink is disabled.'},
+                {name: 'indeterminateToChecked: boolean', summary: 'Whether the checkbox should go to checked state or unchecked when toggled from indeterminate state.'},
+                {name: 'touch: boolean', summary: 'Set the component touch target to 48 x 48 px.'},
+              ]
+            },
+            {
+              name: 'Methods',
+              items: [
+                {name: 'focus()', summary: `Set focus to the checkbox.`},
+                {name: 'toggle(checked?: boolean)', summary: 'Toggles checkbox via user action. When it is indeterminate, toggle can go to checked or unchecked, depending on state.'},
+              ]
+            },
+            {
+              name: 'Events',
+              items: [
+                {name: 'change(source: MdcCheckBox, checked: boolean)', summary: `Event dispatched on checked change.`},
+                {name: 'indeterminateChange(source: MdcCheckbox, indeterminate: boolean)', summary: 'Emit when checkbox goes in and out of indeterminate state, but not when set to checked.'},
+              ]
+            },
+          ]
+        },
+      ]
+    };
+  }
+}
+
 
 @Component({template: '<component-viewer></component-viewer>'})
 export class Checkbox implements OnInit {
@@ -25,7 +72,10 @@ export class Checkbox implements OnInit {
         name: 'Material Components Web',
         url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-checkbox/README.md'
       }],
-      code: `import {MdcCheckboxModule} from '@angular-mdc/web';`,
+      mdcUrls: [
+        {name: 'Sass Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-checkbox/README.md#style-customization'},
+      ],
+      code: `import {MdcCheckboxModule} from '@angular-mdc/web/checkbox';`,
       sass: `@use '@material/checkbox/mdc-checkbox';
 @use '@material/checkbox';`
     };

@@ -1,12 +1,56 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
-import {ComponentViewer} from '../../shared/component-viewer';
+import {ComponentViewer, ComponentApi} from '../../shared/component-viewer';
 
-@Component({templateUrl: './api.html'})
-export class Api {}
+@Component({template: '<component-api></component-api>'})
+export class Api implements OnInit {
+  @ViewChild(ComponentApi, {static: true}) _componentApi: ComponentApi;
 
-@Component({templateUrl: './sass.html'})
-export class Sass {}
+  ngOnInit() {
+    this._componentApi.docApi = {
+      sections: [
+        {
+          header: 'MdcButton',
+          selectors: [
+            'button[mdc-button]',
+            'a[mdc-button]'
+          ],
+          exportedAs: 'mdcButton',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'raised: boolean', summary: `A contained button that is elevated upon the surface`},
+                {name: 'unelevated: boolean', summary: `A contained button that is flush with the surface`},
+                {
+                  name: 'outlined: boolean', summary: `A contained button that is flush with the surface and has a visible
+            border`},
+                {name: 'disabled: boolean', summary: `Disables the button`},
+                {name: 'label: string', summary: `Indicates the element containing the button's text label`},
+                {name: 'touch: boolean', summary: `Set the component touch target to 48 x 48 px`},
+              ]
+            },
+            {
+              name: 'Methods',
+              items: [
+                {name: 'focus()', summary: `Focuses the button`},
+              ]
+            },
+          ]
+        },
+        {
+          header: 'MdcButtonLabel',
+          summary: 'Optional. Required for the trailing icon to be styled appropriately.',
+          selectors: [
+            'mdc-button-label',
+            '[mdcButtonLabel]'
+          ],
+          exportedAs: 'mdcButtonLabel',
+        }
+      ]
+    };
+  }
+}
 
 @Component({
   template: '<component-viewer></component-viewer>'
@@ -25,7 +69,10 @@ export class Button implements OnInit {
         name: 'Material Components Web',
         url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-button/README.md'
       }],
-      code: `import {MdcButtonModule} from '@angular-mdc/web';`,
+      mdcUrls: [
+        {name: 'Sass Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-button/README.md#sass-mixins'},
+      ],
+      code: `import {MdcButtonModule} from '@angular-mdc/web/button';`,
       sass: `@use '@material/button/mdc-button';
 @use '@material/button';`
     };
@@ -138,7 +185,7 @@ export class Examples {
   };
 
   exampleAccessibility = {
-html: `<div class="mdc-touch-target-wrapper">
+    html: `<div class="mdc-touch-target-wrapper">
   <button mdc-button touch>My Accessible Button</button>
 </div>`
   };

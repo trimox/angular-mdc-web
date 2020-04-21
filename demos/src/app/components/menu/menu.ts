@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {MdcListItem} from '@angular-mdc/web/list';
-import {ComponentViewer} from '../../shared/component-viewer';
+import {ComponentViewer, ComponentApi} from '../../shared/component-viewer';
 
 @Component({template: '<component-viewer></component-viewer>'})
 export class Menu implements OnInit {
@@ -18,7 +18,10 @@ export class Menu implements OnInit {
         name: 'Material Components Web',
         url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-menu/README.md'
       }],
-      code: `import {MdcMenuModule} from '@angular-mdc/web';`,
+      mdcUrls: [
+        {name: 'Sass Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-menu/README.md#sass-mixins'},
+      ],
+      code: `import {MdcMenuModule} from '@angular-mdc/web/menu';`,
       sass: `@use '@material/menu/mdc-menu';
 @use '@material/menu';
 @use '@material/list/mdc-list';
@@ -27,11 +30,72 @@ export class Menu implements OnInit {
   }
 }
 
-@Component({templateUrl: './api.html'})
-export class Api {}
+@Component({template: '<component-api></component-api>'})
+export class Api implements OnInit {
+  @ViewChild(ComponentApi, {static: true}) _componentApi: ComponentApi;
 
-@Component({templateUrl: './sass.html'})
-export class Sass {}
+  ngOnInit() {
+    this._componentApi.docApi = {
+      sections: [
+        {
+          header: 'MdcMenu',
+          selectors: [
+            'mdc-menu',
+          ],
+          exportedAs: 'mdcMenu',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'id: string', summary: `Unique id of the menu (auto generated if not supplied).`},
+                {name: 'open: boolean', summary: `Opens or closes the menu.`},
+                {
+                  name: 'anchorCorner: string', summary: `Override the opening point of the menu. (Default: topStart)
+                Values: 'bottomEnd' | 'bottomStart' | 'topEnd' | 'topStart'`},
+                {name: 'anchorMargin: {top: number, bottom: number, left: number, right : number}', summary: `Sets the distance from the anchor point that the menu surface should be shown.`},
+                {name: 'quickOpen: boolean', summary: `Sets whether the menu should open and close without animation when the open/close methods are called.`},
+                {name: 'anchorElement: Element | mdcMenuSurfaceAnchor', summary: `Set to indicate an element the menu should be anchored to.`},
+                {name: 'fixed: boolean', summary: `Used to indicate that the menu is using fixed positioning.`},
+                {name: 'wrapFocus: boolean', summary: `Sets the list to allow the up arrow on the first element to focus the last element of the list and vice versa.`},
+                {name: 'closeSurfaceOnSelection: boolean', summary: `Sets whether the menu surface should close after item selection. Default is true`},
+                {name: `defaultFocusState: 'none' | 'list' | 'firstItem' | 'lastItem'`, summary: `Sets default focus state where the menu should focus every time when menu is opened. Focuses the list root ('list') element by default.`},
+              ]
+            },
+            {
+              name: 'Events',
+              items: [
+                {name: 'selected(item: MdcMenuItem, index: number)', summary: `Dispatches an event that a menu item has been selected.`},
+              ]
+            },
+          ]
+        },
+        {
+          header: 'MdcMenuSurfaceAnchor',
+          summary: 'Sets the anchor element used as an anchor for menu-surface positioning logic.',
+          selectors: [
+            'mdcMenuSurfaceAnchor',
+            'mdc-menu-surface-anchor',
+          ],
+          exportedAs: 'mdcMenuSurfaceAnchor',
+        }, {
+          header: 'MdcMenuSelectionGroup',
+          summary: 'Optional. Used to wrap a group of mdc-list-item elements that will represent a selection group.',
+          selectors: [
+            'mdc-menu-selection-group',
+          ],
+          exportedAs: 'mdcMenuSelectionGroup',
+        }, {
+          header: 'MdcMenuSelectionGroupIcon',
+          summary: 'Required when using a selection group to indicate which item is selected. Should contain an icon or svg that indicates the selected state of the list item.',
+          selectors: [
+            'mdcMenuSelectionGroupIcon',
+          ],
+          exportedAs: 'mdcMenuSelectionGroupIcon',
+        },
+      ]
+    };
+  }
+}
 
 @Component({templateUrl: './examples.html'})
 export class Examples {

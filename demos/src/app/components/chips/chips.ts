@@ -1,15 +1,112 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 
-import {ComponentViewer} from '../../shared/component-viewer';
+import {ComponentViewer, ComponentApi} from '../../shared/component-viewer';
 
 import {MdcChipSetChange, MdcChipSelectionEvent, MdcChipRemovalEvent, MdcChipInteractionEvent} from '@angular-mdc/web/chips';
 
-@Component({templateUrl: './api.html'})
-export class Api {}
+@Component({template: '<component-api></component-api>'})
+export class Api implements OnInit {
+  @ViewChild(ComponentApi, {static: true}) _componentApi: ComponentApi;
 
-@Component({templateUrl: './sass.html'})
-export class Sass {}
+  ngOnInit() {
+    this._componentApi.docApi = {
+      sections: [
+        {
+          header: 'MdcChipSet',
+          selectors: [
+            'mdc-chip-set',
+          ],
+          exportedAs: 'mdcChipSet',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'choice: boolean', summary: 'Indicates that the chips in the set are choice chips, which allow a single selection from a set of options.'},
+                {name: 'filter: boolean', summary: 'Indicates that the chips in the set are filter chips, which allow multiple selection from a set of options.'},
+                {name: 'input: boolean', summary: 'Indicates that the chips in the set are input chips, which enable user input by converting text into chips.'},
+                {name: 'touch: boolean', summary: 'Set the component touch target to 48 x 48 px.'},
+              ]
+            },
+            {
+              name: 'Methods',
+              items: [
+                {name: 'getSelectedChipIds(): string[]', summary: 'Returns an array of the IDs of all selected chips.'},
+                {name: 'select(chipId: string): void', summary: 'Selects the chip with the given id. Deselects all other chips if the chip set is of the choice variant.'},
+              ]
+            },
+            {
+              name: 'Events',
+              items: [
+                {name: 'interaction: MdcChipInteractionEvent', summary: 'Indicates when a chip is interacted with (via click/tap or Enter key)'},
+                {name: 'change: MdcChipSetChange', summary: 'Emitted when a chip is interacted with.'},
+              ]
+            },
+          ]
+        },
+        {
+          header: 'MdcChip',
+          selectors: [
+            'mdc-chip',
+          ],
+          exportedAs: 'mdcChip',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'choice: boolean', summary: 'Indicates that the chips in the set are choice chips, which allow a single selection from a set of options.'},
+                {name: 'filter: boolean', summary: 'Indicates that the chips in the set are filter chips, which allow multiple selection from a set of options.'},
+                {name: 'input: boolean', summary: 'Indicates that the chips in the set are input chips, which enable user input by converting text into chips.'},
+                {name: 'touch: boolean', summary: 'Set the component touch target to 48 x 48 px.'},
+                {name: 'label: string', summary: 'Sets the text content of the chip.'},
+                {name: 'value: string | string[]', summary: 'The value of the chip. Defaults to the content inside mdc-chip.'},
+                {name: 'removable: boolean', summary: 'Sets whether a trailing icon click should trigger exit/removal of the chip. (Default is true)'},
+                {name: 'disableRipple: boolean', summary: 'Whether ripples are disabled.'},
+              ]
+            },
+            {
+              name: 'Methods',
+              items: [
+                {name: 'focus()', summary: 'Set focus to the chip.'},
+              ]
+            },
+            {
+              name: 'Events',
+              items: [
+                {name: 'interactionEvent: MdcChipInteractionEvent', summary: 'Indicates the chip was interacted with (via click/tap or Enter key)'},
+                {name: 'selectionChange: MdcChipSelectionEvent', summary: `Indicates the chip's selection state has changed (for choice/filter chips)`},
+                {name: `removalEvent: MdcChipRemovalEvent`, summary: `Indicates the chip removal event from a chip set`},
+                {name: `navigationEvent: MdcChipNavigationEvent`, summary: `Indicates a navigation event has occurred on a chip`},
+                {name: `trailingIconInteraction: MdcChipInteractionEvent`, summary: `Indicates the chip's trailing icon was interacted with (via click/tap or Enter key)`},
+              ]
+            },
+          ]
+        },
+        {
+          header: 'MdcChipText',
+          summary: 'Optional. Indicates the text content of the chip.',
+          selectors: ['mdc-chip-text'],
+          exportedAs: 'mdcChipText',
+        },
+        {
+          header: 'MdcChipIcon',
+          summary: 'Optional. Indicates an icon in the chip.',
+          selectors: ['mdc-chip-icon'],
+          exportedAs: 'mdcChipIcon',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'leading: boolean', summary: 'Indicates a leading icon in the chip'},
+                {name: 'leading: boolean', summary: 'Indicates a trailing icon in the chip'},
+              ]
+            }
+          ]
+        },
+      ]
+    };
+  }
+}
 
 @Component({template: '<component-viewer></component-viewer>'})
 export class Chips implements OnInit {
@@ -26,7 +123,10 @@ export class Chips implements OnInit {
         name: 'Material Components Web',
         url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-chips/README.md'
       }],
-      code: `import {MdcChipsModule} from '@angular-mdc/web';`,
+      mdcUrls: [
+        {name: 'Sass Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-chips/README.md#sass-mixins'},
+      ],
+      code: `import {MdcChipsModule} from '@angular-mdc/web/chips';`,
       sass: `@use '@material/chips/mdc-chips';
 @use '@material/chips';`
     };

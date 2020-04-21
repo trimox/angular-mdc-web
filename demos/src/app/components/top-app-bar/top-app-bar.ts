@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
-import {ComponentViewer} from '../../shared/component-viewer';
+import {ComponentViewer, ComponentApi} from '../../shared/component-viewer';
 
 @Component({template: '<component-viewer></component-viewer>'})
 export class TopAppBar implements OnInit {
@@ -17,7 +17,10 @@ export class TopAppBar implements OnInit {
         name: 'Material Components Web',
         url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-top-app-bar/README.md'
       }],
-      code: `import {MdcTopAppBarModule} from '@angular-mdc/web';`,
+      mdcUrls: [
+        {name: 'Sass Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-top-app-bar/README.md#sass-mixins'},
+      ],
+      code: `import {MdcTopAppBarModule} from '@angular-mdc/web/top-app-bar';`,
       sass: `@use '@material/top-app-bar/mdc-top-app-bar';
 @use '@material/top-app-bar';
 @use '@material/icon-button/mdc-icon-button';`
@@ -25,11 +28,108 @@ export class TopAppBar implements OnInit {
   }
 }
 
-@Component({templateUrl: './api.html'})
-export class Api {}
+@Component({template: '<component-api></component-api>'})
+export class Api implements OnInit {
+  @ViewChild(ComponentApi, {static: true}) _componentApi: ComponentApi;
 
-@Component({templateUrl: './sass.html'})
-export class Sass {}
+  ngOnInit() {
+    this._componentApi.docApi = {
+      sections: [
+        {
+          header: 'MdcTopAppBar',
+          selectors: [
+            'mdc-top-app-bar',
+          ],
+          exportedAs: 'mdcTopAppBar',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'fixed: boolean', summary: `Style the app bar as a fixed top app bar.`},
+                {name: 'short: boolean', summary: `Style the app bar as a short app bar. Short top app bars should only be used with one action item.`},
+                {name: 'prominent: boolean', summary: `Enables prominent variant.`},
+                {name: 'dense: boolean', summary: `Enables dense variant.`},
+                {name: 'shortCollapsed: boolean', summary: `Set the short app bar to always collapsed.`},
+                {name: 'fixedAdjustElement: Element', summary: `Used to style the content below the standard and fixed top app bar to prevent the top app bar from covering it.`},
+                {name: 'scrollTarget: target: Element | Window', summary: `Sets scroll target to different DOM node (default is window).`},
+              ]
+            },
+            {
+              name: 'Methods',
+              items: [
+                {name: 'isCollapsed(): boolean', summary: `Whether or not the app bar is in a collapsed state.`},
+              ]
+            },
+            {
+              name: 'Events',
+              items: [
+                {name: 'navigationSelected: MdcTopAppBarNavSelected', summary: `Emitted when the top app bar navigation menu icon is selected.`},
+              ]
+            },
+          ]
+        },
+        {
+          header: 'MdcTopAppBarRow',
+          summary: 'A one-line row to add app bar sections.',
+          selectors: [
+            'mdc-top-app-bar-row',
+            'mdcTopAppBarRow',
+          ],
+          exportedAs: 'mdcTopAppBarRow',
+        }, {
+          header: 'MdcTopAppBarSection',
+          summary: 'A content area for navigation or actions.',
+          selectors: [
+            'mdc-top-app-bar-section',
+          ],
+          exportedAs: 'mdcTopAppBarSection',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'title: string', summary: `Optional. The text used to describe the app or section.`},
+                {name: `align: string = 'start' | 'end'`, summary: `Align section to either 'start' or 'end' of row.`},
+              ]
+            },
+          ],
+        },
+        {
+          header: 'MdcTopAppBarTitle',
+          summary: 'Optional. The text used to describe the app or section.',
+          selectors: [
+            'mdc-top-app-bar-title',
+            'mdcTopAppBarTitle'
+          ],
+          exportedAs: 'mdcTopAppBarTitle',
+        },
+        {
+          header: 'MdcTopAppBarNavIcon',
+          summary: 'Left most icon of app bar used for navigation.',
+          selectors: [
+            'mdc-icon[mdcTopAppBarNavIcon]',
+          ],
+          exportedAs: 'mdcTopAppBarNavIcon',
+        },
+        {
+          header: 'MdcTopAppBarActionItem',
+          summary: 'Top app bars can accommodate multiple action items on opposite side of navigation icon.',
+          selectors: [
+            'mdc-icon[mdcTopAppBarActionItem]',
+          ],
+          exportedAs: 'mdcTopAppBarActionItem',
+        },
+        {
+          header: 'MdcTopAppBarFixedAdjust',
+          summary: 'Style the content below the standard and fixed top app bar to prevent the top app bar from covering it.',
+          selectors: [
+            'mdcTopAppBarFixedAdjust',
+          ],
+          exportedAs: 'mdcTopAppBarFixedAdjust',
+        },
+      ]
+    };
+  }
+}
 
 @Component({templateUrl: './examples.html'})
 export class Examples {

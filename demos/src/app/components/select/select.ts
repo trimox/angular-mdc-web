@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, FormGroupDirective, FormBuilder, Validators} from '@angular/forms';
 
-import {ComponentViewer} from '../../shared/component-viewer';
+import {ComponentViewer, ComponentApi} from '../../shared/component-viewer';
 
 interface Food {
   value: string;
@@ -29,7 +29,12 @@ export class Select implements OnInit {
         name: 'Material Components Web',
         url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-select/README.md'
       }],
-      code: `import {MdcSelectModule} from '@angular-mdc/web';`,
+      mdcUrls: [
+        {name: 'Sass Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-select/README.md#sass-mixins'},
+        {name: 'Helper Text Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-select/helper-text/README.md#sass-mixins'},
+        {name: 'Icon Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-select/icon/README.md#sass-mixins'},
+      ],
+      code: `import {MdcSelectModule} from '@angular-mdc/web/select';`,
       sass: `@use '@material/select/mdc-select';
 @use '@material/select';
 @use '@material/list/mdc-list';
@@ -39,11 +44,88 @@ export class Select implements OnInit {
   }
 }
 
-@Component({templateUrl: './api.html'})
-export class Api {}
+@Component({template: '<component-api></component-api>'})
+export class Api implements OnInit {
+  @ViewChild(ComponentApi, {static: true}) _componentApi: ComponentApi;
 
-@Component({templateUrl: './sass.html'})
-export class Sass {}
+  ngOnInit() {
+    this._componentApi.docApi = {
+      sections: [
+        {
+          header: 'MdcSelect',
+          selectors: [
+            'mdc-select',
+          ],
+          exportedAs: 'mdcSelect',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'id: string', summary: `Unique Id of the select (auto generated if not supplied).`},
+                {name: 'name: string', summary: `Name of the select.`},
+                {name: 'placeholder: string', summary: `Text shown if no value has been selected.`},
+                {name: 'value: any', summary: `Sets the selected item by value.`},
+                {name: 'tabIndex: number', summary: `Set the underlying tab index of the select. (Default is 0)`},
+                {name: 'floatLabel: boolean', summary: `Whether or not to show or hide a floating placeholder.`},
+                {name: 'outlined: boolean', summary: `Styles the select as an outlined select.`},
+                {name: 'disabled: boolean', summary: `Enables/disables the select.`},
+                {name: 'helperText: MdcHelperText', summary: `Reference to related MdcHelperText`},
+                {name: 'compareWith: (o1: any, o2: any) => boolean', summary: `Function to compare the option values with the selected values. The first argument is a value from an option. The second is a value from the selection. A boolean should be returned.`},
+              ]
+            },
+            {
+              name: 'Methods',
+              items: [
+                {name: 'getSelectedIndex(): number', summary: `Returns the index of the currently selected option. Returns -1 if no option is currently selected.`},
+                {name: 'setSelectionByValue(value)', summary: `Set selection to the passed value.`},
+                {name: 'focus()', summary: `Set focus to the select.`},
+              ]
+            },
+            {
+              name: 'Events',
+              items: [
+                {name: 'valueChange(index: number, value: any)', summary: `Event emitted on any value change.`},
+                {name: 'selectionChange(source: MdcSelect, index: number, value: any)', summary: `Event emitted if user changed the value.`},
+                {name: 'blur(value)', summary: `Emitted whenever the select loses focus.`},
+                {name: 'focus(boolean)', summary: `Emitted when the select gains or loses focus.`},
+              ]
+            },
+          ]
+        },
+        {
+          header: 'MDCSelectHelperText',
+          selectors: [
+            'mdc-select-helper-text',
+            'mdcSelectHelperText'
+          ],
+          exportedAs: 'mdcSelectHelperText',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'validation: boolean', summary: `Help text can be used to provide additional validation messages.`},
+                {name: 'persistent: boolean', summary: `Help text will always be visible.`},
+              ]
+            },
+            {
+              name: 'Methods',
+              items: [
+                {name: 'showToScreenReader()', summary: `Makes the helper text visible to the screen reader.`},
+                {name: 'setValidity(inputIsValid: boolean)', summary: `Sets the validity of the helper text.`},
+              ]
+            },
+          ]
+        },
+        {
+          header: 'MDC_SELECT_DEFAULT_OPTIONS',
+          summary: `Injection token that can be used to configure the default options for all select's within an app.`,
+          summaryCode: `const MDC_SELECT_DEFAULT_OPTIONS:
+  InjectionToken<MdcSelectDefaultOptions>;`,
+        },
+      ]
+    };
+  }
+}
 
 @Component({templateUrl: './examples.html'})
 export class Examples {
@@ -302,7 +384,7 @@ resetForm(formDirective: FormGroupDirective) {
     </mdc-menu>
   </mdc-select>
 </form>`,
-ts: `formCompareWith: FormGroup;
+    ts: `formCompareWith: FormGroup;
 
 interface Fruit {
   id: number;

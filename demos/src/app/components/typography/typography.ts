@@ -17,27 +17,15 @@ export class Typography implements OnInit {
         name: 'Material Components Web',
         url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-typography/README.md'
       }],
-      code: `import {MdcTypographyModule} from '@angular-mdc/web';`,
+      mdcUrls: [
+        {name: 'Sass Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-typography/README.md#style-customization'},
+      ],
+      code: `import {MdcTypographyModule} from '@angular-mdc/web/typography';`,
       sass: `@use '@material/typography/mdc-typography';
-@use '@material/typography';`
+@use '@material/typography';`,
+      tabs: [{label: 'Examples', route: './examples'}]
     };
   }
-}
-
-@Component({templateUrl: './api.html'})
-export class Api {}
-
-@Component({templateUrl: './sass.html'})
-export class Sass {
-  exampleFontFamilySimple = `@use '@material/typography' with (
-  $font-family: Arial
-);`;
-
-  exampleOverrideFontFamilyGotham = `$gotham-font-family: unquote("'Gotham SSm A', 'Gotham SSm B', arial, sans-serif");
-
-@use '@material/typography' with (
-  $font-family: $gotham-font-family,
-);`;
 }
 
 @Component({templateUrl: './examples.html'})

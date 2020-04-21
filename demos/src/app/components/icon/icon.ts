@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 
-import {ComponentViewer} from '../../shared/component-viewer';
+import {ComponentViewer, ComponentApi} from '../../shared/component-viewer';
 import {environment} from '../../../environments/environment';
 import {MdcIcon, MdcIconRegistry} from '@angular-mdc/web/icon';
 
@@ -50,7 +50,7 @@ export class Icon implements OnInit {
         name: 'Material Design guidelines: Icons',
         url: 'https://material.io/guidelines/style/icons.html'
       }],
-      code: `import {MdcIconModule} from '@angular-mdc/web';`,
+      code: `import {MdcIconModule} from '@angular-mdc/web/icon';`,
       tabs: [{
         label: 'Api',
         route: './api'
@@ -63,8 +63,74 @@ export class Icon implements OnInit {
   }
 }
 
-@Component({templateUrl: './api.html'})
-export class Api {}
+@Component({template: '<component-api></component-api>'})
+export class Api implements OnInit {
+  @ViewChild(ComponentApi, {static: true}) _componentApi: ComponentApi;
+
+  ngOnInit() {
+    this._componentApi.docApi = {
+      sections: [
+        {
+          header: 'MdcIconRegistry (Service)',
+          summary: `Service to register and display icons used by the <mdc-icon> component.
+
+          - Registers icon URLs by namespace and name.
+          - Registers icon set URLs by namespace.
+          - Registers aliases for CSS classes, for use with icon fonts.
+          - Loads icons from URLs and extracts individual icons from icon sets.`,
+          categories: [
+            {
+              name: 'Methods',
+              items: [
+                {name: 'addSvgIcon(iconName: string, url: SafeResourceUrl, options?: IconOptions)', summary: `Registers an icon by URL in the default namespace.`},
+                {name: 'addSvgIconInNamespace(namespace: string, iconName: string, url: SafeResourceUrl, options?: IconOptions)', summary: `Registers an icon by URL in the specified namespace.`},
+                {name: 'addSvgIconLiteral(iconName: string, literal: SafeHtml, options?: IconOptions)', summary: `Registers an icon using an HTML string in the default namespace.`},
+                {name: 'addSvgIconLiteralInNamespace(namespace: string, iconName: string, literal: SafeHtml, options?: IconOptions)', summary: `Registers an icon using an HTML string in the specified namespace.`},
+                {name: 'addSvgIconSet(url: SafeResourceUrl, options?: IconOptions)', summary: `Registers an icon set by URL in the default namespace.`},
+                {name: 'addSvgIconSetInNamespace(namespace: string, url: SafeResourceUrl, options?: IconOptions)', summary: `Registers an icon set by URL in the specified namespace.`},
+                {name: 'addSvgIconSetLiteral(literal: SafeHtml, options?: IconOptions)', summary: `Registers an icon set using an HTML string in the default namespace.`},
+                {name: 'addSvgIconSetLiteralInNamespace(namespace: string, literal: SafeHtml, options?: IconOptions)', summary: `Registers an icon set using an HTML string in the specified namespace.`},
+                {name: 'classNameForFontAlias(alias: string)', summary: `Returns the CSS class name associated with the alias by a previous call to registerFontClassAlias. If no CSS class has been associated, returns the alias unmodified.`},
+                {name: 'getDefaultFontSetClass()', summary: `Returns the CSS class name to be used for icon fonts when an <mdc-icon> component does not have a fontSet input value, and is not loading an icon by name or URL.`},
+                {name: 'getNamedSvgIcon(name: string, namespace: string)', summary: `Returns an Observable that produces the icon (as an <svg> DOM element) with the given name and namespace. The icon must have been previously registered with addIcon or addIconSet; if not, the Observable will throw an error.`},
+                {name: 'getSvgIconFromUrl(safeUrl: SafeResourceUrl)', summary: `Returns an Observable that produces the icon (as an <svg> DOM element) from the given URL. The response from the URL may be cached so this will not always cause an HTTP request, but the produced element will always be a new copy of the originally fetched icon. (That is, it will not contain any modifications made to elements previously returned).`},
+                {name: 'registerFontClassAlias(alias: string, className: string = alias)', summary: `Defines an alias for a CSS class name to be used for icon fonts. Creating an mdcIcon component with the alias as the fontSet input will cause the class name to be applied to the <mdc-icon> element.`},
+                {name: 'setDefaultFontSetClass(className: string)', summary: `Sets the CSS class name to be used for icon fonts when an <mdc-icon> component does not have a fontSet input value, and is not loading an icon by name or URL.`},
+              ]
+            },
+          ]
+        },
+        {
+          header: 'MdcIcon (Directive)',
+          selectors: [
+            'mdc-icon',
+            'mdcIcon',
+            'a[mdc-icon]',
+          ],
+          exportedAs: 'mdcIcon',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'fontSet: string', summary: `Font set that the icon is a part of.`},
+                {name: 'fontIcon: string', summary: `Name of an icon within a font set.`},
+                {name: 'svgIcon: string', summary: `Name of the icon in the SVG icon set.`},
+                {name: 'inline: boolean', summary: `Whether the icon should be inlined, automatically sizing the icon to match the font size of the element the icon is contained in.`},
+              ]
+            },
+            {
+              name: 'Interfaces',
+              summary: 'Options that can be used to configure how an icon or the icons in an icon set are presented.',
+              items: [
+                {name: 'viewBox: string', summary: `View box to set on the icon.`},
+              ]
+            },
+          ]
+        },
+      ]
+    };
+  }
+}
 
 @Component({templateUrl: './examples.html'})
 export class Examples {

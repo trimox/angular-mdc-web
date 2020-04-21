@@ -1,0 +1,27 @@
+@use '@material/data-table/_index' as data-table;
+
+.docs-api {
+  .section-header {
+    margin-top: 25px;
+  }
+
+  .section-selector__label {
+    padding-top: 7px;
+  }
+
+  .section-selectors {
+    margin-left: 7px;
+    margin-bottom: 7px;
+  }
+
+  .section-exportedAs {
+    padding-top: 7px;
+  }
+
+  .section-category {
+    .mdc-data-table__table {
+      max-width: 1200px;
+      white-space: initial;
+    }
+  }
+}

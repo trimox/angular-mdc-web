@@ -1,12 +1,11 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
-import {Api, Examples, Usage, Sass, Dialog} from './dialog';
+import {Api, Examples, Usage, Dialog} from './dialog';
 
 export const ROUTE_DECLARATIONS = [
   Api,
   Examples,
-  Sass,
   Usage,
   Dialog
 ];
@@ -18,7 +17,6 @@ const ROUTES: Routes = [
       {path: '', redirectTo: 'usage'},
       {path: 'usage', component: Usage},
       {path: 'api', component: Api},
-      {path: 'sass', component: Sass},
       {path: 'examples', component: Examples}
     ]
   }

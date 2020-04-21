@@ -1,12 +1,48 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
-import {ComponentViewer} from '../../shared/component-viewer';
+import {ComponentViewer, ComponentApi} from '../../shared/component-viewer';
 
-@Component({templateUrl: './api.html'})
-export class Api {}
+@Component({template: '<component-api></component-api>'})
+export class Api implements OnInit {
+  @ViewChild(ComponentApi, {static: true}) _componentApi: ComponentApi;
 
-@Component({templateUrl: './sass.html'})
-export class Sass {}
+  ngOnInit() {
+    this._componentApi.docApi = {
+      sections: [
+        {
+          header: 'MdcFab',
+          selectors: [
+            'button[mdc-fab]',
+            'a[mdc-fab]',
+          ],
+          exportedAs: 'mdcFab',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: `mini: boolean`, summary: `Make the fab smaller (40 x 40 pixels).`},
+                {name: `exited: boolean`, summary: `Animates the FAB in or out of view.`},
+                {name: `extended: boolean`, summary: `Modifies the FAB to wider size which includes a text label.`},
+                {name: `fluid: boolean`, summary: `Makes the Extended FAB fluid to container, such as screen width or the layout grid.`},
+                {name: `label: string`, summary: `Optional, for the text label. Applicable only for Extended FAB.`},
+                {name: `position: string`, summary: `Set the fab absolute position. Valid values: 'bottomLeft' | 'bottomRight'`},
+                {name: `icon: string`, summary: `Optional. Apply a Material Icon.`},
+                {name: `touch: boolean`, summary: `Set the mini fab touch target to 48 x 48 px. Only applies if FAB is set to mini as well.`},
+              ]
+            },
+            {
+              name: 'Methods',
+              items: [
+                {name: `toggleExited(exited?: boolean)`, summary: `Toggle the fab animation in and out.`},
+                {name: `focus()`, summary: `Focuses the button.`},
+              ]
+            },
+          ]
+        },
+      ]
+    };
+  }
+}
 
 @Component({template: '<component-viewer></component-viewer>'})
 export class Fab implements OnInit {
@@ -23,7 +59,10 @@ export class Fab implements OnInit {
         name: 'Material Components Web',
         url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-fab/README.md'
       }],
-      code: `import {MdcFabModule} from '@angular-mdc/web';`,
+      mdcUrls: [
+        {name: 'Sass Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-fab/README.md#sass-mixins'},
+      ],
+      code: `import {MdcFabModule} from '@angular-mdc/web/fab';`,
       sass: `@use '@material/fab/mdc-fab';
 @use '@material/fab';`
     };

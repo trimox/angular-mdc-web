@@ -1,0 +1,9 @@
+@use '@material/tab/_index' as tab;
+
+.viewer-mdc-urls {
+  margin-bottom: 7px;
+}
+
+.viewer-tab {
+  @include tab.fixed-width(300px);
+}

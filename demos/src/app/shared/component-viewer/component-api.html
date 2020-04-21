@@ -1,0 +1,36 @@
+<div class="docs-api" *ngFor="let section of docApi?.sections">
+  <div class="section-header" mdcHeadline6>{{section?.header}}</div>
+  <div *ngIf="section.summary">{{section?.summary}}</div>
+  <pre *ngIf="section?.summaryCode"><code highlight='{{section?.summaryCode}}'></code></pre>
+  <div *ngIf="section.selectors" class="section-selector__label">
+    <span mdcBody1>Selector:</span>
+    <div class="markdown-code section-selectors"
+      *ngFor="let selector of section?.selectors">{{selector}}</div>
+  </div>
+  <div *ngIf="section.exportedAs" mdcBody1 class="section-exportedAs">Exported
+    as: <span class="markdown-code">{{section?.exportedAs}}</span>
+  </div>
+
+  <div *ngFor="let category of section?.categories" class="section-category">
+    <h4 mdcSubtitle2>{{category?.name}}</h4>
+    <div mdcSubtitle1 *ngIf="category.summary">{{category?.summary}}</div>
+    <mdc-data-table>
+      <table mdcDataTableTable>
+        <thead>
+          <tr mdcDataTableHeaderRow>
+            <th mdcDataTableHeaderCell>Name</th>
+            <th mdcDataTableHeaderCell>Description</th>
+          </tr>
+        </thead>
+        <tbody mdcDataTableContent>
+          <tr mdcDataTableRow *ngFor="let item of category?.items">
+            <td mdcDataTableCell>{{item?.name}}</td>
+            <td mdcDataTableCell>{{item?.summary}}
+              <pre *ngIf="item?.summaryCode"><code highlight='{{item?.summaryCode}}'></code></pre>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mdc-data-table>
+  </div>
+</div>

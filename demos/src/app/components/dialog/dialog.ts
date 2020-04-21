@@ -2,7 +2,7 @@ import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {MdcDialog, MdcDialogRef, MDC_DIALOG_DATA, MdcDialogComponent} from '@angular-mdc/web/dialog';
-import {ComponentViewer} from '../../shared/component-viewer';
+import {ComponentViewer, ComponentApi} from '../../shared/component-viewer';
 
 export interface DialogData {
   first: string;
@@ -13,11 +13,137 @@ export interface DialogData {
 @Component({templateUrl: './usage.html'})
 export class Usage {}
 
-@Component({templateUrl: './api.html'})
-export class Api {}
+@Component({template: '<component-api></component-api>'})
+export class Api implements OnInit {
+  @ViewChild(ComponentApi, {static: true}) _componentApi: ComponentApi;
 
-@Component({templateUrl: './sass.html'})
-export class Sass {}
+  ngOnInit() {
+    this._componentApi.docApi = {
+      sections: [
+        {
+          header: 'MdcDialog (Service)',
+          summary: 'Service to open MDC dialogs.',
+          categories: [
+            {
+              name: 'Observables',
+              items: [
+                {name: `afterOpened: Observable<void>`, summary: `Gets an observable that is notified when the dialog is finished opening.`},
+                {name: `afterClosed: Observable<R | undefined>`, summary: 'Gets an observable that is notified when the dialog is finished closing.'},
+              ]
+            },
+            {
+              name: 'Methods',
+              items: [
+                {name: `close(dialogResult?: any)`, summary: `Closes the dialog with optional returned result.`},
+                {name: `open(component, config?: MdcDialogConfig)`, summary: 'Opens the dialog with optional configuration.'},
+              ]
+            },
+            {
+              name: 'MdcDialogConfig',
+              items: [
+                {name: `id: string`, summary: `ID for the dialog. If omitted, a unique one will be generated.`},
+                {name: `ariaLabel: string`, summary: 'Aria label to assign to the dialog element.'},
+                {name: `ariaDescribedBy: string`, summary: `ID of the element that describes the dialog.`},
+                {name: `clickOutsideToClose: boolean`, summary: `Close the dialog if user clicks on the backdrop. (Default: true)`},
+                {name: `escapeToClose: boolean`, summary: `Enable or disable close on escape key (Default: true).`},
+                {name: `scrollable: boolean`, summary: `Applied automatically when the dialog has overflowing content to warrant scrolling.`},
+                {name: `buttonsStacked: boolean`, summary: `Enable or disable the stacking of action buttons, if they can't fit on a single line.`},
+                {name: `autoFocus: boolean`, summary: `Whether the dialog should focus the first focusable element on open. (Default: true)`},
+                {name: `restoreFocus: boolean`, summary: `Whether the dialog should restore focus to the previously-focused element, after it's closed. (Default: true)`},
+                {name: `componentFactoryResolver?: ComponentFactoryResolver`, summary: `Allows for a different 'ComponentFactoryResolver' to be passed in when creating a dialog.`},
+                {name: `data: any`, summary: `Data that can be assigned inside child component.`},
+              ]
+            },
+          ]
+        },
+        {
+          header: 'MdcDialog (Directive)',
+          summary: 'Mandatory. The root DOM element containing the surface and the container.',
+          selectors: [
+            'mdc-dialog',
+          ],
+          exportedAs: 'mdcDialog',
+          categories: [
+            {
+              name: 'Methods',
+              items: [
+                {name: 'layout()', summary: 'Recalculates layout and automatically adds/removes modifier classes like --scrollable.'}
+              ]
+            }
+          ]
+        },
+        {
+          header: 'MdcDialogContainer',
+          summary: 'Mandatory. Wrapper element needed to ensure flexbox behavior in IE 11.',
+          selectors: [
+            'mdc-dialog-container',
+          ],
+          exportedAs: 'mdcDialogContainer',
+        },
+        {
+          header: 'MdcDialogSurface',
+          summary: `Mandatory. The bounding box for the dialog's content.`,
+          selectors: [
+            'mdc-dialog-surface',
+          ],
+          exportedAs: 'mdcDialogSurface',
+        },
+        {
+          header: 'MdcDialogTitle',
+          summary: `Mandatory. The bounding box for the dialog's content.`,
+          selectors: [
+            'mdc-dialog-title',
+            'mdcDialogTitle'
+          ],
+          exportedAs: 'mdcDialogTitle',
+        },
+        {
+          header: 'MdcDialogContent',
+          summary: 'Optional. Primary content area. May contain a list, a form, or prose.',
+          selectors: [
+            'mdc-dialog-content',
+            'mdcDialogContent'
+          ],
+          exportedAs: 'mdcDialogContent',
+        },
+        {
+          header: 'MdcDialogActions',
+          summary: `Optional. Footer area containing the dialog's action buttons.`,
+          selectors: [
+            'mdc-dialog-actions',
+            'mdcDialogActions'
+          ],
+          exportedAs: 'mdcDialogActions',
+        },
+        {
+          header: 'MdcDialogButton',
+          selectors: [
+            'button[mdcDialogButton]',
+            '[mdcDialogButton]'
+          ],
+          exportedAs: 'mdcDialogButton',
+          categories: [
+            {
+              name: 'Properties',
+              items: [
+                {name: 'default: boolean', summary: 'Indicates that this action button represents the default action.'}
+              ]
+            }
+          ]
+        },
+        {
+          header: 'MdcDialogAction',
+          summary: 'Optional. Any element within a dialog may include themdcDialogAction directive.',
+          selectors: [
+            'mdcDialogAction="close"',
+            'mdcDialogAction="accept"',
+          ],
+          exportedAs: 'mdcDialogAction',
+        },
+      ]
+    };
+  }
+}
 
 @Component({template: '<component-viewer></component-viewer>'})
 export class Dialog implements OnInit {
@@ -34,7 +160,10 @@ export class Dialog implements OnInit {
         name: 'Material Components Web',
         url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-dialog/README.md'
       }],
-      code: `import {MdcDialogModule} from '@angular-mdc/web';`,
+      mdcUrls: [
+        {name: 'Sass Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-dialog/README.md#sass-mixins'},
+      ],
+      code: `import {MdcDialogModule} from '@angular-mdc/web/dialog';`,
       sass: `@use '@material/dialog/mdc-dialog';
 @use '@material/dialog';`,
       tabs: [{

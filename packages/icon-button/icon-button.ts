@@ -1,5 +1,6 @@
 import {
   AfterContentInit,
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   ContentChildren,
@@ -56,7 +57,9 @@ export class MdcIconOn {}
     '[id]': 'id',
     'class': 'mdc-icon-button',
     '[class.mdc-icon-button--on]': 'on',
-    'attr.aria-pressed': 'false',
+    '[attr.aria-pressed]': '!!labelOn && !!labelOff ? undefined : "false"',
+    '[attr.data-aria-label-on]': 'labelOn',
+    '[attr.data-aria-label-off]': 'labelOff',
     '(click)': 'handleClick()'
   },
   template: `
@@ -70,8 +73,8 @@ export class MdcIconOn {}
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation> implements AfterContentInit,
-  ControlValueAccessor, OnDestroy, MDCRippleCapableSurface {
+export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation> implements
+  AfterContentInit, AfterViewInit, ControlValueAccessor, OnDestroy, MDCRippleCapableSurface {
   private _uniqueId: string = `mdc-icon-button-${++nextUniqueId}`;
 
   _root!: Element;
@@ -83,6 +86,12 @@ export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation> i
 
   @Input() name: string | null = null;
   @Input() icon: string | null = null;
+
+  /* Set aria label on state. */
+  @Input() labelOn?: string = undefined;
+
+  /* Set aria label off state. */
+  @Input() labelOff?: string = undefined;
 
   @Input()
   get on(): boolean {
@@ -115,10 +124,11 @@ export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation> i
 
   getDefaultFoundation() {
     const adapter: MDCIconButtonToggleAdapter = {
-      addClass: (className: string) => this._getHostElement().classList.add(className),
-      removeClass: (className: string) => this._getHostElement().classList.remove(className),
-      hasClass: (className: string) => this._getHostElement().classList.contains(className),
-      setAttr: (name: string, value: string) => this._getHostElement().setAttribute(name, value),
+      addClass: (className: string) => this._root.classList.add(className),
+      removeClass: (className: string) => this._root.classList.remove(className),
+      hasClass: (className: string) => this._root.classList.contains(className),
+      getAttr: (attrName: string) => this._root.getAttribute(attrName),
+      setAttr: (name: string, value: string) => this._root.setAttribute(name, value),
       notifyChange: (evtData: {isOn: boolean}) => {
         this.change.emit(new MdcIconButtonChange(this, evtData.isOn));
         this._onChange(this._foundation.isOn());
@@ -132,13 +142,17 @@ export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation> i
     public elementRef: ElementRef<HTMLElement>,
     public ripple: MdcRipple) {
     super(elementRef);
+
     this._root = this.elementRef.nativeElement;
     this.ripple = this._createRipple();
     this.ripple.init();
   }
 
-  ngAfterContentInit(): void {
+  ngAfterViewInit(): void {
     this._foundation.init();
+  }
+
+  ngAfterContentInit(): void {
     this._foundation.toggle(this._on || this._foundation.isOn());
     this._changeDetectorRef.detectChanges();
 
@@ -152,12 +166,9 @@ export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation> i
   }
 
   ngOnDestroy(): void {
-    if (this._changeSubscription) {
-      this._changeSubscription.unsubscribe();
-    }
-
-    this.ripple.destroy();
-    this._foundation.destroy();
+    this._changeSubscription?.unsubscribe();
+    this.ripple?.destroy();
+    this._foundation?.destroy();
   }
 
   writeValue(value: boolean): void {
@@ -187,8 +198,7 @@ export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation> i
   /** Sets the button disabled state */
   setDisabled(disabled: boolean): void {
     this._disabled = coerceBooleanProperty(disabled);
-    this.disabled ? this._getHostElement().setAttribute('disabled', '') :
-      this._getHostElement().removeAttribute('disabled');
+    this.disabled ? this._root.setAttribute('disabled', '') : this._root.removeAttribute('disabled');
     this._changeDetectorRef.markForCheck();
   }
 
@@ -207,9 +217,5 @@ export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation> i
       isUnbounded: () => true
     };
     return new MdcRipple(this.elementRef, new MDCRippleFoundation(adapter));
-  }
-
-  private _getHostElement(): HTMLElement {
-    return this.elementRef.nativeElement;
   }
 }

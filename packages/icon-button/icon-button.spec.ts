@@ -26,7 +26,7 @@ describe('MdcIconButton', () => {
     let buttonInstance: MdcIconButton;
     let testComponent: SimpleButton;
 
-    beforeEach(() => {
+    beforeEach(fakeAsync(() => {
       fixture = TestBed.createComponent(SimpleButton);
       fixture.detectChanges();
 
@@ -34,7 +34,7 @@ describe('MdcIconButton', () => {
       buttonNativeElement = buttonDebugElement.nativeElement;
       buttonInstance = buttonDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
-    });
+    }));
 
     it('#should have mdc-icon-button by default', () => {
       expect(buttonDebugElement.nativeElement.classList)
@@ -105,28 +105,6 @@ describe('MdcIconButton', () => {
       testComponent.isOn = false;
       fixture.detectChanges();
       expect(buttonInstance.on).toBe(false);
-    });
-  });
-
-  describe('Non toggle icon button behaviors', () => {
-    let buttonDebugElement: DebugElement;
-    let buttonNativeElement: HTMLButtonElement;
-    let buttonInstance: MdcIconButton;
-    let testComponent: SingleStateIconButton;
-
-    beforeEach(() => {
-      fixture = TestBed.createComponent(SingleStateIconButton);
-      fixture.detectChanges();
-
-      buttonDebugElement = fixture.debugElement.query(By.directive(MdcIconButton));
-      buttonNativeElement = buttonDebugElement.nativeElement;
-      buttonInstance = buttonDebugElement.componentInstance;
-      testComponent = fixture.debugElement.componentInstance;
-    });
-
-    it('#should handle click event', () => {
-      buttonNativeElement.click();
-      fixture.detectChanges();
     });
   });
 });

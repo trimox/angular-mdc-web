@@ -18,6 +18,19 @@
   @include icon-button.ink-color(theme.$secondary);
 }
 
-.demo-icon-button-large {
-  @include icon-button.size(36px);
+//
+// Density
+//
+
+.demo-density-icon-button-1 {
+  @include icon-button.density(-1);
 }
+
+.demo-density-icon-button-2 {
+  @include icon-button.density(-2);
+}
+
+.demo-density-icon-button-3 {
+  @include icon-button.density(-3);
+}
+

@@ -31,8 +31,8 @@ export class Select implements OnInit {
       }],
       mdcUrls: [
         {name: 'Sass Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-select/README.md#sass-mixins'},
-        {name: 'Helper Text Mixins', url: 'https://github.com/material-components/material-components-web/tree/master/packages/mdc-select/helper-text#sass-mixins'},
-        {name: 'Icon Mixins', url: 'https://github.com/material-components/material-components-web/tree/master/packages/mdc-select/icon#sass-mixins'},
+        {name: 'Helper Text Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-select/helper-text/README.md#sass-mixins'},
+        {name: 'Icon Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-select/icon/README.md#sass-mixins'},
       ],
       code: `import {MdcSelectModule} from '@angular-mdc/web/select';`,
       sass: `@use '@material/select/mdc-select';

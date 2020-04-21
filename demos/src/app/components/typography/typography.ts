@@ -18,7 +18,7 @@ export class Typography implements OnInit {
         url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-typography/README.md'
       }],
       mdcUrls: [
-        {name: 'Sass Mixins', url: 'https://github.com/material-components/material-components-web/tree/master/packages/mdc-typography#style-customization'},
+        {name: 'Sass Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-typography/README.md#style-customization'},
       ],
       code: `import {MdcTypographyModule} from '@angular-mdc/web/typography';`,
       sass: `@use '@material/typography/mdc-typography';

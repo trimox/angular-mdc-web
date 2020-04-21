@@ -33,9 +33,9 @@ export class TextField implements OnInit {
       }],
       mdcUrls: [
         {name: 'Sass Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-textfield/README.md#sass-mixins'},
-        {name: 'Character Counter Mixins', url: 'https://github.com/material-components/material-components-web/tree/master/packages/mdc-textfield/character-counter#sass-mixins'},
-        {name: 'Helper Text Mixins', url: 'https://github.com/material-components/material-components-web/tree/master/packages/mdc-textfield/helper-text#sass-mixins'},
-        {name: 'Icon Mixins', url: 'https://github.com/material-components/material-components-web/tree/master/packages/mdc-textfield/icon#sass-mixins'},
+        {name: 'Character Counter Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-textfield/character-counter/README.md#sass-mixins'},
+        {name: 'Helper Text Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-textfield/helper-text/README.md#sass-mixins'},
+        {name: 'Icon Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-textfield/icon/README.md#sass-mixins'},
       ],
       code: `import {MdcTextFieldModule} from '@angular-mdc/web/textfield';`,
       sass: `@use '@material/textfield/mdc-text-field';

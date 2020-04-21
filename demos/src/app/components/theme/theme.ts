@@ -20,12 +20,12 @@ export class Theme implements OnInit {
         url: 'https://material.io/design/material-theming/overview.html#material-theming'
       }, {
         name: 'Material Components Web',
-        url: 'https://github.com/material-components/material-components-web/tree/master/packages/mdc-theme'
+        url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-theme/README.md'
       }],
       sass: `@use '@material/theme';`,
       mdcUrls: [
-        {name: 'Usage', url: 'https://github.com/material-components/material-components-web/tree/master/packages/mdc-theme#usage'},
-        {name: 'Color Palette', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-theme/_color-palette.scss'},
+        {name: 'Usage', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-theme/README.md#usage'},
+        {name: 'Color Palette', url: 'https://raw.githubusercontent.com/material-components/material-components-web/master/packages/mdc-theme/_color-palette.scss'},
       ],
       tabs: [],
     };

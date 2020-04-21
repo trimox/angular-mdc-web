@@ -21,7 +21,7 @@ export class Radio implements OnInit {
         url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-radio/README.md'
       }],
       mdcUrls: [
-        {name: 'Sass Mixins', url: 'https://github.com/material-components/material-components-web/tree/master/packages/mdc-radio#style-customization'},
+        {name: 'Sass Mixins', url: 'https://github.com/material-components/material-components-web/blob/master/packages/mdc-radio/README.md#style-customization'},
       ],
       code: `import {MdcRadioModule} from '@angular-mdc/web/radio';`,
       sass: `@use '@material/radio/mdc-radio';

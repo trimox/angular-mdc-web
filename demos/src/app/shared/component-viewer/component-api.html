@@ -2,7 +2,7 @@
   <div class="section-header" mdcHeadline6>{{section?.header}}</div>
   <div *ngIf="section.summary">{{section?.summary}}</div>
   <pre *ngIf="section?.summaryCode"><code highlight='{{section?.summaryCode}}'></code></pre>
-  <div *ngIf="section.selectors">
+  <div *ngIf="section.selectors" class="section-selector__label">
     <span mdcBody1>Selector:</span>
     <div class="markdown-code section-selectors"
       *ngFor="let selector of section?.selectors">{{selector}}</div>

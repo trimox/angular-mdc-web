@@ -23,7 +23,7 @@
       <pre *ngIf="template.sass"><code [highlight]="template.sass"></code></pre>
     </div>
 
-    <div *ngFor="let mdcUrl of template.mdcUrls">
+    <div *ngFor="let mdcUrl of template.mdcUrls" class="viewer-mdc-urls">
       <a mdc-button href="{{mdcUrl.url}}" target="_blank" rel="noopener">
         <mdc-icon>link</mdc-icon>
         {{mdcUrl.name}}

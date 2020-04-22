@@ -27,4 +27,7 @@ export class MdcTextarea extends MdcTextField {
   @Input() cols?: number;
 
   @ViewChild(MdcCharacterCounter, {static: false}) _characterCounterElement!: MdcCharacterCounter;
+
+  /* Required outlined modifier for textarea */
+  @Input() outlined = true;
 }

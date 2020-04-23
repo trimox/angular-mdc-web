@@ -17,9 +17,7 @@
       'Off'}}</button>
   </div>
   <mdc-text-field #standard label="Standard" name="txt-field-standard" required
-    [helperText]="standardHelper"></mdc-text-field>
-  <mdc-helper-text #standardHelper validation persistent>Helper Text
-  </mdc-helper-text>
+    helper="Helper text" helperPersistent></mdc-text-field>
   <example-viewer [example]="exampleStandard"></example-viewer>
 </div>
 
@@ -52,19 +50,9 @@
     #formDirective="ngForm">
     <mdc-form-field>
       <mdc-text-field #demoformInput formControlName="username" label="Username"
-        outlined [errorStateMatcher]="matcher">
+        outlined [errorStateMatcher]="matcher"
+        [validationMessage]="validationMessage">
       </mdc-text-field>
-      <mdc-helper-text validation>
-        <span
-          *ngIf="demoForm.controls['username'].hasError('required')">Username
-          is required</span>
-        <span
-          *ngIf="demoForm.controls['username'].hasError('minlength')">Username
-          is not long enough</span>
-        <span
-          *ngIf="demoForm.controls['username'].hasError('maxlength')">Username
-          is max length is 11</span>
-      </mdc-helper-text>
     </mdc-form-field>
     <div class="demo-layout__row">
       <button mdc-button type="submit">Submit</button>
@@ -97,11 +85,9 @@
     (ngSubmit)="submit(demoWeightForm)">
     <mdc-form-field>
       <mdc-text-field #demoweight type="number" name="demoweight" label="Weight"
-        ngModel #demoWeightModel="ngModel" required>
+        ngModel #demoWeightModel="ngModel" required
+        validationMessage="Field is required">
       </mdc-text-field>
-      <mdc-helper-text validation>
-        <span *ngIf="!demoweight?.value">Weight is required</span>
-      </mdc-helper-text>
     </mdc-form-field>
   </form>
   <div class="demo-layout__row">
@@ -156,56 +142,40 @@
   <h3 class="demo-content__headline">Character Counter</h3>
   <div class="demo-layout__row">
     <mdc-form-field>
-      <mdc-text-field label="Standard" characterCounter maxlength="10">
+      <mdc-text-field label="Standard" charCounter maxlength="10">
       </mdc-text-field>
-      <mdc-helper-text></mdc-helper-text>
     </mdc-form-field>
 
     <mdc-form-field>
-      <mdc-text-field outlined characterCounter label="Standard" maxlength="10">
+      <mdc-text-field outlined charCounter label="Standard" maxlength="10">
       </mdc-text-field>
-      <mdc-helper-text persistent>Helper Text
-      </mdc-helper-text>
     </mdc-form-field>
   </div>
   <example-viewer [example]="exampleCharacterCounter"></example-viewer>
 </div>
 
 <div class="demo-content">
-  <h3 class="demo-content__headline">Textarea - Character Counter</h3>
-  <mdc-textarea label="Comments" rows="8" cols="40" required maxlength="140"
-    [helperText]="taCounterHelper" characterCounter></mdc-textarea>
-  <mdc-helper-text #taCounterHelper validation>Helper Text</mdc-helper-text>
-  <example-viewer [example]="exampleTACounter"></example-viewer>
-</div>
-
-<div class="demo-content">
   <h3 class="demo-content__headline">No Label</h3>
   <div class="demo-layout__row">
     <mdc-form-field>
-      <mdc-text-field></mdc-text-field>
-      <mdc-helper-text persistent>Helper Text
-      </mdc-helper-text>
+      <mdc-text-field helper="Helper text"></mdc-text-field>
     </mdc-form-field>
 
     <mdc-form-field>
-      <mdc-text-field outlined></mdc-text-field>
-      <mdc-helper-text persistent>Helper Text
-      </mdc-helper-text>
-    </mdc-form-field>
-
-    <mdc-form-field>
-      <mdc-text-field outlined class="demo-shaped-text-field--outline">
+      <mdc-text-field outlined helper="Helper text" helperPersistent>
       </mdc-text-field>
-      <mdc-helper-text persistent>Helper Text
-      </mdc-helper-text>
+    </mdc-form-field>
+
+    <mdc-form-field>
+      <mdc-text-field outlined class="demo-shaped-text-field--outline"
+        helper="Helper text" helperPersistent>
+      </mdc-text-field>
     </mdc-form-field>
   </div>
 
   <mdc-form-field>
-    <mdc-text-field outlined required></mdc-text-field>
-    <mdc-helper-text validation>Required with no label
-    </mdc-helper-text>
+    <mdc-text-field outlined required helper="Required with no label">
+    </mdc-text-field>
   </mdc-form-field>
   <example-viewer [example]="exampleNoLabel"></example-viewer>
 </div>
@@ -220,10 +190,7 @@
   </div>
   <mdc-form-field>
     <mdc-text-field #demoValue label="Enter value" [value]="demoInputValue"
-      required></mdc-text-field>
-    <mdc-helper-text validation>
-      <span *ngIf="!demoValue?.value">Field is required</span>
-    </mdc-helper-text>
+      required validationMessage="Field is required"></mdc-text-field>
   </mdc-form-field>
   <div class="demo-layout__row">
     <button mdc-button (click)="demoValue.value = null">Reset value</button>
@@ -361,47 +328,5 @@
       Colors</button>
   </div>
   <mdc-text-field #demofullwidth label="Subject" fullwidth></mdc-text-field>
-
   <example-viewer [example]="exampleFullWithSingleLine"></example-viewer>
-</div>
-
-<div class="demo-content">
-  <h3 class="demo-content__headline">Textarea</h3>
-  <div class="demo-layout__row">
-    <button mdc-button
-      (click)="comments.disabled = !comments.disabled">Disabled:
-      {{comments.disabled ? 'On' :
-      'Off'}}</button>
-    <button mdc-button
-      (click)="comments.required = !comments.required">Required:
-      {{comments.required ? 'On' :
-      'Off'}}</button>
-    <button mdc-button (click)="alternateColors(comments)">Alternate
-      Colors</button>
-  </div>
-  <mdc-textarea #comments label="Comments" rows="8" cols="40" required
-    [helperText]="commentsHelper"></mdc-textarea>
-  <mdc-helper-text #commentsHelper validation>Helper Text</mdc-helper-text>
-  <example-viewer [example]="exampleTextarea"></example-viewer>
-</div>
-
-<div class="demo-content">
-  <h3 class="demo-content__headline">Full Width Textarea</h3>
-  <div class="demo-layout__row">
-    <button mdc-button
-      (click)="demotextarea.disabled = !demotextarea.disabled">Disabled:
-      {{demotextarea.disabled ?
-      'On' : 'Off'}}</button>
-    <button mdc-button
-      (click)="demotextarea.required = !demotextarea.required">Required:
-      {{demotextarea.required ?
-      'On' : 'Off'}}</button>
-    <button mdc-button (click)="alternateColors(demotextarea)">Alternate
-      Colors</button>
-  </div>
-  <mdc-textarea #demotextarea label="Type your message here" fullwidth required
-    rows="8" [helperText]="fullWidthHelper"></mdc-textarea>
-  <mdc-helper-text #fullWidthHelper validation>Helper Text</mdc-helper-text>
-
-  <example-viewer [example]="exampleFullWidth"></example-viewer>
 </div>

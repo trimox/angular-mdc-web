@@ -1,0 +1,68 @@
+<div class="demo-content">
+  <h3 class="demo-content__headline">Textarea</h3>
+  <div class="demo-layout__row">
+    <button mdc-button
+      (click)="comments.disabled = !comments.disabled">Disabled:
+      {{comments.disabled ? 'On' :
+      'Off'}}</button>
+    <button mdc-button
+      (click)="comments.required = !comments.required">Required:
+      {{comments.required ? 'On' :
+      'Off'}}</button>
+    <button mdc-button (click)="alternateColors(comments)">Alternate
+      Colors</button>
+    <button mdc-button (click)="comments.endAligned = !comments.endAligned">End
+      Aligned:
+      {{comments.endAligned ? 'On' :
+      'Off'}}</button>
+  </div>
+  <mdc-textarea #comments label="Comments" rows="4" cols="40" required
+    helper="Helper text" validationMessage="Comments are required">
+  </mdc-textarea>
+  <example-viewer [example]="exampleTextarea"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Textarea - Character Counter</h3>
+  <div class="demo-content--block">
+    <mdc-textarea label="Comments" rows="2" cols="20" required maxlength="18"
+      charCounter></mdc-textarea>
+  </div>
+  <example-viewer [example]="exampleCounter"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Textarea - Character Counter w/Helper Text
+  </h3>
+  <div class="demo-content--block">
+    <mdc-textarea label="Comments" rows="2" cols="20" required maxlength="40"
+      helper="Helper text" charCounter></mdc-textarea>
+  </div>
+  <example-viewer [example]="exampleCounterWithHelper"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Textarea - No label</h3>
+  <mdc-textarea rows="2" cols="20"></mdc-textarea>
+  <example-viewer [example]="exampleNoLabel"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Full Width Textarea</h3>
+  <div class="demo-layout__row">
+    <button mdc-button
+      (click)="demotextarea.disabled = !demotextarea.disabled">Disabled:
+      {{demotextarea.disabled ?
+      'On' : 'Off'}}</button>
+    <button mdc-button
+      (click)="demotextarea.required = !demotextarea.required">Required:
+      {{demotextarea.required ?
+      'On' : 'Off'}}</button>
+    <button mdc-button (click)="alternateColors(demotextarea)">Alternate
+      Colors</button>
+  </div>
+  <mdc-textarea #demotextarea label="Type your message here" fullwidth required
+    rows="4" helper="Helper text" validationMessage="Message required">
+  </mdc-textarea>
+  <example-viewer [example]="exampleFullWidth"></example-viewer>
+</div>

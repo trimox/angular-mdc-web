@@ -1,20 +1,19 @@
-.example-divider {
-  margin-top: 5px;
-}
-
 .example-opener {
-  display: flex;
+  display: block;
   margin-top: 20px;
-  background-color: #344955 !important;
 }
 
-.example-container {
+.example-code-container {
   position: relative;
+  display: inline-block;
 }
 
-.example-copy-button {
+.example-code-container__buttons {
   position: absolute;
   right: 0;
-  top: 0;
-  color: #000000;
+  top: -35px;
+
+  .mdc-icon-button {
+    opacity: 50%;
+  }
 }

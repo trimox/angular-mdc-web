@@ -44,6 +44,7 @@ export class AppComponent implements OnInit {
     {name: 'Snackbar', route: 'snackbar'},
     {name: 'Switch', route: 'switch'},
     {name: 'Tabs', route: 'tabs'},
+    {name: 'Textarea', route: 'textarea'},
     {name: 'Text Field', route: 'text-field'},
     {name: 'Top App Bar', route: 'top-app-bar'}
   ];

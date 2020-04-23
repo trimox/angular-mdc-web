@@ -60,10 +60,9 @@ export class Api implements OnInit {
 
 @Component({templateUrl: './examples.html'})
 export class Examples {
-  example1 = {
+  exampleFluid = {
     html: `<mdc-form-field fluid>
-  <mdc-text-field label="First name" outlined required></mdc-text-field>
-  <mdc-helper-text persistent validation>*Required</mdc-helper-text>
+  <mdc-text-field label="First name" outlined></mdc-text-field>
 </mdc-form-field>`
   };
 

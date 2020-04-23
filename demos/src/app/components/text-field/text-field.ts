@@ -63,7 +63,10 @@ export class Api implements OnInit {
               name: 'Properties',
               items: [
                 {name: 'id: string', summary: `Unique id of the element.`},
-                {name: `type: string = 'text'`, summary: `Input type of textfield (e.g.: email, password, date, color).`},
+                {
+                  name: `type: TextFieldType`, summary: `String specifying the type of control to render.`,
+                  summaryCode: `type TextFieldType = 'text' | 'search' | 'tel' | 'url' | 'email' | 'password' |
+  'date' | 'month' | 'week' | 'time' | 'datetime-local' | 'number' | 'color';`},
                 {name: 'name: string', summary: `Name of the textfield.`},
                 {name: 'label: string', summary: `Shown to the user when there's no focus or values.`},
                 {name: 'value: string', summary: `The input element's value.`},
@@ -75,16 +78,18 @@ export class Api implements OnInit {
                 {name: 'readonly: boolean', summary: `Whether or not the textfield value is editable.`},
                 {name: 'required: boolean', summary: `Whether the element is required.`},
                 {
-                  name: 'characterCounter: boolean', summary: `Character counter is used if there is a character limit. It displays the ratio of characters used and the total character limit.
-                maxlength is required on MdcTextField.`},
+                  name: 'charCounter: boolean', summary: `Character counter is used if there is a character limit. It displays the ratio of characters used and the total character limit.
+                Requires *maxlength* to be set.`},
                 {name: 'useNativeValidation: boolean', summary: `Sets whether to check native HTML validity state (true, default) or custom validity state when updating styles (false).`},
                 {name: 'valid: boolean', summary: `Updates input validity styling using passed value.`},
                 {name: 'empty: boolean', summary: `Returns whether the control is empty.`},
                 {name: 'endAligned: boolean', summary: `Styles the text field with an end-aligned input.`},
                 {name: 'ltrText: boolean', summary: `Styles the text field's text elements (input, prefix, and suffix) as LTR even when the direction is RTL. Useful for RTL languages that use LTR for fractional notations.`},
                 {
-                  name: 'inputmode: string', summary: `Provides a hint to browsers for devices with onscreen keyboards to help them decide which keyboard to display.
-                'verbatim' | 'latin' | 'latin-name' | 'latin-prose' | 'full-width-latin' | 'kana' | 'kana-name' | 'katakana' | 'numeric' | 'tel' | 'email' | 'url'`},
+                  name: 'inputmode: TextFieldInputMode', summary: `Provides a hint to browsers for devices with onscreen keyboards to help them decide which keyboard to display.`,
+                  summaryCode: `type TextFieldInputMode =
+  'verbatim' | 'latin' | 'latin-name' | 'latin-prose' | 'full-width-latin' | 'kana' |
+  'kana-name' | 'katakana' | 'numeric' | 'tel' | 'email' | 'url';`},
                 {name: 'autocomplete: string', summary: `Indicates if the input can be automatically completed by the browser, usually by remembering previous values the user has entered.`},
                 {name: 'tabIndex: number', summary: `Tab index of the text element.`},
                 {name: 'pattern: string', summary: `Regular expression that the control's value is checked against.`},
@@ -94,7 +99,9 @@ export class Api implements OnInit {
                 {name: 'min: number', summary: `The minimum numeric value for this input, which must not be greater than its maximum (max attribute) value.`},
                 {name: 'step: number', summary: `Works with the min and max attributes to limit the increments at which a numeric or date-time value can be set.`},
                 {name: 'size: number', summary: `The initial size of the control.`},
-                {name: 'helperText: MdcHelperText', summary: `Reference to related MdcHelperText`},
+                {name: 'helper: string', summary: `Helper text to display below the input when focused.`},
+                {name: 'helperPersistent: boolean', summary: 'Always show the helper text despite focus.'},
+                {name: 'validationMessage: string', summary: 'Message to show in the error color when the textfield is invalid. (Helper text will not be visible)'},
               ]
             },
             {
@@ -110,30 +117,6 @@ export class Api implements OnInit {
                 {name: 'blur(value)', summary: `Emitted whenever the input loses focus.`},
                 {name: 'input(value)', summary: `Emitted synchronously when the value has been altered.`},
                 {name: 'focus(boolean)', summary: `Emitted when the input gains or loses focus.`},
-              ]
-            },
-          ]
-        },
-        {
-          header: 'MdcHelperText',
-          selectors: [
-            'mdc-helper-text',
-            'mdcHelperText',
-          ],
-          exportedAs: 'mdcHelperText',
-          categories: [
-            {
-              name: 'Properties',
-              items: [
-                {name: 'validation: boolean', summary: `Help text can be used to provide additional validation messages.`},
-                {name: 'persistent: boolean', summary: `Help text will always be visible.`},
-              ]
-            },
-            {
-              name: 'Methods',
-              items: [
-                {name: 'showToScreenReader()', summary: `Makes the helper text visible to the screen reader.`},
-                {name: 'setValidity(inputIsValid: boolean)', summary: `Sets the validity of the helper text.`},
               ]
             },
           ]
@@ -167,7 +150,8 @@ export class Api implements OnInit {
               items: [
                 {name: 'rows: number', summary: `Number of rows for this textarea.`},
                 {name: 'cols: number', summary: `Number of columns for this textarea.`},
-                {name: 'characterCounter: boolean', summary: `Character counter is used if there is a character limit. It displays the ratio of characters used and the total character limit.
+                {
+                  name: 'characterCounter: boolean', summary: `Character counter is used if there is a character limit. It displays the ratio of characters used and the total character limit.
                 maxlength is required on MdcTextArea.`},
               ]
             },
@@ -236,6 +220,17 @@ export class Examples {
     }
   }
 
+  get validationMessage(): string {
+    if (this.demoForm.controls['username'].hasError('minlength')) {
+      return 'Username is not long enough';
+    } else if (this.demoForm.controls['username'].hasError('maxlength')) {
+      return 'Username is max length is 11';
+    } else if (this.demoForm.controls['username'].hasError('required')) {
+      return 'Field is required';
+    }
+    return undefined;
+  }
+
   resetForm(formDirective: FormGroupDirective) {
     formDirective.resetForm();
     this.demoForm.reset();
@@ -268,11 +263,8 @@ export class Examples {
   //
 
   exampleStandard = {
-    html: `<mdc-text-field label="Standard"
-  name="txt-field-standard"
-  required
-  [helperText]="standardHelper"></mdc-text-field>
-<mdc-helper-text #standardHelper validation persistent>Helper Text</mdc-helper-text>`
+    html: `<mdc-text-field label="Standard" name="txt-field-standard" required
+  helper="Helper text" helperPersistent>`
   };
 
   exampleEvents = {
@@ -301,12 +293,8 @@ onFocus(focused: boolean): void {
     html: `<form [formGroup]="demoForm" (ngSubmit)="submit(demoForm)" #formDirective="ngForm">
   <mdc-form-field>
     <mdc-text-field formControlName="username" label="Username" outlined
-      [errorStateMatcher]="matcher"></mdc-text-field>
-    <mdc-helper-text validation>
-      <span *ngIf="demoForm.controls['username'].hasError('required')">Username is required</span>
-      <span *ngIf="demoForm.controls['username'].hasError('minlength')">Username is not long enough</span>
-      <span *ngIf="demoForm.controls['username'].hasError('maxlength')">Username is max length is 11</span>
-    </mdc-helper-text>
+      [errorStateMatcher]="matcher"
+      [validationMessage]="validationMessage"></mdc-text-field>
   </mdc-form-field>
   <div class="demo-layout__row">
     <button mdc-button type="submit">Submit</button>
@@ -341,6 +329,17 @@ demoForm = new FormGroup({
     ])
 });
 
+get validationMessage(): string {
+  if (this.demoForm.controls['username'].hasError('minlength')) {
+    return 'Username is not long enough';
+  } else if (this.demoForm.controls['username'].hasError('maxlength')) {
+    return 'Username is max length is 11';
+  } else if (this.demoForm.controls['username'].hasError('required')) {
+    return 'Field is required';
+  }
+  return undefined;
+}
+
 submit(f: NgForm | FormGroup) {
   if (f.invalid) {
     return;
@@ -357,10 +356,7 @@ resetForm(formDirective: FormGroupDirective) {
     html: `<form #demoWeightForm="ngForm" id="demoWeightForm" (ngSubmit)="submit(demoWeightForm)">
   <mdc-form-field>
     <mdc-text-field type="number" name="demoweight" label="Weight" ngModel #demoWeightModel="ngModel"
-      required></mdc-text-field>
-    <mdc-helper-text validation>
-      <span *ngIf="!demoweight?.value">Weight is required</span>
-    </mdc-helper-text>
+      required validationMessage="Field is required"></mdc-text-field>
   </mdc-form-field>
 </form>
 
@@ -376,10 +372,8 @@ resetForm(formDirective: FormGroupDirective) {
 
   exampleUsingValue = {
     html: `<mdc-form-field>
-  <mdc-text-field #demoValue label="Enter value" [value]="demoInputValue" required></mdc-text-field>
-  <mdc-helper-text validation>
-    <span *ngIf="!demoValue?.value">Field is required</span>
-  </mdc-helper-text>
+  <mdc-text-field #demoValue label="Enter value" [value]="demoInputValue"
+   required validationMessage="Field is required"></mdc-text-field>
 </mdc-form-field>
 
 <button mdc-button (click)="demoValue.value = null">Reset value</button>
@@ -440,9 +434,7 @@ constructor(iconRegistry: MdcIconRegistry, sanitizer: DomSanitizer) {
 
   exampleShape = {
     html: `<mdc-text-field label="Standard" required class="demo-text-field-custom-colors"></mdc-text-field>
-
 <mdc-text-field label="Standard" class="demo-shaped-text-field"></mdc-text-field>
-
 <mdc-text-field label="Standard" outlined class="demo-shaped-text-field--outline"></mdc-text-field>`,
     sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_text-field.scss`
   };
@@ -488,23 +480,20 @@ waypoint = new Directions();`
 
   exampleNoLabel = {
     html: `<mdc-form-field>
-  <mdc-text-field></mdc-text-field>
-  <mdc-helper-text persistent>Helper Text</mdc-helper-text>
+  <mdc-text-field helper="Helper text"></mdc-text-field>
 </mdc-form-field>
 
 <mdc-form-field>
-  <mdc-text-field outlined></mdc-text-field>
-  <mdc-helper-text persistent>Helper Text</mdc-helper-text>
+  <mdc-text-field outlined helper="Helper text" helperPersistent></mdc-text-field>
 </mdc-form-field>
 
 <mdc-form-field>
-  <mdc-text-field outlined class="demo-shaped-text-field--outline"></mdc-text-field>
-  <mdc-helper-text persistent>Helper Text</mdc-helper-text>
+  <mdc-text-field outlined class="demo-shaped-text-field--outline"
+  helper="Helper text" helperPersistent></mdc-text-field>
 </mdc-form-field>
 
 <mdc-form-field>
-  <mdc-text-field outlined required></mdc-text-field>
-  <mdc-helper-text validation>Required with no label</mdc-helper-text>
+  <mdc-text-field outlined required helper="Required with no label"></mdc-text-field>
 </mdc-form-field>
 `,
     sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_text-field.scss`
@@ -512,35 +501,13 @@ waypoint = new Directions();`
 
   exampleCharacterCounter = {
     html: `<mdc-form-field>
-  <mdc-text-field label="Standard" characterCounter maxlength="10">
+  <mdc-text-field label="Standard" charCounter maxlength="10">
   </mdc-text-field>
-  <mdc-helper-text></mdc-helper-text>
 </mdc-form-field>
 
 <mdc-form-field>
-  <mdc-text-field outlined characterCounter label="Standard" maxlength="10">
+  <mdc-text-field outlined charCounter label="Standard" maxlength="10">
   </mdc-text-field>
-  <mdc-helper-text persistent>Helper Text
-  </mdc-helper-text>
 </mdc-form-field>`
-  };
-
-  exampleTACounter = {
-    html: `<mdc-textarea label="Comments" characterCounter maxlength="140"
-  [helperText]="taCounterHelper" rows="8" cols="40"></mdc-textarea>
-<mdc-helper-text #taCounterHelper validation>Helper Text</mdc-helper-text>`
-  };
-
-  exampleTextarea = {
-    html: `<mdc-textarea label="Comments" rows="8" cols="40" required [helperText]="commentsHelper"></mdc-textarea>
-<mdc-helper-text #commentsHelper validation>Helper Text</mdc-helper-text>`,
-    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_text-field.scss`
-  };
-
-  exampleFullWidth = {
-    html: `<mdc-textarea label="Type your message here" fullwidth required rows="8"
-  [helperText]="fullWidthHelper"></mdc-textarea>
-<mdc-helper-text #fullWidthHelper validation>Helper Text</mdc-helper-text>`,
-    sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_text-field.scss`
   };
 }

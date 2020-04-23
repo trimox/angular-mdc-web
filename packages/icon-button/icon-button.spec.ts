@@ -14,7 +14,6 @@ describe('MdcIconButton', () => {
       declarations: [
         SimpleButton,
         IconButtonToggle,
-        SingleStateIconButton
       ]
     });
     TestBed.compileComponents();
@@ -45,19 +44,6 @@ describe('MdcIconButton', () => {
       testComponent.disabled = true;
       fixture.detectChanges();
       expect(buttonInstance.disabled).toBe(true);
-    });
-
-    it('#should set toggle state to true', () => {
-      buttonInstance.toggle(true);
-      fixture.detectChanges();
-      expect(buttonInstance.on).toBe(true);
-    });
-
-    it('#should set toggle state to true', () => {
-      buttonInstance.toggle();
-      buttonNativeElement.focus();
-      fixture.detectChanges();
-      expect(buttonInstance.on).toBe(true);
     });
 
     it('#should handle click event', () => {
@@ -143,11 +129,3 @@ class SimpleButton {
 class IconButtonToggle {
   isOn: boolean = true;
 }
-
-@Component({
-  template: `
-  <button mdcIconButton>
-    <mdc-icon>favorite</mdc-icon>
-  </button>`,
-})
-class SingleStateIconButton {}

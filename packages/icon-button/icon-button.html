@@ -1,0 +1,6 @@
+<mdc-icon *ngIf="icon">{{icon}}</mdc-icon>
+<mdc-icon class="mdc-icon-button__icon" mdcIconOn *ngIf="!!onIcon && on">
+  {{onIcon}}</mdc-icon>
+<mdc-icon class="mdc-icon-button__icon" *ngIf="!!offIcon && !on">
+  {{offIcon}}</mdc-icon>
+<ng-content></ng-content>

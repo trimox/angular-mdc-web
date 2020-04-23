@@ -40,7 +40,7 @@ export class TextField implements OnInit {
       code: `import {MdcTextFieldModule} from '@angular-mdc/web/textfield';`,
       sass: `@use '@material/textfield/mdc-text-field';
 @use '@material/textfield/_index' as textfield;
-@use '@material/form-field/mdc-form-field';`
+@use '@material/form-field/_index' as form-field;`
     };
   }
 }

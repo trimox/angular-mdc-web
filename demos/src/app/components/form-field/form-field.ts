@@ -18,7 +18,7 @@ export class FormField implements OnInit {
       }],
       code: `import {MdcFormFieldModule} from '@angular-mdc/web/form-field';`,
       sass: `@use '@material/form-field/mdc-form-field';
-@use '@material/form-field';`,
+@use '@material/form-field/_index' as form-field;`,
       tabs: [{
         label: 'Api',
         route: './api'
@@ -49,6 +49,7 @@ export class Api implements OnInit {
               items: [
                 {name: 'fluid: boolean', summary: `Width expands and contracts as the screen size changes.`},
                 {name: 'alignEnd: boolean', summary: 'Position the input after the label.'},
+                {name: 'nowrap: boolean', summary: 'Force label text to stay on a single line and ellipse the overflow text.'},
               ]
             },
           ]

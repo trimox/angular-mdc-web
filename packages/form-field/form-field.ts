@@ -20,10 +20,10 @@ import {MdcFormFieldControl} from './form-field-control';
   exportAs: 'mdcFormField',
   host: {
     '[class.ngx-mdc-form-field--fluid]': 'fluid',
-    '[class.mdc-form-field--align-end]': 'alignEnd'
+    '[class.mdc-form-field--align-end]': 'alignEnd',
+    '[class.mdc-form-field--nowrap]': 'nowrap',
   },
-  template: `<ng-content></ng-content>
-  <ng-content select="[mdcHelperText, mdc-helper-text]"></ng-content>`,
+  templateUrl: 'form-field.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -50,6 +50,15 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
     this._alignEnd = coerceBooleanProperty(value);
   }
   private _alignEnd = false;
+
+  @Input()
+  get nowrap(): boolean {
+    return this._nowrap;
+  }
+  set nowrap(value: boolean) {
+    this._nowrap = coerceBooleanProperty(value);
+  }
+  private _nowrap = false;
 
   @ContentChild(MdcFormFieldControl, {static: false}) _control!: MdcFormFieldControl<any>;
 

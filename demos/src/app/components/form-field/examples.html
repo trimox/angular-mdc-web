@@ -1,20 +1,54 @@
 <div class="demo-content">
-  <h3 class="demo-content__headline">Text Field - Fluid</h3>
+  <h3 class="demo-content__headline">Fluid</h3>
   <div class="demo-layout__row">
     <button mdc-button (click)="demoFluid.fluid = !demoFluid.fluid">Fluid: {{demoFluid.fluid ? 'On' :
       'Off'}}</button>
   </div>
   <mdc-form-field #demoFluid fluid>
-    <mdc-text-field label="First name" outlined></mdc-text-field>
+    <mdc-text-field label="Fluid example"></mdc-text-field>
   </mdc-form-field>
-
   <example-viewer [example]="exampleFluid"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Nowrap</h3>
+  <div class="demo-layout__row">
+    <button mdc-button (click)="demoNowrap.nowrap = !demoNowrap.nowrap">Nowrap: {{demoNowrap.nowrap ? 'On' :
+      'Off'}}</button>
+  </div>
+
+  <mdc-form-field #demoNowrap nowrap style="width: 140px;">
+    <mdc-checkbox></mdc-checkbox>
+    <label>This some really really really long text</label>
+  </mdc-form-field>
+  <example-viewer [example]="exampleNowrap"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Space between</h3>
+  <div class="demo-layout__row">
+    <button mdc-button
+      (click)="demoSpaceBetween.spaceBetween = !demoSpaceBetween.spaceBetween">Space
+      between: {{demoSpaceBetween.spaceBetween ? 'On' :
+      'Off'}}</button>
+    <button mdc-button
+      (click)="demoSpaceBetween.alignEnd = !demoSpaceBetween.alignEnd">Align
+      End: {{demoSpaceBetween.alignEnd ? 'On' :
+      'Off'}}</button>
+  </div>
+
+  <mdc-form-field #demoSpaceBetween spaceBetween style="width: 400px;">
+    <mdc-switch></mdc-switch>
+    <label>off/on</label>
+  </mdc-form-field>
+  <example-viewer [example]="exampleSpaceBetween"></example-viewer>
 </div>
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Checkbox</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="demofield.alignEnd = !demofield.alignEnd">Align End: {{demofield.alignEnd ? 'On' :
+    <button mdc-button (click)="demofield.alignEnd = !demofield.alignEnd">Align
+      End: {{demofield.alignEnd ? 'On' :
       'Off'}}</button>
   </div>
 
@@ -22,31 +56,33 @@
     <mdc-checkbox></mdc-checkbox>
     <label>Checkbox</label>
   </mdc-form-field>
-  <example-viewer [example]="example2"></example-viewer>
+  <example-viewer [example]="exampleCheckbox"></example-viewer>
 </div>
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Radio</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="formfieldradio.alignEnd = !formfieldradio.alignEnd">Align End:
+    <button mdc-button
+      (click)="formfieldradio.alignEnd = !formfieldradio.alignEnd">Align End:
       {{formfieldradio.alignEnd ? 'On' : 'Off'}}</button>
   </div>
   <mdc-form-field #formfieldradio>
     <mdc-radio #demoradio1></mdc-radio>
     <label>Radio</label>
   </mdc-form-field>
-  <example-viewer [example]="example3"></example-viewer>
+  <example-viewer [example]="exampleRadio"></example-viewer>
 </div>
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Switch</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="demoformswitch.alignEnd = !demoformswitch.alignEnd">Align End:
+    <button mdc-button
+      (click)="demoformswitch.alignEnd = !demoformswitch.alignEnd">Align End:
       {{demoformswitch.alignEnd ? 'On' : 'Off'}}</button>
   </div>
   <mdc-form-field #demoformswitch>
     <mdc-switch></mdc-switch>
     <label>off/on</label>
   </mdc-form-field>
-  <example-viewer [example]="example4"></example-viewer>
+  <example-viewer [example]="exampleSwitch"></example-viewer>
 </div>

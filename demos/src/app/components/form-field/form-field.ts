@@ -50,6 +50,7 @@ export class Api implements OnInit {
                 {name: 'fluid: boolean', summary: `Width expands and contracts as the screen size changes.`},
                 {name: 'alignEnd: boolean', summary: 'Position the input after the label.'},
                 {name: 'nowrap: boolean', summary: 'Force label text to stay on a single line and ellipse the overflow text.'},
+                {name: 'spaceBetween: boolean', summary: 'Distributes space between label text and control.'},
               ]
             },
           ]
@@ -63,25 +64,39 @@ export class Api implements OnInit {
 export class Examples {
   exampleFluid = {
     html: `<mdc-form-field fluid>
-  <mdc-text-field label="First name" outlined></mdc-text-field>
+  <mdc-text-field label="Fluid example"></mdc-text-field>
 </mdc-form-field>`
   };
 
-  example2 = {
+  exampleNowrap = {
+    html: `<mdc-form-field nowrap>
+  <mdc-checkbox></mdc-checkbox>
+  <label>This some really really really long text</label>
+</mdc-form-field>`
+  };
+
+  exampleSpaceBetween = {
+    html: `<mdc-form-field spaceBetween>
+  <mdc-switch></mdc-switch>
+  <label>off/on</label>
+</mdc-form-field>`
+  };
+
+  exampleCheckbox = {
     html: `<mdc-form-field>
   <mdc-checkbox></mdc-checkbox>
   <label>Checkbox</label>
 </mdc-form-field>`
   };
 
-  example3 = {
+  exampleRadio = {
     html: `<mdc-form-field>
   <mdc-radio></mdc-radio>
   <label>Radio</label>
 </mdc-form-field>`
   };
 
-  example4 = {
+  exampleSwitch = {
     html: `<mdc-form-field>
   <mdc-switch></mdc-switch>
   <label>off/on</label>

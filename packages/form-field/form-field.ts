@@ -22,6 +22,7 @@ import {MdcFormFieldControl} from './form-field-control';
     '[class.ngx-mdc-form-field--fluid]': 'fluid',
     '[class.mdc-form-field--align-end]': 'alignEnd',
     '[class.mdc-form-field--nowrap]': 'nowrap',
+    '[class.mdc-form-field--space-between]': 'spaceBetween',
   },
   templateUrl: 'form-field.html',
   encapsulation: ViewEncapsulation.None,
@@ -59,6 +60,15 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
     this._nowrap = coerceBooleanProperty(value);
   }
   private _nowrap = false;
+
+  @Input()
+  get spaceBetween(): boolean {
+    return this._spaceBetween;
+  }
+  set spaceBetween(value: boolean) {
+    this._spaceBetween = coerceBooleanProperty(value);
+  }
+  private _spaceBetween = false;
 
   @ContentChild(MdcFormFieldControl, {static: false}) _control!: MdcFormFieldControl<any>;
 

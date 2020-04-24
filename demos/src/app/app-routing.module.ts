@@ -71,6 +71,7 @@ const routes: Routes = [
   },
   {path: 'switch', loadChildren: () => import('./components/switch/module').then(m => m.SwitchModule)},
   {path: 'tabs', loadChildren: () => import('./components/tabs/module').then(m => m.TabsModule)},
+  {path: 'textarea', loadChildren: () => import('./components/textarea/module').then(m => m.TextareaModule)},
   {
     path: 'text-field', loadChildren: () =>
       import('./components/text-field/module').then(m => m.TextFieldModule)

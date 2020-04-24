@@ -1,4 +1,3 @@
-<mdc-list-divider class="example-divider"></mdc-list-divider>
 <button mdc-button raised class="example-opener" *ngIf="!open"
   (click)="open = !open" [label]="label">
 </button>
@@ -8,9 +7,13 @@
     <mdc-tab *ngFor="let tab of tabs" [label]="tab.label"></mdc-tab>
   </mdc-tab-scroller>
 </mdc-tab-bar>
-<div class="example-container" *ngIf="open">
-  <button mdcIconButton class="example-copy-button" (click)="copyCode()">
-    <mdc-icon>file_copy</mdc-icon>
-  </button>
+<div class="example-code-container" *ngIf="open">
+  <div class="example-code-container__buttons">
+    <button mdcIconButton (click)="copyCode()" title="Copy to clipboard"
+      icon="file_copy">
+    </button>
+    <button mdcIconButton icon="close" (click)="open = false"
+      title="Close"></button>
+  </div>
   <pre><code [highlight]="!config.url ? config?.code : config?.code | codeFromUrl | async"></code></pre>
 </div>

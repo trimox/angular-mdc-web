@@ -5,7 +5,14 @@
   <button mdcIconButton>
     <mdc-icon>favorite</mdc-icon>
   </button>
-  <example-viewer [example]="example1"></example-viewer>
+  <example-viewer [example]="exampleSimple"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Icon Toggle</h3>
+  <button mdc-icon-button onIcon="sentiment_very_satisfied"
+    offIcon="sentiment_very_dissatisfied"></button>
+  <example-viewer [example]="exampleIconToggle"></example-viewer>
 </div>
 
 <div class="demo-content">
@@ -14,67 +21,59 @@
     <mdc-icon fontSet="fa" fontIcon="fa-star" mdcIconOn></mdc-icon>
     <mdc-icon fontSet="fa" fontIcon="fa-star-o"></mdc-icon>
   </button>
-  <example-viewer [example]="example2"></example-viewer>
+  <example-viewer [example]="exampleFA"></example-viewer>
 </div>
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Using NgModel Form</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="demoiconbutton.disabled = !demoiconbutton.disabled">Disabled:
+    <button mdc-button
+      (click)="demoiconbutton.disabled = !demoiconbutton.disabled">Disabled:
       {{demoiconbutton.disabled ? 'On' : 'Off'}}</button>
   </div>
   <form #demoForm="ngForm">
-    <button mdcIconButton name="demoiconbutton" #demoiconbutton ngModel #demoIconButtonModel="ngModel">
+    <button mdcIconButton name="demoiconbutton" #demoiconbutton ngModel
+      #demoIconButtonModel="ngModel">
       <mdc-icon mdcIconOn>favorite</mdc-icon>
       <mdc-icon>favorite_border</mdc-icon>
     </button>
   </form>
   <p>Value: {{ demoIconButtonModel.value }}</p>
-
-  <example-viewer [example]="example3"></example-viewer>
+  <example-viewer [example]="exampleNgModel"></example-viewer>
 </div>
 
 <div class="demo-content">
   <h3 class="demo-content__headline">Using [on] property</h3>
   <div class="demo-layout__row">
-    <button mdc-button (click)="demoiconbutton3.on = !demoiconbutton3.on">Icon: {{demoiconbutton3.on ? 'On' : 'Off'}}</button>
+    <button mdc-button (click)="demoiconbutton3.on = !demoiconbutton3.on">Icon:
+      {{demoiconbutton3.on ? 'On' : 'Off'}}</button>
   </div>
   <button mdcIconButton #demoiconbutton3 [on]="true">
     <mdc-icon mdcIconOn>favorite</mdc-icon>
     <mdc-icon>favorite_border</mdc-icon>
   </button>
-
-  <example-viewer [example]="example4"></example-viewer>
+  <example-viewer [example]="exampleOn"></example-viewer>
 </div>
 
 <div class="demo-content">
   <h3 class="demo-content__headline">SVG Icon</h3>
   <button mdcIconButton>
     <mdc-icon mdcIconOn>
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+        viewBox="0 0 24 24">
         <path d="M0 0h24v24H0z" fill="none"></path>
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"></path>
+        <path
+          d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z">
+        </path>
       </svg>
     </mdc-icon>
     <mdc-icon>
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+        viewBox="0 0 24 24">
         <path d="M0 0h24v24H0z" fill="none"></path>
-        <path d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path>
-      </svg>
-    </mdc-icon>
-  </button>
-
-  <button mdcIconButton class="demo-icon-button-large">
-    <mdc-icon mdcIconOn>
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-        <path d="M0 0h24v24H0z" fill="none"></path>
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"></path>
-      </svg>
-    </mdc-icon>
-    <mdc-icon>
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-        <path d="M0 0h24v24H0z" fill="none"></path>
-        <path d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path>
+        <path
+          d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z">
+        </path>
       </svg>
     </mdc-icon>
   </button>
@@ -82,18 +81,34 @@
 </div>
 
 <div class="demo-content">
+  <h3 class="demo-content__headline">Density</h3>
+  <button mdc-icon-button icon="favorite"
+    class="demo-density-icon-button-1"></button>
+  <button mdc-icon-button icon="favorite"
+    class="demo-density-icon-button-2"></button>
+  <button mdcIconButton icon="favorite"
+    class="demo-density-icon-button-3"></button>
+  <example-viewer [example]="exampleDensity"></example-viewer>
+</div>
+
+<div class="demo-content">
+  <h3 class="demo-content__headline">Toggle Aria label</h3>
+  <button mdcIconButton onIcon="favorite" offIcon="favorite_border"
+    labelOn="Remove from favorites" labelOff="Add to favorites">
+  </button>
+  <example-viewer [example]="exampleAriaLabel"></example-viewer>
+</div>
+
+<div class="demo-content">
   <h3 class="demo-content__headline">Theme</h3>
-  <button mdcIconButton class="demo-icon-button-custom">
-    <mdc-icon mdcIconOn>favorite</mdc-icon>
-    <mdc-icon>favorite_border</mdc-icon>
+  <button mdcIconButton class="demo-icon-button-custom" onIcon="favorite"
+    offIcon="favorite_border">
   </button>
-  <button mdcIconButton class="demo-icon-button-primary">
-    <mdc-icon mdcIconOn>favorite</mdc-icon>
-    <mdc-icon>favorite_border</mdc-icon>
+  <button mdcIconButton class="demo-icon-button-primary" onIcon="favorite"
+    offIcon="favorite_border">
   </button>
-  <button mdcIconButton class="demo-icon-button-secondary">
-    <mdc-icon mdcIconOn>favorite</mdc-icon>
-    <mdc-icon>favorite_border</mdc-icon>
+  <button mdcIconButton class="demo-icon-button-secondary" onIcon="favorite"
+    offIcon="favorite_border">
   </button>
-  <example-viewer [example]="example6"></example-viewer>
+  <example-viewer [example]="exampleTheme"></example-viewer>
 </div>

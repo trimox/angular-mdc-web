@@ -1,33 +1,30 @@
 import {
   AfterContentInit,
-  ChangeDetectorRef,
   ChangeDetectionStrategy,
   Component,
   ContentChild,
-  ContentChildren,
   ElementRef,
   Input,
   NgZone,
   OnDestroy,
-  QueryList,
   ViewEncapsulation
 } from '@angular/core';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {fromEvent, Subject} from 'rxjs';
-import {takeUntil, startWith} from 'rxjs/operators';
+import {takeUntil} from 'rxjs/operators';
 
 import {MdcFormFieldControl} from './form-field-control';
-import {MdcHelperText} from './helper-text';
 
 @Component({
   selector: 'mdc-form-field',
   exportAs: 'mdcFormField',
   host: {
     '[class.ngx-mdc-form-field--fluid]': 'fluid',
-    '[class.mdc-form-field--align-end]': 'alignEnd'
+    '[class.mdc-form-field--align-end]': 'alignEnd',
+    '[class.mdc-form-field--nowrap]': 'nowrap',
+    '[class.mdc-form-field--space-between]': 'spaceBetween',
   },
-  template: `<ng-content></ng-content>
-  <ng-content select="[mdcHelperText, mdc-helper-text]"></ng-content>`,
+  templateUrl: 'form-field.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -55,11 +52,27 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
   }
   private _alignEnd = false;
 
+  @Input()
+  get nowrap(): boolean {
+    return this._nowrap;
+  }
+  set nowrap(value: boolean) {
+    this._nowrap = coerceBooleanProperty(value);
+  }
+  private _nowrap = false;
+
+  @Input()
+  get spaceBetween(): boolean {
+    return this._spaceBetween;
+  }
+  set spaceBetween(value: boolean) {
+    this._spaceBetween = coerceBooleanProperty(value);
+  }
+  private _spaceBetween = false;
+
   @ContentChild(MdcFormFieldControl, {static: false}) _control!: MdcFormFieldControl<any>;
-  @ContentChildren(MdcHelperText, {descendants: true}) assistiveElements!: QueryList<MdcHelperText>;
 
   constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
     private _ngZone: NgZone,
     public elementRef: ElementRef<HTMLElement>) {}
 
@@ -75,27 +88,11 @@ export class MdcFormField implements AfterContentInit, OnDestroy {
         }
       }
     }
-
-    // When assistive elements change, initialize foundation
-    this.assistiveElements.changes.pipe(startWith(null), takeUntil(this._destroy))
-      .subscribe(() => {
-        (this.assistiveElements).forEach(helperText =>
-          this._initHelperTextFoundation(helperText));
-      });
   }
 
   ngOnDestroy(): void {
     this._destroy.next();
     this._destroy.complete();
-  }
-
-  private _initHelperTextFoundation(helperText: MdcHelperText): void {
-    const control = this._control;
-
-    if (control?.controlType) {
-      control.helperText = helperText;
-      this._changeDetectorRef.markForCheck();
-    }
   }
 
   private _loadListeners(): void {

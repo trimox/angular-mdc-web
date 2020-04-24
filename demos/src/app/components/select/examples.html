@@ -11,10 +11,6 @@
       (click)="standardSelect.disabled = !standardSelect.disabled">Disabled:
       {{standardSelect.disabled ? 'On' : 'Off'}}</button>
     <button mdc-button
-      (click)="standardSelect.floatLabel = !standardSelect.floatLabel">Float
-      Label: {{standardSelect.floatLabel ? 'On' :
-      'Off'}}</button>
-    <button mdc-button
       (click)="standardSelect.setSelectionByValue('banana')">Select
       Banana</button>
     <button mdc-button (click)="standardSelect.setSelectedIndex(2)">Set Index
@@ -68,9 +64,6 @@
       {{meal.required ? 'On' : 'Off'}}</button>
     <button mdc-button (click)="meal.disabled = !meal.disabled">Disabled:
       {{meal.disabled ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="meal.floatLabel = !meal.floatLabel">Float
-      Label: {{meal.floatLabel ? 'On' :
-      'Off'}}</button>
     <button mdc-button (click)="meal.setSelectedIndex(2)">Set Index (2)</button>
   </div>
   <mdc-select #meal [helperText]="mealHelper" required
@@ -186,9 +179,6 @@
       {{select.outlined ? 'On' : 'Off'}}</button>
     <button mdc-button (click)="select.disabled = !select.disabled">Disabled:
       {{select.disabled ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="select.floatLabel = !select.floatLabel">Float
-      Label: {{select.floatLabel ? 'On' :
-      'Off'}}</button>
     <button mdc-button (click)="demoNgModel.reset()">Clear Selection</button>
     <button mdc-button (click)="select.setSelectionByValue('fruit-3')">Select
       Fruit</button>
@@ -225,10 +215,6 @@
       (click)="favoriteFood.disabled = !favoriteFood.disabled">Disabled:
       {{favoriteFood.disabled ?
       'On' : 'Off'}}</button>
-    <button mdc-button
-      (click)="favoriteFood.floatLabel = !favoriteFood.floatLabel">Float
-      Label:
-      {{favoriteFood.floatLabel ? 'On' : 'Off'}}</button>
     <button mdc-button
       (click)="favoriteFood.setSelectionByValue('pizza-1')">Select
       Pizza</button>

@@ -10,6 +10,6 @@ import {MDC_SELECT_DEFAULT_OPTIONS} from '@angular-mdc/web/select';
     RoutingModule
   ],
   declarations: [ROUTE_DECLARATIONS],
-  providers: [{ provide: MDC_SELECT_DEFAULT_OPTIONS, useValue: {outlined: true}}],
+  // providers: [{ provide: MDC_SELECT_DEFAULT_OPTIONS, useValue: {outlined: true}}],
 })
 export class SelectModule {}

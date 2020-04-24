@@ -80,17 +80,6 @@ describe('MdcSelectModule', () => {
       dispatchKeyboardEvent(testInstance.elementRef.nativeElement, 'keydown', DOWN_ARROW);
       fixture.detectChanges();
     });
-
-    it('#should handle mouse events', fakeAsync(() => {
-      dispatchMouseEvent(testInstance._selectedText.root, 'click');
-      fixture.detectChanges();
-      testInstance.focus();
-      dispatchKeyboardEvent(testInstance._selectedText.root, 'keydown', DOWN_ARROW);
-      dispatchKeyboardEvent(testInstance.elementRef.nativeElement, 'keydown', DOWN_ARROW);
-      fixture.detectChanges();
-
-      flush();
-    }));
   });
 
   describe('basic behaviors', () => {
@@ -119,12 +108,6 @@ describe('MdcSelectModule', () => {
       expect(testInstance.disabled).toBe(true);
     });
 
-    it('#should set floatLabel to false', () => {
-      testComponent.floatLabel = false;
-      fixture.detectChanges();
-      expect(testInstance.floatLabel).toBe(false);
-    });
-
     it('#should set required to true', () => {
       testComponent.required = true;
       fixture.detectChanges();
@@ -135,15 +118,6 @@ describe('MdcSelectModule', () => {
       testComponent.valid = true;
       fixture.detectChanges();
       expect(testInstance.valid).toBe(true);
-    });
-
-    it('#should set outlined and floating label with value', () => {
-      testInstance.setSelectionByValue('fruit-3');
-      testComponent.outlined = true;
-      testComponent.floatLabel = true;
-      fixture.detectChanges();
-
-      expect(testInstance.floatLabel).toBe(true);
     });
 
     it('#should generate a unique id for the select if no id is set', () => {
@@ -311,23 +285,6 @@ describe('MdcSelectModule', () => {
     });
 
     it('#should handle mouse events', fakeAsync(() => {
-      dispatchMouseEvent(testInstance._selectedText.root, 'click');
-      fixture.detectChanges();
-      testInstance.focus();
-      dispatchKeyboardEvent(testInstance._selectedText.root, 'keydown', DOWN_ARROW);
-      dispatchKeyboardEvent(testInstance.elementRef.nativeElement, 'keydown', DOWN_ARROW);
-      fixture.detectChanges();
-
-      flush();
-    }));
-
-    it('#should handle keydown events', fakeAsync(() => {
-      dispatchKeyboardEvent(testInstance._selectedText.root, 'keydown', DOWN_ARROW);
-      fixture.detectChanges();
-      flush();
-    }));
-
-    it('#should handle mouse events', fakeAsync(() => {
       testComponent.open = true;
       fixture.detectChanges();
       dispatchMouseEvent(testInstance._menu._list!.getListItemByIndex(1)!.getListItemElement(), 'mousedown');
@@ -393,7 +350,7 @@ it('should be able to provide default values through an injection token', () => 
     <form #demoSelectForm="ngForm" id="demoSelectForm">
       <mdc-form-field>
         <mdc-select #select placeholder="Favorite food" ngModel #demoSelectModel="ngModel" name="food"
-         [disabled]="disabled" [floatLabel]="floatLabel" [required]="required" [valid]="valid"
+         [disabled]="disabled" [required]="required" [valid]="valid"
          [value]="testValue" [outlined]="outlined" (blur)="handleBlur()"
          (valueChange)="handleValueChange($event)" (selectionChange)="handleSelectedChange($event)">
           <mdc-menu>
@@ -413,7 +370,6 @@ it('should be able to provide default values through an injection token', () => 
 class SimpleTest {
   myPlaceholder: string = 'Favorite food';
   disabled: boolean = true;
-  floatLabel: boolean;
   multiple: boolean;
   required: boolean;
   valid: boolean = false;

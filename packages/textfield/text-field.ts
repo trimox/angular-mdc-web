@@ -10,14 +10,17 @@ import {
   Inject,
   InjectionToken,
   Input,
+  OnChanges,
   OnDestroy,
   Optional,
   Output,
   Self,
+  SimpleChanges,
   QueryList,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+import {DOCUMENT} from '@angular/common';
 import {ControlValueAccessor, FormGroupDirective, NgControl, NgForm} from '@angular/forms';
 import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion';
 import {Platform} from '@angular/cdk/platform';
@@ -33,16 +36,17 @@ import {
   CanUpdateErrorStateCtor,
   MdcFormField,
   MdcFormFieldControl,
-  MdcHelperText,
   mixinErrorState
 } from '@angular-mdc/web/form-field';
 
 import {MdcTextFieldIcon} from './text-field-icon';
+import {MdcTextFieldHelperTextFoundation} from './helper-text';
+import {MdcTextFieldCharacterCounterFoundation} from './character-counter';
 
+import {EventType, SpecificEventListener} from '@material/base/types';
 import {
   MDCTextFieldAdapter,
   MDCTextFieldFoundation,
-  MDCTextFieldHelperTextFoundation,
   MDCTextFieldFoundationMap,
   MDCTextFieldInputAdapter,
   MDCTextFieldOutlineAdapter,
@@ -113,8 +117,6 @@ const MOUSE_EVENT_IGNORE_TIME = 800;
     '[class.mdc-text-field--with-trailing-icon]': 'trailingIcon',
     '[class.mdc-text-field--no-label]': '!label || label && fullwidth',
     '[class.mdc-text-field--invalid]': 'errorState',
-    '(click)': 'onTextFieldInteraction()',
-    '(keydown)': 'onTextFieldInteraction()'
   },
   templateUrl: 'text-field.html',
   providers: [
@@ -125,7 +127,7 @@ const MOUSE_EVENT_IGNORE_TIME = 800;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewInit, DoCheck,
-  OnDestroy, ControlValueAccessor, MdcFormFieldControl<any>, CanUpdateErrorState {
+  OnChanges, OnDestroy, ControlValueAccessor, MdcFormFieldControl<any>, CanUpdateErrorState {
   private _uid = `mdc-input-${nextUniqueId++}`;
   private _initialized: boolean = false;
 
@@ -133,6 +135,9 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   private _lastTouchStartEvent: number = 0;
 
   controlType: string = 'mdc-text-field';
+
+  _foundationHelper?: MdcTextFieldHelperTextFoundation;
+  _foundationCharCounter?: MdcTextFieldCharacterCounterFoundation;
 
   @Input() name?: string;
   @Input() label: string | undefined = undefined;
@@ -237,17 +242,34 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   private _fullwidth = false;
 
   @Input()
-  get helperText(): MdcHelperText | null {
-    return this._helperText;
+  get helper(): string | undefined {
+    return this._helper;
   }
-  set helperText(helperText: MdcHelperText | null) {
-    this._helperText = helperText;
-    if (this._helperText) {
-      this._initHelperText();
-      this._helperText.characterCounter = this._characterCounter;
+  set helper(value: string | undefined) {
+    this._helper = value;
+  }
+  private _helper: string | undefined = undefined;
+
+  @Input()
+  get helperPersistent(): boolean {
+    return this._helperPersistent;
+  }
+  set helperPersistent(value: boolean) {
+    const newValue = coerceBooleanProperty(value);
+    if (newValue !== this._helperPersistent) {
+      this._helperPersistent = newValue;
     }
   }
-  private _helperText: MdcHelperText | null = null;
+  private _helperPersistent = false;
+
+  @Input()
+  get validationMessage(): string | undefined {
+    return this._validationMessage;
+  }
+  set validationMessage(value: string | undefined) {
+    this._validationMessage = value;
+  }
+  private _validationMessage: string | undefined = undefined;
 
   /** Sets the Text Field valid or invalid. */
   @Input()
@@ -278,19 +300,16 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   private _useNativeValidation = true;
 
   @Input()
-  get characterCounter(): boolean {
-    return this._characterCounter;
+  get charCounter(): boolean {
+    return this._charCounter;
   }
-  set characterCounter(value: boolean) {
+  set charCounter(value: boolean) {
     const newValue = coerceBooleanProperty(value);
-    if (newValue !== this._characterCounter) {
-      this._characterCounter = newValue;
-      if (this.helperText) {
-        this.helperText.characterCounter = this._characterCounter;
-      }
+    if (newValue !== this._charCounter) {
+      this._charCounter = newValue;
     }
   }
-  private _characterCounter = false;
+  private _charCounter = false;
 
   @Input()
   get endAligned(): boolean {
@@ -368,7 +387,11 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     return {
       addClass: (className: string) => this._getHostElement().classList.add(className),
       removeClass: (className: string) => this._getHostElement().classList.remove(className),
-      hasClass: (className: string) => this._getHostElement().classList.contains(className)
+      hasClass: (className: string) => this._getHostElement().classList.contains(className),
+      registerTextFieldInteractionHandler: <K extends EventType>(evtType: K, handler: SpecificEventListener<K>) =>
+        (<HTMLElement>this._getHostElement()).addEventListener(evtType, handler),
+      deregisterTextFieldInteractionHandler: <K extends EventType>(evtType: K, handler: SpecificEventListener<K>) =>
+        (<HTMLElement>this._getHostElement()).removeEventListener(evtType, handler),
     };
   }
 
@@ -420,8 +443,8 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   /** Returns a map of all subcomponents to subfoundations.*/
   private _getFoundationMap(): Partial<MDCTextFieldFoundationMap> {
     return {
-      helperText: this._helperText?.foundation,
-      characterCounter: this.helperText?._characterCounterElement?.foundation,
+      helperText: this._foundationHelper?.foundation,
+      characterCounter: this._foundationCharCounter?.foundation,
       leadingIcon: this.leadingIcon?.foundation,
       trailingIcon: this.trailingIcon?.foundation
     };
@@ -432,6 +455,7 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef<HTMLElement>,
     public _defaultErrorStateMatcher: ErrorStateMatcher,
+    @Inject(DOCUMENT) private _document: any,
     @Optional() private _parentFormField: MdcFormField,
     @Optional() private _ripple: MdcRipple,
     @Self() @Optional() public ngControl: NgControl,
@@ -458,6 +482,16 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
 
   async _asyncBuildFoundation(): Promise<void> {
     this._foundation = this.getDefaultFoundation();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['helper'] || changes['helperPersistent'] || changes['validationMessage']) {
+      this._syncHelper();
+    }
+
+    if (changes['charCounter']) {
+      this._syncCharacterCounter();
+    }
   }
 
   ngAfterViewInit(): void {
@@ -497,12 +531,6 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
         this.trailingIcon?.foundation?.init();
         this.disabled = this._input.nativeElement.disabled;
       });
-  }
-
-  onTextFieldInteraction(): void {
-    if (this._initialized) {
-      this._foundation.handleTextFieldInteraction();
-    }
   }
 
   onInputInteraction(evt: MouseEvent | TouchEvent): void {
@@ -643,14 +671,6 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     });
   }
 
-  private _initHelperText(): void {
-    const helper = this.helperText;
-    if (helper) {
-      helper.addHelperTextClass(this.controlType);
-      helper.init(MDCTextFieldHelperTextFoundation);
-    }
-  }
-
   /** Override MdcTextFieldBase destroy method */
   destroy(): void {
     this._initialized = false;
@@ -660,12 +680,25 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   }
 
   private _isValid(): boolean {
+    const isValid = this._valid ? this._valid : this._platform.isBrowser ?
+      this._input.nativeElement.validity.valid : true;
+
+    const showValidationMessage = !!this.validationMessage && !isValid || this.errorState;
+
+    if (this._shouldRenderHelperText()) {
+      this._foundationHelper?.setContent(showValidationMessage ?
+        this.validationMessage ?? '' : this.helper ?? '');
+
+      if (showValidationMessage) {
+        this._foundationHelper?.setValidation(showValidationMessage);
+      }
+    }
+
     if (this.ngControl) {
       return !this.errorState;
     }
 
-    return this._valid ? this._valid : this._platform.isBrowser ?
-      this._input.nativeElement.validity.valid : true;
+    return isValid;
   }
 
   private _hasFloatingLabel(): boolean {
@@ -674,6 +707,46 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
 
   private _getFloatingLabel(): MdcFloatingLabel | undefined {
     return this._floatingLabel || this._notchedOutline?.floatingLabel;
+  }
+
+  private _syncCharacterCounter(): void {
+    if (!this.charCounter) {
+      this._foundationCharCounter?.destroy();
+      return;
+    }
+
+    if (this._shouldRenderHelperText()) {
+      this._initHelperFoundation();
+    }
+
+    if (!this._foundationCharCounter) {
+      this._foundationCharCounter = new MdcTextFieldCharacterCounterFoundation(this._elementRef,
+        this.textarea ? this.elementRef.nativeElement : this._foundationHelper!._helperLineElement!, this._document);
+      this._foundationCharCounter.init();
+    }
+  }
+
+  private _syncHelper(): void {
+    if (this._shouldRenderHelperText()) {
+      this._initHelperFoundation();
+    }
+
+    this._foundationHelper!.setPersistent(this._helperPersistent);
+  }
+
+  private _initHelperFoundation(): void {
+    if (!this._foundationHelper) {
+      this._foundationHelper = new MdcTextFieldHelperTextFoundation(this._elementRef, this._document);
+      this._foundationHelper.init();
+    }
+  }
+
+  private _charCounterVisible(): boolean {
+    return this.charCounter && this.maxlength !== -1;
+  }
+
+  private _shouldRenderHelperText(): boolean {
+    return !!this.helper || !!this.validationMessage || this._charCounterVisible();
   }
 
   private _getInputElement(): HTMLInputElement | HTMLTextAreaElement {

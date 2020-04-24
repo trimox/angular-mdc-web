@@ -9,19 +9,13 @@ import {MdcMenuModule} from '@angular-mdc/web/menu';
 import {MdcListModule} from '@angular-mdc/web/list';
 
 import {MdcSelect} from './select';
-import {
-  MdcSelectAnchor,
-  MdcSelectIcon,
-  MdcSelectedText
-} from './select-directives';
+import {MdcSelectIcon} from './select-icon';
 import {MDCSelectHelperText} from './select-helper-text';
 
 const SELECT_DECLARATIONS = [
   MdcSelect,
-  MdcSelectAnchor,
   MDCSelectHelperText,
   MdcSelectIcon,
-  MdcSelectedText
 ];
 
 @NgModule({

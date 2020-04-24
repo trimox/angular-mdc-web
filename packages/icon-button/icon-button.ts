@@ -14,12 +14,15 @@ import {
   Output,
   Provider,
   QueryList,
-  ViewEncapsulation
+  ViewEncapsulation,
+  NgZone,
+  SimpleChanges,
+  OnChanges,
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import {Subscription} from 'rxjs';
-import {startWith} from 'rxjs/operators';
+import {Subject} from 'rxjs';
+import {takeUntil, startWith} from 'rxjs/operators';
 
 import {MDCRippleFoundation, MDCRippleAdapter} from '@material/ripple';
 
@@ -62,10 +65,7 @@ export class MdcIconOn {}
     '[attr.data-aria-label-off]': 'labelOff',
     '(click)': 'handleClick()'
   },
-  template: `
-  <mdc-icon *ngIf="icon">{{icon}}</mdc-icon>
-  <ng-content></ng-content>`
-  ,
+  templateUrl: 'icon-button.html',
   providers: [
     MDC_ICON_BUTTON_CONTROL_VALUE_ACCESSOR,
     MdcRipple
@@ -74,18 +74,22 @@ export class MdcIconOn {}
   encapsulation: ViewEncapsulation.None
 })
 export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation> implements
-  AfterContentInit, AfterViewInit, ControlValueAccessor, OnDestroy, MDCRippleCapableSurface {
+  AfterContentInit, AfterViewInit, ControlValueAccessor, OnChanges, OnDestroy, MDCRippleCapableSurface {
   private _uniqueId: string = `mdc-icon-button-${++nextUniqueId}`;
+  private _initialized = false;
 
   _root!: Element;
+
+  /** Emits when the component is destroyed. */
+  private readonly _destroyed = new Subject<void>();
 
   @Input() id: string = this._uniqueId;
   get inputId(): string {
     return `${this.id || this._uniqueId}`;
   }
 
-  @Input() name: string | null = null;
-  @Input() icon: string | null = null;
+  @Input() name: string | undefined = undefined;
+  @Input() icon: string | undefined = undefined;
 
   /* Set aria label on state. */
   @Input() labelOn?: string = undefined;
@@ -93,12 +97,16 @@ export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation> i
   /* Set aria label off state. */
   @Input() labelOff?: string = undefined;
 
+  @Input() onIcon?: string | undefined = undefined;
+  @Input() offIcon?: string | undefined = undefined;
+
   @Input()
   get on(): boolean {
     return this._on;
   }
   set on(value: boolean) {
-    this.setOn(value);
+    this._on = coerceBooleanProperty(value);
+    this._syncIconStatus();
   }
   private _on: boolean = false;
 
@@ -115,9 +123,6 @@ export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation> i
     new EventEmitter<MdcIconButtonChange>();
 
   @ContentChildren(MdcIcon, {descendants: true}) icons!: QueryList<MdcIcon>;
-
-  /** Subscription to changes in icons. */
-  private _changeSubscription: Subscription | null = null;
 
   _onChange: (value: any) => void = () => {};
   _onTouched = () => {};
@@ -138,6 +143,7 @@ export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation> i
   }
 
   constructor(
+    private _ngZone: NgZone,
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef<HTMLElement>,
     public ripple: MdcRipple) {
@@ -148,25 +154,41 @@ export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation> i
     this.ripple.init();
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (!this._initialized) {
+      return;
+    }
+
+    if (changes['on']) {
+      this._syncIconStatus();
+    }
+  }
+
   ngAfterViewInit(): void {
     this._foundation.init();
+    this._initialized = true;
   }
 
   ngAfterContentInit(): void {
     this._foundation.toggle(this._on || this._foundation.isOn());
     this._changeDetectorRef.detectChanges();
 
-    // When the icons change, re-subscribe
-    this._changeSubscription = this.icons.changes.pipe(startWith(null)).subscribe(() => {
-      this.icons.forEach((icon: MdcIcon) => {
-        icon.elementRef.nativeElement.classList.add('mdc-icon-button__icon');
-        icon.role = null;
-      });
+    // When the icons change apply mdc icon class
+    this._ngZone.runOutsideAngular(() => {
+      this.icons.changes.pipe(startWith(null), takeUntil(this._destroyed))
+        .subscribe(() => {
+          this.icons.forEach((icon: MdcIcon) => {
+            icon.elementRef.nativeElement.classList.add('mdc-icon-button__icon');
+            icon.role = null;
+          });
+        });
     });
   }
 
   ngOnDestroy(): void {
-    this._changeSubscription?.unsubscribe();
+    this._destroyed.next();
+    this._destroyed.complete();
+
     this.ripple?.destroy();
     this._foundation?.destroy();
   }
@@ -183,18 +205,6 @@ export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation> i
     this._onTouched = fn;
   }
 
-  toggle(isOn?: boolean): void {
-    this.on = isOn ? coerceBooleanProperty(isOn) : !this.on;
-    this._foundation.toggle(this.on);
-  }
-
-  setOn(on: boolean): void {
-    this._on = coerceBooleanProperty(on);
-    this._foundation.toggle(this.on);
-
-    this._changeDetectorRef.markForCheck();
-  }
-
   /** Sets the button disabled state */
   setDisabled(disabled: boolean): void {
     this._disabled = coerceBooleanProperty(disabled);
@@ -203,12 +213,17 @@ export class MdcIconButton extends MDCComponent<MDCIconButtonToggleFoundation> i
   }
 
   handleClick(): void {
+    // Check if button can be toggled
     if (this.icons.length === 1) {
       return;
     }
 
     this.on = !this.on;
     this._foundation.handleClick();
+  }
+
+  private _syncIconStatus(): void {
+    this._foundation?.toggle(this._on);
   }
 
   private _createRipple(): MdcRipple {

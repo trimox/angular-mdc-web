@@ -21,7 +21,7 @@ export class Select implements OnInit {
   ngOnInit(): void {
     this._componentViewer.template = {
       title: 'Select Menus',
-      description: 'MDC Select provides Material Design single-option select menus, using the MDC menu. The Select component is fully accessible, and supports RTL rendering.',
+      description: 'MDC Select provides Material Design single-option select menus, using the MDC menu.',
       references: [{
         name: 'Material Design guidelines: Menus',
         url: 'https://material.io/guidelines/components/menus.html'
@@ -36,7 +36,7 @@ export class Select implements OnInit {
       ],
       code: `import {MdcSelectModule} from '@angular-mdc/web/select';`,
       sass: `@use '@material/select/mdc-select';
-@use '@material/select';
+@use '@material/select/_index' as select;
 @use '@material/list/mdc-list';
 @use '@material/menu-surface/mdc-menu-surface';
 @use '@material/menu/mdc-menu';`
@@ -66,7 +66,6 @@ export class Api implements OnInit {
                 {name: 'placeholder: string', summary: `Text shown if no value has been selected.`},
                 {name: 'value: any', summary: `Sets the selected item by value.`},
                 {name: 'tabIndex: number', summary: `Set the underlying tab index of the select. (Default is 0)`},
-                {name: 'floatLabel: boolean', summary: `Whether or not to show or hide a floating placeholder.`},
                 {name: 'outlined: boolean', summary: `Styles the select as an outlined select.`},
                 {name: 'disabled: boolean', summary: `Enables/disables the select.`},
                 {name: 'helperText: MdcHelperText', summary: `Reference to related MdcHelperText`},

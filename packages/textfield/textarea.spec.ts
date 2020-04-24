@@ -21,7 +21,7 @@ describe('MdcTextarea', () => {
 
   describe('basic behaviors', () => {
     let textFieldDebugElement: DebugElement;
-    let textFieldInstance: MdcTextarea;
+    let testInstance: MdcTextarea;
     let testComponent: SimpleTextArea;
 
     beforeEach(() => {
@@ -29,7 +29,7 @@ describe('MdcTextarea', () => {
       fixture.detectChanges();
 
       textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextarea));
-      textFieldInstance = textFieldDebugElement.componentInstance;
+      testInstance = textFieldDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
     });
 
@@ -39,40 +39,7 @@ describe('MdcTextarea', () => {
     });
 
     it('#should equal textarea', () => {
-      expect(textFieldInstance.textarea).toBe(true);
-    });
-
-    it('#should set character counter true', () => {
-      testComponent.characterCounter = true;
-      fixture.detectChanges();
-      expect(testComponent.characterCounter).toBe(true);
-
-      testComponent.comments = 'my comments';
-      fixture.detectChanges();
-    });
-
-    it('#should set character counter false', () => {
-      testComponent.characterCounter = false;
-      fixture.detectChanges();
-      expect(testComponent.characterCounter).toBe(false);
-
-      testComponent.comments = 'my comments';
-      fixture.detectChanges();
-    });
-  });
-
-  describe('basic behaviors', () => {
-    let textFieldDebugElement: DebugElement;
-    let textFieldInstance: MdcTextarea;
-    let testComponent: SimpleTextAreaNoCounter;
-
-    beforeEach(() => {
-      fixture = TestBed.createComponent(SimpleTextAreaNoCounter);
-      fixture.detectChanges();
-
-      textFieldDebugElement = fixture.debugElement.query(By.directive(MdcTextarea));
-      textFieldInstance = textFieldDebugElement.componentInstance;
-      testComponent = fixture.debugElement.componentInstance;
+      expect(testInstance.textarea).toBe(true);
     });
   });
 });
@@ -85,7 +52,7 @@ describe('MdcTextarea', () => {
     [rows]="3"
     [cols]="5"
     maxlength="140"
-    [characterCounter]="characterCounter"
+    [charCounter]="charCounter"
     [required]="isRequired"
     [disabled]="isDisabled">
   </mdc-textarea>`,
@@ -94,7 +61,7 @@ class SimpleTextArea {
   comments: string = '';
   isDisabled: boolean = false;
   isRequired: boolean = false;
-  characterCounter: boolean = true;
+  charCounter: boolean = true;
 }
 
 @Component({

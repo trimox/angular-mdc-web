@@ -1,5 +1,7 @@
 @use './styles/body';
 
+@use '~highlight.js/scss/github';
+
 @use '@material/theme' with (
   $primary: #6200ee,
   $secondary: #faab1a,
@@ -12,6 +14,3 @@
 
 // Angular MDC
 @use '../../packages/material-components-web/material';
-
-// highlight.js for examples
-@use '~highlight.js/scss/github';

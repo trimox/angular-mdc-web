@@ -22,7 +22,7 @@ export class IconButton implements OnInit {
       ],
       code: `import {MdcIconButtonModule} from '@angular-mdc/web/icon-button';`,
       sass: `@use '@material/icon-button/mdc-icon-button';
-@use '@material/icon-button';`
+@use '@material/icon-button/_index' as icon-button;`
     };
   }
 }
@@ -48,15 +48,11 @@ export class Api implements OnInit {
               items: [
                 {name: 'on: boolean', summary: `Sets the toggle state to the provided value.`},
                 {name: 'disabled: boolean', summary: `Disables the icon button.`},
-                {name: 'icon: string', summary: `Optional. Set a Material Icon as a non-toggle icon.`},
+                {name: 'icon: string', summary: `Optional. Set a Material icon as a non-toggle icon.`},
+                {name: 'onIcon: string', summary: `Icon to display when 'on' is true.`},
+                {name: 'offIcon: string', summary: `Icon to display when 'on' is false.`},
                 {name: 'labelOn: string', summary: `Optional. Text to set aria label while in on state.`},
                 {name: 'labelOff: string', summary: `Optional. Text to set aria label while in off state.`},
-              ]
-            },
-            {
-              name: 'Methods',
-              items: [
-                {name: 'toggle(isOn?: boolean)', summary: `Toggles the icon toggle state. If an argument is given, will toggle on if true, off if false.`},
               ]
             },
             {
@@ -69,7 +65,7 @@ export class Api implements OnInit {
         },
         {
           header: 'MdcIconOn',
-          summary: 'Apply to an mdc-icon, and is used to indicate the toggle button icon representing the "on" icon.',
+          summary: 'Optional. Apply to an mdc-icon, and is used to indicate the toggle button icon representing the "on" icon.',
           selectors: [
             'mdcIcon[mdcIconOn]',
             'mdcIconOn',
@@ -90,6 +86,12 @@ export class Examples {
 <button mdcIconButton>
   <mdc-icon>favorite</mdc-icon>
 </button>`
+  };
+
+  exampleIconToggle = {
+    html: `<button mdc-icon-button
+  onIcon="sentiment_very_satisfied"
+  offIcon="sentiment_very_dissatisfied"></button>`
   };
 
   exampleFA = {
@@ -134,35 +136,28 @@ export class Examples {
   };
 
   exampleTheme = {
-    html: `<button mdcIconButton class="demo-icon-button-custom">
-  <mdc-icon mdcIconOn>favorite</mdc-icon>
-  <mdc-icon>favorite_border</mdc-icon>
+    html: `<button mdcIconButton class="demo-icon-button-custom" onIcon="favorite"
+  offIcon="favorite_border">
 </button>
-
-<button mdcIconButton class="demo-icon-button-primary">
-  <mdc-icon mdcIconOn>favorite</mdc-icon>
-  <mdc-icon>favorite_border</mdc-icon>
+<button mdcIconButton class="demo-icon-button-primary" onIcon="favorite"
+  offIcon="favorite_border">
 </button>
-
-<button mdcIconButton class="demo-icon-button-secondary">
-  <mdc-icon mdcIconOn>favorite</mdc-icon>
-  <mdc-icon>favorite_border</mdc-icon>
+<button mdcIconButton class="demo-icon-button-secondary" onIcon="favorite"
+  offIcon="favorite_border">
 </button>`,
     sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_icon-button.scss`
   };
 
   exampleAriaLabel = {
-    html: `<button mdcIconButton labelOn="Remove from favorites" labelOff="Add to favorites">
-  <mdc-icon mdcIconOn>favorite</mdc-icon>
-  <mdc-icon>favorite_border</mdc-icon>
+    html: `<button mdcIconButton onIcon="favorite" offIcon="favorite_border"
+  labelOn="Remove from favorites" labelOff="Add to favorites">
 </button>`
   };
 
   exampleDensity = {
     html: `<button mdc-icon-button icon="favorite" class="demo-density-icon-button-1"></button>
 <button mdc-icon-button icon="favorite" class="demo-density-icon-button-2"></button>
-<button mdcIconButton icon="favorite" class="demo-density-icon-button-3"></button>
-`,
+<button mdcIconButton icon="favorite" class="demo-density-icon-button-3"></button>`,
     sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_icon-button.scss`
   };
 }

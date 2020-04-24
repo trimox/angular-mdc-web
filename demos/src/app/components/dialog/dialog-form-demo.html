@@ -5,16 +5,13 @@
       <mdc-dialog-content>
         <form [formGroup]="profileForm" id="profileForm" (ngSubmit)="submit()" autocomplete="off" style="margin-top: 5px">
           <mdc-form-field fluid>
-            <mdc-text-field formControlName="first" label="First name" outlined></mdc-text-field>
-            <mdc-helper-text persistent validation>*Required</mdc-helper-text>
+            <mdc-text-field formControlName="first" label="First name" validationMessage="Field is required" outlined></mdc-text-field>
           </mdc-form-field>
           <mdc-form-field fluid>
-            <mdc-text-field formControlName="last" label="Last name" outlined></mdc-text-field>
-            <mdc-helper-text persistent validation>*Required</mdc-helper-text>
+            <mdc-text-field formControlName="last" label="Last name" validationMessage="Field is required" outlined></mdc-text-field>
           </mdc-form-field>
           <mdc-form-field fluid>
-            <mdc-text-field type="email" formControlName="email" label="Email" maxlength="254" outlined></mdc-text-field>
-            <mdc-helper-text validation>*Required</mdc-helper-text>
+            <mdc-text-field type="email" formControlName="email" label="Email" maxlength="254" validationMessage="Field is required" outlined></mdc-text-field>
           </mdc-form-field>
         </form>
       </mdc-dialog-content>

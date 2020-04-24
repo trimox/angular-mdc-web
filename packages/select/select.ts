@@ -38,11 +38,7 @@ import {
   mixinErrorState
 } from '@angular-mdc/web/form-field';
 
-import {
-  MdcSelectAnchor,
-  MdcSelectIcon,
-  MdcSelectedText
-} from './select-directives';
+import {MdcSelectIcon} from './select-icon';
 import {MDCSelectHelperText} from './select-helper-text';
 
 import {MDCRippleFoundation, MDCRippleAdapter} from '@material/ripple';
@@ -120,6 +116,8 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   private _uniqueId: string = `mdc-select-${++nextUniqueId}`;
   private _initialized = false;
 
+  _selectedText?: string = '';
+
   _root!: Element;
 
   @Input() id: string = this._uniqueId;
@@ -136,19 +134,6 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
     this.setDisabledState(value);
   }
   private _disabled = false;
-
-  @Input()
-  get floatLabel(): boolean {
-    return this._floatLabel;
-  }
-  set floatLabel(value: boolean) {
-    const newValue = coerceBooleanProperty(value);
-    if (newValue !== this._floatLabel) {
-      this._floatLabel = newValue;
-      this.layout();
-    }
-  }
-  private _floatLabel = true;
 
   @Input()
   get outlined(): boolean {
@@ -234,8 +219,8 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   @ViewChild(MdcFloatingLabel, {static: false}) _floatingLabel?: MdcFloatingLabel;
   @ViewChild(MdcLineRipple, {static: false}) _lineRipple?: MdcLineRipple;
   @ViewChild(MdcNotchedOutline, {static: false}) _notchedOutline?: MdcNotchedOutline;
-  @ViewChild(MdcSelectAnchor, {static: false}) _selectAnchor!: MdcSelectAnchor;
-  @ViewChild(MdcSelectedText, {static: false}) _selectedText!: MdcSelectedText;
+  @ViewChild('selectAnchor', {static: false}) _selectAnchor!: ElementRef<HTMLInputElement>;
+  @ViewChild('selectSelectedText', {static: false}) _selectSelectedText!: HTMLInputElement;
   @ContentChild(MdcMenu, {static: false}) _menu!: MdcMenu;
   @ContentChild(MdcSelectIcon, {static: false}) leadingIcon?: MdcSelectIcon;
 
@@ -265,14 +250,14 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
       getSelectedMenuItem: () =>
         this._menu!.elementRef.nativeElement.querySelector(strings.SELECTED_ITEM_SELECTOR),
       getMenuItemAttr: (menuItem: Element, attr: string) => menuItem.getAttribute(attr),
-      setSelectedText: (text: string) => this._selectedText.root.textContent = text,
-      isSelectedTextFocused: () => this._platform.isBrowser ?
-        document.activeElement === this._selectedText.root : false,
-      getSelectedTextAttr: (attr: string) => this._selectedText.root.getAttribute(attr),
-      setSelectedTextAttr: (attr: string, value: string) => this._selectedText.root.setAttribute(attr, value),
+      setSelectedText: (text: string) => this._selectedText = text,
+      isSelectAnchorFocused: () => this._platform.isBrowser ?
+        document.activeElement === this._selectAnchor.nativeElement : false,
+      getSelectAnchorAttr: (attr: string) => this._selectAnchor.nativeElement.getAttribute(attr),
+      setSelectAnchorAttr: (attr: string, value: string) => this._selectAnchor.nativeElement.setAttribute(attr, value),
       openMenu: () => this._menu.open = true,
       closeMenu: () => this._menu.open = false,
-      getAnchorElement: () => this._selectAnchor.root,
+      getAnchorElement: () => this._selectAnchor.nativeElement,
       setMenuAnchorElement: (anchorEl: HTMLElement) => this._menu.anchorElement = anchorEl,
       setMenuAnchorCorner: (anchorCorner: any) => this._menu.anchorCorner = anchorCorner,
       setMenuWrapFocus: (wrapFocus: boolean) => this._menu.wrapFocus = wrapFocus,
@@ -430,7 +415,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   }
 
   focus(): void {
-    this._selectedText.root.focus();
+    this._selectAnchor.nativeElement.focus();
   }
 
   setSelectedIndex(index: number): void {
@@ -579,12 +564,12 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
 
   private _createRipple(): MdcRipple {
     const adapter: MDCRippleAdapter = {
-      ...MdcRipple.createAdapter({_root: this._selectAnchor.root}),
+      ...MdcRipple.createAdapter({_root: this._selectAnchor.nativeElement}),
       registerInteractionHandler: (evtType: any, handler: any) =>
-        this._selectedText.root.addEventListener(evtType, handler),
+        this._selectAnchor.nativeElement.addEventListener(evtType, handler),
       deregisterInteractionHandler: (evtType: any, handler: any) =>
-        this._selectedText.root.removeEventListener(evtType, handler)
+        this._selectAnchor.nativeElement.removeEventListener(evtType, handler)
     };
-    return new MdcRipple(this._selectAnchor.elementRef, new MDCRippleFoundation(adapter));
+    return new MdcRipple(this._selectAnchor, new MDCRippleFoundation(adapter));
   }
 }

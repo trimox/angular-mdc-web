@@ -1,14 +1,21 @@
-<div mdcSelectAnchor>
+<div #selectAnchor class="mdc-select__anchor"
+  role="button"
+  aria-haspopup="listbox"
+  [tabindex]="disabled ? '-1' : '0'"
+  [attr.aria-required]="required"
+  [attr.aria-labelledby]="placeholder"
+  (focus)="onFocus()"
+  (blur)="onBlur()"
+  (keydown)="onKeydown($event)"
+  (click)="onClick($event)">
+  <span class="mdc-select__ripple"></span>
   <ng-content select="mdc-icon"></ng-content>
-  <i class="mdc-select__dropdown-icon"></i>
-  <div mdcSelectedText
-    [tabindex]="disabled ? '-1' : '0'"
-    (focus)="onFocus()"
-    (blur)="onBlur()"
-    (keydown)="onKeydown($event)"
-    (click)="onClick($event)"
-    [ariaRequired]="required"
-    [ariaLabelledby]="id"></div>
+  <input #selectSelectedText class="mdc-select__selected-text"
+    type="text"
+    disabled
+    readonly
+    [value]="_selectedText" />
+    <i class="mdc-select__dropdown-icon"></i>
     <label mdcFloatingLabel *ngIf="!outlined" [for]="id">{{placeholder}}</label>
     <mdc-line-ripple *ngIf="!outlined"></mdc-line-ripple>
     <mdc-notched-outline *ngIf="outlined" [label]="placeholder" [for]="id"></mdc-notched-outline>

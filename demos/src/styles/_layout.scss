@@ -116,6 +116,7 @@
 .hljs {
   border-radius: .45rem;
   padding: 9px;
+  display: inline-block;
 }
 
 .demo-content {
@@ -131,6 +132,11 @@
     margin-top: .1em;
     margin-bottom: .3em;
   }
+}
+
+.demo-content--block {
+  display: inline-block;
+  margin-right: 5px;
 }
 
 //

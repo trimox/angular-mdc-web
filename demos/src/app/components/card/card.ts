@@ -150,10 +150,7 @@ export class Examples {
       <button mdc-button mdcCardAction="button">Bookmark</button>
     </mdc-card-action-buttons>
     <mdc-card-action-icons>
-      <button mdcIconButton mdcCardAction="icon">
-        <mdc-icon mdcIconOn>favorite</mdc-icon>
-        <mdc-icon>favorite_border</mdc-icon>
-      </button>
+      <button mdcIconButton mdcCardAction="icon" onIcon="favorite" offIcon="favorite_border"></button>
       <button mdcIconButton mdcCardAction="icon" icon="share"></button>
       <button mdcIconButton mdcCardAction="icon" icon="more_vert"></button>
     </mdc-card-action-icons>
@@ -209,14 +206,8 @@ export class Examples {
   </mdc-card-primary-action>
   <mdc-card-actions>
     <mdc-card-action-icons>
-      <button mdcIconButton mdcCardAction="icon">
-        <mdc-icon mdcIconOn>favorite</mdc-icon>
-        <mdc-icon>favorite_border</mdc-icon>
-      </button>
-      <button mdcIconButton mdcCardAction="icon">
-        <mdc-icon mdcIconOn>bookmark</mdc-icon>
-        <mdc-icon>bookmark_border</mdc-icon>
-      </button>
+      <button mdcIconButton mdcCardAction="icon" onIcon="favorite" offIcon="favorite_border"></button>
+      <button mdcIconButton mdcCardAction="icon" onIcon="bookmark" offIcon="bookmark_border"></button>
       <button mdcIconButton mdcCardAction="icon" icon="share"></button>
     </mdc-card-action-icons>
   </mdc-card-actions>
@@ -240,27 +231,22 @@ export class Examples {
   <mdc-card-actions>
     <mdc-card-action-buttons class="demo-card__action-buttons--text-only">Rate album</mdc-card-action-buttons>
     <mdc-card-action-icons>
-      <button mdcIconButton mdcCardAction="icon">
-        <mdc-icon mdcIconOn>star</mdc-icon>
-        <mdc-icon>star_border</mdc-icon>
+      <button mdcIconButton mdcCardAction="icon" onIcon="star"
+        offIcon="star_border">
       </button>
-      <button mdcIconButton mdcCardAction="icon">
-        <mdc-icon mdcIconOn>star</mdc-icon>
-        <mdc-icon>star_border</mdc-icon>
+      <button mdcIconButton mdcCardAction="icon" onIcon="star"
+        offIcon="star_border">
       </button>
-      <button mdcIconButton mdcCardAction="icon">
-        <mdc-icon mdcIconOn>star</mdc-icon>
-        <mdc-icon>star_border</mdc-icon>
+      <button mdcIconButton mdcCardAction="icon" onIcon="star"
+        offIcon="star_border">
       </button>
-      <button mdcIconButton mdcCardAction="icon">
-        <mdc-icon mdcIconOn>star</mdc-icon>
-        <mdc-icon>star_border</mdc-icon>
+      <button mdcIconButton mdcCardAction="icon" onIcon="star"
+        offIcon="star_border">
       </button>
-      <button mdcIconButton mdcCardAction="icon">
-        <mdc-icon mdcIconOn>star</mdc-icon>
-        <mdc-icon>star_border</mdc-icon>
+      <button mdcIconButton mdcCardAction="icon" onIcon="star"
+        offIcon="star_border">
       </button>
-    </mdc-card-action-icons>
+      </mdc-card-action-icons>
   </mdc-card-actions>
 </mdc-card>`,
     sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_card.scss`

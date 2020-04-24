@@ -11,12 +11,11 @@
 4. Clone your fork to your machine with `git clone`.
 5. From the root of the project, run `yarn` to install the dependencies.
 
-## <a name="setupdemos"></a> Install demo dependencies
-Change path to `/demos`, run `yarn` to install dependencies.
-
 ## <a name="demo-server"></a> Run demo application
-Change path to `/demos`, run `yarn start`.
-
+From the root of the project,
+```
+yarn demo-app
+```
 After your development server is running, open a browser to url: http://localhost:4200
 
 ## <a name="lint"></a> Linting

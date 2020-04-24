@@ -179,17 +179,6 @@ describe('MdcTextField', () => {
       expect(testInstance.isBadInput()).toBe(false);
     }));
 
-    it('#should set style shake to true', fakeAsync(() => {
-      testInstance._floatingLabel!.shake(true);
-      fixture.detectChanges();
-
-      testComponent.validation = true;
-      fixture.detectChanges();
-      testComponent.persistent = true;
-      fixture.detectChanges();
-      expect(testInstance.helperText!.persistent).toBe(true);
-    }));
-
     it('#should focus on underlying input element when focus() is called', fakeAsync(() => {
       testComponent.outlined = true;
       fixture.detectChanges();
@@ -247,19 +236,6 @@ describe('MdcTextField', () => {
     it('expect trailing icon to be defined', fakeAsync(() => {
       expect(testInstance.trailingIcon).toBeDefined();
     }));
-
-    it('#should show to screen reader', () => {
-      expect(testInstance.helperText!.elementRef.nativeElement.attributes.getNamedItem('aria-hidden')).toBeDefined();
-      testInstance.helperText!.showToScreenReader();
-      fixture.detectChanges();
-      expect(testInstance.helperText!.elementRef.nativeElement.attributes.getNamedItem('aria-hidden')).toBeNull();
-    });
-
-    it('#should set validity from helper text', () => {
-      testInstance.helperText!.setValidity(true);
-      fixture.detectChanges();
-      expect(testInstance.helperText!.elementRef.nativeElement.attributes.getNamedItem('role')).toBeDefined();
-    });
   });
 
   describe('textfield with icons', () => {
@@ -307,14 +283,6 @@ describe('MdcTextField', () => {
       flush();
 
       expect(testInstance.value).toBe('foo');
-    }));
-
-    it('#should set helperText to null', fakeAsync(() => {
-      testInstance.helperText = null;
-      fixture.detectChanges();
-      flush();
-
-      expect(testInstance.helperText).toBeNull();
     }));
 
     it('#should call OnInput', fakeAsync(() => {
@@ -381,7 +349,7 @@ it('should be able to provide default values through an injection token', () => 
       [type]="myType"
       [inputmode]="inputMode"
       [tabIndex]="1"
-      [characterCounter]="characterCounter"
+      [charCounter]="charCounter"
       [outlined]="outlined"
       [value]="value"
       [fullwidth]="isFullwidth"
@@ -395,7 +363,6 @@ it('should be able to provide default values through an injection token', () => 
       <mdc-icon mdcTextFieldIcon leading>person</mdc-icon>
       <mdc-icon mdcTextFieldIcon trailing>person</mdc-icon>
     </mdc-text-field>
-    <mdc-helper-text [validation]="validation" [persistent]="persistent">Username is required</mdc-helper-text>
   </mdc-form-field>
   `,
 })
@@ -409,9 +376,7 @@ class SimpleTextfield {
   required: boolean;
   readonly: boolean;
   useNativeValidation: boolean = false;
-  validation: boolean;
-  persistent: boolean = true;
-  characterCounter: boolean = true;
+  charCounter: boolean = true;
 
   onInput(value: any) {}
   onChange(value: any) {}
@@ -422,12 +387,10 @@ class SimpleTextfield {
   template: `
     <mdc-text-field
       label="Username"
-      [helperText]="helper"
       (input)="onInput($event)"
       (change)="onChange($event)"
       [value]="value">
     </mdc-text-field>
-    <mdc-helper-text #helper validation></mdc-helper-text>
   `,
 })
 class TextFieldTestWithValue {
@@ -449,9 +412,8 @@ class TextFieldWithIcons {
 
 @Component({
   selector: 'default-text-field',
-  template: `
-<mdc-text-field label="Example"></mdc-text-field>`
+  template: `<mdc-text-field label="Example"></mdc-text-field>`
 })
 class DefaultTextField {
-  @ViewChild(MdcTextField) textfield: MdcTextField;
+  @ViewChild(MdcTextField) textfield!: MdcTextField;
 }

@@ -8,7 +8,7 @@
   (blur)="onBlur()"
   (keydown)="onKeydown($event)"
   (click)="onClick($event)">
-  <span class="mdc-select__ripple"></span>
+  <span class="mdc-select__ripple" *ngIf="!outlined"></span>
   <ng-content select="mdc-icon"></ng-content>
   <input #selectSelectedText class="mdc-select__selected-text"
     type="text"

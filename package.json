@@ -8,7 +8,7 @@
     "url": "https://github.com/trimox/angular-mdc-web.git"
   },
   "license": "MIT",
-  "version": "6.0.0-canary.8",
+  "version": "6.0.0-canary.9",
   "engines": {
     "node": ">= 12.0.0",
     "yarn": ">= 1.19.1"
@@ -53,10 +53,10 @@
     "@angular/router": "^9.1.2",
     "@bazel/bazelisk": "^1.4.0",
     "@bazel/buildifier": "^2.2.1",
-    "@bazel/ibazel": "^0.12.4",
-    "@bazel/jasmine": "~1.5.0",
-    "@bazel/karma": "~1.5.0",
-    "@bazel/typescript": "~1.5.0",
+    "@bazel/ibazel": "^0.13.0",
+    "@bazel/jasmine": "~1.6.1",
+    "@bazel/karma": "~1.6.1",
+    "@bazel/typescript": "~1.6.1",
     "@types/fs-extra": "^8.1.0",
     "@types/jasmine": "^3.5.9",
     "@types/minimatch": "^3.0.3",

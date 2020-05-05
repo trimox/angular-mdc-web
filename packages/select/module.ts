@@ -10,11 +10,9 @@ import {MdcListModule} from '@angular-mdc/web/list';
 
 import {MdcSelect} from './select';
 import {MdcSelectIcon} from './select-icon';
-import {MDCSelectHelperText} from './select-helper-text';
 
 const SELECT_DECLARATIONS = [
   MdcSelect,
-  MDCSelectHelperText,
   MdcSelectIcon,
 ];
 

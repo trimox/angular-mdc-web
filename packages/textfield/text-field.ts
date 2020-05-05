@@ -154,6 +154,8 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   @Input() prefix: string | undefined = undefined;
   @Input() suffix: string | undefined = undefined;
   @Input() inputmode?: TextFieldInputMode;
+  @Input() helper?: string;
+  @Input() validationMessage?: string;
 
   @Input()
   get id(): string {
@@ -242,15 +244,6 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
   private _fullwidth = false;
 
   @Input()
-  get helper(): string | undefined {
-    return this._helper;
-  }
-  set helper(value: string | undefined) {
-    this._helper = value;
-  }
-  private _helper: string | undefined = undefined;
-
-  @Input()
   get helperPersistent(): boolean {
     return this._helperPersistent;
   }
@@ -261,15 +254,6 @@ export class MdcTextField extends _MdcTextFieldMixinBase implements AfterViewIni
     }
   }
   private _helperPersistent = false;
-
-  @Input()
-  get validationMessage(): string | undefined {
-    return this._validationMessage;
-  }
-  set validationMessage(value: string | undefined) {
-    this._validationMessage = value;
-  }
-  private _validationMessage: string | undefined = undefined;
 
   /** Sets the Text Field valid or invalid. */
   @Input()

@@ -20,7 +20,7 @@
     <button mdc-button (click)="standardSelect.focus()">Focus</button>
   </div>
   <mdc-select #standardSelect placeholder="Fruit" name="my-select" required
-    [helperText]="standardSelectHelper"
+    helper="Helper text" helperPersistent validationMessage="Field is required"
     (selectionChange)="onSelectionChange($event)">
     <mdc-menu class="demo-select-width" [anchorMargin]="{top: 10}">
       <mdc-list>
@@ -32,8 +32,6 @@
       </mdc-list>
     </mdc-menu>
   </mdc-select>
-  <mdc-select-helper-text #standardSelectHelper validation>Field is required
-  </mdc-select-helper-text>
   <p> Value: {{ standardSelect.value }}</p>
   <p> Index: {{ standardSelect.getSelectedIndex() }}</p>
   <example-viewer [example]="exampleStandard"></example-viewer>
@@ -66,7 +64,7 @@
       {{meal.disabled ? 'On' : 'Off'}}</button>
     <button mdc-button (click)="meal.setSelectedIndex(2)">Set Index (2)</button>
   </div>
-  <mdc-select #meal [helperText]="mealHelper" required
+  <mdc-select #meal required validationMessage="Meal selection is required"
     placeholder="Pick a Meal">
     <mdc-icon mdcSelectIcon>fastfood</mdc-icon>
     <mdc-menu class="demo-select-width">
@@ -78,9 +76,6 @@
       </mdc-list>
     </mdc-menu>
   </mdc-select>
-  <mdc-select-helper-text #mealHelper validation>
-    <span *ngIf="!meal.value">Meal selection is required</span>
-  </mdc-select-helper-text>
   <example-viewer [example]="exampleLeadingIcon"></example-viewer>
 </div>
 
@@ -132,8 +127,8 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">Lazy Load</h3>
   <form [formGroup]="lazyLoadForm" #formDirectiveLazy="ngForm">
-    <mdc-select outlined formControlName="lazySelect" [helperText]="lazyHelper"
-      placeholder="Example">
+    <mdc-select outlined formControlName="lazySelect"
+      validationMessage="Selection is required" placeholder="Example">
       <mdc-menu class="demo-select-width">
         <mdc-list>
           <mdc-list-item *ngFor="let food of lazyFoods" [value]="food.value"
@@ -141,11 +136,6 @@
         </mdc-list>
       </mdc-menu>
     </mdc-select>
-    <mdc-select-helper-text #lazyHelper validation>
-      <span
-        *ngIf="lazyLoadForm.controls['lazySelect'].hasError('required')">Selection
-        is required</span>
-    </mdc-select-helper-text>
 
     <div class="demo-layout__row">
       <button mdc-button (click)="loadFoods()">Load</button>
@@ -227,7 +217,7 @@
   <form [formGroup]="foodForm" id="foodForm" (ngSubmit)="submitForm()"
     #formDirective="ngForm">
     <mdc-select #favoriteFood placeholder="Favorite food"
-      formControlName="favoriteFood" [helperText]="reactiveHelper">
+      formControlName="favoriteFood" validationMessage="Selection is required">
       <mdc-menu class="demo-select-width">
         <mdc-list>
           <mdc-list-item *ngFor="let food of foods" [value]="food.value"
@@ -235,11 +225,7 @@
         </mdc-list>
       </mdc-menu>
     </mdc-select>
-    <mdc-select-helper-text #reactiveHelper validation>
-      <span
-        *ngIf="foodForm.controls['favoriteFood'].hasError('required')">Selection
-        is required</span>
-    </mdc-select-helper-text>
+
     <div class="demo-layout__row">
       <button mdc-button>Submit</button>
       <button mdc-button type="button"

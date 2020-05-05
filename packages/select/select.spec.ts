@@ -185,11 +185,6 @@ describe('MdcSelectModule', () => {
       expect(testDebugElement.nativeElement.classList.contains('mdc-select--outlined')).toBe(true);
     });
 
-    it('#should remove helper text linkage', () => {
-      testInstance.helperText = undefined;
-      fixture.detectChanges();
-    });
-
     it('#should set value to tacos-2', () => {
       testComponent.foodControl.setValue('tacos-2');
       expect(testInstance.value).toBe('tacos-2');
@@ -231,18 +226,12 @@ describe('MdcSelectModule', () => {
       testComponent.reset();
     }));
 
-    it('#should show to screen reader', () => {
-      expect(testInstance.helperText!.elementRef.nativeElement.attributes.getNamedItem('aria-hidden')).toBeDefined();
-      testInstance.helperText!.showToScreenReader();
-      fixture.detectChanges();
-      expect(testInstance.helperText!.elementRef.nativeElement.attributes.getNamedItem('aria-hidden')).toBeNull();
-    });
-
-    it('#should set validity from helper text', () => {
-      testInstance.helperText!.setValidity(true);
-      fixture.detectChanges();
-      expect(testInstance.helperText!.elementRef.nativeElement.attributes.getNamedItem('role')).toBeDefined();
-    });
+    // it('#should show to screen reader', () => {
+    //   expect(testInstance.helperText!.elementRef.nativeElement.attributes.getNamedItem('aria-hidden')).toBeDefined();
+    //   testInstance.helperText!.showToScreenReader();
+    //   fixture.detectChanges();
+    //   expect(testInstance.helperText!.elementRef.nativeElement.attributes.getNamedItem('aria-hidden')).toBeNull();
+    // });
   });
 
   describe('Select', () => {
@@ -350,6 +339,7 @@ it('should be able to provide default values through an injection token', () => 
     <form #demoSelectForm="ngForm" id="demoSelectForm">
       <mdc-form-field>
         <mdc-select #select placeholder="Favorite food" ngModel #demoSelectModel="ngModel" name="food"
+         helper="Meal selection is required"
          [disabled]="disabled" [required]="required" [valid]="valid"
          [value]="testValue" [outlined]="outlined" (blur)="handleBlur()"
          (valueChange)="handleValueChange($event)" (selectionChange)="handleSelectedChange($event)">
@@ -359,10 +349,6 @@ it('should be able to provide default values through an injection token', () => 
             </mdc-list>
           </mdc-menu>
         </mdc-select>
-        <mdc-select-helper-text
-          [validation]="true"
-          [persistent]="false">Meal selection is required
-        </mdc-select-helper-text>
       </mdc-form-field>
     </form>
   `,
@@ -446,17 +432,14 @@ class SelectFormControl {
 @Component({
   template: `
   <form [formGroup]="lazyLoadForm" #formDirectiveLazy="ngForm">
-    <mdc-select [outlined]="outlined" formControlName="lazySelect" [helperText]="lazyHelper">
+    <mdc-select [outlined]="outlined" formControlName="lazySelect"
+      validationMessage="Field is required">
       <mdc-menu>
         <mdc-list>
           <mdc-list-item *ngFor="let food of lazyFoods" [value]="food.value" [disabled]="food.disabled">{{food.viewValue}}</mdc-list-item>
         </mdc-list>
       </mdc-menu>
     </mdc-select>
-    <mdc-select-helper-text #lazyHelper validation>
-      <span *ngIf="lazyLoadForm.controls['lazySelect'].hasError('required')">Selection
-        is required</span>
-    </mdc-select-helper-text>
   </form>`,
 })
 class SelectLazyLoad {
@@ -490,7 +473,8 @@ class SelectLazyLoad {
 @Component({
   template: `
   <form [formGroup]="foodForm" id="foodForm" #formDirective="ngForm">
-    <mdc-select placeholder="Fruit" [helperText]="enhancedHelper" [required]="required"
+    <mdc-select placeholder="Fruit" [required]="required"
+      validationMessage="Field is required"
       [disabled]="disabled" [outlined]="outlined" (blur)="handleBlur($event)">
       <mdc-menu [open]="open">
         <mdc-list>
@@ -501,7 +485,6 @@ class SelectLazyLoad {
         </mdc-list>
       </mdc-menu>
     </mdc-select>
-    <mdc-select-helper-text #enhancedHelper validation>Field is required</mdc-select-helper-text>
   </form>
 `
 })

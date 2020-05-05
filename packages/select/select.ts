@@ -10,13 +10,16 @@ import {
   Inject,
   InjectionToken,
   Input,
+  OnChanges,
   OnDestroy,
   Optional,
   Output,
   Self,
+  SimpleChanges,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+import {DOCUMENT} from '@angular/common';
 import {ControlValueAccessor, FormGroupDirective, NgControl, NgForm} from '@angular/forms';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Platform} from '@angular/cdk/platform';
@@ -39,7 +42,7 @@ import {
 } from '@angular-mdc/web/form-field';
 
 import {MdcSelectIcon} from './select-icon';
-import {MDCSelectHelperText} from './select-helper-text';
+import {MdcSelectHelperTextFoundation} from './helper-text';
 
 import {MDCRippleFoundation, MDCRippleAdapter} from '@material/ripple';
 import {
@@ -109,12 +112,14 @@ let nextUniqueId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoCheck,
-  OnDestroy, ControlValueAccessor, CanUpdateErrorState, MDCRippleCapableSurface {
+  OnChanges, OnDestroy, ControlValueAccessor, CanUpdateErrorState, MDCRippleCapableSurface {
   /** Emits whenever the component is destroyed. */
   private _destroyed = new Subject<void>();
 
   private _uniqueId: string = `mdc-select-${++nextUniqueId}`;
   private _initialized = false;
+
+  _foundationHelper?: MdcSelectHelperTextFoundation;
 
   _selectedText?: string = '';
 
@@ -122,6 +127,8 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
 
   @Input() id: string = this._uniqueId;
   @Input() name?: string;
+  @Input() helper?: string;
+  @Input() validationMessage?: string;
 
   /** Placeholder to be shown if no value has been selected. */
   @Input() placeholder?: string;
@@ -156,6 +163,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
       this._required = newValue;
       if (this._initialized && !this._required) {
         this.valid = true;
+        this._syncHelperValidityState();
         this._changeDetectorRef.markForCheck();
       }
     }
@@ -168,8 +176,10 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   }
   set valid(value: boolean | undefined) {
     const newValue = coerceBooleanProperty(value);
-    this._valid = newValue;
-    this._foundation?.setValid(this._valid);
+    if (newValue !== this._valid) {
+      this._valid = newValue;
+      this._foundation?.setValid(newValue);
+    }
   }
   private _valid?: boolean;
 
@@ -188,14 +198,16 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   private _value: any;
 
   @Input()
-  get helperText(): MDCSelectHelperText | undefined {
-    return this._helperText;
+  get helperPersistent(): boolean {
+    return this._helperPersistent;
   }
-  set helperText(helperText: MDCSelectHelperText | undefined) {
-    this._helperText = helperText;
-    this.helperText?.init();
+  set helperPersistent(value: boolean) {
+    const newValue = coerceBooleanProperty(value);
+    if (newValue !== this._helperPersistent) {
+      this._helperPersistent = newValue;
+    }
   }
-  private _helperText?: MDCSelectHelperText;
+  private _helperPersistent = false;
 
   get _hasPlaceholder(): boolean {
     return this.placeholder ? this.placeholder.length > 0 : false;
@@ -219,8 +231,8 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   @ViewChild(MdcFloatingLabel, {static: false}) _floatingLabel?: MdcFloatingLabel;
   @ViewChild(MdcLineRipple, {static: false}) _lineRipple?: MdcLineRipple;
   @ViewChild(MdcNotchedOutline, {static: false}) _notchedOutline?: MdcNotchedOutline;
-  @ViewChild('selectAnchor', {static: false}) _selectAnchor!: ElementRef<HTMLInputElement>;
-  @ViewChild('selectSelectedText', {static: false}) _selectSelectedText!: HTMLInputElement;
+  @ViewChild('selectAnchor', {static: false}) _selectAnchor!: ElementRef<HTMLDivElement>;
+  @ViewChild('selectSelectedText', {static: true}) _selectSelectedText!: ElementRef<HTMLInputElement>;
   @ContentChild(MdcMenu, {static: false}) _menu!: MdcMenu;
   @ContentChild(MdcSelectIcon, {static: false}) leadingIcon?: MdcSelectIcon;
 
@@ -309,7 +321,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   /** Returns a map of all subcomponents to subfoundations.*/
   private _getFoundationMap(): Partial<MDCSelectFoundationMap> {
     return {
-      helperText: this._helperText?.foundation
+      helperText: this._foundationHelper?.foundation
     };
   }
 
@@ -318,6 +330,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
     private _changeDetectorRef: ChangeDetectorRef,
     public elementRef: ElementRef<HTMLElement>,
     public _defaultErrorStateMatcher: ErrorStateMatcher,
+    @Inject(DOCUMENT) private _document: any,
     @Optional() private _parentFormField: MdcFormField,
     @Optional() private _ripple: MdcRipple,
     @Self() @Optional() public ngControl: NgControl,
@@ -342,6 +355,12 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
     this.id = this.id;
 
     this._setDefaultGlobalOptions();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['helper'] || changes['helperPersistent'] || changes['validationMessage']) {
+      this._syncHelper();
+    }
   }
 
   ngAfterViewInit(): void {
@@ -444,6 +463,8 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
       value: this._value
     });
 
+    this._syncHelperValidityState();
+
     this._foundation.handleChange();
     this._changeDetectorRef.markForCheck();
   }
@@ -544,10 +565,46 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
     this._onTouched();
     this.blur.emit(this.value);
     this._onFocus.emit(false);
+    this._syncHelperValidityState();
+  }
+
+  private _isValid(): boolean {
+    return (!!this.validationMessage && !this._hasValue && this.required) || this.errorState;
   }
 
   private _getFloatingLabel(): MdcFloatingLabel | undefined {
     return this._floatingLabel ?? this._notchedOutline?.floatingLabel;
+  }
+
+  private _syncHelper(): void {
+    if (this._shouldRenderHelperText()) {
+      this._initHelperFoundation();
+    }
+
+    this._foundationHelper!.setContent(this.helper ?? '');
+    this._foundationHelper!.setPersistent(this._helperPersistent);
+  }
+
+  private _syncHelperValidityState(): void {
+    const showValidationMessage = this._isValid();
+
+    if (this._shouldRenderHelperText()) {
+      this._foundationHelper?.setContent(showValidationMessage ?
+        this.validationMessage ?? '' : this.helper ?? '');
+
+      this._foundationHelper?.setValidation(showValidationMessage);
+    }
+  }
+
+  private _initHelperFoundation(): void {
+    if (!this._foundationHelper) {
+      this._foundationHelper = new MdcSelectHelperTextFoundation(this._elementRef, this._document);
+      this._foundationHelper.init();
+    }
+  }
+
+  private _shouldRenderHelperText(): boolean {
+    return !!this.helper || !!this.validationMessage;
   }
 
   /**

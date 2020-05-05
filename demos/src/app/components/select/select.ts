@@ -68,8 +68,10 @@ export class Api implements OnInit {
                 {name: 'tabIndex: number', summary: `Set the underlying tab index of the select. (Default is 0)`},
                 {name: 'outlined: boolean', summary: `Styles the select as an outlined select.`},
                 {name: 'disabled: boolean', summary: `Enables/disables the select.`},
-                {name: 'helperText: MdcHelperText', summary: `Reference to related MdcHelperText`},
                 {name: 'compareWith: (o1: any, o2: any) => boolean', summary: `Function to compare the option values with the selected values. The first argument is a value from an option. The second is a value from the selection. A boolean should be returned.`},
+                {name: 'helper: string', summary: `Helper text to display below the input when focused.`},
+                {name: 'helperPersistent: boolean', summary: 'Always show the helper text despite focus.'},
+                {name: 'validationMessage: string', summary: 'Message to show in the error color when the select is invalid. (Helper text will not be visible)'},
               ]
             },
             {
@@ -87,30 +89,6 @@ export class Api implements OnInit {
                 {name: 'selectionChange(source: MdcSelect, index: number, value: any)', summary: `Event emitted if user changed the value.`},
                 {name: 'blur(value)', summary: `Emitted whenever the select loses focus.`},
                 {name: 'focus(boolean)', summary: `Emitted when the select gains or loses focus.`},
-              ]
-            },
-          ]
-        },
-        {
-          header: 'MDCSelectHelperText',
-          selectors: [
-            'mdc-select-helper-text',
-            'mdcSelectHelperText'
-          ],
-          exportedAs: 'mdcSelectHelperText',
-          categories: [
-            {
-              name: 'Properties',
-              items: [
-                {name: 'validation: boolean', summary: `Help text can be used to provide additional validation messages.`},
-                {name: 'persistent: boolean', summary: `Help text will always be visible.`},
-              ]
-            },
-            {
-              name: 'Methods',
-              items: [
-                {name: 'showToScreenReader()', summary: `Makes the helper text visible to the screen reader.`},
-                {name: 'setValidity(inputIsValid: boolean)', summary: `Sets the validity of the helper text.`},
               ]
             },
           ]
@@ -208,7 +186,7 @@ export class Examples {
 
   exampleStandard = {
     html: `<mdc-select #standardSelect placeholder="Fruit" name="my-select" required
-  [helperText]="standardSelectHelper"
+  helper="Helper text" helperPersistent validationMessage="Field is required"
   (selectionChange)="onSelectionChange($event)">
   <mdc-menu class="demo-select-width" [anchorMargin]="{top: 10}">
     <mdc-list>
@@ -219,9 +197,7 @@ export class Examples {
       <mdc-list-item disabled value="mango">Mango</mdc-list-item>
     </mdc-list>
   </mdc-menu>
-</mdc-select>
-<mdc-select-helper-text #standardSelectHelper validation>Field is required
-</mdc-select-helper-text>`,
+</mdc-select>`,
     sass: `https://raw.githubusercontent.com/trimox/angular-mdc-web/master/demos/src/styles/_select.scss`
   };
 
@@ -274,7 +250,7 @@ export class Examples {
   };
 
   exampleLeadingIcon = {
-    html: `<mdc-select #meal [helperText]="mealHelper" required placeholder="Pick a Meal">
+    html: `<mdc-select #meal validationMessage="Meal selection is required" required placeholder="Pick a Meal">
   <mdc-icon mdcSelectIcon>fastfood</mdc-icon>
   <mdc-menu>
     <mdc-list>
@@ -284,10 +260,7 @@ export class Examples {
       </mdc-list-item>
     </mdc-list>
   </mdc-menu>
-</mdc-select>
-<mdc-select-helper-text #mealHelper validation>
-  <span *ngIf="!meal.value">Meal selection is required</span>
-</mdc-select-helper-text>`,
+</mdc-select>`,
     ts: `foods = [
   { value: '', disabled: false },
   { value: 'steak-0', viewValue: 'Steak' },
@@ -325,7 +298,8 @@ onSelectionChange(event: { index: any, value: any }) {
 
   exampleReactive = {
     html: `<form [formGroup]="foodForm" id="foodForm" (ngSubmit)="submitForm()" #formDirective="ngForm">
-  <mdc-select #favoriteFood placeholder="Favorite food" formControlName="favoriteFood" [helperText]="reactiveHelper">
+  <mdc-select #favoriteFood placeholder="Favorite food" formControlName="favoriteFood"
+    validationMessage="Selection is required">
     <mdc-menu>
       <mdc-list>
         <mdc-list-item *ngFor="let food of foods" [value]="food.value"
@@ -335,9 +309,6 @@ onSelectionChange(event: { index: any, value: any }) {
       </mdc-list>
     </mdc-menu>
   </mdc-select>
-  <mdc-select-helper-text #reactiveHelper validation>
-    <span *ngIf="foodForm.controls['favoriteFood'].hasError('required')">Selection is required</span>
-  </mdc-select-helper-text>
 
   <button mdc-button>Submit</button>
   <button mdc-button type="button" (click)="resetForm(formDirective)">Reset</button>

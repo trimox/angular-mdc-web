@@ -74,7 +74,6 @@ export class MdcListGroupSubheader {
     '[class.mdc-list--dense]': 'dense',
     '[class.mdc-list--avatar-list]': 'avatar',
     '[class.ngx-mdc-list--border]': 'border',
-    '[class.mdc-list--non-interactive]': '!interactive',
     '[class.mdc-list--two-line]': 'twoLine',
     '(click)': '_handleClickEvent($event)',
     '(keydown)': '_onKeydown($event)',
@@ -122,18 +121,6 @@ export class MdcList extends MDCComponent<any> implements AfterViewInit, OnDestr
     this._avatar = coerceBooleanProperty(value);
   }
   private _avatar = false;
-
-  @Input()
-  get interactive(): boolean {
-    return this._interactive;
-  }
-  set interactive(value: boolean) {
-    const newValue = coerceBooleanProperty(value);
-    if (newValue !== this._interactive) {
-      this._interactive = newValue;
-    }
-  }
-  private _interactive = true;
 
   @Input()
   get disableRipple(): boolean {

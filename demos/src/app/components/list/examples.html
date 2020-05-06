@@ -3,9 +3,6 @@
   <div class="demo-layout__row">
     <button mdc-button (click)="custom.wrapFocus = !custom.wrapFocus">Wrap
       Focus: {{custom.wrapFocus ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="custom.interactive = !custom.interactive">Interactive:
-      {{custom.interactive ? 'On' :
-      'Off'}}</button>
     <button mdc-button (click)="custom.disableRipple = !custom.disableRipple">Disable
       Ripple: {{custom.disableRipple ?
       'On' :
@@ -95,9 +92,6 @@
     <button mdc-button (click)="singleline.singleSelection = !singleline.singleSelection">Single
       Selection:
       {{singleline.singleSelection ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="singleline.interactive = !singleline.interactive">Interactive:
-      {{singleline.interactive
-      ? 'On' : 'Off'}}</button>
   </div>
   <mdc-list #singleline>
     <mdc-list-item>Single-line item</mdc-list-item>
@@ -118,9 +112,6 @@
     <button mdc-button (click)="twoline.singleSelection = !twoline.singleSelection">Single
       Selection:
       {{twoline.singleSelection ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="twoline.interactive = !twoline.interactive">Interactive:
-      {{twoline.interactive ? 'On' :
-      'Off'}}</button>
   </div>
   <mdc-list #twoline twoLine>
     <mdc-list-item>
@@ -147,8 +138,6 @@
     <button mdc-button (click)="startgraphic.singleSelection = !startgraphic.singleSelection">Single
       Selection:
       {{startgraphic.singleSelection ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="startgraphic.interactive = !startgraphic.interactive">Interactive:
-      {{startgraphic.interactive ? 'On' : 'Off'}}</button>
   </div>
   <mdc-list #startgraphic>
     <mdc-list-item>
@@ -171,9 +160,6 @@
       {{endmeta.border ? 'On' : 'Off'}}</button>
     <button mdc-button (click)="endmeta.dense = !endmeta.dense">Dense:
       {{endmeta.dense ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="endmeta.interactive = !endmeta.interactive">Interactive:
-      {{endmeta.interactive ? 'On' :
-      'Off'}}</button>
   </div>
   <mdc-list #endmeta>
     <mdc-list-item>Wi-Fi
@@ -196,9 +182,6 @@
       {{startend.border ? 'On' : 'Off'}}</button>
     <button mdc-button (click)="startend.dense = !startend.dense">Dense:
       {{startend.dense ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="startend.interactive = !startend.interactive">Interactive:
-      {{startend.interactive ?
-      'On' : 'Off'}}</button>
   </div>
   <mdc-list #startend>
     <mdc-list-item>
@@ -266,9 +249,6 @@
       {{checkboxes.border ? 'On' : 'Off'}}</button>
     <button mdc-button (click)="checkboxes.dense = !checkboxes.dense">Dense:
       {{checkboxes.dense ? 'On' : 'Off'}}</button>
-    <button mdc-button (click)="checkboxes.interactive = !checkboxes.interactive">Interactive:
-      {{checkboxes.interactive
-      ? 'On' : 'Off'}}</button>
   </div>
   <mdc-list #checkboxes>
     <mdc-list-item>

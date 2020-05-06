@@ -49,7 +49,6 @@ export class Api implements OnInit {
                 {name: 'avatar: boolean', summary: `Configures the leading tiles of each row to display images instead of icons. This will make the graphics of the list items larger.`},
                 {name: 'border: boolean', summary: `Sets a border around each list item.`},
                 {name: 'singleSelection: boolean', summary: `When enabled, the space and enter keys (or click event) will trigger an single list item to become selected and any other previous selected element to become deselected.`},
-                {name: 'interactive: boolean', summary: `List items receive styles for hover, focus, and press states (including the ripple). Default is true.`},
                 {name: 'useActivatedClass: boolean', summary: `Sets the selection logic to apply/remove the mdc-list-item--activated class.`},
                 {name: 'useSelectedClass: boolean', summary: `Sets the selection logic to apply/remove the mdc-list-item--selected class.`},
                 {name: 'wrapFocus: boolean', summary: `Sets the list to allow the up arrow on the first element to focus the last element of the list and vice versa.`},

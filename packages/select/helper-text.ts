@@ -8,9 +8,12 @@ import {
 } from '@material/select';
 import {MDCComponent} from '@angular-mdc/web/base';
 
+let nextUniqueId = 0;
+
 export class MdcSelectHelperTextFoundation extends MDCComponent<MDCSelectHelperTextFoundation>
   implements OnDestroy {
   private _initialized: boolean = false;
+  _uniqueId: string = `helper-text-${++nextUniqueId}`;
 
   _helperLineElement?: HTMLElement;
 
@@ -37,8 +40,8 @@ export class MdcSelectHelperTextFoundation extends MDCComponent<MDCSelectHelperT
   }
 
   /** Sets the persistency of the helper text. */
-  setPersistent(isPersistent: boolean) {
-    this._foundation.setPersistent(isPersistent);
+  setValidationMsgPersistent(isPersistent: boolean) {
+    this._foundation.setValidationMsgPersistent(isPersistent);
   }
 
   /** True to make the helper text act as an error validation message. */
@@ -84,6 +87,7 @@ export class MdcSelectHelperTextFoundation extends MDCComponent<MDCSelectHelperT
   private _createHelperElement() {
     this._helperLineElement = this._document.createElement('p');
     this._helperLineElement.className = 'mdc-select-helper-text';
+    this._helperLineElement.id = this._uniqueId;
     this._appendHelperElement();
   }
 

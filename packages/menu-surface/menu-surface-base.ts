@@ -5,8 +5,10 @@ import {
   EventEmitter,
   NgZone,
   Input,
+  OnChanges,
   Optional,
-  Output
+  Output,
+  SimpleChanges,
 } from '@angular/core';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Platform} from '@angular/cdk/platform';
@@ -43,11 +45,15 @@ const ANCHOR_CORNER_MAP = {
 };
 
 @Directive()
-export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoundation> {
+export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoundation>
+  implements OnChanges {
   /** Emits whenever the component is destroyed. */
   private _destroy = new Subject<void>();
 
+  private _initialized = false;
   private _previousFocus?: Element;
+
+  _root!: Element;
 
   @Input()
   get open(): boolean {
@@ -101,12 +107,7 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
   }
   set fixed(value: boolean) {
     this._fixed = coerceBooleanProperty(value);
-    if (this._fixed) {
-      this._getHostElement().classList.add('mdc-menu-surface--fixed');
-    } else {
-      this._getHostElement().classList.remove('mdc-menu-surface--fixed');
-    }
-    this._foundation.setFixedPosition(this._fixed);
+    this._syncSurfaceFixed();
   }
   private _fixed: boolean = false;
 
@@ -142,6 +143,16 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
   }
   private _hoistToBody: boolean = false;
 
+  @Input()
+  get fullwidth(): boolean {
+    return this._fullwidth;
+  }
+  set fullwidth(value: boolean) {
+    this._fullwidth = coerceBooleanProperty(value);
+    this._syncSurfaceFullwidth();
+  }
+  private _fullwidth: boolean = false;
+
   /** Emits an event whenever the menu surface is opened. */
   @Output() readonly opened: EventEmitter<void> = new EventEmitter<void>();
 
@@ -153,9 +164,9 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
 
   getDefaultFoundation() {
     const adapter: MDCMenuSurfaceAdapter = {
-      addClass: (className: string) => this._getHostElement().classList.add(className),
-      removeClass: (className: string) => this._getHostElement().classList.remove(className),
-      hasClass: (className: string) => this._getHostElement().classList.contains(className),
+      addClass: (className: string) => this._root.classList.add(className),
+      removeClass: (className: string) => this._root.classList.remove(className),
+      hasClass: (className: string) => this._root.classList.contains(className),
       hasAnchor: () => !!this.anchorElement,
       notifyClose: () => {
         this.closed.emit();
@@ -165,26 +176,36 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
         this.opened.emit();
         this._registerWindowClickListener();
       },
-      isElementInContainer: (el: Element) => this._getHostElement() === el || this._getHostElement().contains(el),
+      isElementInContainer: (el: Element) => this._root === el || this._root.contains(el),
       isRtl: () => this.platform.isBrowser ?
-        window.getComputedStyle(this._getHostElement()).getPropertyValue('direction') === 'rtl' : false,
+        window.getComputedStyle(this._root).getPropertyValue('direction') === 'rtl' : false,
       setTransformOrigin: (origin: string) =>
         this.platform.isBrowser ?
-          this._getHostElement().style[`${util.getTransformPropertyName(window)}-origin` as any] = origin : false,
-      isFocused: () => document?.activeElement === this._getHostElement() ?? false,
+          (this._root as HTMLElement).style[`${util.getTransformPropertyName(window)}-origin` as any] = origin : false,
+      isFocused: () => document?.activeElement === this._root ?? false,
       saveFocus: () => this._previousFocus = document?.activeElement ?? undefined,
       restoreFocus: () => {
         if (this.platform.isBrowser) {
-          if (this._getHostElement().contains(document.activeElement)) {
+          if (this._root.contains(document.activeElement)) {
             (<HTMLElement>this._previousFocus)?.focus();
           }
         }
       },
       getInnerDimensions: () =>
-        ({width: this._getHostElement().offsetWidth, height: this._getHostElement().offsetHeight}),
+        ({
+          width: (this._root as HTMLElement).offsetWidth,
+          height: (this._root as HTMLElement).offsetHeight
+        }),
       getAnchorDimensions: () =>
         this.platform.isBrowser || !this.anchorElement ?
-          this._anchorElement!.getBoundingClientRect() : {top: 0, right: 0, bottom: 0, left: 0, width: 0, height: 0},
+          this._anchorElement!.getBoundingClientRect() : {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            width: 0,
+            height: 0
+          },
       getWindowDimensions: () => ({
         width: this.platform.isBrowser ? window.innerWidth : 0,
         height: this.platform.isBrowser ? window.innerHeight : 0
@@ -198,12 +219,12 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
         y: this.platform.isBrowser ? window.pageYOffset : 0
       }),
       setPosition: (position: {left: number, right: number, top: number, bottom: number}) => {
-        this._getHostElement().style.left = 'left' in position ? `${position.left}px` : '';
-        this._getHostElement().style.right = 'right' in position ? `${position.right}px` : '';
-        this._getHostElement().style.top = 'top' in position ? `${position.top}px` : '';
-        this._getHostElement().style.bottom = 'bottom' in position ? `${position.bottom}px` : '';
+        (this._root as HTMLElement).style.left = 'left' in position ? `${position.left}px` : '';
+        (this._root as HTMLElement).style.right = 'right' in position ? `${position.right}px` : '';
+        (this._root as HTMLElement).style.top = 'top' in position ? `${position.top}px` : '';
+        (this._root as HTMLElement).style.bottom = 'bottom' in position ? `${position.bottom}px` : '';
       },
-      setMaxHeight: (height: string) => this._getHostElement().style.maxHeight = height
+      setMaxHeight: (height: string) => (this._root as HTMLElement).style.maxHeight = height
     };
     return new MDCMenuSurfaceFoundation(adapter);
   }
@@ -214,11 +235,28 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
     @Optional() private _ngZone: NgZone,
     public elementRef: ElementRef<HTMLElement>) {
     super(elementRef);
+
+    this._root = this.elementRef.nativeElement;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (!this._initialized) {
+      return;
+    }
+
+    if (changes['fixed']) {
+      this._syncSurfaceFixed();
+    }
+
+    if (changes['fullwidth']) {
+      this._syncSurfaceFullwidth();
+    }
   }
 
   protected initMenuSurface(): void {
+    this._initialized = true;
     this._foundation.init();
-    this.anchorElement = this._getHostElement().parentElement ?? this.anchorElement;
+    this.anchorElement = this._root.parentElement ?? this.anchorElement;
     this._registerKeydownListener();
   }
 
@@ -234,7 +272,24 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
     }
 
     if (this.hoistToBody) {
-      document.body!.removeChild(this._getHostElement());
+      document.body!.removeChild(this._root);
+    }
+  }
+
+  private _syncSurfaceFixed(): void {
+    if (this.fixed) {
+      this._root.classList.add('mdc-menu-surface--fixed');
+    } else {
+      this._root.classList.remove('mdc-menu-surface--fixed');
+    }
+    this._foundation.setFixedPosition(this.fixed);
+  }
+
+  private _syncSurfaceFullwidth(): void {
+    if (this._fullwidth) {
+      this._root.classList.add('mdc-menu-surface--fullwidth');
+    } else {
+      this._root.classList.remove('mdc-menu-surface--fullwidth');
     }
   }
 
@@ -247,15 +302,15 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
       return;
     }
 
-    const parentEl = this._getHostElement().parentElement;
+    const parentEl = this._root.parentElement;
     if (parentEl) {
-      document.body!.appendChild(parentEl.removeChild(this._getHostElement()));
+      document.body!.appendChild(parentEl.removeChild(this._root));
       this._foundation.setIsHoisted(true);
     }
   }
 
   private _registerKeydownListener(): void {
-    fromEvent<KeyboardEvent>(this._getHostElement(), 'keydown')
+    fromEvent<KeyboardEvent>(this._root, 'keydown')
       .pipe(takeUntil(this._destroy))
       .subscribe(evt => {
         this._foundation.handleKeydown(evt);
@@ -279,10 +334,5 @@ export abstract class MdcMenuSurfaceBase extends MDCComponent<MDCMenuSurfaceFoun
 
   private _deregisterWindowClickListener(): void {
     this._windowClickSubscription?.unsubscribe();
-  }
-
-  /** Retrieves the DOM element of the component host. */
-  protected _getHostElement(): HTMLElement {
-    return this.elementRef.nativeElement;
   }
 }

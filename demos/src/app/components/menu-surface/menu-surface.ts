@@ -51,6 +51,7 @@ export class Api implements OnInit {
                 {name: 'anchorElement: Element | mdcMenuSurfaceAnchor', summary: `Set to indicate an element the menu should be anchored to.`},
                 {name: 'fixed: boolean', summary: `Used to indicate that the menu is using fixed positioning.`},
                 {name: 'hoistToBody: boolean', summary: `Removes the menu-surface element from the DOM and appends it to the body element. Should be used to overcome overflow: hidden issues.`},
+                {name: 'fullwidth: boolean', summary: `Sets the menu-surface's width to match that of its parent anchor. Do not use with 'fixed'.`},
               ]
             },
           ]

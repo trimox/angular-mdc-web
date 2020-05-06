@@ -11,6 +11,9 @@
       (click)="standardSelect.disabled = !standardSelect.disabled">Disabled:
       {{standardSelect.disabled ? 'On' : 'Off'}}</button>
     <button mdc-button
+      (click)="simpleMenu.fullwidth = !simpleMenu.fullwidth">Menu Fullwidth:
+      {{simpleMenu.fullwidth ? 'On' : 'Off'}}</button>
+    <button mdc-button
       (click)="standardSelect.setSelectionByValue('banana')">Select
       Banana</button>
     <button mdc-button (click)="standardSelect.setSelectedIndex(2)">Set Index
@@ -22,7 +25,7 @@
   <mdc-select #standardSelect placeholder="Fruit" name="my-select" required
     helper="Helper text" helperPersistent validationMessage="Field is required"
     (selectionChange)="onSelectionChange($event)">
-    <mdc-menu class="demo-select-width" [anchorMargin]="{top: 10}">
+    <mdc-menu #simpleMenu fullwidth>
       <mdc-list>
         <mdc-list-item></mdc-list-item>
         <mdc-list-item value="apple">Apple</mdc-list-item>
@@ -40,7 +43,7 @@
 <div class="demo-content">
   <h3 class="demo-content__headline">No label</h3>
   <mdc-select>
-    <mdc-menu class="demo-select-width" [anchorMargin]="{top: 10}">
+    <mdc-menu [anchorMargin]="{top: 10}">
       <mdc-list>
         <mdc-list-item></mdc-list-item>
         <mdc-list-item value="apple">Apple</mdc-list-item>
@@ -67,7 +70,7 @@
   <mdc-select #meal required validationMessage="Meal selection is required"
     placeholder="Pick a Meal">
     <mdc-icon mdcSelectIcon>fastfood</mdc-icon>
-    <mdc-menu class="demo-select-width">
+    <mdc-menu>
       <mdc-list>
         <mdc-list-item *ngFor="let food of foods" [value]="food.value"
           [disabled]="food.disabled">
@@ -84,7 +87,7 @@
   <div class="demo-layout__row">
     <div class="demo-container">
       <mdc-select placeholder="Standard" class="custom-select-shape-radius">
-        <mdc-menu class="demo-select-width">
+        <mdc-menu>
           <mdc-list>
             <mdc-list-item *ngFor="let food of foods" [value]="food.value"
               [disabled]="food.disabled">
@@ -97,7 +100,7 @@
     <div class="demo-container">
       <mdc-select placeholder="Standard" outlined
         class="custom-select-outline-shape-radius">
-        <mdc-menu class="demo-select-width">
+        <mdc-menu>
           <mdc-list>
             <mdc-list-item *ngFor="let food of foods" [value]="food.value"
               [disabled]="food.disabled">
@@ -110,7 +113,7 @@
     <div class="demo-container">
       <mdc-select placeholder="Standard" outlined
         class="custom-select-outline-color">
-        <mdc-menu class="demo-select-width">
+        <mdc-menu>
           <mdc-list>
             <mdc-list-item *ngFor="let food of foods" [value]="food.value"
               [disabled]="food.disabled">
@@ -129,7 +132,7 @@
   <form [formGroup]="lazyLoadForm" #formDirectiveLazy="ngForm">
     <mdc-select outlined formControlName="lazySelect"
       validationMessage="Selection is required" placeholder="Example">
-      <mdc-menu class="demo-select-width">
+      <mdc-menu>
         <mdc-list>
           <mdc-list-item *ngFor="let food of lazyFoods" [value]="food.value"
             [disabled]="food.disabled">{{food.viewValue}}</mdc-list-item>
@@ -150,7 +153,7 @@
   <h3 class="demo-content__headline">Select with [compareWith]</h3>
   <form [formGroup]="formCompareWith">
     <mdc-select formControlName="fruit" [compareWith]="compareFn">
-      <mdc-menu class="demo-select-width">
+      <mdc-menu>
         <mdc-list>
           <mdc-list-item *ngFor="let fruit of fruits" [value]="fruit">
             {{fruit.name}}</mdc-list-item>
@@ -179,7 +182,7 @@
     <mdc-select #select placeholder="Favorite food" name="food" required
       outlined ngModel #demoNgModel="ngModel"
       (selectionChange)="onSelectionChange($event)">
-      <mdc-menu class="demo-select-width">
+      <mdc-menu>
         <mdc-list>
           <mdc-list-item *ngFor="let food of foods" [value]="food.value"
             [disabled]="food.disabled">{{food.viewValue}}</mdc-list-item>
@@ -218,7 +221,7 @@
     #formDirective="ngForm">
     <mdc-select #favoriteFood placeholder="Favorite food"
       formControlName="favoriteFood" validationMessage="Selection is required">
-      <mdc-menu class="demo-select-width">
+      <mdc-menu>
         <mdc-list>
           <mdc-list-item *ngFor="let food of foods" [value]="food.value"
             [disabled]="food.disabled">{{food.viewValue}}</mdc-list-item>

@@ -129,6 +129,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   @Input() name?: string;
   @Input() helper?: string;
   @Input() validationMessage?: string;
+  describedby?: string;
 
   /** Placeholder to be shown if no value has been selected. */
   @Input() placeholder?: string;
@@ -197,18 +198,6 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   }
   private _value: any;
 
-  @Input()
-  get helperPersistent(): boolean {
-    return this._helperPersistent;
-  }
-  set helperPersistent(value: boolean) {
-    const newValue = coerceBooleanProperty(value);
-    if (newValue !== this._helperPersistent) {
-      this._helperPersistent = newValue;
-    }
-  }
-  private _helperPersistent = false;
-
   get _hasPlaceholder(): boolean {
     return this.placeholder ? this.placeholder.length > 0 : false;
   }
@@ -232,7 +221,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
   @ViewChild(MdcLineRipple, {static: false}) _lineRipple?: MdcLineRipple;
   @ViewChild(MdcNotchedOutline, {static: false}) _notchedOutline?: MdcNotchedOutline;
   @ViewChild('selectAnchor', {static: false}) _selectAnchor!: ElementRef<HTMLDivElement>;
-  @ViewChild('selectSelectedText', {static: true}) _selectSelectedText!: ElementRef<HTMLInputElement>;
+  @ViewChild('selectSelectedText', {static: true}) _selectSelectedText!: ElementRef<HTMLSpanElement>;
   @ContentChild(MdcMenu, {static: false}) _menu!: MdcMenu;
   @ContentChild(MdcSelectIcon, {static: false}) leadingIcon?: MdcSelectIcon;
 
@@ -582,7 +571,7 @@ export class MdcSelect extends _MdcSelectMixinBase implements AfterViewInit, DoC
     }
 
     this._foundationHelper!.setContent(this.helper ?? '');
-    this._foundationHelper!.setPersistent(this._helperPersistent);
+    this.describedby = this._shouldRenderHelperText ? this._foundationHelper?._uniqueId : undefined;
   }
 
   private _syncHelperValidityState(): void {

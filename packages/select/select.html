@@ -1,23 +1,39 @@
 <div #selectAnchor class="mdc-select__anchor"
-  role="button"
+  role="combobox"
+  aria-autocomplete="none"
   aria-haspopup="listbox"
   [tabindex]="disabled ? '-1' : '0'"
   [attr.aria-required]="required"
   [attr.aria-labelledby]="placeholder"
+  [attr.aria-describedby]="describedby"
   (focus)="onFocus()"
   (blur)="onBlur()"
   (keydown)="onKeydown($event)"
   (click)="onClick($event)">
   <span class="mdc-select__ripple" *ngIf="!outlined"></span>
   <ng-content select="mdc-icon"></ng-content>
-  <input #selectSelectedText class="mdc-select__selected-text"
-    type="text"
-    disabled
-    readonly
-    [value]="_selectedText" />
-    <i class="mdc-select__dropdown-icon"></i>
-    <label mdcFloatingLabel *ngIf="!outlined" [for]="id">{{placeholder}}</label>
-    <mdc-line-ripple *ngIf="!outlined"></mdc-line-ripple>
-    <mdc-notched-outline *ngIf="outlined" [label]="placeholder" [for]="id"></mdc-notched-outline>
+  <span #selectSelectedText class="mdc-select__selected-text">{{_selectedText}}</span>
+  <span class="mdc-select__dropdown-icon">
+    <svg
+        width="10px"
+        height="5px"
+        viewBox="7 10 10 5">
+      <polygon
+          class="mdc-select__dropdown-icon-inactive"
+          stroke="none"
+          fill-rule="evenodd"
+          points="7 10 12 15 17 10">
+      </polygon>
+      <polygon
+          class="mdc-select__dropdown-icon-active"
+          stroke="none"
+          fill-rule="evenodd"
+          points="7 15 12 10 17 15">
+      </polygon>
+    </svg>
+  </span>
+  <label mdcFloatingLabel *ngIf="!outlined" [for]="id">{{placeholder}}</label>
+  <mdc-line-ripple *ngIf="!outlined"></mdc-line-ripple>
+  <mdc-notched-outline *ngIf="outlined" [label]="placeholder" [for]="id"></mdc-notched-outline>
 </div>
 <ng-content select="mdc-menu"></ng-content>

@@ -1,5 +1,7 @@
 # Angular MDC
 
+*NOTE: The Angular Components team at Google is working to deliver officially supported API-compatible versions of the Angular Material components backed by MDC Web. Follow the effort [here](https://github.com/angular/components#what-were-working-on-now-q2-2020)*
+
 [![npm version](https://badge.fury.io/js/%40angular-mdc%2Fweb.svg)](https://badge.fury.io/js/%40angular-mdc%2Fweb)
 ![tests](https://github.com/trimox/angular-mdc-web/workflows/tests/badge.svg)
 
